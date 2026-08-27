@@ -84,7 +84,9 @@ export RegCloseKey(_hKey) {
  * @since windows5.0
  */
 export RegOverridePredefKey(_hKey, hNewHKey) {
-    result := DllCall("ADVAPI32.dll\RegOverridePredefKey", HKEY, _hKey, HKEY, hNewHKey, WIN32_ERROR)
+    hNewHKeyMarshal := hNewHKey == 0 ? IntPtr : HKEY
+
+    result := DllCall("ADVAPI32.dll\RegOverridePredefKey", HKEY, _hKey, hNewHKeyMarshal, hNewHKey, WIN32_ERROR)
     return result
 }
 
@@ -246,7 +248,9 @@ export RegDisablePredefinedCacheEx() {
 export RegConnectRegistryA(lpMachineName, _hKey, phkResult) {
     lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
 
-    result := DllCall("ADVAPI32.dll\RegConnectRegistryA", "ptr", lpMachineName, HKEY, _hKey, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpMachineNameMarshal := lpMachineName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegConnectRegistryA", lpMachineNameMarshal, lpMachineName, HKEY, _hKey, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -305,12 +309,13 @@ export RegConnectRegistryA(lpMachineName, _hKey, phkResult) {
 export RegConnectRegistryW(lpMachineName, _hKey, phkResult) {
     lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
 
-    result := DllCall("ADVAPI32.dll\RegConnectRegistryW", "ptr", lpMachineName, HKEY, _hKey, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpMachineNameMarshal := lpMachineName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegConnectRegistryW", lpMachineNameMarshal, lpMachineName, HKEY, _hKey, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
 /**
- * 
  * @param {PSTR} lpMachineName 
  * @param {HKEY} _hKey 
  * @param {Integer} Flags 
@@ -320,12 +325,13 @@ export RegConnectRegistryW(lpMachineName, _hKey, phkResult) {
 export RegConnectRegistryExA(lpMachineName, _hKey, Flags, phkResult) {
     lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
 
-    result := DllCall("ADVAPI32.dll\RegConnectRegistryExA", "ptr", lpMachineName, HKEY, _hKey, UInt32, Flags, HKEY.Ptr, phkResult, Int32)
+    lpMachineNameMarshal := lpMachineName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegConnectRegistryExA", lpMachineNameMarshal, lpMachineName, HKEY, _hKey, UInt32, Flags, HKEY.Ptr, phkResult, Int32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpMachineName 
  * @param {HKEY} _hKey 
  * @param {Integer} Flags 
@@ -335,7 +341,9 @@ export RegConnectRegistryExA(lpMachineName, _hKey, Flags, phkResult) {
 export RegConnectRegistryExW(lpMachineName, _hKey, Flags, phkResult) {
     lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
 
-    result := DllCall("ADVAPI32.dll\RegConnectRegistryExW", "ptr", lpMachineName, HKEY, _hKey, UInt32, Flags, HKEY.Ptr, phkResult, Int32)
+    lpMachineNameMarshal := lpMachineName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegConnectRegistryExW", lpMachineNameMarshal, lpMachineName, HKEY, _hKey, UInt32, Flags, HKEY.Ptr, phkResult, Int32)
     return result
 }
 
@@ -395,7 +403,9 @@ export RegConnectRegistryExW(lpMachineName, _hKey, Flags, phkResult) {
 export RegCreateKeyA(_hKey, lpSubKey, phkResult) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegCreateKeyA", HKEY, _hKey, "ptr", lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegCreateKeyA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -455,7 +465,9 @@ export RegCreateKeyA(_hKey, lpSubKey, phkResult) {
 export RegCreateKeyW(_hKey, lpSubKey, phkResult) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegCreateKeyW", HKEY, _hKey, "ptr", lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegCreateKeyW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -567,9 +579,12 @@ export RegCreateKeyExA(_hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecuri
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PSTR
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+    lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegCreateKeyExA", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, "ptr", lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegCreateKeyExA", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, lpClassMarshal, lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, WIN32_ERROR)
     return result
 }
 
@@ -681,9 +696,12 @@ export RegCreateKeyExW(_hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecuri
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+    lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegCreateKeyExW", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, "ptr", lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegCreateKeyExW", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, lpClassMarshal, lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, WIN32_ERROR)
     return result
 }
 
@@ -796,9 +814,12 @@ export RegCreateKeyTransactedA(_hKey, lpSubKey, lpClass, dwOptions, samDesired, 
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PSTR
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+    lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedA", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, "ptr", lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedA", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, lpClassMarshal, lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
     return result
 }
 
@@ -911,9 +932,12 @@ export RegCreateKeyTransactedW(_hKey, lpSubKey, lpClass, dwOptions, samDesired, 
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+    lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedW", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, "ptr", lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedW", HKEY, _hKey, "ptr", lpSubKey, UInt32, Reserved, lpClassMarshal, lpClass, REG_OPEN_CREATE_OPTIONS, dwOptions, REG_SAM_FLAGS, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
     return result
 }
 
@@ -1403,7 +1427,7 @@ export RegEnableReflectionKey(hBase) {
  * @since windows6.0.6000
  */
 export RegQueryReflectionKey(hBase, bIsReflectionDisabled) {
-    bIsReflectionDisabledMarshal := bIsReflectionDisabled is VarRef ? "int*" : "ptr"
+    bIsReflectionDisabledMarshal := bIsReflectionDisabled is VarRef ? "int*" : IntPtr
 
     result := DllCall("ADVAPI32.dll\RegQueryReflectionKey", HKEY, hBase, bIsReflectionDisabledMarshal, bIsReflectionDisabled, WIN32_ERROR)
     return result
@@ -1450,7 +1474,9 @@ export RegQueryReflectionKey(hBase, bIsReflectionDisabled) {
 export RegDeleteValueA(_hKey, lpValueName) {
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegDeleteValueA", HKEY, _hKey, "ptr", lpValueName, WIN32_ERROR)
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegDeleteValueA", HKEY, _hKey, lpValueNameMarshal, lpValueName, WIN32_ERROR)
     return result
 }
 
@@ -1495,7 +1521,9 @@ export RegDeleteValueA(_hKey, lpValueName) {
 export RegDeleteValueW(_hKey, lpValueName) {
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegDeleteValueW", HKEY, _hKey, "ptr", lpValueName, WIN32_ERROR)
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegDeleteValueW", HKEY, _hKey, lpValueNameMarshal, lpValueName, WIN32_ERROR)
     return result
 }
 
@@ -1562,7 +1590,9 @@ export RegDeleteValueW(_hKey, lpValueName) {
 export RegEnumKeyA(_hKey, dwIndex, lpName, cchName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    result := DllCall("ADVAPI32.dll\RegEnumKeyA", HKEY, _hKey, UInt32, dwIndex, "ptr", lpName, UInt32, cchName, WIN32_ERROR)
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegEnumKeyA", HKEY, _hKey, UInt32, dwIndex, lpNameMarshal, lpName, UInt32, cchName, WIN32_ERROR)
     return result
 }
 
@@ -1629,7 +1659,9 @@ export RegEnumKeyA(_hKey, dwIndex, lpName, cchName) {
 export RegEnumKeyW(_hKey, dwIndex, lpName, cchName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    result := DllCall("ADVAPI32.dll\RegEnumKeyW", HKEY, _hKey, UInt32, dwIndex, "ptr", lpName, UInt32, cchName, WIN32_ERROR)
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegEnumKeyW", HKEY, _hKey, UInt32, dwIndex, lpNameMarshal, lpName, UInt32, cchName, WIN32_ERROR)
     return result
 }
 
@@ -1700,10 +1732,14 @@ export RegEnumKeyExA(_hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpf
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
-    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
+    lpClassMarshal := lpClass == 0 ? IntPtr : PSTR
+    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : IntPtr
+    lpcchClassMarshal := lpcchClass == 0 ? IntPtr : "uint*"
+    lpftLastWriteTimeMarshal := lpftLastWriteTime == 0 ? IntPtr : FILETIME.Ptr
 
-    result := DllCall("ADVAPI32.dll\RegEnumKeyExA", HKEY, _hKey, UInt32, dwIndex, "ptr", lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, "ptr", lpClass, lpcchClassMarshal, lpcchClass, FILETIME.Ptr, lpftLastWriteTime, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegEnumKeyExA", HKEY, _hKey, UInt32, dwIndex, lpNameMarshal, lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, lpClassMarshal, lpClass, lpcchClassMarshal, lpcchClass, lpftLastWriteTimeMarshal, lpftLastWriteTime, WIN32_ERROR)
     return result
 }
 
@@ -1771,10 +1807,14 @@ export RegEnumKeyExW(_hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpf
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
-    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : IntPtr
+    lpcchClassMarshal := lpcchClass == 0 ? IntPtr : "uint*"
+    lpftLastWriteTimeMarshal := lpftLastWriteTime == 0 ? IntPtr : FILETIME.Ptr
 
-    result := DllCall("ADVAPI32.dll\RegEnumKeyExW", HKEY, _hKey, UInt32, dwIndex, "ptr", lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, "ptr", lpClass, lpcchClassMarshal, lpcchClass, FILETIME.Ptr, lpftLastWriteTime, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegEnumKeyExW", HKEY, _hKey, UInt32, dwIndex, lpNameMarshal, lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, lpClassMarshal, lpClass, lpcchClassMarshal, lpcchClass, lpftLastWriteTimeMarshal, lpftLastWriteTime, WIN32_ERROR)
     return result
 }
 
@@ -1863,11 +1903,15 @@ export RegEnumValueA(_hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData
 
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
-    lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
-    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PSTR
+    lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType == 0 ? IntPtr : "uint*"
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegEnumValueA", HKEY, _hKey, UInt32, dwIndex, "ptr", lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, IntPtr, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegEnumValueA", HKEY, _hKey, UInt32, dwIndex, lpValueNameMarshal, lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
     return result
 }
 
@@ -1951,11 +1995,15 @@ export RegEnumValueW(_hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData
 
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
-    lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
-    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+    lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType == 0 ? IntPtr : "uint*"
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegEnumValueW", HKEY, _hKey, UInt32, dwIndex, "ptr", lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, IntPtr, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegEnumValueW", HKEY, _hKey, UInt32, dwIndex, lpValueNameMarshal, lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
     return result
 }
 
@@ -2024,9 +2072,10 @@ export RegFlushKey(_hKey) {
  * @since windows5.1.2600
  */
 export RegGetKeySecurity(_hKey, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : IntPtr
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\RegGetKeySecurity", HKEY, _hKey, OBJECT_SECURITY_INFORMATION, SecurityInformation, IntPtr, pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegGetKeySecurity", HKEY, _hKey, OBJECT_SECURITY_INFORMATION, SecurityInformation, pSecurityDescriptorMarshal, pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, WIN32_ERROR)
     return result
 }
 
@@ -2078,7 +2127,9 @@ export RegLoadKeyA(_hKey, lpSubKey, lpFile) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-    result := DllCall("ADVAPI32.dll\RegLoadKeyA", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpFile, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegLoadKeyA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, "ptr", lpFile, WIN32_ERROR)
     return result
 }
 
@@ -2130,7 +2181,9 @@ export RegLoadKeyW(_hKey, lpSubKey, lpFile) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-    result := DllCall("ADVAPI32.dll\RegLoadKeyW", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpFile, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegLoadKeyW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, "ptr", lpFile, WIN32_ERROR)
     return result
 }
 
@@ -2198,7 +2251,9 @@ export RegLoadKeyW(_hKey, lpSubKey, lpFile) {
  * @since windows5.0
  */
 export RegNotifyChangeKeyValue(_hKey, bWatchSubtree, dwNotifyFilter, hEvent, fAsynchronous) {
-    result := DllCall("ADVAPI32.dll\RegNotifyChangeKeyValue", HKEY, _hKey, BOOL, bWatchSubtree, REG_NOTIFY_FILTER, dwNotifyFilter, HANDLE, hEvent, BOOL, fAsynchronous, WIN32_ERROR)
+    hEventMarshal := hEvent == 0 ? IntPtr : HANDLE
+
+    result := DllCall("ADVAPI32.dll\RegNotifyChangeKeyValue", HKEY, _hKey, BOOL, bWatchSubtree, REG_NOTIFY_FILTER, dwNotifyFilter, hEventMarshal, hEvent, BOOL, fAsynchronous, WIN32_ERROR)
     return result
 }
 
@@ -2249,7 +2304,9 @@ export RegNotifyChangeKeyValue(_hKey, bWatchSubtree, dwNotifyFilter, hEvent, fAs
 export RegOpenKeyA(_hKey, lpSubKey, phkResult) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegOpenKeyA", HKEY, _hKey, "ptr", lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegOpenKeyA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -2300,7 +2357,9 @@ export RegOpenKeyA(_hKey, lpSubKey, phkResult) {
 export RegOpenKeyW(_hKey, lpSubKey, phkResult) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegOpenKeyW", HKEY, _hKey, "ptr", lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegOpenKeyW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -2376,7 +2435,10 @@ export RegOpenKeyW(_hKey, lpSubKey, phkResult) {
 export RegOpenKeyExA(_hKey, lpSubKey, ulOptions, samDesired, phkResult) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegOpenKeyExA", HKEY, _hKey, "ptr", lpSubKey, UInt32, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+    ulOptionsMarshal := ulOptions == 0 ? IntPtr : UInt32
+
+    result := DllCall("ADVAPI32.dll\RegOpenKeyExA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, ulOptionsMarshal, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -2449,7 +2511,10 @@ export RegOpenKeyExA(_hKey, lpSubKey, ulOptions, samDesired, phkResult) {
 export RegOpenKeyExW(_hKey, lpSubKey, ulOptions, samDesired, phkResult) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegOpenKeyExW", HKEY, _hKey, "ptr", lpSubKey, UInt32, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    ulOptionsMarshal := ulOptions == 0 ? IntPtr : UInt32
+
+    result := DllCall("ADVAPI32.dll\RegOpenKeyExW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, ulOptionsMarshal, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -2515,7 +2580,10 @@ export RegOpenKeyTransactedA(_hKey, lpSubKey, ulOptions, samDesired, phkResult, 
 
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedA", HKEY, _hKey, "ptr", lpSubKey, UInt32, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+    ulOptionsMarshal := ulOptions == 0 ? IntPtr : UInt32
+
+    result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, ulOptionsMarshal, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
     return result
 }
 
@@ -2581,7 +2649,10 @@ export RegOpenKeyTransactedW(_hKey, lpSubKey, ulOptions, samDesired, phkResult, 
 
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedW", HKEY, _hKey, "ptr", lpSubKey, UInt32, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    ulOptionsMarshal := ulOptions == 0 ? IntPtr : UInt32
+
+    result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, ulOptionsMarshal, ulOptions, REG_SAM_FLAGS, samDesired, HKEY.Ptr, phkResult, HANDLE, hTransaction, "ptr", pExtendedParemeter, WIN32_ERROR)
     return result
 }
 
@@ -2643,16 +2714,26 @@ export RegQueryInfoKeyA(_hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen
 
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
-    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : "ptr"
-    lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    lpcbMaxClassLenMarshal := lpcbMaxClassLen is VarRef ? "uint*" : "ptr"
-    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
-    lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen is VarRef ? "uint*" : "ptr"
-    lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
-    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PSTR
+    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : IntPtr
+    lpcchClassMarshal := lpcchClass == 0 ? IntPtr : "uint*"
+    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : IntPtr
+    lpcSubKeysMarshal := lpcSubKeys == 0 ? IntPtr : "uint*"
+    lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen == 0 ? IntPtr : "uint*"
+    lpcbMaxClassLenMarshal := lpcbMaxClassLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxClassLenMarshal := lpcbMaxClassLen == 0 ? IntPtr : "uint*"
+    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : IntPtr
+    lpcValuesMarshal := lpcValues == 0 ? IntPtr : "uint*"
+    lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen == 0 ? IntPtr : "uint*"
+    lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxValueLenMarshal := lpcbMaxValueLen == 0 ? IntPtr : "uint*"
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor == 0 ? IntPtr : "uint*"
+    lpftLastWriteTimeMarshal := lpftLastWriteTime == 0 ? IntPtr : FILETIME.Ptr
 
-    result := DllCall("ADVAPI32.dll\RegQueryInfoKeyA", HKEY, _hKey, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, FILETIME.Ptr, lpftLastWriteTime, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryInfoKeyA", HKEY, _hKey, lpClassMarshal, lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, lpftLastWriteTimeMarshal, lpftLastWriteTime, WIN32_ERROR)
     return result
 }
 
@@ -2714,16 +2795,26 @@ export RegQueryInfoKeyW(_hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen
 
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
-    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : "ptr"
-    lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    lpcbMaxClassLenMarshal := lpcbMaxClassLen is VarRef ? "uint*" : "ptr"
-    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
-    lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen is VarRef ? "uint*" : "ptr"
-    lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
-    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : IntPtr
+    lpcchClassMarshal := lpcchClass == 0 ? IntPtr : "uint*"
+    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : IntPtr
+    lpcSubKeysMarshal := lpcSubKeys == 0 ? IntPtr : "uint*"
+    lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen == 0 ? IntPtr : "uint*"
+    lpcbMaxClassLenMarshal := lpcbMaxClassLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxClassLenMarshal := lpcbMaxClassLen == 0 ? IntPtr : "uint*"
+    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : IntPtr
+    lpcValuesMarshal := lpcValues == 0 ? IntPtr : "uint*"
+    lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen == 0 ? IntPtr : "uint*"
+    lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxValueLenMarshal := lpcbMaxValueLen == 0 ? IntPtr : "uint*"
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor == 0 ? IntPtr : "uint*"
+    lpftLastWriteTimeMarshal := lpftLastWriteTime == 0 ? IntPtr : FILETIME.Ptr
 
-    result := DllCall("ADVAPI32.dll\RegQueryInfoKeyW", HKEY, _hKey, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, FILETIME.Ptr, lpftLastWriteTime, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryInfoKeyW", HKEY, _hKey, lpClassMarshal, lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, lpftLastWriteTimeMarshal, lpftLastWriteTime, WIN32_ERROR)
     return result
 }
 
@@ -2792,9 +2883,12 @@ export RegQueryInfoKeyW(_hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen
 export RegQueryValueA(_hKey, lpSubKey, lpData, lpcbData) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "int*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "int*"
 
-    result := DllCall("ADVAPI32.dll\RegQueryValueA", HKEY, _hKey, "ptr", lpSubKey, IntPtr, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryValueA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
     return result
 }
 
@@ -2863,9 +2957,12 @@ export RegQueryValueA(_hKey, lpSubKey, lpData, lpcbData) {
 export RegQueryValueW(_hKey, lpSubKey, lpData, lpcbData) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "int*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "int*"
 
-    result := DllCall("ADVAPI32.dll\RegQueryValueW", HKEY, _hKey, "ptr", lpSubKey, IntPtr, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryValueW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
     return result
 }
 
@@ -2968,9 +3065,11 @@ export RegQueryValueW(_hKey, lpSubKey, lpData, lpcbData) {
  * @since windows5.0
  */
 export RegQueryMultipleValuesA(_hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
-    ldwTotsizeMarshal := ldwTotsize is VarRef ? "uint*" : "ptr"
+    lpValueBufMarshal := lpValueBuf == 0 ? IntPtr : IntPtr
+    ldwTotsizeMarshal := ldwTotsize is VarRef ? "uint*" : IntPtr
+    ldwTotsizeMarshal := ldwTotsize == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesA", HKEY, _hKey, VALENTA.Ptr, val_list, UInt32, num_vals, IntPtr, lpValueBuf, ldwTotsizeMarshal, ldwTotsize, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesA", HKEY, _hKey, VALENTA.Ptr, val_list, UInt32, num_vals, lpValueBufMarshal, lpValueBuf, ldwTotsizeMarshal, ldwTotsize, WIN32_ERROR)
     return result
 }
 
@@ -3070,9 +3169,11 @@ export RegQueryMultipleValuesA(_hKey, val_list, num_vals, lpValueBuf, ldwTotsize
  * @since windows5.0
  */
 export RegQueryMultipleValuesW(_hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
-    ldwTotsizeMarshal := ldwTotsize is VarRef ? "uint*" : "ptr"
+    lpValueBufMarshal := lpValueBuf == 0 ? IntPtr : IntPtr
+    ldwTotsizeMarshal := ldwTotsize is VarRef ? "uint*" : IntPtr
+    ldwTotsizeMarshal := ldwTotsize == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesW", HKEY, _hKey, VALENTW.Ptr, val_list, UInt32, num_vals, IntPtr, lpValueBuf, ldwTotsizeMarshal, ldwTotsize, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesW", HKEY, _hKey, VALENTW.Ptr, val_list, UInt32, num_vals, lpValueBufMarshal, lpValueBuf, ldwTotsizeMarshal, ldwTotsize, WIN32_ERROR)
     return result
 }
 
@@ -3157,10 +3258,14 @@ export RegQueryValueExA(_hKey, lpValueName, lpType, lpData, lpcbData) {
 
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
-    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PSTR
+    lpTypeMarshal := lpType is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType == 0 ? IntPtr : "uint*"
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegQueryValueExA", HKEY, _hKey, "ptr", lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, IntPtr, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryValueExA", HKEY, _hKey, lpValueNameMarshal, lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
     return result
 }
 
@@ -3245,10 +3350,14 @@ export RegQueryValueExW(_hKey, lpValueName, lpType, lpData, lpcbData) {
 
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
-    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+    lpTypeMarshal := lpType is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType == 0 ? IntPtr : "uint*"
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegQueryValueExW", HKEY, _hKey, "ptr", lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, IntPtr, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegQueryValueExW", HKEY, _hKey, lpValueNameMarshal, lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
     return result
 }
 
@@ -3309,7 +3418,9 @@ export RegReplaceKeyA(_hKey, lpSubKey, lpNewFile, lpOldFile) {
     lpNewFile := lpNewFile is String ? StrPtr(lpNewFile) : lpNewFile
     lpOldFile := lpOldFile is String ? StrPtr(lpOldFile) : lpOldFile
 
-    result := DllCall("ADVAPI32.dll\RegReplaceKeyA", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegReplaceKeyA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, WIN32_ERROR)
     return result
 }
 
@@ -3370,7 +3481,9 @@ export RegReplaceKeyW(_hKey, lpSubKey, lpNewFile, lpOldFile) {
     lpNewFile := lpNewFile is String ? StrPtr(lpNewFile) : lpNewFile
     lpOldFile := lpOldFile is String ? StrPtr(lpOldFile) : lpOldFile
 
-    result := DllCall("ADVAPI32.dll\RegReplaceKeyW", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegReplaceKeyW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, WIN32_ERROR)
     return result
 }
 
@@ -3506,7 +3619,9 @@ export RegRenameKey(_hKey, lpSubKeyName, lpNewKeyName) {
     lpSubKeyName := lpSubKeyName is String ? StrPtr(lpSubKeyName) : lpSubKeyName
     lpNewKeyName := lpNewKeyName is String ? StrPtr(lpNewKeyName) : lpNewKeyName
 
-    result := DllCall("ADVAPI32.dll\RegRenameKey", HKEY, _hKey, "ptr", lpSubKeyName, "ptr", lpNewKeyName, WIN32_ERROR)
+    lpSubKeyNameMarshal := lpSubKeyName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegRenameKey", HKEY, _hKey, lpSubKeyNameMarshal, lpSubKeyName, "ptr", lpNewKeyName, WIN32_ERROR)
     return result
 }
 
@@ -3574,7 +3689,9 @@ export RegRenameKey(_hKey, lpSubKeyName, lpNewKeyName) {
 export RegSaveKeyA(_hKey, lpFile, lpSecurityAttributes) {
     lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-    result := DllCall("ADVAPI32.dll\RegSaveKeyA", HKEY, _hKey, "ptr", lpFile, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, WIN32_ERROR)
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
+    result := DllCall("ADVAPI32.dll\RegSaveKeyA", HKEY, _hKey, "ptr", lpFile, lpSecurityAttributesMarshal, lpSecurityAttributes, WIN32_ERROR)
     return result
 }
 
@@ -3642,7 +3759,9 @@ export RegSaveKeyA(_hKey, lpFile, lpSecurityAttributes) {
 export RegSaveKeyW(_hKey, lpFile, lpSecurityAttributes) {
     lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-    result := DllCall("ADVAPI32.dll\RegSaveKeyW", HKEY, _hKey, "ptr", lpFile, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, WIN32_ERROR)
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
+    result := DllCall("ADVAPI32.dll\RegSaveKeyW", HKEY, _hKey, "ptr", lpFile, lpSecurityAttributesMarshal, lpSecurityAttributes, WIN32_ERROR)
     return result
 }
 
@@ -3721,7 +3840,10 @@ export RegSetKeySecurity(_hKey, SecurityInformation, pSecurityDescriptor) {
 export RegSetValueA(_hKey, lpSubKey, dwType, lpData, cbData) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegSetValueA", HKEY, _hKey, "ptr", lpSubKey, REG_VALUE_TYPE, dwType, IntPtr, lpData, UInt32, cbData, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ADVAPI32.dll\RegSetValueA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, REG_VALUE_TYPE, dwType, lpDataMarshal, lpData, UInt32, cbData, WIN32_ERROR)
     return result
 }
 
@@ -3777,7 +3899,10 @@ export RegSetValueA(_hKey, lpSubKey, dwType, lpData, cbData) {
 export RegSetValueW(_hKey, lpSubKey, dwType, lpData, cbData) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegSetValueW", HKEY, _hKey, "ptr", lpSubKey, REG_VALUE_TYPE, dwType, IntPtr, lpData, UInt32, cbData, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ADVAPI32.dll\RegSetValueW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, REG_VALUE_TYPE, dwType, lpDataMarshal, lpData, UInt32, cbData, WIN32_ERROR)
     return result
 }
 
@@ -3841,7 +3966,10 @@ export RegSetValueExA(_hKey, lpValueName, dwType, lpData, cbData) {
 
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegSetValueExA", HKEY, _hKey, "ptr", lpValueName, UInt32, Reserved, REG_VALUE_TYPE, dwType, IntPtr, lpData, UInt32, cbData, WIN32_ERROR)
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ADVAPI32.dll\RegSetValueExA", HKEY, _hKey, lpValueNameMarshal, lpValueName, UInt32, Reserved, REG_VALUE_TYPE, dwType, lpDataMarshal, lpData, UInt32, cbData, WIN32_ERROR)
     return result
 }
 
@@ -3905,7 +4033,10 @@ export RegSetValueExW(_hKey, lpValueName, dwType, lpData, cbData) {
 
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegSetValueExW", HKEY, _hKey, "ptr", lpValueName, UInt32, Reserved, REG_VALUE_TYPE, dwType, IntPtr, lpData, UInt32, cbData, WIN32_ERROR)
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ADVAPI32.dll\RegSetValueExW", HKEY, _hKey, lpValueNameMarshal, lpValueName, UInt32, Reserved, REG_VALUE_TYPE, dwType, lpDataMarshal, lpData, UInt32, cbData, WIN32_ERROR)
     return result
 }
 
@@ -3951,7 +4082,9 @@ export RegSetValueExW(_hKey, lpValueName, dwType, lpData, cbData) {
 export RegUnLoadKeyA(_hKey, lpSubKey) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegUnLoadKeyA", HKEY, _hKey, "ptr", lpSubKey, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegUnLoadKeyA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, WIN32_ERROR)
     return result
 }
 
@@ -3994,7 +4127,9 @@ export RegUnLoadKeyA(_hKey, lpSubKey) {
 export RegUnLoadKeyW(_hKey, lpSubKey) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegUnLoadKeyW", HKEY, _hKey, "ptr", lpSubKey, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegUnLoadKeyW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, WIN32_ERROR)
     return result
 }
 
@@ -4042,7 +4177,10 @@ export RegDeleteKeyValueA(_hKey, lpSubKey, lpValueName) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegDeleteKeyValueA", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpValueName, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegDeleteKeyValueA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, lpValueNameMarshal, lpValueName, WIN32_ERROR)
     return result
 }
 
@@ -4090,7 +4228,10 @@ export RegDeleteKeyValueW(_hKey, lpSubKey, lpValueName) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegDeleteKeyValueW", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpValueName, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegDeleteKeyValueW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, lpValueNameMarshal, lpValueName, WIN32_ERROR)
     return result
 }
 
@@ -4145,7 +4286,11 @@ export RegSetKeyValueA(_hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegSetKeyValueA", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpValueName, UInt32, dwType, IntPtr, lpData, UInt32, cbData, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ADVAPI32.dll\RegSetKeyValueA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, lpValueNameMarshal, lpValueName, UInt32, dwType, lpDataMarshal, lpData, UInt32, cbData, WIN32_ERROR)
     return result
 }
 
@@ -4200,7 +4345,11 @@ export RegSetKeyValueW(_hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("ADVAPI32.dll\RegSetKeyValueW", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpValueName, UInt32, dwType, IntPtr, lpData, UInt32, cbData, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ADVAPI32.dll\RegSetKeyValueW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, lpValueNameMarshal, lpValueName, UInt32, dwType, lpDataMarshal, lpData, UInt32, cbData, WIN32_ERROR)
     return result
 }
 
@@ -4246,7 +4395,9 @@ export RegSetKeyValueW(_hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
 export RegDeleteTreeA(_hKey, lpSubKey) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegDeleteTreeA", HKEY, _hKey, "ptr", lpSubKey, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegDeleteTreeA", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, WIN32_ERROR)
     return result
 }
 
@@ -4292,7 +4443,9 @@ export RegDeleteTreeA(_hKey, lpSubKey) {
 export RegDeleteTreeW(_hKey, lpSubKey) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegDeleteTreeW", HKEY, _hKey, "ptr", lpSubKey, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegDeleteTreeW", HKEY, _hKey, lpSubKeyMarshal, lpSubKey, WIN32_ERROR)
     return result
 }
 
@@ -4338,7 +4491,9 @@ export RegDeleteTreeW(_hKey, lpSubKey) {
 export RegCopyTreeA(hKeySrc, lpSubKey, hKeyDest) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegCopyTreeA", HKEY, hKeySrc, "ptr", lpSubKey, HKEY, hKeyDest, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVAPI32.dll\RegCopyTreeA", HKEY, hKeySrc, lpSubKeyMarshal, lpSubKey, HKEY, hKeyDest, WIN32_ERROR)
     return result
 }
 
@@ -4431,10 +4586,15 @@ export RegGetValueA(_hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData)
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PSTR
+    lpValueMarshal := lpValue == 0 ? IntPtr : PSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegGetValueA", HKEY, _hkey, "ptr", lpSubKey, "ptr", lpValue, REG_ROUTINE_FLAGS, dwFlags, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegGetValueA", HKEY, _hkey, lpSubKeyMarshal, lpSubKey, lpValueMarshal, lpValue, REG_ROUTINE_FLAGS, dwFlags, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -4527,10 +4687,15 @@ export RegGetValueW(_hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData)
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    lpValueMarshal := lpValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ADVAPI32.dll\RegGetValueW", HKEY, _hkey, "ptr", lpSubKey, "ptr", lpValue, REG_ROUTINE_FLAGS, dwFlags, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegGetValueW", HKEY, _hkey, lpSubKeyMarshal, lpSubKey, lpValueMarshal, lpValue, REG_ROUTINE_FLAGS, dwFlags, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -4576,7 +4741,9 @@ export RegGetValueW(_hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData)
 export RegCopyTreeW(hKeySrc, lpSubKey, hKeyDest) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("ADVAPI32.dll\RegCopyTreeW", HKEY, hKeySrc, "ptr", lpSubKey, HKEY, hKeyDest, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\RegCopyTreeW", HKEY, hKeySrc, lpSubKeyMarshal, lpSubKey, HKEY, hKeyDest, WIN32_ERROR)
     return result
 }
 
@@ -4653,9 +4820,13 @@ export RegLoadMUIStringA(_hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, p
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
     pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
 
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+    pszOutBufMarshal := pszOutBuf == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
+    pszDirectoryMarshal := pszDirectory == 0 ? IntPtr : PSTR
 
-    result := DllCall("ADVAPI32.dll\RegLoadMUIStringA", HKEY, _hKey, "ptr", pszValue, IntPtr, pszOutBuf, UInt32, cbOutBuf, pcbDataMarshal, pcbData, UInt32, Flags, "ptr", pszDirectory, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegLoadMUIStringA", HKEY, _hKey, pszValueMarshal, pszValue, pszOutBufMarshal, pszOutBuf, UInt32, cbOutBuf, pcbDataMarshal, pcbData, UInt32, Flags, pszDirectoryMarshal, pszDirectory, WIN32_ERROR)
     return result
 }
 
@@ -4732,9 +4903,13 @@ export RegLoadMUIStringW(_hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, p
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
     pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
 
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    pszOutBufMarshal := pszOutBuf == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
+    pszDirectoryMarshal := pszDirectory == 0 ? IntPtr : PWSTR
 
-    result := DllCall("ADVAPI32.dll\RegLoadMUIStringW", HKEY, _hKey, "ptr", pszValue, IntPtr, pszOutBuf, UInt32, cbOutBuf, pcbDataMarshal, pcbData, UInt32, Flags, "ptr", pszDirectory, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\RegLoadMUIStringW", HKEY, _hKey, pszValueMarshal, pszValue, pszOutBufMarshal, pszOutBuf, UInt32, cbOutBuf, pcbDataMarshal, pcbData, UInt32, Flags, pszDirectoryMarshal, pszDirectory, WIN32_ERROR)
     return result
 }
 
@@ -4896,7 +5071,9 @@ export RegLoadAppKeyW(lpFile, phkResult, samDesired, dwOptions) {
 export RegSaveKeyExA(_hKey, lpFile, lpSecurityAttributes, Flags) {
     lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-    result := DllCall("ADVAPI32.dll\RegSaveKeyExA", HKEY, _hKey, "ptr", lpFile, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, REG_SAVE_FORMAT, Flags, WIN32_ERROR)
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
+    result := DllCall("ADVAPI32.dll\RegSaveKeyExA", HKEY, _hKey, "ptr", lpFile, lpSecurityAttributesMarshal, lpSecurityAttributes, REG_SAVE_FORMAT, Flags, WIN32_ERROR)
     return result
 }
 
@@ -4960,12 +5137,13 @@ export RegSaveKeyExA(_hKey, lpFile, lpSecurityAttributes, Flags) {
 export RegSaveKeyExW(_hKey, lpFile, lpSecurityAttributes, Flags) {
     lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-    result := DllCall("ADVAPI32.dll\RegSaveKeyExW", HKEY, _hKey, "ptr", lpFile, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, REG_SAVE_FORMAT, Flags, WIN32_ERROR)
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
+    result := DllCall("ADVAPI32.dll\RegSaveKeyExW", HKEY, _hKey, "ptr", lpFile, lpSecurityAttributesMarshal, lpSecurityAttributes, REG_SAVE_FORMAT, Flags, WIN32_ERROR)
     return result
 }
 
 /**
- * 
  * @param {HKEY} hkeyPrimary 
  * @param {PWSTR} pwszPrimarySubKey 
  * @param {HKEY} hkeyFallback 
@@ -4983,10 +5161,17 @@ export GetRegistryValueWithFallbackW(hkeyPrimary, pwszPrimarySubKey, hkeyFallbac
     pwszFallbackSubKey := pwszFallbackSubKey is String ? StrPtr(pwszFallbackSubKey) : pwszFallbackSubKey
     pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataOutMarshal := pcbDataOut is VarRef ? "uint*" : "ptr"
+    hkeyPrimaryMarshal := hkeyPrimary == 0 ? IntPtr : HKEY
+    pwszPrimarySubKeyMarshal := pwszPrimarySubKey == 0 ? IntPtr : PWSTR
+    hkeyFallbackMarshal := hkeyFallback == 0 ? IntPtr : HKEY
+    pwszFallbackSubKeyMarshal := pwszFallbackSubKey == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataOutMarshal := pcbDataOut is VarRef ? "uint*" : IntPtr
+    pcbDataOutMarshal := pcbDataOut == 0 ? IntPtr : "uint*"
 
-    result := DllCall("api-ms-win-core-state-helpers-l1-1-0.dll\GetRegistryValueWithFallbackW", HKEY, hkeyPrimary, "ptr", pwszPrimarySubKey, HKEY, hkeyFallback, "ptr", pwszFallbackSubKey, "ptr", pwszValue, UInt32, dwFlags, pdwTypeMarshal, pdwType, IntPtr, pvData, UInt32, cbDataIn, pcbDataOutMarshal, pcbDataOut, WIN32_ERROR)
+    result := DllCall("api-ms-win-core-state-helpers-l1-1-0.dll\GetRegistryValueWithFallbackW", hkeyPrimaryMarshal, hkeyPrimary, pwszPrimarySubKeyMarshal, pwszPrimarySubKey, hkeyFallbackMarshal, hkeyFallback, pwszFallbackSubKeyMarshal, pwszFallbackSubKey, "ptr", pwszValue, UInt32, dwFlags, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, UInt32, cbDataIn, pcbDataOutMarshal, pcbDataOut, WIN32_ERROR)
     return result
 }
 

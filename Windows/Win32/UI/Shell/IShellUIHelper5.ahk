@@ -45,7 +45,6 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProvisioningXml 
      * @returns {VARIANT} 
      */
@@ -58,7 +57,6 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msReportSafeUrl() {
@@ -67,7 +65,6 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeRefreshBadge() {
@@ -76,7 +73,6 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeClearBadge() {
@@ -85,7 +81,6 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msDiagnoseConnectionUILess() {
@@ -94,7 +89,6 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msLaunchNetworkClientHelp() {
@@ -103,7 +97,6 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -121,13 +114,13 @@ export default struct IShellUIHelper5 extends IShellUIHelper4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.msProvisionNetworks := CallbackCreate(GetMethod(implObj, "msProvisionNetworks"), flags, 3)
-        this.vtbl.msReportSafeUrl := CallbackCreate(GetMethod(implObj, "msReportSafeUrl"), flags, 1)
-        this.vtbl.msSiteModeRefreshBadge := CallbackCreate(GetMethod(implObj, "msSiteModeRefreshBadge"), flags, 1)
-        this.vtbl.msSiteModeClearBadge := CallbackCreate(GetMethod(implObj, "msSiteModeClearBadge"), flags, 1)
-        this.vtbl.msDiagnoseConnectionUILess := CallbackCreate(GetMethod(implObj, "msDiagnoseConnectionUILess"), flags, 1)
-        this.vtbl.msLaunchNetworkClientHelp := CallbackCreate(GetMethod(implObj, "msLaunchNetworkClientHelp"), flags, 1)
-        this.vtbl.msChangeDefaultBrowser := CallbackCreate(GetMethod(implObj, "msChangeDefaultBrowser"), flags, 2)
+        this.vtbl.msProvisionNetworks := CallbackCreate(ObjBindMethod(implObj, "msProvisionNetworks"), flags, 3)
+        this.vtbl.msReportSafeUrl := CallbackCreate(ObjBindMethod(implObj, "msReportSafeUrl"), flags, 1)
+        this.vtbl.msSiteModeRefreshBadge := CallbackCreate(ObjBindMethod(implObj, "msSiteModeRefreshBadge"), flags, 1)
+        this.vtbl.msSiteModeClearBadge := CallbackCreate(ObjBindMethod(implObj, "msSiteModeClearBadge"), flags, 1)
+        this.vtbl.msDiagnoseConnectionUILess := CallbackCreate(ObjBindMethod(implObj, "msDiagnoseConnectionUILess"), flags, 1)
+        this.vtbl.msLaunchNetworkClientHelp := CallbackCreate(ObjBindMethod(implObj, "msLaunchNetworkClientHelp"), flags, 1)
+        this.vtbl.msChangeDefaultBrowser := CallbackCreate(ObjBindMethod(implObj, "msChangeDefaultBrowser"), flags, 2)
     }
 
     Dispose() {

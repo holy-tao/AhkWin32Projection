@@ -37,7 +37,6 @@ export default struct ISQLRequestDiagFields extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cDiagFields 
      * @param {Pointer<KAGREQDIAG>} rgDiagFields 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct ISQLRequestDiagFields extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestDiagFields := CallbackCreate(GetMethod(implObj, "RequestDiagFields"), flags, 3)
+        this.vtbl.RequestDiagFields := CallbackCreate(ObjBindMethod(implObj, "RequestDiagFields"), flags, 3)
     }
 
     Dispose() {

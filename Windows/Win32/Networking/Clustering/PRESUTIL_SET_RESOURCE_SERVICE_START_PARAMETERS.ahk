@@ -21,7 +21,6 @@ export default struct PRESUTIL_SET_RESOURCE_SERVICE_START_PARAMETERS {
     }
 
     /**
-     * 
      * @param {PWSTR} pszServiceName 
      * @param {SC_HANDLE} schSCMHandle 
      * @param {Pointer<SC_HANDLE>} phService 

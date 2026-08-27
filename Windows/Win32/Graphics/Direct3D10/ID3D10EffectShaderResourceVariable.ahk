@@ -52,7 +52,9 @@ export default struct ID3D10EffectShaderResourceVariable extends ID3D10EffectVar
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-setresource
      */
     SetResource(pResource) {
-        result := ComCall(25, this, "ptr", pResource, "HRESULT")
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(25, this, pResourceMarshal, pResource, "HRESULT")
         return result
     }
 
@@ -116,10 +118,10 @@ export default struct ID3D10EffectShaderResourceVariable extends ID3D10EffectVar
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetResource := CallbackCreate(GetMethod(implObj, "SetResource"), flags, 2)
-        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 2)
-        this.vtbl.SetResourceArray := CallbackCreate(GetMethod(implObj, "SetResourceArray"), flags, 4)
-        this.vtbl.GetResourceArray := CallbackCreate(GetMethod(implObj, "GetResourceArray"), flags, 4)
+        this.vtbl.SetResource := CallbackCreate(ObjBindMethod(implObj, "SetResource"), flags, 2)
+        this.vtbl.GetResource := CallbackCreate(ObjBindMethod(implObj, "GetResource"), flags, 2)
+        this.vtbl.SetResourceArray := CallbackCreate(ObjBindMethod(implObj, "SetResourceArray"), flags, 4)
+        this.vtbl.GetResourceArray := CallbackCreate(ObjBindMethod(implObj, "GetResourceArray"), flags, 4)
     }
 
     Dispose() {

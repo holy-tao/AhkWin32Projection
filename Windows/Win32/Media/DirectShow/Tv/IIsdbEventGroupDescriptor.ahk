@@ -92,8 +92,8 @@ export default struct IIsdbEventGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrecordevent
      */
     GetRecordEvent(bRecordIndex, pwServiceId, pwEventId) {
-        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
-        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : IntPtr
+        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, Int8, bRecordIndex, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
         return result
@@ -122,10 +122,10 @@ export default struct IIsdbEventGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrefrecordevent
      */
     GetRefRecordEvent(bRecordIndex, pwOriginalNetworkId, pwTransportStreamId, pwServiceId, pwEventId) {
-        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
-        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
-        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
-        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : IntPtr
+        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : IntPtr
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : IntPtr
+        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(9, this, Int8, bRecordIndex, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, pwTransportStreamIdMarshal, pwTransportStreamId, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
         return result
@@ -140,13 +140,13 @@ export default struct IIsdbEventGroupDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetGroupType := CallbackCreate(GetMethod(implObj, "GetGroupType"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordEvent := CallbackCreate(GetMethod(implObj, "GetRecordEvent"), flags, 4)
-        this.vtbl.GetCountOfRefRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRefRecords"), flags, 2)
-        this.vtbl.GetRefRecordEvent := CallbackCreate(GetMethod(implObj, "GetRefRecordEvent"), flags, 6)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetGroupType := CallbackCreate(ObjBindMethod(implObj, "GetGroupType"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordEvent := CallbackCreate(ObjBindMethod(implObj, "GetRecordEvent"), flags, 4)
+        this.vtbl.GetCountOfRefRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRefRecords"), flags, 2)
+        this.vtbl.GetRefRecordEvent := CallbackCreate(ObjBindMethod(implObj, "GetRefRecordEvent"), flags, 6)
     }
 
     Dispose() {

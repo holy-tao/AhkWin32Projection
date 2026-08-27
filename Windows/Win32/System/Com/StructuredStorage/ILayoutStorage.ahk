@@ -176,11 +176,11 @@ export default struct ILayoutStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LayoutScript := CallbackCreate(GetMethod(implObj, "LayoutScript"), flags, 4)
-        this.vtbl.BeginMonitor := CallbackCreate(GetMethod(implObj, "BeginMonitor"), flags, 1)
-        this.vtbl.EndMonitor := CallbackCreate(GetMethod(implObj, "EndMonitor"), flags, 1)
-        this.vtbl.ReLayoutDocfile := CallbackCreate(GetMethod(implObj, "ReLayoutDocfile"), flags, 2)
-        this.vtbl.ReLayoutDocfileOnILockBytes := CallbackCreate(GetMethod(implObj, "ReLayoutDocfileOnILockBytes"), flags, 2)
+        this.vtbl.LayoutScript := CallbackCreate(ObjBindMethod(implObj, "LayoutScript"), flags, 4)
+        this.vtbl.BeginMonitor := CallbackCreate(ObjBindMethod(implObj, "BeginMonitor"), flags, 1)
+        this.vtbl.EndMonitor := CallbackCreate(ObjBindMethod(implObj, "EndMonitor"), flags, 1)
+        this.vtbl.ReLayoutDocfile := CallbackCreate(ObjBindMethod(implObj, "ReLayoutDocfile"), flags, 2)
+        this.vtbl.ReLayoutDocfileOnILockBytes := CallbackCreate(ObjBindMethod(implObj, "ReLayoutDocfileOnILockBytes"), flags, 2)
     }
 
     Dispose() {

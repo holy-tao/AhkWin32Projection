@@ -38,7 +38,6 @@ export default struct IZoneIdentifier extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetId() {
@@ -47,7 +46,6 @@ export default struct IZoneIdentifier extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @returns {HRESULT} 
      */
@@ -57,7 +55,6 @@ export default struct IZoneIdentifier extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Remove() {
@@ -74,9 +71,9 @@ export default struct IZoneIdentifier extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.SetId := CallbackCreate(GetMethod(implObj, "SetId"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 1)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.SetId := CallbackCreate(ObjBindMethod(implObj, "SetId"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 1)
     }
 
     Dispose() {

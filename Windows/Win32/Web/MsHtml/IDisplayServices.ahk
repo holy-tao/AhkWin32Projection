@@ -51,7 +51,6 @@ export default struct IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDisplayPointer} 
      */
     CreateDisplayPointer() {
@@ -60,7 +59,6 @@ export default struct IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pRect 
      * @param {COORD_SYSTEM} eSource 
      * @param {COORD_SYSTEM} eDestination 
@@ -73,7 +71,6 @@ export default struct IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINT>} pPoint 
      * @param {COORD_SYSTEM} eSource 
      * @param {COORD_SYSTEM} eDestination 
@@ -86,7 +83,6 @@ export default struct IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLCaret} 
      */
     GetCaret() {
@@ -95,7 +91,6 @@ export default struct IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointer 
      * @returns {IHTMLComputedStyle} 
      */
@@ -105,7 +100,6 @@ export default struct IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @param {RECT} _rect 
      * @returns {HRESULT} 
@@ -116,7 +110,6 @@ export default struct IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @returns {BOOL} 
      */
@@ -134,13 +127,13 @@ export default struct IDisplayServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDisplayPointer := CallbackCreate(GetMethod(implObj, "CreateDisplayPointer"), flags, 2)
-        this.vtbl.TransformRect := CallbackCreate(GetMethod(implObj, "TransformRect"), flags, 5)
-        this.vtbl.TransformPoint := CallbackCreate(GetMethod(implObj, "TransformPoint"), flags, 5)
-        this.vtbl.GetCaret := CallbackCreate(GetMethod(implObj, "GetCaret"), flags, 2)
-        this.vtbl.GetComputedStyle := CallbackCreate(GetMethod(implObj, "GetComputedStyle"), flags, 3)
-        this.vtbl.ScrollRectIntoView := CallbackCreate(GetMethod(implObj, "ScrollRectIntoView"), flags, 3)
-        this.vtbl.HasFlowLayout := CallbackCreate(GetMethod(implObj, "HasFlowLayout"), flags, 3)
+        this.vtbl.CreateDisplayPointer := CallbackCreate(ObjBindMethod(implObj, "CreateDisplayPointer"), flags, 2)
+        this.vtbl.TransformRect := CallbackCreate(ObjBindMethod(implObj, "TransformRect"), flags, 5)
+        this.vtbl.TransformPoint := CallbackCreate(ObjBindMethod(implObj, "TransformPoint"), flags, 5)
+        this.vtbl.GetCaret := CallbackCreate(ObjBindMethod(implObj, "GetCaret"), flags, 2)
+        this.vtbl.GetComputedStyle := CallbackCreate(ObjBindMethod(implObj, "GetComputedStyle"), flags, 3)
+        this.vtbl.ScrollRectIntoView := CallbackCreate(ObjBindMethod(implObj, "ScrollRectIntoView"), flags, 3)
+        this.vtbl.HasFlowLayout := CallbackCreate(ObjBindMethod(implObj, "HasFlowLayout"), flags, 3)
     }
 
     Dispose() {

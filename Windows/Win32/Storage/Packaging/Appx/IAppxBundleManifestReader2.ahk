@@ -57,7 +57,7 @@ export default struct IAppxBundleManifestReader2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptionalBundles := CallbackCreate(GetMethod(implObj, "GetOptionalBundles"), flags, 2)
+        this.vtbl.GetOptionalBundles := CallbackCreate(ObjBindMethod(implObj, "GetOptionalBundles"), flags, 2)
     }
 
     Dispose() {

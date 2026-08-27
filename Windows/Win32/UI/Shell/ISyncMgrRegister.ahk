@@ -158,7 +158,7 @@ export default struct ISyncMgrRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrregister-gethandlerregistrationinfo
      */
     GetHandlerRegistrationInfo(clsidHandler, pdwSyncMgrRegisterFlags) {
-        pdwSyncMgrRegisterFlagsMarshal := pdwSyncMgrRegisterFlags is VarRef ? "uint*" : "ptr"
+        pdwSyncMgrRegisterFlagsMarshal := pdwSyncMgrRegisterFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, clsidHandler, pdwSyncMgrRegisterFlagsMarshal, pdwSyncMgrRegisterFlags, "HRESULT")
         return result
@@ -173,9 +173,9 @@ export default struct ISyncMgrRegister extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterSyncMgrHandler := CallbackCreate(GetMethod(implObj, "RegisterSyncMgrHandler"), flags, 4)
-        this.vtbl.UnregisterSyncMgrHandler := CallbackCreate(GetMethod(implObj, "UnregisterSyncMgrHandler"), flags, 3)
-        this.vtbl.GetHandlerRegistrationInfo := CallbackCreate(GetMethod(implObj, "GetHandlerRegistrationInfo"), flags, 3)
+        this.vtbl.RegisterSyncMgrHandler := CallbackCreate(ObjBindMethod(implObj, "RegisterSyncMgrHandler"), flags, 4)
+        this.vtbl.UnregisterSyncMgrHandler := CallbackCreate(ObjBindMethod(implObj, "UnregisterSyncMgrHandler"), flags, 3)
+        this.vtbl.GetHandlerRegistrationInfo := CallbackCreate(ObjBindMethod(implObj, "GetHandlerRegistrationInfo"), flags, 3)
     }
 
     Dispose() {

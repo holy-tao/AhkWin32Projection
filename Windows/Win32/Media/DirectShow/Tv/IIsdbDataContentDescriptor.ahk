@@ -166,16 +166,16 @@ export default struct IIsdbDataContentDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetDataComponentId := CallbackCreate(GetMethod(implObj, "GetDataComponentId"), flags, 2)
-        this.vtbl.GetEntryComponent := CallbackCreate(GetMethod(implObj, "GetEntryComponent"), flags, 2)
-        this.vtbl.GetSelectorLength := CallbackCreate(GetMethod(implObj, "GetSelectorLength"), flags, 2)
-        this.vtbl.GetSelectorBytes := CallbackCreate(GetMethod(implObj, "GetSelectorBytes"), flags, 3)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordComponentRef := CallbackCreate(GetMethod(implObj, "GetRecordComponentRef"), flags, 3)
-        this.vtbl.GetLanguageCode := CallbackCreate(GetMethod(implObj, "GetLanguageCode"), flags, 2)
-        this.vtbl.GetTextW := CallbackCreate(GetMethod(implObj, "GetTextW"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetDataComponentId := CallbackCreate(ObjBindMethod(implObj, "GetDataComponentId"), flags, 2)
+        this.vtbl.GetEntryComponent := CallbackCreate(ObjBindMethod(implObj, "GetEntryComponent"), flags, 2)
+        this.vtbl.GetSelectorLength := CallbackCreate(ObjBindMethod(implObj, "GetSelectorLength"), flags, 2)
+        this.vtbl.GetSelectorBytes := CallbackCreate(ObjBindMethod(implObj, "GetSelectorBytes"), flags, 3)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordComponentRef := CallbackCreate(ObjBindMethod(implObj, "GetRecordComponentRef"), flags, 3)
+        this.vtbl.GetLanguageCode := CallbackCreate(ObjBindMethod(implObj, "GetLanguageCode"), flags, 2)
+        this.vtbl.GetTextW := CallbackCreate(ObjBindMethod(implObj, "GetTextW"), flags, 3)
     }
 
     Dispose() {

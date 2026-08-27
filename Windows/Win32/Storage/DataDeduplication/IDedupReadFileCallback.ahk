@@ -58,8 +58,8 @@ export default struct IDedupReadFileCallback extends IUnknown {
     ReadBackupFile(FileFullPath, FileOffset, SizeToRead, FileBuffer, ReturnedSize, Flags) {
         FileFullPath := FileFullPath is String ? BSTR.Alloc(FileFullPath).Value : FileFullPath
 
-        FileBufferMarshal := FileBuffer is VarRef ? "char*" : "ptr"
-        ReturnedSizeMarshal := ReturnedSize is VarRef ? "uint*" : "ptr"
+        FileBufferMarshal := FileBuffer is VarRef ? "char*" : IntPtr
+        ReturnedSizeMarshal := ReturnedSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, BSTR, FileFullPath, Int64, FileOffset, UInt32, SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, UInt32, Flags, "HRESULT")
         return result
@@ -96,8 +96,8 @@ export default struct IDedupReadFileCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nf-ddpbackup-idedupreadfilecallback-ordercontainersrestore
      */
     OrderContainersRestore(NumberOfContainers, ContainerPaths, ReadPlanEntries, ReadPlan) {
-        ReadPlanEntriesMarshal := ReadPlanEntries is VarRef ? "uint*" : "ptr"
-        ReadPlanMarshal := ReadPlan is VarRef ? "ptr*" : "ptr"
+        ReadPlanEntriesMarshal := ReadPlanEntries is VarRef ? "uint*" : IntPtr
+        ReadPlanMarshal := ReadPlan is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, NumberOfContainers, BSTR.Ptr, ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "HRESULT")
         return result
@@ -129,9 +129,9 @@ export default struct IDedupReadFileCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadBackupFile := CallbackCreate(GetMethod(implObj, "ReadBackupFile"), flags, 7)
-        this.vtbl.OrderContainersRestore := CallbackCreate(GetMethod(implObj, "OrderContainersRestore"), flags, 5)
-        this.vtbl.PreviewContainerRead := CallbackCreate(GetMethod(implObj, "PreviewContainerRead"), flags, 4)
+        this.vtbl.ReadBackupFile := CallbackCreate(ObjBindMethod(implObj, "ReadBackupFile"), flags, 7)
+        this.vtbl.OrderContainersRestore := CallbackCreate(ObjBindMethod(implObj, "OrderContainersRestore"), flags, 5)
+        this.vtbl.PreviewContainerRead := CallbackCreate(ObjBindMethod(implObj, "PreviewContainerRead"), flags, 4)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct ITargetNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDestination 
      * @param {Integer} cbCookie 
      * @returns {HRESULT} 
@@ -48,7 +47,6 @@ export default struct ITargetNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDestination 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct ITargetNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCreate := CallbackCreate(GetMethod(implObj, "OnCreate"), flags, 3)
-        this.vtbl.OnReuse := CallbackCreate(GetMethod(implObj, "OnReuse"), flags, 2)
+        this.vtbl.OnCreate := CallbackCreate(ObjBindMethod(implObj, "OnCreate"), flags, 3)
+        this.vtbl.OnReuse := CallbackCreate(ObjBindMethod(implObj, "OnReuse"), flags, 2)
     }
 
     Dispose() {

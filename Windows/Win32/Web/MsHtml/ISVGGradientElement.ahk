@@ -70,7 +70,6 @@ export default struct ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +79,6 @@ export default struct ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_gradientUnits() {
@@ -89,7 +87,6 @@ export default struct ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedTransformList} v 
      * @returns {HRESULT} 
      */
@@ -99,7 +96,6 @@ export default struct ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedTransformList} 
      */
     get_gradientTransform() {
@@ -108,7 +104,6 @@ export default struct ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -118,7 +113,6 @@ export default struct ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_spreadMethod() {
@@ -135,12 +129,12 @@ export default struct ISVGGradientElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_gradientUnits := CallbackCreate(GetMethod(implObj, "putref_gradientUnits"), flags, 2)
-        this.vtbl.get_gradientUnits := CallbackCreate(GetMethod(implObj, "get_gradientUnits"), flags, 2)
-        this.vtbl.putref_gradientTransform := CallbackCreate(GetMethod(implObj, "putref_gradientTransform"), flags, 2)
-        this.vtbl.get_gradientTransform := CallbackCreate(GetMethod(implObj, "get_gradientTransform"), flags, 2)
-        this.vtbl.putref_spreadMethod := CallbackCreate(GetMethod(implObj, "putref_spreadMethod"), flags, 2)
-        this.vtbl.get_spreadMethod := CallbackCreate(GetMethod(implObj, "get_spreadMethod"), flags, 2)
+        this.vtbl.putref_gradientUnits := CallbackCreate(ObjBindMethod(implObj, "putref_gradientUnits"), flags, 2)
+        this.vtbl.get_gradientUnits := CallbackCreate(ObjBindMethod(implObj, "get_gradientUnits"), flags, 2)
+        this.vtbl.putref_gradientTransform := CallbackCreate(ObjBindMethod(implObj, "putref_gradientTransform"), flags, 2)
+        this.vtbl.get_gradientTransform := CallbackCreate(ObjBindMethod(implObj, "get_gradientTransform"), flags, 2)
+        this.vtbl.putref_spreadMethod := CallbackCreate(ObjBindMethod(implObj, "putref_spreadMethod"), flags, 2)
+        this.vtbl.get_spreadMethod := CallbackCreate(ObjBindMethod(implObj, "get_spreadMethod"), flags, 2)
     }
 
     Dispose() {

@@ -214,7 +214,7 @@ export IsDestinationReachableW(lpszDestination, lpQOCInfo) {
  * @since windows5.1.2600
  */
 export IsNetworkAlive(lpdwFlags) {
-    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 

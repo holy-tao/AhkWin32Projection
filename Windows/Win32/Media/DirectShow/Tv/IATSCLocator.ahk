@@ -123,10 +123,10 @@ export default struct IATSCLocator extends IDigitalLocator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PhysicalChannel := CallbackCreate(GetMethod(implObj, "get_PhysicalChannel"), flags, 2)
-        this.vtbl.put_PhysicalChannel := CallbackCreate(GetMethod(implObj, "put_PhysicalChannel"), flags, 2)
-        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
-        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
+        this.vtbl.get_PhysicalChannel := CallbackCreate(ObjBindMethod(implObj, "get_PhysicalChannel"), flags, 2)
+        this.vtbl.put_PhysicalChannel := CallbackCreate(ObjBindMethod(implObj, "put_PhysicalChannel"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(ObjBindMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(ObjBindMethod(implObj, "put_TSID"), flags, 2)
     }
 
     Dispose() {

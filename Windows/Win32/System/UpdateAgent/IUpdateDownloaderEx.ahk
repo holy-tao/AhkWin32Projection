@@ -42,7 +42,6 @@ export default struct IUpdateDownloaderEx extends IUpdateDownloader {
     }
 
     /**
-     * 
      * @param {DownloadType} _downloadType 
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
@@ -55,7 +54,6 @@ export default struct IUpdateDownloaderEx extends IUpdateDownloader {
     }
 
     /**
-     * 
      * @param {DownloadType} _downloadType 
      * @returns {IDownloadResult} 
      */
@@ -73,8 +71,8 @@ export default struct IUpdateDownloaderEx extends IUpdateDownloader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginDownload2 := CallbackCreate(GetMethod(implObj, "BeginDownload2"), flags, 6)
-        this.vtbl.Download2 := CallbackCreate(GetMethod(implObj, "Download2"), flags, 3)
+        this.vtbl.BeginDownload2 := CallbackCreate(ObjBindMethod(implObj, "BeginDownload2"), flags, 6)
+        this.vtbl.Download2 := CallbackCreate(ObjBindMethod(implObj, "Download2"), flags, 3)
     }
 
     Dispose() {

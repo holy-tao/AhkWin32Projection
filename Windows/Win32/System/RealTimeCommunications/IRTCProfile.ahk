@@ -169,7 +169,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Key() {
@@ -179,7 +178,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -189,7 +187,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_XML() {
@@ -199,7 +196,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProviderName() {
@@ -209,7 +205,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PROVIDER_URI} enURI 
      * @returns {BSTR} 
      */
@@ -220,7 +215,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProviderData() {
@@ -230,7 +224,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientName() {
@@ -240,7 +233,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ClientBanner() {
@@ -249,7 +241,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientMinVer() {
@@ -259,7 +250,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientCurVer() {
@@ -269,7 +259,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientUpdateURI() {
@@ -279,7 +268,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientData() {
@@ -289,7 +277,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserURI() {
@@ -299,7 +286,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserName() {
@@ -309,7 +295,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserAccount() {
@@ -319,7 +304,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserURI 
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrPassword 
@@ -335,7 +319,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SessionCapabilities() {
@@ -344,7 +327,6 @@ export default struct IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_REGISTRATION_STATE} 
      */
     get_State() {
@@ -361,24 +343,24 @@ export default struct IRTCProfile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Key := CallbackCreate(GetMethod(implObj, "get_Key"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_XML := CallbackCreate(GetMethod(implObj, "get_XML"), flags, 2)
-        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
-        this.vtbl.get_ProviderURI := CallbackCreate(GetMethod(implObj, "get_ProviderURI"), flags, 3)
-        this.vtbl.get_ProviderData := CallbackCreate(GetMethod(implObj, "get_ProviderData"), flags, 2)
-        this.vtbl.get_ClientName := CallbackCreate(GetMethod(implObj, "get_ClientName"), flags, 2)
-        this.vtbl.get_ClientBanner := CallbackCreate(GetMethod(implObj, "get_ClientBanner"), flags, 2)
-        this.vtbl.get_ClientMinVer := CallbackCreate(GetMethod(implObj, "get_ClientMinVer"), flags, 2)
-        this.vtbl.get_ClientCurVer := CallbackCreate(GetMethod(implObj, "get_ClientCurVer"), flags, 2)
-        this.vtbl.get_ClientUpdateURI := CallbackCreate(GetMethod(implObj, "get_ClientUpdateURI"), flags, 2)
-        this.vtbl.get_ClientData := CallbackCreate(GetMethod(implObj, "get_ClientData"), flags, 2)
-        this.vtbl.get_UserURI := CallbackCreate(GetMethod(implObj, "get_UserURI"), flags, 2)
-        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
-        this.vtbl.get_UserAccount := CallbackCreate(GetMethod(implObj, "get_UserAccount"), flags, 2)
-        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 4)
-        this.vtbl.get_SessionCapabilities := CallbackCreate(GetMethod(implObj, "get_SessionCapabilities"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Key := CallbackCreate(ObjBindMethod(implObj, "get_Key"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_XML := CallbackCreate(ObjBindMethod(implObj, "get_XML"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(ObjBindMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.get_ProviderURI := CallbackCreate(ObjBindMethod(implObj, "get_ProviderURI"), flags, 3)
+        this.vtbl.get_ProviderData := CallbackCreate(ObjBindMethod(implObj, "get_ProviderData"), flags, 2)
+        this.vtbl.get_ClientName := CallbackCreate(ObjBindMethod(implObj, "get_ClientName"), flags, 2)
+        this.vtbl.get_ClientBanner := CallbackCreate(ObjBindMethod(implObj, "get_ClientBanner"), flags, 2)
+        this.vtbl.get_ClientMinVer := CallbackCreate(ObjBindMethod(implObj, "get_ClientMinVer"), flags, 2)
+        this.vtbl.get_ClientCurVer := CallbackCreate(ObjBindMethod(implObj, "get_ClientCurVer"), flags, 2)
+        this.vtbl.get_ClientUpdateURI := CallbackCreate(ObjBindMethod(implObj, "get_ClientUpdateURI"), flags, 2)
+        this.vtbl.get_ClientData := CallbackCreate(ObjBindMethod(implObj, "get_ClientData"), flags, 2)
+        this.vtbl.get_UserURI := CallbackCreate(ObjBindMethod(implObj, "get_UserURI"), flags, 2)
+        this.vtbl.get_UserName := CallbackCreate(ObjBindMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.get_UserAccount := CallbackCreate(ObjBindMethod(implObj, "get_UserAccount"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(ObjBindMethod(implObj, "SetCredentials"), flags, 4)
+        this.vtbl.get_SessionCapabilities := CallbackCreate(ObjBindMethod(implObj, "get_SessionCapabilities"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
     }
 
     Dispose() {

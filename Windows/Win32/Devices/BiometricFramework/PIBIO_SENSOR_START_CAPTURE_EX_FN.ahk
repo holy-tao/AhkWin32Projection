@@ -21,7 +21,6 @@ export default struct PIBIO_SENSOR_START_CAPTURE_EX_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Integer} Purpose 
      * @param {Integer} Nonce 
@@ -30,7 +29,9 @@ export default struct PIBIO_SENSOR_START_CAPTURE_EX_FN {
      * @returns {Pointer<OVERLAPPED>} 
      */
     Call(Pipeline, Purpose, Nonce, NonceSize, Flags) {
-        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, Int8, Purpose, IntPtr, Nonce, IntPtr, NonceSize, Int8, Flags, "ptr*", &_Overlapped := 0, "HRESULT")
+        NonceMarshal := Nonce == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, Int8, Purpose, NonceMarshal, Nonce, IntPtr, NonceSize, Int8, Flags, "ptr*", &_Overlapped := 0, "HRESULT")
         return _Overlapped
     }
 

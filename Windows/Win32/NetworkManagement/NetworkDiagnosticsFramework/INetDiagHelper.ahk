@@ -237,8 +237,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getkeyattributes
      */
     GetKeyAttributes(pcelt, pprgAttributes) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        pprgAttributesMarshal := pprgAttributes is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        pprgAttributesMarshal := pprgAttributes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pceltMarshal, pcelt, pprgAttributesMarshal, pprgAttributes, "HRESULT")
         return result
@@ -327,9 +327,9 @@ export default struct INetDiagHelper extends IUnknown {
     LowHealth(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
 
-        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
-        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : IntPtr
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwszInstanceDescription, ppwszDescriptionMarshal, ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
@@ -423,9 +423,9 @@ export default struct INetDiagHelper extends IUnknown {
     HighUtilization(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
 
-        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
-        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : IntPtr
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, "ptr", pwszInstanceDescription, ppwszDescriptionMarshal, ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
@@ -515,8 +515,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getlowerhypotheses
      */
     GetLowerHypotheses(pcelt, pprgHypotheses) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
@@ -606,8 +606,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getdownstreamhypotheses
      */
     GetDownStreamHypotheses(pcelt, pprgHypotheses) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
@@ -697,8 +697,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-gethigherhypotheses
      */
     GetHigherHypotheses(pcelt, pprgHypotheses) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
@@ -788,8 +788,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getupstreamhypotheses
      */
     GetUpStreamHypotheses(pcelt, pprgHypotheses) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
@@ -880,8 +880,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-repair
      */
     Repair(pInfo, pDeferredTime, pStatus) {
-        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, RepairInfo.Ptr, pInfo, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
@@ -974,8 +974,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-validate
      */
     Validate(problem, pDeferredTime, pStatus) {
-        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, PROBLEM_TYPE, problem, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
@@ -1066,8 +1066,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getrepairinfo
      */
     GetRepairInfo(problem, pcelt, ppInfo) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, PROBLEM_TYPE, problem, pceltMarshal, pcelt, ppInfoMarshal, ppInfo, "HRESULT")
         return result
@@ -1320,8 +1320,8 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getattributes
      */
     GetAttributes(pcelt, pprgAttributes) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        pprgAttributesMarshal := pprgAttributes is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        pprgAttributesMarshal := pprgAttributes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(18, this, pceltMarshal, pcelt, pprgAttributesMarshal, pprgAttributes, "HRESULT")
         return result
@@ -1464,24 +1464,24 @@ export default struct INetDiagHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetDiagnosticsInfo := CallbackCreate(GetMethod(implObj, "GetDiagnosticsInfo"), flags, 2)
-        this.vtbl.GetKeyAttributes := CallbackCreate(GetMethod(implObj, "GetKeyAttributes"), flags, 3)
-        this.vtbl.LowHealth := CallbackCreate(GetMethod(implObj, "LowHealth"), flags, 5)
-        this.vtbl.HighUtilization := CallbackCreate(GetMethod(implObj, "HighUtilization"), flags, 5)
-        this.vtbl.GetLowerHypotheses := CallbackCreate(GetMethod(implObj, "GetLowerHypotheses"), flags, 3)
-        this.vtbl.GetDownStreamHypotheses := CallbackCreate(GetMethod(implObj, "GetDownStreamHypotheses"), flags, 3)
-        this.vtbl.GetHigherHypotheses := CallbackCreate(GetMethod(implObj, "GetHigherHypotheses"), flags, 3)
-        this.vtbl.GetUpStreamHypotheses := CallbackCreate(GetMethod(implObj, "GetUpStreamHypotheses"), flags, 3)
-        this.vtbl.Repair := CallbackCreate(GetMethod(implObj, "Repair"), flags, 4)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 4)
-        this.vtbl.GetRepairInfo := CallbackCreate(GetMethod(implObj, "GetRepairInfo"), flags, 4)
-        this.vtbl.GetLifeTime := CallbackCreate(GetMethod(implObj, "GetLifeTime"), flags, 2)
-        this.vtbl.SetLifeTime := CallbackCreate(GetMethod(implObj, "SetLifeTime"), flags, 2)
-        this.vtbl.GetCacheTime := CallbackCreate(GetMethod(implObj, "GetCacheTime"), flags, 2)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 3)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Cleanup := CallbackCreate(GetMethod(implObj, "Cleanup"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetDiagnosticsInfo := CallbackCreate(ObjBindMethod(implObj, "GetDiagnosticsInfo"), flags, 2)
+        this.vtbl.GetKeyAttributes := CallbackCreate(ObjBindMethod(implObj, "GetKeyAttributes"), flags, 3)
+        this.vtbl.LowHealth := CallbackCreate(ObjBindMethod(implObj, "LowHealth"), flags, 5)
+        this.vtbl.HighUtilization := CallbackCreate(ObjBindMethod(implObj, "HighUtilization"), flags, 5)
+        this.vtbl.GetLowerHypotheses := CallbackCreate(ObjBindMethod(implObj, "GetLowerHypotheses"), flags, 3)
+        this.vtbl.GetDownStreamHypotheses := CallbackCreate(ObjBindMethod(implObj, "GetDownStreamHypotheses"), flags, 3)
+        this.vtbl.GetHigherHypotheses := CallbackCreate(ObjBindMethod(implObj, "GetHigherHypotheses"), flags, 3)
+        this.vtbl.GetUpStreamHypotheses := CallbackCreate(ObjBindMethod(implObj, "GetUpStreamHypotheses"), flags, 3)
+        this.vtbl.Repair := CallbackCreate(ObjBindMethod(implObj, "Repair"), flags, 4)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 4)
+        this.vtbl.GetRepairInfo := CallbackCreate(ObjBindMethod(implObj, "GetRepairInfo"), flags, 4)
+        this.vtbl.GetLifeTime := CallbackCreate(ObjBindMethod(implObj, "GetLifeTime"), flags, 2)
+        this.vtbl.SetLifeTime := CallbackCreate(ObjBindMethod(implObj, "SetLifeTime"), flags, 2)
+        this.vtbl.GetCacheTime := CallbackCreate(ObjBindMethod(implObj, "GetCacheTime"), flags, 2)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Cleanup := CallbackCreate(ObjBindMethod(implObj, "Cleanup"), flags, 1)
     }
 
     Dispose() {

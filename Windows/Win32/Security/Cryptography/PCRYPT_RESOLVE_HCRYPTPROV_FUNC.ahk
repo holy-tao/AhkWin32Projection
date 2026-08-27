@@ -22,7 +22,6 @@ export default struct PCRYPT_RESOLVE_HCRYPTPROV_FUNC {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_PRIVATE_KEY_INFO>} pPrivateKeyInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_private_key_info">CRYPT_PRIVATE_KEY_INFO</a> structure that describes the key being imported.
      * @param {Pointer<Pointer>} phCryptProv A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov">HCRYPTPROV</a>   to receive the CSP.
      * @param {Pointer<Void>} pVoidResolveFunc The <b>pVoidResolveFunc</b> member passed in by the caller in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_pkcs8_import_params">CRYPT_PKCS8_IMPORT_PARAMS</a>  structure.
@@ -31,8 +30,8 @@ export default struct PCRYPT_RESOLVE_HCRYPTPROV_FUNC {
      * If the function fails, it returns zero (<b>FALSE</b>).
      */
     Call(pPrivateKeyInfo, phCryptProv, pVoidResolveFunc) {
-        phCryptProvMarshal := phCryptProv is VarRef ? "ptr*" : "ptr"
-        pVoidResolveFuncMarshal := pVoidResolveFunc is VarRef ? "ptr" : "ptr"
+        phCryptProvMarshal := phCryptProv is VarRef ? "ptr*" : IntPtr
+        pVoidResolveFuncMarshal := pVoidResolveFunc is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CRYPT_PRIVATE_KEY_INFO.Ptr, pPrivateKeyInfo, phCryptProvMarshal, phCryptProv, pVoidResolveFuncMarshal, pVoidResolveFunc, BOOL)
         return result

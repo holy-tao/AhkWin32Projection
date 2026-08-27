@@ -116,7 +116,7 @@ export default struct ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-initialize
      */
     Initialize(dwReserved, dwSyncMgrFlags, cbCookie, lpCookie) {
-        lpCookieMarshal := lpCookie is VarRef ? "char*" : "ptr"
+        lpCookieMarshal := lpCookie is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwReserved, UInt32, dwSyncMgrFlags, UInt32, cbCookie, lpCookieMarshal, lpCookie, "HRESULT")
         return result
@@ -456,16 +456,16 @@ export default struct ISyncMgrSynchronize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.GetHandlerInfo := CallbackCreate(GetMethod(implObj, "GetHandlerInfo"), flags, 2)
-        this.vtbl.EnumSyncMgrItems := CallbackCreate(GetMethod(implObj, "EnumSyncMgrItems"), flags, 2)
-        this.vtbl.GetItemObject := CallbackCreate(GetMethod(implObj, "GetItemObject"), flags, 4)
-        this.vtbl.ShowProperties := CallbackCreate(GetMethod(implObj, "ShowProperties"), flags, 3)
-        this.vtbl.SetProgressCallback := CallbackCreate(GetMethod(implObj, "SetProgressCallback"), flags, 2)
-        this.vtbl.PrepareForSync := CallbackCreate(GetMethod(implObj, "PrepareForSync"), flags, 5)
-        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 2)
-        this.vtbl.SetItemStatus := CallbackCreate(GetMethod(implObj, "SetItemStatus"), flags, 3)
-        this.vtbl.ShowError := CallbackCreate(GetMethod(implObj, "ShowError"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.GetHandlerInfo := CallbackCreate(ObjBindMethod(implObj, "GetHandlerInfo"), flags, 2)
+        this.vtbl.EnumSyncMgrItems := CallbackCreate(ObjBindMethod(implObj, "EnumSyncMgrItems"), flags, 2)
+        this.vtbl.GetItemObject := CallbackCreate(ObjBindMethod(implObj, "GetItemObject"), flags, 4)
+        this.vtbl.ShowProperties := CallbackCreate(ObjBindMethod(implObj, "ShowProperties"), flags, 3)
+        this.vtbl.SetProgressCallback := CallbackCreate(ObjBindMethod(implObj, "SetProgressCallback"), flags, 2)
+        this.vtbl.PrepareForSync := CallbackCreate(ObjBindMethod(implObj, "PrepareForSync"), flags, 5)
+        this.vtbl.Synchronize := CallbackCreate(ObjBindMethod(implObj, "Synchronize"), flags, 2)
+        this.vtbl.SetItemStatus := CallbackCreate(ObjBindMethod(implObj, "SetItemStatus"), flags, 3)
+        this.vtbl.ShowError := CallbackCreate(ObjBindMethod(implObj, "ShowError"), flags, 3)
     }
 
     Dispose() {

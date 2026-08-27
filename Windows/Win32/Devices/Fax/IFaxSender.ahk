@@ -232,7 +232,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_City() {
@@ -242,7 +241,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCity 
      * @returns {HRESULT} 
      */
@@ -278,7 +276,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Country() {
@@ -288,7 +285,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCountry 
      * @returns {HRESULT} 
      */
@@ -492,7 +488,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_State() {
@@ -502,7 +497,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrState 
      * @returns {HRESULT} 
      */
@@ -566,7 +560,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ZipCode() {
@@ -576,7 +569,6 @@ export default struct IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrZipCode 
      * @returns {HRESULT} 
      */
@@ -628,40 +620,40 @@ export default struct IFaxSender extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BillingCode := CallbackCreate(GetMethod(implObj, "get_BillingCode"), flags, 2)
-        this.vtbl.put_BillingCode := CallbackCreate(GetMethod(implObj, "put_BillingCode"), flags, 2)
-        this.vtbl.get_City := CallbackCreate(GetMethod(implObj, "get_City"), flags, 2)
-        this.vtbl.put_City := CallbackCreate(GetMethod(implObj, "put_City"), flags, 2)
-        this.vtbl.get_Company := CallbackCreate(GetMethod(implObj, "get_Company"), flags, 2)
-        this.vtbl.put_Company := CallbackCreate(GetMethod(implObj, "put_Company"), flags, 2)
-        this.vtbl.get_Country := CallbackCreate(GetMethod(implObj, "get_Country"), flags, 2)
-        this.vtbl.put_Country := CallbackCreate(GetMethod(implObj, "put_Country"), flags, 2)
-        this.vtbl.get_Department := CallbackCreate(GetMethod(implObj, "get_Department"), flags, 2)
-        this.vtbl.put_Department := CallbackCreate(GetMethod(implObj, "put_Department"), flags, 2)
-        this.vtbl.get_Email := CallbackCreate(GetMethod(implObj, "get_Email"), flags, 2)
-        this.vtbl.put_Email := CallbackCreate(GetMethod(implObj, "put_Email"), flags, 2)
-        this.vtbl.get_FaxNumber := CallbackCreate(GetMethod(implObj, "get_FaxNumber"), flags, 2)
-        this.vtbl.put_FaxNumber := CallbackCreate(GetMethod(implObj, "put_FaxNumber"), flags, 2)
-        this.vtbl.get_HomePhone := CallbackCreate(GetMethod(implObj, "get_HomePhone"), flags, 2)
-        this.vtbl.put_HomePhone := CallbackCreate(GetMethod(implObj, "put_HomePhone"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
-        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
-        this.vtbl.get_OfficePhone := CallbackCreate(GetMethod(implObj, "get_OfficePhone"), flags, 2)
-        this.vtbl.put_OfficePhone := CallbackCreate(GetMethod(implObj, "put_OfficePhone"), flags, 2)
-        this.vtbl.get_OfficeLocation := CallbackCreate(GetMethod(implObj, "get_OfficeLocation"), flags, 2)
-        this.vtbl.put_OfficeLocation := CallbackCreate(GetMethod(implObj, "put_OfficeLocation"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
-        this.vtbl.get_StreetAddress := CallbackCreate(GetMethod(implObj, "get_StreetAddress"), flags, 2)
-        this.vtbl.put_StreetAddress := CallbackCreate(GetMethod(implObj, "put_StreetAddress"), flags, 2)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.put_Title := CallbackCreate(GetMethod(implObj, "put_Title"), flags, 2)
-        this.vtbl.get_ZipCode := CallbackCreate(GetMethod(implObj, "get_ZipCode"), flags, 2)
-        this.vtbl.put_ZipCode := CallbackCreate(GetMethod(implObj, "put_ZipCode"), flags, 2)
-        this.vtbl.LoadDefaultSender := CallbackCreate(GetMethod(implObj, "LoadDefaultSender"), flags, 1)
-        this.vtbl.SaveDefaultSender := CallbackCreate(GetMethod(implObj, "SaveDefaultSender"), flags, 1)
+        this.vtbl.get_BillingCode := CallbackCreate(ObjBindMethod(implObj, "get_BillingCode"), flags, 2)
+        this.vtbl.put_BillingCode := CallbackCreate(ObjBindMethod(implObj, "put_BillingCode"), flags, 2)
+        this.vtbl.get_City := CallbackCreate(ObjBindMethod(implObj, "get_City"), flags, 2)
+        this.vtbl.put_City := CallbackCreate(ObjBindMethod(implObj, "put_City"), flags, 2)
+        this.vtbl.get_Company := CallbackCreate(ObjBindMethod(implObj, "get_Company"), flags, 2)
+        this.vtbl.put_Company := CallbackCreate(ObjBindMethod(implObj, "put_Company"), flags, 2)
+        this.vtbl.get_Country := CallbackCreate(ObjBindMethod(implObj, "get_Country"), flags, 2)
+        this.vtbl.put_Country := CallbackCreate(ObjBindMethod(implObj, "put_Country"), flags, 2)
+        this.vtbl.get_Department := CallbackCreate(ObjBindMethod(implObj, "get_Department"), flags, 2)
+        this.vtbl.put_Department := CallbackCreate(ObjBindMethod(implObj, "put_Department"), flags, 2)
+        this.vtbl.get_Email := CallbackCreate(ObjBindMethod(implObj, "get_Email"), flags, 2)
+        this.vtbl.put_Email := CallbackCreate(ObjBindMethod(implObj, "put_Email"), flags, 2)
+        this.vtbl.get_FaxNumber := CallbackCreate(ObjBindMethod(implObj, "get_FaxNumber"), flags, 2)
+        this.vtbl.put_FaxNumber := CallbackCreate(ObjBindMethod(implObj, "put_FaxNumber"), flags, 2)
+        this.vtbl.get_HomePhone := CallbackCreate(ObjBindMethod(implObj, "get_HomePhone"), flags, 2)
+        this.vtbl.put_HomePhone := CallbackCreate(ObjBindMethod(implObj, "put_HomePhone"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(ObjBindMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(ObjBindMethod(implObj, "put_TSID"), flags, 2)
+        this.vtbl.get_OfficePhone := CallbackCreate(ObjBindMethod(implObj, "get_OfficePhone"), flags, 2)
+        this.vtbl.put_OfficePhone := CallbackCreate(ObjBindMethod(implObj, "put_OfficePhone"), flags, 2)
+        this.vtbl.get_OfficeLocation := CallbackCreate(ObjBindMethod(implObj, "get_OfficeLocation"), flags, 2)
+        this.vtbl.put_OfficeLocation := CallbackCreate(ObjBindMethod(implObj, "put_OfficeLocation"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(ObjBindMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_StreetAddress := CallbackCreate(ObjBindMethod(implObj, "get_StreetAddress"), flags, 2)
+        this.vtbl.put_StreetAddress := CallbackCreate(ObjBindMethod(implObj, "put_StreetAddress"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.put_Title := CallbackCreate(ObjBindMethod(implObj, "put_Title"), flags, 2)
+        this.vtbl.get_ZipCode := CallbackCreate(ObjBindMethod(implObj, "get_ZipCode"), flags, 2)
+        this.vtbl.put_ZipCode := CallbackCreate(ObjBindMethod(implObj, "put_ZipCode"), flags, 2)
+        this.vtbl.LoadDefaultSender := CallbackCreate(ObjBindMethod(implObj, "LoadDefaultSender"), flags, 1)
+        this.vtbl.SaveDefaultSender := CallbackCreate(ObjBindMethod(implObj, "SaveDefaultSender"), flags, 1)
     }
 
     Dispose() {

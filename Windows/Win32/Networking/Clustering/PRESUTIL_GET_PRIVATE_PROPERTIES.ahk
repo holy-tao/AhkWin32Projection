@@ -19,7 +19,6 @@ export default struct PRESUTIL_GET_PRIVATE_PROPERTIES {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Integer} pOutPropertyList 
      * @param {Integer} cbOutPropertyListSize 
@@ -28,8 +27,8 @@ export default struct PRESUTIL_GET_PRIVATE_PROPERTIES {
      * @returns {Integer} 
      */
     Call(hkeyClusterKey, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, IntPtr, pOutPropertyList, UInt32, cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
         return result

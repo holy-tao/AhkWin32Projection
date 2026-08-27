@@ -22,7 +22,6 @@ export default struct PFN_CRYPT_ENUM_KEYID_PROP {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pKeyIdentifier A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_INTEGER_BLOB</a> that contains the key identifier.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} pvArg A pointer to an argument that is passed back from the callback function.
@@ -40,10 +39,11 @@ export default struct PFN_CRYPT_ENUM_KEYID_PROP {
     Call(pKeyIdentifier, dwFlags, pvArg, cProp, rgdwPropId, rgpvData, rgcbData) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
-        rgdwPropIdMarshal := rgdwPropId is VarRef ? "uint*" : "ptr"
-        rgpvDataMarshal := rgpvData is VarRef ? "ptr*" : "ptr"
-        rgcbDataMarshal := rgcbData is VarRef ? "uint*" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
+        rgdwPropIdMarshal := rgdwPropId is VarRef ? "uint*" : IntPtr
+        rgpvDataMarshal := rgpvData is VarRef ? "ptr*" : IntPtr
+        rgcbDataMarshal := rgcbData is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, CRYPT_INTEGER_BLOB.Ptr, pKeyIdentifier, UInt32, dwFlags, "ptr", pvReserved, pvArgMarshal, pvArg, UInt32, cProp, rgdwPropIdMarshal, rgdwPropId, rgpvDataMarshal, rgpvData, rgcbDataMarshal, rgcbData, BOOL)
         return result

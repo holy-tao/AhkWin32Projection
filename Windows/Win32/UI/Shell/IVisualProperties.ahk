@@ -191,14 +191,14 @@ export default struct IVisualProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWatermark := CallbackCreate(GetMethod(implObj, "SetWatermark"), flags, 3)
-        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 3)
-        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 3)
-        this.vtbl.SetItemHeight := CallbackCreate(GetMethod(implObj, "SetItemHeight"), flags, 2)
-        this.vtbl.GetItemHeight := CallbackCreate(GetMethod(implObj, "GetItemHeight"), flags, 2)
-        this.vtbl.SetFont := CallbackCreate(GetMethod(implObj, "SetFont"), flags, 3)
-        this.vtbl.GetFont := CallbackCreate(GetMethod(implObj, "GetFont"), flags, 2)
-        this.vtbl.SetTheme := CallbackCreate(GetMethod(implObj, "SetTheme"), flags, 3)
+        this.vtbl.SetWatermark := CallbackCreate(ObjBindMethod(implObj, "SetWatermark"), flags, 3)
+        this.vtbl.SetColor := CallbackCreate(ObjBindMethod(implObj, "SetColor"), flags, 3)
+        this.vtbl.GetColor := CallbackCreate(ObjBindMethod(implObj, "GetColor"), flags, 3)
+        this.vtbl.SetItemHeight := CallbackCreate(ObjBindMethod(implObj, "SetItemHeight"), flags, 2)
+        this.vtbl.GetItemHeight := CallbackCreate(ObjBindMethod(implObj, "GetItemHeight"), flags, 2)
+        this.vtbl.SetFont := CallbackCreate(ObjBindMethod(implObj, "SetFont"), flags, 3)
+        this.vtbl.GetFont := CallbackCreate(ObjBindMethod(implObj, "GetFont"), flags, 2)
+        this.vtbl.SetTheme := CallbackCreate(ObjBindMethod(implObj, "SetTheme"), flags, 3)
     }
 
     Dispose() {

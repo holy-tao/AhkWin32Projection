@@ -79,7 +79,6 @@ export default struct INetCfgComponentControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ApplyRegistryChanges() {
@@ -88,7 +87,6 @@ export default struct INetCfgComponentControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgPnpReconfigCallback} pICallback 
      * @returns {HRESULT} 
      */
@@ -98,7 +96,6 @@ export default struct INetCfgComponentControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelChanges() {
@@ -115,10 +112,10 @@ export default struct INetCfgComponentControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.ApplyRegistryChanges := CallbackCreate(GetMethod(implObj, "ApplyRegistryChanges"), flags, 1)
-        this.vtbl.ApplyPnpChanges := CallbackCreate(GetMethod(implObj, "ApplyPnpChanges"), flags, 2)
-        this.vtbl.CancelChanges := CallbackCreate(GetMethod(implObj, "CancelChanges"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.ApplyRegistryChanges := CallbackCreate(ObjBindMethod(implObj, "ApplyRegistryChanges"), flags, 1)
+        this.vtbl.ApplyPnpChanges := CallbackCreate(ObjBindMethod(implObj, "ApplyPnpChanges"), flags, 2)
+        this.vtbl.CancelChanges := CallbackCreate(ObjBindMethod(implObj, "CancelChanges"), flags, 1)
     }
 
     Dispose() {

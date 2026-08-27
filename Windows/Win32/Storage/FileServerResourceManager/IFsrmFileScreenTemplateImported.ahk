@@ -77,8 +77,8 @@ export default struct IFsrmFileScreenTemplateImported extends IFsrmFileScreenTem
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_OverwriteOnCommit := CallbackCreate(GetMethod(implObj, "get_OverwriteOnCommit"), flags, 2)
-        this.vtbl.put_OverwriteOnCommit := CallbackCreate(GetMethod(implObj, "put_OverwriteOnCommit"), flags, 2)
+        this.vtbl.get_OverwriteOnCommit := CallbackCreate(ObjBindMethod(implObj, "get_OverwriteOnCommit"), flags, 2)
+        this.vtbl.put_OverwriteOnCommit := CallbackCreate(ObjBindMethod(implObj, "put_OverwriteOnCommit"), flags, 2)
     }
 
     Dispose() {

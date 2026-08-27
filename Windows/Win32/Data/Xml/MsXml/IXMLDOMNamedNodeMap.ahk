@@ -62,7 +62,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMNode} 
      */
@@ -74,7 +73,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newItem 
      * @returns {IXMLDOMNode} 
      */
@@ -84,7 +82,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMNode} 
      */
@@ -96,7 +93,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IXMLDOMNode} 
      */
@@ -106,7 +102,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -115,7 +110,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} baseName 
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
@@ -129,7 +123,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} baseName 
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
@@ -143,7 +136,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     nextNode() {
@@ -152,7 +144,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -161,7 +152,6 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -178,16 +168,16 @@ export default struct IXMLDOMNamedNodeMap extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getNamedItem := CallbackCreate(GetMethod(implObj, "getNamedItem"), flags, 3)
-        this.vtbl.setNamedItem := CallbackCreate(GetMethod(implObj, "setNamedItem"), flags, 3)
-        this.vtbl.removeNamedItem := CallbackCreate(GetMethod(implObj, "removeNamedItem"), flags, 3)
-        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.getQualifiedItem := CallbackCreate(GetMethod(implObj, "getQualifiedItem"), flags, 4)
-        this.vtbl.removeQualifiedItem := CallbackCreate(GetMethod(implObj, "removeQualifiedItem"), flags, 4)
-        this.vtbl.nextNode := CallbackCreate(GetMethod(implObj, "nextNode"), flags, 2)
-        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.getNamedItem := CallbackCreate(ObjBindMethod(implObj, "getNamedItem"), flags, 3)
+        this.vtbl.setNamedItem := CallbackCreate(ObjBindMethod(implObj, "setNamedItem"), flags, 3)
+        this.vtbl.removeNamedItem := CallbackCreate(ObjBindMethod(implObj, "removeNamedItem"), flags, 3)
+        this.vtbl.get_item := CallbackCreate(ObjBindMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.getQualifiedItem := CallbackCreate(ObjBindMethod(implObj, "getQualifiedItem"), flags, 4)
+        this.vtbl.removeQualifiedItem := CallbackCreate(ObjBindMethod(implObj, "removeQualifiedItem"), flags, 4)
+        this.vtbl.nextNode := CallbackCreate(ObjBindMethod(implObj, "nextNode"), flags, 2)
+        this.vtbl.reset := CallbackCreate(ObjBindMethod(implObj, "reset"), flags, 1)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
     }
 
     Dispose() {

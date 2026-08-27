@@ -20,13 +20,13 @@ export default struct PGET_RUNTIME_FUNCTION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} ControlPc 
      * @param {Pointer<Void>} _Context 
      * @returns {Pointer<IMAGE_RUNTIME_FUNCTION_ENTRY>} 
      */
     Call(ControlPc, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, Int64, ControlPc, _ContextMarshal, _Context, IMAGE_RUNTIME_FUNCTION_ENTRY.Ptr)
         return result

@@ -123,7 +123,7 @@ export default struct IWMReaderTypeNegotiation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TryOutputProps := CallbackCreate(GetMethod(implObj, "TryOutputProps"), flags, 3)
+        this.vtbl.TryOutputProps := CallbackCreate(ObjBindMethod(implObj, "TryOutputProps"), flags, 3)
     }
 
     Dispose() {

@@ -178,9 +178,9 @@ export default struct IDXGIAdapter extends IDXGIObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumOutputs := CallbackCreate(GetMethod(implObj, "EnumOutputs"), flags, 3)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.CheckInterfaceSupport := CallbackCreate(GetMethod(implObj, "CheckInterfaceSupport"), flags, 3)
+        this.vtbl.EnumOutputs := CallbackCreate(ObjBindMethod(implObj, "EnumOutputs"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.CheckInterfaceSupport := CallbackCreate(ObjBindMethod(implObj, "CheckInterfaceSupport"), flags, 3)
     }
 
     Dispose() {

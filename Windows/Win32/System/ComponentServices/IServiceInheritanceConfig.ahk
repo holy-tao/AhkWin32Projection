@@ -58,7 +58,7 @@ export default struct IServiceInheritanceConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ContainingContextTreatment := CallbackCreate(GetMethod(implObj, "ContainingContextTreatment"), flags, 2)
+        this.vtbl.ContainingContextTreatment := CallbackCreate(ObjBindMethod(implObj, "ContainingContextTreatment"), flags, 2)
     }
 
     Dispose() {

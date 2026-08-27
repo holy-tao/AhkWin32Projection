@@ -19,7 +19,6 @@ export default struct PFAXROUTEDEVICECHANGENOTIFICATION {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {BOOL} param1 
      * @returns {BOOL} 

@@ -65,7 +65,7 @@ export default struct IUPnPDeviceFinderAddCallbackWithInterface extends IUnknown
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceAddedWithInterface := CallbackCreate(GetMethod(implObj, "DeviceAddedWithInterface"), flags, 4)
+        this.vtbl.DeviceAddedWithInterface := CallbackCreate(ObjBindMethod(implObj, "DeviceAddedWithInterface"), flags, 4)
     }
 
     Dispose() {

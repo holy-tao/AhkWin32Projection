@@ -74,7 +74,7 @@ export default struct ICredentialProviderCredential2 extends ICredentialProvider
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUserSid := CallbackCreate(GetMethod(implObj, "GetUserSid"), flags, 2)
+        this.vtbl.GetUserSid := CallbackCreate(ObjBindMethod(implObj, "GetUserSid"), flags, 2)
     }
 
     Dispose() {

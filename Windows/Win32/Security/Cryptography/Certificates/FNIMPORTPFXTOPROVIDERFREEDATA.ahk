@@ -19,13 +19,13 @@ export default struct FNIMPORTPFXTOPROVIDERFREEDATA {
     }
 
     /**
-     * 
      * @param {Integer} cCert 
      * @param {Pointer<Pointer<CERT_CONTEXT>>} rgpCert 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(cCert, rgpCert) {
-        rgpCertMarshal := rgpCert is VarRef ? "ptr*" : "ptr"
+        rgpCertMarshal := rgpCert is VarRef ? "ptr*" : IntPtr
+        rgpCertMarshal := rgpCert == 0 ? IntPtr : "ptr*"
 
         DllCall(this.value, UInt32, cCert, rgpCertMarshal, rgpCert)
     }

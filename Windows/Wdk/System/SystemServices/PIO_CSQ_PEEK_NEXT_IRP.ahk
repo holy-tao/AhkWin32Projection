@@ -19,7 +19,6 @@ export default struct PIO_CSQ_PEEK_NEXT_IRP {
     }
 
     /**
-     * 
      * @returns {Pointer<IRP>} 
      */
     Call() {

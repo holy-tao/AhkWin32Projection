@@ -36,7 +36,6 @@ export default struct IPrintWorkflowXpsReceiver2 extends IPrintWorkflowXpsReceiv
     }
 
     /**
-     * 
      * @param {HRESULT} XpsError 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IPrintWorkflowXpsReceiver2 extends IPrintWorkflowXpsReceiv
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Failed := CallbackCreate(GetMethod(implObj, "Failed"), flags, 2)
+        this.vtbl.Failed := CallbackCreate(ObjBindMethod(implObj, "Failed"), flags, 2)
     }
 
     Dispose() {

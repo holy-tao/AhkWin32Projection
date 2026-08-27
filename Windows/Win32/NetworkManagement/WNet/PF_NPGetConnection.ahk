@@ -19,7 +19,6 @@ export default struct PF_NPGetConnection {
     }
 
     /**
-     * 
      * @param {PWSTR} lpLocalName 
      * @param {PWSTR} lpRemoteName 
      * @param {Pointer<Integer>} lpnBufferLen 
@@ -29,9 +28,10 @@ export default struct PF_NPGetConnection {
         lpLocalName := lpLocalName is String ? StrPtr(lpLocalName) : lpLocalName
         lpRemoteName := lpRemoteName is String ? StrPtr(lpRemoteName) : lpRemoteName
 
-        lpnBufferLenMarshal := lpnBufferLen is VarRef ? "uint*" : "ptr"
+        lpRemoteNameMarshal := lpRemoteName == 0 ? IntPtr : PWSTR
+        lpnBufferLenMarshal := lpnBufferLen is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, "ptr", lpLocalName, "ptr", lpRemoteName, lpnBufferLenMarshal, lpnBufferLen, UInt32)
+        result := DllCall(this.value, "ptr", lpLocalName, lpRemoteNameMarshal, lpRemoteName, lpnBufferLenMarshal, lpnBufferLen, UInt32)
         return result
     }
 

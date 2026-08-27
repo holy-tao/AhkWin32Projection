@@ -10,7 +10,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {PWSTR} endPointName 
  * @param {Integer} pid 
  * @param {PWSTR} wszDllXamlDiagnostics 

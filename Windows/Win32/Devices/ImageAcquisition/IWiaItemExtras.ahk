@@ -108,9 +108,9 @@ export default struct IWiaItemExtras extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitemextras-escape
      */
     Escape(dwEscapeCode, lpInData, cbInDataSize, pOutData, dwOutDataSize, pdwActualDataSize) {
-        lpInDataMarshal := lpInData is VarRef ? "char*" : "ptr"
-        pOutDataMarshal := pOutData is VarRef ? "char*" : "ptr"
-        pdwActualDataSizeMarshal := pdwActualDataSize is VarRef ? "uint*" : "ptr"
+        lpInDataMarshal := lpInData is VarRef ? "char*" : IntPtr
+        pOutDataMarshal := pOutData is VarRef ? "char*" : IntPtr
+        pdwActualDataSizeMarshal := pdwActualDataSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwEscapeCode, lpInDataMarshal, lpInData, UInt32, cbInDataSize, pOutDataMarshal, pOutData, UInt32, dwOutDataSize, pdwActualDataSizeMarshal, pdwActualDataSize, "HRESULT")
         return result
@@ -139,9 +139,9 @@ export default struct IWiaItemExtras extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtendedErrorInfo := CallbackCreate(GetMethod(implObj, "GetExtendedErrorInfo"), flags, 2)
-        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 7)
-        this.vtbl.CancelPendingIO := CallbackCreate(GetMethod(implObj, "CancelPendingIO"), flags, 1)
+        this.vtbl.GetExtendedErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetExtendedErrorInfo"), flags, 2)
+        this.vtbl.Escape := CallbackCreate(ObjBindMethod(implObj, "Escape"), flags, 7)
+        this.vtbl.CancelPendingIO := CallbackCreate(ObjBindMethod(implObj, "CancelPendingIO"), flags, 1)
     }
 
     Dispose() {

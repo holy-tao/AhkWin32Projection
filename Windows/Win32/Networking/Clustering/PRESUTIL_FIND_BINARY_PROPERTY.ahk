@@ -19,7 +19,6 @@ export default struct PRESUTIL_FIND_BINARY_PROPERTY {
     }
 
     /**
-     * 
      * @param {Integer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
      * @param {PWSTR} pszPropertyName 
@@ -30,8 +29,10 @@ export default struct PRESUTIL_FIND_BINARY_PROPERTY {
     Call(pPropertyList, cbPropertyListSize, pszPropertyName, pbPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        pbPropertyValueMarshal := pbPropertyValue is VarRef ? "ptr*" : "ptr"
-        pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
+        pbPropertyValueMarshal := pbPropertyValue is VarRef ? "ptr*" : IntPtr
+        pbPropertyValueMarshal := pbPropertyValue == 0 ? IntPtr : "ptr*"
+        pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : IntPtr
+        pcbPropertyValueSizeMarshal := pcbPropertyValueSize == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pbPropertyValueMarshal, pbPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, UInt32)
         return result

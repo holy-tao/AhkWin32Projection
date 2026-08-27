@@ -139,12 +139,12 @@ export default struct IAzBizRuleParameters extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddParameter := CallbackCreate(GetMethod(implObj, "AddParameter"), flags, 3)
-        this.vtbl.AddParameters := CallbackCreate(GetMethod(implObj, "AddParameters"), flags, 3)
-        this.vtbl.GetParameterValue := CallbackCreate(GetMethod(implObj, "GetParameterValue"), flags, 3)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.AddParameter := CallbackCreate(ObjBindMethod(implObj, "AddParameter"), flags, 3)
+        this.vtbl.AddParameters := CallbackCreate(ObjBindMethod(implObj, "AddParameters"), flags, 3)
+        this.vtbl.GetParameterValue := CallbackCreate(ObjBindMethod(implObj, "GetParameterValue"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
     }
 
     Dispose() {
