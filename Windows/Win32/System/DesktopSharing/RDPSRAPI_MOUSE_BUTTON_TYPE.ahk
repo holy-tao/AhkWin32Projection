@@ -9,32 +9,38 @@
 class RDPSRAPI_MOUSE_BUTTON_TYPE extends Win32Enum {
 
     /**
+     * Native name: RDPSRAPI_MOUSE_BUTTON_BUTTON1
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_MOUSE_BUTTON_BUTTON1 => 0
+    static BUTTON1 => 0
 
     /**
+     * Native name: RDPSRAPI_MOUSE_BUTTON_BUTTON2
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_MOUSE_BUTTON_BUTTON2 => 1
+    static BUTTON2 => 1
 
     /**
+     * Native name: RDPSRAPI_MOUSE_BUTTON_BUTTON3
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_MOUSE_BUTTON_BUTTON3 => 2
+    static BUTTON3 => 2
 
     /**
+     * Native name: RDPSRAPI_MOUSE_BUTTON_XBUTTON1
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_MOUSE_BUTTON_XBUTTON1 => 3
+    static XBUTTON1 => 3
 
     /**
+     * Native name: RDPSRAPI_MOUSE_BUTTON_XBUTTON2
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_MOUSE_BUTTON_XBUTTON2 => 4
+    static XBUTTON2 => 4
 
     /**
+     * Native name: RDPSRAPI_MOUSE_BUTTON_XBUTTON3
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_MOUSE_BUTTON_XBUTTON3 => 5
+    static XBUTTON3 => 5
 }

@@ -7,32 +7,38 @@
 class CARET_FLAGS extends Win32Enum {
 
     /**
+     * Native name: CARET_NONE
      * @type {Integer (Int32)}
      */
-    static CARET_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: CARET_CUSTOM
      * @type {Integer (Int32)}
      */
-    static CARET_CUSTOM => 1
+    static CUSTOM => 1
 
     /**
+     * Native name: CARET_RTL
      * @type {Integer (Int32)}
      */
-    static CARET_RTL => 2
+    static RTL => 2
 
     /**
+     * Native name: CARET_ITALIC
      * @type {Integer (Int32)}
      */
-    static CARET_ITALIC => 32
+    static ITALIC => 32
 
     /**
+     * Native name: CARET_NULL
      * @type {Integer (Int32)}
      */
-    static CARET_NULL => 64
+    static NULL => 64
 
     /**
+     * Native name: CARET_ROTATE90
      * @type {Integer (Int32)}
      */
-    static CARET_ROTATE90 => 128
+    static ROTATE90 => 128
 }

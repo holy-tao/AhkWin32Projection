@@ -7,32 +7,38 @@
 class styleMsAnimationFillMode extends Win32Enum {
 
     /**
+     * Native name: styleMsAnimationFillModeNone
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationFillModeNone => 0
+    static None => 0
 
     /**
+     * Native name: styleMsAnimationFillModeForwards
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationFillModeForwards => 1
+    static Forwards => 1
 
     /**
+     * Native name: styleMsAnimationFillModeBackwards
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationFillModeBackwards => 2
+    static Backwards => 2
 
     /**
+     * Native name: styleMsAnimationFillModeBoth
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationFillModeBoth => 3
+    static Both => 3
 
     /**
+     * Native name: styleMsAnimationFillModeNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationFillModeNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleMsAnimationFillMode_Max
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationFillMode_Max => 2147483647
+    static Max => 2147483647
 }

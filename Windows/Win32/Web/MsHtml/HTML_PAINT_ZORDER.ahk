@@ -52,7 +52,8 @@ class HTML_PAINT_ZORDER extends Win32Enum {
     static HTMLPAINT_ZORDER_WINDOW_TOP => 8
 
     /**
+     * Native name: HTML_PAINT_ZORDER_Max
      * @type {Integer (Int32)}
      */
-    static HTML_PAINT_ZORDER_Max => 2147483647
+    static Max => 2147483647
 }

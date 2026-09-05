@@ -12,31 +12,36 @@ class D3D12_RESIDENCY_PRIORITY extends Win32Enum {
 
     /**
      * Indicates a minimum priority.
+     * Native name: D3D12_RESIDENCY_PRIORITY_MINIMUM
      * @type {Integer (Int32)}
      */
-    static D3D12_RESIDENCY_PRIORITY_MINIMUM => 671088640
+    static MINIMUM => 671088640
 
     /**
      * Indicates a low priority.
+     * Native name: D3D12_RESIDENCY_PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static D3D12_RESIDENCY_PRIORITY_LOW => 1342177280
+    static LOW => 1342177280
 
     /**
      * Indicates a normal, medium, priority.
+     * Native name: D3D12_RESIDENCY_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3D12_RESIDENCY_PRIORITY_NORMAL => 2013265920
+    static NORMAL => 2013265920
 
     /**
      * Indicates a high priority. Applications are discouraged from using priories greater than this. For more information see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device1-setresidencypriority">ID3D12Device1::SetResidencyPriority</a>.
+     * Native name: D3D12_RESIDENCY_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static D3D12_RESIDENCY_PRIORITY_HIGH => -1610547200
+    static HIGH => -1610547200
 
     /**
      * Indicates a maximum priority. Applications are discouraged from using priorities greater than this; <b>D3D12_RESIDENCY_PRIORITY_MAXIMUM</b> is not guaranteed to be available. For more information see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device1-setresidencypriority">ID3D12Device1::SetResidencyPriority</a>
+     * Native name: D3D12_RESIDENCY_PRIORITY_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static D3D12_RESIDENCY_PRIORITY_MAXIMUM => -939524096
+    static MAXIMUM => -939524096
 }

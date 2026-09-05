@@ -11,14 +11,16 @@ class UI_OWNERSHIP extends Win32Enum {
     /**
      * The handle to the bitmap (HBITMAP) is owned by the Ribbon framework 
      * 			through the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a> object.
+     * Native name: UI_OWNERSHIP_TRANSFER
      * @type {Integer (Int32)}
      */
-    static UI_OWNERSHIP_TRANSFER => 0
+    static TRANSFER => 0
 
     /**
      * A copy of the HBITMAP is created by the Ribbon framework through 
      * 			the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a> object. The host application still owns the HBITMAP.
+     * Native name: UI_OWNERSHIP_COPY
      * @type {Integer (Int32)}
      */
-    static UI_OWNERSHIP_COPY => 1
+    static COPY => 1
 }

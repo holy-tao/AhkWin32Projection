@@ -10,19 +10,22 @@ class NETSOURCE_URLCREDPOLICY_SETTINGS extends Win32Enum {
 
     /**
      * Specifies that your application can log on to servers for which passwords are cached without informing the user.
+     * Native name: NETSOURCE_URLCREDPOLICY_SETTING_SILENTLOGONOK
      * @type {Integer (Int32)}
      */
-    static NETSOURCE_URLCREDPOLICY_SETTING_SILENTLOGONOK => 0
+    static SETTING_SILENTLOGONOK => 0
 
     /**
      * Specifies that your application must notify the user when your application needs to log on to a server. You application can fill in the fields of a password dialog, but must get confirmation.
+     * Native name: NETSOURCE_URLCREDPOLICY_SETTING_MUSTPROMPTUSER
      * @type {Integer (Int32)}
      */
-    static NETSOURCE_URLCREDPOLICY_SETTING_MUSTPROMPTUSER => 1
+    static SETTING_MUSTPROMPTUSER => 1
 
     /**
      * Specifies that your application can never log on to network servers for the user. Your application can still navigate servers that do not require passwords.
+     * Native name: NETSOURCE_URLCREDPOLICY_SETTING_ANONYMOUSONLY
      * @type {Integer (Int32)}
      */
-    static NETSOURCE_URLCREDPOLICY_SETTING_ANONYMOUSONLY => 2
+    static SETTING_ANONYMOUSONLY => 2
 }

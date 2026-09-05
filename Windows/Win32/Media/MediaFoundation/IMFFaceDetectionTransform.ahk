@@ -30,7 +30,6 @@ class IMFFaceDetectionTransform extends IUnknown {
     static VTableNames => ["SetDetectionCallback", "ClearDetectionCallback"]
 
     /**
-     * 
      * @param {IMFFaceDetectionTransformCallback} callback 
      * @returns {Pointer<Void>} 
      */
@@ -40,7 +39,6 @@ class IMFFaceDetectionTransform extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackToken 
      * @returns {HRESULT} 
      */

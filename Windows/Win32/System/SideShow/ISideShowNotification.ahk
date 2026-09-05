@@ -78,7 +78,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NotificationId() {
@@ -87,7 +86,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} in_notificationId 
      * @returns {HRESULT} 
      */
@@ -97,7 +95,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Title() {
@@ -106,7 +103,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} in_pwszTitle 
      * @returns {HRESULT} 
      */
@@ -118,7 +114,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Message() {
@@ -127,7 +122,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} in_pwszMessage 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HICON} 
      */
     get_Image() {
@@ -149,7 +142,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {HICON} in_hIcon 
      * @returns {HRESULT} 
      */
@@ -161,7 +153,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     get_ExpirationTime() {
@@ -171,7 +162,6 @@ class ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SYSTEMTIME>} in_pTime 
      * @returns {HRESULT} 
      */

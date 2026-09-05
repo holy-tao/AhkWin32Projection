@@ -37,7 +37,6 @@ class IPMBackgroundServiceAgentInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMBackgroundServiceAgentInfo} 
      */
     get_Next() {

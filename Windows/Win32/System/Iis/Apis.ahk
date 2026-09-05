@@ -4667,7 +4667,6 @@ class Iis {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<HSE_VERSION_INFO>} pVer 
      * @returns {BOOL} 
      */
@@ -4677,7 +4676,6 @@ class Iis {
     }
 
     /**
-     * 
      * @param {Pointer<EXTENSION_CONTROL_BLOCK>} pECB 
      * @returns {Integer} 
      */
@@ -4687,7 +4685,6 @@ class Iis {
     }
 
     /**
-     * 
      * @param {Pointer<HTTP_FILTER_CONTEXT>} pfc 
      * @param {Integer} NotificationType 
      * @param {Pointer<Void>} pvNotification 
@@ -4701,7 +4698,6 @@ class Iis {
     }
 
     /**
-     * 
      * @param {Pointer<HTTP_FILTER_VERSION>} pVer 
      * @returns {BOOL} 
      */

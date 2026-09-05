@@ -11,17 +11,20 @@
 class WPD_FOCUS_METERING_MODES extends Win32Enum {
 
     /**
+     * Native name: WPD_FOCUS_METERING_MODE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_FOCUS_METERING_MODE_UNDEFINED => 0
+    static MODE_UNDEFINED => 0
 
     /**
+     * Native name: WPD_FOCUS_METERING_MODE_CENTER_SPOT
      * @type {Integer (Int32)}
      */
-    static WPD_FOCUS_METERING_MODE_CENTER_SPOT => 1
+    static MODE_CENTER_SPOT => 1
 
     /**
+     * Native name: WPD_FOCUS_METERING_MODE_MULTI_SPOT
      * @type {Integer (Int32)}
      */
-    static WPD_FOCUS_METERING_MODE_MULTI_SPOT => 2
+    static MODE_MULTI_SPOT => 2
 }

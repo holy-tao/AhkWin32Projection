@@ -10,31 +10,36 @@ class XHR_CERT_IGNORE_FLAG extends Win32Enum {
 
     /**
      * Ignore certificate revocation errors.
+     * Native name: XHR_CERT_IGNORE_REVOCATION_FAILED
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_IGNORE_REVOCATION_FAILED => 128
+    static REVOCATION_FAILED => 128
 
     /**
      * Ignore a certificate error for an unknown or invalid certificate authority.
+     * Native name: XHR_CERT_IGNORE_UNKNOWN_CA
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_IGNORE_UNKNOWN_CA => 256
+    static UNKNOWN_CA => 256
 
     /**
      * Ignore a certificate error caused by an invalid common name. This allows an invalid common name in a certificate where the server name specified by the app for the requested URL does not match the common name in the server certificate.
+     * Native name: XHR_CERT_IGNORE_CERT_CN_INVALID
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_IGNORE_CERT_CN_INVALID => 4096
+    static CERT_CN_INVALID => 4096
 
     /**
      * Ignore a certificate error caused by an invalid date in the certificate. This allows certificates that are expired or not yet effective.
+     * Native name: XHR_CERT_IGNORE_CERT_DATE_INVALID
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_IGNORE_CERT_DATE_INVALID => 8192
+    static CERT_DATE_INVALID => 8192
 
     /**
      * Ignore all server certificate errors.
+     * Native name: XHR_CERT_IGNORE_ALL_SERVER_ERRORS
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_IGNORE_ALL_SERVER_ERRORS => 12672
+    static ALL_SERVER_ERRORS => 12672
 }

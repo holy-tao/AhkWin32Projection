@@ -12,19 +12,22 @@ class MFSampleEncryptionProtectionScheme extends Win32Enum {
 
     /**
      * No encryption scheme.
+     * Native name: MF_SAMPLE_ENCRYPTION_PROTECTION_SCHEME_NONE
      * @type {Integer (Int32)}
      */
-    static MF_SAMPLE_ENCRYPTION_PROTECTION_SCHEME_NONE => 0
+    static NONE => 0
 
     /**
      * The encryption scheme is AES counter mode (CTR).
+     * Native name: MF_SAMPLE_ENCRYPTION_PROTECTION_SCHEME_AES_CTR
      * @type {Integer (Int32)}
      */
-    static MF_SAMPLE_ENCRYPTION_PROTECTION_SCHEME_AES_CTR => 1
+    static AES_CTR => 1
 
     /**
      * The encryption scheme is Cipher Block Chaining (CBC).
+     * Native name: MF_SAMPLE_ENCRYPTION_PROTECTION_SCHEME_AES_CBC
      * @type {Integer (Int32)}
      */
-    static MF_SAMPLE_ENCRYPTION_PROTECTION_SCHEME_AES_CBC => 2
+    static AES_CBC => 2
 }

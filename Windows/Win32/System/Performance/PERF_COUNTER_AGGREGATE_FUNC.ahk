@@ -7,27 +7,32 @@
 class PERF_COUNTER_AGGREGATE_FUNC extends Win32Enum {
 
     /**
+     * Native name: PERF_AGGREGATE_UNDEFINED
      * @type {Integer (UInt32)}
      */
-    static PERF_AGGREGATE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: PERF_AGGREGATE_TOTAL
      * @type {Integer (UInt32)}
      */
-    static PERF_AGGREGATE_TOTAL => 1
+    static TOTAL => 1
 
     /**
+     * Native name: PERF_AGGREGATE_AVG
      * @type {Integer (UInt32)}
      */
-    static PERF_AGGREGATE_AVG => 2
+    static AVG => 2
 
     /**
+     * Native name: PERF_AGGREGATE_MIN
      * @type {Integer (UInt32)}
      */
-    static PERF_AGGREGATE_MIN => 3
+    static MIN => 3
 
     /**
+     * Native name: PERF_AGGREGATE_MAX
      * @type {Integer (UInt32)}
      */
-    static PERF_AGGREGATE_MAX => 4
+    static MAX => 4
 }

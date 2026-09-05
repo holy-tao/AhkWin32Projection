@@ -7,42 +7,50 @@
 class VARFORMAT_FIRST_DAY extends Win32Enum {
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_SYSTEMDEFAULT
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_SYSTEMDEFAULT => 0
+    static SYSTEMDEFAULT => 0
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_MONDAY
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_MONDAY => 1
+    static MONDAY => 1
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_TUESDAY
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_TUESDAY => 2
+    static TUESDAY => 2
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_WEDNESDAY
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_WEDNESDAY => 3
+    static WEDNESDAY => 3
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_THURSDAY
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_THURSDAY => 4
+    static THURSDAY => 4
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_FRIDAY
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_FRIDAY => 5
+    static FRIDAY => 5
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_SATURDAY
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_SATURDAY => 6
+    static SATURDAY => 6
 
     /**
+     * Native name: VARFORMAT_FIRST_DAY_SUNDAY
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_FIRST_DAY_SUNDAY => 7
+    static SUNDAY => 7
 }

@@ -7,17 +7,20 @@
 class EmfType extends Win32Enum {
 
     /**
+     * Native name: EmfTypeEmfOnly
      * @type {Integer (Int32)}
      */
-    static EmfTypeEmfOnly => 3
+    static EmfOnly => 3
 
     /**
+     * Native name: EmfTypeEmfPlusOnly
      * @type {Integer (Int32)}
      */
-    static EmfTypeEmfPlusOnly => 4
+    static EmfPlusOnly => 4
 
     /**
+     * Native name: EmfTypeEmfPlusDual
      * @type {Integer (Int32)}
      */
-    static EmfTypeEmfPlusDual => 5
+    static EmfPlusDual => 5
 }

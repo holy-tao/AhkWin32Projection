@@ -10,13 +10,15 @@ class MI_ProviderArchitecture extends Win32Enum {
 
     /**
      * Use this value if the client calls a 32-bit provider on the remote machine.
+     * Native name: MI_PROVIDER_ARCHITECTURE_32BIT
      * @type {Integer (Int32)}
      */
-    static MI_PROVIDER_ARCHITECTURE_32BIT => 0
+    static 32BIT => 0
 
     /**
      * Use this value if the client calls a 64-bit provider on the remote machine.
+     * Native name: MI_PROVIDER_ARCHITECTURE_64BIT
      * @type {Integer (Int32)}
      */
-    static MI_PROVIDER_ARCHITECTURE_64BIT => 1
+    static 64BIT => 1
 }

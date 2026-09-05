@@ -10,13 +10,15 @@ class D2D1_GEOMETRY_SIMPLIFICATION_OPTION extends Win32Enum {
 
     /**
      * The output can contain cubic Bezier curves and line segments.
+     * Native name: D2D1_GEOMETRY_SIMPLIFICATION_OPTION_CUBICS_AND_LINES
      * @type {Integer (Int32)}
      */
-    static D2D1_GEOMETRY_SIMPLIFICATION_OPTION_CUBICS_AND_LINES => 0
+    static CUBICS_AND_LINES => 0
 
     /**
      * The output is flattened so that it contains only line segments.
+     * Native name: D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES
      * @type {Integer (Int32)}
      */
-    static D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES => 1
+    static LINES => 1
 }

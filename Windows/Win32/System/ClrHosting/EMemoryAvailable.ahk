@@ -7,17 +7,20 @@
 class EMemoryAvailable extends Win32Enum {
 
     /**
+     * Native name: eMemoryAvailableLow
      * @type {Integer (Int32)}
      */
-    static eMemoryAvailableLow => 1
+    static Low => 1
 
     /**
+     * Native name: eMemoryAvailableNeutral
      * @type {Integer (Int32)}
      */
-    static eMemoryAvailableNeutral => 2
+    static Neutral => 2
 
     /**
+     * Native name: eMemoryAvailableHigh
      * @type {Integer (Int32)}
      */
-    static eMemoryAvailableHigh => 3
+    static High => 3
 }

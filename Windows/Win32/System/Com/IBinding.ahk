@@ -31,7 +31,6 @@ class IBinding extends IUnknown {
     static VTableNames => ["Abort", "Suspend", "Resume", "SetPriority", "GetPriority", "GetBindResult"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -40,7 +39,6 @@ class IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Suspend() {
@@ -59,7 +57,6 @@ class IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nPriority 
      * @returns {HRESULT} 
      */
@@ -69,7 +66,6 @@ class IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {
@@ -78,7 +74,6 @@ class IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pclsidProtocol 
      * @param {Pointer<Integer>} pdwResult 
      * @param {Pointer<PWSTR>} pszResult 

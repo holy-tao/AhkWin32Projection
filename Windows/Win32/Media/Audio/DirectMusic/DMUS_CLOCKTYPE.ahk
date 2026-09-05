@@ -7,12 +7,14 @@
 class DMUS_CLOCKTYPE extends Win32Enum {
 
     /**
+     * Native name: DMUS_CLOCK_SYSTEM
      * @type {Integer (Int32)}
      */
-    static DMUS_CLOCK_SYSTEM => 0
+    static CLOCK_SYSTEM => 0
 
     /**
+     * Native name: DMUS_CLOCK_WAVE
      * @type {Integer (Int32)}
      */
-    static DMUS_CLOCK_WAVE => 1
+    static CLOCK_WAVE => 1
 }

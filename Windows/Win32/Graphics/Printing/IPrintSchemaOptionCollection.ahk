@@ -45,7 +45,6 @@ class IPrintSchemaOptionCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -54,7 +53,6 @@ class IPrintSchemaOptionCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ulIndex 
      * @returns {IPrintSchemaOption} 
      */
@@ -64,7 +62,6 @@ class IPrintSchemaOptionCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

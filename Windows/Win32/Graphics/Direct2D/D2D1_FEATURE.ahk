@@ -10,13 +10,15 @@ class D2D1_FEATURE extends Win32Enum {
 
     /**
      * A D2D1_FEATURE_DATA_DOUBLES structure should be filled.
+     * Native name: D2D1_FEATURE_DOUBLES
      * @type {Integer (Int32)}
      */
-    static D2D1_FEATURE_DOUBLES => 0
+    static DOUBLES => 0
 
     /**
      * A D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS structure should be filled.
+     * Native name: D2D1_FEATURE_D3D10_X_HARDWARE_OPTIONS
      * @type {Integer (Int32)}
      */
-    static D2D1_FEATURE_D3D10_X_HARDWARE_OPTIONS => 1
+    static D3D10_X_HARDWARE_OPTIONS => 1
 }

@@ -29,7 +29,6 @@ class ICLRTask2 extends ICLRTask {
     static VTableNames => ["BeginPreventAsyncAbort", "EndPreventAsyncAbort"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginPreventAsyncAbort() {
@@ -38,7 +37,6 @@ class ICLRTask2 extends ICLRTask {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndPreventAsyncAbort() {

@@ -30,7 +30,6 @@ class IActiveScriptSIPInfo extends IUnknown {
     static VTableNames => ["GetSIPOID"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetSIPOID() {

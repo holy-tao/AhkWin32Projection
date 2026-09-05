@@ -43,7 +43,6 @@ class IHTMLScreen3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_systemXDPI() {
@@ -52,7 +51,6 @@ class IHTMLScreen3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_systemYDPI() {

@@ -10,25 +10,29 @@ class MFCLOCK_STATE extends Win32Enum {
 
     /**
      * The clock is invalid. A clock might be invalid for several reasons. Some clocks return this state before the first start. This state can also occur if the underlying device is lost.
+     * Native name: MFCLOCK_STATE_INVALID
      * @type {Integer (Int32)}
      */
-    static MFCLOCK_STATE_INVALID => 0
+    static INVALID => 0
 
     /**
      * The clock is running. While the clock is running, the time advances at the clock's frequency and current rate.
+     * Native name: MFCLOCK_STATE_RUNNING
      * @type {Integer (Int32)}
      */
-    static MFCLOCK_STATE_RUNNING => 1
+    static RUNNING => 1
 
     /**
      * The clock is stopped. While stopped, the clock reports a time of 0.
+     * Native name: MFCLOCK_STATE_STOPPED
      * @type {Integer (Int32)}
      */
-    static MFCLOCK_STATE_STOPPED => 2
+    static STOPPED => 2
 
     /**
      * The clock is paused. While paused, the clock reports the time it was paused.
+     * Native name: MFCLOCK_STATE_PAUSED
      * @type {Integer (Int32)}
      */
-    static MFCLOCK_STATE_PAUSED => 3
+    static PAUSED => 3
 }

@@ -13,9 +13,10 @@ class WS_HEAP_PROPERTY_ID extends Win32Enum {
      *                     the total number of bytes that can be allocated from the heap.  The total
      *                     number of bytes is defined as sum of the sizes passed in all the calls to
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsalloc">WsAlloc</a> since the heap was created / reset.
+     * Native name: WS_HEAP_PROPERTY_MAX_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_HEAP_PROPERTY_MAX_SIZE => 0
+    static MAX_SIZE => 0
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetheapproperty">WsGetHeapProperty</a>.  
@@ -24,23 +25,26 @@ class WS_HEAP_PROPERTY_ID extends Win32Enum {
      *                     be treated an approximate value due to heap overhead.  If the
      *                     trim size is larger than the max size, then the size of the
      *                     heap will not be trimmed.
+     * Native name: WS_HEAP_PROPERTY_TRIM_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_HEAP_PROPERTY_TRIM_SIZE => 1
+    static TRIM_SIZE => 1
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetheapproperty">WsGetHeapProperty</a>.  Returns the current 
      *                     total number of bytes requested from the heap since the heap was 
      *                     created/reset.
+     * Native name: WS_HEAP_PROPERTY_REQUESTED_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_HEAP_PROPERTY_REQUESTED_SIZE => 2
+    static REQUESTED_SIZE => 2
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetheapproperty">WsGetHeapProperty</a>.  Returns the current
      *                     total number of bytes that the WS_HEAP has allocated from the
      *                     operating system for purposes of providing allocations.
+     * Native name: WS_HEAP_PROPERTY_ACTUAL_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_HEAP_PROPERTY_ACTUAL_SIZE => 3
+    static ACTUAL_SIZE => 3
 }

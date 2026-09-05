@@ -31,7 +31,6 @@ class ICertEncodeLongArray2 extends ICertEncodeLongArray {
     static VTableNames => ["DecodeBlob", "EncodeBlob"]
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class ICertEncodeLongArray2 extends ICertEncodeLongArray {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */

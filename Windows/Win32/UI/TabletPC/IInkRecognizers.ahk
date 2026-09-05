@@ -57,7 +57,6 @@ class IInkRecognizers extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

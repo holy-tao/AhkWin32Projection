@@ -10,19 +10,22 @@ class SEC_TRAFFIC_SECRET_TYPE extends Win32Enum {
 
     /**
      * No traffic secret is used.
+     * Native name: SecTrafficSecret_None
      * @type {Integer (Int32)}
      */
-    static SecTrafficSecret_None => 0
+    static None => 0
 
     /**
      * The traffic secret is handled by the client.
+     * Native name: SecTrafficSecret_Client
      * @type {Integer (Int32)}
      */
-    static SecTrafficSecret_Client => 1
+    static Client => 1
 
     /**
      * The traffic secret is handled by the server.
+     * Native name: SecTrafficSecret_Server
      * @type {Integer (Int32)}
      */
-    static SecTrafficSecret_Server => 2
+    static Server => 2
 }

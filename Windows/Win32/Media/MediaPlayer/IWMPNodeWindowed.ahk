@@ -29,7 +29,6 @@ class IWMPNodeWindowed extends IUnknown {
     static VTableNames => ["SetOwnerWindow", "GetOwnerWindow"]
 
     /**
-     * 
      * @param {Pointer} _hwnd 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IWMPNodeWindowed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} phwnd 
      * @returns {HRESULT} 
      */

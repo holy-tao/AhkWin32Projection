@@ -30,7 +30,6 @@ class IDirectMusic8 extends IDirectMusic {
     static VTableNames => ["SetExternalMasterClock"]
 
     /**
-     * 
      * @param {IReferenceClock} pClock 
      * @returns {HRESULT} 
      */

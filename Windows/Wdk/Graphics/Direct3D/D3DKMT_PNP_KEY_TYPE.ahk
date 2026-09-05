@@ -7,12 +7,14 @@
 class D3DKMT_PNP_KEY_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_PNP_KEY_HARDWARE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PNP_KEY_HARDWARE => 1
+    static HARDWARE => 1
 
     /**
+     * Native name: D3DKMT_PNP_KEY_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PNP_KEY_SOFTWARE => 2
+    static SOFTWARE => 2
 }

@@ -36,9 +36,10 @@ class VSS_BACKUP_TYPE extends Win32Enum {
      *       
      * 
      * This value indicates an application error.
+     * Native name: VSS_BT_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_BT_UNDEFINED => 0
+    static BT_UNDEFINED => 0
 
     /**
      * Full backup: all files, regardless of whether they have been marked as backed up or not, are saved. This is 
@@ -46,9 +47,10 @@ class VSS_BACKUP_TYPE extends Win32Enum {
      *       
      * 
      * Each file's backup history will be updated to reflect that it was backed up.
+     * Native name: VSS_BT_FULL
      * @type {Integer (Int32)}
      */
-    static VSS_BT_FULL => 1
+    static BT_FULL => 1
 
     /**
      * Incremental backup: files created or changed since the last full or incremental backup are saved. Files are 
@@ -61,9 +63,10 @@ class VSS_BACKUP_TYPE extends Win32Enum {
      * If a requester's backup type is <b>VSS_BT_INCREMENTAL</b> and a particular writer's 
      *        backup schema does not support that sort of backup, the requester will always perform a full 
      *        (<b>VSS_BT_FULL</b>) backup on that writer's data.
+     * Native name: VSS_BT_INCREMENTAL
      * @type {Integer (Int32)}
      */
-    static VSS_BT_INCREMENTAL => 2
+    static BT_INCREMENTAL => 2
 
     /**
      * Differential backup: files created or changed since the last full backup are saved. Files are not marked as 
@@ -76,9 +79,10 @@ class VSS_BACKUP_TYPE extends Win32Enum {
      * If a requester's backup type is <b>VSS_BT_DIFFERENTIAL</b> and a particular writer's 
      *        backup schema does not support that sort of backup, the requester will always perform a full 
      *        (<b>VSS_BT_FULL</b>) backup on that writer's data.
+     * Native name: VSS_BT_DIFFERENTIAL
      * @type {Integer (Int32)}
      */
-    static VSS_BT_DIFFERENTIAL => 3
+    static BT_DIFFERENTIAL => 3
 
     /**
      * The log file of a writer is to participate in backup or restore operations. 
@@ -90,9 +94,10 @@ class VSS_BACKUP_TYPE extends Win32Enum {
      * If a requester's backup type is <b>VSS_BT_LOG</b> and a particular writer's backup 
      *        schema does not support that sort of backup, the requester will always perform a full 
      *        (<b>VSS_BT_FULL</b>) backup on that writer's data.
+     * Native name: VSS_BT_LOG
      * @type {Integer (Int32)}
      */
-    static VSS_BT_LOG => 4
+    static BT_LOG => 4
 
     /**
      * Files on disk will be copied to a backup medium regardless of the state of each file's backup history, and 
@@ -105,13 +110,15 @@ class VSS_BACKUP_TYPE extends Win32Enum {
      * If a requester's backup type is <b>VSS_BT_COPY</b> and a particular writer's backup 
      *        schema does not support that sort of backup, the requester will always perform a full 
      *        (<b>VSS_BT_FULL</b>) backup on that writer's data.
+     * Native name: VSS_BT_COPY
      * @type {Integer (Int32)}
      */
-    static VSS_BT_COPY => 5
+    static BT_COPY => 5
 
     /**
      * Backup type that is not full, copy, log, incremental, or differential.
+     * Native name: VSS_BT_OTHER
      * @type {Integer (Int32)}
      */
-    static VSS_BT_OTHER => 6
+    static BT_OTHER => 6
 }

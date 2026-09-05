@@ -31,7 +31,6 @@ class ITypeFactory extends IUnknown {
     static VTableNames => ["CreateFromTypeInfo"]
 
     /**
-     * 
      * @param {ITypeInfo} pTypeInfo 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 

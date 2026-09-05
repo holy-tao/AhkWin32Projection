@@ -7,62 +7,74 @@
 class msidbDialogAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbDialogAttributesVisible
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesVisible => 1
+    static Visible => 1
 
     /**
+     * Native name: msidbDialogAttributesModal
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesModal => 2
+    static Modal => 2
 
     /**
+     * Native name: msidbDialogAttributesMinimize
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesMinimize => 4
+    static Minimize => 4
 
     /**
+     * Native name: msidbDialogAttributesSysModal
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesSysModal => 8
+    static SysModal => 8
 
     /**
+     * Native name: msidbDialogAttributesKeepModeless
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesKeepModeless => 16
+    static KeepModeless => 16
 
     /**
+     * Native name: msidbDialogAttributesTrackDiskSpace
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesTrackDiskSpace => 32
+    static TrackDiskSpace => 32
 
     /**
+     * Native name: msidbDialogAttributesUseCustomPalette
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesUseCustomPalette => 64
+    static UseCustomPalette => 64
 
     /**
+     * Native name: msidbDialogAttributesRTLRO
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesRTLRO => 128
+    static AttributesRTLRO => 128
 
     /**
+     * Native name: msidbDialogAttributesRightAligned
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesRightAligned => 256
+    static RightAligned => 256
 
     /**
+     * Native name: msidbDialogAttributesLeftScroll
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesLeftScroll => 512
+    static LeftScroll => 512
 
     /**
+     * Native name: msidbDialogAttributesBiDi
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesBiDi => 896
+    static BiDi => 896
 
     /**
+     * Native name: msidbDialogAttributesError
      * @type {Integer (Int32)}
      */
-    static msidbDialogAttributesError => 65536
+    static Error => 65536
 }

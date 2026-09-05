@@ -7,12 +7,14 @@
 class XPSRAS_RENDERING_MODE extends Win32Enum {
 
     /**
+     * Native name: XPSRAS_RENDERING_MODE_ANTIALIASED
      * @type {Integer (Int32)}
      */
-    static XPSRAS_RENDERING_MODE_ANTIALIASED => 0
+    static ANTIALIASED => 0
 
     /**
+     * Native name: XPSRAS_RENDERING_MODE_ALIASED
      * @type {Integer (Int32)}
      */
-    static XPSRAS_RENDERING_MODE_ALIASED => 1
+    static ALIASED => 1
 }

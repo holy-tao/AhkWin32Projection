@@ -7,47 +7,56 @@
 class DNS_SVCB_PARAM_TYPE extends Win32Enum {
 
     /**
+     * Native name: DnsSvcbParamMandatory
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamMandatory => 0
+    static Mandatory => 0
 
     /**
+     * Native name: DnsSvcbParamAlpn
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamAlpn => 1
+    static Alpn => 1
 
     /**
+     * Native name: DnsSvcbParamNoDefaultAlpn
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamNoDefaultAlpn => 2
+    static NoDefaultAlpn => 2
 
     /**
+     * Native name: DnsSvcbParamPort
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamPort => 3
+    static Port => 3
 
     /**
+     * Native name: DnsSvcbParamIpv4Hint
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamIpv4Hint => 4
+    static Ipv4Hint => 4
 
     /**
+     * Native name: DnsSvcbParamEch
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamEch => 5
+    static Ech => 5
 
     /**
+     * Native name: DnsSvcbParamIpv6Hint
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamIpv6Hint => 6
+    static Ipv6Hint => 6
 
     /**
+     * Native name: DnsSvcbParamDohPath
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamDohPath => 7
+    static DohPath => 7
 
     /**
+     * Native name: DnsSvcbParamDohPathOpenDns
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamDohPathOpenDns => 65432
+    static DohPathOpenDns => 65432
 }

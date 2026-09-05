@@ -7,12 +7,14 @@
 class SECPKG_CRED extends Win32Enum {
 
     /**
+     * Native name: SECPKG_CRED_INBOUND
      * @type {Integer (UInt32)}
      */
-    static SECPKG_CRED_INBOUND => 1
+    static INBOUND => 1
 
     /**
+     * Native name: SECPKG_CRED_OUTBOUND
      * @type {Integer (UInt32)}
      */
-    static SECPKG_CRED_OUTBOUND => 2
+    static OUTBOUND => 2
 }

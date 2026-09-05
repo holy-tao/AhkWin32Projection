@@ -7,17 +7,20 @@
 class PaletteFlags extends Win32Enum {
 
     /**
+     * Native name: PaletteFlagsHasAlpha
      * @type {Integer (Int32)}
      */
-    static PaletteFlagsHasAlpha => 1
+    static HasAlpha => 1
 
     /**
+     * Native name: PaletteFlagsGrayScale
      * @type {Integer (Int32)}
      */
-    static PaletteFlagsGrayScale => 2
+    static GrayScale => 2
 
     /**
+     * Native name: PaletteFlagsHalftone
      * @type {Integer (Int32)}
      */
-    static PaletteFlagsHalftone => 4
+    static Halftone => 4
 }

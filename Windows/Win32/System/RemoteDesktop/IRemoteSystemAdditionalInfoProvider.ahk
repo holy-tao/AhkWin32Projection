@@ -31,7 +31,6 @@ class IRemoteSystemAdditionalInfoProvider extends IUnknown {
     static VTableNames => ["GetAdditionalInfo"]
 
     /**
-     * 
      * @param {Pointer<HSTRING>} deduplicationId 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} mapView 

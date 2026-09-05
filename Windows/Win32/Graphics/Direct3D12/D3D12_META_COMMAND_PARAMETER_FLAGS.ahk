@@ -10,13 +10,15 @@ class D3D12_META_COMMAND_PARAMETER_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies that the parameter is an input resource.
+     * Native name: D3D12_META_COMMAND_PARAMETER_FLAG_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_FLAG_INPUT => 1
+    static FLAG_INPUT => 1
 
     /**
      * Specifies that the parameter is an output resource.
+     * Native name: D3D12_META_COMMAND_PARAMETER_FLAG_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_FLAG_OUTPUT => 2
+    static FLAG_OUTPUT => 2
 }

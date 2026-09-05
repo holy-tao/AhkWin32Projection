@@ -7,22 +7,26 @@
 class COR_PRF_GC_ROOT_FLAGS extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_GC_ROOT_PINNING
      * @type {Integer (Int32)}
      */
-    static COR_PRF_GC_ROOT_PINNING => 1
+    static PINNING => 1
 
     /**
+     * Native name: COR_PRF_GC_ROOT_WEAKREF
      * @type {Integer (Int32)}
      */
-    static COR_PRF_GC_ROOT_WEAKREF => 2
+    static WEAKREF => 2
 
     /**
+     * Native name: COR_PRF_GC_ROOT_INTERIOR
      * @type {Integer (Int32)}
      */
-    static COR_PRF_GC_ROOT_INTERIOR => 4
+    static INTERIOR => 4
 
     /**
+     * Native name: COR_PRF_GC_ROOT_REFCOUNTED
      * @type {Integer (Int32)}
      */
-    static COR_PRF_GC_ROOT_REFCOUNTED => 8
+    static REFCOUNTED => 8
 }

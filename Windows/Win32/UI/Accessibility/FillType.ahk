@@ -10,31 +10,36 @@ class FillType extends Win32Enum {
 
     /**
      * The element is not filled.
+     * Native name: FillType_None
      * @type {Integer (Int32)}
      */
-    static FillType_None => 0
+    static None => 0
 
     /**
      * The element is filled with a solid color.
+     * Native name: FillType_Color
      * @type {Integer (Int32)}
      */
-    static FillType_Color => 1
+    static Color => 1
 
     /**
      * The element is filled with a gradient.
+     * Native name: FillType_Gradient
      * @type {Integer (Int32)}
      */
-    static FillType_Gradient => 2
+    static Gradient => 2
 
     /**
      * The element is filled using a picture.
+     * Native name: FillType_Picture
      * @type {Integer (Int32)}
      */
-    static FillType_Picture => 3
+    static Picture => 3
 
     /**
      * The element is filled using a pattern.
+     * Native name: FillType_Pattern
      * @type {Integer (Int32)}
      */
-    static FillType_Pattern => 4
+    static Pattern => 4
 }

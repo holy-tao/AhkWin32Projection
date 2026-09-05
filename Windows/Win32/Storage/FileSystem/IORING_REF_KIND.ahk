@@ -10,13 +10,15 @@ class IORING_REF_KIND extends Win32Enum {
 
     /**
      * The referenced buffer is raw.
+     * Native name: IORING_REF_RAW
      * @type {Integer (Int32)}
      */
-    static IORING_REF_RAW => 0
+    static RAW => 0
 
     /**
      * The referenced buffer has been registered with an I/O ring with a call to [BuildIoRingRegisterFileHandles](nf-ioringapi-buildioringregisterfilehandles.md)
+     * Native name: IORING_REF_REGISTERED
      * @type {Integer (Int32)}
      */
-    static IORING_REF_REGISTERED => 1
+    static REGISTERED => 1
 }

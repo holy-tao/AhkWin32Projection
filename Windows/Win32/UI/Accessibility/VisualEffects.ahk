@@ -10,37 +10,43 @@ class VisualEffects extends Win32Enum {
 
     /**
      * No visual effects
+     * Native name: VisualEffects_None
      * @type {Integer (Int32)}
      */
-    static VisualEffects_None => 0
+    static None => 0
 
     /**
      * Shadow effect
+     * Native name: VisualEffects_Shadow
      * @type {Integer (Int32)}
      */
-    static VisualEffects_Shadow => 1
+    static Shadow => 1
 
     /**
      * Reflection effect
+     * Native name: VisualEffects_Reflection
      * @type {Integer (Int32)}
      */
-    static VisualEffects_Reflection => 2
+    static Reflection => 2
 
     /**
      * Glow effect
+     * Native name: VisualEffects_Glow
      * @type {Integer (Int32)}
      */
-    static VisualEffects_Glow => 4
+    static Glow => 4
 
     /**
      * Soft edges effect
+     * Native name: VisualEffects_SoftEdges
      * @type {Integer (Int32)}
      */
-    static VisualEffects_SoftEdges => 8
+    static SoftEdges => 8
 
     /**
      * Bevel effect
+     * Native name: VisualEffects_Bevel
      * @type {Integer (Int32)}
      */
-    static VisualEffects_Bevel => 16
+    static Bevel => 16
 }

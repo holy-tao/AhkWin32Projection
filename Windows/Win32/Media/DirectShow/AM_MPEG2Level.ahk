@@ -12,25 +12,29 @@ class AM_MPEG2Level extends Win32Enum {
 
     /**
      * Low level.
+     * Native name: AM_MPEG2Level_Low
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Level_Low => 1
+    static Low => 1
 
     /**
      * Main level.
+     * Native name: AM_MPEG2Level_Main
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Level_Main => 2
+    static Main => 2
 
     /**
      * High 1440 level.
+     * Native name: AM_MPEG2Level_High1440
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Level_High1440 => 3
+    static High1440 => 3
 
     /**
      * High level.
+     * Native name: AM_MPEG2Level_High
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Level_High => 4
+    static High => 4
 }

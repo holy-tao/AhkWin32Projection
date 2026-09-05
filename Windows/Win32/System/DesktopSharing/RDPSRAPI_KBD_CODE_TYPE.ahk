@@ -9,12 +9,14 @@
 class RDPSRAPI_KBD_CODE_TYPE extends Win32Enum {
 
     /**
+     * Native name: RDPSRAPI_KBD_CODE_SCANCODE
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_KBD_CODE_SCANCODE => 0
+    static SCANCODE => 0
 
     /**
+     * Native name: RDPSRAPI_KBD_CODE_UNICODE
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_KBD_CODE_UNICODE => 1
+    static UNICODE => 1
 }

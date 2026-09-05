@@ -10,31 +10,36 @@ class D2D1_GEOMETRY_RELATION extends Win32Enum {
 
     /**
      * The relationship between the two geometries cannot be determined. This value is never returned by any D2D method.
+     * Native name: D2D1_GEOMETRY_RELATION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D2D1_GEOMETRY_RELATION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The two geometries  do not intersect at all.
+     * Native name: D2D1_GEOMETRY_RELATION_DISJOINT
      * @type {Integer (Int32)}
      */
-    static D2D1_GEOMETRY_RELATION_DISJOINT => 1
+    static DISJOINT => 1
 
     /**
      * The instance geometry is entirely contained by  the passed-in geometry.
+     * Native name: D2D1_GEOMETRY_RELATION_IS_CONTAINED
      * @type {Integer (Int32)}
      */
-    static D2D1_GEOMETRY_RELATION_IS_CONTAINED => 2
+    static IS_CONTAINED => 2
 
     /**
      * The instance geometry entirely contains the passed-in geometry.
+     * Native name: D2D1_GEOMETRY_RELATION_CONTAINS
      * @type {Integer (Int32)}
      */
-    static D2D1_GEOMETRY_RELATION_CONTAINS => 3
+    static CONTAINS => 3
 
     /**
      * The two geometries overlap but neither completely contains the other.
+     * Native name: D2D1_GEOMETRY_RELATION_OVERLAP
      * @type {Integer (Int32)}
      */
-    static D2D1_GEOMETRY_RELATION_OVERLAP => 4
+    static OVERLAP => 4
 }

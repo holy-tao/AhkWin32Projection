@@ -10,31 +10,36 @@ class APPX_COMPRESSION_OPTION extends Win32Enum {
 
     /**
      * No compression.
+     * Native name: APPX_COMPRESSION_OPTION_NONE
      * @type {Integer (Int32)}
      */
-    static APPX_COMPRESSION_OPTION_NONE => 0
+    static NONE => 0
 
     /**
      * Normal  compression.
+     * Native name: APPX_COMPRESSION_OPTION_NORMAL
      * @type {Integer (Int32)}
      */
-    static APPX_COMPRESSION_OPTION_NORMAL => 1
+    static NORMAL => 1
 
     /**
      * Maximum compression.
+     * Native name: APPX_COMPRESSION_OPTION_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static APPX_COMPRESSION_OPTION_MAXIMUM => 2
+    static MAXIMUM => 2
 
     /**
      * Fast compression.
+     * Native name: APPX_COMPRESSION_OPTION_FAST
      * @type {Integer (Int32)}
      */
-    static APPX_COMPRESSION_OPTION_FAST => 3
+    static FAST => 3
 
     /**
      * Super-fast compression.
+     * Native name: APPX_COMPRESSION_OPTION_SUPERFAST
      * @type {Integer (Int32)}
      */
-    static APPX_COMPRESSION_OPTION_SUPERFAST => 4
+    static SUPERFAST => 4
 }

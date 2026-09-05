@@ -7,17 +7,20 @@
 class WHEA_PFA_REMOVE_TRIGGER extends Win32Enum {
 
     /**
+     * Native name: WheaPfaRemoveErrorThreshold
      * @type {Integer (Int32)}
      */
-    static WheaPfaRemoveErrorThreshold => 1
+    static ErrorThreshold => 1
 
     /**
+     * Native name: WheaPfaRemoveTimeout
      * @type {Integer (Int32)}
      */
-    static WheaPfaRemoveTimeout => 2
+    static Timeout => 2
 
     /**
+     * Native name: WheaPfaRemoveCapacity
      * @type {Integer (Int32)}
      */
-    static WheaPfaRemoveCapacity => 3
+    static Capacity => 3
 }

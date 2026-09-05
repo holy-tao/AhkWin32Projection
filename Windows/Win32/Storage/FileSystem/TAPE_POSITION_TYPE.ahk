@@ -7,12 +7,14 @@
 class TAPE_POSITION_TYPE extends Win32Enum {
 
     /**
+     * Native name: TAPE_ABSOLUTE_POSITION
      * @type {Integer (UInt32)}
      */
-    static TAPE_ABSOLUTE_POSITION => 0
+    static ABSOLUTE_POSITION => 0
 
     /**
+     * Native name: TAPE_LOGICAL_POSITION
      * @type {Integer (UInt32)}
      */
-    static TAPE_LOGICAL_POSITION => 1
+    static LOGICAL_POSITION => 1
 }

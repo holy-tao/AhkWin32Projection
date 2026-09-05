@@ -7,12 +7,14 @@
 class DEVICE_TEXT_TYPE extends Win32Enum {
 
     /**
+     * Native name: DeviceTextDescription
      * @type {Integer (Int32)}
      */
-    static DeviceTextDescription => 0
+    static Description => 0
 
     /**
+     * Native name: DeviceTextLocationInformation
      * @type {Integer (Int32)}
      */
-    static DeviceTextLocationInformation => 1
+    static LocationInformation => 1
 }

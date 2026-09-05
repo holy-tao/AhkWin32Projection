@@ -7,17 +7,20 @@
 class EXCLUSIVE_ACCESS_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: ExclusiveAccessQueryState
      * @type {Integer (Int32)}
      */
-    static ExclusiveAccessQueryState => 0
+    static QueryState => 0
 
     /**
+     * Native name: ExclusiveAccessLockDevice
      * @type {Integer (Int32)}
      */
-    static ExclusiveAccessLockDevice => 1
+    static LockDevice => 1
 
     /**
+     * Native name: ExclusiveAccessUnlockDevice
      * @type {Integer (Int32)}
      */
-    static ExclusiveAccessUnlockDevice => 2
+    static UnlockDevice => 2
 }

@@ -7,27 +7,32 @@
 class TF_CONTEXT_EDIT_CONTEXT_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: TF_ES_ASYNCDONTCARE
      * @type {Integer (UInt32)}
      */
-    static TF_ES_ASYNCDONTCARE => 0
+    static ES_ASYNCDONTCARE => 0
 
     /**
+     * Native name: TF_ES_SYNC
      * @type {Integer (UInt32)}
      */
-    static TF_ES_SYNC => 1
+    static ES_SYNC => 1
 
     /**
+     * Native name: TF_ES_READ
      * @type {Integer (UInt32)}
      */
-    static TF_ES_READ => 2
+    static ES_READ => 2
 
     /**
+     * Native name: TF_ES_READWRITE
      * @type {Integer (UInt32)}
      */
-    static TF_ES_READWRITE => 6
+    static ES_READWRITE => 6
 
     /**
+     * Native name: TF_ES_ASYNC
      * @type {Integer (UInt32)}
      */
-    static TF_ES_ASYNC => 8
+    static ES_ASYNC => 8
 }

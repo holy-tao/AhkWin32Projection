@@ -7,7 +7,8 @@
 class COINITBASE extends Win32Enum {
 
     /**
+     * Native name: COINITBASE_MULTITHREADED
      * @type {Integer (Int32)}
      */
-    static COINITBASE_MULTITHREADED => 0
+    static MULTITHREADED => 0
 }

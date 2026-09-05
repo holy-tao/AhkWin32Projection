@@ -12,19 +12,22 @@ class NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS extends Win32Enum {
 
     /**
      * No notification and no effect.
+     * Native name: NVME_CC_SHN_NO_NOTIFICATION
      * @type {Integer (Int32)}
      */
-    static NVME_CC_SHN_NO_NOTIFICATION => 0
+    static NO_NOTIFICATION => 0
 
     /**
      * Normal shutdown notification.
+     * Native name: NVME_CC_SHN_NORMAL_SHUTDOWN
      * @type {Integer (Int32)}
      */
-    static NVME_CC_SHN_NORMAL_SHUTDOWN => 1
+    static NORMAL_SHUTDOWN => 1
 
     /**
      * Abrupt shutdown notification.
+     * Native name: NVME_CC_SHN_ABRUPT_SHUTDOWN
      * @type {Integer (Int32)}
      */
-    static NVME_CC_SHN_ABRUPT_SHUTDOWN => 2
+    static ABRUPT_SHUTDOWN => 2
 }

@@ -10,19 +10,22 @@ class ASF_SELECTION_STATUS extends Win32Enum {
 
     /**
      * No samples from the stream are delivered.
+     * Native name: ASF_STATUS_NOTSELECTED
      * @type {Integer (Int32)}
      */
-    static ASF_STATUS_NOTSELECTED => 0
+    static NOTSELECTED => 0
 
     /**
      * Only samples from the stream that are clean points are delivered.
+     * Native name: ASF_STATUS_CLEANPOINTSONLY
      * @type {Integer (Int32)}
      */
-    static ASF_STATUS_CLEANPOINTSONLY => 1
+    static CLEANPOINTSONLY => 1
 
     /**
      * All samples from the stream are delivered.
+     * Native name: ASF_STATUS_ALLDATAUNITS
      * @type {Integer (Int32)}
      */
-    static ASF_STATUS_ALLDATAUNITS => 2
+    static ALLDATAUNITS => 2
 }

@@ -27,7 +27,8 @@ class SCRIPT_TIMER_TYPE extends Win32Enum {
     static STT_ANIMATION_FRAME => 3
 
     /**
+     * Native name: SCRIPT_TIMER_TYPE_Max
      * @type {Integer (Int32)}
      */
-    static SCRIPT_TIMER_TYPE_Max => 2147483647
+    static Max => 2147483647
 }

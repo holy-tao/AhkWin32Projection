@@ -14,15 +14,17 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * 
      * If the <b>WTSUserConfigfInheritInitialProgram</b> value is 1, the initial program can be 
      *        any program specified by the client.
+     * Native name: WTSUserConfigInitialProgram
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigInitialProgram => 0
+    static UserConfigInitialProgram => 0
 
     /**
      * A null-terminated string that contains the path of the working directory for the initial program.
+     * Native name: WTSUserConfigWorkingDirectory
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigWorkingDirectory => 1
+    static UserConfigWorkingDirectory => 1
 
     /**
      * A value that indicates whether the client can specify the initial program.
@@ -56,9 +58,10 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigfInheritInitialProgram
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigfInheritInitialProgram => 2
+    static UserConfigfInheritInitialProgram => 2
 
     /**
      * A value that indicates whether the user account is permitted to log on to an RD Session Host server.
@@ -89,9 +92,10 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigfAllowLogonTerminalServer
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigfAllowLogonTerminalServer => 3
+    static UserConfigfAllowLogonTerminalServer => 3
 
     /**
      * A <b>DWORD</b> value that specifies the maximum connection duration, in milliseconds. 
@@ -99,26 +103,29 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      *       The user's session is disconnected or terminated depending on the 
      *       <b>WTSUserConfigBrokenTimeoutSettings</b> value. Every time the user logs on, the timer is 
      *       reset. A value of zero indicates that the connection timer is disabled.
+     * Native name: WTSUserConfigTimeoutSettingsConnections
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigTimeoutSettingsConnections => 4
+    static UserConfigTimeoutSettingsConnections => 4
 
     /**
      * A <b>DWORD</b> value that specifies the maximum duration, in milliseconds, that an 
      *       RD Session Host server retains a disconnected session before the logon is terminated. A value of zero indicates that the 
      *       disconnection timer is disabled.
+     * Native name: WTSUserConfigTimeoutSettingsDisconnections
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigTimeoutSettingsDisconnections => 5
+    static UserConfigTimeoutSettingsDisconnections => 5
 
     /**
      * A <b>DWORD</b> value that specifies the maximum idle time, in milliseconds. If there 
      *       is no keyboard or mouse activity for the specified interval, the user's session is disconnected or terminated 
      *       depending on the <b>WTSUserConfigBrokenTimeoutSettings</b> value. A value of zero 
      *       indicates that the idle timer is disabled.
+     * Native name: WTSUserConfigTimeoutSettingsIdle
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigTimeoutSettingsIdle => 6
+    static UserConfigTimeoutSettingsIdle => 6
 
     /**
      * This constant currently is not used by Remote Desktop Services.
@@ -152,9 +159,10 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigfDeviceClientDrives
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigfDeviceClientDrives => 7
+    static UserConfigfDeviceClientDrives => 7
 
     /**
      * RDP 5.0 and later clients: A value that indicates whether the RD Session Host server 
@@ -186,9 +194,10 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigfDeviceClientPrinters
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigfDeviceClientPrinters => 8
+    static UserConfigfDeviceClientPrinters => 8
 
     /**
      * RDP 5.0 and later clients: A value that indicates whether the client printer 
@@ -220,9 +229,10 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigfDeviceClientDefaultPrinter
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigfDeviceClientDefaultPrinter => 9
+    static UserConfigfDeviceClientDefaultPrinter => 9
 
     /**
      * A value that indicates what happens when the connection or idle timers expire or when a connection is lost 
@@ -254,9 +264,10 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigBrokenTimeoutSettings
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigBrokenTimeoutSettings => 10
+    static UserConfigBrokenTimeoutSettings => 10
 
     /**
      * A value that indicates how a disconnected session for this user can be reconnected.
@@ -289,9 +300,10 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigReconnectSettings
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigReconnectSettings => 11
+    static UserConfigReconnectSettings => 11
 
     /**
      * This constant currently is not used by Remote Desktop Services.
@@ -338,18 +350,20 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigModemCallbackSettings
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigModemCallbackSettings => 12
+    static UserConfigModemCallbackSettings => 12
 
     /**
      * This constant currently is not used by Remote Desktop Services.
      * 
      * A null-terminated string that contains the phone number to use for callback 
      *       connections.
+     * Native name: WTSUserConfigModemCallbackPhoneNumber
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigModemCallbackPhoneNumber => 13
+    static UserConfigModemCallbackPhoneNumber => 13
 
     /**
      * RDP 5.0 and later clients: A value that indicates whether the user session 
@@ -411,34 +425,38 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigShadowingSettings
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigShadowingSettings => 14
+    static UserConfigShadowingSettings => 14
 
     /**
      * A null-terminated string that contains the path of the user's profile for RD Session Host server logon. The directory 
      *       the path identifies must be created manually, and must exist prior to the logon. 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtssetuserconfiga">WTSSetUserConfig</a> will not create the directory 
      *       if it does not already exist.
+     * Native name: WTSUserConfigTerminalServerProfilePath
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigTerminalServerProfilePath => 15
+    static UserConfigTerminalServerProfilePath => 15
 
     /**
      * A null-terminated string that contains the path of the user's root directory for RD Session Host server logon. This 
      *       string can specify a local path or a UNC path (<i>\\ComputerName\Share\Path</i>). For more information, see 
      *       <b>WTSUserConfigfTerminalServerRemoteHomeDir</b>.
+     * Native name: WTSUserConfigTerminalServerHomeDir
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigTerminalServerHomeDir => 16
+    static UserConfigTerminalServerHomeDir => 16
 
     /**
      * A null-terminated string that contains a drive name (a drive letter followed by a colon) to which the UNC 
      *       path specified in the <b>WTSUserConfigTerminalServerHomeDir</b> string is mapped. For more information, see
      *       <b>WTSUserConfigfTerminalServerRemoteHomeDir</b>.
+     * Native name: WTSUserConfigTerminalServerHomeDirDrive
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigTerminalServerHomeDirDrive => 17
+    static UserConfigTerminalServerHomeDirDrive => 17
 
     /**
      * A value that indicates whether the user's root directory for RD Session Host server logon is a local path or a 
@@ -475,15 +493,17 @@ class WTS_CONFIG_CLASS extends Win32Enum {
      * </td>
      * </tr>
      * </table>
+     * Native name: WTSUserConfigfTerminalServerRemoteHomeDir
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigfTerminalServerRemoteHomeDir => 18
+    static UserConfigfTerminalServerRemoteHomeDir => 18
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtsuserconfiga">WTSUSERCONFIG</a> structure that contains configuration data for the session. 
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
+     * Native name: WTSUserConfigUser
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigUser => 19
+    static UserConfigUser => 19
 }

@@ -7,27 +7,32 @@
 class svgEdgemode extends Win32Enum {
 
     /**
+     * Native name: SVG_EDGEMODE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_EDGEMODE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: SVG_EDGEMODE_DUPLICATE
      * @type {Integer (Int32)}
      */
-    static SVG_EDGEMODE_DUPLICATE => 1
+    static DUPLICATE => 1
 
     /**
+     * Native name: SVG_EDGEMODE_WRAP
      * @type {Integer (Int32)}
      */
-    static SVG_EDGEMODE_WRAP => 2
+    static WRAP => 2
 
     /**
+     * Native name: SVG_EDGEMODE_NONE
      * @type {Integer (Int32)}
      */
-    static SVG_EDGEMODE_NONE => 3
+    static NONE => 3
 
     /**
+     * Native name: svgEdgemode_Max
      * @type {Integer (Int32)}
      */
-    static svgEdgemode_Max => 2147483647
+    static Max => 2147483647
 }

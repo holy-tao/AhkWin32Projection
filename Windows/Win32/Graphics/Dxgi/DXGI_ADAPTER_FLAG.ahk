@@ -13,21 +13,24 @@ class DXGI_ADAPTER_FLAG extends Win32BitflagEnum {
 
     /**
      * Specifies no flags.
+     * Native name: DXGI_ADAPTER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static DXGI_ADAPTER_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * Value always set to 0. This flag is reserved.
+     * Native name: DXGI_ADAPTER_FLAG_REMOTE
      * @type {Integer (Int32)}
      */
-    static DXGI_ADAPTER_FLAG_REMOTE => 1
+    static REMOTE => 1
 
     /**
      * Specifies a software adapter. For more info about this flag, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi">new info in Windows 8 about enumerating adapters</a>.
      * 
      * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 8.
+     * Native name: DXGI_ADAPTER_FLAG_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static DXGI_ADAPTER_FLAG_SOFTWARE => 2
+    static SOFTWARE => 2
 }

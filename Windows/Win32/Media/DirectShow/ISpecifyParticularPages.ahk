@@ -31,7 +31,6 @@ class ISpecifyParticularPages extends IUnknown {
     static VTableNames => ["GetPages"]
 
     /**
-     * 
      * @param {Pointer<Guid>} guidWhatPages 
      * @returns {CAUUID} 
      */

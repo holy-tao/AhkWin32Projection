@@ -44,7 +44,6 @@ class IFeedsEnum extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -69,7 +68,6 @@ class IFeedsEnum extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEnumVARIANT} 
      */
     get__NewEnum() {

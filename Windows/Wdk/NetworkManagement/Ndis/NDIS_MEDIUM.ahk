@@ -7,107 +7,128 @@
 class NDIS_MEDIUM extends Win32Enum {
 
     /**
+     * Native name: NdisMedium802_3
      * @type {Integer (Int32)}
      */
-    static NdisMedium802_3 => 0
+    static Medium802_3 => 0
 
     /**
+     * Native name: NdisMedium802_5
      * @type {Integer (Int32)}
      */
-    static NdisMedium802_5 => 1
+    static Medium802_5 => 1
 
     /**
+     * Native name: NdisMediumFddi
      * @type {Integer (Int32)}
      */
-    static NdisMediumFddi => 2
+    static Fddi => 2
 
     /**
+     * Native name: NdisMediumWan
      * @type {Integer (Int32)}
      */
-    static NdisMediumWan => 3
+    static Wan => 3
 
     /**
+     * Native name: NdisMediumLocalTalk
      * @type {Integer (Int32)}
      */
-    static NdisMediumLocalTalk => 4
+    static LocalTalk => 4
 
     /**
+     * Native name: NdisMediumDix
      * @type {Integer (Int32)}
      */
-    static NdisMediumDix => 5
+    static Dix => 5
 
     /**
+     * Native name: NdisMediumArcnetRaw
      * @type {Integer (Int32)}
      */
-    static NdisMediumArcnetRaw => 6
+    static ArcnetRaw => 6
 
     /**
+     * Native name: NdisMediumArcnet878_2
      * @type {Integer (Int32)}
      */
-    static NdisMediumArcnet878_2 => 7
+    static Arcnet878_2 => 7
 
     /**
+     * Native name: NdisMediumAtm
      * @type {Integer (Int32)}
      */
-    static NdisMediumAtm => 8
+    static Atm => 8
 
     /**
+     * Native name: NdisMediumWirelessWan
      * @type {Integer (Int32)}
      */
-    static NdisMediumWirelessWan => 9
+    static WirelessWan => 9
 
     /**
+     * Native name: NdisMediumIrda
      * @type {Integer (Int32)}
      */
-    static NdisMediumIrda => 10
+    static Irda => 10
 
     /**
+     * Native name: NdisMediumBpc
      * @type {Integer (Int32)}
      */
-    static NdisMediumBpc => 11
+    static Bpc => 11
 
     /**
+     * Native name: NdisMediumCoWan
      * @type {Integer (Int32)}
      */
-    static NdisMediumCoWan => 12
+    static CoWan => 12
 
     /**
+     * Native name: NdisMedium1394
      * @type {Integer (Int32)}
      */
-    static NdisMedium1394 => 13
+    static Medium1394 => 13
 
     /**
+     * Native name: NdisMediumInfiniBand
      * @type {Integer (Int32)}
      */
-    static NdisMediumInfiniBand => 14
+    static InfiniBand => 14
 
     /**
+     * Native name: NdisMediumTunnel
      * @type {Integer (Int32)}
      */
-    static NdisMediumTunnel => 15
+    static Tunnel => 15
 
     /**
+     * Native name: NdisMediumNative802_11
      * @type {Integer (Int32)}
      */
-    static NdisMediumNative802_11 => 16
+    static Native802_11 => 16
 
     /**
+     * Native name: NdisMediumLoopback
      * @type {Integer (Int32)}
      */
-    static NdisMediumLoopback => 17
+    static Loopback => 17
 
     /**
+     * Native name: NdisMediumWiMAX
      * @type {Integer (Int32)}
      */
-    static NdisMediumWiMAX => 18
+    static WiMAX => 18
 
     /**
+     * Native name: NdisMediumIP
      * @type {Integer (Int32)}
      */
-    static NdisMediumIP => 19
+    static MediumIP => 19
 
     /**
+     * Native name: NdisMediumMax
      * @type {Integer (Int32)}
      */
-    static NdisMediumMax => 20
+    static Max => 20
 }

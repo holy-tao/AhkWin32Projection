@@ -31,7 +31,6 @@ class IDebugHostSymbolSubstitutionEnumerator extends IDebugHostSymbolEnumerator 
     static VTableNames => ["GetNextWithSubstitutionText"]
 
     /**
-     * 
      * @param {Pointer<IDebugHostSymbol>} symbol 
      * @param {Pointer<BSTR>} symbolText 
      * @returns {HRESULT} 

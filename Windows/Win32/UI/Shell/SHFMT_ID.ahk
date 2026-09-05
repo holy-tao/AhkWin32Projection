@@ -7,7 +7,8 @@
 class SHFMT_ID extends Win32Enum {
 
     /**
+     * Native name: SHFMT_ID_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static SHFMT_ID_DEFAULT => 65535
+    static DEFAULT => 65535
 }

@@ -10,19 +10,22 @@ class eAVEncAdaptiveMode extends Win32Enum {
 
     /**
      * Do not perform adaptive encoding.
+     * Native name: eAVEncAdaptiveMode_None
      * @type {Integer (Int32)}
      */
-    static eAVEncAdaptiveMode_None => 0
+    static None => 0
 
     /**
      * Adaptively change the frame resolution.
+     * Native name: eAVEncAdaptiveMode_Resolution
      * @type {Integer (Int32)}
      */
-    static eAVEncAdaptiveMode_Resolution => 1
+    static Resolution => 1
 
     /**
      * Adaptively change the frame rate.
+     * Native name: eAVEncAdaptiveMode_FrameRate
      * @type {Integer (Int32)}
      */
-    static eAVEncAdaptiveMode_FrameRate => 2
+    static FrameRate => 2
 }

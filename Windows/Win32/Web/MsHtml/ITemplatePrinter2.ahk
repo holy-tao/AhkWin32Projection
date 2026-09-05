@@ -64,7 +64,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selectionEnabled() {
@@ -83,7 +81,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -93,7 +90,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frameActiveEnabled() {
@@ -102,7 +98,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -114,7 +109,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_orientation() {
@@ -124,7 +118,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +127,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_usePrinterCopyCollate() {
@@ -143,7 +135,6 @@ class ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProperty 
      * @returns {VARIANT} 
      */

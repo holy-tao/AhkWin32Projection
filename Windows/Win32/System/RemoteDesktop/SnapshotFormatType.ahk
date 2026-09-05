@@ -9,17 +9,20 @@
 class SnapshotFormatType extends Win32Enum {
 
     /**
+     * Native name: SnapshotFormatPng
      * @type {Integer (Int32)}
      */
-    static SnapshotFormatPng => 0
+    static Png => 0
 
     /**
+     * Native name: SnapshotFormatJpeg
      * @type {Integer (Int32)}
      */
-    static SnapshotFormatJpeg => 1
+    static Jpeg => 1
 
     /**
+     * Native name: SnapshotFormatBmp
      * @type {Integer (Int32)}
      */
-    static SnapshotFormatBmp => 2
+    static Bmp => 2
 }

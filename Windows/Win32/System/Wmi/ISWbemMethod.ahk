@@ -73,7 +73,6 @@ class ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -83,7 +82,6 @@ class ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Origin() {
@@ -93,7 +91,6 @@ class ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     get_InParameters() {
@@ -102,7 +99,6 @@ class ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     get_OutParameters() {
@@ -111,7 +107,6 @@ class ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {

@@ -30,7 +30,6 @@ class ITransactionOptions extends IUnknown {
     static VTableNames => ["SetOptions", "GetOptions"]
 
     /**
-     * 
      * @param {Pointer<XACTOPT>} pOptions 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ITransactionOptions extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<XACTOPT>} pOptions 
      * @returns {HRESULT} 
      */

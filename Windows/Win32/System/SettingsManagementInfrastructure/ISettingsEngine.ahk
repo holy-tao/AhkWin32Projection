@@ -214,7 +214,6 @@ class ISettingsEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISettingsContext} SettingsContext 
      * @returns {HRESULT} 
      */
@@ -238,7 +237,6 @@ class ISettingsEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISettingsContext} 
      */
     GetSettingsContext() {

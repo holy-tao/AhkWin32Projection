@@ -10,31 +10,36 @@ class ORIENTATION_PREFERENCE extends Win32BitflagEnum {
 
     /**
      * The process has no device orientation preferences. The system may choose any available setting.
+     * Native name: ORIENTATION_PREFERENCE_NONE
      * @type {Integer (Int32)}
      */
-    static ORIENTATION_PREFERENCE_NONE => 0
+    static NONE => 0
 
     /**
      * The process represents a desktop app that can be used in landscape mode.
+     * Native name: ORIENTATION_PREFERENCE_LANDSCAPE
      * @type {Integer (Int32)}
      */
-    static ORIENTATION_PREFERENCE_LANDSCAPE => 1
+    static LANDSCAPE => 1
 
     /**
      * The process represents a desktop app that can be used in portrait mode.
+     * Native name: ORIENTATION_PREFERENCE_PORTRAIT
      * @type {Integer (Int32)}
      */
-    static ORIENTATION_PREFERENCE_PORTRAIT => 2
+    static PORTRAIT => 2
 
     /**
      * The process represents a desktop app that can be used in flipped landscape mode.
+     * Native name: ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED
      * @type {Integer (Int32)}
      */
-    static ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED => 4
+    static LANDSCAPE_FLIPPED => 4
 
     /**
      * The process represents a desktop app that can be used in flipped portrait mode.
+     * Native name: ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED
      * @type {Integer (Int32)}
      */
-    static ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED => 8
+    static PORTRAIT_FLIPPED => 8
 }

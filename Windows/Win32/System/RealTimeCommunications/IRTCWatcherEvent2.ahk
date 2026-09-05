@@ -44,7 +44,6 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent {
     }
 
     /**
-     * 
      * @returns {RTC_WATCHER_EVENT_TYPE} 
      */
     get_EventType() {
@@ -53,7 +52,6 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {

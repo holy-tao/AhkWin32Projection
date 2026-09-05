@@ -31,7 +31,6 @@ class IMXAttributes extends IDispatch {
     static VTableNames => ["addAttribute", "addAttributeFromIndex", "clear", "removeAttribute", "setAttribute", "setAttributes", "setLocalName", "setQName", "setType", "setURI", "setValue"]
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @param {BSTR} strQName 
@@ -51,7 +50,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varAtts 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
@@ -62,7 +60,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -71,7 +68,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
      */
@@ -81,7 +77,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
@@ -102,7 +97,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varAtts 
      * @returns {HRESULT} 
      */
@@ -112,7 +106,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strLocalName 
      * @returns {HRESULT} 
@@ -125,7 +118,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strQName 
      * @returns {HRESULT} 
@@ -138,7 +130,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strType 
      * @returns {HRESULT} 
@@ -151,7 +142,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strURI 
      * @returns {HRESULT} 
@@ -164,7 +154,6 @@ class IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strValue 
      * @returns {HRESULT} 

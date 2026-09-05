@@ -7,14 +7,16 @@
 class PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE extends Win32Enum {
 
     /**
+     * Native name: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_1
      * @type {Integer (UInt32)}
      */
-    static PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_1 => 1
+    static 1 => 1
 
     /**
+     * Native name: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_2
      * @type {Integer (UInt32)}
      */
-    static PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_2 => 2
+    static 2 => 2
 
     /**
      * @type {Integer (UInt32)}

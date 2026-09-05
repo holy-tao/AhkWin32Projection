@@ -253,7 +253,6 @@ class IITDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwszObject 
      * @param {Integer} dwObjInstance 
      * @param {Pointer<Pointer<Void>>} ppvPersistence 

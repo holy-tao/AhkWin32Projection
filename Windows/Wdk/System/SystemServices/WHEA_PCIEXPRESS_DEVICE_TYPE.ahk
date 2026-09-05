@@ -7,47 +7,56 @@
 class WHEA_PCIEXPRESS_DEVICE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaPciExpressEndpoint
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressEndpoint => 0
+    static PciExpressEndpoint => 0
 
     /**
+     * Native name: WheaPciExpressLegacyEndpoint
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressLegacyEndpoint => 1
+    static PciExpressLegacyEndpoint => 1
 
     /**
+     * Native name: WheaPciExpressRootPort
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressRootPort => 4
+    static PciExpressRootPort => 4
 
     /**
+     * Native name: WheaPciExpressUpstreamSwitchPort
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressUpstreamSwitchPort => 5
+    static PciExpressUpstreamSwitchPort => 5
 
     /**
+     * Native name: WheaPciExpressDownstreamSwitchPort
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressDownstreamSwitchPort => 6
+    static PciExpressDownstreamSwitchPort => 6
 
     /**
+     * Native name: WheaPciExpressToPciXBridge
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressToPciXBridge => 7
+    static PciExpressToPciXBridge => 7
 
     /**
+     * Native name: WheaPciXToExpressBridge
      * @type {Integer (Int32)}
      */
-    static WheaPciXToExpressBridge => 8
+    static PciXToExpressBridge => 8
 
     /**
+     * Native name: WheaPciExpressRootComplexIntegratedEndpoint
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressRootComplexIntegratedEndpoint => 9
+    static PciExpressRootComplexIntegratedEndpoint => 9
 
     /**
+     * Native name: WheaPciExpressRootComplexEventCollector
      * @type {Integer (Int32)}
      */
-    static WheaPciExpressRootComplexEventCollector => 10
+    static PciExpressRootComplexEventCollector => 10
 }

@@ -29,7 +29,6 @@ class IRpcChannelBuffer2 extends IRpcChannelBuffer {
     static VTableNames => ["GetProtocolVersion"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProtocolVersion() {

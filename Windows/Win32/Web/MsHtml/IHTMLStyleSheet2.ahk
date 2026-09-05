@@ -38,7 +38,6 @@ class IHTMLStyleSheet2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetPagesCollection} 
      */
     get_pages() {
@@ -47,7 +46,6 @@ class IHTMLStyleSheet2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSelector 
      * @param {BSTR} bstrStyle 
      * @param {Integer} lIndex 

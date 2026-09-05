@@ -10,19 +10,22 @@ class EVT_CHANNEL_ISOLATION_TYPE extends Win32Enum {
 
     /**
      * Provides open access to the channel.
+     * Native name: EvtChannelIsolationTypeApplication
      * @type {Integer (Int32)}
      */
-    static EvtChannelIsolationTypeApplication => 0
+    static Application => 0
 
     /**
      * Provides restricted access to the channel and is used by applications running under system service accounts, drivers, or an application that logs events that relate to the health of the computer.
+     * Native name: EvtChannelIsolationTypeSystem
      * @type {Integer (Int32)}
      */
-    static EvtChannelIsolationTypeSystem => 1
+    static System => 1
 
     /**
      * Provides custom access to the channel.
+     * Native name: EvtChannelIsolationTypeCustom
      * @type {Integer (Int32)}
      */
-    static EvtChannelIsolationTypeCustom => 2
+    static Custom => 2
 }

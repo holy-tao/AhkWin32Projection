@@ -12,25 +12,29 @@ class MICUIELEMENTSTATE extends Win32Enum {
 
     /**
      * The button does not have the mouse hovering over it.
+     * Native name: MICUIELEMENTSTATE_NORMAL
      * @type {Integer (Int32)}
      */
-    static MICUIELEMENTSTATE_NORMAL => 1
+    static NORMAL => 1
 
     /**
      * The button has the mouse hovering over it.
+     * Native name: MICUIELEMENTSTATE_HOT
      * @type {Integer (Int32)}
      */
-    static MICUIELEMENTSTATE_HOT => 2
+    static HOT => 2
 
     /**
      * The button is pressed.
+     * Native name: MICUIELEMENTSTATE_PRESSED
      * @type {Integer (Int32)}
      */
-    static MICUIELEMENTSTATE_PRESSED => 3
+    static PRESSED => 3
 
     /**
      * The button is disabled.
+     * Native name: MICUIELEMENTSTATE_DISABLED
      * @type {Integer (Int32)}
      */
-    static MICUIELEMENTSTATE_DISABLED => 4
+    static DISABLED => 4
 }

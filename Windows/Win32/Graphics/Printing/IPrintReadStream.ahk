@@ -30,7 +30,6 @@ class IPrintReadStream extends IUnknown {
     static VTableNames => ["Seek", "ReadBytes"]
 
     /**
-     * 
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
      * @returns {Integer} 
@@ -41,7 +40,6 @@ class IPrintReadStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pvBuffer 
      * @param {Integer} cbRequested 
      * @param {Pointer<Integer>} pcbRead 

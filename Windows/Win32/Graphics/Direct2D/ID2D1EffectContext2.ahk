@@ -32,7 +32,6 @@ class ID2D1EffectContext2 extends ID2D1EffectContext1 {
     static VTableNames => ["CreateColorContextFromDxgiColorSpace", "CreateColorContextFromSimpleColorProfile"]
 
     /**
-     * 
      * @param {DXGI_COLOR_SPACE_TYPE} colorSpace 
      * @returns {ID2D1ColorContext1} 
      */
@@ -42,7 +41,6 @@ class ID2D1EffectContext2 extends ID2D1EffectContext1 {
     }
 
     /**
-     * 
      * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile 
      * @returns {ID2D1ColorContext1} 
      */

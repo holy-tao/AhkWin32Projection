@@ -7,22 +7,26 @@
 class DISPLAY_BREAK extends Win32Enum {
 
     /**
+     * Native name: DISPLAY_BREAK_None
      * @type {Integer (Int32)}
      */
-    static DISPLAY_BREAK_None => 0
+    static None => 0
 
     /**
+     * Native name: DISPLAY_BREAK_Block
      * @type {Integer (Int32)}
      */
-    static DISPLAY_BREAK_Block => 1
+    static Block => 1
 
     /**
+     * Native name: DISPLAY_BREAK_Break
      * @type {Integer (Int32)}
      */
-    static DISPLAY_BREAK_Break => 2
+    static Break => 2
 
     /**
+     * Native name: DISPLAY_BREAK_Max
      * @type {Integer (Int32)}
      */
-    static DISPLAY_BREAK_Max => 2147483647
+    static Max => 2147483647
 }

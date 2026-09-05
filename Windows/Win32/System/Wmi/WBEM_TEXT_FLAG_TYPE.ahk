@@ -10,7 +10,8 @@ class WBEM_TEXT_FLAG_TYPE extends Win32Enum {
 
     /**
      * Present qualifiers without propagation or flavor information.
+     * Native name: WBEM_FLAG_NO_FLAVORS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_NO_FLAVORS => 1
+    static NO_FLAVORS => 1
 }

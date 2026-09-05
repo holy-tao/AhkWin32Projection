@@ -7,12 +7,14 @@
 class BCRYPT_DH_KEY_BLOB_MAGIC extends Win32Enum {
 
     /**
+     * Native name: BCRYPT_DH_PUBLIC_MAGIC
      * @type {Integer (UInt32)}
      */
-    static BCRYPT_DH_PUBLIC_MAGIC => 1112557636
+    static PUBLIC_MAGIC => 1112557636
 
     /**
+     * Native name: BCRYPT_DH_PRIVATE_MAGIC
      * @type {Integer (UInt32)}
      */
-    static BCRYPT_DH_PRIVATE_MAGIC => 1448101956
+    static PRIVATE_MAGIC => 1448101956
 }

@@ -7,7 +7,8 @@
 class DBCOLUMNFLAGS15ENUM extends Win32Enum {
 
     /**
+     * Native name: DBCOLUMNFLAGS_ISCHAPTER
      * @type {Integer (Int32)}
      */
-    static DBCOLUMNFLAGS_ISCHAPTER => 8192
+    static ISCHAPTER => 8192
 }

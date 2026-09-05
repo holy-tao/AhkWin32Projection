@@ -10,25 +10,29 @@ class WLDP_WINDOWS_LOCKDOWN_MODE extends Win32Enum {
 
     /**
      * Unlocked. Used primarily for Windows devices without the S mode.
+     * Native name: WLDP_WINDOWS_LOCKDOWN_MODE_UNLOCKED
      * @type {Integer (Int32)}
      */
-    static WLDP_WINDOWS_LOCKDOWN_MODE_UNLOCKED => 0
+    static UNLOCKED => 0
 
     /**
      * Trial. Used primarily for a Windows 10 trial device with the S mode. Trial mode is a special case for Windows 10 devices with the S mode: policies are enforced, but there is no anti-rollback protection for the enforcement of the policy.
+     * Native name: WLDP_WINDOWS_LOCKDOWN_MODE_TRIAL
      * @type {Integer (Int32)}
      */
-    static WLDP_WINDOWS_LOCKDOWN_MODE_TRIAL => 1
+    static TRIAL => 1
 
     /**
      * Locked. Used primarily for a Windows 10 device with the S mode. A device that is locked will enforce the signed Device Guard policies shipped with the Windows 10 OS image with the S mode.
+     * Native name: WLDP_WINDOWS_LOCKDOWN_MODE_LOCKED
      * @type {Integer (Int32)}
      */
-    static WLDP_WINDOWS_LOCKDOWN_MODE_LOCKED => 2
+    static LOCKED => 2
 
     /**
      * The maximum enumeration value.
+     * Native name: WLDP_WINDOWS_LOCKDOWN_MODE_MAX
      * @type {Integer (Int32)}
      */
-    static WLDP_WINDOWS_LOCKDOWN_MODE_MAX => 3
+    static MAX => 3
 }

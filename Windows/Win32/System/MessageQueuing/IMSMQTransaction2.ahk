@@ -38,7 +38,6 @@ class IMSMQTransaction2 extends IMSMQTransaction {
     }
 
     /**
-     * 
      * @param {VARIANT} varTransaction 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IMSMQTransaction2 extends IMSMQTransaction {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {

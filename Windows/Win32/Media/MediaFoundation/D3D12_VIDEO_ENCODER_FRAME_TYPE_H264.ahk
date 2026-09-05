@@ -10,25 +10,29 @@ class D3D12_VIDEO_ENCODER_FRAME_TYPE_H264 extends Win32Enum {
 
     /**
      * I-Frame. Completely intra-coded frame.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_I_FRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_I_FRAME => 0
+    static I_FRAME => 0
 
     /**
      * P-Frame. Allows references to past frames.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_P_FRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_P_FRAME => 1
+    static P_FRAME => 1
 
     /**
      * B-Frame. Allows references to both past and future (in display order) frames.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_B_FRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_B_FRAME => 2
+    static B_FRAME => 2
 
     /**
      * Instantaneous decode refresh frame. Special type of I-frame where no frame after it can reference any frame before it.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_IDR_FRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_IDR_FRAME => 3
+    static IDR_FRAME => 3
 }

@@ -30,7 +30,6 @@ class IDirectSoundFXParamEq extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters"]
 
     /**
-     * 
      * @param {Pointer<DSFXParamEq>} pcDsFxParamEq 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXParamEq extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXParamEq} 
      */
     GetAllParameters() {

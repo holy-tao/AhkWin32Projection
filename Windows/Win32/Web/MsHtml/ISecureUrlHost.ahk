@@ -31,7 +31,6 @@ class ISecureUrlHost extends IUnknown {
     static VTableNames => ["ValidateSecureUrl"]
 
     /**
-     * 
      * @param {PWSTR} pchUrlInQuestion 
      * @param {Integer} dwFlags 
      * @returns {BOOL} 

@@ -31,7 +31,6 @@ class IAuthenticate extends IUnknown {
     static VTableNames => ["Authenticate"]
 
     /**
-     * 
      * @param {Pointer<HWND>} phwnd 
      * @param {Pointer<PWSTR>} pszUsername 
      * @param {Pointer<PWSTR>} pszPassword 

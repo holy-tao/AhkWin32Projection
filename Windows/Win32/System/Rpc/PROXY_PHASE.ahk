@@ -7,27 +7,32 @@
 class PROXY_PHASE extends Win32Enum {
 
     /**
+     * Native name: PROXY_CALCSIZE
      * @type {Integer (Int32)}
      */
-    static PROXY_CALCSIZE => 0
+    static CALCSIZE => 0
 
     /**
+     * Native name: PROXY_GETBUFFER
      * @type {Integer (Int32)}
      */
-    static PROXY_GETBUFFER => 1
+    static GETBUFFER => 1
 
     /**
+     * Native name: PROXY_MARSHAL
      * @type {Integer (Int32)}
      */
-    static PROXY_MARSHAL => 2
+    static MARSHAL => 2
 
     /**
+     * Native name: PROXY_SENDRECEIVE
      * @type {Integer (Int32)}
      */
-    static PROXY_SENDRECEIVE => 3
+    static SENDRECEIVE => 3
 
     /**
+     * Native name: PROXY_UNMARSHAL
      * @type {Integer (Int32)}
      */
-    static PROXY_UNMARSHAL => 4
+    static UNMARSHAL => 4
 }

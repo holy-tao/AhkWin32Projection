@@ -80,7 +80,6 @@ class ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::ExtractProps** method to extract (that is, decode) properties from the encapsulation of a message or an attachment that was passed to the [OpenTnefStream](opentnefstream.md) function. The calling provider or gateway can specify a list of properties to decode. Providers and gateways can also use **ExtractProps** to provide information about any special handling for attachments.
      *   
@@ -154,7 +153,6 @@ class ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::OpenTaggedBody** method to open a stream interface on the text of an encapsulated message (that is, on a TNEF object). 
      *   
@@ -186,7 +184,6 @@ class ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::SetProps** method to set properties to include in the encapsulation of a message or an attachment without modifying the original message or attachment. Any properties set with this call override existing properties in the encapsulated message. 
      *   
@@ -213,7 +210,6 @@ class ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::EncodeRecips** method to perform TNEF encoding for a particular recipient table view. TNEF encoding is useful, for example, if a provider or gateway requires a particular column set, sort order, or restriction for the recipient table. 
      *   
@@ -235,7 +231,6 @@ class ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::FinishComponent** method to perform TNEF processing for one component, either a message or an attachment, as indicated by the flag set in the _ulFlags_ parameter.
      *   

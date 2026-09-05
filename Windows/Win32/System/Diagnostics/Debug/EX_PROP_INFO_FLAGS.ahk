@@ -7,27 +7,32 @@
 class EX_PROP_INFO_FLAGS extends Win32Enum {
 
     /**
+     * Native name: EX_PROP_INFO_ID
      * @type {Integer (Int32)}
      */
-    static EX_PROP_INFO_ID => 256
+    static ID => 256
 
     /**
+     * Native name: EX_PROP_INFO_NTYPE
      * @type {Integer (Int32)}
      */
-    static EX_PROP_INFO_NTYPE => 512
+    static NTYPE => 512
 
     /**
+     * Native name: EX_PROP_INFO_NVALUE
      * @type {Integer (Int32)}
      */
-    static EX_PROP_INFO_NVALUE => 1024
+    static NVALUE => 1024
 
     /**
+     * Native name: EX_PROP_INFO_LOCKBYTES
      * @type {Integer (Int32)}
      */
-    static EX_PROP_INFO_LOCKBYTES => 2048
+    static LOCKBYTES => 2048
 
     /**
+     * Native name: EX_PROP_INFO_DEBUGEXTPROP
      * @type {Integer (Int32)}
      */
-    static EX_PROP_INFO_DEBUGEXTPROP => 4096
+    static DEBUGEXTPROP => 4096
 }

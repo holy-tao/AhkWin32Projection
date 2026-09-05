@@ -7,27 +7,32 @@
 class msirbRebootReason extends Win32Enum {
 
     /**
+     * Native name: msirbRebootUndeterminedReason
      * @type {Integer (Int32)}
      */
-    static msirbRebootUndeterminedReason => 0
+    static UndeterminedReason => 0
 
     /**
+     * Native name: msirbRebootInUseFilesReason
      * @type {Integer (Int32)}
      */
-    static msirbRebootInUseFilesReason => 1
+    static InUseFilesReason => 1
 
     /**
+     * Native name: msirbRebootScheduleRebootReason
      * @type {Integer (Int32)}
      */
-    static msirbRebootScheduleRebootReason => 2
+    static ScheduleRebootReason => 2
 
     /**
+     * Native name: msirbRebootForceRebootReason
      * @type {Integer (Int32)}
      */
-    static msirbRebootForceRebootReason => 3
+    static ForceRebootReason => 3
 
     /**
+     * Native name: msirbRebootCustomActionReason
      * @type {Integer (Int32)}
      */
-    static msirbRebootCustomActionReason => 4
+    static CustomActionReason => 4
 }

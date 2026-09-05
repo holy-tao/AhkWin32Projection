@@ -12,49 +12,57 @@ class D3D10_SHADER_DEBUG_SCOPETYPE extends Win32Enum {
 
     /**
      * Global scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_GLOBAL
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_GLOBAL => 0
+    static SCOPE_GLOBAL => 0
 
     /**
      * Block scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_BLOCK
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_BLOCK => 1
+    static SCOPE_BLOCK => 1
 
     /**
      * For loop scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_FORLOOP
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_FORLOOP => 2
+    static SCOPE_FORLOOP => 2
 
     /**
      * Structure scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_STRUCT
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_STRUCT => 3
+    static SCOPE_STRUCT => 3
 
     /**
      * Function parameter scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_FUNC_PARAMS
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_FUNC_PARAMS => 4
+    static SCOPE_FUNC_PARAMS => 4
 
     /**
      * State block scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_STATEBLOCK
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_STATEBLOCK => 5
+    static SCOPE_STATEBLOCK => 5
 
     /**
      * Name space scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_NAMESPACE
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_NAMESPACE => 6
+    static SCOPE_NAMESPACE => 6
 
     /**
      * Annotation scope.
+     * Native name: D3D10_SHADER_DEBUG_SCOPE_ANNOTATION
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_SCOPE_ANNOTATION => 7
+    static SCOPE_ANNOTATION => 7
 }

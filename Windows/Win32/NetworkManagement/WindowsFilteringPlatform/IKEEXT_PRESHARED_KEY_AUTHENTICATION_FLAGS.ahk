@@ -7,12 +7,14 @@
 class IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: IKEEXT_PSK_FLAG_LOCAL_AUTH_ONLY
      * @type {Integer (UInt32)}
      */
-    static IKEEXT_PSK_FLAG_LOCAL_AUTH_ONLY => 1
+    static PSK_FLAG_LOCAL_AUTH_ONLY => 1
 
     /**
+     * Native name: IKEEXT_PSK_FLAG_REMOTE_AUTH_ONLY
      * @type {Integer (UInt32)}
      */
-    static IKEEXT_PSK_FLAG_REMOTE_AUTH_ONLY => 2
+    static PSK_FLAG_REMOTE_AUTH_ONLY => 2
 }

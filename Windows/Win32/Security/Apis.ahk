@@ -5206,7 +5206,6 @@ class Security {
     }
 
     /**
-     * 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Integer} SecurityDescriptorLength 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor 

@@ -7,47 +7,56 @@
 class WHEA_ERROR_PACKET_DATA_FORMAT extends Win32Enum {
 
     /**
+     * Native name: WheaDataFormatIPFSalRecord
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatIPFSalRecord => 0
+    static FormatIPFSalRecord => 0
 
     /**
+     * Native name: WheaDataFormatXPFMCA
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatXPFMCA => 1
+    static FormatXPFMCA => 1
 
     /**
+     * Native name: WheaDataFormatMemory
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatMemory => 2
+    static Memory => 2
 
     /**
+     * Native name: WheaDataFormatPCIExpress
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatPCIExpress => 3
+    static FormatPCIExpress => 3
 
     /**
+     * Native name: WheaDataFormatNMIPort
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatNMIPort => 4
+    static FormatNMIPort => 4
 
     /**
+     * Native name: WheaDataFormatPCIXBus
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatPCIXBus => 5
+    static FormatPCIXBus => 5
 
     /**
+     * Native name: WheaDataFormatPCIXDevice
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatPCIXDevice => 6
+    static FormatPCIXDevice => 6
 
     /**
+     * Native name: WheaDataFormatGeneric
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatGeneric => 7
+    static Generic => 7
 
     /**
+     * Native name: WheaDataFormatMax
      * @type {Integer (Int32)}
      */
-    static WheaDataFormatMax => 8
+    static Max => 8
 }

@@ -31,7 +31,6 @@ class IApplicationDebuggerUI extends IUnknown {
     static VTableNames => ["BringDocumentToTop", "BringDocumentContextToTop"]
 
     /**
-     * 
      * @param {IDebugDocumentText} pddt 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IApplicationDebuggerUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentContext} pddc 
      * @returns {HRESULT} 
      */

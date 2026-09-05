@@ -7,47 +7,56 @@
 class GameInputSwitchPosition extends Win32Enum {
 
     /**
+     * Native name: GameInputSwitchCenter
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchCenter => 0
+    static Center => 0
 
     /**
+     * Native name: GameInputSwitchUp
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchUp => 1
+    static Up => 1
 
     /**
+     * Native name: GameInputSwitchUpRight
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchUpRight => 2
+    static UpRight => 2
 
     /**
+     * Native name: GameInputSwitchRight
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchRight => 3
+    static Right => 3
 
     /**
+     * Native name: GameInputSwitchDownRight
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchDownRight => 4
+    static DownRight => 4
 
     /**
+     * Native name: GameInputSwitchDown
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchDown => 5
+    static Down => 5
 
     /**
+     * Native name: GameInputSwitchDownLeft
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchDownLeft => 6
+    static DownLeft => 6
 
     /**
+     * Native name: GameInputSwitchLeft
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchLeft => 7
+    static Left => 7
 
     /**
+     * Native name: GameInputSwitchUpLeft
      * @type {Integer (Int32)}
      */
-    static GameInputSwitchUpLeft => 8
+    static UpLeft => 8
 }

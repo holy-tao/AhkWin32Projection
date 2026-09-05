@@ -7,37 +7,44 @@
 class KSPROPERTY_WAVE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_WAVE_COMPATIBLE_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_WAVE_COMPATIBLE_CAPABILITIES => 0
+    static COMPATIBLE_CAPABILITIES => 0
 
     /**
+     * Native name: KSPROPERTY_WAVE_INPUT_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_WAVE_INPUT_CAPABILITIES => 1
+    static INPUT_CAPABILITIES => 1
 
     /**
+     * Native name: KSPROPERTY_WAVE_OUTPUT_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_WAVE_OUTPUT_CAPABILITIES => 2
+    static OUTPUT_CAPABILITIES => 2
 
     /**
+     * Native name: KSPROPERTY_WAVE_BUFFER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_WAVE_BUFFER => 3
+    static BUFFER => 3
 
     /**
+     * Native name: KSPROPERTY_WAVE_FREQUENCY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_WAVE_FREQUENCY => 4
+    static FREQUENCY => 4
 
     /**
+     * Native name: KSPROPERTY_WAVE_VOLUME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_WAVE_VOLUME => 5
+    static VOLUME => 5
 
     /**
+     * Native name: KSPROPERTY_WAVE_PAN
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_WAVE_PAN => 6
+    static PAN => 6
 }

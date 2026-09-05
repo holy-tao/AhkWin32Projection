@@ -7,27 +7,32 @@
 class WAIT_TYPE extends Win32Enum {
 
     /**
+     * Native name: WaitAll
      * @type {Integer (Int32)}
      */
-    static WaitAll => 0
+    static All => 0
 
     /**
+     * Native name: WaitAny
      * @type {Integer (Int32)}
      */
-    static WaitAny => 1
+    static Any => 1
 
     /**
+     * Native name: WaitNotification
      * @type {Integer (Int32)}
      */
-    static WaitNotification => 2
+    static Notification => 2
 
     /**
+     * Native name: WaitDequeue
      * @type {Integer (Int32)}
      */
-    static WaitDequeue => 3
+    static Dequeue => 3
 
     /**
+     * Native name: WaitDpc
      * @type {Integer (Int32)}
      */
-    static WaitDpc => 4
+    static Dpc => 4
 }

@@ -60,7 +60,6 @@ class ID2D1Device1 extends ID2D1Device {
     }
 
     /**
-     * 
      * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options 
      * @returns {ID2D1DeviceContext1} 
      */

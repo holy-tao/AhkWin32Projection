@@ -10,43 +10,50 @@ class STREAMBUFFER_ATTR_DATATYPE extends Win32Enum {
 
     /**
      * The attribute is a 32-bit <b>DWORD</b> value.
+     * Native name: STREAMBUFFER_TYPE_DWORD
      * @type {Integer (Int32)}
      */
-    static STREAMBUFFER_TYPE_DWORD => 0
+    static TYPE_DWORD => 0
 
     /**
      * The attribute is a null-terminated wide-character string.
+     * Native name: STREAMBUFFER_TYPE_STRING
      * @type {Integer (Int32)}
      */
-    static STREAMBUFFER_TYPE_STRING => 1
+    static TYPE_STRING => 1
 
     /**
      * The attribute is an array of bytes.
+     * Native name: STREAMBUFFER_TYPE_BINARY
      * @type {Integer (Int32)}
      */
-    static STREAMBUFFER_TYPE_BINARY => 2
+    static TYPE_BINARY => 2
 
     /**
      * The attribute is a 32-bit Boolean value.
+     * Native name: STREAMBUFFER_TYPE_BOOL
      * @type {Integer (Int32)}
      */
-    static STREAMBUFFER_TYPE_BOOL => 3
+    static TYPE_BOOL => 3
 
     /**
      * The attribute is a 64-bit <b>QWORD</b> value.
+     * Native name: STREAMBUFFER_TYPE_QWORD
      * @type {Integer (Int32)}
      */
-    static STREAMBUFFER_TYPE_QWORD => 4
+    static TYPE_QWORD => 4
 
     /**
      * The attribute is a 16-bit <b>WORD</b> value.
+     * Native name: STREAMBUFFER_TYPE_WORD
      * @type {Integer (Int32)}
      */
-    static STREAMBUFFER_TYPE_WORD => 5
+    static TYPE_WORD => 5
 
     /**
      * The attribute is a 128-bit <b>GUID</b> value.
+     * Native name: STREAMBUFFER_TYPE_GUID
      * @type {Integer (Int32)}
      */
-    static STREAMBUFFER_TYPE_GUID => 6
+    static TYPE_GUID => 6
 }

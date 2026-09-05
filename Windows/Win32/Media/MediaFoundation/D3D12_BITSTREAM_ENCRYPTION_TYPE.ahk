@@ -10,7 +10,8 @@ class D3D12_BITSTREAM_ENCRYPTION_TYPE extends Win32Enum {
 
     /**
      * The bistream is not encrypted.
+     * Native name: D3D12_BITSTREAM_ENCRYPTION_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_BITSTREAM_ENCRYPTION_TYPE_NONE => 0
+    static NONE => 0
 }

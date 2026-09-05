@@ -213,7 +213,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @param {THREADINFOCLASS} ThreadInformationClass 
      * @param {Pointer<Void>} ThreadInformation 
@@ -233,7 +232,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @param {THREADINFOCLASS} ThreadInformationClass 
      * @param {Integer} ThreadInformation 
@@ -328,7 +326,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {NTSTATUS} ExitStatus 
      * @returns {NTSTATUS} 
@@ -342,7 +339,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TimerHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -356,7 +352,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TimerHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -369,7 +364,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerHandle 
      * @param {Pointer<BOOLEAN>} CurrentState 
      * @returns {NTSTATUS} 
@@ -385,7 +379,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerHandle 
      * @param {Pointer<Integer>} DueTime 
      * @param {Pointer<PTIMER_APC_ROUTINE>} TimerApcRoutine 
@@ -408,7 +401,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerHandle 
      * @param {TIMER_SET_INFORMATION_CLASS} TimerSetInformationClass 
      * @param {Integer} TimerSetInformation 
@@ -424,7 +416,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EventHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -437,7 +428,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {BOOLEAN} Alertable 
      * @param {Pointer<Integer>} Timeout 
@@ -454,7 +444,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EventHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -467,7 +456,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} ProcessHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -481,7 +469,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @param {THREADINFOCLASS} ThreadInformationClass 
      * @param {Integer} ThreadInformation 
@@ -497,7 +484,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TimerHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -511,7 +497,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TimerHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -524,7 +509,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerHandle 
      * @param {Pointer<BOOLEAN>} CurrentState 
      * @returns {NTSTATUS} 
@@ -540,7 +524,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerHandle 
      * @param {Pointer<Integer>} DueTime 
      * @param {Pointer<PTIMER_APC_ROUTINE>} TimerApcRoutine 
@@ -563,7 +546,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerHandle 
      * @param {TIMER_SET_INFORMATION_CLASS} TimerSetInformationClass 
      * @param {Integer} TimerSetInformation 
@@ -579,7 +561,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {NTSTATUS} ExitStatus 
      * @returns {NTSTATUS} 
@@ -593,7 +574,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} ProcessHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 

@@ -10,18 +10,21 @@ class OPM_VIDEO_OUTPUT_SEMANTICS extends Win32Enum {
 
     /**
      * The interface will use COPP semantics.
+     * Native name: OPM_VOS_COPP_SEMANTICS
      * @type {Integer (Int32)}
      */
-    static OPM_VOS_COPP_SEMANTICS => 0
+    static VOS_COPP_SEMANTICS => 0
 
     /**
      * The interface will use OPM semantics.
+     * Native name: OPM_VOS_OPM_SEMANTICS
      * @type {Integer (Int32)}
      */
-    static OPM_VOS_OPM_SEMANTICS => 1
+    static VOS_OPM_SEMANTICS => 1
 
     /**
+     * Native name: OPM_VOS_OPM_INDIRECT_DISPLAY
      * @type {Integer (Int32)}
      */
-    static OPM_VOS_OPM_INDIRECT_DISPLAY => 2
+    static VOS_OPM_INDIRECT_DISPLAY => 2
 }

@@ -30,7 +30,6 @@ class ISIInbandEPGEvent extends IUnknown {
     static VTableNames => ["SIObjectEvent"]
 
     /**
-     * 
      * @param {IDVB_EIT2} pIDVB_EIT 
      * @param {Integer} dwTable_ID 
      * @param {Integer} dwService_ID 

@@ -7,12 +7,14 @@
 class SYSTEM_AUDIT_OBJECT_ACE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: ACE_OBJECT_TYPE_PRESENT
      * @type {Integer (UInt32)}
      */
-    static ACE_OBJECT_TYPE_PRESENT => 1
+    static OBJECT_TYPE_PRESENT => 1
 
     /**
+     * Native name: ACE_INHERITED_OBJECT_TYPE_PRESENT
      * @type {Integer (UInt32)}
      */
-    static ACE_INHERITED_OBJECT_TYPE_PRESENT => 2
+    static INHERITED_OBJECT_TYPE_PRESENT => 2
 }

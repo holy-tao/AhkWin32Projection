@@ -10,13 +10,15 @@ class D2D1_RENDERING_PRIORITY extends Win32Enum {
 
     /**
      * No change in rendering workload priority.
+     * Native name: D2D1_RENDERING_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static D2D1_RENDERING_PRIORITY_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The device and its associated device contexts are given a lower priority than others.
+     * Native name: D2D1_RENDERING_PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static D2D1_RENDERING_PRIORITY_LOW => 1
+    static LOW => 1
 }

@@ -10,13 +10,15 @@ class D2D1_DEVICE_CONTEXT_OPTIONS extends Win32BitflagEnum {
 
     /**
      * The device context is created with default options.
+     * Native name: D2D1_DEVICE_CONTEXT_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_DEVICE_CONTEXT_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * Distribute rendering work across multiple threads. Refer to <a href="https://docs.microsoft.com/windows/desktop/Direct2D/improving-direct2d-performance">Improving the performance of Direct2D apps</a> for additional notes on the use of this flag.
+     * Native name: D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS
      * @type {Integer (Int32)}
      */
-    static D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS => 1
+    static ENABLE_MULTITHREADED_OPTIMIZATIONS => 1
 }

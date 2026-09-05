@@ -7,27 +7,32 @@
 class VARFORMAT_NAMED_FORMAT extends Win32Enum {
 
     /**
+     * Native name: VARFORMAT_NAMED_FORMAT_GENERALDATE
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_NAMED_FORMAT_GENERALDATE => 0
+    static GENERALDATE => 0
 
     /**
+     * Native name: VARFORMAT_NAMED_FORMAT_LONGDATE
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_NAMED_FORMAT_LONGDATE => 1
+    static LONGDATE => 1
 
     /**
+     * Native name: VARFORMAT_NAMED_FORMAT_SHORTDATE
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_NAMED_FORMAT_SHORTDATE => 2
+    static SHORTDATE => 2
 
     /**
+     * Native name: VARFORMAT_NAMED_FORMAT_LONGTIME
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_NAMED_FORMAT_LONGTIME => 3
+    static LONGTIME => 3
 
     /**
+     * Native name: VARFORMAT_NAMED_FORMAT_SHORTTIME
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_NAMED_FORMAT_SHORTTIME => 4
+    static SHORTTIME => 4
 }

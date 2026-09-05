@@ -34,7 +34,6 @@ class IDebugFormatter extends IUnknown {
     static VTableNames => ["GetStringForVariant", "GetVariantForString", "GetStringForVarType"]
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvar 
      * @param {Integer} nRadix 
      * @returns {BSTR} 
@@ -46,7 +45,6 @@ class IDebugFormatter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwstrValue 
      * @returns {VARIANT} 
      */
@@ -59,7 +57,6 @@ class IDebugFormatter extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARENUM} vt 
      * @param {Pointer<TYPEDESC>} ptdescArrayType 
      * @returns {BSTR} 

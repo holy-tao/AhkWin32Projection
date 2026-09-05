@@ -7,162 +7,194 @@
 class IMAGE_FILE_MACHINE extends Win32Enum {
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_AXP64
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_AXP64 => 644
+    static AXP64 => 644
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_I386
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_I386 => 332
+    static I386 => 332
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_IA64
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_IA64 => 512
+    static IA64 => 512
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_AMD64
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_AMD64 => 34404
+    static AMD64 => 34404
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_UNKNOWN
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_TARGET_HOST
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_TARGET_HOST => 1
+    static TARGET_HOST => 1
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_R3000
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_R3000 => 354
+    static R3000 => 354
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_R4000
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_R4000 => 358
+    static R4000 => 358
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_R10000
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_R10000 => 360
+    static R10000 => 360
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_WCEMIPSV2
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_WCEMIPSV2 => 361
+    static WCEMIPSV2 => 361
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_ALPHA
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_ALPHA => 388
+    static ALPHA => 388
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_SH3
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_SH3 => 418
+    static SH3 => 418
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_SH3DSP
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_SH3DSP => 419
+    static SH3DSP => 419
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_SH3E
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_SH3E => 420
+    static SH3E => 420
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_SH4
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_SH4 => 422
+    static SH4 => 422
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_SH5
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_SH5 => 424
+    static SH5 => 424
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_ARM
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_ARM => 448
+    static ARM => 448
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_THUMB
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_THUMB => 450
+    static THUMB => 450
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_ARMNT
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_ARMNT => 452
+    static ARMNT => 452
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_AM33
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_AM33 => 467
+    static AM33 => 467
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_POWERPC
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_POWERPC => 496
+    static POWERPC => 496
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_POWERPCFP
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_POWERPCFP => 497
+    static POWERPCFP => 497
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_MIPS16
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_MIPS16 => 614
+    static MIPS16 => 614
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_ALPHA64
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_ALPHA64 => 644
+    static ALPHA64 => 644
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_MIPSFPU
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_MIPSFPU => 870
+    static MIPSFPU => 870
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_MIPSFPU16
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_MIPSFPU16 => 1126
+    static MIPSFPU16 => 1126
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_TRICORE
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_TRICORE => 1312
+    static TRICORE => 1312
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_CEF
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_CEF => 3311
+    static CEF => 3311
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_EBC
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_EBC => 3772
+    static EBC => 3772
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_M32R
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_M32R => 36929
+    static M32R => 36929
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_ARM64
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_ARM64 => 43620
+    static ARM64 => 43620
 
     /**
+     * Native name: IMAGE_FILE_MACHINE_CEE
      * @type {Integer (UInt16)}
      */
-    static IMAGE_FILE_MACHINE_CEE => 49390
+    static CEE => 49390
 }

@@ -7,22 +7,26 @@
 class USER_CET_ENVIRONMENT extends Win32Enum {
 
     /**
+     * Native name: USER_CET_ENVIRONMENT_WIN32_PROCESS
      * @type {Integer (UInt32)}
      */
-    static USER_CET_ENVIRONMENT_WIN32_PROCESS => 0
+    static WIN32_PROCESS => 0
 
     /**
+     * Native name: USER_CET_ENVIRONMENT_SGX2_ENCLAVE
      * @type {Integer (UInt32)}
      */
-    static USER_CET_ENVIRONMENT_SGX2_ENCLAVE => 2
+    static SGX2_ENCLAVE => 2
 
     /**
+     * Native name: USER_CET_ENVIRONMENT_VBS_ENCLAVE
      * @type {Integer (UInt32)}
      */
-    static USER_CET_ENVIRONMENT_VBS_ENCLAVE => 16
+    static VBS_ENCLAVE => 16
 
     /**
+     * Native name: USER_CET_ENVIRONMENT_VBS_BASIC_ENCLAVE
      * @type {Integer (UInt32)}
      */
-    static USER_CET_ENVIRONMENT_VBS_BASIC_ENCLAVE => 17
+    static VBS_BASIC_ENCLAVE => 17
 }

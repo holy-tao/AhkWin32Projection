@@ -24,31 +24,36 @@ class WTS_LOGON_ERROR_REDIRECTOR_RESPONSE extends Win32Enum {
 
     /**
      * This value is used for safe initialization.
+     * Native name: WTS_LOGON_ERR_INVALID
      * @type {Integer (Int32)}
      */
-    static WTS_LOGON_ERR_INVALID => 0
+    static ERR_INVALID => 0
 
     /**
      * Specifies that the client logon was not handled by the redirector and should be handled by the logon user interface.
+     * Native name: WTS_LOGON_ERR_NOT_HANDLED
      * @type {Integer (Int32)}
      */
-    static WTS_LOGON_ERR_NOT_HANDLED => 1
+    static ERR_NOT_HANDLED => 1
 
     /**
      * Specifies that the client logon was handled by the redirector and that the logon user interface should display itself normally.
+     * Native name: WTS_LOGON_ERR_HANDLED_SHOW
      * @type {Integer (Int32)}
      */
-    static WTS_LOGON_ERR_HANDLED_SHOW => 2
+    static ERR_HANDLED_SHOW => 2
 
     /**
      * Specifies that the client logon was handled by the redirector and should not be passed to the next redirector. The logon user interface should not display an error message but should attempt to collect credentials again.
+     * Native name: WTS_LOGON_ERR_HANDLED_DONT_SHOW
      * @type {Integer (Int32)}
      */
-    static WTS_LOGON_ERR_HANDLED_DONT_SHOW => 3
+    static ERR_HANDLED_DONT_SHOW => 3
 
     /**
      * Specifies that the client logon was handled by the redirector and should not be passed to the next redirector.  The logon user interface should not be displayed and should not attempt to collect credentials again.
+     * Native name: WTS_LOGON_ERR_HANDLED_DONT_SHOW_START_OVER
      * @type {Integer (Int32)}
      */
-    static WTS_LOGON_ERR_HANDLED_DONT_SHOW_START_OVER => 4
+    static ERR_HANDLED_DONT_SHOW_START_OVER => 4
 }

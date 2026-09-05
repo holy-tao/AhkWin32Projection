@@ -9,12 +9,14 @@
 class MF_MEDIA_ENGINE_EXTENSION_TYPE extends Win32Enum {
 
     /**
+     * Native name: MF_MEDIA_ENGINE_EXTENSION_TYPE_MEDIASOURCE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_EXTENSION_TYPE_MEDIASOURCE => 0
+    static MEDIASOURCE => 0
 
     /**
+     * Native name: MF_MEDIA_ENGINE_EXTENSION_TYPE_BYTESTREAM
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_EXTENSION_TYPE_BYTESTREAM => 1
+    static BYTESTREAM => 1
 }

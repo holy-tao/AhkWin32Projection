@@ -10,27 +10,31 @@ class D3D_CBUFFER_TYPE extends Win32Enum {
 
     /**
      * A buffer containing scalar constants.
+     * Native name: D3D_CT_CBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_CT_CBUFFER => 0
+    static CT_CBUFFER => 0
 
     /**
      * A buffer containing texture data.
+     * Native name: D3D_CT_TBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_CT_TBUFFER => 1
+    static CT_TBUFFER => 1
 
     /**
      * A buffer containing interface pointers.
+     * Native name: D3D_CT_INTERFACE_POINTERS
      * @type {Integer (Int32)}
      */
-    static D3D_CT_INTERFACE_POINTERS => 2
+    static CT_INTERFACE_POINTERS => 2
 
     /**
      * A buffer containing binding information.
+     * Native name: D3D_CT_RESOURCE_BIND_INFO
      * @type {Integer (Int32)}
      */
-    static D3D_CT_RESOURCE_BIND_INFO => 3
+    static CT_RESOURCE_BIND_INFO => 3
 
     /**
      * A buffer containing scalar constants.

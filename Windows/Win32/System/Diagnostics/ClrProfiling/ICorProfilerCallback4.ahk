@@ -31,7 +31,6 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3 {
     static VTableNames => ["ReJITCompilationStarted", "GetReJITParameters", "ReJITCompilationFinished", "ReJITError", "MovedReferences2", "SurvivingReferences2"]
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} rejitId 
      * @param {BOOL} fIsSafeToBlock 
@@ -43,7 +42,6 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodId 
      * @param {ICorProfilerFunctionControl} pFunctionControl 
@@ -55,7 +53,6 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} rejitId 
      * @param {HRESULT} hrStatus 
@@ -68,7 +65,6 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodId 
      * @param {Pointer} functionId 
@@ -81,7 +77,6 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Integer} cMovedObjectIDRanges 
      * @param {Pointer<Pointer>} oldObjectIDRangeStart 
      * @param {Pointer<Pointer>} newObjectIDRangeStart 
@@ -98,7 +93,6 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Integer} cSurvivingObjectIDRanges 
      * @param {Pointer<Pointer>} objectIDRangeStart 
      * @param {Pointer<Pointer>} cObjectIDRangeLength 

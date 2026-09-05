@@ -7,12 +7,14 @@
 class CompositingMode extends Win32Enum {
 
     /**
+     * Native name: CompositingModeSourceOver
      * @type {Integer (Int32)}
      */
-    static CompositingModeSourceOver => 0
+    static SourceOver => 0
 
     /**
+     * Native name: CompositingModeSourceCopy
      * @type {Integer (Int32)}
      */
-    static CompositingModeSourceCopy => 1
+    static SourceCopy => 1
 }

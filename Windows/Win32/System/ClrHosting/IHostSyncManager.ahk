@@ -35,7 +35,6 @@ class IHostSyncManager extends IUnknown {
     static VTableNames => ["SetCLRSyncManager", "CreateCrst", "CreateCrstWithSpinCount", "CreateAutoEvent", "CreateManualEvent", "CreateMonitorEvent", "CreateRWLockWriterEvent", "CreateRWLockReaderEvent", "CreateSemaphoreA"]
 
     /**
-     * 
      * @param {ICLRSyncManager} pManager 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHostCrst} 
      */
     CreateCrst() {
@@ -54,7 +52,6 @@ class IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpinCount 
      * @returns {IHostCrst} 
      */
@@ -64,7 +61,6 @@ class IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHostAutoEvent} 
      */
     CreateAutoEvent() {
@@ -73,7 +69,6 @@ class IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bInitialState 
      * @returns {IHostManualEvent} 
      */
@@ -83,7 +78,6 @@ class IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {IHostAutoEvent} 
      */
@@ -93,7 +87,6 @@ class IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {IHostAutoEvent} 
      */
@@ -103,7 +96,6 @@ class IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bInitialState 
      * @param {Pointer} Cookie 
      * @returns {IHostManualEvent} 

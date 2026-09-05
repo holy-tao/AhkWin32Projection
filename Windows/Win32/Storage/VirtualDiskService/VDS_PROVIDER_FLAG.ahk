@@ -16,72 +16,82 @@ class VDS_PROVIDER_FLAG extends Win32Enum {
 
     /**
      * The provider is a dynamic  provider. If this flag is set for the provider of a disk, the disk is dynamic.
+     * Native name: VDS_PF_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static VDS_PF_DYNAMIC => 1
+    static PF_DYNAMIC => 1
 
     /**
      * The operating system supplies this hardware provider to manage an internal hardware controller.
+     * Native name: VDS_PF_INTERNAL_HARDWARE_PROVIDER
      * @type {Integer (Int32)}
      */
-    static VDS_PF_INTERNAL_HARDWARE_PROVIDER => 2
+    static PF_INTERNAL_HARDWARE_PROVIDER => 2
 
     /**
      * The provider supports single-disk packs only. Typically, the basic provider sets this flag to 
      *       simulate a pack with one disk.
+     * Native name: VDS_PF_ONE_DISK_ONLY_PER_PACK
      * @type {Integer (Int32)}
      */
-    static VDS_PF_ONE_DISK_ONLY_PER_PACK => 4
+    static PF_ONE_DISK_ONLY_PER_PACK => 4
 
     /**
      * The provider is a dynamic provider that supports online status for only one pack at a time. 
      *      
      * 
      * <b>Windows Server 2003:  </b>Only applies to this release.
+     * Native name: VDS_PF_ONE_PACK_ONLINE_ONLY
      * @type {Integer (Int32)}
      */
-    static VDS_PF_ONE_PACK_ONLINE_ONLY => 8
+    static PF_ONE_PACK_ONLINE_ONLY => 8
 
     /**
      * All volumes managed by this provider must have contiguous space. This flag applies to basic 
      *       providers only.
+     * Native name: VDS_PF_VOLUME_SPACE_MUST_BE_CONTIGUOUS
      * @type {Integer (Int32)}
      */
-    static VDS_PF_VOLUME_SPACE_MUST_BE_CONTIGUOUS => 16
+    static PF_VOLUME_SPACE_MUST_BE_CONTIGUOUS => 16
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_DYNAMIC</b> flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
+     * Native name: VDS_PF_SUPPORT_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static VDS_PF_SUPPORT_DYNAMIC => -2147483648
+    static PF_SUPPORT_DYNAMIC => -2147483648
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_FAULT_TOLERANT</b> 
      *       flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
+     * Native name: VDS_PF_SUPPORT_FAULT_TOLERANT
      * @type {Integer (Int32)}
      */
-    static VDS_PF_SUPPORT_FAULT_TOLERANT => 1073741824
+    static PF_SUPPORT_FAULT_TOLERANT => 1073741824
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_DYNAMIC_1394</b> 
      *       flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
+     * Native name: VDS_PF_SUPPORT_DYNAMIC_1394
      * @type {Integer (Int32)}
      */
-    static VDS_PF_SUPPORT_DYNAMIC_1394 => 536870912
+    static PF_SUPPORT_DYNAMIC_1394 => 536870912
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_MIRROR</b> flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDS_PF_SUPPORT_MIRROR
      * @type {Integer (Int32)}
      */
-    static VDS_PF_SUPPORT_MIRROR => 32
+    static PF_SUPPORT_MIRROR => 32
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_RAID5</b> flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDS_PF_SUPPORT_RAID5
      * @type {Integer (Int32)}
      */
-    static VDS_PF_SUPPORT_RAID5 => 64
+    static PF_SUPPORT_RAID5 => 64
 }

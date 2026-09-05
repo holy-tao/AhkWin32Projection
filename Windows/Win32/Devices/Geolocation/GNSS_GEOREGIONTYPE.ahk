@@ -7,7 +7,8 @@
 class GNSS_GEOREGIONTYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_GeoRegion_Circle
      * @type {Integer (Int32)}
      */
-    static GNSS_GeoRegion_Circle => 1
+    static GeoRegion_Circle => 1
 }

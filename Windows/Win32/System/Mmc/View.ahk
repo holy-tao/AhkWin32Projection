@@ -136,7 +136,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Node} 
      */
     get_ActiveScopeNode() {
@@ -145,7 +144,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {HRESULT} 
      */
@@ -155,7 +153,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Nodes} 
      */
     get_Selection() {
@@ -164,7 +161,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Nodes} 
      */
     get_ListItems() {
@@ -173,7 +169,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {IDispatch} 
      */
@@ -183,7 +178,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     SnapinSelectionObject() {
@@ -192,7 +186,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {VARIANT_BOOL} 
      */
@@ -202,7 +195,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Document} 
      */
     get_Document() {
@@ -211,7 +203,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SelectAll() {
@@ -231,7 +222,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {HRESULT} 
      */
@@ -241,7 +231,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {BOOL} 
      */
@@ -251,7 +240,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -261,7 +249,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisplaySelectionPropertySheet() {
@@ -270,7 +257,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -280,7 +266,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CopySelection() {
@@ -289,7 +274,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -299,7 +283,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteSelection() {
@@ -308,7 +291,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} NewName 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
@@ -321,7 +303,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} NewName 
      * @returns {HRESULT} 
      */
@@ -333,7 +314,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {ContextMenu} 
      */
@@ -343,7 +323,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ContextMenu} 
      */
     get_SelectionContextMenu() {
@@ -352,7 +331,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -362,7 +340,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RefreshSelection() {
@@ -371,7 +348,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} MenuItemPath 
      * @returns {HRESULT} 
      */
@@ -383,7 +359,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} MenuItemPath 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
@@ -396,7 +371,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Command 
      * @param {BSTR} Directory 
      * @param {BSTR} Parameters 
@@ -414,7 +388,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Frame} 
      */
     get_Frame() {
@@ -438,7 +411,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_ScopeTreeVisible() {
@@ -447,7 +419,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} Visible 
      * @returns {HRESULT} 
      */
@@ -457,7 +428,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Back() {
@@ -466,7 +436,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Forward() {
@@ -475,7 +444,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} StatusBarText 
      * @returns {HRESULT} 
      */
@@ -487,7 +455,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Memento() {
@@ -497,7 +464,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Memento 
      * @returns {HRESULT} 
      */
@@ -509,7 +475,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Columns} 
      */
     get_Columns() {
@@ -518,7 +483,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @param {Integer} _Column 
      * @returns {BSTR} 
@@ -530,7 +494,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _File 
      * @param {_ExportListOptions} exportoptions 
      * @returns {HRESULT} 
@@ -543,7 +506,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {_ListViewMode} 
      */
     get_ListViewMode() {
@@ -552,7 +514,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @param {_ListViewMode} _mode 
      * @returns {HRESULT} 
      */
@@ -562,7 +523,6 @@ class View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ControlObject() {

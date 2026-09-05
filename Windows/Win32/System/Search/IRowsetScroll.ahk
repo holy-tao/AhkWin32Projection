@@ -29,7 +29,6 @@ class IRowsetScroll extends IRowsetLocate {
     static VTableNames => ["GetApproximatePosition", "GetRowsAtRatio"]
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 
@@ -47,7 +46,6 @@ class IRowsetScroll extends IRowsetLocate {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved1 
      * @param {Pointer} hReserved2 
      * @param {Pointer} ulNumerator 

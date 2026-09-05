@@ -7,32 +7,38 @@
 class GameInputKeyboardKind extends Win32Enum {
 
     /**
+     * Native name: GameInputUnknownKeyboard
      * @type {Integer (Int32)}
      */
-    static GameInputUnknownKeyboard => -1
+    static UnknownKeyboard => -1
 
     /**
+     * Native name: GameInputAnsiKeyboard
      * @type {Integer (Int32)}
      */
-    static GameInputAnsiKeyboard => 0
+    static AnsiKeyboard => 0
 
     /**
+     * Native name: GameInputIsoKeyboard
      * @type {Integer (Int32)}
      */
-    static GameInputIsoKeyboard => 1
+    static IsoKeyboard => 1
 
     /**
+     * Native name: GameInputKsKeyboard
      * @type {Integer (Int32)}
      */
-    static GameInputKsKeyboard => 2
+    static KsKeyboard => 2
 
     /**
+     * Native name: GameInputAbntKeyboard
      * @type {Integer (Int32)}
      */
-    static GameInputAbntKeyboard => 3
+    static AbntKeyboard => 3
 
     /**
+     * Native name: GameInputJisKeyboard
      * @type {Integer (Int32)}
      */
-    static GameInputJisKeyboard => 4
+    static JisKeyboard => 4
 }

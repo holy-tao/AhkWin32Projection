@@ -31,7 +31,6 @@ class IPersistHistory extends IPersist {
     static VTableNames => ["LoadHistory", "SaveHistory", "SetPositionCookie", "GetPositionCookie"]
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {IBindCtx} pbc 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IPersistHistory extends IPersist {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class IPersistHistory extends IPersist {
     }
 
     /**
-     * 
      * @param {Integer} dwPositioncookie 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class IPersistHistory extends IPersist {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPositionCookie() {

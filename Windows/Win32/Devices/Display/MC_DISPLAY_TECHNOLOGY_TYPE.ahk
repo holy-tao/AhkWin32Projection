@@ -10,55 +10,64 @@ class MC_DISPLAY_TECHNOLOGY_TYPE extends Win32Enum {
 
     /**
      * Shadow-mask cathode ray tube (CRT).
+     * Native name: MC_SHADOW_MASK_CATHODE_RAY_TUBE
      * @type {Integer (Int32)}
      */
-    static MC_SHADOW_MASK_CATHODE_RAY_TUBE => 0
+    static SHADOW_MASK_CATHODE_RAY_TUBE => 0
 
     /**
      * Aperture-grill CRT.
+     * Native name: MC_APERTURE_GRILL_CATHODE_RAY_TUBE
      * @type {Integer (Int32)}
      */
-    static MC_APERTURE_GRILL_CATHODE_RAY_TUBE => 1
+    static APERTURE_GRILL_CATHODE_RAY_TUBE => 1
 
     /**
      * Thin-film transistor (TFT) display.
+     * Native name: MC_THIN_FILM_TRANSISTOR
      * @type {Integer (Int32)}
      */
-    static MC_THIN_FILM_TRANSISTOR => 2
+    static THIN_FILM_TRANSISTOR => 2
 
     /**
      * Liquid crystal on silicon (LCOS) display.
+     * Native name: MC_LIQUID_CRYSTAL_ON_SILICON
      * @type {Integer (Int32)}
      */
-    static MC_LIQUID_CRYSTAL_ON_SILICON => 3
+    static LIQUID_CRYSTAL_ON_SILICON => 3
 
     /**
      * Plasma display.
+     * Native name: MC_PLASMA
      * @type {Integer (Int32)}
      */
-    static MC_PLASMA => 4
+    static PLASMA => 4
 
     /**
      * Organic light emitting diode (LED) display.
+     * Native name: MC_ORGANIC_LIGHT_EMITTING_DIODE
      * @type {Integer (Int32)}
      */
-    static MC_ORGANIC_LIGHT_EMITTING_DIODE => 5
+    static ORGANIC_LIGHT_EMITTING_DIODE => 5
 
     /**
      * Electroluminescent display.
+     * Native name: MC_ELECTROLUMINESCENT
      * @type {Integer (Int32)}
      */
-    static MC_ELECTROLUMINESCENT => 6
+    static ELECTROLUMINESCENT => 6
 
     /**
      * Microelectromechanical display.
+     * Native name: MC_MICROELECTROMECHANICAL
      * @type {Integer (Int32)}
      */
-    static MC_MICROELECTROMECHANICAL => 7
+    static MICROELECTROMECHANICAL => 7
 
     /**
      * Field emission device (FED) display.
+     * Native name: MC_FIELD_EMISSION_DEVICE
      * @type {Integer (Int32)}
      */
-    static MC_FIELD_EMISSION_DEVICE => 8
+    static FIELD_EMISSION_DEVICE => 8
 }

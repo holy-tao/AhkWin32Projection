@@ -67,7 +67,6 @@ class IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -77,7 +76,6 @@ class IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -89,7 +87,6 @@ class IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -99,7 +96,6 @@ class IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -111,7 +107,6 @@ class IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {

@@ -7,12 +7,14 @@
 class SCM_REGION_FLAG extends Win32Enum {
 
     /**
+     * Native name: ScmRegionFlagNone
      * @type {Integer (Int32)}
      */
-    static ScmRegionFlagNone => 0
+    static None => 0
 
     /**
+     * Native name: ScmRegionFlagLabel
      * @type {Integer (Int32)}
      */
-    static ScmRegionFlagLabel => 1
+    static Label => 1
 }

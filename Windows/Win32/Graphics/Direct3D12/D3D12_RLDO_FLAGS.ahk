@@ -11,25 +11,29 @@
 class D3D12_RLDO_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_RLDO_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_RLDO_NONE => 0
+    static NONE => 0
 
     /**
      * Obtain a summary about a live device object's lifetime.
+     * Native name: D3D12_RLDO_SUMMARY
      * @type {Integer (Int32)}
      */
-    static D3D12_RLDO_SUMMARY => 1
+    static SUMMARY => 1
 
     /**
      * Obtain detailed information about a live device object's lifetime.
+     * Native name: D3D12_RLDO_DETAIL
      * @type {Integer (Int32)}
      */
-    static D3D12_RLDO_DETAIL => 2
+    static DETAIL => 2
 
     /**
      * This flag indicates to ignore objects which have no external refcounts keeping them alive. D3D objects are printed using an external refcount and an internal refcount. Typically, all objects are printed. This flag means ignore the objects whose external refcount is 0, because the application is not responsible for keeping them alive.
+     * Native name: D3D12_RLDO_IGNORE_INTERNAL
      * @type {Integer (Int32)}
      */
-    static D3D12_RLDO_IGNORE_INTERNAL => 4
+    static IGNORE_INTERNAL => 4
 }

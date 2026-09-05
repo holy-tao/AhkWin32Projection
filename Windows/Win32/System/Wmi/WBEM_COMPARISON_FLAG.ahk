@@ -10,44 +10,51 @@ class WBEM_COMPARISON_FLAG extends Win32Enum {
 
     /**
      * Compare all features.
+     * Native name: WBEM_COMPARISON_INCLUDE_ALL
      * @type {Integer (Int32)}
      */
-    static WBEM_COMPARISON_INCLUDE_ALL => 0
+    static INCLUDE_ALL => 0
 
     /**
      * Ignore all qualifiers (including <b>Key</b> and <b>Dynamic</b>) in comparison.
+     * Native name: WBEM_FLAG_IGNORE_QUALIFIERS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_IGNORE_QUALIFIERS => 1
+    static IGNORE_QUALIFIERS => 1
 
     /**
      * Ignore the source of the objects, namely the server and the namespace they came from, in comparison to other objects.
+     * Native name: WBEM_FLAG_IGNORE_OBJECT_SOURCE
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_IGNORE_OBJECT_SOURCE => 2
+    static IGNORE_OBJECT_SOURCE => 2
 
     /**
      * Ignore default values of properties. This flag is only meaningful when comparing classes.
+     * Native name: WBEM_FLAG_IGNORE_DEFAULT_VALUES
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_IGNORE_DEFAULT_VALUES => 4
+    static IGNORE_DEFAULT_VALUES => 4
 
     /**
      * Assume that the objects being compared are instances of the same class. Consequently, this flag compares instance-related information only. Use this flag to optimize performance. If the objects are not of the same class, the results are undefined.
+     * Native name: WBEM_FLAG_IGNORE_CLASS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_IGNORE_CLASS => 8
+    static IGNORE_CLASS => 8
 
     /**
      * Compare string values in a case-insensitive manner. This applies both to strings and to qualifier values. Property and qualifier names are always compared in a case-insensitive manner whether this flag is specified or not.
+     * Native name: WBEM_FLAG_IGNORE_CASE
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_IGNORE_CASE => 16
+    static IGNORE_CASE => 16
 
     /**
      * Ignore qualifier flavors. This flag still takes qualifier values into account, but ignores flavor distinctions such as propagation rules and override restrictions (for more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/qualifier-flavors">Qualifier Flavors</a>).
+     * Native name: WBEM_FLAG_IGNORE_FLAVOR
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_IGNORE_FLAVOR => 32
+    static IGNORE_FLAVOR => 32
 }

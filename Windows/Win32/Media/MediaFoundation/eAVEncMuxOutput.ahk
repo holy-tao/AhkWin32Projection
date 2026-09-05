@@ -10,19 +10,22 @@ class eAVEncMuxOutput extends Win32Enum {
 
     /**
      * The multiplexer automatically selects whether to output an elementary stream, a program stream, or  a transport stream.
+     * Native name: eAVEncMuxOutputAuto
      * @type {Integer (Int32)}
      */
-    static eAVEncMuxOutputAuto => 0
+    static Auto => 0
 
     /**
      * The multiplexer outputs a program stream.
+     * Native name: eAVEncMuxOutputPS
      * @type {Integer (Int32)}
      */
-    static eAVEncMuxOutputPS => 1
+    static OutputPS => 1
 
     /**
      * The multiplexer outputs a transport stream.
+     * Native name: eAVEncMuxOutputTS
      * @type {Integer (Int32)}
      */
-    static eAVEncMuxOutputTS => 2
+    static OutputTS => 2
 }

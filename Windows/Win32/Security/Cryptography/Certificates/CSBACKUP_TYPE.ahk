@@ -7,12 +7,14 @@
 class CSBACKUP_TYPE extends Win32Enum {
 
     /**
+     * Native name: CSBACKUP_TYPE_FULL
      * @type {Integer (UInt32)}
      */
-    static CSBACKUP_TYPE_FULL => 1
+    static FULL => 1
 
     /**
+     * Native name: CSBACKUP_TYPE_LOGS_ONLY
      * @type {Integer (UInt32)}
      */
-    static CSBACKUP_TYPE_LOGS_ONLY => 2
+    static LOGS_ONLY => 2
 }

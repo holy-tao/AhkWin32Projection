@@ -7,22 +7,26 @@
 class DISPATCH_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DISPATCH_METHOD
      * @type {Integer (UInt16)}
      */
-    static DISPATCH_METHOD => 1
+    static METHOD => 1
 
     /**
+     * Native name: DISPATCH_PROPERTYGET
      * @type {Integer (UInt16)}
      */
-    static DISPATCH_PROPERTYGET => 2
+    static PROPERTYGET => 2
 
     /**
+     * Native name: DISPATCH_PROPERTYPUT
      * @type {Integer (UInt16)}
      */
-    static DISPATCH_PROPERTYPUT => 4
+    static PROPERTYPUT => 4
 
     /**
+     * Native name: DISPATCH_PROPERTYPUTREF
      * @type {Integer (UInt16)}
      */
-    static DISPATCH_PROPERTYPUTREF => 8
+    static PROPERTYPUTREF => 8
 }

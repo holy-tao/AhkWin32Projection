@@ -30,7 +30,6 @@ class IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters", "Reset"]
 
     /**
-     * 
      * @param {Pointer<DSCFXNoiseSuppress>} pcDscFxNoiseSuppress 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSCFXNoiseSuppress} 
      */
     GetAllParameters() {
@@ -50,7 +48,6 @@ class IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

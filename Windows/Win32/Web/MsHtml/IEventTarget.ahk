@@ -32,7 +32,6 @@ class IEventTarget extends IDispatch {
     static VTableNames => ["addEventListener", "removeEventListener", "dispatchEvent"]
 
     /**
-     * 
      * @param {BSTR} type 
      * @param {IDispatch} listener 
      * @param {VARIANT_BOOL} useCapture 
@@ -46,7 +45,6 @@ class IEventTarget extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} type 
      * @param {IDispatch} listener 
      * @param {VARIANT_BOOL} useCapture 
@@ -60,7 +58,6 @@ class IEventTarget extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDOMEvent} evt 
      * @returns {VARIANT_BOOL} 
      */

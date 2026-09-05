@@ -31,7 +31,6 @@ class IPrintPreviewDxgiPackageTarget extends IUnknown {
     static VTableNames => ["SetJobPageCount", "DrawPage", "InvalidatePreview"]
 
     /**
-     * 
      * @param {PageCountType} countType 
      * @param {Integer} count 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IPrintPreviewDxgiPackageTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} jobPageNumber 
      * @param {IDXGISurface} pageImage 
      * @param {Float} dpiX 
@@ -55,7 +53,6 @@ class IPrintPreviewDxgiPackageTarget extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidatePreview() {

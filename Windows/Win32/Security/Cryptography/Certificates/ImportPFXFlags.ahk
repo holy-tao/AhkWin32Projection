@@ -10,79 +10,92 @@ class ImportPFXFlags extends Win32Enum {
 
     /**
      * None
+     * Native name: ImportNone
      * @type {Integer (Int32)}
      */
-    static ImportNone => 0
+    static None => 0
 
     /**
      * Import the PFX certificate into the machine certificate store; otherwise install to the user certificate store.
+     * Native name: ImportMachineContext
      * @type {Integer (Int32)}
      */
-    static ImportMachineContext => 1
+    static MachineContext => 1
 
     /**
      * Overwrite existing certificate, if exists.
+     * Native name: ImportForceOverwrite
      * @type {Integer (Int32)}
      */
-    static ImportForceOverwrite => 2
+    static ForceOverwrite => 2
 
     /**
      * Silently perform the operation (do not show a user interface).
+     * Native name: ImportSilent
      * @type {Integer (Int32)}
      */
-    static ImportSilent => 4
+    static Silent => 4
 
     /**
      * Save Properties on the imported PFX file.
+     * Native name: ImportSaveProperties
      * @type {Integer (Int32)}
      */
-    static ImportSaveProperties => 8
+    static SaveProperties => 8
 
     /**
      * Import the PFX certificate’s private key as exportable
+     * Native name: ImportExportable
      * @type {Integer (Int32)}
      */
-    static ImportExportable => 16
+    static Exportable => 16
 
     /**
      * Import the PFX certificate’s private key as exportable and encrypted.
+     * Native name: ImportExportableEncrypted
      * @type {Integer (Int32)}
      */
-    static ImportExportableEncrypted => 32
+    static ExportableEncrypted => 32
 
     /**
      * Import the PFX certificate’s private key to not require consent.
+     * Native name: ImportNoUserProtected
      * @type {Integer (Int32)}
      */
-    static ImportNoUserProtected => 64
+    static NoUserProtected => 64
 
     /**
      * Import the PFX certificate’s private key to require consent without a password.
+     * Native name: ImportUserProtected
      * @type {Integer (Int32)}
      */
-    static ImportUserProtected => 128
+    static UserProtected => 128
 
     /**
      * Import the PFX certificate’s private key to require consent with a password.
+     * Native name: ImportUserProtectedHigh
      * @type {Integer (Int32)}
      */
-    static ImportUserProtectedHigh => 256
+    static UserProtectedHigh => 256
 
     /**
      * Install the PFX certificate to the certificate store.
+     * Native name: ImportInstallCertificate
      * @type {Integer (Int32)}
      */
-    static ImportInstallCertificate => 512
+    static InstallCertificate => 512
 
     /**
      * Install the PFX certificate’s chain to the certificate store.
+     * Native name: ImportInstallChain
      * @type {Integer (Int32)}
      */
-    static ImportInstallChain => 1024
+    static InstallChain => 1024
 
     /**
      * Install the PFX certificate’s chain and root to the certificate store.
+     * Native name: ImportInstallChainAndRoot
      * @type {Integer (Int32)}
      */
-    static ImportInstallChainAndRoot => 2048
+    static InstallChainAndRoot => 2048
 }

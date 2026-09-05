@@ -10,24 +10,28 @@ class PSC_STATE extends Win32Enum {
 
     /**
      * The property has not been altered.
+     * Native name: PSC_NORMAL
      * @type {Integer (Int32)}
      */
-    static PSC_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The requested property does not exist for the file or stream on which the property handler was initialized.
+     * Native name: PSC_NOTINSOURCE
      * @type {Integer (Int32)}
      */
-    static PSC_NOTINSOURCE => 1
+    static NOTINSOURCE => 1
 
     /**
      * The property has been altered but has not yet been committed to the file or stream.
+     * Native name: PSC_DIRTY
      * @type {Integer (Int32)}
      */
-    static PSC_DIRTY => 2
+    static DIRTY => 2
 
     /**
+     * Native name: PSC_READONLY
      * @type {Integer (Int32)}
      */
-    static PSC_READONLY => 3
+    static READONLY => 3
 }

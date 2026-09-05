@@ -32,7 +32,6 @@ class IRowsetIndex extends IUnknown {
     static VTableNames => ["GetIndexInfo", "Seek", "SetRange"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcKeyColumns 
      * @param {Pointer<Pointer<DBINDEXCOLUMNDESC>>} prgIndexColumnDesc 
      * @param {Pointer<Integer>} pcIndexPropertySets 
@@ -50,7 +49,6 @@ class IRowsetIndex extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cKeyValues 
      * @param {Pointer<Void>} pData 
@@ -67,7 +65,6 @@ class IRowsetIndex extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cStartKeyColumns 
      * @param {Pointer<Void>} pStartData 

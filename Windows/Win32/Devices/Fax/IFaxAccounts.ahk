@@ -56,7 +56,6 @@ class IFaxAccounts extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

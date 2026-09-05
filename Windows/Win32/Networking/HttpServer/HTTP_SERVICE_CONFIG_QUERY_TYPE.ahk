@@ -10,19 +10,22 @@ class HTTP_SERVICE_CONFIG_QUERY_TYPE extends Win32Enum {
 
     /**
      * The query returns a single record that matches the specified key value.
+     * Native name: HttpServiceConfigQueryExact
      * @type {Integer (Int32)}
      */
-    static HttpServiceConfigQueryExact => 0
+    static Exact => 0
 
     /**
      * The query iterates through the store and returns all records in sequence, using an index value that the calling process increments between query calls.
+     * Native name: HttpServiceConfigQueryNext
      * @type {Integer (Int32)}
      */
-    static HttpServiceConfigQueryNext => 1
+    static Next => 1
 
     /**
      * Terminates the enumeration; is not used to define a query type.
+     * Native name: HttpServiceConfigQueryMax
      * @type {Integer (Int32)}
      */
-    static HttpServiceConfigQueryMax => 2
+    static Max => 2
 }

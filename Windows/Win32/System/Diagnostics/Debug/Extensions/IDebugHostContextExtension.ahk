@@ -30,7 +30,6 @@ class IDebugHostContextExtension extends IUnknown {
     static VTableNames => ["AddExtensionData", "FinalizeContext"]
 
     /**
-     * 
      * @param {Integer} blobId 
      * @param {Integer} dataSize 
      * @param {Pointer<Void>} data 
@@ -44,7 +43,6 @@ class IDebugHostContextExtension extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     FinalizeContext() {

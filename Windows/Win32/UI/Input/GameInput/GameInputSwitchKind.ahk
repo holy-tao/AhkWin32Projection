@@ -7,22 +7,26 @@
 class GameInputSwitchKind extends Win32Enum {
 
     /**
+     * Native name: GameInputUnknownSwitchKind
      * @type {Integer (Int32)}
      */
-    static GameInputUnknownSwitchKind => -1
+    static UnknownSwitchKind => -1
 
     /**
+     * Native name: GameInput2WaySwitch
      * @type {Integer (Int32)}
      */
-    static GameInput2WaySwitch => 0
+    static Input2WaySwitch => 0
 
     /**
+     * Native name: GameInput4WaySwitch
      * @type {Integer (Int32)}
      */
-    static GameInput4WaySwitch => 1
+    static Input4WaySwitch => 1
 
     /**
+     * Native name: GameInput8WaySwitch
      * @type {Integer (Int32)}
      */
-    static GameInput8WaySwitch => 2
+    static Input8WaySwitch => 2
 }

@@ -7,27 +7,32 @@
 class USERINFOSTATE extends Win32Enum {
 
     /**
+     * Native name: USERINFOSTATE_MOREDATA
      * @type {Integer (Int32)}
      */
-    static USERINFOSTATE_MOREDATA => -3
+    static MOREDATA => -3
 
     /**
+     * Native name: USERINFOSTATE_INVALIDARG
      * @type {Integer (Int32)}
      */
-    static USERINFOSTATE_INVALIDARG => -2
+    static INVALIDARG => -2
 
     /**
+     * Native name: USERINFOSTATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static USERINFOSTATE_UNKNOWN => -1
+    static UNKNOWN => -1
 
     /**
+     * Native name: USERINFOSTATE_ABSENT
      * @type {Integer (Int32)}
      */
-    static USERINFOSTATE_ABSENT => 0
+    static ABSENT => 0
 
     /**
+     * Native name: USERINFOSTATE_PRESENT
      * @type {Integer (Int32)}
      */
-    static USERINFOSTATE_PRESENT => 1
+    static PRESENT => 1
 }

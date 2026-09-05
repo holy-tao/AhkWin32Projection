@@ -7,32 +7,38 @@
 class MF_TIMED_TEXT_RUBY_ALIGN extends Win32Enum {
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_ALIGN_CENTER
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_ALIGN_CENTER => 0
+    static CENTER => 0
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_ALIGN_START
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_ALIGN_START => 1
+    static START => 1
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_ALIGN_END
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_ALIGN_END => 2
+    static END => 2
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_ALIGN_SPACEAROUND
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_ALIGN_SPACEAROUND => 3
+    static SPACEAROUND => 3
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_ALIGN_SPACEBETWEEN
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_ALIGN_SPACEBETWEEN => 4
+    static SPACEBETWEEN => 4
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_ALIGN_WITHBASE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_ALIGN_WITHBASE => 5
+    static WITHBASE => 5
 }

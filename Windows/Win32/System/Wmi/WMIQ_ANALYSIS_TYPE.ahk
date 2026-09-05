@@ -10,33 +10,38 @@ class WMIQ_ANALYSIS_TYPE extends Win32Enum {
 
     /**
      * Used if the query has a SELECT clause. When this type of analysis is used,  <i>pAnalysis</i> points to an <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnencodedquery">SWbemRpnEncodedQuery</a> structure.
+     * Native name: WMIQ_ANALYSIS_RPN_SEQUENCE
      * @type {Integer (Int32)}
      */
-    static WMIQ_ANALYSIS_RPN_SEQUENCE => 1
+    static RPN_SEQUENCE => 1
 
     /**
      * Used to return information about association type queries. When this type of analysis is used,  <i>pAnalysis</i> points to an <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemassocqueryinf">SWbemAssocQueryInf</a> structure.
+     * Native name: WMIQ_ANALYSIS_ASSOC_QUERY
      * @type {Integer (Int32)}
      */
-    static WMIQ_ANALYSIS_ASSOC_QUERY => 2
+    static ASSOC_QUERY => 2
 
     /**
      * Unused.  Reserved for future use.
+     * Native name: WMIQ_ANALYSIS_PROP_ANALYSIS_MATRIX
      * @type {Integer (Int32)}
      */
-    static WMIQ_ANALYSIS_PROP_ANALYSIS_MATRIX => 3
+    static PROP_ANALYSIS_MATRIX => 3
 
     /**
      * Used to return a text string that has the original query text. If this type of analysis is used,  <i>pAnalysis</i> points to a text string that contains the original query text.
      * 
      * You can use this parameter if  a parser object is passed to another method.
+     * Native name: WMIQ_ANALYSIS_QUERY_TEXT
      * @type {Integer (Int32)}
      */
-    static WMIQ_ANALYSIS_QUERY_TEXT => 4
+    static QUERY_TEXT => 4
 
     /**
      * Unused.  Reserved for future use.
+     * Native name: WMIQ_ANALYSIS_RESERVED
      * @type {Integer (Int32)}
      */
-    static WMIQ_ANALYSIS_RESERVED => 134217728
+    static RESERVED => 134217728
 }

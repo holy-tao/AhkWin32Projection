@@ -117,7 +117,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Revision() {
@@ -126,7 +125,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnRevision 
      * @returns {HRESULT} 
      */
@@ -136,7 +134,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Control() {
@@ -145,7 +142,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnControl 
      * @returns {HRESULT} 
      */
@@ -155,7 +151,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Owner() {
@@ -165,7 +160,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOwner 
      * @returns {HRESULT} 
      */
@@ -177,7 +171,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_OwnerDefaulted() {
@@ -186,7 +179,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fOwnerDefaulted 
      * @returns {HRESULT} 
      */
@@ -196,7 +188,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Group() {
@@ -206,7 +197,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroup 
      * @returns {HRESULT} 
      */
@@ -218,7 +208,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_GroupDefaulted() {
@@ -227,7 +216,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fGroupDefaulted 
      * @returns {HRESULT} 
      */
@@ -237,7 +225,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DiscretionaryAcl() {
@@ -246,7 +233,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pDiscretionaryAcl 
      * @returns {HRESULT} 
      */
@@ -256,7 +242,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_DaclDefaulted() {
@@ -265,7 +250,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDaclDefaulted 
      * @returns {HRESULT} 
      */
@@ -275,7 +259,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_SystemAcl() {
@@ -284,7 +267,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pSystemAcl 
      * @returns {HRESULT} 
      */
@@ -294,7 +276,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SaclDefaulted() {
@@ -303,7 +284,6 @@ class IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fSaclDefaulted 
      * @returns {HRESULT} 
      */

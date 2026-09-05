@@ -17,7 +17,6 @@ class XmlLite {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IMalloc} pMalloc 
      * @returns {Pointer<Void>} 
@@ -28,7 +27,6 @@ class XmlLite {
     }
 
     /**
-     * 
      * @param {IUnknown} pInputStream 
      * @param {IMalloc} pMalloc 
      * @param {Integer} nEncodingCodePage 
@@ -44,7 +42,6 @@ class XmlLite {
     }
 
     /**
-     * 
      * @param {IUnknown} pInputStream 
      * @param {IMalloc} pMalloc 
      * @param {PWSTR} pwszEncodingName 
@@ -61,7 +58,6 @@ class XmlLite {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IMalloc} pMalloc 
      * @returns {Pointer<Void>} 
@@ -72,7 +68,6 @@ class XmlLite {
     }
 
     /**
-     * 
      * @param {IUnknown} pOutputStream 
      * @param {IMalloc} pMalloc 
      * @param {Integer} nEncodingCodePage 
@@ -84,7 +79,6 @@ class XmlLite {
     }
 
     /**
-     * 
      * @param {IUnknown} pOutputStream 
      * @param {IMalloc} pMalloc 
      * @param {PWSTR} pwszEncodingName 

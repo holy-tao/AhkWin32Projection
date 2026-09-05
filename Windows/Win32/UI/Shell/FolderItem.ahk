@@ -134,7 +134,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -143,7 +142,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -152,7 +150,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -162,7 +159,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -174,7 +170,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -184,7 +179,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_GetLink() {
@@ -193,7 +187,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_GetFolder() {
@@ -202,7 +195,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLink() {
@@ -211,7 +203,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsFolder() {
@@ -220,7 +211,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsFileSystem() {
@@ -229,7 +219,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsBrowsable() {
@@ -238,7 +227,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ModifyDate() {
@@ -247,7 +235,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} dt 
      * @returns {HRESULT} 
      */
@@ -257,7 +244,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Size() {
@@ -266,7 +252,6 @@ class FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {

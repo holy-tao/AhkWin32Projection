@@ -7,27 +7,32 @@
 class NDIS_HARDWARE_STATUS extends Win32Enum {
 
     /**
+     * Native name: NdisHardwareStatusReady
      * @type {Integer (Int32)}
      */
-    static NdisHardwareStatusReady => 0
+    static Ready => 0
 
     /**
+     * Native name: NdisHardwareStatusInitializing
      * @type {Integer (Int32)}
      */
-    static NdisHardwareStatusInitializing => 1
+    static Initializing => 1
 
     /**
+     * Native name: NdisHardwareStatusReset
      * @type {Integer (Int32)}
      */
-    static NdisHardwareStatusReset => 2
+    static Reset => 2
 
     /**
+     * Native name: NdisHardwareStatusClosing
      * @type {Integer (Int32)}
      */
-    static NdisHardwareStatusClosing => 3
+    static Closing => 3
 
     /**
+     * Native name: NdisHardwareStatusNotReady
      * @type {Integer (Int32)}
      */
-    static NdisHardwareStatusNotReady => 4
+    static NotReady => 4
 }

@@ -33,7 +33,6 @@ class IPerPropertyBrowsing2 extends IUnknown {
     static VTableNames => ["GetDisplayString", "MapPropertyToPage", "GetPredefinedStrings", "SetPredefinedValue"]
 
     /**
-     * 
      * @param {Integer} dispid 
      * @returns {BSTR} 
      */
@@ -44,7 +43,6 @@ class IPerPropertyBrowsing2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @returns {Guid} 
      */
@@ -55,7 +53,6 @@ class IPerPropertyBrowsing2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @param {Pointer<CALPOLESTR>} pCaStrings 
      * @param {Pointer<CADWORD>} pCaCookies 
@@ -67,7 +64,6 @@ class IPerPropertyBrowsing2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 

@@ -12,31 +12,36 @@ class WICJpegYCrCbSubsamplingOption extends Win32Enum {
 
     /**
      * The default subsampling option.
+     * Native name: WICJpegYCrCbSubsamplingDefault
      * @type {Integer (Int32)}
      */
-    static WICJpegYCrCbSubsamplingDefault => 0
+    static Default => 0
 
     /**
      * Subsampling option that uses both horizontal and vertical decimation.
+     * Native name: WICJpegYCrCbSubsampling420
      * @type {Integer (Int32)}
      */
-    static WICJpegYCrCbSubsampling420 => 1
+    static Subsampling420 => 1
 
     /**
      * Subsampling option that uses horizontal decimation  .
+     * Native name: WICJpegYCrCbSubsampling422
      * @type {Integer (Int32)}
      */
-    static WICJpegYCrCbSubsampling422 => 2
+    static Subsampling422 => 2
 
     /**
      * Subsampling option that uses no decimation.
+     * Native name: WICJpegYCrCbSubsampling444
      * @type {Integer (Int32)}
      */
-    static WICJpegYCrCbSubsampling444 => 3
+    static Subsampling444 => 3
 
     /**
      * Subsampling option that uses 2x vertical downsampling only. This option is only available in Windows 8.1 and later.
+     * Native name: WICJpegYCrCbSubsampling440
      * @type {Integer (Int32)}
      */
-    static WICJpegYCrCbSubsampling440 => 4
+    static Subsampling440 => 4
 }

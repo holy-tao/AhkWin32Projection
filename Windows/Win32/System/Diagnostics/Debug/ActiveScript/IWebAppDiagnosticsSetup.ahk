@@ -31,7 +31,6 @@ class IWebAppDiagnosticsSetup extends IUnknown {
     static VTableNames => ["DiagnosticsSupported", "CreateObjectWithSiteAtWebApp"]
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     DiagnosticsSupported() {
@@ -40,7 +39,6 @@ class IWebAppDiagnosticsSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 

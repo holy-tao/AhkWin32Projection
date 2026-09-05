@@ -31,7 +31,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     static VTableNames => ["GetDevice", "GetMotorIndex", "GetGain", "SetGain", "GetParams", "SetParams", "GetState", "SetState"]
 
     /**
-     * 
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -40,7 +39,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMotorIndex() {
@@ -49,7 +47,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetGain() {
@@ -58,7 +55,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} gain 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -67,7 +63,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -76,7 +71,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
      * @returns {Boolean} 
      */
@@ -86,7 +80,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {GameInputFeedbackEffectState} 
      */
     GetState() {
@@ -95,7 +88,6 @@ class IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputFeedbackEffectState} state 
      * @returns {String} Nothing - always returns an empty string
      */

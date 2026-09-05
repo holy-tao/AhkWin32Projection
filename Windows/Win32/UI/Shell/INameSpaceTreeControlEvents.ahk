@@ -353,7 +353,6 @@ class INameSpaceTreeControlEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IShellItem} psi 
      * @param {Pointer<Integer>} piDefaultIcon 
      * @param {Pointer<Integer>} piOpenIcon 

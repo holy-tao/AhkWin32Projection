@@ -7,7 +7,8 @@
 class NVME_RDMA_KEYED_SGL_DESC_SUBTYPE extends Win32Enum {
 
     /**
+     * Native name: NvmeRdmaKeyedSglDescSubtypeInvalidate
      * @type {Integer (Int32)}
      */
-    static NvmeRdmaKeyedSglDescSubtypeInvalidate => 15
+    static Invalidate => 15
 }

@@ -7,117 +7,140 @@
 class INSTALLLOGMODE extends Win32Enum {
 
     /**
+     * Native name: INSTALLLOGMODE_FATALEXIT
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_FATALEXIT => 1
+    static FATALEXIT => 1
 
     /**
+     * Native name: INSTALLLOGMODE_ERROR
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_ERROR => 2
+    static ERROR => 2
 
     /**
+     * Native name: INSTALLLOGMODE_WARNING
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_WARNING => 4
+    static WARNING => 4
 
     /**
+     * Native name: INSTALLLOGMODE_USER
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_USER => 8
+    static USER => 8
 
     /**
+     * Native name: INSTALLLOGMODE_INFO
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_INFO => 16
+    static INFO => 16
 
     /**
+     * Native name: INSTALLLOGMODE_RESOLVESOURCE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_RESOLVESOURCE => 64
+    static RESOLVESOURCE => 64
 
     /**
+     * Native name: INSTALLLOGMODE_OUTOFDISKSPACE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_OUTOFDISKSPACE => 128
+    static OUTOFDISKSPACE => 128
 
     /**
+     * Native name: INSTALLLOGMODE_ACTIONSTART
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_ACTIONSTART => 256
+    static ACTIONSTART => 256
 
     /**
+     * Native name: INSTALLLOGMODE_ACTIONDATA
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_ACTIONDATA => 512
+    static ACTIONDATA => 512
 
     /**
+     * Native name: INSTALLLOGMODE_COMMONDATA
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_COMMONDATA => 2048
+    static COMMONDATA => 2048
 
     /**
+     * Native name: INSTALLLOGMODE_PROPERTYDUMP
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_PROPERTYDUMP => 1024
+    static PROPERTYDUMP => 1024
 
     /**
+     * Native name: INSTALLLOGMODE_VERBOSE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_VERBOSE => 4096
+    static VERBOSE => 4096
 
     /**
+     * Native name: INSTALLLOGMODE_EXTRADEBUG
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_EXTRADEBUG => 8192
+    static EXTRADEBUG => 8192
 
     /**
+     * Native name: INSTALLLOGMODE_LOGONLYONERROR
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_LOGONLYONERROR => 16384
+    static LOGONLYONERROR => 16384
 
     /**
+     * Native name: INSTALLLOGMODE_LOGPERFORMANCE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_LOGPERFORMANCE => 32768
+    static LOGPERFORMANCE => 32768
 
     /**
+     * Native name: INSTALLLOGMODE_PROGRESS
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_PROGRESS => 1024
+    static PROGRESS => 1024
 
     /**
+     * Native name: INSTALLLOGMODE_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_INITIALIZE => 4096
+    static INITIALIZE => 4096
 
     /**
+     * Native name: INSTALLLOGMODE_TERMINATE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_TERMINATE => 8192
+    static TERMINATE => 8192
 
     /**
+     * Native name: INSTALLLOGMODE_SHOWDIALOG
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_SHOWDIALOG => 16384
+    static SHOWDIALOG => 16384
 
     /**
+     * Native name: INSTALLLOGMODE_FILESINUSE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_FILESINUSE => 32
+    static FILESINUSE => 32
 
     /**
+     * Native name: INSTALLLOGMODE_RMFILESINUSE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_RMFILESINUSE => 33554432
+    static RMFILESINUSE => 33554432
 
     /**
+     * Native name: INSTALLLOGMODE_INSTALLSTART
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_INSTALLSTART => 67108864
+    static INSTALLSTART => 67108864
 
     /**
+     * Native name: INSTALLLOGMODE_INSTALLEND
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGMODE_INSTALLEND => 134217728
+    static INSTALLEND => 134217728
 }

@@ -38,7 +38,6 @@ class IDebugClient8 extends IUnknown {
     static VTableNames => ["AttachKernel", "GetKernelConnectionOptions", "SetKernelConnectionOptions", "StartProcessServer", "ConnectProcessServer", "DisconnectProcessServer", "GetRunningProcessSystemIds", "GetRunningProcessSystemIdByExecutableName", "GetRunningProcessDescription", "AttachProcess", "CreateProcessA", "CreateProcessAndAttach", "GetProcessOptions", "AddProcessOptions", "RemoveProcessOptions", "SetProcessOptions", "OpenDumpFile", "WriteDumpFile", "ConnectSession", "StartServer", "OutputServers", "TerminateProcesses", "DetachProcesses", "EndSession", "GetExitCode", "DispatchCallbacks", "ExitDispatch", "CreateClient", "GetInputCallbacks", "SetInputCallbacks", "GetOutputCallbacks", "SetOutputCallbacks", "GetOutputMask", "SetOutputMask", "GetOtherOutputMask", "SetOtherOutputMask", "GetOutputWidth", "SetOutputWidth", "GetOutputLinePrefix", "SetOutputLinePrefix", "GetIdentity", "OutputIdentity", "GetEventCallbacks", "SetEventCallbacks", "FlushCallbacks", "WriteDumpFile2", "AddDumpInformationFile", "EndProcessServer", "WaitForProcessServerEnd", "IsKernelDebuggerEnabled", "TerminateCurrentProcess", "DetachCurrentProcess", "AbandonCurrentProcess", "GetRunningProcessSystemIdByExecutableNameWide", "GetRunningProcessDescriptionWide", "CreateProcessWide", "CreateProcessAndAttachWide", "OpenDumpFileWide", "WriteDumpFileWide", "AddDumpInformationFileWide", "GetNumberDumpFiles", "GetDumpFile", "GetDumpFileWide", "AttachKernelWide", "GetKernelConnectionOptionsWide", "SetKernelConnectionOptionsWide", "StartProcessServerWide", "ConnectProcessServerWide", "StartServerWide", "OutputServersWide", "GetOutputCallbacksWide", "SetOutputCallbacksWide", "GetOutputLinePrefixWide", "SetOutputLinePrefixWide", "GetIdentityWide", "OutputIdentityWide", "GetEventCallbacksWide", "SetEventCallbacksWide", "CreateProcess2", "CreateProcess2Wide", "CreateProcessAndAttach2", "CreateProcessAndAttach2Wide", "PushOutputLinePrefix", "PushOutputLinePrefixWide", "PopOutputLinePrefix", "GetNumberInputCallbacks", "GetNumberOutputCallbacks", "GetNumberEventCallbacks", "GetQuitLockString", "SetQuitLockString", "GetQuitLockStringWide", "SetQuitLockStringWide", "SetEventContextCallbacks", "SetClientContext", "OpenDumpFileWide2"]
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PSTR} ConnectOptions 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -64,7 +62,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Options 
      * @returns {HRESULT} 
      */
@@ -76,7 +73,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PSTR} Options 
      * @returns {HRESULT} 
@@ -91,7 +87,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} RemoteOptions 
      * @returns {Integer} 
      */
@@ -103,7 +98,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @returns {HRESULT} 
      */
@@ -113,7 +107,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Pointer<Integer>} Ids 
      * @param {Integer} Count 
@@ -129,7 +122,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PSTR} ExeName 
      * @param {Integer} Flags 
@@ -143,7 +135,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} SystemId 
      * @param {Integer} Flags 
@@ -167,7 +158,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} ProcessId 
      * @param {Integer} AttachFlags 
@@ -256,7 +246,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
      * @param {Integer} CreateFlags 
@@ -272,7 +261,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProcessOptions() {
@@ -281,7 +269,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -291,7 +278,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -301,7 +287,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -311,7 +296,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} DumpFile 
      * @returns {HRESULT} 
      */
@@ -323,7 +307,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} DumpFile 
      * @param {Integer} Qualifier 
      * @returns {HRESULT} 
@@ -336,7 +319,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} HistoryLimit 
      * @returns {HRESULT} 
@@ -347,7 +329,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Options 
      * @returns {HRESULT} 
      */
@@ -359,7 +340,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Machine 
      * @param {Integer} Flags 
@@ -373,7 +353,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TerminateProcesses() {
@@ -382,7 +361,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DetachProcesses() {
@@ -391,7 +369,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -401,7 +378,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExitCode() {
@@ -410,7 +386,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Timeout 
      * @returns {HRESULT} 
      */
@@ -420,7 +395,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @returns {HRESULT} 
      */
@@ -430,7 +404,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugClient} 
      */
     CreateClient() {
@@ -439,7 +412,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugInputCallbacks} 
      */
     GetInputCallbacks() {
@@ -448,7 +420,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugInputCallbacks} Callbacks 
      * @returns {HRESULT} 
      */
@@ -458,7 +429,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugOutputCallbacks} 
      */
     GetOutputCallbacks() {
@@ -467,7 +437,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugOutputCallbacks} Callbacks 
      * @returns {HRESULT} 
      */
@@ -477,7 +446,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputMask() {
@@ -486,7 +454,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @returns {HRESULT} 
      */
@@ -496,7 +463,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @returns {Integer} 
      */
@@ -506,7 +472,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Mask 
      * @returns {HRESULT} 
@@ -517,7 +482,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputWidth() {
@@ -526,7 +490,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Columns 
      * @returns {HRESULT} 
      */
@@ -536,7 +499,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -549,7 +511,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Prefix 
      * @returns {HRESULT} 
      */
@@ -561,7 +522,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -574,7 +534,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @param {PSTR} Format 
@@ -588,7 +547,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugEventCallbacks} 
      */
     GetEventCallbacks() {
@@ -597,7 +555,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugEventCallbacks} Callbacks 
      * @returns {HRESULT} 
      */
@@ -607,7 +564,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FlushCallbacks() {
@@ -616,7 +572,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} DumpFile 
      * @param {Integer} Qualifier 
      * @param {Integer} FormatFlags 
@@ -632,7 +587,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} InfoFile 
      * @param {Integer} Type 
      * @returns {HRESULT} 
@@ -645,7 +599,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @returns {HRESULT} 
      */
@@ -655,7 +608,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Timeout 
      * @returns {HRESULT} 
      */
@@ -665,7 +617,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsKernelDebuggerEnabled() {
@@ -674,7 +625,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TerminateCurrentProcess() {
@@ -683,7 +633,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DetachCurrentProcess() {
@@ -692,7 +641,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AbandonCurrentProcess() {
@@ -701,7 +649,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} ExeName 
      * @param {Integer} Flags 
@@ -715,7 +662,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} SystemId 
      * @param {Integer} Flags 
@@ -739,7 +685,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} CommandLine 
      * @param {Integer} CreateFlags 
@@ -753,7 +698,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} CommandLine 
      * @param {Integer} CreateFlags 
@@ -769,7 +713,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {Integer} FileHandle 
      * @returns {HRESULT} 
@@ -782,7 +725,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {Integer} FileHandle 
      * @param {Integer} Qualifier 
@@ -799,7 +741,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {Integer} FileHandle 
      * @param {Integer} Type 
@@ -813,7 +754,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberDumpFiles() {
@@ -822,7 +762,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -843,7 +782,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -864,7 +802,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PWSTR} ConnectOptions 
      * @returns {HRESULT} 
@@ -877,7 +814,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -890,7 +826,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Options 
      * @returns {HRESULT} 
      */
@@ -902,7 +837,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PWSTR} Options 
      * @returns {HRESULT} 
@@ -917,7 +851,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} RemoteOptions 
      * @returns {Integer} 
      */
@@ -929,7 +862,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Options 
      * @returns {HRESULT} 
      */
@@ -941,7 +873,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PWSTR} Machine 
      * @param {Integer} Flags 
@@ -955,7 +886,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugOutputCallbacksWide} 
      */
     GetOutputCallbacksWide() {
@@ -964,7 +894,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugOutputCallbacksWide} Callbacks 
      * @returns {HRESULT} 
      */
@@ -974,7 +903,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -987,7 +915,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Prefix 
      * @returns {HRESULT} 
      */
@@ -999,7 +926,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1012,7 +938,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @param {PWSTR} Format 
@@ -1026,7 +951,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugEventCallbacksWide} 
      */
     GetEventCallbacksWide() {
@@ -1035,7 +959,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugEventCallbacksWide} Callbacks 
      * @returns {HRESULT} 
      */
@@ -1045,7 +968,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
      * @param {Integer} OptionsBuffer 
@@ -1064,7 +986,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} CommandLine 
      * @param {Integer} OptionsBuffer 
@@ -1083,7 +1004,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
      * @param {Integer} OptionsBuffer 
@@ -1104,7 +1024,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} CommandLine 
      * @param {Integer} OptionsBuffer 
@@ -1125,7 +1044,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} NewPrefix 
      * @returns {Integer} 
      */
@@ -1137,7 +1055,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} NewPrefix 
      * @returns {Integer} 
      */
@@ -1149,7 +1066,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -1159,7 +1075,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberInputCallbacks() {
@@ -1168,7 +1083,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOutputCallbacks() {
@@ -1177,7 +1091,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} EventFlags 
      * @returns {Integer} 
      */
@@ -1187,7 +1100,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1200,7 +1112,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _String 
      * @returns {HRESULT} 
      */
@@ -1212,7 +1123,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1225,7 +1135,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _String 
      * @returns {HRESULT} 
      */
@@ -1237,7 +1146,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugEventContextCallbacks} Callbacks 
      * @returns {HRESULT} 
      */
@@ -1247,7 +1155,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
@@ -1258,7 +1165,6 @@ class IDebugClient8 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {Integer} FileHandle 
      * @param {Integer} AlternateArch 

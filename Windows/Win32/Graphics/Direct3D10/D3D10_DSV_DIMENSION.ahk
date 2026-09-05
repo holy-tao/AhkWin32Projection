@@ -12,43 +12,50 @@ class D3D10_DSV_DIMENSION extends Win32Enum {
 
     /**
      * The resource will be accessed according to its type as determined from the actual instance this enumeration is paired with when the depth-stencil view is created.
+     * Native name: D3D10_DSV_DIMENSION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D10_DSV_DIMENSION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The resource will be accessed as a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">1D texture</a>.
+     * Native name: D3D10_DSV_DIMENSION_TEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D10_DSV_DIMENSION_TEXTURE1D => 1
+    static TEXTURE1D => 1
 
     /**
      * The resource will be accessed as an array of 1D textures.
+     * Native name: D3D10_DSV_DIMENSION_TEXTURE1DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D10_DSV_DIMENSION_TEXTURE1DARRAY => 2
+    static TEXTURE1DARRAY => 2
 
     /**
      * The resource will be accessed as a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">2D texture</a>.
+     * Native name: D3D10_DSV_DIMENSION_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D10_DSV_DIMENSION_TEXTURE2D => 3
+    static TEXTURE2D => 3
 
     /**
      * The resource will be accessed as an array of 2D texture.
+     * Native name: D3D10_DSV_DIMENSION_TEXTURE2DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D10_DSV_DIMENSION_TEXTURE2DARRAY => 4
+    static TEXTURE2DARRAY => 4
 
     /**
      * The resource will be accessed as a 2D texture with multisampling.
+     * Native name: D3D10_DSV_DIMENSION_TEXTURE2DMS
      * @type {Integer (Int32)}
      */
-    static D3D10_DSV_DIMENSION_TEXTURE2DMS => 5
+    static TEXTURE2DMS => 5
 
     /**
      * The resource will be accessed as an array of 2D textures with multisampling.
+     * Native name: D3D10_DSV_DIMENSION_TEXTURE2DMSARRAY
      * @type {Integer (Int32)}
      */
-    static D3D10_DSV_DIMENSION_TEXTURE2DMSARRAY => 6
+    static TEXTURE2DMSARRAY => 6
 }

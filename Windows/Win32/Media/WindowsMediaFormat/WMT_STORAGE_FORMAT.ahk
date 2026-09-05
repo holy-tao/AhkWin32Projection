@@ -12,13 +12,15 @@ class WMT_STORAGE_FORMAT extends Win32Enum {
 
     /**
      * The file is encoded in MP3 format.
+     * Native name: WMT_Storage_Format_MP3
      * @type {Integer (Int32)}
      */
-    static WMT_Storage_Format_MP3 => 0
+    static MP3 => 0
 
     /**
      * The file is encoded in Windows Media Format.
+     * Native name: WMT_Storage_Format_V1
      * @type {Integer (Int32)}
      */
-    static WMT_Storage_Format_V1 => 1
+    static V1 => 1
 }

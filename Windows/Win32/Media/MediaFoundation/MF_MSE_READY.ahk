@@ -10,19 +10,22 @@ class MF_MSE_READY extends Win32Enum {
 
     /**
      * The media source is closed.
+     * Native name: MF_MSE_READY_CLOSED
      * @type {Integer (Int32)}
      */
-    static MF_MSE_READY_CLOSED => 1
+    static CLOSED => 1
 
     /**
      * The media source is open.
+     * Native name: MF_MSE_READY_OPEN
      * @type {Integer (Int32)}
      */
-    static MF_MSE_READY_OPEN => 2
+    static OPEN => 2
 
     /**
      * The media source is ended.
+     * Native name: MF_MSE_READY_ENDED
      * @type {Integer (Int32)}
      */
-    static MF_MSE_READY_ENDED => 3
+    static ENDED => 3
 }

@@ -7,32 +7,38 @@
 class INTERNAL_IF_OPER_STATUS extends Win32Enum {
 
     /**
+     * Native name: IF_OPER_STATUS_NON_OPERATIONAL
      * @type {Integer (Int32)}
      */
-    static IF_OPER_STATUS_NON_OPERATIONAL => 0
+    static NON_OPERATIONAL => 0
 
     /**
+     * Native name: IF_OPER_STATUS_UNREACHABLE
      * @type {Integer (Int32)}
      */
-    static IF_OPER_STATUS_UNREACHABLE => 1
+    static UNREACHABLE => 1
 
     /**
+     * Native name: IF_OPER_STATUS_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static IF_OPER_STATUS_DISCONNECTED => 2
+    static DISCONNECTED => 2
 
     /**
+     * Native name: IF_OPER_STATUS_CONNECTING
      * @type {Integer (Int32)}
      */
-    static IF_OPER_STATUS_CONNECTING => 3
+    static CONNECTING => 3
 
     /**
+     * Native name: IF_OPER_STATUS_CONNECTED
      * @type {Integer (Int32)}
      */
-    static IF_OPER_STATUS_CONNECTED => 4
+    static CONNECTED => 4
 
     /**
+     * Native name: IF_OPER_STATUS_OPERATIONAL
      * @type {Integer (Int32)}
      */
-    static IF_OPER_STATUS_OPERATIONAL => 5
+    static OPERATIONAL => 5
 }

@@ -32,7 +32,6 @@ class IDBPromptInitialize extends IUnknown {
     static VTableNames => ["PromptDataSource", "PromptFileName"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {HWND} hWndParent 
      * @param {Integer} dwPromptOptions 
@@ -54,7 +53,6 @@ class IDBPromptInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @param {Integer} dwPromptOptions 
      * @param {PWSTR} pwszInitialDirectory 

@@ -15,37 +15,43 @@ class MF_TOPOSTATUS extends Win32Enum {
 
     /**
      * This value is not used.
+     * Native name: MF_TOPOSTATUS_INVALID
      * @type {Integer (Int32)}
      */
-    static MF_TOPOSTATUS_INVALID => 0
+    static INVALID => 0
 
     /**
      * The topology is ready to start. After this status flag is received, you can use the Media Session's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">IMFGetService::GetService</a> method to query the topology for services, such as rate control.
+     * Native name: MF_TOPOSTATUS_READY
      * @type {Integer (Int32)}
      */
-    static MF_TOPOSTATUS_READY => 100
+    static READY => 100
 
     /**
      * The Media Session has started to read data from the media sources in the topology.
+     * Native name: MF_TOPOSTATUS_STARTED_SOURCE
      * @type {Integer (Int32)}
      */
-    static MF_TOPOSTATUS_STARTED_SOURCE => 200
+    static STARTED_SOURCE => 200
 
     /**
      * The Media Session modified the topology, because the format of a stream changed.
+     * Native name: MF_TOPOSTATUS_DYNAMIC_CHANGED
      * @type {Integer (Int32)}
      */
-    static MF_TOPOSTATUS_DYNAMIC_CHANGED => 210
+    static DYNAMIC_CHANGED => 210
 
     /**
      * The media sinks have switched from the previous topology to this topology. This status value is not sent for the first topology that is played. For the first topology, the <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessionstarted">MESessionStarted</a> event indicates that the media sinks have started receiving data.
+     * Native name: MF_TOPOSTATUS_SINK_SWITCHED
      * @type {Integer (Int32)}
      */
-    static MF_TOPOSTATUS_SINK_SWITCHED => 300
+    static SINK_SWITCHED => 300
 
     /**
      * Playback of this topology is complete. The Media Session might still use the topology internally. The Media Session does not completely release the topology until it sends the next <b>MF_TOPOSTATUS_STARTED_SOURCE</b> status event or the <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessionended">MESessionEnded</a> event.
+     * Native name: MF_TOPOSTATUS_ENDED
      * @type {Integer (Int32)}
      */
-    static MF_TOPOSTATUS_ENDED => 400
+    static ENDED => 400
 }

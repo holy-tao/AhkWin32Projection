@@ -10,13 +10,15 @@ class D2D1_COLORMANAGEMENT_ALPHA_MODE extends Win32Enum {
 
     /**
      * The effect assumes the alpha mode is premultiplied.
+     * Native name: D2D1_COLORMANAGEMENT_ALPHA_MODE_PREMULTIPLIED
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_ALPHA_MODE_PREMULTIPLIED => 1
+    static PREMULTIPLIED => 1
 
     /**
      * The effect assumes the alpha mode is straight.
+     * Native name: D2D1_COLORMANAGEMENT_ALPHA_MODE_STRAIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_ALPHA_MODE_STRAIGHT => 2
+    static STRAIGHT => 2
 }

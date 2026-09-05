@@ -42,7 +42,6 @@ class IOpenService extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fDefault 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -55,7 +54,6 @@ class IOpenService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetID() {

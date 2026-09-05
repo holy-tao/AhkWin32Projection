@@ -10,19 +10,22 @@ class D2D1_GAMMA1 extends Win32Enum {
 
     /**
      * Colors are manipulated in 2.2 gamma color space.
+     * Native name: D2D1_GAMMA1_G22
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMA1_G22 => 0
+    static G22 => 0
 
     /**
      * Colors are manipulated in 1.0 gamma color space.
+     * Native name: D2D1_GAMMA1_G10
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMA1_G10 => 1
+    static G10 => 1
 
     /**
      * Colors are manipulated in ST.2084 PQ gamma color space.
+     * Native name: D2D1_GAMMA1_G2084
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMA1_G2084 => 2
+    static G2084 => 2
 }

@@ -7,22 +7,26 @@
 class KSPROPERTY_TOPOLOGY extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_TOPOLOGY_CATEGORIES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TOPOLOGY_CATEGORIES => 0
+    static CATEGORIES => 0
 
     /**
+     * Native name: KSPROPERTY_TOPOLOGY_NODES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TOPOLOGY_NODES => 1
+    static NODES => 1
 
     /**
+     * Native name: KSPROPERTY_TOPOLOGY_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TOPOLOGY_CONNECTIONS => 2
+    static CONNECTIONS => 2
 
     /**
+     * Native name: KSPROPERTY_TOPOLOGY_NAME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TOPOLOGY_NAME => 3
+    static NAME => 3
 }

@@ -73,7 +73,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServerName() {
@@ -83,7 +82,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServerName 
      * @returns {HRESULT} 
      */
@@ -95,7 +93,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ReplicaType() {
@@ -104,7 +101,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnReplicaType 
      * @returns {HRESULT} 
      */
@@ -114,7 +110,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ReplicaNumber() {
@@ -123,7 +118,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnReplicaNumber 
      * @returns {HRESULT} 
      */
@@ -133,7 +127,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -142,7 +135,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnCount 
      * @returns {HRESULT} 
      */
@@ -152,7 +144,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ReplicaAddressHints() {
@@ -162,7 +153,6 @@ class IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vReplicaAddressHints 
      * @returns {HRESULT} 
      */

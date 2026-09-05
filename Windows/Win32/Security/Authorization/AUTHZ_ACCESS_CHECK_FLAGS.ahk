@@ -7,7 +7,8 @@
 class AUTHZ_ACCESS_CHECK_FLAGS extends Win32Enum {
 
     /**
+     * Native name: AUTHZ_ACCESS_CHECK_NO_DEEP_COPY_SD
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_ACCESS_CHECK_NO_DEEP_COPY_SD => 1
+    static NO_DEEP_COPY_SD => 1
 }

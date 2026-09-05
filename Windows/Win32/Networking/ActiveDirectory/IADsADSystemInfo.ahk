@@ -97,7 +97,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserName() {
@@ -107,7 +106,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerName() {
@@ -117,7 +115,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SiteName() {
@@ -127,7 +124,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainShortName() {
@@ -137,7 +133,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainDNSName() {
@@ -147,7 +142,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ForestDNSName() {
@@ -157,7 +151,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PDCRoleOwner() {
@@ -167,7 +160,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SchemaRoleOwner() {
@@ -177,7 +169,6 @@ class IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsNativeMode() {

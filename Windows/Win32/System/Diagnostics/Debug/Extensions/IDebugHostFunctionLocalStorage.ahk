@@ -30,7 +30,6 @@ class IDebugHostFunctionLocalStorage extends IUnknown {
     static VTableNames => ["GetValidRange", "GetStorageKind", "GetRegister", "GetOffset"]
 
     /**
-     * 
      * @param {Pointer<Integer>} start 
      * @param {Pointer<Integer>} end 
      * @param {Pointer<Boolean>} guaranteed 
@@ -46,7 +45,6 @@ class IDebugHostFunctionLocalStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {StorageKind} 
      */
     GetStorageKind() {
@@ -55,7 +53,6 @@ class IDebugHostFunctionLocalStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRegister() {
@@ -64,7 +61,6 @@ class IDebugHostFunctionLocalStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOffset() {

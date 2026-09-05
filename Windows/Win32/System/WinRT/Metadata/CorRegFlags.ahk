@@ -7,17 +7,20 @@
 class CorRegFlags extends Win32Enum {
 
     /**
+     * Native name: regNoCopy
      * @type {Integer (Int32)}
      */
-    static regNoCopy => 1
+    static NoCopy => 1
 
     /**
+     * Native name: regConfig
      * @type {Integer (Int32)}
      */
-    static regConfig => 2
+    static Config => 2
 
     /**
+     * Native name: regHasRefs
      * @type {Integer (Int32)}
      */
-    static regHasRefs => 4
+    static HasRefs => 4
 }

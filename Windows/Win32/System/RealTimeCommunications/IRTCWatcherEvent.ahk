@@ -37,7 +37,6 @@ class IRTCWatcherEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCWatcher} 
      */
     get_Watcher() {

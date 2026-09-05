@@ -10,25 +10,29 @@ class NL_NETWORK_CONNECTIVITY_COST_HINT extends Win32Enum {
 
     /**
      * Specifies a hint that cost information is not available.
+     * Native name: NetworkConnectivityCostHintUnknown
      * @type {Integer (Int32)}
      */
-    static NetworkConnectivityCostHintUnknown => 0
+    static Unknown => 0
 
     /**
      * Specifies a hint that the connection is unlimited, and has unrestricted usage charges and capacity constraints.
+     * Native name: NetworkConnectivityCostHintUnrestricted
      * @type {Integer (Int32)}
      */
-    static NetworkConnectivityCostHintUnrestricted => 1
+    static Unrestricted => 1
 
     /**
      * Specifies a hint that the use of the connection is unrestricted up to a specific limit.
+     * Native name: NetworkConnectivityCostHintFixed
      * @type {Integer (Int32)}
      */
-    static NetworkConnectivityCostHintFixed => 2
+    static Fixed => 2
 
     /**
      * Specifies a hint that the connection is charged on a per-byte basis.
+     * Native name: NetworkConnectivityCostHintVariable
      * @type {Integer (Int32)}
      */
-    static NetworkConnectivityCostHintVariable => 3
+    static Variable => 3
 }

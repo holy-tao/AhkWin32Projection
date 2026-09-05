@@ -10,19 +10,22 @@ class WTSSBX_MACHINE_STATE extends Win32Enum {
 
     /**
      * The server state is unspecified.
+     * Native name: WTSSBX_MACHINE_STATE_UNSPEC
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_STATE_UNSPEC => 0
+    static UNSPEC => 0
 
     /**
      * The server state is ready.
+     * Native name: WTSSBX_MACHINE_STATE_READY
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_STATE_READY => 1
+    static READY => 1
 
     /**
      * The server is synchronizing with RD Connection Broker.
+     * Native name: WTSSBX_MACHINE_STATE_SYNCHRONIZING
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_STATE_SYNCHRONIZING => 2
+    static SYNCHRONIZING => 2
 }

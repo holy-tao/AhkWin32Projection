@@ -32,7 +32,6 @@ class ITpmVirtualSmartCardManager2 extends ITpmVirtualSmartCardManager {
     static VTableNames => ["CreateVirtualSmartCardWithPinPolicy"]
 
     /**
-     * 
      * @param {PWSTR} pszFriendlyName 
      * @param {Integer} bAdminAlgId 
      * @param {Pointer<Integer>} pbAdminKey 

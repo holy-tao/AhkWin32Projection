@@ -45,7 +45,6 @@ class IPrintJobCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -54,7 +53,6 @@ class IPrintJobCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ulIndex 
      * @returns {IPrintJob} 
      */
@@ -64,7 +62,6 @@ class IPrintJobCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

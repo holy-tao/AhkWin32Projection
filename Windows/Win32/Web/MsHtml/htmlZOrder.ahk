@@ -7,17 +7,20 @@
 class htmlZOrder extends Win32Enum {
 
     /**
+     * Native name: htmlZOrderFront
      * @type {Integer (Int32)}
      */
-    static htmlZOrderFront => 0
+    static Front => 0
 
     /**
+     * Native name: htmlZOrderBack
      * @type {Integer (Int32)}
      */
-    static htmlZOrderBack => 1
+    static Back => 1
 
     /**
+     * Native name: htmlZOrder_Max
      * @type {Integer (Int32)}
      */
-    static htmlZOrder_Max => 2147483647
+    static Max => 2147483647
 }

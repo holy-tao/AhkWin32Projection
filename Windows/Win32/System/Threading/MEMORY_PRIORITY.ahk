@@ -7,27 +7,32 @@
 class MEMORY_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: MEMORY_PRIORITY_VERY_LOW
      * @type {Integer (UInt32)}
      */
-    static MEMORY_PRIORITY_VERY_LOW => 1
+    static VERY_LOW => 1
 
     /**
+     * Native name: MEMORY_PRIORITY_LOW
      * @type {Integer (UInt32)}
      */
-    static MEMORY_PRIORITY_LOW => 2
+    static LOW => 2
 
     /**
+     * Native name: MEMORY_PRIORITY_MEDIUM
      * @type {Integer (UInt32)}
      */
-    static MEMORY_PRIORITY_MEDIUM => 3
+    static MEDIUM => 3
 
     /**
+     * Native name: MEMORY_PRIORITY_BELOW_NORMAL
      * @type {Integer (UInt32)}
      */
-    static MEMORY_PRIORITY_BELOW_NORMAL => 4
+    static BELOW_NORMAL => 4
 
     /**
+     * Native name: MEMORY_PRIORITY_NORMAL
      * @type {Integer (UInt32)}
      */
-    static MEMORY_PRIORITY_NORMAL => 5
+    static NORMAL => 5
 }

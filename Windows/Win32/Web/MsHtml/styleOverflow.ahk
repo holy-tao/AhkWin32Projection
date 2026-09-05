@@ -7,32 +7,38 @@
 class styleOverflow extends Win32Enum {
 
     /**
+     * Native name: styleOverflowNotSet
      * @type {Integer (Int32)}
      */
-    static styleOverflowNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleOverflowAuto
      * @type {Integer (Int32)}
      */
-    static styleOverflowAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleOverflowHidden
      * @type {Integer (Int32)}
      */
-    static styleOverflowHidden => 2
+    static Hidden => 2
 
     /**
+     * Native name: styleOverflowVisible
      * @type {Integer (Int32)}
      */
-    static styleOverflowVisible => 3
+    static Visible => 3
 
     /**
+     * Native name: styleOverflowScroll
      * @type {Integer (Int32)}
      */
-    static styleOverflowScroll => 4
+    static Scroll => 4
 
     /**
+     * Native name: styleOverflow_Max
      * @type {Integer (Int32)}
      */
-    static styleOverflow_Max => 2147483647
+    static Max => 2147483647
 }

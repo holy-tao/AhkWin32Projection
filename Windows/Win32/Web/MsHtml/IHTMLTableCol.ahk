@@ -69,7 +69,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +78,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_span() {
@@ -88,7 +86,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +95,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -108,7 +104,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +115,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -130,7 +124,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -142,7 +135,6 @@ class IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {

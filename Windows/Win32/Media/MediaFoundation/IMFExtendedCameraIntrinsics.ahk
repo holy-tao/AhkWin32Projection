@@ -30,7 +30,6 @@ class IMFExtendedCameraIntrinsics extends IUnknown {
     static VTableNames => ["InitializeFromBuffer", "GetBufferSize", "SerializeToBuffer", "GetIntrinsicModelCount", "GetIntrinsicModelByIndex", "AddIntrinsicModel"]
 
     /**
-     * 
      * @param {Integer} pbBuffer 
      * @param {Integer} dwBufferSize 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetBufferSize() {
@@ -50,7 +48,6 @@ class IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pbBuffer 
      * @param {Pointer<Integer>} pdwBufferSize 
      * @returns {HRESULT} 
@@ -63,7 +60,6 @@ class IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIntrinsicModelCount() {
@@ -72,7 +68,6 @@ class IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {IMFExtendedCameraIntrinsicModel} 
      */
@@ -82,7 +77,6 @@ class IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMFExtendedCameraIntrinsicModel} pIntrinsicModel 
      * @returns {HRESULT} 
      */

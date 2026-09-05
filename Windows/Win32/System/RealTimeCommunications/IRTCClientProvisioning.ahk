@@ -62,7 +62,6 @@ class IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lRegisterFlags 
      * @returns {HRESULT} 
@@ -73,7 +72,6 @@ class IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @returns {HRESULT} 
      */
@@ -83,7 +81,6 @@ class IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumProfiles} 
      */
     EnumerateProfiles() {
@@ -92,7 +89,6 @@ class IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Profiles() {
@@ -101,7 +97,6 @@ class IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrUserPassword 
      * @param {BSTR} bstrUserURI 
@@ -121,7 +116,6 @@ class IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SessionCapabilities() {

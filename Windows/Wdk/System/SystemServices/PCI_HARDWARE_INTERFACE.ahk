@@ -7,9 +7,10 @@
 class PCI_HARDWARE_INTERFACE extends Win32Enum {
 
     /**
+     * Native name: PciConventional
      * @type {Integer (Int32)}
      */
-    static PciConventional => 0
+    static Conventional => 0
 
     /**
      * @type {Integer (Int32)}
@@ -22,7 +23,8 @@ class PCI_HARDWARE_INTERFACE extends Win32Enum {
     static PciXMode2 => 2
 
     /**
+     * Native name: PciExpress
      * @type {Integer (Int32)}
      */
-    static PciExpress => 3
+    static Express => 3
 }

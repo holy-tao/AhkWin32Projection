@@ -7,22 +7,26 @@
 class msidbLocatorType extends Win32Enum {
 
     /**
+     * Native name: msidbLocatorTypeDirectory
      * @type {Integer (Int32)}
      */
-    static msidbLocatorTypeDirectory => 0
+    static Directory => 0
 
     /**
+     * Native name: msidbLocatorTypeFileName
      * @type {Integer (Int32)}
      */
-    static msidbLocatorTypeFileName => 1
+    static FileName => 1
 
     /**
+     * Native name: msidbLocatorTypeRawValue
      * @type {Integer (Int32)}
      */
-    static msidbLocatorTypeRawValue => 2
+    static RawValue => 2
 
     /**
+     * Native name: msidbLocatorType64bit
      * @type {Integer (Int32)}
      */
-    static msidbLocatorType64bit => 16
+    static Type64bit => 16
 }

@@ -7,17 +7,20 @@
 class CLUSTER_MGMT_POINT_RESTYPE extends Win32Enum {
 
     /**
+     * Native name: CLUSTER_MGMT_POINT_RESTYPE_AUTO
      * @type {Integer (Int32)}
      */
-    static CLUSTER_MGMT_POINT_RESTYPE_AUTO => 0
+    static AUTO => 0
 
     /**
+     * Native name: CLUSTER_MGMT_POINT_RESTYPE_SNN
      * @type {Integer (Int32)}
      */
-    static CLUSTER_MGMT_POINT_RESTYPE_SNN => 1
+    static SNN => 1
 
     /**
+     * Native name: CLUSTER_MGMT_POINT_RESTYPE_DNN
      * @type {Integer (Int32)}
      */
-    static CLUSTER_MGMT_POINT_RESTYPE_DNN => 2
+    static DNN => 2
 }

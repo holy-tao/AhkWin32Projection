@@ -181,7 +181,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Value() {
@@ -191,7 +190,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strValue 
      * @returns {HRESULT} 
      */
@@ -203,7 +201,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Year() {
@@ -212,7 +209,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iYear 
      * @returns {HRESULT} 
      */
@@ -222,7 +218,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_YearSpecified() {
@@ -231,7 +226,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bYearSpecified 
      * @returns {HRESULT} 
      */
@@ -241,7 +235,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Month() {
@@ -250,7 +243,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iMonth 
      * @returns {HRESULT} 
      */
@@ -260,7 +252,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MonthSpecified() {
@@ -269,7 +260,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bMonthSpecified 
      * @returns {HRESULT} 
      */
@@ -279,7 +269,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Day() {
@@ -288,7 +277,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iDay 
      * @returns {HRESULT} 
      */
@@ -298,7 +286,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_DaySpecified() {
@@ -307,7 +294,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bDaySpecified 
      * @returns {HRESULT} 
      */
@@ -317,7 +303,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Hours() {
@@ -326,7 +311,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iHours 
      * @returns {HRESULT} 
      */
@@ -336,7 +320,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_HoursSpecified() {
@@ -345,7 +328,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bHoursSpecified 
      * @returns {HRESULT} 
      */
@@ -355,7 +337,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Minutes() {
@@ -364,7 +345,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iMinutes 
      * @returns {HRESULT} 
      */
@@ -374,7 +354,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MinutesSpecified() {
@@ -383,7 +362,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bMinutesSpecified 
      * @returns {HRESULT} 
      */
@@ -393,7 +371,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Seconds() {
@@ -402,7 +379,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iSeconds 
      * @returns {HRESULT} 
      */
@@ -412,7 +388,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SecondsSpecified() {
@@ -421,7 +396,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSecondsSpecified 
      * @returns {HRESULT} 
      */
@@ -431,7 +405,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Microseconds() {
@@ -440,7 +413,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iMicroseconds 
      * @returns {HRESULT} 
      */
@@ -450,7 +422,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MicrosecondsSpecified() {
@@ -459,7 +430,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bMicrosecondsSpecified 
      * @returns {HRESULT} 
      */
@@ -469,7 +439,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UTC() {
@@ -478,7 +447,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iUTC 
      * @returns {HRESULT} 
      */
@@ -488,7 +456,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_UTCSpecified() {
@@ -497,7 +464,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bUTCSpecified 
      * @returns {HRESULT} 
      */
@@ -507,7 +473,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsInterval() {
@@ -516,7 +481,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsInterval 
      * @returns {HRESULT} 
      */
@@ -526,7 +490,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsLocal 
      * @returns {Float} 
      */
@@ -536,7 +499,6 @@ class ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} dVarDate 
      * @param {VARIANT_BOOL} bIsLocal 
      * @returns {HRESULT} 

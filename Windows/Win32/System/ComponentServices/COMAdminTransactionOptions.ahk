@@ -7,27 +7,32 @@
 class COMAdminTransactionOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminTransactionIgnored
      * @type {Integer (Int32)}
      */
-    static COMAdminTransactionIgnored => 0
+    static Ignored => 0
 
     /**
+     * Native name: COMAdminTransactionNone
      * @type {Integer (Int32)}
      */
-    static COMAdminTransactionNone => 1
+    static None => 1
 
     /**
+     * Native name: COMAdminTransactionSupported
      * @type {Integer (Int32)}
      */
-    static COMAdminTransactionSupported => 2
+    static Supported => 2
 
     /**
+     * Native name: COMAdminTransactionRequired
      * @type {Integer (Int32)}
      */
-    static COMAdminTransactionRequired => 3
+    static Required => 3
 
     /**
+     * Native name: COMAdminTransactionRequiresNew
      * @type {Integer (Int32)}
      */
-    static COMAdminTransactionRequiresNew => 4
+    static RequiresNew => 4
 }

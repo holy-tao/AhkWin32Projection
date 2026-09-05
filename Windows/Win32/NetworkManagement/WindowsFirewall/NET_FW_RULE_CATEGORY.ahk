@@ -12,31 +12,36 @@ class NET_FW_RULE_CATEGORY extends Win32Enum {
 
     /**
      * Specifies boot time filters.
+     * Native name: NET_FW_RULE_CATEGORY_BOOT
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_CATEGORY_BOOT => 0
+    static BOOT => 0
 
     /**
      * Specifies stealth filters.
+     * Native name: NET_FW_RULE_CATEGORY_STEALTH
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_CATEGORY_STEALTH => 1
+    static STEALTH => 1
 
     /**
      * Specifies firewall filters.
+     * Native name: NET_FW_RULE_CATEGORY_FIREWALL
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_CATEGORY_FIREWALL => 2
+    static FIREWALL => 2
 
     /**
      * Specifies connection security filters.
+     * Native name: NET_FW_RULE_CATEGORY_CONSEC
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_CATEGORY_CONSEC => 3
+    static CONSEC => 3
 
     /**
      * Maximum value for testing purposes.
+     * Native name: NET_FW_RULE_CATEGORY_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_CATEGORY_MAX => 4
+    static MAX => 4
 }

@@ -12,25 +12,29 @@ class POINTER_DEVICE_CURSOR_TYPE extends Win32Enum {
 
     /**
      * Unidentified cursor.
+     * Native name: POINTER_DEVICE_CURSOR_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static POINTER_DEVICE_CURSOR_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Pen tip.
+     * Native name: POINTER_DEVICE_CURSOR_TYPE_TIP
      * @type {Integer (Int32)}
      */
-    static POINTER_DEVICE_CURSOR_TYPE_TIP => 1
+    static TIP => 1
 
     /**
      * Pen eraser.
+     * Native name: POINTER_DEVICE_CURSOR_TYPE_ERASER
      * @type {Integer (Int32)}
      */
-    static POINTER_DEVICE_CURSOR_TYPE_ERASER => 2
+    static ERASER => 2
 
     /**
      * Forces this enumeration to compile to 32 bits in size. Without this value, some compilers would allow this enumeration to compile to a size other than 32 bits. You should not use this value.
+     * Native name: POINTER_DEVICE_CURSOR_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static POINTER_DEVICE_CURSOR_TYPE_MAX => -1
+    static MAX => -1
 }

@@ -10,14 +10,16 @@ class ASF_STATUSFLAGS extends Win32Enum {
 
     /**
      * The operation is incomplete.
+     * Native name: ASF_STATUSFLAGS_INCOMPLETE
      * @type {Integer (Int32)}
      */
-    static ASF_STATUSFLAGS_INCOMPLETE => 1
+    static INCOMPLETE => 1
 
     /**
      * One or more non-critical errors
      *         occurred while parsing the ASF data.
+     * Native name: ASF_STATUSFLAGS_NONFATAL_ERROR
      * @type {Integer (Int32)}
      */
-    static ASF_STATUSFLAGS_NONFATAL_ERROR => 2
+    static NONFATAL_ERROR => 2
 }

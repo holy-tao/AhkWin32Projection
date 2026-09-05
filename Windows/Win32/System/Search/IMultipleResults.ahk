@@ -30,7 +30,6 @@ class IMultipleResults extends IUnknown {
     static VTableNames => ["GetResult"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} lResultFlag 
      * @param {Pointer<Guid>} riid 

@@ -51,7 +51,6 @@ class IDOMException extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ class IDOMException extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_code() {
@@ -70,7 +68,6 @@ class IDOMException extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_message() {

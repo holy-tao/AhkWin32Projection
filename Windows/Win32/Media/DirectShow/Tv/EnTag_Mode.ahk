@@ -7,17 +7,20 @@
 class EnTag_Mode extends Win32Enum {
 
     /**
+     * Native name: EnTag_Remove
      * @type {Integer (Int32)}
      */
-    static EnTag_Remove => 0
+    static Remove => 0
 
     /**
+     * Native name: EnTag_Once
      * @type {Integer (Int32)}
      */
-    static EnTag_Once => 1
+    static Once => 1
 
     /**
+     * Native name: EnTag_Repeat
      * @type {Integer (Int32)}
      */
-    static EnTag_Repeat => 2
+    static Repeat => 2
 }

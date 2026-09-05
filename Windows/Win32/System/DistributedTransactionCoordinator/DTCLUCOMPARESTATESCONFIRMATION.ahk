@@ -7,12 +7,14 @@
 class DTCLUCOMPARESTATESCONFIRMATION extends Win32Enum {
 
     /**
+     * Native name: DTCLUCOMPARESTATESCONFIRMATION_CONFIRM
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATESCONFIRMATION_CONFIRM => 1
+    static CONFIRM => 1
 
     /**
+     * Native name: DTCLUCOMPARESTATESCONFIRMATION_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATESCONFIRMATION_PROTOCOL => 2
+    static PROTOCOL => 2
 }

@@ -10,55 +10,64 @@ class COPP_CGMSA_Protection_Level extends Win32Enum {
 
     /**
      * CGMS-A is disabled.
+     * Native name: COPP_CGMSA_Disabled
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_Disabled => 0
+    static Disabled => 0
 
     /**
      * Minimum CGMS-A level. Equivalent to <b>COPP_CGMSA_Disabled</b>.
+     * Native name: COPP_CGMSA_LevelMin
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_LevelMin => 0
+    static Min => 0
 
     /**
      * The protection level is Copy Freely.
+     * Native name: COPP_CGMSA_CopyFreely
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_CopyFreely => 1
+    static CopyFreely => 1
 
     /**
      * The protection level is Copy No More.
+     * Native name: COPP_CGMSA_CopyNoMore
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_CopyNoMore => 2
+    static CopyNoMore => 2
 
     /**
      * The protection level is Copy One Generation.
+     * Native name: COPP_CGMSA_CopyOneGeneration
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_CopyOneGeneration => 3
+    static CopyOneGeneration => 3
 
     /**
      * The protection level is Copy Never.
+     * Native name: COPP_CGMSA_CopyNever
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_CopyNever => 4
+    static CopyNever => 4
 
     /**
      * Redistribution control (or <i>broadcast flag</i>) is required. This flag can be combined with the other flags.
+     * Native name: COPP_CGMSA_RedistributionControlRequired
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_RedistributionControlRequired => 8
+    static RedistributionControlRequired => 8
 
     /**
      * Maximum CGMS-A level.
+     * Native name: COPP_CGMSA_LevelMax
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_LevelMax => 12
+    static Max => 12
 
     /**
      * Reserved.
+     * Native name: COPP_CGMSA_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static COPP_CGMSA_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

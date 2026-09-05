@@ -7,42 +7,50 @@
 class HTMLDlgFlag extends Win32Enum {
 
     /**
+     * Native name: HTMLDlgFlagNo
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlagNo => 0
+    static No => 0
 
     /**
+     * Native name: HTMLDlgFlagOff
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlagOff => 0
+    static Off => 0
 
     /**
+     * Native name: HTMLDlgFlag0
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlag0 => 0
+    static Flag0 => 0
 
     /**
+     * Native name: HTMLDlgFlagYes
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlagYes => 1
+    static Yes => 1
 
     /**
+     * Native name: HTMLDlgFlagOn
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlagOn => 1
+    static On => 1
 
     /**
+     * Native name: HTMLDlgFlag1
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlag1 => 1
+    static Flag1 => 1
 
     /**
+     * Native name: HTMLDlgFlagNotSet
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlagNotSet => -1
+    static NotSet => -1
 
     /**
+     * Native name: HTMLDlgFlag_Max
      * @type {Integer (Int32)}
      */
-    static HTMLDlgFlag_Max => 2147483647
+    static Max => 2147483647
 }

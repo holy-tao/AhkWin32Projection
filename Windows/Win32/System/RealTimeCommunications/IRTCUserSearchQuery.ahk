@@ -46,7 +46,6 @@ class IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -60,7 +59,6 @@ class IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {BSTR} 
      */
@@ -73,7 +71,6 @@ class IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SearchTerms() {
@@ -83,7 +80,6 @@ class IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_USER_SEARCH_PREFERENCE} enPreference 
      * @param {Integer} lValue 
      * @returns {HRESULT} 
@@ -94,7 +90,6 @@ class IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_USER_SEARCH_PREFERENCE} enPreference 
      * @returns {Integer} 
      */
@@ -104,7 +99,6 @@ class IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDomain 
      * @returns {HRESULT} 
      */
@@ -116,7 +110,6 @@ class IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SearchDomain() {

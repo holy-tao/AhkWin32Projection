@@ -68,7 +68,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +79,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -90,7 +88,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -102,7 +99,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -112,7 +108,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -124,7 +119,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -134,7 +128,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -146,7 +139,6 @@ class IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_valueType() {

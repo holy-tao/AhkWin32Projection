@@ -7,7 +7,8 @@
 class NtmsAllocationPolicy extends Win32Enum {
 
     /**
+     * Native name: NTMS_ALLOCATE_FROMSCRATCH
      * @type {Integer (Int32)}
      */
-    static NTMS_ALLOCATE_FROMSCRATCH => 1
+    static ALLOCATE_FROMSCRATCH => 1
 }

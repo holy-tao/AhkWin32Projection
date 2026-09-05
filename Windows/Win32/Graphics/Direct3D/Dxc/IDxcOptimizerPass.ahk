@@ -30,7 +30,6 @@ class IDxcOptimizerPass extends IUnknown {
     static VTableNames => ["GetOptionName", "GetDescription", "GetOptionArgCount", "GetOptionArgName", "GetOptionArgDescription"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetOptionName() {
@@ -49,7 +48,6 @@ class IDxcOptimizerPass extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOptionArgCount() {
@@ -58,7 +56,6 @@ class IDxcOptimizerPass extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} argIndex 
      * @returns {PWSTR} 
      */
@@ -68,7 +65,6 @@ class IDxcOptimizerPass extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} argIndex 
      * @returns {PWSTR} 
      */

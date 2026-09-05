@@ -31,7 +31,6 @@ class IProcessDebugManager64 extends IUnknown {
     static VTableNames => ["CreateApplication", "GetDefaultApplication", "AddApplication", "RemoveApplication", "CreateDebugDocumentHelper"]
 
     /**
-     * 
      * @returns {IDebugApplication64} 
      */
     CreateApplication() {
@@ -40,7 +39,6 @@ class IProcessDebugManager64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplication64} 
      */
     GetDefaultApplication() {
@@ -49,7 +47,6 @@ class IProcessDebugManager64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplication64} pda 
      * @returns {Integer} 
      */
@@ -59,7 +56,6 @@ class IProcessDebugManager64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
      */
@@ -69,7 +65,6 @@ class IProcessDebugManager64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkOuter 
      * @returns {IDebugDocumentHelper64} 
      */

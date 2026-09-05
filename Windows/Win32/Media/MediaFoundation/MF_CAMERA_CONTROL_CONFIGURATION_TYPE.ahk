@@ -14,13 +14,15 @@ class MF_CAMERA_CONTROL_CONFIGURATION_TYPE extends Win32Enum {
 
     /**
      * The camera control must be configured before streaming begins.
+     * Native name: MF_CAMERA_CONTROL_CONFIGURATION_TYPE_PRESTART
      * @type {Integer (Int32)}
      */
-    static MF_CAMERA_CONTROL_CONFIGURATION_TYPE_PRESTART => 0
+    static PRESTART => 0
 
     /**
      * The camera control must be  configured after streaming has started.
+     * Native name: MF_CAMERA_CONTROL_CONFIGURATION_TYPE_POSTSTART
      * @type {Integer (Int32)}
      */
-    static MF_CAMERA_CONTROL_CONFIGURATION_TYPE_POSTSTART => 1
+    static POSTSTART => 1
 }

@@ -10,13 +10,15 @@ class CLFS_IOSTATS_CLASS extends Win32Enum {
 
     /**
      * The default I/O statistics exported.
+     * Native name: ClfsIoStatsDefault
      * @type {Integer (Int32)}
      */
-    static ClfsIoStatsDefault => 0
+    static IoStatsDefault => 0
 
     /**
      * The log flush rate.
+     * Native name: ClfsIoStatsMax
      * @type {Integer (Int32)}
      */
-    static ClfsIoStatsMax => 65535
+    static IoStatsMax => 65535
 }

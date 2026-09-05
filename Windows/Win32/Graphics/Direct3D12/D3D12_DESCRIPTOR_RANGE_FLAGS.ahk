@@ -14,9 +14,10 @@ class D3D12_DESCRIPTOR_RANGE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Default behavior. Descriptors are static, and default assumptions are made for data (for SRV/CBV: DATA_STATIC_WHILE_SET_AT_EXECUTE, and for UAV: DATA_VOLATILE).
+     * Native name: D3D12_DESCRIPTOR_RANGE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * If this is the only flag set, then descriptors are volatile and default assumptions are made about data (for SRV/CBV: DATA_STATIC_WHILE_SET_AT_EXECUTE, and for UAV: DATA_VOLATILE). 
@@ -24,31 +25,36 @@ class D3D12_DESCRIPTOR_RANGE_FLAGS extends Win32BitflagEnum {
      * If this flag is combined with DATA_VOLATILE, then both descriptors and data are volatile, which is equivalent to Root Signature Version 1.0.
      * 
      * If this flag is combined with DATA_STATIC_WHILE_SET_AT_EXECUTE, then descriptors are volatile. This still doesn’t allow them to change during command list execution so it is valid to combine the additional declaration that data is static while set via root descriptor table during execution – the underlying descriptors are effectively static for longer than the data is being promised to be static.
+     * Native name: D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE => 1
+    static FLAG_DESCRIPTORS_VOLATILE => 1
 
     /**
      * Descriptors are static and the data is volatile.
+     * Native name: D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE => 2
+    static FLAG_DATA_VOLATILE => 2
 
     /**
      * Descriptors are static and data is static while set at execute.
+     * Native name: D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE => 4
+    static FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE => 4
 
     /**
      * Both descriptors and data are static. This maximizes the potential for driver optimization.
+     * Native name: D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC => 8
+    static FLAG_DATA_STATIC => 8
 
     /**
      * Provides the same benefits as static descriptors (see **D3D12_DESCRIPTOR_RANGE_FLAG_NONE**), except that the driver is not allowed to promote buffers to root descriptors as an optimization, because they must maintain bounds checks and root descriptors do not have those.
+     * Native name: D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_STATIC_KEEPING_BUFFER_BOUNDS_CHECKS
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_STATIC_KEEPING_BUFFER_BOUNDS_CHECKS => 65536
+    static FLAG_DESCRIPTORS_STATIC_KEEPING_BUFFER_BOUNDS_CHECKS => 65536
 }

@@ -31,7 +31,6 @@ class IDxcValidator extends IUnknown {
     static VTableNames => ["Validate"]
 
     /**
-     * 
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
      * @returns {IDxcOperationResult} 

@@ -12,85 +12,99 @@ class DVD_KARAOKE_DOWNMIX extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_0to0
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_0to0 => 1
+    static Mix_0to0 => 1
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_1to0
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_1to0 => 2
+    static Mix_1to0 => 2
 
     /**
      * Downmix channel 2 to the left speaker.
+     * Native name: DVD_Mix_2to0
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_2to0 => 4
+    static Mix_2to0 => 4
 
     /**
      * Downmix channel 3 to the left speaker.
+     * Native name: DVD_Mix_3to0
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_3to0 => 8
+    static Mix_3to0 => 8
 
     /**
      * Downmix channel 4 to the left speaker.
+     * Native name: DVD_Mix_4to0
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_4to0 => 16
+    static Mix_4to0 => 16
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_Lto0
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_Lto0 => 32
+    static Mix_Lto0 => 32
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_Rto0
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_Rto0 => 64
+    static Mix_Rto0 => 64
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_0to1
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_0to1 => 256
+    static Mix_0to1 => 256
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_1to1
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_1to1 => 512
+    static Mix_1to1 => 512
 
     /**
      * Downmix channel 2 to the right speaker.
+     * Native name: DVD_Mix_2to1
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_2to1 => 1024
+    static Mix_2to1 => 1024
 
     /**
      * Downmix channel 3 to the right speaker.
+     * Native name: DVD_Mix_3to1
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_3to1 => 2048
+    static Mix_3to1 => 2048
 
     /**
      * Downmix channel 4 to the right speaker.
+     * Native name: DVD_Mix_4to1
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_4to1 => 4096
+    static Mix_4to1 => 4096
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_Lto1
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_Lto1 => 8192
+    static Mix_Lto1 => 8192
 
     /**
      * Reserved.
+     * Native name: DVD_Mix_Rto1
      * @type {Integer (Int32)}
      */
-    static DVD_Mix_Rto1 => 16384
+    static Mix_Rto1 => 16384
 }

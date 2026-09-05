@@ -32,7 +32,6 @@ class ICommandWithParameters extends IUnknown {
     static VTableNames => ["GetParameterInfo", "MapParameterNames", "SetParameterInfo"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcParams 
      * @param {Pointer<Pointer<DBPARAMINFO>>} prgParamInfo 
      * @param {Pointer<Pointer<Integer>>} ppNamesBuffer 
@@ -48,7 +47,6 @@ class ICommandWithParameters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cParamNames 
      * @param {Pointer<PWSTR>} rgParamNames 
      * @returns {Pointer} 
@@ -61,7 +59,6 @@ class ICommandWithParameters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cParams 
      * @param {Pointer<Pointer>} rgParamOrdinals 
      * @param {Pointer<DBPARAMBINDINFO>} rgParamBindInfo 

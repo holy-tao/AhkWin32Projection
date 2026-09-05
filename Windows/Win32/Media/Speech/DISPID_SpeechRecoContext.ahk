@@ -7,87 +7,104 @@
 class DISPID_SpeechRecoContext extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRCRecognizer
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCRecognizer => 1
+    static SRCRecognizer => 1
 
     /**
+     * Native name: DISPID_SRCAudioInInterferenceStatus
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCAudioInInterferenceStatus => 2
+    static SRCAudioInInterferenceStatus => 2
 
     /**
+     * Native name: DISPID_SRCRequestedUIType
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCRequestedUIType => 3
+    static SRCRequestedUIType => 3
 
     /**
+     * Native name: DISPID_SRCVoice
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCVoice => 4
+    static SRCVoice => 4
 
     /**
+     * Native name: DISPID_SRAllowVoiceFormatMatchingOnNextSet
      * @type {Integer (Int32)}
      */
-    static DISPID_SRAllowVoiceFormatMatchingOnNextSet => 5
+    static SRAllowVoiceFormatMatchingOnNextSet => 5
 
     /**
+     * Native name: DISPID_SRCVoicePurgeEvent
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCVoicePurgeEvent => 6
+    static SRCVoicePurgeEvent => 6
 
     /**
+     * Native name: DISPID_SRCEventInterests
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEventInterests => 7
+    static SRCEventInterests => 7
 
     /**
+     * Native name: DISPID_SRCCmdMaxAlternates
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCCmdMaxAlternates => 8
+    static SRCCmdMaxAlternates => 8
 
     /**
+     * Native name: DISPID_SRCState
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCState => 9
+    static SRCState => 9
 
     /**
+     * Native name: DISPID_SRCRetainedAudio
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCRetainedAudio => 10
+    static SRCRetainedAudio => 10
 
     /**
+     * Native name: DISPID_SRCRetainedAudioFormat
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCRetainedAudioFormat => 11
+    static SRCRetainedAudioFormat => 11
 
     /**
+     * Native name: DISPID_SRCPause
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCPause => 12
+    static SRCPause => 12
 
     /**
+     * Native name: DISPID_SRCResume
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCResume => 13
+    static SRCResume => 13
 
     /**
+     * Native name: DISPID_SRCCreateGrammar
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCCreateGrammar => 14
+    static SRCCreateGrammar => 14
 
     /**
+     * Native name: DISPID_SRCCreateResultFromMemory
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCCreateResultFromMemory => 15
+    static SRCCreateResultFromMemory => 15
 
     /**
+     * Native name: DISPID_SRCBookmark
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCBookmark => 16
+    static SRCBookmark => 16
 
     /**
+     * Native name: DISPID_SRCSetAdaptationData
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCSetAdaptationData => 17
+    static SRCSetAdaptationData => 17
 }

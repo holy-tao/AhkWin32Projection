@@ -12,19 +12,22 @@ class NVME_CSTS_SHST_SHUTDOWN_STATUS extends Win32Enum {
 
     /**
      * Normal operation (no shutdown has been requested).
+     * Native name: NVME_CSTS_SHST_NO_SHUTDOWN
      * @type {Integer (Int32)}
      */
-    static NVME_CSTS_SHST_NO_SHUTDOWN => 0
+    static NO_SHUTDOWN => 0
 
     /**
      * Shutdown processing is occurring.
+     * Native name: NVME_CSTS_SHST_SHUTDOWN_IN_PROCESS
      * @type {Integer (Int32)}
      */
-    static NVME_CSTS_SHST_SHUTDOWN_IN_PROCESS => 1
+    static IN_PROCESS => 1
 
     /**
      * Shutdown processing is complete.
+     * Native name: NVME_CSTS_SHST_SHUTDOWN_COMPLETED
      * @type {Integer (Int32)}
      */
-    static NVME_CSTS_SHST_SHUTDOWN_COMPLETED => 2
+    static COMPLETED => 2
 }

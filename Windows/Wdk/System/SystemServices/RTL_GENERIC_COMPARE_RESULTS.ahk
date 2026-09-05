@@ -7,17 +7,20 @@
 class RTL_GENERIC_COMPARE_RESULTS extends Win32Enum {
 
     /**
+     * Native name: GenericLessThan
      * @type {Integer (Int32)}
      */
-    static GenericLessThan => 0
+    static LessThan => 0
 
     /**
+     * Native name: GenericGreaterThan
      * @type {Integer (Int32)}
      */
-    static GenericGreaterThan => 1
+    static GreaterThan => 1
 
     /**
+     * Native name: GenericEqual
      * @type {Integer (Int32)}
      */
-    static GenericEqual => 2
+    static Equal => 2
 }

@@ -79,7 +79,6 @@ class IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorCode() {
@@ -88,7 +87,6 @@ class IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -98,7 +96,6 @@ class IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_reason() {
@@ -108,7 +105,6 @@ class IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_srcText() {
@@ -118,7 +114,6 @@ class IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_line() {
@@ -127,7 +122,6 @@ class IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_linepos() {
@@ -136,7 +130,6 @@ class IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_filepos() {

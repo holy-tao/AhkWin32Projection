@@ -7,27 +7,32 @@
 class RECO_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: RECO_PASTE
      * @type {Integer (UInt32)}
      */
-    static RECO_PASTE => 0
+    static PASTE => 0
 
     /**
+     * Native name: RECO_DROP
      * @type {Integer (UInt32)}
      */
-    static RECO_DROP => 1
+    static DROP => 1
 
     /**
+     * Native name: RECO_COPY
      * @type {Integer (UInt32)}
      */
-    static RECO_COPY => 2
+    static COPY => 2
 
     /**
+     * Native name: RECO_CUT
      * @type {Integer (UInt32)}
      */
-    static RECO_CUT => 3
+    static CUT => 3
 
     /**
+     * Native name: RECO_DRAG
      * @type {Integer (UInt32)}
      */
-    static RECO_DRAG => 4
+    static DRAG => 4
 }

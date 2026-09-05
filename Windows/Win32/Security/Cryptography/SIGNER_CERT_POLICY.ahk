@@ -7,22 +7,26 @@
 class SIGNER_CERT_POLICY extends Win32BitflagEnum {
 
     /**
+     * Native name: SIGNER_CERT_POLICY_STORE
      * @type {Integer (UInt32)}
      */
-    static SIGNER_CERT_POLICY_STORE => 1
+    static STORE => 1
 
     /**
+     * Native name: SIGNER_CERT_POLICY_CHAIN
      * @type {Integer (UInt32)}
      */
-    static SIGNER_CERT_POLICY_CHAIN => 2
+    static CHAIN => 2
 
     /**
+     * Native name: SIGNER_CERT_POLICY_SPC
      * @type {Integer (UInt32)}
      */
-    static SIGNER_CERT_POLICY_SPC => 4
+    static SPC => 4
 
     /**
+     * Native name: SIGNER_CERT_POLICY_CHAIN_NO_ROOT
      * @type {Integer (UInt32)}
      */
-    static SIGNER_CERT_POLICY_CHAIN_NO_ROOT => 8
+    static CHAIN_NO_ROOT => 8
 }

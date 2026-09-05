@@ -10,25 +10,29 @@ class MF_MEDIA_ENGINE_NETWORK extends Win32Enum {
 
     /**
      * The initial state.
+     * Native name: MF_MEDIA_ENGINE_NETWORK_EMPTY
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_NETWORK_EMPTY => 0
+    static EMPTY => 0
 
     /**
      * The Media Engine has started the resource selection algorithm, and has selected a media resource, but is not using the network.
+     * Native name: MF_MEDIA_ENGINE_NETWORK_IDLE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_NETWORK_IDLE => 1
+    static IDLE => 1
 
     /**
      * The Media Engine is loading a media resource.
+     * Native name: MF_MEDIA_ENGINE_NETWORK_LOADING
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_NETWORK_LOADING => 2
+    static LOADING => 2
 
     /**
      * The Media Engine has started the resource selection algorithm, but has not selected a media resource.
+     * Native name: MF_MEDIA_ENGINE_NETWORK_NO_SOURCE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_NETWORK_NO_SOURCE => 3
+    static NO_SOURCE => 3
 }

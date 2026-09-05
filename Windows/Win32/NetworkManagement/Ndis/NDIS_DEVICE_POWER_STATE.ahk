@@ -7,32 +7,38 @@
 class NDIS_DEVICE_POWER_STATE extends Win32Enum {
 
     /**
+     * Native name: NdisDeviceStateUnspecified
      * @type {Integer (Int32)}
      */
-    static NdisDeviceStateUnspecified => 0
+    static Unspecified => 0
 
     /**
+     * Native name: NdisDeviceStateD0
      * @type {Integer (Int32)}
      */
-    static NdisDeviceStateD0 => 1
+    static StateD0 => 1
 
     /**
+     * Native name: NdisDeviceStateD1
      * @type {Integer (Int32)}
      */
-    static NdisDeviceStateD1 => 2
+    static StateD1 => 2
 
     /**
+     * Native name: NdisDeviceStateD2
      * @type {Integer (Int32)}
      */
-    static NdisDeviceStateD2 => 3
+    static StateD2 => 3
 
     /**
+     * Native name: NdisDeviceStateD3
      * @type {Integer (Int32)}
      */
-    static NdisDeviceStateD3 => 4
+    static StateD3 => 4
 
     /**
+     * Native name: NdisDeviceStateMaximum
      * @type {Integer (Int32)}
      */
-    static NdisDeviceStateMaximum => 5
+    static Maximum => 5
 }

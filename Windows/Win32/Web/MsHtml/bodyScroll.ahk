@@ -7,27 +7,32 @@
 class bodyScroll extends Win32Enum {
 
     /**
+     * Native name: bodyScrollyes
      * @type {Integer (Int32)}
      */
-    static bodyScrollyes => 1
+    static Scrollyes => 1
 
     /**
+     * Native name: bodyScrollno
      * @type {Integer (Int32)}
      */
-    static bodyScrollno => 2
+    static Scrollno => 2
 
     /**
+     * Native name: bodyScrollauto
      * @type {Integer (Int32)}
      */
-    static bodyScrollauto => 4
+    static Scrollauto => 4
 
     /**
+     * Native name: bodyScrolldefault
      * @type {Integer (Int32)}
      */
-    static bodyScrolldefault => 3
+    static Scrolldefault => 3
 
     /**
+     * Native name: bodyScroll_Max
      * @type {Integer (Int32)}
      */
-    static bodyScroll_Max => 2147483647
+    static Max => 2147483647
 }

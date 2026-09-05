@@ -9,12 +9,14 @@
 class EXPAND_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: EXPAND_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static EXPAND_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: EXPAND_VIRTUAL_DISK_FLAG_NOTIFY_CHANGE
      * @type {Integer (Int32)}
      */
-    static EXPAND_VIRTUAL_DISK_FLAG_NOTIFY_CHANGE => 1
+    static NOTIFY_CHANGE => 1
 }

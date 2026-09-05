@@ -122,7 +122,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_captionSide() {
@@ -132,7 +131,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outline() {
@@ -142,7 +140,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_outlineWidth() {
@@ -152,7 +149,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outlineStyle() {
@@ -162,7 +158,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_outlineColor() {
@@ -172,7 +167,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_boxSizing() {
@@ -182,7 +176,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderSpacing() {
@@ -192,7 +185,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_orphans() {
@@ -202,7 +194,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_widows() {
@@ -212,7 +203,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pageBreakInside() {
@@ -222,7 +212,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_emptyCells() {
@@ -232,7 +221,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msBlockProgression() {
@@ -242,7 +230,6 @@ class IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_quotes() {

@@ -31,7 +31,6 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8 {
     static VTableNames => ["GetNativeCodeStartAddresses", "GetILToNativeMapping3", "GetCodeInfo4"]
 
     /**
-     * 
      * @param {Pointer} functionID 
      * @param {Pointer} reJitId 
      * @param {Integer} cCodeStartAddresses 
@@ -48,7 +47,6 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8 {
     }
 
     /**
-     * 
      * @param {Pointer} pNativeCodeStartAddress 
      * @param {Integer} cMap 
      * @param {Pointer<Integer>} pcMap 
@@ -63,7 +61,6 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8 {
     }
 
     /**
-     * 
      * @param {Pointer} pNativeCodeStartAddress 
      * @param {Integer} cCodeInfos 
      * @param {Pointer<Integer>} pcCodeInfos 

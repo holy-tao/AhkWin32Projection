@@ -12,19 +12,22 @@ class D3D12_RENDER_PASS_TIER extends Win32Enum {
 
     /**
      * The user-mode display driver hasn't implemented render passes, and so the feature is provided only via software emulation. Render passes might not provide a performance advantage at this level of support.
+     * Native name: D3D12_RENDER_PASS_TIER_0
      * @type {Integer (Int32)}
      */
-    static D3D12_RENDER_PASS_TIER_0 => 0
+    static 0 => 0
 
     /**
      * The render passes feature is implemented by the user-mode display driver, and render target/depth buffer writes may be accelerated. Unordered access view (UAV) writes are not efficiently supported within the render pass.
+     * Native name: D3D12_RENDER_PASS_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D12_RENDER_PASS_TIER_1 => 1
+    static 1 => 1
 
     /**
      * The render passes feature is implemented by the user-mode display driver, render target/depth buffer writes may be accelerated, and unordered access view (UAV) writes (provided that writes in a render pass are not read until a subsequent render pass) are likely to be more efficient than issuing the same work without using a render pass.
+     * Native name: D3D12_RENDER_PASS_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D12_RENDER_PASS_TIER_2 => 2
+    static 2 => 2
 }

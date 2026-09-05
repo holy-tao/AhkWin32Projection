@@ -30,7 +30,6 @@ class ISpEventSource2 extends ISpEventSource {
     static VTableNames => ["GetEventsEx"]
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<SPEVENTEX>} pEventArray 
      * @param {Pointer<Integer>} pulFetched 

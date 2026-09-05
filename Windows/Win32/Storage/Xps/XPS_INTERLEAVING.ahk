@@ -10,13 +10,15 @@ class XPS_INTERLEAVING extends Win32Enum {
 
     /**
      * The content of the XPS OM is not interleaved. The document parts are written as complete parts.
+     * Native name: XPS_INTERLEAVING_OFF
      * @type {Integer (Int32)}
      */
-    static XPS_INTERLEAVING_OFF => 1
+    static OFF => 1
 
     /**
      * The content of the XPS OM is interleaved. The document parts are divided into smaller pieces before they are written.
+     * Native name: XPS_INTERLEAVING_ON
      * @type {Integer (Int32)}
      */
-    static XPS_INTERLEAVING_ON => 2
+    static ON => 2
 }

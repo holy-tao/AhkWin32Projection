@@ -7,52 +7,62 @@
 class StringFormatFlags extends Win32Enum {
 
     /**
+     * Native name: StringFormatFlagsDirectionRightToLeft
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsDirectionRightToLeft => 1
+    static DirectionRightToLeft => 1
 
     /**
+     * Native name: StringFormatFlagsDirectionVertical
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsDirectionVertical => 2
+    static DirectionVertical => 2
 
     /**
+     * Native name: StringFormatFlagsNoFitBlackBox
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsNoFitBlackBox => 4
+    static NoFitBlackBox => 4
 
     /**
+     * Native name: StringFormatFlagsDisplayFormatControl
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsDisplayFormatControl => 32
+    static DisplayFormatControl => 32
 
     /**
+     * Native name: StringFormatFlagsNoFontFallback
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsNoFontFallback => 1024
+    static NoFontFallback => 1024
 
     /**
+     * Native name: StringFormatFlagsMeasureTrailingSpaces
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsMeasureTrailingSpaces => 2048
+    static MeasureTrailingSpaces => 2048
 
     /**
+     * Native name: StringFormatFlagsNoWrap
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsNoWrap => 4096
+    static NoWrap => 4096
 
     /**
+     * Native name: StringFormatFlagsLineLimit
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsLineLimit => 8192
+    static LineLimit => 8192
 
     /**
+     * Native name: StringFormatFlagsNoClip
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsNoClip => 16384
+    static NoClip => 16384
 
     /**
+     * Native name: StringFormatFlagsBypassGDI
      * @type {Integer (Int32)}
      */
-    static StringFormatFlagsBypassGDI => -2147483648
+    static BypassGDI => -2147483648
 }

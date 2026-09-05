@@ -10,45 +10,52 @@ class HTTP_DATA_CHUNK_TYPE extends Win32Enum {
 
     /**
      * The data source is a memory data block. The union should be interpreted as a <b>FromMemory</b> structure.
+     * Native name: HttpDataChunkFromMemory
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkFromMemory => 0
+    static FromMemory => 0
 
     /**
      * The data source is a file handle data block. The union should be interpreted as a <b>FromFileHandle</b> structure.
+     * Native name: HttpDataChunkFromFileHandle
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkFromFileHandle => 1
+    static FromFileHandle => 1
 
     /**
      * The data source is a fragment cache data block. The union should be interpreted as a <b>FromFragmentCache</b> structure.
+     * Native name: HttpDataChunkFromFragmentCache
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkFromFragmentCache => 2
+    static FromFragmentCache => 2
 
     /**
      * The data source is a fragment cache data block. The union should be interpreted as a <b>FromFragmentCacheEx</b> structure.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>This flag is not supported.
+     * Native name: HttpDataChunkFromFragmentCacheEx
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkFromFragmentCacheEx => 3
+    static FromFragmentCacheEx => 3
 
     /**
      * The data source is a trailers data block. The union should be interpreted as a <b>Trailers</b> structure.
      * 
      * <b>Windows 10, version 2004 and prior:  </b>This flag is not supported.
+     * Native name: HttpDataChunkTrailers
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkTrailers => 4
+    static Trailers => 4
 
     /**
+     * Native name: HttpDataChunkFromWinHttpFastForwarding
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkFromWinHttpFastForwarding => 5
+    static FromWinHttpFastForwarding => 5
 
     /**
+     * Native name: HttpDataChunkMaximum
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkMaximum => 6
+    static Maximum => 6
 }

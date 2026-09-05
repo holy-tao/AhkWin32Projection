@@ -73,7 +73,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -82,7 +81,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasFocus() {
@@ -91,7 +89,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselectionchange() {
@@ -111,7 +107,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_namespaces() {
@@ -120,7 +115,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrOptions 
      * @returns {IHTMLDocument2} 
@@ -134,7 +128,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -146,7 +139,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {
@@ -156,7 +148,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarEventObject 
      * @returns {IHTMLEventObj} 
      */
@@ -166,7 +157,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEventName 
      * @param {Pointer<VARIANT>} pvarEventObject 
      * @returns {VARIANT_BOOL} 
@@ -179,7 +169,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLRenderStyle} 
      */
@@ -191,7 +180,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -201,7 +189,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontrolselect() {
@@ -211,7 +198,6 @@ class IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URLUnencoded() {

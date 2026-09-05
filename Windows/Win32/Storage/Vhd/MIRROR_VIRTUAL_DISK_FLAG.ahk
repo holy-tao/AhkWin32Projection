@@ -10,28 +10,33 @@ class MIRROR_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * The mirror virtual disk file does not exist, and needs to be created.
+     * Native name: MIRROR_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static MIRROR_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * Create the mirror using an existing file.
+     * Native name: MIRROR_VIRTUAL_DISK_FLAG_EXISTING_FILE
      * @type {Integer (Int32)}
      */
-    static MIRROR_VIRTUAL_DISK_FLAG_EXISTING_FILE => 1
+    static EXISTING_FILE => 1
 
     /**
+     * Native name: MIRROR_VIRTUAL_DISK_FLAG_SKIP_MIRROR_ACTIVATION
      * @type {Integer (Int32)}
      */
-    static MIRROR_VIRTUAL_DISK_FLAG_SKIP_MIRROR_ACTIVATION => 2
+    static SKIP_MIRROR_ACTIVATION => 2
 
     /**
+     * Native name: MIRROR_VIRTUAL_DISK_FLAG_ENABLE_SMB_COMPRESSION
      * @type {Integer (Int32)}
      */
-    static MIRROR_VIRTUAL_DISK_FLAG_ENABLE_SMB_COMPRESSION => 4
+    static ENABLE_SMB_COMPRESSION => 4
 
     /**
+     * Native name: MIRROR_VIRTUAL_DISK_FLAG_IS_LIVE_MIGRATION
      * @type {Integer (Int32)}
      */
-    static MIRROR_VIRTUAL_DISK_FLAG_IS_LIVE_MIGRATION => 8
+    static IS_LIVE_MIGRATION => 8
 }

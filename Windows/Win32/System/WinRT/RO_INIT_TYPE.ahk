@@ -11,13 +11,15 @@
 class RO_INIT_TYPE extends Win32Enum {
 
     /**
+     * Native name: RO_INIT_SINGLETHREADED
      * @type {Integer (Int32)}
      */
-    static RO_INIT_SINGLETHREADED => 0
+    static SINGLETHREADED => 0
 
     /**
      * Initializes the thread for multi-threaded concurrency. The current thread is initialized in the MTA.
+     * Native name: RO_INIT_MULTITHREADED
      * @type {Integer (Int32)}
      */
-    static RO_INIT_MULTITHREADED => 1
+    static MULTITHREADED => 1
 }

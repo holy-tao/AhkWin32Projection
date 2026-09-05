@@ -10,19 +10,22 @@ class EOC_ChangeType extends Win32Enum {
 
     /**
      * A new object was added.
+     * Native name: EOC_NewObject
      * @type {Integer (Int32)}
      */
-    static EOC_NewObject => 0
+    static NewObject => 0
 
     /**
      * An existing object was modified.
+     * Native name: EOC_ModifiedObject
      * @type {Integer (Int32)}
      */
-    static EOC_ModifiedObject => 1
+    static ModifiedObject => 1
 
     /**
      * An existing object was deleted.
+     * Native name: EOC_DeletedObject
      * @type {Integer (Int32)}
      */
-    static EOC_DeletedObject => 2
+    static DeletedObject => 2
 }

@@ -31,7 +31,6 @@ class IWICDisplayAdaptationControl extends IUnknown {
     static VTableNames => ["DoesSupportChangingMaxLuminance", "SetDisplayMaxLuminance", "GetDisplayMaxLuminance"]
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidDstFormat 
      * @returns {BOOL} 
      */
@@ -41,7 +40,6 @@ class IWICDisplayAdaptationControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} fLuminanceInNits 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IWICDisplayAdaptationControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetDisplayMaxLuminance() {

@@ -18,7 +18,8 @@ class D2D1_FLOOD_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a>.
      * 
      * The default value is {0.0f, 0.0f, 0.0f, 1.0f}.
+     * Native name: D2D1_FLOOD_PROP_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_FLOOD_PROP_COLOR => 0
+    static COLOR => 0
 }

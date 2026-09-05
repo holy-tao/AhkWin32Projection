@@ -16,91 +16,102 @@ class VDS_HBAPORT_TYPE extends Win32Enum {
      *      
      * 
      * HBA_PORTTYPE_UNKNOWN
+     * Native name: VDS_HPT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_UNKNOWN => 1
+    static HPT_UNKNOWN => 1
 
     /**
      * The port type is another (undefined) type.
      *      
      * 
      * HBA_PORTTYPE_OTHER
+     * Native name: VDS_HPT_OTHER
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_OTHER => 2
+    static HPT_OTHER => 2
 
     /**
      * The port type is not present.
      *      
      * 
      * HBA_PORTTYPE_NOTPRESENT
+     * Native name: VDS_HPT_NOTPRESENT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_NOTPRESENT => 3
+    static HPT_NOTPRESENT => 3
 
     /**
      * The port type is a fabric.
      *      
      * 
      * HBA_PORTTYPE_NPORT
+     * Native name: VDS_HPT_NPORT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_NPORT => 5
+    static HPT_NPORT => 5
 
     /**
      * The port type is a public loop.
      *      
      * 
      * HBA_PORTTYPE_NLPORT
+     * Native name: VDS_HPT_NLPORT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_NLPORT => 6
+    static HPT_NLPORT => 6
 
     /**
      * The port type is a fabric on a loop.
      *      
      * 
      * HBA_PORTTYPE_FLPORT
+     * Native name: VDS_HPT_FLPORT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_FLPORT => 7
+    static HPT_FLPORT => 7
 
     /**
      * The port type is a fabric port.
      *      
      * 
      * HBA_PORTTYPE_FPORT
+     * Native name: VDS_HPT_FPORT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_FPORT => 8
+    static HPT_FPORT => 8
 
     /**
      * The port type is a fabric expansion port.
+     * Native name: VDS_HPT_EPORT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_EPORT => 9
+    static HPT_EPORT => 9
 
     /**
      * The port type is a generic fabric port.
+     * Native name: VDS_HPT_GPORT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_GPORT => 10
+    static HPT_GPORT => 10
 
     /**
      * The port type is a private loop.
      *      
      * 
      * HBA_PORTTYPE_LPORT
+     * Native name: VDS_HPT_LPORT
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_LPORT => 20
+    static HPT_LPORT => 20
 
     /**
      * The port type is point-to-point.
      *      
      * 
      * HBA_PORTTYPE_PTP
+     * Native name: VDS_HPT_PTP
      * @type {Integer (Int32)}
      */
-    static VDS_HPT_PTP => 21
+    static HPT_PTP => 21
 }

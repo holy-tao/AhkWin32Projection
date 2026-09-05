@@ -20,37 +20,43 @@ class D3D12_SHADER_COMPONENT_MAPPING extends Win32Enum {
 
     /**
      * Indicates return component 0 (red).
+     * Native name: D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_0
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_0 => 0
+    static FROM_MEMORY_COMPONENT_0 => 0
 
     /**
      * Indicates return component 1 (green).
+     * Native name: D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_1
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_1 => 1
+    static FROM_MEMORY_COMPONENT_1 => 1
 
     /**
      * Indicates return component 2 (blue).
+     * Native name: D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_2
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_2 => 2
+    static FROM_MEMORY_COMPONENT_2 => 2
 
     /**
      * Indicates return component 3 (alpha).
+     * Native name: D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_3
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_3 => 3
+    static FROM_MEMORY_COMPONENT_3 => 3
 
     /**
      * Indicates forcing the resulting value to 0.
+     * Native name: D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_0
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_0 => 4
+    static FORCE_VALUE_0 => 4
 
     /**
      * Indicates forcing the resulting value 1. The value of forcing 1 is either 0x1 or 1.0f depending on the format type for that component in the source format.
+     * Native name: D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1 => 5
+    static FORCE_VALUE_1 => 5
 }

@@ -39,7 +39,6 @@ class IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationContact} 
      */
     FindFirst() {
@@ -48,7 +47,6 @@ class IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationContact} 
      */
     FindNext() {
@@ -57,7 +55,6 @@ class IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pIdentityHash 
@@ -72,7 +69,6 @@ class IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -81,7 +77,6 @@ class IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteObjectId 

@@ -10,31 +10,36 @@ class MF_TOPOLOGY_TYPE extends Win32Enum {
 
     /**
      * Output node. Represents a media sink in the topology.
+     * Native name: MF_TOPOLOGY_OUTPUT_NODE
      * @type {Integer (Int32)}
      */
-    static MF_TOPOLOGY_OUTPUT_NODE => 0
+    static OUTPUT_NODE => 0
 
     /**
      * Source node. Represents a media stream in the topology.
+     * Native name: MF_TOPOLOGY_SOURCESTREAM_NODE
      * @type {Integer (Int32)}
      */
-    static MF_TOPOLOGY_SOURCESTREAM_NODE => 1
+    static SOURCESTREAM_NODE => 1
 
     /**
      * Transform node. Represents a Media Foundation Transform (MFT) in the topology.
+     * Native name: MF_TOPOLOGY_TRANSFORM_NODE
      * @type {Integer (Int32)}
      */
-    static MF_TOPOLOGY_TRANSFORM_NODE => 2
+    static TRANSFORM_NODE => 2
 
     /**
      * Tee node. A tee node does not hold a pointer to an object. Instead, it represents a fork in the stream. A tee node has one input and multiple outputs, and samples from the upstream node are delivered to all of the downstream nodes.
+     * Native name: MF_TOPOLOGY_TEE_NODE
      * @type {Integer (Int32)}
      */
-    static MF_TOPOLOGY_TEE_NODE => 3
+    static TEE_NODE => 3
 
     /**
      * Reserved.
+     * Native name: MF_TOPOLOGY_MAX
      * @type {Integer (Int32)}
      */
-    static MF_TOPOLOGY_MAX => -1
+    static MAX => -1
 }

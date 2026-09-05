@@ -31,7 +31,6 @@ class IActiveScriptSiteTraceInfo extends IUnknown {
     static VTableNames => ["SendScriptTraceInfo"]
 
     /**
-     * 
      * @param {SCRIPTTRACEINFO} stiEventType 
      * @param {Guid} guidContextID 
      * @param {Integer} dwScriptContextCookie 

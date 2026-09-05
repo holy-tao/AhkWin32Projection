@@ -31,7 +31,6 @@ class IDBSchemaCommand extends IUnknown {
     static VTableNames => ["GetCommand", "GetSchemas"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} rguidSchema 
      * @returns {ICommand} 
@@ -42,7 +41,6 @@ class IDBSchemaCommand extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcSchemas 
      * @returns {Pointer<Guid>} 
      */

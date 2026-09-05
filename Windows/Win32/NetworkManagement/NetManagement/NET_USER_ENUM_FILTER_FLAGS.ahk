@@ -7,27 +7,32 @@
 class NET_USER_ENUM_FILTER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: FILTER_TEMP_DUPLICATE_ACCOUNT
      * @type {Integer (UInt32)}
      */
-    static FILTER_TEMP_DUPLICATE_ACCOUNT => 1
+    static TEMP_DUPLICATE_ACCOUNT => 1
 
     /**
+     * Native name: FILTER_NORMAL_ACCOUNT
      * @type {Integer (UInt32)}
      */
-    static FILTER_NORMAL_ACCOUNT => 2
+    static NORMAL_ACCOUNT => 2
 
     /**
+     * Native name: FILTER_INTERDOMAIN_TRUST_ACCOUNT
      * @type {Integer (UInt32)}
      */
-    static FILTER_INTERDOMAIN_TRUST_ACCOUNT => 8
+    static INTERDOMAIN_TRUST_ACCOUNT => 8
 
     /**
+     * Native name: FILTER_WORKSTATION_TRUST_ACCOUNT
      * @type {Integer (UInt32)}
      */
-    static FILTER_WORKSTATION_TRUST_ACCOUNT => 16
+    static WORKSTATION_TRUST_ACCOUNT => 16
 
     /**
+     * Native name: FILTER_SERVER_TRUST_ACCOUNT
      * @type {Integer (UInt32)}
      */
-    static FILTER_SERVER_TRUST_ACCOUNT => 32
+    static SERVER_TRUST_ACCOUNT => 32
 }

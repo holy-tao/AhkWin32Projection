@@ -7,7 +7,8 @@
 class DDSFF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DDSFF_PROGRESSIVERENDER
      * @type {Integer (Int32)}
      */
-    static DDSFF_PROGRESSIVERENDER => 1
+    static PROGRESSIVERENDER => 1
 }

@@ -10,7 +10,8 @@ class NLM_CONNECTION_PROPERTY_CHANGE extends Win32Enum {
 
     /**
      * The Authentication (Domain Type) of this Network Connection has changed.
+     * Native name: NLM_CONNECTION_PROPERTY_CHANGE_AUTHENTICATION
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_PROPERTY_CHANGE_AUTHENTICATION => 1
+    static AUTHENTICATION => 1
 }

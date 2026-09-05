@@ -30,7 +30,6 @@ class IPrintPipelineManagerControl extends IUnknown {
     static VTableNames => ["RequestShutdown", "FilterFinished"]
 
     /**
-     * 
      * @param {HRESULT} hrReason 
      * @param {IImgErrorInfo} pReason 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IPrintPipelineManagerControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FilterFinished() {

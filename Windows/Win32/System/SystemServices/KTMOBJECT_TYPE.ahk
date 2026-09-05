@@ -7,27 +7,32 @@
 class KTMOBJECT_TYPE extends Win32Enum {
 
     /**
+     * Native name: KTMOBJECT_TRANSACTION
      * @type {Integer (Int32)}
      */
-    static KTMOBJECT_TRANSACTION => 0
+    static TRANSACTION => 0
 
     /**
+     * Native name: KTMOBJECT_TRANSACTION_MANAGER
      * @type {Integer (Int32)}
      */
-    static KTMOBJECT_TRANSACTION_MANAGER => 1
+    static TRANSACTION_MANAGER => 1
 
     /**
+     * Native name: KTMOBJECT_RESOURCE_MANAGER
      * @type {Integer (Int32)}
      */
-    static KTMOBJECT_RESOURCE_MANAGER => 2
+    static RESOURCE_MANAGER => 2
 
     /**
+     * Native name: KTMOBJECT_ENLISTMENT
      * @type {Integer (Int32)}
      */
-    static KTMOBJECT_ENLISTMENT => 3
+    static ENLISTMENT => 3
 
     /**
+     * Native name: KTMOBJECT_INVALID
      * @type {Integer (Int32)}
      */
-    static KTMOBJECT_INVALID => 4
+    static INVALID => 4
 }

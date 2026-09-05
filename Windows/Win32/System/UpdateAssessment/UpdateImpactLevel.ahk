@@ -11,22 +11,26 @@
 class UpdateImpactLevel extends Win32Enum {
 
     /**
+     * Native name: UpdateImpactLevel_None
      * @type {Integer (Int32)}
      */
-    static UpdateImpactLevel_None => 0
+    static None => 0
 
     /**
+     * Native name: UpdateImpactLevel_Low
      * @type {Integer (Int32)}
      */
-    static UpdateImpactLevel_Low => 1
+    static Low => 1
 
     /**
+     * Native name: UpdateImpactLevel_Medium
      * @type {Integer (Int32)}
      */
-    static UpdateImpactLevel_Medium => 2
+    static Medium => 2
 
     /**
+     * Native name: UpdateImpactLevel_High
      * @type {Integer (Int32)}
      */
-    static UpdateImpactLevel_High => 3
+    static High => 3
 }

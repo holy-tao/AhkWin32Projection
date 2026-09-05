@@ -61,7 +61,6 @@ class IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ class IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_color() {
@@ -81,7 +79,6 @@ class IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -93,7 +90,6 @@ class IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_face() {
@@ -103,7 +99,6 @@ class IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +108,6 @@ class IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_size() {

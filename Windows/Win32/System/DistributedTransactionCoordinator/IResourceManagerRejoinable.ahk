@@ -30,7 +30,6 @@ class IResourceManagerRejoinable extends IResourceManager2 {
     static VTableNames => ["Rejoin"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @param {Integer} lTimeout 

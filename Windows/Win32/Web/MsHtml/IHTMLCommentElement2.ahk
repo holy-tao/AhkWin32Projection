@@ -45,7 +45,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -67,7 +65,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -76,7 +73,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {BSTR} 
@@ -88,7 +84,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
      */
@@ -100,7 +95,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
@@ -113,7 +107,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -124,7 +117,6 @@ class IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @param {BSTR} bstrstring 

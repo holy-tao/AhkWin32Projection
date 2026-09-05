@@ -7,22 +7,26 @@
 class NtmsReadWriteCharacteristics extends Win32Enum {
 
     /**
+     * Native name: NTMS_MEDIARW_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIARW_UNKNOWN => 0
+    static MEDIARW_UNKNOWN => 0
 
     /**
+     * Native name: NTMS_MEDIARW_REWRITABLE
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIARW_REWRITABLE => 1
+    static MEDIARW_REWRITABLE => 1
 
     /**
+     * Native name: NTMS_MEDIARW_WRITEONCE
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIARW_WRITEONCE => 2
+    static MEDIARW_WRITEONCE => 2
 
     /**
+     * Native name: NTMS_MEDIARW_READONLY
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIARW_READONLY => 3
+    static MEDIARW_READONLY => 3
 }

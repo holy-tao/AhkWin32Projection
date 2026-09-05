@@ -7,22 +7,26 @@
 class TIME_FORMAT_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: TIME_NOMINUTESORSECONDS
      * @type {Integer (UInt32)}
      */
-    static TIME_NOMINUTESORSECONDS => 1
+    static NOMINUTESORSECONDS => 1
 
     /**
+     * Native name: TIME_NOSECONDS
      * @type {Integer (UInt32)}
      */
-    static TIME_NOSECONDS => 2
+    static NOSECONDS => 2
 
     /**
+     * Native name: TIME_NOTIMEMARKER
      * @type {Integer (UInt32)}
      */
-    static TIME_NOTIMEMARKER => 4
+    static NOTIMEMARKER => 4
 
     /**
+     * Native name: TIME_FORCE24HOURFORMAT
      * @type {Integer (UInt32)}
      */
-    static TIME_FORCE24HOURFORMAT => 8
+    static FORCE24HOURFORMAT => 8
 }

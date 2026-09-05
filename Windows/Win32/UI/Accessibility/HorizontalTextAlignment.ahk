@@ -7,22 +7,26 @@
 class HorizontalTextAlignment extends Win32Enum {
 
     /**
+     * Native name: HorizontalTextAlignment_Left
      * @type {Integer (Int32)}
      */
-    static HorizontalTextAlignment_Left => 0
+    static Left => 0
 
     /**
+     * Native name: HorizontalTextAlignment_Centered
      * @type {Integer (Int32)}
      */
-    static HorizontalTextAlignment_Centered => 1
+    static Centered => 1
 
     /**
+     * Native name: HorizontalTextAlignment_Right
      * @type {Integer (Int32)}
      */
-    static HorizontalTextAlignment_Right => 2
+    static Right => 2
 
     /**
+     * Native name: HorizontalTextAlignment_Justified
      * @type {Integer (Int32)}
      */
-    static HorizontalTextAlignment_Justified => 3
+    static Justified => 3
 }

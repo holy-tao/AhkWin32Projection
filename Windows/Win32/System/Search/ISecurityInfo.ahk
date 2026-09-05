@@ -31,7 +31,6 @@ class ISecurityInfo extends IUnknown {
     static VTableNames => ["GetCurrentTrustee", "GetObjectTypes", "GetPermissions"]
 
     /**
-     * 
      * @returns {Pointer<TRUSTEE_W>} 
      */
     GetCurrentTrustee() {
@@ -40,7 +39,6 @@ class ISecurityInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} cObjectTypes 
      * @param {Pointer<Pointer<Guid>>} rgObjectTypes 
      * @returns {HRESULT} 
@@ -54,7 +52,6 @@ class ISecurityInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} _ObjectType 
      * @returns {Integer} 
      */

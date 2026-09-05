@@ -30,7 +30,6 @@ class IDebugHostModuleSignature extends IUnknown {
     static VTableNames => ["IsMatch"]
 
     /**
-     * 
      * @param {IDebugHostModule} pModule 
      * @returns {Boolean} 
      */

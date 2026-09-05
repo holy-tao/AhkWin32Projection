@@ -7,12 +7,14 @@
 class ADVERTISEFLAGS extends Win32Enum {
 
     /**
+     * Native name: ADVERTISEFLAGS_MACHINEASSIGN
      * @type {Integer (Int32)}
      */
-    static ADVERTISEFLAGS_MACHINEASSIGN => 0
+    static MACHINEASSIGN => 0
 
     /**
+     * Native name: ADVERTISEFLAGS_USERASSIGN
      * @type {Integer (Int32)}
      */
-    static ADVERTISEFLAGS_USERASSIGN => 1
+    static USERASSIGN => 1
 }

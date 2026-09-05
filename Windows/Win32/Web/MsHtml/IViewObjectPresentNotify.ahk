@@ -29,7 +29,6 @@ class IViewObjectPresentNotify extends IUnknown {
     static VTableNames => ["OnPreRender"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnPreRender() {

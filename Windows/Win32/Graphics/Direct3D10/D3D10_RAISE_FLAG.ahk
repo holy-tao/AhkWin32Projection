@@ -12,7 +12,8 @@ class D3D10_RAISE_FLAG extends Win32Enum {
 
     /**
      * Raise an internal driver error to a non-continuable exception.
+     * Native name: D3D10_RAISE_FLAG_DRIVER_INTERNAL_ERROR
      * @type {Integer (Int32)}
      */
-    static D3D10_RAISE_FLAG_DRIVER_INTERNAL_ERROR => 1
+    static DRIVER_INTERNAL_ERROR => 1
 }

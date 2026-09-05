@@ -12879,7 +12879,6 @@ class MediaFoundation {
     }
 
     /**
-     * 
      * @returns {IMFExtendedCameraIntrinsics} 
      */
     static MFCreateExtendedCameraIntrinsics() {
@@ -12888,7 +12887,6 @@ class MediaFoundation {
     }
 
     /**
-     * 
      * @param {MFCameraIntrinsic_DistortionModelType} distortionModelType 
      * @returns {IMFExtendedCameraIntrinsicModel} 
      */
@@ -14615,7 +14613,6 @@ class MediaFoundation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punkDevice 
      * @param {IMFMediaType} pMediaType 
@@ -14659,7 +14656,6 @@ class MediaFoundation {
     }
 
     /**
-     * 
      * @param {IUnknown} pDeviceManager 
      * @returns {MF_DXGI_DEVICE_MANAGER_MODE} 
      */
@@ -17619,7 +17615,6 @@ class MediaFoundation {
     }
 
     /**
-     * 
      * @param {OPM_HDCP_TYPE} HDCPType 
      * @returns {HRESULT} 
      */
@@ -17629,7 +17624,6 @@ class MediaFoundation {
     }
 
     /**
-     * 
      * @param {Pointer<OPM_HDCP_STATUS>} pHDCPStatus 
      * @returns {HRESULT} 
      */
@@ -17641,7 +17635,6 @@ class MediaFoundation {
     }
 
     /**
-     * 
      * @param {Pointer<OPM_HDCP_STATUS>} pHDCPStatus 
      * @param {Pointer<OPM_HDCP_TYPE>} pHDCPType 
      * @returns {HRESULT} 

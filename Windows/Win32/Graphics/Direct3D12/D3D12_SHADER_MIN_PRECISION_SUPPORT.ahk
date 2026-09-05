@@ -15,19 +15,22 @@ class D3D12_SHADER_MIN_PRECISION_SUPPORT extends Win32BitflagEnum {
 
     /**
      * The driver supports only full 32-bit precision for all shader stages.
+     * Native name: D3D12_SHADER_MIN_PRECISION_SUPPORT_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_MIN_PRECISION_SUPPORT_NONE => 0
+    static NONE => 0
 
     /**
      * The driver supports 10-bit precision.
+     * Native name: D3D12_SHADER_MIN_PRECISION_SUPPORT_10_BIT
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_MIN_PRECISION_SUPPORT_10_BIT => 1
+    static 10_BIT => 1
 
     /**
      * The driver supports 16-bit precision.
+     * Native name: D3D12_SHADER_MIN_PRECISION_SUPPORT_16_BIT
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_MIN_PRECISION_SUPPORT_16_BIT => 2
+    static 16_BIT => 2
 }

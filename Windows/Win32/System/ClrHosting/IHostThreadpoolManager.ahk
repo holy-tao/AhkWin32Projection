@@ -60,7 +60,6 @@ class IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMaxWorkerThreads 
      * @returns {HRESULT} 
      */
@@ -70,7 +69,6 @@ class IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxThreads() {
@@ -79,7 +77,6 @@ class IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAvailableThreads() {
@@ -88,7 +85,6 @@ class IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMinIOCompletionThreads 
      * @returns {HRESULT} 
      */
@@ -98,7 +94,6 @@ class IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinThreads() {

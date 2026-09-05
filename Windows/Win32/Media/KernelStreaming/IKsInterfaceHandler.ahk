@@ -34,7 +34,6 @@ class IKsInterfaceHandler extends IUnknown {
     static VTableNames => ["KsSetPin", "KsProcessMediaSamples", "KsCompleteIo"]
 
     /**
-     * 
      * @param {IKsPin} KsPin 
      * @returns {HRESULT} 
      */
@@ -44,7 +43,6 @@ class IKsInterfaceHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IKsDataTypeHandler} KsDataTypeHandler 
      * @param {Pointer<IMediaSample>} SampleList 
      * @param {Pointer<Integer>} SampleCount 
@@ -59,7 +57,6 @@ class IKsInterfaceHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSSTREAM_SEGMENT>} StreamSegment 
      * @returns {HRESULT} 
      */

@@ -30,7 +30,6 @@ class IXblIdpAuthTokenResult2 extends IUnknown {
     static VTableNames => ["GetModernGamertag", "GetModernGamertagSuffix", "GetUniqueModernGamertag"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetModernGamertag() {
@@ -39,7 +38,6 @@ class IXblIdpAuthTokenResult2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetModernGamertagSuffix() {
@@ -48,7 +46,6 @@ class IXblIdpAuthTokenResult2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetUniqueModernGamertag() {

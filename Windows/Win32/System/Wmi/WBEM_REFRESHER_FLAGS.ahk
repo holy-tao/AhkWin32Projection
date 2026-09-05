@@ -10,13 +10,15 @@ class WBEM_REFRESHER_FLAGS extends Win32Enum {
 
     /**
      * If the connection is broken, the refresher attempts to reconnect to the provider automatically.
+     * Native name: WBEM_FLAG_REFRESH_AUTO_RECONNECT
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_REFRESH_AUTO_RECONNECT => 0
+    static FLAG_REFRESH_AUTO_RECONNECT => 0
 
     /**
      * If the connection is broken, the refresher does not attempt to reconnect to the provider automatically.
+     * Native name: WBEM_FLAG_REFRESH_NO_AUTO_RECONNECT
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_REFRESH_NO_AUTO_RECONNECT => 1
+    static FLAG_REFRESH_NO_AUTO_RECONNECT => 1
 }

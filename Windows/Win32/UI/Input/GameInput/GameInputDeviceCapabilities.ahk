@@ -7,32 +7,38 @@
 class GameInputDeviceCapabilities extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputDeviceCapabilityNone
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceCapabilityNone => 0
+    static CapabilityNone => 0
 
     /**
+     * Native name: GameInputDeviceCapabilityAudio
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceCapabilityAudio => 1
+    static CapabilityAudio => 1
 
     /**
+     * Native name: GameInputDeviceCapabilityPluginModule
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceCapabilityPluginModule => 2
+    static CapabilityPluginModule => 2
 
     /**
+     * Native name: GameInputDeviceCapabilityPowerOff
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceCapabilityPowerOff => 4
+    static CapabilityPowerOff => 4
 
     /**
+     * Native name: GameInputDeviceCapabilitySynchronization
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceCapabilitySynchronization => 8
+    static CapabilitySynchronization => 8
 
     /**
+     * Native name: GameInputDeviceCapabilityWireless
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceCapabilityWireless => 16
+    static CapabilityWireless => 16
 }

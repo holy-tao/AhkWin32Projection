@@ -7,22 +7,26 @@
 class svgStitchtype extends Win32Enum {
 
     /**
+     * Native name: SVG_STITCHTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_STITCHTYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: SVG_STITCHTYPE_STITCH
      * @type {Integer (Int32)}
      */
-    static SVG_STITCHTYPE_STITCH => 1
+    static STITCH => 1
 
     /**
+     * Native name: SVG_STITCHTYPE_NOSTITCH
      * @type {Integer (Int32)}
      */
-    static SVG_STITCHTYPE_NOSTITCH => 2
+    static NOSTITCH => 2
 
     /**
+     * Native name: svgStitchtype_Max
      * @type {Integer (Int32)}
      */
-    static svgStitchtype_Max => 2147483647
+    static Max => 2147483647
 }

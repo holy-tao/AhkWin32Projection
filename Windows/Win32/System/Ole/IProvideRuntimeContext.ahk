@@ -30,7 +30,6 @@ class IProvideRuntimeContext extends IUnknown {
     static VTableNames => ["GetCurrentSourceContext"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pdwContext 
      * @param {Pointer<VARIANT_BOOL>} pfExecutingGlobalCode 
      * @returns {HRESULT} 

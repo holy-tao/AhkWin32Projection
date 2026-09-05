@@ -39,7 +39,6 @@ class IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<MFMediaKeyStatus>>} pKeyStatusesArray 
      * @param {Pointer<Integer>} puSize 
      * @returns {HRESULT} 
@@ -66,7 +65,6 @@ class IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @param {BSTR} initDataType 
      * @param {Integer} pbInitData 
      * @param {Integer} cb 
@@ -80,7 +78,6 @@ class IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Expiration() {
@@ -89,7 +86,6 @@ class IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Remove() {

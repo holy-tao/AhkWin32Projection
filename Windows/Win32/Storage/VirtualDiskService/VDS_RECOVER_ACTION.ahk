@@ -12,17 +12,20 @@
 class VDS_RECOVER_ACTION extends Win32Enum {
 
     /**
+     * Native name: VDS_RA_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_RA_UNKNOWN => 0
+    static RA_UNKNOWN => 0
 
     /**
+     * Native name: VDS_RA_REFRESH
      * @type {Integer (Int32)}
      */
-    static VDS_RA_REFRESH => 1
+    static RA_REFRESH => 1
 
     /**
+     * Native name: VDS_RA_RESTART
      * @type {Integer (Int32)}
      */
-    static VDS_RA_RESTART => 2
+    static RA_RESTART => 2
 }

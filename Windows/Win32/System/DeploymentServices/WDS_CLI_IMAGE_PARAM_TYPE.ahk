@@ -7,17 +7,20 @@
 class WDS_CLI_IMAGE_PARAM_TYPE extends Win32Enum {
 
     /**
+     * Native name: WDS_CLI_IMAGE_PARAM_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static WDS_CLI_IMAGE_PARAM_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: WDS_CLI_IMAGE_PARAM_SPARSE_FILE
      * @type {Integer (Int32)}
      */
-    static WDS_CLI_IMAGE_PARAM_SPARSE_FILE => 1
+    static SPARSE_FILE => 1
 
     /**
+     * Native name: WDS_CLI_IMAGE_PARAM_SUPPORTED_FIRMWARES
      * @type {Integer (Int32)}
      */
-    static WDS_CLI_IMAGE_PARAM_SUPPORTED_FIRMWARES => 2
+    static SUPPORTED_FIRMWARES => 2
 }

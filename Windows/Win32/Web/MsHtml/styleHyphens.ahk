@@ -7,27 +7,32 @@
 class styleHyphens extends Win32Enum {
 
     /**
+     * Native name: styleHyphensNone
      * @type {Integer (Int32)}
      */
-    static styleHyphensNone => 0
+    static None => 0
 
     /**
+     * Native name: styleHyphensManual
      * @type {Integer (Int32)}
      */
-    static styleHyphensManual => 1
+    static Manual => 1
 
     /**
+     * Native name: styleHyphensAuto
      * @type {Integer (Int32)}
      */
-    static styleHyphensAuto => 2
+    static Auto => 2
 
     /**
+     * Native name: styleHyphensNotSet
      * @type {Integer (Int32)}
      */
-    static styleHyphensNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleHyphens_Max
      * @type {Integer (Int32)}
      */
-    static styleHyphens_Max => 2147483647
+    static Max => 2147483647
 }

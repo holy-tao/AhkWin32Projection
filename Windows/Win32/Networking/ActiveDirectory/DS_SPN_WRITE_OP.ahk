@@ -10,19 +10,22 @@ class DS_SPN_WRITE_OP extends Win32Enum {
 
     /**
      * Adds the specified service principal names (SPNs) to the object identified by the <i>pszAccount</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dswriteaccountspna">DsWriteAccountSpn</a>.
+     * Native name: DS_SPN_ADD_SPN_OP
      * @type {Integer (Int32)}
      */
-    static DS_SPN_ADD_SPN_OP => 0
+    static ADD_SPN_OP => 0
 
     /**
      * Removes all SPNs currently registered on the account identified by the <i>pszAccount</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dswriteaccountspna">DsWriteAccountSpn</a> and replaces them with the SPNs specified  by the <i>rpszSpn</i> parameter in <b>DsWriteAccountSpn</b>.
+     * Native name: DS_SPN_REPLACE_SPN_OP
      * @type {Integer (Int32)}
      */
-    static DS_SPN_REPLACE_SPN_OP => 1
+    static REPLACE_SPN_OP => 1
 
     /**
      * Deletes the specified SPNs from the object identified by the <i>pszAccount</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dswriteaccountspna">DsWriteAccountSpn</a>.
+     * Native name: DS_SPN_DELETE_SPN_OP
      * @type {Integer (Int32)}
      */
-    static DS_SPN_DELETE_SPN_OP => 2
+    static DELETE_SPN_OP => 2
 }

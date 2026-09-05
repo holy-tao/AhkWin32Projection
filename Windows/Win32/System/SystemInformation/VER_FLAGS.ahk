@@ -7,42 +7,50 @@
 class VER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: VER_MINORVERSION
      * @type {Integer (UInt32)}
      */
-    static VER_MINORVERSION => 1
+    static MINORVERSION => 1
 
     /**
+     * Native name: VER_MAJORVERSION
      * @type {Integer (UInt32)}
      */
-    static VER_MAJORVERSION => 2
+    static MAJORVERSION => 2
 
     /**
+     * Native name: VER_BUILDNUMBER
      * @type {Integer (UInt32)}
      */
-    static VER_BUILDNUMBER => 4
+    static BUILDNUMBER => 4
 
     /**
+     * Native name: VER_PLATFORMID
      * @type {Integer (UInt32)}
      */
-    static VER_PLATFORMID => 8
+    static PLATFORMID => 8
 
     /**
+     * Native name: VER_SERVICEPACKMINOR
      * @type {Integer (UInt32)}
      */
-    static VER_SERVICEPACKMINOR => 16
+    static SERVICEPACKMINOR => 16
 
     /**
+     * Native name: VER_SERVICEPACKMAJOR
      * @type {Integer (UInt32)}
      */
-    static VER_SERVICEPACKMAJOR => 32
+    static SERVICEPACKMAJOR => 32
 
     /**
+     * Native name: VER_SUITENAME
      * @type {Integer (UInt32)}
      */
-    static VER_SUITENAME => 64
+    static SUITENAME => 64
 
     /**
+     * Native name: VER_PRODUCT_TYPE
      * @type {Integer (UInt32)}
      */
-    static VER_PRODUCT_TYPE => 128
+    static PRODUCT_TYPE => 128
 }

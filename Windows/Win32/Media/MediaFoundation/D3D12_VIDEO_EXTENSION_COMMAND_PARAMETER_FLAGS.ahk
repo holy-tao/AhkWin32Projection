@@ -12,19 +12,22 @@ class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAGS extends Win32BitflagEnum {
 
     /**
      * None. Set for simple data type parameters.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The resource parameter is read. This flag is for **ID3D12Resource** only and is not valid for simple data type parameters.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_READ
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_READ => 1
+    static FLAG_READ => 1
 
     /**
      * The resource parameter is written. This flag is for **ID3D12Resource** only and is not valid for simple data type parameters.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_WRITE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_WRITE => 2
+    static FLAG_WRITE => 2
 }

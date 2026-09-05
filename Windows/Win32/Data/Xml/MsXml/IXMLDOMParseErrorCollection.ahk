@@ -52,7 +52,6 @@ class IXMLDOMParseErrorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IXMLDOMParseError2} 
      */
@@ -62,7 +61,6 @@ class IXMLDOMParseErrorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -71,7 +69,6 @@ class IXMLDOMParseErrorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMParseError2} 
      */
     get_next() {
@@ -80,7 +77,6 @@ class IXMLDOMParseErrorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -89,7 +85,6 @@ class IXMLDOMParseErrorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {

@@ -7,17 +7,20 @@
 class NFC_RF_DISCOVERY_MODE extends Win32Enum {
 
     /**
+     * Native name: RfDiscoveryConfig
      * @type {Integer (Int32)}
      */
-    static RfDiscoveryConfig => 0
+    static Config => 0
 
     /**
+     * Native name: RfDiscoveryStart
      * @type {Integer (Int32)}
      */
-    static RfDiscoveryStart => 1
+    static Start => 1
 
     /**
+     * Native name: RFDiscoveryResume
      * @type {Integer (Int32)}
      */
-    static RFDiscoveryResume => 2
+    static Resume => 2
 }

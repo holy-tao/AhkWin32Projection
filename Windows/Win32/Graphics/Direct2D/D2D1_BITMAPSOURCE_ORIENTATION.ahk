@@ -10,49 +10,57 @@ class D2D1_BITMAPSOURCE_ORIENTATION extends Win32Enum {
 
     /**
      * The effect doesn't change the orientation of the input.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
      * Flips the image horizontally.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_FLIP_HORIZONTAL => 2
+    static FLIP_HORIZONTAL => 2
 
     /**
      * Rotates the image clockwise 180 degrees.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180 => 3
+    static ROTATE_CLOCKWISE180 => 3
 
     /**
      * Rotates the image clockwise 180 degrees and flips it horizontally.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL => 4
+    static ROTATE_CLOCKWISE180_FLIP_HORIZONTAL => 4
 
     /**
      * Rotates the image clockwise 270 degrees and flips it horizontally.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL => 5
+    static ROTATE_CLOCKWISE270_FLIP_HORIZONTAL => 5
 
     /**
      * Rotates the image clockwise 90 degrees.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90 => 6
+    static ROTATE_CLOCKWISE90 => 6
 
     /**
      * Rotates the image clockwise 90 degrees and flips it horizontally.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL => 7
+    static ROTATE_CLOCKWISE90_FLIP_HORIZONTAL => 7
 
     /**
      * Rotates the image clockwise 270 degrees.
+     * Native name: D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270 => 8
+    static ROTATE_CLOCKWISE270 => 8
 }

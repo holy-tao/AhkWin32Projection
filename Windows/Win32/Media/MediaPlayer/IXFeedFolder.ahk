@@ -35,7 +35,6 @@ class IXFeedFolder extends IUnknown {
     static VTableNames => ["Feeds", "Subfolders", "CreateFeed", "CreateSubfolder", "ExistsFeed", "ExistsSubfolder", "GetFeed", "GetSubfolder", "Delete", "Name", "Rename", "Path", "Move", "Parent", "IsRoot", "GetWatcher", "TotalUnreadItemCount", "TotalItemCount"]
 
     /**
-     * 
      * @returns {IXFeedsEnum} 
      */
     Feeds() {
@@ -44,7 +43,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IXFeedsEnum} 
      */
     Subfolders() {
@@ -53,7 +51,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {PWSTR} pszUrl 
      * @param {Pointer<Guid>} riid 
@@ -68,7 +65,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -81,7 +77,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<BOOL>} pbFeedExists 
      * @returns {HRESULT} 
@@ -96,7 +91,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<BOOL>} pbSubfolderExists 
      * @returns {HRESULT} 
@@ -111,7 +105,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -124,7 +117,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -137,7 +129,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -156,7 +147,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @returns {HRESULT} 
      */
@@ -178,7 +168,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -190,7 +179,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -200,7 +188,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsRoot() {
@@ -209,7 +196,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {FEEDS_EVENTS_SCOPE} scope 
      * @param {FEEDS_EVENTS_MASK} mask 
      * @param {Pointer<Guid>} riid 
@@ -221,7 +207,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     TotalUnreadItemCount() {
@@ -230,7 +215,6 @@ class IXFeedFolder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     TotalItemCount() {

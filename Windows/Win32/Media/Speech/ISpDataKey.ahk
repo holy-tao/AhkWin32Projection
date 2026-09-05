@@ -36,7 +36,6 @@ class ISpDataKey extends IUnknown {
     static VTableNames => ["SetData", "GetData", "SetStringValue", "GetStringValue", "SetDWORD", "GetDWORD", "OpenKey", "CreateKey", "DeleteKey", "DeleteValue", "EnumKeys", "EnumValues"]
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Integer} cbData 
      * @param {Pointer<Integer>} pData 
@@ -52,7 +51,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Pointer<Integer>} pcbData 
      * @param {Pointer<Integer>} pData 
@@ -69,7 +67,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {PWSTR} pszValue 
      * @returns {HRESULT} 
@@ -83,7 +80,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @returns {PWSTR} 
      */
@@ -95,7 +91,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Integer} dwValue 
      * @returns {HRESULT} 
@@ -108,7 +103,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Pointer<Integer>} pdwValue 
      * @returns {HRESULT} 
@@ -123,7 +117,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSubKeyName 
      * @returns {ISpDataKey} 
      */
@@ -135,7 +128,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSubKey 
      * @returns {ISpDataKey} 
      */
@@ -147,7 +139,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSubKey 
      * @returns {HRESULT} 
      */
@@ -159,7 +150,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @returns {HRESULT} 
      */
@@ -171,7 +161,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {PWSTR} 
      */
@@ -181,7 +170,6 @@ class ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {PWSTR} 
      */

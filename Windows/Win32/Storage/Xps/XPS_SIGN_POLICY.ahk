@@ -12,15 +12,17 @@ class XPS_SIGN_POLICY extends Win32BitflagEnum {
 
     /**
      * No optional parts or relationships are signed.
+     * Native name: XPS_SIGN_POLICY_NONE
      * @type {Integer (Int32)}
      */
-    static XPS_SIGN_POLICY_NONE => 0
+    static NONE => 0
 
     /**
      * The CoreProperties part and the relationships that include it are signed.
+     * Native name: XPS_SIGN_POLICY_CORE_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static XPS_SIGN_POLICY_CORE_PROPERTIES => 1
+    static CORE_PROPERTIES => 1
 
     /**
      * The signature relationships  from the signature origin part are signed. <i>Signature relationships</i> are those relationships that have a <i>digital signature</i> relationship type.
@@ -29,21 +31,24 @@ class XPS_SIGN_POLICY extends Win32BitflagEnum {
      * 
      * </div>
      * <div> </div>
+     * Native name: XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS
      * @type {Integer (Int32)}
      */
-    static XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS => 2
+    static SIGNATURE_RELATIONSHIPS => 2
 
     /**
      * The  PrintTicket part and the relationships that include it are signed.
+     * Native name: XPS_SIGN_POLICY_PRINT_TICKET
      * @type {Integer (Int32)}
      */
-    static XPS_SIGN_POLICY_PRINT_TICKET => 4
+    static PRINT_TICKET => 4
 
     /**
      * The  DiscardControl part and the relationships that include it are signed.
+     * Native name: XPS_SIGN_POLICY_DISCARD_CONTROL
      * @type {Integer (Int32)}
      */
-    static XPS_SIGN_POLICY_DISCARD_CONTROL => 8
+    static DISCARD_CONTROL => 8
 
     /**
      * The  CoreProperties part and the relationships that include it, the digital signature relationship type from the SignatureOrigin part, the PrintTicket part and the relationships that include it, and the DiscardControl part and the relationships that include it are all signed.
@@ -52,7 +57,8 @@ class XPS_SIGN_POLICY extends Win32BitflagEnum {
      * 
      * </div>
      * <div> </div>
+     * Native name: XPS_SIGN_POLICY_ALL
      * @type {Integer (Int32)}
      */
-    static XPS_SIGN_POLICY_ALL => 15
+    static ALL => 15
 }

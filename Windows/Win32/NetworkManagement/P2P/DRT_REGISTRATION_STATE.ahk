@@ -12,7 +12,8 @@ class DRT_REGISTRATION_STATE extends Win32Enum {
      * The locally registered key is no longer resolvable by other nodes. The Distributed Routing Table signals this state when the local security provider is unable to generate an authentication token for the locally registered key. 
      * 
      * For example, if the Derived Key Security Provider is used, this state is signaled when the certificate used to authenticate expires.
+     * Native name: DRT_REGISTRATION_STATE_UNRESOLVEABLE
      * @type {Integer (Int32)}
      */
-    static DRT_REGISTRATION_STATE_UNRESOLVEABLE => 1
+    static UNRESOLVEABLE => 1
 }

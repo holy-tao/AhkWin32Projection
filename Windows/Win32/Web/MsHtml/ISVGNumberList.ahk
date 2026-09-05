@@ -44,7 +44,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_numberOfItems() {
@@ -63,7 +61,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -72,7 +69,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumber} newItem 
      * @returns {ISVGNumber} 
      */
@@ -82,7 +78,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGNumber} 
      */
@@ -92,7 +87,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumber} newItem 
      * @param {Integer} index 
      * @returns {ISVGNumber} 
@@ -103,7 +97,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumber} newItem 
      * @param {Integer} index 
      * @returns {ISVGNumber} 
@@ -114,7 +107,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGNumber} 
      */
@@ -124,7 +116,6 @@ class ISVGNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumber} newItem 
      * @returns {ISVGNumber} 
      */

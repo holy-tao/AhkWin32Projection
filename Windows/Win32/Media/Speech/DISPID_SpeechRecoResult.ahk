@@ -7,47 +7,56 @@
 class DISPID_SpeechRecoResult extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRRRecoContext
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRRecoContext => 1
+    static SRRRecoContext => 1
 
     /**
+     * Native name: DISPID_SRRTimes
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRTimes => 2
+    static SRRTimes => 2
 
     /**
+     * Native name: DISPID_SRRAudioFormat
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRAudioFormat => 3
+    static SRRAudioFormat => 3
 
     /**
+     * Native name: DISPID_SRRPhraseInfo
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRPhraseInfo => 4
+    static SRRPhraseInfo => 4
 
     /**
+     * Native name: DISPID_SRRAlternates
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRAlternates => 5
+    static SRRAlternates => 5
 
     /**
+     * Native name: DISPID_SRRAudio
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRAudio => 6
+    static SRRAudio => 6
 
     /**
+     * Native name: DISPID_SRRSpeakAudio
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRSpeakAudio => 7
+    static SRRSpeakAudio => 7
 
     /**
+     * Native name: DISPID_SRRSaveToMemory
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRSaveToMemory => 8
+    static SRRSaveToMemory => 8
 
     /**
+     * Native name: DISPID_SRRDiscardResultInfo
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRDiscardResultInfo => 9
+    static SRRDiscardResultInfo => 9
 }

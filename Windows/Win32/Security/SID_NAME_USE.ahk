@@ -10,66 +10,77 @@ class SID_NAME_USE extends Win32Enum {
 
     /**
      * A user SID.
+     * Native name: SidTypeUser
      * @type {Integer (Int32)}
      */
-    static SidTypeUser => 1
+    static TypeUser => 1
 
     /**
      * A group SID.
+     * Native name: SidTypeGroup
      * @type {Integer (Int32)}
      */
-    static SidTypeGroup => 2
+    static TypeGroup => 2
 
     /**
      * A domain SID.
+     * Native name: SidTypeDomain
      * @type {Integer (Int32)}
      */
-    static SidTypeDomain => 3
+    static TypeDomain => 3
 
     /**
      * An alias SID.
+     * Native name: SidTypeAlias
      * @type {Integer (Int32)}
      */
-    static SidTypeAlias => 4
+    static TypeAlias => 4
 
     /**
      * A SID for a well-known group.
+     * Native name: SidTypeWellKnownGroup
      * @type {Integer (Int32)}
      */
-    static SidTypeWellKnownGroup => 5
+    static TypeWellKnownGroup => 5
 
     /**
      * A SID for a deleted account.
+     * Native name: SidTypeDeletedAccount
      * @type {Integer (Int32)}
      */
-    static SidTypeDeletedAccount => 6
+    static TypeDeletedAccount => 6
 
     /**
      * A SID that is not valid.
+     * Native name: SidTypeInvalid
      * @type {Integer (Int32)}
      */
-    static SidTypeInvalid => 7
+    static TypeInvalid => 7
 
     /**
      * A SID of unknown type.
+     * Native name: SidTypeUnknown
      * @type {Integer (Int32)}
      */
-    static SidTypeUnknown => 8
+    static TypeUnknown => 8
 
     /**
      * A SID for a computer.
+     * Native name: SidTypeComputer
      * @type {Integer (Int32)}
      */
-    static SidTypeComputer => 9
+    static TypeComputer => 9
 
     /**
      * A mandatory integrity label SID.
+     * Native name: SidTypeLabel
      * @type {Integer (Int32)}
      */
-    static SidTypeLabel => 10
+    static TypeLabel => 10
 
     /**
+     * Native name: SidTypeLogonSession
      * @type {Integer (Int32)}
      */
-    static SidTypeLogonSession => 11
+    static TypeLogonSession => 11
 }

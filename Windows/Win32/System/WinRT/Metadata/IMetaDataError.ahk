@@ -29,7 +29,6 @@ class IMetaDataError extends IUnknown {
     static VTableNames => ["OnError"]
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {Integer} token 
      * @returns {HRESULT} 

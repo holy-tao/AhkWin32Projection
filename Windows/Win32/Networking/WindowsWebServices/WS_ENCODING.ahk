@@ -18,9 +18,10 @@ class WS_ENCODING extends Win32Enum {
      *                 
      * 
      * This encoding requires SOAP 1.2 (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION_SOAP_1_2</a>).
+     * Native name: WS_ENCODING_XML_BINARY_1
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_BINARY_1 => 0
+    static XML_BINARY_1 => 0
 
     /**
      * The binary XML session encoding.
@@ -55,9 +56,10 @@ class WS_ENCODING extends Win32Enum {
      *                 
      * 
      * This encoding requires SOAP 1.2 (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION_SOAP_1_2</a>).
+     * Native name: WS_ENCODING_XML_BINARY_SESSION_1
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_BINARY_SESSION_1 => 1
+    static XML_BINARY_SESSION_1 => 1
 
     /**
      * The MTOM encoding.
@@ -73,9 +75,10 @@ class WS_ENCODING extends Win32Enum {
      * 
      * The XML part of the MTOM package is written
      *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF8</a>, but may be in any <b>WS_CHARSET</b> when read.
+     * Native name: WS_ENCODING_XML_MTOM_UTF8
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_MTOM_UTF8 => 2
+    static XML_MTOM_UTF8 => 2
 
     /**
      * The MTOM encoding.
@@ -91,9 +94,10 @@ class WS_ENCODING extends Win32Enum {
      * 
      * The XML part of the MTOM package is written
      *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16BE</a>, but may be in any <b>WS_CHARSET</b> when read.
+     * Native name: WS_ENCODING_XML_MTOM_UTF16BE
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_MTOM_UTF16BE => 3
+    static XML_MTOM_UTF16BE => 3
 
     /**
      * The MTOM encoding.
@@ -109,9 +113,10 @@ class WS_ENCODING extends Win32Enum {
      * 
      * The XML part of the MTOM package is written
      *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16LE</a>, but may be in any <b>WS_CHARSET</b> when read.
+     * Native name: WS_ENCODING_XML_MTOM_UTF16LE
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_MTOM_UTF16LE => 4
+    static XML_MTOM_UTF16LE => 4
 
     /**
      * The text encoding (XML 1.0 format).
@@ -119,9 +124,10 @@ class WS_ENCODING extends Win32Enum {
      * 
      * Data is written using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF8</a>,
      *                     but may be in any <b>WS_CHARSET</b> when read.
+     * Native name: WS_ENCODING_XML_UTF8
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_UTF8 => 5
+    static XML_UTF8 => 5
 
     /**
      * The text encoding (XML 1.0 format).
@@ -129,9 +135,10 @@ class WS_ENCODING extends Win32Enum {
      * 
      * Data is written using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16BE</a>,
      *                     but may be in any <b>WS_CHARSET</b> when read.
+     * Native name: WS_ENCODING_XML_UTF16BE
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_UTF16BE => 6
+    static XML_UTF16BE => 6
 
     /**
      * The text encoding (XML 1.0 format).
@@ -139,12 +146,14 @@ class WS_ENCODING extends Win32Enum {
      * 
      * Data is written using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16LE</a>,
      *                     but may be in any <b>WS_CHARSET</b> when read.
+     * Native name: WS_ENCODING_XML_UTF16LE
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_XML_UTF16LE => 7
+    static XML_UTF16LE => 7
 
     /**
+     * Native name: WS_ENCODING_RAW
      * @type {Integer (Int32)}
      */
-    static WS_ENCODING_RAW => 8
+    static RAW => 8
 }

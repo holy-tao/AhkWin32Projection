@@ -76,7 +76,6 @@ class ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaType} 
      */
     get_type() {
@@ -85,7 +84,6 @@ class ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaComplexType} 
      */
     get_scope() {
@@ -94,7 +92,6 @@ class ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -104,7 +101,6 @@ class ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fixedValue() {
@@ -114,7 +110,6 @@ class ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMAUSE} 
      */
     get_use() {
@@ -123,7 +118,6 @@ class ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {

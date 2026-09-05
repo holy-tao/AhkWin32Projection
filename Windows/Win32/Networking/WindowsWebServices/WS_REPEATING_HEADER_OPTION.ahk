@@ -19,7 +19,8 @@ class WS_REPEATING_HEADER_OPTION extends Win32Enum {
      *                     When this option is specified, the function 
      *                     ensures that the specified header appears
      *                     at most once in the message.
+     * Native name: WS_SINGLETON_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_SINGLETON_HEADER => 2
+    static SINGLETON_HEADER => 2
 }

@@ -12,13 +12,15 @@ class DWRITE_OUTLINE_THRESHOLD extends Win32Enum {
 
     /**
      * Graphics system renders anti-aliased outlines.
+     * Native name: DWRITE_OUTLINE_THRESHOLD_ANTIALIASED
      * @type {Integer (Int32)}
      */
-    static DWRITE_OUTLINE_THRESHOLD_ANTIALIASED => 0
+    static ANTIALIASED => 0
 
     /**
      * Graphics system renders aliased outlines.
+     * Native name: DWRITE_OUTLINE_THRESHOLD_ALIASED
      * @type {Integer (Int32)}
      */
-    static DWRITE_OUTLINE_THRESHOLD_ALIASED => 1
+    static ALIASED => 1
 }

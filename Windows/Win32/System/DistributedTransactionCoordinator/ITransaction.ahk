@@ -32,7 +32,6 @@ class ITransaction extends IUnknown {
     static VTableNames => ["Commit", "Abort", "GetTransactionInfo"]
 
     /**
-     * 
      * @param {BOOL} fRetaining 
      * @param {Integer} grfTC 
      * @param {Integer} grfRM 
@@ -44,7 +43,6 @@ class ITransaction extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pboidReason 
      * @param {BOOL} fRetaining 
      * @param {BOOL} fAsync 
@@ -56,7 +54,6 @@ class ITransaction extends IUnknown {
     }
 
     /**
-     * 
      * @returns {XACTTRANSINFO} 
      */
     GetTransactionInfo() {

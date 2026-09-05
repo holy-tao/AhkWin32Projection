@@ -7,7 +7,8 @@
 class KSPROPERTY_GENERAL extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_GENERAL_COMPONENTID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_GENERAL_COMPONENTID => 0
+    static COMPONENTID => 0
 }

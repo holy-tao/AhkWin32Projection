@@ -31,7 +31,6 @@ class IAccessor extends IUnknown {
     static VTableNames => ["AddRefAccessor", "CreateAccessor", "GetBindings", "ReleaseAccessor"]
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Integer} 
      */
@@ -43,7 +42,6 @@ class IAccessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAccessorFlags 
      * @param {Pointer} cBindings 
      * @param {Pointer<DBBINDING>} rgBindings 
@@ -60,7 +58,6 @@ class IAccessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Integer>} pdwAccessorFlags 
      * @param {Pointer<Pointer>} pcBindings 
@@ -79,7 +76,6 @@ class IAccessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Integer} 
      */

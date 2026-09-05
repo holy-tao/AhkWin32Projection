@@ -58,7 +58,6 @@ class IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Level() {
@@ -67,7 +66,6 @@ class IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Min() {
@@ -76,7 +74,6 @@ class IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Max() {
@@ -85,7 +82,6 @@ class IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_AUDIO_DEVICE} 
      */
     get_Direction() {

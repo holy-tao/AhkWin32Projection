@@ -7,7 +7,8 @@
 class PackageInfo3Type extends Win32Enum {
 
     /**
+     * Native name: PackageInfo3Type_PackageInfoGeneration
      * @type {Integer (Int32)}
      */
-    static PackageInfo3Type_PackageInfoGeneration => 16
+    static PackageInfoGeneration => 16
 }

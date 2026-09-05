@@ -7,12 +7,14 @@
 class MSITRANSACTION extends Win32Enum {
 
     /**
+     * Native name: MSITRANSACTION_CHAIN_EMBEDDEDUI
      * @type {Integer (Int32)}
      */
-    static MSITRANSACTION_CHAIN_EMBEDDEDUI => 1
+    static CHAIN_EMBEDDEDUI => 1
 
     /**
+     * Native name: MSITRANSACTION_JOIN_EXISTING_EMBEDDEDUI
      * @type {Integer (Int32)}
      */
-    static MSITRANSACTION_JOIN_EXISTING_EMBEDDEDUI => 2
+    static JOIN_EXISTING_EMBEDDEDUI => 2
 }

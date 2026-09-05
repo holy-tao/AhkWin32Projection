@@ -37,7 +37,6 @@ class IPMExtensionCachedFileUpdaterInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SupportsUpdates() {

@@ -15,19 +15,22 @@ class D3D12_RESOURCE_BARRIER_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flags.
+     * Native name: D3D12_RESOURCE_BARRIER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BARRIER_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * This starts a barrier transition in a new state, putting a resource in a temporary no-access condition.
+     * Native name: D3D12_RESOURCE_BARRIER_FLAG_BEGIN_ONLY
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BARRIER_FLAG_BEGIN_ONLY => 1
+    static FLAG_BEGIN_ONLY => 1
 
     /**
      * This barrier completes a transition, setting a new state and restoring active access to a resource.
+     * Native name: D3D12_RESOURCE_BARRIER_FLAG_END_ONLY
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BARRIER_FLAG_END_ONLY => 2
+    static FLAG_END_ONLY => 2
 }

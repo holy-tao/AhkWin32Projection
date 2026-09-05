@@ -37,7 +37,6 @@ class IResourceManager extends IUnknown {
     static VTableNames => ["Enlist", "Reenlist", "ReenlistmentComplete", "GetDistributedTransactionManager"]
 
     /**
-     * 
      * @param {ITransaction} pTransaction 
      * @param {ITransactionResourceAsync} pRes 
      * @param {Pointer<BOID>} pUOW 
@@ -53,7 +52,6 @@ class IResourceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @param {Integer} lTimeout 
@@ -67,7 +65,6 @@ class IResourceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReenlistmentComplete() {
@@ -76,7 +73,6 @@ class IResourceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @returns {Pointer<Void>} 
      */

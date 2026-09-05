@@ -31,7 +31,6 @@ class IDirectDrawVideoPortNotify extends IUnknown {
     static VTableNames => ["AcquireNotification", "ReleaseNotification"]
 
     /**
-     * 
      * @param {Pointer<HANDLE>} param0 
      * @param {Pointer<DDVIDEOPORTNOTIFY>} param1 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IDirectDrawVideoPortNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {HRESULT} 
      */

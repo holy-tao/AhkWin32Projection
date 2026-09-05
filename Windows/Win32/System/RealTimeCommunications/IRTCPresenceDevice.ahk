@@ -46,7 +46,6 @@ class IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_PRESENCE_STATUS} 
      */
     get_Status() {
@@ -55,7 +54,6 @@ class IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Notes() {
@@ -65,7 +63,6 @@ class IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
@@ -76,7 +73,6 @@ class IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrNamespace 
      * @param {Pointer<BSTR>} pbstrData 
      * @returns {HRESULT} 

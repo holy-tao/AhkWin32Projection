@@ -10,25 +10,29 @@ class NET_FW_POLICY_TYPE extends Win32Enum {
 
     /**
      * Policy type is group.
+     * Native name: NET_FW_POLICY_GROUP
      * @type {Integer (Int32)}
      */
-    static NET_FW_POLICY_GROUP => 0
+    static GROUP => 0
 
     /**
      * Policy type is local.
+     * Native name: NET_FW_POLICY_LOCAL
      * @type {Integer (Int32)}
      */
-    static NET_FW_POLICY_LOCAL => 1
+    static LOCAL => 1
 
     /**
      * Policy type is effective.
+     * Native name: NET_FW_POLICY_EFFECTIVE
      * @type {Integer (Int32)}
      */
-    static NET_FW_POLICY_EFFECTIVE => 2
+    static EFFECTIVE => 2
 
     /**
      * Used for boundary checking only. Not valid for application programming.
+     * Native name: NET_FW_POLICY_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_POLICY_TYPE_MAX => 3
+    static MAX => 3
 }

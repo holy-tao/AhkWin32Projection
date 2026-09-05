@@ -14,13 +14,15 @@ class D3D11_DSV_FLAG extends Win32Enum {
 
     /**
      * Indicates that depth values are read only.
+     * Native name: D3D11_DSV_READ_ONLY_DEPTH
      * @type {Integer (Int32)}
      */
-    static D3D11_DSV_READ_ONLY_DEPTH => 1
+    static READ_ONLY_DEPTH => 1
 
     /**
      * Indicates that stencil values are read only.
+     * Native name: D3D11_DSV_READ_ONLY_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D11_DSV_READ_ONLY_STENCIL => 2
+    static READ_ONLY_STENCIL => 2
 }

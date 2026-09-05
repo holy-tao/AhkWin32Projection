@@ -10,115 +10,134 @@ class DWRITE_PANOSE_ARM_STYLE extends Win32Enum {
 
     /**
      * Any arm style.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_ANY => 0
+    static ANY => 0
 
     /**
      * No fit arm style.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * The arm style is straight horizontal.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_HORIZONTAL => 2
+    static STRAIGHT_ARMS_HORIZONTAL => 2
 
     /**
      * The arm style is straight wedge.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_WEDGE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_WEDGE => 3
+    static STRAIGHT_ARMS_WEDGE => 3
 
     /**
      * The arm style is straight vertical.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_VERTICAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_VERTICAL => 4
+    static STRAIGHT_ARMS_VERTICAL => 4
 
     /**
      * The arm style is straight single serif.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_SINGLE_SERIF
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_SINGLE_SERIF => 5
+    static STRAIGHT_ARMS_SINGLE_SERIF => 5
 
     /**
      * The arm style is straight double serif.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_DOUBLE_SERIF
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_DOUBLE_SERIF => 6
+    static STRAIGHT_ARMS_DOUBLE_SERIF => 6
 
     /**
      * The arm style is non-straight horizontal.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_HORIZONTAL => 7
+    static NONSTRAIGHT_ARMS_HORIZONTAL => 7
 
     /**
      * The arm style is non-straight wedge.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_WEDGE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_WEDGE => 8
+    static NONSTRAIGHT_ARMS_WEDGE => 8
 
     /**
      * The arm style is non-straight vertical.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_VERTICAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_VERTICAL => 9
+    static NONSTRAIGHT_ARMS_VERTICAL => 9
 
     /**
      * The arm style is non-straight single serif.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_SINGLE_SERIF
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_SINGLE_SERIF => 10
+    static NONSTRAIGHT_ARMS_SINGLE_SERIF => 10
 
     /**
      * The arm style is non-straight double serif.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_DOUBLE_SERIF
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_NONSTRAIGHT_ARMS_DOUBLE_SERIF => 11
+    static NONSTRAIGHT_ARMS_DOUBLE_SERIF => 11
 
     /**
      * The arm style is straight horizontal.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_HORZ
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_HORZ => 2
+    static STRAIGHT_ARMS_HORZ => 2
 
     /**
      * The arm style is straight vertical.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_VERT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_STRAIGHT_ARMS_VERT => 4
+    static STRAIGHT_ARMS_VERT => 4
 
     /**
      * The arm style is non-straight horizontal.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_HORZ
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_HORZ => 7
+    static BENT_ARMS_HORZ => 7
 
     /**
      * The arm style is non-straight wedge.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_WEDGE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_WEDGE => 8
+    static BENT_ARMS_WEDGE => 8
 
     /**
      * The arm style is non-straight vertical.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_VERT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_VERT => 9
+    static BENT_ARMS_VERT => 9
 
     /**
      * The arm style is non-straight single serif.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_SINGLE_SERIF
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_SINGLE_SERIF => 10
+    static BENT_ARMS_SINGLE_SERIF => 10
 
     /**
      * The arm style is non-straight double serif.
+     * Native name: DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_DOUBLE_SERIF
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ARM_STYLE_BENT_ARMS_DOUBLE_SERIF => 11
+    static BENT_ARMS_DOUBLE_SERIF => 11
 }

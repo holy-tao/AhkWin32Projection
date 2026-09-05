@@ -289,7 +289,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _SystemTime 
      * @returns {NTSTATUS} 
      */
@@ -302,7 +301,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MaximumTime 
      * @param {Pointer<Integer>} MinimumTime 
      * @param {Pointer<Integer>} CurrentTime 
@@ -319,7 +317,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MaximumTime 
      * @param {Pointer<Integer>} MinimumTime 
      * @param {Pointer<Integer>} CurrentTime 

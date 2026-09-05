@@ -77,7 +77,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     get_Storage() {
@@ -86,7 +85,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StorageSize() {
@@ -95,7 +93,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PayloadSize() {
@@ -104,7 +101,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -114,7 +110,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PayloadOffset() {
@@ -123,7 +118,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRetVal 
      * @returns {HRESULT} 
      */
@@ -133,7 +127,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -142,7 +135,6 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
      */

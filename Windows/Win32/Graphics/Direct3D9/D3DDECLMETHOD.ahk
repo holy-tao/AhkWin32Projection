@@ -15,37 +15,44 @@
 class D3DDECLMETHOD extends Win32Enum {
 
     /**
+     * Native name: D3DDECLMETHOD_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3DDECLMETHOD_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: D3DDECLMETHOD_PARTIALU
      * @type {Integer (Int32)}
      */
-    static D3DDECLMETHOD_PARTIALU => 1
+    static PARTIALU => 1
 
     /**
+     * Native name: D3DDECLMETHOD_PARTIALV
      * @type {Integer (Int32)}
      */
-    static D3DDECLMETHOD_PARTIALV => 2
+    static PARTIALV => 2
 
     /**
+     * Native name: D3DDECLMETHOD_CROSSUV
      * @type {Integer (Int32)}
      */
-    static D3DDECLMETHOD_CROSSUV => 3
+    static CROSSUV => 3
 
     /**
+     * Native name: D3DDECLMETHOD_UV
      * @type {Integer (Int32)}
      */
-    static D3DDECLMETHOD_UV => 4
+    static UV => 4
 
     /**
+     * Native name: D3DDECLMETHOD_LOOKUP
      * @type {Integer (Int32)}
      */
-    static D3DDECLMETHOD_LOOKUP => 5
+    static LOOKUP => 5
 
     /**
+     * Native name: D3DDECLMETHOD_LOOKUPPRESAMPLED
      * @type {Integer (Int32)}
      */
-    static D3DDECLMETHOD_LOOKUPPRESAMPLED => 6
+    static LOOKUPPRESAMPLED => 6
 }

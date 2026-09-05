@@ -30,7 +30,6 @@ class INetCfgClassSetup2 extends INetCfgClassSetup {
     static VTableNames => ["UpdateNonEnumeratedComponent"]
 
     /**
-     * 
      * @param {INetCfgComponent} pIComp 
      * @returns {HRESULT} 
      */

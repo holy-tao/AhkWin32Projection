@@ -7,22 +7,26 @@
 class MSIARCHITECTUREFLAGS extends Win32Enum {
 
     /**
+     * Native name: MSIARCHITECTUREFLAGS_X86
      * @type {Integer (Int32)}
      */
-    static MSIARCHITECTUREFLAGS_X86 => 1
+    static X86 => 1
 
     /**
+     * Native name: MSIARCHITECTUREFLAGS_IA64
      * @type {Integer (Int32)}
      */
-    static MSIARCHITECTUREFLAGS_IA64 => 2
+    static IA64 => 2
 
     /**
+     * Native name: MSIARCHITECTUREFLAGS_AMD64
      * @type {Integer (Int32)}
      */
-    static MSIARCHITECTUREFLAGS_AMD64 => 4
+    static AMD64 => 4
 
     /**
+     * Native name: MSIARCHITECTUREFLAGS_ARM
      * @type {Integer (Int32)}
      */
-    static MSIARCHITECTUREFLAGS_ARM => 8
+    static ARM => 8
 }

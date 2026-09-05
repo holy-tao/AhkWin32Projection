@@ -12,13 +12,15 @@ class GAMING_DEVICE_VENDOR_ID extends Win32Enum {
 
     /**
      * The vendor of the device is not known.
+     * Native name: GAMING_DEVICE_VENDOR_ID_NONE
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_VENDOR_ID_NONE => 0
+    static NONE => 0
 
     /**
      * The vendor of the device is Microsoft.
+     * Native name: GAMING_DEVICE_VENDOR_ID_MICROSOFT
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_VENDOR_ID_MICROSOFT => -1024700366
+    static MICROSOFT => -1024700366
 }

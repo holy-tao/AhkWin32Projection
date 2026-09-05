@@ -10,19 +10,22 @@ class FsrmFileStreamingMode extends Win32Enum {
 
     /**
      * The streaming mode is unknown; do not use this value.
+     * Native name: FsrmFileStreamingMode_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmFileStreamingMode_Unknown => 0
+    static Unknown => 0
 
     /**
      * Use the streaming interface for reading from the file.
+     * Native name: FsrmFileStreamingMode_Read
      * @type {Integer (Int32)}
      */
-    static FsrmFileStreamingMode_Read => 1
+    static Read => 1
 
     /**
      * Use the streaming interface for writing to the  file.
+     * Native name: FsrmFileStreamingMode_Write
      * @type {Integer (Int32)}
      */
-    static FsrmFileStreamingMode_Write => 2
+    static Write => 2
 }

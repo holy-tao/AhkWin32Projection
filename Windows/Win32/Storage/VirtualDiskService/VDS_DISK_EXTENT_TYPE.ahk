@@ -17,55 +17,64 @@ class VDS_DISK_EXTENT_TYPE extends Win32Enum {
 
     /**
      * An extent of any unknown partition.
+     * Native name: VDS_DET_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_DET_UNKNOWN => 0
+    static DET_UNKNOWN => 0
 
     /**
      * An extent of free space, including free space inside an extended partition.
+     * Native name: VDS_DET_FREE
      * @type {Integer (Int32)}
      */
-    static VDS_DET_FREE => 1
+    static DET_FREE => 1
 
     /**
      * An extent of any volume.
+     * Native name: VDS_DET_DATA
      * @type {Integer (Int32)}
      */
-    static VDS_DET_DATA => 2
+    static DET_DATA => 2
 
     /**
      * An extent of an OEM partition.
+     * Native name: VDS_DET_OEM
      * @type {Integer (Int32)}
      */
-    static VDS_DET_OEM => 3
+    static DET_OEM => 3
 
     /**
      * An extent of an ESP partition.
+     * Native name: VDS_DET_ESP
      * @type {Integer (Int32)}
      */
-    static VDS_DET_ESP => 4
+    static DET_ESP => 4
 
     /**
      * An extent of a MSR partition.
+     * Native name: VDS_DET_MSR
      * @type {Integer (Int32)}
      */
-    static VDS_DET_MSR => 5
+    static DET_MSR => 5
 
     /**
      * An extent of a LDM metadata partition.
+     * Native name: VDS_DET_LDM
      * @type {Integer (Int32)}
      */
-    static VDS_DET_LDM => 6
+    static DET_LDM => 6
 
     /**
      * An extent of a cluster metadata partition.
+     * Native name: VDS_DET_CLUSTER
      * @type {Integer (Int32)}
      */
-    static VDS_DET_CLUSTER => 7
+    static DET_CLUSTER => 7
 
     /**
      * An extent of unusable space on a disk. That is, space outside the four primary partitions (or three primary partitions plus one extended partition) on a basic MBR disk and space outside the dynamic disk public region.
+     * Native name: VDS_DET_UNUSABLE
      * @type {Integer (Int32)}
      */
-    static VDS_DET_UNUSABLE => 32767
+    static DET_UNUSABLE => 32767
 }

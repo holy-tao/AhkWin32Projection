@@ -32,7 +32,6 @@ class ISyncChangeBatch2 extends ISyncChangeBatch {
     static VTableNames => ["AddMergeTombstoneMetadataToGroup", "AddMergeTombstoneLoggedConflict"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pbOwnerReplicaId 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pbItemId 
@@ -51,7 +50,6 @@ class ISyncChangeBatch2 extends ISyncChangeBatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbOwnerReplicaId 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pbItemId 

@@ -10,25 +10,29 @@ class DXVAHD_DEVICE_TYPE extends Win32Enum {
 
     /**
      * Hardware device. Video processing is performed in the GPU by the driver.
+     * Native name: DXVAHD_DEVICE_TYPE_HARDWARE
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_TYPE_HARDWARE => 0
+    static HARDWARE => 0
 
     /**
      * Software device. Video processing is performed in the CPU by a software plug-in.
+     * Native name: DXVAHD_DEVICE_TYPE_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_TYPE_SOFTWARE => 1
+    static SOFTWARE => 1
 
     /**
      * Reference device. Video processing is performed in the CPU by a software plug-in.
+     * Native name: DXVAHD_DEVICE_TYPE_REFERENCE
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_TYPE_REFERENCE => 2
+    static REFERENCE => 2
 
     /**
      * Other. The device is neither a hardware device nor a software plug-in.
+     * Native name: DXVAHD_DEVICE_TYPE_OTHER
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_TYPE_OTHER => 3
+    static OTHER => 3
 }

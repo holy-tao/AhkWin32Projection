@@ -10,31 +10,36 @@ class D3D12_META_COMMAND_PARAMETER_TYPE extends Win32Enum {
 
     /**
      * Specifies that the parameter is of type <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a>.
+     * Native name: D3D12_META_COMMAND_PARAMETER_TYPE_FLOAT
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_TYPE_FLOAT => 0
+    static FLOAT => 0
 
     /**
      * Specifies that the parameter is of type <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>.
+     * Native name: D3D12_META_COMMAND_PARAMETER_TYPE_UINT64
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_TYPE_UINT64 => 1
+    static UINT64 => 1
 
     /**
      * Specifies that the parameter is a GPU virtual address.
+     * Native name: D3D12_META_COMMAND_PARAMETER_TYPE_GPU_VIRTUAL_ADDRESS
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_TYPE_GPU_VIRTUAL_ADDRESS => 2
+    static GPU_VIRTUAL_ADDRESS => 2
 
     /**
      * Specifies that the parameter is a CPU descriptor handle to a heap containing either constant buffer views, shader resource views, or unordered access views.
+     * Native name: D3D12_META_COMMAND_PARAMETER_TYPE_CPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_TYPE_CPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV => 3
+    static CPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV => 3
 
     /**
      * Specifies that the parameter is a GPU descriptor handle to a heap containing either constant buffer views, shader resource views, or unordered access views.
+     * Native name: D3D12_META_COMMAND_PARAMETER_TYPE_GPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_TYPE_GPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV => 4
+    static GPU_DESCRIPTOR_HANDLE_HEAP_TYPE_CBV_SRV_UAV => 4
 }

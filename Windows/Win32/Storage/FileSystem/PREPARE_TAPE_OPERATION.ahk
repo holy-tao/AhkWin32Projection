@@ -7,32 +7,38 @@
 class PREPARE_TAPE_OPERATION extends Win32Enum {
 
     /**
+     * Native name: TAPE_FORMAT
      * @type {Integer (UInt32)}
      */
-    static TAPE_FORMAT => 5
+    static FORMAT => 5
 
     /**
+     * Native name: TAPE_LOAD
      * @type {Integer (UInt32)}
      */
-    static TAPE_LOAD => 0
+    static LOAD => 0
 
     /**
+     * Native name: TAPE_LOCK
      * @type {Integer (UInt32)}
      */
-    static TAPE_LOCK => 3
+    static LOCK => 3
 
     /**
+     * Native name: TAPE_TENSION
      * @type {Integer (UInt32)}
      */
-    static TAPE_TENSION => 2
+    static TENSION => 2
 
     /**
+     * Native name: TAPE_UNLOAD
      * @type {Integer (UInt32)}
      */
-    static TAPE_UNLOAD => 1
+    static UNLOAD => 1
 
     /**
+     * Native name: TAPE_UNLOCK
      * @type {Integer (UInt32)}
      */
-    static TAPE_UNLOCK => 4
+    static UNLOCK => 4
 }

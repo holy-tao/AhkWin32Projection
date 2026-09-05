@@ -10,25 +10,29 @@ class WMT_IMAGE_TYPE extends Win32Enum {
 
     /**
      * There is no image. If a <a href="https://docs.microsoft.com/windows/desktop/wmformat/bannerimagedata">BannerImageData</a> attribute in the file, it will be ignored.
+     * Native name: WMT_IT_NONE
      * @type {Integer (Int32)}
      */
-    static WMT_IT_NONE => 0
+    static IT_NONE => 0
 
     /**
      * The banner image is an uncompressed bitmap.
+     * Native name: WMT_IT_BITMAP
      * @type {Integer (Int32)}
      */
-    static WMT_IT_BITMAP => 1
+    static IT_BITMAP => 1
 
     /**
      * The banner image uses JPEG encoding.
+     * Native name: WMT_IT_JPEG
      * @type {Integer (Int32)}
      */
-    static WMT_IT_JPEG => 2
+    static IT_JPEG => 2
 
     /**
      * The banner image uses GIF encoding.
+     * Native name: WMT_IT_GIF
      * @type {Integer (Int32)}
      */
-    static WMT_IT_GIF => 3
+    static IT_GIF => 3
 }

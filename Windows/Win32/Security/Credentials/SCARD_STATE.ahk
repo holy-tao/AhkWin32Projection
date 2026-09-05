@@ -7,57 +7,68 @@
 class SCARD_STATE extends Win32Enum {
 
     /**
+     * Native name: SCARD_STATE_UNAWARE
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_UNAWARE => 0
+    static UNAWARE => 0
 
     /**
+     * Native name: SCARD_STATE_IGNORE
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_IGNORE => 1
+    static IGNORE => 1
 
     /**
+     * Native name: SCARD_STATE_UNAVAILABLE
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_UNAVAILABLE => 8
+    static UNAVAILABLE => 8
 
     /**
+     * Native name: SCARD_STATE_EMPTY
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_EMPTY => 16
+    static EMPTY => 16
 
     /**
+     * Native name: SCARD_STATE_PRESENT
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_PRESENT => 32
+    static PRESENT => 32
 
     /**
+     * Native name: SCARD_STATE_ATRMATCH
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_ATRMATCH => 64
+    static ATRMATCH => 64
 
     /**
+     * Native name: SCARD_STATE_EXCLUSIVE
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_EXCLUSIVE => 128
+    static EXCLUSIVE => 128
 
     /**
+     * Native name: SCARD_STATE_INUSE
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_INUSE => 256
+    static INUSE => 256
 
     /**
+     * Native name: SCARD_STATE_MUTE
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_MUTE => 512
+    static MUTE => 512
 
     /**
+     * Native name: SCARD_STATE_CHANGED
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_CHANGED => 2
+    static CHANGED => 2
 
     /**
+     * Native name: SCARD_STATE_UNKNOWN
      * @type {Integer (UInt32)}
      */
-    static SCARD_STATE_UNKNOWN => 4
+    static UNKNOWN => 4
 }

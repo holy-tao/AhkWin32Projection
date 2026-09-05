@@ -11,17 +11,20 @@
 class WMDM_ENUM_PROP_VALID_VALUES_FORM extends Win32Enum {
 
     /**
+     * Native name: WMDM_ENUM_PROP_VALID_VALUES_ANY
      * @type {Integer (Int32)}
      */
-    static WMDM_ENUM_PROP_VALID_VALUES_ANY => 0
+    static ANY => 0
 
     /**
+     * Native name: WMDM_ENUM_PROP_VALID_VALUES_RANGE
      * @type {Integer (Int32)}
      */
-    static WMDM_ENUM_PROP_VALID_VALUES_RANGE => 1
+    static RANGE => 1
 
     /**
+     * Native name: WMDM_ENUM_PROP_VALID_VALUES_ENUM
      * @type {Integer (Int32)}
      */
-    static WMDM_ENUM_PROP_VALID_VALUES_ENUM => 2
+    static ENUM => 2
 }

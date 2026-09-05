@@ -32,7 +32,6 @@ class IDBProperties extends IUnknown {
     static VTableNames => ["GetProperties", "GetPropertyInfo", "SetProperties"]
 
     /**
-     * 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertySets 
@@ -71,7 +70,6 @@ class IDBProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @returns {HRESULT} 

@@ -13,31 +13,36 @@ class VDS_LUN_RESERVE_MODE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_LRM_NONE
      * @type {Integer (Int32)}
      */
-    static VDS_LRM_NONE => 0
+    static LRM_NONE => 0
 
     /**
      * This value is reserved.
+     * Native name: VDS_LRM_EXCLUSIVE_RW
      * @type {Integer (Int32)}
      */
-    static VDS_LRM_EXCLUSIVE_RW => 1
+    static LRM_EXCLUSIVE_RW => 1
 
     /**
      * This value is reserved.
+     * Native name: VDS_LRM_EXCLUSIVE_RO
      * @type {Integer (Int32)}
      */
-    static VDS_LRM_EXCLUSIVE_RO => 2
+    static LRM_EXCLUSIVE_RO => 2
 
     /**
      * This value is reserved.
+     * Native name: VDS_LRM_SHARED_RO
      * @type {Integer (Int32)}
      */
-    static VDS_LRM_SHARED_RO => 3
+    static LRM_SHARED_RO => 3
 
     /**
      * This value is reserved.
+     * Native name: VDS_LRM_SHARED_RW
      * @type {Integer (Int32)}
      */
-    static VDS_LRM_SHARED_RW => 4
+    static LRM_SHARED_RW => 4
 }

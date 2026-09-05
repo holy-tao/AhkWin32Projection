@@ -29,7 +29,6 @@ class IEnumSpeechCommands extends IUnknown {
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * 
      * @returns {IEnumSpeechCommands} 
      */
     Clone() {
@@ -38,7 +37,6 @@ class IEnumSpeechCommands extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<Pointer<Integer>>} pSpCmds 
      * @param {Pointer<Integer>} pcFetched 
@@ -53,7 +51,6 @@ class IEnumSpeechCommands extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -62,7 +59,6 @@ class IEnumSpeechCommands extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @returns {HRESULT} 
      */

@@ -7,17 +7,20 @@
 class APO_CONNECTION_BUFFER_TYPE extends Win32Enum {
 
     /**
+     * Native name: APO_CONNECTION_BUFFER_TYPE_ALLOCATED
      * @type {Integer (Int32)}
      */
-    static APO_CONNECTION_BUFFER_TYPE_ALLOCATED => 0
+    static ALLOCATED => 0
 
     /**
+     * Native name: APO_CONNECTION_BUFFER_TYPE_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static APO_CONNECTION_BUFFER_TYPE_EXTERNAL => 1
+    static EXTERNAL => 1
 
     /**
+     * Native name: APO_CONNECTION_BUFFER_TYPE_DEPENDANT
      * @type {Integer (Int32)}
      */
-    static APO_CONNECTION_BUFFER_TYPE_DEPENDANT => 2
+    static DEPENDANT => 2
 }

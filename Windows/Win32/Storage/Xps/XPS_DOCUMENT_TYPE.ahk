@@ -10,19 +10,22 @@ class XPS_DOCUMENT_TYPE extends Win32Enum {
 
     /**
      * For documents which have yet to be serialized, and whose type is yet to be determined.
+     * Native name: XPS_DOCUMENT_TYPE_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static XPS_DOCUMENT_TYPE_UNSPECIFIED => 1
+    static UNSPECIFIED => 1
 
     /**
      * MSXPS v1.0 document format.
+     * Native name: XPS_DOCUMENT_TYPE_XPS
      * @type {Integer (Int32)}
      */
-    static XPS_DOCUMENT_TYPE_XPS => 2
+    static XPS => 2
 
     /**
      * OpenXPS v1.0 document format.
+     * Native name: XPS_DOCUMENT_TYPE_OPENXPS
      * @type {Integer (Int32)}
      */
-    static XPS_DOCUMENT_TYPE_OPENXPS => 3
+    static OPENXPS => 3
 }

@@ -7,22 +7,26 @@
 class NapTracingLevel extends Win32Enum {
 
     /**
+     * Native name: tracingLevelUndefined
      * @type {Integer (Int32)}
      */
-    static tracingLevelUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: tracingLevelBasic
      * @type {Integer (Int32)}
      */
-    static tracingLevelBasic => 1
+    static Basic => 1
 
     /**
+     * Native name: tracingLevelAdvanced
      * @type {Integer (Int32)}
      */
-    static tracingLevelAdvanced => 2
+    static Advanced => 2
 
     /**
+     * Native name: tracingLevelDebug
      * @type {Integer (Int32)}
      */
-    static tracingLevelDebug => 3
+    static Debug => 3
 }

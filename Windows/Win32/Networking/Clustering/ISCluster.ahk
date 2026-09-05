@@ -155,7 +155,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -164,7 +163,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -173,7 +171,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -182,7 +179,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -191,7 +187,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -200,7 +195,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClusterName 
      * @returns {HRESULT} 
      */
@@ -212,7 +206,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -222,7 +215,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClusterName 
      * @returns {HRESULT} 
      */
@@ -234,7 +226,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusVersion} 
      */
     get_Version() {
@@ -243,7 +234,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusResource} pClusterResource 
      * @returns {HRESULT} 
      */
@@ -253,7 +243,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResource} 
      */
     get_QuorumResource() {
@@ -262,7 +251,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_QuorumLogSize() {
@@ -271,7 +259,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nLogSize 
      * @returns {HRESULT} 
      */
@@ -281,7 +268,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_QuorumPath() {
@@ -291,7 +277,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} pPath 
      * @returns {HRESULT} 
      */
@@ -303,7 +288,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNodes} 
      */
     get_Nodes() {
@@ -312,7 +296,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroups} 
      */
     get_ResourceGroups() {
@@ -321,7 +304,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResources} 
      */
     get_Resources() {
@@ -330,7 +312,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResTypes} 
      */
     get_ResourceTypes() {
@@ -339,7 +320,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNetworks} 
      */
     get_Networks() {
@@ -348,7 +328,6 @@ class ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNetInterfaces} 
      */
     get_NetInterfaces() {

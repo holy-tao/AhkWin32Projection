@@ -29,7 +29,6 @@ class ID3D12DeviceRemovedExtendedDataSettings1 extends ID3D12DeviceRemovedExtend
     static VTableNames => ["SetBreadcrumbContextEnablement"]
 
     /**
-     * 
      * @param {D3D12_DRED_ENABLEMENT} Enablement 
      * @returns {String} Nothing - always returns an empty string
      */

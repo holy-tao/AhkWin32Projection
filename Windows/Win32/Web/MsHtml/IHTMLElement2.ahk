@@ -370,7 +370,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scopeName() {
@@ -380,7 +379,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} containerCapture 
      * @returns {HRESULT} 
      */
@@ -390,7 +388,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     releaseCapture() {
@@ -399,7 +396,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -409,7 +405,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onlosecapture() {
@@ -419,7 +414,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {BSTR} 
@@ -431,7 +425,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} _component 
      * @returns {HRESULT} 
      */
@@ -441,7 +434,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -451,7 +443,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onscroll() {
@@ -461,7 +452,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -471,7 +461,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondrag() {
@@ -481,7 +470,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -491,7 +479,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragend() {
@@ -501,7 +488,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -511,7 +497,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragenter() {
@@ -521,7 +506,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -531,7 +515,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragover() {
@@ -541,7 +524,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -551,7 +533,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragleave() {
@@ -561,7 +542,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -571,7 +551,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondrop() {
@@ -581,7 +560,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -591,7 +569,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforecut() {
@@ -601,7 +578,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -611,7 +587,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncut() {
@@ -621,7 +596,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -631,7 +605,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforecopy() {
@@ -641,7 +614,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -651,7 +623,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncopy() {
@@ -661,7 +632,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -671,7 +641,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforepaste() {
@@ -681,7 +650,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -691,7 +659,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpaste() {
@@ -701,7 +668,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLCurrentStyle} 
      */
     get_currentStyle() {
@@ -710,7 +676,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -720,7 +685,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpropertychange() {
@@ -730,7 +694,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRectCollection} 
      */
     getClientRects() {
@@ -739,7 +702,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRect} 
      */
     getBoundingClientRect() {
@@ -748,7 +710,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @param {BSTR} expression 
      * @param {BSTR} language 
@@ -764,7 +725,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT} 
      */
@@ -777,7 +737,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT_BOOL} 
      */
@@ -789,7 +748,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -799,7 +757,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_tabIndex() {
@@ -808,7 +765,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -817,7 +773,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -829,7 +784,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accessKey() {
@@ -839,7 +793,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -849,7 +802,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -859,7 +811,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -869,7 +820,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -879,7 +829,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -889,7 +838,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresize() {
@@ -899,7 +847,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {
@@ -908,7 +855,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -918,7 +864,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -928,7 +873,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientHeight() {
@@ -937,7 +881,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientWidth() {
@@ -946,7 +889,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientTop() {
@@ -955,7 +897,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientLeft() {
@@ -964,7 +905,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {VARIANT_BOOL} 
@@ -977,7 +917,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {HRESULT} 
@@ -990,7 +929,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_readyState() {
@@ -1000,7 +938,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1010,7 +947,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -1020,7 +956,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1030,7 +965,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowsdelete() {
@@ -1040,7 +974,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1050,7 +983,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowsinserted() {
@@ -1060,7 +992,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1070,7 +1001,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncellchange() {
@@ -1080,7 +1010,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1092,7 +1021,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dir() {
@@ -1102,7 +1030,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createControlRange() {
@@ -1111,7 +1038,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollHeight() {
@@ -1120,7 +1046,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollWidth() {
@@ -1129,7 +1054,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -1139,7 +1063,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollTop() {
@@ -1148,7 +1071,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -1158,7 +1080,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollLeft() {
@@ -1167,7 +1088,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clearAttributes() {
@@ -1176,7 +1096,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} mergeThis 
      * @returns {HRESULT} 
      */
@@ -1186,7 +1105,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1196,7 +1114,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontextmenu() {
@@ -1206,7 +1123,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} where 
      * @param {IHTMLElement} insertedElement 
      * @returns {IHTMLElement} 
@@ -1219,7 +1135,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} apply 
      * @param {BSTR} where 
      * @returns {IHTMLElement} 
@@ -1232,7 +1147,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} where 
      * @returns {BSTR} 
      */
@@ -1245,7 +1159,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} where 
      * @param {BSTR} newText 
      * @returns {BSTR} 
@@ -1260,7 +1173,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_canHaveChildren() {
@@ -1269,7 +1181,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {Pointer<VARIANT>} pvarFactory 
      * @returns {Integer} 
@@ -1282,7 +1193,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} cookie 
      * @returns {VARIANT_BOOL} 
      */
@@ -1292,7 +1202,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyle} 
      */
     get_runtimeStyle() {
@@ -1301,7 +1210,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_behaviorUrns() {
@@ -1310,7 +1218,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1322,7 +1229,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagUrn() {
@@ -1332,7 +1238,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1342,7 +1247,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeeditfocus() {
@@ -1352,7 +1256,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyStateValue() {
@@ -1361,7 +1264,6 @@ class IHTMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElementCollection} 
      */

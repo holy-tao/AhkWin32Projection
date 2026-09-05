@@ -14,13 +14,15 @@ class D2D1_LAYER_OPTIONS extends Win32BitflagEnum {
 
     /**
      * The text in this layer does not use ClearType antialiasing.
+     * Native name: D2D1_LAYER_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_LAYER_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * The layer renders correctly for ClearType text. If the render target is set to ClearType, the  layer continues to render ClearType. If the render target is set to ClearType and this option is not specified, the render target will be set to render gray-scale until the layer is popped. The caller can override this default by calling <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-settextantialiasmode">SetTextAntialiasMode</a> while within the layer. This flag is slightly slower than the default.
+     * Native name: D2D1_LAYER_OPTIONS_INITIALIZE_FOR_CLEARTYPE
      * @type {Integer (Int32)}
      */
-    static D2D1_LAYER_OPTIONS_INITIALIZE_FOR_CLEARTYPE => 1
+    static INITIALIZE_FOR_CLEARTYPE => 1
 }

@@ -24,15 +24,17 @@ class ADVF extends Win32Enum {
      * For cache connections (<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>), this flag requests that the cache not be updated by changes made to the running object. Instead, the container will update the cache by explicitly calling <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-setdata">IOleCache::SetData</a>. This situation typically occurs when the iconic aspect of an object is being cached. 
      * 
      * ADVF_NODATA is not a valid flag for view advisory connections (<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-setadvise">IViewObject::SetAdvise</a>) and it returns E_INVALIDARG.
+     * Native name: ADVF_NODATA
      * @type {Integer (Int32)}
      */
-    static ADVF_NODATA => 1
+    static NODATA => 1
 
     /**
      * Requests that the object not wait for the data or view to change before making an initial call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a> (for data or view advisory connections) or updating the cache (for cache connections). Used with ADVF_ONLYONCE, this parameter provides an asynchronous <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> call.
+     * Native name: ADVF_PRIMEFIRST
      * @type {Integer (Int32)}
      */
-    static ADVF_PRIMEFIRST => 2
+    static PRIMEFIRST => 2
 
     /**
      * Requests that the object make only one change notification or cache update before deleting the connection. 
@@ -42,9 +44,10 @@ class ADVF extends Win32Enum {
      * For data change notifications, the combination of ADVF_ONLYONCE and ADVF_PRIMEFIRST provides, in effect, an asynchronous <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> call. 
      * 
      * When used with caching, ADVF_ONLYONCE updates the cache one time only, on receipt of the first <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a> notification. After the update is complete, the advisory connection between the object and the cache is disconnected. The source object for the advisory connection calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
+     * Native name: ADVF_ONLYONCE
      * @type {Integer (Int32)}
      */
-    static ADVF_ONLYONCE => 4
+    static ONLYONCE => 4
 
     /**
      * For data advisory connections, assures accessibility to data. This flag indicates that when the data object is closing, it should call , providing data with the call. Typically, this value is used in combination with ADVF_NODATA. Without th<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a> is value, by the time an <b>OnDataChange</b> call without data reaches the sink, the source might have completed its shutdown and the data might not be accessible. Sinks that specify this value should accept data provided in <b>OnDataChange</b> if it is being passed, because they may not get another chance to retrieve it.
@@ -52,9 +55,10 @@ class ADVF extends Win32Enum {
      * For cache connections, this flag indicates that the object should update the cache as part of object closure.
      * 
      * ADVF_DATAONSTOP is not a valid flag for view advisory connections.
+     * Native name: ADVF_DATAONSTOP
      * @type {Integer (Int32)}
      */
-    static ADVF_DATAONSTOP => 64
+    static DATAONSTOP => 64
 
     /**
      * Synonym for ADVFCACHE_FORCEBUILTIN, which is used more often.

@@ -10,13 +10,15 @@ class CF_OPERATION_RESTART_HYDRATION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No restart data hydration flag.
+     * Native name: CF_OPERATION_RESTART_HYDRATION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_RESTART_HYDRATION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * If this flag is specified, the placeholder will be marked in-sync upon a successful **RESTART_HYDRATION** operation.
+     * Native name: CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC => 1
+    static FLAG_MARK_IN_SYNC => 1
 }

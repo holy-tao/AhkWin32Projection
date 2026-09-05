@@ -7,29 +7,34 @@
 class IO_PRIORITY_HINT extends Win32Enum {
 
     /**
+     * Native name: IoPriorityVeryLow
      * @type {Integer (Int32)}
      */
-    static IoPriorityVeryLow => 0
+    static VeryLow => 0
 
     /**
+     * Native name: IoPriorityLow
      * @type {Integer (Int32)}
      */
-    static IoPriorityLow => 1
+    static Low => 1
 
     /**
+     * Native name: IoPriorityNormal
      * @type {Integer (Int32)}
      */
-    static IoPriorityNormal => 2
+    static Normal => 2
 
     /**
+     * Native name: IoPriorityHigh
      * @type {Integer (Int32)}
      */
-    static IoPriorityHigh => 3
+    static High => 3
 
     /**
+     * Native name: IoPriorityCritical
      * @type {Integer (Int32)}
      */
-    static IoPriorityCritical => 4
+    static Critical => 4
 
     /**
      * @type {Integer (Int32)}

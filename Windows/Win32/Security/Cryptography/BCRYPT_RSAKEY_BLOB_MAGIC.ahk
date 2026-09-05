@@ -7,17 +7,20 @@
 class BCRYPT_RSAKEY_BLOB_MAGIC extends Win32Enum {
 
     /**
+     * Native name: BCRYPT_RSAPUBLIC_MAGIC
      * @type {Integer (UInt32)}
      */
-    static BCRYPT_RSAPUBLIC_MAGIC => 826364754
+    static RSAPUBLIC_MAGIC => 826364754
 
     /**
+     * Native name: BCRYPT_RSAPRIVATE_MAGIC
      * @type {Integer (UInt32)}
      */
-    static BCRYPT_RSAPRIVATE_MAGIC => 843141970
+    static RSAPRIVATE_MAGIC => 843141970
 
     /**
+     * Native name: BCRYPT_RSAFULLPRIVATE_MAGIC
      * @type {Integer (UInt32)}
      */
-    static BCRYPT_RSAFULLPRIVATE_MAGIC => 859919186
+    static RSAFULLPRIVATE_MAGIC => 859919186
 }

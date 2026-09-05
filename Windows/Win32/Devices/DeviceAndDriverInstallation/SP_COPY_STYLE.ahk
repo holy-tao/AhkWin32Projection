@@ -7,142 +7,170 @@
 class SP_COPY_STYLE extends Win32BitflagEnum {
 
     /**
+     * Native name: SP_COPY_DELETESOURCE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_DELETESOURCE => 1
+    static DELETESOURCE => 1
 
     /**
+     * Native name: SP_COPY_REPLACEONLY
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_REPLACEONLY => 2
+    static REPLACEONLY => 2
 
     /**
+     * Native name: SP_COPY_NEWER
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NEWER => 4
+    static NEWER => 4
 
     /**
+     * Native name: SP_COPY_NEWER_OR_SAME
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NEWER_OR_SAME => 4
+    static NEWER_OR_SAME => 4
 
     /**
+     * Native name: SP_COPY_NOOVERWRITE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NOOVERWRITE => 8
+    static NOOVERWRITE => 8
 
     /**
+     * Native name: SP_COPY_NODECOMP
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NODECOMP => 16
+    static NODECOMP => 16
 
     /**
+     * Native name: SP_COPY_LANGUAGEAWARE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_LANGUAGEAWARE => 32
+    static LANGUAGEAWARE => 32
 
     /**
+     * Native name: SP_COPY_SOURCE_ABSOLUTE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_SOURCE_ABSOLUTE => 64
+    static SOURCE_ABSOLUTE => 64
 
     /**
+     * Native name: SP_COPY_SOURCEPATH_ABSOLUTE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_SOURCEPATH_ABSOLUTE => 128
+    static SOURCEPATH_ABSOLUTE => 128
 
     /**
+     * Native name: SP_COPY_IN_USE_NEEDS_REBOOT
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_IN_USE_NEEDS_REBOOT => 256
+    static IN_USE_NEEDS_REBOOT => 256
 
     /**
+     * Native name: SP_COPY_FORCE_IN_USE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_FORCE_IN_USE => 512
+    static FORCE_IN_USE => 512
 
     /**
+     * Native name: SP_COPY_NOSKIP
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NOSKIP => 1024
+    static NOSKIP => 1024
 
     /**
+     * Native name: SP_COPY_FORCE_NOOVERWRITE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_FORCE_NOOVERWRITE => 4096
+    static FORCE_NOOVERWRITE => 4096
 
     /**
+     * Native name: SP_COPY_FORCE_NEWER
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_FORCE_NEWER => 8192
+    static FORCE_NEWER => 8192
 
     /**
+     * Native name: SP_COPY_WARNIFSKIP
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_WARNIFSKIP => 16384
+    static WARNIFSKIP => 16384
 
     /**
+     * Native name: SP_COPY_NOBROWSE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NOBROWSE => 32768
+    static NOBROWSE => 32768
 
     /**
+     * Native name: SP_COPY_NEWER_ONLY
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NEWER_ONLY => 65536
+    static NEWER_ONLY => 65536
 
     /**
+     * Native name: SP_COPY_RESERVED
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_RESERVED => 131072
+    static RESERVED => 131072
 
     /**
+     * Native name: SP_COPY_OEMINF_CATALOG_ONLY
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_OEMINF_CATALOG_ONLY => 262144
+    static OEMINF_CATALOG_ONLY => 262144
 
     /**
+     * Native name: SP_COPY_REPLACE_BOOT_FILE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_REPLACE_BOOT_FILE => 524288
+    static REPLACE_BOOT_FILE => 524288
 
     /**
+     * Native name: SP_COPY_NOPRUNE
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_NOPRUNE => 1048576
+    static NOPRUNE => 1048576
 
     /**
+     * Native name: SP_COPY_OEM_F6_INF
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_OEM_F6_INF => 2097152
+    static OEM_F6_INF => 2097152
 
     /**
+     * Native name: SP_COPY_ALREADYDECOMP
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_ALREADYDECOMP => 4194304
+    static ALREADYDECOMP => 4194304
 
     /**
+     * Native name: SP_COPY_WINDOWS_SIGNED
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_WINDOWS_SIGNED => 16777216
+    static WINDOWS_SIGNED => 16777216
 
     /**
+     * Native name: SP_COPY_PNPLOCKED
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_PNPLOCKED => 33554432
+    static PNPLOCKED => 33554432
 
     /**
+     * Native name: SP_COPY_IN_USE_TRY_RENAME
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_IN_USE_TRY_RENAME => 67108864
+    static IN_USE_TRY_RENAME => 67108864
 
     /**
+     * Native name: SP_COPY_INBOX_INF
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_INBOX_INF => 134217728
+    static INBOX_INF => 134217728
 
     /**
+     * Native name: SP_COPY_HARDLINK
      * @type {Integer (UInt32)}
      */
-    static SP_COPY_HARDLINK => 268435456
+    static HARDLINK => 268435456
 }

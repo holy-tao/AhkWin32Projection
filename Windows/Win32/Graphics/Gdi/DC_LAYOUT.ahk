@@ -7,12 +7,14 @@
 class DC_LAYOUT extends Win32BitflagEnum {
 
     /**
+     * Native name: LAYOUT_BITMAPORIENTATIONPRESERVED
      * @type {Integer (UInt32)}
      */
-    static LAYOUT_BITMAPORIENTATIONPRESERVED => 8
+    static BITMAPORIENTATIONPRESERVED => 8
 
     /**
+     * Native name: LAYOUT_RTL
      * @type {Integer (UInt32)}
      */
-    static LAYOUT_RTL => 1
+    static RTL => 1
 }

@@ -12,13 +12,15 @@ class D3D12_VIDEO_PROCESS_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * The conversion from the source format and colorspace to destination format and colorspace are not supported.
+     * Native name: D3D12_VIDEO_PROCESS_SUPPORT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_SUPPORT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The conversion from the source format and colorspace to destination format and colorspace are are supported.
+     * Native name: D3D12_VIDEO_PROCESS_SUPPORT_FLAG_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_SUPPORT_FLAG_SUPPORTED => 1
+    static FLAG_SUPPORTED => 1
 }

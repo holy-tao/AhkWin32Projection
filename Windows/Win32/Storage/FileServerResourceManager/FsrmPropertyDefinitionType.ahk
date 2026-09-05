@@ -10,9 +10,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
 
     /**
      * The type is unknown. Do not use this value.
+     * Native name: FsrmPropertyDefinitionType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_Unknown => 0
+    static Unknown => 0
 
     /**
      * A classification property that defines an ordered list of possible string values, one of which may be 
@@ -28,9 +29,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      * You can use the following comparison operators with this type (see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype">FsrmPropertyConditionType</a>): Equal, Not equal, 
      *        Greater than, Less than, Exists, and Not exists.
+     * Native name: FsrmPropertyDefinitionType_OrderedList
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_OrderedList => 1
+    static OrderedList => 1
 
     /**
      * A classification property that defines a list of possible string values, one or more of which may be assigned 
@@ -45,9 +47,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      * You can use the following comparison operators with this type (see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype">FsrmPropertyConditionType</a>): Equal, Not equal, 
      *        Contains, Contained in, Exists, and Not exists.
+     * Native name: FsrmPropertyDefinitionType_MultiChoiceList
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_MultiChoiceList => 2
+    static MultiChoiceList => 2
 
     /**
      * A classification property that defines a list of possible string values, only one of which may be assigned 
@@ -60,9 +63,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      *        Exists, and Not exists.
      * 
      * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This file classification property type is not supported before Windows Server 2012.
+     * Native name: FsrmPropertyDefinitionType_SingleChoiceList
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_SingleChoiceList => 3
+    static SingleChoiceList => 3
 
     /**
      * A classification property that contains an arbitrary string value.
@@ -73,9 +77,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype">FsrmPropertyConditionType</a>): Equal, Not equal, 
      *        Greater than, Less than, Contains, Contained in, Start with, End with, Prefix of, Suffix of, Exists, and Not 
      *        exists.
+     * Native name: FsrmPropertyDefinitionType_String
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_String => 4
+    static String => 4
 
     /**
      * A classification property that contains one or more arbitrary string values. Use the vertical bar character 
@@ -88,9 +93,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      * You can use the following comparison operators with this type (see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype">FsrmPropertyConditionType</a>): Equal, Not equal, 
      *        Contains, Contained in, Exists, and Not exists.
+     * Native name: FsrmPropertyDefinitionType_MultiString
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_MultiString => 5
+    static MultiString => 5
 
     /**
      * A classification property that contains a decimal integer value expressed as a string.
@@ -100,9 +106,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      * You can use the following comparison operators with this type (see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype">FsrmPropertyConditionType</a>): Equal, Not equal, 
      *        Greater than, Less than, Exists, and Not exists.
+     * Native name: FsrmPropertyDefinitionType_Int
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_Int => 6
+    static Int => 6
 
     /**
      * A classification property that contains a Boolean value expressed as a string. Use a string value of 
@@ -117,9 +124,10 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      * You can use the following comparison operators with this type (see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype">FsrmPropertyConditionType</a>): Equal, Not equal, 
      *        Exists, and Not exists.
+     * Native name: FsrmPropertyDefinitionType_Bool
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_Bool => 7
+    static Bool => 7
 
     /**
      * A classification property that contains a date value. The date value is a 64-bit decimal number (see 
@@ -130,7 +138,8 @@ class FsrmPropertyDefinitionType extends Win32Enum {
      * You can use the following comparison operators with this type (see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype">FsrmPropertyConditionType</a>): Equal, Not equal, 
      *        Greater than, Less than, Exists, and Not exists.
+     * Native name: FsrmPropertyDefinitionType_Date
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionType_Date => 8
+    static Date => 8
 }

@@ -43,7 +43,6 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {IMSVidGraphSegment} upstream 
      * @param {IMSVidGraphSegment} downstream 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_Up() {
@@ -63,7 +61,6 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_Down() {

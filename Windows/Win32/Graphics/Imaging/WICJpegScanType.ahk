@@ -10,19 +10,22 @@ class WICJpegScanType extends Win32Enum {
 
     /**
      * The pixel data is stored in an interleaved memory layout.
+     * Native name: WICJpegScanTypeInterleaved
      * @type {Integer (Int32)}
      */
-    static WICJpegScanTypeInterleaved => 0
+    static Interleaved => 0
 
     /**
      * The pixel data is stored in a planar memory layout.
+     * Native name: WICJpegScanTypePlanarComponents
      * @type {Integer (Int32)}
      */
-    static WICJpegScanTypePlanarComponents => 1
+    static PlanarComponents => 1
 
     /**
      * The pixel data is stored in a progressive layout.
+     * Native name: WICJpegScanTypeProgressive
      * @type {Integer (Int32)}
      */
-    static WICJpegScanTypeProgressive => 2
+    static Progressive => 2
 }

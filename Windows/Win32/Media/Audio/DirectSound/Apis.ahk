@@ -1649,7 +1649,6 @@ class DirectSound {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSound} 
@@ -1660,7 +1659,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<LPDSENUMCALLBACKA>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
      * @returns {HRESULT} 
@@ -1673,7 +1671,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<LPDSENUMCALLBACKW>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
      * @returns {HRESULT} 
@@ -1686,7 +1683,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSoundCapture} 
@@ -1697,7 +1693,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<LPDSENUMCALLBACKA>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
      * @returns {HRESULT} 
@@ -1710,7 +1705,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<LPDSENUMCALLBACKW>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
      * @returns {HRESULT} 
@@ -1723,7 +1717,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSound8} 
@@ -1734,7 +1727,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSoundCapture} 
@@ -1770,7 +1762,6 @@ class DirectSound {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGuidSrc 
      * @param {Pointer<Guid>} pGuidDest 
      * @returns {HRESULT} 

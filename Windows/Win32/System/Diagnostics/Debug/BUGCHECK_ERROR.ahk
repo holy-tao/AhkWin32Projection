@@ -2732,7 +2732,8 @@ class BUGCHECK_ERROR extends Win32Enum {
     static MANUALLY_INITIATED_CRASH1 => 3735936685
 
     /**
+     * Native name: BUGCHECK_CONTEXT_MODIFIER
      * @type {Integer (UInt32)}
      */
-    static BUGCHECK_CONTEXT_MODIFIER => 2147483648
+    static CONTEXT_MODIFIER => 2147483648
 }

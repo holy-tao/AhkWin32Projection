@@ -17,13 +17,15 @@ class ADS_FLAGTYPE_ENUM extends Win32Enum {
 
     /**
      * The <b>ObjectType</b> field is present in the ACE.
+     * Native name: ADS_FLAG_OBJECT_TYPE_PRESENT
      * @type {Integer (Int32)}
      */
-    static ADS_FLAG_OBJECT_TYPE_PRESENT => 1
+    static FLAG_OBJECT_TYPE_PRESENT => 1
 
     /**
      * The <b>InheritedObjectType</b> field is present in the ACE.
+     * Native name: ADS_FLAG_INHERITED_OBJECT_TYPE_PRESENT
      * @type {Integer (Int32)}
      */
-    static ADS_FLAG_INHERITED_OBJECT_TYPE_PRESENT => 2
+    static FLAG_INHERITED_OBJECT_TYPE_PRESENT => 2
 }

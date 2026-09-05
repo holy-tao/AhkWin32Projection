@@ -7,12 +7,14 @@
 class IO_CONTAINER_NOTIFICATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: IoSessionStateNotification
      * @type {Integer (Int32)}
      */
-    static IoSessionStateNotification => 0
+    static SessionStateNotification => 0
 
     /**
+     * Native name: IoMaxContainerNotificationClass
      * @type {Integer (Int32)}
      */
-    static IoMaxContainerNotificationClass => 1
+    static MaxContainerNotificationClass => 1
 }

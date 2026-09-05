@@ -10,13 +10,15 @@ class eAVEncMPVFrameFieldMode extends Win32Enum {
 
     /**
      * The encoder produces an MPEG picture for each field in the source video.
+     * Native name: eAVEncMPVFrameFieldMode_FieldMode
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVFrameFieldMode_FieldMode => 0
+    static FieldMode => 0
 
     /**
      * The encoder produces an MPEG picture for each frame (or pair of fields) in the source video.
+     * Native name: eAVEncMPVFrameFieldMode_FrameMode
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVFrameFieldMode_FrameMode => 1
+    static FrameMode => 1
 }

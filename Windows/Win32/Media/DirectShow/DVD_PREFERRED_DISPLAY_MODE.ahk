@@ -56,25 +56,29 @@ class DVD_PREFERRED_DISPLAY_MODE extends Win32Enum {
 
     /**
      * Use the default window size and content type.
+     * Native name: DISPLAY_CONTENT_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DISPLAY_CONTENT_DEFAULT => 0
+    static CONTENT_DEFAULT => 0
 
     /**
      * Use a 16 x 9 window.
+     * Native name: DISPLAY_16x9
      * @type {Integer (Int32)}
      */
-    static DISPLAY_16x9 => 1
+    static 16x9 => 1
 
     /**
      * Use a 4 x 3 window and convert to pan-scan, if possible.
+     * Native name: DISPLAY_4x3_PANSCAN_PREFERRED
      * @type {Integer (Int32)}
      */
-    static DISPLAY_4x3_PANSCAN_PREFERRED => 2
+    static 4x3_PANSCAN_PREFERRED => 2
 
     /**
      * Use a 4 x 3 window and convert to letterbox, if possible.
+     * Native name: DISPLAY_4x3_LETTERBOX_PREFERRED
      * @type {Integer (Int32)}
      */
-    static DISPLAY_4x3_LETTERBOX_PREFERRED => 3
+    static 4x3_LETTERBOX_PREFERRED => 3
 }

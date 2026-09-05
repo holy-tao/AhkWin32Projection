@@ -7,27 +7,32 @@
 class NETWORK_OPEN_INTEGRITY_QUALIFIER extends Win32Enum {
 
     /**
+     * Native name: NetworkOpenIntegrityAny
      * @type {Integer (Int32)}
      */
-    static NetworkOpenIntegrityAny => 0
+    static Any => 0
 
     /**
+     * Native name: NetworkOpenIntegrityNone
      * @type {Integer (Int32)}
      */
-    static NetworkOpenIntegrityNone => 1
+    static None => 1
 
     /**
+     * Native name: NetworkOpenIntegritySigned
      * @type {Integer (Int32)}
      */
-    static NetworkOpenIntegritySigned => 2
+    static Signed => 2
 
     /**
+     * Native name: NetworkOpenIntegrityEncrypted
      * @type {Integer (Int32)}
      */
-    static NetworkOpenIntegrityEncrypted => 3
+    static Encrypted => 3
 
     /**
+     * Native name: NetworkOpenIntegrityMaximum
      * @type {Integer (Int32)}
      */
-    static NetworkOpenIntegrityMaximum => 4
+    static Maximum => 4
 }

@@ -32,7 +32,6 @@ class ID3D12Device12 extends ID3D12Device11 {
     static VTableNames => ["GetResourceAllocationInfo3"]
 
     /**
-     * 
      * @param {Integer} visibleMask 
      * @param {Integer} numResourceDescs 
      * @param {Pointer<D3D12_RESOURCE_DESC1>} pResourceDescs 

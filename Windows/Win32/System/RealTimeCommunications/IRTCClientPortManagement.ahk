@@ -31,7 +31,6 @@ class IRTCClientPortManagement extends IUnknown {
     static VTableNames => ["StartListenAddressAndPort", "StopListenAddressAndPort", "GetPortRange"]
 
     /**
-     * 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IRTCClientPortManagement extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class IRTCClientPortManagement extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PORT_TYPE} enPortType 
      * @param {Pointer<Integer>} plMinValue 
      * @param {Pointer<Integer>} plMaxValue 

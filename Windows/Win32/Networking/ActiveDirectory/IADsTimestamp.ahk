@@ -47,7 +47,6 @@ class IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_WholeSeconds() {
@@ -56,7 +55,6 @@ class IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnWholeSeconds 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventID() {
@@ -75,7 +72,6 @@ class IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnEventID 
      * @returns {HRESULT} 
      */

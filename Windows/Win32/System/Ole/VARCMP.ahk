@@ -7,22 +7,26 @@
 class VARCMP extends Win32Enum {
 
     /**
+     * Native name: VARCMP_LT
      * @type {Integer (UInt32)}
      */
-    static VARCMP_LT => 0
+    static LT => 0
 
     /**
+     * Native name: VARCMP_EQ
      * @type {Integer (UInt32)}
      */
-    static VARCMP_EQ => 1
+    static EQ => 1
 
     /**
+     * Native name: VARCMP_GT
      * @type {Integer (UInt32)}
      */
-    static VARCMP_GT => 2
+    static GT => 2
 
     /**
+     * Native name: VARCMP_NULL
      * @type {Integer (UInt32)}
      */
-    static VARCMP_NULL => 3
+    static NULL => 3
 }

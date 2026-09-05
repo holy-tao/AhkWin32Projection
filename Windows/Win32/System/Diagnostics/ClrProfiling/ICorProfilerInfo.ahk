@@ -37,7 +37,6 @@ class ICorProfilerInfo extends IUnknown {
     static VTableNames => ["GetClassFromObject", "GetClassFromToken", "GetCodeInfo", "GetEventMask", "GetFunctionFromIP", "GetFunctionFromToken", "GetHandleFromThread", "GetObjectSize", "IsArrayClass", "GetThreadInfo", "GetCurrentThreadID", "GetClassIDInfo", "GetFunctionInfo", "SetEventMask", "SetEnterLeaveFunctionHooks", "SetFunctionIDMapper", "GetTokenAndMetaDataFromFunction", "GetModuleInfo", "GetModuleMetaData", "GetILFunctionBody", "GetILFunctionBodyAllocator", "SetILFunctionBody", "GetAppDomainInfo", "GetAssemblyInfo", "SetFunctionReJIT", "ForceGC", "SetILInstrumentedCodeMap", "GetInprocInspectionInterface", "GetInprocInspectionIThisThread", "GetThreadContext", "BeginInprocDebugging", "EndInprocDebugging", "GetILToNativeMapping"]
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @returns {Pointer} 
      */
@@ -47,7 +46,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} typeDef 
      * @returns {Pointer} 
@@ -58,7 +56,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Pointer<Integer>>} pStart 
      * @param {Pointer<Integer>} pcSize 
@@ -73,7 +70,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventMask() {
@@ -82,7 +78,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ip 
      * @returns {Pointer} 
      */
@@ -94,7 +89,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} token 
      * @returns {Pointer} 
@@ -105,7 +99,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HANDLE} 
      */
@@ -116,7 +109,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @returns {Integer} 
      */
@@ -126,7 +118,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Pointer<CorElementType>} pBaseElemType 
      * @param {Pointer<Pointer>} pBaseClassId 
@@ -143,7 +134,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {Integer} 
      */
@@ -153,7 +143,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetCurrentThreadID() {
@@ -162,7 +151,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Pointer<Pointer>} pModuleId 
      * @param {Pointer<Integer>} pTypeDefToken 
@@ -177,7 +165,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Pointer>} pClassId 
      * @param {Pointer<Pointer>} pModuleId 
@@ -194,7 +181,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEvents 
      * @returns {HRESULT} 
      */
@@ -204,7 +190,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionEnter>>} pFuncEnter 
      * @param {Pointer<Pointer<FunctionLeave>>} pFuncLeave 
      * @param {Pointer<Pointer<FunctionTailcall>>} pFuncTailcall 
@@ -220,7 +205,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionIDMapper>>} pFunc 
      * @returns {HRESULT} 
      */
@@ -232,7 +216,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<IUnknown>} ppImport 
@@ -247,7 +230,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppBaseLoadAddress 
      * @param {Integer} cchName 
@@ -268,7 +250,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} dwOpenFlags 
      * @param {Pointer<Guid>} riid 
@@ -280,7 +261,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodId 
      * @param {Pointer<Pointer<Integer>>} ppMethodHeader 
@@ -296,7 +276,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {IMethodMalloc} 
      */
@@ -306,7 +285,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodid 
      * @param {Pointer<Integer>} pbNewILMethodHeader 
@@ -320,7 +298,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @param {Integer} cchName 
      * @param {Pointer<Integer>} pcchName 
@@ -339,7 +316,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @param {Integer} cchName 
      * @param {Pointer<Integer>} pcchName 
@@ -360,7 +336,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -370,7 +345,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ForceGC() {
@@ -379,7 +353,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {BOOL} fStartJit 
      * @param {Integer} cILMapEntries 
@@ -392,7 +365,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetInprocInspectionInterface() {
@@ -401,7 +373,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetInprocInspectionIThisThread() {
@@ -427,7 +398,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fThisThreadOnly 
      * @returns {Integer} 
      */
@@ -437,7 +407,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwProfilerContext 
      * @returns {HRESULT} 
      */
@@ -447,7 +416,6 @@ class ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Integer} cMap 
      * @param {Pointer<Integer>} pcMap 

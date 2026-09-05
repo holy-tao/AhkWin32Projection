@@ -30,7 +30,6 @@ class IPrintSchemaAsyncOperationEvent extends IDispatch {
     static VTableNames => ["Completed"]
 
     /**
-     * 
      * @param {IPrintSchemaTicket} pTicket 
      * @param {HRESULT} hrOperation 
      * @returns {HRESULT} 

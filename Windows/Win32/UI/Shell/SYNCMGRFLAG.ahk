@@ -10,55 +10,64 @@ class SYNCMGRFLAG extends Win32Enum {
 
     /**
      * Synchronization was initiated by a network connect event.
+     * Native name: SYNCMGRFLAG_CONNECT
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_CONNECT => 1
+    static CONNECT => 1
 
     /**
      * Synchronization was initiated by a pending network disconnect event.
+     * Native name: SYNCMGRFLAG_PENDINGDISCONNECT
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_PENDINGDISCONNECT => 2
+    static PENDINGDISCONNECT => 2
 
     /**
      * Synchronization was initiated manually by the end user.
+     * Native name: SYNCMGRFLAG_MANUAL
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_MANUAL => 3
+    static MANUAL => 3
 
     /**
      * Synchronization was programmatically invoked.
+     * Native name: SYNCMGRFLAG_IDLE
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_IDLE => 4
+    static IDLE => 4
 
     /**
      * Synchronization was programmatically invoked.
+     * Native name: SYNCMGRFLAG_INVOKE
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_INVOKE => 5
+    static INVOKE => 5
 
     /**
      * Synchronization was initiated by a scheduled update event.
+     * Native name: SYNCMGRFLAG_SCHEDULED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_SCHEDULED => 6
+    static SCHEDULED => 6
 
     /**
      * Synchronization mask value.
+     * Native name: SYNCMGRFLAG_EVENTMASK
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_EVENTMASK => 255
+    static EVENTMASK => 255
 
     /**
      * Synchronization was initiated for configuration purposes only in the <b>System Properties</b> dialog box.
+     * Native name: SYNCMGRFLAG_SETTINGS
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_SETTINGS => 256
+    static SETTINGS => 256
 
     /**
      * Interaction with the user is permitted. The application is allowed to show user interface elements and interact with the user. If this flag is not set, the application must not display any user interface elements other than using the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronizecallback">ISyncMgrSynchronizeCallback</a> interface. If an application cannot complete the synchronization without displaying user interface elements and this flag is not set, the application fails the synchronization.
+     * Native name: SYNCMGRFLAG_MAYBOTHERUSER
      * @type {Integer (Int32)}
      */
-    static SYNCMGRFLAG_MAYBOTHERUSER => 512
+    static MAYBOTHERUSER => 512
 }

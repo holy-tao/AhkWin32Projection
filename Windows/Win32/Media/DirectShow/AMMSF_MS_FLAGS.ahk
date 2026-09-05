@@ -7,22 +7,26 @@
 class AMMSF_MS_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: AMMSF_ADDDEFAULTRENDERER
      * @type {Integer (Int32)}
      */
-    static AMMSF_ADDDEFAULTRENDERER => 1
+    static ADDDEFAULTRENDERER => 1
 
     /**
+     * Native name: AMMSF_CREATEPEER
      * @type {Integer (Int32)}
      */
-    static AMMSF_CREATEPEER => 2
+    static CREATEPEER => 2
 
     /**
+     * Native name: AMMSF_STOPIFNOSAMPLES
      * @type {Integer (Int32)}
      */
-    static AMMSF_STOPIFNOSAMPLES => 4
+    static STOPIFNOSAMPLES => 4
 
     /**
+     * Native name: AMMSF_NOSTALL
      * @type {Integer (Int32)}
      */
-    static AMMSF_NOSTALL => 8
+    static NOSTALL => 8
 }

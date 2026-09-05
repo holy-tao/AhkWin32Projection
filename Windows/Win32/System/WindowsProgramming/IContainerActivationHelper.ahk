@@ -30,7 +30,6 @@ class IContainerActivationHelper extends IUnknown {
     static VTableNames => ["CanActivateClientVM"]
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     CanActivateClientVM() {

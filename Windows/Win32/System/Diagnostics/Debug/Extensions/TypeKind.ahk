@@ -12,42 +12,50 @@ class TypeKind extends Win32Enum {
     static TypeUDT => 0
 
     /**
+     * Native name: TypePointer
      * @type {Integer (Int32)}
      */
-    static TypePointer => 1
+    static Pointer => 1
 
     /**
+     * Native name: TypeMemberPointer
      * @type {Integer (Int32)}
      */
-    static TypeMemberPointer => 2
+    static MemberPointer => 2
 
     /**
+     * Native name: TypeArray
      * @type {Integer (Int32)}
      */
-    static TypeArray => 3
+    static Array => 3
 
     /**
+     * Native name: TypeFunction
      * @type {Integer (Int32)}
      */
-    static TypeFunction => 4
+    static Function => 4
 
     /**
+     * Native name: TypeTypedef
      * @type {Integer (Int32)}
      */
-    static TypeTypedef => 5
+    static Typedef => 5
 
     /**
+     * Native name: TypeEnum
      * @type {Integer (Int32)}
      */
-    static TypeEnum => 6
+    static Enum => 6
 
     /**
+     * Native name: TypeIntrinsic
      * @type {Integer (Int32)}
      */
-    static TypeIntrinsic => 7
+    static Intrinsic => 7
 
     /**
+     * Native name: TypeExtendedArray
      * @type {Integer (Int32)}
      */
-    static TypeExtendedArray => 8
+    static ExtendedArray => 8
 }

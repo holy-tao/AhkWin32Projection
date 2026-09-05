@@ -10,13 +10,15 @@ class WebSecurityLevel extends Win32Enum {
 
     /**
      * The method is not safe for scripting.
+     * Native name: LevelUnsafe
      * @type {Integer (Int32)}
      */
-    static LevelUnsafe => 0
+    static Unsafe => 0
 
     /**
      * The method is safe for scripting.
+     * Native name: LevelSafe
      * @type {Integer (Int32)}
      */
-    static LevelSafe => 1
+    static Safe => 1
 }

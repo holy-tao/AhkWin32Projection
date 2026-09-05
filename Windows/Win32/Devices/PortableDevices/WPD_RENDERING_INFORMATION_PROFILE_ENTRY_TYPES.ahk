@@ -9,12 +9,14 @@
 class WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPES extends Win32Enum {
 
     /**
+     * Native name: WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE_OBJECT
      * @type {Integer (Int32)}
      */
-    static WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE_OBJECT => 0
+    static TYPE_OBJECT => 0
 
     /**
+     * Native name: WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE_RESOURCE
      * @type {Integer (Int32)}
      */
-    static WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE_RESOURCE => 1
+    static TYPE_RESOURCE => 1
 }

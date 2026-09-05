@@ -10,13 +10,15 @@ class MBN_RADIO extends Win32Enum {
 
     /**
      * The device radio is off.
+     * Native name: MBN_RADIO_OFF
      * @type {Integer (Int32)}
      */
-    static MBN_RADIO_OFF => 0
+    static OFF => 0
 
     /**
      * The device radio is on.
+     * Native name: MBN_RADIO_ON
      * @type {Integer (Int32)}
      */
-    static MBN_RADIO_ON => 1
+    static ON => 1
 }

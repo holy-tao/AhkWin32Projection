@@ -7,12 +7,14 @@
 class NFC_LLCP_LINK_STATUS extends Win32Enum {
 
     /**
+     * Native name: LinkActivated
      * @type {Integer (Int32)}
      */
-    static LinkActivated => 0
+    static Activated => 0
 
     /**
+     * Native name: LinkDeactivated
      * @type {Integer (Int32)}
      */
-    static LinkDeactivated => 1
+    static Deactivated => 1
 }

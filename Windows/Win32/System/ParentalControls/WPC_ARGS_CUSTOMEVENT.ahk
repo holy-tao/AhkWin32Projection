@@ -10,61 +10,71 @@ class WPC_ARGS_CUSTOMEVENT extends Win32Enum {
 
     /**
      * The publisher of the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_PUBLISHER
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_PUBLISHER => 0
+    static PUBLISHER => 0
 
     /**
      * The application name of the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_APPNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_APPNAME => 1
+    static APPNAME => 1
 
     /**
      * The application version number of the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_APPVERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_APPVERSION => 2
+    static APPVERSION => 2
 
     /**
      * The type of event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_EVENT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_EVENT => 3
+    static EVENT => 3
 
     /**
      * The first  value defined for the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_VALUE1
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_VALUE1 => 4
+    static VALUE1 => 4
 
     /**
      * The second value defined for the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_VALUE2
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_VALUE2 => 5
+    static VALUE2 => 5
 
     /**
      * The third value defined for the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_VALUE3
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_VALUE3 => 6
+    static VALUE3 => 6
 
     /**
      * The custom event is blocked.
+     * Native name: WPC_ARGS_CUSTOMEVENT_BLOCKED
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_BLOCKED => 7
+    static BLOCKED => 7
 
     /**
      * The reason for the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_REASON => 8
+    static REASON => 8
 
     /**
      * The arguments for the custom event.
+     * Native name: WPC_ARGS_CUSTOMEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CUSTOMEVENT_CARGS => 9
+    static CARGS => 9
 }

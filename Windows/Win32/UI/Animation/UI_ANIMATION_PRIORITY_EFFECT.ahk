@@ -14,13 +14,15 @@ class UI_ANIMATION_PRIORITY_EFFECT extends Win32Enum {
 
     /**
      * This storyboard might not be successfully scheduled.
+     * Native name: UI_ANIMATION_PRIORITY_EFFECT_FAILURE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_PRIORITY_EFFECT_FAILURE => 0
+    static FAILURE => 0
 
     /**
      * The storyboard will be scheduled, but might start playing later.
+     * Native name: UI_ANIMATION_PRIORITY_EFFECT_DELAY
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_PRIORITY_EFFECT_DELAY => 1
+    static DELAY => 1
 }

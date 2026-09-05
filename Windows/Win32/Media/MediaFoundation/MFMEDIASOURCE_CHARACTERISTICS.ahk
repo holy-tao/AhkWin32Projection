@@ -12,54 +12,61 @@ class MFMEDIASOURCE_CHARACTERISTICS extends Win32Enum {
 
     /**
      * This flag indicates a data source that runs constantly, such as a live presentation. If the source is stopped and then restarted, there will be a gap in the content.
+     * Native name: MFMEDIASOURCE_IS_LIVE
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_IS_LIVE => 1
+    static IS_LIVE => 1
 
     /**
      * The media source supports seeking.
+     * Native name: MFMEDIASOURCE_CAN_SEEK
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_CAN_SEEK => 2
+    static CAN_SEEK => 2
 
     /**
      * The source can pause.
+     * Native name: MFMEDIASOURCE_CAN_PAUSE
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_CAN_PAUSE => 4
+    static CAN_PAUSE => 4
 
     /**
      * The media source downloads content. It might take a long time to seek to parts of the content that have not been downloaded.
+     * Native name: MFMEDIASOURCE_HAS_SLOW_SEEK
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_HAS_SLOW_SEEK => 8
+    static HAS_SLOW_SEEK => 8
 
     /**
      * The media source delivers a playlist, which might contain more than one entry. After the first playlist entry has completed, the media source signals the start of each new playlist entry by sending an <a href="https://docs.microsoft.com/windows/desktop/medfound/menewpresentation">MENewPresentation</a> event. The event contains a presentation descriptor for the entry.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MFMEDIASOURCE_HAS_MULTIPLE_PRESENTATIONS
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_HAS_MULTIPLE_PRESENTATIONS => 16
+    static HAS_MULTIPLE_PRESENTATIONS => 16
 
     /**
      * The media source can skip forward in the playlist. Applies only if the MFMEDIASOURCE_HAS_MULTIPLE_PRESENTATIONS flag is present. 
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MFMEDIASOURCE_CAN_SKIPFORWARD
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_CAN_SKIPFORWARD => 32
+    static CAN_SKIPFORWARD => 32
 
     /**
      * The media source can skip backward in the playlist.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MFMEDIASOURCE_CAN_SKIPBACKWARD
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_CAN_SKIPBACKWARD => 64
+    static CAN_SKIPBACKWARD => 64
 
     /**
      * The media source is not currently
@@ -68,7 +75,8 @@ class MFMEDIASOURCE_CHARACTERISTICS extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
      * <div> </div>
+     * Native name: MFMEDIASOURCE_DOES_NOT_USE_NETWORK
      * @type {Integer (Int32)}
      */
-    static MFMEDIASOURCE_DOES_NOT_USE_NETWORK => 128
+    static DOES_NOT_USE_NETWORK => 128
 }

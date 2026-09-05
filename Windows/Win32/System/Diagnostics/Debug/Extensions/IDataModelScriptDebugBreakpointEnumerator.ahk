@@ -30,7 +30,6 @@ class IDataModelScriptDebugBreakpointEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -39,7 +38,6 @@ class IDataModelScriptDebugBreakpointEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugBreakpoint} 
      */
     GetNext() {

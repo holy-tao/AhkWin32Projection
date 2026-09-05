@@ -98,7 +98,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} Recognizer 
      * @returns {HRESULT} 
      */
@@ -108,7 +107,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_Recognizer() {
@@ -117,7 +115,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Allow 
      * @returns {HRESULT} 
      */
@@ -127,7 +124,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AllowAudioInputFormatChangesOnNextSet() {
@@ -136,7 +132,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} AudioInput 
      * @returns {HRESULT} 
      */
@@ -146,7 +141,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_AudioInput() {
@@ -155,7 +149,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechBaseStream} AudioInputStream 
      * @returns {HRESULT} 
      */
@@ -165,7 +158,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechBaseStream} 
      */
     get_AudioInputStream() {
@@ -174,7 +166,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsShared() {
@@ -183,7 +174,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecognizerState} State 
      * @returns {HRESULT} 
      */
@@ -193,7 +183,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecognizerState} 
      */
     get_State() {
@@ -202,7 +191,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecognizerStatus} 
      */
     get_Status() {
@@ -211,7 +199,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} _Profile 
      * @returns {HRESULT} 
      */
@@ -221,7 +208,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_Profile() {
@@ -230,7 +216,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} TextElements 
      * @param {Pointer<VARIANT>} ElementDisplayAttributes 
      * @param {Integer} LanguageId 
@@ -242,7 +227,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoContext} 
      */
     CreateRecoContext() {
@@ -251,7 +235,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechFormatType} Type 
      * @returns {ISpeechAudioFormat} 
      */
@@ -261,7 +244,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {Integer} Value 
      * @returns {VARIANT_BOOL} 
@@ -274,7 +256,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {Pointer<Integer>} Value 
      * @returns {VARIANT_BOOL} 
@@ -289,7 +270,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {BSTR} Value 
      * @returns {VARIANT_BOOL} 
@@ -303,7 +283,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {Pointer<BSTR>} Value 
      * @returns {VARIANT_BOOL} 
@@ -316,7 +295,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
      * @returns {VARIANT_BOOL} 
@@ -329,7 +307,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} hWndParent 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 
@@ -345,7 +322,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -359,7 +335,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -373,7 +348,6 @@ class ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 

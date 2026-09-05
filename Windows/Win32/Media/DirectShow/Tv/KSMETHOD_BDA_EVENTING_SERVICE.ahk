@@ -7,12 +7,14 @@
 class KSMETHOD_BDA_EVENTING_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_EVENT_DATA
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_EVENT_DATA => 0
+    static EVENT_DATA => 0
 
     /**
+     * Native name: KSMETHOD_BDA_EVENT_COMPLETE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_EVENT_COMPLETE => 1
+    static EVENT_COMPLETE => 1
 }

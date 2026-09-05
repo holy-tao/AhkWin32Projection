@@ -54,7 +54,6 @@ class ISWbemPropertySet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -82,7 +81,6 @@ class ISWbemPropertySet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -91,7 +89,6 @@ class ISWbemPropertySet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {WbemCimtypeEnum} iCIMType 
      * @param {VARIANT_BOOL} bIsArray 
@@ -106,7 +103,6 @@ class ISWbemPropertySet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 

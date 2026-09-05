@@ -58,7 +58,6 @@ class IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_element() {
@@ -67,7 +66,6 @@ class IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLEventObj} 
      */
     createEventObject() {
@@ -76,7 +74,6 @@ class IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_defaults() {
@@ -85,7 +82,6 @@ class IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_document() {

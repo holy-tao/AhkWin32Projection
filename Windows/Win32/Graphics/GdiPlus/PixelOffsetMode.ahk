@@ -7,32 +7,38 @@
 class PixelOffsetMode extends Win32Enum {
 
     /**
+     * Native name: PixelOffsetModeInvalid
      * @type {Integer (Int32)}
      */
-    static PixelOffsetModeInvalid => -1
+    static Invalid => -1
 
     /**
+     * Native name: PixelOffsetModeDefault
      * @type {Integer (Int32)}
      */
-    static PixelOffsetModeDefault => 0
+    static Default => 0
 
     /**
+     * Native name: PixelOffsetModeHighSpeed
      * @type {Integer (Int32)}
      */
-    static PixelOffsetModeHighSpeed => 1
+    static HighSpeed => 1
 
     /**
+     * Native name: PixelOffsetModeHighQuality
      * @type {Integer (Int32)}
      */
-    static PixelOffsetModeHighQuality => 2
+    static HighQuality => 2
 
     /**
+     * Native name: PixelOffsetModeNone
      * @type {Integer (Int32)}
      */
-    static PixelOffsetModeNone => 3
+    static None => 3
 
     /**
+     * Native name: PixelOffsetModeHalf
      * @type {Integer (Int32)}
      */
-    static PixelOffsetModeHalf => 4
+    static Half => 4
 }

@@ -42,7 +42,6 @@ class IMultiLanguage2 extends IUnknown {
     static VTableNames => ["GetNumberOfCodePageInfo", "GetCodePageInfo", "GetFamilyCodePage", "EnumCodePages", "GetCharsetInfo", "IsConvertible", "ConvertString", "ConvertStringToUnicode", "ConvertStringFromUnicode", "ConvertStringReset", "GetRfc1766FromLcid", "GetLcidFromRfc1766", "EnumRfc1766", "GetRfc1766Info", "CreateConvertCharset", "ConvertStringInIStream", "ConvertStringToUnicodeEx", "ConvertStringFromUnicodeEx", "DetectCodepageInIStream", "DetectInputCodepage", "ValidateCodePage", "GetCodePageDescription", "IsCodePageInstallable", "SetMimeDBSource", "GetNumberOfScripts", "EnumScripts", "ValidateCodePageEx"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfCodePageInfo() {
@@ -51,7 +50,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @param {Integer} LangId 
      * @returns {MIMECPINFO} 
@@ -63,7 +61,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {Integer} 
      */
@@ -73,7 +70,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfFlags 
      * @param {Integer} LangId 
      * @returns {IEnumCodePage} 
@@ -84,7 +80,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Charset 
      * @returns {MIMECSETINFO} 
      */
@@ -97,7 +92,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
      * @returns {HRESULT} 
@@ -108,7 +102,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
@@ -128,7 +121,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {Integer} pSrcStr 
@@ -149,7 +141,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {PWSTR} pSrcStr 
@@ -170,7 +161,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConvertStringReset() {
@@ -179,7 +169,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Locale 
      * @returns {BSTR} 
      */
@@ -190,7 +179,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRfc1766 
      * @returns {Integer} 
      */
@@ -202,7 +190,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} LangId 
      * @returns {IEnumRfc1766} 
      */
@@ -212,7 +199,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Locale 
      * @param {Integer} LangId 
      * @returns {RFC1766INFO} 
@@ -224,7 +210,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiSrcCodePage 
      * @param {Integer} uiDstCodePage 
      * @param {Integer} dwProperty 
@@ -236,7 +221,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwFlag 
      * @param {PWSTR} lpFallBack 
@@ -256,7 +240,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {Integer} pSrcStr 
@@ -280,7 +263,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {PWSTR} pSrcStr 
@@ -304,7 +286,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlag 
      * @param {Integer} dwPrefWinCodePage 
      * @param {IStream} pstmIn 
@@ -320,7 +301,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlag 
      * @param {Integer} dwPrefWinCodePage 
      * @param {Integer} pSrcStr 
@@ -338,7 +318,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -351,7 +330,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @param {Integer} lcid 
      * @param {PWSTR} lpWideCharStr 
@@ -366,7 +344,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {HRESULT} 
      */
@@ -376,7 +353,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {MIMECONTF} dwSource 
      * @returns {HRESULT} 
      */
@@ -386,7 +362,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfScripts() {
@@ -395,7 +370,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} LangId 
      * @returns {IEnumScript} 
@@ -406,7 +380,6 @@ class IMultiLanguage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @param {HWND} _hwnd 
      * @param {Integer} dwfIODControl 

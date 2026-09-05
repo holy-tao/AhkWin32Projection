@@ -7,17 +7,20 @@
 class RTL_UMS_SCHEDULER_REASON extends Win32Enum {
 
     /**
+     * Native name: UmsSchedulerStartup
      * @type {Integer (Int32)}
      */
-    static UmsSchedulerStartup => 0
+    static Startup => 0
 
     /**
+     * Native name: UmsSchedulerThreadBlocked
      * @type {Integer (Int32)}
      */
-    static UmsSchedulerThreadBlocked => 1
+    static ThreadBlocked => 1
 
     /**
+     * Native name: UmsSchedulerThreadYield
      * @type {Integer (Int32)}
      */
-    static UmsSchedulerThreadYield => 2
+    static ThreadYield => 2
 }

@@ -22,135 +22,153 @@ class WLAN_NOTIFICATION_MSM extends Win32Enum {
 
     /**
      * The beginning of the range that specifies the possible values for ACM notifications.
+     * Native name: wlan_notification_msm_start
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_start => 0
+    static start => 0
 
     /**
      * A wireless device is in the process of associating with an access point or a peer station. 
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_associating
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_associating => 1
+    static associating => 1
 
     /**
      * The wireless device has associated with an access point or a peer station.
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_associated
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_associated => 2
+    static associated => 2
 
     /**
      * The wireless device is in the process of authenticating.
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_authenticating
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_authenticating => 3
+    static authenticating => 3
 
     /**
      * The wireless device is associated with an access point or a peer station, keys have been exchanged, and the wireless device is available to send data. 
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_connected
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_connected => 4
+    static connected => 4
 
     /**
      * The wireless device is connected to an access point and has initiated roaming to another access point.
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_roaming_start
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_roaming_start => 5
+    static roaming_start => 5
 
     /**
      * The wireless device was connected to an access point and has completed roaming to another access point.
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_roaming_end
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_roaming_end => 6
+    static roaming_end => 6
 
     /**
      * The radio state for an adapter has changed. Each physical layer (PHY) has its own radio state. The radio for an adapter is switched off when the radio state of every PHY is off.  
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_phy_radio_state">WLAN_PHY_RADIO_STATE</a> structure that identifies the new radio state.
+     * Native name: wlan_notification_msm_radio_state_change
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_radio_state_change => 7
+    static radio_state_change => 7
 
     /**
      * A signal quality change for the currently associated access point or peer station.
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a ULONG WLAN_SIGNAL_QUALITY that identifies  the new signal quality.
+     * Native name: wlan_notification_msm_signal_quality_change
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_signal_quality_change => 8
+    static signal_quality_change => 8
 
     /**
      * A wireless device is in the process of disassociating from an access point or a peer station. 
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_disassociating
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_disassociating => 9
+    static disassociating => 9
 
     /**
      * The wireless device is not associated with an access point or a peer station. 
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information. The <b>wlanReasonCode</b> member of the <b>WLAN_MSM_NOTIFICATION_DATA</b> structure  indicates the reason for the disconnect.
+     * Native name: wlan_notification_msm_disconnected
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_disconnected => 10
+    static disconnected => 10
 
     /**
      * A peer has joined an adhoc network.
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_peer_join
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_peer_join => 11
+    static peer_join => 11
 
     /**
      * A peer has left an adhoc network.
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_peer_leave
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_peer_leave => 12
+    static peer_leave => 12
 
     /**
      * A wireless adapter has been removed from the local computer. 
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_msm_notification_data">WLAN_MSM_NOTIFICATION_DATA</a> structure that contains connection-related information.
+     * Native name: wlan_notification_msm_adapter_removal
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_adapter_removal => 13
+    static adapter_removal => 13
 
     /**
      * The operation mode of the wireless device has changed. 
      * 
      * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a ULONG that identifies the new operation mode.
+     * Native name: wlan_notification_msm_adapter_operation_mode_change
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_adapter_operation_mode_change => 14
+    static adapter_operation_mode_change => 14
 
     /**
+     * Native name: wlan_notification_msm_link_degraded
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_link_degraded => 15
+    static link_degraded => 15
 
     /**
+     * Native name: wlan_notification_msm_link_improved
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_link_improved => 16
+    static link_improved => 16
 
     /**
      * Indicates the end of the range that specifies the possible values for MSM notifications.
+     * Native name: wlan_notification_msm_end
      * @type {Integer (Int32)}
      */
-    static wlan_notification_msm_end => 17
+    static end => 17
 }

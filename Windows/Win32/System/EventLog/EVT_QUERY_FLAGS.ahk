@@ -14,31 +14,36 @@ class EVT_QUERY_FLAGS extends Win32Enum {
 
     /**
      * Specifies that the query is against one or more channels. The <i>Path</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> function must specify the name of a  channel or <b>NULL</b>.
+     * Native name: EvtQueryChannelPath
      * @type {Integer (UInt32)}
      */
-    static EvtQueryChannelPath => 1
+    static ChannelPath => 1
 
     /**
      * Specifies that the query is against one or more log files. The <i>Path</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> function must specify the full path to a log file or <b>NULL</b>.
+     * Native name: EvtQueryFilePath
      * @type {Integer (UInt32)}
      */
-    static EvtQueryFilePath => 2
+    static FilePath => 2
 
     /**
      * Specifies that the events in the query result are ordered from oldest to newest. This is the default.
+     * Native name: EvtQueryForwardDirection
      * @type {Integer (UInt32)}
      */
-    static EvtQueryForwardDirection => 256
+    static ForwardDirection => 256
 
     /**
      * Specifies that the events in the query result are ordered from newest to oldest.
+     * Native name: EvtQueryReverseDirection
      * @type {Integer (UInt32)}
      */
-    static EvtQueryReverseDirection => 512
+    static ReverseDirection => 512
 
     /**
      * Specifies that <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> should run the query even if the part of the query generates an error (is not well formed). The service validates the syntax of the XPath query to determine if it is well formed. If the validation fails, the service parses the XPath into individual expressions. It builds a new XPath beginning with the left most expression. The service validates the expression and if it is valid, the service adds the next expression to the XPath. The service repeats this process until it finds the expression that is failing. It then uses the valid expressions that it found beginning with the leftmost expression as the XPath query (which means that you may not get the events that you expected). If no part of the XPath is valid, the <b>EvtQuery</b> call fails.
+     * Native name: EvtQueryTolerateQueryErrors
      * @type {Integer (UInt32)}
      */
-    static EvtQueryTolerateQueryErrors => 4096
+    static TolerateQueryErrors => 4096
 }

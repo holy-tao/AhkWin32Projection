@@ -31,7 +31,6 @@ class IRowsetWithParameters extends IUnknown {
     static VTableNames => ["GetParameterInfo", "Requery"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcParams 
      * @param {Pointer<Pointer<DBPARAMINFO>>} prgParamInfo 
      * @param {Pointer<Pointer<Integer>>} ppNamesBuffer 
@@ -47,7 +46,6 @@ class IRowsetWithParameters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBPARAMS>} pParams 
      * @param {Pointer<Integer>} pulErrorParam 
      * @param {Pointer<Pointer>} phReserved 

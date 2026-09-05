@@ -1801,7 +1801,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<ADMINISTRATOR_POWER_POLICY>} papp 
      * @returns {BOOLEAN} 
      */
@@ -1982,7 +1981,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<GLOBAL_POWER_POLICY>} pGlobalPowerPolicy 
      * @param {Pointer<POWER_POLICY>} pPowerPolicy 
      * @returns {BOOLEAN} 
@@ -2247,7 +2245,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} PowerModeGuid 
      * @returns {Integer} 
      */
@@ -2257,7 +2254,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} PowerModeGuid 
      * @returns {Integer} 
      */
@@ -2267,7 +2263,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} PowerModeGuid 
      * @returns {Integer} 
      */
@@ -2277,7 +2272,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} PowerModeGuid 
      * @returns {Integer} 
      */
@@ -3532,7 +3526,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<HKEY>} phUserPowerKey 
      * @param {Integer} Access 
      * @param {BOOL} OpenExisting 
@@ -3544,7 +3537,6 @@ class Power {
     }
 
     /**
-     * 
      * @param {Pointer<HKEY>} phSystemPowerKey 
      * @param {Integer} Access 
      * @param {BOOL} OpenExisting 

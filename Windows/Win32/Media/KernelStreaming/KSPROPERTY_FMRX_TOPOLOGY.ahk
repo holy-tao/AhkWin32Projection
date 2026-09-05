@@ -7,17 +7,20 @@
 class KSPROPERTY_FMRX_TOPOLOGY extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_FMRX_ENDPOINTID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_FMRX_ENDPOINTID => 0
+    static ENDPOINTID => 0
 
     /**
+     * Native name: KSPROPERTY_FMRX_VOLUME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_FMRX_VOLUME => 1
+    static VOLUME => 1
 
     /**
+     * Native name: KSPROPERTY_FMRX_ANTENNAENDPOINTID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_FMRX_ANTENNAENDPOINTID => 2
+    static ANTENNAENDPOINTID => 2
 }

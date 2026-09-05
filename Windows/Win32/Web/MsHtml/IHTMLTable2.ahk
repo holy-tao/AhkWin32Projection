@@ -37,7 +37,6 @@ class IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     firstPage() {
@@ -46,7 +45,6 @@ class IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     lastPage() {
@@ -55,7 +53,6 @@ class IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_cells() {
@@ -64,7 +61,6 @@ class IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} indexFrom 
      * @param {Integer} indexTo 
      * @returns {IDispatch} 

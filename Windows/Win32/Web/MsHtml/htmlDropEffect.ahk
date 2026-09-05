@@ -7,27 +7,32 @@
 class htmlDropEffect extends Win32Enum {
 
     /**
+     * Native name: htmlDropEffectCopy
      * @type {Integer (Int32)}
      */
-    static htmlDropEffectCopy => 0
+    static Copy => 0
 
     /**
+     * Native name: htmlDropEffectLink
      * @type {Integer (Int32)}
      */
-    static htmlDropEffectLink => 1
+    static Link => 1
 
     /**
+     * Native name: htmlDropEffectMove
      * @type {Integer (Int32)}
      */
-    static htmlDropEffectMove => 2
+    static Move => 2
 
     /**
+     * Native name: htmlDropEffectNone
      * @type {Integer (Int32)}
      */
-    static htmlDropEffectNone => 3
+    static None => 3
 
     /**
+     * Native name: htmlDropEffect_Max
      * @type {Integer (Int32)}
      */
-    static htmlDropEffect_Max => 2147483647
+    static Max => 2147483647
 }

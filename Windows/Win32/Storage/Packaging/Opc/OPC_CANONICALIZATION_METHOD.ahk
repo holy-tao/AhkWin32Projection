@@ -15,19 +15,22 @@ class OPC_CANONICALIZATION_METHOD extends Win32Enum {
 
     /**
      * No canonicalization method is applied.
+     * Native name: OPC_CANONICALIZATION_NONE
      * @type {Integer (Int32)}
      */
-    static OPC_CANONICALIZATION_NONE => 0
+    static NONE => 0
 
     /**
      * The C14N canonicalization method that removes comments is applied.
+     * Native name: OPC_CANONICALIZATION_C14N
      * @type {Integer (Int32)}
      */
-    static OPC_CANONICALIZATION_C14N => 1
+    static C14N => 1
 
     /**
      * The C14N canonicalization method that preserves comments is applied.
+     * Native name: OPC_CANONICALIZATION_C14N_WITH_COMMENTS
      * @type {Integer (Int32)}
      */
-    static OPC_CANONICALIZATION_C14N_WITH_COMMENTS => 2
+    static C14N_WITH_COMMENTS => 2
 }

@@ -79,7 +79,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrElementId 
      * @returns {HRESULT} 
      */
@@ -91,7 +90,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nextRect() {
@@ -101,7 +99,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varContentSrc 
      * @returns {HRESULT} 
      */
@@ -111,7 +108,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_contentSrc() {
@@ -121,7 +117,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -131,7 +126,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_honorPageBreaks() {
@@ -140,7 +134,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -150,7 +143,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_honorPageRules() {
@@ -159,7 +151,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pElem 
      * @returns {HRESULT} 
      */
@@ -169,7 +160,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_nextRectElement() {
@@ -178,7 +168,6 @@ class ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_contentDocument() {

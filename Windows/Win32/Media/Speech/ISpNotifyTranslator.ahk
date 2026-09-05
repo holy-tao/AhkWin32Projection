@@ -41,7 +41,6 @@ class ISpNotifyTranslator extends ISpNotifySink {
     static VTableNames => ["InitWindowMessage", "InitCallback", "InitSpNotifyCallback", "InitWin32Event", "Wait", "GetEventHandle"]
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} _Msg 
      * @param {WPARAM} _wParam 
@@ -56,7 +55,6 @@ class ISpNotifyTranslator extends ISpNotifySink {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<SPNOTIFYCALLBACK>>} _pfnCallback 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -70,7 +68,6 @@ class ISpNotifyTranslator extends ISpNotifySink {
     }
 
     /**
-     * 
      * @param {ISpNotifyCallback} pSpCallback 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -82,7 +79,6 @@ class ISpNotifyTranslator extends ISpNotifySink {
     }
 
     /**
-     * 
      * @param {HANDLE} hEvent 
      * @param {BOOL} fCloseHandleOnRelease 
      * @returns {HRESULT} 
@@ -95,7 +91,6 @@ class ISpNotifyTranslator extends ISpNotifySink {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ class ISpNotifyTranslator extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     GetEventHandle() {

@@ -7,17 +7,20 @@
 class HTTP_SCHEME extends Win32Enum {
 
     /**
+     * Native name: HttpSchemeHttp
      * @type {Integer (Int32)}
      */
-    static HttpSchemeHttp => 0
+    static Http => 0
 
     /**
+     * Native name: HttpSchemeHttps
      * @type {Integer (Int32)}
      */
-    static HttpSchemeHttps => 1
+    static Https => 1
 
     /**
+     * Native name: HttpSchemeMaximum
      * @type {Integer (Int32)}
      */
-    static HttpSchemeMaximum => 2
+    static Maximum => 2
 }

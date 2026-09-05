@@ -34,7 +34,6 @@ class IFixedPage extends IPartBase {
     static VTableNames => ["GetPrintTicket", "GetPagePart", "GetWriteStream", "SetPrintTicket", "SetPagePart", "DeleteResource", "GetXpsPartIterator"]
 
     /**
-     * 
      * @returns {IPartPrintTicket} 
      */
     GetPrintTicket() {
@@ -43,7 +42,6 @@ class IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @returns {IUnknown} 
      */
@@ -55,7 +53,6 @@ class IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @returns {IPrintWriteStream} 
      */
     GetWriteStream() {
@@ -64,7 +61,6 @@ class IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {IPartPrintTicket} ppPrintTicket 
      * @returns {HRESULT} 
      */
@@ -74,7 +70,6 @@ class IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -84,7 +79,6 @@ class IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @returns {HRESULT} 
      */
@@ -96,7 +90,6 @@ class IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @returns {IXpsPartIterator} 
      */
     GetXpsPartIterator() {

@@ -25,49 +25,57 @@ class SHARD extends Win32Enum {
 
     /**
      * The <i>pv</i> parameter points to a PIDL that identifies the document's file object. PIDLs that identify non-file objects are not accepted.
+     * Native name: SHARD_PIDL
      * @type {Integer (Int32)}
      */
-    static SHARD_PIDL => 1
+    static PIDL => 1
 
     /**
      * The <i>pv</i> parameter points to a null-terminated ANSI string with the path and file name of the object.
+     * Native name: SHARD_PATHA
      * @type {Integer (Int32)}
      */
-    static SHARD_PATHA => 2
+    static PATHA => 2
 
     /**
      * The <i>pv</i> parameter points to a null-terminated Unicode string with the path and file name of the object.
+     * Native name: SHARD_PATHW
      * @type {Integer (Int32)}
      */
-    static SHARD_PATHW => 3
+    static PATHW => 3
 
     /**
      * <b>Windows 7 and later</b>. The <i>pv</i> parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shardappidinfo">SHARDAPPIDINFO</a> structure that pairs an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that identifies the item with an AppUserModelID that associates it with a particular process or application.
+     * Native name: SHARD_APPIDINFO
      * @type {Integer (Int32)}
      */
-    static SHARD_APPIDINFO => 4
+    static APPIDINFO => 4
 
     /**
      * <b>Windows 7 and later</b>. The <i>pv</i> parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shardappidinfoidlist">SHARDAPPIDINFOIDLIST</a> structure that pairs an absolute PIDL that identifies the item with an AppUserModelID that associates it with a particular process or application.
+     * Native name: SHARD_APPIDINFOIDLIST
      * @type {Integer (Int32)}
      */
-    static SHARD_APPIDINFOIDLIST => 5
+    static APPIDINFOIDLIST => 5
 
     /**
      * <b>Windows 7 and later</b>. The <i>pv</i> parameter is an interface pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> object.
+     * Native name: SHARD_LINK
      * @type {Integer (Int32)}
      */
-    static SHARD_LINK => 6
+    static LINK => 6
 
     /**
      * <b>Windows 7 and later</b>. The <i>pv</i> parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shardappidinfolink">SHARDAPPIDINFOLINK</a> structure that pairs an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> that identifies the item with an AppUserModelID that associates it with a particular process or application.
+     * Native name: SHARD_APPIDINFOLINK
      * @type {Integer (Int32)}
      */
-    static SHARD_APPIDINFOLINK => 7
+    static APPIDINFOLINK => 7
 
     /**
      * <b>Windows 7 and later</b>. The <i>pv</i> parameter is an interface pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object.
+     * Native name: SHARD_SHELLITEM
      * @type {Integer (Int32)}
      */
-    static SHARD_SHELLITEM => 8
+    static SHELLITEM => 8
 }

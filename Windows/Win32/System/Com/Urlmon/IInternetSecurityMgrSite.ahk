@@ -44,7 +44,6 @@ class IInternetSecurityMgrSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */

@@ -29,7 +29,6 @@ class IRowsetChangeExtInfo extends IUnknown {
     static VTableNames => ["GetOriginalRow", "GetPendingColumns"]
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} hRow 
      * @param {Pointer<Pointer>} phRowOriginal 
@@ -43,7 +42,6 @@ class IRowsetChangeExtInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} hRow 
      * @param {Integer} cColumnOrdinals 

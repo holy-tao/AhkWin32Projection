@@ -7,37 +7,44 @@
 class STORAGE_PROTOCOL_UFS_DATA_TYPE extends Win32Enum {
 
     /**
+     * Native name: UfsDataTypeUnknown
      * @type {Integer (Int32)}
      */
-    static UfsDataTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: UfsDataTypeQueryDescriptor
      * @type {Integer (Int32)}
      */
-    static UfsDataTypeQueryDescriptor => 1
+    static QueryDescriptor => 1
 
     /**
+     * Native name: UfsDataTypeQueryAttribute
      * @type {Integer (Int32)}
      */
-    static UfsDataTypeQueryAttribute => 2
+    static QueryAttribute => 2
 
     /**
+     * Native name: UfsDataTypeQueryFlag
      * @type {Integer (Int32)}
      */
-    static UfsDataTypeQueryFlag => 3
+    static QueryFlag => 3
 
     /**
+     * Native name: UfsDataTypeQueryDmeAttribute
      * @type {Integer (Int32)}
      */
-    static UfsDataTypeQueryDmeAttribute => 4
+    static QueryDmeAttribute => 4
 
     /**
+     * Native name: UfsDataTypeQueryDmePeerAttribute
      * @type {Integer (Int32)}
      */
-    static UfsDataTypeQueryDmePeerAttribute => 5
+    static QueryDmePeerAttribute => 5
 
     /**
+     * Native name: UfsDataTypeMax
      * @type {Integer (Int32)}
      */
-    static UfsDataTypeMax => 6
+    static Max => 6
 }

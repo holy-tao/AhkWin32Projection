@@ -29,7 +29,6 @@ class IBufferingTime extends IUnknown {
     static VTableNames => ["GetBufferingTime", "SetBufferingTime"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMilliseconds 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IBufferingTime extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
      */

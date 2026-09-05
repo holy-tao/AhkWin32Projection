@@ -7,47 +7,56 @@
 class ISOLATIONLEVEL extends Win32Enum {
 
     /**
+     * Native name: ISOLATIONLEVEL_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_UNSPECIFIED => -1
+    static UNSPECIFIED => -1
 
     /**
+     * Native name: ISOLATIONLEVEL_CHAOS
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_CHAOS => 16
+    static CHAOS => 16
 
     /**
+     * Native name: ISOLATIONLEVEL_READUNCOMMITTED
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_READUNCOMMITTED => 256
+    static READUNCOMMITTED => 256
 
     /**
+     * Native name: ISOLATIONLEVEL_BROWSE
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_BROWSE => 256
+    static BROWSE => 256
 
     /**
+     * Native name: ISOLATIONLEVEL_CURSORSTABILITY
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_CURSORSTABILITY => 4096
+    static CURSORSTABILITY => 4096
 
     /**
+     * Native name: ISOLATIONLEVEL_READCOMMITTED
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_READCOMMITTED => 4096
+    static READCOMMITTED => 4096
 
     /**
+     * Native name: ISOLATIONLEVEL_REPEATABLEREAD
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_REPEATABLEREAD => 65536
+    static REPEATABLEREAD => 65536
 
     /**
+     * Native name: ISOLATIONLEVEL_SERIALIZABLE
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_SERIALIZABLE => 1048576
+    static SERIALIZABLE => 1048576
 
     /**
+     * Native name: ISOLATIONLEVEL_ISOLATED
      * @type {Integer (Int32)}
      */
-    static ISOLATIONLEVEL_ISOLATED => 1048576
+    static ISOLATED => 1048576
 }

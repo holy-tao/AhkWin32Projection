@@ -35,7 +35,6 @@ class IWebGeolocation extends IDispatch {
     static VTableNames => ["getCurrentPosition", "watchPosition", "clearWatch"]
 
     /**
-     * 
      * @param {IDispatch} successCallback 
      * @param {IDispatch} errorCallback 
      * @param {IDispatch} options 
@@ -47,7 +46,6 @@ class IWebGeolocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} successCallback 
      * @param {IDispatch} errorCallback 
      * @param {IDispatch} options 
@@ -59,7 +57,6 @@ class IWebGeolocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} watchId 
      * @returns {HRESULT} 
      */

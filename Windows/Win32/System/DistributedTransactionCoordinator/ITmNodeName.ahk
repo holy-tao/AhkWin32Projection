@@ -30,7 +30,6 @@ class ITmNodeName extends IUnknown {
     static VTableNames => ["GetNodeNameSize", "GetNodeName"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNodeNameSize() {
@@ -39,7 +38,6 @@ class ITmNodeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbNodeNameBufferSize 
      * @param {PWSTR} pNodeNameBuffer 
      * @returns {HRESULT} 

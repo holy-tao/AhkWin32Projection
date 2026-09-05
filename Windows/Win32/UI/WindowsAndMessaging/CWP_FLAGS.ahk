@@ -7,22 +7,26 @@
 class CWP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CWP_ALL
      * @type {Integer (UInt32)}
      */
-    static CWP_ALL => 0
+    static ALL => 0
 
     /**
+     * Native name: CWP_SKIPINVISIBLE
      * @type {Integer (UInt32)}
      */
-    static CWP_SKIPINVISIBLE => 1
+    static SKIPINVISIBLE => 1
 
     /**
+     * Native name: CWP_SKIPDISABLED
      * @type {Integer (UInt32)}
      */
-    static CWP_SKIPDISABLED => 2
+    static SKIPDISABLED => 2
 
     /**
+     * Native name: CWP_SKIPTRANSPARENT
      * @type {Integer (UInt32)}
      */
-    static CWP_SKIPTRANSPARENT => 4
+    static SKIPTRANSPARENT => 4
 }

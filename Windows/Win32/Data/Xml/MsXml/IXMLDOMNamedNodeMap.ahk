@@ -46,7 +46,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMNode} 
      */
@@ -58,7 +57,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newItem 
      * @returns {IXMLDOMNode} 
      */
@@ -68,7 +66,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMNode} 
      */
@@ -80,7 +77,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IXMLDOMNode} 
      */
@@ -90,7 +86,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -99,7 +94,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} baseName 
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
@@ -113,7 +107,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} baseName 
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
@@ -127,7 +120,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     nextNode() {
@@ -136,7 +128,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -145,7 +136,6 @@ class IXMLDOMNamedNodeMap extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {

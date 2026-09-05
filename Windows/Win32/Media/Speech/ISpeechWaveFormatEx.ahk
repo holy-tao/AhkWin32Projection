@@ -86,7 +86,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FormatTag() {
@@ -95,7 +94,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} FormatTag 
      * @returns {HRESULT} 
      */
@@ -105,7 +103,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Channels() {
@@ -114,7 +111,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Channels 
      * @returns {HRESULT} 
      */
@@ -124,7 +120,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SamplesPerSec() {
@@ -133,7 +128,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} SamplesPerSec 
      * @returns {HRESULT} 
      */
@@ -143,7 +137,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AvgBytesPerSec() {
@@ -152,7 +145,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} AvgBytesPerSec 
      * @returns {HRESULT} 
      */
@@ -162,7 +154,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BlockAlign() {
@@ -171,7 +162,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} BlockAlign 
      * @returns {HRESULT} 
      */
@@ -181,7 +171,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BitsPerSample() {
@@ -190,7 +179,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} BitsPerSample 
      * @returns {HRESULT} 
      */
@@ -200,7 +188,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ExtraData() {
@@ -210,7 +197,6 @@ class ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ExtraData 
      * @returns {HRESULT} 
      */

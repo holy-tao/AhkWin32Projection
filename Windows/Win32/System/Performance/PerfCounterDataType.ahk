@@ -10,31 +10,36 @@ class PerfCounterDataType extends Win32Enum {
 
     /**
      * An error occurred when the performance counter value was queried.
+     * Native name: PERF_ERROR_RETURN
      * @type {Integer (Int32)}
      */
-    static PERF_ERROR_RETURN => 0
+    static ERROR_RETURN => 0
 
     /**
      * The query returned a single counter from a single instance.
+     * Native name: PERF_SINGLE_COUNTER
      * @type {Integer (Int32)}
      */
-    static PERF_SINGLE_COUNTER => 1
+    static SINGLE_COUNTER => 1
 
     /**
      * The query returned multiple counters from a single instance.
+     * Native name: PERF_MULTIPLE_COUNTERS
      * @type {Integer (Int32)}
      */
-    static PERF_MULTIPLE_COUNTERS => 2
+    static MULTIPLE_COUNTERS => 2
 
     /**
      * The query returned a single counter from each of multiple instances.
+     * Native name: PERF_MULTIPLE_INSTANCES
      * @type {Integer (Int32)}
      */
-    static PERF_MULTIPLE_INSTANCES => 4
+    static MULTIPLE_INSTANCES => 4
 
     /**
      * The query returned multiple counters from each of multiple instances.
+     * Native name: PERF_COUNTERSET
      * @type {Integer (Int32)}
      */
-    static PERF_COUNTERSET => 6
+    static COUNTERSET => 6
 }

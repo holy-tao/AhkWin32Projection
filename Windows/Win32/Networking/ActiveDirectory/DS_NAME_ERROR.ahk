@@ -10,49 +10,57 @@ class DS_NAME_ERROR extends Win32Enum {
 
     /**
      * The conversion was successful.
+     * Native name: DS_NAME_NO_ERROR
      * @type {Integer (Int32)}
      */
-    static DS_NAME_NO_ERROR => 0
+    static NO_ERROR => 0
 
     /**
      * A generic processing error occurred.
+     * Native name: DS_NAME_ERROR_RESOLVING
      * @type {Integer (Int32)}
      */
-    static DS_NAME_ERROR_RESOLVING => 1
+    static RESOLVING => 1
 
     /**
      * The name cannot be found or the caller does not have permission to access the name.
+     * Native name: DS_NAME_ERROR_NOT_FOUND
      * @type {Integer (Int32)}
      */
-    static DS_NAME_ERROR_NOT_FOUND => 2
+    static NOT_FOUND => 2
 
     /**
      * The input name is mapped to more than one output name or the desired format did not have a single, unique value for the object found.
+     * Native name: DS_NAME_ERROR_NOT_UNIQUE
      * @type {Integer (Int32)}
      */
-    static DS_NAME_ERROR_NOT_UNIQUE => 3
+    static NOT_UNIQUE => 3
 
     /**
      * The input name was found, but the associated output format cannot be found. This can occur if the object does not have all the required attributes.
+     * Native name: DS_NAME_ERROR_NO_MAPPING
      * @type {Integer (Int32)}
      */
-    static DS_NAME_ERROR_NO_MAPPING => 4
+    static NO_MAPPING => 4
 
     /**
      * Unable to resolve entire name, but was able to determine in which domain object resides. The caller is expected to retry the call at a domain controller for the specified domain. The entire name cannot be resolved, but the domain that the object resides in could be determined. The <b>pDomain</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_result_itema">DS_NAME_RESULT_ITEM</a> contains valid data when this error is specified.
+     * Native name: DS_NAME_ERROR_DOMAIN_ONLY
      * @type {Integer (Int32)}
      */
-    static DS_NAME_ERROR_DOMAIN_ONLY => 5
+    static DOMAIN_ONLY => 5
 
     /**
      * A syntactical mapping cannot be performed on the client without transmitting over the network.
+     * Native name: DS_NAME_ERROR_NO_SYNTACTICAL_MAPPING
      * @type {Integer (Int32)}
      */
-    static DS_NAME_ERROR_NO_SYNTACTICAL_MAPPING => 6
+    static NO_SYNTACTICAL_MAPPING => 6
 
     /**
      * The name is from an external trusted forest.
+     * Native name: DS_NAME_ERROR_TRUST_REFERRAL
      * @type {Integer (Int32)}
      */
-    static DS_NAME_ERROR_TRUST_REFERRAL => 7
+    static TRUST_REFERRAL => 7
 }

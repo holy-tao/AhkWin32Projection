@@ -14,47 +14,54 @@ class TUNNEL_TYPE extends Win32Enum {
 
     /**
      * Indicates that a tunnel is not specified.
+     * Native name: TUNNEL_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static TUNNEL_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates that none of the following tunnel types is specified.
+     * Native name: TUNNEL_TYPE_OTHER
      * @type {Integer (Int32)}
      */
-    static TUNNEL_TYPE_OTHER => 1
+    static OTHER => 1
 
     /**
      * Specifies that a packet is encapsulated directly within a normal IP header, with no intermediate
      *      header, and the packet is sent unicast to the remote tunnel endpoint.
+     * Native name: TUNNEL_TYPE_DIRECT
      * @type {Integer (Int32)}
      */
-    static TUNNEL_TYPE_DIRECT => 2
+    static DIRECT => 2
 
     /**
      * Specifies that an IPv6 packet is encapsulated directly within an IPv4 header, with no intermediate
      *      header, and the packet is sent unicast to the destination determined by the 6to4 protocol.
+     * Native name: TUNNEL_TYPE_6TO4
      * @type {Integer (Int32)}
      */
-    static TUNNEL_TYPE_6TO4 => 11
+    static 6TO4 => 11
 
     /**
      * Specifies that an IPv6 packet is encapsulated directly within an IPv4 header, with no intermediate
      *      header, and the packet is sent unicast to the destination determined by the ISATAP protocol.
+     * Native name: TUNNEL_TYPE_ISATAP
      * @type {Integer (Int32)}
      */
-    static TUNNEL_TYPE_ISATAP => 13
+    static ISATAP => 13
 
     /**
      * Specifies that the tunnel uses Teredo encapsulation.
+     * Native name: TUNNEL_TYPE_TEREDO
      * @type {Integer (Int32)}
      */
-    static TUNNEL_TYPE_TEREDO => 14
+    static TEREDO => 14
 
     /**
      * Specifies that the tunnel uses IP over Hypertext Transfer Protocol Secure (HTTPS). This tunnel
      *      type is supported in Windows 7 and later versions of the Windows operating system.
+     * Native name: TUNNEL_TYPE_IPHTTPS
      * @type {Integer (Int32)}
      */
-    static TUNNEL_TYPE_IPHTTPS => 15
+    static IPHTTPS => 15
 }

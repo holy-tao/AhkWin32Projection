@@ -10,7 +10,8 @@ class CF_POPULATION_POLICY_MODIFIER extends Win32BitflagEnum {
 
     /**
      * No policy modifier.
+     * Native name: CF_POPULATION_POLICY_MODIFIER_NONE
      * @type {Integer (UInt16)}
      */
-    static CF_POPULATION_POLICY_MODIFIER_NONE => 0
+    static NONE => 0
 }

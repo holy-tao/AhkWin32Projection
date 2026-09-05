@@ -30,7 +30,6 @@ class IDBAsynchNotify extends IUnknown {
     static VTableNames => ["OnLowResource", "OnProgress", "OnStop"]
 
     /**
-     * 
      * @param {Pointer} dwReserved 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDBAsynchNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @param {Pointer} ulProgress 
@@ -57,7 +55,6 @@ class IDBAsynchNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @param {HRESULT} hrStatus 

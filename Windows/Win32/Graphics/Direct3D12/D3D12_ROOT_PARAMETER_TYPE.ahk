@@ -12,31 +12,36 @@ class D3D12_ROOT_PARAMETER_TYPE extends Win32Enum {
 
     /**
      * The slot is for a descriptor table.
+     * Native name: D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE => 0
+    static DESCRIPTOR_TABLE => 0
 
     /**
      * The slot is for root constants.
+     * Native name: D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS => 1
+    static 32BIT_CONSTANTS => 1
 
     /**
      * The slot is for a constant-buffer view (CBV).
+     * Native name: D3D12_ROOT_PARAMETER_TYPE_CBV
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_PARAMETER_TYPE_CBV => 2
+    static CBV => 2
 
     /**
      * The slot is for a shader-resource view (SRV).
+     * Native name: D3D12_ROOT_PARAMETER_TYPE_SRV
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_PARAMETER_TYPE_SRV => 3
+    static SRV => 3
 
     /**
      * The slot is for a unordered-access view (UAV).
+     * Native name: D3D12_ROOT_PARAMETER_TYPE_UAV
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_PARAMETER_TYPE_UAV => 4
+    static UAV => 4
 }

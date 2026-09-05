@@ -7,52 +7,62 @@
 class PaletteType extends Win32Enum {
 
     /**
+     * Native name: PaletteTypeCustom
      * @type {Integer (Int32)}
      */
-    static PaletteTypeCustom => 0
+    static Custom => 0
 
     /**
+     * Native name: PaletteTypeOptimal
      * @type {Integer (Int32)}
      */
-    static PaletteTypeOptimal => 1
+    static Optimal => 1
 
     /**
+     * Native name: PaletteTypeFixedBW
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedBW => 2
+    static FixedBW => 2
 
     /**
+     * Native name: PaletteTypeFixedHalftone8
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedHalftone8 => 3
+    static FixedHalftone8 => 3
 
     /**
+     * Native name: PaletteTypeFixedHalftone27
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedHalftone27 => 4
+    static FixedHalftone27 => 4
 
     /**
+     * Native name: PaletteTypeFixedHalftone64
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedHalftone64 => 5
+    static FixedHalftone64 => 5
 
     /**
+     * Native name: PaletteTypeFixedHalftone125
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedHalftone125 => 6
+    static FixedHalftone125 => 6
 
     /**
+     * Native name: PaletteTypeFixedHalftone216
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedHalftone216 => 7
+    static FixedHalftone216 => 7
 
     /**
+     * Native name: PaletteTypeFixedHalftone252
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedHalftone252 => 8
+    static FixedHalftone252 => 8
 
     /**
+     * Native name: PaletteTypeFixedHalftone256
      * @type {Integer (Int32)}
      */
-    static PaletteTypeFixedHalftone256 => 9
+    static FixedHalftone256 => 9
 }

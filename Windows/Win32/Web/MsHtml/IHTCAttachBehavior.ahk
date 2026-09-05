@@ -35,7 +35,6 @@ class IHTCAttachBehavior extends IDispatch {
     static VTableNames => ["fireEvent", "detachEvent"]
 
     /**
-     * 
      * @param {IDispatch} evt 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class IHTCAttachBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     detachEvent() {

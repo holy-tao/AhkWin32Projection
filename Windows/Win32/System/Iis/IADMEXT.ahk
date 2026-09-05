@@ -63,7 +63,6 @@ class IADMEXT extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pclsidDcom 
      * @param {Integer} dwEnumIndex 
      * @returns {HRESULT} 
@@ -74,7 +73,6 @@ class IADMEXT extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Terminate() {

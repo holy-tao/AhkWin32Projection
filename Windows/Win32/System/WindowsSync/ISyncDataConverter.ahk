@@ -31,7 +31,6 @@ class ISyncDataConverter extends IUnknown {
     static VTableNames => ["ConvertDataRetrieverFromProviderFormat", "ConvertDataRetrieverToProviderFormat", "ConvertDataFromProviderFormat", "ConvertDataToProviderFormat"]
 
     /**
-     * 
      * @param {IUnknown} pUnkDataRetrieverIn 
      * @param {IEnumSyncChanges} pEnumSyncChanges 
      * @returns {IUnknown} 
@@ -42,7 +41,6 @@ class ISyncDataConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDataRetrieverIn 
      * @param {IEnumSyncChanges} pEnumSyncChanges 
      * @returns {IUnknown} 
@@ -53,7 +51,6 @@ class ISyncDataConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {ILoadChangeContext} pDataContext 
      * @param {IUnknown} pUnkDataIn 
      * @returns {IUnknown} 
@@ -64,7 +61,6 @@ class ISyncDataConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {ILoadChangeContext} pDataContext 
      * @param {IUnknown} pUnkDataOut 
      * @returns {IUnknown} 

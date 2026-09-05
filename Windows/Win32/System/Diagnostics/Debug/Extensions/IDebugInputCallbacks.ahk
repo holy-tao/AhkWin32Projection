@@ -29,7 +29,6 @@ class IDebugInputCallbacks extends IUnknown {
     static VTableNames => ["StartInput", "EndInput"]
 
     /**
-     * 
      * @param {Integer} BufferSize 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IDebugInputCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndInput() {

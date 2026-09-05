@@ -43,7 +43,6 @@ class ICivicAddressReportFactory extends ILocationReportFactory {
     }
 
     /**
-     * 
      * @returns {IDispCivicAddressReport} 
      */
     get_CivicAddressReport() {

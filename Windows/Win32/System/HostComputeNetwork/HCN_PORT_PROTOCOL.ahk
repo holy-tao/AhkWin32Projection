@@ -9,17 +9,20 @@
 class HCN_PORT_PROTOCOL extends Win32Enum {
 
     /**
+     * Native name: HCN_PORT_PROTOCOL_TCP
      * @type {Integer (Int32)}
      */
-    static HCN_PORT_PROTOCOL_TCP => 1
+    static TCP => 1
 
     /**
+     * Native name: HCN_PORT_PROTOCOL_UDP
      * @type {Integer (Int32)}
      */
-    static HCN_PORT_PROTOCOL_UDP => 2
+    static UDP => 2
 
     /**
+     * Native name: HCN_PORT_PROTOCOL_BOTH
      * @type {Integer (Int32)}
      */
-    static HCN_PORT_PROTOCOL_BOTH => 3
+    static BOTH => 3
 }

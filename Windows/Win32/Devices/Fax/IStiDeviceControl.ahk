@@ -71,7 +71,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -86,7 +85,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -100,7 +98,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -115,7 +112,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -129,7 +125,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} EscapeFunction 
      * @param {Pointer<Void>} lpInData 
      * @param {Integer} cbInDataSize 
@@ -179,7 +174,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszDevicePath 
      * @param {Integer} cwDevicePathSize 
      * @returns {HRESULT} 
@@ -192,7 +186,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} lph 
      * @returns {HRESULT} 
      */
@@ -202,7 +195,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwOpenMode 
      * @returns {HRESULT} 
      */
@@ -214,7 +206,6 @@ class IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMessageType 
      * @param {PWSTR} pszMessage 
      * @param {Integer} dwErrorCode 

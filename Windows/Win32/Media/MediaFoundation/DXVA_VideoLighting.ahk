@@ -7,37 +7,44 @@
 class DXVA_VideoLighting extends Win32Enum {
 
     /**
+     * Native name: DXVA_VideoLightingShift
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoLightingShift => 18
+    static Shift => 18
 
     /**
+     * Native name: DXVA_VideoLightingMask
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoLightingMask => 3932160
+    static Mask => 3932160
 
     /**
+     * Native name: DXVA_VideoLighting_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoLighting_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DXVA_VideoLighting_bright
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoLighting_bright => 1
+    static bright => 1
 
     /**
+     * Native name: DXVA_VideoLighting_office
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoLighting_office => 2
+    static office => 2
 
     /**
+     * Native name: DXVA_VideoLighting_dim
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoLighting_dim => 3
+    static dim => 3
 
     /**
+     * Native name: DXVA_VideoLighting_dark
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoLighting_dark => 4
+    static dark => 4
 }

@@ -32,7 +32,6 @@ class IMediaRadioManagerNotifySink extends IUnknown {
     static VTableNames => ["OnInstanceAdd", "OnInstanceRemove", "OnInstanceRadioChange"]
 
     /**
-     * 
      * @param {IRadioInstance} pRadioInstance 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IMediaRadioManagerNotifySink extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRadioInstanceId 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IMediaRadioManagerNotifySink extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRadioInstanceId 
      * @param {DEVICE_RADIO_STATE} radioState 
      * @returns {HRESULT} 

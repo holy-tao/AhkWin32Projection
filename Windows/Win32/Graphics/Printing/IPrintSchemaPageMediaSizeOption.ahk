@@ -43,7 +43,6 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_WidthInMicrons() {
@@ -52,7 +51,6 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HeightInMicrons() {

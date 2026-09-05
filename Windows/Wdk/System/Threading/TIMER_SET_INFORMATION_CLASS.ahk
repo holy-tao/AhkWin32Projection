@@ -7,9 +7,10 @@
 class TIMER_SET_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: TimerSetCoalescableTimer
      * @type {Integer (Int32)}
      */
-    static TimerSetCoalescableTimer => 0
+    static CoalescableTimer => 0
 
     /**
      * @type {Integer (Int32)}

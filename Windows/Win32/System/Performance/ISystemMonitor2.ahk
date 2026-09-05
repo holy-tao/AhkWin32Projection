@@ -93,7 +93,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -103,7 +102,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableDigitGrouping() {
@@ -112,7 +110,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -122,7 +119,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableToolTips() {
@@ -131,7 +127,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -141,7 +136,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowTimeAxisLabels() {
@@ -150,7 +144,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bScroll 
      * @returns {HRESULT} 
      */
@@ -160,7 +153,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ChartScroll() {
@@ -169,7 +161,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {Integer} iNewCount 
      * @returns {HRESULT} 
      */
@@ -179,7 +170,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DataPointCount() {
@@ -188,7 +178,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSelectedCountersOnly 
      * @returns {HRESULT} 
      */
@@ -198,7 +187,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @returns {HRESULT} 
@@ -211,7 +199,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @param {Integer} _iFilter 
@@ -225,7 +212,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearData() {
@@ -234,7 +220,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStartTime() {
@@ -243,7 +228,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStopTime() {
@@ -252,7 +236,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {Float} StartTime 
      * @param {Float} StopTime 
      * @returns {HRESULT} 
@@ -263,7 +246,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} StartTime 
      * @param {Pointer<Float>} StopTime 
      * @returns {HRESULT} 
@@ -277,7 +259,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fLock 
      * @param {SysmonBatchReason} eBatchReason 
      * @returns {HRESULT} 
@@ -288,7 +269,6 @@ class ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSettingFileName 
      * @returns {HRESULT} 
      */

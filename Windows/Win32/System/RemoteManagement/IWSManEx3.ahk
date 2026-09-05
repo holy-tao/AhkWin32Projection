@@ -31,7 +31,6 @@ class IWSManEx3 extends IWSManEx2 {
     static VTableNames => ["SessionFlagUTF16", "SessionFlagUseCredSsp", "EnumerationFlagAssociationInstance", "EnumerationFlagAssociatedInstance", "SessionFlagSkipRevocationCheck", "SessionFlagAllowNegotiateImplicitCredentials", "SessionFlagUseSsl"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagUTF16() {
@@ -50,7 +49,6 @@ class IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     EnumerationFlagAssociationInstance() {
@@ -59,7 +57,6 @@ class IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     EnumerationFlagAssociatedInstance() {
@@ -68,7 +65,6 @@ class IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagSkipRevocationCheck() {
@@ -77,7 +73,6 @@ class IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagAllowNegotiateImplicitCredentials() {
@@ -86,7 +81,6 @@ class IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagUseSsl() {

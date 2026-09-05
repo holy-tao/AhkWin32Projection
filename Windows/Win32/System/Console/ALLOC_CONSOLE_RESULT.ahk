@@ -7,17 +7,20 @@
 class ALLOC_CONSOLE_RESULT extends Win32Enum {
 
     /**
+     * Native name: ALLOC_CONSOLE_RESULT_NO_CONSOLE
      * @type {Integer (Int32)}
      */
-    static ALLOC_CONSOLE_RESULT_NO_CONSOLE => 0
+    static NO_CONSOLE => 0
 
     /**
+     * Native name: ALLOC_CONSOLE_RESULT_NEW_CONSOLE
      * @type {Integer (Int32)}
      */
-    static ALLOC_CONSOLE_RESULT_NEW_CONSOLE => 1
+    static NEW_CONSOLE => 1
 
     /**
+     * Native name: ALLOC_CONSOLE_RESULT_EXISTING_CONSOLE
      * @type {Integer (Int32)}
      */
-    static ALLOC_CONSOLE_RESULT_EXISTING_CONSOLE => 2
+    static EXISTING_CONSOLE => 2
 }

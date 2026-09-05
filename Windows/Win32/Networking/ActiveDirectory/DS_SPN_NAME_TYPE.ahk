@@ -15,9 +15,10 @@ class DS_SPN_NAME_TYPE extends Win32Enum {
      * ```cpp
      * jeffsmith.fabrikam.com
      * ```
+     * Native name: DS_SPN_DNS_HOST
      * @type {Integer (Int32)}
      */
-    static DS_SPN_DNS_HOST => 0
+    static DNS_HOST => 0
 
     /**
      * The SPN format for the distinguished name of the host-based service, which provides services identified with its host computer. This SPN uses the following format:
@@ -26,9 +27,10 @@ class DS_SPN_NAME_TYPE extends Win32Enum {
      * ```cpp
      * cn=jeffsmith,ou=computers,dc=fabrikam,dc=com
      * ```
+     * Native name: DS_SPN_DN_HOST
      * @type {Integer (Int32)}
      */
-    static DS_SPN_DN_HOST => 1
+    static DN_HOST => 1
 
     /**
      * The SPN format for the NetBIOS service of the host-based service, which provides services identified with its host computer. This SPN uses the following format:
@@ -37,9 +39,10 @@ class DS_SPN_NAME_TYPE extends Win32Enum {
      * ```cpp
      * jeffsmith-nec
      * ```
+     * Native name: DS_SPN_NB_HOST
      * @type {Integer (Int32)}
      */
-    static DS_SPN_NB_HOST => 2
+    static NB_HOST => 2
 
     /**
      * The SPN format for a replicable service that provides services to the specified domain. This SPN uses the following format:
@@ -48,9 +51,10 @@ class DS_SPN_NAME_TYPE extends Win32Enum {
      * ```cpp
      * fabrikam.com
      * ```
+     * Native name: DS_SPN_DOMAIN
      * @type {Integer (Int32)}
      */
-    static DS_SPN_DOMAIN => 3
+    static DOMAIN => 3
 
     /**
      * The SPN format for a replicable service that provides services to the specified NetBIOS domain. This SPN uses the following format:
@@ -59,9 +63,10 @@ class DS_SPN_NAME_TYPE extends Win32Enum {
      * ```cpp
      * fabrikam
      * ```
+     * Native name: DS_SPN_NB_DOMAIN
      * @type {Integer (Int32)}
      */
-    static DS_SPN_NB_DOMAIN => 4
+    static NB_DOMAIN => 4
 
     /**
      * The SPN format for a specified service. This SPN uses the following formats, depending on which service is used:
@@ -94,7 +99,8 @@ class DS_SPN_NAME_TYPE extends Win32Enum {
      * ```cpp
      * products.fabrikam.com
      * ```
+     * Native name: DS_SPN_SERVICE
      * @type {Integer (Int32)}
      */
-    static DS_SPN_SERVICE => 5
+    static SERVICE => 5
 }

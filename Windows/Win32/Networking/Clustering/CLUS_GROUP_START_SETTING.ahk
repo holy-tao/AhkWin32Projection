@@ -10,19 +10,22 @@ class CLUS_GROUP_START_SETTING extends Win32Enum {
 
     /**
      * Always start the cluster.
+     * Native name: CLUS_GROUP_START_ALWAYS
      * @type {Integer (Int32)}
      */
-    static CLUS_GROUP_START_ALWAYS => 0
+    static ALWAYS => 0
 
     /**
      * Do not start the cluster.
+     * Native name: CLUS_GROUP_DO_NOT_START
      * @type {Integer (Int32)}
      */
-    static CLUS_GROUP_DO_NOT_START => 1
+    static DO_NOT_START => 1
 
     /**
      * The cluster can be started.
+     * Native name: CLUS_GROUP_START_ALLOWED
      * @type {Integer (Int32)}
      */
-    static CLUS_GROUP_START_ALLOWED => 2
+    static ALLOWED => 2
 }

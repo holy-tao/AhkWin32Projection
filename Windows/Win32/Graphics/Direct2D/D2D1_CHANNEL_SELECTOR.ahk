@@ -10,25 +10,29 @@ class D2D1_CHANNEL_SELECTOR extends Win32Enum {
 
     /**
      * The effect extracts the intensity output from the red channel.
+     * Native name: D2D1_CHANNEL_SELECTOR_R
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANNEL_SELECTOR_R => 0
+    static R => 0
 
     /**
      * The effect extracts the intensity output from the green channel.
+     * Native name: D2D1_CHANNEL_SELECTOR_G
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANNEL_SELECTOR_G => 1
+    static G => 1
 
     /**
      * The effect extracts the intensity output from the blue channel.
+     * Native name: D2D1_CHANNEL_SELECTOR_B
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANNEL_SELECTOR_B => 2
+    static B => 2
 
     /**
      * The effect extracts the intensity output from the alpha channel.
+     * Native name: D2D1_CHANNEL_SELECTOR_A
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANNEL_SELECTOR_A => 3
+    static A => 3
 }

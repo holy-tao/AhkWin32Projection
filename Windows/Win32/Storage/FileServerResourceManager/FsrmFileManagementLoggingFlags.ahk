@@ -10,26 +10,30 @@ class FsrmFileManagementLoggingFlags extends Win32Enum {
 
     /**
      * Do not log events.
+     * Native name: FsrmFileManagementLoggingFlags_None
      * @type {Integer (Int32)}
      */
-    static FsrmFileManagementLoggingFlags_None => 0
+    static None => 0
 
     /**
      * Log errors that occur when running the file management job to a log file.
+     * Native name: FsrmFileManagementLoggingFlags_Error
      * @type {Integer (Int32)}
      */
-    static FsrmFileManagementLoggingFlags_Error => 1
+    static Error => 1
 
     /**
      * Log information status messages that occur when running the file management job to a log file.
+     * Native name: FsrmFileManagementLoggingFlags_Information
      * @type {Integer (Int32)}
      */
-    static FsrmFileManagementLoggingFlags_Information => 2
+    static Information => 2
 
     /**
      * Log information about every file that met all of the file management job's conditions to the Security audit 
      *       log.
+     * Native name: FsrmFileManagementLoggingFlags_Audit
      * @type {Integer (Int32)}
      */
-    static FsrmFileManagementLoggingFlags_Audit => 4
+    static Audit => 4
 }

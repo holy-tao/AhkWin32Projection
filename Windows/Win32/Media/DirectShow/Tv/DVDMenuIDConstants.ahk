@@ -12,37 +12,43 @@ class DVDMenuIDConstants extends Win32Enum {
 
     /**
      * Title menu, also called the Video Manager Menu.
+     * Native name: dvdMenu_Title
      * @type {Integer (Int32)}
      */
-    static dvdMenu_Title => 2
+    static Title => 2
 
     /**
      * Root menu, the menu for one video title set, which can contain one title or a group of titles.
+     * Native name: dvdMenu_Root
      * @type {Integer (Int32)}
      */
-    static dvdMenu_Root => 3
+    static Root => 3
 
     /**
      * Subpicture menu.
+     * Native name: dvdMenu_Subpicture
      * @type {Integer (Int32)}
      */
-    static dvdMenu_Subpicture => 4
+    static Subpicture => 4
 
     /**
      * Audio menu.
+     * Native name: dvdMenu_Audio
      * @type {Integer (Int32)}
      */
-    static dvdMenu_Audio => 5
+    static Audio => 5
 
     /**
      * Angle menu.
+     * Native name: dvdMenu_Angle
      * @type {Integer (Int32)}
      */
-    static dvdMenu_Angle => 6
+    static Angle => 6
 
     /**
      * Chapter menu.
+     * Native name: dvdMenu_Chapter
      * @type {Integer (Int32)}
      */
-    static dvdMenu_Chapter => 7
+    static Chapter => 7
 }

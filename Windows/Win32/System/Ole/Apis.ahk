@@ -17053,7 +17053,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<OLESTREAM>} lpolestream 
      * @param {IStorage} pstg 
      * @param {Pointer<DVTARGETDEVICE>} ptd 
@@ -17281,7 +17280,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<OLESTREAM>} polestm 
      * @param {IStorage} pstg 
      * @param {Pointer<Integer>} pcfFormat 
@@ -17306,7 +17304,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HRGN>} param2 
@@ -17320,7 +17317,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
@@ -17335,7 +17331,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
@@ -17350,7 +17345,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HRGN>} param1 
      * @returns {String} Nothing - always returns an empty string
@@ -17362,7 +17356,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HRGN>} param2 
@@ -17376,7 +17369,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
@@ -17391,7 +17383,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
@@ -17406,7 +17397,6 @@ class Ole {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HRGN>} param1 
      * @returns {String} Nothing - always returns an empty string

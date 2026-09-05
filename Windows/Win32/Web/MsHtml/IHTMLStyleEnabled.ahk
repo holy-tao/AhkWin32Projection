@@ -31,7 +31,6 @@ class IHTMLStyleEnabled extends IDispatch {
     static VTableNames => ["msGetPropertyEnabled", "msPutPropertyEnabled"]
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -43,7 +42,6 @@ class IHTMLStyleEnabled extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT_BOOL} b 
      * @returns {HRESULT} 

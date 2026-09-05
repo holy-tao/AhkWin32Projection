@@ -30,7 +30,6 @@ class IClonableWrapper extends IUnknown {
     static VTableNames => ["CloneNewWrapper"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

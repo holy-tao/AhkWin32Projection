@@ -30,7 +30,6 @@ class IIMEServices extends IUnknown {
     static VTableNames => ["GetActiveIMM"]
 
     /**
-     * 
      * @returns {IActiveIMMApp} 
      */
     GetActiveIMM() {

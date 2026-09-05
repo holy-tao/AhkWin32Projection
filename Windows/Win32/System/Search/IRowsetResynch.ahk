@@ -30,7 +30,6 @@ class IRowsetResynch extends IUnknown {
     static VTableNames => ["GetVisibleData", "ResynchRows"]
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
@@ -43,7 +42,6 @@ class IRowsetResynch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Pointer>} pcRowsResynched 

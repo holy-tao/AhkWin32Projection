@@ -34,7 +34,6 @@ class IWorkspaceRegistration2 extends IWorkspaceRegistration {
     static VTableNames => ["AddResourceEx", "RemoveResourceEx"]
 
     /**
-     * 
      * @param {IWorkspaceClientExt} pUnk 
      * @param {BSTR} bstrEventLogUploadAddress 
      * @param {Guid} _correlationId 
@@ -48,7 +47,6 @@ class IWorkspaceRegistration2 extends IWorkspaceRegistration {
     }
 
     /**
-     * 
      * @param {Integer} dwCookieConnection 
      * @param {Guid} _correlationId 
      * @returns {HRESULT} 

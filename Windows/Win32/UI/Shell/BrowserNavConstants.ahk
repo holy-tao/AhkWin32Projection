@@ -7,162 +7,194 @@
 class BrowserNavConstants extends Win32Enum {
 
     /**
+     * Native name: navOpenInNewWindow
      * @type {Integer (Int32)}
      */
-    static navOpenInNewWindow => 1
+    static OpenInNewWindow => 1
 
     /**
+     * Native name: navNoHistory
      * @type {Integer (Int32)}
      */
-    static navNoHistory => 2
+    static NoHistory => 2
 
     /**
+     * Native name: navNoReadFromCache
      * @type {Integer (Int32)}
      */
-    static navNoReadFromCache => 4
+    static NoReadFromCache => 4
 
     /**
+     * Native name: navNoWriteToCache
      * @type {Integer (Int32)}
      */
-    static navNoWriteToCache => 8
+    static NoWriteToCache => 8
 
     /**
+     * Native name: navAllowAutosearch
      * @type {Integer (Int32)}
      */
-    static navAllowAutosearch => 16
+    static AllowAutosearch => 16
 
     /**
+     * Native name: navBrowserBar
      * @type {Integer (Int32)}
      */
-    static navBrowserBar => 32
+    static BrowserBar => 32
 
     /**
+     * Native name: navHyperlink
      * @type {Integer (Int32)}
      */
-    static navHyperlink => 64
+    static Hyperlink => 64
 
     /**
+     * Native name: navEnforceRestricted
      * @type {Integer (Int32)}
      */
-    static navEnforceRestricted => 128
+    static EnforceRestricted => 128
 
     /**
+     * Native name: navNewWindowsManaged
      * @type {Integer (Int32)}
      */
-    static navNewWindowsManaged => 256
+    static NewWindowsManaged => 256
 
     /**
+     * Native name: navUntrustedForDownload
      * @type {Integer (Int32)}
      */
-    static navUntrustedForDownload => 512
+    static UntrustedForDownload => 512
 
     /**
+     * Native name: navTrustedForActiveX
      * @type {Integer (Int32)}
      */
-    static navTrustedForActiveX => 1024
+    static TrustedForActiveX => 1024
 
     /**
+     * Native name: navOpenInNewTab
      * @type {Integer (Int32)}
      */
-    static navOpenInNewTab => 2048
+    static OpenInNewTab => 2048
 
     /**
+     * Native name: navOpenInBackgroundTab
      * @type {Integer (Int32)}
      */
-    static navOpenInBackgroundTab => 4096
+    static OpenInBackgroundTab => 4096
 
     /**
+     * Native name: navKeepWordWheelText
      * @type {Integer (Int32)}
      */
-    static navKeepWordWheelText => 8192
+    static KeepWordWheelText => 8192
 
     /**
+     * Native name: navVirtualTab
      * @type {Integer (Int32)}
      */
-    static navVirtualTab => 16384
+    static VirtualTab => 16384
 
     /**
+     * Native name: navBlockRedirectsXDomain
      * @type {Integer (Int32)}
      */
-    static navBlockRedirectsXDomain => 32768
+    static BlockRedirectsXDomain => 32768
 
     /**
+     * Native name: navOpenNewForegroundTab
      * @type {Integer (Int32)}
      */
-    static navOpenNewForegroundTab => 65536
+    static OpenNewForegroundTab => 65536
 
     /**
+     * Native name: navTravelLogScreenshot
      * @type {Integer (Int32)}
      */
-    static navTravelLogScreenshot => 131072
+    static TravelLogScreenshot => 131072
 
     /**
+     * Native name: navDeferUnload
      * @type {Integer (Int32)}
      */
-    static navDeferUnload => 262144
+    static DeferUnload => 262144
 
     /**
+     * Native name: navSpeculative
      * @type {Integer (Int32)}
      */
-    static navSpeculative => 524288
+    static Speculative => 524288
 
     /**
+     * Native name: navSuggestNewWindow
      * @type {Integer (Int32)}
      */
-    static navSuggestNewWindow => 1048576
+    static SuggestNewWindow => 1048576
 
     /**
+     * Native name: navSuggestNewTab
      * @type {Integer (Int32)}
      */
-    static navSuggestNewTab => 2097152
+    static SuggestNewTab => 2097152
 
     /**
+     * Native name: navReserved1
      * @type {Integer (Int32)}
      */
-    static navReserved1 => 4194304
+    static Reserved1 => 4194304
 
     /**
+     * Native name: navHomepageNavigate
      * @type {Integer (Int32)}
      */
-    static navHomepageNavigate => 8388608
+    static HomepageNavigate => 8388608
 
     /**
+     * Native name: navRefresh
      * @type {Integer (Int32)}
      */
-    static navRefresh => 16777216
+    static Refresh => 16777216
 
     /**
+     * Native name: navHostNavigation
      * @type {Integer (Int32)}
      */
-    static navHostNavigation => 33554432
+    static HostNavigation => 33554432
 
     /**
+     * Native name: navReserved2
      * @type {Integer (Int32)}
      */
-    static navReserved2 => 67108864
+    static Reserved2 => 67108864
 
     /**
+     * Native name: navReserved3
      * @type {Integer (Int32)}
      */
-    static navReserved3 => 134217728
+    static Reserved3 => 134217728
 
     /**
+     * Native name: navReserved4
      * @type {Integer (Int32)}
      */
-    static navReserved4 => 268435456
+    static Reserved4 => 268435456
 
     /**
+     * Native name: navReserved5
      * @type {Integer (Int32)}
      */
-    static navReserved5 => 536870912
+    static Reserved5 => 536870912
 
     /**
+     * Native name: navReserved6
      * @type {Integer (Int32)}
      */
-    static navReserved6 => 1073741824
+    static Reserved6 => 1073741824
 
     /**
+     * Native name: navReserved7
      * @type {Integer (Int32)}
      */
-    static navReserved7 => -2147483648
+    static Reserved7 => -2147483648
 }

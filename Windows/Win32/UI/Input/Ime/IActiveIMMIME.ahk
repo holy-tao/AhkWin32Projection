@@ -55,7 +55,6 @@ class IActiveIMMIME extends IUnknown {
     static VTableNames => ["AssociateContext", "ConfigureIMEA", "ConfigureIMEW", "CreateContext", "DestroyContext", "EnumRegisterWordA", "EnumRegisterWordW", "EscapeA", "EscapeW", "GetCandidateListA", "GetCandidateListW", "GetCandidateListCountA", "GetCandidateListCountW", "GetCandidateWindow", "GetCompositionFontA", "GetCompositionFontW", "GetCompositionStringA", "GetCompositionStringW", "GetCompositionWindow", "GetContext", "GetConversionListA", "GetConversionListW", "GetConversionStatus", "GetDefaultIMEWnd", "GetDescriptionA", "GetDescriptionW", "GetGuideLineA", "GetGuideLineW", "GetIMEFileNameA", "GetIMEFileNameW", "GetOpenStatus", "GetProperty", "GetRegisterWordStyleA", "GetRegisterWordStyleW", "GetStatusWindowPos", "GetVirtualKey", "InstallIMEA", "InstallIMEW", "IsIME", "IsUIMessageA", "IsUIMessageW", "NotifyIME", "RegisterWordA", "RegisterWordW", "ReleaseContext", "SetCandidateWindow", "SetCompositionFontA", "SetCompositionFontW", "SetCompositionStringA", "SetCompositionStringW", "SetCompositionWindow", "SetConversionStatus", "SetOpenStatus", "SetStatusWindowPos", "SimulateHotKey", "UnregisterWordA", "UnregisterWordW", "GenerateMessage", "LockIMC", "UnlockIMC", "GetIMCLockCount", "CreateIMCC", "DestroyIMCC", "LockIMCC", "UnlockIMCC", "ReSizeIMCC", "GetIMCCSize", "GetIMCCLockCount", "GetHotKey", "SetHotKey", "CreateSoftKeyboard", "DestroySoftKeyboard", "ShowSoftKeyboard", "GetCodePageA", "GetLangId", "KeybdEvent", "LockModal", "UnlockModal", "AssociateContextEx", "DisableIME", "GetImeMenuItemsA", "GetImeMenuItemsW", "EnumInputContext", "RequestMessageA", "RequestMessageW", "SendIMCA", "SendIMCW", "IsSleeping"]
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} hIME 
      * @returns {HIMC} 
@@ -70,7 +69,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HWND} _hWnd 
      * @param {Integer} dwMode 
@@ -86,7 +84,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HWND} _hWnd 
      * @param {Integer} dwMode 
@@ -177,7 +174,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -197,7 +193,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -217,7 +212,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {Integer} uEscape 
@@ -235,7 +229,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {Integer} uEscape 
@@ -253,7 +246,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} uBufLen 
@@ -271,7 +263,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} uBufLen 
@@ -289,7 +280,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<Integer>} pdwListSize 
      * @param {Pointer<Integer>} pdwBufLen 
@@ -306,7 +296,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<Integer>} pdwListSize 
      * @param {Pointer<Integer>} pdwBufLen 
@@ -323,7 +312,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @returns {CANDIDATEFORM} 
@@ -337,7 +325,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {LOGFONTA} 
      */
@@ -350,7 +337,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {LOGFONTW} 
      */
@@ -363,7 +349,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -382,7 +367,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -401,7 +385,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {COMPOSITIONFORM} 
      */
@@ -414,7 +397,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {HIMC} 
      */
@@ -427,7 +409,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {PSTR} pSrc 
@@ -449,7 +430,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {PWSTR} pSrc 
@@ -500,7 +480,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {HWND} 
      */
@@ -513,7 +492,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PSTR} szDescription 
@@ -528,7 +506,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PWSTR} szDescription 
@@ -543,7 +520,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -559,7 +535,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -575,7 +550,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PSTR} szFileName 
@@ -590,7 +564,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PWSTR} szFileName 
@@ -605,7 +578,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
      */
@@ -635,7 +607,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFA>} pStyleBuf 
@@ -652,7 +623,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFW>} pStyleBuf 
@@ -669,7 +639,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {POINT} 
      */
@@ -682,7 +651,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {Integer} 
      */
@@ -694,7 +662,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} szIMEFileName 
      * @param {PSTR} szLayoutText 
      * @returns {HKL} 
@@ -709,7 +676,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szIMEFileName 
      * @param {PWSTR} szLayoutText 
      * @returns {HKL} 
@@ -724,7 +690,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {HRESULT} 
      */
@@ -736,7 +701,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndIME 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
@@ -751,7 +715,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndIME 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
@@ -766,7 +729,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
@@ -781,7 +743,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -798,7 +759,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -815,7 +775,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
@@ -829,7 +788,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<CANDIDATEFORM>} pCandidate 
      * @returns {HRESULT} 
@@ -842,7 +800,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<LOGFONTA>} plf 
      * @returns {HRESULT} 
@@ -855,7 +812,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<LOGFONTW>} plf 
      * @returns {HRESULT} 
@@ -868,7 +824,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -888,7 +843,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -908,7 +862,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<COMPOSITIONFORM>} pCompForm 
      * @returns {HRESULT} 
@@ -921,7 +874,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} fdwConversion 
      * @param {Integer} fdwSentence 
@@ -935,7 +887,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {BOOL} fOpen 
      * @returns {HRESULT} 
@@ -948,7 +899,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<POINT>} pptPos 
      * @returns {HRESULT} 
@@ -961,7 +911,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} dwHotKeyID 
      * @returns {HRESULT} 
@@ -974,7 +923,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -991,7 +939,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -1008,7 +955,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
      */
@@ -1020,7 +966,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {Pointer<INPUTCONTEXT>} 
      */
@@ -1032,7 +977,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
      */
@@ -1044,7 +988,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {Integer} 
      */
@@ -1056,7 +999,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSize 
      * @returns {HIMCC} 
      */
@@ -1067,7 +1009,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {HRESULT} 
      */
@@ -1079,7 +1020,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {Pointer<Void>} 
      */
@@ -1091,7 +1031,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {HRESULT} 
      */
@@ -1103,7 +1042,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @param {Integer} dwSize 
      * @returns {HIMCC} 
@@ -1117,7 +1055,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {Integer} 
      */
@@ -1129,7 +1066,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {Integer} 
      */
@@ -1141,7 +1077,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwHotKeyID 
      * @param {Pointer<Integer>} puModifiers 
      * @param {Pointer<Integer>} puVKey 
@@ -1157,7 +1092,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwHotKeyID 
      * @param {Integer} uModifiers 
      * @param {Integer} uVKey 
@@ -1172,7 +1106,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uType 
      * @param {HWND} hOwner 
      * @param {Integer} x 
@@ -1188,7 +1121,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hSoftKbdWnd 
      * @returns {HRESULT} 
      */
@@ -1200,7 +1132,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hSoftKbdWnd 
      * @param {Integer} nCmdShow 
      * @returns {HRESULT} 
@@ -1213,7 +1144,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {Integer} 
      */
@@ -1225,7 +1155,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {Integer} 
      */
@@ -1237,7 +1166,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lgidIME 
      * @param {Integer} bVk 
      * @param {Integer} bScan 
@@ -1251,7 +1179,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     LockModal() {
@@ -1260,7 +1187,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnlockModal() {
@@ -1269,7 +1195,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
@@ -1284,7 +1209,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idThread 
      * @returns {HRESULT} 
      */
@@ -1294,7 +1218,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
      * @param {Integer} dwType 
@@ -1314,7 +1237,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
      * @param {Integer} dwType 
@@ -1334,7 +1256,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idThread 
      * @returns {IEnumInputContext} 
      */
@@ -1344,7 +1265,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -1358,7 +1278,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -1372,7 +1291,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wParam 
@@ -1387,7 +1305,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wParam 
@@ -1402,7 +1319,6 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsSleeping() {

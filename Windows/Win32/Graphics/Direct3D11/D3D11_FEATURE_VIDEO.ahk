@@ -10,7 +10,8 @@ class D3D11_FEATURE_VIDEO extends Win32Enum {
 
     /**
      * Retrieves the supported components, bin count, and counter bit depth for the a decode histogram with the specified decode profile, resolution, and format. The associated data structure is <a href ="ns-d3d11_4-d3d11_feature_data_video_decoder_histogram.md">D3D11_FEATURE_DATA_VIDEO_DECODER_HISTOGRAM</a>.
+     * Native name: D3D11_FEATURE_VIDEO_DECODER_HISTOGRAM
      * @type {Integer (Int32)}
      */
-    static D3D11_FEATURE_VIDEO_DECODER_HISTOGRAM => 0
+    static DECODER_HISTOGRAM => 0
 }

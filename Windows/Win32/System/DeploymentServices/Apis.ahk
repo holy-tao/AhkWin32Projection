@@ -1401,7 +1401,6 @@ class DeploymentServices {
     }
 
     /**
-     * 
      * @param {HANDLE} hIfh 
      * @returns {WDS_CLI_IMAGE_TYPE} 
      */
@@ -1413,7 +1412,6 @@ class DeploymentServices {
     }
 
     /**
-     * 
      * @param {HANDLE} hIfh 
      * @param {Pointer<Pointer<PWSTR>>} pppwszFiles 
      * @param {Pointer<Integer>} pdwCount 
@@ -1665,7 +1663,6 @@ class DeploymentServices {
     }
 
     /**
-     * 
      * @param {HANDLE} hIfh 
      * @param {WDS_CLI_IMAGE_PARAM_TYPE} ParamType 
      * @param {Integer} pResponse 
@@ -1700,7 +1697,6 @@ class DeploymentServices {
     }
 
     /**
-     * 
      * @param {Integer} ulSizeInBytes 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2306,7 +2302,6 @@ class DeploymentServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _hProvider 
      * @param {Integer} Severity 
      * @param {PWSTR} pszFormat 
@@ -3431,7 +3426,6 @@ class DeploymentServices {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionKey 
      * @param {Integer} dwErrorCode 
      * @returns {Integer} 

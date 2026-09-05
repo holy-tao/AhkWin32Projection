@@ -7,17 +7,20 @@
 class TREE_SEC_INFO extends Win32Enum {
 
     /**
+     * Native name: TREE_SEC_INFO_SET
      * @type {Integer (UInt32)}
      */
-    static TREE_SEC_INFO_SET => 1
+    static SET => 1
 
     /**
+     * Native name: TREE_SEC_INFO_RESET
      * @type {Integer (UInt32)}
      */
-    static TREE_SEC_INFO_RESET => 2
+    static RESET => 2
 
     /**
+     * Native name: TREE_SEC_INFO_RESET_KEEP_EXPLICIT
      * @type {Integer (UInt32)}
      */
-    static TREE_SEC_INFO_RESET_KEEP_EXPLICIT => 3
+    static RESET_KEEP_EXPLICIT => 3
 }

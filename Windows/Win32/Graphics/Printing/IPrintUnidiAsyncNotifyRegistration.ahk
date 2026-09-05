@@ -25,7 +25,6 @@ class IPrintUnidiAsyncNotifyRegistration extends IPrintAsyncNotifyRegistration {
     static VTableNames => ["AsyncGetNotification"]
 
     /**
-     * 
      * @param {IAsyncGetSendNotificationCookie} param0 
      * @returns {HRESULT} 
      */

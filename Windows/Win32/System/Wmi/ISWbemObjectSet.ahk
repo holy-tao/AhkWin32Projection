@@ -60,7 +60,6 @@ class ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -88,7 +87,6 @@ class ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -97,7 +95,6 @@ class ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
@@ -106,7 +103,6 @@ class ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {ISWbemObject} 
      */

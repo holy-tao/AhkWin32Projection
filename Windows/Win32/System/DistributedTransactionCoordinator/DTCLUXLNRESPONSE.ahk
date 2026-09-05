@@ -7,22 +7,26 @@
 class DTCLUXLNRESPONSE extends Win32Enum {
 
     /**
+     * Native name: DTCLUXLNRESPONSE_OK_SENDOURXLNBACK
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNRESPONSE_OK_SENDOURXLNBACK => 1
+    static OK_SENDOURXLNBACK => 1
 
     /**
+     * Native name: DTCLUXLNRESPONSE_OK_SENDCONFIRMATION
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNRESPONSE_OK_SENDCONFIRMATION => 2
+    static OK_SENDCONFIRMATION => 2
 
     /**
+     * Native name: DTCLUXLNRESPONSE_LOGNAMEMISMATCH
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNRESPONSE_LOGNAMEMISMATCH => 3
+    static LOGNAMEMISMATCH => 3
 
     /**
+     * Native name: DTCLUXLNRESPONSE_COLDWARMMISMATCH
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNRESPONSE_COLDWARMMISMATCH => 4
+    static COLDWARMMISMATCH => 4
 }

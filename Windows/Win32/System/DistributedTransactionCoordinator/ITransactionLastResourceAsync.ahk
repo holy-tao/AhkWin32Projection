@@ -30,7 +30,6 @@ class ITransactionLastResourceAsync extends IUnknown {
     static VTableNames => ["DelegateCommit", "ForgetRequest"]
 
     /**
-     * 
      * @param {Integer} grfRM 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ITransactionLastResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pNewUOW 
      * @returns {HRESULT} 
      */

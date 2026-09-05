@@ -7,12 +7,14 @@
 class SYNCMGRITEMSTATE extends Win32Enum {
 
     /**
+     * Native name: SYNCMGRITEMSTATE_UNCHECKED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRITEMSTATE_UNCHECKED => 0
+    static UNCHECKED => 0
 
     /**
+     * Native name: SYNCMGRITEMSTATE_CHECKED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRITEMSTATE_CHECKED => 1
+    static CHECKED => 1
 }

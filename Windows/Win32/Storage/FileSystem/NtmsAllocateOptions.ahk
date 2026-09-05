@@ -7,17 +7,20 @@
 class NtmsAllocateOptions extends Win32Enum {
 
     /**
+     * Native name: NTMS_ALLOCATE_NEW
      * @type {Integer (Int32)}
      */
-    static NTMS_ALLOCATE_NEW => 1
+    static NEW => 1
 
     /**
+     * Native name: NTMS_ALLOCATE_NEXT
      * @type {Integer (Int32)}
      */
-    static NTMS_ALLOCATE_NEXT => 2
+    static NEXT => 2
 
     /**
+     * Native name: NTMS_ALLOCATE_ERROR_IF_UNAVAILABLE
      * @type {Integer (Int32)}
      */
-    static NTMS_ALLOCATE_ERROR_IF_UNAVAILABLE => 4
+    static ERROR_IF_UNAVAILABLE => 4
 }

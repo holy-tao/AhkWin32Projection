@@ -91,7 +91,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +100,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogTop() {
@@ -111,7 +109,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -121,7 +118,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogLeft() {
@@ -131,7 +127,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +136,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogWidth() {
@@ -151,7 +145,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -161,7 +154,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogHeight() {
@@ -171,7 +163,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogArguments() {
@@ -181,7 +172,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_menuArguments() {
@@ -191,7 +181,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -201,7 +190,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_returnValue() {
@@ -238,7 +226,6 @@ class IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {

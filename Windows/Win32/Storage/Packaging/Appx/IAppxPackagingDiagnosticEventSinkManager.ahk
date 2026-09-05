@@ -36,7 +36,6 @@ class IAppxPackagingDiagnosticEventSinkManager extends IUnknown {
     static VTableNames => ["SetSinkForProcess"]
 
     /**
-     * 
      * @param {IAppxPackagingDiagnosticEventSink} sink 
      * @returns {HRESULT} 
      */

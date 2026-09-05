@@ -12,9 +12,10 @@ class EVT_CHANNEL_CLOCK_TYPE extends Win32Enum {
      * Uses the system time for the time stamp. The system time provides a low-resolution (10 milliseconds) time stamp but is comparatively less expensive to retrieve. System time is the default. 
      * 
      * Note that if the volume of events is high, the resolution for system time may not be fine enough to determine the sequence of events. If multiple events contain the same time stamp, the events may be delivered in the wrong order.
+     * Native name: EvtChannelClockTypeSystemTime
      * @type {Integer (Int32)}
      */
-    static EvtChannelClockTypeSystemTime => 0
+    static SystemTime => 0
 
     /**
      * Uses the query performance counter (QPC) for the time stamp. The QPC time stamp provides a high-resolution (100 nanoseconds) time stamp but is comparatively more expensive to retrieve. 
@@ -22,7 +23,8 @@ class EVT_CHANNEL_CLOCK_TYPE extends Win32Enum {
      * You should use this resolution if you have high event rates or if the consumer merges events from different buffers.
      * 
      * Note that on older computers, the time stamp may not be accurate because the counter sometimes skips forward due to hardware errors.
+     * Native name: EvtChannelClockTypeQPC
      * @type {Integer (Int32)}
      */
-    static EvtChannelClockTypeQPC => 1
+    static TypeQPC => 1
 }

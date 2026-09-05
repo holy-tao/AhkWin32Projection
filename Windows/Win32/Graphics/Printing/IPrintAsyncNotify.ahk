@@ -70,7 +70,6 @@ class IPrintAsyncNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PrintAsyncNotifyUserFilter} param1 
      * @param {PrintAsyncNotifyConversationStyle} param2 

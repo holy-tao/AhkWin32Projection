@@ -10,25 +10,29 @@ class eAVEncVideoColorTransferMatrix extends Win32Enum {
 
     /**
      * Use the same transfer matrix as the input video. This flag applies to the <b>AVEncVideoOutputColorTransferMatrix</b> property only.
+     * Native name: eAVEncVideoColorTransferMatrix_SameAsSource
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorTransferMatrix_SameAsSource => 0
+    static SameAsSource => 0
 
     /**
      * ITU-R BT.709 transfer matrix.
+     * Native name: eAVEncVideoColorTransferMatrix_BT709
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorTransferMatrix_BT709 => 1
+    static BT709 => 1
 
     /**
      * ITU-R BT.601 transfer matrix.
+     * Native name: eAVEncVideoColorTransferMatrix_BT601
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorTransferMatrix_BT601 => 2
+    static BT601 => 2
 
     /**
      * SMPTE 240M transfer matrix.
+     * Native name: eAVEncVideoColorTransferMatrix_SMPTE240M
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorTransferMatrix_SMPTE240M => 3
+    static SMPTE240M => 3
 }

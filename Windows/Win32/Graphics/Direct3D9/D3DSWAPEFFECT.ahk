@@ -19,27 +19,32 @@
 class D3DSWAPEFFECT extends Win32Enum {
 
     /**
+     * Native name: D3DSWAPEFFECT_DISCARD
      * @type {Integer (Int32)}
      */
-    static D3DSWAPEFFECT_DISCARD => 1
+    static DISCARD => 1
 
     /**
+     * Native name: D3DSWAPEFFECT_FLIP
      * @type {Integer (Int32)}
      */
-    static D3DSWAPEFFECT_FLIP => 2
+    static FLIP => 2
 
     /**
+     * Native name: D3DSWAPEFFECT_COPY
      * @type {Integer (Int32)}
      */
-    static D3DSWAPEFFECT_COPY => 3
+    static COPY => 3
 
     /**
+     * Native name: D3DSWAPEFFECT_OVERLAY
      * @type {Integer (Int32)}
      */
-    static D3DSWAPEFFECT_OVERLAY => 4
+    static OVERLAY => 4
 
     /**
+     * Native name: D3DSWAPEFFECT_FLIPEX
      * @type {Integer (Int32)}
      */
-    static D3DSWAPEFFECT_FLIPEX => 5
+    static FLIPEX => 5
 }

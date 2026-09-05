@@ -7,22 +7,26 @@
 class KSMETHOD_BDA_CAS_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_CAS_CHECKENTITLEMENTTOKEN
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_CAS_CHECKENTITLEMENTTOKEN => 0
+    static CHECKENTITLEMENTTOKEN => 0
 
     /**
+     * Native name: KSMETHOD_BDA_CAS_SETCAPTURETOKEN
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_CAS_SETCAPTURETOKEN => 1
+    static SETCAPTURETOKEN => 1
 
     /**
+     * Native name: KSMETHOD_BDA_CAS_OPENBROADCASTMMI
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_CAS_OPENBROADCASTMMI => 2
+    static OPENBROADCASTMMI => 2
 
     /**
+     * Native name: KSMETHOD_BDA_CAS_CLOSEMMIDIALOG
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_CAS_CLOSEMMIDIALOG => 3
+    static CLOSEMMIDIALOG => 3
 }

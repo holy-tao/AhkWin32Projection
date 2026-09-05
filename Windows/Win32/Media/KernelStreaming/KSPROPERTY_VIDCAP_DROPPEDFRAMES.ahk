@@ -7,7 +7,8 @@
 class KSPROPERTY_VIDCAP_DROPPEDFRAMES extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_DROPPEDFRAMES_CURRENT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DROPPEDFRAMES_CURRENT => 0
+    static CURRENT => 0
 }

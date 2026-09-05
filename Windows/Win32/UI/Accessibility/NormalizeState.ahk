@@ -10,19 +10,22 @@ class NormalizeState extends Win32Enum {
 
     /**
      * No normalization.
+     * Native name: NormalizeState_None
      * @type {Integer (Int32)}
      */
-    static NormalizeState_None => 0
+    static None => 0
 
     /**
      * Normalize against the condition in the cache request specified by pRequest.
+     * Native name: NormalizeState_View
      * @type {Integer (Int32)}
      */
-    static NormalizeState_View => 1
+    static View => 1
 
     /**
      * Normalize against the condition specified in pNormalizeCondition.
+     * Native name: NormalizeState_Custom
      * @type {Integer (Int32)}
      */
-    static NormalizeState_Custom => 2
+    static Custom => 2
 }

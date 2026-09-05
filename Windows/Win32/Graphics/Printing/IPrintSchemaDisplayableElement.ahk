@@ -37,7 +37,6 @@ class IPrintSchemaDisplayableElement extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {

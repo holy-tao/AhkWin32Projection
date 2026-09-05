@@ -62,7 +62,6 @@ class IDBInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Uninitialize() {

@@ -7,22 +7,26 @@
 class styleLayoutFlow extends Win32Enum {
 
     /**
+     * Native name: styleLayoutFlowHorizontal
      * @type {Integer (Int32)}
      */
-    static styleLayoutFlowHorizontal => 0
+    static Horizontal => 0
 
     /**
+     * Native name: styleLayoutFlowVerticalIdeographic
      * @type {Integer (Int32)}
      */
-    static styleLayoutFlowVerticalIdeographic => 1
+    static VerticalIdeographic => 1
 
     /**
+     * Native name: styleLayoutFlowNotSet
      * @type {Integer (Int32)}
      */
-    static styleLayoutFlowNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleLayoutFlow_Max
      * @type {Integer (Int32)}
      */
-    static styleLayoutFlow_Max => 2147483647
+    static Max => 2147483647
 }

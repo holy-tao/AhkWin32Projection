@@ -32,7 +32,6 @@ class IActiveScriptProfilerHeapEnum extends IUnknown {
     static VTableNames => ["Next", "GetOptionalInfo", "FreeObjectAndOptionalInfo", "GetNameIdMap"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Pointer<PROFILER_HEAP_OBJECT>>} heapObjects 
      * @param {Pointer<Integer>} pceltFetched 
@@ -47,7 +46,6 @@ class IActiveScriptProfilerHeapEnum extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROFILER_HEAP_OBJECT>} heapObject 
      * @param {Integer} celt 
      * @returns {PROFILER_HEAP_OBJECT_OPTIONAL_INFO} 
@@ -59,7 +57,6 @@ class IActiveScriptProfilerHeapEnum extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Pointer<PROFILER_HEAP_OBJECT>>} heapObjects 
      * @returns {HRESULT} 
@@ -72,7 +69,6 @@ class IActiveScriptProfilerHeapEnum extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Pointer<PWSTR>>>} pNameList 
      * @param {Pointer<Integer>} pcelt 
      * @returns {HRESULT} 

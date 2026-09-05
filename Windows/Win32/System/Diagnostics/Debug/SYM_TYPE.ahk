@@ -7,49 +7,58 @@
 class SYM_TYPE extends Win32Enum {
 
     /**
+     * Native name: SymNone
      * @type {Integer (Int32)}
      */
-    static SymNone => 0
+    static None => 0
 
     /**
+     * Native name: SymCoff
      * @type {Integer (Int32)}
      */
-    static SymCoff => 1
+    static Coff => 1
 
     /**
+     * Native name: SymCv
      * @type {Integer (Int32)}
      */
-    static SymCv => 2
+    static Cv => 2
 
     /**
+     * Native name: SymPdb
      * @type {Integer (Int32)}
      */
-    static SymPdb => 3
+    static Pdb => 3
 
     /**
+     * Native name: SymExport
      * @type {Integer (Int32)}
      */
-    static SymExport => 4
+    static Export => 4
 
     /**
+     * Native name: SymDeferred
      * @type {Integer (Int32)}
      */
-    static SymDeferred => 5
+    static Deferred => 5
 
     /**
+     * Native name: SymSym
      * @type {Integer (Int32)}
      */
-    static SymSym => 6
+    static Sym => 6
 
     /**
+     * Native name: SymDia
      * @type {Integer (Int32)}
      */
-    static SymDia => 7
+    static Dia => 7
 
     /**
+     * Native name: SymVirtual
      * @type {Integer (Int32)}
      */
-    static SymVirtual => 8
+    static Virtual => 8
 
     /**
      * @type {Integer (Int32)}

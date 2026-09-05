@@ -10,13 +10,15 @@ class AM_LINE21_DRAWBGMODE extends Win32Enum {
 
     /**
      * Opaque background.
+     * Native name: AM_L21_DRAWBGMODE_Opaque
      * @type {Integer (Int32)}
      */
-    static AM_L21_DRAWBGMODE_Opaque => 0
+    static L21_DRAWBGMODE_Opaque => 0
 
     /**
      * Transparent background.
+     * Native name: AM_L21_DRAWBGMODE_Transparent
      * @type {Integer (Int32)}
      */
-    static AM_L21_DRAWBGMODE_Transparent => 1
+    static L21_DRAWBGMODE_Transparent => 1
 }

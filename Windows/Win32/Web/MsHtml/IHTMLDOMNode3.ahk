@@ -63,7 +63,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +72,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_prefix() {
@@ -83,7 +81,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_localName() {
@@ -93,7 +90,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_namespaceURI() {
@@ -103,7 +99,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +108,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textContent() {
@@ -123,7 +117,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode3} otherNode 
      * @returns {VARIANT_BOOL} 
      */
@@ -133,7 +126,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarPrefix 
      * @returns {VARIANT} 
      */
@@ -144,7 +136,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNamespaceURI 
      * @returns {VARIANT} 
      */
@@ -155,7 +146,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNamespace 
      * @returns {VARIANT_BOOL} 
      */
@@ -165,7 +155,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -175,7 +164,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {VARIANT} refChild 
      * @returns {IHTMLDOMNode} 
@@ -186,7 +174,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -196,7 +183,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
@@ -207,7 +193,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode3} otherNode 
      * @returns {VARIANT_BOOL} 
      */
@@ -217,7 +202,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} otherNode 
      * @returns {Integer} 
      */
@@ -227,7 +211,6 @@ class IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feature 
      * @param {VARIANT} _version 
      * @returns {VARIANT_BOOL} 

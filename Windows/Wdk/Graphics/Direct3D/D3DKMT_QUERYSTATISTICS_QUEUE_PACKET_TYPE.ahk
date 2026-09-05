@@ -7,47 +7,56 @@
 class D3DKMT_QUERYSTATISTICS_QUEUE_PACKET_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_RenderCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_RenderCommandBuffer => 0
+    static RenderCommandBuffer => 0
 
     /**
+     * Native name: D3DKMT_DeferredCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DeferredCommandBuffer => 1
+    static DeferredCommandBuffer => 1
 
     /**
+     * Native name: D3DKMT_SystemCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SystemCommandBuffer => 2
+    static SystemCommandBuffer => 2
 
     /**
+     * Native name: D3DKMT_MmIoFlipCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MmIoFlipCommandBuffer => 3
+    static MmIoFlipCommandBuffer => 3
 
     /**
+     * Native name: D3DKMT_WaitCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_WaitCommandBuffer => 4
+    static WaitCommandBuffer => 4
 
     /**
+     * Native name: D3DKMT_SignalCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SignalCommandBuffer => 5
+    static SignalCommandBuffer => 5
 
     /**
+     * Native name: D3DKMT_DeviceCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DeviceCommandBuffer => 6
+    static DeviceCommandBuffer => 6
 
     /**
+     * Native name: D3DKMT_SoftwareCommandBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SoftwareCommandBuffer => 7
+    static SoftwareCommandBuffer => 7
 
     /**
+     * Native name: D3DKMT_QueuePacketTypeMax
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QueuePacketTypeMax => 8
+    static Max => 8
 }

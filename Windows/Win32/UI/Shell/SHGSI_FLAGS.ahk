@@ -7,42 +7,50 @@
 class SHGSI_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SHGSI_ICONLOCATION
      * @type {Integer (UInt32)}
      */
-    static SHGSI_ICONLOCATION => 0
+    static ICONLOCATION => 0
 
     /**
+     * Native name: SHGSI_ICON
      * @type {Integer (UInt32)}
      */
-    static SHGSI_ICON => 256
+    static ICON => 256
 
     /**
+     * Native name: SHGSI_SYSICONINDEX
      * @type {Integer (UInt32)}
      */
-    static SHGSI_SYSICONINDEX => 16384
+    static SYSICONINDEX => 16384
 
     /**
+     * Native name: SHGSI_LINKOVERLAY
      * @type {Integer (UInt32)}
      */
-    static SHGSI_LINKOVERLAY => 32768
+    static LINKOVERLAY => 32768
 
     /**
+     * Native name: SHGSI_SELECTED
      * @type {Integer (UInt32)}
      */
-    static SHGSI_SELECTED => 65536
+    static SELECTED => 65536
 
     /**
+     * Native name: SHGSI_LARGEICON
      * @type {Integer (UInt32)}
      */
-    static SHGSI_LARGEICON => 0
+    static LARGEICON => 0
 
     /**
+     * Native name: SHGSI_SMALLICON
      * @type {Integer (UInt32)}
      */
-    static SHGSI_SMALLICON => 1
+    static SMALLICON => 1
 
     /**
+     * Native name: SHGSI_SHELLICONSIZE
      * @type {Integer (UInt32)}
      */
-    static SHGSI_SHELLICONSIZE => 4
+    static SHELLICONSIZE => 4
 }

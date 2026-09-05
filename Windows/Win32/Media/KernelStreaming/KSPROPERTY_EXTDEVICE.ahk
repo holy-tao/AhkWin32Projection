@@ -7,27 +7,32 @@
 class KSPROPERTY_EXTDEVICE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_EXTDEVICE_ID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTDEVICE_ID => 0
+    static ID => 0
 
     /**
+     * Native name: KSPROPERTY_EXTDEVICE_VERSION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTDEVICE_VERSION => 1
+    static VERSION => 1
 
     /**
+     * Native name: KSPROPERTY_EXTDEVICE_POWER_STATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTDEVICE_POWER_STATE => 2
+    static POWER_STATE => 2
 
     /**
+     * Native name: KSPROPERTY_EXTDEVICE_PORT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTDEVICE_PORT => 3
+    static PORT => 3
 
     /**
+     * Native name: KSPROPERTY_EXTDEVICE_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTDEVICE_CAPABILITIES => 4
+    static CAPABILITIES => 4
 }

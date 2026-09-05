@@ -10,25 +10,29 @@ class DXVAHD_DEVICE_CAPS extends Win32Enum {
 
     /**
      * The device can blend video content in linear color space. Most video content is gamma corrected, resulting in nonlinear values. If the DXVA-HD device sets this flag, it means the device converts colors to linear space before blending, which produces better results.
+     * Native name: DXVAHD_DEVICE_CAPS_LINEAR_SPACE
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_CAPS_LINEAR_SPACE => 1
+    static LINEAR_SPACE => 1
 
     /**
      * The device supports the xvYCC color space for YCbCr data.
+     * Native name: DXVAHD_DEVICE_CAPS_xvYCC
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_CAPS_xvYCC => 2
+    static xvYCC => 2
 
     /**
      * The device can perform range conversion when the input and output are both RGB but use different color ranges (0-255 or 16-235, for 8-bit RGB).
+     * Native name: DXVAHD_DEVICE_CAPS_RGB_RANGE_CONVERSION
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_CAPS_RGB_RANGE_CONVERSION => 4
+    static RGB_RANGE_CONVERSION => 4
 
     /**
      * The device can apply a matrix conversion to YCbCr values when the input and output are both YCbCr. For example, the driver can convert colors from BT.601 to BT.709.
+     * Native name: DXVAHD_DEVICE_CAPS_YCbCr_MATRIX_CONVERSION
      * @type {Integer (Int32)}
      */
-    static DXVAHD_DEVICE_CAPS_YCbCr_MATRIX_CONVERSION => 8
+    static YCbCr_MATRIX_CONVERSION => 8
 }

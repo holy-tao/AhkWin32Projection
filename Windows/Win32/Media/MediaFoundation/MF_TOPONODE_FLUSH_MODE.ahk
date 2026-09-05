@@ -10,19 +10,22 @@ class MF_TOPONODE_FLUSH_MODE extends Win32Enum {
 
     /**
      * The transform is flushed whenever the stream changes, including seeks and new segments.
+     * Native name: MF_TOPONODE_FLUSH_ALWAYS
      * @type {Integer (Int32)}
      */
-    static MF_TOPONODE_FLUSH_ALWAYS => 0
+    static ALWAYS => 0
 
     /**
      * The transform is flushed when seeking is performed on the stream.
+     * Native name: MF_TOPONODE_FLUSH_SEEK
      * @type {Integer (Int32)}
      */
-    static MF_TOPONODE_FLUSH_SEEK => 1
+    static SEEK => 1
 
     /**
      * The transform is never flushed during streaming. It is flushed only when the object is released.
+     * Native name: MF_TOPONODE_FLUSH_NEVER
      * @type {Integer (Int32)}
      */
-    static MF_TOPONODE_FLUSH_NEVER => 2
+    static NEVER => 2
 }

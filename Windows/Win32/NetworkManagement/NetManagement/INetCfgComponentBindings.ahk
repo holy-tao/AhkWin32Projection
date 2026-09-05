@@ -33,7 +33,6 @@ class INetCfgComponentBindings extends IUnknown {
     static VTableNames => ["BindTo", "UnbindFrom", "SupportsBindingInterface", "IsBoundTo", "IsBindableTo", "EnumBindingPaths", "MoveBefore", "MoveAfter"]
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszwInterfaceName 
      * @returns {HRESULT} 
@@ -66,7 +63,6 @@ class INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -76,7 +72,6 @@ class INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -86,7 +81,6 @@ class INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {IEnumNetCfgBindingPath} 
      */
@@ -96,7 +90,6 @@ class INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgBindingPath} pncbItemSrc 
      * @param {INetCfgBindingPath} pncbItemDest 
      * @returns {HRESULT} 
@@ -107,7 +100,6 @@ class INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgBindingPath} pncbItemSrc 
      * @param {INetCfgBindingPath} pncbItemDest 
      * @returns {HRESULT} 

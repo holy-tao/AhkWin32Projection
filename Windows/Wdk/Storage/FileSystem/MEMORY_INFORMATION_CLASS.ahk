@@ -7,7 +7,8 @@
 class MEMORY_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: MemoryBasicInformation
      * @type {Integer (Int32)}
      */
-    static MemoryBasicInformation => 0
+    static BasicInformation => 0
 }

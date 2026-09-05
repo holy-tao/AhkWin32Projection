@@ -7,32 +7,38 @@
 class CR_DISP extends Win32Enum {
 
     /**
+     * Native name: CR_DISP_DENIED
      * @type {Integer (UInt32)}
      */
-    static CR_DISP_DENIED => 2
+    static DENIED => 2
 
     /**
+     * Native name: CR_DISP_ERROR
      * @type {Integer (UInt32)}
      */
-    static CR_DISP_ERROR => 1
+    static ERROR => 1
 
     /**
+     * Native name: CR_DISP_INCOMPLETE
      * @type {Integer (UInt32)}
      */
-    static CR_DISP_INCOMPLETE => 0
+    static INCOMPLETE => 0
 
     /**
+     * Native name: CR_DISP_ISSUED
      * @type {Integer (UInt32)}
      */
-    static CR_DISP_ISSUED => 3
+    static ISSUED => 3
 
     /**
+     * Native name: CR_DISP_ISSUED_OUT_OF_BAND
      * @type {Integer (UInt32)}
      */
-    static CR_DISP_ISSUED_OUT_OF_BAND => 4
+    static ISSUED_OUT_OF_BAND => 4
 
     /**
+     * Native name: CR_DISP_UNDER_SUBMISSION
      * @type {Integer (UInt32)}
      */
-    static CR_DISP_UNDER_SUBMISSION => 5
+    static UNDER_SUBMISSION => 5
 }

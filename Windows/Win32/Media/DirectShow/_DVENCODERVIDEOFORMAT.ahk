@@ -10,13 +10,15 @@ class _DVENCODERVIDEOFORMAT extends Win32Enum {
 
     /**
      * National Television Standards Committee (NTSC)
+     * Native name: DVENCODERVIDEOFORMAT_NTSC
      * @type {Integer (Int32)}
      */
-    static DVENCODERVIDEOFORMAT_NTSC => 2000
+    static NTSC => 2000
 
     /**
      * Phase Alternating Line (PAL)
+     * Native name: DVENCODERVIDEOFORMAT_PAL
      * @type {Integer (Int32)}
      */
-    static DVENCODERVIDEOFORMAT_PAL => 2001
+    static PAL => 2001
 }

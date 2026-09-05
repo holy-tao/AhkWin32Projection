@@ -33,7 +33,6 @@ class IUrlHistoryStg2 extends IUrlHistoryStg {
     static VTableNames => ["AddUrlAndNotify", "ClearHistory"]
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {PWSTR} pocsTitle 
      * @param {Integer} dwFlags 
@@ -51,7 +50,6 @@ class IUrlHistoryStg2 extends IUrlHistoryStg {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearHistory() {

@@ -30,7 +30,6 @@ class IZoneIdentifier2 extends IZoneIdentifier {
     static VTableNames => ["GetLastWriterPackageFamilyName", "SetLastWriterPackageFamilyName", "RemoveLastWriterPackageFamilyName", "GetAppZoneId", "SetAppZoneId", "RemoveAppZoneId"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetLastWriterPackageFamilyName() {
@@ -39,7 +38,6 @@ class IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFamilyName 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveLastWriterPackageFamilyName() {
@@ -60,7 +57,6 @@ class IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAppZoneId() {
@@ -69,7 +65,6 @@ class IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @param {Integer} zone 
      * @returns {HRESULT} 
      */
@@ -79,7 +74,6 @@ class IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveAppZoneId() {

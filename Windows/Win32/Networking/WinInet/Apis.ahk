@@ -7487,7 +7487,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hFtpSession 
      * @param {PSTR} lpszRemoteFile 
      * @param {PWSTR} lpszNewFile 
@@ -7508,7 +7507,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hFtpSession 
      * @param {PWSTR} lpszLocalFile 
      * @param {PSTR} lpszNewRemoteFile 
@@ -11683,7 +11681,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HANDLE} hUrlCacheStream 
      * @param {Integer} qwLocation 
      * @param {Integer} lpBuffer 
@@ -13964,7 +13961,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {WPAD_CACHE_DELETE} param0 
      * @returns {BOOL} 
      */
@@ -14481,7 +14477,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pcwszUrl 
      * @param {Pointer<BOOL>} pfIsHsts 
      * @returns {Integer} 
@@ -14496,7 +14491,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {ALG_ID} ai 
      * @param {PSTR} lpstr 
      * @param {Pointer<Integer>} lpdwstrLength 
@@ -14514,7 +14508,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {ALG_ID} ai 
      * @param {PWSTR} lpstr 
      * @param {Pointer<Integer>} lpdwstrLength 
@@ -14532,7 +14525,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} dwProtocol 
      * @param {PSTR} lpstr 
      * @param {Pointer<Integer>} lpdwstrLength 
@@ -14550,7 +14542,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} dwProtocol 
      * @param {PWSTR} lpstr 
      * @param {Pointer<Integer>} lpdwstrLength 
@@ -14568,7 +14559,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} lpszURL 
      * @param {Pointer<Pointer<CERT_CHAIN_CONTEXT>>} ppCertChain 
      * @param {Pointer<Integer>} pdwSecureFlags 
@@ -14585,7 +14575,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszURL 
      * @param {Pointer<Pointer<CERT_CHAIN_CONTEXT>>} ppCertChain 
      * @param {Pointer<Integer>} pdwSecureFlags 
@@ -14602,7 +14591,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} lpszURL 
      * @param {Pointer<Pointer<CERT_CHAIN_CONTEXT>>} ppCertChain 
      * @param {Pointer<Integer>} pdwSecureFlags 
@@ -14619,7 +14607,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @param {Pointer<INTERNET_SECURITY_INFO>} pSecurityInfo 
      * @returns {Integer} 
@@ -14632,7 +14619,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @param {Integer} lpCert 
      * @param {Integer} cbCert 
@@ -14646,7 +14632,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @returns {Integer} 
      */
@@ -14658,7 +14643,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} lpCert 
      * @param {Integer} cbCert 
      * @param {PSTR} lpszListBoxEntry 
@@ -14675,7 +14659,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} lpszURL 
      * @param {HWND} hwndParent 
      * @returns {BOOL} 
@@ -14689,7 +14672,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszURL 
      * @param {HWND} hwndParent 
      * @returns {BOOL} 
@@ -14703,7 +14685,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} lpszURL 
      * @param {HWND} hwndParent 
      * @returns {BOOL} 
@@ -14717,7 +14698,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} dwCommand 
      * @param {HWND} _hwnd 
      * @returns {BOOL} 
@@ -14732,7 +14712,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwStatus 
      * @returns {BOOL} 
      */
@@ -14746,7 +14725,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hFile 
      * @param {Pointer<INTERNET_BUFFERSA>} lpBuffersIn 
      * @param {Integer} dwFlags 
@@ -14761,7 +14739,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hFile 
      * @param {Pointer<INTERNET_BUFFERSW>} lpBuffersIn 
      * @param {Integer} dwFlags 
@@ -14776,7 +14753,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} pszSymbol 
      * @returns {Integer} 
      */
@@ -14788,7 +14764,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Pointer<PWSTR>} ppwszUserName 
      * @param {Pointer<PWSTR>} ppwszPassword 
@@ -14805,7 +14780,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hRequest 
      * @param {Pointer<HTTP_PUSH_TRANSPORT_SETTING>} pTransportSetting 
      * @param {Pointer<HTTP_PUSH_WAIT_HANDLE>} phWait 
@@ -14819,7 +14793,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HTTP_PUSH_WAIT_HANDLE} hWait 
      * @param {HTTP_PUSH_WAIT_TYPE} eType 
      * @param {Pointer<HTTP_PUSH_NOTIFICATION_STATUS>} pNotificationStatus 
@@ -14833,7 +14806,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HTTP_PUSH_WAIT_HANDLE} hWait 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14844,7 +14816,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} lpszUrl 
      * @param {PSTR} lpszComplianceToken 
      * @param {Pointer<BOOL>} lpfFound 
@@ -14865,7 +14836,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUrl 
      * @param {PWSTR} lpszComplianceToken 
      * @param {Pointer<BOOL>} lpfFound 
@@ -14886,7 +14856,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} lpszUrlName 
      * @param {Integer} dwFlags 
      * @param {Pointer<FILETIME>} pftLastModified 
@@ -14900,7 +14869,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUrlName 
      * @param {Integer} dwFlags 
      * @param {Pointer<FILETIME>} pftLastModified 
@@ -14914,7 +14882,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUrlName 
      * @param {Integer} dwExpectedFileSize 
      * @param {PWSTR} lpszFileExtension 
@@ -14933,7 +14900,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrlName 
      * @param {Pointer<Integer>} dwType 
      * @param {Pointer<FILETIME>} pftExpireTime 
@@ -14955,7 +14921,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrlName 
      * @param {Integer} dwType 
      * @param {FILETIME} ftExpireTime 
@@ -15100,7 +15065,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwModified 
      * @param {Integer} lpContainerInfo 
      * @param {Pointer<Integer>} lpcbContainerInfo 
@@ -15117,7 +15081,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwModified 
      * @param {Integer} lpContainerInfo 
      * @param {Pointer<Integer>} lpcbContainerInfo 
@@ -15134,7 +15097,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnumHandle 
      * @param {Integer} lpContainerInfo 
      * @param {Pointer<Integer>} lpcbContainerInfo 
@@ -15150,7 +15112,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnumHandle 
      * @param {Integer} lpContainerInfo 
      * @param {Pointer<Integer>} lpcbContainerInfo 
@@ -15228,7 +15189,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} ullTargetSize 
      * @param {Integer} dwFilter 
      * @returns {Integer} 
@@ -15239,7 +15199,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} dwFilter 
      * @param {Pointer<Integer>} pullSize 
      * @param {Pointer<Integer>} pullLimit 
@@ -15324,7 +15283,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<INTERNET_CACHE_CONFIG_INFOA>} lpCacheConfigInfo 
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} 
@@ -15335,7 +15293,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<INTERNET_CACHE_CONFIG_INFOW>} lpCacheConfigInfo 
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} 
@@ -15346,7 +15303,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} hinst 
      * @param {PSTR} lpszCmd 
@@ -15363,7 +15319,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} hinst 
      * @param {PSTR} lpszCmd 
@@ -15380,7 +15335,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} szNewPath 
      * @returns {BOOL} 
      */
@@ -15392,7 +15346,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} uMsg 
      * @param {Integer} gid 
@@ -15408,7 +15361,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} nIdx 
      * @param {Pointer<Integer>} lpdwData 
      * @returns {BOOL} 
@@ -15421,7 +15373,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} nIdx 
      * @param {Integer} dwData 
      * @returns {BOOL} 
@@ -15432,7 +15383,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Integer} nIdx 
      * @param {Pointer<Integer>} lpdwData 
      * @returns {BOOL} 
@@ -15445,7 +15395,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static LoadUrlCacheContent() {
@@ -15454,7 +15403,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Integer} dwFlags 
      * @param {Pointer<Pointer<Void>>} phAppCache 
@@ -15470,7 +15418,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszMasterUrl 
      * @param {PWSTR} pwszManifestUrl 
      * @param {Integer} pbManifestData 
@@ -15493,7 +15440,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {Pointer<APP_CACHE_DOWNLOAD_LIST>} pDownloadList 
      * @returns {Integer} 
@@ -15506,7 +15452,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<APP_CACHE_DOWNLOAD_LIST>} pDownloadList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15515,7 +15460,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {Integer} pbManifestData 
      * @param {Integer} dwManifestDataSize 
@@ -15531,7 +15475,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {PWSTR} pwszUrl 
      * @param {Pointer<PWSTR>} ppwszFallbackUrl 
@@ -15548,7 +15491,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {Pointer<PWSTR>} ppwszManifestUrl 
      * @returns {Integer} 
@@ -15562,7 +15504,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {Pointer<Pointer<Void>>} phDuplicatedAppCache 
      * @returns {Integer} 
@@ -15576,7 +15517,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15587,7 +15527,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<APP_CACHE_GROUP_LIST>} pAppCacheGroupList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15596,7 +15535,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<APP_CACHE_GROUP_LIST>} pAppCacheGroupList 
      * @returns {Integer} 
      */
@@ -15606,7 +15544,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {Pointer<APP_CACHE_GROUP_INFO>} pAppCacheInfo 
      * @returns {Integer} 
@@ -15619,7 +15556,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszManifestUrl 
      * @returns {Integer} 
      */
@@ -15631,7 +15567,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {FILETIME} ftCutOff 
      * @returns {Integer} 
      */
@@ -15641,7 +15576,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<APP_CACHE_GROUP_LIST>} pAppCacheGroupList 
      * @returns {Integer} 
      */
@@ -15651,7 +15585,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszManifestUrl 
      * @returns {Integer} 
      */
@@ -15663,7 +15596,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {FILETIME} ftCutOff 
      * @returns {Integer} 
      */
@@ -15673,7 +15605,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {PWSTR} pwszSourceFilePath 
      * @param {PWSTR} pwszUrl 
@@ -15692,7 +15623,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hRequestHandle 
      * @param {BOOL} fBackground 
      * @param {Pointer<Pointer<Void>>} phDependencyHandle 
@@ -15707,7 +15637,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hDependencyHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15718,7 +15647,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hDependencyHandle 
      * @param {Pointer<Pointer<Void>>} phDuplicatedDependencyHandle 
      * @returns {Integer} 
@@ -15732,7 +15660,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hDependencyHandle 
      * @returns {Integer} 
      */
@@ -15744,7 +15671,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15753,7 +15679,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {PWSTR} pcwszUrl 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
@@ -15769,7 +15694,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hEntryFile 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15780,7 +15704,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {PWSTR} pcwszUrl 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
@@ -15798,7 +15721,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hUrlCacheStream 
      * @param {Integer} ullLocation 
      * @param {Pointer<Void>} pBuffer 
@@ -15816,7 +15738,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {PWSTR} pcwszUrl 
      * @param {BOOL} fRandomRead 
@@ -15835,7 +15756,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hAppCache 
      * @param {PWSTR} pcwszUrl 
      * @param {Integer} pbExtraData 
@@ -15852,7 +15772,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @param {PWSTR} pwszPrefix 
      * @param {PWSTR} pwszDirectory 
@@ -15870,7 +15789,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} rgpwszUrls 
      * @param {Integer} cEntries 
      * @param {Pointer<BOOL>} rgfExist 
@@ -15885,7 +15803,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<PWSTR>>} pppwszDirectories 
      * @param {Pointer<Integer>} pcDirectories 
      * @returns {Integer} 
@@ -15899,7 +15816,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {URL_CACHE_LIMIT_TYPE} limitType 
      * @param {Pointer<Integer>} pullLimit 
      * @returns {Integer} 
@@ -15912,7 +15828,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {URL_CACHE_LIMIT_TYPE} limitType 
      * @param {Integer} ullLimit 
      * @returns {Integer} 
@@ -15923,7 +15838,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static UrlCacheReloadSettings() {
@@ -15932,7 +15846,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {Integer} dwEntryMaxAge 
      * @returns {Integer} 
@@ -15945,7 +15858,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {Integer} dwFlags 
      * @param {Integer} dwFilter 
@@ -15962,7 +15874,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {HANDLE} hFind 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @returns {Integer} 
@@ -15975,7 +15886,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static UrlCacheServer() {
@@ -15984,7 +15894,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcNetworks 
      * @param {Pointer<Pointer<PWSTR>>} pppwszNetworkGuids 
      * @param {Pointer<Pointer<BSTR>>} pppbstrNetworkNames 
@@ -16006,7 +15915,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {INTERNET_SCHEME} tScheme 
      * @param {PSTR} lpszHost 
      * @param {Integer} cchHost 
@@ -16020,7 +15928,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<WININET_PROXY_INFO_LIST>} pProxyInfoList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16029,7 +15936,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hInternet 
      * @param {PWSTR} pcwszUrl 
      * @param {Pointer<WININET_PROXY_INFO_LIST>} pProxyInfoList 
@@ -16045,7 +15951,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static DoConnectoidsExist() {
@@ -16054,7 +15959,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} pszPath 
      * @param {Pointer<Integer>} pdwClusterSize 
      * @param {Pointer<Integer>} pdlAvail 
@@ -16073,7 +15977,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} pszUrlSearchPattern 
      * @param {Integer} dwFlags 
      * @param {Integer} dwFilter 
@@ -16094,7 +15997,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static IsProfilesEnabled() {
@@ -16103,7 +16005,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} lpszUrl 
      * @param {PSTR} lpszCookieData 
      * @param {Pointer<Integer>} lpdwDataSize 
@@ -16120,7 +16021,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} szFilename 
      * @returns {BOOL} 
      */
@@ -16132,7 +16032,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} szFilename 
      * @returns {BOOL} 
      */
@@ -16144,7 +16043,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} szFilename 
      * @param {BOOL} fAppend 
      * @returns {BOOL} 
@@ -16157,7 +16055,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} szFilename 
      * @param {BOOL} fAppend 
      * @returns {BOOL} 
@@ -16170,7 +16067,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} pchDomain 
      * @param {PSTR} pchFullDomain 
      * @returns {BOOL} 
@@ -16184,7 +16080,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PWSTR} pchDomain 
      * @param {PWSTR} pchFullDomain 
      * @returns {BOOL} 
@@ -16198,7 +16093,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hRequest 
      * @param {Pointer} dwContext 
      * @returns {Pointer<Void>} 
@@ -16211,7 +16105,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {HTTP_WEB_SOCKET_BUFFER_TYPE} BufferType 
      * @param {Integer} pvBuffer 
@@ -16226,7 +16119,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Integer} pvBuffer 
      * @param {Integer} dwBufferLength 
@@ -16244,7 +16136,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Integer} usStatus 
      * @param {Integer} pvReason 
@@ -16259,7 +16150,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Integer} usStatus 
      * @param {Integer} pvReason 
@@ -16274,7 +16164,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Pointer<Integer>} pusStatus 
      * @param {Integer} pvReason 
@@ -16292,7 +16181,6 @@ class WinInet {
     }
 
     /**
-     * 
      * @param {PSTR} pcszUrl 
      * @param {Integer} cchUrl 
      * @param {PWSTR} pcwszBaseUrl 

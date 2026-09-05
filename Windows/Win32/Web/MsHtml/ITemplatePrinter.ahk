@@ -233,7 +233,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTitle 
      * @returns {VARIANT_BOOL} 
      */
@@ -245,7 +244,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopDoc() {
@@ -254,7 +252,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     printBlankPage() {
@@ -263,7 +260,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pElemDisp 
      * @returns {HRESULT} 
      */
@@ -273,7 +269,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     ensurePrintDialogDefaults() {
@@ -282,7 +277,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     showPrintDialog() {
@@ -291,7 +285,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     showPageSetupDialog() {
@@ -300,7 +293,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pMarkup 
      * @returns {VARIANT_BOOL} 
      */
@@ -310,7 +302,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pMarkup 
      * @param {VARIANT_BOOL} fActiveFrame 
      * @returns {HRESULT} 
@@ -321,7 +312,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -331,7 +321,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_framesetDocument() {
@@ -340,7 +329,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -350,7 +338,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frameActive() {
@@ -359,7 +346,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -369,7 +355,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frameAsShown() {
@@ -378,7 +363,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -388,7 +372,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selection() {
@@ -397,7 +380,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -407,7 +389,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selectedPages() {
@@ -416,7 +397,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -426,7 +406,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_currentPage() {
@@ -435,7 +414,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -445,7 +423,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_currentPageAvail() {
@@ -454,7 +431,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -464,7 +440,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_collate() {
@@ -473,7 +448,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_duplex() {
@@ -482,7 +456,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -492,7 +465,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_copies() {
@@ -501,7 +473,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -511,7 +482,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageFrom() {
@@ -520,7 +490,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -530,7 +499,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageTo() {
@@ -539,7 +507,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -549,7 +516,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_tableOfLinks() {
@@ -558,7 +524,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -568,7 +533,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_allLinkedDocuments() {
@@ -577,7 +541,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -589,7 +552,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_header() {
@@ -599,7 +561,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -611,7 +572,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_footer() {
@@ -621,7 +581,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -631,7 +590,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginLeft() {
@@ -640,7 +598,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -650,7 +607,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginRight() {
@@ -659,7 +615,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -669,7 +624,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginTop() {
@@ -678,7 +632,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -688,7 +641,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginBottom() {
@@ -697,7 +649,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageWidth() {
@@ -706,7 +657,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageHeight() {
@@ -715,7 +665,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableLeft() {
@@ -724,7 +673,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableTop() {
@@ -733,7 +681,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableRight() {
@@ -742,7 +689,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableBottom() {
@@ -751,7 +697,6 @@ class ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} p 
      * @returns {HRESULT} 
      */

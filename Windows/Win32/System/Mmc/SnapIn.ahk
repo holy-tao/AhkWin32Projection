@@ -81,7 +81,6 @@ class SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -91,7 +90,6 @@ class SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Vendor() {
@@ -101,7 +99,6 @@ class SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Version() {
@@ -111,7 +108,6 @@ class SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Extensions} 
      */
     get_Extensions() {
@@ -120,7 +116,6 @@ class SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SnapinCLSID() {
@@ -130,7 +125,6 @@ class SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Properties} 
      */
     get_Properties() {
@@ -139,7 +133,6 @@ class SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} Enable 
      * @returns {HRESULT} 
      */

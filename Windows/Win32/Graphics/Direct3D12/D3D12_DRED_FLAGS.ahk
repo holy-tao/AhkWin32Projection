@@ -10,19 +10,22 @@ class D3D12_DRED_FLAGS extends Win32BitflagEnum {
 
     /**
      * Typically specifies that Device Removed Extended Data (DRED) is disabled, except for when user-initiated feedback is used to produce a repro, or when otherwise enabled by Windows via automatic detection of process-instability issues. This is the default value.
+     * Native name: D3D12_DRED_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Forces DRED to be enabled, regardless of the system state.
+     * Native name: D3D12_DRED_FLAG_FORCE_ENABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_FLAG_FORCE_ENABLE => 1
+    static FLAG_FORCE_ENABLE => 1
 
     /**
      * Disables DRED auto breadcrumbs.
+     * Native name: D3D12_DRED_FLAG_DISABLE_AUTOBREADCRUMBS
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_FLAG_DISABLE_AUTOBREADCRUMBS => 2
+    static FLAG_DISABLE_AUTOBREADCRUMBS => 2
 }

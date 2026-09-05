@@ -7,37 +7,44 @@
 class SNMP_GENERICTRAP extends Win32Enum {
 
     /**
+     * Native name: SNMP_GENERICTRAP_COLDSTART
      * @type {Integer (UInt32)}
      */
-    static SNMP_GENERICTRAP_COLDSTART => 0
+    static COLDSTART => 0
 
     /**
+     * Native name: SNMP_GENERICTRAP_WARMSTART
      * @type {Integer (UInt32)}
      */
-    static SNMP_GENERICTRAP_WARMSTART => 1
+    static WARMSTART => 1
 
     /**
+     * Native name: SNMP_GENERICTRAP_LINKDOWN
      * @type {Integer (UInt32)}
      */
-    static SNMP_GENERICTRAP_LINKDOWN => 2
+    static LINKDOWN => 2
 
     /**
+     * Native name: SNMP_GENERICTRAP_LINKUP
      * @type {Integer (UInt32)}
      */
-    static SNMP_GENERICTRAP_LINKUP => 3
+    static LINKUP => 3
 
     /**
+     * Native name: SNMP_GENERICTRAP_AUTHFAILURE
      * @type {Integer (UInt32)}
      */
-    static SNMP_GENERICTRAP_AUTHFAILURE => 4
+    static AUTHFAILURE => 4
 
     /**
+     * Native name: SNMP_GENERICTRAP_EGPNEIGHLOSS
      * @type {Integer (UInt32)}
      */
-    static SNMP_GENERICTRAP_EGPNEIGHLOSS => 5
+    static EGPNEIGHLOSS => 5
 
     /**
+     * Native name: SNMP_GENERICTRAP_ENTERSPECIFIC
      * @type {Integer (UInt32)}
      */
-    static SNMP_GENERICTRAP_ENTERSPECIFIC => 6
+    static ENTERSPECIFIC => 6
 }

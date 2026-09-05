@@ -11,92 +11,110 @@
 class STGM extends Win32BitflagEnum {
 
     /**
+     * Native name: STGM_DIRECT
      * @type {Integer (UInt32)}
      */
-    static STGM_DIRECT => 0
+    static DIRECT => 0
 
     /**
+     * Native name: STGM_TRANSACTED
      * @type {Integer (UInt32)}
      */
-    static STGM_TRANSACTED => 65536
+    static TRANSACTED => 65536
 
     /**
+     * Native name: STGM_SIMPLE
      * @type {Integer (UInt32)}
      */
-    static STGM_SIMPLE => 134217728
+    static SIMPLE => 134217728
 
     /**
+     * Native name: STGM_READ
      * @type {Integer (UInt32)}
      */
-    static STGM_READ => 0
+    static READ => 0
 
     /**
+     * Native name: STGM_WRITE
      * @type {Integer (UInt32)}
      */
-    static STGM_WRITE => 1
+    static WRITE => 1
 
     /**
+     * Native name: STGM_READWRITE
      * @type {Integer (UInt32)}
      */
-    static STGM_READWRITE => 2
+    static READWRITE => 2
 
     /**
+     * Native name: STGM_SHARE_DENY_NONE
      * @type {Integer (UInt32)}
      */
-    static STGM_SHARE_DENY_NONE => 64
+    static SHARE_DENY_NONE => 64
 
     /**
+     * Native name: STGM_SHARE_DENY_READ
      * @type {Integer (UInt32)}
      */
-    static STGM_SHARE_DENY_READ => 48
+    static SHARE_DENY_READ => 48
 
     /**
+     * Native name: STGM_SHARE_DENY_WRITE
      * @type {Integer (UInt32)}
      */
-    static STGM_SHARE_DENY_WRITE => 32
+    static SHARE_DENY_WRITE => 32
 
     /**
+     * Native name: STGM_SHARE_EXCLUSIVE
      * @type {Integer (UInt32)}
      */
-    static STGM_SHARE_EXCLUSIVE => 16
+    static SHARE_EXCLUSIVE => 16
 
     /**
+     * Native name: STGM_PRIORITY
      * @type {Integer (UInt32)}
      */
-    static STGM_PRIORITY => 262144
+    static PRIORITY => 262144
 
     /**
+     * Native name: STGM_DELETEONRELEASE
      * @type {Integer (UInt32)}
      */
-    static STGM_DELETEONRELEASE => 67108864
+    static DELETEONRELEASE => 67108864
 
     /**
+     * Native name: STGM_NOSCRATCH
      * @type {Integer (UInt32)}
      */
-    static STGM_NOSCRATCH => 1048576
+    static NOSCRATCH => 1048576
 
     /**
+     * Native name: STGM_CREATE
      * @type {Integer (UInt32)}
      */
-    static STGM_CREATE => 4096
+    static CREATE => 4096
 
     /**
+     * Native name: STGM_CONVERT
      * @type {Integer (UInt32)}
      */
-    static STGM_CONVERT => 131072
+    static CONVERT => 131072
 
     /**
+     * Native name: STGM_FAILIFTHERE
      * @type {Integer (UInt32)}
      */
-    static STGM_FAILIFTHERE => 0
+    static FAILIFTHERE => 0
 
     /**
+     * Native name: STGM_NOSNAPSHOT
      * @type {Integer (UInt32)}
      */
-    static STGM_NOSNAPSHOT => 2097152
+    static NOSNAPSHOT => 2097152
 
     /**
+     * Native name: STGM_DIRECT_SWMR
      * @type {Integer (UInt32)}
      */
-    static STGM_DIRECT_SWMR => 4194304
+    static DIRECT_SWMR => 4194304
 }

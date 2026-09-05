@@ -12,18 +12,21 @@ class SYNC_SERIALIZATION_VERSION extends Win32Enum {
 
     /**
      * Indicates a component is compatible with Sync Framework 1.0.
+     * Native name: SYNC_SERIALIZATION_VERSION_V1
      * @type {Integer (Int32)}
      */
-    static SYNC_SERIALIZATION_VERSION_V1 => 1
+    static V1 => 1
 
     /**
      * Indicates a component is compatible with Sync Framework 2.0.
+     * Native name: SYNC_SERIALIZATION_VERSION_V2
      * @type {Integer (Int32)}
      */
-    static SYNC_SERIALIZATION_VERSION_V2 => 4
+    static V2 => 4
 
     /**
+     * Native name: SYNC_SERIALIZATION_VERSION_V3
      * @type {Integer (Int32)}
      */
-    static SYNC_SERIALIZATION_VERSION_V3 => 5
+    static V3 => 5
 }

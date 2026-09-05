@@ -7,7 +7,8 @@
 class MTSPackageExportOptions extends Win32Enum {
 
     /**
+     * Native name: mtsExportUsers
      * @type {Integer (Int32)}
      */
-    static mtsExportUsers => 1
+    static Users => 1
 }

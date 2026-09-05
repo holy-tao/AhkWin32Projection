@@ -30,7 +30,6 @@ class IDWriteBitmapRenderTarget2 extends IDWriteBitmapRenderTarget1 {
     static VTableNames => ["GetBitmapData"]
 
     /**
-     * 
      * @returns {DWRITE_BITMAP_DATA_BGRA32} 
      */
     GetBitmapData() {

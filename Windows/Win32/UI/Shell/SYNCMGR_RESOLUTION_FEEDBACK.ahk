@@ -10,19 +10,22 @@ class SYNCMGR_RESOLUTION_FEEDBACK extends Win32Enum {
 
     /**
      * Proceed to the next conflict.
+     * Native name: SYNCMGR_RF_CONTINUE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RF_CONTINUE => 0
+    static RF_CONTINUE => 0
 
     /**
      * <b>Apply to All</b> is stopped and the dialog will be displayed for this conflict.
+     * Native name: SYNCMGR_RF_REFRESH
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RF_REFRESH => 1
+    static RF_REFRESH => 1
 
     /**
      * Cancels resolution of any more conflicts in the set.
+     * Native name: SYNCMGR_RF_CANCEL
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RF_CANCEL => 2
+    static RF_CANCEL => 2
 }

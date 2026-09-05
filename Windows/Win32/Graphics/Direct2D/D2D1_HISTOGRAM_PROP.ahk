@@ -15,9 +15,10 @@ class D2D1_HISTOGRAM_PROP extends Win32Enum {
      * The type is UINT32.
      * 
      * The default is 256.
+     * Native name: D2D1_HISTOGRAM_PROP_NUM_BINS
      * @type {Integer (Int32)}
      */
-    static D2D1_HISTOGRAM_PROP_NUM_BINS => 0
+    static NUM_BINS => 0
 
     /**
      * Specifies the channel used to generate the histogram. This effect has a single data output corresponding to the specified channel.
@@ -26,16 +27,18 @@ class D2D1_HISTOGRAM_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_channel_selector">D2D1_CHANNEL_SELECTOR</a>.
      * 
      * The default is D2D1_CHANNEL_SELECTOR_R.
+     * Native name: D2D1_HISTOGRAM_PROP_CHANNEL_SELECT
      * @type {Integer (Int32)}
      */
-    static D2D1_HISTOGRAM_PROP_CHANNEL_SELECT => 1
+    static CHANNEL_SELECT => 1
 
     /**
      * The output array.
      *           
      * 
      * The type is FLOAT[].
+     * Native name: D2D1_HISTOGRAM_PROP_HISTOGRAM_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D2D1_HISTOGRAM_PROP_HISTOGRAM_OUTPUT => 2
+    static HISTOGRAM_OUTPUT => 2
 }

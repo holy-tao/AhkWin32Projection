@@ -9,30 +9,35 @@
 class X509SCEPDisposition extends Win32Enum {
 
     /**
+     * Native name: SCEPDispositionUnknown
      * @type {Integer (Int32)}
      */
-    static SCEPDispositionUnknown => -1
+    static Unknown => -1
 
     /**
      * The request was successful.
+     * Native name: SCEPDispositionSuccess
      * @type {Integer (Int32)}
      */
-    static SCEPDispositionSuccess => 0
+    static Success => 0
 
     /**
      * The request failed.
+     * Native name: SCEPDispositionFailure
      * @type {Integer (Int32)}
      */
-    static SCEPDispositionFailure => 2
+    static Failure => 2
 
     /**
      * The request has not completed yet.
+     * Native name: SCEPDispositionPending
      * @type {Integer (Int32)}
      */
-    static SCEPDispositionPending => 3
+    static Pending => 3
 
     /**
+     * Native name: SCEPDispositionPendingChallenge
      * @type {Integer (Int32)}
      */
-    static SCEPDispositionPendingChallenge => 11
+    static PendingChallenge => 11
 }

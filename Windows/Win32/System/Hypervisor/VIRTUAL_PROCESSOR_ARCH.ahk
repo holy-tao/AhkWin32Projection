@@ -7,22 +7,26 @@
 class VIRTUAL_PROCESSOR_ARCH extends Win32Enum {
 
     /**
+     * Native name: Arch_Unknown
      * @type {Integer (Int32)}
      */
-    static Arch_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: Arch_x86
      * @type {Integer (Int32)}
      */
-    static Arch_x86 => 1
+    static x86 => 1
 
     /**
+     * Native name: Arch_x64
      * @type {Integer (Int32)}
      */
-    static Arch_x64 => 2
+    static x64 => 2
 
     /**
+     * Native name: Arch_Armv8
      * @type {Integer (Int32)}
      */
-    static Arch_Armv8 => 3
+    static Armv8 => 3
 }

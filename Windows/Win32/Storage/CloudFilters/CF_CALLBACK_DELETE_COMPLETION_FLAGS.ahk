@@ -10,7 +10,8 @@ class CF_CALLBACK_DELETE_COMPLETION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No delete completion flag.
+     * Native name: CF_CALLBACK_DELETE_COMPLETION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DELETE_COMPLETION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

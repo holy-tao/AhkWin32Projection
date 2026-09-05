@@ -69,7 +69,6 @@ class Views extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -78,7 +77,6 @@ class Views extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @param {_ViewOptions} viewOptions 
      * @returns {HRESULT} 
@@ -89,7 +87,6 @@ class Views extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

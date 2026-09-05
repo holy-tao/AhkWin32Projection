@@ -7,67 +7,80 @@
 class GNSS_DRIVERCOMMAND_TYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_SetLocationServiceEnabled
      * @type {Integer (Int32)}
      */
-    static GNSS_SetLocationServiceEnabled => 1
+    static SetLocationServiceEnabled => 1
 
     /**
+     * Native name: GNSS_SetLocationNIRequestAllowed
      * @type {Integer (Int32)}
      */
-    static GNSS_SetLocationNIRequestAllowed => 2
+    static SetLocationNIRequestAllowed => 2
 
     /**
+     * Native name: GNSS_ForceSatelliteSystem
      * @type {Integer (Int32)}
      */
-    static GNSS_ForceSatelliteSystem => 3
+    static ForceSatelliteSystem => 3
 
     /**
+     * Native name: GNSS_ForceOperationMode
      * @type {Integer (Int32)}
      */
-    static GNSS_ForceOperationMode => 4
+    static ForceOperationMode => 4
 
     /**
+     * Native name: GNSS_ResetEngine
      * @type {Integer (Int32)}
      */
-    static GNSS_ResetEngine => 9
+    static ResetEngine => 9
 
     /**
+     * Native name: GNSS_ClearAgnssData
      * @type {Integer (Int32)}
      */
-    static GNSS_ClearAgnssData => 10
+    static ClearAgnssData => 10
 
     /**
+     * Native name: GNSS_SetSuplVersion
      * @type {Integer (Int32)}
      */
-    static GNSS_SetSuplVersion => 12
+    static SetSuplVersion => 12
 
     /**
+     * Native name: GNSS_SetNMEALogging
      * @type {Integer (Int32)}
      */
-    static GNSS_SetNMEALogging => 13
+    static SetNMEALogging => 13
 
     /**
+     * Native name: GNSS_SetUplServerAccessInterval
      * @type {Integer (Int32)}
      */
-    static GNSS_SetUplServerAccessInterval => 14
+    static SetUplServerAccessInterval => 14
 
     /**
+     * Native name: GNSS_SetNiTimeoutInterval
      * @type {Integer (Int32)}
      */
-    static GNSS_SetNiTimeoutInterval => 15
+    static SetNiTimeoutInterval => 15
 
     /**
+     * Native name: GNSS_ResetGeofencesTracking
      * @type {Integer (Int32)}
      */
-    static GNSS_ResetGeofencesTracking => 16
+    static ResetGeofencesTracking => 16
 
     /**
+     * Native name: GNSS_SetSuplVersion2
      * @type {Integer (Int32)}
      */
-    static GNSS_SetSuplVersion2 => 17
+    static SetSuplVersion2 => 17
 
     /**
+     * Native name: GNSS_CustomCommand
      * @type {Integer (Int32)}
      */
-    static GNSS_CustomCommand => 256
+    static CustomCommand => 256
 }

@@ -10,42 +10,49 @@ class PSS_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The object type is either unknown or unsupported.
+     * Native name: PSS_OBJECT_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static PSS_OBJECT_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The object is a process.
+     * Native name: PSS_OBJECT_TYPE_PROCESS
      * @type {Integer (Int32)}
      */
-    static PSS_OBJECT_TYPE_PROCESS => 1
+    static PROCESS => 1
 
     /**
      * The object is a thread.
+     * Native name: PSS_OBJECT_TYPE_THREAD
      * @type {Integer (Int32)}
      */
-    static PSS_OBJECT_TYPE_THREAD => 2
+    static THREAD => 2
 
     /**
      * The object is a mutant/mutex.
+     * Native name: PSS_OBJECT_TYPE_MUTANT
      * @type {Integer (Int32)}
      */
-    static PSS_OBJECT_TYPE_MUTANT => 3
+    static MUTANT => 3
 
     /**
      * The object is an event.
+     * Native name: PSS_OBJECT_TYPE_EVENT
      * @type {Integer (Int32)}
      */
-    static PSS_OBJECT_TYPE_EVENT => 4
+    static EVENT => 4
 
     /**
      * The object is a file-mapping object.
+     * Native name: PSS_OBJECT_TYPE_SECTION
      * @type {Integer (Int32)}
      */
-    static PSS_OBJECT_TYPE_SECTION => 5
+    static SECTION => 5
 
     /**
+     * Native name: PSS_OBJECT_TYPE_SEMAPHORE
      * @type {Integer (Int32)}
      */
-    static PSS_OBJECT_TYPE_SEMAPHORE => 6
+    static SEMAPHORE => 6
 }

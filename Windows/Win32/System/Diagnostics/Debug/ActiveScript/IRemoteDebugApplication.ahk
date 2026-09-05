@@ -38,7 +38,6 @@ class IRemoteDebugApplication extends IUnknown {
     static VTableNames => ["ResumeFromBreakPoint", "CauseBreak", "ConnectDebugger", "DisconnectDebugger", "GetDebugger", "CreateInstanceAtApplication", "QueryAlive", "EnumThreads", "GetName", "GetRootNode", "EnumGlobalExpressionContexts"]
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prptFocus 
      * @param {BREAKRESUMEACTION} bra 
      * @param {ERRORRESUMEACTION} era 
@@ -50,7 +49,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CauseBreak() {
@@ -59,7 +57,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {IApplicationDebugger} pad 
      * @returns {HRESULT} 
      */
@@ -69,7 +66,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisconnectDebugger() {
@@ -78,7 +74,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IApplicationDebugger} 
      */
     GetDebugger() {
@@ -87,7 +82,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
@@ -100,7 +94,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryAlive() {
@@ -109,7 +102,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRemoteDebugApplicationThreads} 
      */
     EnumThreads() {
@@ -129,7 +121,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     GetRootNode() {
@@ -138,7 +129,6 @@ class IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugExpressionContexts} 
      */
     EnumGlobalExpressionContexts() {

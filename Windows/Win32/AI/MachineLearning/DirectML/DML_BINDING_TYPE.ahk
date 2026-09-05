@@ -10,19 +10,22 @@ class DML_BINDING_TYPE extends Win32Enum {
 
     /**
      * Indicates that no resources are to be bound.
+     * Native name: DML_BINDING_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static DML_BINDING_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * Specifies a binding that binds a single buffer to the binding table. The corresponding binding desc type is <a href="https://docs.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_binding">DML_BUFFER_BINDING</a>.
+     * Native name: DML_BINDING_TYPE_BUFFER
      * @type {Integer (Int32)}
      */
-    static DML_BINDING_TYPE_BUFFER => 1
+    static BUFFER => 1
 
     /**
      * Specifies a binding that binds an array of buffers to the binding table. The corresponding binding desc type is <a href="https://docs.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_array_binding">DML_BUFFER_ARRAY_BINDING</a>.
+     * Native name: DML_BINDING_TYPE_BUFFER_ARRAY
      * @type {Integer (Int32)}
      */
-    static DML_BINDING_TYPE_BUFFER_ARRAY => 2
+    static BUFFER_ARRAY => 2
 }

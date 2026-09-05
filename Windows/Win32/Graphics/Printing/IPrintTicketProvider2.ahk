@@ -31,7 +31,6 @@ class IPrintTicketProvider2 extends IPrintTicketProvider {
     static VTableNames => ["GetPrintDeviceCapabilities", "GetPrintDeviceResources"]
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 
      */
@@ -41,7 +40,6 @@ class IPrintTicketProvider2 extends IPrintTicketProvider {
     }
 
     /**
-     * 
      * @param {PWSTR} pszLocaleName 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 

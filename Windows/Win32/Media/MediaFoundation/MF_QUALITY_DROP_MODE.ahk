@@ -34,43 +34,50 @@ class MF_QUALITY_DROP_MODE extends Win32Enum {
 
     /**
      * Normal processing of samples. Drop mode is disabled.
+     * Native name: MF_DROP_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static MF_DROP_MODE_NONE => 0
+    static NONE => 0
 
     /**
      * First drop mode (least aggressive).
+     * Native name: MF_DROP_MODE_1
      * @type {Integer (Int32)}
      */
-    static MF_DROP_MODE_1 => 1
+    static 1 => 1
 
     /**
      * Second drop mode.
+     * Native name: MF_DROP_MODE_2
      * @type {Integer (Int32)}
      */
-    static MF_DROP_MODE_2 => 2
+    static 2 => 2
 
     /**
      * Third drop mode.
+     * Native name: MF_DROP_MODE_3
      * @type {Integer (Int32)}
      */
-    static MF_DROP_MODE_3 => 3
+    static 3 => 3
 
     /**
      * Fourth drop mode.
+     * Native name: MF_DROP_MODE_4
      * @type {Integer (Int32)}
      */
-    static MF_DROP_MODE_4 => 4
+    static 4 => 4
 
     /**
      * Fifth drop mode (most aggressive, if it is supported; see Remarks).
+     * Native name: MF_DROP_MODE_5
      * @type {Integer (Int32)}
      */
-    static MF_DROP_MODE_5 => 5
+    static 5 => 5
 
     /**
      * Maximum number of drop modes. This value is not a valid flag.
+     * Native name: MF_NUM_DROP_MODES
      * @type {Integer (Int32)}
      */
-    static MF_NUM_DROP_MODES => 6
+    static NUM_DROP_MODES => 6
 }

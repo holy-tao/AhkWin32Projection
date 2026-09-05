@@ -7,17 +7,20 @@
 class MM_SYSTEMSIZE extends Win32Enum {
 
     /**
+     * Native name: MmSmallSystem
      * @type {Integer (Int32)}
      */
-    static MmSmallSystem => 0
+    static SmallSystem => 0
 
     /**
+     * Native name: MmMediumSystem
      * @type {Integer (Int32)}
      */
-    static MmMediumSystem => 1
+    static MediumSystem => 1
 
     /**
+     * Native name: MmLargeSystem
      * @type {Integer (Int32)}
      */
-    static MmLargeSystem => 2
+    static LargeSystem => 2
 }

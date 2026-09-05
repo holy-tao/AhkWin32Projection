@@ -565,7 +565,6 @@ class HiDpi {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @returns {DPI_AWARENESS_CONTEXT} 
      */

@@ -7,7 +7,8 @@
 class COMAdminServiceOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminServiceLoadBalanceRouter
      * @type {Integer (Int32)}
      */
-    static COMAdminServiceLoadBalanceRouter => 1
+    static LoadBalanceRouter => 1
 }

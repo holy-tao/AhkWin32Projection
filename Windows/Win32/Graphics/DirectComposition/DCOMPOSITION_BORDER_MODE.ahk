@@ -27,19 +27,22 @@ class DCOMPOSITION_BORDER_MODE extends Win32Enum {
 
     /**
      * Bitmap and clip edges are antialiased.
+     * Native name: DCOMPOSITION_BORDER_MODE_SOFT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BORDER_MODE_SOFT => 0
+    static SOFT => 0
 
     /**
      * Bitmap and clip edges are aliased. See Remarks.
+     * Native name: DCOMPOSITION_BORDER_MODE_HARD
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BORDER_MODE_HARD => 1
+    static HARD => 1
 
     /**
      * Bitmap and clip edges are drawn according to the mode established by the parent visual.
+     * Native name: DCOMPOSITION_BORDER_MODE_INHERIT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BORDER_MODE_INHERIT => -1
+    static INHERIT => -1
 }

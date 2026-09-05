@@ -10,19 +10,22 @@ class EapHostPeerMethodResultReason extends Win32Enum {
 
     /**
      * Authentication was successful.
+     * Native name: EapHostPeerMethodResultAltSuccessReceived
      * @type {Integer (Int32)}
      */
-    static EapHostPeerMethodResultAltSuccessReceived => 1
+    static AltSuccessReceived => 1
 
     /**
      * The method timed out waiting for a response.
+     * Native name: EapHostPeerMethodResultTimeout
      * @type {Integer (Int32)}
      */
-    static EapHostPeerMethodResultTimeout => 2
+    static Timeout => 2
 
     /**
      * The  authentication process was completely normally.
+     * Native name: EapHostPeerMethodResultFromMethod
      * @type {Integer (Int32)}
      */
-    static EapHostPeerMethodResultFromMethod => 3
+    static FromMethod => 3
 }

@@ -12,19 +12,22 @@ class WRITE_CACHE_ENABLE extends Win32Enum {
 
     /**
      * The system cannot report whether the device's write cache is enabled or disabled.
+     * Native name: WriteCacheEnableUnknown
      * @type {Integer (Int32)}
      */
-    static WriteCacheEnableUnknown => 0
+    static Unknown => 0
 
     /**
      * The device's write cache is disabled.
+     * Native name: WriteCacheDisabled
      * @type {Integer (Int32)}
      */
-    static WriteCacheDisabled => 1
+    static Disabled => 1
 
     /**
      * The device's write cache is enabled.
+     * Native name: WriteCacheEnabled
      * @type {Integer (Int32)}
      */
-    static WriteCacheEnabled => 2
+    static Enabled => 2
 }

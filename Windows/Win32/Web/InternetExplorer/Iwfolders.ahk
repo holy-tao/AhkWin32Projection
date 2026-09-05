@@ -37,7 +37,6 @@ class Iwfolders extends IDispatch {
     static VTableNames => ["navigate", "navigateFrame", "navigateNoSite"]
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {BSTR} 
      */
@@ -50,7 +49,6 @@ class Iwfolders extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrTargetFrame 
      * @returns {BSTR} 
@@ -65,7 +63,6 @@ class Iwfolders extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrTargetFrame 
      * @param {Integer} dwhwnd 

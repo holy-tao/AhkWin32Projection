@@ -46,7 +46,6 @@ class IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -55,7 +54,6 @@ class IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @returns {HRESULT} 
@@ -69,7 +67,6 @@ class IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reject() {
@@ -78,7 +75,6 @@ class IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_REINVITE_STATE} 
      */
     get_State() {
@@ -87,7 +83,6 @@ class IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrContentType 
      * @param {Pointer<BSTR>} pbstrSessionDescription 
      * @returns {HRESULT} 

@@ -32,7 +32,6 @@ class IAppActivationUIInfo extends IUnknown {
     static VTableNames => ["GetMonitor", "GetInvokePoint", "GetShowCommand", "GetShowUI", "GetKeyState"]
 
     /**
-     * 
      * @returns {HMONITOR} 
      */
     GetMonitor() {
@@ -42,7 +41,6 @@ class IAppActivationUIInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {POINT} 
      */
     GetInvokePoint() {
@@ -52,7 +50,6 @@ class IAppActivationUIInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetShowCommand() {
@@ -61,7 +58,6 @@ class IAppActivationUIInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetShowUI() {

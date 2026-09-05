@@ -10,31 +10,36 @@ class DS_REPL_OP_TYPE extends Win32Enum {
 
     /**
      * Indicates an inbound replication over an existing replication agreement from a direct replication partner.
+     * Native name: DS_REPL_OP_TYPE_SYNC
      * @type {Integer (Int32)}
      */
-    static DS_REPL_OP_TYPE_SYNC => 0
+    static SYNC => 0
 
     /**
      * Indicates the addition of a replication agreement for a new direct replication partner.
+     * Native name: DS_REPL_OP_TYPE_ADD
      * @type {Integer (Int32)}
      */
-    static DS_REPL_OP_TYPE_ADD => 1
+    static ADD => 1
 
     /**
      * Indicates the removal of a replication agreement for an existing direct replication partner.
+     * Native name: DS_REPL_OP_TYPE_DELETE
      * @type {Integer (Int32)}
      */
-    static DS_REPL_OP_TYPE_DELETE => 2
+    static DELETE => 2
 
     /**
      * Indicates the modification of a replication agreement for an existing direct replication partner.
+     * Native name: DS_REPL_OP_TYPE_MODIFY
      * @type {Integer (Int32)}
      */
-    static DS_REPL_OP_TYPE_MODIFY => 3
+    static MODIFY => 3
 
     /**
      * Indicates the addition, deletion, or update of outbound change notification data for a direct replication partner.
+     * Native name: DS_REPL_OP_TYPE_UPDATE_REFS
      * @type {Integer (Int32)}
      */
-    static DS_REPL_OP_TYPE_UPDATE_REFS => 4
+    static UPDATE_REFS => 4
 }

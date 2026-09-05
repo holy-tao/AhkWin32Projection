@@ -34,19 +34,22 @@ class D3D11_TEXTURE_LAYOUT extends Win32Enum {
 
     /**
      * The texture layout is undefined, and is selected by the driver.
+     * Native name: D3D11_TEXTURE_LAYOUT_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D11_TEXTURE_LAYOUT_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * Data for the texture is stored in row major (sometimes called pitch-linear) order.
+     * Native name: D3D11_TEXTURE_LAYOUT_ROW_MAJOR
      * @type {Integer (Int32)}
      */
-    static D3D11_TEXTURE_LAYOUT_ROW_MAJOR => 1
+    static ROW_MAJOR => 1
 
     /**
      * A default texture uses the standardized swizzle pattern.
+     * Native name: D3D11_TEXTURE_LAYOUT_64K_STANDARD_SWIZZLE
      * @type {Integer (Int32)}
      */
-    static D3D11_TEXTURE_LAYOUT_64K_STANDARD_SWIZZLE => 2
+    static 64K_STANDARD_SWIZZLE => 2
 }

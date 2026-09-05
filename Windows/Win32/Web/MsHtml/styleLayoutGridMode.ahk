@@ -7,32 +7,38 @@
 class styleLayoutGridMode extends Win32Enum {
 
     /**
+     * Native name: styleLayoutGridModeNotSet
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridModeNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleLayoutGridModeChar
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridModeChar => 1
+    static Char => 1
 
     /**
+     * Native name: styleLayoutGridModeLine
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridModeLine => 2
+    static Line => 2
 
     /**
+     * Native name: styleLayoutGridModeBoth
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridModeBoth => 3
+    static Both => 3
 
     /**
+     * Native name: styleLayoutGridModeNone
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridModeNone => 4
+    static None => 4
 
     /**
+     * Native name: styleLayoutGridMode_Max
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridMode_Max => 2147483647
+    static Max => 2147483647
 }

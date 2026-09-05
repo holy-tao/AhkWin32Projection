@@ -63,7 +63,6 @@ class IHTMLDOMAttribute3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +72,6 @@ class IHTMLDOMAttribute3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -83,7 +81,6 @@ class IHTMLDOMAttribute3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +92,6 @@ class IHTMLDOMAttribute3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -105,7 +101,6 @@ class IHTMLDOMAttribute3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
@@ -114,7 +109,6 @@ class IHTMLDOMAttribute3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement2} 
      */
     get_ownerElement() {

@@ -10,19 +10,22 @@ class PEER_CHANGE_TYPE extends Win32Enum {
 
     /**
      * The peer object, endpoint, or application has been added.
+     * Native name: PEER_CHANGE_ADDED
      * @type {Integer (Int32)}
      */
-    static PEER_CHANGE_ADDED => 0
+    static ADDED => 0
 
     /**
      * The peer object, endpoint, or application has been deleted.
+     * Native name: PEER_CHANGE_DELETED
      * @type {Integer (Int32)}
      */
-    static PEER_CHANGE_DELETED => 1
+    static DELETED => 1
 
     /**
      * The peer object, endpoint, or application has been updated with new information.
+     * Native name: PEER_CHANGE_UPDATED
      * @type {Integer (Int32)}
      */
-    static PEER_CHANGE_UPDATED => 2
+    static UPDATED => 2
 }

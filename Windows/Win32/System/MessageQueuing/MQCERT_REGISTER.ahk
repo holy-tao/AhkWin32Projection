@@ -7,12 +7,14 @@
 class MQCERT_REGISTER extends Win32Enum {
 
     /**
+     * Native name: MQCERT_REGISTER_ALWAYS
      * @type {Integer (Int32)}
      */
-    static MQCERT_REGISTER_ALWAYS => 1
+    static ALWAYS => 1
 
     /**
+     * Native name: MQCERT_REGISTER_IF_NOT_EXIST
      * @type {Integer (Int32)}
      */
-    static MQCERT_REGISTER_IF_NOT_EXIST => 2
+    static IF_NOT_EXIST => 2
 }

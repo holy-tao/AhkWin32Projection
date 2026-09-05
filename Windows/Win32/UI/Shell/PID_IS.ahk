@@ -7,62 +7,74 @@
 class PID_IS extends Win32Enum {
 
     /**
+     * Native name: PID_IS_URL
      * @type {Integer (Int32)}
      */
-    static PID_IS_URL => 2
+    static URL => 2
 
     /**
+     * Native name: PID_IS_NAME
      * @type {Integer (Int32)}
      */
-    static PID_IS_NAME => 4
+    static NAME => 4
 
     /**
+     * Native name: PID_IS_WORKINGDIR
      * @type {Integer (Int32)}
      */
-    static PID_IS_WORKINGDIR => 5
+    static WORKINGDIR => 5
 
     /**
+     * Native name: PID_IS_HOTKEY
      * @type {Integer (Int32)}
      */
-    static PID_IS_HOTKEY => 6
+    static HOTKEY => 6
 
     /**
+     * Native name: PID_IS_SHOWCMD
      * @type {Integer (Int32)}
      */
-    static PID_IS_SHOWCMD => 7
+    static SHOWCMD => 7
 
     /**
+     * Native name: PID_IS_ICONINDEX
      * @type {Integer (Int32)}
      */
-    static PID_IS_ICONINDEX => 8
+    static ICONINDEX => 8
 
     /**
+     * Native name: PID_IS_ICONFILE
      * @type {Integer (Int32)}
      */
-    static PID_IS_ICONFILE => 9
+    static ICONFILE => 9
 
     /**
+     * Native name: PID_IS_WHATSNEW
      * @type {Integer (Int32)}
      */
-    static PID_IS_WHATSNEW => 10
+    static WHATSNEW => 10
 
     /**
+     * Native name: PID_IS_AUTHOR
      * @type {Integer (Int32)}
      */
-    static PID_IS_AUTHOR => 11
+    static AUTHOR => 11
 
     /**
+     * Native name: PID_IS_DESCRIPTION
      * @type {Integer (Int32)}
      */
-    static PID_IS_DESCRIPTION => 12
+    static DESCRIPTION => 12
 
     /**
+     * Native name: PID_IS_COMMENT
      * @type {Integer (Int32)}
      */
-    static PID_IS_COMMENT => 13
+    static COMMENT => 13
 
     /**
+     * Native name: PID_IS_ROAMED
      * @type {Integer (Int32)}
      */
-    static PID_IS_ROAMED => 15
+    static ROAMED => 15
 }

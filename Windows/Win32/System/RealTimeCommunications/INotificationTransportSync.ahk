@@ -29,7 +29,6 @@ class INotificationTransportSync extends IUnknown {
     static VTableNames => ["CompleteDelivery", "Flush"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CompleteDelivery() {

@@ -12,25 +12,29 @@ class MFSTREAMSINK_MARKER_TYPE extends Win32Enum {
 
     /**
      * This marker is for the application's use and does not convey any information to the stream sink.
+     * Native name: MFSTREAMSINK_MARKER_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MFSTREAMSINK_MARKER_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * This marker indicates the end of a segment within a presentation. There might be a gap in the stream until the next segment starts. There is no data associated with this marker.
+     * Native name: MFSTREAMSINK_MARKER_ENDOFSEGMENT
      * @type {Integer (Int32)}
      */
-    static MFSTREAMSINK_MARKER_ENDOFSEGMENT => 1
+    static ENDOFSEGMENT => 1
 
     /**
      * This marker indicates that there is a gap in the stream. The marker data is a <b>LONGLONG</b> value (VT_I8) that specifies the time for the missing sample. The next sample received after this marker might but will not necessarily have the discontinuity flag: the data might remain continuous after the time gap. This marker corresponds to an <a href="https://docs.microsoft.com/windows/desktop/medfound/mestreamtick">MEStreamTick</a> event from the stream.
+     * Native name: MFSTREAMSINK_MARKER_TICK
      * @type {Integer (Int32)}
      */
-    static MFSTREAMSINK_MARKER_TICK => 2
+    static TICK => 2
 
     /**
      * This marker contains a media event. The marker data is a pointer to the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface (VT_UNKNOWN).
+     * Native name: MFSTREAMSINK_MARKER_EVENT
      * @type {Integer (Int32)}
      */
-    static MFSTREAMSINK_MARKER_EVENT => 3
+    static EVENT => 3
 }

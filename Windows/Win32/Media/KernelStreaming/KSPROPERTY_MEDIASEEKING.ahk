@@ -7,52 +7,62 @@
 class KSPROPERTY_MEDIASEEKING extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_CAPABILITIES => 0
+    static CAPABILITIES => 0
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_FORMATS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_FORMATS => 1
+    static FORMATS => 1
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_TIMEFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_TIMEFORMAT => 2
+    static TIMEFORMAT => 2
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_POSITION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_POSITION => 3
+    static POSITION => 3
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_STOPPOSITION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_STOPPOSITION => 4
+    static STOPPOSITION => 4
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_POSITIONS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_POSITIONS => 5
+    static POSITIONS => 5
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_DURATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_DURATION => 6
+    static DURATION => 6
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_AVAILABLE => 7
+    static AVAILABLE => 7
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_PREROLL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_PREROLL => 8
+    static PREROLL => 8
 
     /**
+     * Native name: KSPROPERTY_MEDIASEEKING_CONVERTTIMEFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MEDIASEEKING_CONVERTTIMEFORMAT => 9
+    static CONVERTTIMEFORMAT => 9
 }

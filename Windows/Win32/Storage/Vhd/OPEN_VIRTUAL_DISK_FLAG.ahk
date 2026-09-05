@@ -10,34 +10,38 @@ class OPEN_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * Open the VHD file (backing store) without opening any differencing-chain parents. Used to correct broken 
      *        parent links.
      * 
      * This flag is not supported for ISO virtual disks.
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_NO_PARENTS
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_NO_PARENTS => 1
+    static NO_PARENTS => 1
 
     /**
      * Reserved.
      * 
      * This flag is not supported for ISO virtual disks.
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE => 2
+    static BLANK_FILE => 2
 
     /**
      * Reserved.
      * 
      * This flag is not supported for ISO virtual disks.
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_BOOT_DRIVE
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_BOOT_DRIVE => 4
+    static BOOT_DRIVE => 4
 
     /**
      * Indicates that the virtual disk should be opened in cached mode. By default the virtual disks are opened 
@@ -45,9 +49,10 @@ class OPEN_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
      *        <b>FILE_FLAG_WRITE_THROUGH</b>.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_CACHED_IO
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_CACHED_IO => 8
+    static CACHED_IO => 8
 
     /**
      * Indicates the VHD file is to be opened without opening any differencing-chain parents and the parent chain is 
@@ -55,42 +60,50 @@ class OPEN_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/virtdisk/nf-virtdisk-addvirtualdiskparent">AddVirtualDiskParent</a> function.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN => 16
+    static CUSTOM_DIFF_CHAIN => 16
 
     /**
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_PARENT_CACHED_IO
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_PARENT_CACHED_IO => 32
+    static PARENT_CACHED_IO => 32
 
     /**
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_VHDSET_FILE_ONLY
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_VHDSET_FILE_ONLY => 64
+    static VHDSET_FILE_ONLY => 64
 
     /**
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_IGNORE_RELATIVE_PARENT_LOCATOR
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_IGNORE_RELATIVE_PARENT_LOCATOR => 128
+    static IGNORE_RELATIVE_PARENT_LOCATOR => 128
 
     /**
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING => 256
+    static NO_WRITE_HARDENING => 256
 
     /**
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES => 512
+    static SUPPORT_COMPRESSED_VOLUMES => 512
 
     /**
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS => 1024
+    static SUPPORT_SPARSE_FILES_ANY_FS => 1024
 
     /**
+     * Native name: OPEN_VIRTUAL_DISK_FLAG_SUPPORT_ENCRYPTED_FILES
      * @type {Integer (Int32)}
      */
-    static OPEN_VIRTUAL_DISK_FLAG_SUPPORT_ENCRYPTED_FILES => 2048
+    static SUPPORT_ENCRYPTED_FILES => 2048
 }

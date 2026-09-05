@@ -46,7 +46,6 @@ class INetCfgComponentSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSetupFlags 
      * @param {Integer} dwUpgradeFomBuildNo 
      * @returns {HRESULT} 
@@ -57,7 +56,6 @@ class INetCfgComponentSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwAnswerFile 
      * @param {PWSTR} pszwAnswerSections 
      * @returns {HRESULT} 
@@ -71,7 +69,6 @@ class INetCfgComponentSetup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Removing() {

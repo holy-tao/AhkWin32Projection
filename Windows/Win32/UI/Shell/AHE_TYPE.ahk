@@ -7,12 +7,14 @@
 class AHE_TYPE extends Win32Enum {
 
     /**
+     * Native name: AHE_DESKTOP
      * @type {Integer (Int32)}
      */
-    static AHE_DESKTOP => 0
+    static DESKTOP => 0
 
     /**
+     * Native name: AHE_IMMERSIVE
      * @type {Integer (Int32)}
      */
-    static AHE_IMMERSIVE => 1
+    static IMMERSIVE => 1
 }

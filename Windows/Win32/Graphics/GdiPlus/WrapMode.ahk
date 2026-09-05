@@ -7,27 +7,32 @@
 class WrapMode extends Win32Enum {
 
     /**
+     * Native name: WrapModeTile
      * @type {Integer (Int32)}
      */
-    static WrapModeTile => 0
+    static Tile => 0
 
     /**
+     * Native name: WrapModeTileFlipX
      * @type {Integer (Int32)}
      */
-    static WrapModeTileFlipX => 1
+    static TileFlipX => 1
 
     /**
+     * Native name: WrapModeTileFlipY
      * @type {Integer (Int32)}
      */
-    static WrapModeTileFlipY => 2
+    static TileFlipY => 2
 
     /**
+     * Native name: WrapModeTileFlipXY
      * @type {Integer (Int32)}
      */
-    static WrapModeTileFlipXY => 3
+    static TileFlipXY => 3
 
     /**
+     * Native name: WrapModeClamp
      * @type {Integer (Int32)}
      */
-    static WrapModeClamp => 4
+    static Clamp => 4
 }

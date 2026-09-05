@@ -32,7 +32,6 @@ class IBindProtocol extends IUnknown {
     static VTableNames => ["CreateBinding"]
 
     /**
-     * 
      * @param {PWSTR} szUrl 
      * @param {IBindCtx} pbc 
      * @returns {IBinding} 

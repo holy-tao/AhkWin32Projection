@@ -33,7 +33,6 @@ class IWMPWindowMessageSink extends IUnknown {
     static VTableNames => ["OnWindowMessage"]
 
     /**
-     * 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wparam 
      * @param {LPARAM} _lparam 

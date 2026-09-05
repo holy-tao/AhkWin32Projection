@@ -29,7 +29,6 @@ class IRowsetQueryStatus extends IUnknown {
     static VTableNames => ["GetStatus", "GetStatusEx"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwStatus 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IRowsetQueryStatus extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwStatus 
      * @param {Pointer<Integer>} pcFilteredDocuments 
      * @param {Pointer<Integer>} pcDocumentsToFilter 

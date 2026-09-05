@@ -7,37 +7,44 @@
 class NtmsInventoryMethod extends Win32Enum {
 
     /**
+     * Native name: NTMS_INVENTORY_NONE
      * @type {Integer (Int32)}
      */
-    static NTMS_INVENTORY_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: NTMS_INVENTORY_FAST
      * @type {Integer (Int32)}
      */
-    static NTMS_INVENTORY_FAST => 1
+    static FAST => 1
 
     /**
+     * Native name: NTMS_INVENTORY_OMID
      * @type {Integer (Int32)}
      */
-    static NTMS_INVENTORY_OMID => 2
+    static OMID => 2
 
     /**
+     * Native name: NTMS_INVENTORY_DEFAULT
      * @type {Integer (Int32)}
      */
-    static NTMS_INVENTORY_DEFAULT => 3
+    static DEFAULT => 3
 
     /**
+     * Native name: NTMS_INVENTORY_SLOT
      * @type {Integer (Int32)}
      */
-    static NTMS_INVENTORY_SLOT => 4
+    static SLOT => 4
 
     /**
+     * Native name: NTMS_INVENTORY_STOP
      * @type {Integer (Int32)}
      */
-    static NTMS_INVENTORY_STOP => 5
+    static STOP => 5
 
     /**
+     * Native name: NTMS_INVENTORY_MAX
      * @type {Integer (Int32)}
      */
-    static NTMS_INVENTORY_MAX => 6
+    static MAX => 6
 }

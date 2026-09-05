@@ -30,7 +30,6 @@ class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer {
     static VTableNames => ["GetObjectInPath", "GetFXStatus"]
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidObject 
      * @param {Integer} dwIndex 
      * @param {Pointer<Guid>} rguidInterface 
@@ -42,7 +41,6 @@ class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer {
     }
 
     /**
-     * 
      * @param {Integer} dwEffectsCount 
      * @returns {Integer} 
      */

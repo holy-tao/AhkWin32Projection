@@ -14,27 +14,31 @@ class ADS_PROPERTY_OPERATION_ENUM extends Win32Enum {
 
     /**
      * Instructs the directory service to remove all the property value(s) from the object.
+     * Native name: ADS_PROPERTY_CLEAR
      * @type {Integer (Int32)}
      */
-    static ADS_PROPERTY_CLEAR => 1
+    static CLEAR => 1
 
     /**
      * Instructs the directory service to replace the current value(s) with the specified value(s).
+     * Native name: ADS_PROPERTY_UPDATE
      * @type {Integer (Int32)}
      */
-    static ADS_PROPERTY_UPDATE => 2
+    static UPDATE => 2
 
     /**
      * Instructs the directory service to append the specified value(s) to the existing values(s).
      * 
      * When the <b>ADS_PROPERTY_APPEND</b> operation is specified, the new attribute value(s) are automatically committed to the directory service and removed from the local cache. This forces the local cache to be updated from the directory service the next time the attribute value(s) are retrieved.
+     * Native name: ADS_PROPERTY_APPEND
      * @type {Integer (Int32)}
      */
-    static ADS_PROPERTY_APPEND => 3
+    static APPEND => 3
 
     /**
      * Instructs the directory service to delete the specified value(s) from the object.
+     * Native name: ADS_PROPERTY_DELETE
      * @type {Integer (Int32)}
      */
-    static ADS_PROPERTY_DELETE => 4
+    static DELETE => 4
 }

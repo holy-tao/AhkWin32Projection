@@ -7,22 +7,26 @@
 class IOMMU_DMA_DOMAIN_TYPE extends Win32Enum {
 
     /**
+     * Native name: DomainTypeTranslate
      * @type {Integer (Int32)}
      */
-    static DomainTypeTranslate => 0
+    static Translate => 0
 
     /**
+     * Native name: DomainTypePassThrough
      * @type {Integer (Int32)}
      */
-    static DomainTypePassThrough => 1
+    static PassThrough => 1
 
     /**
+     * Native name: DomainTypeUnmanaged
      * @type {Integer (Int32)}
      */
-    static DomainTypeUnmanaged => 2
+    static Unmanaged => 2
 
     /**
+     * Native name: DomainTypeMax
      * @type {Integer (Int32)}
      */
-    static DomainTypeMax => 3
+    static Max => 3
 }

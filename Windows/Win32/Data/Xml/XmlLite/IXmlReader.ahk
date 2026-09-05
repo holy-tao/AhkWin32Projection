@@ -32,7 +32,6 @@ class IXmlReader extends IUnknown {
     static VTableNames => ["SetInput", "GetProperty", "SetProperty", "Read", "GetNodeType", "MoveToFirstAttribute", "MoveToNextAttribute", "MoveToAttributeByName", "MoveToElement", "GetQualifiedName", "GetNamespaceUri", "GetLocalName", "GetPrefix", "GetValue", "ReadValueChunk", "GetBaseUri", "IsDefault", "IsEmptyElement", "GetLineNumber", "GetLinePosition", "GetAttributeCount", "GetDepth", "IsEOF"]
 
     /**
-     * 
      * @param {IUnknown} pInput 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
      * @returns {HRESULT} 
@@ -68,7 +66,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {XmlNodeType} 
      */
     Read() {
@@ -77,7 +74,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {XmlNodeType} 
      */
     GetNodeType() {
@@ -86,7 +82,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToFirstAttribute() {
@@ -95,7 +90,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToNextAttribute() {
@@ -104,7 +98,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
      * @returns {HRESULT} 
@@ -118,7 +111,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToElement() {
@@ -127,7 +119,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszQualifiedName 
      * @param {Pointer<Integer>} pcwchQualifiedName 
      * @returns {HRESULT} 
@@ -141,7 +132,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszNamespaceUri 
      * @param {Pointer<Integer>} pcwchNamespaceUri 
      * @returns {HRESULT} 
@@ -155,7 +145,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszLocalName 
      * @param {Pointer<Integer>} pcwchLocalName 
      * @returns {HRESULT} 
@@ -169,7 +158,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszPrefix 
      * @param {Pointer<Integer>} pcwchPrefix 
      * @returns {HRESULT} 
@@ -183,7 +171,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszValue 
      * @param {Pointer<Integer>} pcwchValue 
      * @returns {HRESULT} 
@@ -197,7 +184,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchBuffer 
      * @param {Integer} cwchChunkSize 
      * @param {Pointer<Integer>} pcwchRead 
@@ -213,7 +199,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszBaseUri 
      * @param {Pointer<Integer>} pcwchBaseUri 
      * @returns {HRESULT} 
@@ -237,7 +222,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsEmptyElement() {
@@ -246,7 +230,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLineNumber() {
@@ -255,7 +238,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLinePosition() {
@@ -264,7 +246,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAttributeCount() {
@@ -273,7 +254,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDepth() {
@@ -282,7 +262,6 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsEOF() {

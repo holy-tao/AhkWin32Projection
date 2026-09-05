@@ -12,18 +12,21 @@ class D3D12_COMMAND_QUEUE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates a default command queue.
+     * Native name: D3D12_COMMAND_QUEUE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Indicates that the GPU timeout should be disabled for this command queue.
+     * Native name: D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT => 1
+    static FLAG_DISABLE_GPU_TIMEOUT => 1
 
     /**
+     * Native name: D3D12_COMMAND_QUEUE_FLAG_ALLOW_DYNAMIC_PRIORITY
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_FLAG_ALLOW_DYNAMIC_PRIORITY => 2
+    static FLAG_ALLOW_DYNAMIC_PRIORITY => 2
 }

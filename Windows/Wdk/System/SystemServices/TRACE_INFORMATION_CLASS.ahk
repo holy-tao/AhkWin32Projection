@@ -7,24 +7,28 @@
 class TRACE_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: TraceIdClass
      * @type {Integer (Int32)}
      */
-    static TraceIdClass => 0
+    static IdClass => 0
 
     /**
+     * Native name: TraceHandleClass
      * @type {Integer (Int32)}
      */
-    static TraceHandleClass => 1
+    static HandleClass => 1
 
     /**
+     * Native name: TraceEnableFlagsClass
      * @type {Integer (Int32)}
      */
-    static TraceEnableFlagsClass => 2
+    static EnableFlagsClass => 2
 
     /**
+     * Native name: TraceEnableLevelClass
      * @type {Integer (Int32)}
      */
-    static TraceEnableLevelClass => 3
+    static EnableLevelClass => 3
 
     /**
      * @type {Integer (Int32)}
@@ -42,9 +46,10 @@ class TRACE_INFORMATION_CLASS extends Win32Enum {
     static AllLoggerHandlesClass => 6
 
     /**
+     * Native name: TraceHandleByNameClass
      * @type {Integer (Int32)}
      */
-    static TraceHandleByNameClass => 7
+    static HandleByNameClass => 7
 
     /**
      * @type {Integer (Int32)}
@@ -52,9 +57,10 @@ class TRACE_INFORMATION_CLASS extends Win32Enum {
     static LoggerEventsLostClass => 8
 
     /**
+     * Native name: TraceSessionSettingsClass
      * @type {Integer (Int32)}
      */
-    static TraceSessionSettingsClass => 9
+    static SessionSettingsClass => 9
 
     /**
      * @type {Integer (Int32)}
@@ -67,9 +73,10 @@ class TRACE_INFORMATION_CLASS extends Win32Enum {
     static DiskIoNotifyRoutinesClass => 11
 
     /**
+     * Native name: TraceInformationClassReserved1
      * @type {Integer (Int32)}
      */
-    static TraceInformationClassReserved1 => 12
+    static Reserved1 => 12
 
     /**
      * @type {Integer (Int32)}
@@ -77,9 +84,10 @@ class TRACE_INFORMATION_CLASS extends Win32Enum {
     static FltIoNotifyRoutinesClass => 13
 
     /**
+     * Native name: TraceInformationClassReserved2
      * @type {Integer (Int32)}
      */
-    static TraceInformationClassReserved2 => 14
+    static Reserved2 => 14
 
     /**
      * @type {Integer (Int32)}

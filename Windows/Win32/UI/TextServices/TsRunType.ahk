@@ -43,19 +43,22 @@ class TsRunType extends Win32Enum {
 
     /**
      * The text run is visible.
+     * Native name: TS_RT_PLAIN
      * @type {Integer (Int32)}
      */
-    static TS_RT_PLAIN => 0
+    static RT_PLAIN => 0
 
     /**
      * The text run is hidden.
+     * Native name: TS_RT_HIDDEN
      * @type {Integer (Int32)}
      */
-    static TS_RT_HIDDEN => 1
+    static RT_HIDDEN => 1
 
     /**
      * The text run is a private data type embedded in the text run.
+     * Native name: TS_RT_OPAQUE
      * @type {Integer (Int32)}
      */
-    static TS_RT_OPAQUE => 2
+    static RT_OPAQUE => 2
 }

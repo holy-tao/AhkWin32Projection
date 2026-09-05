@@ -15,49 +15,57 @@ class D3D11_SHADER_TRACKING_RESOURCE_TYPE extends Win32Enum {
 
     /**
      * No resource types are tracked.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * Track device memory that is created with unordered access view (UAV) bind flags.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_UAV_DEVICEMEMORY
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_UAV_DEVICEMEMORY => 1
+    static UAV_DEVICEMEMORY => 1
 
     /**
      * Track device memory that is created without UAV bind flags.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_NON_UAV_DEVICEMEMORY
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_NON_UAV_DEVICEMEMORY => 2
+    static NON_UAV_DEVICEMEMORY => 2
 
     /**
      * Track all device memory.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_ALL_DEVICEMEMORY
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_ALL_DEVICEMEMORY => 3
+    static ALL_DEVICEMEMORY => 3
 
     /**
      * Track all shaders that use group shared memory.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_GROUPSHARED_MEMORY
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_GROUPSHARED_MEMORY => 4
+    static GROUPSHARED_MEMORY => 4
 
     /**
      * Track all device memory except device memory that is created without UAV bind flags.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_ALL_SHARED_MEMORY
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_ALL_SHARED_MEMORY => 5
+    static ALL_SHARED_MEMORY => 5
 
     /**
      * Track all device memory except device memory that is created with UAV bind flags.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_GROUPSHARED_NON_UAV
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_GROUPSHARED_NON_UAV => 6
+    static GROUPSHARED_NON_UAV => 6
 
     /**
      * Track all memory on the device.
+     * Native name: D3D11_SHADER_TRACKING_RESOURCE_TYPE_ALL
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_RESOURCE_TYPE_ALL => 7
+    static ALL => 7
 }

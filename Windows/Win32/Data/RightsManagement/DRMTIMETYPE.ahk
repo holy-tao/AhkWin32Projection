@@ -10,13 +10,15 @@ class DRMTIMETYPE extends Win32Enum {
 
     /**
      * Greenwich Mean Time (Universal Time).
+     * Native name: DRMTIMETYPE_SYSTEMUTC
      * @type {Integer (Int32)}
      */
-    static DRMTIMETYPE_SYSTEMUTC => 0
+    static SYSTEMUTC => 0
 
     /**
      * Local time.
+     * Native name: DRMTIMETYPE_SYSTEMLOCAL
      * @type {Integer (Int32)}
      */
-    static DRMTIMETYPE_SYSTEMLOCAL => 1
+    static SYSTEMLOCAL => 1
 }

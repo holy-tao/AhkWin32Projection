@@ -10,25 +10,29 @@ class PEER_RECORD_CHANGE_TYPE extends Win32Enum {
 
     /**
      * Indicates that the specified record is added to the peer graph or group.
+     * Native name: PEER_RECORD_ADDED
      * @type {Integer (Int32)}
      */
-    static PEER_RECORD_ADDED => 1
+    static ADDED => 1
 
     /**
      * Indicates that the specified record is updated in the peer graph or group.
+     * Native name: PEER_RECORD_UPDATED
      * @type {Integer (Int32)}
      */
-    static PEER_RECORD_UPDATED => 2
+    static UPDATED => 2
 
     /**
      * Indicates that the specified record is deleted from the peer graph or group.
+     * Native name: PEER_RECORD_DELETED
      * @type {Integer (Int32)}
      */
-    static PEER_RECORD_DELETED => 3
+    static DELETED => 3
 
     /**
      * Indicates that the specified record is expired and removed from the peer graph or group.
+     * Native name: PEER_RECORD_EXPIRED
      * @type {Integer (Int32)}
      */
-    static PEER_RECORD_EXPIRED => 4
+    static EXPIRED => 4
 }

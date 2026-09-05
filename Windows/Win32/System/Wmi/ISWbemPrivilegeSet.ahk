@@ -54,7 +54,6 @@ class ISWbemPrivilegeSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -79,7 +78,6 @@ class ISWbemPrivilegeSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -88,7 +86,6 @@ class ISWbemPrivilegeSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {WbemPrivilegeEnum} iPrivilege 
      * @param {VARIANT_BOOL} bIsEnabled 
      * @returns {ISWbemPrivilege} 
@@ -99,7 +96,6 @@ class ISWbemPrivilegeSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {WbemPrivilegeEnum} iPrivilege 
      * @returns {HRESULT} 
      */
@@ -109,7 +105,6 @@ class ISWbemPrivilegeSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteAll() {
@@ -118,7 +113,6 @@ class ISWbemPrivilegeSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPrivilege 
      * @param {VARIANT_BOOL} bIsEnabled 
      * @returns {ISWbemPrivilege} 

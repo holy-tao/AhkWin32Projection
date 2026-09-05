@@ -37,7 +37,6 @@ class IGameStatistics extends IUnknown {
     static VTableNames => ["GetMaxCategoryLength", "GetMaxNameLength", "GetMaxValueLength", "GetMaxCategories", "GetMaxStatsPerCategory", "SetCategoryTitle", "GetCategoryTitle", "GetStatistic", "SetStatistic", "Save", "SetLastPlayedCategory", "GetLastPlayedCategory"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCategoryLength() {
@@ -46,7 +45,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxNameLength() {
@@ -55,7 +53,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxValueLength() {
@@ -64,7 +61,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCategories() {
@@ -73,7 +69,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxStatsPerCategory() {
@@ -82,7 +77,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @param {PWSTR} title 
      * @returns {HRESULT} 
@@ -95,7 +89,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @returns {PWSTR} 
      */
@@ -105,7 +98,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @param {Integer} statIndex 
      * @param {Pointer<PWSTR>} pName 
@@ -121,7 +113,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @param {Integer} statIndex 
      * @param {PWSTR} name 
@@ -137,7 +128,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} trackChanges 
      * @returns {HRESULT} 
      */
@@ -147,7 +137,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @returns {HRESULT} 
      */
@@ -157,7 +146,6 @@ class IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLastPlayedCategory() {

@@ -38,7 +38,6 @@ class IMarkupServices extends IUnknown {
     static VTableNames => ["CreateMarkupPointer", "CreateMarkupContainer", "CreateElement", "CloneElement", "InsertElement", "RemoveElement", "Remove", "Copy", "Move", "InsertText", "ParseString", "ParseGlobal", "IsScopedElement", "GetElementTagId", "GetTagIDForName", "GetNameForTagID", "MovePointersToRange", "MoveRangeToPointers", "BeginUndoUnit", "EndUndoUnit"]
 
     /**
-     * 
      * @returns {IMarkupPointer} 
      */
     CreateMarkupPointer() {
@@ -47,7 +46,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMarkupContainer} 
      */
     CreateMarkupContainer() {
@@ -56,7 +54,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {ELEMENT_TAG_ID} tagID 
      * @param {PWSTR} pchAttributes 
      * @returns {IHTMLElement} 
@@ -69,7 +66,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElemCloneThis 
      * @returns {IHTMLElement} 
      */
@@ -79,7 +75,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElementInsert 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
@@ -91,7 +86,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElementRemove 
      * @returns {HRESULT} 
      */
@@ -101,7 +95,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
      * @returns {HRESULT} 
@@ -112,7 +105,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
@@ -124,7 +116,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
@@ -136,7 +127,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchText 
      * @param {Integer} cch 
      * @param {IMarkupPointer} pPointerTarget 
@@ -150,7 +140,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchHTML 
      * @param {Integer} dwFlags 
      * @param {IMarkupPointer} ppPointerStart 
@@ -165,7 +154,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {HGLOBAL} hglobalHTML 
      * @param {Integer} dwFlags 
      * @param {IMarkupPointer} pPointerStart 
@@ -180,7 +168,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElement 
      * @returns {BOOL} 
      */
@@ -190,7 +177,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElement 
      * @returns {ELEMENT_TAG_ID} 
      */
@@ -200,7 +186,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {ELEMENT_TAG_ID} 
      */
@@ -212,7 +197,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {ELEMENT_TAG_ID} tagId 
      * @returns {BSTR} 
      */
@@ -223,7 +207,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLTxtRange} pIRange 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
@@ -235,7 +218,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
      * @param {IHTMLTxtRange} pIRange 
@@ -247,7 +229,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchTitle 
      * @returns {HRESULT} 
      */
@@ -259,7 +240,6 @@ class IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndUndoUnit() {

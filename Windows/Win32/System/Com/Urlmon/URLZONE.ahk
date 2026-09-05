@@ -7,52 +7,62 @@
 class URLZONE extends Win32Enum {
 
     /**
+     * Native name: URLZONE_INVALID
      * @type {Integer (Int32)}
      */
-    static URLZONE_INVALID => -1
+    static INVALID => -1
 
     /**
+     * Native name: URLZONE_PREDEFINED_MIN
      * @type {Integer (Int32)}
      */
-    static URLZONE_PREDEFINED_MIN => 0
+    static PREDEFINED_MIN => 0
 
     /**
+     * Native name: URLZONE_LOCAL_MACHINE
      * @type {Integer (Int32)}
      */
-    static URLZONE_LOCAL_MACHINE => 0
+    static LOCAL_MACHINE => 0
 
     /**
+     * Native name: URLZONE_INTRANET
      * @type {Integer (Int32)}
      */
-    static URLZONE_INTRANET => 1
+    static INTRANET => 1
 
     /**
+     * Native name: URLZONE_TRUSTED
      * @type {Integer (Int32)}
      */
-    static URLZONE_TRUSTED => 2
+    static TRUSTED => 2
 
     /**
+     * Native name: URLZONE_INTERNET
      * @type {Integer (Int32)}
      */
-    static URLZONE_INTERNET => 3
+    static INTERNET => 3
 
     /**
+     * Native name: URLZONE_UNTRUSTED
      * @type {Integer (Int32)}
      */
-    static URLZONE_UNTRUSTED => 4
+    static UNTRUSTED => 4
 
     /**
+     * Native name: URLZONE_PREDEFINED_MAX
      * @type {Integer (Int32)}
      */
-    static URLZONE_PREDEFINED_MAX => 999
+    static PREDEFINED_MAX => 999
 
     /**
+     * Native name: URLZONE_USER_MIN
      * @type {Integer (Int32)}
      */
-    static URLZONE_USER_MIN => 1000
+    static USER_MIN => 1000
 
     /**
+     * Native name: URLZONE_USER_MAX
      * @type {Integer (Int32)}
      */
-    static URLZONE_USER_MAX => 10000
+    static USER_MAX => 10000
 }

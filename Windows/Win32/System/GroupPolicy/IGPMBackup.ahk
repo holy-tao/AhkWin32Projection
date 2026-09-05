@@ -90,7 +90,6 @@ class IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -100,7 +99,6 @@ class IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPOID() {
@@ -110,7 +108,6 @@ class IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPODomain() {
@@ -120,7 +117,6 @@ class IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPODisplayName() {
@@ -130,7 +126,6 @@ class IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Timestamp() {
@@ -139,7 +134,6 @@ class IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Comment() {
@@ -149,7 +143,6 @@ class IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BackupDir() {

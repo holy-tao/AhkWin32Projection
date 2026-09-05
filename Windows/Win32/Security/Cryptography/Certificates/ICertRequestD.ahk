@@ -31,7 +31,6 @@ class ICertRequestD extends IUnknown {
     static VTableNames => ["Request", "GetCACert", "Ping"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszAuthority 
      * @param {Pointer<Integer>} pdwRequestId 
@@ -55,7 +54,6 @@ class ICertRequestD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fchain 
      * @param {PWSTR} pwszAuthority 
      * @returns {CERTTRANSBLOB} 

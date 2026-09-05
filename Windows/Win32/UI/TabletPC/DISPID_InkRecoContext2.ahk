@@ -7,7 +7,8 @@
 class DISPID_InkRecoContext2 extends Win32Enum {
 
     /**
+     * Native name: DISPID_IRecoCtx2_EnabledUnicodeRanges
      * @type {Integer (Int32)}
      */
-    static DISPID_IRecoCtx2_EnabledUnicodeRanges => 0
+    static IRecoCtx2_EnabledUnicodeRanges => 0
 }

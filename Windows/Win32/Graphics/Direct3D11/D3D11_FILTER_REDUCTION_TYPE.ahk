@@ -12,25 +12,29 @@ class D3D11_FILTER_REDUCTION_TYPE extends Win32Enum {
 
     /**
      * Indicates standard (default) filter reduction.
+     * Native name: D3D11_FILTER_REDUCTION_TYPE_STANDARD
      * @type {Integer (Int32)}
      */
-    static D3D11_FILTER_REDUCTION_TYPE_STANDARD => 0
+    static STANDARD => 0
 
     /**
      * Indicates a comparison filter reduction.
+     * Native name: D3D11_FILTER_REDUCTION_TYPE_COMPARISON
      * @type {Integer (Int32)}
      */
-    static D3D11_FILTER_REDUCTION_TYPE_COMPARISON => 1
+    static COMPARISON => 1
 
     /**
      * Indicates minimum filter reduction.
+     * Native name: D3D11_FILTER_REDUCTION_TYPE_MINIMUM
      * @type {Integer (Int32)}
      */
-    static D3D11_FILTER_REDUCTION_TYPE_MINIMUM => 2
+    static MINIMUM => 2
 
     /**
      * Indicates maximum filter reduction.
+     * Native name: D3D11_FILTER_REDUCTION_TYPE_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static D3D11_FILTER_REDUCTION_TYPE_MAXIMUM => 3
+    static MAXIMUM => 3
 }

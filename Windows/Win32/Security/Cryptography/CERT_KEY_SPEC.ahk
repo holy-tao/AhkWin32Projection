@@ -17,7 +17,8 @@ class CERT_KEY_SPEC extends Win32Enum {
     static AT_SIGNATURE => 2
 
     /**
+     * Native name: CERT_NCRYPT_KEY_SPEC
      * @type {Integer (UInt32)}
      */
-    static CERT_NCRYPT_KEY_SPEC => 4294967295
+    static NCRYPT_KEY_SPEC => 4294967295
 }

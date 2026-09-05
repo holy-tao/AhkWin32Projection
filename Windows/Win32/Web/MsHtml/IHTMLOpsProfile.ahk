@@ -32,7 +32,6 @@ class IHTMLOpsProfile extends IDispatch {
     static VTableNames => ["addRequest", "clearRequest", "doRequest", "getAttribute", "setAttribute", "commitChanges", "addReadRequest", "doReadRequest", "doWriteRequest"]
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} reserved 
      * @returns {VARIANT_BOOL} 
@@ -45,7 +44,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clearRequest() {
@@ -54,7 +52,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
@@ -69,7 +66,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {BSTR} 
      */
@@ -82,7 +78,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} value 
      * @param {VARIANT} prefs 
@@ -97,7 +92,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     commitChanges() {
@@ -106,7 +100,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} reserved 
      * @returns {VARIANT_BOOL} 
@@ -119,7 +112,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
@@ -134,7 +126,6 @@ class IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     doWriteRequest() {

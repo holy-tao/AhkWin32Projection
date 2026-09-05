@@ -30,7 +30,6 @@ class IDebugHostFunctionLocalDetailsEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -39,7 +38,6 @@ class IDebugHostFunctionLocalDetailsEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostFunctionLocalDetails} 
      */
     GetNext() {

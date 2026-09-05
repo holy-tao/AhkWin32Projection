@@ -7,207 +7,248 @@
 class DISPID_InkCollectorEvent extends Win32Enum {
 
     /**
+     * Native name: DISPID_ICEStroke
      * @type {Integer (Int32)}
      */
-    static DISPID_ICEStroke => 1
+    static ICEStroke => 1
 
     /**
+     * Native name: DISPID_ICECursorDown
      * @type {Integer (Int32)}
      */
-    static DISPID_ICECursorDown => 2
+    static ICECursorDown => 2
 
     /**
+     * Native name: DISPID_ICENewPackets
      * @type {Integer (Int32)}
      */
-    static DISPID_ICENewPackets => 3
+    static ICENewPackets => 3
 
     /**
+     * Native name: DISPID_ICENewInAirPackets
      * @type {Integer (Int32)}
      */
-    static DISPID_ICENewInAirPackets => 4
+    static ICENewInAirPackets => 4
 
     /**
+     * Native name: DISPID_ICECursorButtonDown
      * @type {Integer (Int32)}
      */
-    static DISPID_ICECursorButtonDown => 5
+    static ICECursorButtonDown => 5
 
     /**
+     * Native name: DISPID_ICECursorButtonUp
      * @type {Integer (Int32)}
      */
-    static DISPID_ICECursorButtonUp => 6
+    static ICECursorButtonUp => 6
 
     /**
+     * Native name: DISPID_ICECursorInRange
      * @type {Integer (Int32)}
      */
-    static DISPID_ICECursorInRange => 7
+    static ICECursorInRange => 7
 
     /**
+     * Native name: DISPID_ICECursorOutOfRange
      * @type {Integer (Int32)}
      */
-    static DISPID_ICECursorOutOfRange => 8
+    static ICECursorOutOfRange => 8
 
     /**
+     * Native name: DISPID_ICESystemGesture
      * @type {Integer (Int32)}
      */
-    static DISPID_ICESystemGesture => 9
+    static ICESystemGesture => 9
 
     /**
+     * Native name: DISPID_ICEGesture
      * @type {Integer (Int32)}
      */
-    static DISPID_ICEGesture => 10
+    static ICEGesture => 10
 
     /**
+     * Native name: DISPID_ICETabletAdded
      * @type {Integer (Int32)}
      */
-    static DISPID_ICETabletAdded => 11
+    static ICETabletAdded => 11
 
     /**
+     * Native name: DISPID_ICETabletRemoved
      * @type {Integer (Int32)}
      */
-    static DISPID_ICETabletRemoved => 12
+    static ICETabletRemoved => 12
 
     /**
+     * Native name: DISPID_IOEPainting
      * @type {Integer (Int32)}
      */
-    static DISPID_IOEPainting => 13
+    static IOEPainting => 13
 
     /**
+     * Native name: DISPID_IOEPainted
      * @type {Integer (Int32)}
      */
-    static DISPID_IOEPainted => 14
+    static IOEPainted => 14
 
     /**
+     * Native name: DISPID_IOESelectionChanging
      * @type {Integer (Int32)}
      */
-    static DISPID_IOESelectionChanging => 15
+    static IOESelectionChanging => 15
 
     /**
+     * Native name: DISPID_IOESelectionChanged
      * @type {Integer (Int32)}
      */
-    static DISPID_IOESelectionChanged => 16
+    static IOESelectionChanged => 16
 
     /**
+     * Native name: DISPID_IOESelectionMoving
      * @type {Integer (Int32)}
      */
-    static DISPID_IOESelectionMoving => 17
+    static IOESelectionMoving => 17
 
     /**
+     * Native name: DISPID_IOESelectionMoved
      * @type {Integer (Int32)}
      */
-    static DISPID_IOESelectionMoved => 18
+    static IOESelectionMoved => 18
 
     /**
+     * Native name: DISPID_IOESelectionResizing
      * @type {Integer (Int32)}
      */
-    static DISPID_IOESelectionResizing => 19
+    static IOESelectionResizing => 19
 
     /**
+     * Native name: DISPID_IOESelectionResized
      * @type {Integer (Int32)}
      */
-    static DISPID_IOESelectionResized => 20
+    static IOESelectionResized => 20
 
     /**
+     * Native name: DISPID_IOEStrokesDeleting
      * @type {Integer (Int32)}
      */
-    static DISPID_IOEStrokesDeleting => 21
+    static IOEStrokesDeleting => 21
 
     /**
+     * Native name: DISPID_IOEStrokesDeleted
      * @type {Integer (Int32)}
      */
-    static DISPID_IOEStrokesDeleted => 22
+    static IOEStrokesDeleted => 22
 
     /**
+     * Native name: DISPID_IPEChangeUICues
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEChangeUICues => 23
+    static IPEChangeUICues => 23
 
     /**
+     * Native name: DISPID_IPEClick
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEClick => 24
+    static IPEClick => 24
 
     /**
+     * Native name: DISPID_IPEDblClick
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEDblClick => 25
+    static IPEDblClick => 25
 
     /**
+     * Native name: DISPID_IPEInvalidated
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEInvalidated => 26
+    static IPEInvalidated => 26
 
     /**
+     * Native name: DISPID_IPEMouseDown
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEMouseDown => 27
+    static IPEMouseDown => 27
 
     /**
+     * Native name: DISPID_IPEMouseEnter
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEMouseEnter => 28
+    static IPEMouseEnter => 28
 
     /**
+     * Native name: DISPID_IPEMouseHover
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEMouseHover => 29
+    static IPEMouseHover => 29
 
     /**
+     * Native name: DISPID_IPEMouseLeave
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEMouseLeave => 30
+    static IPEMouseLeave => 30
 
     /**
+     * Native name: DISPID_IPEMouseMove
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEMouseMove => 31
+    static IPEMouseMove => 31
 
     /**
+     * Native name: DISPID_IPEMouseUp
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEMouseUp => 32
+    static IPEMouseUp => 32
 
     /**
+     * Native name: DISPID_IPEMouseWheel
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEMouseWheel => 33
+    static IPEMouseWheel => 33
 
     /**
+     * Native name: DISPID_IPESizeModeChanged
      * @type {Integer (Int32)}
      */
-    static DISPID_IPESizeModeChanged => 34
+    static IPESizeModeChanged => 34
 
     /**
+     * Native name: DISPID_IPEStyleChanged
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEStyleChanged => 35
+    static IPEStyleChanged => 35
 
     /**
+     * Native name: DISPID_IPESystemColorsChanged
      * @type {Integer (Int32)}
      */
-    static DISPID_IPESystemColorsChanged => 36
+    static IPESystemColorsChanged => 36
 
     /**
+     * Native name: DISPID_IPEKeyDown
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEKeyDown => 37
+    static IPEKeyDown => 37
 
     /**
+     * Native name: DISPID_IPEKeyPress
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEKeyPress => 38
+    static IPEKeyPress => 38
 
     /**
+     * Native name: DISPID_IPEKeyUp
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEKeyUp => 39
+    static IPEKeyUp => 39
 
     /**
+     * Native name: DISPID_IPEResize
      * @type {Integer (Int32)}
      */
-    static DISPID_IPEResize => 40
+    static IPEResize => 40
 
     /**
+     * Native name: DISPID_IPESizeChanged
      * @type {Integer (Int32)}
      */
-    static DISPID_IPESizeChanged => 41
+    static IPESizeChanged => 41
 }

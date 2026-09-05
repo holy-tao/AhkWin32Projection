@@ -10,19 +10,22 @@ class AM_DVD_STREAM_FLAGS extends Win32Enum {
 
     /**
      * DVD video stream.
+     * Native name: AM_DVD_STREAM_VIDEO
      * @type {Integer (Int32)}
      */
-    static AM_DVD_STREAM_VIDEO => 1
+    static VIDEO => 1
 
     /**
      * DVD audio stream.
+     * Native name: AM_DVD_STREAM_AUDIO
      * @type {Integer (Int32)}
      */
-    static AM_DVD_STREAM_AUDIO => 2
+    static AUDIO => 2
 
     /**
      * DVD subpicture stream.
+     * Native name: AM_DVD_STREAM_SUBPIC
      * @type {Integer (Int32)}
      */
-    static AM_DVD_STREAM_SUBPIC => 4
+    static SUBPIC => 4
 }

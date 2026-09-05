@@ -7,17 +7,20 @@
 class XINPUT_KEYSTROKE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: XINPUT_KEYSTROKE_KEYDOWN
      * @type {Integer (UInt16)}
      */
-    static XINPUT_KEYSTROKE_KEYDOWN => 1
+    static KEYDOWN => 1
 
     /**
+     * Native name: XINPUT_KEYSTROKE_KEYUP
      * @type {Integer (UInt16)}
      */
-    static XINPUT_KEYSTROKE_KEYUP => 2
+    static KEYUP => 2
 
     /**
+     * Native name: XINPUT_KEYSTROKE_REPEAT
      * @type {Integer (UInt16)}
      */
-    static XINPUT_KEYSTROKE_REPEAT => 4
+    static REPEAT => 4
 }

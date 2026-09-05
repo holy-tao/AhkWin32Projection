@@ -117,7 +117,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElement} 
      */
     get_root() {
@@ -126,7 +125,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileSize() {
@@ -136,7 +134,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
@@ -146,7 +143,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
@@ -156,7 +152,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -166,7 +161,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -178,7 +172,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -188,7 +181,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -197,7 +189,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -207,7 +198,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -219,7 +209,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -229,7 +218,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_doctype() {
@@ -239,7 +227,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dtdURL() {
@@ -249,7 +236,6 @@ class IXMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vType 
      * @param {VARIANT} var1 
      * @returns {IXMLElement} 

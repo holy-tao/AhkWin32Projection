@@ -7,22 +7,26 @@
 class LineJoin extends Win32Enum {
 
     /**
+     * Native name: LineJoinMiter
      * @type {Integer (Int32)}
      */
-    static LineJoinMiter => 0
+    static Miter => 0
 
     /**
+     * Native name: LineJoinBevel
      * @type {Integer (Int32)}
      */
-    static LineJoinBevel => 1
+    static Bevel => 1
 
     /**
+     * Native name: LineJoinRound
      * @type {Integer (Int32)}
      */
-    static LineJoinRound => 2
+    static Round => 2
 
     /**
+     * Native name: LineJoinMiterClipped
      * @type {Integer (Int32)}
      */
-    static LineJoinMiterClipped => 3
+    static MiterClipped => 3
 }

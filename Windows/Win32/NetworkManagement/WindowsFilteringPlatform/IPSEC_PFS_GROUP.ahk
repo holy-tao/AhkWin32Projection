@@ -10,27 +10,31 @@ class IPSEC_PFS_GROUP extends Win32Enum {
 
     /**
      * Specifies no Quick Mode PFS.
+     * Native name: IPSEC_PFS_NONE
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_NONE => 0
+    static NONE => 0
 
     /**
      * Specifies Diffie Hellman group 1.
+     * Native name: IPSEC_PFS_1
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_1 => 1
+    static 1 => 1
 
     /**
      * Specifies Diffie Hellman group 2.
+     * Native name: IPSEC_PFS_2
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_2 => 2
+    static 2 => 2
 
     /**
      * Specifies Diffie Hellman group 14.
+     * Native name: IPSEC_PFS_2048
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_2048 => 3
+    static 2048 => 3
 
     /**
      * Specifies Diffie Hellman group 14.
@@ -39,40 +43,46 @@ class IPSEC_PFS_GROUP extends Win32Enum {
      * <div> </div>
      * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012. </div>
      * <div> </div>
+     * Native name: IPSEC_PFS_14
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_14 => 3
+    static 14 => 3
 
     /**
      * Specifies Diffie Hellman ECP group 256.
+     * Native name: IPSEC_PFS_ECP_256
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_ECP_256 => 4
+    static ECP_256 => 4
 
     /**
      * Specifies Diffie Hellman ECP group 384.
+     * Native name: IPSEC_PFS_ECP_384
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_ECP_384 => 5
+    static ECP_384 => 5
 
     /**
      * Use the same Diffie Hellman as the main mode that contains this quick mode.
+     * Native name: IPSEC_PFS_MM
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_MM => 6
+    static MM => 6
 
     /**
      * Specifies Diffie Hellman group 24.
      * 
      * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012.</div>
      * <div> </div>
+     * Native name: IPSEC_PFS_24
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_24 => 7
+    static 24 => 7
 
     /**
      * Maximum value for testing only.
+     * Native name: IPSEC_PFS_MAX
      * @type {Integer (Int32)}
      */
-    static IPSEC_PFS_MAX => 8
+    static MAX => 8
 }

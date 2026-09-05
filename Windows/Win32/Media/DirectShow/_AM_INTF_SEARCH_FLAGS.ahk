@@ -12,19 +12,22 @@ class _AM_INTF_SEARCH_FLAGS extends Win32Enum {
 
     /**
      * Search input pins.
+     * Native name: AM_INTF_SEARCH_INPUT_PIN
      * @type {Integer (Int32)}
      */
-    static AM_INTF_SEARCH_INPUT_PIN => 1
+    static INPUT_PIN => 1
 
     /**
      * Search output pins.
+     * Native name: AM_INTF_SEARCH_OUTPUT_PIN
      * @type {Integer (Int32)}
      */
-    static AM_INTF_SEARCH_OUTPUT_PIN => 2
+    static OUTPUT_PIN => 2
 
     /**
      * Search filters.
+     * Native name: AM_INTF_SEARCH_FILTER
      * @type {Integer (Int32)}
      */
-    static AM_INTF_SEARCH_FILTER => 4
+    static FILTER => 4
 }

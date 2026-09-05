@@ -7,32 +7,38 @@
 class PM_TILE_SIZE extends Win32Enum {
 
     /**
+     * Native name: PM_TILE_SIZE_SMALL
      * @type {Integer (Int32)}
      */
-    static PM_TILE_SIZE_SMALL => 0
+    static SMALL => 0
 
     /**
+     * Native name: PM_TILE_SIZE_MEDIUM
      * @type {Integer (Int32)}
      */
-    static PM_TILE_SIZE_MEDIUM => 1
+    static MEDIUM => 1
 
     /**
+     * Native name: PM_TILE_SIZE_LARGE
      * @type {Integer (Int32)}
      */
-    static PM_TILE_SIZE_LARGE => 2
+    static LARGE => 2
 
     /**
+     * Native name: PM_TILE_SIZE_SQUARE310X310
      * @type {Integer (Int32)}
      */
-    static PM_TILE_SIZE_SQUARE310X310 => 3
+    static SQUARE310X310 => 3
 
     /**
+     * Native name: PM_TILE_SIZE_TALL150X310
      * @type {Integer (Int32)}
      */
-    static PM_TILE_SIZE_TALL150X310 => 4
+    static TALL150X310 => 4
 
     /**
+     * Native name: PM_TILE_SIZE_INVALID
      * @type {Integer (Int32)}
      */
-    static PM_TILE_SIZE_INVALID => 5
+    static INVALID => 5
 }

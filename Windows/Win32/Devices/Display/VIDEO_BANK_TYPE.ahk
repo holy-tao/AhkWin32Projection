@@ -7,24 +7,28 @@
 class VIDEO_BANK_TYPE extends Win32Enum {
 
     /**
+     * Native name: VideoNotBanked
      * @type {Integer (Int32)}
      */
-    static VideoNotBanked => 0
+    static NotBanked => 0
 
     /**
+     * Native name: VideoBanked1RW
      * @type {Integer (Int32)}
      */
-    static VideoBanked1RW => 1
+    static Banked1RW => 1
 
     /**
+     * Native name: VideoBanked1R1W
      * @type {Integer (Int32)}
      */
-    static VideoBanked1R1W => 2
+    static Banked1R1W => 2
 
     /**
+     * Native name: VideoBanked2RW
      * @type {Integer (Int32)}
      */
-    static VideoBanked2RW => 3
+    static Banked2RW => 3
 
     /**
      * @type {Integer (Int32)}

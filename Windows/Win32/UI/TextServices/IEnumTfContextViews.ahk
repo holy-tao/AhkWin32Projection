@@ -32,7 +32,6 @@ class IEnumTfContextViews extends IUnknown {
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * 
      * @returns {IEnumTfContextViews} 
      */
     Clone() {
@@ -41,7 +40,6 @@ class IEnumTfContextViews extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<ITfContextView>} rgViews 
      * @param {Pointer<Integer>} pcFetched 
@@ -55,7 +53,6 @@ class IEnumTfContextViews extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -64,7 +61,6 @@ class IEnumTfContextViews extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @returns {HRESULT} 
      */

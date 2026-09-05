@@ -7,27 +7,32 @@
 class NL_NETWORK_CATEGORY extends Win32Enum {
 
     /**
+     * Native name: NetworkCategoryPublic
      * @type {Integer (Int32)}
      */
-    static NetworkCategoryPublic => 0
+    static Public => 0
 
     /**
+     * Native name: NetworkCategoryPrivate
      * @type {Integer (Int32)}
      */
-    static NetworkCategoryPrivate => 1
+    static Private => 1
 
     /**
+     * Native name: NetworkCategoryDomainAuthenticated
      * @type {Integer (Int32)}
      */
-    static NetworkCategoryDomainAuthenticated => 2
+    static DomainAuthenticated => 2
 
     /**
+     * Native name: NetworkCategoryUnchanged
      * @type {Integer (Int32)}
      */
-    static NetworkCategoryUnchanged => -1
+    static Unchanged => -1
 
     /**
+     * Native name: NetworkCategoryUnknown
      * @type {Integer (Int32)}
      */
-    static NetworkCategoryUnknown => -1
+    static Unknown => -1
 }

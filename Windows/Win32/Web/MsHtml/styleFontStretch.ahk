@@ -7,67 +7,80 @@
 class styleFontStretch extends Win32Enum {
 
     /**
+     * Native name: styleFontStretchNotSet
      * @type {Integer (Int32)}
      */
-    static styleFontStretchNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleFontStretchWider
      * @type {Integer (Int32)}
      */
-    static styleFontStretchWider => 1
+    static Wider => 1
 
     /**
+     * Native name: styleFontStretchNarrower
      * @type {Integer (Int32)}
      */
-    static styleFontStretchNarrower => 2
+    static Narrower => 2
 
     /**
+     * Native name: styleFontStretchUltraCondensed
      * @type {Integer (Int32)}
      */
-    static styleFontStretchUltraCondensed => 3
+    static UltraCondensed => 3
 
     /**
+     * Native name: styleFontStretchExtraCondensed
      * @type {Integer (Int32)}
      */
-    static styleFontStretchExtraCondensed => 4
+    static ExtraCondensed => 4
 
     /**
+     * Native name: styleFontStretchCondensed
      * @type {Integer (Int32)}
      */
-    static styleFontStretchCondensed => 5
+    static Condensed => 5
 
     /**
+     * Native name: styleFontStretchSemiCondensed
      * @type {Integer (Int32)}
      */
-    static styleFontStretchSemiCondensed => 6
+    static SemiCondensed => 6
 
     /**
+     * Native name: styleFontStretchNormal
      * @type {Integer (Int32)}
      */
-    static styleFontStretchNormal => 7
+    static Normal => 7
 
     /**
+     * Native name: styleFontStretchSemiExpanded
      * @type {Integer (Int32)}
      */
-    static styleFontStretchSemiExpanded => 8
+    static SemiExpanded => 8
 
     /**
+     * Native name: styleFontStretchExpanded
      * @type {Integer (Int32)}
      */
-    static styleFontStretchExpanded => 9
+    static Expanded => 9
 
     /**
+     * Native name: styleFontStretchExtraExpanded
      * @type {Integer (Int32)}
      */
-    static styleFontStretchExtraExpanded => 10
+    static ExtraExpanded => 10
 
     /**
+     * Native name: styleFontStretchUltraExpanded
      * @type {Integer (Int32)}
      */
-    static styleFontStretchUltraExpanded => 11
+    static UltraExpanded => 11
 
     /**
+     * Native name: styleFontStretch_Max
      * @type {Integer (Int32)}
      */
-    static styleFontStretch_Max => 2147483647
+    static Max => 2147483647
 }

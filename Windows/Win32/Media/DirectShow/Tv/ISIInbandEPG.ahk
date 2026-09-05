@@ -30,7 +30,6 @@ class ISIInbandEPG extends IUnknown {
     static VTableNames => ["StartSIEPGScan", "StopSIEPGScan", "IsSIEPGScanRunning"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StartSIEPGScan() {
@@ -39,7 +38,6 @@ class ISIInbandEPG extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopSIEPGScan() {
@@ -48,7 +46,6 @@ class ISIInbandEPG extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsSIEPGScanRunning() {

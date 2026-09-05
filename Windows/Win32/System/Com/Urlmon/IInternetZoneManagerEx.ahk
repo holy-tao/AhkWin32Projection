@@ -30,7 +30,6 @@ class IInternetZoneManagerEx extends IInternetZoneManager {
     static VTableNames => ["GetZoneActionPolicyEx", "SetZoneActionPolicyEx"]
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
@@ -44,7 +43,6 @@ class IInternetZoneManagerEx extends IInternetZoneManager {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 

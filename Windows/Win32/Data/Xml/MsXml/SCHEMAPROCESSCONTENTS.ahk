@@ -7,22 +7,26 @@
 class SCHEMAPROCESSCONTENTS extends Win32Enum {
 
     /**
+     * Native name: SCHEMAPROCESSCONTENTS_NONE
      * @type {Integer (Int32)}
      */
-    static SCHEMAPROCESSCONTENTS_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: SCHEMAPROCESSCONTENTS_SKIP
      * @type {Integer (Int32)}
      */
-    static SCHEMAPROCESSCONTENTS_SKIP => 1
+    static SKIP => 1
 
     /**
+     * Native name: SCHEMAPROCESSCONTENTS_LAX
      * @type {Integer (Int32)}
      */
-    static SCHEMAPROCESSCONTENTS_LAX => 2
+    static LAX => 2
 
     /**
+     * Native name: SCHEMAPROCESSCONTENTS_STRICT
      * @type {Integer (Int32)}
      */
-    static SCHEMAPROCESSCONTENTS_STRICT => 3
+    static STRICT => 3
 }

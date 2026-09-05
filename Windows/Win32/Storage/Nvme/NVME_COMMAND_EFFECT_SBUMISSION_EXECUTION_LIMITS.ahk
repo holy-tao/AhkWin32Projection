@@ -12,19 +12,22 @@ class NVME_COMMAND_EFFECT_SBUMISSION_EXECUTION_LIMITS extends Win32Enum {
 
     /**
      * No command submission or execution restriction.
+     * Native name: NVME_COMMAND_EFFECT_SBUMISSION_EXECUTION_LIMIT_NONE
      * @type {Integer (Int32)}
      */
-    static NVME_COMMAND_EFFECT_SBUMISSION_EXECUTION_LIMIT_NONE => 0
+    static LIMIT_NONE => 0
 
     /**
      * The command may be submitted when there is no other outstanding command to the same namespace and another command should not be submitted to the same namespace until this command is complete.
+     * Native name: NVME_COMMAND_EFFECT_SBUMISSION_EXECUTION_LIMIT_SINGLE_PER_NAMESPACE
      * @type {Integer (Int32)}
      */
-    static NVME_COMMAND_EFFECT_SBUMISSION_EXECUTION_LIMIT_SINGLE_PER_NAMESPACE => 1
+    static LIMIT_SINGLE_PER_NAMESPACE => 1
 
     /**
      * The command may be submitted when there is no other outstanding command to any namespace and another command should not be submitted to any namespace until this command is complete.
+     * Native name: NVME_COMMAND_EFFECT_SBUMISSION_EXECUTION_LIMIT_SINGLE_PER_CONTROLLER
      * @type {Integer (Int32)}
      */
-    static NVME_COMMAND_EFFECT_SBUMISSION_EXECUTION_LIMIT_SINGLE_PER_CONTROLLER => 2
+    static LIMIT_SINGLE_PER_CONTROLLER => 2
 }

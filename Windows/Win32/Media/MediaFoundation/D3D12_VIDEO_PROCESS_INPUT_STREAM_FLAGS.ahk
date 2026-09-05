@@ -10,19 +10,22 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flags specified.
+     * Native name: D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Set this flag when not processing frames in order, such as seeking between frames
+     * Native name: D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_FRAME_DISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_FRAME_DISCONTINUITY => 1
+    static FLAG_FRAME_DISCONTINUITY => 1
 
     /**
      * Set this flag when applying video process operation to the same set of inputs.
+     * Native name: D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_FRAME_REPEAT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_FRAME_REPEAT => 2
+    static FLAG_FRAME_REPEAT => 2
 }

@@ -85,7 +85,6 @@ class IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_latitude() {
@@ -94,7 +93,6 @@ class IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_longitude() {
@@ -103,7 +101,6 @@ class IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_altitude() {
@@ -113,7 +110,6 @@ class IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_accuracy() {
@@ -122,7 +118,6 @@ class IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_altitudeAccuracy() {
@@ -132,7 +127,6 @@ class IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_heading() {
@@ -142,7 +136,6 @@ class IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_speed() {

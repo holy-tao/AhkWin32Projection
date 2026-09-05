@@ -30,7 +30,6 @@ class IDtcLuRecoveryInitiatedByDtc extends IUnknown {
     static VTableNames => ["GetWork"]
 
     /**
-     * 
      * @param {Pointer<DTCINITIATEDRECOVERYWORK>} pWork 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 

@@ -7,42 +7,50 @@
 class DISP_CHANGE extends Win32Enum {
 
     /**
+     * Native name: DISP_CHANGE_SUCCESSFUL
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_SUCCESSFUL => 0
+    static SUCCESSFUL => 0
 
     /**
+     * Native name: DISP_CHANGE_RESTART
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_RESTART => 1
+    static RESTART => 1
 
     /**
+     * Native name: DISP_CHANGE_FAILED
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_FAILED => -1
+    static FAILED => -1
 
     /**
+     * Native name: DISP_CHANGE_BADMODE
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_BADMODE => -2
+    static BADMODE => -2
 
     /**
+     * Native name: DISP_CHANGE_NOTUPDATED
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_NOTUPDATED => -3
+    static NOTUPDATED => -3
 
     /**
+     * Native name: DISP_CHANGE_BADFLAGS
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_BADFLAGS => -4
+    static BADFLAGS => -4
 
     /**
+     * Native name: DISP_CHANGE_BADPARAM
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_BADPARAM => -5
+    static BADPARAM => -5
 
     /**
+     * Native name: DISP_CHANGE_BADDUALVIEW
      * @type {Integer (Int32)}
      */
-    static DISP_CHANGE_BADDUALVIEW => -6
+    static BADDUALVIEW => -6
 }

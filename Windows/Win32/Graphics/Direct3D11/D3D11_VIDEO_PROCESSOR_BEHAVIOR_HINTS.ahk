@@ -10,25 +10,29 @@ class D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINTS extends Win32Enum {
 
     /**
      * Multi-plane overlay hardware can perform the rotation operation more efficiently than the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">ID3D11VideoContext::VideoProcessorBlt</a> method.
+     * Native name: D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_MULTIPLANE_OVERLAY_ROTATION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_MULTIPLANE_OVERLAY_ROTATION => 1
+    static HINT_MULTIPLANE_OVERLAY_ROTATION => 1
 
     /**
      * Multi-plane overlay hardware can perform the scaling operation more efficiently than the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">ID3D11VideoContext::VideoProcessorBlt</a> method.
+     * Native name: D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_MULTIPLANE_OVERLAY_RESIZE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_MULTIPLANE_OVERLAY_RESIZE => 2
+    static HINT_MULTIPLANE_OVERLAY_RESIZE => 2
 
     /**
      * Multi-plane overlay hardware can perform the colorspace conversion operation more efficiently than the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">ID3D11VideoContext::VideoProcessorBlt</a> method.
+     * Native name: D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_MULTIPLANE_OVERLAY_COLOR_SPACE_CONVERSION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_MULTIPLANE_OVERLAY_COLOR_SPACE_CONVERSION => 4
+    static HINT_MULTIPLANE_OVERLAY_COLOR_SPACE_CONVERSION => 4
 
     /**
      * The video processor output data should be at least triple buffered for optimal performance.
+     * Native name: D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_TRIPLE_BUFFER_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINT_TRIPLE_BUFFER_OUTPUT => 8
+    static HINT_TRIPLE_BUFFER_OUTPUT => 8
 }

@@ -10,31 +10,36 @@ class XPS_IMAGE_TYPE extends Win32Enum {
 
     /**
      * A JPEG (Joint Photographic Experts Group) image.
+     * Native name: XPS_IMAGE_TYPE_JPEG
      * @type {Integer (Int32)}
      */
-    static XPS_IMAGE_TYPE_JPEG => 1
+    static JPEG => 1
 
     /**
      * A PNG (Portable Network Graphics) image.
+     * Native name: XPS_IMAGE_TYPE_PNG
      * @type {Integer (Int32)}
      */
-    static XPS_IMAGE_TYPE_PNG => 2
+    static PNG => 2
 
     /**
      * A TIFF (Tagged Image File Format) image.
+     * Native name: XPS_IMAGE_TYPE_TIFF
      * @type {Integer (Int32)}
      */
-    static XPS_IMAGE_TYPE_TIFF => 3
+    static TIFF => 3
 
     /**
      * An HD Photo (formerly Windows Media Photo) image.
+     * Native name: XPS_IMAGE_TYPE_WDP
      * @type {Integer (Int32)}
      */
-    static XPS_IMAGE_TYPE_WDP => 4
+    static WDP => 4
 
     /**
      * JPEG extended range (JPEG XR) image.
+     * Native name: XPS_IMAGE_TYPE_JXR
      * @type {Integer (Int32)}
      */
-    static XPS_IMAGE_TYPE_JXR => 5
+    static JXR => 5
 }

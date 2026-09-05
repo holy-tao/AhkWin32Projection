@@ -7,22 +7,26 @@
 class NOTIFICATION_CONFIG_FLAGS extends Win32Enum {
 
     /**
+     * Native name: NOTIFICATION_CONFIG_CREATE_EVENT
      * @type {Integer (Int32)}
      */
-    static NOTIFICATION_CONFIG_CREATE_EVENT => 1
+    static CREATE_EVENT => 1
 
     /**
+     * Native name: NOTIFICATION_CONFIG_REGISTER_CALLBACK
      * @type {Integer (Int32)}
      */
-    static NOTIFICATION_CONFIG_REGISTER_CALLBACK => 2
+    static REGISTER_CALLBACK => 2
 
     /**
+     * Native name: NOTIFICATION_CONFIG_EVENT_TRIGGER
      * @type {Integer (Int32)}
      */
-    static NOTIFICATION_CONFIG_EVENT_TRIGGER => 4
+    static EVENT_TRIGGER => 4
 
     /**
+     * Native name: NOTIFICATION_CONFIG_ASYNC_CHANNEL
      * @type {Integer (Int32)}
      */
-    static NOTIFICATION_CONFIG_ASYNC_CHANNEL => 8
+    static ASYNC_CHANNEL => 8
 }

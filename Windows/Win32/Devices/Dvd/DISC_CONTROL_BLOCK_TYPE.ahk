@@ -22,7 +22,8 @@ class DISC_CONTROL_BLOCK_TYPE extends Win32Enum {
     static SessionInfoDiscControlBlock => 1396982528
 
     /**
+     * Native name: DiscControlBlockList
      * @type {Integer (Int32)}
      */
-    static DiscControlBlockList => -1
+    static List => -1
 }

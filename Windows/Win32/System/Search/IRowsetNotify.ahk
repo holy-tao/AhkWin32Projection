@@ -31,7 +31,6 @@ class IRowsetNotify extends IUnknown {
     static VTableNames => ["OnFieldChange", "OnRowChange", "OnRowsetChange"]
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Pointer} hRow 
      * @param {Pointer} cColumns 
@@ -49,7 +48,6 @@ class IRowsetNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
@@ -66,7 +64,6 @@ class IRowsetNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Integer} eReason 
      * @param {Integer} ePhase 

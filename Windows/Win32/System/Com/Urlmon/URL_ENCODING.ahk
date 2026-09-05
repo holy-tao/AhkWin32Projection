@@ -7,17 +7,20 @@
 class URL_ENCODING extends Win32Enum {
 
     /**
+     * Native name: URL_ENCODING_NONE
      * @type {Integer (Int32)}
      */
-    static URL_ENCODING_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: URL_ENCODING_ENABLE_UTF8
      * @type {Integer (Int32)}
      */
-    static URL_ENCODING_ENABLE_UTF8 => 268435456
+    static ENABLE_UTF8 => 268435456
 
     /**
+     * Native name: URL_ENCODING_DISABLE_UTF8
      * @type {Integer (Int32)}
      */
-    static URL_ENCODING_DISABLE_UTF8 => 536870912
+    static DISABLE_UTF8 => 536870912
 }

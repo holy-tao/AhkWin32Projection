@@ -733,7 +733,6 @@ class Dialogs {
     }
 
     /**
-     * 
      * @param {Pointer<CHOOSECOLORA>} param0 
      * @returns {BOOL} 
      */

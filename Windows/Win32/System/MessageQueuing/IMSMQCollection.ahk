@@ -61,7 +61,6 @@ class IMSMQCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -70,7 +69,6 @@ class IMSMQCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     _NewEnum() {

@@ -10,31 +10,36 @@ class MFP_MEDIAPLAYER_STATE extends Win32Enum {
 
     /**
      * Initial state. No media items have been set on the player object.
+     * Native name: MFP_MEDIAPLAYER_STATE_EMPTY
      * @type {Integer (Int32)}
      */
-    static MFP_MEDIAPLAYER_STATE_EMPTY => 0
+    static EMPTY => 0
 
     /**
      * Playback is stopped.
+     * Native name: MFP_MEDIAPLAYER_STATE_STOPPED
      * @type {Integer (Int32)}
      */
-    static MFP_MEDIAPLAYER_STATE_STOPPED => 1
+    static STOPPED => 1
 
     /**
      * Playback is in progress.
+     * Native name: MFP_MEDIAPLAYER_STATE_PLAYING
      * @type {Integer (Int32)}
      */
-    static MFP_MEDIAPLAYER_STATE_PLAYING => 2
+    static PLAYING => 2
 
     /**
      * Playback is paused.
+     * Native name: MFP_MEDIAPLAYER_STATE_PAUSED
      * @type {Integer (Int32)}
      */
-    static MFP_MEDIAPLAYER_STATE_PAUSED => 3
+    static PAUSED => 3
 
     /**
      * The player object was shut down. This state is returned after the application calls <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-shutdown">IMFPMediaPlayer::Shutdown</a>.
+     * Native name: MFP_MEDIAPLAYER_STATE_SHUTDOWN
      * @type {Integer (Int32)}
      */
-    static MFP_MEDIAPLAYER_STATE_SHUTDOWN => 4
+    static SHUTDOWN => 4
 }

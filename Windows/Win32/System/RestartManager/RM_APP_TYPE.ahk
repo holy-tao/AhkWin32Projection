@@ -10,43 +10,50 @@ class RM_APP_TYPE extends Win32Enum {
 
     /**
      * The application cannot be classified as any other type. An application of this type can only be shut down by a forced shutdown.
+     * Native name: RmUnknownApp
      * @type {Integer (Int32)}
      */
-    static RmUnknownApp => 0
+    static UnknownApp => 0
 
     /**
      * A Windows application run as a stand-alone process that displays a top-level window.
+     * Native name: RmMainWindow
      * @type {Integer (Int32)}
      */
-    static RmMainWindow => 1
+    static MainWindow => 1
 
     /**
      * A Windows application that does not run as a stand-alone process and does not display a top-level window.
+     * Native name: RmOtherWindow
      * @type {Integer (Int32)}
      */
-    static RmOtherWindow => 2
+    static OtherWindow => 2
 
     /**
      * The application is a Windows service.
+     * Native name: RmService
      * @type {Integer (Int32)}
      */
-    static RmService => 3
+    static Service => 3
 
     /**
      * The application is Windows Explorer.
+     * Native name: RmExplorer
      * @type {Integer (Int32)}
      */
-    static RmExplorer => 4
+    static Explorer => 4
 
     /**
      * The application is a stand-alone console application.
+     * Native name: RmConsole
      * @type {Integer (Int32)}
      */
-    static RmConsole => 5
+    static Console => 5
 
     /**
      * A system restart is required to complete the installation because a process cannot be shut down. The process cannot be shut down because of the following reasons.  The process may be a critical process.  The current user may not have permission to shut down the process. The process may belong to the primary installer that started the Restart Manager.
+     * Native name: RmCritical
      * @type {Integer (Int32)}
      */
-    static RmCritical => 1000
+    static Critical => 1000
 }

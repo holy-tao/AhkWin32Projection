@@ -29,7 +29,6 @@ class IMapToken extends IUnknown {
     static VTableNames => ["Map"]
 
     /**
-     * 
      * @param {Integer} tkImp 
      * @param {Integer} tkEmit 
      * @returns {HRESULT} 

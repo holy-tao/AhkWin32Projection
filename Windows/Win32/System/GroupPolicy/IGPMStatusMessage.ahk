@@ -66,7 +66,6 @@ class IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectPath() {
@@ -90,7 +89,6 @@ class IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ExtensionName() {
@@ -100,7 +98,6 @@ class IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SettingsName() {
@@ -124,7 +121,6 @@ class IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Message() {

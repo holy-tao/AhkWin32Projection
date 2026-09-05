@@ -14,34 +14,39 @@ class NVME_STATUS_TYPES extends Win32Enum {
      * Indicates that the command specified by the Command and Submission Queue identifiers in the completion queue entry has completed. These status values are generic across all command types, and include such conditions as success, opcode not supported, and invalid field.
      * 
      * One of the status codes in the [NVME_STATUS_GENERIC_COMMAND_CODES](ne-nvme-nvme_status_generic_command_codes.md) enumeration.
+     * Native name: NVME_STATUS_TYPE_GENERIC_COMMAND
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_TYPE_GENERIC_COMMAND => 0
+    static TYPE_GENERIC_COMMAND => 0
 
     /**
      * Indicates a status value that is specific to a particular command opcode. These values may indicate additional processing is required. Status values such as invalid firmware image or exceeded maximum number of queues is reported with this type.
      * 
      * One of the status codes in the [NVME_STATUS_COMMAND_SPECIFIC_CODES](ne-nvme-nvme_status_command_specific_codes.md) enumeration.
+     * Native name: NVME_STATUS_TYPE_COMMAND_SPECIFIC
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_TYPE_COMMAND_SPECIFIC => 1
+    static TYPE_COMMAND_SPECIFIC => 1
 
     /**
      * A status value that indicates a media specific error occurred in the NVM, or a data integrity error.
      * 
      * One of the status codes in the [NVME_STATUS_MEDIA_ERROR_CODES](ne-nvme-nvme_status_media_error_codes.md) enumeration.
+     * Native name: NVME_STATUS_TYPE_MEDIA_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_TYPE_MEDIA_ERROR => 2
+    static TYPE_MEDIA_ERROR => 2
 
     /**
+     * Native name: NVME_STATUS_TYPE_PATH_RELATED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_TYPE_PATH_RELATED => 3
+    static TYPE_PATH_RELATED => 3
 
     /**
      * Indicates a vendor specific status code.
+     * Native name: NVME_STATUS_TYPE_VENDOR_SPECIFIC
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_TYPE_VENDOR_SPECIFIC => 7
+    static TYPE_VENDOR_SPECIFIC => 7
 }

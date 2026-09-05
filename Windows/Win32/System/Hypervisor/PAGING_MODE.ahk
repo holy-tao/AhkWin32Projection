@@ -7,32 +7,38 @@
 class PAGING_MODE extends Win32Enum {
 
     /**
+     * Native name: Paging_Invalid
      * @type {Integer (Int32)}
      */
-    static Paging_Invalid => 0
+    static Invalid => 0
 
     /**
+     * Native name: Paging_NonPaged
      * @type {Integer (Int32)}
      */
-    static Paging_NonPaged => 1
+    static NonPaged => 1
 
     /**
+     * Native name: Paging_32Bit
      * @type {Integer (Int32)}
      */
-    static Paging_32Bit => 2
+    static 32Bit => 2
 
     /**
+     * Native name: Paging_Pae
      * @type {Integer (Int32)}
      */
-    static Paging_Pae => 3
+    static Pae => 3
 
     /**
+     * Native name: Paging_Long
      * @type {Integer (Int32)}
      */
-    static Paging_Long => 4
+    static Long => 4
 
     /**
+     * Native name: Paging_Armv8
      * @type {Integer (Int32)}
      */
-    static Paging_Armv8 => 5
+    static Armv8 => 5
 }

@@ -10,25 +10,29 @@ class WcmRestrictionFacets extends Win32Enum {
 
     /**
      * Maximum number of units of length. Units of length depend on the data type. This value must be a nonNegativeInteger.
+     * Native name: restrictionFacetMaxLength
      * @type {Integer (Int32)}
      */
-    static restrictionFacetMaxLength => 1
+    static FacetMaxLength => 1
 
     /**
      * Specified set of values. This limits a data type to the specified values.
+     * Native name: restrictionFacetEnumeration
      * @type {Integer (Int32)}
      */
-    static restrictionFacetEnumeration => 2
+    static FacetEnumeration => 2
 
     /**
      * Maximum value. This value must be the same data type as the inherited data type.
+     * Native name: restrictionFacetMaxInclusive
      * @type {Integer (Int32)}
      */
-    static restrictionFacetMaxInclusive => 4
+    static FacetMaxInclusive => 4
 
     /**
      * Lower bound value (all values are greater than this value). This value must be the same data type as the inherited data type.
+     * Native name: restrictionFacetMinInclusive
      * @type {Integer (Int32)}
      */
-    static restrictionFacetMinInclusive => 8
+    static FacetMinInclusive => 8
 }

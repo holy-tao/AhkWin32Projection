@@ -156,7 +156,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_bold() {
@@ -165,7 +164,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_italic() {
@@ -174,7 +172,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_underline() {
@@ -183,7 +180,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_overline() {
@@ -192,7 +188,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_strikeOut() {
@@ -201,7 +196,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_subScript() {
@@ -210,7 +204,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_superScript() {
@@ -219,7 +212,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_explicitFace() {
@@ -228,7 +220,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fontWeight() {
@@ -237,7 +228,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fontSize() {
@@ -246,7 +236,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fontName() {
@@ -255,7 +244,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_hasBgColor() {
@@ -264,7 +252,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_textColor() {
@@ -273,7 +260,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_backgroundColor() {
@@ -282,7 +268,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_preFormatted() {
@@ -291,7 +276,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_direction() {
@@ -300,7 +284,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_blockDirection() {
@@ -309,7 +292,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_OL() {
@@ -318,7 +300,6 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLComputedStyle} pComputedStyle 
      * @returns {VARIANT_BOOL} 
      */

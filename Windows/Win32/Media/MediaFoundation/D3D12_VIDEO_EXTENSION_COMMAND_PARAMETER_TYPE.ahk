@@ -12,63 +12,73 @@ class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE extends Win32Enum {
 
     /**
      * Unsigned 8-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT8
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT8 => 0
+    static UINT8 => 0
 
     /**
      * Unsigned 16-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT16
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT16 => 1
+    static UINT16 => 1
 
     /**
      * Unsigned 32-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT32
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT32 => 2
+    static UINT32 => 2
 
     /**
      * Unsigned 64-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT64
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_UINT64 => 3
+    static UINT64 => 3
 
     /**
      * Signed 8-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT8
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT8 => 4
+    static SINT8 => 4
 
     /**
      * Signed 16-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT16
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT16 => 5
+    static SINT16 => 5
 
     /**
      * Signed 32-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT32
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT32 => 6
+    static SINT32 => 6
 
     /**
      * Signed 64-bit integer.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT64
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_SINT64 => 7
+    static SINT64 => 7
 
     /**
      * IEEE 32-bit floating point number
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_FLOAT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_FLOAT => 8
+    static FLOAT => 8
 
     /**
      * IEEE 64-bit floating point number
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_DOUBLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_DOUBLE => 9
+    static DOUBLE => 9
 
     /**
      * A D3D12DDI_HRESOURCE handle.  The caller must use resource barriers to transition to the state appropriate for the parameter.
@@ -78,7 +88,8 @@ class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE extends Win32Enum {
      * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE | D3D12_RESOURCE_STATE_VIDEO_DECODE_READ | D3D12_RESOURCE_STATE_VIDEO_DECODE_WRITE |
      * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS | D3D12_RESOURCE_STATE_VIDEO_PROCESS_READ | D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE |
      * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE | D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ | D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE |
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_RESOURCE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_RESOURCE => 10
+    static RESOURCE => 10
 }

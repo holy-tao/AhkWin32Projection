@@ -7,17 +7,20 @@
 class CERT_STRING_TYPE extends Win32Enum {
 
     /**
+     * Native name: CERT_SIMPLE_NAME_STR
      * @type {Integer (UInt32)}
      */
-    static CERT_SIMPLE_NAME_STR => 1
+    static SIMPLE_NAME_STR => 1
 
     /**
+     * Native name: CERT_OID_NAME_STR
      * @type {Integer (UInt32)}
      */
-    static CERT_OID_NAME_STR => 2
+    static OID_NAME_STR => 2
 
     /**
+     * Native name: CERT_X500_NAME_STR
      * @type {Integer (UInt32)}
      */
-    static CERT_X500_NAME_STR => 3
+    static X500_NAME_STR => 3
 }

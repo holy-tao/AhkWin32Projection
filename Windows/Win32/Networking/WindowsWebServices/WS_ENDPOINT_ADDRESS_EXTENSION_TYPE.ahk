@@ -13,7 +13,8 @@ class WS_ENDPOINT_ADDRESS_EXTENSION_TYPE extends Win32Enum {
      *                 
      * 
      * The type of the extension value is <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_address">WS_ENDPOINT_ADDRESS</a>.
+     * Native name: WS_ENDPOINT_ADDRESS_EXTENSION_METADATA_ADDRESS
      * @type {Integer (Int32)}
      */
-    static WS_ENDPOINT_ADDRESS_EXTENSION_METADATA_ADDRESS => 1
+    static METADATA_ADDRESS => 1
 }

@@ -7,22 +7,26 @@
 class DriverStringOptions extends Win32Enum {
 
     /**
+     * Native name: DriverStringOptionsCmapLookup
      * @type {Integer (Int32)}
      */
-    static DriverStringOptionsCmapLookup => 1
+    static CmapLookup => 1
 
     /**
+     * Native name: DriverStringOptionsVertical
      * @type {Integer (Int32)}
      */
-    static DriverStringOptionsVertical => 2
+    static Vertical => 2
 
     /**
+     * Native name: DriverStringOptionsRealizedAdvance
      * @type {Integer (Int32)}
      */
-    static DriverStringOptionsRealizedAdvance => 4
+    static RealizedAdvance => 4
 
     /**
+     * Native name: DriverStringOptionsLimitSubpixel
      * @type {Integer (Int32)}
      */
-    static DriverStringOptionsLimitSubpixel => 8
+    static LimitSubpixel => 8
 }

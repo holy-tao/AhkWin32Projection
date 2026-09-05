@@ -7,27 +7,32 @@
 class FOLD_STRING_MAP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: MAP_COMPOSITE
      * @type {Integer (UInt32)}
      */
-    static MAP_COMPOSITE => 64
+    static COMPOSITE => 64
 
     /**
+     * Native name: MAP_EXPAND_LIGATURES
      * @type {Integer (UInt32)}
      */
-    static MAP_EXPAND_LIGATURES => 8192
+    static EXPAND_LIGATURES => 8192
 
     /**
+     * Native name: MAP_FOLDCZONE
      * @type {Integer (UInt32)}
      */
-    static MAP_FOLDCZONE => 16
+    static FOLDCZONE => 16
 
     /**
+     * Native name: MAP_FOLDDIGITS
      * @type {Integer (UInt32)}
      */
-    static MAP_FOLDDIGITS => 128
+    static FOLDDIGITS => 128
 
     /**
+     * Native name: MAP_PRECOMPOSED
      * @type {Integer (UInt32)}
      */
-    static MAP_PRECOMPOSED => 32
+    static PRECOMPOSED => 32
 }

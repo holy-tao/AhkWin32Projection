@@ -7,7 +7,8 @@
 class ECustomDumpItemKind extends Win32Enum {
 
     /**
+     * Native name: DUMP_ITEM_None
      * @type {Integer (Int32)}
      */
-    static DUMP_ITEM_None => 0
+    static None => 0
 }

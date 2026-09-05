@@ -29,7 +29,6 @@ class IBDA_DRIWMDRMSession extends IUnknown {
     static VTableNames => ["AcknowledgeLicense", "ProcessLicenseChallenge", "ProcessRegistrationChallenge", "SetRevInfo", "SetCrl", "GetHMSAssociationData", "GetLastCardeaError"]
 
     /**
-     * 
      * @param {HRESULT} hrLicenseAck 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwcbLicenseMessage 
      * @param {Pointer<Integer>} pbLicenseMessage 
      * @param {Pointer<Integer>} pdwcbLicenseResponse 
@@ -56,7 +54,6 @@ class IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwcbRegistrationMessage 
      * @param {Pointer<Integer>} pbRegistrationMessage 
      * @param {Pointer<Integer>} pdwcbRegistrationResponse 
@@ -73,7 +70,6 @@ class IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwRevInfoLen 
      * @param {Pointer<Integer>} pbRevInfo 
      * @param {Pointer<Integer>} pdwResponse 
@@ -88,7 +84,6 @@ class IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCrlLen 
      * @param {Pointer<Integer>} pbCrlLen 
      * @param {Pointer<Integer>} pdwResponse 
@@ -103,7 +98,6 @@ class IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetHMSAssociationData() {
@@ -112,7 +106,6 @@ class IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwError 
      * @returns {HRESULT} 
      */

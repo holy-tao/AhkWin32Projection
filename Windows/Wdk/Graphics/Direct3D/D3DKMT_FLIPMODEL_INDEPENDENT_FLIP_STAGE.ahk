@@ -7,12 +7,14 @@
 class D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE_FLIP_SUBMITTED
      * @type {Integer (Int32)}
      */
-    static D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE_FLIP_SUBMITTED => 0
+    static FLIP_SUBMITTED => 0
 
     /**
+     * Native name: D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE_FLIP_COMPLETE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE_FLIP_COMPLETE => 1
+    static FLIP_COMPLETE => 1
 }

@@ -12,7 +12,8 @@ class FsrmFileScreenFlags extends Win32Enum {
      * If this flag is set, the server will fail any IO operation that violates the file screen. If this flag is 
      *       not set, the server will not fail violating IO operations but will still run any action associated with the file 
      *       screen.
+     * Native name: FsrmFileScreenFlags_Enforce
      * @type {Integer (Int32)}
      */
-    static FsrmFileScreenFlags_Enforce => 1
+    static Enforce => 1
 }

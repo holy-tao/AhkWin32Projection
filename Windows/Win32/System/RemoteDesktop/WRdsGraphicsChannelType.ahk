@@ -10,13 +10,15 @@ class WRdsGraphicsChannelType extends Win32Enum {
 
     /**
      * The channel delivery must be guaranteed.
+     * Native name: WRdsGraphicsChannelType_GuaranteedDelivery
      * @type {Integer (Int32)}
      */
-    static WRdsGraphicsChannelType_GuaranteedDelivery => 0
+    static GuaranteedDelivery => 0
 
     /**
      * The channel delivery can be lossy.
+     * Native name: WRdsGraphicsChannelType_BestEffortDelivery
      * @type {Integer (Int32)}
      */
-    static WRdsGraphicsChannelType_BestEffortDelivery => 1
+    static BestEffortDelivery => 1
 }

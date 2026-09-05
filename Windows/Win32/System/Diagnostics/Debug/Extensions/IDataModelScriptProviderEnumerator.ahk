@@ -30,7 +30,6 @@ class IDataModelScriptProviderEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -39,7 +38,6 @@ class IDataModelScriptProviderEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptProvider} 
      */
     GetNext() {

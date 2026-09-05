@@ -33,7 +33,6 @@ class IMarkupPointer2 extends IMarkupPointer {
     static VTableNames => ["IsAtWordBreak", "GetMarkupPosition", "MoveToMarkupPosition", "MoveUnitBounded", "IsInsideURL", "MoveToContent"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAtWordBreak() {
@@ -42,7 +41,6 @@ class IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMarkupPosition() {
@@ -51,7 +49,6 @@ class IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {IMarkupContainer} pContainer 
      * @param {Integer} lMP 
      * @returns {HRESULT} 
@@ -62,7 +59,6 @@ class IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {MOVEUNIT_ACTION} muAction 
      * @param {IMarkupPointer} pIBoundary 
      * @returns {HRESULT} 
@@ -73,7 +69,6 @@ class IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pRight 
      * @returns {BOOL} 
      */
@@ -83,7 +78,6 @@ class IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @param {BOOL} fAtStart 
      * @returns {HRESULT} 

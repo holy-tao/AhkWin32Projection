@@ -11,47 +11,56 @@
 class ChannelType extends Win32Enum {
 
     /**
+     * Native name: ChannelTypeNone
      * @type {Integer (Int32)}
      */
-    static ChannelTypeNone => 0
+    static None => 0
 
     /**
+     * Native name: ChannelTypeOther
      * @type {Integer (Int32)}
      */
-    static ChannelTypeOther => 1
+    static Other => 1
 
     /**
+     * Native name: ChannelTypeVideo
      * @type {Integer (Int32)}
      */
-    static ChannelTypeVideo => 2
+    static Video => 2
 
     /**
+     * Native name: ChannelTypeAudio
      * @type {Integer (Int32)}
      */
-    static ChannelTypeAudio => 4
+    static Audio => 4
 
     /**
+     * Native name: ChannelTypeText
      * @type {Integer (Int32)}
      */
-    static ChannelTypeText => 8
+    static Text => 8
 
     /**
+     * Native name: ChannelTypeSubtitles
      * @type {Integer (Int32)}
      */
-    static ChannelTypeSubtitles => 16
+    static Subtitles => 16
 
     /**
+     * Native name: ChannelTypeCaptions
      * @type {Integer (Int32)}
      */
-    static ChannelTypeCaptions => 32
+    static Captions => 32
 
     /**
+     * Native name: ChannelTypeSuperimpose
      * @type {Integer (Int32)}
      */
-    static ChannelTypeSuperimpose => 64
+    static Superimpose => 64
 
     /**
+     * Native name: ChannelTypeData
      * @type {Integer (Int32)}
      */
-    static ChannelTypeData => 128
+    static Data => 128
 }

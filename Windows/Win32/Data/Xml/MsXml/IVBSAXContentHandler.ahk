@@ -32,7 +32,6 @@ class IVBSAXContentHandler extends IDispatch {
     static VTableNames => ["putref_documentLocator", "startDocument", "endDocument", "startPrefixMapping", "endPrefixMapping", "startElement", "endElement", "characters", "ignorableWhitespace", "processingInstruction", "skippedEntity"]
 
     /**
-     * 
      * @param {IVBSAXLocator} oLocator 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startDocument() {
@@ -51,7 +49,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endDocument() {
@@ -60,7 +57,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strPrefix 
      * @param {Pointer<BSTR>} strURI 
      * @returns {HRESULT} 
@@ -71,7 +67,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strPrefix 
      * @returns {HRESULT} 
      */
@@ -81,7 +76,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strNamespaceURI 
      * @param {Pointer<BSTR>} strLocalName 
      * @param {Pointer<BSTR>} strQName 
@@ -94,7 +88,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strNamespaceURI 
      * @param {Pointer<BSTR>} strLocalName 
      * @param {Pointer<BSTR>} strQName 
@@ -106,7 +99,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strChars 
      * @returns {HRESULT} 
      */
@@ -116,7 +108,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strChars 
      * @returns {HRESULT} 
      */
@@ -126,7 +117,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strTarget 
      * @param {Pointer<BSTR>} strData 
      * @returns {HRESULT} 
@@ -137,7 +127,6 @@ class IVBSAXContentHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @returns {HRESULT} 
      */

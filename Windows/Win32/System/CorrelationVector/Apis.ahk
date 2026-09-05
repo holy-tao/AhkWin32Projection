@@ -38,7 +38,6 @@ class CorrelationVector {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
      * @param {Integer} _Version 
      * @param {Pointer<Guid>} Guid 
@@ -50,7 +49,6 @@ class CorrelationVector {
     }
 
     /**
-     * 
      * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
      * @returns {Integer} 
      */
@@ -60,7 +58,6 @@ class CorrelationVector {
     }
 
     /**
-     * 
      * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
      * @returns {Integer} 
      */
@@ -70,7 +67,6 @@ class CorrelationVector {
     }
 
     /**
-     * 
      * @param {Pointer<CORRELATION_VECTOR>} Vector 
      * @returns {Integer} 
      */

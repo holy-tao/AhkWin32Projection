@@ -7,22 +7,26 @@
 class SENSOR_STATE extends Win32Enum {
 
     /**
+     * Native name: SensorState_Initializing
      * @type {Integer (Int32)}
      */
-    static SensorState_Initializing => 0
+    static Initializing => 0
 
     /**
+     * Native name: SensorState_Idle
      * @type {Integer (Int32)}
      */
-    static SensorState_Idle => 1
+    static Idle => 1
 
     /**
+     * Native name: SensorState_Active
      * @type {Integer (Int32)}
      */
-    static SensorState_Active => 2
+    static Active => 2
 
     /**
+     * Native name: SensorState_Error
      * @type {Integer (Int32)}
      */
-    static SensorState_Error => 3
+    static Error => 3
 }

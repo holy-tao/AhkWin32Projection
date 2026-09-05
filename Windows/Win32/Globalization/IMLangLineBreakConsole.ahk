@@ -32,7 +32,6 @@ class IMLangLineBreakConsole extends IUnknown {
     static VTableNames => ["BreakLineML", "BreakLineW", "BreakLineA"]
 
     /**
-     * 
      * @param {IMLangString} pSrcMLStr 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
@@ -51,7 +50,6 @@ class IMLangLineBreakConsole extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} locale 
      * @param {PWSTR} pszSrc 
      * @param {Integer} cchSrc 
@@ -71,7 +69,6 @@ class IMLangLineBreakConsole extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} locale 
      * @param {Integer} uCodePage 
      * @param {PSTR} pszSrc 

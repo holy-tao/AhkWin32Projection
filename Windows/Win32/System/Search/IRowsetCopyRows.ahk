@@ -30,7 +30,6 @@ class IRowsetCopyRows extends IUnknown {
     static VTableNames => ["CloseSource", "CopyByHROWS", "CopyRows", "DefineSource"]
 
     /**
-     * 
      * @param {Integer} hSourceID 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IRowsetCopyRows extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hSourceID 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
@@ -56,7 +54,6 @@ class IRowsetCopyRows extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hSourceID 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
@@ -69,7 +66,6 @@ class IRowsetCopyRows extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRowset} pRowsetSource 
      * @param {Pointer} cColIds 
      * @param {Pointer<Pointer>} rgSourceColumns 

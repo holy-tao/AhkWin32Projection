@@ -7,22 +7,26 @@
 class KS_MPEG2Level extends Win32Enum {
 
     /**
+     * Native name: KS_MPEG2Level_Low
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Level_Low => 0
+    static Low => 0
 
     /**
+     * Native name: KS_MPEG2Level_Main
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Level_Main => 1
+    static Main => 1
 
     /**
+     * Native name: KS_MPEG2Level_High1440
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Level_High1440 => 2
+    static High1440 => 2
 
     /**
+     * Native name: KS_MPEG2Level_High
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Level_High => 3
+    static High => 3
 }

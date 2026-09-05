@@ -50,7 +50,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plMajorVersion 
      * @param {Pointer<Integer>} plMinorVersion 
      * @returns {HRESULT} 
@@ -64,7 +63,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pGroupName 
      * @param {CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS} options 
      * @param {Pointer<BOOL>} pCreatedGroup 
@@ -80,7 +78,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationContact} 
      */
     CreateExternalContact() {
@@ -89,7 +86,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPerson} 
      */
     CreateServerPerson() {
@@ -98,7 +94,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationLink} 
      */
     CreateServerContactLink() {
@@ -120,7 +115,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationAggregate} 
      */
@@ -132,7 +126,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationContact} 
      */
@@ -144,7 +137,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationLink} 
      */
@@ -156,7 +148,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -168,7 +159,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationContactCollection} 
      */
@@ -178,7 +168,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationAggregateCollection} 
      */
@@ -188,7 +177,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationGroupCollection} 
      */
@@ -198,7 +186,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPersonCollection} 
      */
     get_ServerPersons() {
@@ -207,7 +194,6 @@ class IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pPersonItemId 
      * @returns {IContactAggregationLinkCollection} 
      */

@@ -10,13 +10,15 @@ class WS_SECURITY_HEADER_VERSION extends Win32Enum {
 
     /**
      * WS-Security 1.0.
+     * Native name: WS_SECURITY_HEADER_VERSION_1_0
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_HEADER_VERSION_1_0 => 1
+    static 1_0 => 1
 
     /**
      * WS-Security 1.1.
+     * Native name: WS_SECURITY_HEADER_VERSION_1_1
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_HEADER_VERSION_1_1 => 2
+    static 1_1 => 2
 }

@@ -30,7 +30,6 @@ class ISQLErrorInfo extends IUnknown {
     static VTableNames => ["GetSQLInfo"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrSQLState 
      * @param {Pointer<Integer>} plNativeError 
      * @returns {HRESULT} 

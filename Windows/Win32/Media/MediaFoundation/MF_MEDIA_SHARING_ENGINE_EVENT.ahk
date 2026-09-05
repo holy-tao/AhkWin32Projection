@@ -7,7 +7,8 @@
 class MF_MEDIA_SHARING_ENGINE_EVENT extends Win32Enum {
 
     /**
+     * Native name: MF_MEDIA_SHARING_ENGINE_EVENT_DISCONNECT
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_SHARING_ENGINE_EVENT_DISCONNECT => 2000
+    static DISCONNECT => 2000
 }

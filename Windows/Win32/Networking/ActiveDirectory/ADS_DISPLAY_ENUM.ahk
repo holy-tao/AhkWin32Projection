@@ -15,13 +15,15 @@ class ADS_DISPLAY_ENUM extends Win32Enum {
 
     /**
      * The path  is displayed with both attributes and values. For example, CN=Jeff Smith.
+     * Native name: ADS_DISPLAY_FULL
      * @type {Integer (Int32)}
      */
-    static ADS_DISPLAY_FULL => 1
+    static FULL => 1
 
     /**
      * The path is displayed with values only. For example, Jeff Smith.
+     * Native name: ADS_DISPLAY_VALUE_ONLY
      * @type {Integer (Int32)}
      */
-    static ADS_DISPLAY_VALUE_ONLY => 2
+    static VALUE_ONLY => 2
 }

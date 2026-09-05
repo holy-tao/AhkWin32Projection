@@ -10,13 +10,15 @@ class WICDecodeOptions extends Win32Enum {
 
     /**
      * Cache metadata when needed.
+     * Native name: WICDecodeMetadataCacheOnDemand
      * @type {Integer (Int32)}
      */
-    static WICDecodeMetadataCacheOnDemand => 0
+    static MetadataCacheOnDemand => 0
 
     /**
      * Cache metadata when decoder is loaded.
+     * Native name: WICDecodeMetadataCacheOnLoad
      * @type {Integer (Int32)}
      */
-    static WICDecodeMetadataCacheOnLoad => 1
+    static MetadataCacheOnLoad => 1
 }

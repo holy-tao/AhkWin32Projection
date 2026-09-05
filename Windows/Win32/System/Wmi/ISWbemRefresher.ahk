@@ -62,7 +62,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -87,7 +86,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -96,7 +94,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISWbemServicesEx} objWbemServices 
      * @param {BSTR} bsInstancePath 
      * @param {Integer} iFlags 
@@ -111,7 +108,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISWbemServicesEx} objWbemServices 
      * @param {BSTR} bsClassName 
      * @param {Integer} iFlags 
@@ -126,7 +122,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
@@ -137,7 +132,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
      */
@@ -147,7 +141,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AutoReconnect() {
@@ -156,7 +149,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bCount 
      * @returns {HRESULT} 
      */
@@ -166,7 +158,6 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteAll() {

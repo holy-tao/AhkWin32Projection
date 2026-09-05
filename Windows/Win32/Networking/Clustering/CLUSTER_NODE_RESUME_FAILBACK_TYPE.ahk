@@ -16,19 +16,22 @@ class CLUSTER_NODE_RESUME_FAILBACK_TYPE extends Win32Enum {
 
     /**
      * Indicates that the groups is  to  be failed back to the node.
+     * Native name: FailbackGroupsImmediately
      * @type {Integer (Int32)}
      */
-    static FailbackGroupsImmediately => 1
+    static GroupsImmediately => 1
 
     /**
      * Indicates that the failover policy for each group is to  be used.
+     * Native name: FailbackGroupsPerPolicy
      * @type {Integer (Int32)}
      */
-    static FailbackGroupsPerPolicy => 2
+    static GroupsPerPolicy => 2
 
     /**
      * Defines the maximum number of failback types.
+     * Native name: ClusterNodeResumeFailbackTypeCount
      * @type {Integer (Int32)}
      */
-    static ClusterNodeResumeFailbackTypeCount => 3
+    static Count => 3
 }

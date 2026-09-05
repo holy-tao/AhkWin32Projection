@@ -14,13 +14,15 @@ class MFVideoDSPMode extends Win32Enum {
 
     /**
      * Pass-through mode. Video stabilization is not applied.
+     * Native name: MFVideoDSPMode_Passthrough
      * @type {Integer (Int32)}
      */
-    static MFVideoDSPMode_Passthrough => 1
+    static Passthrough => 1
 
     /**
      * Video stabilization is applied.
+     * Native name: MFVideoDSPMode_Stabilization
      * @type {Integer (Int32)}
      */
-    static MFVideoDSPMode_Stabilization => 4
+    static Stabilization => 4
 }

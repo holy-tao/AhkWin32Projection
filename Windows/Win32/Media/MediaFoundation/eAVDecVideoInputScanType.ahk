@@ -10,25 +10,29 @@ class eAVDecVideoInputScanType extends Win32Enum {
 
     /**
      * The interlacing is not known.
+     * Native name: eAVDecVideoInputScan_Unknown
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoInputScan_Unknown => 0
+    static Unknown => 0
 
     /**
      * Decoded frames are progressive.
+     * Native name: eAVDecVideoInputScan_Progressive
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoInputScan_Progressive => 1
+    static Progressive => 1
 
     /**
      * Decoded frames are interlaced, with the upper field appearing first.
+     * Native name: eAVDecVideoInputScan_Interlaced_UpperFieldFirst
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoInputScan_Interlaced_UpperFieldFirst => 2
+    static Interlaced_UpperFieldFirst => 2
 
     /**
      * Decoded frames are interlaced, with the lower field appearing first.
+     * Native name: eAVDecVideoInputScan_Interlaced_LowerFieldFirst
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoInputScan_Interlaced_LowerFieldFirst => 3
+    static Interlaced_LowerFieldFirst => 3
 }

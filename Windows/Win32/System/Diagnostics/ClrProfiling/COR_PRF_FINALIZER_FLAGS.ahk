@@ -7,7 +7,8 @@
 class COR_PRF_FINALIZER_FLAGS extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_FINALIZER_CRITICAL
      * @type {Integer (Int32)}
      */
-    static COR_PRF_FINALIZER_CRITICAL => 1
+    static CRITICAL => 1
 }

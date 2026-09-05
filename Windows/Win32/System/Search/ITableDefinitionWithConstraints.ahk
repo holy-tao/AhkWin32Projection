@@ -35,7 +35,6 @@ class ITableDefinitionWithConstraints extends ITableCreation {
     static VTableNames => ["AddConstraint", "CreateTableWithConstraints", "DropConstraint"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBCONSTRAINTDESC>} pConstraintDesc 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class ITableDefinitionWithConstraints extends ITableCreation {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer} cColumnDescs 
@@ -68,7 +66,6 @@ class ITableDefinitionWithConstraints extends ITableCreation {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pConstraintID 
      * @returns {HRESULT} 

@@ -74,7 +74,6 @@ class ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Index() {
@@ -83,7 +82,6 @@ class ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemRefresher} 
      */
     get_Refresher() {
@@ -92,7 +90,6 @@ class ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsSet() {
@@ -101,7 +98,6 @@ class ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObjectEx} 
      */
     get_Object() {
@@ -110,7 +106,6 @@ class ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObjectSet} 
      */
     get_ObjectSet() {
@@ -119,7 +114,6 @@ class ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
      */

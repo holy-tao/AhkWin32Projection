@@ -10,19 +10,22 @@ class D3D12_SHADER_CACHE_CONTROL_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies that the cache shouldn't be used to look up data, and shouldn't have new data stored in it. Attempts to use/create a cache while it's disabled result in **DXGI_ERROR_NOT_CURRENTLY_AVAILABLE**.
+     * Native name: D3D12_SHADER_CACHE_CONTROL_FLAG_DISABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_CACHE_CONTROL_FLAG_DISABLE => 1
+    static FLAG_DISABLE => 1
 
     /**
      * Specfies that use of the cache should be resumed.
+     * Native name: D3D12_SHADER_CACHE_CONTROL_FLAG_ENABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_CACHE_CONTROL_FLAG_ENABLE => 2
+    static FLAG_ENABLE => 2
 
     /**
      * Specfies that any existing contents of the cache should be deleted.
+     * Native name: D3D12_SHADER_CACHE_CONTROL_FLAG_CLEAR
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_CACHE_CONTROL_FLAG_CLEAR => 4
+    static FLAG_CLEAR => 4
 }

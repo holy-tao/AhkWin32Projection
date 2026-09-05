@@ -31,7 +31,6 @@ class INamedModelsEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -40,7 +39,6 @@ class INamedModelsEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pModelName 
      * @param {Pointer<IModelObject>} ppModel 
      * @returns {HRESULT} 

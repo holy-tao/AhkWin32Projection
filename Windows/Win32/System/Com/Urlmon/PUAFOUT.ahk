@@ -7,12 +7,14 @@
 class PUAFOUT extends Win32Enum {
 
     /**
+     * Native name: PUAFOUT_DEFAULT
      * @type {Integer (Int32)}
      */
-    static PUAFOUT_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: PUAFOUT_ISLOCKZONEPOLICY
      * @type {Integer (Int32)}
      */
-    static PUAFOUT_ISLOCKZONEPOLICY => 1
+    static ISLOCKZONEPOLICY => 1
 }

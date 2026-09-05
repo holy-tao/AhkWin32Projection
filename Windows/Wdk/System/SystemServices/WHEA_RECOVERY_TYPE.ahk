@@ -7,17 +7,20 @@
 class WHEA_RECOVERY_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaRecoveryTypeActionRequired
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryTypeActionRequired => 1
+    static ActionRequired => 1
 
     /**
+     * Native name: WheaRecoveryTypeActionOptional
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryTypeActionOptional => 2
+    static ActionOptional => 2
 
     /**
+     * Native name: WheaRecoveryTypeMax
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryTypeMax => 3
+    static Max => 3
 }

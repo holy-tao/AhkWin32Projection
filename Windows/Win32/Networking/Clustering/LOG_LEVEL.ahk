@@ -10,28 +10,32 @@ class LOG_LEVEL extends Win32Enum {
 
     /**
      * The event is informational.
+     * Native name: LOG_INFORMATION
      * @type {Integer (Int32)}
      */
-    static LOG_INFORMATION => 0
+    static INFORMATION => 0
 
     /**
      * The event is reporting a failure that might have happened, but it is uncertain whether a failure really did 
      *       occur.
+     * Native name: LOG_WARNING
      * @type {Integer (Int32)}
      */
-    static LOG_WARNING => 1
+    static WARNING => 1
 
     /**
      * The event affects a single component, but other components are not affected and the integrity of the rest 
      *       of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> is not compromised.
+     * Native name: LOG_ERROR
      * @type {Integer (Int32)}
      */
-    static LOG_ERROR => 2
+    static ERROR => 2
 
     /**
      * The event is reporting a severe failure that affects multiple components, or the integrity of the entire 
      *       system is compromised or believed to be compromised.
+     * Native name: LOG_SEVERE
      * @type {Integer (Int32)}
      */
-    static LOG_SEVERE => 3
+    static SEVERE => 3
 }

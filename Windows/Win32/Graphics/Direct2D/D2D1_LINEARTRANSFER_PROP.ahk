@@ -15,9 +15,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 0.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_RED_Y_INTERCEPT
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_RED_Y_INTERCEPT => 0
+    static RED_Y_INTERCEPT => 0
 
     /**
      * The slope of the linear function for the Red channel.
@@ -26,9 +27,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 1.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_RED_SLOPE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_RED_SLOPE => 1
+    static RED_SLOPE => 1
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Red channel. 
@@ -38,9 +40,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default is FALSE.
+     * Native name: D2D1_LINEARTRANSFER_PROP_RED_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_RED_DISABLE => 2
+    static RED_DISABLE => 2
 
     /**
      * The Y-intercept of the linear function for the Green channel. 
@@ -49,9 +52,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 0.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_GREEN_Y_INTERCEPT
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_GREEN_Y_INTERCEPT => 3
+    static GREEN_Y_INTERCEPT => 3
 
     /**
      * The slope of the linear function for the Green channel.
@@ -60,9 +64,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 1.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_GREEN_SLOPE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_GREEN_SLOPE => 4
+    static GREEN_SLOPE => 4
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Green channel. 
@@ -72,9 +77,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default is FALSE.
+     * Native name: D2D1_LINEARTRANSFER_PROP_GREEN_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_GREEN_DISABLE => 5
+    static GREEN_DISABLE => 5
 
     /**
      * The Y-intercept of the linear function for the Blue channel. 
@@ -83,9 +89,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 0.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_BLUE_Y_INTERCEPT
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_BLUE_Y_INTERCEPT => 6
+    static BLUE_Y_INTERCEPT => 6
 
     /**
      * The slope of the linear function for the Blue channel.
@@ -94,9 +101,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 1.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_BLUE_SLOPE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_BLUE_SLOPE => 7
+    static BLUE_SLOPE => 7
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Blue channel. 
@@ -106,9 +114,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default is FALSE.
+     * Native name: D2D1_LINEARTRANSFER_PROP_BLUE_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_BLUE_DISABLE => 8
+    static BLUE_DISABLE => 8
 
     /**
      * The Y-intercept of the linear function for the Alpha channel. 
@@ -117,9 +126,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 0.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_ALPHA_Y_INTERCEPT
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_ALPHA_Y_INTERCEPT => 9
+    static ALPHA_Y_INTERCEPT => 9
 
     /**
      * The slope of the linear function for the Alpha channel.
@@ -128,9 +138,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 0.0f.
+     * Native name: D2D1_LINEARTRANSFER_PROP_ALPHA_SLOPE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_ALPHA_SLOPE => 10
+    static ALPHA_SLOPE => 10
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Alpha channel. 
@@ -140,9 +151,10 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default is FALSE.
+     * Native name: D2D1_LINEARTRANSFER_PROP_ALPHA_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_ALPHA_DISABLE => 11
+    static ALPHA_DISABLE => 11
 
     /**
      * Whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph. 
@@ -155,7 +167,8 @@ class D2D1_LINEARTRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default is FALSE.
+     * Native name: D2D1_LINEARTRANSFER_PROP_CLAMP_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D2D1_LINEARTRANSFER_PROP_CLAMP_OUTPUT => 12
+    static CLAMP_OUTPUT => 12
 }

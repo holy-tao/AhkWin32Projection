@@ -38,7 +38,6 @@ class AsyncIAssociatedIdentityProvider extends IUnknown {
     static VTableNames => ["Begin_AssociateIdentity", "Finish_AssociateIdentity", "Begin_DisassociateIdentity", "Finish_DisassociateIdentity", "Begin_ChangeCredential", "Finish_ChangeCredential"]
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_AssociateIdentity() {
@@ -59,7 +57,6 @@ class AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
@@ -73,7 +70,6 @@ class AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_DisassociateIdentity() {
@@ -82,7 +78,6 @@ class AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
@@ -96,7 +91,6 @@ class AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_ChangeCredential() {

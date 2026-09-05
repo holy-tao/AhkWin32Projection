@@ -10,25 +10,29 @@ class _ExportListOptions extends Win32Enum {
 
     /**
      * Default list export option. If this is the only flag specified in the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/view-exportlist">View.ExportList</a>, then the list view contents are exported as comma-delimited ANSI text.
+     * Native name: ExportListOptions_Default
      * @type {Integer (Int32)}
      */
-    static ExportListOptions_Default => 0
+    static Default => 0
 
     /**
      * The list is exported as Unicode text.
+     * Native name: ExportListOptions_Unicode
      * @type {Integer (Int32)}
      */
-    static ExportListOptions_Unicode => 1
+    static Unicode => 1
 
     /**
      * The list is exported as tab-delimited text.
+     * Native name: ExportListOptions_TabDelimited
      * @type {Integer (Int32)}
      */
-    static ExportListOptions_TabDelimited => 2
+    static TabDelimited => 2
 
     /**
      * The exported list contains only currently selected items.
+     * Native name: ExportListOptions_SelectedItemsOnly
      * @type {Integer (Int32)}
      */
-    static ExportListOptions_SelectedItemsOnly => 4
+    static SelectedItemsOnly => 4
 }

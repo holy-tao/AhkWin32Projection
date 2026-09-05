@@ -32,7 +32,6 @@ class IDataModelManager4 extends IDataModelManager3 {
     static VTableNames => ["CreateSyntheticObjectFromKeyStore"]
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {IKeyStore} parentStore 
      * @returns {IModelObject} 

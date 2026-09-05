@@ -65,7 +65,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {X509HardwareKeyUsageFlags} 
      */
     get_HardwareKeyUsage() {
@@ -74,7 +73,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {X509HardwareKeyUsageFlags} Value 
      * @returns {HRESULT} 
      */
@@ -84,7 +82,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AlternateStorageLocation() {
@@ -94,7 +91,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -106,7 +102,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AlgorithmName() {
@@ -116,7 +111,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -128,7 +122,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -139,7 +132,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -152,7 +144,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {X509KeyParametersExportType} 
      */
     get_ParametersExportType() {
@@ -161,7 +152,6 @@ class IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {X509KeyParametersExportType} Value 
      * @returns {HRESULT} 
      */

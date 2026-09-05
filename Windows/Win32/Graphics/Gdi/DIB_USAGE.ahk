@@ -7,12 +7,14 @@
 class DIB_USAGE extends Win32Enum {
 
     /**
+     * Native name: DIB_RGB_COLORS
      * @type {Integer (UInt32)}
      */
-    static DIB_RGB_COLORS => 0
+    static RGB_COLORS => 0
 
     /**
+     * Native name: DIB_PAL_COLORS
      * @type {Integer (UInt32)}
      */
-    static DIB_PAL_COLORS => 1
+    static PAL_COLORS => 1
 }

@@ -16,25 +16,28 @@ class CF_HYDRATION_POLICY_MODIFIER extends Win32BitflagEnum {
      * `0x0000`
      * 
      * No policy modifier.
+     * Native name: CF_HYDRATION_POLICY_MODIFIER_NONE
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_MODIFIER_NONE => 0
+    static NONE => 0
 
     /**
      * `0x0001`
      * 
      * This policy modifier offers two guarantees to a sync provider. First, it guarantees that the data returned by the sync provider is always persisted to the disk prior to it being returned to the user application. Second, it allows the sync provider to retrieve the same data it has returned previously to the platform and validate its integrity. Only upon a successful confirmation of the integrity by the sync provider will the platform complete the user I/O request. This modifier helps support end-to-end data integrity at the cost of extra disk I/Os.
+     * Native name: CF_HYDRATION_POLICY_MODIFIER_VALIDATION_REQUIRED
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_MODIFIER_VALIDATION_REQUIRED => 1
+    static VALIDATION_REQUIRED => 1
 
     /**
      * `0x0002`
      * 
      * This policy modifier grants the platform the permission to not store any data returned by a sync provider on local disks. This policy modifier is ineffective when being combined with **CF_HYDRATION_POLICY_MODIFIER_VALIDATION_REQUIRED**.
+     * Native name: CF_HYDRATION_POLICY_MODIFIER_STREAMING_ALLOWED
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_MODIFIER_STREAMING_ALLOWED => 2
+    static STREAMING_ALLOWED => 2
 
     /**
      * `0x0004`
@@ -43,9 +46,10 @@ class CF_HYDRATION_POLICY_MODIFIER extends Win32BitflagEnum {
      * 
      * > [!NOTE]
      * > This value is available in Windows 10, version 1803 and later.
+     * Native name: CF_HYDRATION_POLICY_MODIFIER_AUTO_DEHYDRATION_ALLOWED
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_MODIFIER_AUTO_DEHYDRATION_ALLOWED => 4
+    static AUTO_DEHYDRATION_ALLOWED => 4
 
     /**
      * `0x0008`
@@ -54,7 +58,8 @@ class CF_HYDRATION_POLICY_MODIFIER extends Win32BitflagEnum {
      * 
      * > [!NOTE]
      * > This enum update is supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x500` or higher.
+     * Native name: CF_HYDRATION_POLICY_MODIFIER_ALLOW_FULL_RESTART_HYDRATION
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_MODIFIER_ALLOW_FULL_RESTART_HYDRATION => 8
+    static ALLOW_FULL_RESTART_HYDRATION => 8
 }

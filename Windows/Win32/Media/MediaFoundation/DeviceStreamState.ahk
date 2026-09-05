@@ -7,22 +7,26 @@
 class DeviceStreamState extends Win32Enum {
 
     /**
+     * Native name: DeviceStreamState_Stop
      * @type {Integer (Int32)}
      */
-    static DeviceStreamState_Stop => 0
+    static Stop => 0
 
     /**
+     * Native name: DeviceStreamState_Pause
      * @type {Integer (Int32)}
      */
-    static DeviceStreamState_Pause => 1
+    static Pause => 1
 
     /**
+     * Native name: DeviceStreamState_Run
      * @type {Integer (Int32)}
      */
-    static DeviceStreamState_Run => 2
+    static Run => 2
 
     /**
+     * Native name: DeviceStreamState_Disabled
      * @type {Integer (Int32)}
      */
-    static DeviceStreamState_Disabled => 3
+    static Disabled => 3
 }

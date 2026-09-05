@@ -26,7 +26,6 @@ class IAsyncGetSendNotificationCookie extends IPrintAsyncCookie {
     static VTableNames => ["FinishAsyncCallWithData"]
 
     /**
-     * 
      * @param {IPrintAsyncNotifyDataObject} param0 
      * @param {BOOL} param1 
      * @returns {HRESULT} 

@@ -7,22 +7,26 @@
 class styleMsTouchSelect extends Win32Enum {
 
     /**
+     * Native name: styleMsTouchSelectGrippers
      * @type {Integer (Int32)}
      */
-    static styleMsTouchSelectGrippers => 0
+    static Grippers => 0
 
     /**
+     * Native name: styleMsTouchSelectNone
      * @type {Integer (Int32)}
      */
-    static styleMsTouchSelectNone => 1
+    static None => 1
 
     /**
+     * Native name: styleMsTouchSelectNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsTouchSelectNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleMsTouchSelect_Max
      * @type {Integer (Int32)}
      */
-    static styleMsTouchSelect_Max => 2147483647
+    static Max => 2147483647
 }

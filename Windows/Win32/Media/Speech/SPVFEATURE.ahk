@@ -7,12 +7,14 @@
 class SPVFEATURE extends Win32Enum {
 
     /**
+     * Native name: SPVFEATURE_STRESSED
      * @type {Integer (Int32)}
      */
-    static SPVFEATURE_STRESSED => 1
+    static STRESSED => 1
 
     /**
+     * Native name: SPVFEATURE_EMPHASIS
      * @type {Integer (Int32)}
      */
-    static SPVFEATURE_EMPHASIS => 2
+    static EMPHASIS => 2
 }

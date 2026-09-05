@@ -40,7 +40,6 @@ class IADsOctetList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OctetList() {
@@ -50,7 +49,6 @@ class IADsOctetList extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vOctetList 
      * @returns {HRESULT} 
      */

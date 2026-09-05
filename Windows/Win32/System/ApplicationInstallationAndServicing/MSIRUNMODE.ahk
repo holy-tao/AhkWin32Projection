@@ -7,97 +7,116 @@
 class MSIRUNMODE extends Win32Enum {
 
     /**
+     * Native name: MSIRUNMODE_ADMIN
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_ADMIN => 0
+    static ADMIN => 0
 
     /**
+     * Native name: MSIRUNMODE_ADVERTISE
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_ADVERTISE => 1
+    static ADVERTISE => 1
 
     /**
+     * Native name: MSIRUNMODE_MAINTENANCE
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_MAINTENANCE => 2
+    static MAINTENANCE => 2
 
     /**
+     * Native name: MSIRUNMODE_ROLLBACKENABLED
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_ROLLBACKENABLED => 3
+    static ROLLBACKENABLED => 3
 
     /**
+     * Native name: MSIRUNMODE_LOGENABLED
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_LOGENABLED => 4
+    static LOGENABLED => 4
 
     /**
+     * Native name: MSIRUNMODE_OPERATIONS
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_OPERATIONS => 5
+    static OPERATIONS => 5
 
     /**
+     * Native name: MSIRUNMODE_REBOOTATEND
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_REBOOTATEND => 6
+    static REBOOTATEND => 6
 
     /**
+     * Native name: MSIRUNMODE_REBOOTNOW
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_REBOOTNOW => 7
+    static REBOOTNOW => 7
 
     /**
+     * Native name: MSIRUNMODE_CABINET
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_CABINET => 8
+    static CABINET => 8
 
     /**
+     * Native name: MSIRUNMODE_SOURCESHORTNAMES
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_SOURCESHORTNAMES => 9
+    static SOURCESHORTNAMES => 9
 
     /**
+     * Native name: MSIRUNMODE_TARGETSHORTNAMES
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_TARGETSHORTNAMES => 10
+    static TARGETSHORTNAMES => 10
 
     /**
+     * Native name: MSIRUNMODE_RESERVED11
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_RESERVED11 => 11
+    static RESERVED11 => 11
 
     /**
+     * Native name: MSIRUNMODE_WINDOWS9X
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_WINDOWS9X => 12
+    static WINDOWS9X => 12
 
     /**
+     * Native name: MSIRUNMODE_ZAWENABLED
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_ZAWENABLED => 13
+    static ZAWENABLED => 13
 
     /**
+     * Native name: MSIRUNMODE_RESERVED14
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_RESERVED14 => 14
+    static RESERVED14 => 14
 
     /**
+     * Native name: MSIRUNMODE_RESERVED15
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_RESERVED15 => 15
+    static RESERVED15 => 15
 
     /**
+     * Native name: MSIRUNMODE_SCHEDULED
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_SCHEDULED => 16
+    static SCHEDULED => 16
 
     /**
+     * Native name: MSIRUNMODE_ROLLBACK
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_ROLLBACK => 17
+    static ROLLBACK => 17
 
     /**
+     * Native name: MSIRUNMODE_COMMIT
      * @type {Integer (Int32)}
      */
-    static MSIRUNMODE_COMMIT => 18
+    static COMMIT => 18
 }

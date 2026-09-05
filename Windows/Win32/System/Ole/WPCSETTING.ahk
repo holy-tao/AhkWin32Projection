@@ -7,12 +7,14 @@
 class WPCSETTING extends Win32Enum {
 
     /**
+     * Native name: WPCSETTING_LOGGING_ENABLED
      * @type {Integer (Int32)}
      */
-    static WPCSETTING_LOGGING_ENABLED => 1
+    static LOGGING_ENABLED => 1
 
     /**
+     * Native name: WPCSETTING_FILEDOWNLOAD_BLOCKED
      * @type {Integer (Int32)}
      */
-    static WPCSETTING_FILEDOWNLOAD_BLOCKED => 2
+    static FILEDOWNLOAD_BLOCKED => 2
 }

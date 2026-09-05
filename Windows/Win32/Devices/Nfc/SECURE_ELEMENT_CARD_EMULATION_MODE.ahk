@@ -7,22 +7,26 @@
 class SECURE_ELEMENT_CARD_EMULATION_MODE extends Win32Enum {
 
     /**
+     * Native name: EmulationOff
      * @type {Integer (Int32)}
      */
-    static EmulationOff => 0
+    static Off => 0
 
     /**
+     * Native name: EmulationOnPowerIndependent
      * @type {Integer (Int32)}
      */
-    static EmulationOnPowerIndependent => 1
+    static OnPowerIndependent => 1
 
     /**
+     * Native name: EmulationOnPowerDependent
      * @type {Integer (Int32)}
      */
-    static EmulationOnPowerDependent => 2
+    static OnPowerDependent => 2
 
     /**
+     * Native name: EmulationStealthListen
      * @type {Integer (Int32)}
      */
-    static EmulationStealthListen => 3
+    static StealthListen => 3
 }

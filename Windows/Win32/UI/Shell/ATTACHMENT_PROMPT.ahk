@@ -10,25 +10,29 @@ class ATTACHMENT_PROMPT extends Win32Enum {
 
     /**
      * Do not use.
+     * Native name: ATTACHMENT_PROMPT_NONE
      * @type {Integer (Int32)}
      */
-    static ATTACHMENT_PROMPT_NONE => 0
+    static NONE => 0
 
     /**
      * Displays a prompt asking whether the user would like to save the attachment.
+     * Native name: ATTACHMENT_PROMPT_SAVE
      * @type {Integer (Int32)}
      */
-    static ATTACHMENT_PROMPT_SAVE => 1
+    static SAVE => 1
 
     /**
      * Displays a prompt asking whether the user would like to execute the attachment.
+     * Native name: ATTACHMENT_PROMPT_EXEC
      * @type {Integer (Int32)}
      */
-    static ATTACHMENT_PROMPT_EXEC => 2
+    static EXEC => 2
 
     /**
      * Displays a prompt giving the user a choice of executing or saving the attachment.
+     * Native name: ATTACHMENT_PROMPT_EXEC_OR_SAVE
      * @type {Integer (Int32)}
      */
-    static ATTACHMENT_PROMPT_EXEC_OR_SAVE => 3
+    static EXEC_OR_SAVE => 3
 }

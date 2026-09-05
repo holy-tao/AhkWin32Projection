@@ -7,7 +7,8 @@
 class KSPROPERTY_AUDIOSIGNALPROCESSING extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_AUDIOSIGNALPROCESSING_MODES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOSIGNALPROCESSING_MODES => 0
+    static MODES => 0
 }

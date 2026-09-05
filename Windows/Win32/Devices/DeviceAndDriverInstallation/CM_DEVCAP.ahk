@@ -7,57 +7,68 @@
 class CM_DEVCAP extends Win32BitflagEnum {
 
     /**
+     * Native name: CM_DEVCAP_LOCKSUPPORTED
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_LOCKSUPPORTED => 1
+    static LOCKSUPPORTED => 1
 
     /**
+     * Native name: CM_DEVCAP_EJECTSUPPORTED
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_EJECTSUPPORTED => 2
+    static EJECTSUPPORTED => 2
 
     /**
+     * Native name: CM_DEVCAP_REMOVABLE
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_REMOVABLE => 4
+    static REMOVABLE => 4
 
     /**
+     * Native name: CM_DEVCAP_DOCKDEVICE
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_DOCKDEVICE => 8
+    static DOCKDEVICE => 8
 
     /**
+     * Native name: CM_DEVCAP_UNIQUEID
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_UNIQUEID => 16
+    static UNIQUEID => 16
 
     /**
+     * Native name: CM_DEVCAP_SILENTINSTALL
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_SILENTINSTALL => 32
+    static SILENTINSTALL => 32
 
     /**
+     * Native name: CM_DEVCAP_RAWDEVICEOK
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_RAWDEVICEOK => 64
+    static RAWDEVICEOK => 64
 
     /**
+     * Native name: CM_DEVCAP_SURPRISEREMOVALOK
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_SURPRISEREMOVALOK => 128
+    static SURPRISEREMOVALOK => 128
 
     /**
+     * Native name: CM_DEVCAP_HARDWAREDISABLED
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_HARDWAREDISABLED => 256
+    static HARDWAREDISABLED => 256
 
     /**
+     * Native name: CM_DEVCAP_NONDYNAMIC
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_NONDYNAMIC => 512
+    static NONDYNAMIC => 512
 
     /**
+     * Native name: CM_DEVCAP_SECUREDEVICE
      * @type {Integer (UInt32)}
      */
-    static CM_DEVCAP_SECUREDEVICE => 1024
+    static SECUREDEVICE => 1024
 }

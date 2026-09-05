@@ -29,7 +29,6 @@ class IMFMediaSourceExtensionLiveSeekableRange extends IUnknown {
     static VTableNames => ["SetLiveSeekableRange", "ClearLiveSeekableRange"]
 
     /**
-     * 
      * @param {Float} start 
      * @param {Float} end 
      * @returns {HRESULT} 
@@ -40,7 +39,6 @@ class IMFMediaSourceExtensionLiveSeekableRange extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearLiveSeekableRange() {

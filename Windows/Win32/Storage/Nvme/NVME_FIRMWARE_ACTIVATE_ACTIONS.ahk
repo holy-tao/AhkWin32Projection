@@ -10,25 +10,29 @@ class NVME_FIRMWARE_ACTIVATE_ACTIONS extends Win32Enum {
 
     /**
      * The downloaded image replaces the image specified by the Firmware Slot field. This image is not activated.
+     * Native name: NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT
      * @type {Integer (Int32)}
      */
-    static NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT => 0
+    static ACTION_DOWNLOAD_TO_SLOT => 0
 
     /**
      * The downloaded image replaces the image specified by the Firmware Slot field. This image is activated at the next reset.
+     * Native name: NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE
      * @type {Integer (Int32)}
      */
-    static NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE => 1
+    static ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE => 1
 
     /**
      * The image specified by the Firmware Slot field is activated at the next reset.
+     * Native name: NVME_FIRMWARE_ACTIVATE_ACTION_ACTIVATE
      * @type {Integer (Int32)}
      */
-    static NVME_FIRMWARE_ACTIVATE_ACTION_ACTIVATE => 2
+    static ACTION_ACTIVATE => 2
 
     /**
      * The image specified by the Firmware Slot field is requested to be activated immediately without reset.
+     * Native name: NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE_IMMEDIATE => 3
+    static ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE_IMMEDIATE => 3
 }

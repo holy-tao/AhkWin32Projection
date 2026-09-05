@@ -7,37 +7,44 @@
 class svgFeblendMode extends Win32Enum {
 
     /**
+     * Native name: SVG_FEBLEND_MODE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_FEBLEND_MODE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: SVG_FEBLEND_MODE_NORMAL
      * @type {Integer (Int32)}
      */
-    static SVG_FEBLEND_MODE_NORMAL => 1
+    static NORMAL => 1
 
     /**
+     * Native name: SVG_FEBLEND_MODE_MULTIPLY
      * @type {Integer (Int32)}
      */
-    static SVG_FEBLEND_MODE_MULTIPLY => 2
+    static MULTIPLY => 2
 
     /**
+     * Native name: SVG_FEBLEND_MODE_SCREEN
      * @type {Integer (Int32)}
      */
-    static SVG_FEBLEND_MODE_SCREEN => 3
+    static SCREEN => 3
 
     /**
+     * Native name: SVG_FEBLEND_MODE_DARKEN
      * @type {Integer (Int32)}
      */
-    static SVG_FEBLEND_MODE_DARKEN => 4
+    static DARKEN => 4
 
     /**
+     * Native name: SVG_FEBLEND_MODE_LIGHTEN
      * @type {Integer (Int32)}
      */
-    static SVG_FEBLEND_MODE_LIGHTEN => 5
+    static LIGHTEN => 5
 
     /**
+     * Native name: svgFeblendMode_Max
      * @type {Integer (Int32)}
      */
-    static svgFeblendMode_Max => 2147483647
+    static Max => 2147483647
 }

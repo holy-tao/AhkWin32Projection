@@ -7,27 +7,32 @@
 class DXVA2_DetailFilterTech extends Win32Enum {
 
     /**
+     * Native name: DXVA2_DetailFilterTech_Unsupported
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterTech_Unsupported => 0
+    static Unsupported => 0
 
     /**
+     * Native name: DXVA2_DetailFilterTech_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterTech_Unknown => 1
+    static Unknown => 1
 
     /**
+     * Native name: DXVA2_DetailFilterTech_Edge
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterTech_Edge => 2
+    static Edge => 2
 
     /**
+     * Native name: DXVA2_DetailFilterTech_Sharpening
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterTech_Sharpening => 4
+    static Sharpening => 4
 
     /**
+     * Native name: DXVA2_DetailFilterTech_Mask
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterTech_Mask => 7
+    static Mask => 7
 }

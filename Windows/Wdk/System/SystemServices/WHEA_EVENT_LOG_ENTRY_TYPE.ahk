@@ -7,17 +7,20 @@
 class WHEA_EVENT_LOG_ENTRY_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaEventLogEntryTypeInformational
      * @type {Integer (Int32)}
      */
-    static WheaEventLogEntryTypeInformational => 0
+    static Informational => 0
 
     /**
+     * Native name: WheaEventLogEntryTypeWarning
      * @type {Integer (Int32)}
      */
-    static WheaEventLogEntryTypeWarning => 1
+    static Warning => 1
 
     /**
+     * Native name: WheaEventLogEntryTypeError
      * @type {Integer (Int32)}
      */
-    static WheaEventLogEntryTypeError => 2
+    static Error => 2
 }

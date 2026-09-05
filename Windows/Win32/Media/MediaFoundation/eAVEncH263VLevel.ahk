@@ -7,42 +7,50 @@
 class eAVEncH263VLevel extends Win32Enum {
 
     /**
+     * Native name: eAVEncH263VLevel1
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel1 => 10
+    static Level1 => 10
 
     /**
+     * Native name: eAVEncH263VLevel2
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel2 => 20
+    static Level2 => 20
 
     /**
+     * Native name: eAVEncH263VLevel3
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel3 => 30
+    static Level3 => 30
 
     /**
+     * Native name: eAVEncH263VLevel4
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel4 => 40
+    static Level4 => 40
 
     /**
+     * Native name: eAVEncH263VLevel4_5
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel4_5 => 45
+    static Level4_5 => 45
 
     /**
+     * Native name: eAVEncH263VLevel5
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel5 => 50
+    static Level5 => 50
 
     /**
+     * Native name: eAVEncH263VLevel6
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel6 => 60
+    static Level6 => 60
 
     /**
+     * Native name: eAVEncH263VLevel7
      * @type {Integer (Int32)}
      */
-    static eAVEncH263VLevel7 => 70
+    static Level7 => 70
 }

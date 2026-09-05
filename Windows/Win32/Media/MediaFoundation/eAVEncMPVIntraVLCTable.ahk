@@ -10,19 +10,22 @@ class eAVEncMPVIntraVLCTable extends Win32Enum {
 
     /**
      * The encoder selects the VLC table.
+     * Native name: eAVEncMPVIntraVLCTable_Auto
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVIntraVLCTable_Auto => 0
+    static Auto => 0
 
     /**
      * The encoder uses the MPEG-1 VLC table.
+     * Native name: eAVEncMPVIntraVLCTable_MPEG1
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVIntraVLCTable_MPEG1 => 1
+    static MPEG1 => 1
 
     /**
      * The encoder uses the alternate "intra" VLC table for MPEG-2.
+     * Native name: eAVEncMPVIntraVLCTable_Alternate
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVIntraVLCTable_Alternate => 2
+    static Alternate => 2
 }

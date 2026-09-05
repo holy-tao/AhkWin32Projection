@@ -44,7 +44,6 @@ class IHTMLEventObj6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_actionURL() {
@@ -54,7 +53,6 @@ class IHTMLEventObj6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_buttonID() {

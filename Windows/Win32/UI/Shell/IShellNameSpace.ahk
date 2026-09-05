@@ -109,7 +109,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EnumOptions() {
@@ -118,7 +117,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -128,7 +126,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_SelectedItem() {
@@ -137,7 +134,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {IDispatch} pItem 
      * @returns {HRESULT} 
      */
@@ -147,7 +143,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Root() {
@@ -157,7 +152,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {VARIANT} var 
      * @returns {HRESULT} 
      */
@@ -167,7 +161,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Depth() {
@@ -176,7 +169,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} iDepth 
      * @returns {HRESULT} 
      */
@@ -186,7 +178,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Mode() {
@@ -195,7 +186,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} uMode 
      * @returns {HRESULT} 
      */
@@ -205,7 +195,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -214,7 +203,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -224,7 +212,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -234,7 +221,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TVFlags() {
@@ -243,7 +229,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Columns() {
@@ -253,7 +238,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {BSTR} bstrColumns 
      * @returns {HRESULT} 
      */
@@ -265,7 +249,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CountViewTypes() {
@@ -274,7 +257,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} iType 
      * @returns {HRESULT} 
      */
@@ -284,7 +266,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     SelectedItems() {
@@ -293,7 +274,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {VARIANT} var 
      * @param {Integer} iDepth 
      * @returns {HRESULT} 
@@ -304,7 +284,6 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnselectAll() {

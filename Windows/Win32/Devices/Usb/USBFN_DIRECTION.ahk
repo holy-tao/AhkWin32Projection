@@ -7,32 +7,38 @@
 class USBFN_DIRECTION extends Win32Enum {
 
     /**
+     * Native name: UsbfnDirectionMinimum
      * @type {Integer (Int32)}
      */
-    static UsbfnDirectionMinimum => 0
+    static Minimum => 0
 
     /**
+     * Native name: UsbfnDirectionIn
      * @type {Integer (Int32)}
      */
-    static UsbfnDirectionIn => 1
+    static In => 1
 
     /**
+     * Native name: UsbfnDirectionOut
      * @type {Integer (Int32)}
      */
-    static UsbfnDirectionOut => 2
+    static Out => 2
 
     /**
+     * Native name: UsbfnDirectionTx
      * @type {Integer (Int32)}
      */
-    static UsbfnDirectionTx => 1
+    static Tx => 1
 
     /**
+     * Native name: UsbfnDirectionRx
      * @type {Integer (Int32)}
      */
-    static UsbfnDirectionRx => 2
+    static Rx => 2
 
     /**
+     * Native name: UsbfnDirectionMaximum
      * @type {Integer (Int32)}
      */
-    static UsbfnDirectionMaximum => 3
+    static Maximum => 3
 }

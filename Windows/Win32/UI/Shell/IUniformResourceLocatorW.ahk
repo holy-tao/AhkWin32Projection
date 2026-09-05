@@ -32,7 +32,6 @@ class IUniformResourceLocatorW extends IUnknown {
     static VTableNames => ["SetURL", "GetURL", "InvokeCommand"]
 
     /**
-     * 
      * @param {PWSTR} pcszURL 
      * @param {Integer} dwInFlags 
      * @returns {HRESULT} 
@@ -45,7 +44,6 @@ class IUniformResourceLocatorW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetURL() {
@@ -54,7 +52,6 @@ class IUniformResourceLocatorW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<URLINVOKECOMMANDINFOW>} purlici 
      * @returns {HRESULT} 
      */

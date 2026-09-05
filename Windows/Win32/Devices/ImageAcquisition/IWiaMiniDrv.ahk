@@ -37,7 +37,6 @@ class IWiaMiniDrv extends IUnknown {
     static VTableNames => ["drvInitializeWia", "drvAcquireItemData", "drvInitItemProperties", "drvValidateItemProperties", "drvWriteItemProperties", "drvReadItemProperties", "drvLockWiaDevice", "drvUnLockWiaDevice", "drvAnalyzeItem", "drvGetDeviceErrorStr", "drvDeviceCommand", "drvGetCapabilities", "drvDeleteItem", "drvFreeDrvItemContext", "drvGetWiaFormatInfo", "drvNotifyPnpEvent", "drvUnInitializeWia"]
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0000 
      * @param {Integer} __MIDL__IWiaMiniDrv0001 
      * @param {BSTR} __MIDL__IWiaMiniDrv0002 
@@ -61,7 +60,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0009 
      * @param {Integer} __MIDL__IWiaMiniDrv0010 
      * @param {Pointer<MINIDRV_TRANSFER_CONTEXT>} __MIDL__IWiaMiniDrv0011 
@@ -75,7 +73,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0013 
      * @param {Integer} __MIDL__IWiaMiniDrv0014 
      * @returns {Integer} 
@@ -88,7 +85,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0016 
      * @param {Integer} __MIDL__IWiaMiniDrv0017 
      * @param {Integer} __MIDL__IWiaMiniDrv0018 
@@ -103,7 +99,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0021 
      * @param {Integer} __MIDL__IWiaMiniDrv0022 
      * @param {Pointer<MINIDRV_TRANSFER_CONTEXT>} __MIDL__IWiaMiniDrv0023 
@@ -117,7 +112,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0025 
      * @param {Integer} __MIDL__IWiaMiniDrv0026 
      * @param {Integer} __MIDL__IWiaMiniDrv0027 
@@ -132,7 +126,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0030 
      * @param {Integer} __MIDL__IWiaMiniDrv0031 
      * @returns {Integer} 
@@ -145,7 +138,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0033 
      * @param {Integer} __MIDL__IWiaMiniDrv0034 
      * @returns {Integer} 
@@ -158,7 +150,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0036 
      * @param {Integer} __MIDL__IWiaMiniDrv0037 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0038 
@@ -173,7 +164,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaMiniDrv0039 
      * @param {Integer} __MIDL__IWiaMiniDrv0040 
      * @param {Pointer<PWSTR>} __MIDL__IWiaMiniDrv0041 
@@ -189,7 +179,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0043 
      * @param {Integer} __MIDL__IWiaMiniDrv0044 
      * @param {Pointer<Guid>} __MIDL__IWiaMiniDrv0045 
@@ -206,7 +195,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0048 
      * @param {Integer} __MIDL__IWiaMiniDrv0049 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0050 
@@ -225,7 +213,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0053 
      * @param {Integer} __MIDL__IWiaMiniDrv0054 
      * @returns {Integer} 
@@ -238,7 +225,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaMiniDrv0056 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0057 
      * @returns {Integer} 
@@ -251,7 +237,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0059 
      * @param {Integer} __MIDL__IWiaMiniDrv0060 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0061 
@@ -270,7 +255,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pEventGUID 
      * @param {BSTR} bstrDeviceID 
      * @param {Integer} ulReserved 
@@ -284,7 +268,6 @@ class IWiaMiniDrv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} __MIDL__IWiaMiniDrv0064 
      * @returns {HRESULT} 
      */

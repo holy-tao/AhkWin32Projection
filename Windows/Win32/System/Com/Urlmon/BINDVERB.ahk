@@ -7,27 +7,32 @@
 class BINDVERB extends Win32Enum {
 
     /**
+     * Native name: BINDVERB_GET
      * @type {Integer (Int32)}
      */
-    static BINDVERB_GET => 0
+    static GET => 0
 
     /**
+     * Native name: BINDVERB_POST
      * @type {Integer (Int32)}
      */
-    static BINDVERB_POST => 1
+    static POST => 1
 
     /**
+     * Native name: BINDVERB_PUT
      * @type {Integer (Int32)}
      */
-    static BINDVERB_PUT => 2
+    static PUT => 2
 
     /**
+     * Native name: BINDVERB_CUSTOM
      * @type {Integer (Int32)}
      */
-    static BINDVERB_CUSTOM => 3
+    static CUSTOM => 3
 
     /**
+     * Native name: BINDVERB_RESERVED1
      * @type {Integer (Int32)}
      */
-    static BINDVERB_RESERVED1 => 4
+    static RESERVED1 => 4
 }

@@ -30,7 +30,6 @@ class IFilterKeyMap extends IUnknown {
     static VTableNames => ["GetCount", "AddFilter", "GetFilter", "Serialize"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwCount 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncFilter} pISyncFilter 
      * @param {Pointer<Integer>} pdwFilterKey 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class IFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @returns {ISyncFilter} 
      */
@@ -65,7 +62,6 @@ class IFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbFilterKeyMap 
      * @param {Pointer<Integer>} pcbFilterKeyMap 
      * @returns {HRESULT} 

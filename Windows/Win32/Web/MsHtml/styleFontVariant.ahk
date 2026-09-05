@@ -7,22 +7,26 @@
 class styleFontVariant extends Win32Enum {
 
     /**
+     * Native name: styleFontVariantNotSet
      * @type {Integer (Int32)}
      */
-    static styleFontVariantNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleFontVariantSmallCaps
      * @type {Integer (Int32)}
      */
-    static styleFontVariantSmallCaps => 1
+    static SmallCaps => 1
 
     /**
+     * Native name: styleFontVariantNormal
      * @type {Integer (Int32)}
      */
-    static styleFontVariantNormal => 2
+    static Normal => 2
 
     /**
+     * Native name: styleFontVariant_Max
      * @type {Integer (Int32)}
      */
-    static styleFontVariant_Max => 2147483647
+    static Max => 2147483647
 }

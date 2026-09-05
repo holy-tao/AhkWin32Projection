@@ -7,37 +7,44 @@
 class htmlCellVAlign extends Win32Enum {
 
     /**
+     * Native name: htmlCellVAlignNotSet
      * @type {Integer (Int32)}
      */
-    static htmlCellVAlignNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlCellVAlignTop
      * @type {Integer (Int32)}
      */
-    static htmlCellVAlignTop => 1
+    static Top => 1
 
     /**
+     * Native name: htmlCellVAlignMiddle
      * @type {Integer (Int32)}
      */
-    static htmlCellVAlignMiddle => 2
+    static Middle => 2
 
     /**
+     * Native name: htmlCellVAlignBottom
      * @type {Integer (Int32)}
      */
-    static htmlCellVAlignBottom => 3
+    static Bottom => 3
 
     /**
+     * Native name: htmlCellVAlignBaseline
      * @type {Integer (Int32)}
      */
-    static htmlCellVAlignBaseline => 4
+    static Baseline => 4
 
     /**
+     * Native name: htmlCellVAlignCenter
      * @type {Integer (Int32)}
      */
-    static htmlCellVAlignCenter => 2
+    static Center => 2
 
     /**
+     * Native name: htmlCellVAlign_Max
      * @type {Integer (Int32)}
      */
-    static htmlCellVAlign_Max => 2147483647
+    static Max => 2147483647
 }

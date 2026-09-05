@@ -10,24 +10,28 @@ class DHCP_OPTION_SCOPE_TYPE6 extends Win32Enum {
 
     /**
      * The default set of DHCP options are selected.
+     * Native name: DhcpDefaultOptions6
      * @type {Integer (Int32)}
      */
-    static DhcpDefaultOptions6 => 0
+    static DefaultOptions6 => 0
 
     /**
      * Only DHCP options defined for this scope are selected.
+     * Native name: DhcpScopeOptions6
      * @type {Integer (Int32)}
      */
-    static DhcpScopeOptions6 => 1
+    static Options6 => 1
 
     /**
      * Only the reserved set of DHCP options are selected.
+     * Native name: DhcpReservedOptions6
      * @type {Integer (Int32)}
      */
-    static DhcpReservedOptions6 => 2
+    static ReservedOptions6 => 2
 
     /**
+     * Native name: DhcpGlobalOptions6
      * @type {Integer (Int32)}
      */
-    static DhcpGlobalOptions6 => 3
+    static GlobalOptions6 => 3
 }

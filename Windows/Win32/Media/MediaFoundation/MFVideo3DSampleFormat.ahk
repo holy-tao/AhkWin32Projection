@@ -27,13 +27,15 @@ class MFVideo3DSampleFormat extends Win32Enum {
 
     /**
      * Each view is stored in a separate buffer. The sample contains one buffer per view.
+     * Native name: MFSampleExtension_3DVideo_MultiView
      * @type {Integer (Int32)}
      */
-    static MFSampleExtension_3DVideo_MultiView => 1
+    static Extension_3DVideo_MultiView => 1
 
     /**
      * All of the views are stored in the same buffer. The sample contains a single buffer.
+     * Native name: MFSampleExtension_3DVideo_Packed
      * @type {Integer (Int32)}
      */
-    static MFSampleExtension_3DVideo_Packed => 0
+    static Extension_3DVideo_Packed => 0
 }

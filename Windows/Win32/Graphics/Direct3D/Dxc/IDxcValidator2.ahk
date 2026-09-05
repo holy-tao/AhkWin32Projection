@@ -32,7 +32,6 @@ class IDxcValidator2 extends IDxcValidator {
     static VTableNames => ["ValidateWithDebug"]
 
     /**
-     * 
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
      * @param {Pointer<DxcBuffer>} pOptDebugBitcode 

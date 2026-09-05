@@ -10,30 +10,35 @@ class SAMPLE_PROTECTION_VERSION extends Win32Enum {
 
     /**
      * No sample protection.
+     * Native name: SAMPLE_PROTECTION_VERSION_NO
      * @type {Integer (Int32)}
      */
-    static SAMPLE_PROTECTION_VERSION_NO => 0
+    static NO => 0
 
     /**
      * Version 1.
+     * Native name: SAMPLE_PROTECTION_VERSION_BASIC_LOKI
      * @type {Integer (Int32)}
      */
-    static SAMPLE_PROTECTION_VERSION_BASIC_LOKI => 1
+    static BASIC_LOKI => 1
 
     /**
      * Version 2.
+     * Native name: SAMPLE_PROTECTION_VERSION_SCATTER
      * @type {Integer (Int32)}
      */
-    static SAMPLE_PROTECTION_VERSION_SCATTER => 2
+    static SCATTER => 2
 
     /**
      * Version 3.
+     * Native name: SAMPLE_PROTECTION_VERSION_RC4
      * @type {Integer (Int32)}
      */
-    static SAMPLE_PROTECTION_VERSION_RC4 => 3
+    static RC4 => 3
 
     /**
+     * Native name: SAMPLE_PROTECTION_VERSION_AES128CTR
      * @type {Integer (Int32)}
      */
-    static SAMPLE_PROTECTION_VERSION_AES128CTR => 4
+    static AES128CTR => 4
 }

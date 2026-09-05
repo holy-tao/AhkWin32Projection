@@ -7,7 +7,8 @@
 class KSEVENT_SOUNDDETECTOR extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_SOUNDDETECTOR_MATCHDETECTED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_SOUNDDETECTOR_MATCHDETECTED => 1
+    static MATCHDETECTED => 1
 }

@@ -7,27 +7,32 @@
 class D3DDDI_QUERYREGISTRY_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_SERVICEKEY
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_SERVICEKEY => 0
+    static SERVICEKEY => 0
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_ADAPTERKEY
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_ADAPTERKEY => 1
+    static ADAPTERKEY => 1
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_DRIVERSTOREPATH
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_DRIVERSTOREPATH => 2
+    static DRIVERSTOREPATH => 2
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_DRIVERIMAGEPATH
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_DRIVERIMAGEPATH => 3
+    static DRIVERIMAGEPATH => 3
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_MAX
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_MAX => 4
+    static MAX => 4
 }

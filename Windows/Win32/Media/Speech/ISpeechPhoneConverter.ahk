@@ -39,7 +39,6 @@ class ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LanguageId() {
@@ -48,7 +47,6 @@ class ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} LanguageId 
      * @returns {HRESULT} 
      */
@@ -58,7 +56,6 @@ class ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Phonemes 
      * @returns {VARIANT} 
      */
@@ -71,7 +68,6 @@ class ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} IdArray 
      * @returns {BSTR} 
      */

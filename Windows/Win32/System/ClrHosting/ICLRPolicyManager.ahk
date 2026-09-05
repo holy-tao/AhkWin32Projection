@@ -33,7 +33,6 @@ class ICLRPolicyManager extends IUnknown {
     static VTableNames => ["SetDefaultAction", "SetTimeout", "SetActionOnTimeout", "SetTimeoutAndAction", "SetActionOnFailure", "SetUnhandledExceptionPolicy"]
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -66,7 +63,6 @@ class ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {Integer} dwMilliseconds 
      * @param {EPolicyAction} action 
@@ -78,7 +74,6 @@ class ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrFailure} failure 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -89,7 +84,6 @@ class ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrUnhandledException} policy 
      * @returns {HRESULT} 
      */

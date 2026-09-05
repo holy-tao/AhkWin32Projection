@@ -35,7 +35,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     static VTableNames => ["DoStackSnapshot", "SetEnterLeaveFunctionHooks2", "GetFunctionInfo2", "GetStringLayout", "GetClassLayout", "GetClassIDInfo2", "GetCodeInfo2", "GetClassFromTokenAndTypeArgs", "GetFunctionFromTokenAndTypeArgs", "EnumModuleFrozenObjects", "GetArrayObjectInfo", "GetBoxClassLayout", "GetThreadAppDomain", "GetRVAStaticAddress", "GetAppDomainStaticAddress", "GetThreadStaticAddress", "GetContextStaticAddress", "GetStaticFieldInfo", "GetGenerationBounds", "GetObjectGeneration", "GetNotifiedExceptionClauseInfo"]
 
     /**
-     * 
      * @param {Pointer} thread 
      * @param {Pointer<Pointer<StackSnapshotCallback>>} callback 
      * @param {Integer} infoFlags 
@@ -54,7 +53,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionEnter2>>} pFuncEnter 
      * @param {Pointer<Pointer<FunctionLeave2>>} pFuncLeave 
      * @param {Pointer<Pointer<FunctionTailcall2>>} pFuncTailcall 
@@ -70,7 +68,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} funcId 
      * @param {Pointer} frameInfo 
      * @param {Pointer<Pointer>} pClassId 
@@ -93,7 +90,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pBufferLengthOffset 
      * @param {Pointer<Integer>} pStringLengthOffset 
      * @param {Pointer<Integer>} pBufferOffset 
@@ -109,7 +105,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classID 
      * @param {Pointer<COR_FIELD_OFFSET>} rFieldOffset 
      * @param {Integer} cFieldOffset 
@@ -126,7 +121,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Pointer<Pointer>} pModuleId 
      * @param {Pointer<Integer>} pTypeDefToken 
@@ -148,7 +142,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} functionID 
      * @param {Integer} cCodeInfos 
      * @param {Pointer<Integer>} pcCodeInfos 
@@ -163,7 +156,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} moduleID 
      * @param {Integer} typeDef 
      * @param {Integer} cTypeArgs 
@@ -178,7 +170,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} moduleID 
      * @param {Integer} funcDef 
      * @param {Pointer} classId 
@@ -194,7 +185,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} moduleID 
      * @returns {ICorProfilerObjectEnum} 
      */
@@ -204,7 +194,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Integer} cDimensions 
      * @param {Pointer<Integer>} pDimensionSizes 
@@ -222,7 +211,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @returns {Integer} 
      */
@@ -232,7 +220,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {Pointer} 
      */
@@ -242,7 +229,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @returns {Pointer<Void>} 
@@ -253,7 +239,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} appDomainId 
@@ -265,7 +250,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} threadId 
@@ -277,7 +261,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} contextId 
@@ -289,7 +272,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @returns {COR_PRF_STATIC_TYPE} 
@@ -300,7 +282,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Integer} cObjectRanges 
      * @param {Pointer<Integer>} pcObjectRanges 
      * @param {Pointer<COR_PRF_GC_GENERATION_RANGE>} ranges 
@@ -314,7 +295,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @returns {COR_PRF_GC_GENERATION_RANGE} 
      */
@@ -325,7 +305,6 @@ class ICorProfilerInfo2 extends ICorProfilerInfo {
     }
 
     /**
-     * 
      * @returns {COR_PRF_EX_CLAUSE_INFO} 
      */
     GetNotifiedExceptionClauseInfo() {

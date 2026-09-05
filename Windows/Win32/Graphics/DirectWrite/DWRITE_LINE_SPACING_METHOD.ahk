@@ -12,15 +12,17 @@ class DWRITE_LINE_SPACING_METHOD extends Win32Enum {
 
     /**
      * Line spacing depends solely on the content, adjusting to accommodate the size of fonts and inline objects.
+     * Native name: DWRITE_LINE_SPACING_METHOD_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DWRITE_LINE_SPACING_METHOD_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Lines are explicitly set to uniform spacing, regardless of the size of fonts and inline objects. This can be useful to avoid the uneven appearance that can occur from font fallback.
+     * Native name: DWRITE_LINE_SPACING_METHOD_UNIFORM
      * @type {Integer (Int32)}
      */
-    static DWRITE_LINE_SPACING_METHOD_UNIFORM => 1
+    static UNIFORM => 1
 
     /**
      * Line spacing and baseline distances are proportional to the computed values based on the content, the size of the fonts and inline objects.
@@ -29,7 +31,8 @@ class DWRITE_LINE_SPACING_METHOD extends Win32Enum {
      * <div class="alert"><b>Note</b>  This value is only available on Windows 10 or later and it can be used with <a href="https://docs.microsoft.com/windows/win32/DirectWrite/idwritetextlayout3-setlinespacing">IDWriteTextLayout3::SetLineSpacing</a>, 
      *           but can not be used with <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setlinespacing">IDWriteTextFormat::SetLineSpacing</a>.</div>
      * <div> </div>
+     * Native name: DWRITE_LINE_SPACING_METHOD_PROPORTIONAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_LINE_SPACING_METHOD_PROPORTIONAL => 2
+    static PROPORTIONAL => 2
 }

@@ -10,19 +10,22 @@ class eAVEncVideoOutputFrameRateConversion extends Win32Enum {
 
     /**
      * Disable frame rate conversion.
+     * Native name: eAVEncVideoOutputFrameRateConversion_Disable
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoOutputFrameRateConversion_Disable => 0
+    static Disable => 0
 
     /**
      * Enable frame rate conversion.
+     * Native name: eAVEncVideoOutputFrameRateConversion_Enable
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoOutputFrameRateConversion_Enable => 1
+    static Enable => 1
 
     /**
      * Change the time stamps on the samples, but do not interpolate the time stamps.
+     * Native name: eAVEncVideoOutputFrameRateConversion_Alias
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoOutputFrameRateConversion_Alias => 2
+    static Alias => 2
 }

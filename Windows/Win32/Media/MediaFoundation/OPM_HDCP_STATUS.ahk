@@ -7,12 +7,14 @@
 class OPM_HDCP_STATUS extends Win32Enum {
 
     /**
+     * Native name: OPM_HDCP_STATUS_ON
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_STATUS_ON => 0
+    static ON => 0
 
     /**
+     * Native name: OPM_HDCP_STATUS_OFF
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_STATUS_OFF => 1
+    static OFF => 1
 }

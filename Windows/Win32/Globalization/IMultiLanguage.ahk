@@ -37,7 +37,6 @@ class IMultiLanguage extends IUnknown {
     static VTableNames => ["GetNumberOfCodePageInfo", "GetCodePageInfo", "GetFamilyCodePage", "EnumCodePages", "GetCharsetInfo", "IsConvertible", "ConvertString", "ConvertStringToUnicode", "ConvertStringFromUnicode", "ConvertStringReset", "GetRfc1766FromLcid", "GetLcidFromRfc1766", "EnumRfc1766", "GetRfc1766Info", "CreateConvertCharset"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfCodePageInfo() {
@@ -46,7 +45,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {MIMECPINFO} 
      */
@@ -57,7 +55,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {Integer} 
      */
@@ -67,7 +64,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfFlags 
      * @returns {IEnumCodePage} 
      */
@@ -77,7 +73,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Charset 
      * @returns {MIMECSETINFO} 
      */
@@ -90,7 +85,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
      * @returns {HRESULT} 
@@ -101,7 +95,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
@@ -121,7 +114,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {Integer} pSrcStr 
@@ -142,7 +134,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {PWSTR} pSrcStr 
@@ -163,7 +154,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConvertStringReset() {
@@ -172,7 +162,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Locale 
      * @returns {BSTR} 
      */
@@ -183,7 +172,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRfc1766 
      * @returns {Integer} 
      */
@@ -195,7 +183,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRfc1766} 
      */
     EnumRfc1766() {
@@ -204,7 +191,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Locale 
      * @returns {RFC1766INFO} 
      */
@@ -215,7 +201,6 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiSrcCodePage 
      * @param {Integer} uiDstCodePage 
      * @param {Integer} dwProperty 

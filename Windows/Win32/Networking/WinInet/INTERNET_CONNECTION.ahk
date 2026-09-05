@@ -7,37 +7,44 @@
 class INTERNET_CONNECTION extends Win32BitflagEnum {
 
     /**
+     * Native name: INTERNET_CONNECTION_CONFIGURED
      * @type {Integer (UInt32)}
      */
-    static INTERNET_CONNECTION_CONFIGURED => 64
+    static CONFIGURED => 64
 
     /**
+     * Native name: INTERNET_CONNECTION_LAN
      * @type {Integer (UInt32)}
      */
-    static INTERNET_CONNECTION_LAN => 2
+    static LAN => 2
 
     /**
+     * Native name: INTERNET_CONNECTION_MODEM
      * @type {Integer (UInt32)}
      */
-    static INTERNET_CONNECTION_MODEM => 1
+    static MODEM => 1
 
     /**
+     * Native name: INTERNET_CONNECTION_MODEM_BUSY
      * @type {Integer (UInt32)}
      */
-    static INTERNET_CONNECTION_MODEM_BUSY => 8
+    static MODEM_BUSY => 8
 
     /**
+     * Native name: INTERNET_CONNECTION_OFFLINE
      * @type {Integer (UInt32)}
      */
-    static INTERNET_CONNECTION_OFFLINE => 32
+    static OFFLINE => 32
 
     /**
+     * Native name: INTERNET_CONNECTION_PROXY
      * @type {Integer (UInt32)}
      */
-    static INTERNET_CONNECTION_PROXY => 4
+    static PROXY => 4
 
     /**
+     * Native name: INTERNET_RAS_INSTALLED
      * @type {Integer (UInt32)}
      */
-    static INTERNET_RAS_INSTALLED => 16
+    static RAS_INSTALLED => 16
 }

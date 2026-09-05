@@ -10,19 +10,22 @@ class NLM_NETWORK_CLASS extends Win32Enum {
 
     /**
      * The network is being identified.
+     * Native name: NLM_NETWORK_IDENTIFYING
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_IDENTIFYING => 1
+    static IDENTIFYING => 1
 
     /**
      * The network has been identified.
+     * Native name: NLM_NETWORK_IDENTIFIED
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_IDENTIFIED => 2
+    static IDENTIFIED => 2
 
     /**
      * The network has not been identified.
+     * Native name: NLM_NETWORK_UNIDENTIFIED
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_UNIDENTIFIED => 3
+    static UNIDENTIFIED => 3
 }

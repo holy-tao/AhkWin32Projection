@@ -10,25 +10,29 @@ class VSS_MGMT_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The object type is unknown.
+     * Native name: VSS_MGMT_OBJECT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VSS_MGMT_OBJECT_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The object is a volume to be shadow copied.
+     * Native name: VSS_MGMT_OBJECT_VOLUME
      * @type {Integer (Int32)}
      */
-    static VSS_MGMT_OBJECT_VOLUME => 1
+    static VOLUME => 1
 
     /**
      * The object is a volume to hold a shadow copy storage area.
+     * Native name: VSS_MGMT_OBJECT_DIFF_VOLUME
      * @type {Integer (Int32)}
      */
-    static VSS_MGMT_OBJECT_DIFF_VOLUME => 2
+    static DIFF_VOLUME => 2
 
     /**
      * The object is an association between a volume to be shadow copied and a volume to hold the shadow copy storage area.
+     * Native name: VSS_MGMT_OBJECT_DIFF_AREA
      * @type {Integer (Int32)}
      */
-    static VSS_MGMT_OBJECT_DIFF_AREA => 3
+    static DIFF_AREA => 3
 }

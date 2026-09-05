@@ -30,7 +30,6 @@ class IWindowsLockModeHelper extends IUnknown {
     static VTableNames => ["GetSMode"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetSMode() {

@@ -31,7 +31,6 @@ class IDataModelScriptDebugBreakpoint extends IUnknown {
     static VTableNames => ["GetId", "IsEnabled", "Enable", "Disable", "Remove", "GetPosition"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetId() {
@@ -112,7 +111,6 @@ class IDataModelScriptDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Remove() {
@@ -120,7 +118,6 @@ class IDataModelScriptDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 

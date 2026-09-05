@@ -7,14 +7,16 @@
 class ACTIVATION_CONTEXT_INFO_CLASS extends Win32Enum {
 
     /**
+     * Native name: ActivationContextBasicInformation
      * @type {Integer (Int32)}
      */
-    static ActivationContextBasicInformation => 1
+    static BasicInformation => 1
 
     /**
+     * Native name: ActivationContextDetailedInformation
      * @type {Integer (Int32)}
      */
-    static ActivationContextDetailedInformation => 2
+    static DetailedInformation => 2
 
     /**
      * @type {Integer (Int32)}
@@ -37,9 +39,10 @@ class ACTIVATION_CONTEXT_INFO_CLASS extends Win32Enum {
     static CompatibilityInformationInActivationContext => 6
 
     /**
+     * Native name: ActivationContextManifestResourceName
      * @type {Integer (Int32)}
      */
-    static ActivationContextManifestResourceName => 7
+    static ManifestResourceName => 7
 
     /**
      * @type {Integer (Int32)}

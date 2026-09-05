@@ -30,7 +30,6 @@ class IHTMLCommentElement3 extends IDispatch {
     static VTableNames => ["substringData", "insertData", "deleteData", "replaceData"]
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {BSTR} 
@@ -42,7 +41,6 @@ class IHTMLCommentElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class IHTMLCommentElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -66,7 +63,6 @@ class IHTMLCommentElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @param {BSTR} bstrstring 

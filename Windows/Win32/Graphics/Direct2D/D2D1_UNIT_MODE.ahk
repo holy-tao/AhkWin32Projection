@@ -12,13 +12,15 @@ class D2D1_UNIT_MODE extends Win32Enum {
 
     /**
      * Units will be interpreted as device-independent pixels (1/96").
+     * Native name: D2D1_UNIT_MODE_DIPS
      * @type {Integer (Int32)}
      */
-    static D2D1_UNIT_MODE_DIPS => 0
+    static DIPS => 0
 
     /**
      * Units will be interpreted as pixels.
+     * Native name: D2D1_UNIT_MODE_PIXELS
      * @type {Integer (Int32)}
      */
-    static D2D1_UNIT_MODE_PIXELS => 1
+    static PIXELS => 1
 }

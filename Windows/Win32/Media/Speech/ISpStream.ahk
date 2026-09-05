@@ -40,7 +40,6 @@ class ISpStream extends ISpStreamFormat {
     static VTableNames => ["SetBaseStream", "GetBaseStream", "BindToFile", "Close"]
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Pointer<Guid>} rguidFormat 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
@@ -52,7 +51,6 @@ class ISpStream extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @returns {IStream} 
      */
     GetBaseStream() {
@@ -61,7 +59,6 @@ class ISpStream extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {SPFILEMODE} eMode 
      * @param {Pointer<Guid>} pFormatId 
@@ -77,7 +74,6 @@ class ISpStream extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {

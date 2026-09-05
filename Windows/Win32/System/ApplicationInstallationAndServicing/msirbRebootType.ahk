@@ -7,12 +7,14 @@
 class msirbRebootType extends Win32Enum {
 
     /**
+     * Native name: msirbRebootImmediate
      * @type {Integer (Int32)}
      */
-    static msirbRebootImmediate => 1
+    static Immediate => 1
 
     /**
+     * Native name: msirbRebootDeferred
      * @type {Integer (Int32)}
      */
-    static msirbRebootDeferred => 2
+    static Deferred => 2
 }

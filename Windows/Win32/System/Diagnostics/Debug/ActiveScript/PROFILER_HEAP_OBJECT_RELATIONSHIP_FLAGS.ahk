@@ -7,27 +7,32 @@
 class PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_GET_ACCESSOR
      * @type {Integer (Int32)}
      */
-    static PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_GET_ACCESSOR => 65536
+    static IS_GET_ACCESSOR => 65536
 
     /**
+     * Native name: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_SET_ACCESSOR
      * @type {Integer (Int32)}
      */
-    static PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_SET_ACCESSOR => 131072
+    static IS_SET_ACCESSOR => 131072
 
     /**
+     * Native name: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_LET_VARIABLE
      * @type {Integer (Int32)}
      */
-    static PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_LET_VARIABLE => 262144
+    static LET_VARIABLE => 262144
 
     /**
+     * Native name: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_CONST_VARIABLE
      * @type {Integer (Int32)}
      */
-    static PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_CONST_VARIABLE => 524288
+    static CONST_VARIABLE => 524288
 }

@@ -7,22 +7,26 @@
 class IMMPID_RPV_ENUM extends Win32Enum {
 
     /**
+     * Native name: IMMPID_RPV_BEFORE__
      * @type {Integer (Int32)}
      */
-    static IMMPID_RPV_BEFORE__ => 16383
+    static BEFORE__ => 16383
 
     /**
+     * Native name: IMMPID_RPV_DONT_DELIVER
      * @type {Integer (Int32)}
      */
-    static IMMPID_RPV_DONT_DELIVER => 16384
+    static DONT_DELIVER => 16384
 
     /**
+     * Native name: IMMPID_RPV_NO_NAME_COLLISIONS
      * @type {Integer (Int32)}
      */
-    static IMMPID_RPV_NO_NAME_COLLISIONS => 16385
+    static NO_NAME_COLLISIONS => 16385
 
     /**
+     * Native name: IMMPID_RPV_AFTER__
      * @type {Integer (Int32)}
      */
-    static IMMPID_RPV_AFTER__ => 16386
+    static AFTER__ => 16386
 }

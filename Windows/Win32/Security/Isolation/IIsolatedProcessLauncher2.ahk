@@ -31,7 +31,6 @@ class IIsolatedProcessLauncher2 extends IIsolatedProcessLauncher {
     static VTableNames => ["LaunchProcess2"]
 
     /**
-     * 
      * @param {PWSTR} process 
      * @param {PWSTR} arguments 
      * @param {PWSTR} workingDirectory 

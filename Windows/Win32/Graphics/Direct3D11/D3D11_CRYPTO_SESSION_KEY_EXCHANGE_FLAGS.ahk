@@ -7,7 +7,8 @@
 class D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

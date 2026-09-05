@@ -7,17 +7,20 @@
 class ENLISTMENT_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: EnlistmentBasicInformation
      * @type {Integer (Int32)}
      */
-    static EnlistmentBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: EnlistmentRecoveryInformation
      * @type {Integer (Int32)}
      */
-    static EnlistmentRecoveryInformation => 1
+    static RecoveryInformation => 1
 
     /**
+     * Native name: EnlistmentCrmInformation
      * @type {Integer (Int32)}
      */
-    static EnlistmentCrmInformation => 2
+    static CrmInformation => 2
 }

@@ -10,19 +10,22 @@ class D2D1_FEATURE_LEVEL extends Win32Enum {
 
     /**
      * Direct2D determines whether the video card provides adequate hardware rendering support.
+     * Native name: D2D1_FEATURE_LEVEL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_FEATURE_LEVEL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The video card must support DirectX 9.
+     * Native name: D2D1_FEATURE_LEVEL_9
      * @type {Integer (Int32)}
      */
-    static D2D1_FEATURE_LEVEL_9 => 37120
+    static 9 => 37120
 
     /**
      * The video card must support DirectX 10.
+     * Native name: D2D1_FEATURE_LEVEL_10
      * @type {Integer (Int32)}
      */
-    static D2D1_FEATURE_LEVEL_10 => 40960
+    static 10 => 40960
 }

@@ -7,32 +7,38 @@
 class CorILMethodSect extends Win32Enum {
 
     /**
+     * Native name: CorILMethod_Sect_Reserved
      * @type {Integer (Int32)}
      */
-    static CorILMethod_Sect_Reserved => 0
+    static Reserved => 0
 
     /**
+     * Native name: CorILMethod_Sect_EHTable
      * @type {Integer (Int32)}
      */
-    static CorILMethod_Sect_EHTable => 1
+    static EHTable => 1
 
     /**
+     * Native name: CorILMethod_Sect_OptILTable
      * @type {Integer (Int32)}
      */
-    static CorILMethod_Sect_OptILTable => 2
+    static OptILTable => 2
 
     /**
+     * Native name: CorILMethod_Sect_KindMask
      * @type {Integer (Int32)}
      */
-    static CorILMethod_Sect_KindMask => 63
+    static KindMask => 63
 
     /**
+     * Native name: CorILMethod_Sect_FatFormat
      * @type {Integer (Int32)}
      */
-    static CorILMethod_Sect_FatFormat => 64
+    static FatFormat => 64
 
     /**
+     * Native name: CorILMethod_Sect_MoreSects
      * @type {Integer (Int32)}
      */
-    static CorILMethod_Sect_MoreSects => 128
+    static MoreSects => 128
 }

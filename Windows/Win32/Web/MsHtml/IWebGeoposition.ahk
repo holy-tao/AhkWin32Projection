@@ -50,7 +50,6 @@ class IWebGeoposition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IWebGeocoordinates} 
      */
     get_coords() {
@@ -59,7 +58,6 @@ class IWebGeoposition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timestamp() {

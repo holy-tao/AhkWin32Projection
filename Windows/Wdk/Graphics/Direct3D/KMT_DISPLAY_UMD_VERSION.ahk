@@ -7,9 +7,10 @@
 class KMT_DISPLAY_UMD_VERSION extends Win32Enum {
 
     /**
+     * Native name: KMT_DISPLAY_UMDVERSION_1
      * @type {Integer (Int32)}
      */
-    static KMT_DISPLAY_UMDVERSION_1 => 0
+    static UMDVERSION_1 => 0
 
     /**
      * @type {Integer (Int32)}

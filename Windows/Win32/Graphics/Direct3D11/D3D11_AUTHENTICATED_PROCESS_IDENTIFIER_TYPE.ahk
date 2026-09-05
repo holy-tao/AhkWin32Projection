@@ -10,19 +10,22 @@ class D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE extends Win32Enum {
 
     /**
      * Unknown process type.
+     * Native name: D3D11_PROCESSIDTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D11_PROCESSIDTYPE_UNKNOWN => 0
+    static PROCESSIDTYPE_UNKNOWN => 0
 
     /**
      * Desktop Window Manager (DWM) process.
+     * Native name: D3D11_PROCESSIDTYPE_DWM
      * @type {Integer (Int32)}
      */
-    static D3D11_PROCESSIDTYPE_DWM => 1
+    static PROCESSIDTYPE_DWM => 1
 
     /**
      * Handle to a process.
+     * Native name: D3D11_PROCESSIDTYPE_HANDLE
      * @type {Integer (Int32)}
      */
-    static D3D11_PROCESSIDTYPE_HANDLE => 2
+    static PROCESSIDTYPE_HANDLE => 2
 }

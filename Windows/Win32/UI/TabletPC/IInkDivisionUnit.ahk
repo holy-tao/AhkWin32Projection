@@ -92,7 +92,6 @@ class IInkDivisionUnit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RecognizedString() {

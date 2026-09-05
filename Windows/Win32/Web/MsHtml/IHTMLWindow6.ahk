@@ -77,7 +77,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -87,7 +86,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_XDomainRequest() {
@@ -97,7 +95,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStorage} 
      */
     get_sessionStorage() {
@@ -106,7 +103,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStorage} 
      */
     get_localStorage() {
@@ -115,7 +111,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -125,7 +120,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhashchange() {
@@ -135,7 +129,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_maxConnectionsPerServer() {
@@ -144,7 +137,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _msg 
      * @param {VARIANT} targetOrigin 
      * @returns {HRESULT} 
@@ -157,7 +149,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHTML 
      * @returns {BSTR} 
      */
@@ -170,7 +161,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -180,7 +170,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmessage() {
@@ -190,7 +179,6 @@ class IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProfilerMarkName 
      * @returns {HRESULT} 
      */

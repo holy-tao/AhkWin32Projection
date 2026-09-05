@@ -60,7 +60,6 @@ class Folder2 extends Folder {
     }
 
     /**
-     * 
      * @returns {FolderItem} 
      */
     get_Self() {
@@ -69,7 +68,6 @@ class Folder2 extends Folder {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OfflineStatus() {
@@ -93,7 +91,6 @@ class Folder2 extends Folder {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_HaveToShowWebViewBarricade() {

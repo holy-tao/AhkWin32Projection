@@ -11,12 +11,14 @@
 class SMS_MESSAGE_TYPES extends Win32Enum {
 
     /**
+     * Native name: SMS_TEXT_MESSAGE
      * @type {Integer (Int32)}
      */
-    static SMS_TEXT_MESSAGE => 0
+    static TEXT_MESSAGE => 0
 
     /**
+     * Native name: SMS_BINARY_MESSAGE
      * @type {Integer (Int32)}
      */
-    static SMS_BINARY_MESSAGE => 1
+    static BINARY_MESSAGE => 1
 }

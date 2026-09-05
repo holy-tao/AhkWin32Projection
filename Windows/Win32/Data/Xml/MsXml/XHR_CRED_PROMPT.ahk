@@ -12,21 +12,24 @@ class XHR_CRED_PROMPT extends Win32Enum {
      * Allow all credential prompts for authentication. 
      * 
      * This setting allows credential prompts in response to requests from the proxy or the server.
+     * Native name: XHR_CRED_PROMPT_ALL
      * @type {Integer (Int32)}
      */
-    static XHR_CRED_PROMPT_ALL => 0
+    static ALL => 0
 
     /**
      * Disable all credential prompts for authentication. This setting disables any credential prompts in response to requests from the proxy or the server.
+     * Native name: XHR_CRED_PROMPT_NONE
      * @type {Integer (Int32)}
      */
-    static XHR_CRED_PROMPT_NONE => 1
+    static NONE => 1
 
     /**
      * Allow credential prompts for authentication only in response to requests from the proxy.
      * 
      * This setting disables any credential prompts in response to requests from the server.
+     * Native name: XHR_CRED_PROMPT_PROXY
      * @type {Integer (Int32)}
      */
-    static XHR_CRED_PROMPT_PROXY => 2
+    static PROXY => 2
 }

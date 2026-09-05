@@ -43,7 +43,6 @@ class ISVGNumber extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ISVGNumber extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_value() {

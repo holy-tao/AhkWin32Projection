@@ -12,55 +12,64 @@ class CLUSTER_CHANGE_NODE_V2 extends Win32Enum {
 
     /**
      * Indicates that the network interface for the cluster node has been added.
+     * Native name: CLUSTER_CHANGE_NODE_NETINTERFACE_ADDED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_NETINTERFACE_ADDED_V2 => 1
+    static NETINTERFACE_ADDED_V2 => 1
 
     /**
      * Indicates that the cluster node has been deleted.
+     * Native name: CLUSTER_CHANGE_NODE_DELETED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_DELETED_V2 => 2
+    static DELETED_V2 => 2
 
     /**
      * Indicates that the common properties for the cluster node have been changed.
+     * Native name: CLUSTER_CHANGE_NODE_COMMON_PROPERTY_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_COMMON_PROPERTY_V2 => 4
+    static COMMON_PROPERTY_V2 => 4
 
     /**
      * Indicates that the private properties for the cluster node have been changed.
+     * Native name: CLUSTER_CHANGE_NODE_PRIVATE_PROPERTY_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_PRIVATE_PROPERTY_V2 => 8
+    static PRIVATE_PROPERTY_V2 => 8
 
     /**
      * Indicates that the state of the cluster node has changed.
+     * Native name: CLUSTER_CHANGE_NODE_STATE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_STATE_V2 => 16
+    static STATE_V2 => 16
 
     /**
      * Indicates that the cluster node has gained a group.
+     * Native name: CLUSTER_CHANGE_NODE_GROUP_GAINED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_GROUP_GAINED_V2 => 32
+    static GROUP_GAINED_V2 => 32
 
     /**
      * Indicates that the cluster node has lost a group.
+     * Native name: CLUSTER_CHANGE_NODE_GROUP_LOST_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_GROUP_LOST_V2 => 64
+    static GROUP_LOST_V2 => 64
 
     /**
      * Indicates that the cluster node's context handle was closed.
+     * Native name: CLUSTER_CHANGE_NODE_HANDLE_CLOSE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_HANDLE_CLOSE_V2 => 128
+    static HANDLE_CLOSE_V2 => 128
 
     /**
      * Indicates all V2 cluster node notifications.
+     * Native name: CLUSTER_CHANGE_NODE_ALL_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_NODE_ALL_V2 => 255
+    static ALL_V2 => 255
 }

@@ -7,17 +7,20 @@
 class KSPROPERTY_HRTF3D extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_HRTF3D_PARAMS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_HRTF3D_PARAMS => 0
+    static PARAMS => 0
 
     /**
+     * Native name: KSPROPERTY_HRTF3D_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_HRTF3D_INITIALIZE => 1
+    static INITIALIZE => 1
 
     /**
+     * Native name: KSPROPERTY_HRTF3D_FILTER_FORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_HRTF3D_FILTER_FORMAT => 2
+    static FILTER_FORMAT => 2
 }

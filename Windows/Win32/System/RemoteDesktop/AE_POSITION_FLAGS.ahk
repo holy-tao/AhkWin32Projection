@@ -12,27 +12,31 @@ class AE_POSITION_FLAGS extends Win32Enum {
 
     /**
      * The position is not valid and must not be used.
+     * Native name: POSITION_INVALID
      * @type {Integer (Int32)}
      */
-    static POSITION_INVALID => 0
+    static INVALID => 0
 
     /**
      * The position is valid; however, there has been
      *     a disruption such as a glitch or state transition.
      *     This current position is not correlated with the previous position. The start of a stream should not reflect a discontinuity.
+     * Native name: POSITION_DISCONTINUOUS
      * @type {Integer (Int32)}
      */
-    static POSITION_DISCONTINUOUS => 1
+    static DISCONTINUOUS => 1
 
     /**
      * The position is valid. The previous packet and the current packet are both synchronized with the timeline.
+     * Native name: POSITION_CONTINUOUS
      * @type {Integer (Int32)}
      */
-    static POSITION_CONTINUOUS => 2
+    static CONTINUOUS => 2
 
     /**
      * The quality performance counter (QPC) timer value associated with this position is not accurate. This flag is set when a position error is encountered and the implementation is unable to compute an accurate QPC value that correlates with the position.
+     * Native name: POSITION_QPC_ERROR
      * @type {Integer (Int32)}
      */
-    static POSITION_QPC_ERROR => 4
+    static QPC_ERROR => 4
 }

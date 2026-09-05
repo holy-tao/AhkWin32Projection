@@ -7,17 +7,20 @@
 class TELEPHONY_CALLTYPE extends Win32Enum {
 
     /**
+     * Native name: TELEPHONY_CALLTYPE_CIRCUITSWITCHED
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLTYPE_CIRCUITSWITCHED => 0
+    static CIRCUITSWITCHED => 0
 
     /**
+     * Native name: TELEPHONY_CALLTYPE_PACKETSWITCHED_LTE
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLTYPE_PACKETSWITCHED_LTE => 1
+    static PACKETSWITCHED_LTE => 1
 
     /**
+     * Native name: TELEPHONY_CALLTYPE_PACKETSWITCHED_WLAN
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLTYPE_PACKETSWITCHED_WLAN => 2
+    static PACKETSWITCHED_WLAN => 2
 }

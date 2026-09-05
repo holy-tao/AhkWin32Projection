@@ -30,7 +30,6 @@ class IJsEnumDebugProperty extends IUnknown {
     static VTableNames => ["Next", "GetCount"]
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<Integer>} pActualCount 
@@ -44,7 +43,6 @@ class IJsEnumDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {

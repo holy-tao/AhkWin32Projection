@@ -7,42 +7,50 @@
 class MF_TIMED_TEXT_BOUTEN_TYPE extends Win32Enum {
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_AUTO
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_AUTO => 1
+    static AUTO => 1
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_FILLEDCIRCLE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_FILLEDCIRCLE => 2
+    static FILLEDCIRCLE => 2
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_OPENCIRCLE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_OPENCIRCLE => 3
+    static OPENCIRCLE => 3
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_FILLEDDOT
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_FILLEDDOT => 4
+    static FILLEDDOT => 4
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_OPENDOT
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_OPENDOT => 5
+    static OPENDOT => 5
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_FILLEDSESAME
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_FILLEDSESAME => 6
+    static FILLEDSESAME => 6
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_TYPE_OPENSESAME
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_TYPE_OPENSESAME => 7
+    static OPENSESAME => 7
 }

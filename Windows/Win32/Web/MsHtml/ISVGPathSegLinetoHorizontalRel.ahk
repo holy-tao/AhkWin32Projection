@@ -43,7 +43,6 @@ class ISVGPathSegLinetoHorizontalRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ISVGPathSegLinetoHorizontalRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {

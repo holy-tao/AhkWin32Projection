@@ -12,31 +12,36 @@ class D3D10_COLOR_WRITE_ENABLE extends Win32Enum {
 
     /**
      * Allow data to be stored in the red component.
+     * Native name: D3D10_COLOR_WRITE_ENABLE_RED
      * @type {Integer (Int32)}
      */
-    static D3D10_COLOR_WRITE_ENABLE_RED => 1
+    static RED => 1
 
     /**
      * Allow data to be stored in the green component.
+     * Native name: D3D10_COLOR_WRITE_ENABLE_GREEN
      * @type {Integer (Int32)}
      */
-    static D3D10_COLOR_WRITE_ENABLE_GREEN => 2
+    static GREEN => 2
 
     /**
      * Allow data to be stored in the blue component.
+     * Native name: D3D10_COLOR_WRITE_ENABLE_BLUE
      * @type {Integer (Int32)}
      */
-    static D3D10_COLOR_WRITE_ENABLE_BLUE => 4
+    static BLUE => 4
 
     /**
      * Allow data to be stored in the alpha component.
+     * Native name: D3D10_COLOR_WRITE_ENABLE_ALPHA
      * @type {Integer (Int32)}
      */
-    static D3D10_COLOR_WRITE_ENABLE_ALPHA => 8
+    static ALPHA => 8
 
     /**
      * Allow data to be stored in all components.
+     * Native name: D3D10_COLOR_WRITE_ENABLE_ALL
      * @type {Integer (Int32)}
      */
-    static D3D10_COLOR_WRITE_ENABLE_ALL => 15
+    static ALL => 15
 }

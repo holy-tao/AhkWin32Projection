@@ -7,47 +7,56 @@
 class DISPID_SpeechPhraseProperty extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPPName
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPName => 1
+    static SPPName => 1
 
     /**
+     * Native name: DISPID_SPPId
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPId => 2
+    static SPPId => 2
 
     /**
+     * Native name: DISPID_SPPValue
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPValue => 3
+    static SPPValue => 3
 
     /**
+     * Native name: DISPID_SPPFirstElement
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPFirstElement => 4
+    static SPPFirstElement => 4
 
     /**
+     * Native name: DISPID_SPPNumberOfElements
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPNumberOfElements => 5
+    static SPPNumberOfElements => 5
 
     /**
+     * Native name: DISPID_SPPEngineConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPEngineConfidence => 6
+    static SPPEngineConfidence => 6
 
     /**
+     * Native name: DISPID_SPPConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPConfidence => 7
+    static SPPConfidence => 7
 
     /**
+     * Native name: DISPID_SPPParent
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPParent => 8
+    static SPPParent => 8
 
     /**
+     * Native name: DISPID_SPPChildren
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPChildren => 9
+    static SPPChildren => 9
 }

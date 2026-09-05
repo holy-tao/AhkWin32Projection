@@ -47,22 +47,26 @@
 class D3DPOOL extends Win32Enum {
 
     /**
+     * Native name: D3DPOOL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3DPOOL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: D3DPOOL_MANAGED
      * @type {Integer (Int32)}
      */
-    static D3DPOOL_MANAGED => 1
+    static MANAGED => 1
 
     /**
+     * Native name: D3DPOOL_SYSTEMMEM
      * @type {Integer (Int32)}
      */
-    static D3DPOOL_SYSTEMMEM => 2
+    static SYSTEMMEM => 2
 
     /**
+     * Native name: D3DPOOL_SCRATCH
      * @type {Integer (Int32)}
      */
-    static D3DPOOL_SCRATCH => 3
+    static SCRATCH => 3
 }

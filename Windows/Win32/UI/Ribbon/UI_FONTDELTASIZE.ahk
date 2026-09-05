@@ -16,13 +16,15 @@ class UI_FONTDELTASIZE extends Win32Enum {
 
     /**
      * Increment the font size.
+     * Native name: UI_FONTDELTASIZE_GROW
      * @type {Integer (Int32)}
      */
-    static UI_FONTDELTASIZE_GROW => 0
+    static GROW => 0
 
     /**
      * Decrement the font size.
+     * Native name: UI_FONTDELTASIZE_SHRINK
      * @type {Integer (Int32)}
      */
-    static UI_FONTDELTASIZE_SHRINK => 1
+    static SHRINK => 1
 }

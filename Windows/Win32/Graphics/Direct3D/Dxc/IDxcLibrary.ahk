@@ -36,7 +36,6 @@ class IDxcLibrary extends IUnknown {
     static VTableNames => ["SetMalloc", "CreateBlobFromBlob", "CreateBlobFromFile", "CreateBlobWithEncodingFromPinned", "CreateBlobWithEncodingOnHeapCopy", "CreateBlobWithEncodingOnMalloc", "CreateIncludeHandler", "CreateStreamFromBlobReadOnly", "GetBlobAsUtf8", "GetBlobAsWide"]
 
     /**
-     * 
      * @param {IMalloc} pMalloc 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @param {Integer} offset 
      * @param {Integer} length 
@@ -58,7 +56,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pFileName 
      * @param {Pointer<DXC_CP>} codePage 
      * @returns {IDxcBlobEncoding} 
@@ -73,7 +70,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pText 
      * @param {Integer} _size 
      * @param {DXC_CP} codePage 
@@ -85,7 +81,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pText 
      * @param {Integer} _size 
      * @param {DXC_CP} codePage 
@@ -97,7 +92,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pText 
      * @param {IMalloc} pIMalloc 
      * @param {Integer} _size 
@@ -110,7 +104,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcIncludeHandler} 
      */
     CreateIncludeHandler() {
@@ -119,7 +112,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IStream} 
      */
@@ -129,7 +121,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobEncoding} 
      */
@@ -139,7 +130,6 @@ class IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobEncoding} 
      */

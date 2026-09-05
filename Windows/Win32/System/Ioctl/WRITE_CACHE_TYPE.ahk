@@ -14,25 +14,29 @@ class WRITE_CACHE_TYPE extends Win32Enum {
 
     /**
      * The system cannot report the type of the write cache.
+     * Native name: WriteCacheTypeUnknown
      * @type {Integer (Int32)}
      */
-    static WriteCacheTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * The device does not have a write cache.
+     * Native name: WriteCacheTypeNone
      * @type {Integer (Int32)}
      */
-    static WriteCacheTypeNone => 1
+    static None => 1
 
     /**
      * The device has a write-back cache.
+     * Native name: WriteCacheTypeWriteBack
      * @type {Integer (Int32)}
      */
-    static WriteCacheTypeWriteBack => 2
+    static WriteBack => 2
 
     /**
      * The device has a write-through cache.
+     * Native name: WriteCacheTypeWriteThrough
      * @type {Integer (Int32)}
      */
-    static WriteCacheTypeWriteThrough => 3
+    static WriteThrough => 3
 }

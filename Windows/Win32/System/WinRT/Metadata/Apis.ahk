@@ -1555,7 +1555,6 @@ class Metadata {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     static RoCreateNonAgilePropertySet() {
@@ -1564,7 +1563,6 @@ class Metadata {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     static RoCreatePropertySetSerializer() {

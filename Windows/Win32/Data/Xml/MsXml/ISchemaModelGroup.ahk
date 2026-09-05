@@ -37,7 +37,6 @@ class ISchemaModelGroup extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_particles() {

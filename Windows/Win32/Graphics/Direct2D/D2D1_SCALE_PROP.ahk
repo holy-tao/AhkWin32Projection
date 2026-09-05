@@ -18,9 +18,10 @@ class D2D1_SCALE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a>.
      * 
      * The default value is {1.0f, 1.0f}.
+     * Native name: D2D1_SCALE_PROP_SCALE
      * @type {Integer (Int32)}
      */
-    static D2D1_SCALE_PROP_SCALE => 0
+    static SCALE => 0
 
     /**
      * The image scaling center point. This property is a <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a> defined as: (point X, point Y). The units are in DIPs.
@@ -31,9 +32,10 @@ class D2D1_SCALE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a>.
      * 
      * The default value is {0.0f, 0.0f}.
+     * Native name: D2D1_SCALE_PROP_CENTER_POINT
      * @type {Integer (Int32)}
      */
-    static D2D1_SCALE_PROP_CENTER_POINT => 1
+    static CENTER_POINT => 1
 
     /**
      * The interpolation mode the effect uses to scale the image. There are 6 scale modes that range in quality and speed.
@@ -42,9 +44,10 @@ class D2D1_SCALE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_scale_interpolation_mode">D2D1_SCALE_INTERPOLATION_MODE</a>.
      * 
      * The default value is D2D1_SCALE_INTERPOLATION_MODE_LINEAR.
+     * Native name: D2D1_SCALE_PROP_INTERPOLATION_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_SCALE_PROP_INTERPOLATION_MODE => 2
+    static INTERPOLATION_MODE => 2
 
     /**
      * The mode used to calculate the border of the image, soft or hard. 
@@ -53,9 +56,10 @@ class D2D1_SCALE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_border_mode">D2D1_BORDER_MODE</a>.
      * 
      * The default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_SCALE_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_SCALE_PROP_BORDER_MODE => 3
+    static BORDER_MODE => 3
 
     /**
      * In the high quality cubic interpolation mode, the sharpness level of the scaling filter as a float between 0 and 1. The values are unitless. 
@@ -69,7 +73,8 @@ class D2D1_SCALE_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 0.0f.
+     * Native name: D2D1_SCALE_PROP_SHARPNESS
      * @type {Integer (Int32)}
      */
-    static D2D1_SCALE_PROP_SHARPNESS => 4
+    static SHARPNESS => 4
 }

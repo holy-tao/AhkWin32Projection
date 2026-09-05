@@ -7,22 +7,26 @@
 class textpathSpacingtype extends Win32Enum {
 
     /**
+     * Native name: TEXTPATH_SPACINGTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static TEXTPATH_SPACINGTYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: TEXTPATH_SPACINGTYPE_AUTO
      * @type {Integer (Int32)}
      */
-    static TEXTPATH_SPACINGTYPE_AUTO => 1
+    static AUTO => 1
 
     /**
+     * Native name: TEXTPATH_SPACINGTYPE_EXACT
      * @type {Integer (Int32)}
      */
-    static TEXTPATH_SPACINGTYPE_EXACT => 2
+    static EXACT => 2
 
     /**
+     * Native name: textpathSpacingtype_Max
      * @type {Integer (Int32)}
      */
-    static textpathSpacingtype_Max => 2147483647
+    static Max => 2147483647
 }

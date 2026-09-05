@@ -33,7 +33,6 @@ class IDWritePixelSnapping extends IUnknown {
     static VTableNames => ["IsPixelSnappingDisabled", "GetCurrentTransform", "GetPixelsPerDip"]
 
     /**
-     * 
      * @param {Pointer<Void>} clientDrawingContext 
      * @returns {BOOL} 
      */

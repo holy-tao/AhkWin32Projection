@@ -7,12 +7,14 @@
 class DHCP_PROPERTY_ID extends Win32Enum {
 
     /**
+     * Native name: DhcpPropIdPolicyDnsSuffix
      * @type {Integer (Int32)}
      */
-    static DhcpPropIdPolicyDnsSuffix => 0
+    static PropIdPolicyDnsSuffix => 0
 
     /**
+     * Native name: DhcpPropIdClientAddressStateEx
      * @type {Integer (Int32)}
      */
-    static DhcpPropIdClientAddressStateEx => 1
+    static PropIdClientAddressStateEx => 1
 }

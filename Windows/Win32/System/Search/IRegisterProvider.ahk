@@ -31,7 +31,6 @@ class IRegisterProvider extends IUnknown {
     static VTableNames => ["GetURLMapping", "SetURLMapping", "UnregisterProvider"]
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {Pointer} dwReserved 
      * @returns {Guid} 
@@ -45,7 +44,6 @@ class IRegisterProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {Pointer} dwReserved 
      * @param {Pointer<Guid>} rclsidProvider 
@@ -59,7 +57,6 @@ class IRegisterProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {Pointer} dwReserved 
      * @param {Pointer<Guid>} rclsidProvider 

@@ -9,12 +9,14 @@
 class HDV_DEVICE_TYPE extends Win32Enum {
 
     /**
+     * Native name: HdvDeviceTypeUndefined
      * @type {Integer (Int32)}
      */
-    static HdvDeviceTypeUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: HdvDeviceTypePCI
      * @type {Integer (Int32)}
      */
-    static HdvDeviceTypePCI => 1
+    static TypePCI => 1
 }

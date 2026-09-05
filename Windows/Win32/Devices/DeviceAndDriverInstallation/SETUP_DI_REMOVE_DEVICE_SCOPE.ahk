@@ -7,12 +7,14 @@
 class SETUP_DI_REMOVE_DEVICE_SCOPE extends Win32Enum {
 
     /**
+     * Native name: DI_REMOVEDEVICE_GLOBAL
      * @type {Integer (UInt32)}
      */
-    static DI_REMOVEDEVICE_GLOBAL => 1
+    static REMOVEDEVICE_GLOBAL => 1
 
     /**
+     * Native name: DI_REMOVEDEVICE_CONFIGSPECIFIC
      * @type {Integer (UInt32)}
      */
-    static DI_REMOVEDEVICE_CONFIGSPECIFIC => 2
+    static REMOVEDEVICE_CONFIGSPECIFIC => 2
 }

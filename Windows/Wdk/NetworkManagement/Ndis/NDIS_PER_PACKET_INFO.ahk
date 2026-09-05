@@ -27,9 +27,10 @@ class NDIS_PER_PACKET_INFO extends Win32Enum {
     static ClassificationHandlePacketInfo => 3
 
     /**
+     * Native name: NdisReserved
      * @type {Integer (Int32)}
      */
-    static NdisReserved => 4
+    static Reserved => 4
 
     /**
      * @type {Integer (Int32)}
@@ -47,9 +48,10 @@ class NDIS_PER_PACKET_INFO extends Win32Enum {
     static OriginalPacketInfo => 7
 
     /**
+     * Native name: PacketCancelId
      * @type {Integer (Int32)}
      */
-    static PacketCancelId => 8
+    static CancelId => 8
 
     /**
      * @type {Integer (Int32)}

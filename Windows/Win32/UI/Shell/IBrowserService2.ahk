@@ -510,7 +510,6 @@ class IBrowserService2 extends IBrowserService {
     }
 
     /**
-     * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Integer} grfHLNF 
      * @param {Integer} dwFlags 

@@ -30,7 +30,6 @@ class IObjectHandle extends IUnknown {
     static VTableNames => ["Unwrap"]
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     Unwrap() {

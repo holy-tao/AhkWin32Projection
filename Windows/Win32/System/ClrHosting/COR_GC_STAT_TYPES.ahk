@@ -7,12 +7,14 @@
 class COR_GC_STAT_TYPES extends Win32Enum {
 
     /**
+     * Native name: COR_GC_COUNTS
      * @type {Integer (Int32)}
      */
-    static COR_GC_COUNTS => 1
+    static COUNTS => 1
 
     /**
+     * Native name: COR_GC_MEMORYUSAGE
      * @type {Integer (Int32)}
      */
-    static COR_GC_MEMORYUSAGE => 2
+    static MEMORYUSAGE => 2
 }

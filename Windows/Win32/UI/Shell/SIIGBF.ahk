@@ -7,52 +7,62 @@
 class SIIGBF extends Win32BitflagEnum {
 
     /**
+     * Native name: SIIGBF_RESIZETOFIT
      * @type {Integer (Int32)}
      */
-    static SIIGBF_RESIZETOFIT => 0
+    static RESIZETOFIT => 0
 
     /**
+     * Native name: SIIGBF_BIGGERSIZEOK
      * @type {Integer (Int32)}
      */
-    static SIIGBF_BIGGERSIZEOK => 1
+    static BIGGERSIZEOK => 1
 
     /**
+     * Native name: SIIGBF_MEMORYONLY
      * @type {Integer (Int32)}
      */
-    static SIIGBF_MEMORYONLY => 2
+    static MEMORYONLY => 2
 
     /**
+     * Native name: SIIGBF_ICONONLY
      * @type {Integer (Int32)}
      */
-    static SIIGBF_ICONONLY => 4
+    static ICONONLY => 4
 
     /**
+     * Native name: SIIGBF_THUMBNAILONLY
      * @type {Integer (Int32)}
      */
-    static SIIGBF_THUMBNAILONLY => 8
+    static THUMBNAILONLY => 8
 
     /**
+     * Native name: SIIGBF_INCACHEONLY
      * @type {Integer (Int32)}
      */
-    static SIIGBF_INCACHEONLY => 16
+    static INCACHEONLY => 16
 
     /**
+     * Native name: SIIGBF_CROPTOSQUARE
      * @type {Integer (Int32)}
      */
-    static SIIGBF_CROPTOSQUARE => 32
+    static CROPTOSQUARE => 32
 
     /**
+     * Native name: SIIGBF_WIDETHUMBNAILS
      * @type {Integer (Int32)}
      */
-    static SIIGBF_WIDETHUMBNAILS => 64
+    static WIDETHUMBNAILS => 64
 
     /**
+     * Native name: SIIGBF_ICONBACKGROUND
      * @type {Integer (Int32)}
      */
-    static SIIGBF_ICONBACKGROUND => 128
+    static ICONBACKGROUND => 128
 
     /**
+     * Native name: SIIGBF_SCALEUP
      * @type {Integer (Int32)}
      */
-    static SIIGBF_SCALEUP => 256
+    static SCALEUP => 256
 }

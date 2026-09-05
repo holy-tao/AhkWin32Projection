@@ -12,115 +12,134 @@ class TPMVSCMGR_ERROR extends Win32Enum {
 
     /**
      * Failed to impersonate the caller.
+     * Native name: TPMVSCMGR_ERROR_IMPERSONATION
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_IMPERSONATION => 0
+    static IMPERSONATION => 0
 
     /**
      * Ensure that your PIN/PUK meets the length or complexity requirements of your organization.
+     * Native name: TPMVSCMGR_ERROR_PIN_COMPLEXITY
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_PIN_COMPLEXITY => 1
+    static PIN_COMPLEXITY => 1
 
     /**
      * The limit of the number of smart card readers has been reached.
+     * Native name: TPMVSCMGR_ERROR_READER_COUNT_LIMIT
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_READER_COUNT_LIMIT => 2
+    static READER_COUNT_LIMIT => 2
 
     /**
      * TPM virtual smart card management cannot be used within a Terminal Services session.
+     * Native name: TPMVSCMGR_ERROR_TERMINAL_SERVICES_SESSION
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_TERMINAL_SERVICES_SESSION => 3
+    static TERMINAL_SERVICES_SESSION => 3
 
     /**
      * Failed to initialize the virtual smart card manager.
+     * Native name: TPMVSCMGR_ERROR_VTPMSMARTCARD_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VTPMSMARTCARD_INITIALIZE => 4
+    static VTPMSMARTCARD_INITIALIZE => 4
 
     /**
      * Failed to create the virtual smart card manager.
+     * Native name: TPMVSCMGR_ERROR_VTPMSMARTCARD_CREATE
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VTPMSMARTCARD_CREATE => 5
+    static VTPMSMARTCARD_CREATE => 5
 
     /**
      * Failed to destroy the virtual smart card manager.
+     * Native name: TPMVSCMGR_ERROR_VTPMSMARTCARD_DESTROY
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VTPMSMARTCARD_DESTROY => 6
+    static VTPMSMARTCARD_DESTROY => 6
 
     /**
      * Failed to initialize the virtual smart card simulator.
+     * Native name: TPMVSCMGR_ERROR_VGIDSSIMULATOR_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VGIDSSIMULATOR_INITIALIZE => 7
+    static VGIDSSIMULATOR_INITIALIZE => 7
 
     /**
      * Failed to create the virtual smart card simulator.
+     * Native name: TPMVSCMGR_ERROR_VGIDSSIMULATOR_CREATE
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VGIDSSIMULATOR_CREATE => 8
+    static VGIDSSIMULATOR_CREATE => 8
 
     /**
      * Failed to destroy the virtual smart card simulator.
+     * Native name: TPMVSCMGR_ERROR_VGIDSSIMULATOR_DESTROY
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VGIDSSIMULATOR_DESTROY => 9
+    static VGIDSSIMULATOR_DESTROY => 9
 
     /**
      * Failed to configure the virtual smart card simulator.
+     * Native name: TPMVSCMGR_ERROR_VGIDSSIMULATOR_WRITE_PROPERTY
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VGIDSSIMULATOR_WRITE_PROPERTY => 10
+    static VGIDSSIMULATOR_WRITE_PROPERTY => 10
 
     /**
      * Failed to find the specified virtual smart card simulator.
+     * Native name: TPMVSCMGR_ERROR_VGIDSSIMULATOR_READ_PROPERTY
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VGIDSSIMULATOR_READ_PROPERTY => 11
+    static VGIDSSIMULATOR_READ_PROPERTY => 11
 
     /**
      * Failed to initialize the virtual smart card reader.
+     * Native name: TPMVSCMGR_ERROR_VREADER_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VREADER_INITIALIZE => 12
+    static VREADER_INITIALIZE => 12
 
     /**
      * Failed to create the virtual smart card reader.
+     * Native name: TPMVSCMGR_ERROR_VREADER_CREATE
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VREADER_CREATE => 13
+    static VREADER_CREATE => 13
 
     /**
      * Failed to destroy the virtual smart card reader.
+     * Native name: TPMVSCMGR_ERROR_VREADER_DESTROY
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_VREADER_DESTROY => 14
+    static VREADER_DESTROY => 14
 
     /**
      * Failed to connect to the TPM smart card.
+     * Native name: TPMVSCMGR_ERROR_GENERATE_LOCATE_READER
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_GENERATE_LOCATE_READER => 15
+    static GENERATE_LOCATE_READER => 15
 
     /**
      * Failed to generate the file system on the TPM smart card.
+     * Native name: TPMVSCMGR_ERROR_GENERATE_FILESYSTEM
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_GENERATE_FILESYSTEM => 16
+    static GENERATE_FILESYSTEM => 16
 
     /**
      * Unable to create the TPM smart card.
+     * Native name: TPMVSCMGR_ERROR_CARD_CREATE
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_CARD_CREATE => 17
+    static CARD_CREATE => 17
 
     /**
      * Unable to destroy the TPM smart card.
+     * Native name: TPMVSCMGR_ERROR_CARD_DESTROY
      * @type {Integer (Int32)}
      */
-    static TPMVSCMGR_ERROR_CARD_DESTROY => 18
+    static CARD_DESTROY => 18
 }

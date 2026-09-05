@@ -71,7 +71,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -81,7 +80,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_cx() {
@@ -90,7 +88,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -100,7 +97,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_cy() {
@@ -109,7 +105,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -119,7 +114,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_r() {
@@ -128,7 +122,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -138,7 +131,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_fx() {
@@ -147,7 +139,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -157,7 +148,6 @@ class ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_fy() {

@@ -7,22 +7,26 @@
 class styleMsScrollChaining extends Win32Enum {
 
     /**
+     * Native name: styleMsScrollChainingNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsScrollChainingNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleMsScrollChainingNone
      * @type {Integer (Int32)}
      */
-    static styleMsScrollChainingNone => 1
+    static None => 1
 
     /**
+     * Native name: styleMsScrollChainingChained
      * @type {Integer (Int32)}
      */
-    static styleMsScrollChainingChained => 2
+    static Chained => 2
 
     /**
+     * Native name: styleMsScrollChaining_Max
      * @type {Integer (Int32)}
      */
-    static styleMsScrollChaining_Max => 2147483647
+    static Max => 2147483647
 }

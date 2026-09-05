@@ -655,7 +655,6 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Endpoint 
      * @param {PWSTR} Query 
      * @param {Pointer<PWSTR>} Stats 
@@ -674,7 +673,6 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Endpoint 
      * @param {PWSTR} Query 
      * @param {Pointer<PWSTR>} Addresses 

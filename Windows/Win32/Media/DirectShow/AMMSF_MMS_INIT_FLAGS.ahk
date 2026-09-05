@@ -7,7 +7,8 @@
 class AMMSF_MMS_INIT_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: AMMSF_NOGRAPHTHREAD
      * @type {Integer (Int32)}
      */
-    static AMMSF_NOGRAPHTHREAD => 1
+    static NOGRAPHTHREAD => 1
 }

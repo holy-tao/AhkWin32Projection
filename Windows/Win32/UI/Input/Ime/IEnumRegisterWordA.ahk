@@ -31,7 +31,6 @@ class IEnumRegisterWordA extends IUnknown {
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * 
      * @returns {IEnumRegisterWordA} 
      */
     Clone() {
@@ -40,7 +39,6 @@ class IEnumRegisterWordA extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<REGISTERWORDA>} rgRegisterWord 
      * @param {Pointer<Integer>} pcFetched 
@@ -54,7 +52,6 @@ class IEnumRegisterWordA extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumRegisterWordA extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @returns {HRESULT} 
      */

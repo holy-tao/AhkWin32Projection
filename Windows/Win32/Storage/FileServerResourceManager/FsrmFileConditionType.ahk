@@ -7,12 +7,14 @@
 class FsrmFileConditionType extends Win32Enum {
 
     /**
+     * Native name: FsrmFileConditionType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmFileConditionType_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: FsrmFileConditionType_Property
      * @type {Integer (Int32)}
      */
-    static FsrmFileConditionType_Property => 1
+    static Property => 1
 }

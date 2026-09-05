@@ -30,7 +30,6 @@ class IXMLGenericParse extends IUnknown {
     static VTableNames => ["SetGenericParse"]
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDoGeneric 
      * @returns {HRESULT} 
      */

@@ -12,19 +12,22 @@ class UDP_TABLE_CLASS extends Win32Enum {
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udptable">MIB_UDPTABLE</a> structure that contains all UDP endpoints on the local computer is returned to the caller.
+     * Native name: UDP_TABLE_BASIC
      * @type {Integer (Int32)}
      */
-    static UDP_TABLE_BASIC => 0
+    static BASIC => 0
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udptable_owner_pid">MIB_UDPTABLE_OWNER_PID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table_owner_pid">MIB_UDP6TABLE_OWNER_PID</a> structure that contains all UDP endpoints on the local computer is returned to the caller.
+     * Native name: UDP_TABLE_OWNER_PID
      * @type {Integer (Int32)}
      */
-    static UDP_TABLE_OWNER_PID => 1
+    static OWNER_PID => 1
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udptable_owner_module">MIB_UDPTABLE_OWNER_MODULE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table_owner_module">MIB_UDP6TABLE_OWNER_MODULE</a> structure that contains all  UDP endpoints on the local computer is returned to the caller.
+     * Native name: UDP_TABLE_OWNER_MODULE
      * @type {Integer (Int32)}
      */
-    static UDP_TABLE_OWNER_MODULE => 2
+    static OWNER_MODULE => 2
 }

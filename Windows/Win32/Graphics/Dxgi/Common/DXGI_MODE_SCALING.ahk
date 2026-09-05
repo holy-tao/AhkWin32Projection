@@ -7,17 +7,20 @@
 class DXGI_MODE_SCALING extends Win32Enum {
 
     /**
+     * Native name: DXGI_MODE_SCALING_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_SCALING_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: DXGI_MODE_SCALING_CENTERED
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_SCALING_CENTERED => 1
+    static CENTERED => 1
 
     /**
+     * Native name: DXGI_MODE_SCALING_STRETCHED
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_SCALING_STRETCHED => 2
+    static STRETCHED => 2
 }

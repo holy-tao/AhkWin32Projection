@@ -46,7 +46,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FinalBack() {
@@ -55,7 +54,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FinalNext() {
@@ -64,7 +62,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -73,7 +70,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCaption 
      * @returns {HRESULT} 
      */
@@ -85,7 +81,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Caption() {
@@ -95,7 +90,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPropertyName 
      * @param {Pointer<VARIANT>} pvProperty 
      * @returns {HRESULT} 
@@ -108,7 +102,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPropertyName 
      * @returns {VARIANT} 
      */
@@ -121,7 +114,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} vfEnableBack 
      * @param {VARIANT_BOOL} vfEnableNext 
      * @param {VARIANT_BOOL} vfLastPage 
@@ -133,7 +125,6 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeaderTitle 
      * @param {BSTR} bstrHeaderSubtitle 
      * @returns {HRESULT} 

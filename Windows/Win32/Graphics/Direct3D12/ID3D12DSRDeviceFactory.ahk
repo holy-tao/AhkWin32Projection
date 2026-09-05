@@ -31,7 +31,6 @@ class ID3D12DSRDeviceFactory extends IUnknown {
     static VTableNames => ["CreateDSRDevice"]
 
     /**
-     * 
      * @param {ID3D12Device} pD3D12Device 
      * @param {Integer} NodeMask 
      * @param {Pointer<Guid>} riid 

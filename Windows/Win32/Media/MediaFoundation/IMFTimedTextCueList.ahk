@@ -31,7 +31,6 @@ class IMFTimedTextCueList extends IUnknown {
     static VTableNames => ["GetLength", "GetCueByIndex", "GetCueById", "GetCueByOriginalId", "AddTextCue", "AddDataCue", "RemoveCue"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -40,7 +39,6 @@ class IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IMFTimedTextCue} 
      */
@@ -50,7 +48,6 @@ class IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {IMFTimedTextCue} 
      */
@@ -60,7 +57,6 @@ class IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} originalId 
      * @returns {IMFTimedTextCue} 
      */
@@ -72,7 +68,6 @@ class IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} start 
      * @param {Float} duration 
      * @param {PWSTR} text 
@@ -86,7 +81,6 @@ class IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} start 
      * @param {Float} duration 
      * @param {Integer} data 
@@ -99,7 +93,6 @@ class IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMFTimedTextCue} cue 
      * @returns {HRESULT} 
      */

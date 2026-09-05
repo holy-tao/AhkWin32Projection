@@ -10,19 +10,22 @@ class VfwCaptureDialogs extends Win32Enum {
 
     /**
      * Video source dialog box.
+     * Native name: VfwCaptureDialog_Source
      * @type {Integer (Int32)}
      */
-    static VfwCaptureDialog_Source => 1
+    static Dialog_Source => 1
 
     /**
      * Video format dialog box.
+     * Native name: VfwCaptureDialog_Format
      * @type {Integer (Int32)}
      */
-    static VfwCaptureDialog_Format => 2
+    static Dialog_Format => 2
 
     /**
      * Video display dialog box.
+     * Native name: VfwCaptureDialog_Display
      * @type {Integer (Int32)}
      */
-    static VfwCaptureDialog_Display => 4
+    static Dialog_Display => 4
 }

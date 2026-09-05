@@ -7,12 +7,14 @@
 class styleGridRowSpan extends Win32Enum {
 
     /**
+     * Native name: styleGridRowSpanNotSet
      * @type {Integer (Int32)}
      */
-    static styleGridRowSpanNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleGridRowSpan_Max
      * @type {Integer (Int32)}
      */
-    static styleGridRowSpan_Max => 2147483647
+    static Max => 2147483647
 }

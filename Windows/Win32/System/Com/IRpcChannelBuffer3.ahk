@@ -32,7 +32,6 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
     static VTableNames => ["Send", "Receive", "Cancel", "GetCallContext", "GetDestCtxEx", "GetState", "RegisterAsync"]
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {Integer} 
      */
@@ -42,7 +41,6 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Integer} ulSize 
      * @returns {Integer} 
@@ -53,7 +51,6 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {HRESULT} 
      */
@@ -63,7 +60,6 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -74,7 +70,6 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Pointer<Integer>} pdwDestContext 
      * @param {Pointer<Pointer<Void>>} ppvDestContext 
@@ -89,7 +84,6 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {Integer} 
      */
@@ -99,7 +93,6 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {IAsyncManager} pAsyncMgr 
      * @returns {HRESULT} 

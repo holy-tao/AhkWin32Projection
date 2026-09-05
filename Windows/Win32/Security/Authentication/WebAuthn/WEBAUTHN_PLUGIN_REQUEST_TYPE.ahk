@@ -7,7 +7,8 @@
 class WEBAUTHN_PLUGIN_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: WEBAUTHN_PLUGIN_REQUEST_TYPE_CTAP2_CBOR
      * @type {Integer (Int32)}
      */
-    static WEBAUTHN_PLUGIN_REQUEST_TYPE_CTAP2_CBOR => 1
+    static CTAP2_CBOR => 1
 }

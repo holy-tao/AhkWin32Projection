@@ -10,13 +10,15 @@ class DML_CREATE_DEVICE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No creation options are specified.
+     * Native name: DML_CREATE_DEVICE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static DML_CREATE_DEVICE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Enables the DirectML debug layers. To use the debug layers, developer mode must be enabled, and the DirectML debug layers must be installed. If the <b>DML_CREATE_DEVICE_FLAG_DEBUG</b> flag is specified and either condition is not met, then [DMLCreateDevice](/windows/win32/api/directml/nf-directml-dmlcreatedevice) returns <b>DXGI_ERROR_SDK_COMPONENT_MISSING</b>.
+     * Native name: DML_CREATE_DEVICE_FLAG_DEBUG
      * @type {Integer (Int32)}
      */
-    static DML_CREATE_DEVICE_FLAG_DEBUG => 1
+    static FLAG_DEBUG => 1
 }

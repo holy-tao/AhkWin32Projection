@@ -7,34 +7,40 @@
 class PCI_EXPRESS_DEVICE_TYPE extends Win32Enum {
 
     /**
+     * Native name: PciExpressEndpoint
      * @type {Integer (Int32)}
      */
-    static PciExpressEndpoint => 0
+    static Endpoint => 0
 
     /**
+     * Native name: PciExpressLegacyEndpoint
      * @type {Integer (Int32)}
      */
-    static PciExpressLegacyEndpoint => 1
+    static LegacyEndpoint => 1
 
     /**
+     * Native name: PciExpressRootPort
      * @type {Integer (Int32)}
      */
-    static PciExpressRootPort => 4
+    static RootPort => 4
 
     /**
+     * Native name: PciExpressUpstreamSwitchPort
      * @type {Integer (Int32)}
      */
-    static PciExpressUpstreamSwitchPort => 5
+    static UpstreamSwitchPort => 5
 
     /**
+     * Native name: PciExpressDownstreamSwitchPort
      * @type {Integer (Int32)}
      */
-    static PciExpressDownstreamSwitchPort => 6
+    static DownstreamSwitchPort => 6
 
     /**
+     * Native name: PciExpressToPciXBridge
      * @type {Integer (Int32)}
      */
-    static PciExpressToPciXBridge => 7
+    static ToPciXBridge => 7
 
     /**
      * @type {Integer (Int32)}
@@ -42,12 +48,14 @@ class PCI_EXPRESS_DEVICE_TYPE extends Win32Enum {
     static PciXToExpressBridge => 8
 
     /**
+     * Native name: PciExpressRootComplexIntegratedEndpoint
      * @type {Integer (Int32)}
      */
-    static PciExpressRootComplexIntegratedEndpoint => 9
+    static RootComplexIntegratedEndpoint => 9
 
     /**
+     * Native name: PciExpressRootComplexEventCollector
      * @type {Integer (Int32)}
      */
-    static PciExpressRootComplexEventCollector => 10
+    static RootComplexEventCollector => 10
 }

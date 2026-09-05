@@ -7,17 +7,20 @@
 class CREATE_TAPE_PARTITION_METHOD extends Win32Enum {
 
     /**
+     * Native name: TAPE_FIXED_PARTITIONS
      * @type {Integer (UInt32)}
      */
-    static TAPE_FIXED_PARTITIONS => 0
+    static FIXED_PARTITIONS => 0
 
     /**
+     * Native name: TAPE_INITIATOR_PARTITIONS
      * @type {Integer (UInt32)}
      */
-    static TAPE_INITIATOR_PARTITIONS => 2
+    static INITIATOR_PARTITIONS => 2
 
     /**
+     * Native name: TAPE_SELECT_PARTITIONS
      * @type {Integer (UInt32)}
      */
-    static TAPE_SELECT_PARTITIONS => 1
+    static SELECT_PARTITIONS => 1
 }

@@ -7,7 +7,8 @@
 class DEVICE_DIRECTORY_TYPE extends Win32Enum {
 
     /**
+     * Native name: DeviceDirectoryData
      * @type {Integer (Int32)}
      */
-    static DeviceDirectoryData => 0
+    static Data => 0
 }

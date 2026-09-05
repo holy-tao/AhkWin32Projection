@@ -12,7 +12,8 @@ class DMO_REGISTER_FLAGS extends Win32Enum {
 
     /**
      * Use of the DMO is restricted by a software key.
+     * Native name: DMO_REGISTERF_IS_KEYED
      * @type {Integer (Int32)}
      */
-    static DMO_REGISTERF_IS_KEYED => 1
+    static REGISTERF_IS_KEYED => 1
 }

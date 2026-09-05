@@ -29,7 +29,6 @@ class CallObj {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} iidIntercepted 
      * @param {IUnknown} punkOuter 
      * @param {ITypeInfo} typeInfo 

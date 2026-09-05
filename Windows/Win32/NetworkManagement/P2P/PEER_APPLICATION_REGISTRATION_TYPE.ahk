@@ -14,13 +14,15 @@ class PEER_APPLICATION_REGISTRATION_TYPE extends Win32Enum {
 
     /**
      * The application is available only to the current user account logged into the machine.
+     * Native name: PEER_APPLICATION_CURRENT_USER
      * @type {Integer (Int32)}
      */
-    static PEER_APPLICATION_CURRENT_USER => 0
+    static CURRENT_USER => 0
 
     /**
      * The application is available to all user accounts set on the machine.
+     * Native name: PEER_APPLICATION_ALL_USERS
      * @type {Integer (Int32)}
      */
-    static PEER_APPLICATION_ALL_USERS => 1
+    static ALL_USERS => 1
 }

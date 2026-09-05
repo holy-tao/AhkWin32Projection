@@ -31,7 +31,6 @@ class IInternetBindInfo extends IUnknown {
     static VTableNames => ["GetBindInfo", "GetBindString"]
 
     /**
-     * 
      * @param {Pointer<BINDINFO>} pbindinfo 
      * @returns {Integer} 
      */
@@ -41,7 +40,6 @@ class IInternetBindInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulStringType 
      * @param {Integer} cEl 
      * @param {Pointer<Integer>} pcElFetched 

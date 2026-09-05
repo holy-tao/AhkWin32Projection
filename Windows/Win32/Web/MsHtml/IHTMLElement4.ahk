@@ -64,7 +64,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousewheel() {
@@ -105,7 +103,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrname 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -117,7 +114,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute} pattr 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -127,7 +123,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute} pattr 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -137,7 +132,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -147,7 +141,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeactivate() {
@@ -157,7 +150,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -167,7 +159,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusin() {
@@ -177,7 +168,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -187,7 +177,6 @@ class IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusout() {

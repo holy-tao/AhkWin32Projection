@@ -7,17 +7,20 @@
 class SCM_PD_QUERY_TYPE extends Win32Enum {
 
     /**
+     * Native name: ScmPhysicalDeviceQuery_Descriptor
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceQuery_Descriptor => 0
+    static PhysicalDeviceQuery_Descriptor => 0
 
     /**
+     * Native name: ScmPhysicalDeviceQuery_IsSupported
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceQuery_IsSupported => 1
+    static PhysicalDeviceQuery_IsSupported => 1
 
     /**
+     * Native name: ScmPhysicalDeviceQuery_Max
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceQuery_Max => 2
+    static PhysicalDeviceQuery_Max => 2
 }

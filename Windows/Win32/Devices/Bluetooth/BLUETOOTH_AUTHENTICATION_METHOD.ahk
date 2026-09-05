@@ -10,31 +10,36 @@ class BLUETOOTH_AUTHENTICATION_METHOD extends Win32Enum {
 
     /**
      * The Bluetooth device supports authentication via a PIN.
+     * Native name: BLUETOOTH_AUTHENTICATION_METHOD_LEGACY
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_AUTHENTICATION_METHOD_LEGACY => 1
+    static LEGACY => 1
 
     /**
      * The Bluetooth device supports authentication via out-of-band data.
+     * Native name: BLUETOOTH_AUTHENTICATION_METHOD_OOB
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_AUTHENTICATION_METHOD_OOB => 2
+    static OOB => 2
 
     /**
      * The Bluetooth device supports authentication via numeric comparison.
+     * Native name: BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON => 3
+    static NUMERIC_COMPARISON => 3
 
     /**
      * The Bluetooth device supports authentication via passkey notification.
+     * Native name: BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION => 4
+    static PASSKEY_NOTIFICATION => 4
 
     /**
      * The Bluetooth device supports authentication via  passkey.
+     * Native name: BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY => 5
+    static PASSKEY => 5
 }

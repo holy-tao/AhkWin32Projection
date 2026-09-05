@@ -1776,7 +1776,6 @@ class WinRT {
     }
 
     /**
-     * 
      * @remarks
      * The function checks to see if current error info matches the *hrIn* value passed in and, if not, it originates a matching error info.
      * @param {HRESULT} hrIn An HRESULT representing the error for which restricted error info is retrieved.

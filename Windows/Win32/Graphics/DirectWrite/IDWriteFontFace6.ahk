@@ -31,7 +31,6 @@ class IDWriteFontFace6 extends IDWriteFontFace5 {
     static VTableNames => ["GetFamilyNames", "GetFaceNames"]
 
     /**
-     * 
      * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel 
      * @returns {IDWriteLocalizedStrings} 
      */
@@ -41,7 +40,6 @@ class IDWriteFontFace6 extends IDWriteFontFace5 {
     }
 
     /**
-     * 
      * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel 
      * @returns {IDWriteLocalizedStrings} 
      */

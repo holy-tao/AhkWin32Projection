@@ -7,17 +7,20 @@
 class DWRITE_PAINT_ATTRIBUTES extends Win32BitflagEnum {
 
     /**
+     * Native name: DWRITE_PAINT_ATTRIBUTES_NONE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PAINT_ATTRIBUTES_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: DWRITE_PAINT_ATTRIBUTES_USES_PALETTE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PAINT_ATTRIBUTES_USES_PALETTE => 1
+    static USES_PALETTE => 1
 
     /**
+     * Native name: DWRITE_PAINT_ATTRIBUTES_USES_TEXT_COLOR
      * @type {Integer (Int32)}
      */
-    static DWRITE_PAINT_ATTRIBUTES_USES_TEXT_COLOR => 2
+    static USES_TEXT_COLOR => 2
 }

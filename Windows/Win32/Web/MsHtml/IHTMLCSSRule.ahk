@@ -66,7 +66,6 @@ class IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -75,7 +74,6 @@ class IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,6 @@ class IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cssText() {
@@ -97,7 +94,6 @@ class IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLCSSRule} 
      */
     get_parentRule() {
@@ -106,7 +102,6 @@ class IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_parentStyleSheet() {

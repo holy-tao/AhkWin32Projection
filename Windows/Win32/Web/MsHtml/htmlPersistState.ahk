@@ -7,32 +7,38 @@
 class htmlPersistState extends Win32Enum {
 
     /**
+     * Native name: htmlPersistStateNormal
      * @type {Integer (Int32)}
      */
-    static htmlPersistStateNormal => 0
+    static Normal => 0
 
     /**
+     * Native name: htmlPersistStateFavorite
      * @type {Integer (Int32)}
      */
-    static htmlPersistStateFavorite => 1
+    static Favorite => 1
 
     /**
+     * Native name: htmlPersistStateHistory
      * @type {Integer (Int32)}
      */
-    static htmlPersistStateHistory => 2
+    static History => 2
 
     /**
+     * Native name: htmlPersistStateSnapshot
      * @type {Integer (Int32)}
      */
-    static htmlPersistStateSnapshot => 3
+    static Snapshot => 3
 
     /**
+     * Native name: htmlPersistStateUserData
      * @type {Integer (Int32)}
      */
-    static htmlPersistStateUserData => 4
+    static UserData => 4
 
     /**
+     * Native name: htmlPersistState_Max
      * @type {Integer (Int32)}
      */
-    static htmlPersistState_Max => 2147483647
+    static Max => 2147483647
 }

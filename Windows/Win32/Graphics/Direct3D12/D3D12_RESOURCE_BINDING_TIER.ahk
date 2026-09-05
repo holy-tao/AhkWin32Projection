@@ -13,21 +13,24 @@ class D3D12_RESOURCE_BINDING_TIER extends Win32Enum {
     /**
      * Tier 1.
      *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
+     * Native name: D3D12_RESOURCE_BINDING_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BINDING_TIER_1 => 1
+    static 1 => 1
 
     /**
      * Tier 2.
      *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
+     * Native name: D3D12_RESOURCE_BINDING_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BINDING_TIER_2 => 2
+    static 2 => 2
 
     /**
      * Tier 3.
      *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
+     * Native name: D3D12_RESOURCE_BINDING_TIER_3
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BINDING_TIER_3 => 3
+    static 3 => 3
 }

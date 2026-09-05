@@ -10,13 +10,15 @@ class ACL_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Indicates ACL revision information.
+     * Native name: AclRevisionInformation
      * @type {Integer (Int32)}
      */
-    static AclRevisionInformation => 1
+    static RevisionInformation => 1
 
     /**
      * Indicates ACL size information.
+     * Native name: AclSizeInformation
      * @type {Integer (Int32)}
      */
-    static AclSizeInformation => 2
+    static SizeInformation => 2
 }

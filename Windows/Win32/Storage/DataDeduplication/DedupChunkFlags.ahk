@@ -7,12 +7,14 @@
 class DedupChunkFlags extends Win32Enum {
 
     /**
+     * Native name: DedupChunkFlags_None
      * @type {Integer (Int32)}
      */
-    static DedupChunkFlags_None => 0
+    static None => 0
 
     /**
+     * Native name: DedupChunkFlags_Compressed
      * @type {Integer (Int32)}
      */
-    static DedupChunkFlags_Compressed => 1
+    static Compressed => 1
 }

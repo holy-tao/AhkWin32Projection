@@ -26,7 +26,6 @@ class IPrintAsyncNotifyServerReferral extends IUnknown {
     static VTableNames => ["GetServerReferral", "AsyncGetServerReferral", "SetServerReferral"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetServerReferral() {
@@ -35,7 +34,6 @@ class IPrintAsyncNotifyServerReferral extends IUnknown {
     }
 
     /**
-     * 
      * @param {IAsyncGetSrvReferralCookie} param0 
      * @returns {HRESULT} 
      */
@@ -45,7 +43,6 @@ class IPrintAsyncNotifyServerReferral extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pRmtServerReferral 
      * @returns {HRESULT} 
      */

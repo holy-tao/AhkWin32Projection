@@ -35,7 +35,6 @@ class IDirectDrawVideoPort extends IUnknown {
     static VTableNames => ["Flip", "GetBandwidthInfo", "GetColorControls", "GetInputFormats", "GetOutputFormats", "GetFieldPolarity", "GetVideoLine", "GetVideoSignalStatus", "SetColorControls", "SetTargetSurface", "StartVideo", "StopVideo", "UpdateVideo", "WaitForSync"]
 
     /**
-     * 
      * @param {IDirectDrawSurface} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDPIXELFORMAT>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -60,7 +58,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDCOLORCONTROL>} param0 
      * @returns {HRESULT} 
      */
@@ -70,7 +67,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpNumFormats 
      * @param {Integer} param2 
      * @returns {DDPIXELFORMAT} 
@@ -84,7 +80,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDPIXELFORMAT>} param0 
      * @param {Pointer<Integer>} lpNumFormats 
      * @param {Integer} param3 
@@ -99,7 +94,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} param0 
      * @returns {HRESULT} 
      */
@@ -111,7 +105,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -123,7 +116,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -135,7 +127,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDCOLORCONTROL>} param0 
      * @returns {HRESULT} 
      */
@@ -145,7 +136,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -156,7 +146,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDVIDEOPORTINFO>} param0 
      * @returns {HRESULT} 
      */
@@ -166,7 +155,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopVideo() {
@@ -175,7 +163,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDVIDEOPORTINFO>} param0 
      * @returns {HRESULT} 
      */
@@ -185,7 +172,6 @@ class IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 

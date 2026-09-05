@@ -12,13 +12,15 @@ class WS_TRUST_VERSION extends Win32Enum {
 
     /**
      * WS-Trust with the specification URI of http://schemas.xmlsoap.org/ws/2005/02/trust
+     * Native name: WS_TRUST_VERSION_FEBRUARY_2005
      * @type {Integer (Int32)}
      */
-    static WS_TRUST_VERSION_FEBRUARY_2005 => 1
+    static FEBRUARY_2005 => 1
 
     /**
      * WS-Trust 1.3 with the specification URI of http://docs.oasis-open.org/ws-sx/ws-trust/200512
+     * Native name: WS_TRUST_VERSION_1_3
      * @type {Integer (Int32)}
      */
-    static WS_TRUST_VERSION_1_3 => 2
+    static 1_3 => 2
 }

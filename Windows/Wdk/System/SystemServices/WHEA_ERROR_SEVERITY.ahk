@@ -7,22 +7,26 @@
 class WHEA_ERROR_SEVERITY extends Win32Enum {
 
     /**
+     * Native name: WheaErrSevRecoverable
      * @type {Integer (Int32)}
      */
-    static WheaErrSevRecoverable => 0
+    static ErrSevRecoverable => 0
 
     /**
+     * Native name: WheaErrSevFatal
      * @type {Integer (Int32)}
      */
-    static WheaErrSevFatal => 1
+    static ErrSevFatal => 1
 
     /**
+     * Native name: WheaErrSevCorrected
      * @type {Integer (Int32)}
      */
-    static WheaErrSevCorrected => 2
+    static ErrSevCorrected => 2
 
     /**
+     * Native name: WheaErrSevInformational
      * @type {Integer (Int32)}
      */
-    static WheaErrSevInformational => 3
+    static ErrSevInformational => 3
 }

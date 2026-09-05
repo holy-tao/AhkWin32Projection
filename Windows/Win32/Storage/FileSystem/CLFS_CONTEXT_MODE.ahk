@@ -10,25 +10,29 @@ class CLFS_CONTEXT_MODE extends Win32Enum {
 
     /**
      * Do not move the cursor.
+     * Native name: ClfsContextNone
      * @type {Integer (Int32)}
      */
-    static ClfsContextNone => 0
+    static None => 0
 
     /**
      * Move the cursor backward to the next undo record.
+     * Native name: ClfsContextUndoNext
      * @type {Integer (Int32)}
      */
-    static ClfsContextUndoNext => 1
+    static UndoNext => 1
 
     /**
      * Move the cursor to the previous log record from the current read context.
+     * Native name: ClfsContextPrevious
      * @type {Integer (Int32)}
      */
-    static ClfsContextPrevious => 2
+    static Previous => 2
 
     /**
      * Move the cursor to the next client log record from the current read context.
+     * Native name: ClfsContextForward
      * @type {Integer (Int32)}
      */
-    static ClfsContextForward => 3
+    static Forward => 3
 }

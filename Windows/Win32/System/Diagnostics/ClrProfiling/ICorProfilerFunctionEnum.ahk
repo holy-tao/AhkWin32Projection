@@ -30,7 +30,6 @@ class ICorProfilerFunctionEnum extends IUnknown {
     static VTableNames => ["Skip", "Reset", "Clone", "GetCount", "Next"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ICorProfilerFunctionEnum extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -49,7 +47,6 @@ class ICorProfilerFunctionEnum extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICorProfilerFunctionEnum} 
      */
     Clone() {
@@ -58,7 +55,6 @@ class ICorProfilerFunctionEnum extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -67,7 +63,6 @@ class ICorProfilerFunctionEnum extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<COR_PRF_FUNCTION>} ids 
      * @param {Pointer<Integer>} pceltFetched 

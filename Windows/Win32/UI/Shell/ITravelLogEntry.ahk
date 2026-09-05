@@ -30,7 +30,6 @@ class ITravelLogEntry extends IUnknown {
     static VTableNames => ["GetTitle", "GetURL"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetTitle() {
@@ -39,7 +38,6 @@ class ITravelLogEntry extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetURL() {

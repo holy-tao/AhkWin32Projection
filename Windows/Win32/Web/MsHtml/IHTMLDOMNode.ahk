@@ -103,7 +103,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_nodeType() {
@@ -112,7 +111,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_parentNode() {
@@ -121,7 +119,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
@@ -130,7 +127,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_childNodes() {
@@ -139,7 +135,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_attributes() {
@@ -148,7 +143,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {VARIANT} refChild 
      * @returns {IHTMLDOMNode} 
@@ -159,7 +153,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -169,7 +162,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
@@ -180,7 +172,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {IHTMLDOMNode} 
      */
@@ -190,7 +181,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {IHTMLDOMNode} 
      */
@@ -200,7 +190,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} otherNode 
      * @returns {IHTMLDOMNode} 
      */
@@ -210,7 +199,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} replacement 
      * @returns {IHTMLDOMNode} 
      */
@@ -220,7 +208,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -230,7 +217,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -240,7 +226,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -250,7 +235,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -260,7 +244,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_firstChild() {
@@ -269,7 +252,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_lastChild() {
@@ -278,7 +260,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_previousSibling() {
@@ -287,7 +268,6 @@ class IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_nextSibling() {

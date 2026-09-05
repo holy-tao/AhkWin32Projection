@@ -10,25 +10,29 @@ class CLUSTER_GROUP_PRIORITY extends Win32Enum {
 
     /**
      * Disabled priority. A group that has a disabled priority does not start automatically.
+     * Native name: PriorityDisabled
      * @type {Integer (Int32)}
      */
-    static PriorityDisabled => 0
+    static Disabled => 0
 
     /**
      * Low priority.
+     * Native name: PriorityLow
      * @type {Integer (Int32)}
      */
-    static PriorityLow => 1000
+    static Low => 1000
 
     /**
      * Medium priority.
+     * Native name: PriorityMedium
      * @type {Integer (Int32)}
      */
-    static PriorityMedium => 2000
+    static Medium => 2000
 
     /**
      * High priority.
+     * Native name: PriorityHigh
      * @type {Integer (Int32)}
      */
-    static PriorityHigh => 3000
+    static High => 3000
 }

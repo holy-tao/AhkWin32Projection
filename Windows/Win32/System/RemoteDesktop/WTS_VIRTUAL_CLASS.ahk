@@ -12,13 +12,15 @@ class WTS_VIRTUAL_CLASS extends Win32Enum {
 
     /**
      * This value is not currently supported.
+     * Native name: WTSVirtualClientData
      * @type {Integer (Int32)}
      */
-    static WTSVirtualClientData => 0
+    static ClientData => 0
 
     /**
      * Indicates a request for the file handle of a virtual channel that can be used for asynchronous I/O.
+     * Native name: WTSVirtualFileHandle
      * @type {Integer (Int32)}
      */
-    static WTSVirtualFileHandle => 1
+    static FileHandle => 1
 }

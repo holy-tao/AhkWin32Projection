@@ -32,7 +32,6 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     static VTableNames => ["SetAttribs", "AddTokens", "AddTokensFromDataKey", "AddTokensFromTokenEnum", "Sort"]
 
     /**
-     * 
      * @param {PWSTR} pszReqAttribs 
      * @param {PWSTR} pszOptAttribs 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {Integer} cTokens 
      * @param {Pointer<ISpObjectToken>} pToken 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {ISpDataKey} pDataKey 
      * @param {PWSTR} pszSubKey 
      * @param {PWSTR} pszCategoryId 
@@ -72,7 +69,6 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {IEnumSpObjectTokens} pTokenEnum 
      * @returns {HRESULT} 
      */
@@ -82,7 +78,6 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTokenIdToListFirst 
      * @returns {HRESULT} 
      */

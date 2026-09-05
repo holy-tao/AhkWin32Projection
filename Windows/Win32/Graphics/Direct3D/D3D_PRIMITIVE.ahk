@@ -22,194 +22,232 @@
 class D3D_PRIMITIVE extends Win32Enum {
 
     /**
+     * Native name: D3D_PRIMITIVE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: D3D_PRIMITIVE_POINT
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_POINT => 1
+    static POINT => 1
 
     /**
+     * Native name: D3D_PRIMITIVE_LINE
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_LINE => 2
+    static LINE => 2
 
     /**
+     * Native name: D3D_PRIMITIVE_TRIANGLE
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TRIANGLE => 3
+    static TRIANGLE => 3
 
     /**
+     * Native name: D3D_PRIMITIVE_LINE_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_LINE_ADJ => 6
+    static LINE_ADJ => 6
 
     /**
+     * Native name: D3D_PRIMITIVE_TRIANGLE_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TRIANGLE_ADJ => 7
+    static TRIANGLE_ADJ => 7
 
     /**
+     * Native name: D3D_PRIMITIVE_1_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_1_CONTROL_POINT_PATCH => 8
+    static 1_CONTROL_POINT_PATCH => 8
 
     /**
+     * Native name: D3D_PRIMITIVE_2_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_2_CONTROL_POINT_PATCH => 9
+    static 2_CONTROL_POINT_PATCH => 9
 
     /**
+     * Native name: D3D_PRIMITIVE_3_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_3_CONTROL_POINT_PATCH => 10
+    static 3_CONTROL_POINT_PATCH => 10
 
     /**
+     * Native name: D3D_PRIMITIVE_4_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_4_CONTROL_POINT_PATCH => 11
+    static 4_CONTROL_POINT_PATCH => 11
 
     /**
+     * Native name: D3D_PRIMITIVE_5_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_5_CONTROL_POINT_PATCH => 12
+    static 5_CONTROL_POINT_PATCH => 12
 
     /**
+     * Native name: D3D_PRIMITIVE_6_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_6_CONTROL_POINT_PATCH => 13
+    static 6_CONTROL_POINT_PATCH => 13
 
     /**
+     * Native name: D3D_PRIMITIVE_7_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_7_CONTROL_POINT_PATCH => 14
+    static 7_CONTROL_POINT_PATCH => 14
 
     /**
+     * Native name: D3D_PRIMITIVE_8_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_8_CONTROL_POINT_PATCH => 15
+    static 8_CONTROL_POINT_PATCH => 15
 
     /**
+     * Native name: D3D_PRIMITIVE_9_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_9_CONTROL_POINT_PATCH => 16
+    static 9_CONTROL_POINT_PATCH => 16
 
     /**
+     * Native name: D3D_PRIMITIVE_10_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_10_CONTROL_POINT_PATCH => 17
+    static 10_CONTROL_POINT_PATCH => 17
 
     /**
+     * Native name: D3D_PRIMITIVE_11_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_11_CONTROL_POINT_PATCH => 18
+    static 11_CONTROL_POINT_PATCH => 18
 
     /**
+     * Native name: D3D_PRIMITIVE_12_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_12_CONTROL_POINT_PATCH => 19
+    static 12_CONTROL_POINT_PATCH => 19
 
     /**
+     * Native name: D3D_PRIMITIVE_13_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_13_CONTROL_POINT_PATCH => 20
+    static 13_CONTROL_POINT_PATCH => 20
 
     /**
+     * Native name: D3D_PRIMITIVE_14_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_14_CONTROL_POINT_PATCH => 21
+    static 14_CONTROL_POINT_PATCH => 21
 
     /**
+     * Native name: D3D_PRIMITIVE_15_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_15_CONTROL_POINT_PATCH => 22
+    static 15_CONTROL_POINT_PATCH => 22
 
     /**
+     * Native name: D3D_PRIMITIVE_16_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_16_CONTROL_POINT_PATCH => 23
+    static 16_CONTROL_POINT_PATCH => 23
 
     /**
+     * Native name: D3D_PRIMITIVE_17_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_17_CONTROL_POINT_PATCH => 24
+    static 17_CONTROL_POINT_PATCH => 24
 
     /**
+     * Native name: D3D_PRIMITIVE_18_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_18_CONTROL_POINT_PATCH => 25
+    static 18_CONTROL_POINT_PATCH => 25
 
     /**
+     * Native name: D3D_PRIMITIVE_19_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_19_CONTROL_POINT_PATCH => 26
+    static 19_CONTROL_POINT_PATCH => 26
 
     /**
+     * Native name: D3D_PRIMITIVE_20_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_20_CONTROL_POINT_PATCH => 27
+    static 20_CONTROL_POINT_PATCH => 27
 
     /**
+     * Native name: D3D_PRIMITIVE_21_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_21_CONTROL_POINT_PATCH => 28
+    static 21_CONTROL_POINT_PATCH => 28
 
     /**
+     * Native name: D3D_PRIMITIVE_22_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_22_CONTROL_POINT_PATCH => 29
+    static 22_CONTROL_POINT_PATCH => 29
 
     /**
+     * Native name: D3D_PRIMITIVE_23_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_23_CONTROL_POINT_PATCH => 30
+    static 23_CONTROL_POINT_PATCH => 30
 
     /**
+     * Native name: D3D_PRIMITIVE_24_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_24_CONTROL_POINT_PATCH => 31
+    static 24_CONTROL_POINT_PATCH => 31
 
     /**
+     * Native name: D3D_PRIMITIVE_25_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_25_CONTROL_POINT_PATCH => 32
+    static 25_CONTROL_POINT_PATCH => 32
 
     /**
+     * Native name: D3D_PRIMITIVE_26_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_26_CONTROL_POINT_PATCH => 33
+    static 26_CONTROL_POINT_PATCH => 33
 
     /**
+     * Native name: D3D_PRIMITIVE_27_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_27_CONTROL_POINT_PATCH => 34
+    static 27_CONTROL_POINT_PATCH => 34
 
     /**
+     * Native name: D3D_PRIMITIVE_28_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_28_CONTROL_POINT_PATCH => 35
+    static 28_CONTROL_POINT_PATCH => 35
 
     /**
+     * Native name: D3D_PRIMITIVE_29_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_29_CONTROL_POINT_PATCH => 36
+    static 29_CONTROL_POINT_PATCH => 36
 
     /**
+     * Native name: D3D_PRIMITIVE_30_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_30_CONTROL_POINT_PATCH => 37
+    static 30_CONTROL_POINT_PATCH => 37
 
     /**
+     * Native name: D3D_PRIMITIVE_31_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_31_CONTROL_POINT_PATCH => 38
+    static 31_CONTROL_POINT_PATCH => 38
 
     /**
+     * Native name: D3D_PRIMITIVE_32_CONTROL_POINT_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_32_CONTROL_POINT_PATCH => 39
+    static 32_CONTROL_POINT_PATCH => 39
 
     /**
      * @type {Integer (Int32)}

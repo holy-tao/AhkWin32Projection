@@ -12,25 +12,29 @@ class EDataFlow extends Win32Enum {
 
     /**
      * Audio rendering stream. Audio data flows from the application to the audio endpoint device, which renders the stream.
+     * Native name: eRender
      * @type {Integer (Int32)}
      */
-    static eRender => 0
+    static Render => 0
 
     /**
      * Audio capture stream. Audio data flows from the audio endpoint device that captures the stream, to the application.
+     * Native name: eCapture
      * @type {Integer (Int32)}
      */
-    static eCapture => 1
+    static Capture => 1
 
     /**
      * Audio rendering or capture stream. Audio data can flow either from the application to the audio endpoint device, or from the audio endpoint device to the application.
+     * Native name: eAll
      * @type {Integer (Int32)}
      */
-    static eAll => 2
+    static All => 2
 
     /**
      * The number of members in the <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration (not counting the EDataFlow_enum_count member).
+     * Native name: EDataFlow_enum_count
      * @type {Integer (Int32)}
      */
-    static EDataFlow_enum_count => 3
+    static enum_count => 3
 }

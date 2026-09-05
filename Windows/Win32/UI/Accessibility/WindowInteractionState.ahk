@@ -10,31 +10,36 @@ class WindowInteractionState extends Win32Enum {
 
     /**
      * The window is running. This does not guarantee that the window is ready for user interaction or is responding.
+     * Native name: WindowInteractionState_Running
      * @type {Integer (Int32)}
      */
-    static WindowInteractionState_Running => 0
+    static Running => 0
 
     /**
      * The window is closing.
+     * Native name: WindowInteractionState_Closing
      * @type {Integer (Int32)}
      */
-    static WindowInteractionState_Closing => 1
+    static Closing => 1
 
     /**
      * The window is ready for user interaction.
+     * Native name: WindowInteractionState_ReadyForUserInteraction
      * @type {Integer (Int32)}
      */
-    static WindowInteractionState_ReadyForUserInteraction => 2
+    static ReadyForUserInteraction => 2
 
     /**
      * The window is blocked by a modal window.
+     * Native name: WindowInteractionState_BlockedByModalWindow
      * @type {Integer (Int32)}
      */
-    static WindowInteractionState_BlockedByModalWindow => 3
+    static BlockedByModalWindow => 3
 
     /**
      * The window is not responding.
+     * Native name: WindowInteractionState_NotResponding
      * @type {Integer (Int32)}
      */
-    static WindowInteractionState_NotResponding => 4
+    static NotResponding => 4
 }

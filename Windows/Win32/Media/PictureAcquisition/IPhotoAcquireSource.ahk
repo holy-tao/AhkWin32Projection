@@ -185,7 +185,6 @@ class IPhotoAcquireSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

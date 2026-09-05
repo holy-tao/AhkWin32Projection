@@ -61,7 +61,6 @@ class IHTMLIFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_contentDocument() {
@@ -70,7 +69,6 @@ class IHTMLIFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +80,6 @@ class IHTMLIFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -92,7 +89,6 @@ class IHTMLIFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +100,6 @@ class IHTMLIFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_longDesc() {
@@ -114,7 +109,6 @@ class IHTMLIFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +120,6 @@ class IHTMLIFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_frameBorder() {

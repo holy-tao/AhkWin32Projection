@@ -7,17 +7,20 @@
 class ItemDataPosition extends Win32Enum {
 
     /**
+     * Native name: ItemDataPositionAfterHeader
      * @type {Integer (Int32)}
      */
-    static ItemDataPositionAfterHeader => 0
+    static AfterHeader => 0
 
     /**
+     * Native name: ItemDataPositionAfterPalette
      * @type {Integer (Int32)}
      */
-    static ItemDataPositionAfterPalette => 1
+    static AfterPalette => 1
 
     /**
+     * Native name: ItemDataPositionAfterBits
      * @type {Integer (Int32)}
      */
-    static ItemDataPositionAfterBits => 2
+    static AfterBits => 2
 }

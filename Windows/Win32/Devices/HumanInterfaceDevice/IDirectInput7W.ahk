@@ -32,7 +32,6 @@ class IDirectInput7W extends IDirectInput2W {
     static VTableNames => ["CreateDeviceEx"]
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<Guid>} param1 
      * @param {Pointer<Pointer<Void>>} param2 

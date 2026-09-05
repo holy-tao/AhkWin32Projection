@@ -59,7 +59,6 @@ class IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_parameters() {
@@ -69,7 +68,6 @@ class IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_optionString() {
@@ -79,7 +77,6 @@ class IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_moniker() {
@@ -88,7 +85,6 @@ class IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_document() {

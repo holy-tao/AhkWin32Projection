@@ -7,32 +7,38 @@
 class MSIPATCHSTATE extends Win32Enum {
 
     /**
+     * Native name: MSIPATCHSTATE_INVALID
      * @type {Integer (Int32)}
      */
-    static MSIPATCHSTATE_INVALID => 0
+    static INVALID => 0
 
     /**
+     * Native name: MSIPATCHSTATE_APPLIED
      * @type {Integer (Int32)}
      */
-    static MSIPATCHSTATE_APPLIED => 1
+    static APPLIED => 1
 
     /**
+     * Native name: MSIPATCHSTATE_SUPERSEDED
      * @type {Integer (Int32)}
      */
-    static MSIPATCHSTATE_SUPERSEDED => 2
+    static SUPERSEDED => 2
 
     /**
+     * Native name: MSIPATCHSTATE_OBSOLETED
      * @type {Integer (Int32)}
      */
-    static MSIPATCHSTATE_OBSOLETED => 4
+    static OBSOLETED => 4
 
     /**
+     * Native name: MSIPATCHSTATE_REGISTERED
      * @type {Integer (Int32)}
      */
-    static MSIPATCHSTATE_REGISTERED => 8
+    static REGISTERED => 8
 
     /**
+     * Native name: MSIPATCHSTATE_ALL
      * @type {Integer (Int32)}
      */
-    static MSIPATCHSTATE_ALL => 15
+    static ALL => 15
 }

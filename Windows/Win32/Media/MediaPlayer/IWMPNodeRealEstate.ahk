@@ -32,7 +32,6 @@ class IWMPNodeRealEstate extends IUnknown {
     static VTableNames => ["GetDesiredSize", "SetRects", "GetRects", "SetWindowless", "GetWindowless", "SetFullScreen", "GetFullScreen"]
 
     /**
-     * 
      * @param {Pointer<SIZE>} pSize 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pSrc 
      * @param {Pointer<RECT>} pDest 
      * @param {Pointer<RECT>} pClip 
@@ -54,7 +52,6 @@ class IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pSrc 
      * @param {Pointer<RECT>} pDest 
      * @param {Pointer<RECT>} pClip 
@@ -66,7 +63,6 @@ class IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fWindowless 
      * @returns {HRESULT} 
      */
@@ -76,7 +72,6 @@ class IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfWindowless 
      * @returns {HRESULT} 
      */
@@ -88,7 +83,6 @@ class IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFullScreen 
      * @returns {HRESULT} 
      */
@@ -98,7 +92,6 @@ class IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfFullScreen 
      * @returns {HRESULT} 
      */

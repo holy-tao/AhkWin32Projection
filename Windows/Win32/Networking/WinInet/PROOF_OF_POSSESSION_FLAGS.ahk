@@ -7,12 +7,14 @@
 class PROOF_OF_POSSESSION_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PROOF_OF_POSSESSION_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static PROOF_OF_POSSESSION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: PROOF_OF_POSSESSION_ALLOW_SILENT_REQUESTS
      * @type {Integer (UInt32)}
      */
-    static PROOF_OF_POSSESSION_ALLOW_SILENT_REQUESTS => 1
+    static ALLOW_SILENT_REQUESTS => 1
 }

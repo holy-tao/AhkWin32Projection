@@ -37,7 +37,6 @@ class IHTMLStyleElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_sheet() {

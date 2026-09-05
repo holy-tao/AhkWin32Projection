@@ -31,7 +31,6 @@ class ICLRDomainManager extends IUnknown {
     static VTableNames => ["SetAppDomainManagerType", "SetPropertiesForDefaultAppDomain"]
 
     /**
-     * 
      * @param {PWSTR} wszAppDomainManagerAssembly 
      * @param {PWSTR} wszAppDomainManagerType 
      * @param {EInitializeNewDomainFlags} dwInitializeDomainFlags 
@@ -46,7 +45,6 @@ class ICLRDomainManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nProperties 
      * @param {Pointer<PWSTR>} pwszPropertyNames 
      * @param {Pointer<PWSTR>} pwszPropertyValues 

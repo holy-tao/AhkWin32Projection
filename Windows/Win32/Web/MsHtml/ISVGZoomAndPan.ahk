@@ -36,7 +36,6 @@ class ISVGZoomAndPan extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_zoomAndPan() {

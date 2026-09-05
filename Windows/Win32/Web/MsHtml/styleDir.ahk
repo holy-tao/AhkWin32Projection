@@ -7,27 +7,32 @@
 class styleDir extends Win32Enum {
 
     /**
+     * Native name: styleDirNotSet
      * @type {Integer (Int32)}
      */
-    static styleDirNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleDirLeftToRight
      * @type {Integer (Int32)}
      */
-    static styleDirLeftToRight => 1
+    static LeftToRight => 1
 
     /**
+     * Native name: styleDirRightToLeft
      * @type {Integer (Int32)}
      */
-    static styleDirRightToLeft => 2
+    static RightToLeft => 2
 
     /**
+     * Native name: styleDirInherit
      * @type {Integer (Int32)}
      */
-    static styleDirInherit => 3
+    static Inherit => 3
 
     /**
+     * Native name: styleDir_Max
      * @type {Integer (Int32)}
      */
-    static styleDir_Max => 2147483647
+    static Max => 2147483647
 }

@@ -17,9 +17,10 @@ class VSS_COMPONENT_FLAGS extends Win32Enum {
      * 
      * 
      * This flag is not supported for express writers.
+     * Native name: VSS_CF_BACKUP_RECOVERY
      * @type {Integer (Int32)}
      */
-    static VSS_CF_BACKUP_RECOVERY => 1
+    static CF_BACKUP_RECOVERY => 1
 
     /**
      * If this is a rollback shadow copy 
@@ -32,15 +33,17 @@ class VSS_COMPONENT_FLAGS extends Win32Enum {
      * 
      * 
      * This flag is not supported for express writers.
+     * Native name: VSS_CF_APP_ROLLBACK_RECOVERY
      * @type {Integer (Int32)}
      */
-    static VSS_CF_APP_ROLLBACK_RECOVERY => 2
+    static CF_APP_ROLLBACK_RECOVERY => 2
 
     /**
      * This component is not part of system state.
      * 
      * <b>Windows Server 2003 with SP1:  </b>This value is not supported until Windows Vista.
+     * Native name: VSS_CF_NOT_SYSTEM_STATE
      * @type {Integer (Int32)}
      */
-    static VSS_CF_NOT_SYSTEM_STATE => 4
+    static CF_NOT_SYSTEM_STATE => 4
 }

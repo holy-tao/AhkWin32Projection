@@ -10,67 +10,78 @@ class WPC_ARGS_GAMESTARTEVENT extends Win32Enum {
 
     /**
      * The application identifier of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_APPID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_APPID => 0
+    static APPID => 0
 
     /**
      * The instance identifier of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_INSTANCEID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_INSTANCEID => 1
+    static INSTANCEID => 1
 
     /**
      * The version of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_APPVERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_APPVERSION => 2
+    static APPVERSION => 2
 
     /**
      * The path of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_PATH
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_PATH => 3
+    static PATH => 3
 
     /**
      * The rating of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_RATING
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_RATING => 4
+    static RATING => 4
 
     /**
      * The rating system used to rate the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_RATINGSYSTEM
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_RATINGSYSTEM => 5
+    static RATINGSYSTEM => 5
 
     /**
      * The reason for starting the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_REASON => 6
+    static REASON => 6
 
     /**
      * The number of descriptors of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_DESCCOUNT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_DESCCOUNT => 7
+    static DESCCOUNT => 7
 
     /**
      * The descriptor of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_DESCRIPTOR
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_DESCRIPTOR => 8
+    static DESCRIPTOR => 8
 
     /**
      * The product identifier of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_PID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_PID => 9
+    static PID => 9
 
     /**
      * The arguments of the computer game.
+     * Native name: WPC_ARGS_GAMESTARTEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_GAMESTARTEVENT_CARGS => 10
+    static CARGS => 10
 }

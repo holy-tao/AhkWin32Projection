@@ -7,32 +7,38 @@
 class BfEnTvRat_Attributes_US_TV extends Win32Enum {
 
     /**
+     * Native name: US_TV_IsBlocked
      * @type {Integer (Int32)}
      */
-    static US_TV_IsBlocked => 1
+    static IsBlocked => 1
 
     /**
+     * Native name: US_TV_IsViolent
      * @type {Integer (Int32)}
      */
-    static US_TV_IsViolent => 2
+    static IsViolent => 2
 
     /**
+     * Native name: US_TV_IsSexualSituation
      * @type {Integer (Int32)}
      */
-    static US_TV_IsSexualSituation => 4
+    static IsSexualSituation => 4
 
     /**
+     * Native name: US_TV_IsAdultLanguage
      * @type {Integer (Int32)}
      */
-    static US_TV_IsAdultLanguage => 8
+    static IsAdultLanguage => 8
 
     /**
+     * Native name: US_TV_IsSexuallySuggestiveDialog
      * @type {Integer (Int32)}
      */
-    static US_TV_IsSexuallySuggestiveDialog => 16
+    static IsSexuallySuggestiveDialog => 16
 
     /**
+     * Native name: US_TV_ValidAttrSubmask
      * @type {Integer (Int32)}
      */
-    static US_TV_ValidAttrSubmask => 31
+    static ValidAttrSubmask => 31
 }

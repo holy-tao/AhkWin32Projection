@@ -12,55 +12,64 @@ class VMRRenderPrefs extends Win32Enum {
 
     /**
      * Not implemented; do not use.
+     * Native name: RenderPrefs_RestrictToInitialMonitor
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_RestrictToInitialMonitor => 0
+    static RestrictToInitialMonitor => 0
 
     /**
      * Indicates that the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/video-mixing-renderer-filter-7">Video Mixing Renderer Filter 7</a> (VMR-7) should use only offscreen surfaces for rendering.
+     * Native name: RenderPrefs_ForceOffscreen
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_ForceOffscreen => 1
+    static ForceOffscreen => 1
 
     /**
      * Indicates that the VMR-7 should fail if no overlay surfaces are available.
+     * Native name: RenderPrefs_ForceOverlays
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_ForceOverlays => 2
+    static ForceOverlays => 2
 
     /**
      * Indicates that the VMR-7 should use overlays if they are available. Should not be used by new applications.
+     * Native name: RenderPrefs_AllowOverlays
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_AllowOverlays => 0
+    static AllowOverlays => 0
 
     /**
      * Indicates that the VMR-7 should use offscreen surfaces if no overlays are available. Should not be used by new applications.
+     * Native name: RenderPrefs_AllowOffscreen
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_AllowOffscreen => 0
+    static AllowOffscreen => 0
 
     /**
      * Indicates that the application is responsible for painting the color keys.
+     * Native name: RenderPrefs_DoNotRenderColorKeyAndBorder
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_DoNotRenderColorKeyAndBorder => 8
+    static DoNotRenderColorKeyAndBorder => 8
 
     /**
      * Reserved; do not use.
+     * Native name: RenderPrefs_Reserved
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_Reserved => 16
+    static Reserved => 16
 
     /**
      * Indicates that the VMR-7 should attempt to use AGP memory when allocating texture surfaces.
+     * Native name: RenderPrefs_PreferAGPMemWhenMixing
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_PreferAGPMemWhenMixing => 32
+    static PreferAGPMemWhenMixing => 32
 
     /**
      * Bitwise <b>OR</b> of all of the above flags.
+     * Native name: RenderPrefs_Mask
      * @type {Integer (Int32)}
      */
-    static RenderPrefs_Mask => 63
+    static Mask => 63
 }

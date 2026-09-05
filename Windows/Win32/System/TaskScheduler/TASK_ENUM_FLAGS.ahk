@@ -10,7 +10,8 @@ class TASK_ENUM_FLAGS extends Win32Enum {
 
     /**
      * Enumerates all tasks, including tasks that are hidden.
+     * Native name: TASK_ENUM_HIDDEN
      * @type {Integer (Int32)}
      */
-    static TASK_ENUM_HIDDEN => 1
+    static HIDDEN => 1
 }

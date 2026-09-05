@@ -40,25 +40,29 @@ class _DVENCODERRESOLUTION extends Win32Enum {
 
     /**
      * See Remarks.
+     * Native name: DVENCODERRESOLUTION_720x480
      * @type {Integer (Int32)}
      */
-    static DVENCODERRESOLUTION_720x480 => 2012
+    static 720x480 => 2012
 
     /**
      * See Remarks.
+     * Native name: DVENCODERRESOLUTION_360x240
      * @type {Integer (Int32)}
      */
-    static DVENCODERRESOLUTION_360x240 => 2013
+    static 360x240 => 2013
 
     /**
      * See Remarks.
+     * Native name: DVENCODERRESOLUTION_180x120
      * @type {Integer (Int32)}
      */
-    static DVENCODERRESOLUTION_180x120 => 2014
+    static 180x120 => 2014
 
     /**
      * See Remarks.
+     * Native name: DVENCODERRESOLUTION_88x60
      * @type {Integer (Int32)}
      */
-    static DVENCODERRESOLUTION_88x60 => 2015
+    static 88x60 => 2015
 }

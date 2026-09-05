@@ -7,17 +7,20 @@
 class MSIDBSTATE extends Win32Enum {
 
     /**
+     * Native name: MSIDBSTATE_ERROR
      * @type {Integer (Int32)}
      */
-    static MSIDBSTATE_ERROR => -1
+    static ERROR => -1
 
     /**
+     * Native name: MSIDBSTATE_READ
      * @type {Integer (Int32)}
      */
-    static MSIDBSTATE_READ => 0
+    static READ => 0
 
     /**
+     * Native name: MSIDBSTATE_WRITE
      * @type {Integer (Int32)}
      */
-    static MSIDBSTATE_WRITE => 1
+    static WRITE => 1
 }

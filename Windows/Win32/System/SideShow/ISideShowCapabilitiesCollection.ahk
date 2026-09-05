@@ -30,7 +30,6 @@ class ISideShowCapabilitiesCollection extends IUnknown {
     static VTableNames => ["GetCount", "GetAt"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -39,7 +38,6 @@ class ISideShowCapabilitiesCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} in_dwIndex 
      * @returns {ISideShowCapabilities} 
      */

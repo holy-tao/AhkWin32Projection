@@ -33,7 +33,8 @@ class WICPngSrgbProperties extends Win32Enum {
      * <td>Absolute colorimetric</td>
      * </tr>
      * </table>
+     * Native name: WICPngSrgbRenderingIntent
      * @type {Integer (Int32)}
      */
-    static WICPngSrgbRenderingIntent => 1
+    static RenderingIntent => 1
 }

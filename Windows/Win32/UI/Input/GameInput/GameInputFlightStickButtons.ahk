@@ -7,27 +7,32 @@
 class GameInputFlightStickButtons extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputFlightStickNone
      * @type {Integer (Int32)}
      */
-    static GameInputFlightStickNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputFlightStickMenu
      * @type {Integer (Int32)}
      */
-    static GameInputFlightStickMenu => 1
+    static Menu => 1
 
     /**
+     * Native name: GameInputFlightStickView
      * @type {Integer (Int32)}
      */
-    static GameInputFlightStickView => 2
+    static View => 2
 
     /**
+     * Native name: GameInputFlightStickFirePrimary
      * @type {Integer (Int32)}
      */
-    static GameInputFlightStickFirePrimary => 4
+    static FirePrimary => 4
 
     /**
+     * Native name: GameInputFlightStickFireSecondary
      * @type {Integer (Int32)}
      */
-    static GameInputFlightStickFireSecondary => 8
+    static FireSecondary => 8
 }

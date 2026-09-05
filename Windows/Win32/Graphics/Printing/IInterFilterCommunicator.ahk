@@ -29,7 +29,6 @@ class IInterFilterCommunicator extends IUnknown {
     static VTableNames => ["RequestReader", "RequestWriter"]
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     RequestReader() {
@@ -38,7 +37,6 @@ class IInterFilterCommunicator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     RequestWriter() {

@@ -29,7 +29,6 @@ class ISpMMSysAudio extends ISpAudio {
     static VTableNames => ["GetDeviceId", "SetDeviceId", "GetMMHandle", "GetLineId", "SetLineId"]
 
     /**
-     * 
      * @param {Pointer<Integer>} puDeviceId 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class ISpMMSysAudio extends ISpAudio {
     }
 
     /**
-     * 
      * @param {Integer} uDeviceId 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class ISpMMSysAudio extends ISpAudio {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} pHandle 
      * @returns {HRESULT} 
      */
@@ -63,7 +60,6 @@ class ISpMMSysAudio extends ISpAudio {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} puLineId 
      * @returns {HRESULT} 
      */
@@ -75,7 +71,6 @@ class ISpMMSysAudio extends ISpAudio {
     }
 
     /**
-     * 
      * @param {Integer} uLineId 
      * @returns {HRESULT} 
      */

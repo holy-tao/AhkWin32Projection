@@ -7,112 +7,134 @@
 class PROC_THREAD_ATTRIBUTE_NUM extends Win32Enum {
 
     /**
+     * Native name: ProcThreadAttributeParentProcess
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeParentProcess => 0
+    static ParentProcess => 0
 
     /**
+     * Native name: ProcThreadAttributeHandleList
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeHandleList => 2
+    static HandleList => 2
 
     /**
+     * Native name: ProcThreadAttributeGroupAffinity
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeGroupAffinity => 3
+    static GroupAffinity => 3
 
     /**
+     * Native name: ProcThreadAttributePreferredNode
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributePreferredNode => 4
+    static PreferredNode => 4
 
     /**
+     * Native name: ProcThreadAttributeIdealProcessor
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeIdealProcessor => 5
+    static IdealProcessor => 5
 
     /**
+     * Native name: ProcThreadAttributeUmsThread
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeUmsThread => 6
+    static UmsThread => 6
 
     /**
+     * Native name: ProcThreadAttributeMitigationPolicy
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeMitigationPolicy => 7
+    static MitigationPolicy => 7
 
     /**
+     * Native name: ProcThreadAttributeSecurityCapabilities
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeSecurityCapabilities => 9
+    static SecurityCapabilities => 9
 
     /**
+     * Native name: ProcThreadAttributeProtectionLevel
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeProtectionLevel => 11
+    static ProtectionLevel => 11
 
     /**
+     * Native name: ProcThreadAttributeJobList
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeJobList => 13
+    static JobList => 13
 
     /**
+     * Native name: ProcThreadAttributeChildProcessPolicy
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeChildProcessPolicy => 14
+    static ChildProcessPolicy => 14
 
     /**
+     * Native name: ProcThreadAttributeAllApplicationPackagesPolicy
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeAllApplicationPackagesPolicy => 15
+    static AllApplicationPackagesPolicy => 15
 
     /**
+     * Native name: ProcThreadAttributeWin32kFilter
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeWin32kFilter => 16
+    static Win32kFilter => 16
 
     /**
+     * Native name: ProcThreadAttributeSafeOpenPromptOriginClaim
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeSafeOpenPromptOriginClaim => 17
+    static SafeOpenPromptOriginClaim => 17
 
     /**
+     * Native name: ProcThreadAttributeDesktopAppPolicy
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeDesktopAppPolicy => 18
+    static DesktopAppPolicy => 18
 
     /**
+     * Native name: ProcThreadAttributePseudoConsole
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributePseudoConsole => 22
+    static PseudoConsole => 22
 
     /**
+     * Native name: ProcThreadAttributeMitigationAuditPolicy
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeMitigationAuditPolicy => 24
+    static MitigationAuditPolicy => 24
 
     /**
+     * Native name: ProcThreadAttributeMachineType
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeMachineType => 25
+    static MachineType => 25
 
     /**
+     * Native name: ProcThreadAttributeComponentFilter
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeComponentFilter => 26
+    static ComponentFilter => 26
 
     /**
+     * Native name: ProcThreadAttributeEnableOptionalXStateFeatures
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeEnableOptionalXStateFeatures => 27
+    static EnableOptionalXStateFeatures => 27
 
     /**
+     * Native name: ProcThreadAttributeTrustedApp
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeTrustedApp => 29
+    static TrustedApp => 29
 
     /**
+     * Native name: ProcThreadAttributeSveVectorLength
      * @type {Integer (UInt32)}
      */
-    static ProcThreadAttributeSveVectorLength => 30
+    static SveVectorLength => 30
 }

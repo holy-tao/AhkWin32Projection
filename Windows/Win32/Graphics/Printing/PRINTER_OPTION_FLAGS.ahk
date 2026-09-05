@@ -9,22 +9,26 @@
 class PRINTER_OPTION_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PRINTER_OPTION_NO_CACHE
      * @type {Integer (Int32)}
      */
-    static PRINTER_OPTION_NO_CACHE => 1
+    static NO_CACHE => 1
 
     /**
+     * Native name: PRINTER_OPTION_CACHE
      * @type {Integer (Int32)}
      */
-    static PRINTER_OPTION_CACHE => 2
+    static CACHE => 2
 
     /**
+     * Native name: PRINTER_OPTION_CLIENT_CHANGE
      * @type {Integer (Int32)}
      */
-    static PRINTER_OPTION_CLIENT_CHANGE => 4
+    static CLIENT_CHANGE => 4
 
     /**
+     * Native name: PRINTER_OPTION_NO_CLIENT_DATA
      * @type {Integer (Int32)}
      */
-    static PRINTER_OPTION_NO_CLIENT_DATA => 8
+    static NO_CLIENT_DATA => 8
 }

@@ -59,7 +59,6 @@ class IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -68,7 +67,6 @@ class IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -78,7 +76,6 @@ class IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_PRESENCE_PROPERTY} 
      */
     get_PresenceProperty() {
@@ -87,7 +84,6 @@ class IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Value() {

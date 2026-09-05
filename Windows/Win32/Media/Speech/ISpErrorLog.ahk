@@ -30,7 +30,6 @@ class ISpErrorLog extends IUnknown {
     static VTableNames => ["AddError"]
 
     /**
-     * 
      * @param {Integer} lLineNumber 
      * @param {HRESULT} hr 
      * @param {PWSTR} pszDescription 

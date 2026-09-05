@@ -7,12 +7,14 @@
 class DBINDEX_COL_ORDERENUM extends Win32Enum {
 
     /**
+     * Native name: DBINDEX_COL_ORDER_ASC
      * @type {Integer (Int32)}
      */
-    static DBINDEX_COL_ORDER_ASC => 0
+    static ORDER_ASC => 0
 
     /**
+     * Native name: DBINDEX_COL_ORDER_DESC
      * @type {Integer (Int32)}
      */
-    static DBINDEX_COL_ORDER_DESC => 1
+    static ORDER_DESC => 1
 }

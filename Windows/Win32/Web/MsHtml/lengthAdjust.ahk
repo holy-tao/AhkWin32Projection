@@ -22,7 +22,8 @@ class lengthAdjust extends Win32Enum {
     static LENGTHADJUST_SPACINGANDGLYPHS => 2
 
     /**
+     * Native name: lengthAdjust_Max
      * @type {Integer (Int32)}
      */
-    static lengthAdjust_Max => 2147483647
+    static Max => 2147483647
 }

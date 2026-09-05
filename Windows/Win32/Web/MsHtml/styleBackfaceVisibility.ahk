@@ -7,22 +7,26 @@
 class styleBackfaceVisibility extends Win32Enum {
 
     /**
+     * Native name: styleBackfaceVisibilityVisible
      * @type {Integer (Int32)}
      */
-    static styleBackfaceVisibilityVisible => 0
+    static Visible => 0
 
     /**
+     * Native name: styleBackfaceVisibilityHidden
      * @type {Integer (Int32)}
      */
-    static styleBackfaceVisibilityHidden => 1
+    static Hidden => 1
 
     /**
+     * Native name: styleBackfaceVisibilityNotSet
      * @type {Integer (Int32)}
      */
-    static styleBackfaceVisibilityNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleBackfaceVisibility_Max
      * @type {Integer (Int32)}
      */
-    static styleBackfaceVisibility_Max => 2147483647
+    static Max => 2147483647
 }

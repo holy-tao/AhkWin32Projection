@@ -74,7 +74,6 @@ class IEventPublisher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PublisherID() {

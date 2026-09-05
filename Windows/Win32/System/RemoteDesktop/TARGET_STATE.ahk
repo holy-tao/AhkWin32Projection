@@ -10,63 +10,74 @@ class TARGET_STATE extends Win32Enum {
 
     /**
      * The target state is unknown.
+     * Native name: TARGET_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static TARGET_UNKNOWN => 1
+    static UNKNOWN => 1
 
     /**
      * The target is initializing.
+     * Native name: TARGET_INITIALIZING
      * @type {Integer (Int32)}
      */
-    static TARGET_INITIALIZING => 2
+    static INITIALIZING => 2
 
     /**
      * The target is running.
+     * Native name: TARGET_RUNNING
      * @type {Integer (Int32)}
      */
-    static TARGET_RUNNING => 3
+    static RUNNING => 3
 
     /**
      * The target is not running. If a resource plug-in calls <b>OnStateChange</b> and the target is in this state, RD Connection Broker will delete the target object from its database.
+     * Native name: TARGET_DOWN
      * @type {Integer (Int32)}
      */
-    static TARGET_DOWN => 4
+    static DOWN => 4
 
     /**
      * The target is hibernated.
+     * Native name: TARGET_HIBERNATED
      * @type {Integer (Int32)}
      */
-    static TARGET_HIBERNATED => 5
+    static HIBERNATED => 5
 
     /**
      * The target is checked out.
+     * Native name: TARGET_CHECKED_OUT
      * @type {Integer (Int32)}
      */
-    static TARGET_CHECKED_OUT => 6
+    static CHECKED_OUT => 6
 
     /**
      * The target is stopped.
+     * Native name: TARGET_STOPPED
      * @type {Integer (Int32)}
      */
-    static TARGET_STOPPED => 7
+    static STOPPED => 7
 
     /**
+     * Native name: TARGET_INVALID
      * @type {Integer (Int32)}
      */
-    static TARGET_INVALID => 8
+    static INVALID => 8
 
     /**
+     * Native name: TARGET_STARTING
      * @type {Integer (Int32)}
      */
-    static TARGET_STARTING => 9
+    static STARTING => 9
 
     /**
+     * Native name: TARGET_STOPPING
      * @type {Integer (Int32)}
      */
-    static TARGET_STOPPING => 10
+    static STOPPING => 10
 
     /**
+     * Native name: TARGET_MAXSTATE
      * @type {Integer (Int32)}
      */
-    static TARGET_MAXSTATE => 11
+    static MAXSTATE => 11
 }

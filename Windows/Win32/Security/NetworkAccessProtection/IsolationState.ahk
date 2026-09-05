@@ -10,19 +10,22 @@ class IsolationState extends Win32Enum {
 
     /**
      * The connection isolation state is not restricted.
+     * Native name: isolationStateNotRestricted
      * @type {Integer (Int32)}
      */
-    static isolationStateNotRestricted => 1
+    static NotRestricted => 1
 
     /**
      * The connection isolation state is probation.
+     * Native name: isolationStateInProbation
      * @type {Integer (Int32)}
      */
-    static isolationStateInProbation => 2
+    static InProbation => 2
 
     /**
      * The connection isolation state is restricted access.
+     * Native name: isolationStateRestrictedAccess
      * @type {Integer (Int32)}
      */
-    static isolationStateRestrictedAccess => 3
+    static RestrictedAccess => 3
 }

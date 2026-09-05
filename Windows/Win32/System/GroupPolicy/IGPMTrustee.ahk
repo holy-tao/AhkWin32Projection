@@ -73,7 +73,6 @@ class IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeSid() {
@@ -83,7 +82,6 @@ class IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeName() {
@@ -93,7 +91,6 @@ class IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeDomain() {
@@ -103,7 +100,6 @@ class IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeDSPath() {
@@ -113,7 +109,6 @@ class IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TrusteeType() {

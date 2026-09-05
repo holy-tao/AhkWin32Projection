@@ -7,29 +7,34 @@
 class TRANSACTION_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: TransactionBasicInformation
      * @type {Integer (Int32)}
      */
-    static TransactionBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: TransactionPropertiesInformation
      * @type {Integer (Int32)}
      */
-    static TransactionPropertiesInformation => 1
+    static PropertiesInformation => 1
 
     /**
+     * Native name: TransactionEnlistmentInformation
      * @type {Integer (Int32)}
      */
-    static TransactionEnlistmentInformation => 2
+    static EnlistmentInformation => 2
 
     /**
+     * Native name: TransactionSuperiorEnlistmentInformation
      * @type {Integer (Int32)}
      */
-    static TransactionSuperiorEnlistmentInformation => 3
+    static SuperiorEnlistmentInformation => 3
 
     /**
+     * Native name: TransactionBindInformation
      * @type {Integer (Int32)}
      */
-    static TransactionBindInformation => 4
+    static BindInformation => 4
 
     /**
      * @type {Integer (Int32)}

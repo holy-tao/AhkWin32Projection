@@ -15,16 +15,18 @@ class ETW_PROCESS_HANDLE_INFO_TYPE extends Win32Enum {
      * structure. Note that this will only return a non-zero structure when the queried
      * handle is for a trace file generated from a non-host partition on Windows 10,
      * version 1709 or later.
+     * Native name: EtwQueryPartitionInformation
      * @type {Integer (Int32)}
      */
-    static EtwQueryPartitionInformation => 1
+    static QueryPartitionInformation => 1
 
     /**
      * This is the same as **EtwQueryPartitionInformation**, except that it returns an
      * `ETW_TRACE_PARTITION_INFORMATION_V2` structure which has string partition IDs.
+     * Native name: EtwQueryPartitionInformationV2
      * @type {Integer (Int32)}
      */
-    static EtwQueryPartitionInformationV2 => 2
+    static QueryPartitionInformationV2 => 2
 
     /**
      * Returns a ULONG stream count followed by an array of LARGE_INTEGER timestamps,
@@ -32,19 +34,22 @@ class ETW_PROCESS_HANDLE_INFO_TYPE extends Win32Enum {
      * timestamp indicates that the CPU stream never dropped any events. The timestamps
      * use the clock type specified by the trace configuration (e.g. QPC, System Time,
      * or CPU counter).
+     * Native name: EtwQueryLastDroppedTimes
      * @type {Integer (Int32)}
      */
-    static EtwQueryLastDroppedTimes => 3
+    static QueryLastDroppedTimes => 3
 
     /**
+     * Native name: EtwQueryLogFileHeader
      * @type {Integer (Int32)}
      */
-    static EtwQueryLogFileHeader => 4
+    static QueryLogFileHeader => 4
 
     /**
      * Marks the last value in the enumeration for testing purposes. Should not be
      * used.
+     * Native name: EtwQueryProcessHandleInfoMax
      * @type {Integer (Int32)}
      */
-    static EtwQueryProcessHandleInfoMax => 5
+    static QueryProcessHandleInfoMax => 5
 }

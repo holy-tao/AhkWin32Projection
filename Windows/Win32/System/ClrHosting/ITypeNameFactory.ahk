@@ -38,7 +38,6 @@ class ITypeNameFactory extends IUnknown {
     static VTableNames => ["ParseTypeName", "GetTypeNameBuilder"]
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pError 
      * @returns {ITypeName} 
@@ -53,7 +52,6 @@ class ITypeNameFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ITypeNameBuilder} 
      */
     GetTypeNameBuilder() {

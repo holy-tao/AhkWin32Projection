@@ -73,7 +73,6 @@ class IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -83,7 +82,6 @@ class IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Id() {
@@ -92,7 +90,6 @@ class IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PrintedPages() {
@@ -101,7 +98,6 @@ class IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalPages() {
@@ -110,7 +106,6 @@ class IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PrintJobStatus} 
      */
     get_Status() {
@@ -119,7 +114,6 @@ class IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_SubmissionTime() {
@@ -128,7 +122,6 @@ class IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RequestCancel() {

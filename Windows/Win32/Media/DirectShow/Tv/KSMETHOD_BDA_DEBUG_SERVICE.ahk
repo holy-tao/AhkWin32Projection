@@ -7,12 +7,14 @@
 class KSMETHOD_BDA_DEBUG_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_DEBUG_LEVEL
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_DEBUG_LEVEL => 0
+    static LEVEL => 0
 
     /**
+     * Native name: KSMETHOD_BDA_DEBUG_DATA
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_DEBUG_DATA => 1
+    static DATA => 1
 }

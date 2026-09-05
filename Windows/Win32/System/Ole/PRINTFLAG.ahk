@@ -7,37 +7,44 @@
 class PRINTFLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: PRINTFLAG_MAYBOTHERUSER
      * @type {Integer (Int32)}
      */
-    static PRINTFLAG_MAYBOTHERUSER => 1
+    static MAYBOTHERUSER => 1
 
     /**
+     * Native name: PRINTFLAG_PROMPTUSER
      * @type {Integer (Int32)}
      */
-    static PRINTFLAG_PROMPTUSER => 2
+    static PROMPTUSER => 2
 
     /**
+     * Native name: PRINTFLAG_USERMAYCHANGEPRINTER
      * @type {Integer (Int32)}
      */
-    static PRINTFLAG_USERMAYCHANGEPRINTER => 4
+    static USERMAYCHANGEPRINTER => 4
 
     /**
+     * Native name: PRINTFLAG_RECOMPOSETODEVICE
      * @type {Integer (Int32)}
      */
-    static PRINTFLAG_RECOMPOSETODEVICE => 8
+    static RECOMPOSETODEVICE => 8
 
     /**
+     * Native name: PRINTFLAG_DONTACTUALLYPRINT
      * @type {Integer (Int32)}
      */
-    static PRINTFLAG_DONTACTUALLYPRINT => 16
+    static DONTACTUALLYPRINT => 16
 
     /**
+     * Native name: PRINTFLAG_FORCEPROPERTIES
      * @type {Integer (Int32)}
      */
-    static PRINTFLAG_FORCEPROPERTIES => 32
+    static FORCEPROPERTIES => 32
 
     /**
+     * Native name: PRINTFLAG_PRINTTOFILE
      * @type {Integer (Int32)}
      */
-    static PRINTFLAG_PRINTTOFILE => 64
+    static PRINTTOFILE => 64
 }

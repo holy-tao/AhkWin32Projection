@@ -7,42 +7,50 @@
 class SE_IMAGE_SIGNATURE_TYPE extends Win32Enum {
 
     /**
+     * Native name: SeImageSignatureNone
      * @type {Integer (Int32)}
      */
-    static SeImageSignatureNone => 0
+    static None => 0
 
     /**
+     * Native name: SeImageSignatureEmbedded
      * @type {Integer (Int32)}
      */
-    static SeImageSignatureEmbedded => 1
+    static Embedded => 1
 
     /**
+     * Native name: SeImageSignatureCache
      * @type {Integer (Int32)}
      */
-    static SeImageSignatureCache => 2
+    static Cache => 2
 
     /**
+     * Native name: SeImageSignatureCatalogCached
      * @type {Integer (Int32)}
      */
-    static SeImageSignatureCatalogCached => 3
+    static CatalogCached => 3
 
     /**
+     * Native name: SeImageSignatureCatalogNotCached
      * @type {Integer (Int32)}
      */
-    static SeImageSignatureCatalogNotCached => 4
+    static CatalogNotCached => 4
 
     /**
+     * Native name: SeImageSignatureCatalogHint
      * @type {Integer (Int32)}
      */
-    static SeImageSignatureCatalogHint => 5
+    static CatalogHint => 5
 
     /**
+     * Native name: SeImageSignaturePackageCatalog
      * @type {Integer (Int32)}
      */
-    static SeImageSignaturePackageCatalog => 6
+    static PackageCatalog => 6
 
     /**
+     * Native name: SeImageSignaturePplMitigated
      * @type {Integer (Int32)}
      */
-    static SeImageSignaturePplMitigated => 7
+    static PplMitigated => 7
 }

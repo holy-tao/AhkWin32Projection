@@ -31,7 +31,6 @@ class IDeskBarClient extends IOleWindow {
     static VTableNames => ["SetDeskBarSite", "SetModeDBC", "UIActivateDBC", "GetSize"]
 
     /**
-     * 
      * @param {IUnknown} punkSite 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IDeskBarClient extends IOleWindow {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IDeskBarClient extends IOleWindow {
     }
 
     /**
-     * 
      * @param {Integer} dwState 
      * @returns {HRESULT} 
      */
@@ -61,7 +58,6 @@ class IDeskBarClient extends IOleWindow {
     }
 
     /**
-     * 
      * @param {Integer} dwWhich 
      * @returns {RECT} 
      */

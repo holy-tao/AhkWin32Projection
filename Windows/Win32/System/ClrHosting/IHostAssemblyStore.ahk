@@ -32,7 +32,6 @@ class IHostAssemblyStore extends IUnknown {
     static VTableNames => ["ProvideAssembly", "ProvideModule"]
 
     /**
-     * 
      * @param {Pointer<AssemblyBindInfo>} pBindInfo 
      * @param {Pointer<Integer>} pAssemblyId 
      * @param {Pointer<Integer>} pContext 
@@ -49,7 +48,6 @@ class IHostAssemblyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ModuleBindInfo>} pBindInfo 
      * @param {Pointer<Integer>} pdwModuleId 
      * @param {Pointer<IStream>} ppStmModuleImage 

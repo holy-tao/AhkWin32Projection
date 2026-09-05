@@ -10,13 +10,15 @@ class CLUSTER_NETWORK_ENUM extends Win32Enum {
 
     /**
      * The object is a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-interfaces">network interface</a>.
+     * Native name: CLUSTER_NETWORK_ENUM_NETINTERFACES
      * @type {Integer (Int32)}
      */
-    static CLUSTER_NETWORK_ENUM_NETINTERFACES => 1
+    static NETINTERFACES => 1
 
     /**
      * All cluster objects on the network.
+     * Native name: CLUSTER_NETWORK_ENUM_ALL
      * @type {Integer (Int32)}
      */
-    static CLUSTER_NETWORK_ENUM_ALL => 1
+    static ALL => 1
 }

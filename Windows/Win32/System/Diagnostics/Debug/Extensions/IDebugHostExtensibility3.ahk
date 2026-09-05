@@ -30,7 +30,6 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2 {
     static VTableNames => ["ExtendHostContext", "QueryHostContextExtension", "ReleaseHostContextExtension"]
 
     /**
-     * 
      * @param {Integer} blobSize 
      * @param {Pointer<Guid>} identifier 
      * @returns {Integer} 
@@ -41,7 +40,6 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2 {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} identifier 
      * @param {Pointer<Integer>} blobId 
      * @param {Pointer<Integer>} blobSize 
@@ -56,7 +54,6 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2 {
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @returns {HRESULT} 
      */

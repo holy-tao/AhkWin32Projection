@@ -10,7 +10,8 @@ class TOKENBINDING_EXTENSION_FORMAT extends Win32Enum {
 
     /**
      * The format for interpreting the extension data is undefined.
+     * Native name: TOKENBINDING_EXTENSION_FORMAT_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static TOKENBINDING_EXTENSION_FORMAT_UNDEFINED => 0
+    static UNDEFINED => 0
 }

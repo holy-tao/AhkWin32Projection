@@ -7,14 +7,16 @@
 class SUBSYSTEM_INFORMATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: SubsystemInformationTypeWin32
      * @type {Integer (Int32)}
      */
-    static SubsystemInformationTypeWin32 => 0
+    static Win32 => 0
 
     /**
+     * Native name: SubsystemInformationTypeWSL
      * @type {Integer (Int32)}
      */
-    static SubsystemInformationTypeWSL => 1
+    static TypeWSL => 1
 
     /**
      * @type {Integer (Int32)}

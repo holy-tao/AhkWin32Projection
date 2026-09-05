@@ -14,37 +14,43 @@ class StructureChangeType extends Win32Enum {
 
     /**
      * A child element was added to the UI Automation element tree.
+     * Native name: StructureChangeType_ChildAdded
      * @type {Integer (Int32)}
      */
-    static StructureChangeType_ChildAdded => 0
+    static ChildAdded => 0
 
     /**
      * A child element was removed from the UI Automation element tree.
+     * Native name: StructureChangeType_ChildRemoved
      * @type {Integer (Int32)}
      */
-    static StructureChangeType_ChildRemoved => 1
+    static ChildRemoved => 1
 
     /**
      * Child elements were invalidated in the UI Automation element tree. This might mean that one or more child elements were added or removed, or a combination of both. This value can also indicate that one subtree in the UI was substituted for another. For example, the entire contents of a dialog box changed at once, or the view of a list changed because an Explorer-type application navigated to another location. The exact meaning depends on the UI Automation provider implementation.
+     * Native name: StructureChangeType_ChildrenInvalidated
      * @type {Integer (Int32)}
      */
-    static StructureChangeType_ChildrenInvalidated => 2
+    static ChildrenInvalidated => 2
 
     /**
      * Child elements were added in bulk to the UI Automation element tree.
+     * Native name: StructureChangeType_ChildrenBulkAdded
      * @type {Integer (Int32)}
      */
-    static StructureChangeType_ChildrenBulkAdded => 3
+    static ChildrenBulkAdded => 3
 
     /**
      * Child elements were removed in bulk from the UI Automation element tree.
+     * Native name: StructureChangeType_ChildrenBulkRemoved
      * @type {Integer (Int32)}
      */
-    static StructureChangeType_ChildrenBulkRemoved => 4
+    static ChildrenBulkRemoved => 4
 
     /**
      * The order of child elements has changed in the UI Automation element tree. Child elements may or may not have been added or removed.
+     * Native name: StructureChangeType_ChildrenReordered
      * @type {Integer (Int32)}
      */
-    static StructureChangeType_ChildrenReordered => 5
+    static ChildrenReordered => 5
 }

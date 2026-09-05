@@ -7,17 +7,20 @@
 class ENUM_SERVICE_STATE extends Win32Enum {
 
     /**
+     * Native name: SERVICE_ACTIVE
      * @type {Integer (UInt32)}
      */
-    static SERVICE_ACTIVE => 1
+    static ACTIVE => 1
 
     /**
+     * Native name: SERVICE_INACTIVE
      * @type {Integer (UInt32)}
      */
-    static SERVICE_INACTIVE => 2
+    static INACTIVE => 2
 
     /**
+     * Native name: SERVICE_STATE_ALL
      * @type {Integer (UInt32)}
      */
-    static SERVICE_STATE_ALL => 3
+    static ALL => 3
 }

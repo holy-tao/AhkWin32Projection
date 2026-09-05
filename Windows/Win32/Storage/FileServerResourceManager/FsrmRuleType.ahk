@@ -10,19 +10,22 @@ class FsrmRuleType extends Win32Enum {
 
     /**
      * The rule is unknown. Do not use this type.
+     * Native name: FsrmRuleType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmRuleType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The rule defines how a classification module affects a file.
+     * Native name: FsrmRuleType_Classification
      * @type {Integer (Int32)}
      */
-    static FsrmRuleType_Classification => 1
+    static Classification => 1
 
     /**
      * For internal use only.
+     * Native name: FsrmRuleType_Generic
      * @type {Integer (Int32)}
      */
-    static FsrmRuleType_Generic => 2
+    static Generic => 2
 }

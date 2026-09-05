@@ -7,17 +7,20 @@
 class UBidiPairedBracketType extends Win32Enum {
 
     /**
+     * Native name: U_BPT_NONE
      * @type {Integer (Int32)}
      */
-    static U_BPT_NONE => 0
+    static BPT_NONE => 0
 
     /**
+     * Native name: U_BPT_OPEN
      * @type {Integer (Int32)}
      */
-    static U_BPT_OPEN => 1
+    static BPT_OPEN => 1
 
     /**
+     * Native name: U_BPT_CLOSE
      * @type {Integer (Int32)}
      */
-    static U_BPT_CLOSE => 2
+    static BPT_CLOSE => 2
 }

@@ -10,19 +10,22 @@ class FWP_FILTER_ENUM_TYPE extends Win32Enum {
 
     /**
      * Return only filters that fully contain the enum conditions.
+     * Native name: FWP_FILTER_ENUM_FULLY_CONTAINED
      * @type {Integer (Int32)}
      */
-    static FWP_FILTER_ENUM_FULLY_CONTAINED => 0
+    static FULLY_CONTAINED => 0
 
     /**
      * Return filters that overlap with the enum conditions, including filters that fully contain the enum conditions.
+     * Native name: FWP_FILTER_ENUM_OVERLAPPING
      * @type {Integer (Int32)}
      */
-    static FWP_FILTER_ENUM_OVERLAPPING => 1
+    static OVERLAPPING => 1
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWP_FILTER_ENUM_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static FWP_FILTER_ENUM_TYPE_MAX => 2
+    static MAX => 2
 }

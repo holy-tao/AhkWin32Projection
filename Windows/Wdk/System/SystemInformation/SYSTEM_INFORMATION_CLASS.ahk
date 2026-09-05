@@ -7,57 +7,68 @@
 class SYSTEM_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: SystemBasicInformation
      * @type {Integer (Int32)}
      */
-    static SystemBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: SystemPerformanceInformation
      * @type {Integer (Int32)}
      */
-    static SystemPerformanceInformation => 2
+    static PerformanceInformation => 2
 
     /**
+     * Native name: SystemTimeOfDayInformation
      * @type {Integer (Int32)}
      */
-    static SystemTimeOfDayInformation => 3
+    static TimeOfDayInformation => 3
 
     /**
+     * Native name: SystemProcessInformation
      * @type {Integer (Int32)}
      */
-    static SystemProcessInformation => 5
+    static ProcessInformation => 5
 
     /**
+     * Native name: SystemProcessorPerformanceInformation
      * @type {Integer (Int32)}
      */
-    static SystemProcessorPerformanceInformation => 8
+    static ProcessorPerformanceInformation => 8
 
     /**
+     * Native name: SystemInterruptInformation
      * @type {Integer (Int32)}
      */
-    static SystemInterruptInformation => 23
+    static InterruptInformation => 23
 
     /**
+     * Native name: SystemExceptionInformation
      * @type {Integer (Int32)}
      */
-    static SystemExceptionInformation => 33
+    static ExceptionInformation => 33
 
     /**
+     * Native name: SystemRegistryQuotaInformation
      * @type {Integer (Int32)}
      */
-    static SystemRegistryQuotaInformation => 37
+    static RegistryQuotaInformation => 37
 
     /**
+     * Native name: SystemLookasideInformation
      * @type {Integer (Int32)}
      */
-    static SystemLookasideInformation => 45
+    static LookasideInformation => 45
 
     /**
+     * Native name: SystemCodeIntegrityInformation
      * @type {Integer (Int32)}
      */
-    static SystemCodeIntegrityInformation => 103
+    static CodeIntegrityInformation => 103
 
     /**
+     * Native name: SystemPolicyInformation
      * @type {Integer (Int32)}
      */
-    static SystemPolicyInformation => 134
+    static PolicyInformation => 134
 }

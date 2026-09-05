@@ -7,17 +7,20 @@
 class HTTP_PUSH_WAIT_TYPE extends Win32Enum {
 
     /**
+     * Native name: HttpPushWaitEnableComplete
      * @type {Integer (Int32)}
      */
-    static HttpPushWaitEnableComplete => 0
+    static EnableComplete => 0
 
     /**
+     * Native name: HttpPushWaitReceiveComplete
      * @type {Integer (Int32)}
      */
-    static HttpPushWaitReceiveComplete => 1
+    static ReceiveComplete => 1
 
     /**
+     * Native name: HttpPushWaitSendComplete
      * @type {Integer (Int32)}
      */
-    static HttpPushWaitSendComplete => 2
+    static SendComplete => 2
 }

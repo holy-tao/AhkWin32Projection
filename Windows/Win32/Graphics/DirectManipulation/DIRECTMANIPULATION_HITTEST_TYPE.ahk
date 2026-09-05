@@ -10,19 +10,22 @@ class DIRECTMANIPULATION_HITTEST_TYPE extends Win32BitflagEnum {
 
     /**
      * The hit-test thread receives <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdown">WM_POINTERDOWN</a> messages and specifies whether to call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setcontact">SetContact</a>. If <b>SetContact</b> is not called, the contact will not be associated with a viewport.
+     * Native name: DIRECTMANIPULATION_HITTEST_TYPE_ASYNCHRONOUS
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HITTEST_TYPE_ASYNCHRONOUS => 0
+    static ASYNCHRONOUS => 0
 
     /**
      * The UI thread always receives <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdown">WM_POINTERDOWN</a> messages after the hit-test thread. A call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setcontact">SetContact</a> is not required.
+     * Native name: DIRECTMANIPULATION_HITTEST_TYPE_SYNCHRONOUS
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HITTEST_TYPE_SYNCHRONOUS => 1
+    static SYNCHRONOUS => 1
 
     /**
      * The UI thread receives <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdown">WM_POINTERDOWN</a> messages only when <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setcontact">SetContact</a> isn't called by the hit-test thread.
+     * Native name: DIRECTMANIPULATION_HITTEST_TYPE_AUTO_SYNCHRONOUS
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HITTEST_TYPE_AUTO_SYNCHRONOUS => 2
+    static AUTO_SYNCHRONOUS => 2
 }

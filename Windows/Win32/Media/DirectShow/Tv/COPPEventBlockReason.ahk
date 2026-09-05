@@ -7,57 +7,68 @@
 class COPPEventBlockReason extends Win32Enum {
 
     /**
+     * Native name: COPP_Unknown
      * @type {Integer (Int32)}
      */
-    static COPP_Unknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: COPP_BadDriver
      * @type {Integer (Int32)}
      */
-    static COPP_BadDriver => 0
+    static BadDriver => 0
 
     /**
+     * Native name: COPP_NoCardHDCPSupport
      * @type {Integer (Int32)}
      */
-    static COPP_NoCardHDCPSupport => 1
+    static NoCardHDCPSupport => 1
 
     /**
+     * Native name: COPP_NoMonitorHDCPSupport
      * @type {Integer (Int32)}
      */
-    static COPP_NoMonitorHDCPSupport => 2
+    static NoMonitorHDCPSupport => 2
 
     /**
+     * Native name: COPP_BadCertificate
      * @type {Integer (Int32)}
      */
-    static COPP_BadCertificate => 3
+    static BadCertificate => 3
 
     /**
+     * Native name: COPP_InvalidBusProtection
      * @type {Integer (Int32)}
      */
-    static COPP_InvalidBusProtection => 4
+    static InvalidBusProtection => 4
 
     /**
+     * Native name: COPP_AeroGlassOff
      * @type {Integer (Int32)}
      */
-    static COPP_AeroGlassOff => 5
+    static AeroGlassOff => 5
 
     /**
+     * Native name: COPP_RogueApp
      * @type {Integer (Int32)}
      */
-    static COPP_RogueApp => 6
+    static RogueApp => 6
 
     /**
+     * Native name: COPP_ForbiddenVideo
      * @type {Integer (Int32)}
      */
-    static COPP_ForbiddenVideo => 7
+    static ForbiddenVideo => 7
 
     /**
+     * Native name: COPP_Activate
      * @type {Integer (Int32)}
      */
-    static COPP_Activate => 8
+    static Activate => 8
 
     /**
+     * Native name: COPP_DigitalAudioUnprotected
      * @type {Integer (Int32)}
      */
-    static COPP_DigitalAudioUnprotected => 9
+    static DigitalAudioUnprotected => 9
 }

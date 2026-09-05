@@ -7,17 +7,20 @@
 class eAVDecVideoDXVABusEncryption extends Win32Enum {
 
     /**
+     * Native name: eAVDecVideoDXVABusEncryption_NONE
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVABusEncryption_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: eAVDecVideoDXVABusEncryption_PRIVATE
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVABusEncryption_PRIVATE => 1
+    static PRIVATE => 1
 
     /**
+     * Native name: eAVDecVideoDXVABusEncryption_AES
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVABusEncryption_AES => 2
+    static AES => 2
 }

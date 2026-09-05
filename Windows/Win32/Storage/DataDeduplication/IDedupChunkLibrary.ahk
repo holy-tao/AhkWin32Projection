@@ -31,7 +31,6 @@ class IDedupChunkLibrary extends IUnknown {
     static VTableNames => ["InitializeForPushBuffers", "Uninitialize", "SetParameter", "StartChunking"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitializeForPushBuffers() {
@@ -40,7 +39,6 @@ class IDedupChunkLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Uninitialize() {
@@ -49,7 +47,6 @@ class IDedupChunkLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwParamType 
      * @param {VARIANT} vParamValue 
      * @returns {HRESULT} 
@@ -60,7 +57,6 @@ class IDedupChunkLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} iidIteratorInterfaceID 
      * @returns {IUnknown} 
      */

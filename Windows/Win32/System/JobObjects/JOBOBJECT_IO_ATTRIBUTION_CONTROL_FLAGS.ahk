@@ -7,17 +7,20 @@
 class JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS extends Win32Enum {
 
     /**
+     * Native name: JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE
      * @type {Integer (Int32)}
      */
-    static JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE => 1
+    static ENABLE => 1
 
     /**
+     * Native name: JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE
      * @type {Integer (Int32)}
      */
-    static JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE => 2
+    static DISABLE => 2
 
     /**
+     * Native name: JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS
      * @type {Integer (Int32)}
      */
-    static JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS => 3
+    static VALID_FLAGS => 3
 }

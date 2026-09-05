@@ -12,19 +12,22 @@ class D3D12_RESOURCE_BARRIER_TYPE extends Win32Enum {
 
     /**
      * A transition barrier that indicates a transition of a set of subresources between different usages. The caller must specify the before and after usages of the subresources.
+     * Native name: D3D12_RESOURCE_BARRIER_TYPE_TRANSITION
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BARRIER_TYPE_TRANSITION => 0
+    static TRANSITION => 0
 
     /**
      * An aliasing barrier that indicates a transition between usages of 2 different resources that have mappings into the same tile pool. The caller can specify both the before and the after resource. Note that one or both resources can be <b>NULL</b>, which indicates that any tiled resource could cause aliasing.
+     * Native name: D3D12_RESOURCE_BARRIER_TYPE_ALIASING
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BARRIER_TYPE_ALIASING => 1
+    static ALIASING => 1
 
     /**
      * An unordered access view (UAV) barrier that indicates all UAV accesses (reads or writes) to a particular resource must complete before any future UAV accesses (read or write) can begin.
+     * Native name: D3D12_RESOURCE_BARRIER_TYPE_UAV
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_BARRIER_TYPE_UAV => 2
+    static UAV => 2
 }

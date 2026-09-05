@@ -30,7 +30,6 @@ class ITensorStaticsNative extends IUnknown {
     static VTableNames => ["CreateFromD3D12Resource"]
 
     /**
-     * 
      * @param {ID3D12Resource} value 
      * @param {Pointer<Integer>} shape 
      * @param {Integer} shapeCount 

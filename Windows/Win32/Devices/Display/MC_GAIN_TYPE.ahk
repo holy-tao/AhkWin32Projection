@@ -10,19 +10,22 @@ class MC_GAIN_TYPE extends Win32Enum {
 
     /**
      * Red gain.
+     * Native name: MC_RED_GAIN
      * @type {Integer (Int32)}
      */
-    static MC_RED_GAIN => 0
+    static RED_GAIN => 0
 
     /**
      * Green gain.
+     * Native name: MC_GREEN_GAIN
      * @type {Integer (Int32)}
      */
-    static MC_GREEN_GAIN => 1
+    static GREEN_GAIN => 1
 
     /**
      * Blue gain.
+     * Native name: MC_BLUE_GAIN
      * @type {Integer (Int32)}
      */
-    static MC_BLUE_GAIN => 2
+    static BLUE_GAIN => 2
 }

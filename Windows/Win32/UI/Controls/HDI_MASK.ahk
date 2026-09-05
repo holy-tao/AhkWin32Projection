@@ -7,57 +7,68 @@
 class HDI_MASK extends Win32BitflagEnum {
 
     /**
+     * Native name: HDI_WIDTH
      * @type {Integer (UInt32)}
      */
-    static HDI_WIDTH => 1
+    static WIDTH => 1
 
     /**
+     * Native name: HDI_HEIGHT
      * @type {Integer (UInt32)}
      */
-    static HDI_HEIGHT => 1
+    static HEIGHT => 1
 
     /**
+     * Native name: HDI_TEXT
      * @type {Integer (UInt32)}
      */
-    static HDI_TEXT => 2
+    static TEXT => 2
 
     /**
+     * Native name: HDI_FORMAT
      * @type {Integer (UInt32)}
      */
-    static HDI_FORMAT => 4
+    static FORMAT => 4
 
     /**
+     * Native name: HDI_LPARAM
      * @type {Integer (UInt32)}
      */
-    static HDI_LPARAM => 8
+    static LPARAM => 8
 
     /**
+     * Native name: HDI_BITMAP
      * @type {Integer (UInt32)}
      */
-    static HDI_BITMAP => 16
+    static BITMAP => 16
 
     /**
+     * Native name: HDI_IMAGE
      * @type {Integer (UInt32)}
      */
-    static HDI_IMAGE => 32
+    static IMAGE => 32
 
     /**
+     * Native name: HDI_DI_SETITEM
      * @type {Integer (UInt32)}
      */
-    static HDI_DI_SETITEM => 64
+    static DI_SETITEM => 64
 
     /**
+     * Native name: HDI_ORDER
      * @type {Integer (UInt32)}
      */
-    static HDI_ORDER => 128
+    static ORDER => 128
 
     /**
+     * Native name: HDI_FILTER
      * @type {Integer (UInt32)}
      */
-    static HDI_FILTER => 256
+    static FILTER => 256
 
     /**
+     * Native name: HDI_STATE
      * @type {Integer (UInt32)}
      */
-    static HDI_STATE => 512
+    static STATE => 512
 }

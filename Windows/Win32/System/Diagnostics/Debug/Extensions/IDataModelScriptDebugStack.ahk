@@ -30,7 +30,6 @@ class IDataModelScriptDebugStack extends IUnknown {
     static VTableNames => ["GetFrameCount", "GetStackFrame"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameCount() {
@@ -39,7 +38,6 @@ class IDataModelScriptDebugStack extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} frameNumber 
      * @returns {IDataModelScriptDebugStackFrame} 
      */

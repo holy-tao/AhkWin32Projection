@@ -31,7 +31,6 @@ class ICorThreadpool extends IUnknown {
     static VTableNames => ["CorRegisterWaitForSingleObject", "CorUnregisterWait", "CorQueueUserWorkItem", "CorCreateTimer", "CorChangeTimer", "CorDeleteTimer", "CorBindIoCompletionCallback", "CorCallOrQueueUserWorkItem", "CorSetMaxThreads", "CorGetMaxThreads", "CorGetAvailableThreads"]
 
     /**
-     * 
      * @param {Pointer<HANDLE>} phNewWaitObject 
      * @param {HANDLE} hWaitObject 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
@@ -50,7 +49,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hWaitObject 
      * @param {HANDLE} CompletionEvent 
      * @returns {BOOL} 
@@ -64,7 +62,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
      * @param {Pointer<Void>} _Context 
      * @param {BOOL} executeOnlyOnce 
@@ -78,7 +75,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} phNewTimer 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
      * @param {Pointer<Void>} Parameter 
@@ -94,7 +90,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} Timer 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
@@ -108,7 +103,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} Timer 
      * @param {HANDLE} CompletionEvent 
      * @returns {BOOL} 
@@ -122,7 +116,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} fileHandle 
      * @param {Pointer<LPOVERLAPPED_COMPLETION_ROUTINE>} callback 
      * @returns {HRESULT} 
@@ -135,7 +128,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
      * @param {Pointer<Void>} _Context 
      * @returns {BOOL} 
@@ -148,7 +140,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} MaxWorkerThreads 
      * @param {Integer} MaxIOCompletionThreads 
      * @returns {HRESULT} 
@@ -159,7 +150,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MaxWorkerThreads 
      * @param {Pointer<Integer>} MaxIOCompletionThreads 
      * @returns {HRESULT} 
@@ -173,7 +163,6 @@ class ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} AvailableWorkerThreads 
      * @param {Pointer<Integer>} AvailableIOCompletionThreads 
      * @returns {HRESULT} 

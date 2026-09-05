@@ -7,32 +7,38 @@
 class styleBreakInside extends Win32Enum {
 
     /**
+     * Native name: styleBreakInsideNotSet
      * @type {Integer (Int32)}
      */
-    static styleBreakInsideNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleBreakInsideAuto
      * @type {Integer (Int32)}
      */
-    static styleBreakInsideAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleBreakInsideAvoid
      * @type {Integer (Int32)}
      */
-    static styleBreakInsideAvoid => 2
+    static Avoid => 2
 
     /**
+     * Native name: styleBreakInsideAvoidPage
      * @type {Integer (Int32)}
      */
-    static styleBreakInsideAvoidPage => 3
+    static AvoidPage => 3
 
     /**
+     * Native name: styleBreakInsideAvoidColumn
      * @type {Integer (Int32)}
      */
-    static styleBreakInsideAvoidColumn => 4
+    static AvoidColumn => 4
 
     /**
+     * Native name: styleBreakInside_Max
      * @type {Integer (Int32)}
      */
-    static styleBreakInside_Max => 2147483647
+    static Max => 2147483647
 }

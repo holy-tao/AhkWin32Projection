@@ -23504,7 +23504,6 @@ class HumanInterfaceDevice {
 
 ;@region Methods
     /**
-     * 
      * @param {HINSTANCE} hinst 
      * @param {Integer} dwVersion 
      * @param {Pointer<Guid>} riidltf 
@@ -23539,7 +23538,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {PHIDP_PREPARSED_DATA} PreparsedData 
      * @param {Pointer<HIDP_CAPS>} Capabilities 
      * @returns {NTSTATUS} 
@@ -23551,7 +23549,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<HIDP_LINK_COLLECTION_NODE>} LinkCollectionNodes 
      * @param {Pointer<Integer>} LinkCollectionNodesLength 
      * @param {PHIDP_PREPARSED_DATA} PreparsedData 
@@ -23566,7 +23563,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23585,7 +23581,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Pointer<HIDP_BUTTON_CAPS>} ButtonCaps 
      * @param {Pointer<Integer>} ButtonCapsLength 
@@ -23601,7 +23596,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23620,7 +23614,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Pointer<HIDP_VALUE_CAPS>} ValueCaps 
      * @param {Pointer<Integer>} ValueCapsLength 
@@ -23636,7 +23629,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} DataIndex 
      * @param {PHIDP_PREPARSED_DATA} PreparsedData 
@@ -23653,7 +23645,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} ReportID 
      * @param {PHIDP_PREPARSED_DATA} PreparsedData 
@@ -23668,7 +23659,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Pointer<HIDP_DATA>} DataList 
      * @param {Pointer<Integer>} DataLength 
@@ -23686,7 +23676,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Pointer<HIDP_DATA>} DataList 
      * @param {Pointer<Integer>} DataLength 
@@ -23704,7 +23693,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {PHIDP_PREPARSED_DATA} PreparsedData 
      * @returns {Integer} 
@@ -23715,7 +23703,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23736,7 +23723,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23757,7 +23743,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23778,7 +23763,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} LinkCollection 
      * @param {Pointer<USAGE_AND_PAGE>} ButtonList 
@@ -23797,7 +23781,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {PHIDP_PREPARSED_DATA} PreparsedData 
@@ -23809,7 +23792,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23827,7 +23809,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23845,7 +23826,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23864,7 +23844,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23884,7 +23863,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23904,7 +23882,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23923,7 +23900,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} PreviousUsageList 
      * @param {Pointer<Integer>} CurrentUsageList 
      * @param {Pointer<Integer>} BreakUsageList 
@@ -23943,7 +23919,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23964,7 +23939,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HIDP_REPORT_TYPE} ReportType 
      * @param {Integer} UsagePage 
      * @param {Integer} LinkCollection 
@@ -23983,7 +23957,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ChangedUsageList 
      * @param {Integer} UsageListLength 
      * @param {HIDP_KEYBOARD_DIRECTION} KeyAction 
@@ -24002,7 +23975,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Pointer<HIDD_ATTRIBUTES>} Attributes 
      * @returns {BOOLEAN} 
@@ -24015,7 +23987,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} HidGuid 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24024,7 +23995,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Pointer<PHIDP_PREPARSED_DATA>} PreparsedData 
      * @returns {BOOLEAN} 
@@ -24039,7 +24009,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {PHIDP_PREPARSED_DATA} PreparsedData 
      * @returns {BOOLEAN} 
      */
@@ -24049,7 +24018,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @returns {BOOLEAN} 
      */
@@ -24061,7 +24029,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} Configuration 
      * @param {Integer} ConfigurationLength 
@@ -24075,7 +24042,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} Configuration 
      * @param {Integer} ConfigurationLength 
@@ -24089,7 +24055,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} ReportBuffer 
      * @param {Integer} ReportBufferLength 
@@ -24103,7 +24068,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} ReportBuffer 
      * @param {Integer} ReportBufferLength 
@@ -24117,7 +24081,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} ReportBuffer 
      * @param {Integer} ReportBufferLength 
@@ -24131,7 +24094,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} ReportBuffer 
      * @param {Integer} ReportBufferLength 
@@ -24145,7 +24107,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Pointer<Integer>} NumberBuffers 
      * @returns {BOOLEAN} 
@@ -24160,7 +24121,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} NumberBuffers 
      * @returns {BOOLEAN} 
@@ -24173,7 +24133,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferLength 
@@ -24187,7 +24146,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferLength 
@@ -24201,7 +24159,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferLength 
@@ -24215,7 +24172,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} StringIndex 
      * @param {Integer} _Buffer 
@@ -24230,7 +24186,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferLength 
@@ -24244,7 +24199,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferLength 

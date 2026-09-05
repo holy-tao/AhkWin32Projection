@@ -10,42 +10,49 @@ class DHCP_POLICY_FIELDS_TO_UPDATE extends Win32Enum {
 
     /**
      * Update DHCP server policy name.
+     * Native name: DhcpUpdatePolicyName
      * @type {Integer (Int32)}
      */
-    static DhcpUpdatePolicyName => 1
+    static PolicyName => 1
 
     /**
      * Update DHCP server policy order.
+     * Native name: DhcpUpdatePolicyOrder
      * @type {Integer (Int32)}
      */
-    static DhcpUpdatePolicyOrder => 2
+    static PolicyOrder => 2
 
     /**
      * Update DHCP server policy expression.
+     * Native name: DhcpUpdatePolicyExpr
      * @type {Integer (Int32)}
      */
-    static DhcpUpdatePolicyExpr => 4
+    static PolicyExpr => 4
 
     /**
      * Update DHCP server policy ranges.
+     * Native name: DhcpUpdatePolicyRanges
      * @type {Integer (Int32)}
      */
-    static DhcpUpdatePolicyRanges => 8
+    static PolicyRanges => 8
 
     /**
      * Update DHCP server policy description.
+     * Native name: DhcpUpdatePolicyDescr
      * @type {Integer (Int32)}
      */
-    static DhcpUpdatePolicyDescr => 16
+    static PolicyDescr => 16
 
     /**
      * Update DHCP server policy enabled/disabled status.
+     * Native name: DhcpUpdatePolicyStatus
      * @type {Integer (Int32)}
      */
-    static DhcpUpdatePolicyStatus => 32
+    static PolicyStatus => 32
 
     /**
+     * Native name: DhcpUpdatePolicyDnsSuffix
      * @type {Integer (Int32)}
      */
-    static DhcpUpdatePolicyDnsSuffix => 64
+    static PolicyDnsSuffix => 64
 }

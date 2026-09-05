@@ -30,7 +30,6 @@ class IWebWizardHost2 extends IWebWizardHost {
     static VTableNames => ["SignString"]
 
     /**
-     * 
      * @param {BSTR} value 
      * @returns {BSTR} 
      */

@@ -10,39 +10,45 @@ class RM_REBOOT_REASON extends Win32Enum {
 
     /**
      * A system restart is not required.
+     * Native name: RmRebootReasonNone
      * @type {Integer (Int32)}
      */
-    static RmRebootReasonNone => 0
+    static None => 0
 
     /**
      * The current user does not have
      *                                             sufficient privileges to shut down one or more processes.
+     * Native name: RmRebootReasonPermissionDenied
      * @type {Integer (Int32)}
      */
-    static RmRebootReasonPermissionDenied => 1
+    static PermissionDenied => 1
 
     /**
      * One or more processes are
      *                                             running in another Terminal Services session.
+     * Native name: RmRebootReasonSessionMismatch
      * @type {Integer (Int32)}
      */
-    static RmRebootReasonSessionMismatch => 2
+    static SessionMismatch => 2
 
     /**
      * A system restart is needed because one or more processes to be shut down are critical processes.
+     * Native name: RmRebootReasonCriticalProcess
      * @type {Integer (Int32)}
      */
-    static RmRebootReasonCriticalProcess => 4
+    static CriticalProcess => 4
 
     /**
      * A system restart is needed because one or more services to be shut down are critical services.
+     * Native name: RmRebootReasonCriticalService
      * @type {Integer (Int32)}
      */
-    static RmRebootReasonCriticalService => 8
+    static CriticalService => 8
 
     /**
      * A system restart is needed because the current process must be shut down.
+     * Native name: RmRebootReasonDetectedSelf
      * @type {Integer (Int32)}
      */
-    static RmRebootReasonDetectedSelf => 16
+    static DetectedSelf => 16
 }

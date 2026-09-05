@@ -7,37 +7,44 @@
 class WHEA_PCI_RECOVERY_STATUS extends Win32Enum {
 
     /**
+     * Native name: WheaPciREcoveryStatusUnknown
      * @type {Integer (Int32)}
      */
-    static WheaPciREcoveryStatusUnknown => 0
+    static PciREcoveryStatusUnknown => 0
 
     /**
+     * Native name: WheaPciRecoveryStatusNoError
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoveryStatusNoError => 1
+    static NoError => 1
 
     /**
+     * Native name: WheaPciRecoveryStatusLinkDisableTimeout
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoveryStatusLinkDisableTimeout => 2
+    static LinkDisableTimeout => 2
 
     /**
+     * Native name: WheaPciRecoveryStatusLinkEnableTimeout
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoveryStatusLinkEnableTimeout => 3
+    static LinkEnableTimeout => 3
 
     /**
+     * Native name: WheaPciRecoveryStatusRpBusyTimeout
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoveryStatusRpBusyTimeout => 4
+    static RpBusyTimeout => 4
 
     /**
+     * Native name: WheaPciRecoveryStatusComplexTree
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoveryStatusComplexTree => 5
+    static ComplexTree => 5
 
     /**
+     * Native name: WheaPciRecoveryStatusBusNotFound
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoveryStatusBusNotFound => 6
+    static BusNotFound => 6
 }

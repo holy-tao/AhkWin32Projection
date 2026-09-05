@@ -12,19 +12,22 @@ class InPlaceState extends Win32Enum {
 
     /**
      * The system decides which In-Place state of the Input Panel is the most appropriate.
+     * Native name: InPlaceState_Auto
      * @type {Integer (Int32)}
      */
-    static InPlaceState_Auto => 0
+    static Auto => 0
 
     /**
      * The Input Panel Icon appears. The expanded Input Panel will not appear.
+     * Native name: InPlaceState_HoverTarget
      * @type {Integer (Int32)}
      */
-    static InPlaceState_HoverTarget => 1
+    static HoverTarget => 1
 
     /**
      * The In-Place Input Panel always appears expanded, rather than the Input Panel Icon appearing first and then requiring the user to tap the Input Panel Icon before Input Panel expands.
+     * Native name: InPlaceState_Expanded
      * @type {Integer (Int32)}
      */
-    static InPlaceState_Expanded => 2
+    static Expanded => 2
 }

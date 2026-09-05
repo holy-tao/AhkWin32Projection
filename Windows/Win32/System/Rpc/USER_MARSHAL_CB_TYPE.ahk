@@ -7,22 +7,26 @@
 class USER_MARSHAL_CB_TYPE extends Win32Enum {
 
     /**
+     * Native name: USER_MARSHAL_CB_BUFFER_SIZE
      * @type {Integer (Int32)}
      */
-    static USER_MARSHAL_CB_BUFFER_SIZE => 0
+    static BUFFER_SIZE => 0
 
     /**
+     * Native name: USER_MARSHAL_CB_MARSHALL
      * @type {Integer (Int32)}
      */
-    static USER_MARSHAL_CB_MARSHALL => 1
+    static MARSHALL => 1
 
     /**
+     * Native name: USER_MARSHAL_CB_UNMARSHALL
      * @type {Integer (Int32)}
      */
-    static USER_MARSHAL_CB_UNMARSHALL => 2
+    static UNMARSHALL => 2
 
     /**
+     * Native name: USER_MARSHAL_CB_FREE
      * @type {Integer (Int32)}
      */
-    static USER_MARSHAL_CB_FREE => 3
+    static FREE => 3
 }

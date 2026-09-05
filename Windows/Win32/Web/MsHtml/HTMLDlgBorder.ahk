@@ -7,17 +7,20 @@
 class HTMLDlgBorder extends Win32Enum {
 
     /**
+     * Native name: HTMLDlgBorderThin
      * @type {Integer (Int32)}
      */
-    static HTMLDlgBorderThin => 0
+    static Thin => 0
 
     /**
+     * Native name: HTMLDlgBorderThick
      * @type {Integer (Int32)}
      */
-    static HTMLDlgBorderThick => 262144
+    static Thick => 262144
 
     /**
+     * Native name: HTMLDlgBorder_Max
      * @type {Integer (Int32)}
      */
-    static HTMLDlgBorder_Max => 2147483647
+    static Max => 2147483647
 }

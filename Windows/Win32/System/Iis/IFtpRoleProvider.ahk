@@ -31,7 +31,6 @@ class IFtpRoleProvider extends IUnknown {
     static VTableNames => ["IsUserInRole"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 

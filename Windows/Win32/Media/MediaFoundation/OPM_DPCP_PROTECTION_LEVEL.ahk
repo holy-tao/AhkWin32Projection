@@ -10,13 +10,15 @@ class OPM_DPCP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * DPCP is disabled.
+     * Native name: OPM_DPCP_OFF
      * @type {Integer (Int32)}
      */
-    static OPM_DPCP_OFF => 0
+    static OFF => 0
 
     /**
      * DPCP is enabled.
+     * Native name: OPM_DPCP_ON
      * @type {Integer (Int32)}
      */
-    static OPM_DPCP_ON => 1
+    static ON => 1
 }

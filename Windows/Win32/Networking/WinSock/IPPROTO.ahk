@@ -7,187 +7,224 @@
 class IPPROTO extends Win32Enum {
 
     /**
+     * Native name: IPPROTO_HOPOPTS
      * @type {Integer (Int32)}
      */
-    static IPPROTO_HOPOPTS => 0
+    static HOPOPTS => 0
 
     /**
+     * Native name: IPPROTO_ICMP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_ICMP => 1
+    static ICMP => 1
 
     /**
+     * Native name: IPPROTO_IGMP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_IGMP => 2
+    static IGMP => 2
 
     /**
+     * Native name: IPPROTO_GGP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_GGP => 3
+    static GGP => 3
 
     /**
+     * Native name: IPPROTO_IPV4
      * @type {Integer (Int32)}
      */
-    static IPPROTO_IPV4 => 4
+    static IPV4 => 4
 
     /**
+     * Native name: IPPROTO_ST
      * @type {Integer (Int32)}
      */
-    static IPPROTO_ST => 5
+    static ST => 5
 
     /**
+     * Native name: IPPROTO_TCP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_TCP => 6
+    static TCP => 6
 
     /**
+     * Native name: IPPROTO_CBT
      * @type {Integer (Int32)}
      */
-    static IPPROTO_CBT => 7
+    static CBT => 7
 
     /**
+     * Native name: IPPROTO_EGP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_EGP => 8
+    static EGP => 8
 
     /**
+     * Native name: IPPROTO_IGP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_IGP => 9
+    static IGP => 9
 
     /**
+     * Native name: IPPROTO_PUP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_PUP => 12
+    static PUP => 12
 
     /**
+     * Native name: IPPROTO_UDP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_UDP => 17
+    static UDP => 17
 
     /**
+     * Native name: IPPROTO_IDP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_IDP => 22
+    static IDP => 22
 
     /**
+     * Native name: IPPROTO_RDP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RDP => 27
+    static RDP => 27
 
     /**
+     * Native name: IPPROTO_IPV6
      * @type {Integer (Int32)}
      */
-    static IPPROTO_IPV6 => 41
+    static IPV6 => 41
 
     /**
+     * Native name: IPPROTO_ROUTING
      * @type {Integer (Int32)}
      */
-    static IPPROTO_ROUTING => 43
+    static ROUTING => 43
 
     /**
+     * Native name: IPPROTO_FRAGMENT
      * @type {Integer (Int32)}
      */
-    static IPPROTO_FRAGMENT => 44
+    static FRAGMENT => 44
 
     /**
+     * Native name: IPPROTO_ESP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_ESP => 50
+    static ESP => 50
 
     /**
+     * Native name: IPPROTO_AH
      * @type {Integer (Int32)}
      */
-    static IPPROTO_AH => 51
+    static AH => 51
 
     /**
+     * Native name: IPPROTO_ICMPV6
      * @type {Integer (Int32)}
      */
-    static IPPROTO_ICMPV6 => 58
+    static ICMPV6 => 58
 
     /**
+     * Native name: IPPROTO_NONE
      * @type {Integer (Int32)}
      */
-    static IPPROTO_NONE => 59
+    static NONE => 59
 
     /**
+     * Native name: IPPROTO_DSTOPTS
      * @type {Integer (Int32)}
      */
-    static IPPROTO_DSTOPTS => 60
+    static DSTOPTS => 60
 
     /**
+     * Native name: IPPROTO_ND
      * @type {Integer (Int32)}
      */
-    static IPPROTO_ND => 77
+    static ND => 77
 
     /**
+     * Native name: IPPROTO_ICLFXBM
      * @type {Integer (Int32)}
      */
-    static IPPROTO_ICLFXBM => 78
+    static ICLFXBM => 78
 
     /**
+     * Native name: IPPROTO_PIM
      * @type {Integer (Int32)}
      */
-    static IPPROTO_PIM => 103
+    static PIM => 103
 
     /**
+     * Native name: IPPROTO_PGM
      * @type {Integer (Int32)}
      */
-    static IPPROTO_PGM => 113
+    static PGM => 113
 
     /**
+     * Native name: IPPROTO_L2TP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_L2TP => 115
+    static L2TP => 115
 
     /**
+     * Native name: IPPROTO_SCTP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_SCTP => 132
+    static SCTP => 132
 
     /**
+     * Native name: IPPROTO_RAW
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RAW => 255
+    static RAW => 255
 
     /**
+     * Native name: IPPROTO_MAX
      * @type {Integer (Int32)}
      */
-    static IPPROTO_MAX => 256
+    static MAX => 256
 
     /**
+     * Native name: IPPROTO_RESERVED_RAW
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RESERVED_RAW => 257
+    static RESERVED_RAW => 257
 
     /**
+     * Native name: IPPROTO_RESERVED_IPSEC
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RESERVED_IPSEC => 258
+    static RESERVED_IPSEC => 258
 
     /**
+     * Native name: IPPROTO_RESERVED_IPSECOFFLOAD
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RESERVED_IPSECOFFLOAD => 259
+    static RESERVED_IPSECOFFLOAD => 259
 
     /**
+     * Native name: IPPROTO_RESERVED_WNV
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RESERVED_WNV => 260
+    static RESERVED_WNV => 260
 
     /**
+     * Native name: IPPROTO_RESERVED_MAX
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RESERVED_MAX => 261
+    static RESERVED_MAX => 261
 
     /**
+     * Native name: IPPROTO_IP
      * @type {Integer (Int32)}
      */
-    static IPPROTO_IP => 0
+    static IP => 0
 
     /**
+     * Native name: IPPROTO_RM
      * @type {Integer (Int32)}
      */
-    static IPPROTO_RM => 113
+    static RM => 113
 }

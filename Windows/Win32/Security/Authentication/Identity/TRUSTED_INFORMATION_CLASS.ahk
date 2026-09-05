@@ -11,88 +11,103 @@ class TRUSTED_INFORMATION_CLASS extends Win32Enum {
     /**
      * Query or set the name of a trusted domain. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_name_info">TRUSTED_DOMAIN_NAME_INFO</a> structure.
+     * Native name: TrustedDomainNameInformation
      * @type {Integer (Int32)}
      */
-    static TrustedDomainNameInformation => 1
+    static DomainNameInformation => 1
 
     /**
      * This value is obsolete.
+     * Native name: TrustedControllersInformation
      * @type {Integer (Int32)}
      */
-    static TrustedControllersInformation => 2
+    static ControllersInformation => 2
 
     /**
      * Query or set the value used to generate Posix user and group identifiers. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_posix_offset_info">TRUSTED_POSIX_OFFSET_INFO</a> structure.
+     * Native name: TrustedPosixOffsetInformation
      * @type {Integer (Int32)}
      */
-    static TrustedPosixOffsetInformation => 3
+    static PosixOffsetInformation => 3
 
     /**
      * This value has been superseded by the <b>TrustedDomainAuthInformation</b> value.
+     * Native name: TrustedPasswordInformation
      * @type {Integer (Int32)}
      */
-    static TrustedPasswordInformation => 4
+    static PasswordInformation => 4
 
     /**
      * This value is obsolete.
+     * Native name: TrustedDomainInformationBasic
      * @type {Integer (Int32)}
      */
-    static TrustedDomainInformationBasic => 5
+    static DomainInformationBasic => 5
 
     /**
      * Query extended information for a trusted domain. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structure.
+     * Native name: TrustedDomainInformationEx
      * @type {Integer (Int32)}
      */
-    static TrustedDomainInformationEx => 6
+    static DomainInformationEx => 6
 
     /**
      * Query authentication information for a trusted domain. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_auth_information">TRUSTED_DOMAIN_AUTH_INFORMATION</a> structure.
+     * Native name: TrustedDomainAuthInformation
      * @type {Integer (Int32)}
      */
-    static TrustedDomainAuthInformation => 7
+    static DomainAuthInformation => 7
 
     /**
      * Query complete information for a trusted domain. This information includes the Posix offset information, authentication information, and the extended information returned for the <b>TrustedDomainInformationEx</b> value. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_full_information">TRUSTED_DOMAIN_FULL_INFORMATION</a> structure.
+     * Native name: TrustedDomainFullInformation
      * @type {Integer (Int32)}
      */
-    static TrustedDomainFullInformation => 8
+    static DomainFullInformation => 8
 
     /**
+     * Native name: TrustedDomainAuthInformationInternal
      * @type {Integer (Int32)}
      */
-    static TrustedDomainAuthInformationInternal => 9
+    static DomainAuthInformationInternal => 9
 
     /**
+     * Native name: TrustedDomainFullInformationInternal
      * @type {Integer (Int32)}
      */
-    static TrustedDomainFullInformationInternal => 10
+    static DomainFullInformationInternal => 10
 
     /**
+     * Native name: TrustedDomainInformationEx2Internal
      * @type {Integer (Int32)}
      */
-    static TrustedDomainInformationEx2Internal => 11
+    static DomainInformationEx2Internal => 11
 
     /**
+     * Native name: TrustedDomainFullInformation2Internal
      * @type {Integer (Int32)}
      */
-    static TrustedDomainFullInformation2Internal => 12
+    static DomainFullInformation2Internal => 12
 
     /**
+     * Native name: TrustedDomainSupportedEncryptionTypes
      * @type {Integer (Int32)}
      */
-    static TrustedDomainSupportedEncryptionTypes => 13
+    static DomainSupportedEncryptionTypes => 13
 
     /**
+     * Native name: TrustedDomainAuthInformationInternalAes
      * @type {Integer (Int32)}
      */
-    static TrustedDomainAuthInformationInternalAes => 14
+    static DomainAuthInformationInternalAes => 14
 
     /**
+     * Native name: TrustedDomainFullInformationInternalAes
      * @type {Integer (Int32)}
      */
-    static TrustedDomainFullInformationInternalAes => 15
+    static DomainFullInformationInternalAes => 15
 }

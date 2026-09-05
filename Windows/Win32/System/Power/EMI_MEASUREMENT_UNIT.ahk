@@ -14,7 +14,8 @@ class EMI_MEASUREMENT_UNIT extends Win32Enum {
 
     /**
      * The energy measurement is returned in picowatt-hours.
+     * Native name: EmiMeasurementUnitPicowattHours
      * @type {Integer (Int32)}
      */
-    static EmiMeasurementUnitPicowattHours => 0
+    static PicowattHours => 0
 }

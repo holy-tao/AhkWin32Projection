@@ -7,37 +7,44 @@
 class KSPROPERTY_AC3 extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_AC3_ERROR_CONCEALMENT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AC3_ERROR_CONCEALMENT => 1
+    static ERROR_CONCEALMENT => 1
 
     /**
+     * Native name: KSPROPERTY_AC3_ALTERNATE_AUDIO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AC3_ALTERNATE_AUDIO => 2
+    static ALTERNATE_AUDIO => 2
 
     /**
+     * Native name: KSPROPERTY_AC3_DOWNMIX
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AC3_DOWNMIX => 3
+    static DOWNMIX => 3
 
     /**
+     * Native name: KSPROPERTY_AC3_BIT_STREAM_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AC3_BIT_STREAM_MODE => 4
+    static BIT_STREAM_MODE => 4
 
     /**
+     * Native name: KSPROPERTY_AC3_DIALOGUE_LEVEL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AC3_DIALOGUE_LEVEL => 5
+    static DIALOGUE_LEVEL => 5
 
     /**
+     * Native name: KSPROPERTY_AC3_LANGUAGE_CODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AC3_LANGUAGE_CODE => 6
+    static LANGUAGE_CODE => 6
 
     /**
+     * Native name: KSPROPERTY_AC3_ROOM_TYPE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AC3_ROOM_TYPE => 7
+    static ROOM_TYPE => 7
 }

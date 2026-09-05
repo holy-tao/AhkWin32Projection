@@ -12,81 +12,94 @@ class PSS_CAPTURE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Capture nothing.
+     * Native name: PSS_CAPTURE_NONE
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_NONE => 0
+    static NONE => 0
 
     /**
      * Capture a snapshot of all cloneable pages in the process. The clone includes all <b>MEM_PRIVATE</b> regions, as well as all sections (<b>MEM_MAPPED</b> and <b>MEM_IMAGE</b>) that are shareable. All Win32 sections created via <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> are shareable.
+     * Native name: PSS_CAPTURE_VA_CLONE
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_VA_CLONE => 1
+    static VA_CLONE => 1
 
     /**
      * (Do not use.)
+     * Native name: PSS_CAPTURE_RESERVED_00000002
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_RESERVED_00000002 => 2
+    static RESERVED_00000002 => 2
 
     /**
      * Capture the handle table (handle values only).
+     * Native name: PSS_CAPTURE_HANDLES
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_HANDLES => 4
+    static HANDLES => 4
 
     /**
      * Capture name information for each handle.
+     * Native name: PSS_CAPTURE_HANDLE_NAME_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_HANDLE_NAME_INFORMATION => 8
+    static HANDLE_NAME_INFORMATION => 8
 
     /**
      * Capture basic handle information such as <b>HandleCount</b>, <b>PointerCount</b>, <b>GrantedAccess</b>, etc.
+     * Native name: PSS_CAPTURE_HANDLE_BASIC_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_HANDLE_BASIC_INFORMATION => 16
+    static HANDLE_BASIC_INFORMATION => 16
 
     /**
      * Capture type-specific information for supported object types: <b>Process</b>, <b>Thread</b>, <b>Event</b>, <b>Mutant</b>, <b>Section.</b>
+     * Native name: PSS_CAPTURE_HANDLE_TYPE_SPECIFIC_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_HANDLE_TYPE_SPECIFIC_INFORMATION => 32
+    static HANDLE_TYPE_SPECIFIC_INFORMATION => 32
 
     /**
      * Capture the handle tracing table.
+     * Native name: PSS_CAPTURE_HANDLE_TRACE
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_HANDLE_TRACE => 64
+    static HANDLE_TRACE => 64
 
     /**
      * Capture thread information (IDs only).
+     * Native name: PSS_CAPTURE_THREADS
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_THREADS => 128
+    static THREADS => 128
 
     /**
      * Capture the context for each thread.
+     * Native name: PSS_CAPTURE_THREAD_CONTEXT
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_THREAD_CONTEXT => 256
+    static THREAD_CONTEXT => 256
 
     /**
      * Capture extended context for each thread (e.g. <b>CONTEXT_XSTATE</b>).
+     * Native name: PSS_CAPTURE_THREAD_CONTEXT_EXTENDED
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_THREAD_CONTEXT_EXTENDED => 512
+    static THREAD_CONTEXT_EXTENDED => 512
 
     /**
      * (Do not use.)
+     * Native name: PSS_CAPTURE_RESERVED_00000400
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_RESERVED_00000400 => 1024
+    static RESERVED_00000400 => 1024
 
     /**
      * Capture a snapshot of the virtual address space. The VA space is captured as an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-memory_basic_information">MEMORY_BASIC_INFORMATION</a> structures. This flag does not capture the contents of the pages.
+     * Native name: PSS_CAPTURE_VA_SPACE
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_VA_SPACE => 2048
+    static VA_SPACE => 2048
 
     /**
      * For <b>MEM_IMAGE</b> and <b>MEM_MAPPED</b> regions, dumps the path to the file backing the sections (identical to what <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getmappedfilenamea">GetMappedFileName</a> returns). For <b>MEM_IMAGE</b> regions, also dumps:
@@ -113,49 +126,57 @@ class PSS_CAPTURE_FLAGS extends Win32BitflagEnum {
      * 
      * <div class="alert"><b>Warning</b>  This option is only valid when <b>PSS_CAPTURE_VA_SPACE</b> is specified. </div>
      * <div> </div>
+     * Native name: PSS_CAPTURE_VA_SPACE_SECTION_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_VA_SPACE_SECTION_INFORMATION => 4096
+    static VA_SPACE_SECTION_INFORMATION => 4096
 
     /**
+     * Native name: PSS_CAPTURE_IPT_TRACE
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_IPT_TRACE => 8192
+    static IPT_TRACE => 8192
 
     /**
+     * Native name: PSS_CAPTURE_RESERVED_00004000
      * @type {Integer (UInt32)}
      */
-    static PSS_CAPTURE_RESERVED_00004000 => 16384
+    static RESERVED_00004000 => 16384
 
     /**
      * The breakaway is optional. If the clone process fails to create as a breakaway, then it is created still inside the job. This flag must be specified in combination with either <b>PSS_CREATE_FORCE_BREAKAWAY</b> and/or <b>PSS_CREATE_BREAKAWAY</b>.
+     * Native name: PSS_CREATE_BREAKAWAY_OPTIONAL
      * @type {Integer (UInt32)}
      */
-    static PSS_CREATE_BREAKAWAY_OPTIONAL => 67108864
+    static CREATE_BREAKAWAY_OPTIONAL => 67108864
 
     /**
      * The clone is broken away from the parent process' job. This is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> flag <b>CREATE_BREAKAWAY_FROM_JOB</b>.
+     * Native name: PSS_CREATE_BREAKAWAY
      * @type {Integer (UInt32)}
      */
-    static PSS_CREATE_BREAKAWAY => 134217728
+    static CREATE_BREAKAWAY => 134217728
 
     /**
      * The clone is forcefully broken away the parent process's job. This is only allowed for Tcb-privileged callers.
+     * Native name: PSS_CREATE_FORCE_BREAKAWAY
      * @type {Integer (UInt32)}
      */
-    static PSS_CREATE_FORCE_BREAKAWAY => 268435456
+    static CREATE_FORCE_BREAKAWAY => 268435456
 
     /**
      * The facility should not use the process heap for any persistent or transient allocations. The use of the heap may be undesirable in certain contexts such as creation of snapshots in the exception reporting path (where the heap may be corrupted).
+     * Native name: PSS_CREATE_USE_VM_ALLOCATIONS
      * @type {Integer (UInt32)}
      */
-    static PSS_CREATE_USE_VM_ALLOCATIONS => 536870912
+    static CREATE_USE_VM_ALLOCATIONS => 536870912
 
     /**
      * Measure performance of the facility. Performance counters can be retrieved via <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-pssquerysnapshot">PssQuerySnapshot</a> with the <b>PSS_QUERY_PERFORMANCE_COUNTERS</b> information class of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_query_information_class">PSS_QUERY_INFORMATION_CLASS</a>.
+     * Native name: PSS_CREATE_MEASURE_PERFORMANCE
      * @type {Integer (UInt32)}
      */
-    static PSS_CREATE_MEASURE_PERFORMANCE => 1073741824
+    static CREATE_MEASURE_PERFORMANCE => 1073741824
 
     /**
      * The virtual address (VA) clone process does not hold a reference to the underlying image. This will cause functions such as <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryfullprocessimagenamea">QueryFullProcessImageName</a> to fail on the VA clone process.
@@ -164,7 +185,8 @@ class PSS_CAPTURE_FLAGS extends Win32BitflagEnum {
      * 
      * </div>
      * <div> </div>
+     * Native name: PSS_CREATE_RELEASE_SECTION
      * @type {Integer (UInt32)}
      */
-    static PSS_CREATE_RELEASE_SECTION => 2147483648
+    static CREATE_RELEASE_SECTION => 2147483648
 }

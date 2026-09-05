@@ -34,7 +34,6 @@ class IDWritePaintReader extends IUnknown {
     static VTableNames => ["SetCurrentGlyph", "SetTextColor", "SetColorPaletteIndex", "SetCustomColorPalette", "MoveToFirstChild", "MoveToNextSibling", "MoveToParent", "GetGradientStops", "GetGradientStopColors"]
 
     /**
-     * 
      * @param {Integer} glyphIndex 
      * @param {Integer} paintElement 
      * @param {Integer} structSize 
@@ -65,7 +64,6 @@ class IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} colorPaletteIndex 
      * @returns {HRESULT} 
      */
@@ -75,7 +73,6 @@ class IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DWRITE_COLOR_F>} paletteEntries 
      * @param {Integer} paletteEntryCount 
      * @returns {HRESULT} 
@@ -86,7 +83,6 @@ class IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} paintElement 
      * @param {Integer} structSize 
      * @returns {HRESULT} 
@@ -97,7 +93,6 @@ class IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} paintElement 
      * @param {Integer} structSize 
      * @returns {HRESULT} 
@@ -108,7 +103,6 @@ class IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToParent() {
@@ -117,7 +111,6 @@ class IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} firstGradientStopIndex 
      * @param {Integer} gradientStopCount 
      * @returns {D2D1_GRADIENT_STOP} 
@@ -129,7 +122,6 @@ class IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} firstGradientStopIndex 
      * @param {Integer} gradientStopCount 
      * @returns {DWRITE_PAINT_COLOR} 

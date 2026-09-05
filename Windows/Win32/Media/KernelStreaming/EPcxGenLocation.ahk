@@ -7,27 +7,32 @@
 class EPcxGenLocation extends Win32Enum {
 
     /**
+     * Native name: eGenLocPrimaryBox
      * @type {Integer (Int32)}
      */
-    static eGenLocPrimaryBox => 0
+    static LocPrimaryBox => 0
 
     /**
+     * Native name: eGenLocInternal
      * @type {Integer (Int32)}
      */
-    static eGenLocInternal => 1
+    static LocInternal => 1
 
     /**
+     * Native name: eGenLocSeparate
      * @type {Integer (Int32)}
      */
-    static eGenLocSeparate => 2
+    static LocSeparate => 2
 
     /**
+     * Native name: eGenLocOther
      * @type {Integer (Int32)}
      */
-    static eGenLocOther => 3
+    static LocOther => 3
 
     /**
+     * Native name: EPcxGenLocation_enum_count
      * @type {Integer (Int32)}
      */
-    static EPcxGenLocation_enum_count => 4
+    static enum_count => 4
 }

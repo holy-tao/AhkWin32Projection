@@ -12,19 +12,22 @@ class eAVDecAudioDualMono extends Win32Enum {
 
     /**
      * The input bit stream is not dual mono.
+     * Native name: eAVDecAudioDualMono_IsNotDualMono
      * @type {Integer (Int32)}
      */
-    static eAVDecAudioDualMono_IsNotDualMono => 0
+    static IsNotDualMono => 0
 
     /**
      * The input bit stream is dual mono.
+     * Native name: eAVDecAudioDualMono_IsDualMono
      * @type {Integer (Int32)}
      */
-    static eAVDecAudioDualMono_IsDualMono => 1
+    static IsDualMono => 1
 
     /**
      * There is no indication in the bit stream whether the audio is dual mono.
+     * Native name: eAVDecAudioDualMono_UnSpecified
      * @type {Integer (Int32)}
      */
-    static eAVDecAudioDualMono_UnSpecified => 2
+    static UnSpecified => 2
 }

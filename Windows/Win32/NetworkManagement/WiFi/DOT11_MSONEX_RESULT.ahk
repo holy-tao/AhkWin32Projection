@@ -7,17 +7,20 @@
 class DOT11_MSONEX_RESULT extends Win32Enum {
 
     /**
+     * Native name: DOT11_MSONEX_SUCCESS
      * @type {Integer (Int32)}
      */
-    static DOT11_MSONEX_SUCCESS => 0
+    static SUCCESS => 0
 
     /**
+     * Native name: DOT11_MSONEX_FAILURE
      * @type {Integer (Int32)}
      */
-    static DOT11_MSONEX_FAILURE => 1
+    static FAILURE => 1
 
     /**
+     * Native name: DOT11_MSONEX_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static DOT11_MSONEX_IN_PROGRESS => 2
+    static IN_PROGRESS => 2
 }

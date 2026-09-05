@@ -31,7 +31,6 @@ class ITemplateSdo extends ISdo {
     static VTableNames => ["AddToCollection", "AddToSdo", "AddToSdoAsProperty"]
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {IDispatch} pCollection 
      * @param {Pointer<IDispatch>} ppItem 
@@ -45,7 +44,6 @@ class ITemplateSdo extends ISdo {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {IDispatch} pSdoTarget 
      * @param {Pointer<IDispatch>} ppItem 
@@ -59,7 +57,6 @@ class ITemplateSdo extends ISdo {
     }
 
     /**
-     * 
      * @param {IDispatch} pSdoTarget 
      * @param {Integer} id 
      * @returns {HRESULT} 

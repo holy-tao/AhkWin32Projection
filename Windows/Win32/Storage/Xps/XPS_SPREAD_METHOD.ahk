@@ -14,19 +14,22 @@ class XPS_SPREAD_METHOD extends Win32Enum {
 
     /**
      * The spread region is filled with the color whose value equals the color  at the end of the gradient region.
+     * Native name: XPS_SPREAD_METHOD_PAD
      * @type {Integer (Int32)}
      */
-    static XPS_SPREAD_METHOD_PAD => 1
+    static PAD => 1
 
     /**
      * The spread region is filled by repeating the alternating reflection of the gradient that is  inside the gradient region.
+     * Native name: XPS_SPREAD_METHOD_REFLECT
      * @type {Integer (Int32)}
      */
-    static XPS_SPREAD_METHOD_REFLECT => 2
+    static REFLECT => 2
 
     /**
      * The spread region is filled by repeating the gradient that is inside the gradient region, in the same orientation and direction.
+     * Native name: XPS_SPREAD_METHOD_REPEAT
      * @type {Integer (Int32)}
      */
-    static XPS_SPREAD_METHOD_REPEAT => 3
+    static REPEAT => 3
 }

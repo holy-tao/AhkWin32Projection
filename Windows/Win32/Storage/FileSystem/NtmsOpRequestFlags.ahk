@@ -7,22 +7,26 @@
 class NtmsOpRequestFlags extends Win32Enum {
 
     /**
+     * Native name: NTMS_OPREQFLAGS_NOAUTOPURGE
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQFLAGS_NOAUTOPURGE => 1
+    static OPREQFLAGS_NOAUTOPURGE => 1
 
     /**
+     * Native name: NTMS_OPREQFLAGS_NOFAILEDPURGE
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQFLAGS_NOFAILEDPURGE => 2
+    static OPREQFLAGS_NOFAILEDPURGE => 2
 
     /**
+     * Native name: NTMS_OPREQFLAGS_NOALERTS
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQFLAGS_NOALERTS => 16
+    static OPREQFLAGS_NOALERTS => 16
 
     /**
+     * Native name: NTMS_OPREQFLAGS_NOTRAYICON
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQFLAGS_NOTRAYICON => 32
+    static OPREQFLAGS_NOTRAYICON => 32
 }

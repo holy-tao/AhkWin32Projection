@@ -12,19 +12,22 @@ class NVME_ASYNC_EVENT_IO_COMMAND_SET_STATUS_CODES extends Win32Enum {
 
     /**
      * One or more [Reservation Notification log](ns-nvme-nvme_reservation_notification_log.md) pages are available.
+     * Native name: NVME_ASYNC_IO_CMD_SET_RESERVATION_LOG_PAGE_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_IO_CMD_SET_RESERVATION_LOG_PAGE_AVAILABLE => 0
+    static CMD_SET_RESERVATION_LOG_PAGE_AVAILABLE => 0
 
     /**
      * A sanitize operation has completed without unexpected deallocation of all LBAs.
+     * Native name: NVME_ASYNC_IO_CMD_SANITIZE_OPERATION_COMPLETED
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_IO_CMD_SANITIZE_OPERATION_COMPLETED => 1
+    static CMD_SANITIZE_OPERATION_COMPLETED => 1
 
     /**
      * A sanitize operation has completed with unexpected deallocation of all LBAs and status is available in the Sanitize Status log page.
+     * Native name: NVME_ASYNC_IO_CMD_SANITIZE_OPERATION_COMPLETED_WITH_UNEXPECTED_DEALLOCATION
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_IO_CMD_SANITIZE_OPERATION_COMPLETED_WITH_UNEXPECTED_DEALLOCATION => 2
+    static CMD_SANITIZE_OPERATION_COMPLETED_WITH_UNEXPECTED_DEALLOCATION => 2
 }

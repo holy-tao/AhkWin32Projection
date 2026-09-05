@@ -4773,7 +4773,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {PSTR} lpMachineName 
      * @param {HKEY} _hKey 
      * @param {Integer} Flags 
@@ -4789,7 +4788,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {PWSTR} lpMachineName 
      * @param {HKEY} _hKey 
      * @param {Integer} Flags 
@@ -9519,7 +9517,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyPrimary 
      * @param {PWSTR} pwszPrimarySubKey 
      * @param {HKEY} hkeyFallback 

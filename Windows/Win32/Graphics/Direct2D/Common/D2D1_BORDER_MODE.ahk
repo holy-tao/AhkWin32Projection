@@ -10,13 +10,15 @@ class D2D1_BORDER_MODE extends Win32Enum {
 
     /**
      * If the crop rectangle falls on fractional pixel coordinates, the effect applies antialiasing which results in a soft edge.
+     * Native name: D2D1_BORDER_MODE_SOFT
      * @type {Integer (Int32)}
      */
-    static D2D1_BORDER_MODE_SOFT => 0
+    static SOFT => 0
 
     /**
      * If the crop rectangle falls on fractional pixel coordinates, the effect clamps which results in a hard edge.
+     * Native name: D2D1_BORDER_MODE_HARD
      * @type {Integer (Int32)}
      */
-    static D2D1_BORDER_MODE_HARD => 1
+    static HARD => 1
 }

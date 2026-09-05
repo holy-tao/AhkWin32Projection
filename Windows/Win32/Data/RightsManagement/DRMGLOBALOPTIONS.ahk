@@ -14,13 +14,15 @@ class DRMGLOBALOPTIONS extends Win32Enum {
 
     /**
      * The WinHTTP protocol is used for the transport protocol. By default, the WinINet protocol is used.
+     * Native name: DRMGLOBALOPTIONS_USE_WINHTTP
      * @type {Integer (Int32)}
      */
-    static DRMGLOBALOPTIONS_USE_WINHTTP => 0
+    static USE_WINHTTP => 0
 
     /**
      * The server lockbox is used. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/lockboxes">Lockboxes</a>.
+     * Native name: DRMGLOBALOPTIONS_USE_SERVERSECURITYPROCESSOR
      * @type {Integer (Int32)}
      */
-    static DRMGLOBALOPTIONS_USE_SERVERSECURITYPROCESSOR => 1
+    static USE_SERVERSECURITYPROCESSOR => 1
 }

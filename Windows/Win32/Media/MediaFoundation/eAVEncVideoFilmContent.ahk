@@ -10,19 +10,22 @@ class eAVEncVideoFilmContent extends Win32Enum {
 
     /**
      * The original source was video.
+     * Native name: eAVEncVideoFilmContent_VideoOnly
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoFilmContent_VideoOnly => 0
+    static VideoOnly => 0
 
     /**
      * The original source was film.
+     * Native name: eAVEncVideoFilmContent_FilmOnly
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoFilmContent_FilmOnly => 1
+    static FilmOnly => 1
 
     /**
      * The original source contains a mix of video and film.
+     * Native name: eAVEncVideoFilmContent_Mixed
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoFilmContent_Mixed => 2
+    static Mixed => 2
 }

@@ -57,7 +57,6 @@ class ICanvasImageData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -66,7 +65,6 @@ class ICanvasImageData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -75,7 +73,6 @@ class ICanvasImageData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_data() {

@@ -7,12 +7,14 @@
 class NtmsLibRequestFlags extends Win32Enum {
 
     /**
+     * Native name: NTMS_LIBREQFLAGS_NOAUTOPURGE
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBREQFLAGS_NOAUTOPURGE => 1
+    static LIBREQFLAGS_NOAUTOPURGE => 1
 
     /**
+     * Native name: NTMS_LIBREQFLAGS_NOFAILEDPURGE
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBREQFLAGS_NOFAILEDPURGE => 2
+    static LIBREQFLAGS_NOFAILEDPURGE => 2
 }

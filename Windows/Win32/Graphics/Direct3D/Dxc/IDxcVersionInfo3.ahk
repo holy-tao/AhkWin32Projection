@@ -29,7 +29,6 @@ class IDxcVersionInfo3 extends IUnknown {
     static VTableNames => ["GetCustomVersionString"]
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetCustomVersionString() {

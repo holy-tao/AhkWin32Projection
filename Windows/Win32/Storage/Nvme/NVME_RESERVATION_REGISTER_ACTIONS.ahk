@@ -7,17 +7,20 @@
 class NVME_RESERVATION_REGISTER_ACTIONS extends Win32Enum {
 
     /**
+     * Native name: NVME_RESERVATION_REGISTER_ACTION_REGISTER
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_REGISTER_ACTION_REGISTER => 0
+    static ACTION_REGISTER => 0
 
     /**
+     * Native name: NVME_RESERVATION_REGISTER_ACTION_UNREGISTER
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_REGISTER_ACTION_UNREGISTER => 1
+    static ACTION_UNREGISTER => 1
 
     /**
+     * Native name: NVME_RESERVATION_REGISTER_ACTION_REPLACE
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_REGISTER_ACTION_REPLACE => 2
+    static ACTION_REPLACE => 2
 }

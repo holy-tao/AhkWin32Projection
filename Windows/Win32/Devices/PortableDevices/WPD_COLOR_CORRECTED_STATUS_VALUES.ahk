@@ -11,17 +11,20 @@
 class WPD_COLOR_CORRECTED_STATUS_VALUES extends Win32Enum {
 
     /**
+     * Native name: WPD_COLOR_CORRECTED_STATUS_NOT_CORRECTED
      * @type {Integer (Int32)}
      */
-    static WPD_COLOR_CORRECTED_STATUS_NOT_CORRECTED => 0
+    static NOT_CORRECTED => 0
 
     /**
+     * Native name: WPD_COLOR_CORRECTED_STATUS_CORRECTED
      * @type {Integer (Int32)}
      */
-    static WPD_COLOR_CORRECTED_STATUS_CORRECTED => 1
+    static CORRECTED => 1
 
     /**
+     * Native name: WPD_COLOR_CORRECTED_STATUS_SHOULD_NOT_BE_CORRECTED
      * @type {Integer (Int32)}
      */
-    static WPD_COLOR_CORRECTED_STATUS_SHOULD_NOT_BE_CORRECTED => 2
+    static SHOULD_NOT_BE_CORRECTED => 2
 }

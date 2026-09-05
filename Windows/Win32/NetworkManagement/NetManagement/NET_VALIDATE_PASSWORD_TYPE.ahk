@@ -7,17 +7,20 @@
 class NET_VALIDATE_PASSWORD_TYPE extends Win32Enum {
 
     /**
+     * Native name: NetValidateAuthentication
      * @type {Integer (Int32)}
      */
-    static NetValidateAuthentication => 1
+    static Authentication => 1
 
     /**
+     * Native name: NetValidatePasswordChange
      * @type {Integer (Int32)}
      */
-    static NetValidatePasswordChange => 2
+    static Change => 2
 
     /**
+     * Native name: NetValidatePasswordReset
      * @type {Integer (Int32)}
      */
-    static NetValidatePasswordReset => 3
+    static Reset => 3
 }

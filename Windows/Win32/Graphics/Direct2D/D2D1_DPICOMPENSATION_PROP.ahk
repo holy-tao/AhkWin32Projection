@@ -15,9 +15,10 @@ class D2D1_DPICOMPENSATION_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_dpicompensation_interpolation_mode">D2D1_DPICOMPENSATION_INTERPOLATION_MODE</a>.
      * 
      * The default value is D2D1_DPICOMPENSATION_INTERPOLATION_MODE_LINEAR.
+     * Native name: D2D1_DPICOMPENSATION_PROP_INTERPOLATION_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_DPICOMPENSATION_PROP_INTERPOLATION_MODE => 0
+    static INTERPOLATION_MODE => 0
 
     /**
      * The mode used to calculate the border of the image, soft or hard. See Border modes for more info.
@@ -26,9 +27,10 @@ class D2D1_DPICOMPENSATION_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_border_mode">D2D1_BORDER_MODE</a>.
      * 
      * The default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_DPICOMPENSATION_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_DPICOMPENSATION_PROP_BORDER_MODE => 1
+    static BORDER_MODE => 1
 
     /**
      * The DPI of the input image.
@@ -37,7 +39,8 @@ class D2D1_DPICOMPENSATION_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 96.0f.
+     * Native name: D2D1_DPICOMPENSATION_PROP_INPUT_DPI
      * @type {Integer (Int32)}
      */
-    static D2D1_DPICOMPENSATION_PROP_INPUT_DPI => 2
+    static INPUT_DPI => 2
 }

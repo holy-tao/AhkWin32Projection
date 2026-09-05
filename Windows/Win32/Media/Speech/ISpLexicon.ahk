@@ -39,7 +39,6 @@ class ISpLexicon extends IUnknown {
     static VTableNames => ["GetPronunciations", "AddPronunciation", "RemovePronunciation", "GetGeneration", "GetGenerationChange", "GetWords"]
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
      * @param {Integer} dwFlags 
@@ -54,7 +53,6 @@ class ISpLexicon extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
      * @param {SPPARTOFSPEECH} ePartOfSpeech 
@@ -71,7 +69,6 @@ class ISpLexicon extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
      * @param {SPPARTOFSPEECH} ePartOfSpeech 
@@ -88,7 +85,6 @@ class ISpLexicon extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @returns {HRESULT} 
      */
@@ -100,7 +96,6 @@ class ISpLexicon extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<SPWORDLIST>} pWordList 
@@ -114,7 +109,6 @@ class ISpLexicon extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<Integer>} pdwCookie 

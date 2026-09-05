@@ -31,7 +31,6 @@ class IHTMLElementRender extends IUnknown {
     static VTableNames => ["DrawToDC", "SetDocumentPrinter"]
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class IHTMLElementRender extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrinterName 
      * @param {HDC} _hDC 
      * @returns {HRESULT} 

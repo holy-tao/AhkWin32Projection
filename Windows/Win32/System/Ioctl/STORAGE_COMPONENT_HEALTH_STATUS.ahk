@@ -9,32 +9,38 @@
 class STORAGE_COMPONENT_HEALTH_STATUS extends Win32Enum {
 
     /**
+     * Native name: HealthStatusUnknown
      * @type {Integer (Int32)}
      */
-    static HealthStatusUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: HealthStatusNormal
      * @type {Integer (Int32)}
      */
-    static HealthStatusNormal => 1
+    static Normal => 1
 
     /**
+     * Native name: HealthStatusThrottled
      * @type {Integer (Int32)}
      */
-    static HealthStatusThrottled => 2
+    static Throttled => 2
 
     /**
+     * Native name: HealthStatusWarning
      * @type {Integer (Int32)}
      */
-    static HealthStatusWarning => 3
+    static Warning => 3
 
     /**
+     * Native name: HealthStatusDisabled
      * @type {Integer (Int32)}
      */
-    static HealthStatusDisabled => 4
+    static Disabled => 4
 
     /**
+     * Native name: HealthStatusFailed
      * @type {Integer (Int32)}
      */
-    static HealthStatusFailed => 5
+    static Failed => 5
 }

@@ -32,7 +32,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     static VTableNames => ["OnConnectDebugger", "OnDisconnectDebugger", "OnSetName", "OnDebugOutput", "OnClose", "OnEnterBreakPoint", "OnLeaveBreakPoint", "OnCreateThread", "OnDestroyThread", "OnBreakFlagChange"]
 
     /**
-     * 
      * @param {IApplicationDebugger} pad 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnDisconnectDebugger() {
@@ -51,7 +49,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @returns {HRESULT} 
      */
@@ -63,7 +60,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
@@ -75,7 +71,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnClose() {
@@ -84,7 +79,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -94,7 +88,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -104,7 +97,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -114,7 +106,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -124,7 +115,6 @@ class IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} abf 
      * @param {IRemoteDebugApplicationThread} prdatSteppingThread 
      * @returns {HRESULT} 

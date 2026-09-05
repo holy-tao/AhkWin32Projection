@@ -62,7 +62,6 @@ class IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_User() {
@@ -72,7 +71,6 @@ class IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserPath() {
@@ -82,7 +80,6 @@ class IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -92,7 +89,6 @@ class IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LockCount() {

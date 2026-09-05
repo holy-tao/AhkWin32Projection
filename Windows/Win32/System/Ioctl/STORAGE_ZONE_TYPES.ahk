@@ -7,27 +7,32 @@
 class STORAGE_ZONE_TYPES extends Win32Enum {
 
     /**
+     * Native name: ZoneTypeUnknown
      * @type {Integer (Int32)}
      */
-    static ZoneTypeUnknown => 0
+    static TypeUnknown => 0
 
     /**
+     * Native name: ZoneTypeConventional
      * @type {Integer (Int32)}
      */
-    static ZoneTypeConventional => 1
+    static TypeConventional => 1
 
     /**
+     * Native name: ZoneTypeSequentialWriteRequired
      * @type {Integer (Int32)}
      */
-    static ZoneTypeSequentialWriteRequired => 2
+    static TypeSequentialWriteRequired => 2
 
     /**
+     * Native name: ZoneTypeSequentialWritePreferred
      * @type {Integer (Int32)}
      */
-    static ZoneTypeSequentialWritePreferred => 3
+    static TypeSequentialWritePreferred => 3
 
     /**
+     * Native name: ZoneTypeMax
      * @type {Integer (Int32)}
      */
-    static ZoneTypeMax => 4
+    static TypeMax => 4
 }

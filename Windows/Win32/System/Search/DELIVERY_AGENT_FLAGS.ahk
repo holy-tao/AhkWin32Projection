@@ -7,17 +7,20 @@
 class DELIVERY_AGENT_FLAGS extends Win32Enum {
 
     /**
+     * Native name: DELIVERY_AGENT_FLAG_NO_BROADCAST
      * @type {Integer (Int32)}
      */
-    static DELIVERY_AGENT_FLAG_NO_BROADCAST => 4
+    static FLAG_NO_BROADCAST => 4
 
     /**
+     * Native name: DELIVERY_AGENT_FLAG_NO_RESTRICTIONS
      * @type {Integer (Int32)}
      */
-    static DELIVERY_AGENT_FLAG_NO_RESTRICTIONS => 8
+    static FLAG_NO_RESTRICTIONS => 8
 
     /**
+     * Native name: DELIVERY_AGENT_FLAG_SILENT_DIAL
      * @type {Integer (Int32)}
      */
-    static DELIVERY_AGENT_FLAG_SILENT_DIAL => 16
+    static FLAG_SILENT_DIAL => 16
 }

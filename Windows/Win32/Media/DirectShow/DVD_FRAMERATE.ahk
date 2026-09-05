@@ -12,13 +12,15 @@ class DVD_FRAMERATE extends Win32Enum {
 
     /**
      * Twenty-five frames per second.
+     * Native name: DVD_FPS_25
      * @type {Integer (Int32)}
      */
-    static DVD_FPS_25 => 1
+    static FPS_25 => 1
 
     /**
      * Exactly 30 frames per second.
+     * Native name: DVD_FPS_30NonDrop
      * @type {Integer (Int32)}
      */
-    static DVD_FPS_30NonDrop => 3
+    static FPS_30NonDrop => 3
 }

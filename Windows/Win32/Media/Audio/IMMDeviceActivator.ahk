@@ -32,7 +32,6 @@ class IMMDeviceActivator extends IUnknown {
     static VTableNames => ["Activate"]
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @param {IMMDevice} pDevice 
      * @param {Pointer<PROPVARIANT>} pActivationParams 

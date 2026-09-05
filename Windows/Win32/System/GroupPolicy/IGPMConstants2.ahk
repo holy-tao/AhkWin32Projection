@@ -144,7 +144,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMBackupType} 
      */
     get_BackupTypeGPO() {
@@ -153,7 +152,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMBackupType} 
      */
     get_BackupTypeStarterGPO() {
@@ -162,7 +160,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMStarterGPOType} 
      */
     get_StarterGPOTypeSystem() {
@@ -171,7 +168,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMStarterGPOType} 
      */
     get_StarterGPOTypeCustom() {
@@ -180,7 +176,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPOPermissions() {
@@ -189,7 +184,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPOEffectivePermissions() {
@@ -198,7 +192,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPODisplayName() {
@@ -207,7 +200,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPOID() {
@@ -216,7 +208,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPODomain() {
@@ -225,7 +216,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPORead() {
@@ -234,7 +224,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPOEdit() {
@@ -243,7 +232,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPOFullControl() {
@@ -252,7 +240,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPOCustom() {
@@ -261,7 +248,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMReportingOptions} 
      */
     get_ReportLegacy() {
@@ -270,7 +256,6 @@ class IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMReportingOptions} 
      */
     get_ReportComments() {

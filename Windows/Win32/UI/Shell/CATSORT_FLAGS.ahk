@@ -10,13 +10,15 @@ class CATSORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * Use the default sort order.
+     * Native name: CATSORT_DEFAULT
      * @type {Integer (Int32)}
      */
-    static CATSORT_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Use a method that sorts on category names.
+     * Native name: CATSORT_NAME
      * @type {Integer (Int32)}
      */
-    static CATSORT_NAME => 1
+    static NAME => 1
 }

@@ -7,29 +7,34 @@
 class GPMEntryType extends Win32Enum {
 
     /**
+     * Native name: typeUser
      * @type {Integer (Int32)}
      */
-    static typeUser => 0
+    static User => 0
 
     /**
+     * Native name: typeComputer
      * @type {Integer (Int32)}
      */
-    static typeComputer => 1
+    static Computer => 1
 
     /**
+     * Native name: typeLocalGroup
      * @type {Integer (Int32)}
      */
-    static typeLocalGroup => 2
+    static LocalGroup => 2
 
     /**
+     * Native name: typeGlobalGroup
      * @type {Integer (Int32)}
      */
-    static typeGlobalGroup => 3
+    static GlobalGroup => 3
 
     /**
+     * Native name: typeUniversalGroup
      * @type {Integer (Int32)}
      */
-    static typeUniversalGroup => 4
+    static UniversalGroup => 4
 
     /**
      * @type {Integer (Int32)}
@@ -37,7 +42,8 @@ class GPMEntryType extends Win32Enum {
     static typeUNCPath => 5
 
     /**
+     * Native name: typeUnknown
      * @type {Integer (Int32)}
      */
-    static typeUnknown => 6
+    static Unknown => 6
 }

@@ -59,7 +59,6 @@ class IImePadApplet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IMEAPPLETCFG>} lpAppletCfg 
      * @returns {HRESULT} 
      */

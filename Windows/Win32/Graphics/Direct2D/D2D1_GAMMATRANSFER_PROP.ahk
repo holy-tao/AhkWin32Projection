@@ -15,9 +15,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_RED_AMPLITUDE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_RED_AMPLITUDE => 0
+    static RED_AMPLITUDE => 0
 
     /**
      * The exponent of the gamma transfer function for the Red channel.
@@ -26,9 +27,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_RED_EXPONENT
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_RED_EXPONENT => 1
+    static RED_EXPONENT => 1
 
     /**
      * The offset of the gamma transfer function for the Red channel.
@@ -37,9 +39,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 0.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_RED_OFFSET
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_RED_OFFSET => 2
+    static RED_OFFSET => 2
 
     /**
      * If you set this to TRUE it does not apply the transfer function to the Red channel. An identity transfer function is used.
@@ -49,9 +52,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value is FALSE.
+     * Native name: D2D1_GAMMATRANSFER_PROP_RED_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_RED_DISABLE => 3
+    static RED_DISABLE => 3
 
     /**
      * The amplitude of the gamma transfer function for the Green channel.
@@ -60,9 +64,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_GREEN_AMPLITUDE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_GREEN_AMPLITUDE => 4
+    static GREEN_AMPLITUDE => 4
 
     /**
      * The exponent of the gamma transfer function for the Green channel.
@@ -71,9 +76,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_GREEN_EXPONENT
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_GREEN_EXPONENT => 5
+    static GREEN_EXPONENT => 5
 
     /**
      * The offset of the gamma transfer function for the Green channel.
@@ -82,9 +88,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 0.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_GREEN_OFFSET
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_GREEN_OFFSET => 6
+    static GREEN_OFFSET => 6
 
     /**
      * If you set this to TRUE it does not apply the transfer function to the Green channel. An identity transfer function is used.
@@ -94,9 +101,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value is FALSE.
+     * Native name: D2D1_GAMMATRANSFER_PROP_GREEN_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_GREEN_DISABLE => 7
+    static GREEN_DISABLE => 7
 
     /**
      * The amplitude of the gamma transfer function for the Blue channel.
@@ -105,9 +113,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_BLUE_AMPLITUDE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_BLUE_AMPLITUDE => 8
+    static BLUE_AMPLITUDE => 8
 
     /**
      * The exponent of the gamma transfer function for the Blue channel.
@@ -116,9 +125,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_BLUE_EXPONENT
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_BLUE_EXPONENT => 9
+    static BLUE_EXPONENT => 9
 
     /**
      * The offset of the gamma transfer function for the Blue channel.
@@ -127,9 +137,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 0.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_BLUE_OFFSET
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_BLUE_OFFSET => 10
+    static BLUE_OFFSET => 10
 
     /**
      * If you set this to TRUE it does not apply the transfer function to the Blue channel. An identity transfer function is used.
@@ -139,9 +150,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value is FALSE.
+     * Native name: D2D1_GAMMATRANSFER_PROP_BLUE_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_BLUE_DISABLE => 11
+    static BLUE_DISABLE => 11
 
     /**
      * The amplitude of the gamma transfer function for the Alpha channel.
@@ -150,9 +162,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_ALPHA_AMPLITUDE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_ALPHA_AMPLITUDE => 12
+    static ALPHA_AMPLITUDE => 12
 
     /**
      * The exponent of the gamma transfer function for the Alpha channel.
@@ -161,9 +174,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_ALPHA_EXPONENT
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_ALPHA_EXPONENT => 13
+    static ALPHA_EXPONENT => 13
 
     /**
      * The offset of the gamma transfer function for the Alpha channel.
@@ -172,9 +186,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 0.0f.
+     * Native name: D2D1_GAMMATRANSFER_PROP_ALPHA_OFFSET
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_ALPHA_OFFSET => 14
+    static ALPHA_OFFSET => 14
 
     /**
      * If you set this to TRUE it does not apply the transfer function to the Alpha channel. An identity transfer function is used.
@@ -184,9 +199,10 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value is FALSE.
+     * Native name: D2D1_GAMMATRANSFER_PROP_ALPHA_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_ALPHA_DISABLE => 15
+    static ALPHA_DISABLE => 15
 
     /**
      * Whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph.
@@ -200,7 +216,8 @@ class D2D1_GAMMATRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value is FALSE.
+     * Native name: D2D1_GAMMATRANSFER_PROP_CLAMP_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMATRANSFER_PROP_CLAMP_OUTPUT => 16
+    static CLAMP_OUTPUT => 16
 }

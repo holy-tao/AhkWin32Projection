@@ -30,7 +30,6 @@ class IDebugDocumentTextAuthor extends IDebugDocumentText {
     static VTableNames => ["InsertText", "RemoveText", "ReplaceText"]
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToInsert 
      * @param {PWSTR} pcharText 
@@ -44,7 +43,6 @@ class IDebugDocumentTextAuthor extends IDebugDocumentText {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToRemove 
      * @returns {HRESULT} 

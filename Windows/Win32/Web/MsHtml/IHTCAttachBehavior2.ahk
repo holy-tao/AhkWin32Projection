@@ -30,7 +30,6 @@ class IHTCAttachBehavior2 extends IDispatch {
     static VTableNames => ["fireEvent"]
 
     /**
-     * 
      * @param {VARIANT} evt 
      * @returns {HRESULT} 
      */

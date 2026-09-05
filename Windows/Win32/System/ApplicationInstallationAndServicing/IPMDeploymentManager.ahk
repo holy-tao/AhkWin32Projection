@@ -37,7 +37,6 @@ class IPMDeploymentManager extends IUnknown {
     static VTableNames => ["ReportDownloadBegin", "ReportDownloadProgress", "ReportDownloadComplete", "BeginInstall", "BeginUpdate", "BeginDeployPackage", "BeginUpdateDeployedPackageLegacy", "BeginUninstall", "BeginEnterpriseAppInstall", "BeginEnterpriseAppUpdate", "BeginUpdateLicense", "GetLicenseChallenge", "GetLicenseChallengeByProductID", "GetLicenseChallengeByProductID2", "RevokeLicense", "RebindMdilBinaries", "RebindAllMdilBinaries", "RegenerateXbf", "GenerateXbfForCurrentLocale", "BeginProvision", "BeginDeprovision", "ReindexSQLCEDatabases", "SetApplicationsNeedMaintenance", "UpdateChamberProfile", "EnterprisePolicyIsApplicationAllowed", "BeginUpdateDeployedPackage", "ReportRestoreCancelled", "ResolveResourceString", "UpdateCapabilitiesForModernApps", "ReportDownloadStatusUpdate", "BeginUninstallWithOptions", "BindDeferredMdilBinaries", "GenerateXamlLightupXbfForCurrentLocale", "AddLicenseForAppx", "FixJunctionsForAppsOnSDCard"]
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Integer} usProgress 
      * @returns {HRESULT} 
@@ -58,7 +56,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {HRESULT} hrResult 
      * @returns {HRESULT} 
@@ -69,7 +66,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_INSTALLINFO>} pInstallInfo 
      * @returns {HRESULT} 
      */
@@ -79,7 +75,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -89,7 +84,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_INSTALLINFO>} pInstallInfo 
      * @returns {HRESULT} 
      */
@@ -99,7 +93,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO_LEGACY>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -109,7 +102,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -119,7 +111,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_INSTALLINFO>} pInstallInfo 
      * @returns {HRESULT} 
      */
@@ -129,7 +120,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -139,7 +129,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Guid} offerID 
      * @param {Pointer<Integer>} pbLicense 
@@ -154,7 +143,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} PackagePath 
      * @param {Pointer<Pointer<Integer>>} ppbChallenge 
      * @param {Pointer<Integer>} pcbChallenge 
@@ -187,7 +175,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<Pointer<Integer>>} ppbChallenge 
      * @param {Pointer<Integer>} pcbLicense 
@@ -202,7 +189,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<Pointer<Integer>>} ppbChallenge 
      * @param {Pointer<Integer>} pcbLicense 
@@ -233,7 +219,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -243,7 +228,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<SAFEARRAY>} FileNames 
      * @returns {HRESULT} 
@@ -254,7 +238,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Guid} InstanceID 
      * @returns {HRESULT} 
@@ -265,7 +248,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<SAFEARRAY>} AssemblyPaths 
      * @returns {HRESULT} 
@@ -276,7 +258,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -286,7 +267,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} XMLpath 
      * @returns {HRESULT} 
@@ -299,7 +279,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -309,7 +288,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -319,7 +297,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} RequiredMaintenanceOperations 
      * @returns {Integer} 
      */
@@ -329,7 +306,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -339,7 +315,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productId 
      * @param {PWSTR} publisherName 
      * @returns {BOOL} 
@@ -352,7 +327,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -362,7 +336,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -372,7 +345,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} resourceString 
      * @param {Pointer<BSTR>} pResolvedResourceString 
      * @returns {HRESULT} 
@@ -385,7 +357,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateCapabilitiesForModernApps() {
@@ -394,7 +365,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productId 
      * @returns {HRESULT} 
      */
@@ -404,7 +374,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Integer} removalOptions 
      * @returns {HRESULT} 
@@ -415,7 +384,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BindDeferredMdilBinaries() {
@@ -424,7 +392,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} PackageFamilyName 
      * @returns {HRESULT} 
      */
@@ -436,7 +403,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Pointer<Integer>} pbLicense 
      * @param {Integer} cbLicense 
@@ -453,7 +419,6 @@ class IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FixJunctionsForAppsOnSDCard() {

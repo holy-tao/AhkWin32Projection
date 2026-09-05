@@ -22,7 +22,6 @@ class DeviceQuery {
 
 ;@region Methods
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -41,7 +40,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -62,7 +60,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
@@ -84,7 +81,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
@@ -108,7 +104,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszzObjectIds 
      * @param {Integer} QueryFlags 
@@ -130,7 +125,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszzObjectIds 
      * @param {Integer} QueryFlags 
@@ -154,7 +148,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {HDEVQUERY} _hDevQuery 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -163,7 +156,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -183,7 +175,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -205,7 +196,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {Integer} cObjectCount 
      * @param {Pointer<DEV_OBJECT>} pObjects 
      * @returns {String} Nothing - always returns an empty string
@@ -215,7 +205,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
@@ -236,7 +225,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
@@ -259,7 +247,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {Integer} cPropertyCount 
      * @param {Pointer<DEVPROPERTY>} pProperties 
      * @returns {String} Nothing - always returns an empty string
@@ -269,7 +256,6 @@ class DeviceQuery {
     }
 
     /**
-     * 
      * @param {Pointer<DEVPROPKEY>} pKey 
      * @param {DEVPROPSTORE} Store 
      * @param {PWSTR} pszLocaleName 

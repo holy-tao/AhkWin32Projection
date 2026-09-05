@@ -59,7 +59,6 @@ class IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msInterpolationMode() {
@@ -69,7 +68,6 @@ class IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxHeight() {
@@ -79,7 +77,6 @@ class IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minWidth() {
@@ -89,7 +86,6 @@ class IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxWidth() {

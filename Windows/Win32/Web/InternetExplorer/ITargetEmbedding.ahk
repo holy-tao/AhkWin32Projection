@@ -30,7 +30,6 @@ class ITargetEmbedding extends IUnknown {
     static VTableNames => ["GetTargetFrame"]
 
     /**
-     * 
      * @returns {ITargetFrame} 
      */
     GetTargetFrame() {

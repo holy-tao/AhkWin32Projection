@@ -53,7 +53,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_textLength() {
@@ -72,7 +70,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +79,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_lengthAdjust() {
@@ -91,7 +87,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getNumberOfChars() {
@@ -100,7 +95,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     getComputedTextLength() {
@@ -109,7 +103,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @param {Integer} nchars 
      * @returns {Float} 
@@ -120,7 +113,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {ISVGPoint} 
      */
@@ -130,7 +122,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {ISVGPoint} 
      */
@@ -140,7 +131,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {ISVGRect} 
      */
@@ -150,7 +140,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {Float} 
      */
@@ -160,7 +149,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPoint} _point 
      * @returns {Integer} 
      */
@@ -170,7 +158,6 @@ class ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @param {Integer} nchars 
      * @returns {HRESULT} 

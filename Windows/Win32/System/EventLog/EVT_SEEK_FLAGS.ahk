@@ -61,27 +61,31 @@ class EVT_SEEK_FLAGS extends Win32Enum {
 
     /**
      * Seek to the specified offset from the first entry in the result set. The offset must be a positive value.
+     * Native name: EvtSeekRelativeToFirst
      * @type {Integer (UInt32)}
      */
-    static EvtSeekRelativeToFirst => 1
+    static RelativeToFirst => 1
 
     /**
      * Seek to the specified offset from the last entry in the result set. The offset must be a negative value.
+     * Native name: EvtSeekRelativeToLast
      * @type {Integer (UInt32)}
      */
-    static EvtSeekRelativeToLast => 2
+    static RelativeToLast => 2
 
     /**
      * Seek to the specified offset from the current entry in the result set. The offset can be a positive or negative value.
+     * Native name: EvtSeekRelativeToCurrent
      * @type {Integer (UInt32)}
      */
-    static EvtSeekRelativeToCurrent => 3
+    static RelativeToCurrent => 3
 
     /**
      * Seek to the specified offset from the bookmarked entry in the result set. The offset can be a positive or negative value.
+     * Native name: EvtSeekRelativeToBookmark
      * @type {Integer (UInt32)}
      */
-    static EvtSeekRelativeToBookmark => 4
+    static RelativeToBookmark => 4
 
     /**
      * A bitmask that you can use to determine which of the following flags is set:
@@ -91,13 +95,15 @@ class EVT_SEEK_FLAGS extends Win32Enum {
      * <li>EvtSeekRelativeToLast</li>
      * <li>EvtSeekRelativeToBookmark</li>
      * </ul>
+     * Native name: EvtSeekOriginMask
      * @type {Integer (UInt32)}
      */
-    static EvtSeekOriginMask => 7
+    static OriginMask => 7
 
     /**
      * Force the function to fail if the event does not exist.
+     * Native name: EvtSeekStrict
      * @type {Integer (UInt32)}
      */
-    static EvtSeekStrict => 65536
+    static Strict => 65536
 }

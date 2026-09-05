@@ -36,7 +36,6 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2 {
     static VTableNames => ["GetPaintFeatureLevel", "DrawPaintGlyphRun", "DrawGlyphRunWithColorSupport"]
 
     /**
-     * 
      * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
     GetPaintFeatureLevel() {
@@ -45,7 +44,6 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2 {
     }
 
     /**
-     * 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
      * @param {DWRITE_MEASURING_MODE} measuringMode 
@@ -62,7 +60,6 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2 {
     }
 
     /**
-     * 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
      * @param {DWRITE_MEASURING_MODE} measuringMode 

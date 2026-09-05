@@ -7,7 +7,8 @@
 class KSEVENT_LOOPEDSTREAMING extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_LOOPEDSTREAMING_POSITION
      * @type {Integer (Int32)}
      */
-    static KSEVENT_LOOPEDSTREAMING_POSITION => 0
+    static POSITION => 0
 }

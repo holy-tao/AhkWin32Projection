@@ -7,9 +7,10 @@
 class RotateFlipType extends Win32Enum {
 
     /**
+     * Native name: RotateNoneFlipNone
      * @type {Integer (Int32)}
      */
-    static RotateNoneFlipNone => 0
+    static NoneFlipNone => 0
 
     /**
      * @type {Integer (Int32)}
@@ -27,9 +28,10 @@ class RotateFlipType extends Win32Enum {
     static Rotate270FlipNone => 3
 
     /**
+     * Native name: RotateNoneFlipX
      * @type {Integer (Int32)}
      */
-    static RotateNoneFlipX => 4
+    static NoneFlipX => 4
 
     /**
      * @type {Integer (Int32)}
@@ -47,9 +49,10 @@ class RotateFlipType extends Win32Enum {
     static Rotate270FlipX => 7
 
     /**
+     * Native name: RotateNoneFlipY
      * @type {Integer (Int32)}
      */
-    static RotateNoneFlipY => 6
+    static NoneFlipY => 6
 
     /**
      * @type {Integer (Int32)}
@@ -67,9 +70,10 @@ class RotateFlipType extends Win32Enum {
     static Rotate270FlipY => 5
 
     /**
+     * Native name: RotateNoneFlipXY
      * @type {Integer (Int32)}
      */
-    static RotateNoneFlipXY => 2
+    static NoneFlipXY => 2
 
     /**
      * @type {Integer (Int32)}

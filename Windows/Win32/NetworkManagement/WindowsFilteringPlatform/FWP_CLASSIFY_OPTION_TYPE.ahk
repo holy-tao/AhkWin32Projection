@@ -10,29 +10,33 @@ class FWP_CLASSIFY_OPTION_TYPE extends Win32Enum {
 
     /**
      * Specifies the multicast conditions on outbound traffic. See [FWPM_CLASSIFY_OPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_classify_option0) for possible values.
+     * Native name: FWP_CLASSIFY_OPTION_MULTICAST_STATE
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_MULTICAST_STATE => 0
+    static MULTICAST_STATE => 0
 
     /**
      * Specifies the source mapping conditions for callout filters. See [FWPM_CLASSIFY_OPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_classify_option0) for possible values.
      * 
      *  Loose source mapping allows unicast responses from a remote peer to match only the port number, instead of the entire source address.
+     * Native name: FWP_CLASSIFY_OPTION_LOOSE_SOURCE_MAPPING
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_LOOSE_SOURCE_MAPPING => 1
+    static LOOSE_SOURCE_MAPPING => 1
 
     /**
      * Specifies the unicast state lifetime, in seconds.
+     * Native name: FWP_CLASSIFY_OPTION_UNICAST_LIFETIME
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_UNICAST_LIFETIME => 2
+    static UNICAST_LIFETIME => 2
 
     /**
      * Specifies the multicast/broadcast state lifetime, in seconds.
+     * Native name: FWP_CLASSIFY_OPTION_MCAST_BCAST_LIFETIME
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_MCAST_BCAST_LIFETIME => 3
+    static MCAST_BCAST_LIFETIME => 3
 
     /**
      * Specifies that the callout can set secure socket settings on the endpoint.    Such flags are only allowed to increase the overall security level. The possible values are defined in the <i>Mstcpip.h</i> header file.
@@ -57,36 +61,41 @@ class FWP_CLASSIFY_OPTION_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Available only in Windows 7,  Windows Server 2008 R2, and later.</div>
      * <div> </div>
+     * Native name: FWP_CLASSIFY_OPTION_SECURE_SOCKET_SECURITY_FLAGS
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_SECURE_SOCKET_SECURITY_FLAGS => 4
+    static SECURE_SOCKET_SECURITY_FLAGS => 4
 
     /**
      * Allows the callout to specify the specific main mode (MM) policy used for the connection.   
      * 
      * <div class="alert"><b>Note</b>  Available only in Windows 7,  Windows Server 2008 R2, and later.</div>
      * <div> </div>
+     * Native name: FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_MM_POLICY_KEY
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_MM_POLICY_KEY => 5
+    static SECURE_SOCKET_AUTHIP_MM_POLICY_KEY => 5
 
     /**
      * Allows the callout to specify the specific quick mode (QM) policy used for the connection.   
      * 
      * <div class="alert"><b>Note</b>  Available only in Windows 7,  Windows Server 2008 R2, and later.</div>
      * <div> </div>
+     * Native name: FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_QM_POLICY_KEY
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_QM_POLICY_KEY => 6
+    static SECURE_SOCKET_AUTHIP_QM_POLICY_KEY => 6
 
     /**
+     * Native name: FWP_CLASSIFY_OPTION_LOCAL_ONLY_MAPPING
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_LOCAL_ONLY_MAPPING => 7
+    static LOCAL_ONLY_MAPPING => 7
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWP_CLASSIFY_OPTION_MAX
      * @type {Integer (Int32)}
      */
-    static FWP_CLASSIFY_OPTION_MAX => 8
+    static MAX => 8
 }

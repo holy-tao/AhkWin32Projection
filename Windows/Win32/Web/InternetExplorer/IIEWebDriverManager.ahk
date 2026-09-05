@@ -30,7 +30,6 @@ class IIEWebDriverManager extends IDispatch {
     static VTableNames => ["ExecuteCommand"]
 
     /**
-     * 
      * @param {PWSTR} command 
      * @returns {PWSTR} 
      */

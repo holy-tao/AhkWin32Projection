@@ -67,7 +67,6 @@ class IHTMLPopup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     hide() {
@@ -76,7 +75,6 @@ class IHTMLPopup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument} 
      */
     get_document() {
@@ -85,7 +83,6 @@ class IHTMLPopup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isOpen() {

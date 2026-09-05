@@ -10,7 +10,8 @@ class EVT_CHANNEL_REFERENCE_FLAGS extends Win32Enum {
 
     /**
      * Specifies that the channel is imported.
+     * Native name: EvtChannelReferenceImported
      * @type {Integer (UInt32)}
      */
-    static EvtChannelReferenceImported => 1
+    static Imported => 1
 }

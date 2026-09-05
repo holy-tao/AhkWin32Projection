@@ -10,13 +10,15 @@ class DML_GRAPH_NODE_TYPE extends Win32Enum {
 
     /**
      * Specifies an unknown graph edge type, and is never valid. Using this value results in an error.
+     * Native name: DML_GRAPH_NODE_TYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static DML_GRAPH_NODE_TYPE_INVALID => 0
+    static INVALID => 0
 
     /**
      * Specifies that the graph edge is described by the [DML_OPERATOR_GRAPH_NODE_DESC](/windows/win32/api/directml/ns-directml-dml_operator_graph_node_desc) structure.
+     * Native name: DML_GRAPH_NODE_TYPE_OPERATOR
      * @type {Integer (Int32)}
      */
-    static DML_GRAPH_NODE_TYPE_OPERATOR => 1
+    static OPERATOR => 1
 }

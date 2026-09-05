@@ -29,7 +29,6 @@ class ILearningModelSessionOptionsNative1 extends IUnknown {
     static VTableNames => ["SetIntraOpThreadSpinning"]
 
     /**
-     * 
      * @param {Integer} allowSpinning 
      * @returns {HRESULT} 
      */

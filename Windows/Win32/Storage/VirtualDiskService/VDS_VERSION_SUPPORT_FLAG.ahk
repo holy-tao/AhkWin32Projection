@@ -18,16 +18,18 @@ class VDS_VERSION_SUPPORT_FLAG extends Win32Enum {
     /**
      * Indicates that the VDS 1.0 interfaces are supported. VDS 1.0 is supported on 
      *       Windows Server 2003 and later.
+     * Native name: VDS_VSF_1_0
      * @type {Integer (Int32)}
      */
-    static VDS_VSF_1_0 => 1
+    static VSF_1_0 => 1
 
     /**
      * Indicates that the VDS 1.1 interfaces are supported. VDS 1.1 is supported on 
      *       Windows Server 2003 R2 and later.
+     * Native name: VDS_VSF_1_1
      * @type {Integer (Int32)}
      */
-    static VDS_VSF_1_1 => 2
+    static VSF_1_1 => 2
 
     /**
      * Indicates that the VDS 2.0 interfaces are supported. VDS 2.0 is supported on Windows Vista and 
@@ -35,9 +37,10 @@ class VDS_VERSION_SUPPORT_FLAG extends Win32Enum {
      *       
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported.
+     * Native name: VDS_VSF_2_0
      * @type {Integer (Int32)}
      */
-    static VDS_VSF_2_0 => 4
+    static VSF_2_0 => 4
 
     /**
      * Indicates that the VDS 2.1 interfaces are supported. VDS 2.1 is supported on Windows Vista with SP1,  
@@ -45,9 +48,10 @@ class VDS_VERSION_SUPPORT_FLAG extends Win32Enum {
      *       
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported.
+     * Native name: VDS_VSF_2_1
      * @type {Integer (Int32)}
      */
-    static VDS_VSF_2_1 => 8
+    static VSF_2_1 => 8
 
     /**
      * Indicates that the VDS 3.0 interfaces are supported. VDS 3.0 is supported on Windows 7, 
@@ -55,7 +59,8 @@ class VDS_VERSION_SUPPORT_FLAG extends Win32Enum {
      *       
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported.
+     * Native name: VDS_VSF_3_0
      * @type {Integer (Int32)}
      */
-    static VDS_VSF_3_0 => 16
+    static VSF_3_0 => 16
 }

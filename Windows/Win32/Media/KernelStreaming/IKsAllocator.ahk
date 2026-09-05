@@ -32,7 +32,6 @@ class IKsAllocator extends IUnknown {
     static VTableNames => ["KsGetAllocatorHandle", "KsGetAllocatorMode", "KsGetAllocatorStatus", "KsSetAllocatorMode"]
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     KsGetAllocatorHandle() {
@@ -42,7 +41,6 @@ class IKsAllocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSALLOCATORMODE} 
      */
     KsGetAllocatorMode() {
@@ -51,7 +49,6 @@ class IKsAllocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSSTREAMALLOCATOR_STATUS} 
      */
     KsGetAllocatorStatus() {
@@ -61,7 +58,6 @@ class IKsAllocator extends IUnknown {
     }
 
     /**
-     * 
      * @param {KSALLOCATORMODE} _Mode 
      * @returns {String} Nothing - always returns an empty string
      */

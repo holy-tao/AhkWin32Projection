@@ -67,7 +67,6 @@ class ID3D12SharingContract extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guid 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -76,7 +75,6 @@ class ID3D12SharingContract extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guid 
      * @returns {String} Nothing - always returns an empty string
      */

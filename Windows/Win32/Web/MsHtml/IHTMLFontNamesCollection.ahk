@@ -45,7 +45,6 @@ class IHTMLFontNamesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -54,7 +53,6 @@ class IHTMLFontNamesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -63,7 +61,6 @@ class IHTMLFontNamesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */

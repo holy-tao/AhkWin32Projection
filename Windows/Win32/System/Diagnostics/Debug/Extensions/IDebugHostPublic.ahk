@@ -31,7 +31,6 @@ class IDebugHostPublic extends IDebugHostSymbol {
     static VTableNames => ["GetLocationKind", "GetLocation"]
 
     /**
-     * 
      * @returns {LocationKind} 
      */
     GetLocationKind() {
@@ -40,7 +39,6 @@ class IDebugHostPublic extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Location} 
      */
     GetLocation() {

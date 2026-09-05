@@ -7,32 +7,38 @@
 class SetupFileLogInfo extends Win32Enum {
 
     /**
+     * Native name: SetupFileLogSourceFilename
      * @type {Integer (Int32)}
      */
-    static SetupFileLogSourceFilename => 0
+    static SourceFilename => 0
 
     /**
+     * Native name: SetupFileLogChecksum
      * @type {Integer (Int32)}
      */
-    static SetupFileLogChecksum => 1
+    static Checksum => 1
 
     /**
+     * Native name: SetupFileLogDiskTagfile
      * @type {Integer (Int32)}
      */
-    static SetupFileLogDiskTagfile => 2
+    static DiskTagfile => 2
 
     /**
+     * Native name: SetupFileLogDiskDescription
      * @type {Integer (Int32)}
      */
-    static SetupFileLogDiskDescription => 3
+    static DiskDescription => 3
 
     /**
+     * Native name: SetupFileLogOtherInfo
      * @type {Integer (Int32)}
      */
-    static SetupFileLogOtherInfo => 4
+    static OtherInfo => 4
 
     /**
+     * Native name: SetupFileLogMax
      * @type {Integer (Int32)}
      */
-    static SetupFileLogMax => 5
+    static Max => 5
 }

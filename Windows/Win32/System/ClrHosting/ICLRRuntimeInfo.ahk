@@ -35,7 +35,6 @@ class ICLRRuntimeInfo extends IUnknown {
     static VTableNames => ["GetVersionString", "GetRuntimeDirectory", "IsLoaded", "LoadErrorString", "LoadLibraryA", "GetProcAddress", "GetInterface", "IsLoadable", "SetDefaultStartupFlags", "GetDefaultStartupFlags", "BindAsLegacyV2Runtime", "IsStarted"]
 
     /**
-     * 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
      * @returns {HRESULT} 
@@ -50,7 +49,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hndProcess 
      * @returns {BOOL} 
      */
@@ -77,7 +74,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iResourceID 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
@@ -282,7 +278,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsLoadable() {
@@ -291,7 +286,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwStartupFlags 
      * @param {PWSTR} pwzHostConfigFile 
      * @returns {HRESULT} 
@@ -304,7 +298,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzHostConfigFile 
      * @param {Pointer<Integer>} pcchHostConfigFile 
      * @returns {Integer} 
@@ -319,7 +312,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BindAsLegacyV2Runtime() {
@@ -328,7 +320,6 @@ class ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbStarted 
      * @param {Pointer<Integer>} pdwStartupFlags 
      * @returns {HRESULT} 

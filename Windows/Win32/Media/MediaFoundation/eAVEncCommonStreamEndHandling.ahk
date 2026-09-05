@@ -10,13 +10,15 @@ class eAVEncCommonStreamEndHandling extends Win32Enum {
 
     /**
      * If there is a partial GOP at the end of the stream, the encoder will discard it.
+     * Native name: eAVEncCommonStreamEndHandling_DiscardPartial
      * @type {Integer (Int32)}
      */
-    static eAVEncCommonStreamEndHandling_DiscardPartial => 0
+    static DiscardPartial => 0
 
     /**
      * If there is a partial GOP at the end of the stream, the encoder will adjust the GOP and encode all of the stream data.
+     * Native name: eAVEncCommonStreamEndHandling_EnsureComplete
      * @type {Integer (Int32)}
      */
-    static eAVEncCommonStreamEndHandling_EnsureComplete => 1
+    static EnsureComplete => 1
 }

@@ -31,7 +31,6 @@ class ICLRTaskManager extends IUnknown {
     static VTableNames => ["CreateTask", "GetCurrentTask", "SetUILocale", "SetLocale", "GetCurrentTaskType"]
 
     /**
-     * 
      * @returns {ICLRTask} 
      */
     CreateTask() {
@@ -40,7 +39,6 @@ class ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICLRTask} 
      */
     GetCurrentTask() {
@@ -49,7 +47,6 @@ class ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -59,7 +56,6 @@ class ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -69,7 +65,6 @@ class ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ETaskType} 
      */
     GetCurrentTaskType() {

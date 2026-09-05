@@ -10,73 +10,85 @@ class SR_DISK_REPLICATION_ELIGIBLE extends Win32Enum {
 
     /**
      * None of the disks on the node are eligible for replication.
+     * Native name: SrDiskReplicationEligibleNone
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleNone => 0
+    static None => 0
 
     /**
      * The disk is eligible for replication.
+     * Native name: SrDiskReplicationEligibleYes
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleYes => 1
+    static Yes => 1
 
     /**
      * The disk is offline.
+     * Native name: SrDiskReplicationEligibleOffline
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleOffline => 2
+    static Offline => 2
 
     /**
      * The disk is not formatted with a GUID partition table (GPT).
+     * Native name: SrDiskReplicationEligibleNotGpt
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleNotGpt => 3
+    static NotGpt => 3
 
     /**
      * There are a different number of target and source partitions.
+     * Native name: SrDiskReplicationEligiblePartitionLayoutMismatch
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligiblePartitionLayoutMismatch => 4
+    static PartitionLayoutMismatch => 4
 
     /**
      * There is not enough free space on the disk.
+     * Native name: SrDiskReplicationEligibleInsufficientFreeSpace
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleInsufficientFreeSpace => 5
+    static InsufficientFreeSpace => 5
 
     /**
      * The disk is not on the same site at the target disk.
+     * Native name: SrDiskReplicationEligibleNotInSameSite
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleNotInSameSite => 6
+    static NotInSameSite => 6
 
     /**
      * The disk is on the same site as the target disk.
+     * Native name: SrDiskReplicationEligibleInSameSite
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleInSameSite => 7
+    static InSameSite => 7
 
     /**
      * The file system on the disk is not supported.
+     * Native name: SrDiskReplicationEligibleFileSystemNotSupported
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleFileSystemNotSupported => 8
+    static FileSystemNotSupported => 8
 
     /**
      * The disk is already being replicated.
+     * Native name: SrDiskReplicationEligibleAlreadyInReplication
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleAlreadyInReplication => 9
+    static AlreadyInReplication => 9
 
     /**
      * The disk is the target disk.
+     * Native name: SrDiskReplicationEligibleSameAsSpecifiedDisk
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleSameAsSpecifiedDisk => 10
+    static SameAsSpecifiedDisk => 10
 
     /**
      * Other.
+     * Native name: SrDiskReplicationEligibleOther
      * @type {Integer (Int32)}
      */
-    static SrDiskReplicationEligibleOther => 9999
+    static Other => 9999
 }

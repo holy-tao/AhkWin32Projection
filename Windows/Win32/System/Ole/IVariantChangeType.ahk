@@ -31,7 +31,6 @@ class IVariantChangeType extends IUnknown {
     static VTableNames => ["ChangeType"]
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarDst 
      * @param {Pointer<VARIANT>} pvarSrc 
      * @param {Integer} lcid 

@@ -30,7 +30,6 @@ class ID3D12CompilerStateObject extends IUnknown {
     static VTableNames => ["GetCompiler"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

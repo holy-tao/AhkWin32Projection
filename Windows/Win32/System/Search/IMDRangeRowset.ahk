@@ -31,7 +31,6 @@ class IMDRangeRowset extends IUnknown {
     static VTableNames => ["GetRangeRowset"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} ulStartCell 
      * @param {Pointer} ulEndCell 

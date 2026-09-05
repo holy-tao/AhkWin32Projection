@@ -7,17 +7,20 @@
 class KERB_REQUEST_FLAGS extends Win32Enum {
 
     /**
+     * Native name: KERB_REQUEST_ADD_CREDENTIAL
      * @type {Integer (UInt32)}
      */
-    static KERB_REQUEST_ADD_CREDENTIAL => 1
+    static ADD_CREDENTIAL => 1
 
     /**
+     * Native name: KERB_REQUEST_REPLACE_CREDENTIAL
      * @type {Integer (UInt32)}
      */
-    static KERB_REQUEST_REPLACE_CREDENTIAL => 2
+    static REPLACE_CREDENTIAL => 2
 
     /**
+     * Native name: KERB_REQUEST_REMOVE_CREDENTIAL
      * @type {Integer (UInt32)}
      */
-    static KERB_REQUEST_REMOVE_CREDENTIAL => 4
+    static REMOVE_CREDENTIAL => 4
 }

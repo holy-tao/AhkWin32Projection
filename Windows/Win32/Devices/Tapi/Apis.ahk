@@ -13934,7 +13934,6 @@ class Tapi {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {WPARAM} wRequestID 
      * @param {PSTR} lpszDeviceClass 
@@ -13961,7 +13960,6 @@ class Tapi {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {WPARAM} wRequestID 
      * @param {PSTR} lpszDeviceClass 
@@ -13988,7 +13986,6 @@ class Tapi {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {WPARAM} wRequestID 
      * @param {PWSTR} lpszDeviceClass 

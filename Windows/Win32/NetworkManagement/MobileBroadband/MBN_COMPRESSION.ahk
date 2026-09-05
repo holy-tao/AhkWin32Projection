@@ -10,13 +10,15 @@ class MBN_COMPRESSION extends Win32Enum {
 
     /**
      * Data headers are not compressed.
+     * Native name: MBN_COMPRESSION_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_COMPRESSION_NONE => 0
+    static NONE => 0
 
     /**
      * Data headers are compressed.
+     * Native name: MBN_COMPRESSION_ENABLE
      * @type {Integer (Int32)}
      */
-    static MBN_COMPRESSION_ENABLE => 1
+    static ENABLE => 1
 }

@@ -361,7 +361,6 @@ class DistributedTransactionCoordinator {
 
 ;@region Methods
     /**
-     * 
      * @param {PSTR} i_pszHost 
      * @param {PSTR} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
@@ -382,7 +381,6 @@ class DistributedTransactionCoordinator {
     }
 
     /**
-     * 
      * @param {PSTR} i_pszHost 
      * @param {PSTR} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
@@ -403,7 +401,6 @@ class DistributedTransactionCoordinator {
     }
 
     /**
-     * 
      * @param {PSTR} i_pszHost 
      * @param {PSTR} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
@@ -424,7 +421,6 @@ class DistributedTransactionCoordinator {
     }
 
     /**
-     * 
      * @param {PWSTR} i_pwszHost 
      * @param {PWSTR} i_pwszTmName 
      * @param {Pointer<Guid>} i_riid 

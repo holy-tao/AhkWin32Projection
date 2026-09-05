@@ -12,120 +12,136 @@ class D3D_BLOB_PART extends Win32Enum {
 
     /**
      * The blob part is an input signature.
+     * Native name: D3D_BLOB_INPUT_SIGNATURE_BLOB
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_INPUT_SIGNATURE_BLOB => 0
+    static INPUT_SIGNATURE_BLOB => 0
 
     /**
      * The blob part is an output signature.
+     * Native name: D3D_BLOB_OUTPUT_SIGNATURE_BLOB
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_OUTPUT_SIGNATURE_BLOB => 1
+    static OUTPUT_SIGNATURE_BLOB => 1
 
     /**
      * The blob part is an input and output signature.
+     * Native name: D3D_BLOB_INPUT_AND_OUTPUT_SIGNATURE_BLOB
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_INPUT_AND_OUTPUT_SIGNATURE_BLOB => 2
+    static INPUT_AND_OUTPUT_SIGNATURE_BLOB => 2
 
     /**
      * The blob part is a patch constant signature.
+     * Native name: D3D_BLOB_PATCH_CONSTANT_SIGNATURE_BLOB
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_PATCH_CONSTANT_SIGNATURE_BLOB => 3
+    static PATCH_CONSTANT_SIGNATURE_BLOB => 3
 
     /**
      * The blob part is all signature.
+     * Native name: D3D_BLOB_ALL_SIGNATURE_BLOB
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_ALL_SIGNATURE_BLOB => 4
+    static ALL_SIGNATURE_BLOB => 4
 
     /**
      * The blob part is debug information.
+     * Native name: D3D_BLOB_DEBUG_INFO
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_DEBUG_INFO => 5
+    static DEBUG_INFO => 5
 
     /**
      * The blob part is a legacy shader.
+     * Native name: D3D_BLOB_LEGACY_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_LEGACY_SHADER => 6
+    static LEGACY_SHADER => 6
 
     /**
      * The blob part is an XNA prepass shader.
+     * Native name: D3D_BLOB_XNA_PREPASS_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_XNA_PREPASS_SHADER => 7
+    static XNA_PREPASS_SHADER => 7
 
     /**
      * The blob part is an XNA shader.
+     * Native name: D3D_BLOB_XNA_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_XNA_SHADER => 8
+    static XNA_SHADER => 8
 
     /**
      * The blob part is program database (PDB) information.
      * 
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_44.dll or later version of the file.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_PDB
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_PDB => 9
+    static PDB => 9
 
     /**
      * The blob part is private data.
      * 
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_44.dll or later version of the file.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_PRIVATE_DATA
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_PRIVATE_DATA => 10
+    static PRIVATE_DATA => 10
 
     /**
      * The blob part is a root signature. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/specifying-root-signatures-in-hlsl">Specifying Root Signatures in HLSL</a> for more information on using Direct3D12 with HLSL.
      * 
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_47.dll or later version of the file.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_ROOT_SIGNATURE
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_ROOT_SIGNATURE => 11
+    static ROOT_SIGNATURE => 11
 
     /**
      * The blob part is the debug name of the shader. If the application does not specify the debug name itself, an auto-generated name matching the PDB file of the shader is provided instead.
      * 
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_47.dll as available on the Windows 10 Fall Creators Update and its SDK, or later version of the file.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_DEBUG_NAME
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_DEBUG_NAME => 12
+    static DEBUG_NAME => 12
 
     /**
      * The blob part is a test alternate shader.
      * 
      * <div class="alert"><b>Note</b>  This value identifies a test part and is only produced by special compiler versions. Therefore, this part type is typically not present in shaders.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_TEST_ALTERNATE_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_TEST_ALTERNATE_SHADER => 32768
+    static TEST_ALTERNATE_SHADER => 32768
 
     /**
      * The blob part is test compilation details.
      * 
      * <div class="alert"><b>Note</b>  This value identifies a test part and is only produced by special compiler versions. Therefore, this part type is typically not present in shaders.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_TEST_COMPILE_DETAILS
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_TEST_COMPILE_DETAILS => 32769
+    static TEST_COMPILE_DETAILS => 32769
 
     /**
      * The blob part is test compilation performance.
      * 
      * <div class="alert"><b>Note</b>  This value identifies a test part and is only produced by special compiler versions. Therefore, this part type is typically not present in shaders.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_TEST_COMPILE_PERF
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_TEST_COMPILE_PERF => 32770
+    static TEST_COMPILE_PERF => 32770
 
     /**
      * The blob part is a test compilation report.
@@ -134,7 +150,8 @@ class D3D_BLOB_PART extends Win32Enum {
      * <div> </div>
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_44.dll or later version of the file.</div>
      * <div> </div>
+     * Native name: D3D_BLOB_TEST_COMPILE_REPORT
      * @type {Integer (Int32)}
      */
-    static D3D_BLOB_TEST_COMPILE_REPORT => 32771
+    static TEST_COMPILE_REPORT => 32771
 }

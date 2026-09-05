@@ -29,7 +29,6 @@ class IInternetThreadSwitch extends IUnknown {
     static VTableNames => ["Prepare", "Continue"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Prepare() {
@@ -38,7 +37,6 @@ class IInternetThreadSwitch extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Continue() {

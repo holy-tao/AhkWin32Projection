@@ -36,7 +36,6 @@ class IHTCEventBehavior extends IDispatch {
     static VTableNames => ["fire"]
 
     /**
-     * 
      * @param {IHTMLEventObj} pvar 
      * @returns {HRESULT} 
      */

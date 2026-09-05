@@ -1566,7 +1566,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Integer} dwTlsIndex 
      * @returns {Pointer<Void>} 
      */
@@ -9241,7 +9240,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {Integer} dwTlsIndex 
      * @returns {Pointer<Void>} 
      */
@@ -14695,7 +14693,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerQueue 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
      * @param {Pointer<Void>} Parameter 
@@ -14715,7 +14712,6 @@ class Threading {
     }
 
     /**
-     * 
      * @param {HANDLE} TimerQueue 
      * @param {HANDLE} Timer 
      * @returns {BOOL} 

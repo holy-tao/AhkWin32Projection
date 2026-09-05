@@ -7,17 +7,20 @@
 class GDI_IMAGE_TYPE extends Win32Enum {
 
     /**
+     * Native name: IMAGE_BITMAP
      * @type {Integer (UInt32)}
      */
-    static IMAGE_BITMAP => 0
+    static BITMAP => 0
 
     /**
+     * Native name: IMAGE_CURSOR
      * @type {Integer (UInt32)}
      */
-    static IMAGE_CURSOR => 2
+    static CURSOR => 2
 
     /**
+     * Native name: IMAGE_ICON
      * @type {Integer (UInt32)}
      */
-    static IMAGE_ICON => 1
+    static ICON => 1
 }

@@ -34,7 +34,6 @@ class IAudioFrameNativeFactory extends IInspectable {
     static VTableNames => ["CreateFromMFSample"]
 
     /**
-     * 
      * @param {IMFSample} data 
      * @param {BOOL} forceReadOnly 
      * @param {Pointer<Guid>} riid 

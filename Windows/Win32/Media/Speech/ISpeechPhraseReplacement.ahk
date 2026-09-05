@@ -59,7 +59,6 @@ class ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechDisplayAttributes} 
      */
     get_DisplayAttributes() {
@@ -68,7 +67,6 @@ class ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Text() {
@@ -78,7 +76,6 @@ class ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FirstElement() {
@@ -87,7 +84,6 @@ class ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfElements() {

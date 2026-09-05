@@ -37,7 +37,6 @@ class ILBEvents extends IUnknown {
     static VTableNames => ["TargetUp", "TargetDown", "EngineDefined"]
 
     /**
-     * 
      * @param {BSTR} bstrServerName 
      * @param {BSTR} bstrClsidEng 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ class ILBEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServerName 
      * @param {BSTR} bstrClsidEng 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ class ILBEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPropName 
      * @param {Pointer<VARIANT>} varPropValue 
      * @param {BSTR} bstrClsidEng 

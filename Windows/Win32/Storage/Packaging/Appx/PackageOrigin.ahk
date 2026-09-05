@@ -10,43 +10,50 @@ class PackageOrigin extends Win32Enum {
 
     /**
      * The package's origin is unknown.
+     * Native name: PackageOrigin_Unknown
      * @type {Integer (Int32)}
      */
-    static PackageOrigin_Unknown => 0
+    static Unknown => 0
 
     /**
      * The package originated as unsigned.
+     * Native name: PackageOrigin_Unsigned
      * @type {Integer (Int32)}
      */
-    static PackageOrigin_Unsigned => 1
+    static Unsigned => 1
 
     /**
      * The package was included inbox.
+     * Native name: PackageOrigin_Inbox
      * @type {Integer (Int32)}
      */
-    static PackageOrigin_Inbox => 2
+    static Inbox => 2
 
     /**
      * The package originated from the Windows Store.
+     * Native name: PackageOrigin_Store
      * @type {Integer (Int32)}
      */
-    static PackageOrigin_Store => 3
+    static Store => 3
 
     /**
      * The package originated as developer unsigned.
+     * Native name: PackageOrigin_DeveloperUnsigned
      * @type {Integer (Int32)}
      */
-    static PackageOrigin_DeveloperUnsigned => 4
+    static DeveloperUnsigned => 4
 
     /**
      * The package originated as developer signed.
+     * Native name: PackageOrigin_DeveloperSigned
      * @type {Integer (Int32)}
      */
-    static PackageOrigin_DeveloperSigned => 5
+    static DeveloperSigned => 5
 
     /**
      * The package originated as a line-of-business app.
+     * Native name: PackageOrigin_LineOfBusiness
      * @type {Integer (Int32)}
      */
-    static PackageOrigin_LineOfBusiness => 6
+    static LineOfBusiness => 6
 }

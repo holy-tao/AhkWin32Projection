@@ -7,17 +7,20 @@
 class REG_SAVE_FORMAT extends Win32Enum {
 
     /**
+     * Native name: REG_STANDARD_FORMAT
      * @type {Integer (UInt32)}
      */
-    static REG_STANDARD_FORMAT => 1
+    static STANDARD_FORMAT => 1
 
     /**
+     * Native name: REG_LATEST_FORMAT
      * @type {Integer (UInt32)}
      */
-    static REG_LATEST_FORMAT => 2
+    static LATEST_FORMAT => 2
 
     /**
+     * Native name: REG_NO_COMPRESSION
      * @type {Integer (UInt32)}
      */
-    static REG_NO_COMPRESSION => 4
+    static NO_COMPRESSION => 4
 }

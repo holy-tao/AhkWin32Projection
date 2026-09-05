@@ -16,31 +16,36 @@ class READYSTATE extends Win32Enum {
 
     /**
      * Default initialization state.
+     * Native name: READYSTATE_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static READYSTATE_UNINITIALIZED => 0
+    static UNINITIALIZED => 0
 
     /**
      * Object is loading its properties.
+     * Native name: READYSTATE_LOADING
      * @type {Integer (Int32)}
      */
-    static READYSTATE_LOADING => 1
+    static LOADING => 1
 
     /**
      * Object has been initialized.
+     * Native name: READYSTATE_LOADED
      * @type {Integer (Int32)}
      */
-    static READYSTATE_LOADED => 2
+    static LOADED => 2
 
     /**
      * Object is interactive, but not all its data is available.
+     * Native name: READYSTATE_INTERACTIVE
      * @type {Integer (Int32)}
      */
-    static READYSTATE_INTERACTIVE => 3
+    static INTERACTIVE => 3
 
     /**
      * Object has received all its data.
+     * Native name: READYSTATE_COMPLETE
      * @type {Integer (Int32)}
      */
-    static READYSTATE_COMPLETE => 4
+    static COMPLETE => 4
 }

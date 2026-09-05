@@ -10,25 +10,29 @@ class MBN_SIGNAL_CONSTANTS extends Win32Enum {
 
     /**
      * Use the default value for signal state reporting.
+     * Native name: MBN_RSSI_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MBN_RSSI_DEFAULT => -1
+    static RSSI_DEFAULT => -1
 
     /**
      * Disable signal state reporting.
+     * Native name: MBN_RSSI_DISABLE
      * @type {Integer (Int32)}
      */
-    static MBN_RSSI_DISABLE => 0
+    static RSSI_DISABLE => 0
 
     /**
      * Signal strength is unknown.
+     * Native name: MBN_RSSI_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MBN_RSSI_UNKNOWN => 99
+    static RSSI_UNKNOWN => 99
 
     /**
      * Signal error rate is unknown.
+     * Native name: MBN_ERROR_RATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MBN_ERROR_RATE_UNKNOWN => 99
+    static ERROR_RATE_UNKNOWN => 99
 }

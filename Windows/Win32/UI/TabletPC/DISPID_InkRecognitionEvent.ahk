@@ -7,12 +7,14 @@
 class DISPID_InkRecognitionEvent extends Win32Enum {
 
     /**
+     * Native name: DISPID_IRERecognitionWithAlternates
      * @type {Integer (Int32)}
      */
-    static DISPID_IRERecognitionWithAlternates => 1
+    static IRERecognitionWithAlternates => 1
 
     /**
+     * Native name: DISPID_IRERecognition
      * @type {Integer (Int32)}
      */
-    static DISPID_IRERecognition => 2
+    static IRERecognition => 2
 }

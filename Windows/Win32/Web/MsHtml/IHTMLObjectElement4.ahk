@@ -53,7 +53,6 @@ class IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_contentDocument() {
@@ -62,7 +61,6 @@ class IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +72,6 @@ class IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_codeBase() {
@@ -84,7 +81,6 @@ class IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +92,6 @@ class IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {

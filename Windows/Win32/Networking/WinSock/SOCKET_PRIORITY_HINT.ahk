@@ -7,22 +7,26 @@
 class SOCKET_PRIORITY_HINT extends Win32Enum {
 
     /**
+     * Native name: SocketPriorityHintVeryLow
      * @type {Integer (Int32)}
      */
-    static SocketPriorityHintVeryLow => 0
+    static VeryLow => 0
 
     /**
+     * Native name: SocketPriorityHintLow
      * @type {Integer (Int32)}
      */
-    static SocketPriorityHintLow => 1
+    static Low => 1
 
     /**
+     * Native name: SocketPriorityHintNormal
      * @type {Integer (Int32)}
      */
-    static SocketPriorityHintNormal => 2
+    static Normal => 2
 
     /**
+     * Native name: SocketMaximumPriorityHintType
      * @type {Integer (Int32)}
      */
-    static SocketMaximumPriorityHintType => 3
+    static MaximumPriorityHintType => 3
 }

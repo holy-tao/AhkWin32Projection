@@ -33,7 +33,6 @@ class IXFeedEnclosure extends IUnknown {
     static VTableNames => ["Url", "Type", "Length", "AsyncDownload", "CancelAsyncDownload", "DownloadStatus", "LastDownloadError", "LocalPath", "Parent", "DownloadUrl", "DownloadMimeType", "RemoveFile", "SetFile"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Url() {
@@ -52,7 +51,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Length() {
@@ -61,7 +59,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -70,7 +67,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -91,7 +87,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError() {
@@ -100,7 +95,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     LocalPath() {
@@ -109,7 +103,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -119,7 +112,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadUrl() {
@@ -128,7 +120,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadMimeType() {
@@ -137,7 +128,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveFile() {
@@ -146,7 +136,6 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDownloadUrl 
      * @param {PWSTR} pszDownloadFilePath 
      * @param {PWSTR} pszDownloadMimeType 

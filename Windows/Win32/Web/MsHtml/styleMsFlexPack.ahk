@@ -7,37 +7,44 @@
 class styleMsFlexPack extends Win32Enum {
 
     /**
+     * Native name: styleMsFlexPackStart
      * @type {Integer (Int32)}
      */
-    static styleMsFlexPackStart => 0
+    static Start => 0
 
     /**
+     * Native name: styleMsFlexPackEnd
      * @type {Integer (Int32)}
      */
-    static styleMsFlexPackEnd => 1
+    static End => 1
 
     /**
+     * Native name: styleMsFlexPackCenter
      * @type {Integer (Int32)}
      */
-    static styleMsFlexPackCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleMsFlexPackJustify
      * @type {Integer (Int32)}
      */
-    static styleMsFlexPackJustify => 3
+    static Justify => 3
 
     /**
+     * Native name: styleMsFlexPackDistribute
      * @type {Integer (Int32)}
      */
-    static styleMsFlexPackDistribute => 4
+    static Distribute => 4
 
     /**
+     * Native name: styleMsFlexPackNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsFlexPackNotSet => 5
+    static NotSet => 5
 
     /**
+     * Native name: styleMsFlexPack_Max
      * @type {Integer (Int32)}
      */
-    static styleMsFlexPack_Max => 2147483647
+    static Max => 2147483647
 }

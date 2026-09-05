@@ -7,17 +7,20 @@
 class DISPID_SpeechPhraseReplacements extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPRsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRsCount => 1
+    static SPRsCount => 1
 
     /**
+     * Native name: DISPID_SPRsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRsItem => 0
+    static SPRsItem => 0
 
     /**
+     * Native name: DISPID_SPRs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRs_NewEnum => -4
+    static SPRs_NewEnum => -4
 }

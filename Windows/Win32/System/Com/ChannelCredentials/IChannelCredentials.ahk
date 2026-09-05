@@ -32,7 +32,6 @@ class IChannelCredentials extends IDispatch {
     static VTableNames => ["SetWindowsCredential", "SetUserNameCredential", "SetClientCertificateFromStore", "SetClientCertificateFromStoreByName", "SetClientCertificateFromFile", "SetDefaultServiceCertificateFromStore", "SetDefaultServiceCertificateFromStoreByName", "SetDefaultServiceCertificateFromFile", "SetServiceCertificateAuthentication", "SetIssuedToken"]
 
     /**
-     * 
      * @param {BSTR} domain 
      * @param {BSTR} username 
      * @param {BSTR} password 
@@ -50,7 +49,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} username 
      * @param {BSTR} password 
      * @returns {HRESULT} 
@@ -64,7 +62,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
      * @param {BSTR} findYype 
@@ -81,7 +78,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} subjectName 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
@@ -97,7 +93,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} filename 
      * @param {BSTR} password 
      * @param {BSTR} keystorageFlags 
@@ -113,7 +108,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
      * @param {BSTR} findType 
@@ -130,7 +124,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} subjectName 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
@@ -146,7 +139,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} filename 
      * @param {BSTR} password 
      * @param {BSTR} keystorageFlags 
@@ -162,7 +154,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} storeLocation 
      * @param {BSTR} revocationMode 
      * @param {BSTR} certificateValidationMode 
@@ -178,7 +169,6 @@ class IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} localIssuerAddres 
      * @param {BSTR} localIssuerBindingType 
      * @param {BSTR} localIssuerBinding 

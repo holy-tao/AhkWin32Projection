@@ -80,7 +80,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -90,7 +89,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -102,7 +100,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -112,7 +109,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -124,7 +120,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -134,7 +129,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -144,7 +138,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_status() {
@@ -154,7 +147,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -164,7 +156,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -173,7 +164,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -182,7 +172,6 @@ class IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {

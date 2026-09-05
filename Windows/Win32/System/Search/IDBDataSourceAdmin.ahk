@@ -33,7 +33,6 @@ class IDBDataSourceAdmin extends IUnknown {
     static VTableNames => ["CreateDataSource", "DestroyDataSource", "GetCreationProperties", "ModifyDataSource"]
 
     /**
-     * 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @param {IUnknown} pUnkOuter 
@@ -46,7 +45,6 @@ class IDBDataSourceAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DestroyDataSource() {
@@ -55,7 +53,6 @@ class IDBDataSourceAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertyInfoSets 
@@ -73,7 +70,6 @@ class IDBDataSourceAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @returns {HRESULT} 

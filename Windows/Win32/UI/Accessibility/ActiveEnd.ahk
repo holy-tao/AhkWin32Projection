@@ -10,19 +10,22 @@ class ActiveEnd extends Win32Enum {
 
     /**
      * The caret is not at either end of the text range.
+     * Native name: ActiveEnd_None
      * @type {Integer (Int32)}
      */
-    static ActiveEnd_None => 0
+    static None => 0
 
     /**
      * The caret is at the beginning of the text range.
+     * Native name: ActiveEnd_Start
      * @type {Integer (Int32)}
      */
-    static ActiveEnd_Start => 1
+    static Start => 1
 
     /**
      * The caret is at the end of the text range.
+     * Native name: ActiveEnd_End
      * @type {Integer (Int32)}
      */
-    static ActiveEnd_End => 2
+    static End => 2
 }

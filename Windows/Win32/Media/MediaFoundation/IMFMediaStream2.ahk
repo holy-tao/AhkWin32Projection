@@ -30,7 +30,6 @@ class IMFMediaStream2 extends IMFMediaStream {
     static VTableNames => ["SetStreamState", "GetStreamState"]
 
     /**
-     * 
      * @param {MF_STREAM_STATE} value 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IMFMediaStream2 extends IMFMediaStream {
     }
 
     /**
-     * 
      * @returns {MF_STREAM_STATE} 
      */
     GetStreamState() {

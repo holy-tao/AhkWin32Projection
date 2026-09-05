@@ -10,13 +10,15 @@ class MBN_DEVICE_SERVICES_INTERFACE_STATE extends Win32Enum {
 
     /**
      * A Mobile Broadband device capable of supporting device service functionality has arrived.
+     * Native name: MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_ARRIVAL
      * @type {Integer (Int32)}
      */
-    static MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_ARRIVAL => 0
+    static CAPABLE_INTERFACE_ARRIVAL => 0
 
     /**
      * A Mobile Broadband device capable of supporting device services functionality has been removed.
+     * Native name: MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_REMOVAL
      * @type {Integer (Int32)}
      */
-    static MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_REMOVAL => 1
+    static CAPABLE_INTERFACE_REMOVAL => 1
 }

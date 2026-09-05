@@ -9,12 +9,14 @@
 class WINBIO_POOL extends Win32Enum {
 
     /**
+     * Native name: WINBIO_POOL_SYSTEM
      * @type {Integer (UInt32)}
      */
-    static WINBIO_POOL_SYSTEM => 1
+    static SYSTEM => 1
 
     /**
+     * Native name: WINBIO_POOL_PRIVATE
      * @type {Integer (UInt32)}
      */
-    static WINBIO_POOL_PRIVATE => 2
+    static PRIVATE => 2
 }

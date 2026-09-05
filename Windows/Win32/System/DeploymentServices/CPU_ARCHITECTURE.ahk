@@ -7,17 +7,20 @@
 class CPU_ARCHITECTURE extends Win32Enum {
 
     /**
+     * Native name: CPU_ARCHITECTURE_AMD64
      * @type {Integer (UInt32)}
      */
-    static CPU_ARCHITECTURE_AMD64 => 9
+    static AMD64 => 9
 
     /**
+     * Native name: CPU_ARCHITECTURE_IA64
      * @type {Integer (UInt32)}
      */
-    static CPU_ARCHITECTURE_IA64 => 6
+    static IA64 => 6
 
     /**
+     * Native name: CPU_ARCHITECTURE_INTEL
      * @type {Integer (UInt32)}
      */
-    static CPU_ARCHITECTURE_INTEL => 0
+    static INTEL => 0
 }

@@ -7,27 +7,32 @@
 class eAVDecVideoDXVAMode extends Win32Enum {
 
     /**
+     * Native name: eAVDecVideoDXVAMode_NOTPLAYING
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVAMode_NOTPLAYING => 0
+    static NOTPLAYING => 0
 
     /**
+     * Native name: eAVDecVideoDXVAMode_SW
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVAMode_SW => 1
+    static SW => 1
 
     /**
+     * Native name: eAVDecVideoDXVAMode_MC
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVAMode_MC => 2
+    static MC => 2
 
     /**
+     * Native name: eAVDecVideoDXVAMode_IDCT
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVAMode_IDCT => 3
+    static IDCT => 3
 
     /**
+     * Native name: eAVDecVideoDXVAMode_VLD
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoDXVAMode_VLD => 4
+    static VLD => 4
 }

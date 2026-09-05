@@ -7,12 +7,14 @@
 class D3D12_COMMAND_QUEUE_PROCESS_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: D3D12_COMMAND_QUEUE_PROCESS_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_PROCESS_PRIORITY_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: D3D12_COMMAND_QUEUE_PROCESS_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_PROCESS_PRIORITY_HIGH => 1
+    static HIGH => 1
 }

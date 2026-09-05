@@ -10,7 +10,8 @@ class MFTIMER_FLAGS extends Win32Enum {
 
     /**
      * The time passed to the timer is relative to the current time. If this flag is absent, the time is expressed as an absolute clock time.
+     * Native name: MFTIMER_RELATIVE
      * @type {Integer (Int32)}
      */
-    static MFTIMER_RELATIVE => 1
+    static RELATIVE => 1
 }

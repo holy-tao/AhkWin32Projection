@@ -7,57 +7,68 @@
 class GNSS_EVENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_Event_FixAvailable
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_FixAvailable => 1
+    static FixAvailable => 1
 
     /**
+     * Native name: GNSS_Event_RequireAgnss
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_RequireAgnss => 2
+    static RequireAgnss => 2
 
     /**
+     * Native name: GNSS_Event_Error
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_Error => 3
+    static Error => 3
 
     /**
+     * Native name: GNSS_Event_NiRequest
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_NiRequest => 12
+    static NiRequest => 12
 
     /**
+     * Native name: GNSS_Event_NmeaData
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_NmeaData => 13
+    static NmeaData => 13
 
     /**
+     * Native name: GNSS_Event_GeofenceAlertData
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_GeofenceAlertData => 14
+    static GeofenceAlertData => 14
 
     /**
+     * Native name: GNSS_Event_GeofencesTrackingStatus
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_GeofencesTrackingStatus => 15
+    static GeofencesTrackingStatus => 15
 
     /**
+     * Native name: GNSS_Event_DriverRequest
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_DriverRequest => 16
+    static DriverRequest => 16
 
     /**
+     * Native name: GNSS_Event_BreadcrumbAlertEvent
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_BreadcrumbAlertEvent => 17
+    static BreadcrumbAlertEvent => 17
 
     /**
+     * Native name: GNSS_Event_FixAvailable_2
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_FixAvailable_2 => 18
+    static FixAvailable_2 => 18
 
     /**
+     * Native name: GNSS_Event_Custom
      * @type {Integer (Int32)}
      */
-    static GNSS_Event_Custom => 32768
+    static Custom => 32768
 }

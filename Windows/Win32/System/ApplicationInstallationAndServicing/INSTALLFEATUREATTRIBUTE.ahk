@@ -7,32 +7,38 @@
 class INSTALLFEATUREATTRIBUTE extends Win32Enum {
 
     /**
+     * Native name: INSTALLFEATUREATTRIBUTE_FAVORLOCAL
      * @type {Integer (Int32)}
      */
-    static INSTALLFEATUREATTRIBUTE_FAVORLOCAL => 1
+    static FAVORLOCAL => 1
 
     /**
+     * Native name: INSTALLFEATUREATTRIBUTE_FAVORSOURCE
      * @type {Integer (Int32)}
      */
-    static INSTALLFEATUREATTRIBUTE_FAVORSOURCE => 2
+    static FAVORSOURCE => 2
 
     /**
+     * Native name: INSTALLFEATUREATTRIBUTE_FOLLOWPARENT
      * @type {Integer (Int32)}
      */
-    static INSTALLFEATUREATTRIBUTE_FOLLOWPARENT => 4
+    static FOLLOWPARENT => 4
 
     /**
+     * Native name: INSTALLFEATUREATTRIBUTE_FAVORADVERTISE
      * @type {Integer (Int32)}
      */
-    static INSTALLFEATUREATTRIBUTE_FAVORADVERTISE => 8
+    static FAVORADVERTISE => 8
 
     /**
+     * Native name: INSTALLFEATUREATTRIBUTE_DISALLOWADVERTISE
      * @type {Integer (Int32)}
      */
-    static INSTALLFEATUREATTRIBUTE_DISALLOWADVERTISE => 16
+    static DISALLOWADVERTISE => 16
 
     /**
+     * Native name: INSTALLFEATUREATTRIBUTE_NOUNSUPPORTEDADVERTISE
      * @type {Integer (Int32)}
      */
-    static INSTALLFEATUREATTRIBUTE_NOUNSUPPORTEDADVERTISE => 32
+    static NOUNSUPPORTEDADVERTISE => 32
 }

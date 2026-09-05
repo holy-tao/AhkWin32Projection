@@ -12,7 +12,8 @@ class WMT_NET_PROTOCOL extends Win32Enum {
 
     /**
      * The network sink supports hypertext transfer protocol (HTTP).
+     * Native name: WMT_PROTOCOL_HTTP
      * @type {Integer (Int32)}
      */
-    static WMT_PROTOCOL_HTTP => 0
+    static HTTP => 0
 }

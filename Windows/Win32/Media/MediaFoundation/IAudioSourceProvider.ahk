@@ -29,7 +29,6 @@ class IAudioSourceProvider extends IUnknown {
     static VTableNames => ["ProvideInput"]
 
     /**
-     * 
      * @param {Integer} dwSampleCount 
      * @param {Pointer<Integer>} pdwChannelCount 
      * @returns {Float} 

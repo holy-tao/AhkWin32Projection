@@ -10,27 +10,31 @@ class XPS_FONT_EMBEDDING extends Win32Enum {
 
     /**
      * The embedded font is neither obfuscated nor restricted.
+     * Native name: XPS_FONT_EMBEDDING_NORMAL
      * @type {Integer (Int32)}
      */
-    static XPS_FONT_EMBEDDING_NORMAL => 1
+    static NORMAL => 1
 
     /**
      * The embedded font is obfuscated but not restricted.
+     * Native name: XPS_FONT_EMBEDDING_OBFUSCATED
      * @type {Integer (Int32)}
      */
-    static XPS_FONT_EMBEDDING_OBFUSCATED => 2
+    static OBFUSCATED => 2
 
     /**
      * The embedded font is obfuscated and restricted.
+     * Native name: XPS_FONT_EMBEDDING_RESTRICTED
      * @type {Integer (Int32)}
      */
-    static XPS_FONT_EMBEDDING_RESTRICTED => 3
+    static RESTRICTED => 3
 
     /**
      * The font is restricted but not obfuscated.
      * 
      * This value cannot be set by an application. It is set when the document being deserialized contains a restricted font that is not obfuscated. Restricted fonts should be obfuscated, so this value usually indicates an error in the application that created the XPS document being deserialized.
+     * Native name: XPS_FONT_EMBEDDING_RESTRICTED_UNOBFUSCATED
      * @type {Integer (Int32)}
      */
-    static XPS_FONT_EMBEDDING_RESTRICTED_UNOBFUSCATED => 4
+    static RESTRICTED_UNOBFUSCATED => 4
 }

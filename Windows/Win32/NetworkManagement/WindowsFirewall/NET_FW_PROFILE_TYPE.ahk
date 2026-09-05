@@ -10,25 +10,29 @@ class NET_FW_PROFILE_TYPE extends Win32Enum {
 
     /**
      * Profile type is domain.
+     * Native name: NET_FW_PROFILE_DOMAIN
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE_DOMAIN => 0
+    static DOMAIN => 0
 
     /**
      * Profile type is standard.
+     * Native name: NET_FW_PROFILE_STANDARD
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE_STANDARD => 1
+    static STANDARD => 1
 
     /**
      * Profile type is current.
+     * Native name: NET_FW_PROFILE_CURRENT
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE_CURRENT => 2
+    static CURRENT => 2
 
     /**
      * Used for boundary checking only. Not valid for application programming.
+     * Native name: NET_FW_PROFILE_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE_TYPE_MAX => 3
+    static MAX => 3
 }

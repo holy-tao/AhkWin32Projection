@@ -30,7 +30,6 @@ class IWPCBlockedUrls extends IUnknown {
     static VTableNames => ["GetCount", "GetUrl"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -39,7 +38,6 @@ class IWPCBlockedUrls extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIdx 
      * @returns {BSTR} 
      */

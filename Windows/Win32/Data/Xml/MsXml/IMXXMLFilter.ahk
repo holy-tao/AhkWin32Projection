@@ -61,7 +61,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT_BOOL} 
      */
@@ -73,7 +72,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
@@ -86,7 +84,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT} 
      */
@@ -99,7 +96,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
@@ -112,7 +108,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_entityResolver() {
@@ -121,7 +116,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oResolver 
      * @returns {HRESULT} 
      */
@@ -131,7 +125,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_contentHandler() {
@@ -140,7 +133,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oHandler 
      * @returns {HRESULT} 
      */
@@ -150,7 +142,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_dtdHandler() {
@@ -159,7 +150,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oHandler 
      * @returns {HRESULT} 
      */
@@ -169,7 +159,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_errorHandler() {
@@ -178,7 +167,6 @@ class IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oHandler 
      * @returns {HRESULT} 
      */

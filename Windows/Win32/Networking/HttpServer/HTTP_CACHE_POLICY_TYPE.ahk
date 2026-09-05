@@ -10,25 +10,29 @@ class HTTP_CACHE_POLICY_TYPE extends Win32Enum {
 
     /**
      * Do not cache this value at all.
+     * Native name: HttpCachePolicyNocache
      * @type {Integer (Int32)}
      */
-    static HttpCachePolicyNocache => 0
+    static Nocache => 0
 
     /**
      * Cache this value until the user provides a different one.
+     * Native name: HttpCachePolicyUserInvalidates
      * @type {Integer (Int32)}
      */
-    static HttpCachePolicyUserInvalidates => 1
+    static UserInvalidates => 1
 
     /**
      * Cache this value for a specified time and then remove it from the cache.
+     * Native name: HttpCachePolicyTimeToLive
      * @type {Integer (Int32)}
      */
-    static HttpCachePolicyTimeToLive => 2
+    static TimeToLive => 2
 
     /**
      * Terminates the enumeration; not used to determine policy.
+     * Native name: HttpCachePolicyMaximum
      * @type {Integer (Int32)}
      */
-    static HttpCachePolicyMaximum => 3
+    static Maximum => 3
 }

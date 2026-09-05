@@ -7,12 +7,14 @@
 class EXpsFontOptions extends Win32Enum {
 
     /**
+     * Native name: Font_Normal
      * @type {Integer (Int32)}
      */
-    static Font_Normal => 0
+    static Normal => 0
 
     /**
+     * Native name: Font_Obfusticate
      * @type {Integer (Int32)}
      */
-    static Font_Obfusticate => 1
+    static Obfusticate => 1
 }

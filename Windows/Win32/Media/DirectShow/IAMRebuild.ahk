@@ -29,7 +29,6 @@ class IAMRebuild extends IUnknown {
     static VTableNames => ["RebuildNow"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RebuildNow() {

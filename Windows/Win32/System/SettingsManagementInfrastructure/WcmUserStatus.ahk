@@ -18,25 +18,29 @@ class WcmUserStatus extends Win32Enum {
 
     /**
      * Indicates that the store is registered, but is not currently loaded for use.
+     * Native name: UserRegistered
      * @type {Integer (Int32)}
      */
-    static UserRegistered => 1
+    static Registered => 1
 
     /**
      * Indicates that the store does not currently exist.
+     * Native name: UserUnregistered
      * @type {Integer (Int32)}
      */
-    static UserUnregistered => 2
+    static Unregistered => 2
 
     /**
      * Indicates that the store is registered, loaded, and ready for use.
+     * Native name: UserLoaded
      * @type {Integer (Int32)}
      */
-    static UserLoaded => 3
+    static Loaded => 3
 
     /**
      * This has the same semantics as <b>UserRegistered</b>.
+     * Native name: UserUnloaded
      * @type {Integer (Int32)}
      */
-    static UserUnloaded => 4
+    static Unloaded => 4
 }

@@ -11,19 +11,22 @@ class SYNCMGR_PRESENTER_NEXT_STEP extends Win32Enum {
     /**
      * The conflict has been resolved and subsequent
      * selected conflicts should continue to be resolved.
+     * Native name: SYNCMGR_PNS_CONTINUE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PNS_CONTINUE => 0
+    static PNS_CONTINUE => 0
 
     /**
      * The default conflict presenter should be used.
+     * Native name: SYNCMGR_PNS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PNS_DEFAULT => 1
+    static PNS_DEFAULT => 1
 
     /**
      * All conflict resolution should be canceled.
+     * Native name: SYNCMGR_PNS_CANCEL
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PNS_CANCEL => 2
+    static PNS_CANCEL => 2
 }

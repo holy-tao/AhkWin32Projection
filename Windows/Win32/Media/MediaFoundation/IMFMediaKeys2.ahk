@@ -32,7 +32,6 @@ class IMFMediaKeys2 extends IMFMediaKeys {
     static VTableNames => ["CreateSession2", "SetServerCertificate", "GetDOMException"]
 
     /**
-     * 
      * @param {MF_MEDIAKEYSESSION_TYPE} eSessionType 
      * @param {IMFMediaKeySessionNotify2} pMFMediaKeySessionNotify2 
      * @returns {IMFMediaKeySession2} 
@@ -43,7 +42,6 @@ class IMFMediaKeys2 extends IMFMediaKeys {
     }
 
     /**
-     * 
      * @param {Integer} pbServerCertificate 
      * @param {Integer} cb 
      * @returns {HRESULT} 
@@ -54,7 +52,6 @@ class IMFMediaKeys2 extends IMFMediaKeys {
     }
 
     /**
-     * 
      * @param {HRESULT} systemCode 
      * @returns {HRESULT} 
      */

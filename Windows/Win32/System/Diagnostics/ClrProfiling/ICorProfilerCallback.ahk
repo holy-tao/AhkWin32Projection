@@ -81,7 +81,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @returns {HRESULT} 
      */
@@ -91,7 +90,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -102,7 +100,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @returns {HRESULT} 
      */
@@ -112,7 +109,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -123,7 +119,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @returns {HRESULT} 
      */
@@ -133,7 +128,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -144,7 +138,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -165,7 +157,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */
@@ -175,7 +166,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -186,7 +176,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */
@@ -196,7 +185,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -207,7 +195,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Pointer} AssemblyId 
      * @returns {HRESULT} 
@@ -218,7 +205,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
      */
@@ -228,7 +214,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -239,7 +224,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
      */
@@ -249,7 +233,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -260,7 +243,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -270,7 +252,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {BOOL} fIsSafeToBlock 
      * @returns {HRESULT} 
@@ -281,7 +262,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {HRESULT} hrStatus 
      * @param {BOOL} fIsSafeToBlock 
@@ -293,7 +273,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {BOOL} 
      */
@@ -303,7 +282,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {COR_PRF_JIT_CACHE} result 
      * @returns {HRESULT} 
@@ -314,7 +292,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -324,7 +301,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} callerId 
      * @param {Pointer} calleeId 
      * @returns {BOOL} 
@@ -335,7 +311,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -345,7 +320,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -355,7 +329,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} managedThreadId 
      * @param {Integer} osThreadId 
      * @returns {HRESULT} 
@@ -366,7 +339,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingClientInvocationStarted() {
@@ -375,7 +347,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -386,7 +357,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -397,7 +367,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingClientInvocationFinished() {
@@ -406,7 +375,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -417,7 +385,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingServerInvocationStarted() {
@@ -426,7 +393,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingServerInvocationReturned() {
@@ -435,7 +401,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -446,7 +411,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {COR_PRF_TRANSITION_REASON} reason 
      * @returns {HRESULT} 
@@ -457,7 +421,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {COR_PRF_TRANSITION_REASON} reason 
      * @returns {HRESULT} 
@@ -468,7 +431,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {COR_PRF_SUSPEND_REASON} suspendReason 
      * @returns {HRESULT} 
      */
@@ -478,7 +440,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeSuspendFinished() {
@@ -487,7 +448,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeSuspendAborted() {
@@ -496,7 +456,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeResumeStarted() {
@@ -505,7 +464,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeResumeFinished() {
@@ -514,7 +472,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -524,7 +481,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -534,7 +490,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cMovedObjectIDRanges 
      * @param {Pointer<Pointer>} oldObjectIDRangeStart 
      * @param {Pointer<Pointer>} newObjectIDRangeStart 
@@ -551,7 +506,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
@@ -562,7 +516,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cClassCount 
      * @param {Pointer<Pointer>} classIds 
      * @param {Pointer<Integer>} cObjects 
@@ -577,7 +530,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer} classId 
      * @param {Integer} cObjectRefs 
@@ -592,7 +544,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cRootRefs 
      * @param {Pointer<Pointer>} rootRefIds 
      * @returns {HRESULT} 
@@ -605,7 +556,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} thrownObjectId 
      * @returns {HRESULT} 
      */
@@ -615,7 +565,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -625,7 +574,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionSearchFunctionLeave() {
@@ -634,7 +582,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -644,7 +591,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionSearchFilterLeave() {
@@ -653,7 +599,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -663,7 +608,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} __unused 
      * @returns {HRESULT} 
      */
@@ -673,7 +617,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} __unused 
      * @returns {HRESULT} 
      */
@@ -683,7 +626,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -693,7 +635,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionUnwindFunctionLeave() {
@@ -702,7 +643,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -712,7 +652,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionUnwindFinallyLeave() {
@@ -721,7 +660,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} _objectId 
      * @returns {HRESULT} 
@@ -732,7 +670,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionCatcherLeave() {
@@ -741,7 +678,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} wrappedClassId 
      * @param {Pointer<Guid>} implementedIID 
      * @param {Pointer<Void>} pVTable 
@@ -756,7 +692,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} wrappedClassId 
      * @param {Pointer<Guid>} implementedIID 
      * @param {Pointer<Void>} pVTable 
@@ -770,7 +705,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionCLRCatcherFound() {
@@ -779,7 +713,6 @@ class ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionCLRCatcherExecute() {

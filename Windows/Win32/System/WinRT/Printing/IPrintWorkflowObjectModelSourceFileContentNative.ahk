@@ -38,7 +38,6 @@ class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPrintWorkflowXpsReceiver} receiver 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IXpsOMObjectFactory1} 
      */
     get_ObjectFactory() {

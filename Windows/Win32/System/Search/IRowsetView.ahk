@@ -30,7 +30,6 @@ class IRowsetView extends IUnknown {
     static VTableNames => ["CreateView", "GetView"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -41,7 +40,6 @@ class IRowsetView extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer>} phChapterSource 

@@ -30,7 +30,6 @@ class IPrinterExtensionRequest extends IDispatch {
     static VTableNames => ["Cancel", "Complete"]
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @param {BSTR} bstrLogMessage 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IPrinterExtensionRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Complete() {

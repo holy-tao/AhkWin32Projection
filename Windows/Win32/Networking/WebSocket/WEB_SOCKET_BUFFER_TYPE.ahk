@@ -14,43 +14,50 @@ class WEB_SOCKET_BUFFER_TYPE extends Win32Enum {
 
     /**
      * Indicates the buffer contains the last, and possibly only, part of a UTF8 message.
+     * Native name: WEB_SOCKET_UTF8_MESSAGE_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_UTF8_MESSAGE_BUFFER_TYPE => -2147483648
+    static UTF8_MESSAGE_BUFFER_TYPE => -2147483648
 
     /**
      * Indicates the buffer contains part of a UTF8 message.
+     * Native name: WEB_SOCKET_UTF8_FRAGMENT_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_UTF8_FRAGMENT_BUFFER_TYPE => -2147483647
+    static UTF8_FRAGMENT_BUFFER_TYPE => -2147483647
 
     /**
      * Indicates the buffer contains the last, and possibly only, part of a binary message.
+     * Native name: WEB_SOCKET_BINARY_MESSAGE_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_BINARY_MESSAGE_BUFFER_TYPE => -2147483646
+    static BINARY_MESSAGE_BUFFER_TYPE => -2147483646
 
     /**
      * Indicates the buffer contains part of a binary message.
+     * Native name: WEB_SOCKET_BINARY_FRAGMENT_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_BINARY_FRAGMENT_BUFFER_TYPE => -2147483645
+    static BINARY_FRAGMENT_BUFFER_TYPE => -2147483645
 
     /**
      * Indicates the buffer contains a close message.
+     * Native name: WEB_SOCKET_CLOSE_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_CLOSE_BUFFER_TYPE => -2147483644
+    static CLOSE_BUFFER_TYPE => -2147483644
 
     /**
      * Indicates the buffer contains a ping or pong message. When sending, this value means 'ping', when processing received data, this value means 'pong'.
+     * Native name: WEB_SOCKET_PING_PONG_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_PING_PONG_BUFFER_TYPE => -2147483643
+    static PING_PONG_BUFFER_TYPE => -2147483643
 
     /**
      * Indicates the buffer contains an unsolicited pong message.
+     * Native name: WEB_SOCKET_UNSOLICITED_PONG_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_UNSOLICITED_PONG_BUFFER_TYPE => -2147483642
+    static UNSOLICITED_PONG_BUFFER_TYPE => -2147483642
 }

@@ -7,12 +7,14 @@
 class ASC_REQ_HIGH_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: ASC_REQ_MESSAGES
      * @type {Integer (UInt64)}
      */
-    static ASC_REQ_MESSAGES => 4294967296
+    static MESSAGES => 4294967296
 
     /**
+     * Native name: ASC_REQ_EXPLICIT_SESSION
      * @type {Integer (UInt64)}
      */
-    static ASC_REQ_EXPLICIT_SESSION => 68719476736
+    static EXPLICIT_SESSION => 68719476736
 }

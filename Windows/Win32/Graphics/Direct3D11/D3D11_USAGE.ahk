@@ -117,27 +117,31 @@ class D3D11_USAGE extends Win32Enum {
 
     /**
      * A resource that requires read and write access by the GPU. This is likely to be the most common usage choice.
+     * Native name: D3D11_USAGE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3D11_USAGE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * A resource that can only be read by the GPU. It cannot be written by the GPU, and cannot be accessed at all by the CPU. This type of resource must be initialized when it is created, since it cannot be changed after creation.
+     * Native name: D3D11_USAGE_IMMUTABLE
      * @type {Integer (Int32)}
      */
-    static D3D11_USAGE_IMMUTABLE => 1
+    static IMMUTABLE => 1
 
     /**
      * A resource that is accessible by both the GPU (read only) and the CPU (write only). A dynamic resource is a good choice for a resource that will be updated by the CPU at least once per frame. To update a dynamic resource, use a <b>Map</b> method.
      * 
      * For info about how to use dynamic resources, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/how-to--use-dynamic-resources">How to: Use dynamic resources</a>.
+     * Native name: D3D11_USAGE_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static D3D11_USAGE_DYNAMIC => 2
+    static DYNAMIC => 2
 
     /**
      * A resource that supports data transfer (copy) from the GPU to the CPU.
+     * Native name: D3D11_USAGE_STAGING
      * @type {Integer (Int32)}
      */
-    static D3D11_USAGE_STAGING => 3
+    static STAGING => 3
 }

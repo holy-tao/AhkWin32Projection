@@ -7,17 +7,20 @@
 class STD_HANDLE extends Win32Enum {
 
     /**
+     * Native name: STD_INPUT_HANDLE
      * @type {Integer (UInt32)}
      */
-    static STD_INPUT_HANDLE => 4294967286
+    static INPUT_HANDLE => 4294967286
 
     /**
+     * Native name: STD_OUTPUT_HANDLE
      * @type {Integer (UInt32)}
      */
-    static STD_OUTPUT_HANDLE => 4294967285
+    static OUTPUT_HANDLE => 4294967285
 
     /**
+     * Native name: STD_ERROR_HANDLE
      * @type {Integer (UInt32)}
      */
-    static STD_ERROR_HANDLE => 4294967284
+    static ERROR_HANDLE => 4294967284
 }

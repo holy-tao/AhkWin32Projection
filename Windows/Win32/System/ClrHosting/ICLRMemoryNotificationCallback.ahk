@@ -30,7 +30,6 @@ class ICLRMemoryNotificationCallback extends IUnknown {
     static VTableNames => ["OnMemoryNotification"]
 
     /**
-     * 
      * @param {EMemoryAvailable} _eMemoryAvailable 
      * @returns {HRESULT} 
      */

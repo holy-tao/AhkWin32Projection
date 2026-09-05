@@ -145,7 +145,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Key() {
@@ -155,7 +154,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -165,7 +163,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_XML() {
@@ -175,7 +172,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProviderName() {
@@ -185,7 +181,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PROVIDER_URI} enURI 
      * @returns {BSTR} 
      */
@@ -196,7 +191,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProviderData() {
@@ -206,7 +200,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientName() {
@@ -216,7 +209,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ClientBanner() {
@@ -225,7 +217,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientMinVer() {
@@ -235,7 +226,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientCurVer() {
@@ -245,7 +235,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientUpdateURI() {
@@ -255,7 +244,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClientData() {
@@ -265,7 +253,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserURI() {
@@ -275,7 +262,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserName() {
@@ -285,7 +271,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserAccount() {
@@ -295,7 +280,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserURI 
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrPassword 
@@ -311,7 +295,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SessionCapabilities() {
@@ -320,7 +303,6 @@ class IRTCProfile extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_REGISTRATION_STATE} 
      */
     get_State() {

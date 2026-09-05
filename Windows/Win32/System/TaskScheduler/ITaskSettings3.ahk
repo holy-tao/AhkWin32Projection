@@ -65,7 +65,6 @@ class ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pDisallowStart 
      * @returns {HRESULT} 
      */
@@ -77,7 +76,6 @@ class ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} disallowStart 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,6 @@ class ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pUseUnifiedEngine 
      * @returns {HRESULT} 
      */
@@ -99,7 +96,6 @@ class ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} useUnifiedEngine 
      * @returns {HRESULT} 
      */
@@ -148,7 +144,6 @@ class ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @returns {IMaintenanceSettings} 
      */
     CreateMaintenanceSettings() {

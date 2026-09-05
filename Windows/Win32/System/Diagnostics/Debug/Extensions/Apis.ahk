@@ -4638,7 +4638,6 @@ class Extensions {
 
 ;@region Methods
     /**
-     * 
      * @param {PSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
      * @returns {Pointer<Void>} 
@@ -4651,7 +4650,6 @@ class Extensions {
     }
 
     /**
-     * 
      * @param {PWSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
      * @returns {Pointer<Void>} 
@@ -4664,7 +4662,6 @@ class Extensions {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} InterfaceId 
      * @returns {Pointer<Void>} 
      */
@@ -4674,7 +4671,6 @@ class Extensions {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Integer} DbgEngOptions 
      * @returns {Pointer<Void>} 
@@ -4685,7 +4681,6 @@ class Extensions {
     }
 
     /**
-     * 
      * @param {IDebugHost} debugHost 
      * @returns {IDataModelManager} 
      */

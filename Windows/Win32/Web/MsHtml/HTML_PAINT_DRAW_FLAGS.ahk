@@ -17,7 +17,8 @@ class HTML_PAINT_DRAW_FLAGS extends Win32Enum {
     static HTMLPAINT_DRAW_USE_XFORM => 2
 
     /**
+     * Native name: HTML_PAINT_DRAW_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static HTML_PAINT_DRAW_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,17 +7,20 @@
 class KSPROPERTY_IPSINK extends Win32BitflagEnum {
 
     /**
+     * Native name: KSPROPERTY_IPSINK_MULTICASTLIST
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_IPSINK_MULTICASTLIST => 0
+    static MULTICASTLIST => 0
 
     /**
+     * Native name: KSPROPERTY_IPSINK_ADAPTER_DESCRIPTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_IPSINK_ADAPTER_DESCRIPTION => 1
+    static ADAPTER_DESCRIPTION => 1
 
     /**
+     * Native name: KSPROPERTY_IPSINK_ADAPTER_ADDRESS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_IPSINK_ADAPTER_ADDRESS => 2
+    static ADAPTER_ADDRESS => 2
 }

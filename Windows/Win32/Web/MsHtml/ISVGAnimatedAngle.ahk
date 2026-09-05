@@ -50,7 +50,6 @@ class ISVGAnimatedAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAngle} v 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ class ISVGAnimatedAngle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAngle} 
      */
     get_baseVal() {
@@ -69,7 +67,6 @@ class ISVGAnimatedAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAngle} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class ISVGAnimatedAngle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAngle} 
      */
     get_animVal() {

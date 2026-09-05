@@ -7,17 +7,20 @@
 class PrintSchemaParameterDataType extends Win32Enum {
 
     /**
+     * Native name: PrintSchemaParameterDataType_Integer
      * @type {Integer (Int32)}
      */
-    static PrintSchemaParameterDataType_Integer => 0
+    static Integer => 0
 
     /**
+     * Native name: PrintSchemaParameterDataType_NumericString
      * @type {Integer (Int32)}
      */
-    static PrintSchemaParameterDataType_NumericString => 1
+    static NumericString => 1
 
     /**
+     * Native name: PrintSchemaParameterDataType_String
      * @type {Integer (Int32)}
      */
-    static PrintSchemaParameterDataType_String => 2
+    static String => 2
 }

@@ -7,7 +7,8 @@
 class DSH_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DSH_ALLOWDROPDESCRIPTIONTEXT
      * @type {Integer (Int32)}
      */
-    static DSH_ALLOWDROPDESCRIPTIONTEXT => 1
+    static ALLOWDROPDESCRIPTIONTEXT => 1
 }

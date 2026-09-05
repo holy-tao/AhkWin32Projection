@@ -12,33 +12,37 @@ class D2D1_BLEND_MODE extends Win32Enum {
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a multiply effect." src="./images/blend_mode_multiply_1.png"/>
+     * Native name: D2D1_BLEND_MODE_MULTIPLY
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_MULTIPLY => 0
+    static MULTIPLY => 0
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a screen effect." src="./images/blend_mode_screen_1.png"/>
+     * Native name: D2D1_BLEND_MODE_SCREEN
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_SCREEN => 1
+    static SCREEN => 1
 
     /**
      * Basic blend formula for alpha only.  
      * 
      * <img alt="mathematical formula for a darken effect." src="./images/blend_mode_darken_1.png"/>
+     * Native name: D2D1_BLEND_MODE_DARKEN
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_DARKEN => 2
+    static DARKEN => 2
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a lighten effect." src="./images/blend_mode_lighten_1.png"/>
+     * Native name: D2D1_BLEND_MODE_LIGHTEN
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_LIGHTEN => 3
+    static LIGHTEN => 3
 
     /**
      * Given:
@@ -49,171 +53,193 @@ class D2D1_BLEND_MODE extends Win32Enum {
      * <li>A deterministic pseudo-random number generator rand(XY) based on seed coordinate XY, with unbiased distribution of values from [0, 1]</li>
      * </ul>
      * <img alt="Mathematical formula for a dissolve blend effect." src="./images/blend_mode_dissolve_1.png"/>
+     * Native name: D2D1_BLEND_MODE_DISSOLVE
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_DISSOLVE => 4
+    static DISSOLVE => 4
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) =  
      * 
      * <img alt="Mathematical formula for a coor burn effect." src="./images/blend_mode_colorburn_1.png"/>
+     * Native name: D2D1_BLEND_MODE_COLOR_BURN
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_COLOR_BURN => 5
+    static COLOR_BURN => 5
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) =  
      * 
      * <img alt="Mathematical formula for a linear burn effect." src="./images/blend_mode_linearburn_1.png"/>
+     * Native name: D2D1_BLEND_MODE_LINEAR_BURN
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_LINEAR_BURN => 6
+    static LINEAR_BURN => 6
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a darken color effect." src="./images/blend_mode_darkencolor_1.png"/>
+     * Native name: D2D1_BLEND_MODE_DARKER_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_DARKER_COLOR => 7
+    static DARKER_COLOR => 7
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a lighter color effect." src="./images/blend_mode_lightercolor_1.png"/>
+     * Native name: D2D1_BLEND_MODE_LIGHTER_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_LIGHTER_COLOR => 8
+    static LIGHTER_COLOR => 8
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) =  
      * 
      * <img alt="Mathematical formula for a color dodge effect." src="./images/blend_mode_colordodge_1.png"/>
+     * Native name: D2D1_BLEND_MODE_COLOR_DODGE
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_COLOR_DODGE => 9
+    static COLOR_DODGE => 9
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for a linear dodge effect." src="./images/blend_mode_lineardodge_1.png"/>
+     * Native name: D2D1_BLEND_MODE_LINEAR_DODGE
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_LINEAR_DODGE => 10
+    static LINEAR_DODGE => 10
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for an overlay effect." src="./images/blend_mode_overlay_1.png"/>
+     * Native name: D2D1_BLEND_MODE_OVERLAY
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_OVERLAY => 11
+    static OVERLAY => 11
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for a soft light effect." src="./images/blend_mode_softlight_1.png"/>
+     * Native name: D2D1_BLEND_MODE_SOFT_LIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_SOFT_LIGHT => 12
+    static SOFT_LIGHT => 12
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for a hard light effect." src="./images/blend_mode_hardlight_1.png"/>
+     * Native name: D2D1_BLEND_MODE_HARD_LIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_HARD_LIGHT => 13
+    static HARD_LIGHT => 13
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for a vivid light effect." src="./images/blend_mode_vividlight_1.png"/>
+     * Native name: D2D1_BLEND_MODE_VIVID_LIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_VIVID_LIGHT => 14
+    static VIVID_LIGHT => 14
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for a linear light effect." src="./images/blend_mode_linearlight_1.png"/>
+     * Native name: D2D1_BLEND_MODE_LINEAR_LIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_LINEAR_LIGHT => 15
+    static LINEAR_LIGHT => 15
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for a pin light effect." src="./images/blend_mode_pinlight_1.png"/>
+     * Native name: D2D1_BLEND_MODE_PIN_LIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_PIN_LIGHT => 16
+    static PIN_LIGHT => 16
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = 
      * 
      * <img alt="Mathematical formula for a hard mix effect." src="./images/blend_mode_hardmix_1.png"/>
+     * Native name: D2D1_BLEND_MODE_HARD_MIX
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_HARD_MIX => 17
+    static HARD_MIX => 17
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = abs(F<sub>RGB</sub> - B<sub>RGB</sub>)
+     * Native name: D2D1_BLEND_MODE_DIFFERENCE
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_DIFFERENCE => 18
+    static DIFFERENCE => 18
 
     /**
      * Basic blend formulas with <i>f</i>(F<sub>RGB</sub>, B<sub>RGB</sub>) = F<sub>RGB</sub> + B<sub>RGB</sub> – 2 * F<sub>RGB</sub> * B<sub>RGB</sub>
+     * Native name: D2D1_BLEND_MODE_EXCLUSION
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_EXCLUSION => 19
+    static EXCLUSION => 19
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a hue blend effect." src="./images/blend_mode_hue_1.png"/>
+     * Native name: D2D1_BLEND_MODE_HUE
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_HUE => 20
+    static HUE => 20
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a saturation blend effect." src="./images/blend_mode_saturation_1.png"/>
+     * Native name: D2D1_BLEND_MODE_SATURATION
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_SATURATION => 21
+    static SATURATION => 21
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a color blend effect." src="./images/blend_mode_color_1.png"/>
+     * Native name: D2D1_BLEND_MODE_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_COLOR => 22
+    static COLOR => 22
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a luminosity blend effect." src="./images/blend_mode_luminosity_1.png"/>
+     * Native name: D2D1_BLEND_MODE_LUMINOSITY
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_LUMINOSITY => 23
+    static LUMINOSITY => 23
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a subtract blend effect." src="./images/blend_mode_subtract_1.png"/>
+     * Native name: D2D1_BLEND_MODE_SUBTRACT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_SUBTRACT => 24
+    static SUBTRACT => 24
 
     /**
      * Basic blend formula for alpha only. 
      * 
      * <img alt="Mathematical formula for a division blend effect." src="./images/blend_mode_division_1.png"/>
+     * Native name: D2D1_BLEND_MODE_DIVISION
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_MODE_DIVISION => 25
+    static DIVISION => 25
 }

@@ -10,19 +10,22 @@ class DL_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * Specifies a unicast datalink layer address.
+     * Native name: DlUnicast
      * @type {Integer (Int32)}
      */
-    static DlUnicast => 0
+    static Unicast => 0
 
     /**
      * Specifies a multicast datalink layer address.
+     * Native name: DlMulticast
      * @type {Integer (Int32)}
      */
-    static DlMulticast => 1
+    static Multicast => 1
 
     /**
      * Specifies a broadcast datalink layer address.
+     * Native name: DlBroadcast
      * @type {Integer (Int32)}
      */
-    static DlBroadcast => 2
+    static Broadcast => 2
 }

@@ -7,17 +7,20 @@
 class VIEW_OBJECT_ALPHA_MODE extends Win32Enum {
 
     /**
+     * Native name: VIEW_OBJECT_ALPHA_MODE_IGNORE
      * @type {Integer (Int32)}
      */
-    static VIEW_OBJECT_ALPHA_MODE_IGNORE => 0
+    static IGNORE => 0
 
     /**
+     * Native name: VIEW_OBJECT_ALPHA_MODE_PREMULTIPLIED
      * @type {Integer (Int32)}
      */
-    static VIEW_OBJECT_ALPHA_MODE_PREMULTIPLIED => 1
+    static PREMULTIPLIED => 1
 
     /**
+     * Native name: VIEW_OBJECT_ALPHA_MODE_Max
      * @type {Integer (Int32)}
      */
-    static VIEW_OBJECT_ALPHA_MODE_Max => 2147483647
+    static Max => 2147483647
 }

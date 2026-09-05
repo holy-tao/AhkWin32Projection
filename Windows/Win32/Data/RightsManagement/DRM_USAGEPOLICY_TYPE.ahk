@@ -10,25 +10,29 @@ class DRM_USAGEPOLICY_TYPE extends Win32Enum {
 
     /**
      * The usage policy is tied to an application name.
+     * Native name: DRM_USAGEPOLICY_TYPE_BYNAME
      * @type {Integer (Int32)}
      */
-    static DRM_USAGEPOLICY_TYPE_BYNAME => 0
+    static BYNAME => 0
 
     /**
      * The usage policy is tied to an application's public key.
+     * Native name: DRM_USAGEPOLICY_TYPE_BYPUBLICKEY
      * @type {Integer (Int32)}
      */
-    static DRM_USAGEPOLICY_TYPE_BYPUBLICKEY => 1
+    static BYPUBLICKEY => 1
 
     /**
      * The usage policy is tied to a digest of an application.
+     * Native name: DRM_USAGEPOLICY_TYPE_BYDIGEST
      * @type {Integer (Int32)}
      */
-    static DRM_USAGEPOLICY_TYPE_BYDIGEST => 2
+    static BYDIGEST => 2
 
     /**
      * The usage policy is tied to an operating system.
+     * Native name: DRM_USAGEPOLICY_TYPE_OSEXCLUSION
      * @type {Integer (Int32)}
      */
-    static DRM_USAGEPOLICY_TYPE_OSEXCLUSION => 3
+    static OSEXCLUSION => 3
 }

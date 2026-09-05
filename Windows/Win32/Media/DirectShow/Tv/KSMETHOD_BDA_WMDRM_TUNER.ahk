@@ -7,32 +7,38 @@
 class KSMETHOD_BDA_WMDRM_TUNER extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRMTUNER_CANCELCAPTURETOKEN
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRMTUNER_CANCELCAPTURETOKEN => 0
+    static WMDRMTUNER_CANCELCAPTURETOKEN => 0
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRMTUNER_SETPIDPROTECTION
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRMTUNER_SETPIDPROTECTION => 1
+    static WMDRMTUNER_SETPIDPROTECTION => 1
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRMTUNER_GETPIDPROTECTION
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRMTUNER_GETPIDPROTECTION => 2
+    static WMDRMTUNER_GETPIDPROTECTION => 2
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRMTUNER_SETSYNCVALUE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRMTUNER_SETSYNCVALUE => 3
+    static WMDRMTUNER_SETSYNCVALUE => 3
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRMTUNER_STARTCODEPROFILE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRMTUNER_STARTCODEPROFILE => 4
+    static WMDRMTUNER_STARTCODEPROFILE => 4
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRMTUNER_PURCHASE_ENTITLEMENT
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRMTUNER_PURCHASE_ENTITLEMENT => 5
+    static WMDRMTUNER_PURCHASE_ENTITLEMENT => 5
 }

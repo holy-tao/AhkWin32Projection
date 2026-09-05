@@ -45,7 +45,6 @@ class ISpSREngineSite extends IUnknown {
     static VTableNames => ["Read", "DataAvailable", "SetBufferNotifySize", "ParseFromTransitions", "Recognition", "AddEvent", "Synchronize", "GetWordInfo", "SetWordClientContext", "GetRuleInfo", "SetRuleClientContext", "GetStateInfo", "GetResource", "GetTransitionProperty", "IsAlternate", "GetMaxAlternates", "GetContextMaxAlternates", "UpdateRecoPos"]
 
     /**
-     * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
@@ -58,7 +57,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     DataAvailable() {
@@ -67,7 +65,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbSize 
      * @returns {HRESULT} 
      */
@@ -77,7 +74,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPPARSEINFO>} pParseInfo 
      * @returns {ISpPhraseBuilder} 
      */
@@ -87,7 +83,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECORESULTINFO>} pResultInfo 
      * @returns {HRESULT} 
      */
@@ -97,7 +92,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENT>} pEvent 
      * @param {SPRECOCONTEXTHANDLE} hSAPIRecoContext 
      * @returns {HRESULT} 
@@ -110,7 +104,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullProcessedThruPos 
      * @returns {HRESULT} 
      */
@@ -120,7 +113,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPWORDENTRY>} pWordEntry 
      * @param {SPWORDINFOOPT} Options 
      * @returns {HRESULT} 
@@ -131,7 +123,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPWORDHANDLE} hWord 
      * @param {Pointer<Void>} pvClientContext 
      * @returns {HRESULT} 
@@ -146,7 +137,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPRULEENTRY>} pRuleEntry 
      * @param {SPRULEINFOOPT} Options 
      * @returns {HRESULT} 
@@ -157,7 +147,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {Pointer<Void>} pvClientContext 
      * @returns {HRESULT} 
@@ -172,7 +161,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hState 
      * @returns {SPSTATEINFO} 
      */
@@ -185,7 +173,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {PWSTR} pszResourceName 
      * @returns {PWSTR} 
@@ -199,7 +186,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPTRANSITIONID} ID 
      * @returns {Pointer<SPTRANSITIONPROPERTY>} 
      */
@@ -211,7 +197,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {SPRULEHANDLE} hAltRule 
      * @returns {HRESULT} 
@@ -225,7 +210,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @returns {Integer} 
      */
@@ -237,7 +221,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRECOCONTEXTHANDLE} hContext 
      * @returns {Integer} 
      */
@@ -249,7 +232,6 @@ class ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullCurrentRecoPos 
      * @returns {HRESULT} 
      */

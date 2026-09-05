@@ -12,9 +12,10 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No options are specified.
+     * Native name: D3D12_RESOURCE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Allows a render target view to be created for the resource; and also enables the resource to transition into the state of [D3D12_RESOURCE_STATE_RENDER_TARGET](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states). Some adapter architectures allocate extra memory for textures with this flag to reduce the effective bandwidth during common rendering. This characteristic may not be beneficial for textures that are never rendered to, nor is it available for textures compressed with BC formats. Your application should avoid setting this flag when rendering will never occur.
@@ -25,9 +26,10 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
      * <li>Can't be set in conjunction with textures that have [D3D12_TEXTURE_LAYOUT_ROW_MAJOR](/windows/win32/api/d3d12/ne-d3d12-d3d12_texture_layout) when [D3D12_FEATURE_DATA_D3D12_OPTIONS::CrossAdapterRowMajorTextureSupported](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options) is `FALSE`, nor in conjunction with textures that have [D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE](/windows/win32/api/d3d12/ne-d3d12-d3d12_texture_layout) when [D3D12_FEATURE_DATA_D3D12_OPTIONS::StandardSwizzle64KBSupported](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options) is `FALSE`.</li>
      * <li>Can't be used with 4KB alignment, **D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL**, nor usage with heaps that have [D3D12_HEAP_FLAG_DENY_RT_DS_TEXTURES](/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags).</li>
      * </ul>
+     * Native name: D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET => 1
+    static FLAG_ALLOW_RENDER_TARGET => 1
 
     /**
      * Allows a depth stencil view to be created for the resource, as well as enables the resource to transition into the state of [D3D12_RESOURCE_STATE_DEPTH_WRITE](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) and/or **D3D12_RESOURCE_STATE_DEPTH_READ**. Most adapter architectures allocate extra memory for textures with this flag to reduce the effective bandwidth, and maximize optimizations for early depth-test. Your application should avoid setting this flag when depth operations will never occur.
@@ -39,9 +41,10 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
      * <li>Precludes usage of [WriteToSubresource](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-writetosubresource) and [ReadFromSubresource](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-readfromsubresource).</li>
      * <li>Precludes GPU copying of a subregion. [CopyTextureRegion](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion) must copy a whole subresource to or from resources with this flag.</li>
      * </ul>
+     * Native name: D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL => 2
+    static FLAG_ALLOW_DEPTH_STENCIL => 2
 
     /**
      * Allows an unordered access view to be created for the resource, as well as enables the resource to transition into the state of [D3D12_RESOURCE_STATE_UNORDERED_ACCESS](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states). Some adapter architectures must resort to less efficient texture layouts in order to provide this functionality. If a texture is rarely used for unordered access, then it might be worth having two textures around and copying between them. One texture would have this flag, while the other wouldn't. Your application should avoid setting this flag when unordered access operations will never occur.
@@ -52,9 +55,10 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
      * <li>Can't be set in conjunction with textures that have [D3D12_TEXTURE_LAYOUT_ROW_MAJOR](/windows/win32/api/d3d12/ne-d3d12-d3d12_texture_layout) when [D3D12_FEATURE_DATA_D3D12_OPTIONS::CrossAdapterRowMajorTextureSupported](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options) is `FALSE`, nor in conjunction with textures that have [D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE](/windows/win32/api/d3d12/ne-d3d12-d3d12_texture_layout) when [D3D12_FEATURE_DATA_D3D12_OPTIONS::StandardSwizzle64KBSupported](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options) is `FALSE`, nor when the feature level is less than 11.0.</li>
      * <li>Can't be used with MSAA textures.</li>
      * </ul>
+     * Native name: D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS => 4
+    static FLAG_ALLOW_UNORDERED_ACCESS => 4
 
     /**
      * Disallows a shader resource view from being created for the resource, as well as disables the resource from transitioning into the state of [D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) or **D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE**. Some adapter architectures experience increased bandwidth for depth stencil textures when shader resource views are precluded. If a texture is rarely used for shader resources, then it might be worth having two textures around and copying between them. One texture would have this flag, while the other wouldn't. Your application should set this flag when depth stencil textures will never be used from shader resource views.
@@ -63,9 +67,10 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
      * <ul>
      * <li>Must be used with **D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL**.</li>
      * </ul>
+     * Native name: D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE => 8
+    static FLAG_DENY_SHADER_RESOURCE => 8
 
     /**
      * Allows the resource to be used for cross-adapter data, as well as those features enabled by **D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS**. Cross-adapter resources commonly preclude techniques that reduce effective texture bandwidth during usage, and some adapter architectures might require different caching behavior. Your application should avoid setting this flag when the resource data will never be used with another adapter.
@@ -75,9 +80,10 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
      * <li>Must be used with heaps that have [D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER](/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags).</li>
      * <li>Can't be used with heaps that have [D3D12_HEAP_FLAG_ALLOW_DISPLAY](/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags).</li>
      * </ul>
+     * Native name: D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER => 16
+    static FLAG_ALLOW_CROSS_ADAPTER => 16
 
     /**
      * Allows a resource to be simultaneously accessed by multiple different queues, devices, or processes (for example, allows a resource to be used with [ResourceBarrier](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) transitions performed in more than one command list executing at the same time). 
@@ -92,9 +98,10 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
      * <li>Can't be used with MSAA textures.</li>
      * <li>Can't be used with **D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL**.</li>
      * </ul>
+     * Native name: D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS => 32
+    static FLAG_ALLOW_SIMULTANEOUS_ACCESS => 32
 
     /**
      * Specfies that this resource may be used only as a decode reference frame. It may be written to or read only by the video decode operation.
@@ -103,26 +110,30 @@ class D3D12_RESOURCE_FLAGS extends Win32BitflagEnum {
      * 
      * [D3D12_VIDEO_DECODE_TIER_3](../d3d12video/ne-d3d12video-d3d12_video_decode_tier.md) must not set the [D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_REFERENCE_ONLY_ALLOCATIONS_REQUIRED]
      * (../d3d12video/ne-d3d12video-d3d12_video_decode_configuration_flags) configuration flag, and must not require the use of this resource flag.
+     * Native name: D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY => 64
+    static FLAG_VIDEO_DECODE_REFERENCE_ONLY => 64
 
     /**
      * Specfies that this resource may be used only as an encode reference frame. It may be written to or read only by the video encode operation.
+     * Native name: D3D12_RESOURCE_FLAG_VIDEO_ENCODE_REFERENCE_ONLY
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_VIDEO_ENCODE_REFERENCE_ONLY => 128
+    static FLAG_VIDEO_ENCODE_REFERENCE_ONLY => 128
 
     /**
      * Reserved for future use. Don't use.
      * 
      * Requires the DirectX 12 Agility SDK 1.7 or later. Indicates that a buffer is to be used as a raytracing acceleration structure.
+     * Native name: D3D12_RESOURCE_FLAG_RAYTRACING_ACCELERATION_STRUCTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_RAYTRACING_ACCELERATION_STRUCTURE => 256
+    static FLAG_RAYTRACING_ACCELERATION_STRUCTURE => 256
 
     /**
+     * Native name: D3D12_RESOURCE_FLAG_USE_TIGHT_ALIGNMENT
      * @type {Integer (Int32)}
      */
-    static D3D12_RESOURCE_FLAG_USE_TIGHT_ALIGNMENT => 1024
+    static FLAG_USE_TIGHT_ALIGNMENT => 1024
 }

@@ -58,7 +58,6 @@ class IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_root() {
@@ -67,7 +66,6 @@ class IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_whatToShow() {
@@ -76,7 +74,6 @@ class IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_filter() {
@@ -85,7 +82,6 @@ class IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_expandEntityReferences() {
@@ -94,7 +90,6 @@ class IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     nextNode() {
@@ -103,7 +98,6 @@ class IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     previousNode() {
@@ -112,7 +106,6 @@ class IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     detach() {

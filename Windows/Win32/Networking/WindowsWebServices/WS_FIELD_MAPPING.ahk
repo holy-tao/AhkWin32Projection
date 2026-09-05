@@ -58,9 +58,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * ```
      * 
      * This mapping does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_TYPE_ATTRIBUTE_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_TYPE_ATTRIBUTE_FIELD_MAPPING => 0
+    static TYPE_ATTRIBUTE_FIELD_MAPPING => 0
 
     /**
      * The field corresponds to a single attribute.
@@ -94,9 +95,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * To discard the attribute, a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_VOID_TYPE</a> should be used.
      *                     In this case, a field is not required in the structure.
      *                     See <b>WS_VOID_TYPE</b> for more information.
+     * Native name: WS_ATTRIBUTE_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ATTRIBUTE_FIELD_MAPPING => 1
+    static ATTRIBUTE_FIELD_MAPPING => 1
 
     /**
      * The field corresponds to a single element.
@@ -132,9 +134,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * To discard the element, a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_VOID_TYPE</a> should be used.
      *                     In this case, a field is not required in the structure.
      *                     See <b>WS_VOID_TYPE</b> for more information.
+     * Native name: WS_ELEMENT_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ELEMENT_FIELD_MAPPING => 2
+    static ELEMENT_FIELD_MAPPING => 2
 
     /**
      * The field corresponds to a repeating set of elements.
@@ -187,9 +190,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * The number of elements in the deserialized array can be constrained
      *                     by specifying a non-<b>NULL</b><a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_item_range">WS_ITEM_RANGE</a> structure that is
      *                     part of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
+     * Native name: WS_REPEATING_ELEMENT_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_REPEATING_ELEMENT_FIELD_MAPPING => 3
+    static REPEATING_ELEMENT_FIELD_MAPPING => 3
 
     /**
      * The field corresponds to the entire character content of the element.
@@ -216,9 +220,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * ```
      * 
      * This mapping does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_TEXT_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_TEXT_FIELD_MAPPING => 4
+    static TEXT_FIELD_MAPPING => 4
 
     /**
      * The field is neither serialized or deserialized.
@@ -256,9 +261,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * &lt;Struct/&gt;
      * 
      * ```
+     * Native name: WS_NO_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_NO_FIELD_MAPPING => 5
+    static NO_FIELD_MAPPING => 5
 
     /**
      * The field corresponds to a reserved xml attribute (such as xml:lang).
@@ -293,9 +299,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * // Example of xml:space
      * &lt;Struct xml:space='true'&gt;
      * ```
+     * Native name: WS_XML_ATTRIBUTE_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_XML_ATTRIBUTE_FIELD_MAPPING => 6
+    static XML_ATTRIBUTE_FIELD_MAPPING => 6
 
     /**
      * The field corresponds to a choice among a set of possible
@@ -446,9 +453,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      *                     the value is deserialized.  An application should always
      *                     consult the selector value to verify that a field of the
      *                     union is accessible.
+     * Native name: WS_ELEMENT_CHOICE_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ELEMENT_CHOICE_FIELD_MAPPING => 7
+    static ELEMENT_CHOICE_FIELD_MAPPING => 7
 
     /**
      * The field corresponds to a repeating set of element choices.
@@ -511,14 +519,16 @@ class WS_FIELD_MAPPING extends Win32Enum {
      * The number of elements in the deserialized array can be constrained
      *                     by specifying a non-<b>NULL</b><a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_item_range">WS_ITEM_RANGE</a> structure that is
      *                     part of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
+     * Native name: WS_REPEATING_ELEMENT_CHOICE_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_REPEATING_ELEMENT_CHOICE_FIELD_MAPPING => 8
+    static REPEATING_ELEMENT_CHOICE_FIELD_MAPPING => 8
 
     /**
+     * Native name: WS_ANY_ELEMENT_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ANY_ELEMENT_FIELD_MAPPING => 9
+    static ANY_ELEMENT_FIELD_MAPPING => 9
 
     /**
      * The field is used to discard or store a sequence of elements
@@ -565,9 +575,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      *                 
      * 
      * This mapping does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_REPEATING_ANY_ELEMENT_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_REPEATING_ANY_ELEMENT_FIELD_MAPPING => 10
+    static REPEATING_ANY_ELEMENT_FIELD_MAPPING => 10
 
     /**
      * The field is used to discard or store any remaining content
@@ -607,9 +618,10 @@ class WS_FIELD_MAPPING extends Win32Enum {
      *                 
      * 
      * This mapping does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_ANY_CONTENT_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ANY_CONTENT_FIELD_MAPPING => 11
+    static ANY_CONTENT_FIELD_MAPPING => 11
 
     /**
      * The field is used to discard or store any attributes which were not
@@ -674,7 +686,8 @@ class WS_FIELD_MAPPING extends Win32Enum {
      *                 
      * 
      * This mapping does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_ANY_ATTRIBUTES_FIELD_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ANY_ATTRIBUTES_FIELD_MAPPING => 12
+    static ANY_ATTRIBUTES_FIELD_MAPPING => 12
 }

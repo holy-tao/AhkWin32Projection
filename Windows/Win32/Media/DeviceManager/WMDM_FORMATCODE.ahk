@@ -19,477 +19,572 @@
 class WMDM_FORMATCODE extends Win32Enum {
 
     /**
+     * Native name: WMDM_FORMATCODE_NOTUSED
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_NOTUSED => 0
+    static NOTUSED => 0
 
     /**
+     * Native name: WMDM_FORMATCODE_ALLIMAGES
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ALLIMAGES => -1
+    static ALLIMAGES => -1
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINED => 12288
+    static UNDEFINED => 12288
 
     /**
+     * Native name: WMDM_FORMATCODE_ASSOCIATION
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ASSOCIATION => 12289
+    static ASSOCIATION => 12289
 
     /**
+     * Native name: WMDM_FORMATCODE_SCRIPT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_SCRIPT => 12290
+    static SCRIPT => 12290
 
     /**
+     * Native name: WMDM_FORMATCODE_EXECUTABLE
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_EXECUTABLE => 12291
+    static EXECUTABLE => 12291
 
     /**
+     * Native name: WMDM_FORMATCODE_TEXT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_TEXT => 12292
+    static TEXT => 12292
 
     /**
+     * Native name: WMDM_FORMATCODE_HTML
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_HTML => 12293
+    static HTML => 12293
 
     /**
+     * Native name: WMDM_FORMATCODE_DPOF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_DPOF => 12294
+    static DPOF => 12294
 
     /**
+     * Native name: WMDM_FORMATCODE_AIFF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_AIFF => 12295
+    static AIFF => 12295
 
     /**
+     * Native name: WMDM_FORMATCODE_WAVE
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_WAVE => 12296
+    static WAVE => 12296
 
     /**
+     * Native name: WMDM_FORMATCODE_MP3
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MP3 => 12297
+    static MP3 => 12297
 
     /**
+     * Native name: WMDM_FORMATCODE_AVI
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_AVI => 12298
+    static AVI => 12298
 
     /**
+     * Native name: WMDM_FORMATCODE_MPEG
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MPEG => 12299
+    static MPEG => 12299
 
     /**
+     * Native name: WMDM_FORMATCODE_ASF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ASF => 12300
+    static ASF => 12300
 
     /**
+     * Native name: WMDM_FORMATCODE_RESERVED_FIRST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_RESERVED_FIRST => 12301
+    static RESERVED_FIRST => 12301
 
     /**
+     * Native name: WMDM_FORMATCODE_RESERVED_LAST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_RESERVED_LAST => 14335
+    static RESERVED_LAST => 14335
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_UNDEFINED => 14336
+    static IMAGE_UNDEFINED => 14336
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_EXIF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_EXIF => 14337
+    static IMAGE_EXIF => 14337
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_TIFFEP
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_TIFFEP => 14338
+    static IMAGE_TIFFEP => 14338
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_FLASHPIX
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_FLASHPIX => 14339
+    static IMAGE_FLASHPIX => 14339
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_BMP
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_BMP => 14340
+    static IMAGE_BMP => 14340
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_CIFF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_CIFF => 14341
+    static IMAGE_CIFF => 14341
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_GIF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_GIF => 14343
+    static IMAGE_GIF => 14343
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_JFIF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_JFIF => 14344
+    static IMAGE_JFIF => 14344
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_PCD
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_PCD => 14345
+    static IMAGE_PCD => 14345
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_PICT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_PICT => 14346
+    static IMAGE_PICT => 14346
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_PNG
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_PNG => 14347
+    static IMAGE_PNG => 14347
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_TIFF
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_TIFF => 14349
+    static IMAGE_TIFF => 14349
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_TIFFIT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_TIFFIT => 14350
+    static IMAGE_TIFFIT => 14350
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_JP2
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_JP2 => 14351
+    static IMAGE_JP2 => 14351
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_JPX
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_JPX => 14352
+    static IMAGE_JPX => 14352
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_RESERVED_FIRST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_RESERVED_FIRST => 14353
+    static IMAGE_RESERVED_FIRST => 14353
 
     /**
+     * Native name: WMDM_FORMATCODE_IMAGE_RESERVED_LAST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_IMAGE_RESERVED_LAST => 16383
+    static IMAGE_RESERVED_LAST => 16383
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDFIRMWARE
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDFIRMWARE => 47106
+    static UNDEFINEDFIRMWARE => 47106
 
     /**
+     * Native name: WMDM_FORMATCODE_WBMP
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_WBMP => 47107
+    static WBMP => 47107
 
     /**
+     * Native name: WMDM_FORMATCODE_JPEGXR
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_JPEGXR => 47108
+    static JPEGXR => 47108
 
     /**
+     * Native name: WMDM_FORMATCODE_WINDOWSIMAGEFORMAT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_WINDOWSIMAGEFORMAT => 47233
+    static WINDOWSIMAGEFORMAT => 47233
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDAUDIO
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDAUDIO => 47360
+    static UNDEFINEDAUDIO => 47360
 
     /**
+     * Native name: WMDM_FORMATCODE_WMA
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_WMA => 47361
+    static WMA => 47361
 
     /**
+     * Native name: WMDM_FORMATCODE_OGG
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_OGG => 47362
+    static OGG => 47362
 
     /**
+     * Native name: WMDM_FORMATCODE_AAC
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_AAC => 47363
+    static AAC => 47363
 
     /**
+     * Native name: WMDM_FORMATCODE_AUDIBLE
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_AUDIBLE => 47364
+    static AUDIBLE => 47364
 
     /**
+     * Native name: WMDM_FORMATCODE_FLAC
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_FLAC => 47366
+    static FLAC => 47366
 
     /**
+     * Native name: WMDM_FORMATCODE_QCELP
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_QCELP => 47367
+    static QCELP => 47367
 
     /**
+     * Native name: WMDM_FORMATCODE_AMR
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_AMR => 47368
+    static AMR => 47368
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDVIDEO
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDVIDEO => 47488
+    static UNDEFINEDVIDEO => 47488
 
     /**
+     * Native name: WMDM_FORMATCODE_WMV
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_WMV => 47489
+    static WMV => 47489
 
     /**
+     * Native name: WMDM_FORMATCODE_MP4
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MP4 => 47490
+    static MP4 => 47490
 
     /**
+     * Native name: WMDM_FORMATCODE_MP2
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MP2 => 47491
+    static MP2 => 47491
 
     /**
+     * Native name: WMDM_FORMATCODE_3GP
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_3GP => 47492
+    static 3GP => 47492
 
     /**
+     * Native name: WMDM_FORMATCODE_3G2
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_3G2 => 47493
+    static 3G2 => 47493
 
     /**
+     * Native name: WMDM_FORMATCODE_AVCHD
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_AVCHD => 47494
+    static AVCHD => 47494
 
     /**
+     * Native name: WMDM_FORMATCODE_ATSCTS
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ATSCTS => 47495
+    static ATSCTS => 47495
 
     /**
+     * Native name: WMDM_FORMATCODE_DVBTS
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_DVBTS => 47496
+    static DVBTS => 47496
 
     /**
+     * Native name: WMDM_FORMATCODE_MKV
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MKV => 47497
+    static MKV => 47497
 
     /**
+     * Native name: WMDM_FORMATCODE_MKA
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MKA => 47498
+    static MKA => 47498
 
     /**
+     * Native name: WMDM_FORMATCODE_MK3D
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MK3D => 47499
+    static MK3D => 47499
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDCOLLECTION
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDCOLLECTION => 47616
+    static UNDEFINEDCOLLECTION => 47616
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTMULTIMEDIAALBUM
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTMULTIMEDIAALBUM => 47617
+    static ABSTRACTMULTIMEDIAALBUM => 47617
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTIMAGEALBUM
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTIMAGEALBUM => 47618
+    static ABSTRACTIMAGEALBUM => 47618
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTAUDIOALBUM
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTAUDIOALBUM => 47619
+    static ABSTRACTAUDIOALBUM => 47619
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTVIDEOALBUM
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTVIDEOALBUM => 47620
+    static ABSTRACTVIDEOALBUM => 47620
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTAUDIOVIDEOPLAYLIST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTAUDIOVIDEOPLAYLIST => 47621
+    static ABSTRACTAUDIOVIDEOPLAYLIST => 47621
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTCONTACTGROUP
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTCONTACTGROUP => 47622
+    static ABSTRACTCONTACTGROUP => 47622
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTMESSAGEFOLDER
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTMESSAGEFOLDER => 47623
+    static ABSTRACTMESSAGEFOLDER => 47623
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTCHAPTEREDPRODUCTION
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTCHAPTEREDPRODUCTION => 47624
+    static ABSTRACTCHAPTEREDPRODUCTION => 47624
 
     /**
+     * Native name: WMDM_FORMATCODE_MEDIA_CAST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MEDIA_CAST => 47627
+    static MEDIA_CAST => 47627
 
     /**
+     * Native name: WMDM_FORMATCODE_WPLPLAYLIST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_WPLPLAYLIST => 47632
+    static WPLPLAYLIST => 47632
 
     /**
+     * Native name: WMDM_FORMATCODE_M3UPLAYLIST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_M3UPLAYLIST => 47633
+    static M3UPLAYLIST => 47633
 
     /**
+     * Native name: WMDM_FORMATCODE_MPLPLAYLIST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MPLPLAYLIST => 47634
+    static MPLPLAYLIST => 47634
 
     /**
+     * Native name: WMDM_FORMATCODE_ASXPLAYLIST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ASXPLAYLIST => 47635
+    static ASXPLAYLIST => 47635
 
     /**
+     * Native name: WMDM_FORMATCODE_PLSPLAYLIST
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_PLSPLAYLIST => 47636
+    static PLSPLAYLIST => 47636
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDDOCUMENT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDDOCUMENT => 47744
+    static UNDEFINEDDOCUMENT => 47744
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTDOCUMENT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTDOCUMENT => 47745
+    static ABSTRACTDOCUMENT => 47745
 
     /**
+     * Native name: WMDM_FORMATCODE_XMLDOCUMENT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_XMLDOCUMENT => 47746
+    static XMLDOCUMENT => 47746
 
     /**
+     * Native name: WMDM_FORMATCODE_MICROSOFTWORDDOCUMENT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MICROSOFTWORDDOCUMENT => 47747
+    static MICROSOFTWORDDOCUMENT => 47747
 
     /**
+     * Native name: WMDM_FORMATCODE_MHTCOMPILEDHTMLDOCUMENT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MHTCOMPILEDHTMLDOCUMENT => 47748
+    static MHTCOMPILEDHTMLDOCUMENT => 47748
 
     /**
+     * Native name: WMDM_FORMATCODE_MICROSOFTEXCELSPREADSHEET
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MICROSOFTEXCELSPREADSHEET => 47749
+    static MICROSOFTEXCELSPREADSHEET => 47749
 
     /**
+     * Native name: WMDM_FORMATCODE_MICROSOFTPOWERPOINTDOCUMENT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_MICROSOFTPOWERPOINTDOCUMENT => 47750
+    static MICROSOFTPOWERPOINTDOCUMENT => 47750
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDMESSAGE
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDMESSAGE => 47872
+    static UNDEFINEDMESSAGE => 47872
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTMESSAGE
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTMESSAGE => 47873
+    static ABSTRACTMESSAGE => 47873
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDCONTACT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDCONTACT => 48000
+    static UNDEFINEDCONTACT => 48000
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTCONTACT
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTCONTACT => 48001
+    static ABSTRACTCONTACT => 48001
 
     /**
+     * Native name: WMDM_FORMATCODE_VCARD2
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_VCARD2 => 48002
+    static VCARD2 => 48002
 
     /**
+     * Native name: WMDM_FORMATCODE_VCARD3
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_VCARD3 => 48003
+    static VCARD3 => 48003
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDCALENDARITEM
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDCALENDARITEM => 48640
+    static UNDEFINEDCALENDARITEM => 48640
 
     /**
+     * Native name: WMDM_FORMATCODE_ABSTRACTCALENDARITEM
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_ABSTRACTCALENDARITEM => 48641
+    static ABSTRACTCALENDARITEM => 48641
 
     /**
+     * Native name: WMDM_FORMATCODE_VCALENDAR1
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_VCALENDAR1 => 48642
+    static VCALENDAR1 => 48642
 
     /**
+     * Native name: WMDM_FORMATCODE_VCALENDAR2
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_VCALENDAR2 => 48643
+    static VCALENDAR2 => 48643
 
     /**
+     * Native name: WMDM_FORMATCODE_UNDEFINEDWINDOWSEXECUTABLE
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_UNDEFINEDWINDOWSEXECUTABLE => 48768
+    static UNDEFINEDWINDOWSEXECUTABLE => 48768
 
     /**
+     * Native name: WMDM_FORMATCODE_M4A
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_M4A => 1297101889
+    static M4A => 1297101889
 
     /**
+     * Native name: WMDM_FORMATCODE_3GPA
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_3GPA => 860311617
+    static 3GPA => 860311617
 
     /**
+     * Native name: WMDM_FORMATCODE_3G2A
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_3G2A => 860303937
+    static 3G2A => 860303937
 
     /**
+     * Native name: WMDM_FORMATCODE_SECTION
      * @type {Integer (Int32)}
      */
-    static WMDM_FORMATCODE_SECTION => 48770
+    static SECTION => 48770
 }

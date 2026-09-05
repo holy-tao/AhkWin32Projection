@@ -7,27 +7,32 @@
 class htmlAdjacency extends Win32Enum {
 
     /**
+     * Native name: htmlAdjacencyBeforeBegin
      * @type {Integer (Int32)}
      */
-    static htmlAdjacencyBeforeBegin => 1
+    static BeforeBegin => 1
 
     /**
+     * Native name: htmlAdjacencyAfterBegin
      * @type {Integer (Int32)}
      */
-    static htmlAdjacencyAfterBegin => 2
+    static AfterBegin => 2
 
     /**
+     * Native name: htmlAdjacencyBeforeEnd
      * @type {Integer (Int32)}
      */
-    static htmlAdjacencyBeforeEnd => 3
+    static BeforeEnd => 3
 
     /**
+     * Native name: htmlAdjacencyAfterEnd
      * @type {Integer (Int32)}
      */
-    static htmlAdjacencyAfterEnd => 4
+    static AfterEnd => 4
 
     /**
+     * Native name: htmlAdjacency_Max
      * @type {Integer (Int32)}
      */
-    static htmlAdjacency_Max => 2147483647
+    static Max => 2147483647
 }

@@ -22,15 +22,17 @@ class EVENT_INFO_CLASS extends Win32Enum {
      * full path to the DLL or EXE that contains the callback function specified in the
      * call to **EventRegister**). For this operation to be useful, the same DLL or EXE
      * file must contain the `mc.exe`-generated decoding resources.
+     * Native name: EventProviderBinaryTrackInfo
      * @type {Integer (Int32)}
      */
-    static EventProviderBinaryTrackInfo => 0
+    static ProviderBinaryTrackInfo => 0
 
     /**
      * Not used.
+     * Native name: EventProviderSetReserved1
      * @type {Integer (Int32)}
      */
-    static EventProviderSetReserved1 => 1
+    static ProviderSetReserved1 => 1
 
     /**
      * Sets traits for the provider such as the provider's name. Indicates that ETW
@@ -51,9 +53,10 @@ class EVENT_INFO_CLASS extends Win32Enum {
      * The _EventInformation_ buffer should contain the
      * [provider traits](/windows/desktop/ETW/provider-traits) to be used for the
      * provider.
+     * Native name: EventProviderSetTraits
      * @type {Integer (Int32)}
      */
-    static EventProviderSetTraits => 2
+    static ProviderSetTraits => 2
 
     /**
      * Specifies whether ETW should recognize the `Type` field of
@@ -72,9 +75,10 @@ class EVENT_INFO_CLASS extends Win32Enum {
      * 
      * The _EventInformation_ buffer should contain a **BOOLEAN** value (1 byte, value
      * `FALSE` or `TRUE`).
+     * Native name: EventProviderUseDescriptorType
      * @type {Integer (Int32)}
      */
-    static EventProviderUseDescriptorType => 3
+    static ProviderUseDescriptorType => 3
 
     /**
      * The first invalid operation code. This value may change in subsequent versions

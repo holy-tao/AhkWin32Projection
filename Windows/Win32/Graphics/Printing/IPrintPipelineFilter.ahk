@@ -32,7 +32,6 @@ class IPrintPipelineFilter extends IUnknown {
     static VTableNames => ["InitializeFilter", "ShutdownOperation", "StartOperation"]
 
     /**
-     * 
      * @param {IInterFilterCommunicator} pINegotiation 
      * @param {IPrintPipelinePropertyBag} pIPropertyBag 
      * @param {IPrintPipelineManagerControl} pIPipelineControl 
@@ -44,7 +43,6 @@ class IPrintPipelineFilter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShutdownOperation() {
@@ -53,7 +51,6 @@ class IPrintPipelineFilter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StartOperation() {

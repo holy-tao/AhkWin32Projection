@@ -12,13 +12,15 @@ class HTTP_ENABLED_STATE extends Win32Enum {
 
     /**
      * The HTTP Server API object is enabled.
+     * Native name: HttpEnabledStateActive
      * @type {Integer (Int32)}
      */
-    static HttpEnabledStateActive => 0
+    static Active => 0
 
     /**
      * The HTTP Server API object is disabled.
+     * Native name: HttpEnabledStateInactive
      * @type {Integer (Int32)}
      */
-    static HttpEnabledStateInactive => 1
+    static Inactive => 1
 }

@@ -33,7 +33,6 @@ class IXmlWriter extends IUnknown {
     static VTableNames => ["SetOutput", "GetProperty", "SetProperty", "WriteAttributes", "WriteAttributeString", "WriteCData", "WriteCharEntity", "WriteChars", "WriteComment", "WriteDocType", "WriteElementString", "WriteEndDocument", "WriteEndElement", "WriteEntityRef", "WriteFullEndElement", "WriteName", "WriteNmToken", "WriteNode", "WriteNodeShallow", "WriteProcessingInstruction", "WriteQualifiedName", "WriteRaw", "WriteRawChars", "WriteStartDocument", "WriteStartElement", "WriteString", "WriteSurrogateCharEntity", "WriteWhitespace", "Flush"]
 
     /**
-     * 
      * @param {IUnknown} pOutput 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
      * @returns {HRESULT} 
@@ -69,7 +67,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXmlReader} pReader 
      * @param {BOOL} fWriteDefaultAttributes 
      * @returns {HRESULT} 
@@ -80,7 +77,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
@@ -98,7 +94,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszText 
      * @returns {HRESULT} 
      */
@@ -110,7 +105,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} wch 
      * @returns {HRESULT} 
      */
@@ -120,7 +114,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwch 
      * @param {Integer} cwch 
      * @returns {HRESULT} 
@@ -133,7 +126,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszComment 
      * @returns {HRESULT} 
      */
@@ -145,7 +137,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @param {PWSTR} pwszPublicId 
      * @param {PWSTR} pwszSystemId 
@@ -163,7 +154,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
@@ -181,7 +171,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WriteEndDocument() {
@@ -190,7 +179,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WriteEndElement() {
@@ -199,7 +187,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @returns {HRESULT} 
      */
@@ -211,7 +198,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WriteFullEndElement() {
@@ -220,7 +206,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @returns {HRESULT} 
      */
@@ -232,7 +217,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszNmToken 
      * @returns {HRESULT} 
      */
@@ -244,7 +228,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXmlReader} pReader 
      * @param {BOOL} fWriteDefaultAttributes 
      * @returns {HRESULT} 
@@ -255,7 +238,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXmlReader} pReader 
      * @param {BOOL} fWriteDefaultAttributes 
      * @returns {HRESULT} 
@@ -266,7 +248,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @param {PWSTR} pwszText 
      * @returns {HRESULT} 
@@ -280,7 +261,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
      * @returns {HRESULT} 
@@ -294,7 +274,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszData 
      * @returns {HRESULT} 
      */
@@ -306,7 +285,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwch 
      * @param {Integer} cwch 
      * @returns {HRESULT} 
@@ -319,7 +297,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {XmlStandalone} standalone 
      * @returns {HRESULT} 
      */
@@ -329,7 +306,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
@@ -345,7 +321,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszText 
      * @returns {HRESULT} 
      */
@@ -357,7 +332,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} wchLow 
      * @param {Integer} wchHigh 
      * @returns {HRESULT} 
@@ -368,7 +342,6 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszWhitespace 
      * @returns {HRESULT} 
      */

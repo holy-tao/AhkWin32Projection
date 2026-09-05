@@ -7,12 +7,14 @@
 class styleWidowsOrphans extends Win32Enum {
 
     /**
+     * Native name: styleWidowsOrphansNotSet
      * @type {Integer (Int32)}
      */
-    static styleWidowsOrphansNotSet => -2147483647
+    static NotSet => -2147483647
 
     /**
+     * Native name: styleWidowsOrphans_Max
      * @type {Integer (Int32)}
      */
-    static styleWidowsOrphans_Max => 2147483647
+    static Max => 2147483647
 }

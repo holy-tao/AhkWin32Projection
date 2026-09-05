@@ -7,22 +7,26 @@
 class KSEVENT_DEVICE extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_DEVICE_LOST
      * @type {Integer (Int32)}
      */
-    static KSEVENT_DEVICE_LOST => 0
+    static LOST => 0
 
     /**
+     * Native name: KSEVENT_DEVICE_PREEMPTED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_DEVICE_PREEMPTED => 1
+    static PREEMPTED => 1
 
     /**
+     * Native name: KSEVENT_DEVICE_THERMAL_HIGH
      * @type {Integer (Int32)}
      */
-    static KSEVENT_DEVICE_THERMAL_HIGH => 2
+    static THERMAL_HIGH => 2
 
     /**
+     * Native name: KSEVENT_DEVICE_THERMAL_LOW
      * @type {Integer (Int32)}
      */
-    static KSEVENT_DEVICE_THERMAL_LOW => 3
+    static THERMAL_LOW => 3
 }

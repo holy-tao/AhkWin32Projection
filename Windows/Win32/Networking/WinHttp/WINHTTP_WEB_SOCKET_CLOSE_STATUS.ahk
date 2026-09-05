@@ -12,74 +12,86 @@ class WINHTTP_WEB_SOCKET_CLOSE_STATUS extends Win32Enum {
 
     /**
      * The connection closed successfully.
+     * Native name: WINHTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS => 1000
+    static SUCCESS_CLOSE_STATUS => 1000
 
     /**
      * The peer is going away and terminating the connection.
+     * Native name: WINHTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS => 1001
+    static ENDPOINT_TERMINATED_CLOSE_STATUS => 1001
 
     /**
      * A protocol error occurred.
+     * Native name: WINHTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS => 1002
+    static PROTOCOL_ERROR_CLOSE_STATUS => 1002
 
     /**
      * Invalid data received by the peer.
+     * Native name: WINHTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS => 1003
+    static INVALID_DATA_TYPE_CLOSE_STATUS => 1003
 
     /**
      * The close message was empty.
+     * Native name: WINHTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS => 1005
+    static EMPTY_CLOSE_STATUS => 1005
 
     /**
      * The connection was aborted.
+     * Native name: WINHTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS => 1006
+    static ABORTED_CLOSE_STATUS => 1006
 
     /**
      * The payload was invalid.
+     * Native name: WINHTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS => 1007
+    static INVALID_PAYLOAD_CLOSE_STATUS => 1007
 
     /**
      * The message violates an endpoint's policy.
+     * Native name: WINHTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS => 1008
+    static POLICY_VIOLATION_CLOSE_STATUS => 1008
 
     /**
      * The message sent was too large to process.
+     * Native name: WINHTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS => 1009
+    static MESSAGE_TOO_BIG_CLOSE_STATUS => 1009
 
     /**
      * A client endpoint expected the server to negotiate one or more extensions, but the server didn't return them in the response message of the WebSocket handshake.
+     * Native name: WINHTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS => 1010
+    static UNSUPPORTED_EXTENSIONS_CLOSE_STATUS => 1010
 
     /**
      * An unexpected condition prevented the server from
      *       fulfilling the request.
+     * Native name: WINHTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS => 1011
+    static SERVER_ERROR_CLOSE_STATUS => 1011
 
     /**
      * The TLS handshake could not be completed.
+     * Native name: WINHTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS => 1015
+    static SECURE_HANDSHAKE_ERROR_CLOSE_STATUS => 1015
 }

@@ -7,27 +7,32 @@
 class styleBackgroundClip extends Win32Enum {
 
     /**
+     * Native name: styleBackgroundClipBorderBox
      * @type {Integer (Int32)}
      */
-    static styleBackgroundClipBorderBox => 0
+    static BorderBox => 0
 
     /**
+     * Native name: styleBackgroundClipPaddingBox
      * @type {Integer (Int32)}
      */
-    static styleBackgroundClipPaddingBox => 1
+    static PaddingBox => 1
 
     /**
+     * Native name: styleBackgroundClipContentBox
      * @type {Integer (Int32)}
      */
-    static styleBackgroundClipContentBox => 2
+    static ContentBox => 2
 
     /**
+     * Native name: styleBackgroundClipNotSet
      * @type {Integer (Int32)}
      */
-    static styleBackgroundClipNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleBackgroundClip_Max
      * @type {Integer (Int32)}
      */
-    static styleBackgroundClip_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,7 +7,8 @@
 class FILE_STORAGE_TIER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY
      * @type {Integer (UInt32)}
      */
-    static FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY => 131072
+    static FLAG_NO_SEEK_PENALTY => 131072
 }

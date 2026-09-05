@@ -7,47 +7,56 @@
 class SCRIPTFLAGS extends Win32Enum {
 
     /**
+     * Native name: SCRIPTFLAGS_CACHEINFO
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_CACHEINFO => 1
+    static CACHEINFO => 1
 
     /**
+     * Native name: SCRIPTFLAGS_SHORTCUTS
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_SHORTCUTS => 4
+    static SHORTCUTS => 4
 
     /**
+     * Native name: SCRIPTFLAGS_MACHINEASSIGN
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_MACHINEASSIGN => 8
+    static MACHINEASSIGN => 8
 
     /**
+     * Native name: SCRIPTFLAGS_REGDATA_CNFGINFO
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_REGDATA_CNFGINFO => 32
+    static REGDATA_CNFGINFO => 32
 
     /**
+     * Native name: SCRIPTFLAGS_VALIDATE_TRANSFORMS_LIST
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_VALIDATE_TRANSFORMS_LIST => 64
+    static VALIDATE_TRANSFORMS_LIST => 64
 
     /**
+     * Native name: SCRIPTFLAGS_REGDATA_CLASSINFO
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_REGDATA_CLASSINFO => 128
+    static REGDATA_CLASSINFO => 128
 
     /**
+     * Native name: SCRIPTFLAGS_REGDATA_EXTENSIONINFO
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_REGDATA_EXTENSIONINFO => 256
+    static REGDATA_EXTENSIONINFO => 256
 
     /**
+     * Native name: SCRIPTFLAGS_REGDATA_APPINFO
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_REGDATA_APPINFO => 384
+    static REGDATA_APPINFO => 384
 
     /**
+     * Native name: SCRIPTFLAGS_REGDATA
      * @type {Integer (Int32)}
      */
-    static SCRIPTFLAGS_REGDATA => 416
+    static REGDATA => 416
 }

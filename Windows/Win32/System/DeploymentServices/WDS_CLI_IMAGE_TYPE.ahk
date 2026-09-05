@@ -7,22 +7,26 @@
 class WDS_CLI_IMAGE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WDS_CLI_IMAGE_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static WDS_CLI_IMAGE_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: WDS_CLI_IMAGE_TYPE_WIM
      * @type {Integer (Int32)}
      */
-    static WDS_CLI_IMAGE_TYPE_WIM => 1
+    static WIM => 1
 
     /**
+     * Native name: WDS_CLI_IMAGE_TYPE_VHD
      * @type {Integer (Int32)}
      */
-    static WDS_CLI_IMAGE_TYPE_VHD => 2
+    static VHD => 2
 
     /**
+     * Native name: WDS_CLI_IMAGE_TYPE_VHDX
      * @type {Integer (Int32)}
      */
-    static WDS_CLI_IMAGE_TYPE_VHDX => 3
+    static VHDX => 3
 }

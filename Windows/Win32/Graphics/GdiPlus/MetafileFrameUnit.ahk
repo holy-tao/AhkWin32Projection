@@ -7,32 +7,38 @@
 class MetafileFrameUnit extends Win32Enum {
 
     /**
+     * Native name: MetafileFrameUnitPixel
      * @type {Integer (Int32)}
      */
-    static MetafileFrameUnitPixel => 2
+    static Pixel => 2
 
     /**
+     * Native name: MetafileFrameUnitPoint
      * @type {Integer (Int32)}
      */
-    static MetafileFrameUnitPoint => 3
+    static Point => 3
 
     /**
+     * Native name: MetafileFrameUnitInch
      * @type {Integer (Int32)}
      */
-    static MetafileFrameUnitInch => 4
+    static Inch => 4
 
     /**
+     * Native name: MetafileFrameUnitDocument
      * @type {Integer (Int32)}
      */
-    static MetafileFrameUnitDocument => 5
+    static Document => 5
 
     /**
+     * Native name: MetafileFrameUnitMillimeter
      * @type {Integer (Int32)}
      */
-    static MetafileFrameUnitMillimeter => 6
+    static Millimeter => 6
 
     /**
+     * Native name: MetafileFrameUnitGdi
      * @type {Integer (Int32)}
      */
-    static MetafileFrameUnitGdi => 7
+    static Gdi => 7
 }

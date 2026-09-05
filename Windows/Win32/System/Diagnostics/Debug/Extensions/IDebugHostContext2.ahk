@@ -30,7 +30,6 @@ class IDebugHostContext2 extends IDebugHostContext {
     static VTableNames => ["GetAddressSpaceRelation"]
 
     /**
-     * 
      * @param {IDebugHostContext2} pContext 
      * @returns {AddressSpaceRelation} 
      */

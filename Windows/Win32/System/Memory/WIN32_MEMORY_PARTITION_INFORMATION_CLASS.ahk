@@ -7,12 +7,14 @@
 class WIN32_MEMORY_PARTITION_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: MemoryPartitionInfo
      * @type {Integer (Int32)}
      */
-    static MemoryPartitionInfo => 0
+    static Info => 0
 
     /**
+     * Native name: MemoryPartitionDedicatedMemoryInfo
      * @type {Integer (Int32)}
      */
-    static MemoryPartitionDedicatedMemoryInfo => 1
+    static DedicatedMemoryInfo => 1
 }

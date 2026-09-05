@@ -7,7 +7,8 @@
 class CRED_ENUMERATE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRED_ENUMERATE_ALL_CREDENTIALS
      * @type {Integer (UInt32)}
      */
-    static CRED_ENUMERATE_ALL_CREDENTIALS => 1
+    static ALL_CREDENTIALS => 1
 }

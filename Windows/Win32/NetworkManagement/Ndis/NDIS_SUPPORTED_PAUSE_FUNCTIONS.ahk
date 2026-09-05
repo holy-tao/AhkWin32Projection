@@ -7,27 +7,32 @@
 class NDIS_SUPPORTED_PAUSE_FUNCTIONS extends Win32Enum {
 
     /**
+     * Native name: NdisPauseFunctionsUnsupported
      * @type {Integer (Int32)}
      */
-    static NdisPauseFunctionsUnsupported => 0
+    static Unsupported => 0
 
     /**
+     * Native name: NdisPauseFunctionsSendOnly
      * @type {Integer (Int32)}
      */
-    static NdisPauseFunctionsSendOnly => 1
+    static SendOnly => 1
 
     /**
+     * Native name: NdisPauseFunctionsReceiveOnly
      * @type {Integer (Int32)}
      */
-    static NdisPauseFunctionsReceiveOnly => 2
+    static ReceiveOnly => 2
 
     /**
+     * Native name: NdisPauseFunctionsSendAndReceive
      * @type {Integer (Int32)}
      */
-    static NdisPauseFunctionsSendAndReceive => 3
+    static SendAndReceive => 3
 
     /**
+     * Native name: NdisPauseFunctionsUnknown
      * @type {Integer (Int32)}
      */
-    static NdisPauseFunctionsUnknown => 4
+    static Unknown => 4
 }

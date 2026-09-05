@@ -111,7 +111,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -123,7 +122,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rows() {
@@ -133,7 +131,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -145,7 +142,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cols() {
@@ -155,7 +151,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -165,7 +160,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -175,7 +169,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -185,7 +178,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {
@@ -195,7 +187,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -207,7 +198,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_frameBorder() {
@@ -217,7 +207,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -227,7 +216,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_frameSpacing() {
@@ -237,7 +225,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -249,7 +236,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -259,7 +245,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -269,7 +254,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -279,7 +263,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -289,7 +272,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onunload() {
@@ -299,7 +281,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -309,7 +290,6 @@ class IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeunload() {

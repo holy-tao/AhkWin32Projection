@@ -10,20 +10,23 @@ class FsrmPropertyValueType extends Win32Enum {
 
     /**
      * The type assigned to the property value is not defined.
+     * Native name: FsrmPropertyValueType_Undefined
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyValueType_Undefined => 0
+    static Undefined => 0
 
     /**
      * The type assigned to the property value is one or more literal values.
+     * Native name: FsrmPropertyValueType_Literal
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyValueType_Literal => 1
+    static Literal => 1
 
     /**
      * The type assigned to the property value is a date expression containing a date variable and an optional 
      *       date offset.
+     * Native name: FsrmPropertyValueType_DateOffset
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyValueType_DateOffset => 2
+    static DateOffset => 2
 }

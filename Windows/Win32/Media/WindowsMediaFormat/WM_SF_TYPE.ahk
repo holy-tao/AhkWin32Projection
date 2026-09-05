@@ -7,17 +7,20 @@
 class WM_SF_TYPE extends Win32Enum {
 
     /**
+     * Native name: WM_SF_CLEANPOINT
      * @type {Integer (Int32)}
      */
-    static WM_SF_CLEANPOINT => 1
+    static CLEANPOINT => 1
 
     /**
+     * Native name: WM_SF_DISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static WM_SF_DISCONTINUITY => 2
+    static DISCONTINUITY => 2
 
     /**
+     * Native name: WM_SF_DATALOSS
      * @type {Integer (Int32)}
      */
-    static WM_SF_DATALOSS => 4
+    static DATALOSS => 4
 }

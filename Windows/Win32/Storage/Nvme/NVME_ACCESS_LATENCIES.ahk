@@ -12,25 +12,29 @@ class NVME_ACCESS_LATENCIES extends Win32Enum {
 
     /**
      * None. No latency information provided.
+     * Native name: NVME_ACCESS_LATENCY_NONE
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_LATENCY_NONE => 0
+    static LATENCY_NONE => 0
 
     /**
      * Idle. Longer latency acceptable.
+     * Native name: NVME_ACCESS_LATENCY_IDLE
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_LATENCY_IDLE => 1
+    static LATENCY_IDLE => 1
 
     /**
      * Normal. Typical latency.
+     * Native name: NVME_ACCESS_LATENCY_NORMAL
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_LATENCY_NORMAL => 2
+    static LATENCY_NORMAL => 2
 
     /**
      * Low. Smallest possible latency.
+     * Native name: NVME_ACCESS_LATENCY_LOW
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_LATENCY_LOW => 3
+    static LATENCY_LOW => 3
 }

@@ -7,27 +7,32 @@
 class HLTB_INFO extends Win32Enum {
 
     /**
+     * Native name: HLTB_DOCKEDLEFT
      * @type {Integer (Int32)}
      */
-    static HLTB_DOCKEDLEFT => 0
+    static DOCKEDLEFT => 0
 
     /**
+     * Native name: HLTB_DOCKEDTOP
      * @type {Integer (Int32)}
      */
-    static HLTB_DOCKEDTOP => 1
+    static DOCKEDTOP => 1
 
     /**
+     * Native name: HLTB_DOCKEDRIGHT
      * @type {Integer (Int32)}
      */
-    static HLTB_DOCKEDRIGHT => 2
+    static DOCKEDRIGHT => 2
 
     /**
+     * Native name: HLTB_DOCKEDBOTTOM
      * @type {Integer (Int32)}
      */
-    static HLTB_DOCKEDBOTTOM => 3
+    static DOCKEDBOTTOM => 3
 
     /**
+     * Native name: HLTB_FLOATING
      * @type {Integer (Int32)}
      */
-    static HLTB_FLOATING => 4
+    static FLOATING => 4
 }

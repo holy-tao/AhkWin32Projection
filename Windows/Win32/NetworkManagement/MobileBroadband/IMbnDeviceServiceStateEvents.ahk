@@ -31,7 +31,6 @@ class IMbnDeviceServiceStateEvents extends IUnknown {
     static VTableNames => ["OnSessionsStateChange"]
 
     /**
-     * 
      * @param {BSTR} interfaceID 
      * @param {MBN_DEVICE_SERVICE_SESSIONS_STATE} stateChange 
      * @returns {HRESULT} 

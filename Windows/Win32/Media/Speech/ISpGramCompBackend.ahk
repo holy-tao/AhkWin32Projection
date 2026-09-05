@@ -38,7 +38,6 @@ class ISpGramCompBackend extends ISpGrammarBuilder {
     static VTableNames => ["SetSaveObjects", "InitFromBinaryGrammar"]
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {ISpErrorLog} pErrorLog 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ class ISpGramCompBackend extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<SPBINARYGRAMMAR>} pBinaryData 
      * @returns {HRESULT} 
      */

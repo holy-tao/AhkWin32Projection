@@ -11,12 +11,14 @@
 class WPD_POWER_SOURCES extends Win32Enum {
 
     /**
+     * Native name: WPD_POWER_SOURCE_BATTERY
      * @type {Integer (Int32)}
      */
-    static WPD_POWER_SOURCE_BATTERY => 0
+    static SOURCE_BATTERY => 0
 
     /**
+     * Native name: WPD_POWER_SOURCE_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static WPD_POWER_SOURCE_EXTERNAL => 1
+    static SOURCE_EXTERNAL => 1
 }

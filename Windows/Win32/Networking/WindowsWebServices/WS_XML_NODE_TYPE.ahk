@@ -29,49 +29,57 @@ class WS_XML_NODE_TYPE extends Win32Enum {
 
     /**
      * A start element. (e.g. &lt;a:purchaseOrder xmlns:a="http://tempuri.org" id="5"&gt;)
+     * Native name: WS_XML_NODE_TYPE_ELEMENT
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_ELEMENT => 1
+    static ELEMENT => 1
 
     /**
      * Element, attribute, or CDATA content.
+     * Native name: WS_XML_NODE_TYPE_TEXT
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_TEXT => 2
+    static TEXT => 2
 
     /**
      * An end element. (e.g. &lt;/purchaseOrder&gt;)
+     * Native name: WS_XML_NODE_TYPE_END_ELEMENT
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_END_ELEMENT => 3
+    static END_ELEMENT => 3
 
     /**
      * A comment. (For example, &lt;!--The message follows--&gt;)
+     * Native name: WS_XML_NODE_TYPE_COMMENT
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_COMMENT => 4
+    static COMMENT => 4
 
     /**
      * The start of a CDATA section (i.e. &lt;![CDATA[)
+     * Native name: WS_XML_NODE_TYPE_CDATA
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_CDATA => 6
+    static CDATA => 6
 
     /**
      * The end of a CDATA section (i.e. ]]&gt;)
+     * Native name: WS_XML_NODE_TYPE_END_CDATA
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_END_CDATA => 7
+    static END_CDATA => 7
 
     /**
      * The final node of an xml stream.
+     * Native name: WS_XML_NODE_TYPE_EOF
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_EOF => 8
+    static EOF => 8
 
     /**
      * The first node of an xml stream.
+     * Native name: WS_XML_NODE_TYPE_BOF
      * @type {Integer (Int32)}
      */
-    static WS_XML_NODE_TYPE_BOF => 9
+    static BOF => 9
 }

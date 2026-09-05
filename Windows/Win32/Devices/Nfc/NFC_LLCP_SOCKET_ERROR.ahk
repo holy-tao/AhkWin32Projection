@@ -7,22 +7,26 @@
 class NFC_LLCP_SOCKET_ERROR extends Win32Enum {
 
     /**
+     * Native name: NfcLlcpErrorDisconnected
      * @type {Integer (Int32)}
      */
-    static NfcLlcpErrorDisconnected => 0
+    static Disconnected => 0
 
     /**
+     * Native name: NfcLlcpErrorFrameRejected
      * @type {Integer (Int32)}
      */
-    static NfcLlcpErrorFrameRejected => 1
+    static FrameRejected => 1
 
     /**
+     * Native name: NfcLlcpErrorBusyCondition
      * @type {Integer (Int32)}
      */
-    static NfcLlcpErrorBusyCondition => 2
+    static BusyCondition => 2
 
     /**
+     * Native name: NfcLlcpErrorNotBusyCondition
      * @type {Integer (Int32)}
      */
-    static NfcLlcpErrorNotBusyCondition => 3
+    static NotBusyCondition => 3
 }

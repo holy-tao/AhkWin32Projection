@@ -10,31 +10,36 @@ class CM_STATE extends Win32BitflagEnum {
 
     /**
      * The column is not currently displayed.
+     * Native name: CM_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static CM_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * The column is currently displayed.
+     * Native name: CM_STATE_VISIBLE
      * @type {Integer (Int32)}
      */
-    static CM_STATE_VISIBLE => 1
+    static VISIBLE => 1
 
     /**
      * The column cannot be resized.
+     * Native name: CM_STATE_FIXEDWIDTH
      * @type {Integer (Int32)}
      */
-    static CM_STATE_FIXEDWIDTH => 2
+    static FIXEDWIDTH => 2
 
     /**
      * Do not sort folders separately.
+     * Native name: CM_STATE_NOSORTBYFOLDERNESS
      * @type {Integer (Int32)}
      */
-    static CM_STATE_NOSORTBYFOLDERNESS => 4
+    static NOSORTBYFOLDERNESS => 4
 
     /**
      * The column cannot be hidden.
+     * Native name: CM_STATE_ALWAYSVISIBLE
      * @type {Integer (Int32)}
      */
-    static CM_STATE_ALWAYSVISIBLE => 8
+    static ALWAYSVISIBLE => 8
 }

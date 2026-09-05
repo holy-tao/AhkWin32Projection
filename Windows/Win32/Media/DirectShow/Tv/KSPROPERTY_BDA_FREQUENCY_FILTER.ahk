@@ -7,52 +7,62 @@
 class KSPROPERTY_BDA_FREQUENCY_FILTER extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_FREQUENCY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_FREQUENCY => 0
+    static RF_TUNER_FREQUENCY => 0
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_POLARITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_POLARITY => 1
+    static RF_TUNER_POLARITY => 1
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_RANGE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_RANGE => 2
+    static RF_TUNER_RANGE => 2
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_TRANSPONDER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_TRANSPONDER => 3
+    static RF_TUNER_TRANSPONDER => 3
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_BANDWIDTH
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_BANDWIDTH => 4
+    static RF_TUNER_BANDWIDTH => 4
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_FREQUENCY_MULTIPLIER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_FREQUENCY_MULTIPLIER => 5
+    static RF_TUNER_FREQUENCY_MULTIPLIER => 5
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_CAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_CAPS => 6
+    static RF_TUNER_CAPS => 6
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_SCAN_STATUS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_SCAN_STATUS => 7
+    static RF_TUNER_SCAN_STATUS => 7
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_STANDARD
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_STANDARD => 8
+    static RF_TUNER_STANDARD => 8
 
     /**
+     * Native name: KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE => 9
+    static RF_TUNER_STANDARD_MODE => 9
 }

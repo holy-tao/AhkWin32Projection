@@ -7,17 +7,20 @@
 class AATrustClassID extends Win32Enum {
 
     /**
+     * Native name: AA_UNTRUSTED
      * @type {Integer (Int32)}
      */
-    static AA_UNTRUSTED => 0
+    static UNTRUSTED => 0
 
     /**
+     * Native name: AA_TRUSTEDUSER_UNTRUSTEDCLIENT
      * @type {Integer (Int32)}
      */
-    static AA_TRUSTEDUSER_UNTRUSTEDCLIENT => 1
+    static TRUSTEDUSER_UNTRUSTEDCLIENT => 1
 
     /**
+     * Native name: AA_TRUSTEDUSER_TRUSTEDCLIENT
      * @type {Integer (Int32)}
      */
-    static AA_TRUSTEDUSER_TRUSTEDCLIENT => 2
+    static TRUSTEDUSER_TRUSTEDCLIENT => 2
 }

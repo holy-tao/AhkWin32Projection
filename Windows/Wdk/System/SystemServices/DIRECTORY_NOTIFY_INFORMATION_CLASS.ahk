@@ -12,17 +12,20 @@ class DIRECTORY_NOTIFY_INFORMATION_CLASS extends Win32Enum {
     static DirectoryNotifyInformation => 1
 
     /**
+     * Native name: DirectoryNotifyExtendedInformation
      * @type {Integer (Int32)}
      */
-    static DirectoryNotifyExtendedInformation => 2
+    static ExtendedInformation => 2
 
     /**
+     * Native name: DirectoryNotifyFullInformation
      * @type {Integer (Int32)}
      */
-    static DirectoryNotifyFullInformation => 3
+    static FullInformation => 3
 
     /**
+     * Native name: DirectoryNotifyMaximumInformation
      * @type {Integer (Int32)}
      */
-    static DirectoryNotifyMaximumInformation => 4
+    static MaximumInformation => 4
 }

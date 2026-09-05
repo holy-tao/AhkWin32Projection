@@ -9,67 +9,78 @@
 class STORAGE_DEVICE_FORM_FACTOR extends Win32Enum {
 
     /**
+     * Native name: FormFactorUnknown
      * @type {Integer (Int32)}
      */
-    static FormFactorUnknown => 0
+    static Unknown => 0
 
     /**
      * 3.5-inch nominal form factor.
+     * Native name: FormFactor3_5
      * @type {Integer (Int32)}
      */
-    static FormFactor3_5 => 1
+    static Factor3_5 => 1
 
     /**
      * 2.5-inch nominal form factor.
+     * Native name: FormFactor2_5
      * @type {Integer (Int32)}
      */
-    static FormFactor2_5 => 2
+    static Factor2_5 => 2
 
     /**
      * 1.8-inch nominal form factor.
+     * Native name: FormFactor1_8
      * @type {Integer (Int32)}
      */
-    static FormFactor1_8 => 3
+    static Factor1_8 => 3
 
     /**
      * Less than 1.8-inch nominal form factor.
+     * Native name: FormFactor1_8Less
      * @type {Integer (Int32)}
      */
-    static FormFactor1_8Less => 4
+    static Factor1_8Less => 4
 
     /**
      * Embedded on board.
+     * Native name: FormFactorEmbedded
      * @type {Integer (Int32)}
      */
-    static FormFactorEmbedded => 5
+    static Embedded => 5
 
     /**
      * Memory card such as SD, CF.
+     * Native name: FormFactorMemoryCard
      * @type {Integer (Int32)}
      */
-    static FormFactorMemoryCard => 6
+    static MemoryCard => 6
 
     /**
      * mSATA
+     * Native name: FormFactormSata
      * @type {Integer (Int32)}
      */
-    static FormFactormSata => 7
+    static FactormSata => 7
 
     /**
      * M.2
+     * Native name: FormFactorM_2
      * @type {Integer (Int32)}
      */
-    static FormFactorM_2 => 8
+    static FactorM_2 => 8
 
     /**
      * PCIe card plug into slot.
+     * Native name: FormFactorPCIeBoard
      * @type {Integer (Int32)}
      */
-    static FormFactorPCIeBoard => 9
+    static FactorPCIeBoard => 9
 
     /**
      * DIMM slot.
+     * Native name: FormFactorDimm
      * @type {Integer (Int32)}
      */
-    static FormFactorDimm => 10
+    static Dimm => 10
 }

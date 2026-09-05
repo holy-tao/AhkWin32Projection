@@ -9,27 +9,32 @@
 class WPD_STREAM_UNITS extends Win32Enum {
 
     /**
+     * Native name: WPD_STREAM_UNITS_BYTES
      * @type {Integer (Int32)}
      */
-    static WPD_STREAM_UNITS_BYTES => 0
+    static BYTES => 0
 
     /**
+     * Native name: WPD_STREAM_UNITS_FRAMES
      * @type {Integer (Int32)}
      */
-    static WPD_STREAM_UNITS_FRAMES => 1
+    static FRAMES => 1
 
     /**
+     * Native name: WPD_STREAM_UNITS_ROWS
      * @type {Integer (Int32)}
      */
-    static WPD_STREAM_UNITS_ROWS => 2
+    static ROWS => 2
 
     /**
+     * Native name: WPD_STREAM_UNITS_MILLISECONDS
      * @type {Integer (Int32)}
      */
-    static WPD_STREAM_UNITS_MILLISECONDS => 4
+    static MILLISECONDS => 4
 
     /**
+     * Native name: WPD_STREAM_UNITS_MICROSECONDS
      * @type {Integer (Int32)}
      */
-    static WPD_STREAM_UNITS_MICROSECONDS => 8
+    static MICROSECONDS => 8
 }

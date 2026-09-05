@@ -30,7 +30,6 @@ class IVisualInteractionSourceInterop extends IUnknown {
     static VTableNames => ["TryRedirectForManipulation"]
 
     /**
-     * 
      * @param {Pointer<POINTER_INFO>} pointerInfo 
      * @returns {HRESULT} 
      */

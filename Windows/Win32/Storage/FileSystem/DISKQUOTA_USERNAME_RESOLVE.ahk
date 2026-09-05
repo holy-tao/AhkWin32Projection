@@ -7,17 +7,20 @@
 class DISKQUOTA_USERNAME_RESOLVE extends Win32Enum {
 
     /**
+     * Native name: DISKQUOTA_USERNAME_RESOLVE_ASYNC
      * @type {Integer (UInt32)}
      */
-    static DISKQUOTA_USERNAME_RESOLVE_ASYNC => 2
+    static ASYNC => 2
 
     /**
+     * Native name: DISKQUOTA_USERNAME_RESOLVE_NONE
      * @type {Integer (UInt32)}
      */
-    static DISKQUOTA_USERNAME_RESOLVE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: DISKQUOTA_USERNAME_RESOLVE_SYNC
      * @type {Integer (UInt32)}
      */
-    static DISKQUOTA_USERNAME_RESOLVE_SYNC => 1
+    static SYNC => 1
 }

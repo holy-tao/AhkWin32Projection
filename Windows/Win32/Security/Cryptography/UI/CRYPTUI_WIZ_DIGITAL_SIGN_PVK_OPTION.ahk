@@ -7,12 +7,14 @@
 class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION extends Win32Enum {
 
     /**
+     * Native name: CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE => 1
+    static FILE => 1
 
     /**
+     * Native name: CRYPTUI_WIZ_DIGITAL_SIGN_PVK_PROV
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_DIGITAL_SIGN_PVK_PROV => 2
+    static PROV => 2
 }

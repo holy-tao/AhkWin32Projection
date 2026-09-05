@@ -36,7 +36,6 @@ class IRemoteComponentUtil extends IDispatch {
     static VTableNames => ["InstallRemoteComponent", "InstallRemoteComponentByName"]
 
     /**
-     * 
      * @param {BSTR} bstrServer 
      * @param {BSTR} bstrPackageID 
      * @param {BSTR} bstrCLSID 
@@ -52,7 +51,6 @@ class IRemoteComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServer 
      * @param {BSTR} bstrPackageName 
      * @param {BSTR} bstrProgID 

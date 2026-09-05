@@ -7,17 +7,20 @@
 class FLT_POSTOP_CALLBACK_STATUS extends Win32Enum {
 
     /**
+     * Native name: FLT_POSTOP_FINISHED_PROCESSING
      * @type {Integer (Int32)}
      */
-    static FLT_POSTOP_FINISHED_PROCESSING => 0
+    static FINISHED_PROCESSING => 0
 
     /**
+     * Native name: FLT_POSTOP_MORE_PROCESSING_REQUIRED
      * @type {Integer (Int32)}
      */
-    static FLT_POSTOP_MORE_PROCESSING_REQUIRED => 1
+    static MORE_PROCESSING_REQUIRED => 1
 
     /**
+     * Native name: FLT_POSTOP_DISALLOW_FSFILTER_IO
      * @type {Integer (Int32)}
      */
-    static FLT_POSTOP_DISALLOW_FSFILTER_IO => 2
+    static DISALLOW_FSFILTER_IO => 2
 }

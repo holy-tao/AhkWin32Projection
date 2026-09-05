@@ -7,47 +7,56 @@
 class KSPROPERTY_DIRECTSOUND3DBUFFER extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_ALL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_ALL => 0
+    static ALL => 0
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_POSITION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_POSITION => 1
+    static POSITION => 1
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_VELOCITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_VELOCITY => 2
+    static VELOCITY => 2
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_CONEANGLES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_CONEANGLES => 3
+    static CONEANGLES => 3
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_CONEORIENTATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_CONEORIENTATION => 4
+    static CONEORIENTATION => 4
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_CONEOUTSIDEVOLUME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_CONEOUTSIDEVOLUME => 5
+    static CONEOUTSIDEVOLUME => 5
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_MINDISTANCE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_MINDISTANCE => 6
+    static MINDISTANCE => 6
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_MAXDISTANCE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_MAXDISTANCE => 7
+    static MAXDISTANCE => 7
 
     /**
+     * Native name: KSPROPERTY_DIRECTSOUND3DBUFFER_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DIRECTSOUND3DBUFFER_MODE => 8
+    static MODE => 8
 }

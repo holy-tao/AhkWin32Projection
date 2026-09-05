@@ -34,7 +34,6 @@ class IDebugCallbackNotificationHandler extends IUnknown {
     static VTableNames => ["RequestedCallbackTypes", "BeforeDispatchEvent", "DispatchEventComplete", "BeforeInvokeDomCallback", "InvokeDomCallbackComplete", "BeforeInvokeCallback", "InvokeCallbackComplete"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     RequestedCallbackTypes() {
@@ -43,7 +42,6 @@ class IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @param {Integer} propagationStatus 
      * @returns {HRESULT} 
@@ -64,7 +61,6 @@ class IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @param {IScriptEventHandler} pCallback 
      * @param {DOM_EVENT_PHASE} eStage 
@@ -77,7 +73,6 @@ class IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @param {IScriptEventHandler} pCallback 
      * @param {DOM_EVENT_PHASE} eStage 
@@ -90,7 +85,6 @@ class IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPT_TIMER_TYPE} eCallbackType 
      * @param {Integer} callbackCookie 
      * @param {IDispatch} pDispHandler 
@@ -110,7 +104,6 @@ class IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPT_TIMER_TYPE} eCallbackType 
      * @param {Integer} callbackCookie 
      * @param {IDispatch} pDispHandler 

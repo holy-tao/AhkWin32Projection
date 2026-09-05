@@ -7,17 +7,20 @@
 class CoordinateSpace extends Win32Enum {
 
     /**
+     * Native name: CoordinateSpaceWorld
      * @type {Integer (Int32)}
      */
-    static CoordinateSpaceWorld => 0
+    static World => 0
 
     /**
+     * Native name: CoordinateSpacePage
      * @type {Integer (Int32)}
      */
-    static CoordinateSpacePage => 1
+    static Page => 1
 
     /**
+     * Native name: CoordinateSpaceDevice
      * @type {Integer (Int32)}
      */
-    static CoordinateSpaceDevice => 2
+    static Device => 2
 }

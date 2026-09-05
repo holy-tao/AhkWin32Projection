@@ -7,27 +7,32 @@
 class WLAN_OPERATIONAL_STATE extends Win32Enum {
 
     /**
+     * Native name: wlan_operational_state_unknown
      * @type {Integer (Int32)}
      */
-    static wlan_operational_state_unknown => 0
+    static unknown => 0
 
     /**
+     * Native name: wlan_operational_state_off
      * @type {Integer (Int32)}
      */
-    static wlan_operational_state_off => 1
+    static off => 1
 
     /**
+     * Native name: wlan_operational_state_on
      * @type {Integer (Int32)}
      */
-    static wlan_operational_state_on => 2
+    static on => 2
 
     /**
+     * Native name: wlan_operational_state_going_off
      * @type {Integer (Int32)}
      */
-    static wlan_operational_state_going_off => 3
+    static going_off => 3
 
     /**
+     * Native name: wlan_operational_state_going_on
      * @type {Integer (Int32)}
      */
-    static wlan_operational_state_going_on => 4
+    static going_on => 4
 }

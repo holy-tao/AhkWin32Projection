@@ -7,37 +7,44 @@
 class DEVICE_USAGE_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: DeviceUsageTypeUndefined
      * @type {Integer (Int32)}
      */
-    static DeviceUsageTypeUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: DeviceUsageTypePaging
      * @type {Integer (Int32)}
      */
-    static DeviceUsageTypePaging => 1
+    static Paging => 1
 
     /**
+     * Native name: DeviceUsageTypeHibernation
      * @type {Integer (Int32)}
      */
-    static DeviceUsageTypeHibernation => 2
+    static Hibernation => 2
 
     /**
+     * Native name: DeviceUsageTypeDumpFile
      * @type {Integer (Int32)}
      */
-    static DeviceUsageTypeDumpFile => 3
+    static DumpFile => 3
 
     /**
+     * Native name: DeviceUsageTypeBoot
      * @type {Integer (Int32)}
      */
-    static DeviceUsageTypeBoot => 4
+    static Boot => 4
 
     /**
+     * Native name: DeviceUsageTypePostDisplay
      * @type {Integer (Int32)}
      */
-    static DeviceUsageTypePostDisplay => 5
+    static PostDisplay => 5
 
     /**
+     * Native name: DeviceUsageTypeGuestAssigned
      * @type {Integer (Int32)}
      */
-    static DeviceUsageTypeGuestAssigned => 6
+    static GuestAssigned => 6
 }

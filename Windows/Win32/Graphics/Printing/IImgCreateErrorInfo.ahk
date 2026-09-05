@@ -30,7 +30,6 @@ class IImgCreateErrorInfo extends ICreateErrorInfo {
     static VTableNames => ["AttachToErrorInfo"]
 
     /**
-     * 
      * @param {Pointer<ImgErrorInfo>} pErrorInfo 
      * @returns {HRESULT} 
      */

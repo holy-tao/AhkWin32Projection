@@ -32,7 +32,6 @@ class IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest {
     static VTableNames => ["setProxy", "setProxyCredentials"]
 
     /**
-     * 
      * @param {SXH_PROXY_SETTING} proxySetting 
      * @param {VARIANT} varProxyServer 
      * @param {VARIANT} varBypassList 
@@ -44,7 +43,6 @@ class IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrPassword 
      * @returns {HRESULT} 

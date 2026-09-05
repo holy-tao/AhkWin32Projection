@@ -7,12 +7,14 @@
 class KSCAMERA_EXTENDEDPROP_ROITYPE extends Win32Enum {
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_ROITYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_ROITYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_ROITYPE_FACE
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_ROITYPE_FACE => 1
+    static FACE => 1
 }

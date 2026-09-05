@@ -7,22 +7,26 @@
 class NAV_FORWARDBUTTONSTATES extends Win32Enum {
 
     /**
+     * Native name: NAV_FB_NORMAL
      * @type {Integer (Int32)}
      */
-    static NAV_FB_NORMAL => 1
+    static FB_NORMAL => 1
 
     /**
+     * Native name: NAV_FB_HOT
      * @type {Integer (Int32)}
      */
-    static NAV_FB_HOT => 2
+    static FB_HOT => 2
 
     /**
+     * Native name: NAV_FB_PRESSED
      * @type {Integer (Int32)}
      */
-    static NAV_FB_PRESSED => 3
+    static FB_PRESSED => 3
 
     /**
+     * Native name: NAV_FB_DISABLED
      * @type {Integer (Int32)}
      */
-    static NAV_FB_DISABLED => 4
+    static FB_DISABLED => 4
 }

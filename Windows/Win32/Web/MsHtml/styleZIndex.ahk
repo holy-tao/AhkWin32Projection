@@ -7,12 +7,14 @@
 class styleZIndex extends Win32Enum {
 
     /**
+     * Native name: styleZIndexAuto
      * @type {Integer (Int32)}
      */
-    static styleZIndexAuto => -2147483647
+    static Auto => -2147483647
 
     /**
+     * Native name: styleZIndex_Max
      * @type {Integer (Int32)}
      */
-    static styleZIndex_Max => 2147483647
+    static Max => 2147483647
 }

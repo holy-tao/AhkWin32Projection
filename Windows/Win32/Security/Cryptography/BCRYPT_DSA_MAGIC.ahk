@@ -7,12 +7,14 @@
 class BCRYPT_DSA_MAGIC extends Win32Enum {
 
     /**
+     * Native name: BCRYPT_DSA_PUBLIC_MAGIC
      * @type {Integer (UInt32)}
      */
-    static BCRYPT_DSA_PUBLIC_MAGIC => 1112560452
+    static PUBLIC_MAGIC => 1112560452
 
     /**
+     * Native name: BCRYPT_DSA_PRIVATE_MAGIC
      * @type {Integer (UInt32)}
      */
-    static BCRYPT_DSA_PRIVATE_MAGIC => 1448104772
+    static PRIVATE_MAGIC => 1448104772
 }

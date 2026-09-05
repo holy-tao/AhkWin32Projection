@@ -9,92 +9,110 @@
 class JET_ERRCAT extends Win32Enum {
 
     /**
+     * Native name: JET_errcatUnknown
      * @type {Integer (Int32)}
      */
-    static JET_errcatUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: JET_errcatError
      * @type {Integer (Int32)}
      */
-    static JET_errcatError => 1
+    static Error => 1
 
     /**
+     * Native name: JET_errcatOperation
      * @type {Integer (Int32)}
      */
-    static JET_errcatOperation => 2
+    static Operation => 2
 
     /**
+     * Native name: JET_errcatFatal
      * @type {Integer (Int32)}
      */
-    static JET_errcatFatal => 3
+    static Fatal => 3
 
     /**
+     * Native name: JET_errcatIO
      * @type {Integer (Int32)}
      */
-    static JET_errcatIO => 4
+    static errcatIO => 4
 
     /**
+     * Native name: JET_errcatResource
      * @type {Integer (Int32)}
      */
-    static JET_errcatResource => 5
+    static Resource => 5
 
     /**
+     * Native name: JET_errcatMemory
      * @type {Integer (Int32)}
      */
-    static JET_errcatMemory => 6
+    static Memory => 6
 
     /**
+     * Native name: JET_errcatQuota
      * @type {Integer (Int32)}
      */
-    static JET_errcatQuota => 7
+    static Quota => 7
 
     /**
+     * Native name: JET_errcatDisk
      * @type {Integer (Int32)}
      */
-    static JET_errcatDisk => 8
+    static Disk => 8
 
     /**
+     * Native name: JET_errcatData
      * @type {Integer (Int32)}
      */
-    static JET_errcatData => 9
+    static Data => 9
 
     /**
+     * Native name: JET_errcatCorruption
      * @type {Integer (Int32)}
      */
-    static JET_errcatCorruption => 10
+    static Corruption => 10
 
     /**
+     * Native name: JET_errcatInconsistent
      * @type {Integer (Int32)}
      */
-    static JET_errcatInconsistent => 11
+    static Inconsistent => 11
 
     /**
+     * Native name: JET_errcatFragmentation
      * @type {Integer (Int32)}
      */
-    static JET_errcatFragmentation => 12
+    static Fragmentation => 12
 
     /**
+     * Native name: JET_errcatApi
      * @type {Integer (Int32)}
      */
-    static JET_errcatApi => 13
+    static Api => 13
 
     /**
+     * Native name: JET_errcatUsage
      * @type {Integer (Int32)}
      */
-    static JET_errcatUsage => 14
+    static Usage => 14
 
     /**
+     * Native name: JET_errcatState
      * @type {Integer (Int32)}
      */
-    static JET_errcatState => 15
+    static State => 15
 
     /**
+     * Native name: JET_errcatObsolete
      * @type {Integer (Int32)}
      */
-    static JET_errcatObsolete => 16
+    static Obsolete => 16
 
     /**
+     * Native name: JET_errcatMax
      * @type {Integer (Int32)}
      */
-    static JET_errcatMax => 17
+    static Max => 17
 }

@@ -12,69 +12,79 @@ class DVD_ERROR extends Win32Enum {
 
     /**
      * Something unexpected happened; perhaps content is authored incorrectly. Playback is stopped.
+     * Native name: DVD_ERROR_Unexpected
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_Unexpected => 1
+    static Unexpected => 1
 
     /**
      * Key exchange for DVD copy protection failed. Playback is stopped.
+     * Native name: DVD_ERROR_CopyProtectFail
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_CopyProtectFail => 2
+    static CopyProtectFail => 2
 
     /**
      * DVD-Video disc is authored incorrectly for specification version 1.<i>x</i>. Playback is stopped.
+     * Native name: DVD_ERROR_InvalidDVD1_0Disc
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_InvalidDVD1_0Disc => 3
+    static InvalidDVD1_0Disc => 3
 
     /**
      * The disc cannot be played because it is not authored to play in the system region. You can try fixing the region mismatch by changing the system region with Dvdrgn.exe.
      * 
      * <i>lParam2</i>: The low <b>WORD</b> contains the disc region and the high <b>WORD</b> contains the system region.
+     * Native name: DVD_ERROR_InvalidDiscRegion
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_InvalidDiscRegion => 4
+    static InvalidDiscRegion => 4
 
     /**
      * Player parental level is lower than the lowest parental level available in the DVD content. Playback is stopped.
      * 
      * <i>lParam2</i>: The lowest parental level in the DVD content, or -1 if no parental level is specified in the content.
+     * Native name: DVD_ERROR_LowParentalLevel
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_LowParentalLevel => 5
+    static LowParentalLevel => 5
 
     /**
      * Analog copy protection distribution failed. Playback stopped.
+     * Native name: DVD_ERROR_MacrovisionFail
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_MacrovisionFail => 6
+    static MacrovisionFail => 6
 
     /**
      * No discs can be played because the system region does not match the decoder region.
      * 
      * <i>lParam2</i>: The low <b>WORD</b> contains the system region and the high <b>WORD</b> contains the decoder region.
+     * Native name: DVD_ERROR_IncompatibleSystemAndDecoderRegions
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_IncompatibleSystemAndDecoderRegions => 7
+    static IncompatibleSystemAndDecoderRegions => 7
 
     /**
      * The disc cannot be played because the disc is not authored to be played in the decoder's region.
      * 
      * <i>lParam2</i>: The low <b>WORD</b> contains the disc region and the high <b>WORD</b> contains the decoder region.
+     * Native name: DVD_ERROR_IncompatibleDiscAndDecoderRegions
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_IncompatibleDiscAndDecoderRegions => 8
+    static IncompatibleDiscAndDecoderRegions => 8
 
     /**
      * The disc cannot be played because the video display does not meet the copy protection requirements.
+     * Native name: DVD_ERROR_CopyProtectOutputFail
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_CopyProtectOutputFail => 9
+    static CopyProtectOutputFail => 9
 
     /**
      * The disc cannot be played because the driver does not support checking the video display.
+     * Native name: DVD_ERROR_CopyProtectOutputNotSupported
      * @type {Integer (Int32)}
      */
-    static DVD_ERROR_CopyProtectOutputNotSupported => 10
+    static CopyProtectOutputNotSupported => 10
 }

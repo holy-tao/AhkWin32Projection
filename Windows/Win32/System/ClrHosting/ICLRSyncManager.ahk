@@ -30,7 +30,6 @@ class ICLRSyncManager extends IUnknown {
     static VTableNames => ["GetMonitorOwner", "CreateRWLockOwnerIterator", "GetRWLockOwnerNext", "DeleteRWLockOwnerIterator"]
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {IHostTask} 
      */
@@ -40,7 +39,6 @@ class ICLRSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {Pointer} 
      */
@@ -50,7 +48,6 @@ class ICLRSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Iterator 
      * @returns {IHostTask} 
      */
@@ -60,7 +57,6 @@ class ICLRSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Iterator 
      * @returns {HRESULT} 
      */

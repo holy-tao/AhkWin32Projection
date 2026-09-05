@@ -85,7 +85,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +94,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selected() {
@@ -104,7 +102,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +113,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -126,7 +122,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -136,7 +131,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultSelected() {
@@ -145,7 +139,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -155,7 +148,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_index() {
@@ -164,7 +156,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -176,7 +167,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -186,7 +176,6 @@ class IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {

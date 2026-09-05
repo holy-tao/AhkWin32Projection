@@ -10,13 +10,15 @@ class D2D1_EDGEDETECTION_MODE extends Win32Enum {
 
     /**
      * Indicates the Sobel operator should be used for edge detection.
+     * Native name: D2D1_EDGEDETECTION_MODE_SOBEL
      * @type {Integer (Int32)}
      */
-    static D2D1_EDGEDETECTION_MODE_SOBEL => 0
+    static SOBEL => 0
 
     /**
      * Indicates the Prewitt operator should be used for edge detection.
+     * Native name: D2D1_EDGEDETECTION_MODE_PREWITT
      * @type {Integer (Int32)}
      */
-    static D2D1_EDGEDETECTION_MODE_PREWITT => 1
+    static PREWITT => 1
 }

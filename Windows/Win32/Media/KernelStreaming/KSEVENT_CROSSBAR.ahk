@@ -7,7 +7,8 @@
 class KSEVENT_CROSSBAR extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_CROSSBAR_CHANGED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CROSSBAR_CHANGED => 0
+    static CHANGED => 0
 }

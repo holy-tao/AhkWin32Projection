@@ -15,23 +15,26 @@ class CLUS_RESSUBCLASS_STORAGE extends Win32Enum {
      *       control code can retrieve a 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure that contains 
      *       information for a resource subclass.
+     * Native name: CLUS_RESSUBCLASS_STORAGE_SHARED_BUS
      * @type {Integer (Int32)}
      */
-    static CLUS_RESSUBCLASS_STORAGE_SHARED_BUS => -2147483648
+    static SHARED_BUS => -2147483648
 
     /**
      * Identifies a resource subclass that manages a disk.
      * 
      * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not supported before Windows Server 2012 R2.
+     * Native name: CLUS_RESSUBCLASS_STORAGE_DISK
      * @type {Integer (Int32)}
      */
-    static CLUS_RESSUBCLASS_STORAGE_DISK => 1073741824
+    static DISK => 1073741824
 
     /**
      * Identifies a resource subclass that manages storage replication.
      * 
      * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not supported before Windows Server 2016.
+     * Native name: CLUS_RESSUBCLASS_STORAGE_REPLICATION
      * @type {Integer (Int32)}
      */
-    static CLUS_RESSUBCLASS_STORAGE_REPLICATION => 268435456
+    static REPLICATION => 268435456
 }

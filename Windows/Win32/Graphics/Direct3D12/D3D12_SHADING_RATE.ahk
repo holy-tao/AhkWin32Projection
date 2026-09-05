@@ -10,43 +10,50 @@ class D3D12_SHADING_RATE extends Win32Enum {
 
     /**
      * Specifies no change to the shading rate.
+     * Native name: D3D12_SHADING_RATE_1X1
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADING_RATE_1X1 => 0
+    static 1X1 => 0
 
     /**
      * Specifies that the shading rate should reduce vertical resolution 2x.
+     * Native name: D3D12_SHADING_RATE_1X2
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADING_RATE_1X2 => 1
+    static 1X2 => 1
 
     /**
      * Specifies that the shading rate should reduce horizontal resolution 2x.
+     * Native name: D3D12_SHADING_RATE_2X1
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADING_RATE_2X1 => 4
+    static 2X1 => 4
 
     /**
      * Specifies that the shading rate should reduce the resolution of both axes 2x.
+     * Native name: D3D12_SHADING_RATE_2X2
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADING_RATE_2X2 => 5
+    static 2X2 => 5
 
     /**
      * Specifies that the shading rate should reduce horizontal resolution 2x, and reduce vertical resolution 4x.
+     * Native name: D3D12_SHADING_RATE_2X4
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADING_RATE_2X4 => 6
+    static 2X4 => 6
 
     /**
      * Specifies that the shading rate should reduce horizontal resolution 4x, and reduce vertical resolution 2x.
+     * Native name: D3D12_SHADING_RATE_4X2
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADING_RATE_4X2 => 9
+    static 4X2 => 9
 
     /**
      * Specifies that the shading rate should reduce the resolution of both axes 4x.
+     * Native name: D3D12_SHADING_RATE_4X4
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADING_RATE_4X4 => 10
+    static 4X4 => 10
 }

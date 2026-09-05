@@ -50,7 +50,6 @@ class IHTMLCSSNamespaceRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_namespaceURI() {
@@ -60,7 +59,6 @@ class IHTMLCSSNamespaceRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prefix() {

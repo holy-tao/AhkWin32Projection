@@ -10,19 +10,22 @@ class EXTCONN extends Win32Enum {
 
     /**
      * The external connection is a link. If this value is specified, the external connection must keep the object alive until all strong external connections are cleared through <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iexternalconnection-releaseconnection">IExternalConnection::ReleaseConnection</a>.
+     * Native name: EXTCONN_STRONG
      * @type {Integer (Int32)}
      */
-    static EXTCONN_STRONG => 1
+    static STRONG => 1
 
     /**
      * This value is not used.
+     * Native name: EXTCONN_WEAK
      * @type {Integer (Int32)}
      */
-    static EXTCONN_WEAK => 2
+    static WEAK => 2
 
     /**
      * This value is not used.
+     * Native name: EXTCONN_CALLABLE
      * @type {Integer (Int32)}
      */
-    static EXTCONN_CALLABLE => 4
+    static CALLABLE => 4
 }

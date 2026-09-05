@@ -7,32 +7,38 @@
 class JsRuntimeAttributes extends Win32Enum {
 
     /**
+     * Native name: JsRuntimeAttributeNone
      * @type {Integer (Int32)}
      */
-    static JsRuntimeAttributeNone => 0
+    static AttributeNone => 0
 
     /**
+     * Native name: JsRuntimeAttributeDisableBackgroundWork
      * @type {Integer (Int32)}
      */
-    static JsRuntimeAttributeDisableBackgroundWork => 1
+    static AttributeDisableBackgroundWork => 1
 
     /**
+     * Native name: JsRuntimeAttributeAllowScriptInterrupt
      * @type {Integer (Int32)}
      */
-    static JsRuntimeAttributeAllowScriptInterrupt => 2
+    static AttributeAllowScriptInterrupt => 2
 
     /**
+     * Native name: JsRuntimeAttributeEnableIdleProcessing
      * @type {Integer (Int32)}
      */
-    static JsRuntimeAttributeEnableIdleProcessing => 4
+    static AttributeEnableIdleProcessing => 4
 
     /**
+     * Native name: JsRuntimeAttributeDisableNativeCodeGeneration
      * @type {Integer (Int32)}
      */
-    static JsRuntimeAttributeDisableNativeCodeGeneration => 8
+    static AttributeDisableNativeCodeGeneration => 8
 
     /**
+     * Native name: JsRuntimeAttributeDisableEval
      * @type {Integer (Int32)}
      */
-    static JsRuntimeAttributeDisableEval => 16
+    static AttributeDisableEval => 16
 }

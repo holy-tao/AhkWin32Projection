@@ -30,7 +30,6 @@ class ITypeName extends IUnknown {
     static VTableNames => ["GetNameCount", "GetNames", "GetTypeArgumentCount", "GetTypeArguments", "GetModifierLength", "GetModifiers", "GetAssemblyName"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNameCount() {
@@ -39,7 +38,6 @@ class ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<BSTR>} rgbszNames 
      * @returns {Integer} 
@@ -50,7 +48,6 @@ class ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTypeArgumentCount() {
@@ -59,7 +56,6 @@ class ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<ITypeName>} rgpArguments 
      * @returns {Integer} 
@@ -70,7 +66,6 @@ class ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetModifierLength() {
@@ -79,7 +74,6 @@ class ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<Integer>} rgModifiers 
      * @returns {Integer} 
@@ -92,7 +86,6 @@ class ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAssemblyName() {

@@ -10,13 +10,15 @@ class D3D12_RESIDENCY_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies the default residency policy, which allows residency operations to succeed regardless of the application's current memory budget. EnqueueMakeResident returns E_OUTOFMEMORY only when there is no memory available.
+     * Native name: D3D12_RESIDENCY_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_RESIDENCY_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Specifies that the EnqueueMakeResident function should return E_OUTOFMEMORY when the residency operation would exceed the application's current memory budget.
+     * Native name: D3D12_RESIDENCY_FLAG_DENY_OVERBUDGET
      * @type {Integer (Int32)}
      */
-    static D3D12_RESIDENCY_FLAG_DENY_OVERBUDGET => 1
+    static FLAG_DENY_OVERBUDGET => 1
 }

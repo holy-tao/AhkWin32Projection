@@ -7,14 +7,16 @@
 class MergeFlags extends Win32Enum {
 
     /**
+     * Native name: MergeFlagsNone
      * @type {Integer (Int32)}
      */
-    static MergeFlagsNone => 0
+    static None => 0
 
     /**
+     * Native name: MergeManifest
      * @type {Integer (Int32)}
      */
-    static MergeManifest => 1
+    static Manifest => 1
 
     /**
      * @type {Integer (Int32)}
@@ -27,7 +29,8 @@ class MergeFlags extends Win32Enum {
     static NoDupCheck => 4
 
     /**
+     * Native name: MergeExportedTypes
      * @type {Integer (Int32)}
      */
-    static MergeExportedTypes => 8
+    static ExportedTypes => 8
 }

@@ -29,7 +29,6 @@ class IRowsetLocate extends IRowset {
     static VTableNames => ["Compare", "GetRowsAt", "GetRowsByBookmark", "Hash"]
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cbBookmark1 
      * @param {Pointer<Integer>} pBookmark1 
@@ -46,7 +45,6 @@ class IRowsetLocate extends IRowset {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved1 
      * @param {Pointer} hReserved2 
      * @param {Pointer} cbBookmark 
@@ -67,7 +65,6 @@ class IRowsetLocate extends IRowset {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rgcbBookmarks 
@@ -87,7 +84,6 @@ class IRowsetLocate extends IRowset {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cBookmarks 
      * @param {Pointer<Pointer>} rgcbBookmarks 

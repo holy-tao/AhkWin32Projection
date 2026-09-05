@@ -11,29 +11,34 @@
 class D3DBUSTYPE extends Win32Enum {
 
     /**
+     * Native name: D3DBUSTYPE_OTHER
      * @type {Integer (Int32)}
      */
-    static D3DBUSTYPE_OTHER => 0
+    static OTHER => 0
 
     /**
+     * Native name: D3DBUSTYPE_PCI
      * @type {Integer (Int32)}
      */
-    static D3DBUSTYPE_PCI => 1
+    static PCI => 1
 
     /**
+     * Native name: D3DBUSTYPE_PCIX
      * @type {Integer (Int32)}
      */
-    static D3DBUSTYPE_PCIX => 2
+    static PCIX => 2
 
     /**
+     * Native name: D3DBUSTYPE_PCIEXPRESS
      * @type {Integer (Int32)}
      */
-    static D3DBUSTYPE_PCIEXPRESS => 3
+    static PCIEXPRESS => 3
 
     /**
+     * Native name: D3DBUSTYPE_AGP
      * @type {Integer (Int32)}
      */
-    static D3DBUSTYPE_AGP => 4
+    static AGP => 4
 
     /**
      * @type {Integer (Int32)}

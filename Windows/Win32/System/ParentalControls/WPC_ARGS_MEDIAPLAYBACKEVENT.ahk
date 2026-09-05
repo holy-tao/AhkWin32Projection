@@ -10,61 +10,71 @@ class WPC_ARGS_MEDIAPLAYBACKEVENT extends Win32Enum {
 
     /**
      * The name of the application used to play back a media file.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_APPNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_APPNAME => 0
+    static APPNAME => 0
 
     /**
      * The version of the application used to play back a media file.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_APPVERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_APPVERSION => 1
+    static APPVERSION => 1
 
     /**
      * The type of media file that was played.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_MEDIATYPE
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_MEDIATYPE => 2
+    static MEDIATYPE => 2
 
     /**
      * The path used to play back a media file.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_PATH
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_PATH => 3
+    static PATH => 3
 
     /**
      * The title of the media file that was played.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_TITLE
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_TITLE => 4
+    static TITLE => 4
 
     /**
      * The parental managements level of the media file that was played.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_PML
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_PML => 5
+    static PML => 5
 
     /**
      * The album of the media file that was played.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_ALBUM
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_ALBUM => 6
+    static ALBUM => 6
 
     /**
      * The explicit rating of the media file that was played.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_EXPLICIT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_EXPLICIT => 7
+    static EXPLICIT => 7
 
     /**
      * The reason for  playing a media file.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_REASON => 8
+    static REASON => 8
 
     /**
      * The arguments used to play back a media file.
+     * Native name: WPC_ARGS_MEDIAPLAYBACKEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_MEDIAPLAYBACKEVENT_CARGS => 9
+    static CARGS => 9
 }

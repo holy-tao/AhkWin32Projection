@@ -1563,7 +1563,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @returns {BOOL} 
      */
@@ -1575,7 +1574,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} DeviceId 
      * @param {Integer} Flags 
@@ -2666,7 +2664,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} JobId 
      * @param {Pointer<Pointer<Integer>>} _Buffer 
@@ -2852,7 +2849,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} JobId 
      * @returns {BOOL} 
@@ -5189,7 +5185,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {HANDLE} CompletionPort 
      * @param {Pointer} CompletionKey 
@@ -5207,7 +5202,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5696,7 +5690,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {PWSTR} DeviceProvider 
      * @returns {BOOL} 
      */
@@ -5795,7 +5788,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} AccessMask 
      * @returns {BOOL} 
@@ -5851,7 +5843,6 @@ class Fax {
     }
 
     /**
-     * 
      * @param {HINSTANCE} hinst 
      * @param {Integer} dwVer 
      * @param {IUnknown} punkOuter 

@@ -7,17 +7,20 @@
 class HotkeyPrefix extends Win32Enum {
 
     /**
+     * Native name: HotkeyPrefixNone
      * @type {Integer (Int32)}
      */
-    static HotkeyPrefixNone => 0
+    static None => 0
 
     /**
+     * Native name: HotkeyPrefixShow
      * @type {Integer (Int32)}
      */
-    static HotkeyPrefixShow => 1
+    static Show => 1
 
     /**
+     * Native name: HotkeyPrefixHide
      * @type {Integer (Int32)}
      */
-    static HotkeyPrefixHide => 2
+    static Hide => 2
 }

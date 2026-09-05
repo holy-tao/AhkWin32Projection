@@ -14,15 +14,17 @@ class MFSESSION_SETTOPOLOGY_FLAGS extends Win32Enum {
      * Stop the current presentation, clear all pending presentations, and immediately queue the new topology (specified by the <i>pTopology</i> parameter).
      * 
      * If the <i>pTopology</i>  parameter is <b>NULL</b>, this flag has no effect.
+     * Native name: MFSESSION_SETTOPOLOGY_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static MFSESSION_SETTOPOLOGY_IMMEDIATE => 1
+    static IMMEDIATE => 1
 
     /**
      * The topology does not need to be resolved. Use this flag if you are setting a full topology.
+     * Native name: MFSESSION_SETTOPOLOGY_NORESOLUTION
      * @type {Integer (Int32)}
      */
-    static MFSESSION_SETTOPOLOGY_NORESOLUTION => 2
+    static NORESOLUTION => 2
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7.</div>
@@ -36,7 +38,8 @@ class MFSESSION_SETTOPOLOGY_FLAGS extends Win32Enum {
      * Pending topologies are not removed from the playback queue. If there is a pending topology on the queue, that topology will be loaded after the current topology is cleared. Otherwise, playback simply stops.
      * 
      * To remove all of the pending topologies from the queue, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-cleartopologies">IMFMediaSession::ClearTopologies</a>.
+     * Native name: MFSESSION_SETTOPOLOGY_CLEAR_CURRENT
      * @type {Integer (Int32)}
      */
-    static MFSESSION_SETTOPOLOGY_CLEAR_CURRENT => 4
+    static CLEAR_CURRENT => 4
 }

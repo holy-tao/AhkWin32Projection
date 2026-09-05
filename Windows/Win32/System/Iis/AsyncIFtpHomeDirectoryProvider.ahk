@@ -36,7 +36,6 @@ class AsyncIFtpHomeDirectoryProvider extends IUnknown {
     static VTableNames => ["Begin_GetUserHomeDirectoryData", "Finish_GetUserHomeDirectoryData"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -52,7 +51,6 @@ class AsyncIFtpHomeDirectoryProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Finish_GetUserHomeDirectoryData() {

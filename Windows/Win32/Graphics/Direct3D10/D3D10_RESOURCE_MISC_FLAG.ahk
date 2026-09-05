@@ -20,25 +20,28 @@ class D3D10_RESOURCE_MISC_FLAG extends Win32Enum {
      * Enables an application to call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-generatemips">ID3D10Device::GenerateMips</a> on 
      *         a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">texture resource</a>. The resource must be created 
      *         with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">bind flags</a> that specify that the resource is a render target and a shader resource.
+     * Native name: D3D10_RESOURCE_MISC_GENERATE_MIPS
      * @type {Integer (Int32)}
      */
-    static D3D10_RESOURCE_MISC_GENERATE_MIPS => 1
+    static GENERATE_MIPS => 1
 
     /**
      * Enables the sharing of resource data between two or more Direct3D devices. The only resources that can be shared are 2D non-mipmapped textures.
      * 
      * WARP and REF devices do not support shared resources. Attempting to create a resource with this flag on either a WARP or REF device will cause the
      *         create method to return an E_OUTOFMEMORY error code.
+     * Native name: D3D10_RESOURCE_MISC_SHARED
      * @type {Integer (Int32)}
      */
-    static D3D10_RESOURCE_MISC_SHARED => 2
+    static SHARED => 2
 
     /**
      * Enables an application to create a cube texture from a 
      *         <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">Texture2DArray</a> that contains 6 textures.
+     * Native name: D3D10_RESOURCE_MISC_TEXTURECUBE
      * @type {Integer (Int32)}
      */
-    static D3D10_RESOURCE_MISC_TEXTURECUBE => 4
+    static TEXTURECUBE => 4
 
     /**
      * Enables the resource created to be synchronized using the IDXGIKeyedMutex::AcquireSync and ReleaseSync APIs. 
@@ -57,14 +60,16 @@ class D3D10_RESOURCE_MISC_FLAG extends Win32Enum {
      * 
      * WARP and REF devices do not support shared resources. Attempting to create a resource with this flag on either a WARP or REF device will cause the
      *           create method to return an E_OUTOFMEMORY error code.
+     * Native name: D3D10_RESOURCE_MISC_SHARED_KEYEDMUTEX
      * @type {Integer (Int32)}
      */
-    static D3D10_RESOURCE_MISC_SHARED_KEYEDMUTEX => 16
+    static SHARED_KEYEDMUTEX => 16
 
     /**
      * Enables a surface to be used for GDI interoperability.  Setting this flag enables rendering on the surface 
      *         via IDXGISurface1::GetDC.
+     * Native name: D3D10_RESOURCE_MISC_GDI_COMPATIBLE
      * @type {Integer (Int32)}
      */
-    static D3D10_RESOURCE_MISC_GDI_COMPATIBLE => 32
+    static GDI_COMPATIBLE => 32
 }

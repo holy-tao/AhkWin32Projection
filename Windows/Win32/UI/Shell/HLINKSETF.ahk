@@ -7,12 +7,14 @@
 class HLINKSETF extends Win32Enum {
 
     /**
+     * Native name: HLINKSETF_TARGET
      * @type {Integer (Int32)}
      */
-    static HLINKSETF_TARGET => 1
+    static TARGET => 1
 
     /**
+     * Native name: HLINKSETF_LOCATION
      * @type {Integer (Int32)}
      */
-    static HLINKSETF_LOCATION => 2
+    static LOCATION => 2
 }

@@ -94,7 +94,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_colorDepth() {
@@ -103,7 +102,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +111,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_bufferDepth() {
@@ -122,7 +119,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -131,7 +127,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -140,7 +135,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -150,7 +144,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_updateInterval() {
@@ -159,7 +152,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availHeight() {
@@ -168,7 +160,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availWidth() {
@@ -177,7 +168,6 @@ class IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_fontSmoothingEnabled() {

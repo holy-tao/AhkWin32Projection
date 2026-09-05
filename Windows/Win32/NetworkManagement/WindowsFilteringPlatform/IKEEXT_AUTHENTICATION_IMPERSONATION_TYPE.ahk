@@ -10,19 +10,22 @@ class IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE extends Win32Enum {
 
     /**
      * Specifies no impersonation.
+     * Native name: IKEEXT_IMPERSONATION_NONE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_IMPERSONATION_NONE => 0
+    static NONE => 0
 
     /**
      * Specifies socket principal impersonation.
+     * Native name: IKEEXT_IMPERSONATION_SOCKET_PRINCIPAL
      * @type {Integer (Int32)}
      */
-    static IKEEXT_IMPERSONATION_SOCKET_PRINCIPAL => 1
+    static SOCKET_PRINCIPAL => 1
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_IMPERSONATION_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_IMPERSONATION_MAX => 2
+    static MAX => 2
 }

@@ -7,22 +7,26 @@
 class POWER_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: PowerRequestDisplayRequired
      * @type {Integer (Int32)}
      */
-    static PowerRequestDisplayRequired => 0
+    static DisplayRequired => 0
 
     /**
+     * Native name: PowerRequestSystemRequired
      * @type {Integer (Int32)}
      */
-    static PowerRequestSystemRequired => 1
+    static SystemRequired => 1
 
     /**
+     * Native name: PowerRequestAwayModeRequired
      * @type {Integer (Int32)}
      */
-    static PowerRequestAwayModeRequired => 2
+    static AwayModeRequired => 2
 
     /**
+     * Native name: PowerRequestExecutionRequired
      * @type {Integer (Int32)}
      */
-    static PowerRequestExecutionRequired => 3
+    static ExecutionRequired => 3
 }

@@ -12,19 +12,22 @@ class eAVEncAudioDualMono extends Win32Enum {
 
     /**
      * Use the setting specified in the input media type.
+     * Native name: eAVEncAudioDualMono_SameAsInput
      * @type {Integer (Int32)}
      */
-    static eAVEncAudioDualMono_SameAsInput => 0
+    static SameAsInput => 0
 
     /**
      * Do not use dual mono encoding.
+     * Native name: eAVEncAudioDualMono_Off
      * @type {Integer (Int32)}
      */
-    static eAVEncAudioDualMono_Off => 1
+    static Off => 1
 
     /**
      * Use dual mono encoding.
+     * Native name: eAVEncAudioDualMono_On
      * @type {Integer (Int32)}
      */
-    static eAVEncAudioDualMono_On => 2
+    static On => 2
 }

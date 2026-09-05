@@ -31,7 +31,6 @@ class IClassFactoryEx extends IClassFactory {
     static VTableNames => ["CreateInstanceWithContext"]
 
     /**
-     * 
      * @param {IUnknown} punkContext 
      * @param {IUnknown} punkOuter 
      * @param {Pointer<Guid>} riid 

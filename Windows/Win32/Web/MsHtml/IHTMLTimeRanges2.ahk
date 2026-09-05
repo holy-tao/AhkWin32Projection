@@ -29,7 +29,6 @@ class IHTMLTimeRanges2 extends IDispatch {
     static VTableNames => ["startDouble", "endDouble"]
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Float} 
      */
@@ -39,7 +38,6 @@ class IHTMLTimeRanges2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Float} 
      */

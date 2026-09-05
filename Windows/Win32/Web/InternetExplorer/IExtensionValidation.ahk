@@ -35,7 +35,6 @@ class IExtensionValidation extends IUnknown {
     static VTableNames => ["Validate", "DisplayName"]
 
     /**
-     * 
      * @param {Pointer<Guid>} extensionGuid 
      * @param {PWSTR} extensionModulePath 
      * @param {Integer} extensionFileVersionMS 

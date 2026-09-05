@@ -7,17 +7,20 @@
 class DEVICE_REMOVAL_POLICY extends Win32Enum {
 
     /**
+     * Native name: RemovalPolicyExpectNoRemoval
      * @type {Integer (Int32)}
      */
-    static RemovalPolicyExpectNoRemoval => 1
+    static ExpectNoRemoval => 1
 
     /**
+     * Native name: RemovalPolicyExpectOrderlyRemoval
      * @type {Integer (Int32)}
      */
-    static RemovalPolicyExpectOrderlyRemoval => 2
+    static ExpectOrderlyRemoval => 2
 
     /**
+     * Native name: RemovalPolicyExpectSurpriseRemoval
      * @type {Integer (Int32)}
      */
-    static RemovalPolicyExpectSurpriseRemoval => 3
+    static ExpectSurpriseRemoval => 3
 }

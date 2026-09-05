@@ -7,27 +7,32 @@
 class KSEVENT_CONNECTION extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_CONNECTION_POSITIONUPDATE
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CONNECTION_POSITIONUPDATE => 0
+    static POSITIONUPDATE => 0
 
     /**
+     * Native name: KSEVENT_CONNECTION_DATADISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CONNECTION_DATADISCONTINUITY => 1
+    static DATADISCONTINUITY => 1
 
     /**
+     * Native name: KSEVENT_CONNECTION_TIMEDISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CONNECTION_TIMEDISCONTINUITY => 2
+    static TIMEDISCONTINUITY => 2
 
     /**
+     * Native name: KSEVENT_CONNECTION_PRIORITY
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CONNECTION_PRIORITY => 3
+    static PRIORITY => 3
 
     /**
+     * Native name: KSEVENT_CONNECTION_ENDOFSTREAM
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CONNECTION_ENDOFSTREAM => 4
+    static ENDOFSTREAM => 4
 }

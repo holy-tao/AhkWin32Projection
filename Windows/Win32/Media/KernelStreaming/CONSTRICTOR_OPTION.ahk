@@ -7,12 +7,14 @@
 class CONSTRICTOR_OPTION extends Win32Enum {
 
     /**
+     * Native name: CONSTRICTOR_OPTION_DISABLE
      * @type {Integer (Int32)}
      */
-    static CONSTRICTOR_OPTION_DISABLE => 0
+    static DISABLE => 0
 
     /**
+     * Native name: CONSTRICTOR_OPTION_MUTE
      * @type {Integer (Int32)}
      */
-    static CONSTRICTOR_OPTION_MUTE => 1
+    static MUTE => 1
 }

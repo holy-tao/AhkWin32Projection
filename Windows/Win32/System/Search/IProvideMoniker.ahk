@@ -30,7 +30,6 @@ class IProvideMoniker extends IUnknown {
     static VTableNames => ["GetMoniker"]
 
     /**
-     * 
      * @returns {IMoniker} 
      */
     GetMoniker() {

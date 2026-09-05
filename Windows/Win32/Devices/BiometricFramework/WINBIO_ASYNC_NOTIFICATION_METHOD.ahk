@@ -12,25 +12,29 @@ class WINBIO_ASYNC_NOTIFICATION_METHOD extends Win32Enum {
 
     /**
      * The operation is synchronous.
+     * Native name: WINBIO_ASYNC_NOTIFY_NONE
      * @type {Integer (Int32)}
      */
-    static WINBIO_ASYNC_NOTIFY_NONE => 0
+    static NOTIFY_NONE => 0
 
     /**
      * The client-implemented <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nc-winbio-pwinbio_async_completion_callback">PWINBIO_ASYNC_COMPLETION_CALLBACK</a> function is called by the framework.
+     * Native name: WINBIO_ASYNC_NOTIFY_CALLBACK
      * @type {Integer (Int32)}
      */
-    static WINBIO_ASYNC_NOTIFY_CALLBACK => 1
+    static NOTIFY_CALLBACK => 1
 
     /**
      * The framework sends completion notices to the client application window message queue.
+     * Native name: WINBIO_ASYNC_NOTIFY_MESSAGE
      * @type {Integer (Int32)}
      */
-    static WINBIO_ASYNC_NOTIFY_MESSAGE => 2
+    static NOTIFY_MESSAGE => 2
 
     /**
      * The maximum enumeration value. This constant is not directly used by the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
+     * Native name: WINBIO_ASYNC_NOTIFY_MAXIMUM_VALUE
      * @type {Integer (Int32)}
      */
-    static WINBIO_ASYNC_NOTIFY_MAXIMUM_VALUE => 3
+    static NOTIFY_MAXIMUM_VALUE => 3
 }

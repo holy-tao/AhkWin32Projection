@@ -10,25 +10,29 @@ class WICRawRotationCapabilities extends Win32Enum {
 
     /**
      * Rotation is not supported.
+     * Native name: WICRawRotationCapabilityNotSupported
      * @type {Integer (Int32)}
      */
-    static WICRawRotationCapabilityNotSupported => 0
+    static CapabilityNotSupported => 0
 
     /**
      * Set operations for rotation is not supported.
+     * Native name: WICRawRotationCapabilityGetSupported
      * @type {Integer (Int32)}
      */
-    static WICRawRotationCapabilityGetSupported => 1
+    static CapabilityGetSupported => 1
 
     /**
      * 90 degree rotations are supported.
+     * Native name: WICRawRotationCapabilityNinetyDegreesSupported
      * @type {Integer (Int32)}
      */
-    static WICRawRotationCapabilityNinetyDegreesSupported => 2
+    static CapabilityNinetyDegreesSupported => 2
 
     /**
      * All rotation angles are supported.
+     * Native name: WICRawRotationCapabilityFullySupported
      * @type {Integer (Int32)}
      */
-    static WICRawRotationCapabilityFullySupported => 3
+    static CapabilityFullySupported => 3
 }

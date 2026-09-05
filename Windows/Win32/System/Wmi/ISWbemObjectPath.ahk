@@ -138,7 +138,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -148,7 +147,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPath 
      * @returns {HRESULT} 
      */
@@ -160,7 +158,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RelPath() {
@@ -170,7 +167,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strRelPath 
      * @returns {HRESULT} 
      */
@@ -182,7 +178,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Server() {
@@ -192,7 +187,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strServer 
      * @returns {HRESULT} 
      */
@@ -204,7 +198,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Namespace() {
@@ -214,7 +207,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strNamespace 
      * @returns {HRESULT} 
      */
@@ -226,7 +218,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ParentNamespace() {
@@ -236,7 +227,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -246,7 +236,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strDisplayName 
      * @returns {HRESULT} 
      */
@@ -258,7 +247,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Class() {
@@ -268,7 +256,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strClass 
      * @returns {HRESULT} 
      */
@@ -280,7 +267,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsClass() {
@@ -289,7 +275,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetAsClass() {
@@ -298,7 +283,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsSingleton() {
@@ -307,7 +291,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetAsSingleton() {
@@ -316,7 +299,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemNamedValueSet} 
      */
     get_Keys() {
@@ -325,7 +307,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
@@ -334,7 +315,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Locale() {
@@ -344,7 +324,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strLocale 
      * @returns {HRESULT} 
      */
@@ -356,7 +335,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Authority() {
@@ -366,7 +344,6 @@ class ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAuthority 
      * @returns {HRESULT} 
      */

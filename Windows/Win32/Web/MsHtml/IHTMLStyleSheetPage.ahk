@@ -50,7 +50,6 @@ class IHTMLStyleSheetPage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selector() {
@@ -60,7 +59,6 @@ class IHTMLStyleSheetPage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pseudoClass() {

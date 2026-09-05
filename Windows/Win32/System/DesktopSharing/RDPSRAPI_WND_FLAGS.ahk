@@ -10,7 +10,8 @@ class RDPSRAPI_WND_FLAGS extends Win32Enum {
 
     /**
      * The window is part of an application that runs at a higher level than the current process. This flag indicates that the window cannot be shared. Applications can use this flag to prevent the user from sharing it either by disabling the entry for the window in the user interface or by not showing the entry.
+     * Native name: WND_FLAG_PRIVILEGED
      * @type {Integer (Int32)}
      */
-    static WND_FLAG_PRIVILEGED => 1
+    static FLAG_PRIVILEGED => 1
 }

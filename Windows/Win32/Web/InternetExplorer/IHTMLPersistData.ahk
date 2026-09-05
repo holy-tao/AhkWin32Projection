@@ -58,7 +58,6 @@ class IHTMLPersistData extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lType 
      * @returns {VARIANT_BOOL} 
      */

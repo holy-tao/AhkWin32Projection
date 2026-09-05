@@ -14,49 +14,57 @@ class D3D12_SHADER_VISIBILITY extends Win32Enum {
 
     /**
      * Specifies that all shader stages can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_ALL
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_ALL => 0
+    static ALL => 0
 
     /**
      * Specifies that the vertex shader stage can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_VERTEX
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_VERTEX => 1
+    static VERTEX => 1
 
     /**
      * Specifies that the hull shader stage can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_HULL
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_HULL => 2
+    static HULL => 2
 
     /**
      * Specifies that the domain shader stage can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_DOMAIN
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_DOMAIN => 3
+    static DOMAIN => 3
 
     /**
      * Specifies that the geometry shader stage can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_GEOMETRY
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_GEOMETRY => 4
+    static GEOMETRY => 4
 
     /**
      * Specifies that the pixel shader stage can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_PIXEL
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_PIXEL => 5
+    static PIXEL => 5
 
     /**
      * Specifies that the amplification shader stage can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_AMPLIFICATION
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_AMPLIFICATION => 6
+    static AMPLIFICATION => 6
 
     /**
      * Specifies that the mesh shader stage can access whatever is bound at the root signature slot.
+     * Native name: D3D12_SHADER_VISIBILITY_MESH
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_VISIBILITY_MESH => 7
+    static MESH => 7
 }

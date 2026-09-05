@@ -7,17 +7,20 @@
 class D3DKMT_MIRACAST_DRIVER_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_MIRACAST_DRIVER_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MIRACAST_DRIVER_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
+     * Native name: D3DKMT_MIRACAST_DRIVER_IHV
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MIRACAST_DRIVER_IHV => 1
+    static IHV => 1
 
     /**
+     * Native name: D3DKMT_MIRACAST_DRIVER_MS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MIRACAST_DRIVER_MS => 2
+    static MS => 2
 }

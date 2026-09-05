@@ -7,17 +7,20 @@
 class PARSE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PARSE_ABSOLUTIFYIE40URLS
      * @type {Integer (Int32)}
      */
-    static PARSE_ABSOLUTIFYIE40URLS => 1
+    static ABSOLUTIFYIE40URLS => 1
 
     /**
+     * Native name: PARSE_DISABLEVML
      * @type {Integer (Int32)}
      */
-    static PARSE_DISABLEVML => 2
+    static DISABLEVML => 2
 
     /**
+     * Native name: PARSE_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static PARSE_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

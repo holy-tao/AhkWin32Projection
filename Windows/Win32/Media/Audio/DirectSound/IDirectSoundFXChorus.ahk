@@ -30,7 +30,6 @@ class IDirectSoundFXChorus extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters"]
 
     /**
-     * 
      * @param {Pointer<DSFXChorus>} pcDsFxChorus 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXChorus extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXChorus} 
      */
     GetAllParameters() {

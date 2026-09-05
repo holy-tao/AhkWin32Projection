@@ -38,7 +38,6 @@ class IIntelliForms extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_enabled() {
@@ -47,7 +46,6 @@ class IIntelliForms extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bVal 
      * @returns {HRESULT} 
      */

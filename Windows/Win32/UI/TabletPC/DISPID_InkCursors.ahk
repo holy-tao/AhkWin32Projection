@@ -7,17 +7,20 @@
 class DISPID_InkCursors extends Win32Enum {
 
     /**
+     * Native name: DISPID_ICs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_ICs_NewEnum => -4
+    static ICs_NewEnum => -4
 
     /**
+     * Native name: DISPID_ICsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsItem => 0
+    static ICsItem => 0
 
     /**
+     * Native name: DISPID_ICsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsCount => 1
+    static ICsCount => 1
 }

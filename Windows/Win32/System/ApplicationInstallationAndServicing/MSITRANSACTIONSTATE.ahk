@@ -7,12 +7,14 @@
 class MSITRANSACTIONSTATE extends Win32Enum {
 
     /**
+     * Native name: MSITRANSACTIONSTATE_ROLLBACK
      * @type {Integer (UInt32)}
      */
-    static MSITRANSACTIONSTATE_ROLLBACK => 0
+    static ROLLBACK => 0
 
     /**
+     * Native name: MSITRANSACTIONSTATE_COMMIT
      * @type {Integer (UInt32)}
      */
-    static MSITRANSACTIONSTATE_COMMIT => 1
+    static COMMIT => 1
 }

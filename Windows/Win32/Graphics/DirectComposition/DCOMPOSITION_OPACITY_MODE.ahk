@@ -10,19 +10,22 @@ class DCOMPOSITION_OPACITY_MODE extends Win32Enum {
 
     /**
      * The target visual defines a logical layer into which its entire sub-tree is composed with a starting effective opacity of 1.0. The original opacity value is then used to blend the layer onto the visual’s background.
+     * Native name: DCOMPOSITION_OPACITY_MODE_LAYER
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_OPACITY_MODE_LAYER => 0
+    static LAYER => 0
 
     /**
      * The opacity value is multiplied with the effective opacity of the parent visual and the result is then individually applied to each piece of content in this visual’s sub-tree.
+     * Native name: DCOMPOSITION_OPACITY_MODE_MULTIPLY
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_OPACITY_MODE_MULTIPLY => 1
+    static MULTIPLY => 1
 
     /**
      * The opacity mode is the same as that of the target visual’s parent visual.
+     * Native name: DCOMPOSITION_OPACITY_MODE_INHERIT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_OPACITY_MODE_INHERIT => -1
+    static INHERIT => -1
 }

@@ -30,7 +30,6 @@ class IDirectSoundFXEcho extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters"]
 
     /**
-     * 
      * @param {Pointer<DSFXEcho>} pcDsFxEcho 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXEcho extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXEcho} 
      */
     GetAllParameters() {

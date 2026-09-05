@@ -7,12 +7,14 @@
 class msidbODBCDataSourceRegistration extends Win32Enum {
 
     /**
+     * Native name: msidbODBCDataSourceRegistrationPerMachine
      * @type {Integer (Int32)}
      */
-    static msidbODBCDataSourceRegistrationPerMachine => 0
+    static PerMachine => 0
 
     /**
+     * Native name: msidbODBCDataSourceRegistrationPerUser
      * @type {Integer (Int32)}
      */
-    static msidbODBCDataSourceRegistrationPerUser => 1
+    static PerUser => 1
 }

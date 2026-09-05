@@ -10,13 +10,15 @@ class AutomationElementMode extends Win32Enum {
 
     /**
      * Specifies that returned elements have no reference to the underlying UI and contain only cached information.
+     * Native name: AutomationElementMode_None
      * @type {Integer (Int32)}
      */
-    static AutomationElementMode_None => 0
+    static None => 0
 
     /**
      * Specifies that returned elements have a full reference to the underlying UI.
+     * Native name: AutomationElementMode_Full
      * @type {Integer (Int32)}
      */
-    static AutomationElementMode_Full => 1
+    static Full => 1
 }

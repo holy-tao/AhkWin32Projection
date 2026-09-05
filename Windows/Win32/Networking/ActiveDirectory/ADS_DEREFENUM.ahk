@@ -15,25 +15,29 @@ class ADS_DEREFENUM extends Win32Enum {
 
     /**
      * Does not dereference aliases when searching or locating the base object of the search.
+     * Native name: ADS_DEREF_NEVER
      * @type {Integer (Int32)}
      */
-    static ADS_DEREF_NEVER => 0
+    static DEREF_NEVER => 0
 
     /**
      * Dereferences aliases when searching subordinates of the base object, but not when locating the base itself.
+     * Native name: ADS_DEREF_SEARCHING
      * @type {Integer (Int32)}
      */
-    static ADS_DEREF_SEARCHING => 1
+    static DEREF_SEARCHING => 1
 
     /**
      * Dereferences aliases when locating the base object of the search, but not when searching its subordinates.
+     * Native name: ADS_DEREF_FINDING
      * @type {Integer (Int32)}
      */
-    static ADS_DEREF_FINDING => 2
+    static DEREF_FINDING => 2
 
     /**
      * Dereferences aliases when both searching subordinates and locating the base object of the search.
+     * Native name: ADS_DEREF_ALWAYS
      * @type {Integer (Int32)}
      */
-    static ADS_DEREF_ALWAYS => 3
+    static DEREF_ALWAYS => 3
 }

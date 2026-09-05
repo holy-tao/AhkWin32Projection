@@ -10,42 +10,49 @@ class MF_CAPTURE_ENGINE_STREAM_CATEGORY extends Win32Enum {
 
     /**
      * Specifies a video preview stream.
+     * Native name: MF_CAPTURE_ENGINE_STREAM_CATEGORY_VIDEO_PREVIEW
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_STREAM_CATEGORY_VIDEO_PREVIEW => 0
+    static VIDEO_PREVIEW => 0
 
     /**
      * Specifies a video capture stream.
+     * Native name: MF_CAPTURE_ENGINE_STREAM_CATEGORY_VIDEO_CAPTURE
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_STREAM_CATEGORY_VIDEO_CAPTURE => 1
+    static VIDEO_CAPTURE => 1
 
     /**
      * Specifies an independent photo stream.
+     * Native name: MF_CAPTURE_ENGINE_STREAM_CATEGORY_PHOTO_INDEPENDENT
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_STREAM_CATEGORY_PHOTO_INDEPENDENT => 2
+    static PHOTO_INDEPENDENT => 2
 
     /**
      * Specifies a dependent photo stream.
+     * Native name: MF_CAPTURE_ENGINE_STREAM_CATEGORY_PHOTO_DEPENDENT
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_STREAM_CATEGORY_PHOTO_DEPENDENT => 3
+    static PHOTO_DEPENDENT => 3
 
     /**
      * Specifies an audio stream.
+     * Native name: MF_CAPTURE_ENGINE_STREAM_CATEGORY_AUDIO
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_STREAM_CATEGORY_AUDIO => 4
+    static AUDIO => 4
 
     /**
      * Specifies an unsupported stream.
+     * Native name: MF_CAPTURE_ENGINE_STREAM_CATEGORY_UNSUPPORTED
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_STREAM_CATEGORY_UNSUPPORTED => 5
+    static UNSUPPORTED => 5
 
     /**
+     * Native name: MF_CAPTURE_ENGINE_STREAM_CATEGORY_METADATA
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_STREAM_CATEGORY_METADATA => 6
+    static METADATA => 6
 }

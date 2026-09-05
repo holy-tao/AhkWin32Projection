@@ -60,7 +60,6 @@ class IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -69,7 +68,6 @@ class IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferredByURI() {
@@ -79,7 +77,6 @@ class IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferToURI() {
@@ -89,7 +86,6 @@ class IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferCookie() {
@@ -99,7 +95,6 @@ class IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Accept() {
@@ -108,7 +103,6 @@ class IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reject() {
@@ -117,7 +111,6 @@ class IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_STATE} enState 
      * @returns {HRESULT} 
      */

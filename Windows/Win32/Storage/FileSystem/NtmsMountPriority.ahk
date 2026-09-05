@@ -7,32 +7,38 @@
 class NtmsMountPriority extends Win32Enum {
 
     /**
+     * Native name: NTMS_PRIORITY_DEFAULT
      * @type {Integer (Int32)}
      */
-    static NTMS_PRIORITY_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: NTMS_PRIORITY_HIGHEST
      * @type {Integer (Int32)}
      */
-    static NTMS_PRIORITY_HIGHEST => 15
+    static HIGHEST => 15
 
     /**
+     * Native name: NTMS_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static NTMS_PRIORITY_HIGH => 7
+    static HIGH => 7
 
     /**
+     * Native name: NTMS_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static NTMS_PRIORITY_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: NTMS_PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static NTMS_PRIORITY_LOW => -7
+    static LOW => -7
 
     /**
+     * Native name: NTMS_PRIORITY_LOWEST
      * @type {Integer (Int32)}
      */
-    static NTMS_PRIORITY_LOWEST => -15
+    static LOWEST => -15
 }

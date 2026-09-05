@@ -19,9 +19,10 @@ class MIB_IF_TABLE_LEVEL extends Win32Enum {
      *      <i>Table</i> parameter points to in the 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff552528(v=vs.85)">GetIfTable2Ex</a> function are returned from
      *      the top of the filter stack.
+     * Native name: MibIfTableNormal
      * @type {Integer (Int32)}
      */
-    static MibIfTableNormal => 0
+    static Normal => 0
 
     /**
      * The values of statistics and state that are returned in members of the 
@@ -30,15 +31,17 @@ class MIB_IF_TABLE_LEVEL extends Win32Enum {
      *      <i>Table</i> parameter points to in the 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff552528(v=vs.85)">GetIfTable2Ex</a> function are returned
      *      directly for the interface that is being queried.
+     * Native name: MibIfTableRaw
      * @type {Integer (Int32)}
      */
-    static MibIfTableRaw => 1
+    static Raw => 1
 
     /**
      * <div class="alert"><b>Note</b>  This value is available starting with Windows 10, version 1703.</div>
      * <div> </div>
      * The values returned are the same as for the <b>MibIfTableNormal </b> value, but without the statistics.
+     * Native name: MibIfTableNormalWithoutStatistics
      * @type {Integer (Int32)}
      */
-    static MibIfTableNormalWithoutStatistics => 2
+    static NormalWithoutStatistics => 2
 }

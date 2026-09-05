@@ -7,72 +7,86 @@
 class OBJ_TYPE extends Win32Enum {
 
     /**
+     * Native name: OBJ_PEN
      * @type {Integer (Int32)}
      */
-    static OBJ_PEN => 1
+    static PEN => 1
 
     /**
+     * Native name: OBJ_BRUSH
      * @type {Integer (Int32)}
      */
-    static OBJ_BRUSH => 2
+    static BRUSH => 2
 
     /**
+     * Native name: OBJ_DC
      * @type {Integer (Int32)}
      */
-    static OBJ_DC => 3
+    static DC => 3
 
     /**
+     * Native name: OBJ_METADC
      * @type {Integer (Int32)}
      */
-    static OBJ_METADC => 4
+    static METADC => 4
 
     /**
+     * Native name: OBJ_PAL
      * @type {Integer (Int32)}
      */
-    static OBJ_PAL => 5
+    static PAL => 5
 
     /**
+     * Native name: OBJ_FONT
      * @type {Integer (Int32)}
      */
-    static OBJ_FONT => 6
+    static FONT => 6
 
     /**
+     * Native name: OBJ_BITMAP
      * @type {Integer (Int32)}
      */
-    static OBJ_BITMAP => 7
+    static BITMAP => 7
 
     /**
+     * Native name: OBJ_REGION
      * @type {Integer (Int32)}
      */
-    static OBJ_REGION => 8
+    static REGION => 8
 
     /**
+     * Native name: OBJ_METAFILE
      * @type {Integer (Int32)}
      */
-    static OBJ_METAFILE => 9
+    static METAFILE => 9
 
     /**
+     * Native name: OBJ_MEMDC
      * @type {Integer (Int32)}
      */
-    static OBJ_MEMDC => 10
+    static MEMDC => 10
 
     /**
+     * Native name: OBJ_EXTPEN
      * @type {Integer (Int32)}
      */
-    static OBJ_EXTPEN => 11
+    static EXTPEN => 11
 
     /**
+     * Native name: OBJ_ENHMETADC
      * @type {Integer (Int32)}
      */
-    static OBJ_ENHMETADC => 12
+    static ENHMETADC => 12
 
     /**
+     * Native name: OBJ_ENHMETAFILE
      * @type {Integer (Int32)}
      */
-    static OBJ_ENHMETAFILE => 13
+    static ENHMETAFILE => 13
 
     /**
+     * Native name: OBJ_COLORSPACE
      * @type {Integer (Int32)}
      */
-    static OBJ_COLORSPACE => 14
+    static COLORSPACE => 14
 }

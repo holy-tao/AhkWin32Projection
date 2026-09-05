@@ -40,7 +40,6 @@ class IGPMGPO2 extends IGPMGPO {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -50,7 +49,6 @@ class IGPMGPO2 extends IGPMGPO {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */

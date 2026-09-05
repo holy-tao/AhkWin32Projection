@@ -279,7 +279,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLFramesCollection2} 
      */
     get_frames() {
@@ -288,7 +287,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -300,7 +298,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultStatus() {
@@ -310,7 +307,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -322,7 +318,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_status() {
@@ -332,7 +327,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -346,7 +340,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} timerID 
      * @returns {HRESULT} 
      */
@@ -356,7 +349,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} message 
      * @returns {HRESULT} 
      */
@@ -368,7 +360,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} message 
      * @returns {VARIANT_BOOL} 
      */
@@ -380,7 +371,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} message 
      * @param {BSTR} defstr 
      * @returns {VARIANT} 
@@ -395,7 +385,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLImageElementFactory} 
      */
     get_Image() {
@@ -404,7 +393,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLLocation} 
      */
     get_location() {
@@ -413,7 +401,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IOmHistory} 
      */
     get_history() {
@@ -449,7 +436,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -459,7 +445,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_opener() {
@@ -469,7 +454,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IOmNavigator} 
      */
     get_navigator() {
@@ -478,7 +462,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -490,7 +473,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -500,7 +482,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_parent() {
@@ -555,7 +536,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_self() {
@@ -564,7 +544,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_top() {
@@ -573,7 +552,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_window() {
@@ -582,7 +560,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} url 
      * @returns {HRESULT} 
      */
@@ -594,7 +571,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -604,7 +580,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -614,7 +589,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -624,7 +598,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -634,7 +607,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -644,7 +616,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -654,7 +625,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -664,7 +634,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeunload() {
@@ -674,7 +643,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -684,7 +652,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onunload() {
@@ -694,7 +661,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -704,7 +670,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhelp() {
@@ -714,7 +679,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -724,7 +688,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -734,7 +697,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -744,7 +706,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresize() {
@@ -754,7 +715,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -764,7 +724,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onscroll() {
@@ -774,7 +733,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     get_document() {
@@ -783,7 +741,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLEventObj} 
      */
     get_event() {
@@ -792,7 +749,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -801,7 +757,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} dialog 
      * @param {Pointer<VARIANT>} varArgIn 
      * @param {Pointer<VARIANT>} varOptions 
@@ -816,7 +771,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} helpURL 
      * @param {VARIANT} helpArg 
      * @param {BSTR} features 
@@ -831,7 +785,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLScreen} 
      */
     get_screen() {
@@ -840,7 +793,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLOptionElementFactory} 
      */
     get_Option() {
@@ -849,7 +801,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -858,7 +809,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_closed() {
@@ -867,7 +817,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {
@@ -876,7 +825,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -887,7 +835,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IOmNavigator} 
      */
     get_clientInformation() {
@@ -896,7 +843,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -910,7 +856,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} timerID 
      * @returns {HRESULT} 
      */
@@ -920,7 +865,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -930,7 +874,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_offscreenBuffering() {
@@ -940,7 +883,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} code 
      * @param {BSTR} language 
      * @returns {VARIANT} 
@@ -955,7 +897,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -965,7 +906,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -976,7 +916,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -987,7 +926,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -998,7 +936,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1009,7 +946,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1020,7 +956,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1031,7 +966,6 @@ class IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_external() {

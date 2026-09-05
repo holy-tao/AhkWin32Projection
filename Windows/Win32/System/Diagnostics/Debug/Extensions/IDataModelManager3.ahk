@@ -35,7 +35,6 @@ class IDataModelManager3 extends IDataModelManager2 {
     static VTableNames => ["AcquireFilteredSubNamespace", "EnumerateNamedModels"]
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @param {PWSTR} subNamespaceModelName 
      * @param {PWSTR} accessName 
@@ -55,7 +54,6 @@ class IDataModelManager3 extends IDataModelManager2 {
     }
 
     /**
-     * 
      * @returns {INamedModelsEnumerator} 
      */
     EnumerateNamedModels() {

@@ -7,17 +7,20 @@
 class WHEA_BUGCHECK_RECOVERY_LOG_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaEventBugCheckRecoveryEntry
      * @type {Integer (Int32)}
      */
-    static WheaEventBugCheckRecoveryEntry => 0
+    static EventBugCheckRecoveryEntry => 0
 
     /**
+     * Native name: WheaEventBugCheckRecoveryReturn
      * @type {Integer (Int32)}
      */
-    static WheaEventBugCheckRecoveryReturn => 1
+    static EventBugCheckRecoveryReturn => 1
 
     /**
+     * Native name: WheaEventBugCheckRecoveryMax
      * @type {Integer (Int32)}
      */
-    static WheaEventBugCheckRecoveryMax => 2
+    static EventBugCheckRecoveryMax => 2
 }

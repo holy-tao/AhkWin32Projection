@@ -10,97 +10,113 @@ class DWRITE_PANOSE_DECORATIVE_TOPOLOGY extends Win32Enum {
 
     /**
      * Any decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_ANY => 0
+    static ANY => 0
 
     /**
      * No fit for decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Standard decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_STANDARD
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_STANDARD => 2
+    static STANDARD => 2
 
     /**
      * Square decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_SQUARE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_SQUARE => 3
+    static SQUARE => 3
 
     /**
      * Multiple segment decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_MULTIPLE_SEGMENT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_MULTIPLE_SEGMENT => 4
+    static MULTIPLE_SEGMENT => 4
 
     /**
      * Art deco decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_ART_DECO
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_ART_DECO => 5
+    static ART_DECO => 5
 
     /**
      * Uneven weighting decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_UNEVEN_WEIGHTING
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_UNEVEN_WEIGHTING => 6
+    static UNEVEN_WEIGHTING => 6
 
     /**
      * Diverse arms decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_DIVERSE_ARMS
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_DIVERSE_ARMS => 7
+    static DIVERSE_ARMS => 7
 
     /**
      * Diverse forms decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_DIVERSE_FORMS
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_DIVERSE_FORMS => 8
+    static DIVERSE_FORMS => 8
 
     /**
      * Lombardic forms decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_LOMBARDIC_FORMS
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_LOMBARDIC_FORMS => 9
+    static LOMBARDIC_FORMS => 9
 
     /**
      * Upper case in lower case decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_UPPER_CASE_IN_LOWER_CASE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_UPPER_CASE_IN_LOWER_CASE => 10
+    static UPPER_CASE_IN_LOWER_CASE => 10
 
     /**
      * The decorative topology is implied.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_IMPLIED_TOPOLOGY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_IMPLIED_TOPOLOGY => 11
+    static IMPLIED_TOPOLOGY => 11
 
     /**
      * Horseshoe E and A decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_HORSESHOE_E_AND_A
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_HORSESHOE_E_AND_A => 12
+    static HORSESHOE_E_AND_A => 12
 
     /**
      * Cursive decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_CURSIVE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_CURSIVE => 13
+    static CURSIVE => 13
 
     /**
      * Blackletter decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_BLACKLETTER
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_BLACKLETTER => 14
+    static BLACKLETTER => 14
 
     /**
      * Swash variance decorative topology.
+     * Native name: DWRITE_PANOSE_DECORATIVE_TOPOLOGY_SWASH_VARIANCE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_DECORATIVE_TOPOLOGY_SWASH_VARIANCE => 15
+    static SWASH_VARIANCE => 15
 }

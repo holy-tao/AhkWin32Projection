@@ -30,7 +30,6 @@ class ID3D12CompilerFactoryChild extends IUnknown {
     static VTableNames => ["GetFactory"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

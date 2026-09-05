@@ -30,7 +30,6 @@ class IDebuggerInfo extends IUnknown {
     static VTableNames => ["IsDebuggerAttached"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsDebuggerAttached() {

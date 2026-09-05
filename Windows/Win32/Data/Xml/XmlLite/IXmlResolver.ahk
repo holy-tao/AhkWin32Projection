@@ -30,7 +30,6 @@ class IXmlResolver extends IUnknown {
     static VTableNames => ["ResolveUri"]
 
     /**
-     * 
      * @param {PWSTR} pwszBaseUri 
      * @param {PWSTR} pwszPublicIdentifier 
      * @param {PWSTR} pwszSystemIdentifier 

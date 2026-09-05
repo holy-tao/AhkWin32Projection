@@ -7,27 +7,32 @@
 class RevokedComponent extends Win32Enum {
 
     /**
+     * Native name: REVOKED_COPP
      * @type {Integer (Int32)}
      */
-    static REVOKED_COPP => 0
+    static COPP => 0
 
     /**
+     * Native name: REVOKED_SAC
      * @type {Integer (Int32)}
      */
-    static REVOKED_SAC => 1
+    static SAC => 1
 
     /**
+     * Native name: REVOKED_APP_STUB
      * @type {Integer (Int32)}
      */
-    static REVOKED_APP_STUB => 2
+    static APP_STUB => 2
 
     /**
+     * Native name: REVOKED_SECURE_PIPELINE
      * @type {Integer (Int32)}
      */
-    static REVOKED_SECURE_PIPELINE => 3
+    static SECURE_PIPELINE => 3
 
     /**
+     * Native name: REVOKED_MAX_TYPES
      * @type {Integer (Int32)}
      */
-    static REVOKED_MAX_TYPES => 4
+    static MAX_TYPES => 4
 }

@@ -31,7 +31,6 @@ class IPrinterScriptablePropertyBag2 extends IPrinterScriptablePropertyBag {
     static VTableNames => ["GetReadStreamAsXML"]
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IUnknown} 
      */

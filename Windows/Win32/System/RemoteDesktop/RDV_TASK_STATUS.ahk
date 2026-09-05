@@ -10,55 +10,64 @@ class RDV_TASK_STATUS extends Win32Enum {
 
     /**
      * The task state cannot be determined.
+     * Native name: RDV_TASK_STATUS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Searching for applicable tasks.
+     * Native name: RDV_TASK_STATUS_SEARCHING
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_SEARCHING => 1
+    static SEARCHING => 1
 
     /**
      * Downloading tasks.
+     * Native name: RDV_TASK_STATUS_DOWNLOADING
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_DOWNLOADING => 2
+    static DOWNLOADING => 2
 
     /**
      * Performing tasks.
+     * Native name: RDV_TASK_STATUS_APPLYING
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_APPLYING => 3
+    static APPLYING => 3
 
     /**
      * Rebooting. The task may or may not be complete.
+     * Native name: RDV_TASK_STATUS_REBOOTING
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_REBOOTING => 4
+    static REBOOTING => 4
 
     /**
      * Reboot completed. The task may or may not be complete.
+     * Native name: RDV_TASK_STATUS_REBOOTED
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_REBOOTED => 5
+    static REBOOTED => 5
 
     /**
      * Task completed successfully.
+     * Native name: RDV_TASK_STATUS_SUCCESS
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_SUCCESS => 6
+    static SUCCESS => 6
 
     /**
      * Task failed.
+     * Native name: RDV_TASK_STATUS_FAILED
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_FAILED => 7
+    static FAILED => 7
 
     /**
      * Task did not finish in the allotted time.
+     * Native name: RDV_TASK_STATUS_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static RDV_TASK_STATUS_TIMEOUT => 8
+    static TIMEOUT => 8
 }

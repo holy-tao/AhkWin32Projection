@@ -11,61 +11,71 @@
 class FLICKDIRECTION extends Win32Enum {
 
     /**
+     * Native name: FLICKDIRECTION_MIN
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_MIN => 0
+    static MIN => 0
 
     /**
      * A pen flick to the right.
+     * Native name: FLICKDIRECTION_RIGHT
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_RIGHT => 0
+    static RIGHT => 0
 
     /**
      * A pen flick to the upper right.
+     * Native name: FLICKDIRECTION_UPRIGHT
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_UPRIGHT => 1
+    static UPRIGHT => 1
 
     /**
      * An upward pen flick.
+     * Native name: FLICKDIRECTION_UP
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_UP => 2
+    static UP => 2
 
     /**
      * A pen flick to the upper left.
+     * Native name: FLICKDIRECTION_UPLEFT
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_UPLEFT => 3
+    static UPLEFT => 3
 
     /**
      * A pen flick to the left.
+     * Native name: FLICKDIRECTION_LEFT
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_LEFT => 4
+    static LEFT => 4
 
     /**
      * A pen flick to the lower left.
+     * Native name: FLICKDIRECTION_DOWNLEFT
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_DOWNLEFT => 5
+    static DOWNLEFT => 5
 
     /**
      * A downward pen flick.
+     * Native name: FLICKDIRECTION_DOWN
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_DOWN => 6
+    static DOWN => 6
 
     /**
      * A pen flick to the down right.
+     * Native name: FLICKDIRECTION_DOWNRIGHT
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_DOWNRIGHT => 7
+    static DOWNRIGHT => 7
 
     /**
      * An invalid pen flick.
+     * Native name: FLICKDIRECTION_INVALID
      * @type {Integer (Int32)}
      */
-    static FLICKDIRECTION_INVALID => 8
+    static INVALID => 8
 }

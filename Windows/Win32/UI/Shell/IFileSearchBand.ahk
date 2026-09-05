@@ -79,7 +79,6 @@ class IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrSearchID 
      * @param {VARIANT_BOOL} bNavToResults 
      * @param {Pointer<VARIANT>} pvarScope 
@@ -92,7 +91,6 @@ class IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SearchID() {
@@ -102,7 +100,6 @@ class IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Scope() {
@@ -112,7 +109,6 @@ class IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_QueryFile() {

@@ -30,7 +30,6 @@ class IMediaActivityNotifySite extends IUnknown {
     static VTableNames => ["OnMediaActivityStarted", "OnMediaActivityStopped"]
 
     /**
-     * 
      * @param {MEDIA_ACTIVITY_NOTIFY_TYPE} mediaActivityType 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IMediaActivityNotifySite extends IUnknown {
     }
 
     /**
-     * 
      * @param {MEDIA_ACTIVITY_NOTIFY_TYPE} mediaActivityType 
      * @returns {HRESULT} 
      */

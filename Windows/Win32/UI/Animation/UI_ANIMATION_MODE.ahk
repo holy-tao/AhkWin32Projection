@@ -10,19 +10,22 @@ class UI_ANIMATION_MODE extends Win32Enum {
 
     /**
      * Animation is disabled.
+     * Native name: UI_ANIMATION_MODE_DISABLED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_MODE_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * The animation mode is managed by the system.
+     * Native name: UI_ANIMATION_MODE_SYSTEM_DEFAULT
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_MODE_SYSTEM_DEFAULT => 1
+    static SYSTEM_DEFAULT => 1
 
     /**
      * Animation is enabled.
+     * Native name: UI_ANIMATION_MODE_ENABLED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_MODE_ENABLED => 2
+    static ENABLED => 2
 }

@@ -7,22 +7,26 @@
 class BOUND_CALLBACK_STATUS extends Win32Enum {
 
     /**
+     * Native name: BoundExceptionContinueSearch
      * @type {Integer (Int32)}
      */
-    static BoundExceptionContinueSearch => 0
+    static ExceptionContinueSearch => 0
 
     /**
+     * Native name: BoundExceptionHandled
      * @type {Integer (Int32)}
      */
-    static BoundExceptionHandled => 1
+    static ExceptionHandled => 1
 
     /**
+     * Native name: BoundExceptionError
      * @type {Integer (Int32)}
      */
-    static BoundExceptionError => 2
+    static ExceptionError => 2
 
     /**
+     * Native name: BoundExceptionMaximum
      * @type {Integer (Int32)}
      */
-    static BoundExceptionMaximum => 3
+    static ExceptionMaximum => 3
 }

@@ -7,22 +7,26 @@
 class NtmsLibraryType extends Win32Enum {
 
     /**
+     * Native name: NTMS_LIBRARYTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBRARYTYPE_UNKNOWN => 0
+    static LIBRARYTYPE_UNKNOWN => 0
 
     /**
+     * Native name: NTMS_LIBRARYTYPE_OFFLINE
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBRARYTYPE_OFFLINE => 1
+    static LIBRARYTYPE_OFFLINE => 1
 
     /**
+     * Native name: NTMS_LIBRARYTYPE_ONLINE
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBRARYTYPE_ONLINE => 2
+    static LIBRARYTYPE_ONLINE => 2
 
     /**
+     * Native name: NTMS_LIBRARYTYPE_STANDALONE
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBRARYTYPE_STANDALONE => 3
+    static LIBRARYTYPE_STANDALONE => 3
 }

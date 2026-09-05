@@ -32,7 +32,6 @@ class IPrintOemUIMXDC extends IUnknown {
     static VTableNames => ["AdjustImageableArea", "AdjustImageCompression", "AdjustDPI"]
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} cbDevMode 
      * @param {Pointer<DEVMODEA>} pDevMode 
@@ -51,7 +50,6 @@ class IPrintOemUIMXDC extends IUnknown {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} cbDevMode 
      * @param {Pointer<DEVMODEA>} pDevMode 
@@ -71,7 +69,6 @@ class IPrintOemUIMXDC extends IUnknown {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} cbDevMode 
      * @param {Pointer<DEVMODEA>} pDevMode 

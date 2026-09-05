@@ -53,25 +53,29 @@ class _DVRESOLUTION extends Win32Enum {
 
     /**
      * Decode at full size.
+     * Native name: DVRESOLUTION_FULL
      * @type {Integer (Int32)}
      */
-    static DVRESOLUTION_FULL => 1000
+    static FULL => 1000
 
     /**
      * Decode at half size.
+     * Native name: DVRESOLUTION_HALF
      * @type {Integer (Int32)}
      */
-    static DVRESOLUTION_HALF => 1001
+    static HALF => 1001
 
     /**
      * Decode at quarter size.
+     * Native name: DVRESOLUTION_QUARTER
      * @type {Integer (Int32)}
      */
-    static DVRESOLUTION_QUARTER => 1002
+    static QUARTER => 1002
 
     /**
      * Decode at one-eighth size.
+     * Native name: DVRESOLUTION_DC
      * @type {Integer (Int32)}
      */
-    static DVRESOLUTION_DC => 1003
+    static DC => 1003
 }

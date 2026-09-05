@@ -125,7 +125,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecognizer} 
      */
     get_Recognizer() {
@@ -134,7 +133,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechInterference} 
      */
     get_AudioInputInterferenceStatus() {
@@ -143,7 +141,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RequestedUIType() {
@@ -153,7 +150,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechVoice} Voice 
      * @returns {HRESULT} 
      */
@@ -163,7 +159,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechVoice} 
      */
     get_Voice() {
@@ -172,7 +167,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Allow 
      * @returns {HRESULT} 
      */
@@ -182,7 +176,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AllowVoiceFormatMatchingOnNextSet() {
@@ -191,7 +184,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecoEvents} EventInterest 
      * @returns {HRESULT} 
      */
@@ -201,7 +193,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecoEvents} 
      */
     get_VoicePurgeEvent() {
@@ -210,7 +201,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecoEvents} EventInterest 
      * @returns {HRESULT} 
      */
@@ -220,7 +210,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecoEvents} 
      */
     get_EventInterests() {
@@ -229,7 +218,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} MaxAlternates 
      * @returns {HRESULT} 
      */
@@ -239,7 +227,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CmdMaxAlternates() {
@@ -248,7 +235,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecoContextState} State 
      * @returns {HRESULT} 
      */
@@ -258,7 +244,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecoContextState} 
      */
     get_State() {
@@ -267,7 +252,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRetainedAudioOptions} Option 
      * @returns {HRESULT} 
      */
@@ -277,7 +261,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRetainedAudioOptions} 
      */
     get_RetainedAudio() {
@@ -286,7 +269,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechAudioFormat} Format 
      * @returns {HRESULT} 
      */
@@ -296,7 +278,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_RetainedAudioFormat() {
@@ -327,7 +308,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} GrammarId 
      * @returns {ISpeechRecoGrammar} 
      */
@@ -337,7 +317,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} ResultBlock 
      * @returns {ISpeechRecoResult} 
      */
@@ -347,7 +326,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechBookmarkOptions} Options 
      * @param {VARIANT} StreamPos 
      * @param {VARIANT} BookmarkId 
@@ -359,7 +337,6 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} AdaptationString 
      * @returns {HRESULT} 
      */

@@ -34,7 +34,6 @@ class IHTMLDOMImplementation2 extends IDispatch {
     static VTableNames => ["createDocumentType", "createDocument", "createHTMLDocument", "hasFeature"]
 
     /**
-     * 
      * @param {BSTR} bstrQualifiedName 
      * @param {Pointer<VARIANT>} pvarPublicId 
      * @param {Pointer<VARIANT>} pvarSystemId 
@@ -48,7 +47,6 @@ class IHTMLDOMImplementation2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {Pointer<VARIANT>} pvarTagName 
      * @param {IDOMDocumentType} pDocumentType 
@@ -60,7 +58,6 @@ class IHTMLDOMImplementation2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTitle 
      * @returns {IHTMLDocument7} 
      */
@@ -72,7 +69,6 @@ class IHTMLDOMImplementation2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrfeature 
      * @param {VARIANT} _version 
      * @returns {VARIANT_BOOL} 

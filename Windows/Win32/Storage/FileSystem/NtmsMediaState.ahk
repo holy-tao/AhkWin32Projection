@@ -7,37 +7,44 @@
 class NtmsMediaState extends Win32Enum {
 
     /**
+     * Native name: NTMS_MEDIASTATE_IDLE
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIASTATE_IDLE => 0
+    static MEDIASTATE_IDLE => 0
 
     /**
+     * Native name: NTMS_MEDIASTATE_INUSE
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIASTATE_INUSE => 1
+    static MEDIASTATE_INUSE => 1
 
     /**
+     * Native name: NTMS_MEDIASTATE_MOUNTED
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIASTATE_MOUNTED => 2
+    static MEDIASTATE_MOUNTED => 2
 
     /**
+     * Native name: NTMS_MEDIASTATE_LOADED
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIASTATE_LOADED => 3
+    static MEDIASTATE_LOADED => 3
 
     /**
+     * Native name: NTMS_MEDIASTATE_UNLOADED
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIASTATE_UNLOADED => 4
+    static MEDIASTATE_UNLOADED => 4
 
     /**
+     * Native name: NTMS_MEDIASTATE_OPERROR
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIASTATE_OPERROR => 5
+    static MEDIASTATE_OPERROR => 5
 
     /**
+     * Native name: NTMS_MEDIASTATE_OPREQ
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIASTATE_OPREQ => 6
+    static MEDIASTATE_OPREQ => 6
 }

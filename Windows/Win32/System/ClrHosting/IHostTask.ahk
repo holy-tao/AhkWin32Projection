@@ -30,7 +30,6 @@ class IHostTask extends IUnknown {
     static VTableNames => ["Start", "Alert", "Join", "SetPriority", "GetPriority", "SetCLRTask"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -39,7 +38,6 @@ class IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Alert() {
@@ -48,7 +46,6 @@ class IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
      * @returns {HRESULT} 
@@ -59,7 +56,6 @@ class IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} newPriority 
      * @returns {HRESULT} 
      */
@@ -69,7 +65,6 @@ class IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {
@@ -78,7 +73,6 @@ class IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRTask} pCLRTask 
      * @returns {HRESULT} 
      */

@@ -10,13 +10,15 @@ class CLUSTER_QUORUM_VALUE extends Win32Enum {
 
     /**
      * The quorum will be maintained.
+     * Native name: CLUSTER_QUORUM_MAINTAINED
      * @type {Integer (Int32)}
      */
-    static CLUSTER_QUORUM_MAINTAINED => 0
+    static MAINTAINED => 0
 
     /**
      * The quorum will be lost.
+     * Native name: CLUSTER_QUORUM_LOST
      * @type {Integer (Int32)}
      */
-    static CLUSTER_QUORUM_LOST => 1
+    static LOST => 1
 }

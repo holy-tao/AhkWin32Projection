@@ -107,7 +107,6 @@ class IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPartCount() {
@@ -116,7 +115,6 @@ class IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idx 
      * @returns {Integer} 
      */
@@ -126,7 +124,6 @@ class IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idx 
      * @returns {IDxcBlob} 
      */
@@ -136,7 +133,6 @@ class IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} kind 
      * @returns {Integer} 
      */
@@ -146,7 +142,6 @@ class IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idx 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvObject 

@@ -31,7 +31,6 @@ class IDxcIncludeHandler extends IUnknown {
     static VTableNames => ["LoadSource"]
 
     /**
-     * 
      * @param {PWSTR} pFilename 
      * @returns {IDxcBlob} 
      */

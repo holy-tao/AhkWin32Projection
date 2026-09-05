@@ -10,13 +10,15 @@ class APPLY_SNAPSHOT_VHDSET_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
+     * Native name: APPLY_SNAPSHOT_VHDSET_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static APPLY_SNAPSHOT_VHDSET_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates that the snapshot to be applied was created as a writable snapshot type.
+     * Native name: APPLY_SNAPSHOT_VHDSET_FLAG_WRITEABLE
      * @type {Integer (Int32)}
      */
-    static APPLY_SNAPSHOT_VHDSET_FLAG_WRITEABLE => 1
+    static WRITEABLE => 1
 }

@@ -33,7 +33,6 @@ class ITridentEventSink extends IUnknown {
     static VTableNames => ["FireEvent"]
 
     /**
-     * 
      * @param {PWSTR} pstrEvent 
      * @param {Pointer<DISPPARAMS>} pdp 
      * @param {Pointer<VARIANT>} pvarRes 

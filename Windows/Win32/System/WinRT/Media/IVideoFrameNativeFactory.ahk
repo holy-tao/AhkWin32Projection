@@ -36,7 +36,6 @@ class IVideoFrameNativeFactory extends IInspectable {
     static VTableNames => ["CreateFromMFSample"]
 
     /**
-     * 
      * @param {IMFSample} data 
      * @param {Pointer<Guid>} subtype 
      * @param {Integer} width 

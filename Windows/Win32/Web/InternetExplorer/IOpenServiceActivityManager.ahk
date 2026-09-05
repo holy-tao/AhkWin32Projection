@@ -39,7 +39,6 @@ class IOpenServiceActivityManager extends IUnknown {
     static VTableNames => ["GetCategoryEnumerator", "GetActivityByID", "GetActivityByHomepageAndCategory", "GetVersionCookie"]
 
     /**
-     * 
      * @param {OpenServiceActivityContentType} eType 
      * @returns {IEnumOpenServiceActivityCategory} 
      */
@@ -49,7 +48,6 @@ class IOpenServiceActivityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzActivityID 
      * @returns {IOpenServiceActivity} 
      */
@@ -61,7 +59,6 @@ class IOpenServiceActivityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzHomepage 
      * @param {PWSTR} pwzCategory 
      * @returns {IOpenServiceActivity} 
@@ -75,7 +72,6 @@ class IOpenServiceActivityManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVersionCookie() {

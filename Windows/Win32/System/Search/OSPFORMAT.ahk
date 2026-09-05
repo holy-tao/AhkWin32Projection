@@ -7,22 +7,26 @@
 class OSPFORMAT extends Win32Enum {
 
     /**
+     * Native name: OSPFORMAT_RAW
      * @type {Integer (Int32)}
      */
-    static OSPFORMAT_RAW => 0
+    static RAW => 0
 
     /**
+     * Native name: OSPFORMAT_DEFAULT
      * @type {Integer (Int32)}
      */
-    static OSPFORMAT_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: OSPFORMAT_FORMATTED
      * @type {Integer (Int32)}
      */
-    static OSPFORMAT_FORMATTED => 1
+    static FORMATTED => 1
 
     /**
+     * Native name: OSPFORMAT_HTML
      * @type {Integer (Int32)}
      */
-    static OSPFORMAT_HTML => 2
+    static HTML => 2
 }

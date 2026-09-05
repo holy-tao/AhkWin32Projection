@@ -7,57 +7,68 @@
 class INSTALLUILEVEL extends Win32Enum {
 
     /**
+     * Native name: INSTALLUILEVEL_NOCHANGE
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_NOCHANGE => 0
+    static NOCHANGE => 0
 
     /**
+     * Native name: INSTALLUILEVEL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
+     * Native name: INSTALLUILEVEL_NONE
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_NONE => 2
+    static NONE => 2
 
     /**
+     * Native name: INSTALLUILEVEL_BASIC
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_BASIC => 3
+    static BASIC => 3
 
     /**
+     * Native name: INSTALLUILEVEL_REDUCED
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_REDUCED => 4
+    static REDUCED => 4
 
     /**
+     * Native name: INSTALLUILEVEL_FULL
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_FULL => 5
+    static FULL => 5
 
     /**
+     * Native name: INSTALLUILEVEL_ENDDIALOG
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_ENDDIALOG => 128
+    static ENDDIALOG => 128
 
     /**
+     * Native name: INSTALLUILEVEL_PROGRESSONLY
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_PROGRESSONLY => 64
+    static PROGRESSONLY => 64
 
     /**
+     * Native name: INSTALLUILEVEL_HIDECANCEL
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_HIDECANCEL => 32
+    static HIDECANCEL => 32
 
     /**
+     * Native name: INSTALLUILEVEL_SOURCERESONLY
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_SOURCERESONLY => 256
+    static SOURCERESONLY => 256
 
     /**
+     * Native name: INSTALLUILEVEL_UACONLY
      * @type {Integer (Int32)}
      */
-    static INSTALLUILEVEL_UACONLY => 512
+    static UACONLY => 512
 }

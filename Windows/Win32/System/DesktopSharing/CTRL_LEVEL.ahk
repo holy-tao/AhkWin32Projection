@@ -10,42 +10,48 @@ class CTRL_LEVEL extends Win32Enum {
 
     /**
      * Minimum enumeration value.
+     * Native name: CTRL_LEVEL_MIN
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_MIN => 0
+    static MIN => 0
 
     /**
      * The control level is not valid.
+     * Native name: CTRL_LEVEL_INVALID
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_INVALID => 0
+    static INVALID => 0
 
     /**
      * The attendee cannot view or interact with the session. This is the default.
+     * Native name: CTRL_LEVEL_NONE
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_NONE => 1
+    static NONE => 1
 
     /**
      * The attendee can view the session.
+     * Native name: CTRL_LEVEL_VIEW
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_VIEW => 2
+    static VIEW => 2
 
     /**
      * The attendee can view and interact with the session. The local keyboard and mouse input is redirected to 
      *       the session.
+     * Native name: CTRL_LEVEL_INTERACTIVE
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_INTERACTIVE => 3
+    static INTERACTIVE => 3
 
     /**
      * The attendee can view the session.
      * 
      * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This enumeration value is not supported.
+     * Native name: CTRL_LEVEL_REQCTRL_VIEW
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_REQCTRL_VIEW => 4
+    static REQCTRL_VIEW => 4
 
     /**
      * The attendee can view and interact with the session. The local keyboard and mouse input is redirected to the 
@@ -55,13 +61,15 @@ class CTRL_LEVEL extends Win32Enum {
      *        <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-securityoverview">Setting UIAccess in the Application Manifest File</a>.
      * 
      * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This enumeration value is not supported.
+     * Native name: CTRL_LEVEL_REQCTRL_INTERACTIVE
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_REQCTRL_INTERACTIVE => 5
+    static REQCTRL_INTERACTIVE => 5
 
     /**
      * Maximum enumeration value.
+     * Native name: CTRL_LEVEL_MAX
      * @type {Integer (Int32)}
      */
-    static CTRL_LEVEL_MAX => 5
+    static MAX => 5
 }

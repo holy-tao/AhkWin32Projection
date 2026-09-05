@@ -29,7 +29,6 @@ class IInternetProtocol extends IInternetProtocolRoot {
     static VTableNames => ["Read", "Seek", "LockRequest", "UnlockRequest"]
 
     /**
-     * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
@@ -42,7 +41,6 @@ class IInternetProtocol extends IInternetProtocolRoot {
     }
 
     /**
-     * 
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
      * @returns {Integer} 
@@ -53,7 +51,6 @@ class IInternetProtocol extends IInternetProtocolRoot {
     }
 
     /**
-     * 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
      */
@@ -63,7 +60,6 @@ class IInternetProtocol extends IInternetProtocolRoot {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnlockRequest() {

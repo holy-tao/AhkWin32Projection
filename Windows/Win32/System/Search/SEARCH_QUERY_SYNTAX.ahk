@@ -15,19 +15,22 @@ class SEARCH_QUERY_SYNTAX extends Win32Enum {
 
     /**
      * No syntax.
+     * Native name: SEARCH_NO_QUERY_SYNTAX
      * @type {Integer (Int32)}
      */
-    static SEARCH_NO_QUERY_SYNTAX => 0
+    static NO_QUERY_SYNTAX => 0
 
     /**
      * Specifies the Advanced Query Syntax. For example, "kind:email to:david to:bill".
+     * Native name: SEARCH_ADVANCED_QUERY_SYNTAX
      * @type {Integer (Int32)}
      */
-    static SEARCH_ADVANCED_QUERY_SYNTAX => 1
+    static ADVANCED_QUERY_SYNTAX => 1
 
     /**
      * Specifies the Natural Query Syntax. This syntax removes the requirement for a colon between properties and values, for example, "email from david to bill".
+     * Native name: SEARCH_NATURAL_QUERY_SYNTAX
      * @type {Integer (Int32)}
      */
-    static SEARCH_NATURAL_QUERY_SYNTAX => 2
+    static NATURAL_QUERY_SYNTAX => 2
 }

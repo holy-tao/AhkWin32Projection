@@ -37,7 +37,6 @@ class IMSMQCoordinatedTransactionDispenser3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQTransaction3} 
      */
     BeginTransaction() {
@@ -46,7 +45,6 @@ class IMSMQCoordinatedTransactionDispenser3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {

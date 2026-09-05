@@ -10,260 +10,304 @@ class NVME_STATUS_GENERIC_COMMAND_CODES extends Win32Enum {
 
     /**
      * The command completed successfully.
+     * Native name: NVME_STATUS_SUCCESS_COMPLETION
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_SUCCESS_COMPLETION => 0
+    static SUCCESS_COMPLETION => 0
 
     /**
      * The associated command opcode field is not valid.
+     * Native name: NVME_STATUS_INVALID_COMMAND_OPCODE
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INVALID_COMMAND_OPCODE => 1
+    static INVALID_COMMAND_OPCODE => 1
 
     /**
      * An invalid or unsupported field is specified in the command parameters.
+     * Native name: NVME_STATUS_INVALID_FIELD_IN_COMMAND
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INVALID_FIELD_IN_COMMAND => 2
+    static INVALID_FIELD_IN_COMMAND => 2
 
     /**
      * The command identifier is already in use.
      * 
      * > [!NOTE]
      * > The number of commands that are searched for an ID conflict is implementation specific.
+     * Native name: NVME_STATUS_COMMAND_ID_CONFLICT
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_ID_CONFLICT => 3
+    static ID_CONFLICT => 3
 
     /**
      * Indicates an error transferring the data or metadata associated with a command.
+     * Native name: NVME_STATUS_DATA_TRANSFER_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_DATA_TRANSFER_ERROR => 4
+    static DATA_TRANSFER_ERROR => 4
 
     /**
      * Indicates that the command was aborted due to a power loss notification.
+     * Native name: NVME_STATUS_COMMAND_ABORTED_DUE_TO_POWER_LOSS_NOTIFICATION
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_ABORTED_DUE_TO_POWER_LOSS_NOTIFICATION => 5
+    static ABORTED_DUE_TO_POWER_LOSS_NOTIFICATION => 5
 
     /**
      * The command was not completed successfully due to an internal error. Details on the internal device error are returned as an asynchronous event.
+     * Native name: NVME_STATUS_INTERNAL_DEVICE_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INTERNAL_DEVICE_ERROR => 6
+    static INTERNAL_DEVICE_ERROR => 6
 
     /**
      * The command was aborted due to a Command Abort command being received that specified the Submission Queue Identifier and Command Identifier of this command.
+     * Native name: NVME_STATUS_COMMAND_ABORT_REQUESTED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_ABORT_REQUESTED => 7
+    static ABORT_REQUESTED => 7
 
     /**
      * The command was aborted due to a Delete I/O Submission Queue request received for the Submission Queue to which the command was submitted.
+     * Native name: NVME_STATUS_COMMAND_ABORTED_DUE_TO_SQ_DELETION
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_ABORTED_DUE_TO_SQ_DELETION => 8
+    static ABORTED_DUE_TO_SQ_DELETION => 8
 
     /**
      * The command was aborted due to the other command in a fused operation failing.
+     * Native name: NVME_STATUS_COMMAND_ABORTED_DUE_TO_FAILED_FUSED_COMMAND
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_ABORTED_DUE_TO_FAILED_FUSED_COMMAND => 9
+    static ABORTED_DUE_TO_FAILED_FUSED_COMMAND => 9
 
     /**
      * The command was aborted due to the companion fused command not being found as the subsequent Submission Queue entry.
+     * Native name: NVME_STATUS_COMMAND_ABORTED_DUE_TO_FAILED_MISSING_COMMAND
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_ABORTED_DUE_TO_FAILED_MISSING_COMMAND => 10
+    static ABORTED_DUE_TO_FAILED_MISSING_COMMAND => 10
 
     /**
      * The namespace or the format of that namespace is invalid.
+     * Native name: NVME_STATUS_INVALID_NAMESPACE_OR_FORMAT
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INVALID_NAMESPACE_OR_FORMAT => 11
+    static INVALID_NAMESPACE_OR_FORMAT => 11
 
     /**
      * The command was aborted due to a protocol violation in a multi-command sequence. For example, a violation of the Security Send and Security Receive sequencing rules in the TCG Storage Synchronous Interface Communications protocol.
+     * Native name: NVME_STATUS_COMMAND_SEQUENCE_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_SEQUENCE_ERROR => 12
+    static SEQUENCE_ERROR => 12
 
     /**
      * The command includes an invalid SGL Last Segment or SGL Segment descriptor. This may occur when the SGL segment pointed to by an SGL Last Segment descriptor contains an SGL Segment descriptor or an SGL Last Segment descriptor or an SGL Segment descriptor. This may occur when an SGL Last Segment descriptor contains an invalid length (for example, a length of zero or one that is not a multiple of 16).
+     * Native name: NVME_STATUS_INVALID_SGL_LAST_SEGMENT_DESCR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INVALID_SGL_LAST_SEGMENT_DESCR => 13
+    static INVALID_SGL_LAST_SEGMENT_DESCR => 13
 
     /**
      * There is an SGL Last Segment descriptor or an SGL Segment descriptor in a location other than the last descriptor of a segment based on the length indicated.
+     * Native name: NVME_STATUS_INVALID_NUMBER_OF_SGL_DESCR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INVALID_NUMBER_OF_SGL_DESCR => 14
+    static INVALID_NUMBER_OF_SGL_DESCR => 14
 
     /**
      * This may occur if the length of a Data SGL is too short. This may occur if the length of a Data SGL is too long and the controller does not support SGL transfers longer than the amount of data to be transferred as indicated in the SGL Support (**SGLS**) field of the [Identify Controller (NVME_IDENTIFY_CONTROLLER_DATA)](ns-nvme-nvme_identify_controller_data.md) data structure.
+     * Native name: NVME_STATUS_DATA_SGL_LENGTH_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_DATA_SGL_LENGTH_INVALID => 15
+    static DATA_SGL_LENGTH_INVALID => 15
 
     /**
      * This may occur if the length of a Metadata SGL is too short. This may occur if the length of a Metadata SGL is too long and the controller does not support SGL transfers longer than the amount of data to be transferred as indicated in the SGL Support (**SGLS**) field of the [Identify Controller (NVME_IDENTIFY_CONTROLLER_DATA)](ns-nvme-nvme_identify_controller_data.md) data structure.
+     * Native name: NVME_STATUS_METADATA_SGL_LENGTH_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_METADATA_SGL_LENGTH_INVALID => 16
+    static METADATA_SGL_LENGTH_INVALID => 16
 
     /**
      * The type of an SGL Descriptor is a type that is not supported by the controller.
+     * Native name: NVME_STATUS_SGL_DESCR_TYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_SGL_DESCR_TYPE_INVALID => 17
+    static SGL_DESCR_TYPE_INVALID => 17
 
     /**
      * The attempted use of the Controller Memory Buffer is not supported by the controller.
+     * Native name: NVME_STATUS_INVALID_USE_OF_CONTROLLER_MEMORY_BUFFER
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INVALID_USE_OF_CONTROLLER_MEMORY_BUFFER => 18
+    static INVALID_USE_OF_CONTROLLER_MEMORY_BUFFER => 18
 
     /**
      * The Offset field for a PRP entry is invalid. This may occur when there is a PRP entry with a non-zero offset after the first entry.
+     * Native name: NVME_STATUS_PRP_OFFSET_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_PRP_OFFSET_INVALID => 19
+    static PRP_OFFSET_INVALID => 19
 
     /**
      * The length specified exceeds the atomic write unit size.
+     * Native name: NVME_STATUS_ATOMIC_WRITE_UNIT_EXCEEDED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_ATOMIC_WRITE_UNIT_EXCEEDED => 20
+    static ATOMIC_WRITE_UNIT_EXCEEDED => 20
 
     /**
      * The command was denied due to lack of access rights.
+     * Native name: NVME_STATUS_OPERATION_DENIED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_OPERATION_DENIED => 21
+    static OPERATION_DENIED => 21
 
     /**
      * The offset specified in a descriptor is invalid.
+     * Native name: NVME_STATUS_SGL_OFFSET_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_SGL_OFFSET_INVALID => 22
+    static SGL_OFFSET_INVALID => 22
 
     /**
      * Reserved.
+     * Native name: NVME_STATUS_RESERVED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_RESERVED => 23
+    static RESERVED => 23
 
     /**
      * The NVM subsystem detected the simultaneous use of 64-bit and 128-bit Host Identifier values on different controllers.
+     * Native name: NVME_STATUS_HOST_IDENTIFIER_INCONSISTENT_FORMAT
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_HOST_IDENTIFIER_INCONSISTENT_FORMAT => 24
+    static HOST_IDENTIFIER_INCONSISTENT_FORMAT => 24
 
     /**
      * The Keep Alive Timer expired.
+     * Native name: NVME_STATUS_KEEP_ALIVE_TIMEOUT_EXPIRED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_KEEP_ALIVE_TIMEOUT_EXPIRED => 25
+    static KEEP_ALIVE_TIMEOUT_EXPIRED => 25
 
     /**
      * The Keep Alive Timeout value specified is invalid.
+     * Native name: NVME_STATUS_KEEP_ALIVE_TIMEOUT_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_KEEP_ALIVE_TIMEOUT_INVALID => 26
+    static KEEP_ALIVE_TIMEOUT_INVALID => 26
 
     /**
      * The command was aborted due to a Reservation Acquire command with the Reservation Acquire Action (RACQA) set to 010b (Preempt and Abort).
+     * Native name: NVME_STATUS_COMMAND_ABORTED_DUE_TO_PREEMPT_ABORT
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_ABORTED_DUE_TO_PREEMPT_ABORT => 27
+    static ABORTED_DUE_TO_PREEMPT_ABORT => 27
 
     /**
      * The most recent sanitize operation failed and no recovery action has been successfully completed.
+     * Native name: NVME_STATUS_SANITIZE_FAILED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_SANITIZE_FAILED => 28
+    static SANITIZE_FAILED => 28
 
     /**
      * The requested function (e.g., command) is prohibited while a sanitize operation is in progress.
+     * Native name: NVME_STATUS_SANITIZE_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_SANITIZE_IN_PROGRESS => 29
+    static SANITIZE_IN_PROGRESS => 29
 
     /**
      * The Address alignment or Length granularity for an SGLData Block descriptor is invalid.
+     * Native name: NVME_STATUS_SGL_DATA_BLOCK_GRANULARITY_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_SGL_DATA_BLOCK_GRANULARITY_INVALID => 30
+    static SGL_DATA_BLOCK_GRANULARITY_INVALID => 30
 
     /**
+     * Native name: NVME_STATUS_COMMAND_NOT_SUPPORTED_FOR_QUEUE_IN_CMB
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_NOT_SUPPORTED_FOR_QUEUE_IN_CMB => 31
+    static NOT_SUPPORTED_FOR_QUEUE_IN_CMB => 31
 
     /**
+     * Native name: NVME_STATUS_NAMESPACE_IS_WRITE_PROTECTED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NAMESPACE_IS_WRITE_PROTECTED => 32
+    static NAMESPACE_IS_WRITE_PROTECTED => 32
 
     /**
+     * Native name: NVME_STATUS_COMMAND_INTERRUPTED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_INTERRUPTED => 33
+    static INTERRUPTED => 33
 
     /**
+     * Native name: NVME_STATUS_TRANSIENT_TRANSPORT_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_TRANSIENT_TRANSPORT_ERROR => 34
+    static TRANSIENT_TRANSPORT_ERROR => 34
 
     /**
+     * Native name: NVME_STATUS_COMMAND_PROHIBITED_BY_LOCKDOWN
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_COMMAND_PROHIBITED_BY_LOCKDOWN => 35
+    static PROHIBITED_BY_LOCKDOWN => 35
 
     /**
+     * Native name: NVME_STATUS_ADMIN_COMMAND_MEDIA_NOT_READY
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_ADMIN_COMMAND_MEDIA_NOT_READY => 36
+    static ADMIN_COMMAND_MEDIA_NOT_READY => 36
 
     /**
+     * Native name: NVME_STATUS_DIRECTIVE_TYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_DIRECTIVE_TYPE_INVALID => 112
+    static DIRECTIVE_TYPE_INVALID => 112
 
     /**
+     * Native name: NVME_STATUS_DIRECTIVE_ID_INVALID
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_DIRECTIVE_ID_INVALID => 113
+    static DIRECTIVE_ID_INVALID => 113
 
     /**
      * The command references an LBA that exceeds the size of the namespace.
+     * Native name: NVME_STATUS_NVM_LBA_OUT_OF_RANGE
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_LBA_OUT_OF_RANGE => 128
+    static NVM_LBA_OUT_OF_RANGE => 128
 
     /**
      * Execution of the command has caused the capacity of the namespace to be exceeded. This error occurs when the Namespace Utilization exceeds the Namespace Capacity.
+     * Native name: NVME_STATUS_NVM_CAPACITY_EXCEEDED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_CAPACITY_EXCEEDED => 129
+    static NVM_CAPACITY_EXCEEDED => 129
 
     /**
      * The namespace is not ready to be accessed. The Do Not Retry bit indicates whether re-issuing the command at a later time may succeed.
+     * Native name: NVME_STATUS_NVM_NAMESPACE_NOT_READY
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_NAMESPACE_NOT_READY => 130
+    static NVM_NAMESPACE_NOT_READY => 130
 
     /**
      * The command was aborted due to a conflict with a reservation held on the accessed namespace.
+     * Native name: NVME_STATUS_NVM_RESERVATION_CONFLICT
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_RESERVATION_CONFLICT => 131
+    static NVM_RESERVATION_CONFLICT => 131
 
     /**
      * The namespace is currently being formatted. The Do Not Retry bit will be cleared to ‘0’ to indicate that the command may succeed if it is resubmitted.
+     * Native name: NVME_STATUS_FORMAT_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_FORMAT_IN_PROGRESS => 132
+    static FORMAT_IN_PROGRESS => 132
 }

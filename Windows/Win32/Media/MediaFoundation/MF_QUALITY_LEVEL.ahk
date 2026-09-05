@@ -15,43 +15,50 @@ class MF_QUALITY_LEVEL extends Win32Enum {
 
     /**
      * Normal quality.
+     * Native name: MF_QUALITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static MF_QUALITY_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * One level below normal quality.
+     * Native name: MF_QUALITY_NORMAL_MINUS_1
      * @type {Integer (Int32)}
      */
-    static MF_QUALITY_NORMAL_MINUS_1 => 1
+    static NORMAL_MINUS_1 => 1
 
     /**
      * Two levels below normal quality.
+     * Native name: MF_QUALITY_NORMAL_MINUS_2
      * @type {Integer (Int32)}
      */
-    static MF_QUALITY_NORMAL_MINUS_2 => 2
+    static NORMAL_MINUS_2 => 2
 
     /**
      * Three levels below normal quality.
+     * Native name: MF_QUALITY_NORMAL_MINUS_3
      * @type {Integer (Int32)}
      */
-    static MF_QUALITY_NORMAL_MINUS_3 => 3
+    static NORMAL_MINUS_3 => 3
 
     /**
      * Four levels below normal quality.
+     * Native name: MF_QUALITY_NORMAL_MINUS_4
      * @type {Integer (Int32)}
      */
-    static MF_QUALITY_NORMAL_MINUS_4 => 4
+    static NORMAL_MINUS_4 => 4
 
     /**
      * Five levels below normal quality.
+     * Native name: MF_QUALITY_NORMAL_MINUS_5
      * @type {Integer (Int32)}
      */
-    static MF_QUALITY_NORMAL_MINUS_5 => 5
+    static NORMAL_MINUS_5 => 5
 
     /**
      * Maximum number of quality levels. This value is not a valid flag.
+     * Native name: MF_NUM_QUALITY_LEVELS
      * @type {Integer (Int32)}
      */
-    static MF_NUM_QUALITY_LEVELS => 6
+    static NUM_QUALITY_LEVELS => 6
 }

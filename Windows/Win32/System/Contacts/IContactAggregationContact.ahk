@@ -100,7 +100,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -109,7 +108,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -118,7 +116,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -130,7 +127,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unlink() {
@@ -139,7 +135,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AccountId() {
@@ -148,7 +143,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAccountId 
      * @returns {HRESULT} 
      */
@@ -160,7 +154,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AggregateId() {
@@ -169,7 +162,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -178,7 +170,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsMe() {
@@ -187,7 +178,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsExternal() {
@@ -196,7 +186,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NetworkSourceId() {
@@ -205,7 +194,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} networkSourceId 
      * @returns {HRESULT} 
      */
@@ -215,7 +203,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_NetworkSourceIdString() {
@@ -224,7 +211,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pNetworkSourceId 
      * @returns {HRESULT} 
      */
@@ -236,7 +222,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_RemoteObjectId() {
@@ -245,7 +230,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteObjectId 
      * @returns {HRESULT} 
      */
@@ -255,7 +239,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_SyncIdentityHash() {
@@ -264,7 +247,6 @@ class IContactAggregationContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pSyncIdentityHash 
      * @returns {HRESULT} 
      */

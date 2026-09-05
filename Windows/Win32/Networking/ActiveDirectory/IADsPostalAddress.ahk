@@ -40,7 +40,6 @@ class IADsPostalAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PostalAddress() {
@@ -50,7 +49,6 @@ class IADsPostalAddress extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vPostalAddress 
      * @returns {HRESULT} 
      */

@@ -31,7 +31,6 @@ class IRowsetFastLoad extends IUnknown {
     static VTableNames => ["InsertRow", "Commit"]
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pData 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class IRowsetFastLoad extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fDone 
      * @returns {HRESULT} 
      */

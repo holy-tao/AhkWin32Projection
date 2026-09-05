@@ -7,47 +7,56 @@
 class CorILMethodFlags extends Win32Enum {
 
     /**
+     * Native name: CorILMethod_InitLocals
      * @type {Integer (Int32)}
      */
-    static CorILMethod_InitLocals => 16
+    static InitLocals => 16
 
     /**
+     * Native name: CorILMethod_MoreSects
      * @type {Integer (Int32)}
      */
-    static CorILMethod_MoreSects => 8
+    static MoreSects => 8
 
     /**
+     * Native name: CorILMethod_CompressedIL
      * @type {Integer (Int32)}
      */
-    static CorILMethod_CompressedIL => 64
+    static CompressedIL => 64
 
     /**
+     * Native name: CorILMethod_FormatShift
      * @type {Integer (Int32)}
      */
-    static CorILMethod_FormatShift => 3
+    static FormatShift => 3
 
     /**
+     * Native name: CorILMethod_FormatMask
      * @type {Integer (Int32)}
      */
-    static CorILMethod_FormatMask => 7
+    static FormatMask => 7
 
     /**
+     * Native name: CorILMethod_TinyFormat
      * @type {Integer (Int32)}
      */
-    static CorILMethod_TinyFormat => 2
+    static TinyFormat => 2
 
     /**
+     * Native name: CorILMethod_SmallFormat
      * @type {Integer (Int32)}
      */
-    static CorILMethod_SmallFormat => 0
+    static SmallFormat => 0
 
     /**
+     * Native name: CorILMethod_FatFormat
      * @type {Integer (Int32)}
      */
-    static CorILMethod_FatFormat => 3
+    static FatFormat => 3
 
     /**
+     * Native name: CorILMethod_TinyFormat1
      * @type {Integer (Int32)}
      */
-    static CorILMethod_TinyFormat1 => 6
+    static TinyFormat1 => 6
 }

@@ -37,7 +37,6 @@ class IPMApplicationInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMApplicationInfo} 
      */
     get_Next() {

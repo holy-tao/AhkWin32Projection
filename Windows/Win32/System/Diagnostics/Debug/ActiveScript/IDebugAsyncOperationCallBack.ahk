@@ -29,7 +29,6 @@ class IDebugAsyncOperationCallBack extends IUnknown {
     static VTableNames => ["onComplete"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onComplete() {

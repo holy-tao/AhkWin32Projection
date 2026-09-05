@@ -30,7 +30,6 @@ class IActiveScriptErrorDebug110 extends IUnknown {
     static VTableNames => ["GetExceptionThrownKind"]
 
     /**
-     * 
      * @returns {SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND} 
      */
     GetExceptionThrownKind() {

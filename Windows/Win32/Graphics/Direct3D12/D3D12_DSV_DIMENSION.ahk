@@ -12,43 +12,50 @@ class D3D12_DSV_DIMENSION extends Win32Enum {
 
     /**
      * <b>D3D12_DSV_DIMENSION_UNKNOWN</b> is not a valid value for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc">D3D12_DEPTH_STENCIL_VIEW_DESC</a> and is not used.
+     * Native name: D3D12_DSV_DIMENSION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_DIMENSION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The resource will be accessed as a 1D texture.
+     * Native name: D3D12_DSV_DIMENSION_TEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_DIMENSION_TEXTURE1D => 1
+    static TEXTURE1D => 1
 
     /**
      * The resource will be accessed as an array of 1D textures.
+     * Native name: D3D12_DSV_DIMENSION_TEXTURE1DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_DIMENSION_TEXTURE1DARRAY => 2
+    static TEXTURE1DARRAY => 2
 
     /**
      * The resource will be accessed as a 2D texture.
+     * Native name: D3D12_DSV_DIMENSION_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_DIMENSION_TEXTURE2D => 3
+    static TEXTURE2D => 3
 
     /**
      * The resource will be accessed as an array of 2D textures.
+     * Native name: D3D12_DSV_DIMENSION_TEXTURE2DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_DIMENSION_TEXTURE2DARRAY => 4
+    static TEXTURE2DARRAY => 4
 
     /**
      * The resource will be accessed as a 2D texture with multi sampling.
+     * Native name: D3D12_DSV_DIMENSION_TEXTURE2DMS
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_DIMENSION_TEXTURE2DMS => 5
+    static TEXTURE2DMS => 5
 
     /**
      * The resource will be accessed as an array of 2D textures with multi sampling.
+     * Native name: D3D12_DSV_DIMENSION_TEXTURE2DMSARRAY
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_DIMENSION_TEXTURE2DMSARRAY => 6
+    static TEXTURE2DMSARRAY => 6
 }

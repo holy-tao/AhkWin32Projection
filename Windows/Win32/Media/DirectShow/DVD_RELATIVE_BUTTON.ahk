@@ -10,25 +10,29 @@ class DVD_RELATIVE_BUTTON extends Win32Enum {
 
     /**
      * Upper button.
+     * Native name: DVD_Relative_Upper
      * @type {Integer (Int32)}
      */
-    static DVD_Relative_Upper => 1
+    static Upper => 1
 
     /**
      * Lower button.
+     * Native name: DVD_Relative_Lower
      * @type {Integer (Int32)}
      */
-    static DVD_Relative_Lower => 2
+    static Lower => 2
 
     /**
      * Left button.
+     * Native name: DVD_Relative_Left
      * @type {Integer (Int32)}
      */
-    static DVD_Relative_Left => 3
+    static Left => 3
 
     /**
      * Right button.
+     * Native name: DVD_Relative_Right
      * @type {Integer (Int32)}
      */
-    static DVD_Relative_Right => 4
+    static Right => 4
 }

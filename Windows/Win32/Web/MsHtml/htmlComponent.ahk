@@ -7,157 +7,188 @@
 class htmlComponent extends Win32Enum {
 
     /**
+     * Native name: htmlComponentClient
      * @type {Integer (Int32)}
      */
-    static htmlComponentClient => 0
+    static Client => 0
 
     /**
+     * Native name: htmlComponentSbLeft
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbLeft => 1
+    static SbLeft => 1
 
     /**
+     * Native name: htmlComponentSbPageLeft
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageLeft => 2
+    static SbPageLeft => 2
 
     /**
+     * Native name: htmlComponentSbHThumb
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbHThumb => 3
+    static SbHThumb => 3
 
     /**
+     * Native name: htmlComponentSbPageRight
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageRight => 4
+    static SbPageRight => 4
 
     /**
+     * Native name: htmlComponentSbRight
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbRight => 5
+    static SbRight => 5
 
     /**
+     * Native name: htmlComponentSbUp
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbUp => 6
+    static SbUp => 6
 
     /**
+     * Native name: htmlComponentSbPageUp
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageUp => 7
+    static SbPageUp => 7
 
     /**
+     * Native name: htmlComponentSbVThumb
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbVThumb => 8
+    static SbVThumb => 8
 
     /**
+     * Native name: htmlComponentSbPageDown
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageDown => 9
+    static SbPageDown => 9
 
     /**
+     * Native name: htmlComponentSbDown
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbDown => 10
+    static SbDown => 10
 
     /**
+     * Native name: htmlComponentSbLeft2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbLeft2 => 11
+    static SbLeft2 => 11
 
     /**
+     * Native name: htmlComponentSbPageLeft2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageLeft2 => 12
+    static SbPageLeft2 => 12
 
     /**
+     * Native name: htmlComponentSbRight2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbRight2 => 13
+    static SbRight2 => 13
 
     /**
+     * Native name: htmlComponentSbPageRight2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageRight2 => 14
+    static SbPageRight2 => 14
 
     /**
+     * Native name: htmlComponentSbUp2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbUp2 => 15
+    static SbUp2 => 15
 
     /**
+     * Native name: htmlComponentSbPageUp2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageUp2 => 16
+    static SbPageUp2 => 16
 
     /**
+     * Native name: htmlComponentSbDown2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbDown2 => 17
+    static SbDown2 => 17
 
     /**
+     * Native name: htmlComponentSbPageDown2
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbPageDown2 => 18
+    static SbPageDown2 => 18
 
     /**
+     * Native name: htmlComponentSbTop
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbTop => 19
+    static SbTop => 19
 
     /**
+     * Native name: htmlComponentSbBottom
      * @type {Integer (Int32)}
      */
-    static htmlComponentSbBottom => 20
+    static SbBottom => 20
 
     /**
+     * Native name: htmlComponentOutside
      * @type {Integer (Int32)}
      */
-    static htmlComponentOutside => 21
+    static Outside => 21
 
     /**
+     * Native name: htmlComponentGHTopLeft
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHTopLeft => 22
+    static ComponentGHTopLeft => 22
 
     /**
+     * Native name: htmlComponentGHLeft
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHLeft => 23
+    static ComponentGHLeft => 23
 
     /**
+     * Native name: htmlComponentGHTop
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHTop => 24
+    static ComponentGHTop => 24
 
     /**
+     * Native name: htmlComponentGHBottomLeft
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHBottomLeft => 25
+    static ComponentGHBottomLeft => 25
 
     /**
+     * Native name: htmlComponentGHTopRight
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHTopRight => 26
+    static ComponentGHTopRight => 26
 
     /**
+     * Native name: htmlComponentGHBottom
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHBottom => 27
+    static ComponentGHBottom => 27
 
     /**
+     * Native name: htmlComponentGHRight
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHRight => 28
+    static ComponentGHRight => 28
 
     /**
+     * Native name: htmlComponentGHBottomRight
      * @type {Integer (Int32)}
      */
-    static htmlComponentGHBottomRight => 29
+    static ComponentGHBottomRight => 29
 
     /**
+     * Native name: htmlComponent_Max
      * @type {Integer (Int32)}
      */
-    static htmlComponent_Max => 2147483647
+    static Max => 2147483647
 }

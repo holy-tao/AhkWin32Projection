@@ -16,19 +16,22 @@ class VDS_PARTITION_STYLE extends Win32Enum {
 
     /**
      * An uninitialized disk. New disks or newly cleaned disks have this partitioning type.
+     * Native name: VDS_PST_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_PST_UNKNOWN => 0
+    static PST_UNKNOWN => 0
 
     /**
      * The style is master boot record (MBR). If the value is <b>VDS_PST_MBR</b>, a DWORD signature  identifies the disk. The identifier is unique on a single computer, but not unique across multiple computers. See the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_info_mbr">VDS_PARTITION_INFO_MBR</a> structure.
+     * Native name: VDS_PST_MBR
      * @type {Integer (Int32)}
      */
-    static VDS_PST_MBR => 1
+    static PST_MBR => 1
 
     /**
      * The style is GUID partition table (GPT). If the value is <b>VDS_PST_GPT</b>, the disk has a GUID identifier. The GUID is guaranteed statistically to be unique across different computers. See the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_info_gpt">VDS_PARTITION_INFO_GPT</a> structure.
+     * Native name: VDS_PST_GPT
      * @type {Integer (Int32)}
      */
-    static VDS_PST_GPT => 2
+    static PST_GPT => 2
 }

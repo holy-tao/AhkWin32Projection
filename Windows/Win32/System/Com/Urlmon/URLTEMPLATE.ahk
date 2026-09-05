@@ -7,42 +7,50 @@
 class URLTEMPLATE extends Win32Enum {
 
     /**
+     * Native name: URLTEMPLATE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_CUSTOM => 0
+    static CUSTOM => 0
 
     /**
+     * Native name: URLTEMPLATE_PREDEFINED_MIN
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_PREDEFINED_MIN => 65536
+    static PREDEFINED_MIN => 65536
 
     /**
+     * Native name: URLTEMPLATE_LOW
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_LOW => 65536
+    static LOW => 65536
 
     /**
+     * Native name: URLTEMPLATE_MEDLOW
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_MEDLOW => 66816
+    static MEDLOW => 66816
 
     /**
+     * Native name: URLTEMPLATE_MEDIUM
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_MEDIUM => 69632
+    static MEDIUM => 69632
 
     /**
+     * Native name: URLTEMPLATE_MEDHIGH
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_MEDHIGH => 70912
+    static MEDHIGH => 70912
 
     /**
+     * Native name: URLTEMPLATE_HIGH
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_HIGH => 73728
+    static HIGH => 73728
 
     /**
+     * Native name: URLTEMPLATE_PREDEFINED_MAX
      * @type {Integer (Int32)}
      */
-    static URLTEMPLATE_PREDEFINED_MAX => 131072
+    static PREDEFINED_MAX => 131072
 }

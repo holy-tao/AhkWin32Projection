@@ -9,22 +9,26 @@
 class WS_XML_READER_ENCODING_TYPE extends Win32Enum {
 
     /**
+     * Native name: WS_XML_READER_ENCODING_TYPE_TEXT
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_ENCODING_TYPE_TEXT => 1
+    static TEXT => 1
 
     /**
+     * Native name: WS_XML_READER_ENCODING_TYPE_BINARY
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_ENCODING_TYPE_BINARY => 2
+    static BINARY => 2
 
     /**
+     * Native name: WS_XML_READER_ENCODING_TYPE_MTOM
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_ENCODING_TYPE_MTOM => 3
+    static MTOM => 3
 
     /**
+     * Native name: WS_XML_READER_ENCODING_TYPE_RAW
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_ENCODING_TYPE_RAW => 4
+    static RAW => 4
 }

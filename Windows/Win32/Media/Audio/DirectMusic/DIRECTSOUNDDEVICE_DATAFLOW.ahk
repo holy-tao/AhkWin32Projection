@@ -7,12 +7,14 @@
 class DIRECTSOUNDDEVICE_DATAFLOW extends Win32Enum {
 
     /**
+     * Native name: DIRECTSOUNDDEVICE_DATAFLOW_RENDER
      * @type {Integer (Int32)}
      */
-    static DIRECTSOUNDDEVICE_DATAFLOW_RENDER => 0
+    static RENDER => 0
 
     /**
+     * Native name: DIRECTSOUNDDEVICE_DATAFLOW_CAPTURE
      * @type {Integer (Int32)}
      */
-    static DIRECTSOUNDDEVICE_DATAFLOW_CAPTURE => 1
+    static CAPTURE => 1
 }

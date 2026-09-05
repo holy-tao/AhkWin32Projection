@@ -7,22 +7,26 @@
 class CM_SHARE_DISPOSITION extends Win32Enum {
 
     /**
+     * Native name: CmResourceShareUndetermined
      * @type {Integer (Int32)}
      */
-    static CmResourceShareUndetermined => 0
+    static ResourceShareUndetermined => 0
 
     /**
+     * Native name: CmResourceShareDeviceExclusive
      * @type {Integer (Int32)}
      */
-    static CmResourceShareDeviceExclusive => 1
+    static ResourceShareDeviceExclusive => 1
 
     /**
+     * Native name: CmResourceShareDriverExclusive
      * @type {Integer (Int32)}
      */
-    static CmResourceShareDriverExclusive => 2
+    static ResourceShareDriverExclusive => 2
 
     /**
+     * Native name: CmResourceShareShared
      * @type {Integer (Int32)}
      */
-    static CmResourceShareShared => 3
+    static ResourceShareShared => 3
 }

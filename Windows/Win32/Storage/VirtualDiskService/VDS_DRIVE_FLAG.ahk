@@ -17,39 +17,44 @@ class VDS_DRIVE_FLAG extends Win32Enum {
 
     /**
      * The drive is reserved for use only as a hot spare.
+     * Native name: VDS_DRF_HOTSPARE
      * @type {Integer (Int32)}
      */
-    static VDS_DRF_HOTSPARE => 1
+    static DRF_HOTSPARE => 1
 
     /**
      * The drive is assigned to a RAID group or <a href="https://docs.microsoft.com/windows/desktop/VDS/storage-pool-object">storage pool</a>.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_DRF_ASSIGNED
      * @type {Integer (Int32)}
      */
-    static VDS_DRF_ASSIGNED => 2
+    static DRF_ASSIGNED => 2
 
     /**
      * The drive is not assigned to a RAID group or storage pool.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_DRF_UNASSIGNED
      * @type {Integer (Int32)}
      */
-    static VDS_DRF_UNASSIGNED => 4
+    static DRF_UNASSIGNED => 4
 
     /**
      * The drive is in use as a hot spare.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_DRF_HOTSPARE_IN_USE
      * @type {Integer (Int32)}
      */
-    static VDS_DRF_HOTSPARE_IN_USE => 8
+    static DRF_HOTSPARE_IN_USE => 8
 
     /**
      * The drive is on standby as a hot spare.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_DRF_HOTSPARE_STANDBY
      * @type {Integer (Int32)}
      */
-    static VDS_DRF_HOTSPARE_STANDBY => 16
+    static DRF_HOTSPARE_STANDBY => 16
 }

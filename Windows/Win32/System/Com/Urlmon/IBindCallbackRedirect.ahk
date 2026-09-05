@@ -31,7 +31,6 @@ class IBindCallbackRedirect extends IUnknown {
     static VTableNames => ["Redirect"]
 
     /**
-     * 
      * @param {PWSTR} lpcUrl 
      * @returns {VARIANT_BOOL} 
      */

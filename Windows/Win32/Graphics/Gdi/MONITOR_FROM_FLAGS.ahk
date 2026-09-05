@@ -7,17 +7,20 @@
 class MONITOR_FROM_FLAGS extends Win32Enum {
 
     /**
+     * Native name: MONITOR_DEFAULTTONEAREST
      * @type {Integer (UInt32)}
      */
-    static MONITOR_DEFAULTTONEAREST => 2
+    static DEFAULTTONEAREST => 2
 
     /**
+     * Native name: MONITOR_DEFAULTTONULL
      * @type {Integer (UInt32)}
      */
-    static MONITOR_DEFAULTTONULL => 0
+    static DEFAULTTONULL => 0
 
     /**
+     * Native name: MONITOR_DEFAULTTOPRIMARY
      * @type {Integer (UInt32)}
      */
-    static MONITOR_DEFAULTTOPRIMARY => 1
+    static DEFAULTTOPRIMARY => 1
 }

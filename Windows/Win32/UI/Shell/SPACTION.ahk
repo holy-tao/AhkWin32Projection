@@ -10,85 +10,99 @@ class SPACTION extends Win32Enum {
 
     /**
      * No action is being performed.
+     * Native name: SPACTION_NONE
      * @type {Integer (Int32)}
      */
-    static SPACTION_NONE => 0
+    static NONE => 0
 
     /**
      * Files are being moved.
+     * Native name: SPACTION_MOVING
      * @type {Integer (Int32)}
      */
-    static SPACTION_MOVING => 1
+    static MOVING => 1
 
     /**
      * Files are being copied.
+     * Native name: SPACTION_COPYING
      * @type {Integer (Int32)}
      */
-    static SPACTION_COPYING => 2
+    static COPYING => 2
 
     /**
      * Files are being deleted.
+     * Native name: SPACTION_RECYCLING
      * @type {Integer (Int32)}
      */
-    static SPACTION_RECYCLING => 3
+    static RECYCLING => 3
 
     /**
      * A set of attributes are being applied to files.
+     * Native name: SPACTION_APPLYINGATTRIBS
      * @type {Integer (Int32)}
      */
-    static SPACTION_APPLYINGATTRIBS => 4
+    static APPLYINGATTRIBS => 4
 
     /**
      * A file is being downloaded from a remote source.
+     * Native name: SPACTION_DOWNLOADING
      * @type {Integer (Int32)}
      */
-    static SPACTION_DOWNLOADING => 5
+    static DOWNLOADING => 5
 
     /**
      * An Internet search is being performed.
+     * Native name: SPACTION_SEARCHING_INTERNET
      * @type {Integer (Int32)}
      */
-    static SPACTION_SEARCHING_INTERNET => 6
+    static SEARCHING_INTERNET => 6
 
     /**
      * A calculation is being performed.
+     * Native name: SPACTION_CALCULATING
      * @type {Integer (Int32)}
      */
-    static SPACTION_CALCULATING => 7
+    static CALCULATING => 7
 
     /**
      * A file is being uploaded to a remote source.
+     * Native name: SPACTION_UPLOADING
      * @type {Integer (Int32)}
      */
-    static SPACTION_UPLOADING => 8
+    static UPLOADING => 8
 
     /**
      * A local search is being performed.
+     * Native name: SPACTION_SEARCHING_FILES
      * @type {Integer (Int32)}
      */
-    static SPACTION_SEARCHING_FILES => 9
+    static SEARCHING_FILES => 9
 
     /**
      * <b>Windows Vista and later</b>. A deletion is being performed.
+     * Native name: SPACTION_DELETING
      * @type {Integer (Int32)}
      */
-    static SPACTION_DELETING => 10
+    static DELETING => 10
 
     /**
      * <b>Windows Vista and later</b>. A renaming action is being performed.
+     * Native name: SPACTION_RENAMING
      * @type {Integer (Int32)}
      */
-    static SPACTION_RENAMING => 11
+    static RENAMING => 11
 
     /**
      * <b>Windows Vista and later</b>. A formatting action is being performed.
+     * Native name: SPACTION_FORMATTING
      * @type {Integer (Int32)}
      */
-    static SPACTION_FORMATTING => 12
+    static FORMATTING => 12
 
     /**
      * <b>Windows 7 and later</b>. A copy or move action is being performed.
+     * Native name: SPACTION_COPY_MOVING
      * @type {Integer (Int32)}
      */
-    static SPACTION_COPY_MOVING => 13
+    static COPY_MOVING => 13
 }

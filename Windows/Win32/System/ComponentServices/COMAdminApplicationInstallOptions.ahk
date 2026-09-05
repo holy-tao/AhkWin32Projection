@@ -7,17 +7,20 @@
 class COMAdminApplicationInstallOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminInstallNoUsers
      * @type {Integer (Int32)}
      */
-    static COMAdminInstallNoUsers => 0
+    static NoUsers => 0
 
     /**
+     * Native name: COMAdminInstallUsers
      * @type {Integer (Int32)}
      */
-    static COMAdminInstallUsers => 1
+    static Users => 1
 
     /**
+     * Native name: COMAdminInstallForceOverwriteOfFiles
      * @type {Integer (Int32)}
      */
-    static COMAdminInstallForceOverwriteOfFiles => 2
+    static ForceOverwriteOfFiles => 2
 }

@@ -30,7 +30,6 @@ class IModelObject2 extends IModelObject {
     static VTableNames => ["EnumerateOwnKeyValues", "EnumerateOwnKeys", "EnumerateOwnKeyReferences"]
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateOwnKeyValues() {
@@ -39,7 +38,6 @@ class IModelObject2 extends IModelObject {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateOwnKeys() {
@@ -48,7 +46,6 @@ class IModelObject2 extends IModelObject {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateOwnKeyReferences() {

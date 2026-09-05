@@ -38,181 +38,211 @@ class EVT_PUBLISHER_METADATA_PROPERTY_ID extends Win32Enum {
 
     /**
      * Identifies the <b>guid</b> attribute of the provider. The variant type for this property is <b>EvtVarTypeGuid</b>.
+     * Native name: EvtPublisherMetadataPublisherGuid
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataPublisherGuid => 0
+    static PublisherGuid => 0
 
     /**
      * Identifies the <b>resourceFilePath</b> attribute of the provider. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataResourceFilePath
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataResourceFilePath => 1
+    static ResourceFilePath => 1
 
     /**
      * Identifies the <b>parameterFilePath</b> attribute of the provider. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataParameterFilePath
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataParameterFilePath => 2
+    static ParameterFilePath => 2
 
     /**
      * Identifies the <b>messageFilePath</b> attribute of the provider. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataMessageFilePath
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataMessageFilePath => 3
+    static MessageFilePath => 3
 
     /**
      * Identifies the <b>helpLink</b> attribute of the provider. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataHelpLink
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataHelpLink => 4
+    static HelpLink => 4
 
     /**
      * Identifies the <b>message</b> attribute of the provider. The metadata is the resource identifier assigned to the message string. To get the message string, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtformatmessage">EvtFormatMessage</a> function. The variant type for this property is <b>EvtVarTypeUInt32</b>. If the provider does not specify a message, the value is –1.
+     * Native name: EvtPublisherMetadataPublisherMessageID
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataPublisherMessageID => 5
+    static PublisherMessageID => 5
 
     /**
      * Identifies the <b>channels</b> child element of the provider. The variant type for this property is <b>EvtVarTypeEvtHandle</b>. To access the metadata of the channels that the provider defines or imports, use this handle when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. When you are done with the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.
+     * Native name: EvtPublisherMetadataChannelReferences
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataChannelReferences => 6
+    static ChannelReferences => 6
 
     /**
      * Identifies the <b>name</b> attribute of the channel. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataChannelReferencePath
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataChannelReferencePath => 7
+    static ChannelReferencePath => 7
 
     /**
      * Identifies the zero-based index value of the channel in the list of channels. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>.
+     * Native name: EvtPublisherMetadataChannelReferenceIndex
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataChannelReferenceIndex => 8
+    static ChannelReferenceIndex => 8
 
     /**
      * Identifies the <b>value</b> attribute of the channel. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>.
+     * Native name: EvtPublisherMetadataChannelReferenceID
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataChannelReferenceID => 9
+    static ChannelReferenceID => 9
 
     /**
      * Identifies the flags value that indicates whether this channel is imported from another provider. The channel is imported if the EvtChannelReferenceImported flag value is set. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>.
+     * Native name: EvtPublisherMetadataChannelReferenceFlags
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataChannelReferenceFlags => 10
+    static ChannelReferenceFlags => 10
 
     /**
      * Identifies the <b>message</b> attribute of the channel. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>. The property contains the resource identifier that is assigned to the message string. To get the message string, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtformatmessage">EvtFormatMessage</a> function. If the channel does not specify a message, the value is –1.
+     * Native name: EvtPublisherMetadataChannelReferenceMessageID
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataChannelReferenceMessageID => 11
+    static ChannelReferenceMessageID => 11
 
     /**
      * Identifies the <b>levels</b> child element of the provider. The variant type for this property is <b>EvtVarTypeEvtHandle</b>. To access the metadata of the levels that the provider defines or references, use this handle when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. When you are done with the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.
+     * Native name: EvtPublisherMetadataLevels
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataLevels => 12
+    static Levels => 12
 
     /**
      * Identifies the <b>name</b> attribute of the level. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataLevelName
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataLevelName => 13
+    static LevelName => 13
 
     /**
      * Identifies the <b>value</b> attribute of the level. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>.
+     * Native name: EvtPublisherMetadataLevelValue
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataLevelValue => 14
+    static LevelValue => 14
 
     /**
      * Identifies the <b>message</b> attribute of the level. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>. The property contains the resource identifier that is assigned to the message string. To get the message string, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtformatmessage">EvtFormatMessage</a> function. If the level does not specify a message, the value is –1.
+     * Native name: EvtPublisherMetadataLevelMessageID
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataLevelMessageID => 15
+    static LevelMessageID => 15
 
     /**
      * Identifies the <b>tasks</b> child element of the provider. The variant type for this property is <b>EvtVarTypeEvtHandle</b>. To access the metadata of the tasks that the provider defines, use this handle when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. When you are done with the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.
+     * Native name: EvtPublisherMetadataTasks
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataTasks => 16
+    static Tasks => 16
 
     /**
      * Identifies the <b>name</b> attribute of the task. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataTaskName
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataTaskName => 17
+    static TaskName => 17
 
     /**
      * Identifies the <b>eventGuid</b> attribute of the task. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataTaskEventGuid
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataTaskEventGuid => 18
+    static TaskEventGuid => 18
 
     /**
      * Identifies the <b>value</b> attribute of the task. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>.
+     * Native name: EvtPublisherMetadataTaskValue
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataTaskValue => 19
+    static TaskValue => 19
 
     /**
      * Identifies the <b>message</b> attribute of the task. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>. The property contains the resource identifier that is assigned to the message string. To get the message string, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtformatmessage">EvtFormatMessage</a> function. If the task does not specify a message, the value is –1.
+     * Native name: EvtPublisherMetadataTaskMessageID
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataTaskMessageID => 20
+    static TaskMessageID => 20
 
     /**
      * Identifies the <b>opcodes</b> child element of the provider. The variant type for this property is <b>EvtVarTypeEvtHandle</b>. To access the metadata of the opcodes that the provider defines or references, use this handle when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. When you are done with the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.
+     * Native name: EvtPublisherMetadataOpcodes
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataOpcodes => 21
+    static Opcodes => 21
 
     /**
      * Identifies the <b>name</b> attribute of the opcode. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataOpcodeName
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataOpcodeName => 22
+    static OpcodeName => 22
 
     /**
      * Identifies the <b>value</b> attribute of the opcode. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>. The high word contains the opcode value and the low word contains the task to which it belongs. If the low word is zero, the opcode is defined globally; otherwise, the opcode is task specific. Use the low word value to determine the task that defines the opcode.
+     * Native name: EvtPublisherMetadataOpcodeValue
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataOpcodeValue => 23
+    static OpcodeValue => 23
 
     /**
      * Identifies the <b>message</b> attribute of the opcode. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>. The property contains the resource identifier that is assigned to the message string. To get the message string, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtformatmessage">EvtFormatMessage</a> function. If the opcode does not specify a message, the value is –1.
+     * Native name: EvtPublisherMetadataOpcodeMessageID
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataOpcodeMessageID => 24
+    static OpcodeMessageID => 24
 
     /**
      * Identifies the <b>keywords</b> child element of the provider. The variant type for this property is <b>EvtVarTypeEvtHandle</b>. To access the metadata of the keywords that the provider defines, use this handle when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. When you are done with the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.
+     * Native name: EvtPublisherMetadataKeywords
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataKeywords => 25
+    static Keywords => 25
 
     /**
      * Identifies the <b>name</b> attribute of the keyword. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtPublisherMetadataKeywordName
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataKeywordName => 26
+    static KeywordName => 26
 
     /**
      * Identifies the <b>mask</b> attribute of the keyword. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt64</b>.
+     * Native name: EvtPublisherMetadataKeywordValue
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataKeywordValue => 27
+    static KeywordValue => 27
 
     /**
      * Identifies the <b>message</b> attribute of the keyword. Use this identifier when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function. For details, see Remarks. The variant type for this property is <b>EvtVarTypeUInt32</b>. The property contains the resource identifier that is assigned to the message string. To get the message string, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtformatmessage">EvtFormatMessage</a> function. If the keyword does not specify a message, the value is –1.
+     * Native name: EvtPublisherMetadataKeywordMessageID
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataKeywordMessageID => 28
+    static KeywordMessageID => 28
 
     /**
      * This enumeration value marks the end of the enumeration values.
+     * Native name: EvtPublisherMetadataPropertyIdEND
      * @type {Integer (Int32)}
      */
-    static EvtPublisherMetadataPropertyIdEND => 29
+    static IdEND => 29
 }

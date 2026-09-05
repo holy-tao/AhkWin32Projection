@@ -55,7 +55,6 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKeyName 
      * @returns {IPrintSchemaFeature} 
      */
@@ -67,7 +66,6 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
@@ -81,7 +79,6 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaPageImageableSize} 
      */
     get_PageImageableSize() {
@@ -90,7 +87,6 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JobCopiesAllDocumentsMinValue() {
@@ -99,7 +95,6 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JobCopiesAllDocumentsMaxValue() {
@@ -108,7 +103,6 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {IPrintSchemaFeature} pFeature 
      * @returns {IPrintSchemaOption} 
      */
@@ -118,7 +112,6 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {IPrintSchemaFeature} pFeature 
      * @returns {IPrintSchemaOptionCollection} 
      */

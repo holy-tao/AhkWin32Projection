@@ -35,7 +35,6 @@ class IResourceManager2 extends IResourceManager {
     static VTableNames => ["Enlist2", "Reenlist2"]
 
     /**
-     * 
      * @param {ITransaction} pTransaction 
      * @param {ITransactionResourceAsync} pResAsync 
      * @param {Pointer<BOID>} pUOW 
@@ -52,7 +51,6 @@ class IResourceManager2 extends IResourceManager {
     }
 
     /**
-     * 
      * @param {Pointer<XID>} pXid 
      * @param {Integer} dwTimeout 
      * @returns {XACTSTAT} 

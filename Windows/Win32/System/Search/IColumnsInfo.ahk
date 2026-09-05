@@ -31,7 +31,6 @@ class IColumnsInfo extends IUnknown {
     static VTableNames => ["GetColumnInfo", "MapColumnIDs"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcColumns 
      * @param {Pointer<Pointer<DBCOLUMNINFO>>} prgInfo 
      * @param {Pointer<Pointer<Integer>>} ppStringsBuffer 
@@ -47,7 +46,6 @@ class IColumnsInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cColumnIDs 
      * @param {Pointer<DBID>} rgColumnIDs 
      * @returns {Pointer} 

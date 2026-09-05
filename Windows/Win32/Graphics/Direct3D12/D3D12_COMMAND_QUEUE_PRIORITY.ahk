@@ -16,19 +16,22 @@ class D3D12_COMMAND_QUEUE_PRIORITY extends Win32Enum {
 
     /**
      * Normal priority.
+     * Native name: D3D12_COMMAND_QUEUE_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_PRIORITY_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * High priority.
+     * Native name: D3D12_COMMAND_QUEUE_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_PRIORITY_HIGH => 100
+    static HIGH => 100
 
     /**
      * Global realtime priority.
+     * Native name: D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME => 10000
+    static GLOBAL_REALTIME => 10000
 }

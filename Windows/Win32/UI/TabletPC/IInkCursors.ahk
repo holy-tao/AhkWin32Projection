@@ -67,7 +67,6 @@ class IInkCursors extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

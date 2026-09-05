@@ -108,7 +108,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_Input() {
@@ -117,7 +116,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Outputs() {
@@ -126,7 +124,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_VideoRenderer() {
@@ -135,7 +132,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_AudioRenderer() {
@@ -144,7 +140,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Features() {
@@ -153,7 +148,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Composites() {
@@ -162,7 +156,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_ParentContainer() {
@@ -171,7 +164,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMSVidGraphSegment} pSegment 
      * @returns {HRESULT} 
      */
@@ -181,7 +173,6 @@ class IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsWindowless() {

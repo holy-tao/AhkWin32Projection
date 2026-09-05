@@ -15,7 +15,6 @@ class Memory {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<HANDLE>} SectionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -28,7 +27,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} SectionHandle 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
@@ -55,7 +53,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} BaseAddress 
      * @returns {NTSTATUS} 
@@ -71,7 +68,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} SectionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -84,7 +80,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} SectionHandle 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
@@ -111,7 +106,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} BaseAddress 
      * @returns {NTSTATUS} 

@@ -7,22 +7,26 @@
 class styleListStylePosition extends Win32Enum {
 
     /**
+     * Native name: styleListStylePositionNotSet
      * @type {Integer (Int32)}
      */
-    static styleListStylePositionNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleListStylePositionInside
      * @type {Integer (Int32)}
      */
-    static styleListStylePositionInside => 1
+    static Inside => 1
 
     /**
+     * Native name: styleListStylePositionOutSide
      * @type {Integer (Int32)}
      */
-    static styleListStylePositionOutSide => 2
+    static OutSide => 2
 
     /**
+     * Native name: styleListStylePosition_Max
      * @type {Integer (Int32)}
      */
-    static styleListStylePosition_Max => 2147483647
+    static Max => 2147483647
 }

@@ -9,17 +9,20 @@
 class MrmPackagingOptions extends Win32Enum {
 
     /**
+     * Native name: MrmPackagingOptionsNone
      * @type {Integer (Int32)}
      */
-    static MrmPackagingOptionsNone => 0
+    static None => 0
 
     /**
+     * Native name: MrmPackagingOptionsOmitSchemaFromResourcePacks
      * @type {Integer (Int32)}
      */
-    static MrmPackagingOptionsOmitSchemaFromResourcePacks => 1
+    static OmitSchemaFromResourcePacks => 1
 
     /**
+     * Native name: MrmPackagingOptionsSplitLanguageVariants
      * @type {Integer (Int32)}
      */
-    static MrmPackagingOptionsSplitLanguageVariants => 2
+    static SplitLanguageVariants => 2
 }

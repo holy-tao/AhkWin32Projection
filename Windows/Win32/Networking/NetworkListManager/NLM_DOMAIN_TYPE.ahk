@@ -10,19 +10,22 @@ class NLM_DOMAIN_TYPE extends Win32Enum {
 
     /**
      * The Network is not an Active Directory Network.
+     * Native name: NLM_DOMAIN_TYPE_NON_DOMAIN_NETWORK
      * @type {Integer (Int32)}
      */
-    static NLM_DOMAIN_TYPE_NON_DOMAIN_NETWORK => 0
+    static NON_DOMAIN_NETWORK => 0
 
     /**
      * The Network is an Active Directory Network, but this machine is not authenticated against it.
+     * Native name: NLM_DOMAIN_TYPE_DOMAIN_NETWORK
      * @type {Integer (Int32)}
      */
-    static NLM_DOMAIN_TYPE_DOMAIN_NETWORK => 1
+    static DOMAIN_NETWORK => 1
 
     /**
      * The Network is an Active Directory Network, and this machine is authenticated against it.
+     * Native name: NLM_DOMAIN_TYPE_DOMAIN_AUTHENTICATED
      * @type {Integer (Int32)}
      */
-    static NLM_DOMAIN_TYPE_DOMAIN_AUTHENTICATED => 2
+    static DOMAIN_AUTHENTICATED => 2
 }

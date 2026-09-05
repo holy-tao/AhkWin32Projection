@@ -32,7 +32,6 @@ class ISAXContentHandler extends IUnknown {
     static VTableNames => ["putDocumentLocator", "startDocument", "endDocument", "startPrefixMapping", "endPrefixMapping", "startElement", "endElement", "characters", "ignorableWhitespace", "processingInstruction", "skippedEntity"]
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startDocument() {
@@ -51,7 +49,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endDocument() {
@@ -60,7 +57,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchPrefix 
      * @param {Integer} cchPrefix 
      * @param {PWSTR} pwchUri 
@@ -76,7 +72,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchPrefix 
      * @param {Integer} cchPrefix 
      * @returns {HRESULT} 
@@ -89,7 +84,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchNamespaceUri 
      * @param {Integer} cchNamespaceUri 
      * @param {PWSTR} pwchLocalName 
@@ -109,7 +103,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchNamespaceUri 
      * @param {Integer} cchNamespaceUri 
      * @param {PWSTR} pwchLocalName 
@@ -128,7 +121,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchChars 
      * @param {Integer} cchChars 
      * @returns {HRESULT} 
@@ -141,7 +133,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchChars 
      * @param {Integer} cchChars 
      * @returns {HRESULT} 
@@ -154,7 +145,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchTarget 
      * @param {Integer} cchTarget 
      * @param {PWSTR} pwchData 
@@ -170,7 +160,6 @@ class ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @returns {HRESULT} 

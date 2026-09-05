@@ -13,31 +13,36 @@ class VDS_FORMAT_OPTION_FLAGS extends Win32Enum {
 
     /**
      * No options are specified.
+     * Native name: VDS_FSOF_NONE
      * @type {Integer (Int32)}
      */
-    static VDS_FSOF_NONE => 0
+    static FSOF_NONE => 0
 
     /**
      * The format operation should be forced, even if the partition is in use.
+     * Native name: VDS_FSOF_FORCE
      * @type {Integer (Int32)}
      */
-    static VDS_FSOF_FORCE => 1
+    static FSOF_FORCE => 1
 
     /**
      * Perform a quick format operation. A quick format does not verify each sector on the volume.
+     * Native name: VDS_FSOF_QUICK
      * @type {Integer (Int32)}
      */
-    static VDS_FSOF_QUICK => 2
+    static FSOF_QUICK => 2
 
     /**
      * Enable compression on the newly formatted file system volume. Compression is a feature of the NTFS file system; it cannot be set for other file systems such as FAT or FAT32.
+     * Native name: VDS_FSOF_COMPRESSION
      * @type {Integer (Int32)}
      */
-    static VDS_FSOF_COMPRESSION => 4
+    static FSOF_COMPRESSION => 4
 
     /**
      * Forces duplication of metadata for UDF 2.5 and above.
+     * Native name: VDS_FSOF_DUPLICATE_METADATA
      * @type {Integer (Int32)}
      */
-    static VDS_FSOF_DUPLICATE_METADATA => 8
+    static FSOF_DUPLICATE_METADATA => 8
 }

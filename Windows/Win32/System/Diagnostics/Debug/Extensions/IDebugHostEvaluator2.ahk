@@ -31,7 +31,6 @@ class IDebugHostEvaluator2 extends IDebugHostEvaluator {
     static VTableNames => ["AssignTo"]
 
     /**
-     * 
      * @param {IModelObject} assignmentReference 
      * @param {IModelObject} assignmentValue 
      * @param {Pointer<IModelObject>} assignmentResult 

@@ -12,19 +12,22 @@ class DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * This flag specifies that swapchain composition can be facilitated in a performant manner using hardware for fullscreen applications.
+     * Native name: DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_FULLSCREEN
      * @type {Integer (Int32)}
      */
-    static DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_FULLSCREEN => 1
+    static FLAG_FULLSCREEN => 1
 
     /**
      * This flag specifies that swapchain composition can be facilitated in a performant manner using hardware for windowed applications.
+     * Native name: DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_WINDOWED
      * @type {Integer (Int32)}
      */
-    static DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_WINDOWED => 2
+    static FLAG_WINDOWED => 2
 
     /**
      * This flag specifies that swapchain composition facilitated using hardware can cause the cursor to appear stretched.
+     * Native name: DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_CURSOR_STRETCHED
      * @type {Integer (Int32)}
      */
-    static DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_CURSOR_STRETCHED => 4
+    static FLAG_CURSOR_STRETCHED => 4
 }

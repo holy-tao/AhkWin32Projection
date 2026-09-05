@@ -7,22 +7,26 @@
 class PFN_WDS_CLI_CALLBACK_MESSAGE_ID extends Win32Enum {
 
     /**
+     * Native name: WDS_CLI_MSG_START
      * @type {Integer (UInt32)}
      */
-    static WDS_CLI_MSG_START => 0
+    static MSG_START => 0
 
     /**
+     * Native name: WDS_CLI_MSG_COMPLETE
      * @type {Integer (UInt32)}
      */
-    static WDS_CLI_MSG_COMPLETE => 1
+    static MSG_COMPLETE => 1
 
     /**
+     * Native name: WDS_CLI_MSG_PROGRESS
      * @type {Integer (UInt32)}
      */
-    static WDS_CLI_MSG_PROGRESS => 2
+    static MSG_PROGRESS => 2
 
     /**
+     * Native name: WDS_CLI_MSG_TEXT
      * @type {Integer (UInt32)}
      */
-    static WDS_CLI_MSG_TEXT => 3
+    static MSG_TEXT => 3
 }

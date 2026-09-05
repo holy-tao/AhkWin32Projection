@@ -7,22 +7,26 @@
 class KSSTATE extends Win32Enum {
 
     /**
+     * Native name: KSSTATE_STOP
      * @type {Integer (Int32)}
      */
-    static KSSTATE_STOP => 0
+    static STOP => 0
 
     /**
+     * Native name: KSSTATE_ACQUIRE
      * @type {Integer (Int32)}
      */
-    static KSSTATE_ACQUIRE => 1
+    static ACQUIRE => 1
 
     /**
+     * Native name: KSSTATE_PAUSE
      * @type {Integer (Int32)}
      */
-    static KSSTATE_PAUSE => 2
+    static PAUSE => 2
 
     /**
+     * Native name: KSSTATE_RUN
      * @type {Integer (Int32)}
      */
-    static KSSTATE_RUN => 3
+    static RUN => 3
 }

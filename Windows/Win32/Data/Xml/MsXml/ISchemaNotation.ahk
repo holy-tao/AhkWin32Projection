@@ -44,7 +44,6 @@ class ISchemaNotation extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemIdentifier() {
@@ -54,7 +53,6 @@ class ISchemaNotation extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_publicIdentifier() {

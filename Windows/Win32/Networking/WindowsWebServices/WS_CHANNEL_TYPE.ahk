@@ -14,18 +14,20 @@ class WS_CHANNEL_TYPE extends Win32Enum {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> supports this channel type
      *                     when used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>.
+     * Native name: WS_CHANNEL_TYPE_INPUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_INPUT => 1
+    static INPUT => 1
 
     /**
      * Output channels support Send operations.
      *                 
      * 
      * This channel type is not currently supported by any channel bindings.
+     * Native name: WS_CHANNEL_TYPE_OUTPUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_OUTPUT => 2
+    static OUTPUT => 2
 
     /**
      * Sessionful channels provide channel-level correlation of all messages sent or received.
@@ -34,27 +36,30 @@ class WS_CHANNEL_TYPE extends Win32Enum {
      * This is a flag used to build <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_INPUT_SESSION</a>,
      *                     <b>WS_CHANNEL_TYPE_OUTPUT_SESSION</b>, and <b>WS_CHANNEL_TYPE_DUPLEX_SESSION</b>,
      *                     but cannot be used alone.
+     * Native name: WS_CHANNEL_TYPE_SESSION
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_SESSION => 4
+    static SESSION => 4
 
     /**
      * An input channel that supports a session.
      *                 
      * 
      * This channel type is not currently supported by any channel bindings.
+     * Native name: WS_CHANNEL_TYPE_INPUT_SESSION
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_INPUT_SESSION => 5
+    static INPUT_SESSION => 5
 
     /**
      * An output channel that supports a session.
      *                 
      * 
      * This channel type is not currently supported by any channel bindings.
+     * Native name: WS_CHANNEL_TYPE_OUTPUT_SESSION
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_OUTPUT_SESSION => 6
+    static OUTPUT_SESSION => 6
 
     /**
      * An input/output channel.
@@ -62,9 +67,10 @@ class WS_CHANNEL_TYPE extends Win32Enum {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> supports this channel type
      *                     when used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>.
+     * Native name: WS_CHANNEL_TYPE_DUPLEX
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_DUPLEX => 3
+    static DUPLEX => 3
 
     /**
      * An input/output channel that supports a session.
@@ -72,9 +78,10 @@ class WS_CHANNEL_TYPE extends Win32Enum {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> supports this channel type when
      *                     used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>.
+     * Native name: WS_CHANNEL_TYPE_DUPLEX_SESSION
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_DUPLEX_SESSION => 7
+    static DUPLEX_SESSION => 7
 
     /**
      * Request channels support Send followed by Receive.  They are used on the client 
@@ -88,9 +95,10 @@ class WS_CHANNEL_TYPE extends Win32Enum {
      * Note that request channels provide built-in correlation of request replies.
      *                     It is possible to do request-reply correlation on other channel types using the
      *                     addressing headers (RelatesTo and MessageID).
+     * Native name: WS_CHANNEL_TYPE_REQUEST
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_REQUEST => 8
+    static REQUEST => 8
 
     /**
      * Reply channels support Receive followed by Send.  They are used on the service
@@ -104,7 +112,8 @@ class WS_CHANNEL_TYPE extends Win32Enum {
      * Note that reply channels provide built-in correlation of request replies.
      *                     It is possible to do request-reply correlation on other channel types using the
      *                     addressing headers (RelatesTo and MessageID).
+     * Native name: WS_CHANNEL_TYPE_REPLY
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_TYPE_REPLY => 16
+    static REPLY => 16
 }

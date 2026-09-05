@@ -30,7 +30,6 @@ class IHostCrst extends IUnknown {
     static VTableNames => ["Enter", "Leave", "TryEnter", "SetSpinCount"]
 
     /**
-     * 
      * @param {Integer} option 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IHostCrst extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Leave() {
@@ -49,7 +47,6 @@ class IHostCrst extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} option 
      * @returns {BOOL} 
      */
@@ -59,7 +56,6 @@ class IHostCrst extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpinCount 
      * @returns {HRESULT} 
      */

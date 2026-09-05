@@ -7,27 +7,32 @@
 class INSTALLMODE extends Win32Enum {
 
     /**
+     * Native name: INSTALLMODE_NODETECTION_ANY
      * @type {Integer (Int32)}
      */
-    static INSTALLMODE_NODETECTION_ANY => -4
+    static NODETECTION_ANY => -4
 
     /**
+     * Native name: INSTALLMODE_NOSOURCERESOLUTION
      * @type {Integer (Int32)}
      */
-    static INSTALLMODE_NOSOURCERESOLUTION => -3
+    static NOSOURCERESOLUTION => -3
 
     /**
+     * Native name: INSTALLMODE_NODETECTION
      * @type {Integer (Int32)}
      */
-    static INSTALLMODE_NODETECTION => -2
+    static NODETECTION => -2
 
     /**
+     * Native name: INSTALLMODE_EXISTING
      * @type {Integer (Int32)}
      */
-    static INSTALLMODE_EXISTING => -1
+    static EXISTING => -1
 
     /**
+     * Native name: INSTALLMODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static INSTALLMODE_DEFAULT => 0
+    static DEFAULT => 0
 }

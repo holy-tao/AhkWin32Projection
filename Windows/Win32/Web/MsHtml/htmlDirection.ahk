@@ -7,17 +7,20 @@
 class htmlDirection extends Win32Enum {
 
     /**
+     * Native name: htmlDirectionForward
      * @type {Integer (Int32)}
      */
-    static htmlDirectionForward => 99999
+    static Forward => 99999
 
     /**
+     * Native name: htmlDirectionBackward
      * @type {Integer (Int32)}
      */
-    static htmlDirectionBackward => -99999
+    static Backward => -99999
 
     /**
+     * Native name: htmlDirection_Max
      * @type {Integer (Int32)}
      */
-    static htmlDirection_Max => 2147483647
+    static Max => 2147483647
 }

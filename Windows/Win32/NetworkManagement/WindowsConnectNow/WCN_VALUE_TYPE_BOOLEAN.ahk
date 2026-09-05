@@ -10,13 +10,15 @@ class WCN_VALUE_TYPE_BOOLEAN extends Win32Enum {
 
     /**
      * The argument is false.
+     * Native name: WCN_VALUE_FALSE
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_FALSE => 0
+    static FALSE => 0
 
     /**
      * The argument is true.
+     * Native name: WCN_VALUE_TRUE
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_TRUE => 1
+    static TRUE => 1
 }

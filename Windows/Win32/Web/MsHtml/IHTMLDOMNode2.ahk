@@ -36,7 +36,6 @@ class IHTMLDOMNode2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ownerDocument() {

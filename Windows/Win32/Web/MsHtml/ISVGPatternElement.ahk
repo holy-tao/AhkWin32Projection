@@ -87,7 +87,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -97,7 +96,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_patternUnits() {
@@ -106,7 +104,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +113,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_patternContentUnits() {
@@ -125,7 +121,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedTransformList} v 
      * @returns {HRESULT} 
      */
@@ -135,7 +130,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedTransformList} 
      */
     get_patternTransform() {
@@ -144,7 +138,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
@@ -163,7 +155,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -173,7 +164,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
@@ -182,7 +172,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -192,7 +181,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
@@ -201,7 +189,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -211,7 +198,6 @@ class ISVGPatternElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {

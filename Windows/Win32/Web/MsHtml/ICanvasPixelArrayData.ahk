@@ -29,7 +29,6 @@ class ICanvasPixelArrayData extends IUnknown {
     static VTableNames => ["GetBufferPointer"]
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppBuffer 
      * @param {Pointer<Integer>} pBufferLength 
      * @returns {HRESULT} 

@@ -147,7 +147,6 @@ class IConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsConnected() {
@@ -174,7 +173,6 @@ class IConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ACCOUNT_STATE} 
      */
     GetAccountState() {

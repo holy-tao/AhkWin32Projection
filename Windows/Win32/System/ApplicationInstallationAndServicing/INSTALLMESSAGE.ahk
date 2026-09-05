@@ -7,97 +7,116 @@
 class INSTALLMESSAGE extends Win32Enum {
 
     /**
+     * Native name: INSTALLMESSAGE_FATALEXIT
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_FATALEXIT => 0
+    static FATALEXIT => 0
 
     /**
+     * Native name: INSTALLMESSAGE_ERROR
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_ERROR => 16777216
+    static ERROR => 16777216
 
     /**
+     * Native name: INSTALLMESSAGE_WARNING
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_WARNING => 33554432
+    static WARNING => 33554432
 
     /**
+     * Native name: INSTALLMESSAGE_USER
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_USER => 50331648
+    static USER => 50331648
 
     /**
+     * Native name: INSTALLMESSAGE_INFO
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_INFO => 67108864
+    static INFO => 67108864
 
     /**
+     * Native name: INSTALLMESSAGE_FILESINUSE
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_FILESINUSE => 83886080
+    static FILESINUSE => 83886080
 
     /**
+     * Native name: INSTALLMESSAGE_RESOLVESOURCE
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_RESOLVESOURCE => 100663296
+    static RESOLVESOURCE => 100663296
 
     /**
+     * Native name: INSTALLMESSAGE_OUTOFDISKSPACE
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_OUTOFDISKSPACE => 117440512
+    static OUTOFDISKSPACE => 117440512
 
     /**
+     * Native name: INSTALLMESSAGE_ACTIONSTART
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_ACTIONSTART => 134217728
+    static ACTIONSTART => 134217728
 
     /**
+     * Native name: INSTALLMESSAGE_ACTIONDATA
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_ACTIONDATA => 150994944
+    static ACTIONDATA => 150994944
 
     /**
+     * Native name: INSTALLMESSAGE_PROGRESS
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_PROGRESS => 167772160
+    static PROGRESS => 167772160
 
     /**
+     * Native name: INSTALLMESSAGE_COMMONDATA
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_COMMONDATA => 184549376
+    static COMMONDATA => 184549376
 
     /**
+     * Native name: INSTALLMESSAGE_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_INITIALIZE => 201326592
+    static INITIALIZE => 201326592
 
     /**
+     * Native name: INSTALLMESSAGE_TERMINATE
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_TERMINATE => 218103808
+    static TERMINATE => 218103808
 
     /**
+     * Native name: INSTALLMESSAGE_SHOWDIALOG
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_SHOWDIALOG => 234881024
+    static SHOWDIALOG => 234881024
 
     /**
+     * Native name: INSTALLMESSAGE_PERFORMANCE
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_PERFORMANCE => 251658240
+    static PERFORMANCE => 251658240
 
     /**
+     * Native name: INSTALLMESSAGE_RMFILESINUSE
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_RMFILESINUSE => 419430400
+    static RMFILESINUSE => 419430400
 
     /**
+     * Native name: INSTALLMESSAGE_INSTALLSTART
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_INSTALLSTART => 436207616
+    static INSTALLSTART => 436207616
 
     /**
+     * Native name: INSTALLMESSAGE_INSTALLEND
      * @type {Integer (Int32)}
      */
-    static INSTALLMESSAGE_INSTALLEND => 452984832
+    static INSTALLEND => 452984832
 }

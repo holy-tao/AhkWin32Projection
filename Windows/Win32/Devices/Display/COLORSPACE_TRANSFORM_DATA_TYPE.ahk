@@ -7,12 +7,14 @@
 class COLORSPACE_TRANSFORM_DATA_TYPE extends Win32Enum {
 
     /**
+     * Native name: COLORSPACE_TRANSFORM_DATA_TYPE_FIXED_POINT
      * @type {Integer (Int32)}
      */
-    static COLORSPACE_TRANSFORM_DATA_TYPE_FIXED_POINT => 0
+    static FIXED_POINT => 0
 
     /**
+     * Native name: COLORSPACE_TRANSFORM_DATA_TYPE_FLOAT
      * @type {Integer (Int32)}
      */
-    static COLORSPACE_TRANSFORM_DATA_TYPE_FLOAT => 1
+    static FLOAT => 1
 }

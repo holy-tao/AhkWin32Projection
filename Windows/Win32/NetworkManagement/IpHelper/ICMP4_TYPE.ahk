@@ -12,79 +12,92 @@ class ICMP4_TYPE extends Win32Enum {
 
     /**
      * ICMP echo reply message.
+     * Native name: ICMP4_ECHO_REPLY
      * @type {Integer (Int32)}
      */
-    static ICMP4_ECHO_REPLY => 0
+    static ECHO_REPLY => 0
 
     /**
      * The specified destination for the message is unreachable.
+     * Native name: ICMP4_DST_UNREACH
      * @type {Integer (Int32)}
      */
-    static ICMP4_DST_UNREACH => 3
+    static DST_UNREACH => 3
 
     /**
      * ICMP source quench message.
+     * Native name: ICMP4_SOURCE_QUENCH
      * @type {Integer (Int32)}
      */
-    static ICMP4_SOURCE_QUENCH => 4
+    static SOURCE_QUENCH => 4
 
     /**
      * ICMP redirection message.
+     * Native name: ICMP4_REDIRECT
      * @type {Integer (Int32)}
      */
-    static ICMP4_REDIRECT => 5
+    static REDIRECT => 5
 
     /**
      * ICMP echo redirection message.
+     * Native name: ICMP4_ECHO_REQUEST
      * @type {Integer (Int32)}
      */
-    static ICMP4_ECHO_REQUEST => 8
+    static ECHO_REQUEST => 8
 
     /**
      * ICMP router advertisement message.
+     * Native name: ICMP4_ROUTER_ADVERT
      * @type {Integer (Int32)}
      */
-    static ICMP4_ROUTER_ADVERT => 9
+    static ROUTER_ADVERT => 9
 
     /**
      * ICMP router solicitation message.
+     * Native name: ICMP4_ROUTER_SOLICIT
      * @type {Integer (Int32)}
      */
-    static ICMP4_ROUTER_SOLICIT => 10
+    static ROUTER_SOLICIT => 10
 
     /**
      * The ICMPv6 message has timed out.
+     * Native name: ICMP4_TIME_EXCEEDED
      * @type {Integer (Int32)}
      */
-    static ICMP4_TIME_EXCEEDED => 11
+    static TIME_EXCEEDED => 11
 
     /**
      * The IPv4 header is malformed or contains an incorrect value.
+     * Native name: ICMP4_PARAM_PROB
      * @type {Integer (Int32)}
      */
-    static ICMP4_PARAM_PROB => 12
+    static PARAM_PROB => 12
 
     /**
      * ICMP timestamp request message.
+     * Native name: ICMP4_TIMESTAMP_REQUEST
      * @type {Integer (Int32)}
      */
-    static ICMP4_TIMESTAMP_REQUEST => 13
+    static TIMESTAMP_REQUEST => 13
 
     /**
      * ICMP timestamp reply message.
+     * Native name: ICMP4_TIMESTAMP_REPLY
      * @type {Integer (Int32)}
      */
-    static ICMP4_TIMESTAMP_REPLY => 14
+    static TIMESTAMP_REPLY => 14
 
     /**
      * ICMP mask request message.
+     * Native name: ICMP4_MASK_REQUEST
      * @type {Integer (Int32)}
      */
-    static ICMP4_MASK_REQUEST => 17
+    static MASK_REQUEST => 17
 
     /**
      * ICMP mask reply message.
+     * Native name: ICMP4_MASK_REPLY
      * @type {Integer (Int32)}
      */
-    static ICMP4_MASK_REPLY => 18
+    static MASK_REPLY => 18
 }

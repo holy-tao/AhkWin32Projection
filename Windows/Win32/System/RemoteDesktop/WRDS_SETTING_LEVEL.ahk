@@ -10,13 +10,15 @@ class WRDS_SETTING_LEVEL extends Win32Enum {
 
     /**
      * The type of structure is not defined.
+     * Native name: WRDS_SETTING_LEVEL_INVALID
      * @type {Integer (Int32)}
      */
-    static WRDS_SETTING_LEVEL_INVALID => 0
+    static INVALID => 0
 
     /**
      * The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings_1">WRDS_SETTINGS_1</a> structure.
+     * Native name: WRDS_SETTING_LEVEL_1
      * @type {Integer (Int32)}
      */
-    static WRDS_SETTING_LEVEL_1 => 1
+    static 1 => 1
 }

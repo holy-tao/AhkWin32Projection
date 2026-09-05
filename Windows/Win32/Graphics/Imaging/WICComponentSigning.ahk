@@ -10,28 +10,32 @@ class WICComponentSigning extends Win32Enum {
 
     /**
      * A signed component.
+     * Native name: WICComponentSigned
      * @type {Integer (Int32)}
      */
-    static WICComponentSigned => 1
+    static Signed => 1
 
     /**
      * An unsigned component
+     * Native name: WICComponentUnsigned
      * @type {Integer (Int32)}
      */
-    static WICComponentUnsigned => 2
+    static Unsigned => 2
 
     /**
      * A component is safe.
      *             
      * 
      * Components that do not have a binary component to sign, such as a pixel format, should return this value.
+     * Native name: WICComponentSafe
      * @type {Integer (Int32)}
      */
-    static WICComponentSafe => 4
+    static Safe => 4
 
     /**
      * A component has been disabled.
+     * Native name: WICComponentDisabled
      * @type {Integer (Int32)}
      */
-    static WICComponentDisabled => -2147483648
+    static Disabled => -2147483648
 }

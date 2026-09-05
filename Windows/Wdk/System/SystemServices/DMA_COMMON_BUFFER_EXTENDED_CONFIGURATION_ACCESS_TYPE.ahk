@@ -7,22 +7,26 @@
 class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE extends Win32Enum {
 
     /**
+     * Native name: CommonBufferHardwareAccessReadOnly
      * @type {Integer (Int32)}
      */
-    static CommonBufferHardwareAccessReadOnly => 0
+    static HardwareAccessReadOnly => 0
 
     /**
+     * Native name: CommonBufferHardwareAccessWriteOnly
      * @type {Integer (Int32)}
      */
-    static CommonBufferHardwareAccessWriteOnly => 1
+    static HardwareAccessWriteOnly => 1
 
     /**
+     * Native name: CommonBufferHardwareAccessReadWrite
      * @type {Integer (Int32)}
      */
-    static CommonBufferHardwareAccessReadWrite => 2
+    static HardwareAccessReadWrite => 2
 
     /**
+     * Native name: CommonBufferHardwareAccessMax
      * @type {Integer (Int32)}
      */
-    static CommonBufferHardwareAccessMax => 3
+    static HardwareAccessMax => 3
 }

@@ -7,22 +7,26 @@
 class WPC_ARGS_WEBOVERRIDEEVENT extends Win32Enum {
 
     /**
+     * Native name: WPC_ARGS_WEBOVERRIDEEVENT_USERID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBOVERRIDEEVENT_USERID => 0
+    static USERID => 0
 
     /**
+     * Native name: WPC_ARGS_WEBOVERRIDEEVENT_URL
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBOVERRIDEEVENT_URL => 1
+    static URL => 1
 
     /**
+     * Native name: WPC_ARGS_WEBOVERRIDEEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBOVERRIDEEVENT_REASON => 2
+    static REASON => 2
 
     /**
+     * Native name: WPC_ARGS_WEBOVERRIDEEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBOVERRIDEEVENT_CARGS => 3
+    static CARGS => 3
 }

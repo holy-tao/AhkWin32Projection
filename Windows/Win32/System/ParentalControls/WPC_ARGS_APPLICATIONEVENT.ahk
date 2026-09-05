@@ -7,32 +7,38 @@
 class WPC_ARGS_APPLICATIONEVENT extends Win32Enum {
 
     /**
+     * Native name: WPC_ARGS_APPLICATIONEVENT_SERIALIZEDAPPLICATION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPLICATIONEVENT_SERIALIZEDAPPLICATION => 0
+    static SERIALIZEDAPPLICATION => 0
 
     /**
+     * Native name: WPC_ARGS_APPLICATIONEVENT_DECISION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPLICATIONEVENT_DECISION => 1
+    static DECISION => 1
 
     /**
+     * Native name: WPC_ARGS_APPLICATIONEVENT_PROCESSID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPLICATIONEVENT_PROCESSID => 2
+    static PROCESSID => 2
 
     /**
+     * Native name: WPC_ARGS_APPLICATIONEVENT_CREATIONTIME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPLICATIONEVENT_CREATIONTIME => 3
+    static CREATIONTIME => 3
 
     /**
+     * Native name: WPC_ARGS_APPLICATIONEVENT_TIMEUSED
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPLICATIONEVENT_TIMEUSED => 4
+    static TIMEUSED => 4
 
     /**
+     * Native name: WPC_ARGS_APPLICATIONEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPLICATIONEVENT_CARGS => 5
+    static CARGS => 5
 }

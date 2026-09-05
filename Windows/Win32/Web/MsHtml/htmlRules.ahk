@@ -7,37 +7,44 @@
 class htmlRules extends Win32Enum {
 
     /**
+     * Native name: htmlRulesNotSet
      * @type {Integer (Int32)}
      */
-    static htmlRulesNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlRulesnone
      * @type {Integer (Int32)}
      */
-    static htmlRulesnone => 1
+    static Rulesnone => 1
 
     /**
+     * Native name: htmlRulesgroups
      * @type {Integer (Int32)}
      */
-    static htmlRulesgroups => 2
+    static Rulesgroups => 2
 
     /**
+     * Native name: htmlRulesrows
      * @type {Integer (Int32)}
      */
-    static htmlRulesrows => 3
+    static Rulesrows => 3
 
     /**
+     * Native name: htmlRulescols
      * @type {Integer (Int32)}
      */
-    static htmlRulescols => 4
+    static Rulescols => 4
 
     /**
+     * Native name: htmlRulesall
      * @type {Integer (Int32)}
      */
-    static htmlRulesall => 5
+    static Rulesall => 5
 
     /**
+     * Native name: htmlRules_Max
      * @type {Integer (Int32)}
      */
-    static htmlRules_Max => 2147483647
+    static Max => 2147483647
 }

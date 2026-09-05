@@ -30,7 +30,6 @@ class IMLOperatorShapeInferrer extends IUnknown {
     static VTableNames => ["InferOutputShapes"]
 
     /**
-     * 
      * @param {IMLOperatorShapeInferenceContext} _context 
      * @returns {HRESULT} 
      */

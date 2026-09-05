@@ -7,12 +7,14 @@
 class D3D11_SHADER_ACCESS_RESTRICTED_RESOURCE_TIER extends Win32Enum {
 
     /**
+     * Native name: D3D11_SHADER_ACCESS_RESTRICTED_RESOURCE_TIER_0
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_ACCESS_RESTRICTED_RESOURCE_TIER_0 => 0
+    static 0 => 0
 
     /**
+     * Native name: D3D11_SHADER_ACCESS_RESTRICTED_RESOURCE_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_ACCESS_RESTRICTED_RESOURCE_TIER_1 => 1
+    static 1 => 1
 }

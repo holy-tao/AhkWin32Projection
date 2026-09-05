@@ -45,7 +45,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -55,7 +54,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -76,7 +73,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} count 
      * @returns {BSTR} 
@@ -88,7 +84,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {HRESULT} 
      */
@@ -100,7 +95,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {BSTR} data 
      * @returns {HRESULT} 
@@ -113,7 +107,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} count 
      * @returns {HRESULT} 
@@ -124,7 +117,6 @@ class IXMLDOMCharacterData extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} count 
      * @param {BSTR} data 

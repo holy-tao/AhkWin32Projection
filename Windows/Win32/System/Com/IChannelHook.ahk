@@ -30,7 +30,6 @@ class IChannelHook extends IUnknown {
     static VTableNames => ["ClientGetSize", "ClientFillBuffer", "ClientNotify", "ServerNotify", "ServerGetSize", "ServerFillBuffer"]
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pDataSize 
@@ -43,7 +42,6 @@ class IChannelHook extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pDataSize 
@@ -58,7 +56,6 @@ class IChannelHook extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cbDataSize 
@@ -74,7 +71,6 @@ class IChannelHook extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cbDataSize 
@@ -89,7 +85,6 @@ class IChannelHook extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {HRESULT} hrFault 
@@ -103,7 +98,6 @@ class IChannelHook extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pDataSize 

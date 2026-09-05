@@ -46,31 +46,36 @@ class MP_CURVE_TYPE extends Win32Enum {
 
     /**
      * No interpolation. Jump to the next point.
+     * Native name: MP_CURVE_JUMP
      * @type {Integer (Int32)}
      */
-    static MP_CURVE_JUMP => 1
+    static JUMP => 1
 
     /**
      * Linear interpolation.
+     * Native name: MP_CURVE_LINEAR
      * @type {Integer (Int32)}
      */
-    static MP_CURVE_LINEAR => 2
+    static LINEAR => 2
 
     /**
      * Parabolic curve.
+     * Native name: MP_CURVE_SQUARE
      * @type {Integer (Int32)}
      */
-    static MP_CURVE_SQUARE => 4
+    static SQUARE => 4
 
     /**
      * Inverse square curve.
+     * Native name: MP_CURVE_INVSQUARE
      * @type {Integer (Int32)}
      */
-    static MP_CURVE_INVSQUARE => 8
+    static INVSQUARE => 8
 
     /**
      * Sine curve.
+     * Native name: MP_CURVE_SINE
      * @type {Integer (Int32)}
      */
-    static MP_CURVE_SINE => 16
+    static SINE => 16
 }

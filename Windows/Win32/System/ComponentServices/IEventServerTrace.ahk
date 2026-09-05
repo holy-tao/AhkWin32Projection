@@ -30,7 +30,6 @@ class IEventServerTrace extends IDispatch {
     static VTableNames => ["StartTraceGuid", "StopTraceGuid", "EnumTraceGuid"]
 
     /**
-     * 
      * @param {BSTR} bstrguidEvent 
      * @param {BSTR} bstrguidFilter 
      * @param {Integer} lPidFilter 
@@ -45,7 +44,6 @@ class IEventServerTrace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrguidEvent 
      * @param {BSTR} bstrguidFilter 
      * @param {Integer} lPidFilter 
@@ -60,7 +58,6 @@ class IEventServerTrace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plCntGuids 
      * @param {Pointer<BSTR>} pbstrGuidList 
      * @returns {HRESULT} 

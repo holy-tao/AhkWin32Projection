@@ -7,12 +7,14 @@
 class KSMETHOD_BDA_DRM extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_DRM_CURRENT
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_DRM_CURRENT => 0
+    static CURRENT => 0
 
     /**
+     * Native name: KSMETHOD_BDA_DRM_DRMSTATUS
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_DRM_DRMSTATUS => 1
+    static DRMSTATUS => 1
 }

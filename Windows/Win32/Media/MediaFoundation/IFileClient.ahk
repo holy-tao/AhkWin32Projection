@@ -30,7 +30,6 @@ class IFileClient extends IUnknown {
     static VTableNames => ["GetObjectDiskSize", "Write", "Read"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pqwSize 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IFileClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFileIo} pFio 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class IFileClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFileIo} pFio 
      * @returns {HRESULT} 
      */

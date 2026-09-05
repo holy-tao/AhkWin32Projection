@@ -119,7 +119,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -129,7 +128,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +139,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -151,7 +148,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_expando() {
@@ -160,7 +156,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_nodeType() {
@@ -169,7 +164,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_parentNode() {
@@ -178,7 +172,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_childNodes() {
@@ -187,7 +180,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_firstChild() {
@@ -196,7 +188,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_lastChild() {
@@ -205,7 +196,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_previousSibling() {
@@ -214,7 +204,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_nextSibling() {
@@ -223,7 +212,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_attributes() {
@@ -232,7 +220,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ownerDocument() {
@@ -241,7 +228,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {VARIANT} refChild 
      * @returns {IHTMLDOMNode} 
@@ -252,7 +238,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
@@ -263,7 +248,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -273,7 +257,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -283,7 +266,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
@@ -292,7 +274,6 @@ class IHTMLDOMAttribute2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {IHTMLDOMAttribute} 
      */

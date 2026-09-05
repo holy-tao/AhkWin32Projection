@@ -14,19 +14,22 @@ class TsActiveSelEnd extends Win32Enum {
 
     /**
      * The selection has no active end. This is typical for all selections other than the default selection.
+     * Native name: TS_AE_NONE
      * @type {Integer (Int32)}
      */
-    static TS_AE_NONE => 0
+    static AE_NONE => 0
 
     /**
      * The active end of the selection is at the start of the range of text.
+     * Native name: TS_AE_START
      * @type {Integer (Int32)}
      */
-    static TS_AE_START => 1
+    static AE_START => 1
 
     /**
      * The active end of the selection is at the end of the range of text.
+     * Native name: TS_AE_END
      * @type {Integer (Int32)}
      */
-    static TS_AE_END => 2
+    static AE_END => 2
 }

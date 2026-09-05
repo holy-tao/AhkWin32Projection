@@ -14,39 +14,44 @@ class MSA_INFO_STATE extends Win32Enum {
 
     /**
      * The account does not exist.
+     * Native name: MsaInfoNotExist
      * @type {Integer (Int32)}
      */
-    static MsaInfoNotExist => 1
+    static NotExist => 1
 
     /**
      * The account exists, but it is not a group managed service account (gMSA) or a Windows Server 2008 R2 or Windows 7 managed service account.
      * 
      * <b>Windows Server 2008 R2 and Windows 7:  </b> The account is not a managed service account.
+     * Native name: MsaInfoNotService
      * @type {Integer (Int32)}
      */
-    static MsaInfoNotService => 2
+    static NotService => 2
 
     /**
      * If the managed service account is a gMSA, the credentials cannot be fetched from the active directory or the Kerberos encryption types did not match.
      * 
      * <b>Windows Server 2008 R2 and Windows 7:  </b> The managed service account cannot be installed.
+     * Native name: MsaInfoCannotInstall
      * @type {Integer (Int32)}
      */
-    static MsaInfoCannotInstall => 3
+    static CannotInstall => 3
 
     /**
      * The sMSA can be installed. This constant will never be returned for a gMSA. 
      * 
      * <b>Windows Server 2008 R2 and Windows 7:  </b> The managed service account can be installed.
+     * Native name: MsaInfoCanInstall
      * @type {Integer (Int32)}
      */
-    static MsaInfoCanInstall => 4
+    static CanInstall => 4
 
     /**
      * The gMSA managed service account is installed.
      * 
      * <b>Windows Server 2008 R2 and Windows 7:  </b> The managed service account is installed.
+     * Native name: MsaInfoInstalled
      * @type {Integer (Int32)}
      */
-    static MsaInfoInstalled => 5
+    static Installed => 5
 }

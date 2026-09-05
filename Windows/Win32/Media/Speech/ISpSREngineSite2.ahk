@@ -33,7 +33,6 @@ class ISpSREngineSite2 extends ISpSREngineSite {
     static VTableNames => ["AddEventEx", "UpdateRecoPosEx", "GetRuleTransition", "RecognitionEx"]
 
     /**
-     * 
      * @param {Pointer<SPEVENTEX>} pEvent 
      * @param {SPRECOCONTEXTHANDLE} hSAPIRecoContext 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class ISpSREngineSite2 extends ISpSREngineSite {
     }
 
     /**
-     * 
      * @param {Integer} ullCurrentRecoPos 
      * @param {Integer} ullCurrentRecoTime 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class ISpSREngineSite2 extends ISpSREngineSite {
     }
 
     /**
-     * 
      * @param {Integer} ulGrammarID 
      * @param {Integer} RuleIndex 
      * @returns {SPTRANSITIONENTRY} 
@@ -69,7 +66,6 @@ class ISpSREngineSite2 extends ISpSREngineSite {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECORESULTINFOEX>} pResultInfo 
      * @returns {HRESULT} 
      */

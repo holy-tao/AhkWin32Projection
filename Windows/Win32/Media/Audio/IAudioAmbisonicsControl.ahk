@@ -31,7 +31,6 @@ class IAudioAmbisonicsControl extends IUnknown {
     static VTableNames => ["SetData", "SetHeadTracking", "GetHeadTracking", "SetRotation"]
 
     /**
-     * 
      * @param {Pointer<AMBISONICS_PARAMS>} pAmbisonicsParams 
      * @param {Integer} cbAmbisonicsParams 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IAudioAmbisonicsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bEnableHeadTracking 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class IAudioAmbisonicsControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetHeadTracking() {
@@ -61,7 +58,6 @@ class IAudioAmbisonicsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} X 
      * @param {Float} Y 
      * @param {Float} Z 

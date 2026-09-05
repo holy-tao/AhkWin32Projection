@@ -10,19 +10,22 @@ class D2D1_SVG_LINE_CAP extends Win32Enum {
 
     /**
      * The property is set to SVG's 'butt' value.
+     * Native name: D2D1_SVG_LINE_CAP_BUTT
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_LINE_CAP_BUTT => 0
+    static BUTT => 0
 
     /**
      * The property is set to SVG's 'square' value.
+     * Native name: D2D1_SVG_LINE_CAP_SQUARE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_LINE_CAP_SQUARE => 1
+    static SQUARE => 1
 
     /**
      * The property is set to SVG's 'round' value.
+     * Native name: D2D1_SVG_LINE_CAP_ROUND
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_LINE_CAP_ROUND => 2
+    static ROUND => 2
 }

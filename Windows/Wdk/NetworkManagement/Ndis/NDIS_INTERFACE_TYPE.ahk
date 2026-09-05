@@ -7,92 +7,110 @@
 class NDIS_INTERFACE_TYPE extends Win32Enum {
 
     /**
+     * Native name: NdisInterfaceInternal
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceInternal => 0
+    static Internal => 0
 
     /**
+     * Native name: NdisInterfaceIsa
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceIsa => 1
+    static Isa => 1
 
     /**
+     * Native name: NdisInterfaceEisa
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceEisa => 2
+    static Eisa => 2
 
     /**
+     * Native name: NdisInterfaceMca
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceMca => 3
+    static Mca => 3
 
     /**
+     * Native name: NdisInterfaceTurboChannel
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceTurboChannel => 4
+    static TurboChannel => 4
 
     /**
+     * Native name: NdisInterfacePci
      * @type {Integer (Int32)}
      */
-    static NdisInterfacePci => 5
+    static Pci => 5
 
     /**
+     * Native name: NdisInterfacePcMcia
      * @type {Integer (Int32)}
      */
-    static NdisInterfacePcMcia => 8
+    static PcMcia => 8
 
     /**
+     * Native name: NdisInterfaceCBus
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceCBus => 9
+    static InterfaceCBus => 9
 
     /**
+     * Native name: NdisInterfaceMPIBus
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceMPIBus => 10
+    static InterfaceMPIBus => 10
 
     /**
+     * Native name: NdisInterfaceMPSABus
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceMPSABus => 11
+    static InterfaceMPSABus => 11
 
     /**
+     * Native name: NdisInterfaceProcessorInternal
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceProcessorInternal => 12
+    static ProcessorInternal => 12
 
     /**
+     * Native name: NdisInterfaceInternalPowerBus
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceInternalPowerBus => 13
+    static InternalPowerBus => 13
 
     /**
+     * Native name: NdisInterfacePNPISABus
      * @type {Integer (Int32)}
      */
-    static NdisInterfacePNPISABus => 14
+    static InterfacePNPISABus => 14
 
     /**
+     * Native name: NdisInterfacePNPBus
      * @type {Integer (Int32)}
      */
-    static NdisInterfacePNPBus => 15
+    static InterfacePNPBus => 15
 
     /**
+     * Native name: NdisInterfaceUSB
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceUSB => 16
+    static InterfaceUSB => 16
 
     /**
+     * Native name: NdisInterfaceIrda
      * @type {Integer (Int32)}
      */
-    static NdisInterfaceIrda => 17
+    static Irda => 17
 
     /**
+     * Native name: NdisInterface1394
      * @type {Integer (Int32)}
      */
-    static NdisInterface1394 => 18
+    static Interface1394 => 18
 
     /**
+     * Native name: NdisMaximumInterfaceType
      * @type {Integer (Int32)}
      */
-    static NdisMaximumInterfaceType => 19
+    static MaximumInterfaceType => 19
 }

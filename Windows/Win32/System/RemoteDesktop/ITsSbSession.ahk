@@ -133,7 +133,6 @@ class ITsSbSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} targetName 
      * @returns {HRESULT} 
      */

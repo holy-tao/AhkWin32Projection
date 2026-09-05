@@ -22,7 +22,8 @@ class BEHAVIOR_LAYOUT_INFO extends Win32Enum {
     static BEHAVIORLAYOUTINFO_MAPSIZE => 4
 
     /**
+     * Native name: BEHAVIOR_LAYOUT_INFO_Max
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_LAYOUT_INFO_Max => 2147483647
+    static Max => 2147483647
 }

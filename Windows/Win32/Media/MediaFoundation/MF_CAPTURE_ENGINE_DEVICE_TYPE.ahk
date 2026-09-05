@@ -10,13 +10,15 @@ class MF_CAPTURE_ENGINE_DEVICE_TYPE extends Win32Enum {
 
     /**
      * An audio capture device, such as a microphone.
+     * Native name: MF_CAPTURE_ENGINE_DEVICE_TYPE_AUDIO
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_DEVICE_TYPE_AUDIO => 0
+    static AUDIO => 0
 
     /**
      * A video capture device, such as a webcam.
+     * Native name: MF_CAPTURE_ENGINE_DEVICE_TYPE_VIDEO
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_DEVICE_TYPE_VIDEO => 1
+    static VIDEO => 1
 }

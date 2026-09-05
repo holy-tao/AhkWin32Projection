@@ -15,31 +15,36 @@ class VDS_LUN_STATUS extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_LS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_LS_UNKNOWN => 0
+    static LS_UNKNOWN => 0
 
     /**
      * The LUN is available.
+     * Native name: VDS_LS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_LS_ONLINE => 1
+    static LS_ONLINE => 1
 
     /**
      * The LUN is busy.
+     * Native name: VDS_LS_NOT_READY
      * @type {Integer (Int32)}
      */
-    static VDS_LS_NOT_READY => 2
+    static LS_NOT_READY => 2
 
     /**
      * The LUN is unavailable.
+     * Native name: VDS_LS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_LS_OFFLINE => 4
+    static LS_OFFLINE => 4
 
     /**
      * The LUN has failed.
+     * Native name: VDS_LS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_LS_FAILED => 5
+    static LS_FAILED => 5
 }

@@ -32,7 +32,6 @@ class IOpenRowset extends IUnknown {
     static VTableNames => ["OpenRowset"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 

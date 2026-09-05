@@ -31,7 +31,6 @@ class ITypeLibRegistration extends IUnknown {
     static VTableNames => ["GetGuid", "GetVersion", "GetLcid", "GetWin32Path", "GetWin64Path", "GetDisplayName", "GetFlags", "GetHelpDir"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetGuid() {
@@ -58,7 +57,6 @@ class ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLcid() {
@@ -67,7 +65,6 @@ class ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetWin32Path() {
@@ -77,7 +74,6 @@ class ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetWin64Path() {
@@ -87,7 +83,6 @@ class ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDisplayName() {
@@ -97,7 +92,6 @@ class ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -106,7 +100,6 @@ class ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetHelpDir() {

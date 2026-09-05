@@ -29,7 +29,6 @@ class IPrintWorkflowXpsReceiver2 extends IPrintWorkflowXpsReceiver {
     static VTableNames => ["Failed"]
 
     /**
-     * 
      * @param {HRESULT} XpsError 
      * @returns {HRESULT} 
      */

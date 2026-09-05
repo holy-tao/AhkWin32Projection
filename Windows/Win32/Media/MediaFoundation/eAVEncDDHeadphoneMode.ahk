@@ -10,19 +10,22 @@ class eAVEncDDHeadphoneMode extends Win32Enum {
 
     /**
      * Headphone mode is not indicated.
+     * Native name: eAVEncDDHeadphoneMode_NotIndicated
      * @type {Integer (Int32)}
      */
-    static eAVEncDDHeadphoneMode_NotIndicated => 0
+    static NotIndicated => 0
 
     /**
      * Headphone mode is disabled.
+     * Native name: eAVEncDDHeadphoneMode_NotEncoded
      * @type {Integer (Int32)}
      */
-    static eAVEncDDHeadphoneMode_NotEncoded => 1
+    static NotEncoded => 1
 
     /**
      * Headphone mode is enabled.
+     * Native name: eAVEncDDHeadphoneMode_Encoded
      * @type {Integer (Int32)}
      */
-    static eAVEncDDHeadphoneMode_Encoded => 2
+    static Encoded => 2
 }

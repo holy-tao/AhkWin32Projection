@@ -10,97 +10,113 @@ class DWRITE_PANOSE_LETTERFORM extends Win32Enum {
 
     /**
      * Any letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_ANY => 0
+    static ANY => 0
 
     /**
      * No fit letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Normal contact letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NORMAL_CONTACT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NORMAL_CONTACT => 2
+    static NORMAL_CONTACT => 2
 
     /**
      * Normal weighted letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NORMAL_WEIGHTED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NORMAL_WEIGHTED => 3
+    static NORMAL_WEIGHTED => 3
 
     /**
      * Normal boxed letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NORMAL_BOXED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NORMAL_BOXED => 4
+    static NORMAL_BOXED => 4
 
     /**
      * Normal flattened letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NORMAL_FLATTENED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NORMAL_FLATTENED => 5
+    static NORMAL_FLATTENED => 5
 
     /**
      * Normal rounded letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NORMAL_ROUNDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NORMAL_ROUNDED => 6
+    static NORMAL_ROUNDED => 6
 
     /**
      * Normal off-center letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NORMAL_OFF_CENTER
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NORMAL_OFF_CENTER => 7
+    static NORMAL_OFF_CENTER => 7
 
     /**
      * Normal square letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_NORMAL_SQUARE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_NORMAL_SQUARE => 8
+    static NORMAL_SQUARE => 8
 
     /**
      * Oblique contact letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_OBLIQUE_CONTACT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_OBLIQUE_CONTACT => 9
+    static OBLIQUE_CONTACT => 9
 
     /**
      * Oblique weighted letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_OBLIQUE_WEIGHTED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_OBLIQUE_WEIGHTED => 10
+    static OBLIQUE_WEIGHTED => 10
 
     /**
      * Oblique boxed letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_OBLIQUE_BOXED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_OBLIQUE_BOXED => 11
+    static OBLIQUE_BOXED => 11
 
     /**
      * Oblique flattened letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_OBLIQUE_FLATTENED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_OBLIQUE_FLATTENED => 12
+    static OBLIQUE_FLATTENED => 12
 
     /**
      * Oblique rounded letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_OBLIQUE_ROUNDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_OBLIQUE_ROUNDED => 13
+    static OBLIQUE_ROUNDED => 13
 
     /**
      * Oblique off-center letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_OBLIQUE_OFF_CENTER
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_OBLIQUE_OFF_CENTER => 14
+    static OBLIQUE_OFF_CENTER => 14
 
     /**
      * Oblique square letterform.
+     * Native name: DWRITE_PANOSE_LETTERFORM_OBLIQUE_SQUARE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_LETTERFORM_OBLIQUE_SQUARE => 15
+    static OBLIQUE_SQUARE => 15
 }

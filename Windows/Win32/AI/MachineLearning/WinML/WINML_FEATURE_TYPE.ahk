@@ -9,27 +9,32 @@
 class WINML_FEATURE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WINML_FEATURE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WINML_FEATURE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: WINML_FEATURE_TENSOR
      * @type {Integer (Int32)}
      */
-    static WINML_FEATURE_TENSOR => 1
+    static TENSOR => 1
 
     /**
+     * Native name: WINML_FEATURE_SEQUENCE
      * @type {Integer (Int32)}
      */
-    static WINML_FEATURE_SEQUENCE => 2
+    static SEQUENCE => 2
 
     /**
+     * Native name: WINML_FEATURE_MAP
      * @type {Integer (Int32)}
      */
-    static WINML_FEATURE_MAP => 3
+    static MAP => 3
 
     /**
+     * Native name: WINML_FEATURE_IMAGE
      * @type {Integer (Int32)}
      */
-    static WINML_FEATURE_IMAGE => 4
+    static IMAGE => 4
 }

@@ -7,67 +7,80 @@
 class styleBorderStyle extends Win32Enum {
 
     /**
+     * Native name: styleBorderStyleNotSet
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleBorderStyleDotted
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleDotted => 1
+    static Dotted => 1
 
     /**
+     * Native name: styleBorderStyleDashed
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleDashed => 2
+    static Dashed => 2
 
     /**
+     * Native name: styleBorderStyleSolid
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleSolid => 3
+    static Solid => 3
 
     /**
+     * Native name: styleBorderStyleDouble
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleDouble => 4
+    static Double => 4
 
     /**
+     * Native name: styleBorderStyleGroove
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleGroove => 5
+    static Groove => 5
 
     /**
+     * Native name: styleBorderStyleRidge
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleRidge => 6
+    static Ridge => 6
 
     /**
+     * Native name: styleBorderStyleInset
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleInset => 7
+    static Inset => 7
 
     /**
+     * Native name: styleBorderStyleOutset
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleOutset => 8
+    static Outset => 8
 
     /**
+     * Native name: styleBorderStyleWindowInset
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleWindowInset => 9
+    static WindowInset => 9
 
     /**
+     * Native name: styleBorderStyleNone
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleNone => 10
+    static None => 10
 
     /**
+     * Native name: styleBorderStyleHidden
      * @type {Integer (Int32)}
      */
-    static styleBorderStyleHidden => 11
+    static Hidden => 11
 
     /**
+     * Native name: styleBorderStyle_Max
      * @type {Integer (Int32)}
      */
-    static styleBorderStyle_Max => 2147483647
+    static Max => 2147483647
 }

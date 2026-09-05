@@ -10,46 +10,54 @@ class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32Enum {
 
     /**
      * Full frame output support.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_FULL_FRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_FULL_FRAME => 0
+    static FULL_FRAME => 0
 
     /**
      * Frame subregions are set as a number of bytes per subregion.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_BYTES_PER_SUBREGION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_BYTES_PER_SUBREGION => 1
+    static BYTES_PER_SUBREGION => 1
 
     /**
      * Frame subregions are set as a number of squared blocks per subregion. The number of squared blocks does not need to be multiple of a row size in squared blocks (e.g. if the subregions don't need to be row-aligned). To set row-aligned number of squared blocks per subregion, use the D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_ROWS_PER_SUBREGION or D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_SUBREGIONS_PER_FRAME mode.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_SQUARE_UNITS_PER_SUBREGION_ROW_UNALIGNED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_SQUARE_UNITS_PER_SUBREGION_ROW_UNALIGNED => 2
+    static SQUARE_UNITS_PER_SUBREGION_ROW_UNALIGNED => 2
 
     /**
      * Frames are divided into a number of slices determined by the number of rows per slice. The size in pixels of the rows can be calculated using the current resolution and [D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS.SubregionBlockPixelsSize](ns-d3d12video-d3d12_feature_data_video_encoder_resolution_support_limits.md) for the current frame resolution.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_ROWS_PER_SUBREGION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_ROWS_PER_SUBREGION => 3
+    static UNIFORM_PARTITIONING_ROWS_PER_SUBREGION => 3
 
     /**
      * Frames are divided into the specified number of slices.
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_SUBREGIONS_PER_FRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_SUBREGIONS_PER_FRAME => 4
+    static UNIFORM_PARTITIONING_SUBREGIONS_PER_FRAME => 4
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_GRID_PARTITION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_GRID_PARTITION => 5
+    static UNIFORM_GRID_PARTITION => 5
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_CONFIGURABLE_GRID_PARTITION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_CONFIGURABLE_GRID_PARTITION => 6
+    static CONFIGURABLE_GRID_PARTITION => 6
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_AUTO
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_AUTO => 7
+    static AUTO => 7
 }

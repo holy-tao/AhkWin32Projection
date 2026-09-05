@@ -30,7 +30,6 @@ class IADsAggregatee extends IUnknown {
     static VTableNames => ["ConnectAsAggregatee", "DisconnectAsAggregatee", "RelinquishInterface", "RestoreInterface"]
 
     /**
-     * 
      * @param {IUnknown} pOuterUnknown 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IADsAggregatee extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisconnectAsAggregatee() {
@@ -49,7 +47,6 @@ class IADsAggregatee extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {HRESULT} 
      */
@@ -59,7 +56,6 @@ class IADsAggregatee extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {HRESULT} 
      */

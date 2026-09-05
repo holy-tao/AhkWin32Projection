@@ -7,32 +7,38 @@
 class NtmsOpreqCommand extends Win32Enum {
 
     /**
+     * Native name: NTMS_OPREQ_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQ_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: NTMS_OPREQ_NEWMEDIA
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQ_NEWMEDIA => 1
+    static NEWMEDIA => 1
 
     /**
+     * Native name: NTMS_OPREQ_CLEANER
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQ_CLEANER => 2
+    static CLEANER => 2
 
     /**
+     * Native name: NTMS_OPREQ_DEVICESERVICE
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQ_DEVICESERVICE => 3
+    static DEVICESERVICE => 3
 
     /**
+     * Native name: NTMS_OPREQ_MOVEMEDIA
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQ_MOVEMEDIA => 4
+    static MOVEMEDIA => 4
 
     /**
+     * Native name: NTMS_OPREQ_MESSAGE
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQ_MESSAGE => 5
+    static MESSAGE => 5
 }

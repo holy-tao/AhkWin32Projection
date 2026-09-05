@@ -17,7 +17,8 @@ class ELEMENTNAMESPACE_FLAGS extends Win32Enum {
     static ELEMENTNAMESPACEFLAGS_QUERYFORUNKNOWNTAGS => 2
 
     /**
+     * Native name: ELEMENTNAMESPACE_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static ELEMENTNAMESPACE_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

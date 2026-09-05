@@ -7,22 +7,26 @@
 class PCW_CALLBACK_TYPE extends Win32Enum {
 
     /**
+     * Native name: PcwCallbackAddCounter
      * @type {Integer (Int32)}
      */
-    static PcwCallbackAddCounter => 0
+    static AddCounter => 0
 
     /**
+     * Native name: PcwCallbackRemoveCounter
      * @type {Integer (Int32)}
      */
-    static PcwCallbackRemoveCounter => 1
+    static RemoveCounter => 1
 
     /**
+     * Native name: PcwCallbackEnumerateInstances
      * @type {Integer (Int32)}
      */
-    static PcwCallbackEnumerateInstances => 2
+    static EnumerateInstances => 2
 
     /**
+     * Native name: PcwCallbackCollectData
      * @type {Integer (Int32)}
      */
-    static PcwCallbackCollectData => 3
+    static CollectData => 3
 }

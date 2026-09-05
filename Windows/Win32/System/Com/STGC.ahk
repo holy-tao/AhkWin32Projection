@@ -14,9 +14,10 @@ class STGC extends Win32BitflagEnum {
 
     /**
      * You can specify this condition with <b>STGC_CONSOLIDATE</b>, or some combination of the other three flags in this list of elements. Use this value to increase the readability of code.
+     * Native name: STGC_DEFAULT
      * @type {Integer (Int32)}
      */
-    static STGC_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The commit operation can overwrite existing data to reduce overall space requirements. This value is not recommended for typical usage because it is not as robust as the default value. In this case, it is possible for the commit operation to fail after the old data is overwritten, but before the new data is completely committed. Then, neither the old version nor the new version of the storage object will be intact. 
@@ -33,15 +34,17 @@ class STGC extends Win32BitflagEnum {
      * <li>A previous commit returned <b>STG_E_MEDIUMFULL</b>, but overwriting the existing data would provide enough space to commit changes to the storage object.</li>
      * </ul>
      * Be aware that the commit operation verifies that adequate space exists before any overwriting occurs. Thus, even with this value specified, if the commit operation fails due to space requirements, the old data is safe. It is possible, however, for data loss to occur with the <b>STGC_OVERWRITE</b> value specified if the commit operation fails for any reason other than lack of disk space.
+     * Native name: STGC_OVERWRITE
      * @type {Integer (Int32)}
      */
-    static STGC_OVERWRITE => 1
+    static OVERWRITE => 1
 
     /**
      * Prevents multiple users of a storage object from overwriting each other's changes. The commit operation occurs only if there have been no changes to the saved storage object because the user most recently opened it. Thus, the saved version of the storage object is the same version that the user has been editing. If other users have changed the storage object, the commit operation fails and returns the STG_E_NOTCURRENT value. To override this behavior, call the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-commit">IStream::Commit</a> method again using the <b>STGC_DEFAULT</b> value.
+     * Native name: STGC_ONLYIFCURRENT
      * @type {Integer (Int32)}
      */
-    static STGC_ONLYIFCURRENT => 2
+    static ONLYIFCURRENT => 2
 
     /**
      * Commits the changes to a write-behind disk cache, but does not save the cache to the disk. In a write-behind disk cache, the operation that writes to disk actually writes to a disk cache, thus increasing performance. The cache is eventually written to the disk, but usually not until after the write operation has already returned. The performance increase comes at the expense of an increased risk of losing data if a problem occurs before the cache is saved and the data in the cache is lost. 
@@ -50,13 +53,15 @@ class STGC extends Win32BitflagEnum {
      * 
      * 
      * If you do not specify this value, then committing changes to root-level storage objects is robust even if a disk cache is used. The two-phase commit process ensures that data is stored on the disk and not just to the disk cache.
+     * Native name: STGC_DANGEROUSLYCOMMITMERELYTODISKCACHE
      * @type {Integer (Int32)}
      */
-    static STGC_DANGEROUSLYCOMMITMERELYTODISKCACHE => 4
+    static DANGEROUSLYCOMMITMERELYTODISKCACHE => 4
 
     /**
      * Windows 2000 and Windows XP: Indicates that a storage should be consolidated after it is committed, resulting in a smaller file on disk. This flag is valid only on the outermost storage object that has been opened in transacted mode. It is not valid for streams. The <b>STGC_CONSOLIDATE</b> flag can be combined with any other STGC flags.
+     * Native name: STGC_CONSOLIDATE
      * @type {Integer (Int32)}
      */
-    static STGC_CONSOLIDATE => 8
+    static CONSOLIDATE => 8
 }

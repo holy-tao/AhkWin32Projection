@@ -35,7 +35,6 @@ class ISpNotifySource extends IUnknown {
     static VTableNames => ["SetNotifySink", "SetNotifyWindowMessage", "SetNotifyCallbackFunction", "SetNotifyCallbackInterface", "SetNotifyWin32Event", "WaitForNotifyEvent", "GetNotifyEventHandle"]
 
     /**
-     * 
      * @param {ISpNotifySink} pNotifySink 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} _Msg 
      * @param {WPARAM} _wParam 
@@ -60,7 +58,6 @@ class ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<SPNOTIFYCALLBACK>>} _pfnCallback 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -74,7 +71,6 @@ class ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpNotifyCallback} pSpCallback 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -86,7 +82,6 @@ class ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetNotifyWin32Event() {
@@ -95,7 +90,6 @@ class ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
      */

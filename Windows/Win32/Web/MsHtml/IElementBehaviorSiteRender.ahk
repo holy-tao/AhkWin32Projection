@@ -30,7 +30,6 @@ class IElementBehaviorSiteRender extends IUnknown {
     static VTableNames => ["Invalidate", "InvalidateRenderInfo", "InvalidateStyle"]
 
     /**
-     * 
      * @param {Pointer<RECT>} pRect 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IElementBehaviorSiteRender extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateRenderInfo() {
@@ -49,7 +47,6 @@ class IElementBehaviorSiteRender extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateStyle() {

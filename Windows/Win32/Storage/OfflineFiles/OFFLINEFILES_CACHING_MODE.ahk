@@ -10,31 +10,36 @@ class OFFLINEFILES_CACHING_MODE extends Win32Enum {
 
     /**
      * No caching mode value was found.
+     * Native name: OFFLINEFILES_CACHING_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CACHING_MODE_NONE => 0
+    static NONE => 0
 
     /**
      * The share or shared folder is configured to disallow caching.
+     * Native name: OFFLINEFILES_CACHING_MODE_NOCACHING
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CACHING_MODE_NOCACHING => 1
+    static NOCACHING => 1
 
     /**
      * The share or shared folder is configured to allow manual caching.
+     * Native name: OFFLINEFILES_CACHING_MODE_MANUAL
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CACHING_MODE_MANUAL => 2
+    static MANUAL => 2
 
     /**
      * The share or shared folder is configured to allow automatic caching of documents.
+     * Native name: OFFLINEFILES_CACHING_MODE_AUTO_DOC
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CACHING_MODE_AUTO_DOC => 3
+    static AUTO_DOC => 3
 
     /**
      * The share or shared folder is configured to allow automatic caching of programs and documents.
+     * Native name: OFFLINEFILES_CACHING_MODE_AUTO_PROGANDDOC
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CACHING_MODE_AUTO_PROGANDDOC => 4
+    static AUTO_PROGANDDOC => 4
 }

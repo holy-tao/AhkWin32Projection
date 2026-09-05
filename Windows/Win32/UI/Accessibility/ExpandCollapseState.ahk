@@ -10,25 +10,29 @@ class ExpandCollapseState extends Win32Enum {
 
     /**
      * No children are visible.
+     * Native name: ExpandCollapseState_Collapsed
      * @type {Integer (Int32)}
      */
-    static ExpandCollapseState_Collapsed => 0
+    static Collapsed => 0
 
     /**
      * All children are visible.
+     * Native name: ExpandCollapseState_Expanded
      * @type {Integer (Int32)}
      */
-    static ExpandCollapseState_Expanded => 1
+    static Expanded => 1
 
     /**
      * Some, but not all, children are visible.
+     * Native name: ExpandCollapseState_PartiallyExpanded
      * @type {Integer (Int32)}
      */
-    static ExpandCollapseState_PartiallyExpanded => 2
+    static PartiallyExpanded => 2
 
     /**
      * The element does not expand or collapse.
+     * Native name: ExpandCollapseState_LeafNode
      * @type {Integer (Int32)}
      */
-    static ExpandCollapseState_LeafNode => 3
+    static LeafNode => 3
 }

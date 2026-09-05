@@ -10,36 +10,42 @@ class MPRAPI_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_ex">RAS_CONNECTION_EX</a> structure.
+     * Native name: MPRAPI_OBJECT_TYPE_RAS_CONNECTION_OBJECT
      * @type {Integer (Int32)}
      */
-    static MPRAPI_OBJECT_TYPE_RAS_CONNECTION_OBJECT => 1
+    static RAS_CONNECTION_OBJECT => 1
 
     /**
      * The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_ex0">MPR_SERVER_EX</a> structure.
+     * Native name: MPRAPI_OBJECT_TYPE_MPR_SERVER_OBJECT
      * @type {Integer (Int32)}
      */
-    static MPRAPI_OBJECT_TYPE_MPR_SERVER_OBJECT => 2
+    static MPR_SERVER_OBJECT => 2
 
     /**
      * The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_set_config_ex0">MPR_SERVER_SET_CONFIG_EX</a> structure.
+     * Native name: MPRAPI_OBJECT_TYPE_MPR_SERVER_SET_CONFIG_OBJECT
      * @type {Integer (Int32)}
      */
-    static MPRAPI_OBJECT_TYPE_MPR_SERVER_SET_CONFIG_OBJECT => 3
+    static MPR_SERVER_SET_CONFIG_OBJECT => 3
 
     /**
      * The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-auth_validation_ex">AUTH_VALIDATION_EX</a> structure.
+     * Native name: MPRAPI_OBJECT_TYPE_AUTH_VALIDATION_OBJECT
      * @type {Integer (Int32)}
      */
-    static MPRAPI_OBJECT_TYPE_AUTH_VALIDATION_OBJECT => 4
+    static AUTH_VALIDATION_OBJECT => 4
 
     /**
      * The structure is a [RAS_UPDATE_CONNECTION](/windows/desktop/api/mprapi/ns-mprapi-ras_update_connection) structure.
+     * Native name: MPRAPI_OBJECT_TYPE_UPDATE_CONNECTION_OBJECT
      * @type {Integer (Int32)}
      */
-    static MPRAPI_OBJECT_TYPE_UPDATE_CONNECTION_OBJECT => 5
+    static UPDATE_CONNECTION_OBJECT => 5
 
     /**
+     * Native name: MPRAPI_OBJECT_TYPE_IF_CUSTOM_CONFIG_OBJECT
      * @type {Integer (Int32)}
      */
-    static MPRAPI_OBJECT_TYPE_IF_CUSTOM_CONFIG_OBJECT => 6
+    static IF_CUSTOM_CONFIG_OBJECT => 6
 }

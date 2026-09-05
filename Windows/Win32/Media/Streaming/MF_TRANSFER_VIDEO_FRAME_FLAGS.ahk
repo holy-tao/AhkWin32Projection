@@ -10,19 +10,22 @@ class MF_TRANSFER_VIDEO_FRAME_FLAGS extends Win32Enum {
 
     /**
      * Use the default transfer behavior.
+     * Native name: MF_TRANSFER_VIDEO_FRAME_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MF_TRANSFER_VIDEO_FRAME_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Stretch the video frame.
+     * Native name: MF_TRANSFER_VIDEO_FRAME_STRETCH
      * @type {Integer (Int32)}
      */
-    static MF_TRANSFER_VIDEO_FRAME_STRETCH => 1
+    static STRETCH => 1
 
     /**
      * >>>>>>> master
+     * Native name: MF_TRANSFER_VIDEO_FRAME_IGNORE_PAR
      * @type {Integer (Int32)}
      */
-    static MF_TRANSFER_VIDEO_FRAME_IGNORE_PAR => 2
+    static IGNORE_PAR => 2
 }

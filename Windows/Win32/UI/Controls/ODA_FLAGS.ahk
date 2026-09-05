@@ -7,17 +7,20 @@
 class ODA_FLAGS extends Win32Enum {
 
     /**
+     * Native name: ODA_DRAWENTIRE
      * @type {Integer (UInt32)}
      */
-    static ODA_DRAWENTIRE => 1
+    static DRAWENTIRE => 1
 
     /**
+     * Native name: ODA_SELECT
      * @type {Integer (UInt32)}
      */
-    static ODA_SELECT => 2
+    static SELECT => 2
 
     /**
+     * Native name: ODA_FOCUS
      * @type {Integer (UInt32)}
      */
-    static ODA_FOCUS => 4
+    static FOCUS => 4
 }

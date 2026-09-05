@@ -7,17 +7,20 @@
 class htmlApplyLocation extends Win32Enum {
 
     /**
+     * Native name: htmlApplyLocationInside
      * @type {Integer (Int32)}
      */
-    static htmlApplyLocationInside => 0
+    static Inside => 0
 
     /**
+     * Native name: htmlApplyLocationOutside
      * @type {Integer (Int32)}
      */
-    static htmlApplyLocationOutside => 1
+    static Outside => 1
 
     /**
+     * Native name: htmlApplyLocation_Max
      * @type {Integer (Int32)}
      */
-    static htmlApplyLocation_Max => 2147483647
+    static Max => 2147483647
 }

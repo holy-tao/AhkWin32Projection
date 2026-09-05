@@ -30,7 +30,6 @@ class IAccessibleWinSAT extends IAccessible {
     static VTableNames => ["SetAccessiblityData"]
 
     /**
-     * 
      * @param {PWSTR} wsName 
      * @param {PWSTR} wsValue 
      * @param {PWSTR} wsDesc 

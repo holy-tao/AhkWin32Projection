@@ -10,19 +10,22 @@ class FsrmPropertyDefinitionFlags extends Win32Enum {
 
     /**
      * The FSRM classification property definition is defined globally, using group policy.
+     * Native name: FsrmPropertyDefinitionFlags_Global
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionFlags_Global => 1
+    static Global => 1
 
     /**
      * The FSRM classification property definition is deprecated.
+     * Native name: FsrmPropertyDefinitionFlags_Deprecated
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionFlags_Deprecated => 2
+    static Deprecated => 2
 
     /**
      * The FSRM classification property definition is used for security purposes.
+     * Native name: FsrmPropertyDefinitionFlags_Secure
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionFlags_Secure => 4
+    static Secure => 4
 }

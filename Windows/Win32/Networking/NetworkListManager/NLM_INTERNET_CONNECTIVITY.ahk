@@ -12,19 +12,22 @@ class NLM_INTERNET_CONNECTIVITY extends Win32Enum {
 
     /**
      * Indicates that the detected network is a hotspot. For example, when connected to a coffee Wi-Fi hotspot network and the local HTTP traffic is being redirected to a captive portal, this flag will be set.
+     * Native name: NLM_INTERNET_CONNECTIVITY_WEBHIJACK
      * @type {Integer (Int32)}
      */
-    static NLM_INTERNET_CONNECTIVITY_WEBHIJACK => 1
+    static WEBHIJACK => 1
 
     /**
      * Indicates that the detected network has a proxy configuration. For example, when connected to a corporate network using a proxy for HTTP access, this flag will be set.
+     * Native name: NLM_INTERNET_CONNECTIVITY_PROXIED
      * @type {Integer (Int32)}
      */
-    static NLM_INTERNET_CONNECTIVITY_PROXIED => 2
+    static PROXIED => 2
 
     /**
      * Indicates that the machine is configured for Direct Access and that access to the corporate domain network, for which Direct Access was previously configured, has been detected.
+     * Native name: NLM_INTERNET_CONNECTIVITY_CORPORATE
      * @type {Integer (Int32)}
      */
-    static NLM_INTERNET_CONNECTIVITY_CORPORATE => 4
+    static CORPORATE => 4
 }

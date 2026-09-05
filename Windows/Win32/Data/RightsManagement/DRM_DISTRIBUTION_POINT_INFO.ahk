@@ -24,9 +24,10 @@ class DRM_DISTRIBUTION_POINT_INFO extends Win32Enum {
      *   </OBJECT>
      * </DISTRIBUTIONPOINT>
      * ```
+     * Native name: DRM_DISTRIBUTION_POINT_LICENSE_ACQUISITION
      * @type {Integer (Int32)}
      */
-    static DRM_DISTRIBUTION_POINT_LICENSE_ACQUISITION => 0
+    static LICENSE_ACQUISITION => 0
 
     /**
      * Retrieves information about the issuance license signing service URL contained in the issuance license. The following example shows a signing service URL.
@@ -40,9 +41,10 @@ class DRM_DISTRIBUTION_POINT_INFO extends Win32Enum {
      *   </OBJECT>
      * </DISTRIBUTIONPOINT>
      * ```
+     * Native name: DRM_DISTRIBUTION_POINT_PUBLISHING
      * @type {Integer (Int32)}
      */
-    static DRM_DISTRIBUTION_POINT_PUBLISHING => 1
+    static PUBLISHING => 1
 
     /**
      * Retrieves information about the nonsilent end-user license acquisition URL in the issuance license.
@@ -61,7 +63,8 @@ class DRM_DISTRIBUTION_POINT_INFO extends Win32Enum {
      *   </OBJECT>
      * </DISTRIBUTIONPOINT>
      * ```
+     * Native name: DRM_DISTRIBUTION_POINT_REFERRAL_INFO
      * @type {Integer (Int32)}
      */
-    static DRM_DISTRIBUTION_POINT_REFERRAL_INFO => 2
+    static REFERRAL_INFO => 2
 }

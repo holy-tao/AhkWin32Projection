@@ -7,27 +7,32 @@
 class SE_IMAGE_TYPE extends Win32Enum {
 
     /**
+     * Native name: SeImageTypeElamDriver
      * @type {Integer (Int32)}
      */
-    static SeImageTypeElamDriver => 0
+    static ElamDriver => 0
 
     /**
+     * Native name: SeImageTypeDriver
      * @type {Integer (Int32)}
      */
-    static SeImageTypeDriver => 1
+    static Driver => 1
 
     /**
+     * Native name: SeImageTypePlatformSecureFile
      * @type {Integer (Int32)}
      */
-    static SeImageTypePlatformSecureFile => 2
+    static PlatformSecureFile => 2
 
     /**
+     * Native name: SeImageTypeDynamicCodeFile
      * @type {Integer (Int32)}
      */
-    static SeImageTypeDynamicCodeFile => 3
+    static DynamicCodeFile => 3
 
     /**
+     * Native name: SeImageTypeMax
      * @type {Integer (Int32)}
      */
-    static SeImageTypeMax => 4
+    static Max => 4
 }

@@ -7,32 +7,38 @@
 class HUMAN_PRESENCE_DETECTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: HumanPresenceDetectionType_Undefined
      * @type {Integer (Int32)}
      */
-    static HumanPresenceDetectionType_Undefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: HumanPresenceDetectionType_VendorDefinedNonBiometric
      * @type {Integer (Int32)}
      */
-    static HumanPresenceDetectionType_VendorDefinedNonBiometric => 1
+    static VendorDefinedNonBiometric => 1
 
     /**
+     * Native name: HumanPresenceDetectionType_VendorDefinedBiometric
      * @type {Integer (Int32)}
      */
-    static HumanPresenceDetectionType_VendorDefinedBiometric => 2
+    static VendorDefinedBiometric => 2
 
     /**
+     * Native name: HumanPresenceDetectionType_FacialBiometric
      * @type {Integer (Int32)}
      */
-    static HumanPresenceDetectionType_FacialBiometric => 4
+    static FacialBiometric => 4
 
     /**
+     * Native name: HumanPresenceDetectionType_AudioBiometric
      * @type {Integer (Int32)}
      */
-    static HumanPresenceDetectionType_AudioBiometric => 8
+    static AudioBiometric => 8
 
     /**
+     * Native name: HumanPresenceDetectionType_Force_Dword
      * @type {Integer (Int32)}
      */
-    static HumanPresenceDetectionType_Force_Dword => -1
+    static Force_Dword => -1
 }

@@ -30,7 +30,6 @@ class IReadData extends IUnknown {
     static VTableNames => ["ReadData", "ReleaseChapter"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 
@@ -55,7 +54,6 @@ class IReadData extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @returns {HRESULT} 
      */

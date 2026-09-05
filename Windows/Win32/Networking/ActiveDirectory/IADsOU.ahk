@@ -89,7 +89,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -99,7 +98,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -111,7 +109,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalityName() {
@@ -121,7 +118,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLocalityName 
      * @returns {HRESULT} 
      */
@@ -133,7 +129,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PostalAddress() {
@@ -143,7 +138,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPostalAddress 
      * @returns {HRESULT} 
      */
@@ -155,7 +149,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TelephoneNumber() {
@@ -165,7 +158,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTelephoneNumber 
      * @returns {HRESULT} 
      */
@@ -177,7 +169,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FaxNumber() {
@@ -187,7 +178,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFaxNumber 
      * @returns {HRESULT} 
      */
@@ -199,7 +189,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SeeAlso() {
@@ -209,7 +198,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vSeeAlso 
      * @returns {HRESULT} 
      */
@@ -219,7 +207,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BusinessCategory() {
@@ -229,7 +216,6 @@ class IADsOU extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrBusinessCategory 
      * @returns {HRESULT} 
      */

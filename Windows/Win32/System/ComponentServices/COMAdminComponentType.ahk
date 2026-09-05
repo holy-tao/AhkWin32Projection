@@ -7,12 +7,14 @@
 class COMAdminComponentType extends Win32Enum {
 
     /**
+     * Native name: COMAdmin32BitComponent
      * @type {Integer (Int32)}
      */
-    static COMAdmin32BitComponent => 1
+    static Admin32BitComponent => 1
 
     /**
+     * Native name: COMAdmin64BitComponent
      * @type {Integer (Int32)}
      */
-    static COMAdmin64BitComponent => 2
+    static Admin64BitComponent => 2
 }

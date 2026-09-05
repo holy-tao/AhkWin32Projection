@@ -50,7 +50,6 @@ class IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -60,7 +59,6 @@ class IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ class IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxUserCount() {
@@ -81,7 +78,6 @@ class IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxUserCount 
      * @returns {HRESULT} 
      */

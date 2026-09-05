@@ -7,27 +7,32 @@
 class VALIDATEUNC_OPTION extends Win32BitflagEnum {
 
     /**
+     * Native name: VALIDATEUNC_CONNECT
      * @type {Integer (Int32)}
      */
-    static VALIDATEUNC_CONNECT => 1
+    static CONNECT => 1
 
     /**
+     * Native name: VALIDATEUNC_NOUI
      * @type {Integer (Int32)}
      */
-    static VALIDATEUNC_NOUI => 2
+    static NOUI => 2
 
     /**
+     * Native name: VALIDATEUNC_PRINT
      * @type {Integer (Int32)}
      */
-    static VALIDATEUNC_PRINT => 4
+    static PRINT => 4
 
     /**
+     * Native name: VALIDATEUNC_PERSIST
      * @type {Integer (Int32)}
      */
-    static VALIDATEUNC_PERSIST => 8
+    static PERSIST => 8
 
     /**
+     * Native name: VALIDATEUNC_VALID
      * @type {Integer (Int32)}
      */
-    static VALIDATEUNC_VALID => 15
+    static VALID => 15
 }

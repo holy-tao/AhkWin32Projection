@@ -7,12 +7,14 @@
 class RECORDING_TYPE extends Win32Enum {
 
     /**
+     * Native name: RECORDING_TYPE_CONTENT
      * @type {Integer (Int32)}
      */
-    static RECORDING_TYPE_CONTENT => 0
+    static CONTENT => 0
 
     /**
+     * Native name: RECORDING_TYPE_REFERENCE
      * @type {Integer (Int32)}
      */
-    static RECORDING_TYPE_REFERENCE => 1
+    static REFERENCE => 1
 }

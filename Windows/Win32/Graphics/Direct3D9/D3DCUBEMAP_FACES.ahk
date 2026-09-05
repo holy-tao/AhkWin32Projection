@@ -9,32 +9,38 @@
 class D3DCUBEMAP_FACES extends Win32Enum {
 
     /**
+     * Native name: D3DCUBEMAP_FACE_POSITIVE_X
      * @type {Integer (Int32)}
      */
-    static D3DCUBEMAP_FACE_POSITIVE_X => 0
+    static FACE_POSITIVE_X => 0
 
     /**
+     * Native name: D3DCUBEMAP_FACE_NEGATIVE_X
      * @type {Integer (Int32)}
      */
-    static D3DCUBEMAP_FACE_NEGATIVE_X => 1
+    static FACE_NEGATIVE_X => 1
 
     /**
+     * Native name: D3DCUBEMAP_FACE_POSITIVE_Y
      * @type {Integer (Int32)}
      */
-    static D3DCUBEMAP_FACE_POSITIVE_Y => 2
+    static FACE_POSITIVE_Y => 2
 
     /**
+     * Native name: D3DCUBEMAP_FACE_NEGATIVE_Y
      * @type {Integer (Int32)}
      */
-    static D3DCUBEMAP_FACE_NEGATIVE_Y => 3
+    static FACE_NEGATIVE_Y => 3
 
     /**
+     * Native name: D3DCUBEMAP_FACE_POSITIVE_Z
      * @type {Integer (Int32)}
      */
-    static D3DCUBEMAP_FACE_POSITIVE_Z => 4
+    static FACE_POSITIVE_Z => 4
 
     /**
+     * Native name: D3DCUBEMAP_FACE_NEGATIVE_Z
      * @type {Integer (Int32)}
      */
-    static D3DCUBEMAP_FACE_NEGATIVE_Z => 5
+    static FACE_NEGATIVE_Z => 5
 }

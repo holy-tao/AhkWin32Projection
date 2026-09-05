@@ -18,9 +18,10 @@ class D2D1_CROP_PROP extends Win32Enum {
      * 
      * 
      * Default value is {-FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX}
+     * Native name: D2D1_CROP_PROP_RECT
      * @type {Integer (Int32)}
      */
-    static D2D1_CROP_PROP_RECT => 0
+    static RECT => 0
 
     /**
      * Indicates how the effect handles the crop rectangle falling on fractional pixel coordinates.
@@ -29,7 +30,8 @@ class D2D1_CROP_PROP extends Win32Enum {
      * Type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_border_mode">D2D1_BORDER_MODE</a>.
      * 
      * Default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_CROP_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_CROP_PROP_BORDER_MODE => 1
+    static BORDER_MODE => 1
 }

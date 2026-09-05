@@ -10,19 +10,22 @@ class CF_CALLBACK_CANCEL_FLAGS extends Win32BitflagEnum {
 
     /**
      * No cancel flag.
+     * Native name: CF_CALLBACK_CANCEL_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_CANCEL_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Flag to be set if the user request is cancelled as a result of the expiration of the 60 second timer.
+     * Native name: CF_CALLBACK_CANCEL_FLAG_IO_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_CANCEL_FLAG_IO_TIMEOUT => 1
+    static FLAG_IO_TIMEOUT => 1
 
     /**
      * Flag to be set if the user request is cancelled as a result of the user explicitly terminating the hydration from app-initiated download toast.
+     * Native name: CF_CALLBACK_CANCEL_FLAG_IO_ABORTED
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_CANCEL_FLAG_IO_ABORTED => 2
+    static FLAG_IO_ABORTED => 2
 }

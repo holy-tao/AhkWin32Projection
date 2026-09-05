@@ -7,52 +7,62 @@
 class OPM_TYPE extends Win32Enum {
 
     /**
+     * Native name: OPM_OMAC_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_OMAC_SIZE => 16
+    static OMAC_SIZE => 16
 
     /**
+     * Native name: OPM_128_BIT_RANDOM_NUMBER_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_128_BIT_RANDOM_NUMBER_SIZE => 16
+    static 128_BIT_RANDOM_NUMBER_SIZE => 16
 
     /**
+     * Native name: OPM_ENCRYPTED_INITIALIZATION_PARAMETERS_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_ENCRYPTED_INITIALIZATION_PARAMETERS_SIZE => 256
+    static ENCRYPTED_INITIALIZATION_PARAMETERS_SIZE => 256
 
     /**
+     * Native name: OPM_CONFIGURE_SETTING_DATA_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_CONFIGURE_SETTING_DATA_SIZE => 4056
+    static CONFIGURE_SETTING_DATA_SIZE => 4056
 
     /**
+     * Native name: OPM_GET_INFORMATION_PARAMETERS_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_GET_INFORMATION_PARAMETERS_SIZE => 4056
+    static GET_INFORMATION_PARAMETERS_SIZE => 4056
 
     /**
+     * Native name: OPM_REQUESTED_INFORMATION_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_REQUESTED_INFORMATION_SIZE => 4076
+    static REQUESTED_INFORMATION_SIZE => 4076
 
     /**
+     * Native name: OPM_HDCP_KEY_SELECTION_VECTOR_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_KEY_SELECTION_VECTOR_SIZE => 5
+    static HDCP_KEY_SELECTION_VECTOR_SIZE => 5
 
     /**
+     * Native name: OPM_PROTECTION_TYPE_SIZE
      * @type {Integer (Int32)}
      */
-    static OPM_PROTECTION_TYPE_SIZE => 4
+    static PROTECTION_TYPE_SIZE => 4
 
     /**
+     * Native name: OPM_BUS_TYPE_MASK
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_TYPE_MASK => 65535
+    static BUS_TYPE_MASK => 65535
 
     /**
+     * Native name: OPM_BUS_IMPLEMENTATION_MODIFIER_MASK
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_IMPLEMENTATION_MODIFIER_MASK => 32767
+    static BUS_IMPLEMENTATION_MODIFIER_MASK => 32767
 }

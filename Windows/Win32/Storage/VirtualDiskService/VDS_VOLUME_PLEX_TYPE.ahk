@@ -15,31 +15,36 @@ class VDS_VOLUME_PLEX_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_VPT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_VPT_UNKNOWN => 0
+    static VPT_UNKNOWN => 0
 
     /**
      * The plex type is simple—it is composed of extents from exactly one disk. This value corresponds to the <b>VDS_VT_SIMPLE</b> value of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a> enumeration.
+     * Native name: VDS_VPT_SIMPLE
      * @type {Integer (Int32)}
      */
-    static VDS_VPT_SIMPLE => 10
+    static VPT_SIMPLE => 10
 
     /**
      * The plex type is spanned—it is composed of extents from more than one disk. This value corresponds to the <b>VDS_VT_SPAN</b> value of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a> enumeration.
+     * Native name: VDS_VPT_SPAN
      * @type {Integer (Int32)}
      */
-    static VDS_VPT_SPAN => 11
+    static VPT_SPAN => 11
 
     /**
      * The plex type is striped, which is equivalent to RAID 0. This value corresponds to the <b>VDS_VT_STRIPE</b> value of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a> enumeration.
+     * Native name: VDS_VPT_STRIPE
      * @type {Integer (Int32)}
      */
-    static VDS_VPT_STRIPE => 12
+    static VPT_STRIPE => 12
 
     /**
      * The plex type is striped with parity, which accounts for RAID levels 3, 4, 5, and 6. This value corresponds to the <b>VDS_VT_PARITY</b> value of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a> enumeration.
+     * Native name: VDS_VPT_PARITY
      * @type {Integer (Int32)}
      */
-    static VDS_VPT_PARITY => 14
+    static VPT_PARITY => 14
 }

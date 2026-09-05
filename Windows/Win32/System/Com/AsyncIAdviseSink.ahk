@@ -37,7 +37,6 @@ class AsyncIAdviseSink extends IUnknown {
     static VTableNames => ["Begin_OnDataChange", "Finish_OnDataChange", "Begin_OnViewChange", "Finish_OnViewChange", "Begin_OnRename", "Finish_OnRename", "Begin_OnSave", "Finish_OnSave", "Begin_OnClose", "Finish_OnClose"]
 
     /**
-     * 
      * @param {Pointer<FORMATETC>} pFormatetc 
      * @param {Pointer<STGMEDIUM>} pStgmed 
      * @returns {String} Nothing - always returns an empty string
@@ -47,7 +46,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnDataChange() {
@@ -55,7 +53,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAspect 
      * @param {Integer} lindex 
      * @returns {String} Nothing - always returns an empty string
@@ -65,7 +62,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnViewChange() {
@@ -73,7 +69,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -82,7 +77,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnRename() {
@@ -90,7 +84,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Begin_OnSave() {
@@ -98,7 +91,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnSave() {
@@ -106,7 +98,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Begin_OnClose() {
@@ -114,7 +105,6 @@ class AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnClose() {

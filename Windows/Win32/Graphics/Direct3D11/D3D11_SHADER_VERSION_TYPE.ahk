@@ -10,43 +10,50 @@ class D3D11_SHADER_VERSION_TYPE extends Win32Enum {
 
     /**
      * Pixel shader.
+     * Native name: D3D11_SHVER_PIXEL_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_SHVER_PIXEL_SHADER => 0
+    static SHVER_PIXEL_SHADER => 0
 
     /**
      * Vertex shader.
+     * Native name: D3D11_SHVER_VERTEX_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_SHVER_VERTEX_SHADER => 1
+    static SHVER_VERTEX_SHADER => 1
 
     /**
      * Geometry shader.
+     * Native name: D3D11_SHVER_GEOMETRY_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_SHVER_GEOMETRY_SHADER => 2
+    static SHVER_GEOMETRY_SHADER => 2
 
     /**
      * Hull shader.
+     * Native name: D3D11_SHVER_HULL_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_SHVER_HULL_SHADER => 3
+    static SHVER_HULL_SHADER => 3
 
     /**
      * Domain shader.
+     * Native name: D3D11_SHVER_DOMAIN_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_SHVER_DOMAIN_SHADER => 4
+    static SHVER_DOMAIN_SHADER => 4
 
     /**
      * Compute shader.
+     * Native name: D3D11_SHVER_COMPUTE_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_SHVER_COMPUTE_SHADER => 5
+    static SHVER_COMPUTE_SHADER => 5
 
     /**
      * Indicates the end of the enumeration constants.
+     * Native name: D3D11_SHVER_RESERVED0
      * @type {Integer (Int32)}
      */
-    static D3D11_SHVER_RESERVED0 => 65520
+    static SHVER_RESERVED0 => 65520
 }

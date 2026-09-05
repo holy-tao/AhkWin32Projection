@@ -88,7 +88,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AccessMask() {
@@ -97,7 +96,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAccessMask 
      * @returns {HRESULT} 
      */
@@ -107,7 +105,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AceType() {
@@ -116,7 +113,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAceType 
      * @returns {HRESULT} 
      */
@@ -126,7 +122,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AceFlags() {
@@ -135,7 +130,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAceFlags 
      * @returns {HRESULT} 
      */
@@ -145,7 +139,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -154,7 +147,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnFlags 
      * @returns {HRESULT} 
      */
@@ -164,7 +156,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectType() {
@@ -174,7 +165,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectType 
      * @returns {HRESULT} 
      */
@@ -186,7 +176,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InheritedObjectType() {
@@ -196,7 +185,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInheritedObjectType 
      * @returns {HRESULT} 
      */
@@ -208,7 +196,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Trustee() {
@@ -218,7 +205,6 @@ class IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTrustee 
      * @returns {HRESULT} 
      */

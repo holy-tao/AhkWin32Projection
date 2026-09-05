@@ -12,23 +12,27 @@ class D3D12_RAYTRACING_TIER extends Win32Enum {
 
     /**
      * No support for ray tracing on the device.  Attempts to create any ray tracing-related object will fail, and using ray tracing-related APIs on command lists results in undefined behavior.
+     * Native name: D3D12_RAYTRACING_TIER_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_TIER_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * The device supports tier 1 ray tracing functionality. In the current release, this tier represents all available ray tracing features.
+     * Native name: D3D12_RAYTRACING_TIER_1_0
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_TIER_1_0 => 10
+    static 1_0 => 10
 
     /**
+     * Native name: D3D12_RAYTRACING_TIER_1_1
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_TIER_1_1 => 11
+    static 1_1 => 11
 
     /**
+     * Native name: D3D12_RAYTRACING_TIER_1_2
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_TIER_1_2 => 12
+    static 1_2 => 12
 }

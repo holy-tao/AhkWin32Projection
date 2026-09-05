@@ -7,27 +7,32 @@
 class DISPID_SpeechObjectTokenCategory extends Win32Enum {
 
     /**
+     * Native name: DISPID_SOTCId
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTCId => 1
+    static SOTCId => 1
 
     /**
+     * Native name: DISPID_SOTCDefault
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTCDefault => 2
+    static SOTCDefault => 2
 
     /**
+     * Native name: DISPID_SOTCSetId
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTCSetId => 3
+    static SOTCSetId => 3
 
     /**
+     * Native name: DISPID_SOTCGetDataKey
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTCGetDataKey => 4
+    static SOTCGetDataKey => 4
 
     /**
+     * Native name: DISPID_SOTCEnumerateTokens
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTCEnumerateTokens => 5
+    static SOTCEnumerateTokens => 5
 }

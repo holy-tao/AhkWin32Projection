@@ -9,22 +9,26 @@
 class StatusCode extends Win32Enum {
 
     /**
+     * Native name: STATUS_NO_ERROR
      * @type {Integer (Int32)}
      */
-    static STATUS_NO_ERROR => 0
+    static NO_ERROR => 0
 
     /**
+     * Native name: STATUS_UNSPECIFIED_FAILURE
      * @type {Integer (Int32)}
      */
-    static STATUS_UNSPECIFIED_FAILURE => 1
+    static UNSPECIFIED_FAILURE => 1
 
     /**
+     * Native name: STATUS_NO_BINDING
      * @type {Integer (Int32)}
      */
-    static STATUS_NO_BINDING => 3
+    static NO_BINDING => 3
 
     /**
+     * Native name: STATUS_NOPREFIX_AVAIL
      * @type {Integer (Int32)}
      */
-    static STATUS_NOPREFIX_AVAIL => 6
+    static NOPREFIX_AVAIL => 6
 }

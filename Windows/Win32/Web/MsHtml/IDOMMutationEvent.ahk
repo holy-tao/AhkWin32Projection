@@ -72,7 +72,6 @@ class IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_relatedNode() {
@@ -81,7 +80,6 @@ class IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prevValue() {
@@ -91,7 +89,6 @@ class IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_newValue() {
@@ -101,7 +98,6 @@ class IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_attrName() {
@@ -111,7 +107,6 @@ class IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_attrChange() {
@@ -120,7 +115,6 @@ class IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

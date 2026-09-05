@@ -37,7 +37,6 @@ class AsyncIFtpPostprocessProvider extends IUnknown {
     static VTableNames => ["Begin_HandlePostprocess", "Finish_HandlePostprocess"]
 
     /**
-     * 
      * @param {Pointer<POST_PROCESS_PARAMETERS>} pPostProcessParameters 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ class AsyncIFtpPostprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FTP_PROCESS_STATUS} 
      */
     Finish_HandlePostprocess() {

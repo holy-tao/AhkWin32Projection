@@ -30,7 +30,6 @@ class IReleaseMarshalBuffers extends IUnknown {
     static VTableNames => ["ReleaseMarshalBuffer"]
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Integer} dwFlags 
      * @param {IUnknown} pChnl 

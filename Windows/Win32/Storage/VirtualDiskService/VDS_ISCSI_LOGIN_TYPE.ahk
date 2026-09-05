@@ -13,19 +13,22 @@ class VDS_ISCSI_LOGIN_TYPE extends Win32Enum {
 
     /**
      * A manual, one-time login is performed.
+     * Native name: VDS_ILT_MANUAL
      * @type {Integer (Int32)}
      */
-    static VDS_ILT_MANUAL => 0
+    static ILT_MANUAL => 0
 
     /**
      * A persistent login is performed.
+     * Native name: VDS_ILT_PERSISTENT
      * @type {Integer (Int32)}
      */
-    static VDS_ILT_PERSISTENT => 1
+    static ILT_PERSISTENT => 1
 
     /**
      * A persistent login is performed such that the target is present at startup.
+     * Native name: VDS_ILT_BOOT
      * @type {Integer (Int32)}
      */
-    static VDS_ILT_BOOT => 2
+    static ILT_BOOT => 2
 }

@@ -7,32 +7,38 @@
 class DISPID_InkRecognizerGuide extends Win32Enum {
 
     /**
+     * Native name: DISPID_IRGWritingBox
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGWritingBox => 1
+    static IRGWritingBox => 1
 
     /**
+     * Native name: DISPID_IRGDrawnBox
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGDrawnBox => 2
+    static IRGDrawnBox => 2
 
     /**
+     * Native name: DISPID_IRGRows
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGRows => 3
+    static IRGRows => 3
 
     /**
+     * Native name: DISPID_IRGColumns
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGColumns => 4
+    static IRGColumns => 4
 
     /**
+     * Native name: DISPID_IRGMidline
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGMidline => 5
+    static IRGMidline => 5
 
     /**
+     * Native name: DISPID_IRGGuideData
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGGuideData => 6
+    static IRGGuideData => 6
 }

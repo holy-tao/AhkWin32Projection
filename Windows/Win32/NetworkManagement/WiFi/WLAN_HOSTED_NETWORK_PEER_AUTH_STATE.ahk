@@ -12,13 +12,15 @@ class WLAN_HOSTED_NETWORK_PEER_AUTH_STATE extends Win32Enum {
 
     /**
      * An invalid peer state.
+     * Native name: wlan_hosted_network_peer_state_invalid
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_peer_state_invalid => 0
+    static invalid => 0
 
     /**
      * The peer is authenticated.
+     * Native name: wlan_hosted_network_peer_state_authenticated
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_peer_state_authenticated => 1
+    static authenticated => 1
 }

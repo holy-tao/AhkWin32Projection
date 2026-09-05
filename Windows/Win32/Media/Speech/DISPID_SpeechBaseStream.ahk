@@ -7,22 +7,26 @@
 class DISPID_SpeechBaseStream extends Win32Enum {
 
     /**
+     * Native name: DISPID_SBSFormat
      * @type {Integer (Int32)}
      */
-    static DISPID_SBSFormat => 1
+    static SBSFormat => 1
 
     /**
+     * Native name: DISPID_SBSRead
      * @type {Integer (Int32)}
      */
-    static DISPID_SBSRead => 2
+    static SBSRead => 2
 
     /**
+     * Native name: DISPID_SBSWrite
      * @type {Integer (Int32)}
      */
-    static DISPID_SBSWrite => 3
+    static SBSWrite => 3
 
     /**
+     * Native name: DISPID_SBSSeek
      * @type {Integer (Int32)}
      */
-    static DISPID_SBSSeek => 4
+    static SBSSeek => 4
 }

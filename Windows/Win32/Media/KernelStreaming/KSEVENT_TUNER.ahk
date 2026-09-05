@@ -7,12 +7,14 @@
 class KSEVENT_TUNER extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_TUNER_CHANGED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_TUNER_CHANGED => 0
+    static CHANGED => 0
 
     /**
+     * Native name: KSEVENT_TUNER_INITIATE_SCAN
      * @type {Integer (Int32)}
      */
-    static KSEVENT_TUNER_INITIATE_SCAN => 1
+    static INITIATE_SCAN => 1
 }

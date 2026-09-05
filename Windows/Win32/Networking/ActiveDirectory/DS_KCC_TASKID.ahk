@@ -10,7 +10,8 @@ class DS_KCC_TASKID extends Win32Enum {
 
     /**
      * Dynamically adjusts the data replication topology of a network.
+     * Native name: DS_KCC_TASKID_UPDATE_TOPOLOGY
      * @type {Integer (Int32)}
      */
-    static DS_KCC_TASKID_UPDATE_TOPOLOGY => 0
+    static UPDATE_TOPOLOGY => 0
 }

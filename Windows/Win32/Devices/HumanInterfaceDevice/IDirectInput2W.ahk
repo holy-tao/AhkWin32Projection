@@ -32,7 +32,6 @@ class IDirectInput2W extends IDirectInputW {
     static VTableNames => ["FindDevice"]
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<Guid>} param2 

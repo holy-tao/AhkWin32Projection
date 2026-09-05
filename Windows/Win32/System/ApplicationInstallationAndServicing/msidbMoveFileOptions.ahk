@@ -7,7 +7,8 @@
 class msidbMoveFileOptions extends Win32Enum {
 
     /**
+     * Native name: msidbMoveFileOptionsMove
      * @type {Integer (Int32)}
      */
-    static msidbMoveFileOptionsMove => 1
+    static Move => 1
 }

@@ -252,7 +252,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Class() {
@@ -261,7 +260,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PrivLevel() {
@@ -270,7 +268,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lPrivLevel 
      * @returns {HRESULT} 
      */
@@ -280,7 +277,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AuthLevel() {
@@ -289,7 +285,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAuthLevel 
      * @returns {HRESULT} 
      */
@@ -299,7 +294,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsAuthenticated() {
@@ -308,7 +302,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Delivery() {
@@ -317,7 +310,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lDelivery 
      * @returns {HRESULT} 
      */
@@ -327,7 +319,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Trace() {
@@ -336,7 +327,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lTrace 
      * @returns {HRESULT} 
      */
@@ -346,7 +336,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Priority() {
@@ -355,7 +344,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lPriority 
      * @returns {HRESULT} 
      */
@@ -365,7 +353,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Journal() {
@@ -374,7 +361,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lJournal 
      * @returns {HRESULT} 
      */
@@ -384,7 +370,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     get_ResponseQueueInfo() {
@@ -393,7 +378,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueueInfo} pqinfoResponse 
      * @returns {HRESULT} 
      */
@@ -403,7 +387,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppSpecific() {
@@ -412,7 +395,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAppSpecific 
      * @returns {HRESULT} 
      */
@@ -422,7 +404,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SourceMachineGuid() {
@@ -432,7 +413,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BodyLength() {
@@ -441,7 +421,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Body() {
@@ -451,7 +430,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varBody 
      * @returns {HRESULT} 
      */
@@ -461,7 +439,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     get_AdminQueueInfo() {
@@ -470,7 +447,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueueInfo} pqinfoAdmin 
      * @returns {HRESULT} 
      */
@@ -480,7 +456,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Id() {
@@ -490,7 +465,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CorrelationId() {
@@ -500,7 +474,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varMsgId 
      * @returns {HRESULT} 
      */
@@ -510,7 +483,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Ack() {
@@ -519,7 +491,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAck 
      * @returns {HRESULT} 
      */
@@ -529,7 +500,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Label() {
@@ -539,7 +509,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLabel 
      * @returns {HRESULT} 
      */
@@ -551,7 +520,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxTimeToReachQueue() {
@@ -560,7 +528,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lMaxTimeToReachQueue 
      * @returns {HRESULT} 
      */
@@ -570,7 +537,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxTimeToReceive() {
@@ -579,7 +545,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lMaxTimeToReceive 
      * @returns {HRESULT} 
      */
@@ -589,7 +554,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HashAlgorithm() {
@@ -598,7 +562,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lHashAlg 
      * @returns {HRESULT} 
      */
@@ -608,7 +571,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EncryptAlgorithm() {
@@ -617,7 +579,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lEncryptAlg 
      * @returns {HRESULT} 
      */
@@ -627,7 +588,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SentTime() {
@@ -637,7 +597,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ArrivedTime() {
@@ -647,7 +606,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     get_DestinationQueueInfo() {
@@ -656,7 +614,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SenderCertificate() {
@@ -666,7 +623,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varSenderCert 
      * @returns {HRESULT} 
      */
@@ -676,7 +632,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SenderId() {
@@ -686,7 +641,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SenderIdType() {
@@ -695,7 +649,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lSenderIdType 
      * @returns {HRESULT} 
      */
@@ -705,7 +658,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueue} DestinationQueue 
      * @param {Pointer<VARIANT>} Transaction 
      * @returns {HRESULT} 
@@ -716,7 +668,6 @@ class IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AttachCurrentSecurityContext() {

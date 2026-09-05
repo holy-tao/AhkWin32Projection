@@ -12,25 +12,29 @@ class D3D12_CONSERVATIVE_RASTERIZATION_TIER extends Win32Enum {
 
     /**
      * Conservative rasterization is not supported.
+     * Native name: D3D12_CONSERVATIVE_RASTERIZATION_TIER_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_CONSERVATIVE_RASTERIZATION_TIER_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * Tier 1 enforces a maximum 1/2 pixel uncertainty region and does not support post-snap degenerates. This is good for tiled rendering, a texture atlas, light map generation and sub-pixel shadow maps.
+     * Native name: D3D12_CONSERVATIVE_RASTERIZATION_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D12_CONSERVATIVE_RASTERIZATION_TIER_1 => 1
+    static 1 => 1
 
     /**
      * Tier 2 reduces the maximum uncertainty region to 1/256 and requires post-snap degenerates not be culled. This tier is helpful for CPU-based algorithm acceleration (such as voxelization).
+     * Native name: D3D12_CONSERVATIVE_RASTERIZATION_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D12_CONSERVATIVE_RASTERIZATION_TIER_2 => 2
+    static 2 => 2
 
     /**
      * Tier 3 maintains a maximum 1/256 uncertainty region and adds support for inner input coverage. Inner input coverage adds the new value <c>SV_InnerCoverage</c> to High Level Shading Language (HLSL). This is a 32-bit scalar integer that can be specified on input to a pixel shader, and represents the underestimated conservative rasterization information (that is, whether a pixel is guaranteed-to-be-fully covered). This tier is helpful for occlusion culling.
+     * Native name: D3D12_CONSERVATIVE_RASTERIZATION_TIER_3
      * @type {Integer (Int32)}
      */
-    static D3D12_CONSERVATIVE_RASTERIZATION_TIER_3 => 3
+    static 3 => 3
 }

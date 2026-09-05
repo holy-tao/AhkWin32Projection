@@ -7,27 +7,32 @@
 class styleTextJustifyTrim extends Win32Enum {
 
     /**
+     * Native name: styleTextJustifyTrimNotSet
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyTrimNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTextJustifyTrimNone
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyTrimNone => 1
+    static None => 1
 
     /**
+     * Native name: styleTextJustifyTrimPunctuation
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyTrimPunctuation => 2
+    static Punctuation => 2
 
     /**
+     * Native name: styleTextJustifyTrimPunctAndKana
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyTrimPunctAndKana => 3
+    static PunctAndKana => 3
 
     /**
+     * Native name: styleTextJustifyTrim_Max
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyTrim_Max => 2147483647
+    static Max => 2147483647
 }

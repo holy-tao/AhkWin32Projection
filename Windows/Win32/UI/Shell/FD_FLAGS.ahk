@@ -7,52 +7,62 @@
 class FD_FLAGS extends Win32Enum {
 
     /**
+     * Native name: FD_CLSID
      * @type {Integer (Int32)}
      */
-    static FD_CLSID => 1
+    static CLSID => 1
 
     /**
+     * Native name: FD_SIZEPOINT
      * @type {Integer (Int32)}
      */
-    static FD_SIZEPOINT => 2
+    static SIZEPOINT => 2
 
     /**
+     * Native name: FD_ATTRIBUTES
      * @type {Integer (Int32)}
      */
-    static FD_ATTRIBUTES => 4
+    static ATTRIBUTES => 4
 
     /**
+     * Native name: FD_CREATETIME
      * @type {Integer (Int32)}
      */
-    static FD_CREATETIME => 8
+    static CREATETIME => 8
 
     /**
+     * Native name: FD_ACCESSTIME
      * @type {Integer (Int32)}
      */
-    static FD_ACCESSTIME => 16
+    static ACCESSTIME => 16
 
     /**
+     * Native name: FD_WRITESTIME
      * @type {Integer (Int32)}
      */
-    static FD_WRITESTIME => 32
+    static WRITESTIME => 32
 
     /**
+     * Native name: FD_FILESIZE
      * @type {Integer (Int32)}
      */
-    static FD_FILESIZE => 64
+    static FILESIZE => 64
 
     /**
+     * Native name: FD_PROGRESSUI
      * @type {Integer (Int32)}
      */
-    static FD_PROGRESSUI => 16384
+    static PROGRESSUI => 16384
 
     /**
+     * Native name: FD_LINKUI
      * @type {Integer (Int32)}
      */
-    static FD_LINKUI => 32768
+    static LINKUI => 32768
 
     /**
+     * Native name: FD_UNICODE
      * @type {Integer (Int32)}
      */
-    static FD_UNICODE => -2147483648
+    static UNICODE => -2147483648
 }

@@ -80,7 +80,6 @@ class IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_User() {
@@ -90,7 +89,6 @@ class IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserPath() {
@@ -100,7 +98,6 @@ class IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Computer() {
@@ -110,7 +107,6 @@ class IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerPath() {
@@ -120,7 +116,6 @@ class IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ConnectTime() {
@@ -129,7 +124,6 @@ class IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IdleTime() {

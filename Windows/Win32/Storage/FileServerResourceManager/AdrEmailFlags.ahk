@@ -10,31 +10,36 @@ class AdrEmailFlags extends Win32Enum {
 
     /**
      * The ADR email will include the owner on the To: line.
+     * Native name: AdrEmailFlags_PutDataOwnerOnToLine
      * @type {Integer (Int32)}
      */
-    static AdrEmailFlags_PutDataOwnerOnToLine => 1
+    static PutDataOwnerOnToLine => 1
 
     /**
      * The ADR email will include the administrator on the To: line.
+     * Native name: AdrEmailFlags_PutAdminOnToLine
      * @type {Integer (Int32)}
      */
-    static AdrEmailFlags_PutAdminOnToLine => 2
+    static PutAdminOnToLine => 2
 
     /**
      * The ADR email will include the device claims.
+     * Native name: AdrEmailFlags_IncludeDeviceClaims
      * @type {Integer (Int32)}
      */
-    static AdrEmailFlags_IncludeDeviceClaims => 4
+    static IncludeDeviceClaims => 4
 
     /**
      * The ADR email will include the user information.
+     * Native name: AdrEmailFlags_IncludeUserInfo
      * @type {Integer (Int32)}
      */
-    static AdrEmailFlags_IncludeUserInfo => 8
+    static IncludeUserInfo => 8
 
     /**
      * When the ADR email is sent, an entry will be added to the event log.
+     * Native name: AdrEmailFlags_GenerateEventLog
      * @type {Integer (Int32)}
      */
-    static AdrEmailFlags_GenerateEventLog => 16
+    static GenerateEventLog => 16
 }

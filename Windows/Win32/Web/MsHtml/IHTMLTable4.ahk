@@ -52,7 +52,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTableSection} v 
      * @returns {HRESULT} 
      */
@@ -62,7 +61,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     get_tHead() {
@@ -71,7 +69,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTableSection} v 
      * @returns {HRESULT} 
      */
@@ -81,7 +78,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     get_tFoot() {
@@ -90,7 +86,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTableCaption} v 
      * @returns {HRESULT} 
      */
@@ -100,7 +95,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableCaption} 
      */
     get_caption() {
@@ -109,7 +103,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -119,7 +112,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -129,7 +121,6 @@ class IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     createTBody() {

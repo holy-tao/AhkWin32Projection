@@ -7,12 +7,14 @@
 class ColorMode extends Win32Enum {
 
     /**
+     * Native name: ColorModeARGB32
      * @type {Integer (Int32)}
      */
-    static ColorModeARGB32 => 0
+    static ModeARGB32 => 0
 
     /**
+     * Native name: ColorModeARGB64
      * @type {Integer (Int32)}
      */
-    static ColorModeARGB64 => 1
+    static ModeARGB64 => 1
 }

@@ -7,22 +7,26 @@
 class styleBorderWidth extends Win32Enum {
 
     /**
+     * Native name: styleBorderWidthThin
      * @type {Integer (Int32)}
      */
-    static styleBorderWidthThin => 0
+    static Thin => 0
 
     /**
+     * Native name: styleBorderWidthMedium
      * @type {Integer (Int32)}
      */
-    static styleBorderWidthMedium => 1
+    static Medium => 1
 
     /**
+     * Native name: styleBorderWidthThick
      * @type {Integer (Int32)}
      */
-    static styleBorderWidthThick => 2
+    static Thick => 2
 
     /**
+     * Native name: styleBorderWidth_Max
      * @type {Integer (Int32)}
      */
-    static styleBorderWidth_Max => 2147483647
+    static Max => 2147483647
 }

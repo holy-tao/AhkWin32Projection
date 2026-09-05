@@ -22,7 +22,8 @@ class DOM_EVENT_PHASE extends Win32Enum {
     static DEP_BUBBLING_PHASE => 3
 
     /**
+     * Native name: DOM_EVENT_PHASE_Max
      * @type {Integer (Int32)}
      */
-    static DOM_EVENT_PHASE_Max => 2147483647
+    static Max => 2147483647
 }

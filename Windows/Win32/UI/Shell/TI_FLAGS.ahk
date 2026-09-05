@@ -7,12 +7,14 @@
 class TI_FLAGS extends Win32Enum {
 
     /**
+     * Native name: TI_BITMAP
      * @type {Integer (Int32)}
      */
-    static TI_BITMAP => 1
+    static BITMAP => 1
 
     /**
+     * Native name: TI_JPEG
      * @type {Integer (Int32)}
      */
-    static TI_JPEG => 2
+    static JPEG => 2
 }

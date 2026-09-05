@@ -57,7 +57,6 @@ class IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientHeight() {
@@ -66,7 +65,6 @@ class IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientWidth() {
@@ -75,7 +73,6 @@ class IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientTop() {
@@ -84,7 +81,6 @@ class IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientLeft() {

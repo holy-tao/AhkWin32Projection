@@ -32,7 +32,6 @@ class IElementBehaviorFactory extends IUnknown {
     static VTableNames => ["FindBehavior"]
 
     /**
-     * 
      * @param {BSTR} bstrBehavior 
      * @param {BSTR} bstrBehaviorUrl 
      * @param {IElementBehaviorSite} pSite 

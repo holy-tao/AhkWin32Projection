@@ -7,17 +7,20 @@
 class _SPINITF extends Win32Enum {
 
     /**
+     * Native name: SPINITF_NORMAL
      * @type {Integer (Int32)}
      */
-    static SPINITF_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: SPINITF_MODAL
      * @type {Integer (Int32)}
      */
-    static SPINITF_MODAL => 1
+    static MODAL => 1
 
     /**
+     * Native name: SPINITF_NOMINIMIZE
      * @type {Integer (Int32)}
      */
-    static SPINITF_NOMINIMIZE => 8
+    static NOMINIMIZE => 8
 }

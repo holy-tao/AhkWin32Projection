@@ -60,7 +60,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @param {RTC_ANSWER_MODE} enMode 
      * @returns {HRESULT} 
@@ -71,7 +70,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @returns {RTC_ANSWER_MODE} 
      */
@@ -81,7 +79,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Pointer} hwndParent 
      * @param {VARIANT_BOOL} fAllowAudio 
      * @param {VARIANT_BOOL} fAllowVideo 
@@ -93,7 +90,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Version() {
@@ -102,7 +98,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClientName 
      * @returns {HRESULT} 
      */
@@ -114,7 +109,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClientCurVer 
      * @returns {HRESULT} 
      */
@@ -126,7 +120,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
      */
@@ -136,7 +129,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @param {IRTCProfile} pProfile 
@@ -152,7 +144,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {IRTCSessionDescriptionManager} pSessionDescriptionManager 
      * @returns {HRESULT} 
      */
@@ -162,7 +153,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @param {RTC_SECURITY_LEVEL} enSecurityLevel 
      * @returns {HRESULT} 
@@ -173,7 +163,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -183,7 +172,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Integer} lTransport 
      * @param {RTC_LISTEN_MODE} enListenMode 
      * @returns {HRESULT} 
@@ -194,7 +182,6 @@ class IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Integer} lTransport 
      * @returns {RTC_LISTEN_MODE} 
      */

@@ -10,13 +10,15 @@ class DRMATTESTTYPE extends Win32Enum {
 
     /**
      * Create a signature using full environment information.
+     * Native name: DRMATTESTTYPE_FULLENVIRONMENT
      * @type {Integer (Int32)}
      */
-    static DRMATTESTTYPE_FULLENVIRONMENT => 0
+    static FULLENVIRONMENT => 0
 
     /**
      * Create a signature using only a hash of the environment.
+     * Native name: DRMATTESTTYPE_HASHONLY
      * @type {Integer (Int32)}
      */
-    static DRMATTESTTYPE_HASHONLY => 1
+    static HASHONLY => 1
 }

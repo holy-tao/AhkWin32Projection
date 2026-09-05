@@ -32,7 +32,6 @@ class IDCompositionDevice4 extends IDCompositionDevice3 {
     static VTableNames => ["CheckCompositionTextureSupport", "CreateCompositionTexture"]
 
     /**
-     * 
      * @param {IUnknown} renderingDevice 
      * @returns {BOOL} 
      */
@@ -42,7 +41,6 @@ class IDCompositionDevice4 extends IDCompositionDevice3 {
     }
 
     /**
-     * 
      * @param {IUnknown} d3dTexture 
      * @returns {IDCompositionTexture} 
      */

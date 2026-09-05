@@ -22,66 +22,77 @@ class AM_DVD_GRAPH_FLAGS extends Win32Enum {
 
     /**
      * Use a hardware decoder if possible. If none is available, use a software decoder. This is the default setting. Hardware DVD decoders are registered under the CLSID_DVDHWDecodersCategory filter category. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/filter-categories">Filter Categories</a>.
+     * Native name: AM_DVD_HWDEC_PREFER
      * @type {Integer (Int32)}
      */
-    static AM_DVD_HWDEC_PREFER => 1
+    static HWDEC_PREFER => 1
 
     /**
      * Use a hardware decoder; do not use a software decoder. Do not combine this flag with the AM_DVD_VMR9_ONLY or AM_DVD_EVR_ONLY flag.
+     * Native name: AM_DVD_HWDEC_ONLY
      * @type {Integer (Int32)}
      */
-    static AM_DVD_HWDEC_ONLY => 2
+    static HWDEC_ONLY => 2
 
     /**
      * Use a software decoder if possible. If none is available, use a hardware decoder.
+     * Native name: AM_DVD_SWDEC_PREFER
      * @type {Integer (Int32)}
      */
-    static AM_DVD_SWDEC_PREFER => 4
+    static SWDEC_PREFER => 4
 
     /**
      * Use a software decoder; do not use a hardware decoder.
+     * Native name: AM_DVD_SWDEC_ONLY
      * @type {Integer (Int32)}
      */
-    static AM_DVD_SWDEC_ONLY => 8
+    static SWDEC_ONLY => 8
 
     /**
      * Do not show video on the computer monitor. Use of this flag should be limited only to the combination of a hardware DVD-Video decoder and a display device with a port that can connect to a TV. A set-top box type of device that can play back DVD-Video could play DVD titles to be viewed on a TV set rather than a computer monitor.
+     * Native name: AM_DVD_NOVPE
      * @type {Integer (Int32)}
      */
-    static AM_DVD_NOVPE => 256
+    static NOVPE => 256
 
     /**
      * Do not clear the filter graph before building the DVD playback graph. By default, the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdgraphbuilder-renderdvdvideovolume">RenderDvdVideoVolume</a> method removes any existing filters from the graph before it builds the DVD playback graph. <div class="alert"><b>Note</b>  Applies to Windows Vista and later.</div>
      * <div> </div>
+     * Native name: AM_DVD_DO_NOT_CLEAR
      * @type {Integer (Int32)}
      */
-    static AM_DVD_DO_NOT_CLEAR => 512
+    static DO_NOT_CLEAR => 512
 
     /**
      * Use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/video-mixing-renderer-filter-9">Video Mixing Renderer Filter 9</a> (VMR-9) for rendering; fail if the VMR-9 is not available. Do not combine this flag with the AM_DVD_EVR_ONLY flag.
+     * Native name: AM_DVD_VMR9_ONLY
      * @type {Integer (Int32)}
      */
-    static AM_DVD_VMR9_ONLY => 2048
+    static VMR9_ONLY => 2048
 
     /**
      * Use the Enhanced Video Renderer (EVR) for rendering; fail if the EVR is not available. <div class="alert"><b>Note</b>  Applies to Windows Vista and later.</div>
      * <div> </div>
+     * Native name: AM_DVD_EVR_ONLY
      * @type {Integer (Int32)}
      */
-    static AM_DVD_EVR_ONLY => 4096
+    static EVR_ONLY => 4096
 
     /**
+     * Native name: AM_DVD_EVR_QOS
      * @type {Integer (Int32)}
      */
-    static AM_DVD_EVR_QOS => 8192
+    static EVR_QOS => 8192
 
     /**
+     * Native name: AM_DVD_ADAPT_GRAPH
      * @type {Integer (Int32)}
      */
-    static AM_DVD_ADAPT_GRAPH => 16384
+    static ADAPT_GRAPH => 16384
 
     /**
+     * Native name: AM_DVD_MASK
      * @type {Integer (Int32)}
      */
-    static AM_DVD_MASK => 65535
+    static MASK => 65535
 }

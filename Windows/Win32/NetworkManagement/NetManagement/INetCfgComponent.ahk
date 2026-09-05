@@ -33,7 +33,6 @@ class INetCfgComponent extends IUnknown {
     static VTableNames => ["GetDisplayName", "SetDisplayName", "GetHelpText", "GetId", "GetCharacteristics", "GetInstanceGuid", "GetPnpDevNodeId", "GetClassGuid", "GetBindName", "GetDeviceStatus", "OpenParamKey", "RaisePropertyUi"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetDisplayName() {
@@ -42,7 +41,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwDisplayName 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetHelpText() {
@@ -63,7 +60,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetId() {
@@ -72,7 +68,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCharacteristics() {
@@ -81,7 +76,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetInstanceGuid() {
@@ -91,7 +85,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetPnpDevNodeId() {
@@ -100,7 +93,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetClassGuid() {
@@ -110,7 +102,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetBindName() {
@@ -119,7 +110,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDeviceStatus() {
@@ -128,7 +118,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HKEY} 
      */
     OpenParamKey() {
@@ -138,7 +127,6 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @param {IUnknown} punkContext 

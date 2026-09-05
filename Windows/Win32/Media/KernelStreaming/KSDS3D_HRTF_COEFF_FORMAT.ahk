@@ -17,7 +17,8 @@ class KSDS3D_HRTF_COEFF_FORMAT extends Win32Enum {
     static SHORT_COEFF => 1
 
     /**
+     * Native name: KSDS3D_COEFF_COUNT
      * @type {Integer (Int32)}
      */
-    static KSDS3D_COEFF_COUNT => 2
+    static COUNT => 2
 }

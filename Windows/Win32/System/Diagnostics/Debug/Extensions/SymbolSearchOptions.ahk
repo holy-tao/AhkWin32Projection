@@ -7,17 +7,20 @@
 class SymbolSearchOptions extends Win32Enum {
 
     /**
+     * Native name: SymbolSearchNone
      * @type {Integer (Int32)}
      */
-    static SymbolSearchNone => 0
+    static None => 0
 
     /**
+     * Native name: SymbolSearchCompletion
      * @type {Integer (Int32)}
      */
-    static SymbolSearchCompletion => 1
+    static Completion => 1
 
     /**
+     * Native name: SymbolSearchCaseInsensitive
      * @type {Integer (Int32)}
      */
-    static SymbolSearchCaseInsensitive => 2
+    static CaseInsensitive => 2
 }

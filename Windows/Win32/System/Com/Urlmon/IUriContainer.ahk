@@ -30,7 +30,6 @@ class IUriContainer extends IUnknown {
     static VTableNames => ["GetIUri"]
 
     /**
-     * 
      * @returns {IUri} 
      */
     GetIUri() {

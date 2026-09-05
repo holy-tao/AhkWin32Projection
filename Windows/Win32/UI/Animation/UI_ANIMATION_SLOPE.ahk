@@ -10,13 +10,15 @@ class UI_ANIMATION_SLOPE extends Win32Enum {
 
     /**
      * An increasing slope.
+     * Native name: UI_ANIMATION_SLOPE_INCREASING
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_SLOPE_INCREASING => 0
+    static INCREASING => 0
 
     /**
      * A decreasing slope.
+     * Native name: UI_ANIMATION_SLOPE_DECREASING
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_SLOPE_DECREASING => 1
+    static DECREASING => 1
 }

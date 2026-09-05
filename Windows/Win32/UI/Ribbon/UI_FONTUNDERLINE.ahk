@@ -19,19 +19,22 @@ class UI_FONTUNDERLINE extends Win32Enum {
 
     /**
      * Underlining is not enabled.
+     * Native name: UI_FONTUNDERLINE_NOTAVAILABLE
      * @type {Integer (Int32)}
      */
-    static UI_FONTUNDERLINE_NOTAVAILABLE => 0
+    static NOTAVAILABLE => 0
 
     /**
      * Underlining is off.
+     * Native name: UI_FONTUNDERLINE_NOTSET
      * @type {Integer (Int32)}
      */
-    static UI_FONTUNDERLINE_NOTSET => 1
+    static NOTSET => 1
 
     /**
      * Underlining is on.
+     * Native name: UI_FONTUNDERLINE_SET
      * @type {Integer (Int32)}
      */
-    static UI_FONTUNDERLINE_SET => 2
+    static SET => 2
 }

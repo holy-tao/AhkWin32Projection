@@ -11,7 +11,7 @@ class NTSTATUSExtensionTests {
         msg := Trim(msg, " `r`n`t")
         Assert.Equals(msg, "Insufficient system resources exist to complete the API.")
     }
- 
+
     ThrowIfError_WithErrorMessage_ThrowsOSError() {
         Assert.Throws(
             () => NTSTATUS.ThrowIfError(0xC000009A),

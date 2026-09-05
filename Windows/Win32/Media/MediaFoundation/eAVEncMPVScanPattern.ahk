@@ -10,19 +10,22 @@ class eAVEncMPVScanPattern extends Win32Enum {
 
     /**
      * The encoder selects the scan pattern.
+     * Native name: eAVEncMPVScanPattern_Auto
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVScanPattern_Auto => 0
+    static Auto => 0
 
     /**
      * Zig-zag scan.
+     * Native name: eAVEncMPVScanPattern_ZigZagScan
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVScanPattern_ZigZagScan => 1
+    static ZigZagScan => 1
 
     /**
      * Alternate-vertical scan.
+     * Native name: eAVEncMPVScanPattern_AlternateScan
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVScanPattern_AlternateScan => 2
+    static AlternateScan => 2
 }

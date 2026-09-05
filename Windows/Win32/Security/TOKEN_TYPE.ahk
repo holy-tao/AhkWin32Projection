@@ -10,13 +10,15 @@ class TOKEN_TYPE extends Win32Enum {
 
     /**
      * Indicates a primary token.
+     * Native name: TokenPrimary
      * @type {Integer (Int32)}
      */
-    static TokenPrimary => 1
+    static Primary => 1
 
     /**
      * Indicates an impersonation token.
+     * Native name: TokenImpersonation
      * @type {Integer (Int32)}
      */
-    static TokenImpersonation => 2
+    static Impersonation => 2
 }

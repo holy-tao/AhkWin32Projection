@@ -7,17 +7,20 @@
 class PasswordEncodingType extends Win32Enum {
 
     /**
+     * Native name: PasswordEncodingUTF8
      * @type {Integer (Int32)}
      */
-    static PasswordEncodingUTF8 => 0
+    static EncodingUTF8 => 0
 
     /**
+     * Native name: PasswordEncodingUTF16LE
      * @type {Integer (Int32)}
      */
-    static PasswordEncodingUTF16LE => 1
+    static EncodingUTF16LE => 1
 
     /**
+     * Native name: PasswordEncodingUTF16BE
      * @type {Integer (Int32)}
      */
-    static PasswordEncodingUTF16BE => 2
+    static EncodingUTF16BE => 2
 }

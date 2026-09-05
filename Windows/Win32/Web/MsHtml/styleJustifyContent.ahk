@@ -7,37 +7,44 @@
 class styleJustifyContent extends Win32Enum {
 
     /**
+     * Native name: styleJustifyContentFlexStart
      * @type {Integer (Int32)}
      */
-    static styleJustifyContentFlexStart => 0
+    static FlexStart => 0
 
     /**
+     * Native name: styleJustifyContentFlexEnd
      * @type {Integer (Int32)}
      */
-    static styleJustifyContentFlexEnd => 1
+    static FlexEnd => 1
 
     /**
+     * Native name: styleJustifyContentCenter
      * @type {Integer (Int32)}
      */
-    static styleJustifyContentCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleJustifyContentSpaceBetween
      * @type {Integer (Int32)}
      */
-    static styleJustifyContentSpaceBetween => 3
+    static SpaceBetween => 3
 
     /**
+     * Native name: styleJustifyContentSpaceAround
      * @type {Integer (Int32)}
      */
-    static styleJustifyContentSpaceAround => 4
+    static SpaceAround => 4
 
     /**
+     * Native name: styleJustifyContentNotSet
      * @type {Integer (Int32)}
      */
-    static styleJustifyContentNotSet => 5
+    static NotSet => 5
 
     /**
+     * Native name: styleJustifyContent_Max
      * @type {Integer (Int32)}
      */
-    static styleJustifyContent_Max => 2147483647
+    static Max => 2147483647
 }

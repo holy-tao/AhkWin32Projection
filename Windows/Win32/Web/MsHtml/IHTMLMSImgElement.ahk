@@ -46,7 +46,6 @@ class IHTMLMSImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class IHTMLMSImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_msPlayToDisabled() {
@@ -65,7 +63,6 @@ class IHTMLMSImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -75,7 +72,6 @@ class IHTMLMSImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_msPlayToPrimary() {

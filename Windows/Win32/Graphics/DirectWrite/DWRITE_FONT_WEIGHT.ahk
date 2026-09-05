@@ -19,103 +19,120 @@ class DWRITE_FONT_WEIGHT extends Win32Enum {
 
     /**
      * Predefined font weight : Thin (100).
+     * Native name: DWRITE_FONT_WEIGHT_THIN
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_THIN => 100
+    static THIN => 100
 
     /**
      * Predefined font weight : Extra-light (200).
+     * Native name: DWRITE_FONT_WEIGHT_EXTRA_LIGHT
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_EXTRA_LIGHT => 200
+    static EXTRA_LIGHT => 200
 
     /**
      * Predefined font weight : Ultra-light (200).
+     * Native name: DWRITE_FONT_WEIGHT_ULTRA_LIGHT
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_ULTRA_LIGHT => 200
+    static ULTRA_LIGHT => 200
 
     /**
      * Predefined font weight : Light (300).
+     * Native name: DWRITE_FONT_WEIGHT_LIGHT
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_LIGHT => 300
+    static LIGHT => 300
 
     /**
      * Predefined font weight : Semi-Light (350).
+     * Native name: DWRITE_FONT_WEIGHT_SEMI_LIGHT
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_SEMI_LIGHT => 350
+    static SEMI_LIGHT => 350
 
     /**
      * Predefined font weight : Normal (400).
+     * Native name: DWRITE_FONT_WEIGHT_NORMAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_NORMAL => 400
+    static NORMAL => 400
 
     /**
      * Predefined font weight : Regular (400).
+     * Native name: DWRITE_FONT_WEIGHT_REGULAR
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_REGULAR => 400
+    static REGULAR => 400
 
     /**
      * Predefined font weight : Medium (500).
+     * Native name: DWRITE_FONT_WEIGHT_MEDIUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_MEDIUM => 500
+    static MEDIUM => 500
 
     /**
      * Predefined font weight : Demi-bold (600).
+     * Native name: DWRITE_FONT_WEIGHT_DEMI_BOLD
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_DEMI_BOLD => 600
+    static DEMI_BOLD => 600
 
     /**
      * Predefined font weight : Semi-bold (600).
+     * Native name: DWRITE_FONT_WEIGHT_SEMI_BOLD
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_SEMI_BOLD => 600
+    static SEMI_BOLD => 600
 
     /**
      * Predefined font weight : Bold (700).
+     * Native name: DWRITE_FONT_WEIGHT_BOLD
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_BOLD => 700
+    static BOLD => 700
 
     /**
      * Predefined font weight : Extra-bold (800).
+     * Native name: DWRITE_FONT_WEIGHT_EXTRA_BOLD
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_EXTRA_BOLD => 800
+    static EXTRA_BOLD => 800
 
     /**
      * Predefined font weight : Ultra-bold (800).
+     * Native name: DWRITE_FONT_WEIGHT_ULTRA_BOLD
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_ULTRA_BOLD => 800
+    static ULTRA_BOLD => 800
 
     /**
      * Predefined font weight : Black (900).
+     * Native name: DWRITE_FONT_WEIGHT_BLACK
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_BLACK => 900
+    static BLACK => 900
 
     /**
      * Predefined font weight : Heavy (900).
+     * Native name: DWRITE_FONT_WEIGHT_HEAVY
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_HEAVY => 900
+    static HEAVY => 900
 
     /**
      * Predefined font weight : Extra-black (950).
+     * Native name: DWRITE_FONT_WEIGHT_EXTRA_BLACK
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_EXTRA_BLACK => 950
+    static EXTRA_BLACK => 950
 
     /**
      * Predefined font weight : Ultra-black (950).
+     * Native name: DWRITE_FONT_WEIGHT_ULTRA_BLACK
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_WEIGHT_ULTRA_BLACK => 950
+    static ULTRA_BLACK => 950
 }

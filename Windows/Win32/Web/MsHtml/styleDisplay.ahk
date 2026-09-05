@@ -7,157 +7,188 @@
 class styleDisplay extends Win32Enum {
 
     /**
+     * Native name: styleDisplayNotSet
      * @type {Integer (Int32)}
      */
-    static styleDisplayNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleDisplayBlock
      * @type {Integer (Int32)}
      */
-    static styleDisplayBlock => 1
+    static Block => 1
 
     /**
+     * Native name: styleDisplayInline
      * @type {Integer (Int32)}
      */
-    static styleDisplayInline => 2
+    static Inline => 2
 
     /**
+     * Native name: styleDisplayListItem
      * @type {Integer (Int32)}
      */
-    static styleDisplayListItem => 3
+    static ListItem => 3
 
     /**
+     * Native name: styleDisplayNone
      * @type {Integer (Int32)}
      */
-    static styleDisplayNone => 4
+    static None => 4
 
     /**
+     * Native name: styleDisplayTableHeaderGroup
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableHeaderGroup => 5
+    static TableHeaderGroup => 5
 
     /**
+     * Native name: styleDisplayTableFooterGroup
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableFooterGroup => 6
+    static TableFooterGroup => 6
 
     /**
+     * Native name: styleDisplayInlineBlock
      * @type {Integer (Int32)}
      */
-    static styleDisplayInlineBlock => 7
+    static InlineBlock => 7
 
     /**
+     * Native name: styleDisplayTable
      * @type {Integer (Int32)}
      */
-    static styleDisplayTable => 8
+    static Table => 8
 
     /**
+     * Native name: styleDisplayInlineTable
      * @type {Integer (Int32)}
      */
-    static styleDisplayInlineTable => 9
+    static InlineTable => 9
 
     /**
+     * Native name: styleDisplayTableRow
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableRow => 10
+    static TableRow => 10
 
     /**
+     * Native name: styleDisplayTableRowGroup
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableRowGroup => 11
+    static TableRowGroup => 11
 
     /**
+     * Native name: styleDisplayTableColumn
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableColumn => 12
+    static TableColumn => 12
 
     /**
+     * Native name: styleDisplayTableColumnGroup
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableColumnGroup => 13
+    static TableColumnGroup => 13
 
     /**
+     * Native name: styleDisplayTableCell
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableCell => 14
+    static TableCell => 14
 
     /**
+     * Native name: styleDisplayTableCaption
      * @type {Integer (Int32)}
      */
-    static styleDisplayTableCaption => 15
+    static TableCaption => 15
 
     /**
+     * Native name: styleDisplayRunIn
      * @type {Integer (Int32)}
      */
-    static styleDisplayRunIn => 16
+    static RunIn => 16
 
     /**
+     * Native name: styleDisplayRuby
      * @type {Integer (Int32)}
      */
-    static styleDisplayRuby => 17
+    static Ruby => 17
 
     /**
+     * Native name: styleDisplayRubyBase
      * @type {Integer (Int32)}
      */
-    static styleDisplayRubyBase => 18
+    static RubyBase => 18
 
     /**
+     * Native name: styleDisplayRubyText
      * @type {Integer (Int32)}
      */
-    static styleDisplayRubyText => 19
+    static RubyText => 19
 
     /**
+     * Native name: styleDisplayRubyBaseContainer
      * @type {Integer (Int32)}
      */
-    static styleDisplayRubyBaseContainer => 20
+    static RubyBaseContainer => 20
 
     /**
+     * Native name: styleDisplayRubyTextContainer
      * @type {Integer (Int32)}
      */
-    static styleDisplayRubyTextContainer => 21
+    static RubyTextContainer => 21
 
     /**
+     * Native name: styleDisplayMsFlexbox
      * @type {Integer (Int32)}
      */
-    static styleDisplayMsFlexbox => 22
+    static MsFlexbox => 22
 
     /**
+     * Native name: styleDisplayMsInlineFlexbox
      * @type {Integer (Int32)}
      */
-    static styleDisplayMsInlineFlexbox => 23
+    static MsInlineFlexbox => 23
 
     /**
+     * Native name: styleDisplayMsGrid
      * @type {Integer (Int32)}
      */
-    static styleDisplayMsGrid => 24
+    static MsGrid => 24
 
     /**
+     * Native name: styleDisplayMsInlineGrid
      * @type {Integer (Int32)}
      */
-    static styleDisplayMsInlineGrid => 25
+    static MsInlineGrid => 25
 
     /**
+     * Native name: styleDisplayFlex
      * @type {Integer (Int32)}
      */
-    static styleDisplayFlex => 26
+    static Flex => 26
 
     /**
+     * Native name: styleDisplayInlineFlex
      * @type {Integer (Int32)}
      */
-    static styleDisplayInlineFlex => 27
+    static InlineFlex => 27
 
     /**
+     * Native name: styleDisplayWebkitBox
      * @type {Integer (Int32)}
      */
-    static styleDisplayWebkitBox => 28
+    static WebkitBox => 28
 
     /**
+     * Native name: styleDisplayWebkitInlineBox
      * @type {Integer (Int32)}
      */
-    static styleDisplayWebkitInlineBox => 29
+    static WebkitInlineBox => 29
 
     /**
+     * Native name: styleDisplay_Max
      * @type {Integer (Int32)}
      */
-    static styleDisplay_Max => 2147483647
+    static Max => 2147483647
 }

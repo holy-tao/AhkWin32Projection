@@ -30,7 +30,6 @@ class ITransactionTransmitter extends IUnknown {
     static VTableNames => ["Set", "GetPropagationTokenSize", "MarshalPropagationToken", "UnmarshalReturnToken", "Reset"]
 
     /**
-     * 
      * @param {ITransaction} pTransaction 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ITransactionTransmitter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPropagationTokenSize() {
@@ -49,7 +47,6 @@ class ITransactionTransmitter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbToken 
      * @param {Pointer<Integer>} rgbToken 
      * @param {Pointer<Integer>} pcbUsed 
@@ -64,7 +61,6 @@ class ITransactionTransmitter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbReturnToken 
      * @param {Pointer<Integer>} rgbReturnToken 
      * @returns {HRESULT} 
@@ -77,7 +73,6 @@ class ITransactionTransmitter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

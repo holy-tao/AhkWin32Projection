@@ -10,13 +10,15 @@ class D3D12_HIT_GROUP_TYPE extends Win32Enum {
 
     /**
      * The hit group uses a list of triangles to calculate ray hits. Hit groups that use triangles can’t contain an intersection shader.
+     * Native name: D3D12_HIT_GROUP_TYPE_TRIANGLES
      * @type {Integer (Int32)}
      */
-    static D3D12_HIT_GROUP_TYPE_TRIANGLES => 0
+    static TRIANGLES => 0
 
     /**
      * The hit group uses a procedural primitive within a bounding box to calculate ray hits. Hit groups that use procedural primitives must contain an intersection shader.
+     * Native name: D3D12_HIT_GROUP_TYPE_PROCEDURAL_PRIMITIVE
      * @type {Integer (Int32)}
      */
-    static D3D12_HIT_GROUP_TYPE_PROCEDURAL_PRIMITIVE => 1
+    static PROCEDURAL_PRIMITIVE => 1
 }

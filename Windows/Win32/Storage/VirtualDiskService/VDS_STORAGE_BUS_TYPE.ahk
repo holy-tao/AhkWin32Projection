@@ -17,136 +17,158 @@ class VDS_STORAGE_BUS_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDSBusTypeUnknown
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * The storage bus type is SCSI.
+     * Native name: VDSBusTypeScsi
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeScsi => 1
+    static Scsi => 1
 
     /**
      * The storage bus type is ATAPI.
+     * Native name: VDSBusTypeAtapi
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeAtapi => 2
+    static Atapi => 2
 
     /**
      * The storage bus type is ATA.
+     * Native name: VDSBusTypeAta
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeAta => 3
+    static Ata => 3
 
     /**
      * The storage bus type is IEEE 1394.
+     * Native name: VDSBusType1394
      * @type {Integer (Int32)}
      */
-    static VDSBusType1394 => 4
+    static Type1394 => 4
 
     /**
      * The storage bus type is SSA.
+     * Native name: VDSBusTypeSsa
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeSsa => 5
+    static Ssa => 5
 
     /**
      * The storage bus type is Fibre Channel.
+     * Native name: VDSBusTypeFibre
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeFibre => 6
+    static Fibre => 6
 
     /**
      * The storage bus type is USB.
+     * Native name: VDSBusTypeUsb
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeUsb => 7
+    static Usb => 7
 
     /**
      * The storage bus type is RAID.
+     * Native name: VDSBusTypeRAID
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeRAID => 8
+    static TypeRAID => 8
 
     /**
      * The storage bus type is iSCSI.
+     * Native name: VDSBusTypeiScsi
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeiScsi => 9
+    static TypeiScsi => 9
 
     /**
      * The storage bus type is Serial Attached SCSI (SAS).
+     * Native name: VDSBusTypeSas
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeSas => 10
+    static Sas => 10
 
     /**
      * The storage bus type is SATA.
+     * Native name: VDSBusTypeSata
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeSata => 11
+    static Sata => 11
 
     /**
      * The storage bus type is Secure Digital (SD).
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDSBusTypeSd
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeSd => 12
+    static Sd => 12
 
     /**
      * The storage bus type is MultiMedia Card (MMC).
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDSBusTypeMmc
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeMmc => 13
+    static Mmc => 13
 
     /**
      * This value is reserved for system use.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDSBusTypeMax
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeMax => 14
+    static Max => 14
 
     /**
+     * Native name: VDSBusTypeVirtual
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeVirtual => 14
+    static Virtual => 14
 
     /**
      * The storage bus type is file-backed virtual.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDSBusTypeFileBackedVirtual
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeFileBackedVirtual => 15
+    static FileBackedVirtual => 15
 
     /**
+     * Native name: VDSBusTypeSpaces
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeSpaces => 16
+    static Spaces => 16
 
     /**
+     * Native name: VDSBusTypeNVMe
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeNVMe => 17
+    static TypeNVMe => 17
 
     /**
+     * Native name: VDSBusTypeScm
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeScm => 18
+    static Scm => 18
 
     /**
+     * Native name: VDSBusTypeUfs
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeUfs => 19
+    static Ufs => 19
 
     /**
      * The maximum value of the storage bus type range.
+     * Native name: VDSBusTypeMaxReserved
      * @type {Integer (Int32)}
      */
-    static VDSBusTypeMaxReserved => 127
+    static MaxReserved => 127
 }

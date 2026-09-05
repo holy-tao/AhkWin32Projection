@@ -46,7 +46,6 @@ class IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ class IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ch() {
@@ -68,7 +66,6 @@ class IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ class IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_chOff() {
@@ -90,7 +86,6 @@ class IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -100,7 +95,6 @@ class IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */

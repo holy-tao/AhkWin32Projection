@@ -11,22 +11,26 @@
 class WPD_CAPTURE_MODES extends Win32Enum {
 
     /**
+     * Native name: WPD_CAPTURE_MODE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_CAPTURE_MODE_UNDEFINED => 0
+    static MODE_UNDEFINED => 0
 
     /**
+     * Native name: WPD_CAPTURE_MODE_NORMAL
      * @type {Integer (Int32)}
      */
-    static WPD_CAPTURE_MODE_NORMAL => 1
+    static MODE_NORMAL => 1
 
     /**
+     * Native name: WPD_CAPTURE_MODE_BURST
      * @type {Integer (Int32)}
      */
-    static WPD_CAPTURE_MODE_BURST => 2
+    static MODE_BURST => 2
 
     /**
+     * Native name: WPD_CAPTURE_MODE_TIMELAPSE
      * @type {Integer (Int32)}
      */
-    static WPD_CAPTURE_MODE_TIMELAPSE => 3
+    static MODE_TIMELAPSE => 3
 }

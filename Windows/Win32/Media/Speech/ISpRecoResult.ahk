@@ -36,7 +36,6 @@ class ISpRecoResult extends ISpPhrase {
     static VTableNames => ["GetResultTimes", "GetAlternates", "GetAudio", "SpeakAudio", "Serialize", "ScaleAudio", "GetRecoContext"]
 
     /**
-     * 
      * @param {Pointer<SPRECORESULTTIMES>} pTimes 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @param {Integer} ulRequestCount 
@@ -61,7 +59,6 @@ class ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 
@@ -72,7 +69,6 @@ class ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @param {Integer} dwFlags 
@@ -87,7 +83,6 @@ class ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<SPSERIALIZEDRESULT>>} ppCoMemSerializedResult 
      * @returns {HRESULT} 
      */
@@ -99,7 +94,6 @@ class ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @returns {HRESULT} 
@@ -110,7 +104,6 @@ class ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @returns {ISpRecoContext} 
      */
     GetRecoContext() {

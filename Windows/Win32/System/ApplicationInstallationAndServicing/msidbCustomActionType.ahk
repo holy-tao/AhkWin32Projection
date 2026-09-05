@@ -7,117 +7,140 @@
 class msidbCustomActionType extends Win32Enum {
 
     /**
+     * Native name: msidbCustomActionTypeDll
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeDll => 1
+    static Dll => 1
 
     /**
+     * Native name: msidbCustomActionTypeExe
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeExe => 2
+    static Exe => 2
 
     /**
+     * Native name: msidbCustomActionTypeTextData
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeTextData => 3
+    static TextData => 3
 
     /**
+     * Native name: msidbCustomActionTypeJScript
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeJScript => 5
+    static TypeJScript => 5
 
     /**
+     * Native name: msidbCustomActionTypeVBScript
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeVBScript => 6
+    static TypeVBScript => 6
 
     /**
+     * Native name: msidbCustomActionTypeInstall
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeInstall => 7
+    static Install => 7
 
     /**
+     * Native name: msidbCustomActionTypeBinaryData
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeBinaryData => 0
+    static BinaryData => 0
 
     /**
+     * Native name: msidbCustomActionTypeSourceFile
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeSourceFile => 16
+    static SourceFile => 16
 
     /**
+     * Native name: msidbCustomActionTypeDirectory
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeDirectory => 32
+    static Directory => 32
 
     /**
+     * Native name: msidbCustomActionTypeProperty
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeProperty => 48
+    static Property => 48
 
     /**
+     * Native name: msidbCustomActionTypeContinue
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeContinue => 64
+    static Continue => 64
 
     /**
+     * Native name: msidbCustomActionTypeAsync
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeAsync => 128
+    static Async => 128
 
     /**
+     * Native name: msidbCustomActionTypeFirstSequence
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeFirstSequence => 256
+    static FirstSequence => 256
 
     /**
+     * Native name: msidbCustomActionTypeOncePerProcess
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeOncePerProcess => 512
+    static OncePerProcess => 512
 
     /**
+     * Native name: msidbCustomActionTypeClientRepeat
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeClientRepeat => 768
+    static ClientRepeat => 768
 
     /**
+     * Native name: msidbCustomActionTypeInScript
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeInScript => 1024
+    static InScript => 1024
 
     /**
+     * Native name: msidbCustomActionTypeRollback
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeRollback => 256
+    static Rollback => 256
 
     /**
+     * Native name: msidbCustomActionTypeCommit
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeCommit => 512
+    static Commit => 512
 
     /**
+     * Native name: msidbCustomActionTypeNoImpersonate
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeNoImpersonate => 2048
+    static NoImpersonate => 2048
 
     /**
+     * Native name: msidbCustomActionTypeTSAware
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeTSAware => 16384
+    static TypeTSAware => 16384
 
     /**
+     * Native name: msidbCustomActionType64BitScript
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionType64BitScript => 4096
+    static Type64BitScript => 4096
 
     /**
+     * Native name: msidbCustomActionTypeHideTarget
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypeHideTarget => 8192
+    static HideTarget => 8192
 
     /**
+     * Native name: msidbCustomActionTypePatchUninstall
      * @type {Integer (Int32)}
      */
-    static msidbCustomActionTypePatchUninstall => 32768
+    static PatchUninstall => 32768
 }

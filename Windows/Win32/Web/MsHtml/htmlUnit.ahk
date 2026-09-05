@@ -7,27 +7,32 @@
 class htmlUnit extends Win32Enum {
 
     /**
+     * Native name: htmlUnitCharacter
      * @type {Integer (Int32)}
      */
-    static htmlUnitCharacter => 1
+    static Character => 1
 
     /**
+     * Native name: htmlUnitWord
      * @type {Integer (Int32)}
      */
-    static htmlUnitWord => 2
+    static Word => 2
 
     /**
+     * Native name: htmlUnitSentence
      * @type {Integer (Int32)}
      */
-    static htmlUnitSentence => 3
+    static Sentence => 3
 
     /**
+     * Native name: htmlUnitTextEdit
      * @type {Integer (Int32)}
      */
-    static htmlUnitTextEdit => 6
+    static TextEdit => 6
 
     /**
+     * Native name: htmlUnit_Max
      * @type {Integer (Int32)}
      */
-    static htmlUnit_Max => 2147483647
+    static Max => 2147483647
 }

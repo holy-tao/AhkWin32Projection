@@ -7,22 +7,26 @@
 class HAL_APIC_DESTINATION_MODE extends Win32Enum {
 
     /**
+     * Native name: ApicDestinationModePhysical
      * @type {Integer (Int32)}
      */
-    static ApicDestinationModePhysical => 1
+    static Physical => 1
 
     /**
+     * Native name: ApicDestinationModeLogicalFlat
      * @type {Integer (Int32)}
      */
-    static ApicDestinationModeLogicalFlat => 2
+    static LogicalFlat => 2
 
     /**
+     * Native name: ApicDestinationModeLogicalClustered
      * @type {Integer (Int32)}
      */
-    static ApicDestinationModeLogicalClustered => 3
+    static LogicalClustered => 3
 
     /**
+     * Native name: ApicDestinationModeUnknown
      * @type {Integer (Int32)}
      */
-    static ApicDestinationModeUnknown => 4
+    static Unknown => 4
 }

@@ -7,22 +7,26 @@
 class NET_RESOURCE_SCOPE extends Win32Enum {
 
     /**
+     * Native name: RESOURCE_CONNECTED
      * @type {Integer (UInt32)}
      */
-    static RESOURCE_CONNECTED => 1
+    static CONNECTED => 1
 
     /**
+     * Native name: RESOURCE_CONTEXT
      * @type {Integer (UInt32)}
      */
-    static RESOURCE_CONTEXT => 5
+    static CONTEXT => 5
 
     /**
+     * Native name: RESOURCE_GLOBALNET
      * @type {Integer (UInt32)}
      */
-    static RESOURCE_GLOBALNET => 2
+    static GLOBALNET => 2
 
     /**
+     * Native name: RESOURCE_REMEMBERED
      * @type {Integer (UInt32)}
      */
-    static RESOURCE_REMEMBERED => 3
+    static REMEMBERED => 3
 }

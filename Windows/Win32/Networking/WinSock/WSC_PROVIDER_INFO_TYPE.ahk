@@ -13,13 +13,15 @@ class WSC_PROVIDER_INFO_TYPE extends Win32Enum {
 
     /**
      * The LSP category information for a protocol entry in a layered protocol. The information class should point to a DWORD value containing the appropriate LSP category flags implemented by LSP.
+     * Native name: ProviderInfoLspCategories
      * @type {Integer (Int32)}
      */
-    static ProviderInfoLspCategories => 0
+    static LspCategories => 0
 
     /**
      * The LSP class information for audit information for the LSP entry. The information class should point to a <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/ns-ws2spi-wsc_provider_audit_info">WSC_PROVIDER_AUDIT_INFO</a> structure containing an audit record for the LSP.
+     * Native name: ProviderInfoAudit
      * @type {Integer (Int32)}
      */
-    static ProviderInfoAudit => 1
+    static Audit => 1
 }

@@ -41,7 +41,6 @@ class IPrintOemUI extends IPrintOemCommon {
     static VTableNames => ["PublishDriverInterface", "CommonUIProp", "DocumentPropertySheets", "DevicePropertySheets", "DevQueryPrintEx", "DeviceCapabilitiesA", "UpgradePrinter", "PrinterEvent", "DriverEvent", "QueryColorProfile", "FontInstallerDlgProc", "UpdateExternalFonts"]
 
     /**
-     * 
      * @param {IUnknown} pIUnknown 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Pointer<OEMCUIPPARAM>} pOemCUIPParam 
      * @returns {HRESULT} 
@@ -62,7 +60,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
      * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
@@ -73,7 +70,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
      * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
@@ -84,7 +80,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Pointer<DEVQUERYPRINT_INFO>} pDQPInfo 
      * @param {Pointer<DEVMODEA>} pPublicDM 
@@ -149,7 +144,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Integer} dwLevel 
      * @param {Pointer<Integer>} pDriverUpgradeInfo 
      * @returns {HRESULT} 
@@ -162,7 +156,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {PWSTR} pPrinterName 
      * @param {Integer} iDriverEvent 
      * @param {Integer} dwFlags 
@@ -177,7 +170,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Integer} dwDriverEvent 
      * @param {Integer} dwLevel 
      * @param {Pointer<Integer>} pDriverInfo 
@@ -192,7 +184,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Pointer<DEVMODEA>} pPublicDM 
@@ -216,7 +207,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} usMsg 
      * @param {WPARAM} _wParam 
@@ -231,7 +221,6 @@ class IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {HANDLE} hHeap 
      * @param {PWSTR} pwstrCartridges 

@@ -7,17 +7,20 @@
 class STORAGE_RPMB_FRAME_TYPE extends Win32Enum {
 
     /**
+     * Native name: StorageRpmbFrameTypeUnknown
      * @type {Integer (Int32)}
      */
-    static StorageRpmbFrameTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageRpmbFrameTypeStandard
      * @type {Integer (Int32)}
      */
-    static StorageRpmbFrameTypeStandard => 1
+    static Standard => 1
 
     /**
+     * Native name: StorageRpmbFrameTypeMax
      * @type {Integer (Int32)}
      */
-    static StorageRpmbFrameTypeMax => 2
+    static Max => 2
 }

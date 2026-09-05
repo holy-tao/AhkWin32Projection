@@ -7,32 +7,38 @@
 class DI_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DI_MASK
      * @type {Integer (UInt32)}
      */
-    static DI_MASK => 1
+    static MASK => 1
 
     /**
+     * Native name: DI_IMAGE
      * @type {Integer (UInt32)}
      */
-    static DI_IMAGE => 2
+    static IMAGE => 2
 
     /**
+     * Native name: DI_NORMAL
      * @type {Integer (UInt32)}
      */
-    static DI_NORMAL => 3
+    static NORMAL => 3
 
     /**
+     * Native name: DI_COMPAT
      * @type {Integer (UInt32)}
      */
-    static DI_COMPAT => 4
+    static COMPAT => 4
 
     /**
+     * Native name: DI_DEFAULTSIZE
      * @type {Integer (UInt32)}
      */
-    static DI_DEFAULTSIZE => 8
+    static DEFAULTSIZE => 8
 
     /**
+     * Native name: DI_NOMIRROR
      * @type {Integer (UInt32)}
      */
-    static DI_NOMIRROR => 16
+    static NOMIRROR => 16
 }

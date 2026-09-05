@@ -63,7 +63,6 @@ class IInkDivisionUnits extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

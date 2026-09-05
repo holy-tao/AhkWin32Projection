@@ -10,43 +10,50 @@ class APPX_PACKAGE_ARCHITECTURE2 extends Win32Enum {
 
     /**
      * The x86, 32-bit processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE2_X86
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE2_X86 => 0
+    static X86 => 0
 
     /**
      * The ARM processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE2_ARM
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE2_ARM => 5
+    static ARM => 5
 
     /**
      * The x64, 64-bit processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE2_X64
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE2_X64 => 9
+    static X64 => 9
 
     /**
      * Any  processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE2_NEUTRAL
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE2_NEUTRAL => 11
+    static NEUTRAL => 11
 
     /**
      * The 64-bit ARM processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE2_ARM64
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE2_ARM64 => 12
+    static ARM64 => 12
 
     /**
      * A 32-bit app package that runs on a 64-bit ARM processor.
+     * Native name: APPX_PACKAGE_ARCHITECTURE2_X86_ON_ARM64
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE2_X86_ON_ARM64 => 14
+    static X86_ON_ARM64 => 14
 
     /**
      * Unknown app package architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE2_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE2_UNKNOWN => 65535
+    static UNKNOWN => 65535
 }

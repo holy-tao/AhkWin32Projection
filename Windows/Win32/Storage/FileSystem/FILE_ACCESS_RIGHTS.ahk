@@ -7,74 +7,88 @@
 class FILE_ACCESS_RIGHTS extends Win32BitflagEnum {
 
     /**
+     * Native name: FILE_READ_DATA
      * @type {Integer (UInt32)}
      */
-    static FILE_READ_DATA => 1
+    static READ_DATA => 1
 
     /**
+     * Native name: FILE_LIST_DIRECTORY
      * @type {Integer (UInt32)}
      */
-    static FILE_LIST_DIRECTORY => 1
+    static LIST_DIRECTORY => 1
 
     /**
+     * Native name: FILE_WRITE_DATA
      * @type {Integer (UInt32)}
      */
-    static FILE_WRITE_DATA => 2
+    static WRITE_DATA => 2
 
     /**
+     * Native name: FILE_ADD_FILE
      * @type {Integer (UInt32)}
      */
-    static FILE_ADD_FILE => 2
+    static ADD_FILE => 2
 
     /**
+     * Native name: FILE_APPEND_DATA
      * @type {Integer (UInt32)}
      */
-    static FILE_APPEND_DATA => 4
+    static APPEND_DATA => 4
 
     /**
+     * Native name: FILE_ADD_SUBDIRECTORY
      * @type {Integer (UInt32)}
      */
-    static FILE_ADD_SUBDIRECTORY => 4
+    static ADD_SUBDIRECTORY => 4
 
     /**
+     * Native name: FILE_CREATE_PIPE_INSTANCE
      * @type {Integer (UInt32)}
      */
-    static FILE_CREATE_PIPE_INSTANCE => 4
+    static CREATE_PIPE_INSTANCE => 4
 
     /**
+     * Native name: FILE_READ_EA
      * @type {Integer (UInt32)}
      */
-    static FILE_READ_EA => 8
+    static READ_EA => 8
 
     /**
+     * Native name: FILE_WRITE_EA
      * @type {Integer (UInt32)}
      */
-    static FILE_WRITE_EA => 16
+    static WRITE_EA => 16
 
     /**
+     * Native name: FILE_EXECUTE
      * @type {Integer (UInt32)}
      */
-    static FILE_EXECUTE => 32
+    static EXECUTE => 32
 
     /**
+     * Native name: FILE_TRAVERSE
      * @type {Integer (UInt32)}
      */
-    static FILE_TRAVERSE => 32
+    static TRAVERSE => 32
 
     /**
+     * Native name: FILE_DELETE_CHILD
      * @type {Integer (UInt32)}
      */
-    static FILE_DELETE_CHILD => 64
+    static DELETE_CHILD => 64
 
     /**
+     * Native name: FILE_READ_ATTRIBUTES
      * @type {Integer (UInt32)}
      */
-    static FILE_READ_ATTRIBUTES => 128
+    static READ_ATTRIBUTES => 128
 
     /**
+     * Native name: FILE_WRITE_ATTRIBUTES
      * @type {Integer (UInt32)}
      */
-    static FILE_WRITE_ATTRIBUTES => 256
+    static WRITE_ATTRIBUTES => 256
 
     /**
      * @type {Integer (UInt32)}
@@ -132,22 +146,26 @@ class FILE_ACCESS_RIGHTS extends Win32BitflagEnum {
     static SPECIFIC_RIGHTS_ALL => 65535
 
     /**
+     * Native name: FILE_ALL_ACCESS
      * @type {Integer (UInt32)}
      */
-    static FILE_ALL_ACCESS => 2032127
+    static ALL_ACCESS => 2032127
 
     /**
+     * Native name: FILE_GENERIC_READ
      * @type {Integer (UInt32)}
      */
-    static FILE_GENERIC_READ => 1179785
+    static GENERIC_READ => 1179785
 
     /**
+     * Native name: FILE_GENERIC_WRITE
      * @type {Integer (UInt32)}
      */
-    static FILE_GENERIC_WRITE => 1179926
+    static GENERIC_WRITE => 1179926
 
     /**
+     * Native name: FILE_GENERIC_EXECUTE
      * @type {Integer (UInt32)}
      */
-    static FILE_GENERIC_EXECUTE => 1179808
+    static GENERIC_EXECUTE => 1179808
 }

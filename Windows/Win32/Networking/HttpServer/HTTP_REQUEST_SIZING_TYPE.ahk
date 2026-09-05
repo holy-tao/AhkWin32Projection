@@ -7,32 +7,38 @@
 class HTTP_REQUEST_SIZING_TYPE extends Win32Enum {
 
     /**
+     * Native name: HttpRequestSizingTypeTlsHandshakeLeg1ClientData
      * @type {Integer (Int32)}
      */
-    static HttpRequestSizingTypeTlsHandshakeLeg1ClientData => 0
+    static TlsHandshakeLeg1ClientData => 0
 
     /**
+     * Native name: HttpRequestSizingTypeTlsHandshakeLeg1ServerData
      * @type {Integer (Int32)}
      */
-    static HttpRequestSizingTypeTlsHandshakeLeg1ServerData => 1
+    static TlsHandshakeLeg1ServerData => 1
 
     /**
+     * Native name: HttpRequestSizingTypeTlsHandshakeLeg2ClientData
      * @type {Integer (Int32)}
      */
-    static HttpRequestSizingTypeTlsHandshakeLeg2ClientData => 2
+    static TlsHandshakeLeg2ClientData => 2
 
     /**
+     * Native name: HttpRequestSizingTypeTlsHandshakeLeg2ServerData
      * @type {Integer (Int32)}
      */
-    static HttpRequestSizingTypeTlsHandshakeLeg2ServerData => 3
+    static TlsHandshakeLeg2ServerData => 3
 
     /**
+     * Native name: HttpRequestSizingTypeHeaders
      * @type {Integer (Int32)}
      */
-    static HttpRequestSizingTypeHeaders => 4
+    static Headers => 4
 
     /**
+     * Native name: HttpRequestSizingTypeMax
      * @type {Integer (Int32)}
      */
-    static HttpRequestSizingTypeMax => 5
+    static Max => 5
 }

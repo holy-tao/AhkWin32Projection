@@ -39,7 +39,6 @@ class IMSVidGraphSegmentUserInput extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DblClick() {

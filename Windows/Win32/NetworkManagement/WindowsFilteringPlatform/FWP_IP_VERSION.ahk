@@ -10,25 +10,29 @@ class FWP_IP_VERSION extends Win32Enum {
 
     /**
      * Specifies IPv4.
+     * Native name: FWP_IP_VERSION_V4
      * @type {Integer (Int32)}
      */
-    static FWP_IP_VERSION_V4 => 0
+    static V4 => 0
 
     /**
      * Specifies IPv6.
+     * Native name: FWP_IP_VERSION_V6
      * @type {Integer (Int32)}
      */
-    static FWP_IP_VERSION_V6 => 1
+    static V6 => 1
 
     /**
      * Reserved.
+     * Native name: FWP_IP_VERSION_NONE
      * @type {Integer (Int32)}
      */
-    static FWP_IP_VERSION_NONE => 2
+    static NONE => 2
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWP_IP_VERSION_MAX
      * @type {Integer (Int32)}
      */
-    static FWP_IP_VERSION_MAX => 3
+    static MAX => 3
 }

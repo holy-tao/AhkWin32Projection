@@ -7,27 +7,32 @@
 class htmlEndPoints extends Win32Enum {
 
     /**
+     * Native name: htmlEndPointsStartToStart
      * @type {Integer (Int32)}
      */
-    static htmlEndPointsStartToStart => 1
+    static StartToStart => 1
 
     /**
+     * Native name: htmlEndPointsStartToEnd
      * @type {Integer (Int32)}
      */
-    static htmlEndPointsStartToEnd => 2
+    static StartToEnd => 2
 
     /**
+     * Native name: htmlEndPointsEndToStart
      * @type {Integer (Int32)}
      */
-    static htmlEndPointsEndToStart => 3
+    static EndToStart => 3
 
     /**
+     * Native name: htmlEndPointsEndToEnd
      * @type {Integer (Int32)}
      */
-    static htmlEndPointsEndToEnd => 4
+    static EndToEnd => 4
 
     /**
+     * Native name: htmlEndPoints_Max
      * @type {Integer (Int32)}
      */
-    static htmlEndPoints_Max => 2147483647
+    static Max => 2147483647
 }

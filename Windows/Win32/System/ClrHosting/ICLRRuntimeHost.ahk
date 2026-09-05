@@ -39,7 +39,6 @@ class ICLRRuntimeHost extends IUnknown {
     static VTableNames => ["Start", "Stop", "SetHostControl", "GetCLRControl", "UnloadAppDomain", "ExecuteInAppDomain", "GetCurrentAppDomainId", "ExecuteApplication", "ExecuteInDefaultAppDomain"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -48,7 +47,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -57,7 +55,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHostControl} pHostControl 
      * @returns {HRESULT} 
      */
@@ -67,7 +64,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICLRControl} 
      */
     GetCLRControl() {
@@ -76,7 +72,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {BOOL} fWaitUntilDone 
      * @returns {HRESULT} 
@@ -87,7 +82,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<FExecuteInAppDomainCallback>} pCallback 
      * @param {Pointer<Void>} cookie 
@@ -101,7 +95,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentAppDomainId() {
@@ -110,7 +103,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAppFullName 
      * @param {Integer} dwManifestPaths 
      * @param {Pointer<PWSTR>} ppwzManifestPaths 
@@ -129,7 +121,6 @@ class ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAssemblyPath 
      * @param {PWSTR} pwzTypeName 
      * @param {PWSTR} pwzMethodName 

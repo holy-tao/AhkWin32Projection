@@ -31,7 +31,6 @@ class IMLangStringWStr extends IMLangString {
     static VTableNames => ["SetWStr", "SetStrBufW", "GetWStr", "GetStrBufW", "LockWStr", "UnlockWStr", "SetLocale", "GetLocale"]
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {PWSTR} pszSrc 
@@ -51,7 +50,6 @@ class IMLangStringWStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {IMLangStringBufW} pSrcBuf 
@@ -68,7 +66,6 @@ class IMLangStringWStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {PWSTR} pszDest 
@@ -88,7 +85,6 @@ class IMLangStringWStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcMaxLen 
      * @param {Pointer<IMLangStringBufW>} ppDestBuf 
@@ -103,7 +99,6 @@ class IMLangStringWStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {Integer} lFlags 
@@ -123,7 +118,6 @@ class IMLangStringWStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSrc 
      * @param {Integer} cchSrc 
      * @param {Pointer<Integer>} pcchActual 
@@ -141,7 +135,6 @@ class IMLangStringWStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} locale 
@@ -153,7 +146,6 @@ class IMLangStringWStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcMaxLen 
      * @param {Pointer<Integer>} plocale 

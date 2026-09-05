@@ -31,7 +31,6 @@ class IDxcExtraOutputs extends IUnknown {
     static VTableNames => ["GetOutputCount", "GetOutput"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -40,7 +39,6 @@ class IDxcExtraOutputs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvObject 

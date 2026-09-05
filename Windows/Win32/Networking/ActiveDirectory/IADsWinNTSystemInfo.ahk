@@ -60,7 +60,6 @@ class IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserName() {
@@ -70,7 +69,6 @@ class IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerName() {
@@ -80,7 +78,6 @@ class IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainName() {
@@ -90,7 +87,6 @@ class IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PDC() {

@@ -7,17 +7,20 @@
 class styleTextSizeAdjust extends Win32Enum {
 
     /**
+     * Native name: styleTextSizeAdjustNone
      * @type {Integer (Int32)}
      */
-    static styleTextSizeAdjustNone => 0
+    static None => 0
 
     /**
+     * Native name: styleTextSizeAdjustAuto
      * @type {Integer (Int32)}
      */
-    static styleTextSizeAdjustAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleTextSizeAdjust_Max
      * @type {Integer (Int32)}
      */
-    static styleTextSizeAdjust_Max => 2147483647
+    static Max => 2147483647
 }

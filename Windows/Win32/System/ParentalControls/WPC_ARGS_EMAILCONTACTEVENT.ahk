@@ -10,55 +10,64 @@ class WPC_ARGS_EMAILCONTACTEVENT extends Win32Enum {
 
     /**
      * The name of the application used for the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_APPNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_APPNAME => 0
+    static APPNAME => 0
 
     /**
      * The version of the application used for the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_APPVERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_APPVERSION => 1
+    static APPVERSION => 1
 
     /**
      * The previous name of the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_OLDNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_OLDNAME => 2
+    static OLDNAME => 2
 
     /**
      * The previous ID of the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_OLDID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_OLDID => 3
+    static OLDID => 3
 
     /**
      * The new name of the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_NEWNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_NEWNAME => 4
+    static NEWNAME => 4
 
     /**
      * The new ID of the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_NEWID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_NEWID => 5
+    static NEWID => 5
 
     /**
      * The reason given for the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_REASON => 6
+    static REASON => 6
 
     /**
      * The email account used for the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_EMAILACCOUNT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_EMAILACCOUNT => 7
+    static EMAILACCOUNT => 7
 
     /**
      * The arguments for the email contact.
+     * Native name: WPC_ARGS_EMAILCONTACTEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_EMAILCONTACTEVENT_CARGS => 8
+    static CARGS => 8
 }

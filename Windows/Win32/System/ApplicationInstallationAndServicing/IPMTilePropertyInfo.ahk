@@ -48,7 +48,6 @@ class IPMTilePropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PropertyID() {
@@ -57,7 +56,6 @@ class IPMTilePropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pPropValue 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IPMTilePropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} PropValue 
      * @returns {HRESULT} 
      */

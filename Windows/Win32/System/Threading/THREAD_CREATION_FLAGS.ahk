@@ -7,14 +7,16 @@
 class THREAD_CREATION_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: THREAD_CREATE_RUN_IMMEDIATELY
      * @type {Integer (UInt32)}
      */
-    static THREAD_CREATE_RUN_IMMEDIATELY => 0
+    static CREATE_RUN_IMMEDIATELY => 0
 
     /**
+     * Native name: THREAD_CREATE_SUSPENDED
      * @type {Integer (UInt32)}
      */
-    static THREAD_CREATE_SUSPENDED => 4
+    static CREATE_SUSPENDED => 4
 
     /**
      * @type {Integer (UInt32)}

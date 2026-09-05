@@ -7,12 +7,14 @@
 class NtmsMediaPoolPolicy extends Win32Enum {
 
     /**
+     * Native name: NTMS_POOLPOLICY_PURGEOFFLINESCRATCH
      * @type {Integer (Int32)}
      */
-    static NTMS_POOLPOLICY_PURGEOFFLINESCRATCH => 1
+    static POOLPOLICY_PURGEOFFLINESCRATCH => 1
 
     /**
+     * Native name: NTMS_POOLPOLICY_KEEPOFFLINEIMPORT
      * @type {Integer (Int32)}
      */
-    static NTMS_POOLPOLICY_KEEPOFFLINEIMPORT => 2
+    static POOLPOLICY_KEEPOFFLINEIMPORT => 2
 }

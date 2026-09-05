@@ -30,7 +30,6 @@ class IWinInetCacheHints extends IUnknown {
     static VTableNames => ["SetCacheExtension"]
 
     /**
-     * 
      * @param {PWSTR} pwzExt 
      * @param {Pointer<Void>} pszCacheFile 
      * @param {Pointer<Integer>} pcbCacheFile 

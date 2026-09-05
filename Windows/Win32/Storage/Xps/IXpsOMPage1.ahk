@@ -51,7 +51,6 @@ class IXpsOMPage1 extends IXpsOMPage {
     }
 
     /**
-     * 
      * @param {ISequentialStream} stream 
      * @param {BOOL} optimizeMarkupSize 
      * @param {XPS_DOCUMENT_TYPE} documentType 

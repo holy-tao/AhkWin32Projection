@@ -10,93 +10,110 @@ class D3D12_SHADER_VERSION_TYPE extends Win32Enum {
 
     /**
      * Pixel shader.
+     * Native name: D3D12_SHVER_PIXEL_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_PIXEL_SHADER => 0
+    static SHVER_PIXEL_SHADER => 0
 
     /**
      * Vertex shader.
+     * Native name: D3D12_SHVER_VERTEX_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_VERTEX_SHADER => 1
+    static SHVER_VERTEX_SHADER => 1
 
     /**
      * Geometry shader.
+     * Native name: D3D12_SHVER_GEOMETRY_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_GEOMETRY_SHADER => 2
+    static SHVER_GEOMETRY_SHADER => 2
 
     /**
      * Hull shader.
+     * Native name: D3D12_SHVER_HULL_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_HULL_SHADER => 3
+    static SHVER_HULL_SHADER => 3
 
     /**
      * Domain shader.
+     * Native name: D3D12_SHVER_DOMAIN_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_DOMAIN_SHADER => 4
+    static SHVER_DOMAIN_SHADER => 4
 
     /**
      * Compute shader.
+     * Native name: D3D12_SHVER_COMPUTE_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_COMPUTE_SHADER => 5
+    static SHVER_COMPUTE_SHADER => 5
 
     /**
+     * Native name: D3D12_SHVER_LIBRARY
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_LIBRARY => 6
+    static SHVER_LIBRARY => 6
 
     /**
+     * Native name: D3D12_SHVER_RAY_GENERATION_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_RAY_GENERATION_SHADER => 7
+    static SHVER_RAY_GENERATION_SHADER => 7
 
     /**
+     * Native name: D3D12_SHVER_INTERSECTION_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_INTERSECTION_SHADER => 8
+    static SHVER_INTERSECTION_SHADER => 8
 
     /**
+     * Native name: D3D12_SHVER_ANY_HIT_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_ANY_HIT_SHADER => 9
+    static SHVER_ANY_HIT_SHADER => 9
 
     /**
+     * Native name: D3D12_SHVER_CLOSEST_HIT_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_CLOSEST_HIT_SHADER => 10
+    static SHVER_CLOSEST_HIT_SHADER => 10
 
     /**
+     * Native name: D3D12_SHVER_MISS_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_MISS_SHADER => 11
+    static SHVER_MISS_SHADER => 11
 
     /**
+     * Native name: D3D12_SHVER_CALLABLE_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_CALLABLE_SHADER => 12
+    static SHVER_CALLABLE_SHADER => 12
 
     /**
+     * Native name: D3D12_SHVER_MESH_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_MESH_SHADER => 13
+    static SHVER_MESH_SHADER => 13
 
     /**
+     * Native name: D3D12_SHVER_AMPLIFICATION_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_AMPLIFICATION_SHADER => 14
+    static SHVER_AMPLIFICATION_SHADER => 14
 
     /**
+     * Native name: D3D12_SHVER_NODE_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_NODE_SHADER => 15
+    static SHVER_NODE_SHADER => 15
 
     /**
      * Indicates the end of the enumeration.
+     * Native name: D3D12_SHVER_RESERVED0
      * @type {Integer (Int32)}
      */
-    static D3D12_SHVER_RESERVED0 => 65520
+    static SHVER_RESERVED0 => 65520
 }

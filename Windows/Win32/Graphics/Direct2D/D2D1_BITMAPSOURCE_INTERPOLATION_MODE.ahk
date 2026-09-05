@@ -10,32 +10,37 @@ class D2D1_BITMAPSOURCE_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * Samples the nearest single point and uses that. Doesn't generate a mipmap.
+     * Native name: D2D1_BITMAPSOURCE_INTERPOLATION_MODE_NEAREST_NEIGHBOR
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_INTERPOLATION_MODE_NEAREST_NEIGHBOR => 0
+    static NEAREST_NEIGHBOR => 0
 
     /**
      * Uses a four point sample and linear interpolation. Doesn't generate a mipmap.
+     * Native name: D2D1_BITMAPSOURCE_INTERPOLATION_MODE_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_INTERPOLATION_MODE_LINEAR => 1
+    static LINEAR => 1
 
     /**
      * Uses a 16 sample cubic kernel for interpolation. Doesn't generate a mipmap.
+     * Native name: D2D1_BITMAPSOURCE_INTERPOLATION_MODE_CUBIC
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_INTERPOLATION_MODE_CUBIC => 2
+    static CUBIC => 2
 
     /**
      * Uses the WIC fant interpolation, the same as the IWICBitmapScaler interface. Doesn't generate a mipmap.
+     * Native name: D2D1_BITMAPSOURCE_INTERPOLATION_MODE_FANT
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_INTERPOLATION_MODE_FANT => 6
+    static FANT => 6
 
     /**
      * Generates mipmap chain in system memory using bilinear interpolation. For each mipmap the effect scales to the nearest multiple of 0.5 using bilinear interpolation 
      *           and then scales the remaining amount using linear interpolation.
+     * Native name: D2D1_BITMAPSOURCE_INTERPOLATION_MODE_MIPMAP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_INTERPOLATION_MODE_MIPMAP_LINEAR => 7
+    static MIPMAP_LINEAR => 7
 }

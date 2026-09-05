@@ -52,7 +52,6 @@ class IXMLDOMEntity extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_publicId() {
@@ -62,7 +61,6 @@ class IXMLDOMEntity extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_systemId() {
@@ -72,7 +70,6 @@ class IXMLDOMEntity extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_notationName() {

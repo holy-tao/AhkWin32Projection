@@ -7,22 +7,26 @@
 class PO_FX_PERF_STATE_UNIT extends Win32Enum {
 
     /**
+     * Native name: PoFxPerfStateUnitOther
      * @type {Integer (Int32)}
      */
-    static PoFxPerfStateUnitOther => 0
+    static Other => 0
 
     /**
+     * Native name: PoFxPerfStateUnitFrequency
      * @type {Integer (Int32)}
      */
-    static PoFxPerfStateUnitFrequency => 1
+    static Frequency => 1
 
     /**
+     * Native name: PoFxPerfStateUnitBandwidth
      * @type {Integer (Int32)}
      */
-    static PoFxPerfStateUnitBandwidth => 2
+    static Bandwidth => 2
 
     /**
+     * Native name: PoFxPerfStateUnitMaximum
      * @type {Integer (Int32)}
      */
-    static PoFxPerfStateUnitMaximum => 3
+    static Maximum => 3
 }

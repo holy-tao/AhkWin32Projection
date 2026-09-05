@@ -15,27 +15,31 @@ class FILESHARE_CHANGE_ENUM extends Win32Enum {
 
     /**
      * This is a place holder value and is not a valid event.
+     * Native name: FILESHARE_CHANGE_NONE
      * @type {Integer (Int32)}
      */
-    static FILESHARE_CHANGE_NONE => 0
+    static NONE => 0
 
     /**
      * A new file share resource has been created and will be included with the other file shares managed by the 
      *        File Server resource.
+     * Native name: FILESHARE_CHANGE_ADD
      * @type {Integer (Int32)}
      */
-    static FILESHARE_CHANGE_ADD => 1
+    static ADD => 1
 
     /**
      * A file share resource has been deleted and will be removed from the file shares managed by the File Server 
      *        resource.
+     * Native name: FILESHARE_CHANGE_DEL
      * @type {Integer (Int32)}
      */
-    static FILESHARE_CHANGE_DEL => 2
+    static DEL => 2
 
     /**
      * One or more properties of an existing file share resource have been changed.
+     * Native name: FILESHARE_CHANGE_MODIFY
      * @type {Integer (Int32)}
      */
-    static FILESHARE_CHANGE_MODIFY => 3
+    static MODIFY => 3
 }

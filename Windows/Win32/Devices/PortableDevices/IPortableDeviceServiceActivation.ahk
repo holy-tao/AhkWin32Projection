@@ -32,7 +32,6 @@ class IPortableDeviceServiceActivation extends IUnknown {
     static VTableNames => ["OpenAsync", "CancelOpenAsync"]
 
     /**
-     * 
      * @param {PWSTR} pszPnPServiceID 
      * @param {IPortableDeviceValues} pClientInfo 
      * @param {IPortableDeviceServiceOpenCallback} pCallback 
@@ -46,7 +45,6 @@ class IPortableDeviceServiceActivation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelOpenAsync() {

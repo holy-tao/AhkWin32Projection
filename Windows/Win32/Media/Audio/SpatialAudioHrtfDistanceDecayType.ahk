@@ -10,13 +10,15 @@ class SpatialAudioHrtfDistanceDecayType extends Win32Enum {
 
     /**
      * A natural decay  over distance, as constrained by minimum and maximum gain distance limits. The output drops to silent at the distance specified by <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdistancedecay">SpatialAudioHrtfDistanceDecay.CutoffDistance</a>.
+     * Native name: SpatialAudioHrtfDistanceDecay_NaturalDecay
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfDistanceDecay_NaturalDecay => 0
+    static NaturalDecay => 0
 
     /**
      * A custom gain curve, within the maximum and minimum gain limit.
+     * Native name: SpatialAudioHrtfDistanceDecay_CustomDecay
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfDistanceDecay_CustomDecay => 1
+    static CustomDecay => 1
 }

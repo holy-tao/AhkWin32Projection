@@ -12,25 +12,29 @@ class DEVICE_ORIENTATION_TYPE extends Win32Enum {
 
     /**
      * The device is not rotated
+     * Native name: DEVICE_NOT_ROTATED
      * @type {Integer (Int32)}
      */
-    static DEVICE_NOT_ROTATED => 0
+    static NOT_ROTATED => 0
 
     /**
      * The device is rotated 90 degrees clockwise.
+     * Native name: DEVICE_ROTATED_90_DEGREES_CLOCKWISE
      * @type {Integer (Int32)}
      */
-    static DEVICE_ROTATED_90_DEGREES_CLOCKWISE => 1
+    static ROTATED_90_DEGREES_CLOCKWISE => 1
 
     /**
      * The device is rotated 180 degrees clockwise.
+     * Native name: DEVICE_ROTATED_180_DEGREES_CLOCKWISE
      * @type {Integer (Int32)}
      */
-    static DEVICE_ROTATED_180_DEGREES_CLOCKWISE => 2
+    static ROTATED_180_DEGREES_CLOCKWISE => 2
 
     /**
      * The device is rotated 180 degrees clockwise.
+     * Native name: DEVICE_ROTATED_270_DEGREES_CLOCKWISE
      * @type {Integer (Int32)}
      */
-    static DEVICE_ROTATED_270_DEGREES_CLOCKWISE => 3
+    static ROTATED_270_DEGREES_CLOCKWISE => 3
 }

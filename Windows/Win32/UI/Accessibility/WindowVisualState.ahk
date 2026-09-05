@@ -10,19 +10,22 @@ class WindowVisualState extends Win32Enum {
 
     /**
      * The window is normal (restored).
+     * Native name: WindowVisualState_Normal
      * @type {Integer (Int32)}
      */
-    static WindowVisualState_Normal => 0
+    static Normal => 0
 
     /**
      * The window is maximized.
+     * Native name: WindowVisualState_Maximized
      * @type {Integer (Int32)}
      */
-    static WindowVisualState_Maximized => 1
+    static Maximized => 1
 
     /**
      * The window is minimized.
+     * Native name: WindowVisualState_Minimized
      * @type {Integer (Int32)}
      */
-    static WindowVisualState_Minimized => 2
+    static Minimized => 2
 }

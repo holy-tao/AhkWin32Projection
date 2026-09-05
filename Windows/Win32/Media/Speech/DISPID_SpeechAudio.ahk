@@ -7,37 +7,44 @@
 class DISPID_SpeechAudio extends Win32Enum {
 
     /**
+     * Native name: DISPID_SAStatus
      * @type {Integer (Int32)}
      */
-    static DISPID_SAStatus => 200
+    static SAStatus => 200
 
     /**
+     * Native name: DISPID_SABufferInfo
      * @type {Integer (Int32)}
      */
-    static DISPID_SABufferInfo => 201
+    static SABufferInfo => 201
 
     /**
+     * Native name: DISPID_SADefaultFormat
      * @type {Integer (Int32)}
      */
-    static DISPID_SADefaultFormat => 202
+    static SADefaultFormat => 202
 
     /**
+     * Native name: DISPID_SAVolume
      * @type {Integer (Int32)}
      */
-    static DISPID_SAVolume => 203
+    static SAVolume => 203
 
     /**
+     * Native name: DISPID_SABufferNotifySize
      * @type {Integer (Int32)}
      */
-    static DISPID_SABufferNotifySize => 204
+    static SABufferNotifySize => 204
 
     /**
+     * Native name: DISPID_SAEventHandle
      * @type {Integer (Int32)}
      */
-    static DISPID_SAEventHandle => 205
+    static SAEventHandle => 205
 
     /**
+     * Native name: DISPID_SASetState
      * @type {Integer (Int32)}
      */
-    static DISPID_SASetState => 206
+    static SASetState => 206
 }

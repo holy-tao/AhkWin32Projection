@@ -7,22 +7,26 @@
 class CLUSTERSET_OBJECT_TYPE extends Win32Enum {
 
     /**
+     * Native name: CLUSTERSET_OBJECT_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static CLUSTERSET_OBJECT_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: CLUSTERSET_OBJECT_TYPE_MEMBER
      * @type {Integer (Int32)}
      */
-    static CLUSTERSET_OBJECT_TYPE_MEMBER => 1
+    static MEMBER => 1
 
     /**
+     * Native name: CLUSTERSET_OBJECT_TYPE_WORKLOAD
      * @type {Integer (Int32)}
      */
-    static CLUSTERSET_OBJECT_TYPE_WORKLOAD => 2
+    static WORKLOAD => 2
 
     /**
+     * Native name: CLUSTERSET_OBJECT_TYPE_DATABASE
      * @type {Integer (Int32)}
      */
-    static CLUSTERSET_OBJECT_TYPE_DATABASE => 3
+    static DATABASE => 3
 }

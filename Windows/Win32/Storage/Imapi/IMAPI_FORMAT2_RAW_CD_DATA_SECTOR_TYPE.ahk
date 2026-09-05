@@ -12,19 +12,22 @@ class IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE extends Win32Enum {
 
     /**
      * The data contains P and Q sub-channel data.
+     * Native name: IMAPI_FORMAT2_RAW_CD_SUBCODE_PQ_ONLY
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_RAW_CD_SUBCODE_PQ_ONLY => 1
+    static SUBCODE_PQ_ONLY => 1
 
     /**
      * The data contains corrected and de-interleaved R-W sub-channel data.
+     * Native name: IMAPI_FORMAT2_RAW_CD_SUBCODE_IS_COOKED
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_RAW_CD_SUBCODE_IS_COOKED => 2
+    static SUBCODE_IS_COOKED => 2
 
     /**
      * The data contains raw P-W sub-channel data that is returned in the order received from the disc surface.
+     * Native name: IMAPI_FORMAT2_RAW_CD_SUBCODE_IS_RAW
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_RAW_CD_SUBCODE_IS_RAW => 3
+    static SUBCODE_IS_RAW => 3
 }

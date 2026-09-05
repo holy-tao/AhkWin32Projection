@@ -48,7 +48,6 @@ class IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Type() {
@@ -57,7 +56,6 @@ class IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnType 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Address() {
@@ -77,7 +74,6 @@ class IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrAddress 
      * @returns {HRESULT} 
      */

@@ -76,7 +76,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -88,7 +87,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_httpEquiv() {
@@ -98,7 +96,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -110,7 +107,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_content() {
@@ -120,7 +116,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -132,7 +127,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -142,7 +136,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -164,7 +156,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -176,7 +167,6 @@ class IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {

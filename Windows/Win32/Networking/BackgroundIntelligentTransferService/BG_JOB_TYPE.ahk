@@ -10,23 +10,26 @@ class BG_JOB_TYPE extends Win32Enum {
 
     /**
      * Specifies that the job downloads files to the client.
+     * Native name: BG_JOB_TYPE_DOWNLOAD
      * @type {Integer (Int32)}
      */
-    static BG_JOB_TYPE_DOWNLOAD => 0
+    static DOWNLOAD => 0
 
     /**
      * Specifies that the job uploads a file to the server. 
      * 
      * **BITS 1.2 and earlier:** not supported.
+     * Native name: BG_JOB_TYPE_UPLOAD
      * @type {Integer (Int32)}
      */
-    static BG_JOB_TYPE_UPLOAD => 1
+    static UPLOAD => 1
 
     /**
      * Specifies that the job uploads a file to the server, and receives a reply file from the server application. 
      * 
      * **BITS 1.2 and earlier:** not supported.
+     * Native name: BG_JOB_TYPE_UPLOAD_REPLY
      * @type {Integer (Int32)}
      */
-    static BG_JOB_TYPE_UPLOAD_REPLY => 2
+    static UPLOAD_REPLY => 2
 }

@@ -10,13 +10,15 @@ class CLFS_LOG_ARCHIVE_MODE extends Win32Enum {
 
     /**
      * Enables log archive (ephemeral logs) support.
+     * Native name: ClfsLogArchiveEnabled
      * @type {Integer (Int32)}
      */
-    static ClfsLogArchiveEnabled => 1
+    static Enabled => 1
 
     /**
      * Disables ephemeral logs.
+     * Native name: ClfsLogArchiveDisabled
      * @type {Integer (Int32)}
      */
-    static ClfsLogArchiveDisabled => 2
+    static Disabled => 2
 }

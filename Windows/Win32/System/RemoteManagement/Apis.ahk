@@ -3360,7 +3360,6 @@ class RemoteManagement {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pluginContext 
      * @param {Integer} flags 
      * @param {Pointer<WSMAN_DATA>} data 
@@ -3374,7 +3373,6 @@ class RemoteManagement {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pluginContext 
      * @param {Integer} flags 
      * @returns {Integer} 

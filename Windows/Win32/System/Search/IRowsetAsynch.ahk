@@ -30,7 +30,6 @@ class IRowsetAsynch extends IUnknown {
     static VTableNames => ["RatioFinished", "Stop"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pulDenominator 
      * @param {Pointer<Pointer>} pulNumerator 
      * @param {Pointer<Pointer>} pcRows 
@@ -48,7 +47,6 @@ class IRowsetAsynch extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {

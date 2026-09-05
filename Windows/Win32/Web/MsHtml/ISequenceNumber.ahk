@@ -29,7 +29,6 @@ class ISequenceNumber extends IUnknown {
     static VTableNames => ["GetSequenceNumber"]
 
     /**
-     * 
      * @param {Integer} nCurrent 
      * @returns {Integer} 
      */

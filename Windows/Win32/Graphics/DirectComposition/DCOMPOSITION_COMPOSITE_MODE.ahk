@@ -25,25 +25,29 @@ class DCOMPOSITION_COMPOSITE_MODE extends Win32Enum {
 
     /**
      * The standard source-over-destination blend mode.
+     * Native name: DCOMPOSITION_COMPOSITE_MODE_SOURCE_OVER
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_COMPOSITE_MODE_SOURCE_OVER => 0
+    static SOURCE_OVER => 0
 
     /**
      * The bitmap colors are inverted.
+     * Native name: DCOMPOSITION_COMPOSITE_MODE_DESTINATION_INVERT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_COMPOSITE_MODE_DESTINATION_INVERT => 1
+    static DESTINATION_INVERT => 1
 
     /**
      * Bitmap colors subtract for color channels in the background.
+     * Native name: DCOMPOSITION_COMPOSITE_MODE_MIN_BLEND
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_COMPOSITE_MODE_MIN_BLEND => 2
+    static MIN_BLEND => 2
 
     /**
      * Bitmaps are blended according to the mode established by the parent visual.
+     * Native name: DCOMPOSITION_COMPOSITE_MODE_INHERIT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_COMPOSITE_MODE_INHERIT => -1
+    static INHERIT => -1
 }

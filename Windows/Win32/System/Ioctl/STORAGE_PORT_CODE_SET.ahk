@@ -10,49 +10,57 @@ class STORAGE_PORT_CODE_SET extends Win32Enum {
 
     /**
      * Indicates an unknown storage adapter driver type.
+     * Native name: StoragePortCodeSetReserved
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetReserved => 0
+    static Reserved => 0
 
     /**
      * Storage adapter driver is a Storport-miniport driver.
+     * Native name: StoragePortCodeSetStorport
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetStorport => 1
+    static Storport => 1
 
     /**
      * Storage adapter driver is a SCSI Port-miniport driver.
+     * Native name: StoragePortCodeSetSCSIport
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetSCSIport => 2
+    static SetSCSIport => 2
 
     /**
      * Storage adapter driver is the Spaceport driver.
+     * Native name: StoragePortCodeSetSpaceport
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetSpaceport => 3
+    static Spaceport => 3
 
     /**
      * Storage adapter driver is an ATA-port miniport driver.
+     * Native name: StoragePortCodeSetATAport
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetATAport => 4
+    static SetATAport => 4
 
     /**
      * Storage adapter driver is the  USB-storage port driver.
+     * Native name: StoragePortCodeSetUSBport
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetUSBport => 5
+    static SetUSBport => 5
 
     /**
      * Storage adapter driver is the  SBP2 port driver.
+     * Native name: StoragePortCodeSetSBP2port
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetSBP2port => 6
+    static SetSBP2port => 6
 
     /**
      * Storage adapter driver is an SD-port miniport driver.
+     * Native name: StoragePortCodeSetSDport
      * @type {Integer (Int32)}
      */
-    static StoragePortCodeSetSDport => 7
+    static SetSDport => 7
 }

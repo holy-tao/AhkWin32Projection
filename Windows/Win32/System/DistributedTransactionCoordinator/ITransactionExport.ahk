@@ -29,7 +29,6 @@ class ITransactionExport extends IUnknown {
     static VTableNames => ["Export", "GetTransactionCookie"]
 
     /**
-     * 
      * @param {IUnknown} punkTransaction 
      * @returns {Integer} 
      */
@@ -39,7 +38,6 @@ class ITransactionExport extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkTransaction 
      * @param {Integer} cbTransactionCookie 
      * @param {Pointer<Integer>} rgbTransactionCookie 

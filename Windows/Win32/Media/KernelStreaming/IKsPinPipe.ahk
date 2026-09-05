@@ -37,7 +37,6 @@ class IKsPinPipe extends IUnknown {
     static VTableNames => ["KsGetPinFramingCache", "KsSetPinFramingCache", "KsGetConnectedPin", "KsGetPipe", "KsSetPipe", "KsGetPipeAllocatorFlag", "KsSetPipeAllocatorFlag", "KsGetPinBusCache", "KsSetPinBusCache", "KsGetPinName", "KsGetFilterName"]
 
     /**
-     * 
      * @param {Pointer<Pointer<KSALLOCATOR_FRAMING_EX>>} FramingEx 
      * @param {Pointer<FRAMING_PROP>} FramingProp 
      * @param {FRAMING_CACHE_OPS} Option 
@@ -52,7 +51,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSALLOCATOR_FRAMING_EX>} FramingEx 
      * @param {Pointer<FRAMING_PROP>} FramingProp 
      * @param {FRAMING_CACHE_OPS} Option 
@@ -66,7 +64,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPin} 
      */
     KsGetConnectedPin() {
@@ -75,7 +72,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {KSPEEKOPERATION} Operation 
      * @returns {IKsAllocatorEx} 
      */
@@ -85,7 +81,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {IKsAllocatorEx} KsAllocator 
      * @returns {HRESULT} 
      */
@@ -95,7 +90,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsGetPipeAllocatorFlag() {
@@ -104,7 +98,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flag 
      * @returns {HRESULT} 
      */
@@ -114,7 +107,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     KsGetPinBusCache() {
@@ -123,7 +115,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} Bus 
      * @returns {HRESULT} 
      */
@@ -133,7 +124,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     KsGetPinName() {
@@ -142,7 +132,6 @@ class IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     KsGetFilterName() {

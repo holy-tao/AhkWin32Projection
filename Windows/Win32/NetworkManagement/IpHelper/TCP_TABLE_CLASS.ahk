@@ -12,55 +12,64 @@ class TCP_TABLE_CLASS extends Win32Enum {
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable">MIB_TCPTABLE</a> table that contains all listening (receiving only) TCP endpoints on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_BASIC_LISTENER
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_BASIC_LISTENER => 0
+    static BASIC_LISTENER => 0
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable">MIB_TCPTABLE</a> table that contains all connected TCP endpoints  on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_BASIC_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_BASIC_CONNECTIONS => 1
+    static BASIC_CONNECTIONS => 1
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable">MIB_TCPTABLE</a> table that contains all TCP endpoints  on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_BASIC_ALL
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_BASIC_ALL => 2
+    static BASIC_ALL => 2
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable_owner_pid">MIB_TCPTABLE_OWNER_PID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table_owner_pid">MIB_TCP6TABLE_OWNER_PID</a> that contains all listening (receiving only) TCP endpoints on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_OWNER_PID_LISTENER
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_OWNER_PID_LISTENER => 3
+    static OWNER_PID_LISTENER => 3
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable_owner_pid">MIB_TCPTABLE_OWNER_PID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table_owner_pid">MIB_TCP6TABLE_OWNER_PID</a> that structure that contains all connected TCP endpoints  on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_OWNER_PID_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_OWNER_PID_CONNECTIONS => 4
+    static OWNER_PID_CONNECTIONS => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable_owner_pid">MIB_TCPTABLE_OWNER_PID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table_owner_pid">MIB_TCP6TABLE_OWNER_PID</a> structure that contains all TCP endpoints  on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_OWNER_PID_ALL
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_OWNER_PID_ALL => 5
+    static OWNER_PID_ALL => 5
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable_owner_module">MIB_TCPTABLE_OWNER_MODULE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table_owner_module">MIB_TCP6TABLE_OWNER_MODULE</a> structure that contains all listening (receiving only) TCP endpoints on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_OWNER_MODULE_LISTENER
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_OWNER_MODULE_LISTENER => 6
+    static OWNER_MODULE_LISTENER => 6
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable_owner_module">MIB_TCPTABLE_OWNER_MODULE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table_owner_module">MIB_TCP6TABLE_OWNER_MODULE</a> structure that contains all connected TCP endpoints on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_OWNER_MODULE_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_OWNER_MODULE_CONNECTIONS => 7
+    static OWNER_MODULE_CONNECTIONS => 7
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable_owner_module">MIB_TCPTABLE_OWNER_MODULE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table_owner_module">MIB_TCP6TABLE_OWNER_MODULE</a> structure that contains all  TCP endpoints on the local computer is returned to the caller.
+     * Native name: TCP_TABLE_OWNER_MODULE_ALL
      * @type {Integer (Int32)}
      */
-    static TCP_TABLE_OWNER_MODULE_ALL => 8
+    static OWNER_MODULE_ALL => 8
 }

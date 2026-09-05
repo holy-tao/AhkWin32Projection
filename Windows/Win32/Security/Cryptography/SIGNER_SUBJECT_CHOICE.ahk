@@ -7,12 +7,14 @@
 class SIGNER_SUBJECT_CHOICE extends Win32Enum {
 
     /**
+     * Native name: SIGNER_SUBJECT_FILE
      * @type {Integer (UInt32)}
      */
-    static SIGNER_SUBJECT_FILE => 1
+    static FILE => 1
 
     /**
+     * Native name: SIGNER_SUBJECT_BLOB
      * @type {Integer (UInt32)}
      */
-    static SIGNER_SUBJECT_BLOB => 2
+    static BLOB => 2
 }

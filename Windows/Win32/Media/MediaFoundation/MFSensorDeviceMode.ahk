@@ -10,13 +10,15 @@ class MFSensorDeviceMode extends Win32Enum {
 
     /**
      * The device is in controller mode, which means its settings can be modified.
+     * Native name: MFSensorDeviceMode_Controller
      * @type {Integer (Int32)}
      */
-    static MFSensorDeviceMode_Controller => 0
+    static Controller => 0
 
     /**
      * The device is in shared mode, which means its settings can't be modified.
+     * Native name: MFSensorDeviceMode_Shared
      * @type {Integer (Int32)}
      */
-    static MFSensorDeviceMode_Shared => 1
+    static Shared => 1
 }

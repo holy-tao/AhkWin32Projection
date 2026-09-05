@@ -7,17 +7,20 @@
 class eAVEncH263PictureType extends Win32Enum {
 
     /**
+     * Native name: eAVEncH263PictureType_I
      * @type {Integer (Int32)}
      */
-    static eAVEncH263PictureType_I => 0
+    static I => 0
 
     /**
+     * Native name: eAVEncH263PictureType_P
      * @type {Integer (Int32)}
      */
-    static eAVEncH263PictureType_P => 1
+    static P => 1
 
     /**
+     * Native name: eAVEncH263PictureType_B
      * @type {Integer (Int32)}
      */
-    static eAVEncH263PictureType_B => 2
+    static B => 2
 }

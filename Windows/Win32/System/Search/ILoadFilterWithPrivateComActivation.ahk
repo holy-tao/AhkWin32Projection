@@ -33,7 +33,6 @@ class ILoadFilterWithPrivateComActivation extends ILoadFilter {
     static VTableNames => ["LoadIFilterWithPrivateComActivation"]
 
     /**
-     * 
      * @param {Pointer<FILTERED_DATA_SOURCES>} filteredSources 
      * @param {BOOL} useDefault 
      * @param {Pointer<Guid>} filterClsid 

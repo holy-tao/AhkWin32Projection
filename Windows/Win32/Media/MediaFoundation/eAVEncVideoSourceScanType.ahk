@@ -10,19 +10,22 @@ class eAVEncVideoSourceScanType extends Win32Enum {
 
     /**
      * Use the media type on the encoder's input pin to determine whether the frames are progressive or interlaced.
+     * Native name: eAVEncVideoSourceScan_Automatic
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoSourceScan_Automatic => 0
+    static Automatic => 0
 
     /**
      * Input frames are interlaced.
+     * Native name: eAVEncVideoSourceScan_Interlaced
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoSourceScan_Interlaced => 1
+    static Interlaced => 1
 
     /**
      * Input frames are progressive.
+     * Native name: eAVEncVideoSourceScan_Progressive
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoSourceScan_Progressive => 2
+    static Progressive => 2
 }

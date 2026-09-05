@@ -7,37 +7,44 @@
 class POWER_SETTING_ALTITUDE extends Win32Enum {
 
     /**
+     * Native name: ALTITUDE_GROUP_POLICY
      * @type {Integer (Int32)}
      */
-    static ALTITUDE_GROUP_POLICY => 0
+    static GROUP_POLICY => 0
 
     /**
+     * Native name: ALTITUDE_USER
      * @type {Integer (Int32)}
      */
-    static ALTITUDE_USER => 1
+    static USER => 1
 
     /**
+     * Native name: ALTITUDE_RUNTIME_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static ALTITUDE_RUNTIME_OVERRIDE => 2
+    static RUNTIME_OVERRIDE => 2
 
     /**
+     * Native name: ALTITUDE_PROVISIONING
      * @type {Integer (Int32)}
      */
-    static ALTITUDE_PROVISIONING => 3
+    static PROVISIONING => 3
 
     /**
+     * Native name: ALTITUDE_OEM_CUSTOMIZATION
      * @type {Integer (Int32)}
      */
-    static ALTITUDE_OEM_CUSTOMIZATION => 4
+    static OEM_CUSTOMIZATION => 4
 
     /**
+     * Native name: ALTITUDE_INTERNAL_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static ALTITUDE_INTERNAL_OVERRIDE => 5
+    static INTERNAL_OVERRIDE => 5
 
     /**
+     * Native name: ALTITUDE_OS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static ALTITUDE_OS_DEFAULT => 6
+    static OS_DEFAULT => 6
 }

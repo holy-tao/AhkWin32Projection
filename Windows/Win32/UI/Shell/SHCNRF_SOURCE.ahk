@@ -7,22 +7,26 @@
 class SHCNRF_SOURCE extends Win32BitflagEnum {
 
     /**
+     * Native name: SHCNRF_InterruptLevel
      * @type {Integer (Int32)}
      */
-    static SHCNRF_InterruptLevel => 1
+    static InterruptLevel => 1
 
     /**
+     * Native name: SHCNRF_ShellLevel
      * @type {Integer (Int32)}
      */
-    static SHCNRF_ShellLevel => 2
+    static ShellLevel => 2
 
     /**
+     * Native name: SHCNRF_RecursiveInterrupt
      * @type {Integer (Int32)}
      */
-    static SHCNRF_RecursiveInterrupt => 4096
+    static RecursiveInterrupt => 4096
 
     /**
+     * Native name: SHCNRF_NewDelivery
      * @type {Integer (Int32)}
      */
-    static SHCNRF_NewDelivery => 32768
+    static NewDelivery => 32768
 }

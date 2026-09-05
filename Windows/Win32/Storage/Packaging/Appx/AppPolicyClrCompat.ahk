@@ -10,25 +10,29 @@ class AppPolicyClrCompat extends Win32Enum {
 
     /**
      * Indicates an application type other than the ones indicated by the other enumerated constants. The Common Language Runtime (CLR) should not be called by applications that are not Universal Windows Platform (UWP), Win32, nor Desktop Bridge.
+     * Native name: AppPolicyClrCompat_Other
      * @type {Integer (Int32)}
      */
-    static AppPolicyClrCompat_Other => 0
+    static Other => 0
 
     /**
      * Indicates a desktop/Win32 application, or an NT service. You can support private reflection on framework types.
+     * Native name: AppPolicyClrCompat_ClassicDesktop
      * @type {Integer (Int32)}
      */
-    static AppPolicyClrCompat_ClassicDesktop => 1
+    static ClassicDesktop => 1
 
     /**
      * Indicates a Universal Windows Platform (UWP) application. You should disable private reflection on framework types, but you can support IAgileObject.
+     * Native name: AppPolicyClrCompat_Universal
      * @type {Integer (Int32)}
      */
-    static AppPolicyClrCompat_Universal => 2
+    static Universal => 2
 
     /**
      * Indicates a Desktop Bridge application. You can support private reflection on framework types, and you can support IAgileObject.
+     * Native name: AppPolicyClrCompat_PackagedDesktop
      * @type {Integer (Int32)}
      */
-    static AppPolicyClrCompat_PackagedDesktop => 3
+    static PackagedDesktop => 3
 }

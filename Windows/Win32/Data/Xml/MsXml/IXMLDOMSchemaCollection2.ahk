@@ -42,7 +42,6 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     validate() {
@@ -51,7 +50,6 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} validateOnLoad 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_validateOnLoad() {
@@ -70,7 +67,6 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {ISchema} 
      */
@@ -82,7 +78,6 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} _node 
      * @returns {ISchemaItem} 
      */

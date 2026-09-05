@@ -15,37 +15,43 @@ class VDS_VOLUME_TYPE extends Win32Enum {
 
     /**
      * The volume type is unknown.
+     * Native name: VDS_VT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_VT_UNKNOWN => 0
+    static VT_UNKNOWN => 0
 
     /**
      * The volume type is simple—it is composed of extents from exactly one disk.
+     * Native name: VDS_VT_SIMPLE
      * @type {Integer (Int32)}
      */
-    static VDS_VT_SIMPLE => 10
+    static VT_SIMPLE => 10
 
     /**
      * The volume type is spanned—it is composed of extents from more than one disk.
+     * Native name: VDS_VT_SPAN
      * @type {Integer (Int32)}
      */
-    static VDS_VT_SPAN => 11
+    static VT_SPAN => 11
 
     /**
      * The volume type is striped, which is equivalent to RAID 0.
+     * Native name: VDS_VT_STRIPE
      * @type {Integer (Int32)}
      */
-    static VDS_VT_STRIPE => 12
+    static VT_STRIPE => 12
 
     /**
      * The volume type is mirrored, which is equivalent to RAID 1.
+     * Native name: VDS_VT_MIRROR
      * @type {Integer (Int32)}
      */
-    static VDS_VT_MIRROR => 13
+    static VT_MIRROR => 13
 
     /**
      * The volume type is striped with parity, which accounts for RAID levels 3, 4, 5, and 6.
+     * Native name: VDS_VT_PARITY
      * @type {Integer (Int32)}
      */
-    static VDS_VT_PARITY => 14
+    static VT_PARITY => 14
 }

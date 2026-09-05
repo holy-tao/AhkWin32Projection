@@ -7,17 +7,20 @@
 class USB_CHARGER_PORT extends Win32Enum {
 
     /**
+     * Native name: UsbChargerPort_Legacy
      * @type {Integer (Int32)}
      */
-    static UsbChargerPort_Legacy => 0
+    static Legacy => 0
 
     /**
+     * Native name: UsbChargerPort_TypeC
      * @type {Integer (Int32)}
      */
-    static UsbChargerPort_TypeC => 1
+    static TypeC => 1
 
     /**
+     * Native name: UsbChargerPort_Max
      * @type {Integer (Int32)}
      */
-    static UsbChargerPort_Max => 2
+    static Max => 2
 }

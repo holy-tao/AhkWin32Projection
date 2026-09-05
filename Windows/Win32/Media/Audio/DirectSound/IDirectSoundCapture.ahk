@@ -33,7 +33,6 @@ class IDirectSoundCapture extends IUnknown {
     static VTableNames => ["CreateCaptureBuffer", "GetCaps", "Initialize"]
 
     /**
-     * 
      * @param {Pointer<DSCBUFFERDESC>} pcDSCBufferDesc 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSoundCaptureBuffer} 
@@ -44,7 +43,6 @@ class IDirectSoundCapture extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSCCAPS} 
      */
     GetCaps() {

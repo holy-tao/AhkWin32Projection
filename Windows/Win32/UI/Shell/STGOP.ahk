@@ -7,37 +7,44 @@
 class STGOP extends Win32Enum {
 
     /**
+     * Native name: STGOP_MOVE
      * @type {Integer (Int32)}
      */
-    static STGOP_MOVE => 1
+    static MOVE => 1
 
     /**
+     * Native name: STGOP_COPY
      * @type {Integer (Int32)}
      */
-    static STGOP_COPY => 2
+    static COPY => 2
 
     /**
+     * Native name: STGOP_SYNC
      * @type {Integer (Int32)}
      */
-    static STGOP_SYNC => 3
+    static SYNC => 3
 
     /**
+     * Native name: STGOP_REMOVE
      * @type {Integer (Int32)}
      */
-    static STGOP_REMOVE => 5
+    static REMOVE => 5
 
     /**
+     * Native name: STGOP_RENAME
      * @type {Integer (Int32)}
      */
-    static STGOP_RENAME => 6
+    static RENAME => 6
 
     /**
+     * Native name: STGOP_APPLYPROPERTIES
      * @type {Integer (Int32)}
      */
-    static STGOP_APPLYPROPERTIES => 8
+    static APPLYPROPERTIES => 8
 
     /**
+     * Native name: STGOP_NEW
      * @type {Integer (Int32)}
      */
-    static STGOP_NEW => 10
+    static NEW => 10
 }

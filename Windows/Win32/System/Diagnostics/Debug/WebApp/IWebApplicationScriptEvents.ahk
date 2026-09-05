@@ -35,7 +35,6 @@ class IWebApplicationScriptEvents extends IUnknown {
     static VTableNames => ["BeforeScriptExecute", "ScriptError"]
 
     /**
-     * 
      * @param {IHTMLWindow2} htmlWindow 
      * @returns {HRESULT} 
      */

@@ -7,27 +7,32 @@
 class LOCATION_POSITION_SOURCE extends Win32Enum {
 
     /**
+     * Native name: LOCATION_POSITION_SOURCE_CELLULAR
      * @type {Integer (Int32)}
      */
-    static LOCATION_POSITION_SOURCE_CELLULAR => 0
+    static CELLULAR => 0
 
     /**
+     * Native name: LOCATION_POSITION_SOURCE_SATELLITE
      * @type {Integer (Int32)}
      */
-    static LOCATION_POSITION_SOURCE_SATELLITE => 1
+    static SATELLITE => 1
 
     /**
+     * Native name: LOCATION_POSITION_SOURCE_WIFI
      * @type {Integer (Int32)}
      */
-    static LOCATION_POSITION_SOURCE_WIFI => 2
+    static WIFI => 2
 
     /**
+     * Native name: LOCATION_POSITION_SOURCE_IPADDRESS
      * @type {Integer (Int32)}
      */
-    static LOCATION_POSITION_SOURCE_IPADDRESS => 3
+    static IPADDRESS => 3
 
     /**
+     * Native name: LOCATION_POSITION_SOURCE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static LOCATION_POSITION_SOURCE_UNKNOWN => 4
+    static UNKNOWN => 4
 }

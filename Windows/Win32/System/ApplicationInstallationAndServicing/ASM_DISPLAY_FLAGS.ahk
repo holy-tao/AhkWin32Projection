@@ -10,43 +10,50 @@ class ASM_DISPLAY_FLAGS extends Win32Enum {
 
     /**
      * Include the version number.
+     * Native name: ASM_DISPLAYF_VERSION
      * @type {Integer (Int32)}
      */
-    static ASM_DISPLAYF_VERSION => 1
+    static DISPLAYF_VERSION => 1
 
     /**
      * Include the culture.
+     * Native name: ASM_DISPLAYF_CULTURE
      * @type {Integer (Int32)}
      */
-    static ASM_DISPLAYF_CULTURE => 2
+    static DISPLAYF_CULTURE => 2
 
     /**
      * Include the public key token.
+     * Native name: ASM_DISPLAYF_PUBLIC_KEY_TOKEN
      * @type {Integer (Int32)}
      */
-    static ASM_DISPLAYF_PUBLIC_KEY_TOKEN => 4
+    static DISPLAYF_PUBLIC_KEY_TOKEN => 4
 
     /**
      * Include the public key.
+     * Native name: ASM_DISPLAYF_PUBLIC_KEY
      * @type {Integer (Int32)}
      */
-    static ASM_DISPLAYF_PUBLIC_KEY => 8
+    static DISPLAYF_PUBLIC_KEY => 8
 
     /**
      * Include the custom part of the assembly name.
+     * Native name: ASM_DISPLAYF_CUSTOM
      * @type {Integer (Int32)}
      */
-    static ASM_DISPLAYF_CUSTOM => 16
+    static DISPLAYF_CUSTOM => 16
 
     /**
      * Include the processor architecture.
+     * Native name: ASM_DISPLAYF_PROCESSORARCHITECTURE
      * @type {Integer (Int32)}
      */
-    static ASM_DISPLAYF_PROCESSORARCHITECTURE => 32
+    static DISPLAYF_PROCESSORARCHITECTURE => 32
 
     /**
      * Reserved.
+     * Native name: ASM_DISPLAYF_LANGUAGEID
      * @type {Integer (Int32)}
      */
-    static ASM_DISPLAYF_LANGUAGEID => 64
+    static DISPLAYF_LANGUAGEID => 64
 }

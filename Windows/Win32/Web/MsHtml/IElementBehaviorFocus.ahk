@@ -30,7 +30,6 @@ class IElementBehaviorFocus extends IUnknown {
     static VTableNames => ["GetFocusRect"]
 
     /**
-     * 
      * @param {Pointer<RECT>} pRect 
      * @returns {HRESULT} 
      */

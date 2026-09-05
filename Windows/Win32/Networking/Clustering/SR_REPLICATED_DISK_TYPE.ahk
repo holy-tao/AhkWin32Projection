@@ -10,49 +10,57 @@ class SR_REPLICATED_DISK_TYPE extends Win32Enum {
 
     /**
      * None.
+     * Native name: SrReplicatedDiskTypeNone
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeNone => 0
+    static None => 0
 
     /**
      * The source of replication.
+     * Native name: SrReplicatedDiskTypeSource
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeSource => 1
+    static Source => 1
 
     /**
      * A log disk that is the source of replication.
+     * Native name: SrReplicatedDiskTypeLogSource
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeLogSource => 2
+    static LogSource => 2
 
     /**
      * The destination of replication.
+     * Native name: SrReplicatedDiskTypeDestination
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeDestination => 3
+    static Destination => 3
 
     /**
      * A log disk that is the destination of replication.
+     * Native name: SrReplicatedDiskTypeLogDestination
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeLogDestination => 4
+    static LogDestination => 4
 
     /**
      * The disk is not in a replication partnership.
+     * Native name: SrReplicatedDiskTypeNotInParthership
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeNotInParthership => 5
+    static NotInParthership => 5
 
     /**
      * A log disk that is not in a replication partnership.
+     * Native name: SrReplicatedDiskTypeLogNotInParthership
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeLogNotInParthership => 6
+    static LogNotInParthership => 6
 
     /**
      * Other.
+     * Native name: SrReplicatedDiskTypeOther
      * @type {Integer (Int32)}
      */
-    static SrReplicatedDiskTypeOther => 7
+    static Other => 7
 }

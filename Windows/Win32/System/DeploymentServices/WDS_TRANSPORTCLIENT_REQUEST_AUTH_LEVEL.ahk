@@ -12,7 +12,8 @@ class WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL extends Win32Enum {
     static WDS_TRANSPORTCLIENT_AUTH => 1
 
     /**
+     * Native name: WDS_TRANSPORTCLIENT_NO_AUTH
      * @type {Integer (UInt32)}
      */
-    static WDS_TRANSPORTCLIENT_NO_AUTH => 2
+    static NO_AUTH => 2
 }

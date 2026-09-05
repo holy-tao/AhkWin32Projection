@@ -58,7 +58,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_pathSegList() {
@@ -77,7 +75,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -87,7 +84,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_normalizedPathSegList() {
@@ -96,7 +92,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +101,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_animatedPathSegList() {
@@ -115,7 +109,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -125,7 +118,6 @@ class ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_animatedNormalizedPathSegList() {

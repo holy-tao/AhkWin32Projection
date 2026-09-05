@@ -9,17 +9,20 @@
 class WINBIO_CREDENTIAL_FORMAT extends Win32Enum {
 
     /**
+     * Native name: WINBIO_PASSWORD_GENERIC
      * @type {Integer (Int32)}
      */
-    static WINBIO_PASSWORD_GENERIC => 1
+    static PASSWORD_GENERIC => 1
 
     /**
+     * Native name: WINBIO_PASSWORD_PACKED
      * @type {Integer (Int32)}
      */
-    static WINBIO_PASSWORD_PACKED => 2
+    static PASSWORD_PACKED => 2
 
     /**
+     * Native name: WINBIO_PASSWORD_PROTECTED
      * @type {Integer (Int32)}
      */
-    static WINBIO_PASSWORD_PROTECTED => 3
+    static PASSWORD_PROTECTED => 3
 }

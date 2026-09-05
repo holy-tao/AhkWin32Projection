@@ -36,7 +36,6 @@ class IDebugHostSymbol extends IUnknown {
     static VTableNames => ["GetContext", "EnumerateChildren", "GetSymbolKind", "GetName", "GetType", "GetContainingModule", "CompareAgainst"]
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     GetContext() {
@@ -45,7 +44,6 @@ class IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @returns {IDebugHostSymbolEnumerator} 
@@ -58,7 +56,6 @@ class IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SymbolKind} 
      */
     GetSymbolKind() {
@@ -78,7 +75,6 @@ class IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetType() {
@@ -87,7 +83,6 @@ class IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostModule} 
      */
     GetContainingModule() {
@@ -96,7 +91,6 @@ class IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostSymbol} pComparisonSymbol 
      * @param {Integer} comparisonFlags 
      * @returns {Boolean} 

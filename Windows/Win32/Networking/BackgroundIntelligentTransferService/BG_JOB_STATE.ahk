@@ -10,62 +10,71 @@ class BG_JOB_STATE extends Win32Enum {
 
     /**
      * Specifies that the job is in the queue, and waiting to run. If a user logs off while their job is transferring, the job transitions to the queued state.
+     * Native name: BG_JOB_STATE_QUEUED
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_QUEUED => 0
+    static QUEUED => 0
 
     /**
      * Specifies that BITS is trying to connect to the server. If the connection succeeds, the state of the job becomes <strong>BG_JOB_STATE_TRANSFERRING</strong>; otherwise, the state becomes <strong>BG_JOB_STATE_TRANSIENT_ERROR</strong>.
+     * Native name: BG_JOB_STATE_CONNECTING
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_CONNECTING => 1
+    static CONNECTING => 1
 
     /**
      * Specifies that BITS is transferring data for the job.
+     * Native name: BG_JOB_STATE_TRANSFERRING
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_TRANSFERRING => 2
+    static TRANSFERRING => 2
 
     /**
      * Specifies that the job is suspended (paused). To suspend a job, call the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-suspend">IBackgroundCopyJob::Suspend method</a>. BITS automatically suspends a job when it is created. The job remains suspended until you call the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-resume">IBackgroundCopyJob::Resume method</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete">IBackgroundCopyJob::Complete method</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel">IBackgroundCopyJob::Cancel method</a>.
+     * Native name: BG_JOB_STATE_SUSPENDED
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_SUSPENDED => 3
+    static SUSPENDED => 3
 
     /**
      * Specifies that a nonrecoverable error occurred (the service is unable to transfer the file). If the error&mdash;such as an access-denied error&mdash;can be corrected, then call the 
      * [IBackgroundCopyJob::Resume method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-resume)<a href=""></a> after the error is fixed. However, if the error cannot be corrected, then call the 
      * [IBackgroundCopyJob::Cancel method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel)<a href=""></a> to cancel the job, or call the 
      * [IBackgroundCopyJob::Complete method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete)<a href=""></a> to accept the portion of a download job that transferred successfully.
+     * Native name: BG_JOB_STATE_ERROR
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_ERROR => 4
+    static ERROR => 4
 
     /**
      * Specifies that a recoverable error occurred. BITS will retry jobs in the transient error state based on the retry interval you specify (see [IBackgroundCopyJob::SetMinimumRetryDelay method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-setminimumretrydelay)<a href=""></a>). The state of the job changes to <strong>BG_JOB_STATE_ERROR</strong> if the job fails to make progress (see [IBackgroundCopyJob::SetNoProgressTimeout method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-setnoprogresstimeout)<a href=""></a>).
      * 
      * BITS does not retry the job if a network disconnect or a disk lock error occurred (for example, `chkdsk` is running), or the [MaxInternetBandwidth](/windows/desktop/Bits/group-policies)<a href=""></a> Group Policy is zero.
+     * Native name: BG_JOB_STATE_TRANSIENT_ERROR
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_TRANSIENT_ERROR => 5
+    static TRANSIENT_ERROR => 5
 
     /**
      * Specifies that your job was successfully processed. You must call the 
      * [IBackgroundCopyJob::Complete method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete)<a href=""></a> to acknowledge completion of the job, and to make the files available to the client.
+     * Native name: BG_JOB_STATE_TRANSFERRED
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_TRANSFERRED => 6
+    static TRANSFERRED => 6
 
     /**
      * Specifies that you called the [IBackgroundCopyJob::Complete method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete)<a href=""></a> to acknowledge that your job completed successfully.
+     * Native name: BG_JOB_STATE_ACKNOWLEDGED
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_ACKNOWLEDGED => 7
+    static ACKNOWLEDGED => 7
 
     /**
      * Specifies that you called the 
      * [IBackgroundCopyJob::Cancel method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel)<a href=""></a> to cancel the job (that is, to remove the job from the transfer queue).
+     * Native name: BG_JOB_STATE_CANCELLED
      * @type {Integer (Int32)}
      */
-    static BG_JOB_STATE_CANCELLED => 8
+    static CANCELLED => 8
 }

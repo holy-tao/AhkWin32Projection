@@ -81,7 +81,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 
      */
@@ -93,7 +92,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -103,7 +101,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbFullScreen 
      * @returns {HRESULT} 
      */
@@ -115,7 +112,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bFullScreen 
      * @returns {HRESULT} 
      */
@@ -125,7 +121,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnableContextMenu 
      * @returns {HRESULT} 
      */
@@ -137,7 +132,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnableContextMenu 
      * @returns {HRESULT} 
      */
@@ -147,7 +141,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMode 
      * @returns {HRESULT} 
      */
@@ -159,7 +152,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrMode 
      * @returns {HRESULT} 
      */
@@ -169,7 +161,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 
      */
@@ -181,7 +172,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -191,7 +181,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 
      */
@@ -203,7 +192,6 @@ class IWMPPlayer3 extends IWMPCore2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */

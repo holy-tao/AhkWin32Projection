@@ -30,7 +30,6 @@ class IDBCreateCommand extends IUnknown {
     static VTableNames => ["CreateCommand"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 

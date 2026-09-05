@@ -7,17 +7,20 @@
 class htmlSelectType extends Win32Enum {
 
     /**
+     * Native name: htmlSelectTypeSelectOne
      * @type {Integer (Int32)}
      */
-    static htmlSelectTypeSelectOne => 1
+    static SelectOne => 1
 
     /**
+     * Native name: htmlSelectTypeSelectMultiple
      * @type {Integer (Int32)}
      */
-    static htmlSelectTypeSelectMultiple => 2
+    static SelectMultiple => 2
 
     /**
+     * Native name: htmlSelectType_Max
      * @type {Integer (Int32)}
      */
-    static htmlSelectType_Max => 2147483647
+    static Max => 2147483647
 }

@@ -38,7 +38,6 @@ class IPresentationManager extends IUnknown {
     static VTableNames => ["AddBufferFromResource", "CreatePresentationSurface", "GetNextPresentId", "SetTargetTime", "SetPreferredPresentDuration", "ForceVSyncInterrupt", "Present", "GetPresentRetiringFence", "CancelPresentsFrom", "GetLostEvent", "GetPresentStatisticsAvailableEvent", "EnablePresentStatisticsKind", "GetNextPresentStatistics"]
 
     /**
-     * 
      * @param {IUnknown} resource 
      * @returns {IPresentationBuffer} 
      */

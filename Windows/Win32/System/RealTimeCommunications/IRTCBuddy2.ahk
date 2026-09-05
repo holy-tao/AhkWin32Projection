@@ -64,7 +64,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -73,7 +72,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -82,7 +80,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCEnumGroups} 
      */
     EnumerateGroups() {
@@ -91,7 +88,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Groups() {
@@ -100,7 +96,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
@@ -111,7 +106,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCEnumPresenceDevices} 
      */
     EnumeratePresenceDevices() {
@@ -120,7 +114,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_PresenceDevices() {
@@ -129,7 +122,6 @@ class IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {RTC_BUDDY_SUBSCRIPTION_TYPE} 
      */
     get_SubscriptionType() {

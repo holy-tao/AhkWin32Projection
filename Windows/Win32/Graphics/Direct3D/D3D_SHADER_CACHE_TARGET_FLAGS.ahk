@@ -7,7 +7,8 @@
 class D3D_SHADER_CACHE_TARGET_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D_SHADER_CACHE_TARGET_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_CACHE_TARGET_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

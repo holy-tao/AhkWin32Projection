@@ -10,19 +10,22 @@ class XPS_SEGMENT_STROKE_PATTERN extends Win32Enum {
 
     /**
      * All segments in the figure are stroked.
+     * Native name: XPS_SEGMENT_STROKE_PATTERN_ALL
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_STROKE_PATTERN_ALL => 1
+    static ALL => 1
 
     /**
      * No segments in the figure are stroked.
+     * Native name: XPS_SEGMENT_STROKE_PATTERN_NONE
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_STROKE_PATTERN_NONE => 2
+    static NONE => 2
 
     /**
      * Some segments in the figure are stroked, others are not.
+     * Native name: XPS_SEGMENT_STROKE_PATTERN_MIXED
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_STROKE_PATTERN_MIXED => 3
+    static MIXED => 3
 }

@@ -12,31 +12,36 @@ class D3D12_MESSAGE_SEVERITY extends Win32Enum {
 
     /**
      * Indicates a corruption error.
+     * Native name: D3D12_MESSAGE_SEVERITY_CORRUPTION
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_SEVERITY_CORRUPTION => 0
+    static CORRUPTION => 0
 
     /**
      * Indicates an error.
+     * Native name: D3D12_MESSAGE_SEVERITY_ERROR
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_SEVERITY_ERROR => 1
+    static ERROR => 1
 
     /**
      * Indicates a warning.
+     * Native name: D3D12_MESSAGE_SEVERITY_WARNING
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_SEVERITY_WARNING => 2
+    static WARNING => 2
 
     /**
      * Indicates an information message.
+     * Native name: D3D12_MESSAGE_SEVERITY_INFO
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_SEVERITY_INFO => 3
+    static INFO => 3
 
     /**
      * Indicates a message other than corruption, error, warning or information.
+     * Native name: D3D12_MESSAGE_SEVERITY_MESSAGE
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_SEVERITY_MESSAGE => 4
+    static MESSAGE => 4
 }

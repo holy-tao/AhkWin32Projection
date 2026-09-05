@@ -16,27 +16,31 @@ class VDS_STORAGE_IDENTIFIER_CODE_SET extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDSStorageIdCodeSetReserved
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdCodeSetReserved => 0
+    static IdCodeSetReserved => 0
 
     /**
      * The storage identifier is encoded as binary data.
+     * Native name: VDSStorageIdCodeSetBinary
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdCodeSetBinary => 1
+    static IdCodeSetBinary => 1
 
     /**
      * The storage identifier is encoded as ASCII data.
+     * Native name: VDSStorageIdCodeSetAscii
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdCodeSetAscii => 2
+    static IdCodeSetAscii => 2
 
     /**
      * The storage identifier is encoded as UTF-8.
      * 
      * <b>Windows Vista and Windows Server 2003:  </b>Not supported before Windows Vista with SP1 and Windows Server 2008.
+     * Native name: VDSStorageIdCodeSetUtf8
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdCodeSetUtf8 => 3
+    static IdCodeSetUtf8 => 3
 }

@@ -30,7 +30,6 @@ class IPartDiscardControl extends IUnknown {
     static VTableNames => ["GetDiscardProperties"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} uriSentinelPage 
      * @param {Pointer<BSTR>} uriPartToDiscard 
      * @returns {HRESULT} 

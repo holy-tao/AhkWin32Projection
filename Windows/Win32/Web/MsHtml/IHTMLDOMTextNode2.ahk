@@ -30,7 +30,6 @@ class IHTMLDOMTextNode2 extends IDispatch {
     static VTableNames => ["substringData", "appendData", "insertData", "deleteData", "replaceData"]
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {BSTR} 
@@ -42,7 +41,6 @@ class IHTMLDOMTextNode2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IHTMLDOMTextNode2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
@@ -67,7 +64,6 @@ class IHTMLDOMTextNode2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -78,7 +74,6 @@ class IHTMLDOMTextNode2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @param {BSTR} bstrstring 

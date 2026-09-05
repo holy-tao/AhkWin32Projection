@@ -9,12 +9,14 @@
 class HDV_PCI_INTERFACE_VERSION extends Win32Enum {
 
     /**
+     * Native name: HdvPciDeviceInterfaceVersionInvalid
      * @type {Integer (Int32)}
      */
-    static HdvPciDeviceInterfaceVersionInvalid => 0
+    static DeviceInterfaceVersionInvalid => 0
 
     /**
+     * Native name: HdvPciDeviceInterfaceVersion1
      * @type {Integer (Int32)}
      */
-    static HdvPciDeviceInterfaceVersion1 => 1
+    static DeviceInterfaceVersion1 => 1
 }

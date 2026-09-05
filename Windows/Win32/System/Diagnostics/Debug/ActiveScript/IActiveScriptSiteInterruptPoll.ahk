@@ -29,7 +29,6 @@ class IActiveScriptSiteInterruptPoll extends IUnknown {
     static VTableNames => ["QueryContinue"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryContinue() {

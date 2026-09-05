@@ -105,7 +105,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */
@@ -115,7 +114,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {HWND} Window 
      * @returns {HRESULT} 
      */
@@ -127,7 +125,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_Owner() {
@@ -137,7 +134,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_UseOverlay() {
@@ -146,7 +142,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} UseOverlayVal 
      * @returns {HRESULT} 
      */
@@ -156,7 +151,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -165,7 +159,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Visible 
      * @returns {HRESULT} 
      */
@@ -175,7 +168,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ColorKey() {
@@ -184,7 +176,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Integer} _ColorKey 
      * @returns {HRESULT} 
      */
@@ -194,7 +185,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {RECT} 
      */
     get_Source() {
@@ -204,7 +194,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {RECT} r 
      * @returns {HRESULT} 
      */
@@ -214,7 +203,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {RECT} 
      */
     get_Destination() {
@@ -224,7 +212,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {RECT} r 
      * @returns {HRESULT} 
      */
@@ -234,7 +221,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Pointer<SIZE>} sizeval 
      * @param {Pointer<SIZE>} aspectratio 
      * @returns {HRESULT} 
@@ -245,7 +231,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BorderColor() {
@@ -254,7 +239,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Integer} _color 
      * @returns {HRESULT} 
      */
@@ -264,7 +248,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MaintainAspectRatio() {
@@ -273,7 +256,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fMaintain 
      * @returns {HRESULT} 
      */
@@ -283,7 +265,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -292,7 +273,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisplayChange() {
@@ -301,7 +281,6 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @returns {HRESULT} 
      */

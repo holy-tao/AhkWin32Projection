@@ -49,7 +49,6 @@ class ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {Node} 
      */
@@ -59,7 +58,6 @@ class ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {Node} 
      */
@@ -69,7 +67,6 @@ class ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Node} 
      */
     GetRoot() {
@@ -78,7 +75,6 @@ class ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {HRESULT} 
      */

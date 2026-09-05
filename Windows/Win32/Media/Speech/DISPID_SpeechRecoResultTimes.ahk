@@ -7,22 +7,26 @@
 class DISPID_SpeechRecoResultTimes extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRRTStreamTime
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRTStreamTime => 1
+    static SRRTStreamTime => 1
 
     /**
+     * Native name: DISPID_SRRTLength
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRTLength => 2
+    static SRRTLength => 2
 
     /**
+     * Native name: DISPID_SRRTTickCount
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRTTickCount => 3
+    static SRRTTickCount => 3
 
     /**
+     * Native name: DISPID_SRRTOffsetFromStart
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRTOffsetFromStart => 4
+    static SRRTOffsetFromStart => 4
 }

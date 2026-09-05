@@ -60,7 +60,6 @@ class ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LangId() {
@@ -69,7 +68,6 @@ class ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechWordType} 
      */
     get_Type() {
@@ -78,7 +76,6 @@ class ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Word() {
@@ -88,7 +85,6 @@ class ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechLexiconPronunciations} 
      */
     get_Pronunciations() {

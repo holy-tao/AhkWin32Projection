@@ -36,7 +36,6 @@ class AsyncIFtpLogProvider extends IUnknown {
     static VTableNames => ["Begin_Log", "Finish_Log"]
 
     /**
-     * 
      * @param {Pointer<LOGGING_PARAMETERS>} pLoggingParameters 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class AsyncIFtpLogProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Log() {

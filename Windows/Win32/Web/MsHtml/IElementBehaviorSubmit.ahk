@@ -30,7 +30,6 @@ class IElementBehaviorSubmit extends IUnknown {
     static VTableNames => ["GetSubmitInfo", "Reset"]
 
     /**
-     * 
      * @param {IHTMLSubmitData} pSubmitData 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IElementBehaviorSubmit extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

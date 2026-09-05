@@ -10,19 +10,22 @@ class DRT_SCOPE extends Win32Enum {
 
     /**
      * Uses the global scope.
+     * Native name: DRT_GLOBAL_SCOPE
      * @type {Integer (Int32)}
      */
-    static DRT_GLOBAL_SCOPE => 1
+    static GLOBAL_SCOPE => 1
 
     /**
      * The <b>DRT_SITE_LOCAL_SCOPE</b> has been deprecated and should not be used.
+     * Native name: DRT_SITE_LOCAL_SCOPE
      * @type {Integer (Int32)}
      */
-    static DRT_SITE_LOCAL_SCOPE => 2
+    static SITE_LOCAL_SCOPE => 2
 
     /**
      * Uses the link local scope.
+     * Native name: DRT_LINK_LOCAL_SCOPE
      * @type {Integer (Int32)}
      */
-    static DRT_LINK_LOCAL_SCOPE => 3
+    static LINK_LOCAL_SCOPE => 3
 }

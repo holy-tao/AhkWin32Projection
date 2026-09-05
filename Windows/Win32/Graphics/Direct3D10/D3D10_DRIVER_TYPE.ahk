@@ -14,33 +14,38 @@ class D3D10_DRIVER_TYPE extends Win32Enum {
 
     /**
      * A hardware device; commonly called a HAL device.
+     * Native name: D3D10_DRIVER_TYPE_HARDWARE
      * @type {Integer (Int32)}
      */
-    static D3D10_DRIVER_TYPE_HARDWARE => 0
+    static HARDWARE => 0
 
     /**
      * A reference device; commonly called a REF device.
+     * Native name: D3D10_DRIVER_TYPE_REFERENCE
      * @type {Integer (Int32)}
      */
-    static D3D10_DRIVER_TYPE_REFERENCE => 1
+    static REFERENCE => 1
 
     /**
      * A NULL device; which is a reference device without render capability.
+     * Native name: D3D10_DRIVER_TYPE_NULL
      * @type {Integer (Int32)}
      */
-    static D3D10_DRIVER_TYPE_NULL => 2
+    static NULL => 2
 
     /**
      * Reserved for later use.
+     * Native name: D3D10_DRIVER_TYPE_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static D3D10_DRIVER_TYPE_SOFTWARE => 3
+    static SOFTWARE => 3
 
     /**
      * A WARP driver, which is a high-performance software rasterizer. The rasterizer supports feature level 9_1 through level 10.1 with a 
      *         high performance software implementation when hardware is not available. For more information about using a WARP driver, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/directx-warp">Windows Advanced Rasterization Platform (WARP) In-Depth Guide</a>.
      *         Note that WARP is only available with the DirectX 11 Runtime (Windows 7, Windows Server 2008 R2, updated Windows Vista [KB971644]).
+     * Native name: D3D10_DRIVER_TYPE_WARP
      * @type {Integer (Int32)}
      */
-    static D3D10_DRIVER_TYPE_WARP => 5
+    static WARP => 5
 }

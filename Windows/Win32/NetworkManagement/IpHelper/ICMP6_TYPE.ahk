@@ -12,57 +12,66 @@ class ICMP6_TYPE extends Win32Enum {
 
     /**
      * The specified destination for the message is unreachable.
+     * Native name: ICMP6_DST_UNREACH
      * @type {Integer (Int32)}
      */
-    static ICMP6_DST_UNREACH => 1
+    static DST_UNREACH => 1
 
     /**
      * The ICMPv6 packet is too large.
+     * Native name: ICMP6_PACKET_TOO_BIG
      * @type {Integer (Int32)}
      */
-    static ICMP6_PACKET_TOO_BIG => 2
+    static PACKET_TOO_BIG => 2
 
     /**
      * The ICMPv6 message has timed out.
+     * Native name: ICMP6_TIME_EXCEEDED
      * @type {Integer (Int32)}
      */
-    static ICMP6_TIME_EXCEEDED => 3
+    static TIME_EXCEEDED => 3
 
     /**
      * The IPv6 header is malformed or contains an incorrect value.
+     * Native name: ICMP6_PARAM_PROB
      * @type {Integer (Int32)}
      */
-    static ICMP6_PARAM_PROB => 4
+    static PARAM_PROB => 4
 
     /**
      * ICMPv6 echo request message.
+     * Native name: ICMP6_ECHO_REQUEST
      * @type {Integer (Int32)}
      */
-    static ICMP6_ECHO_REQUEST => 128
+    static ECHO_REQUEST => 128
 
     /**
      * ICMPv6 echo reply message.
+     * Native name: ICMP6_ECHO_REPLY
      * @type {Integer (Int32)}
      */
-    static ICMP6_ECHO_REPLY => 129
+    static ECHO_REPLY => 129
 
     /**
      * ICMPv6 group membership query message.
+     * Native name: ICMP6_MEMBERSHIP_QUERY
      * @type {Integer (Int32)}
      */
-    static ICMP6_MEMBERSHIP_QUERY => 130
+    static MEMBERSHIP_QUERY => 130
 
     /**
      * ICMPv6 group membership report message.
+     * Native name: ICMP6_MEMBERSHIP_REPORT
      * @type {Integer (Int32)}
      */
-    static ICMP6_MEMBERSHIP_REPORT => 131
+    static MEMBERSHIP_REPORT => 131
 
     /**
      * ICMPv6 group membership reduction message.
+     * Native name: ICMP6_MEMBERSHIP_REDUCTION
      * @type {Integer (Int32)}
      */
-    static ICMP6_MEMBERSHIP_REDUCTION => 132
+    static MEMBERSHIP_REDUCTION => 132
 
     /**
      * ICMPv6 router solicitation message.
@@ -95,7 +104,8 @@ class ICMP6_TYPE extends Win32Enum {
     static ND_REDIRECT => 137
 
     /**
+     * Native name: ICMP6_V2_MEMBERSHIP_REPORT
      * @type {Integer (Int32)}
      */
-    static ICMP6_V2_MEMBERSHIP_REPORT => 143
+    static V2_MEMBERSHIP_REPORT => 143
 }

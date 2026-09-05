@@ -18,24 +18,28 @@ class SOCKET_SECURITY_PROTOCOL extends Win32Enum {
 
     /**
      * The default system security will be used.
+     * Native name: SOCKET_SECURITY_PROTOCOL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SOCKET_SECURITY_PROTOCOL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * IPsec will be used.
+     * Native name: SOCKET_SECURITY_PROTOCOL_IPSEC
      * @type {Integer (Int32)}
      */
-    static SOCKET_SECURITY_PROTOCOL_IPSEC => 1
+    static IPSEC => 1
 
     /**
+     * Native name: SOCKET_SECURITY_PROTOCOL_IPSEC2
      * @type {Integer (Int32)}
      */
-    static SOCKET_SECURITY_PROTOCOL_IPSEC2 => 2
+    static IPSEC2 => 2
 
     /**
      * The maximum possible value for the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> enumeration type. This is not a legal value.
+     * Native name: SOCKET_SECURITY_PROTOCOL_INVALID
      * @type {Integer (Int32)}
      */
-    static SOCKET_SECURITY_PROTOCOL_INVALID => 3
+    static INVALID => 3
 }

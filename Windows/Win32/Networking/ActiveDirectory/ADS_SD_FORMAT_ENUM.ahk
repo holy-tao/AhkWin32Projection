@@ -10,19 +10,22 @@ class ADS_SD_FORMAT_ENUM extends Win32Enum {
 
     /**
      * Indicates that the security descriptor is to be converted to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssecuritydescriptor">IADsSecurityDescriptor</a> interface format. If <b>ADS_SD_FORMAT_IID</b> is used as the input format when setting the security descriptor, the variant passed in is expected to be a VT_DISPATCH, where the dispatch pointer supports the <b>IADsSecurityDescriptor</b> interface.
+     * Native name: ADS_SD_FORMAT_IID
      * @type {Integer (Int32)}
      */
-    static ADS_SD_FORMAT_IID => 1
+    static IID => 1
 
     /**
      * Indicates that the security descriptor is to be converted to the binary format.
+     * Native name: ADS_SD_FORMAT_RAW
      * @type {Integer (Int32)}
      */
-    static ADS_SD_FORMAT_RAW => 2
+    static RAW => 2
 
     /**
      * Indicates that the security descriptor is to be converted to the hex encoded string format.
+     * Native name: ADS_SD_FORMAT_HEXSTRING
      * @type {Integer (Int32)}
      */
-    static ADS_SD_FORMAT_HEXSTRING => 3
+    static HEXSTRING => 3
 }

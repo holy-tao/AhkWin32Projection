@@ -723,7 +723,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} Enabled 
      * @param {Pointer<Integer>} Flags 
      * @returns {BOOL} 
@@ -2003,7 +2002,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Flags 
      * @returns {BOOL} 
      */
@@ -2109,7 +2107,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {PWSTR} Hostname 
      * @param {PWSTR} ComputerName 
      * @param {Pointer<Integer>} nSize 
@@ -2184,7 +2181,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {COMPUTER_NAME_FORMAT} NameType 
      * @param {Integer} Flags 
      * @param {PWSTR} lpBuffer 
@@ -2337,7 +2333,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbEnabled 
      * @returns {BOOL} 
      */
@@ -2483,7 +2478,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @returns {DEVELOPER_DRIVE_ENABLEMENT_STATE} 
      */
     static GetDeveloperDriveEnablementState() {
@@ -2492,7 +2486,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Nonce 
      * @param {Integer} PackageVersion 
      * @param {Integer} ReportTypesBitmap 
@@ -2716,7 +2709,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Integer} OSMajorVersion 
      * @param {Integer} OSMinorVersion 
      * @param {Integer} SpMajorVersion 
@@ -2732,7 +2724,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {OS_DEPLOYEMENT_STATE_VALUES} 
      */
@@ -2742,7 +2733,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {RTL_SYSTEM_GLOBAL_DATA_ID} DataId 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} _Size 
@@ -2801,7 +2791,6 @@ class SystemInformation {
     }
 
     /**
-     * 
      * @param {Pointer<OSVERSIONINFOEXW>} VersionInfo 
      * @param {Integer} TypeMask 
      * @param {Integer} ConditionMask 

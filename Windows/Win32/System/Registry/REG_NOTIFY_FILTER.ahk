@@ -7,27 +7,32 @@
 class REG_NOTIFY_FILTER extends Win32BitflagEnum {
 
     /**
+     * Native name: REG_NOTIFY_CHANGE_NAME
      * @type {Integer (UInt32)}
      */
-    static REG_NOTIFY_CHANGE_NAME => 1
+    static CHANGE_NAME => 1
 
     /**
+     * Native name: REG_NOTIFY_CHANGE_ATTRIBUTES
      * @type {Integer (UInt32)}
      */
-    static REG_NOTIFY_CHANGE_ATTRIBUTES => 2
+    static CHANGE_ATTRIBUTES => 2
 
     /**
+     * Native name: REG_NOTIFY_CHANGE_LAST_SET
      * @type {Integer (UInt32)}
      */
-    static REG_NOTIFY_CHANGE_LAST_SET => 4
+    static CHANGE_LAST_SET => 4
 
     /**
+     * Native name: REG_NOTIFY_CHANGE_SECURITY
      * @type {Integer (UInt32)}
      */
-    static REG_NOTIFY_CHANGE_SECURITY => 8
+    static CHANGE_SECURITY => 8
 
     /**
+     * Native name: REG_NOTIFY_THREAD_AGNOSTIC
      * @type {Integer (UInt32)}
      */
-    static REG_NOTIFY_THREAD_AGNOSTIC => 268435456
+    static THREAD_AGNOSTIC => 268435456
 }

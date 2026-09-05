@@ -7,12 +7,14 @@
 class CRYPT_IMPORT_PUBLIC_KEY_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG
      * @type {Integer (UInt32)}
      */
-    static CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG => 2147483648
+    static OID_INFO_PUBKEY_SIGN_KEY_FLAG => 2147483648
 
     /**
+     * Native name: CRYPT_OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG
      * @type {Integer (UInt32)}
      */
-    static CRYPT_OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG => 1073741824
+    static OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG => 1073741824
 }

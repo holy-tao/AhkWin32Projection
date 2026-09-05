@@ -22,7 +22,8 @@ class DEV_CONSOLE_MESSAGE_LEVEL extends Win32Enum {
     static DCML_ERROR => 2
 
     /**
+     * Native name: DEV_CONSOLE_MESSAGE_LEVEL_Max
      * @type {Integer (Int32)}
      */
-    static DEV_CONSOLE_MESSAGE_LEVEL_Max => 2147483647
+    static Max => 2147483647
 }

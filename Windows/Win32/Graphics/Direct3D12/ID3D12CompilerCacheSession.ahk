@@ -36,7 +36,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     static VTableNames => ["FindGroup", "FindGroupValueKeys", "FindGroupValues", "FindValue", "GetApplicationDesc", "GetCompilerTarget", "GetValueTypes", "StoreGroupValueKeys", "StoreValue"]
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @returns {Integer} 
      */
@@ -46,7 +45,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Pointer<Integer>} pExpectedGroupVersion 
      * @param {Pointer<D3D12CompilerCacheSessionGroupValueKeysFunc>} CallbackFunc 
@@ -62,7 +60,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Pointer<Integer>} pExpectedGroupVersion 
      * @param {D3D12_COMPILER_VALUE_TYPE_FLAGS} ValueTypeFlags 
@@ -79,7 +76,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_VALUE_KEY>} pValueKey 
      * @param {Pointer<D3D12_COMPILER_CACHE_TYPED_VALUE>} pTypedValues 
      * @param {Integer} NumTypedValues 
@@ -95,7 +91,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @returns {Pointer<D3D12_APPLICATION_DESC>} 
      */
     GetApplicationDesc() {
@@ -104,7 +99,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @returns {D3D12_COMPILER_TARGET} 
      */
     GetCompilerTarget() {
@@ -113,7 +107,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @returns {D3D12_COMPILER_VALUE_TYPE_FLAGS} 
      */
     GetValueTypes() {
@@ -122,7 +115,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_COMPILER_CACHE_VALUE_KEY>} pValueKeys 
@@ -135,7 +127,6 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_VALUE_KEY>} pValueKey 
      * @param {Pointer<D3D12_COMPILER_CACHE_TYPED_CONST_VALUE>} pTypedValues 
      * @param {Integer} NumTypedValues 

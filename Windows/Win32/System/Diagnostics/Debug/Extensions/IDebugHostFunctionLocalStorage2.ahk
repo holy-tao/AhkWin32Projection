@@ -29,7 +29,6 @@ class IDebugHostFunctionLocalStorage2 extends IUnknown {
     static VTableNames => ["GetExtendedRegisterAddressInfo"]
 
     /**
-     * 
      * @param {Pointer<Integer>} registerId 
      * @param {Pointer<Integer>} offset 
      * @param {Pointer<Boolean>} isIndirectAccess 

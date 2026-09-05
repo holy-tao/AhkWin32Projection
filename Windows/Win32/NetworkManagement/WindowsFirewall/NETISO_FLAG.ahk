@@ -14,13 +14,15 @@ class NETISO_FLAG extends Win32Enum {
      * Specifies that all binaries will be computed before the app container is returned.
      * 
      * This flag should be set if the caller requires up-to-date and complete information on app container binaries. If this flag is not set, returned data may be stale or incomplete.
+     * Native name: NETISO_FLAG_FORCE_COMPUTE_BINARIES
      * @type {Integer (Int32)}
      */
-    static NETISO_FLAG_FORCE_COMPUTE_BINARIES => 1
+    static FORCE_COMPUTE_BINARIES => 1
 
     /**
      * Maximum value for testing purposes.
+     * Native name: NETISO_FLAG_MAX
      * @type {Integer (Int32)}
      */
-    static NETISO_FLAG_MAX => 2
+    static MAX => 2
 }

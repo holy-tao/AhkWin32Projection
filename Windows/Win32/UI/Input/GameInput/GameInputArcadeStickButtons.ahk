@@ -7,77 +7,92 @@
 class GameInputArcadeStickButtons extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputArcadeStickNone
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputArcadeStickMenu
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickMenu => 1
+    static Menu => 1
 
     /**
+     * Native name: GameInputArcadeStickView
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickView => 2
+    static View => 2
 
     /**
+     * Native name: GameInputArcadeStickUp
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickUp => 4
+    static Up => 4
 
     /**
+     * Native name: GameInputArcadeStickDown
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickDown => 8
+    static Down => 8
 
     /**
+     * Native name: GameInputArcadeStickLeft
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickLeft => 16
+    static Left => 16
 
     /**
+     * Native name: GameInputArcadeStickRight
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickRight => 32
+    static Right => 32
 
     /**
+     * Native name: GameInputArcadeStickAction1
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickAction1 => 64
+    static Action1 => 64
 
     /**
+     * Native name: GameInputArcadeStickAction2
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickAction2 => 128
+    static Action2 => 128
 
     /**
+     * Native name: GameInputArcadeStickAction3
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickAction3 => 256
+    static Action3 => 256
 
     /**
+     * Native name: GameInputArcadeStickAction4
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickAction4 => 512
+    static Action4 => 512
 
     /**
+     * Native name: GameInputArcadeStickAction5
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickAction5 => 1024
+    static Action5 => 1024
 
     /**
+     * Native name: GameInputArcadeStickAction6
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickAction6 => 2048
+    static Action6 => 2048
 
     /**
+     * Native name: GameInputArcadeStickSpecial1
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickSpecial1 => 4096
+    static Special1 => 4096
 
     /**
+     * Native name: GameInputArcadeStickSpecial2
      * @type {Integer (Int32)}
      */
-    static GameInputArcadeStickSpecial2 => 8192
+    static Special2 => 8192
 }

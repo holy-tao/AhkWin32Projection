@@ -216,7 +216,6 @@ class IPhotoProgressDialog extends IUnknown {
     }
 
     /**
-     * 
      * @param {PROGRESS_DIALOG_CHECKBOX_ID} nCheckboxId 
      * @param {BOOL} fChecked 
      * @returns {HRESULT} 
@@ -448,7 +447,6 @@ class IPhotoProgressDialog extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPhotoProgressActionCB} pPhotoProgressActionCB 
      * @returns {HRESULT} 
      */
@@ -458,7 +456,6 @@ class IPhotoProgressDialog extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCaption 
      * @returns {HRESULT} 
      */
@@ -470,7 +467,6 @@ class IPhotoProgressDialog extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fShow 
      * @returns {HRESULT} 
      */

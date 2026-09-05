@@ -12,17 +12,19 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_address">WS_ENDPOINT_ADDRESS</a> structure containing the address of the service ('relying party') to whom the requested
      * token will be presented.
      *                 .
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_APPLIES_TO
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_APPLIES_TO => 1
+    static APPLIES_TO => 1
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_trust_version">WS_TRUST_VERSION</a> value that specifies the version of WS-Trust to use.
      * 
      * If this property is not specified, it defaults to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_trust_version">WS_TRUST_VERSION_FEBRUARY_2005</a>.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_TRUST_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_TRUST_VERSION => 2
+    static TRUST_VERSION => 2
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_secure_conversation_version">WS_SECURE_CONVERSATION_VERSION</a> value that
@@ -31,32 +33,36 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      *           
      * 
      * If this property is not specified, it defaults to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_secure_conversation_version">WS_SECURE_CONVERSATION_VERSION_FEBRUARY_2005</a>.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_SECURE_CONVERSATION_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_SECURE_CONVERSATION_VERSION => 3
+    static SECURE_CONVERSATION_VERSION => 3
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_string">WS_XML_STRING</a> structure that specifies the type of the security token to be issued.  If this property is not specified,
      *                     the corresponding element is not generated in the request security token message, and the
      *                     issuer is assumed to know the token type required.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_TYPE => 4
+    static ISSUED_TOKEN_TYPE => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_request_security_token_action">WS_REQUEST_SECURITY_TOKEN_ACTION</a> value that specifies the action to be used with the request. The default is <b>WS_REQUEST_SECURITY_TOKEN_ACTION_ISSUE</b>.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_REQUEST_ACTION
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_REQUEST_ACTION => 5
+    static REQUEST_ACTION => 5
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-security-token">WS_SECURITY_TOKEN</a> structure that, 
      *             if specified, instead of requesting a new token, the provided token is renewed by requesting a new token based on 
      *             the existing one. The old token becomes invalid if this operation succeeds. 
      *             Only supported with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_request_security_token_action">WS_REQUEST_SECURITY_TOKEN_ACTION_RENEW_CONTEXT</a>.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_EXISTING_TOKEN
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_EXISTING_TOKEN => 6
+    static EXISTING_TOKEN => 6
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_key_type">WS_SECURITY_KEY_TYPE</a> value that specifies the type of the cryptographic key to be requested for the
@@ -70,26 +76,29 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      * If this property is not specified, the corresponding key type element is not emitted in token requests. 
      *                     Not emitting the key type in token requests results in the implied default of symmetric keys for the 
      *                     issued token, as defined in the WS-Trust specification.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_KEY_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_KEY_TYPE => 7
+    static ISSUED_TOKEN_KEY_TYPE => 7
 
     /**
      * A <b>ULONG</b> that specifies the size (in bits) of the cryptographic key to be requested
      *                     in the issued security token.  This property may be specified only for
      *                     issued tokens with symmetric keys.  If this property is not specified,
      *                     the corresponding key size element is not emitted in token requests.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_KEY_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_KEY_SIZE => 8
+    static ISSUED_TOKEN_KEY_SIZE => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_key_entropy_mode">WS_SECURITY_KEY_ENTROPY_MODE</a> value that specifies how entropy is contributed to the cryptographic key of the
      *                     issued token.  This property may be specified only for issued tokens
      *                     with symmetric keys.  If this property is not specified, the mode <b>WS_SECURITY_KEY_ENTROPY_MODE_SERVER_ONLY</b> is used.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_KEY_ENTROPY
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_ISSUED_TOKEN_KEY_ENTROPY => 9
+    static ISSUED_TOKEN_KEY_ENTROPY => 9
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> that contains
@@ -102,9 +111,10 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      * 
      * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_request_security_token_property_id">WS_REQUEST_SECURITY_TOKEN_PROPERTY_SERVICE_REQUEST_PARAMETERS</a>, local request 
      *                     parameters are defined by the client as a means to add parameters to the token request.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_LOCAL_REQUEST_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_LOCAL_REQUEST_PARAMETERS => 10
+    static LOCAL_REQUEST_PARAMETERS => 10
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> that contains
@@ -126,9 +136,10 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      * Service request parameters are instructions regarding how to issue a token. They are obtained from the service, 
      *                    usually by means of metadata import. In that case, this parameter may be obtained 
      *                    from the out.RequestSecurityTokenTemplate field of the <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_issued_token_message_security_binding_constraint">WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT</a>.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_SERVICE_REQUEST_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_SERVICE_REQUEST_PARAMETERS => 11
+    static SERVICE_REQUEST_PARAMETERS => 11
 
     /**
      * The set of <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_properties">WS_MESSAGE_PROPERTIES</a> to be specified
@@ -136,12 +147,14 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      *                     be used for the security token obtaining exchange.  If this property
      *                     is not specified, the request and reply messages are created with the
      *                     default message properties.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_MESSAGE_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_MESSAGE_PROPERTIES => 12
+    static MESSAGE_PROPERTIES => 12
 
     /**
+     * Native name: WS_REQUEST_SECURITY_TOKEN_PROPERTY_BEARER_KEY_TYPE_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_PROPERTY_BEARER_KEY_TYPE_VERSION => 13
+    static BEARER_KEY_TYPE_VERSION => 13
 }

@@ -14,108 +14,124 @@ class MFVideoPrimaries extends Win32Enum {
 
     /**
      * The color primaries are unknown.
+     * Native name: MFVideoPrimaries_Unknown
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_Unknown => 0
+    static Unknown => 0
 
     /**
      * Reserved.
+     * Native name: MFVideoPrimaries_reserved
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_reserved => 1
+    static reserved => 1
 
     /**
      * ITU-R BT.709. Also used for sRGB and scRGB.
+     * Native name: MFVideoPrimaries_BT709
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_BT709 => 2
+    static BT709 => 2
 
     /**
      * ITU-R BT.470-4 System M (NTSC).
+     * Native name: MFVideoPrimaries_BT470_2_SysM
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_BT470_2_SysM => 3
+    static BT470_2_SysM => 3
 
     /**
      * ITU-R BT.470-4 System B,G (NTSC).
+     * Native name: MFVideoPrimaries_BT470_2_SysBG
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_BT470_2_SysBG => 4
+    static BT470_2_SysBG => 4
 
     /**
      * SMPTE 170M.
+     * Native name: MFVideoPrimaries_SMPTE170M
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_SMPTE170M => 5
+    static SMPTE170M => 5
 
     /**
      * SMPTE 240M.
+     * Native name: MFVideoPrimaries_SMPTE240M
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_SMPTE240M => 6
+    static SMPTE240M => 6
 
     /**
      * EBU 3213.
+     * Native name: MFVideoPrimaries_EBU3213
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_EBU3213 => 7
+    static EBU3213 => 7
 
     /**
      * SMPTE C (SMPTE RP 145).
+     * Native name: MFVideoPrimaries_SMPTE_C
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_SMPTE_C => 8
+    static SMPTE_C => 8
 
     /**
      * ITU-R BT.2020 color primaries.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
      * <div> </div>
+     * Native name: MFVideoPrimaries_BT2020
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_BT2020 => 9
+    static BT2020 => 9
 
     /**
      * CIE 1931 XYZ (see: <a href="https://en.wikipedia.org/wiki/CIE_1931_color_space">CIE 1931 color space</a>).  Note that this color space is only well-defined for floating point representations.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
      * <div> </div>
+     * Native name: MFVideoPrimaries_XYZ
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_XYZ => 10
+    static XYZ => 10
 
     /**
      * DCI-P3
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
      * <div> </div>
+     * Native name: MFVideoPrimaries_DCI_P3
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_DCI_P3 => 11
+    static DCI_P3 => 11
 
     /**
      * Academy Color Encoding System
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
      * <div> </div>
+     * Native name: MFVideoPrimaries_ACES
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_ACES => 12
+    static ACES => 12
 
     /**
+     * Native name: MFVideoPrimaries_Display_P3
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_Display_P3 => 13
+    static Display_P3 => 13
 
     /**
      * Reserved.
+     * Native name: MFVideoPrimaries_Last
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_Last => 14
+    static Last => 14
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.
+     * Native name: MFVideoPrimaries_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

@@ -55,7 +55,6 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaOption} 
      */
     get_SelectedOption() {
@@ -64,7 +63,6 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @param {IPrintSchemaOption} pOption 
      * @returns {HRESULT} 
      */
@@ -74,7 +72,6 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {PrintSchemaSelectionType} 
      */
     get_SelectionType() {
@@ -83,7 +80,6 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaOption} 
@@ -97,7 +93,6 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_DisplayUI() {

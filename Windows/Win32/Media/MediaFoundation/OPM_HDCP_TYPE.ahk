@@ -7,12 +7,14 @@
 class OPM_HDCP_TYPE extends Win32Enum {
 
     /**
+     * Native name: OPM_HDCP_TYPE_0
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_TYPE_0 => 0
+    static 0 => 0
 
     /**
+     * Native name: OPM_HDCP_TYPE_1
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_TYPE_1 => 1
+    static 1 => 1
 }

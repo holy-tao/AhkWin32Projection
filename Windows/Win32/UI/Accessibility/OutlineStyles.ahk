@@ -10,31 +10,36 @@ class OutlineStyles extends Win32Enum {
 
     /**
      * No outline style.
+     * Native name: OutlineStyles_None
      * @type {Integer (Int32)}
      */
-    static OutlineStyles_None => 0
+    static None => 0
 
     /**
      * A simple outline.
+     * Native name: OutlineStyles_Outline
      * @type {Integer (Int32)}
      */
-    static OutlineStyles_Outline => 1
+    static Outline => 1
 
     /**
      * A shadow.
+     * Native name: OutlineStyles_Shadow
      * @type {Integer (Int32)}
      */
-    static OutlineStyles_Shadow => 2
+    static Shadow => 2
 
     /**
      * An engraved appearance.
+     * Native name: OutlineStyles_Engraved
      * @type {Integer (Int32)}
      */
-    static OutlineStyles_Engraved => 4
+    static Engraved => 4
 
     /**
      * An embossed appearance.
+     * Native name: OutlineStyles_Embossed
      * @type {Integer (Int32)}
      */
-    static OutlineStyles_Embossed => 8
+    static Embossed => 8
 }

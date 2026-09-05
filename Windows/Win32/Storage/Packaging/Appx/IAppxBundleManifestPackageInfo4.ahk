@@ -30,7 +30,6 @@ class IAppxBundleManifestPackageInfo4 extends IUnknown {
     static VTableNames => ["GetIsStub"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetIsStub() {

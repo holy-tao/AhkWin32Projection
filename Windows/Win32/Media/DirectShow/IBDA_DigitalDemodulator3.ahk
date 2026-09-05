@@ -46,7 +46,6 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
     }
 
     /**
-     * 
      * @param {Pointer<BDA_SIGNAL_TIMEOUTS>} pSignalTimeouts 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
     }
 
     /**
-     * 
      * @param {Pointer<BDA_SIGNAL_TIMEOUTS>} pSignalTimeouts 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPLPNumber 
      * @returns {HRESULT} 
      */
@@ -78,7 +75,6 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPLPNumber 
      * @returns {HRESULT} 
      */

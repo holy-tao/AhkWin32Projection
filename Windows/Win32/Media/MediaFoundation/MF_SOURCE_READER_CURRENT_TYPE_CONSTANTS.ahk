@@ -7,7 +7,8 @@
 class MF_SOURCE_READER_CURRENT_TYPE_CONSTANTS extends Win32Enum {
 
     /**
+     * Native name: MF_SOURCE_READER_CURRENT_TYPE_INDEX
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_CURRENT_TYPE_INDEX => -1
+    static INDEX => -1
 }

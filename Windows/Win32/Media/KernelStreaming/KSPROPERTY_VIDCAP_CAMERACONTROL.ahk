@@ -7,102 +7,122 @@
 class KSPROPERTY_VIDCAP_CAMERACONTROL extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PAN
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PAN => 0
+    static PAN => 0
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_TILT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_TILT => 1
+    static TILT => 1
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_ROLL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_ROLL => 2
+    static ROLL => 2
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_ZOOM
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_ZOOM => 3
+    static ZOOM => 3
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXPOSURE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXPOSURE => 4
+    static EXPOSURE => 4
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_IRIS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_IRIS => 5
+    static IRIS => 5
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_FOCUS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_FOCUS => 6
+    static FOCUS => 6
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_SCANMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_SCANMODE => 7
+    static SCANMODE => 7
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PRIVACY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PRIVACY => 8
+    static PRIVACY => 8
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PANTILT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PANTILT => 9
+    static PANTILT => 9
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PAN_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PAN_RELATIVE => 10
+    static PAN_RELATIVE => 10
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_TILT_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_TILT_RELATIVE => 11
+    static TILT_RELATIVE => 11
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_ROLL_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_ROLL_RELATIVE => 12
+    static ROLL_RELATIVE => 12
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_ZOOM_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_ZOOM_RELATIVE => 13
+    static ZOOM_RELATIVE => 13
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXPOSURE_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXPOSURE_RELATIVE => 14
+    static EXPOSURE_RELATIVE => 14
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_IRIS_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_IRIS_RELATIVE => 15
+    static IRIS_RELATIVE => 15
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_FOCUS_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_FOCUS_RELATIVE => 16
+    static FOCUS_RELATIVE => 16
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PANTILT_RELATIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PANTILT_RELATIVE => 17
+    static PANTILT_RELATIVE => 17
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_FOCAL_LENGTH
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_FOCAL_LENGTH => 18
+    static FOCAL_LENGTH => 18
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_AUTO_EXPOSURE_PRIORITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_AUTO_EXPOSURE_PRIORITY => 19
+    static AUTO_EXPOSURE_PRIORITY => 19
 }

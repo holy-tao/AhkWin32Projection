@@ -10,19 +10,22 @@ class SensorConnectionType extends Win32Enum {
 
     /**
      * The sensor device is built into the computer.
+     * Native name: SENSOR_CONNECTION_TYPE_PC_INTEGRATED
      * @type {Integer (Int32)}
      */
-    static SENSOR_CONNECTION_TYPE_PC_INTEGRATED => 0
+    static PC_INTEGRATED => 0
 
     /**
      * The sensor device is attached to the computer, such as through a peripheral device.
+     * Native name: SENSOR_CONNECTION_TYPE_PC_ATTACHED
      * @type {Integer (Int32)}
      */
-    static SENSOR_CONNECTION_TYPE_PC_ATTACHED => 1
+    static PC_ATTACHED => 1
 
     /**
      * The sensor device is connected by external means, such as through a network connection.
+     * Native name: SENSOR_CONNECTION_TYPE_PC_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static SENSOR_CONNECTION_TYPE_PC_EXTERNAL => 2
+    static PC_EXTERNAL => 2
 }

@@ -7,627 +7,752 @@
 class GameInputLabel extends Win32Enum {
 
     /**
+     * Native name: GameInputLabelUnknown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelUnknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: GameInputLabelNone
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputLabelXboxGuide
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxGuide => 1
+    static XboxGuide => 1
 
     /**
+     * Native name: GameInputLabelXboxBack
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxBack => 2
+    static XboxBack => 2
 
     /**
+     * Native name: GameInputLabelXboxStart
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxStart => 3
+    static XboxStart => 3
 
     /**
+     * Native name: GameInputLabelXboxMenu
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxMenu => 4
+    static XboxMenu => 4
 
     /**
+     * Native name: GameInputLabelXboxView
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxView => 5
+    static XboxView => 5
 
     /**
+     * Native name: GameInputLabelXboxA
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxA => 7
+    static XboxA => 7
 
     /**
+     * Native name: GameInputLabelXboxB
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxB => 8
+    static XboxB => 8
 
     /**
+     * Native name: GameInputLabelXboxX
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxX => 9
+    static XboxX => 9
 
     /**
+     * Native name: GameInputLabelXboxY
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxY => 10
+    static XboxY => 10
 
     /**
+     * Native name: GameInputLabelXboxDPadUp
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxDPadUp => 11
+    static XboxDPadUp => 11
 
     /**
+     * Native name: GameInputLabelXboxDPadDown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxDPadDown => 12
+    static XboxDPadDown => 12
 
     /**
+     * Native name: GameInputLabelXboxDPadLeft
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxDPadLeft => 13
+    static XboxDPadLeft => 13
 
     /**
+     * Native name: GameInputLabelXboxDPadRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxDPadRight => 14
+    static XboxDPadRight => 14
 
     /**
+     * Native name: GameInputLabelXboxLeftShoulder
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxLeftShoulder => 15
+    static XboxLeftShoulder => 15
 
     /**
+     * Native name: GameInputLabelXboxLeftTrigger
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxLeftTrigger => 16
+    static XboxLeftTrigger => 16
 
     /**
+     * Native name: GameInputLabelXboxLeftStickButton
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxLeftStickButton => 17
+    static XboxLeftStickButton => 17
 
     /**
+     * Native name: GameInputLabelXboxRightShoulder
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxRightShoulder => 18
+    static XboxRightShoulder => 18
 
     /**
+     * Native name: GameInputLabelXboxRightTrigger
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxRightTrigger => 19
+    static XboxRightTrigger => 19
 
     /**
+     * Native name: GameInputLabelXboxRightStickButton
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxRightStickButton => 20
+    static XboxRightStickButton => 20
 
     /**
+     * Native name: GameInputLabelXboxPaddle1
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxPaddle1 => 21
+    static XboxPaddle1 => 21
 
     /**
+     * Native name: GameInputLabelXboxPaddle2
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxPaddle2 => 22
+    static XboxPaddle2 => 22
 
     /**
+     * Native name: GameInputLabelXboxPaddle3
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxPaddle3 => 23
+    static XboxPaddle3 => 23
 
     /**
+     * Native name: GameInputLabelXboxPaddle4
      * @type {Integer (Int32)}
      */
-    static GameInputLabelXboxPaddle4 => 24
+    static XboxPaddle4 => 24
 
     /**
+     * Native name: GameInputLabelLetterA
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterA => 25
+    static LetterA => 25
 
     /**
+     * Native name: GameInputLabelLetterB
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterB => 26
+    static LetterB => 26
 
     /**
+     * Native name: GameInputLabelLetterC
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterC => 27
+    static LetterC => 27
 
     /**
+     * Native name: GameInputLabelLetterD
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterD => 28
+    static LetterD => 28
 
     /**
+     * Native name: GameInputLabelLetterE
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterE => 29
+    static LetterE => 29
 
     /**
+     * Native name: GameInputLabelLetterF
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterF => 30
+    static LetterF => 30
 
     /**
+     * Native name: GameInputLabelLetterG
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterG => 31
+    static LetterG => 31
 
     /**
+     * Native name: GameInputLabelLetterH
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterH => 32
+    static LetterH => 32
 
     /**
+     * Native name: GameInputLabelLetterI
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterI => 33
+    static LetterI => 33
 
     /**
+     * Native name: GameInputLabelLetterJ
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterJ => 34
+    static LetterJ => 34
 
     /**
+     * Native name: GameInputLabelLetterK
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterK => 35
+    static LetterK => 35
 
     /**
+     * Native name: GameInputLabelLetterL
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterL => 36
+    static LetterL => 36
 
     /**
+     * Native name: GameInputLabelLetterM
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterM => 37
+    static LetterM => 37
 
     /**
+     * Native name: GameInputLabelLetterN
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterN => 38
+    static LetterN => 38
 
     /**
+     * Native name: GameInputLabelLetterO
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterO => 39
+    static LetterO => 39
 
     /**
+     * Native name: GameInputLabelLetterP
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterP => 40
+    static LetterP => 40
 
     /**
+     * Native name: GameInputLabelLetterQ
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterQ => 41
+    static LetterQ => 41
 
     /**
+     * Native name: GameInputLabelLetterR
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterR => 42
+    static LetterR => 42
 
     /**
+     * Native name: GameInputLabelLetterS
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterS => 43
+    static LetterS => 43
 
     /**
+     * Native name: GameInputLabelLetterT
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterT => 44
+    static LetterT => 44
 
     /**
+     * Native name: GameInputLabelLetterU
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterU => 45
+    static LetterU => 45
 
     /**
+     * Native name: GameInputLabelLetterV
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterV => 46
+    static LetterV => 46
 
     /**
+     * Native name: GameInputLabelLetterW
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterW => 47
+    static LetterW => 47
 
     /**
+     * Native name: GameInputLabelLetterX
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterX => 48
+    static LetterX => 48
 
     /**
+     * Native name: GameInputLabelLetterY
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterY => 49
+    static LetterY => 49
 
     /**
+     * Native name: GameInputLabelLetterZ
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLetterZ => 50
+    static LetterZ => 50
 
     /**
+     * Native name: GameInputLabelNumber0
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber0 => 51
+    static Number0 => 51
 
     /**
+     * Native name: GameInputLabelNumber1
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber1 => 52
+    static Number1 => 52
 
     /**
+     * Native name: GameInputLabelNumber2
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber2 => 53
+    static Number2 => 53
 
     /**
+     * Native name: GameInputLabelNumber3
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber3 => 54
+    static Number3 => 54
 
     /**
+     * Native name: GameInputLabelNumber4
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber4 => 55
+    static Number4 => 55
 
     /**
+     * Native name: GameInputLabelNumber5
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber5 => 56
+    static Number5 => 56
 
     /**
+     * Native name: GameInputLabelNumber6
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber6 => 57
+    static Number6 => 57
 
     /**
+     * Native name: GameInputLabelNumber7
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber7 => 58
+    static Number7 => 58
 
     /**
+     * Native name: GameInputLabelNumber8
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber8 => 59
+    static Number8 => 59
 
     /**
+     * Native name: GameInputLabelNumber9
      * @type {Integer (Int32)}
      */
-    static GameInputLabelNumber9 => 60
+    static Number9 => 60
 
     /**
+     * Native name: GameInputLabelArrowUp
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowUp => 61
+    static ArrowUp => 61
 
     /**
+     * Native name: GameInputLabelArrowUpRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowUpRight => 62
+    static ArrowUpRight => 62
 
     /**
+     * Native name: GameInputLabelArrowRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowRight => 63
+    static ArrowRight => 63
 
     /**
+     * Native name: GameInputLabelArrowDownRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowDownRight => 64
+    static ArrowDownRight => 64
 
     /**
+     * Native name: GameInputLabelArrowDown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowDown => 65
+    static ArrowDown => 65
 
     /**
+     * Native name: GameInputLabelArrowDownLLeft
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowDownLLeft => 66
+    static ArrowDownLLeft => 66
 
     /**
+     * Native name: GameInputLabelArrowLeft
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowLeft => 67
+    static ArrowLeft => 67
 
     /**
+     * Native name: GameInputLabelArrowUpLeft
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowUpLeft => 68
+    static ArrowUpLeft => 68
 
     /**
+     * Native name: GameInputLabelArrowUpDown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowUpDown => 69
+    static ArrowUpDown => 69
 
     /**
+     * Native name: GameInputLabelArrowLeftRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowLeftRight => 70
+    static ArrowLeftRight => 70
 
     /**
+     * Native name: GameInputLabelArrowUpDownLeftRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowUpDownLeftRight => 71
+    static ArrowUpDownLeftRight => 71
 
     /**
+     * Native name: GameInputLabelArrowClockwise
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowClockwise => 72
+    static ArrowClockwise => 72
 
     /**
+     * Native name: GameInputLabelArrowCounterClockwise
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowCounterClockwise => 73
+    static ArrowCounterClockwise => 73
 
     /**
+     * Native name: GameInputLabelArrowReturn
      * @type {Integer (Int32)}
      */
-    static GameInputLabelArrowReturn => 74
+    static ArrowReturn => 74
 
     /**
+     * Native name: GameInputLabelIconBranding
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconBranding => 75
+    static IconBranding => 75
 
     /**
+     * Native name: GameInputLabelIconHome
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconHome => 76
+    static IconHome => 76
 
     /**
+     * Native name: GameInputLabelIconMenu
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconMenu => 77
+    static IconMenu => 77
 
     /**
+     * Native name: GameInputLabelIconCross
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconCross => 78
+    static IconCross => 78
 
     /**
+     * Native name: GameInputLabelIconCircle
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconCircle => 79
+    static IconCircle => 79
 
     /**
+     * Native name: GameInputLabelIconSquare
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconSquare => 80
+    static IconSquare => 80
 
     /**
+     * Native name: GameInputLabelIconTriangle
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconTriangle => 81
+    static IconTriangle => 81
 
     /**
+     * Native name: GameInputLabelIconStar
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconStar => 82
+    static IconStar => 82
 
     /**
+     * Native name: GameInputLabelIconDPadUp
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconDPadUp => 83
+    static IconDPadUp => 83
 
     /**
+     * Native name: GameInputLabelIconDPadDown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconDPadDown => 84
+    static IconDPadDown => 84
 
     /**
+     * Native name: GameInputLabelIconDPadLeft
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconDPadLeft => 85
+    static IconDPadLeft => 85
 
     /**
+     * Native name: GameInputLabelIconDPadRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconDPadRight => 86
+    static IconDPadRight => 86
 
     /**
+     * Native name: GameInputLabelIconDialClockwise
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconDialClockwise => 87
+    static IconDialClockwise => 87
 
     /**
+     * Native name: GameInputLabelIconDialCounterClockwise
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconDialCounterClockwise => 88
+    static IconDialCounterClockwise => 88
 
     /**
+     * Native name: GameInputLabelIconSliderLeftRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconSliderLeftRight => 89
+    static IconSliderLeftRight => 89
 
     /**
+     * Native name: GameInputLabelIconSliderUpDown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconSliderUpDown => 90
+    static IconSliderUpDown => 90
 
     /**
+     * Native name: GameInputLabelIconWheelUpDown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconWheelUpDown => 91
+    static IconWheelUpDown => 91
 
     /**
+     * Native name: GameInputLabelIconPlus
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconPlus => 92
+    static IconPlus => 92
 
     /**
+     * Native name: GameInputLabelIconMinus
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconMinus => 93
+    static IconMinus => 93
 
     /**
+     * Native name: GameInputLabelIconSuspension
      * @type {Integer (Int32)}
      */
-    static GameInputLabelIconSuspension => 94
+    static IconSuspension => 94
 
     /**
+     * Native name: GameInputLabelHome
      * @type {Integer (Int32)}
      */
-    static GameInputLabelHome => 95
+    static Home => 95
 
     /**
+     * Native name: GameInputLabelGuide
      * @type {Integer (Int32)}
      */
-    static GameInputLabelGuide => 96
+    static Guide => 96
 
     /**
+     * Native name: GameInputLabelMode
      * @type {Integer (Int32)}
      */
-    static GameInputLabelMode => 97
+    static Mode => 97
 
     /**
+     * Native name: GameInputLabelSelect
      * @type {Integer (Int32)}
      */
-    static GameInputLabelSelect => 98
+    static Select => 98
 
     /**
+     * Native name: GameInputLabelMenu
      * @type {Integer (Int32)}
      */
-    static GameInputLabelMenu => 99
+    static Menu => 99
 
     /**
+     * Native name: GameInputLabelView
      * @type {Integer (Int32)}
      */
-    static GameInputLabelView => 100
+    static View => 100
 
     /**
+     * Native name: GameInputLabelBack
      * @type {Integer (Int32)}
      */
-    static GameInputLabelBack => 101
+    static Back => 101
 
     /**
+     * Native name: GameInputLabelStart
      * @type {Integer (Int32)}
      */
-    static GameInputLabelStart => 102
+    static Start => 102
 
     /**
+     * Native name: GameInputLabelOptions
      * @type {Integer (Int32)}
      */
-    static GameInputLabelOptions => 103
+    static Options => 103
 
     /**
+     * Native name: GameInputLabelShare
      * @type {Integer (Int32)}
      */
-    static GameInputLabelShare => 104
+    static Share => 104
 
     /**
+     * Native name: GameInputLabelUp
      * @type {Integer (Int32)}
      */
-    static GameInputLabelUp => 105
+    static Up => 105
 
     /**
+     * Native name: GameInputLabelDown
      * @type {Integer (Int32)}
      */
-    static GameInputLabelDown => 106
+    static Down => 106
 
     /**
+     * Native name: GameInputLabelLeft
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLeft => 107
+    static Left => 107
 
     /**
+     * Native name: GameInputLabelRight
      * @type {Integer (Int32)}
      */
-    static GameInputLabelRight => 108
+    static Right => 108
 
     /**
+     * Native name: GameInputLabelLB
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLB => 109
+    static LabelLB => 109
 
     /**
+     * Native name: GameInputLabelLT
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLT => 110
+    static LabelLT => 110
 
     /**
+     * Native name: GameInputLabelLSB
      * @type {Integer (Int32)}
      */
-    static GameInputLabelLSB => 111
+    static LabelLSB => 111
 
     /**
+     * Native name: GameInputLabelL1
      * @type {Integer (Int32)}
      */
-    static GameInputLabelL1 => 112
+    static LabelL1 => 112
 
     /**
+     * Native name: GameInputLabelL2
      * @type {Integer (Int32)}
      */
-    static GameInputLabelL2 => 113
+    static LabelL2 => 113
 
     /**
+     * Native name: GameInputLabelL3
      * @type {Integer (Int32)}
      */
-    static GameInputLabelL3 => 114
+    static LabelL3 => 114
 
     /**
+     * Native name: GameInputLabelRB
      * @type {Integer (Int32)}
      */
-    static GameInputLabelRB => 115
+    static LabelRB => 115
 
     /**
+     * Native name: GameInputLabelRT
      * @type {Integer (Int32)}
      */
-    static GameInputLabelRT => 116
+    static LabelRT => 116
 
     /**
+     * Native name: GameInputLabelRSB
      * @type {Integer (Int32)}
      */
-    static GameInputLabelRSB => 117
+    static LabelRSB => 117
 
     /**
+     * Native name: GameInputLabelR1
      * @type {Integer (Int32)}
      */
-    static GameInputLabelR1 => 118
+    static LabelR1 => 118
 
     /**
+     * Native name: GameInputLabelR2
      * @type {Integer (Int32)}
      */
-    static GameInputLabelR2 => 119
+    static LabelR2 => 119
 
     /**
+     * Native name: GameInputLabelR3
      * @type {Integer (Int32)}
      */
-    static GameInputLabelR3 => 120
+    static LabelR3 => 120
 
     /**
+     * Native name: GameInputLabelP1
      * @type {Integer (Int32)}
      */
-    static GameInputLabelP1 => 121
+    static LabelP1 => 121
 
     /**
+     * Native name: GameInputLabelP2
      * @type {Integer (Int32)}
      */
-    static GameInputLabelP2 => 122
+    static LabelP2 => 122
 
     /**
+     * Native name: GameInputLabelP3
      * @type {Integer (Int32)}
      */
-    static GameInputLabelP3 => 123
+    static LabelP3 => 123
 
     /**
+     * Native name: GameInputLabelP4
      * @type {Integer (Int32)}
      */
-    static GameInputLabelP4 => 124
+    static LabelP4 => 124
 }

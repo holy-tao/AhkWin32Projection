@@ -7,12 +7,14 @@
 class SCRIPTUICITEM extends Win32Enum {
 
     /**
+     * Native name: SCRIPTUICITEM_INPUTBOX
      * @type {Integer (Int32)}
      */
-    static SCRIPTUICITEM_INPUTBOX => 1
+    static INPUTBOX => 1
 
     /**
+     * Native name: SCRIPTUICITEM_MSGBOX
      * @type {Integer (Int32)}
      */
-    static SCRIPTUICITEM_MSGBOX => 2
+    static MSGBOX => 2
 }

@@ -30,7 +30,6 @@ class IMDFind extends IUnknown {
     static VTableNames => ["FindCell", "FindTuple"]
 
     /**
-     * 
      * @param {Pointer} ulStartingOrdinal 
      * @param {Pointer} cMembers 
      * @param {Pointer<PWSTR>} rgpwszMember 
@@ -44,7 +43,6 @@ class IMDFind extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulAxisIdentifier 
      * @param {Pointer} ulStartingOrdinal 
      * @param {Pointer} cMembers 

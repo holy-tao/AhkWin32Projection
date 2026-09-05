@@ -10,37 +10,42 @@ class IKEEXT_INTEGRITY_TYPE extends Win32Enum {
 
     /**
      * Specifies MD5 hash algorithm.
+     * Native name: IKEEXT_INTEGRITY_MD5
      * @type {Integer (Int32)}
      */
-    static IKEEXT_INTEGRITY_MD5 => 0
+    static MD5 => 0
 
     /**
      * Specifies SHA1 hash algorithm.
+     * Native name: IKEEXT_INTEGRITY_SHA1
      * @type {Integer (Int32)}
      */
-    static IKEEXT_INTEGRITY_SHA1 => 1
+    static SHA1 => 1
 
     /**
      * Specifies a 256-bit SHA encryption.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_INTEGRITY_SHA_256
      * @type {Integer (Int32)}
      */
-    static IKEEXT_INTEGRITY_SHA_256 => 2
+    static SHA_256 => 2
 
     /**
      * Specifies a 384-bit SHA encryption.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_INTEGRITY_SHA_384
      * @type {Integer (Int32)}
      */
-    static IKEEXT_INTEGRITY_SHA_384 => 3
+    static SHA_384 => 3
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_INTEGRITY_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_INTEGRITY_TYPE_MAX => 4
+    static MAX => 4
 }

@@ -7,17 +7,20 @@
 class D3DKMT_QUERYSTATISTICS_SEGMENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_SEGMENT_TYPE_APERTURE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_SEGMENT_TYPE_APERTURE => 0
+    static APERTURE => 0
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_SEGMENT_TYPE_MEMORY
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_SEGMENT_TYPE_MEMORY => 1
+    static MEMORY => 1
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_SEGMENT_TYPE_SYSMEM
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_SEGMENT_TYPE_SYSMEM => 2
+    static SYSMEM => 2
 }

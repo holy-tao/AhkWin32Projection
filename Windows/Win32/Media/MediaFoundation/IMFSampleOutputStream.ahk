@@ -78,7 +78,6 @@ class IMFSampleOutputStream extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {

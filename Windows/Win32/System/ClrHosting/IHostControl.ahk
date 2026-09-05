@@ -30,7 +30,6 @@ class IHostControl extends IUnknown {
     static VTableNames => ["GetHostManager", "SetAppDomainManager"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -40,7 +39,6 @@ class IHostControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainID 
      * @param {IUnknown} pUnkAppDomainManager 
      * @returns {HRESULT} 

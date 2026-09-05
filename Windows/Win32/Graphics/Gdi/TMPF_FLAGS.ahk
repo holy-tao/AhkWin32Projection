@@ -7,22 +7,26 @@
 class TMPF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: TMPF_FIXED_PITCH
      * @type {Integer (Byte)}
      */
-    static TMPF_FIXED_PITCH => 0x01
+    static FIXED_PITCH => 0x01
 
     /**
+     * Native name: TMPF_VECTOR
      * @type {Integer (Byte)}
      */
-    static TMPF_VECTOR => 0x02
+    static VECTOR => 0x02
 
     /**
+     * Native name: TMPF_DEVICE
      * @type {Integer (Byte)}
      */
-    static TMPF_DEVICE => 0x08
+    static DEVICE => 0x08
 
     /**
+     * Native name: TMPF_TRUETYPE
      * @type {Integer (Byte)}
      */
-    static TMPF_TRUETYPE => 0x04
+    static TRUETYPE => 0x04
 }

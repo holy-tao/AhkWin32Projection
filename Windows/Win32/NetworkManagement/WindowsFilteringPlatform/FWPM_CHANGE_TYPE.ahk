@@ -10,19 +10,22 @@ class FWPM_CHANGE_TYPE extends Win32Enum {
 
     /**
      * Specifies an add change notification.
+     * Native name: FWPM_CHANGE_ADD
      * @type {Integer (Int32)}
      */
-    static FWPM_CHANGE_ADD => 1
+    static ADD => 1
 
     /**
      * Specifies a delete change notification.
+     * Native name: FWPM_CHANGE_DELETE
      * @type {Integer (Int32)}
      */
-    static FWPM_CHANGE_DELETE => 2
+    static DELETE => 2
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWPM_CHANGE_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static FWPM_CHANGE_TYPE_MAX => 3
+    static MAX => 3
 }

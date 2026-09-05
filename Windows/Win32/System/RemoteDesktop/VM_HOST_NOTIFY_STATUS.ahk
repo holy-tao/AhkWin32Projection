@@ -7,22 +7,26 @@
 class VM_HOST_NOTIFY_STATUS extends Win32Enum {
 
     /**
+     * Native name: VM_HOST_STATUS_INIT_PENDING
      * @type {Integer (Int32)}
      */
-    static VM_HOST_STATUS_INIT_PENDING => 0
+    static INIT_PENDING => 0
 
     /**
+     * Native name: VM_HOST_STATUS_INIT_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static VM_HOST_STATUS_INIT_IN_PROGRESS => 1
+    static INIT_IN_PROGRESS => 1
 
     /**
+     * Native name: VM_HOST_STATUS_INIT_COMPLETE
      * @type {Integer (Int32)}
      */
-    static VM_HOST_STATUS_INIT_COMPLETE => 2
+    static INIT_COMPLETE => 2
 
     /**
+     * Native name: VM_HOST_STATUS_INIT_FAILED
      * @type {Integer (Int32)}
      */
-    static VM_HOST_STATUS_INIT_FAILED => 3
+    static INIT_FAILED => 3
 }

@@ -12,22 +12,25 @@ class WS_SERVICE_PROPERTY_ID extends Win32Enum {
      * A void pointer
      *                     used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateservicehost">WsCreateServiceHost</a>. This property 
      *                     is made available to different callbacks and service operations as part of the  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-operation-context">WS_OPERATION_CONTEXT</a> structure
+     * Native name: WS_SERVICE_PROPERTY_HOST_USER_STATE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROPERTY_HOST_USER_STATE => 0
+    static HOST_USER_STATE => 0
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_fault_disclosure">WS_FAULT_DISCLOSURE</a> value used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateservicehost">WsCreateServiceHost</a>.
      *                     This property is used to specify the disclosure level of the error object when its converted into a fault. The default is <b>WS_MINIMAL_FAULT_DISCLOSURE</b>.
+     * Native name: WS_SERVICE_PROPERTY_FAULT_DISCLOSURE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROPERTY_FAULT_DISCLOSURE => 1
+    static FAULT_DISCLOSURE => 1
 
     /**
      * A LANGID used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetservicehostproperty">WsGetServiceHostProperty</a> to create a fault. If none is specified, the default user locale will be used.
+     * Native name: WS_SERVICE_PROPERTY_FAULT_LANGID
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROPERTY_FAULT_LANGID => 2
+    static FAULT_LANGID => 2
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_service_host_state">WS_SERVICE_HOST_STATE</a> value  used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetservicehostproperty">WsGetServiceHostProperty</a> that specifies the current state of the service host.
@@ -36,9 +39,10 @@ class WS_SERVICE_PROPERTY_ID extends Win32Enum {
      * The returned value is a snapshot of the current state, so it is
      *                     possible that the state may have changed before the caller has
      *                     had a chance to examine the value.
+     * Native name: WS_SERVICE_PROPERTY_HOST_STATE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROPERTY_HOST_STATE => 3
+    static HOST_STATE => 3
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_metadata">WS_SERVICE_METADATA</a> structure used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateservicehost">WsCreateServiceHost</a> that contains the collection of metadata documents used for WS-MetadataExchange by the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a>.
@@ -47,14 +51,16 @@ class WS_SERVICE_PROPERTY_ID extends Win32Enum {
      * 
      *  
      * Note that if a service section is already defined in any of the provided WSDL documents, a service element will not be added on behalf of the application by the runtime.
+     * Native name: WS_SERVICE_PROPERTY_METADATA
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROPERTY_METADATA => 4
+    static METADATA => 4
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateservicehost">WsCreateServiceHost</a> that specifies the maximum amount of time a service model will wait after <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscloseservicehost">WsCloseServiceHost</a> is called. Once the timeout expires service host will abort itself. 
      * The default is 5 seconds specified in milliseconds as 5000.
+     * Native name: WS_SERVICE_PROPERTY_CLOSE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROPERTY_CLOSE_TIMEOUT => 5
+    static CLOSE_TIMEOUT => 5
 }

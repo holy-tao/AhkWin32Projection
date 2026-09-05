@@ -7,12 +7,14 @@
 class TELEPHONY_CALLCONTROLOP extends Win32Enum {
 
     /**
+     * Native name: TELEPHONY_CALLCONTROLOP_DISABLE
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLCONTROLOP_DISABLE => 0
+    static DISABLE => 0
 
     /**
+     * Native name: TELEPHONY_CALLCONTROLOP_ENABLE
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLCONTROLOP_ENABLE => 1
+    static ENABLE => 1
 }

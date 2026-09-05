@@ -7,17 +7,20 @@
 class SCHEMAUSE extends Win32Enum {
 
     /**
+     * Native name: SCHEMAUSE_OPTIONAL
      * @type {Integer (Int32)}
      */
-    static SCHEMAUSE_OPTIONAL => 0
+    static OPTIONAL => 0
 
     /**
+     * Native name: SCHEMAUSE_PROHIBITED
      * @type {Integer (Int32)}
      */
-    static SCHEMAUSE_PROHIBITED => 1
+    static PROHIBITED => 1
 
     /**
+     * Native name: SCHEMAUSE_REQUIRED
      * @type {Integer (Int32)}
      */
-    static SCHEMAUSE_REQUIRED => 2
+    static REQUIRED => 2
 }

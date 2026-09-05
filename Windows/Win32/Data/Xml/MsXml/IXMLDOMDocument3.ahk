@@ -32,7 +32,6 @@ class IXMLDOMDocument3 extends IXMLDOMDocument2 {
     static VTableNames => ["validateNode", "importNode"]
 
     /**
-     * 
      * @param {IXMLDOMNode} _node 
      * @returns {IXMLDOMParseError} 
      */
@@ -42,7 +41,6 @@ class IXMLDOMDocument3 extends IXMLDOMDocument2 {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} _node 
      * @param {VARIANT_BOOL} deep 
      * @returns {IXMLDOMNode} 

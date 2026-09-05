@@ -7,12 +7,14 @@
 class D3D12_SET_WORK_GRAPH_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_SET_WORK_GRAPH_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_SET_WORK_GRAPH_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: D3D12_SET_WORK_GRAPH_FLAG_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static D3D12_SET_WORK_GRAPH_FLAG_INITIALIZE => 1
+    static FLAG_INITIALIZE => 1
 }

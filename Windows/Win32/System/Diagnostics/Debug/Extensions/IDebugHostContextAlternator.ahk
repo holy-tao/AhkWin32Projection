@@ -29,7 +29,6 @@ class IDebugHostContextAlternator extends IUnknown {
     static VTableNames => ["SwitchTo", "SwitchBack"]
 
     /**
-     * 
      * @param {Integer} fullSwitch 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IDebugHostContextAlternator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SwitchBack() {

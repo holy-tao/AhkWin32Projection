@@ -11,80 +11,95 @@
 class HTTP_REQUEST_PROPERTY extends Win32Enum {
 
     /**
+     * Native name: HttpRequestPropertyIsb
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyIsb => 0
+    static Isb => 0
 
     /**
+     * Native name: HttpRequestPropertyTcpInfoV0
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyTcpInfoV0 => 1
+    static TcpInfoV0 => 1
 
     /**
+     * Native name: HttpRequestPropertyQuicStats
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyQuicStats => 2
+    static QuicStats => 2
 
     /**
+     * Native name: HttpRequestPropertyTcpInfoV1
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyTcpInfoV1 => 3
+    static TcpInfoV1 => 3
 
     /**
+     * Native name: HttpRequestPropertySni
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertySni => 4
+    static Sni => 4
 
     /**
      * The HTTP/2 or HTTP/3 stream error on the request.
      * 
      * The [HTTP\_REQUEST\_PROPERTY\_STREAM\_ERROR](/windows/win32/api/http/ns-http-http_request_property_stream_error) structure contains the configuration data for this property.
+     * Native name: HttpRequestPropertyStreamError
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyStreamError => 5
+    static StreamError => 5
 
     /**
+     * Native name: HttpRequestPropertyWskApiTimings
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyWskApiTimings => 6
+    static WskApiTimings => 6
 
     /**
+     * Native name: HttpRequestPropertyQuicApiTimings
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyQuicApiTimings => 7
+    static QuicApiTimings => 7
 
     /**
+     * Native name: HttpRequestPropertyQuicStatsV2
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyQuicStatsV2 => 8
+    static QuicStatsV2 => 8
 
     /**
+     * Native name: HttpRequestPropertyQuicStreamStats
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyQuicStreamStats => 9
+    static QuicStreamStats => 9
 
     /**
+     * Native name: HttpRequestPropertyTcpInfoV2
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyTcpInfoV2 => 10
+    static TcpInfoV2 => 10
 
     /**
+     * Native name: HttpRequestPropertyTlsClientHello
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyTlsClientHello => 11
+    static TlsClientHello => 11
 
     /**
+     * Native name: HttpRequestPropertyTransportIdleConnectionTimeout
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyTransportIdleConnectionTimeout => 12
+    static TransportIdleConnectionTimeout => 12
 
     /**
+     * Native name: HttpRequestPropertyDscpTag
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyDscpTag => 13
+    static DscpTag => 13
 
     /**
+     * Native name: HttpRequestPropertyTlsCipherInfo
      * @type {Integer (Int32)}
      */
-    static HttpRequestPropertyTlsCipherInfo => 14
+    static TlsCipherInfo => 14
 }

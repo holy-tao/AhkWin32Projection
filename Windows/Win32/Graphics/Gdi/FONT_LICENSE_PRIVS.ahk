@@ -7,27 +7,32 @@
 class FONT_LICENSE_PRIVS extends Win32Enum {
 
     /**
+     * Native name: LICENSE_PREVIEWPRINT
      * @type {Integer (UInt32)}
      */
-    static LICENSE_PREVIEWPRINT => 4
+    static PREVIEWPRINT => 4
 
     /**
+     * Native name: LICENSE_EDITABLE
      * @type {Integer (UInt32)}
      */
-    static LICENSE_EDITABLE => 8
+    static EDITABLE => 8
 
     /**
+     * Native name: LICENSE_INSTALLABLE
      * @type {Integer (UInt32)}
      */
-    static LICENSE_INSTALLABLE => 0
+    static INSTALLABLE => 0
 
     /**
+     * Native name: LICENSE_NOEMBEDDING
      * @type {Integer (UInt32)}
      */
-    static LICENSE_NOEMBEDDING => 2
+    static NOEMBEDDING => 2
 
     /**
+     * Native name: LICENSE_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static LICENSE_DEFAULT => 0
+    static DEFAULT => 0
 }

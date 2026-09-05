@@ -40,7 +40,6 @@ class ISubscriptionMgr extends IUnknown {
     static VTableNames => ["DeleteSubscription", "UpdateSubscription", "UpdateAll", "IsSubscribed", "GetSubscriptionInfo", "GetDefaultInfo", "ShowSubscriptionProperties", "CreateSubscription"]
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ class ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateAll() {
@@ -75,7 +72,6 @@ class ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {BOOL} 
      */
@@ -87,7 +83,6 @@ class ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {SUBSCRIPTIONINFO} 
      */
@@ -100,7 +95,6 @@ class ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {SUBSCRIPTIONTYPE} subType 
      * @returns {SUBSCRIPTIONINFO} 
      */
@@ -111,7 +105,6 @@ class ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -125,7 +118,6 @@ class ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} pwszURL 
      * @param {PWSTR} pwszFriendlyName 

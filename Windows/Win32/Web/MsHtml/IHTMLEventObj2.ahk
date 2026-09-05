@@ -244,7 +244,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 
      * @param {Integer} lFlags 
@@ -258,7 +257,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT} 
@@ -272,7 +270,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT_BOOL} 
@@ -285,7 +282,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -297,7 +293,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_propertyName() {
@@ -307,7 +302,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLBookmarkCollection} v 
      * @returns {HRESULT} 
      */
@@ -317,7 +311,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLBookmarkCollection} 
      */
     get_bookmarks() {
@@ -326,7 +319,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} v 
      * @returns {HRESULT} 
      */
@@ -336,7 +328,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_recordset() {
@@ -345,7 +336,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -357,7 +347,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dataFld() {
@@ -367,7 +356,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElementCollection} v 
      * @returns {HRESULT} 
      */
@@ -377,7 +365,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_boundElements() {
@@ -386,7 +373,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -396,7 +382,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_repeat() {
@@ -405,7 +390,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -417,7 +401,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_srcUrn() {
@@ -427,7 +410,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} v 
      * @returns {HRESULT} 
      */
@@ -437,7 +419,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_srcElement() {
@@ -446,7 +427,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -456,7 +436,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -465,7 +444,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -475,7 +453,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -484,7 +461,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -494,7 +470,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -503,7 +478,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} v 
      * @returns {HRESULT} 
      */
@@ -513,7 +487,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_fromElement() {
@@ -522,7 +495,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} v 
      * @returns {HRESULT} 
      */
@@ -532,7 +504,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_toElement() {
@@ -541,7 +512,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -551,7 +521,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_button() {
@@ -560,7 +529,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -572,7 +540,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -582,7 +549,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -594,7 +560,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_qualifier() {
@@ -604,7 +569,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -614,7 +578,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_reason() {
@@ -623,7 +586,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -633,7 +595,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -642,7 +603,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -652,7 +612,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_y() {
@@ -661,7 +620,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -671,7 +629,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientX() {
@@ -680,7 +637,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -690,7 +646,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientY() {
@@ -699,7 +654,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -709,7 +663,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetX() {
@@ -718,7 +671,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -728,7 +680,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetY() {
@@ -737,7 +688,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -747,7 +697,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -756,7 +705,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -766,7 +714,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -775,7 +722,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} v 
      * @returns {HRESULT} 
      */
@@ -785,7 +731,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_srcFilter() {
@@ -794,7 +739,6 @@ class IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDataTransfer} 
      */
     get_dataTransfer() {

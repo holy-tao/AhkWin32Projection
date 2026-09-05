@@ -46,7 +46,6 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
@@ -58,7 +57,6 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsTransitionPoint() {
@@ -67,7 +65,6 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IDataModelScript>} transitionScript 
      * @param {Pointer<Boolean>} isTransitionContiguous 
      * @returns {HRESULT} 
@@ -80,7 +77,6 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszExpression 
      * @returns {IModelObject} 
      */
@@ -92,7 +88,6 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugVariableSetEnumerator} 
      */
     EnumerateLocals() {
@@ -101,7 +96,6 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugVariableSetEnumerator} 
      */
     EnumerateArguments() {

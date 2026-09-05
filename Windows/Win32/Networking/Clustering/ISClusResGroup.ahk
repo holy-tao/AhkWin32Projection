@@ -115,7 +115,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -124,7 +123,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -133,7 +131,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -142,7 +139,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -151,7 +147,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -160,7 +155,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -170,7 +164,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @returns {HRESULT} 
      */
@@ -182,7 +175,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_GROUP_STATE} 
      */
     get_State() {
@@ -191,7 +183,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNode} 
      */
     get_OwnerNode() {
@@ -200,7 +191,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroupResources} 
      */
     get_Resources() {
@@ -209,7 +199,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroupPreferredOwnerNodes} 
      */
     get_PreferredOwnerNodes() {
@@ -218,7 +207,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -227,7 +215,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
@@ -239,7 +226,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
@@ -251,7 +237,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varTimeout 
      * @returns {VARIANT} 
      */
@@ -262,7 +247,6 @@ class ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {

@@ -7,22 +7,26 @@
 class KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_NETWORKCAMERACONTROL_NTP
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_NETWORKCAMERACONTROL_NTP => 0
+    static NTP => 0
 
     /**
+     * Native name: KSPROPERTY_NETWORKCAMERACONTROL_URI
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_NETWORKCAMERACONTROL_URI => 1
+    static URI => 1
 
     /**
+     * Native name: KSPROPERTY_NETWORKCAMERACONTROL_METADATA
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_NETWORKCAMERACONTROL_METADATA => 2
+    static METADATA => 2
 
     /**
+     * Native name: KSPROPERTY_NETWORKCAMERACONTROL_EVENTTOPICS_XML
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_NETWORKCAMERACONTROL_EVENTTOPICS_XML => 3
+    static EVENTTOPICS_XML => 3
 }

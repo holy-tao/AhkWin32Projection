@@ -10,13 +10,15 @@ class MFASF_STREAMSELECTOR_FLAGS extends Win32Enum {
 
     /**
      * The stream selector will not set thinning. Thinning is the process of removing samples from a stream to reduce the bit rate.
+     * Native name: MFASF_STREAMSELECTOR_DISABLE_THINNING
      * @type {Integer (Int32)}
      */
-    static MFASF_STREAMSELECTOR_DISABLE_THINNING => 1
+    static DISABLE_THINNING => 1
 
     /**
      * The stream selector will use the average bit rate of streams when selecting streams.
+     * Native name: MFASF_STREAMSELECTOR_USE_AVERAGE_BITRATE
      * @type {Integer (Int32)}
      */
-    static MFASF_STREAMSELECTOR_USE_AVERAGE_BITRATE => 2
+    static USE_AVERAGE_BITRATE => 2
 }

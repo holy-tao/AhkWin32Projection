@@ -10,19 +10,22 @@ class SERVERCALL extends Win32Enum {
 
     /**
      * The object may be able to process the call.
+     * Native name: SERVERCALL_ISHANDLED
      * @type {Integer (Int32)}
      */
-    static SERVERCALL_ISHANDLED => 0
+    static ISHANDLED => 0
 
     /**
      * The object cannot handle the call due to an unforeseen problem, such as network unavailability.
+     * Native name: SERVERCALL_REJECTED
      * @type {Integer (Int32)}
      */
-    static SERVERCALL_REJECTED => 1
+    static REJECTED => 1
 
     /**
      * The object cannot handle the call at this time. For example, an application might return this value when it is in a user-controlled modal state.
+     * Native name: SERVERCALL_RETRYLATER
      * @type {Integer (Int32)}
      */
-    static SERVERCALL_RETRYLATER => 2
+    static RETRYLATER => 2
 }

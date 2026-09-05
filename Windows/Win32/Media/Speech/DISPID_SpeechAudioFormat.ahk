@@ -7,22 +7,26 @@
 class DISPID_SpeechAudioFormat extends Win32Enum {
 
     /**
+     * Native name: DISPID_SAFType
      * @type {Integer (Int32)}
      */
-    static DISPID_SAFType => 1
+    static SAFType => 1
 
     /**
+     * Native name: DISPID_SAFGuid
      * @type {Integer (Int32)}
      */
-    static DISPID_SAFGuid => 2
+    static SAFGuid => 2
 
     /**
+     * Native name: DISPID_SAFGetWaveFormatEx
      * @type {Integer (Int32)}
      */
-    static DISPID_SAFGetWaveFormatEx => 3
+    static SAFGetWaveFormatEx => 3
 
     /**
+     * Native name: DISPID_SAFSetWaveFormatEx
      * @type {Integer (Int32)}
      */
-    static DISPID_SAFSetWaveFormatEx => 4
+    static SAFSetWaveFormatEx => 4
 }

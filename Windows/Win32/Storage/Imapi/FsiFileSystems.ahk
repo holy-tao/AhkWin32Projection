@@ -10,31 +10,36 @@ class FsiFileSystems extends Win32Enum {
 
     /**
      * The disc does not contain a recognized file system.
+     * Native name: FsiFileSystemNone
      * @type {Integer (Int32)}
      */
-    static FsiFileSystemNone => 0
+    static SystemNone => 0
 
     /**
      * Standard CD file system.
+     * Native name: FsiFileSystemISO9660
      * @type {Integer (Int32)}
      */
-    static FsiFileSystemISO9660 => 1
+    static SystemISO9660 => 1
 
     /**
      * Joliet file system.
+     * Native name: FsiFileSystemJoliet
      * @type {Integer (Int32)}
      */
-    static FsiFileSystemJoliet => 2
+    static SystemJoliet => 2
 
     /**
      * UDF file system.
+     * Native name: FsiFileSystemUDF
      * @type {Integer (Int32)}
      */
-    static FsiFileSystemUDF => 4
+    static SystemUDF => 4
 
     /**
      * The disc appears to have a file system, but the layout does not match any of the recognized types.
+     * Native name: FsiFileSystemUnknown
      * @type {Integer (Int32)}
      */
-    static FsiFileSystemUnknown => 1073741824
+    static SystemUnknown => 1073741824
 }

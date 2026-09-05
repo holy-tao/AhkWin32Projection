@@ -7,7 +7,8 @@
 class D3DKMT_AUXILIARYPRESENTINFO_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_AUXILIARYPRESENTINFO_TYPE_FLIPMANAGER
      * @type {Integer (Int32)}
      */
-    static D3DKMT_AUXILIARYPRESENTINFO_TYPE_FLIPMANAGER => 0
+    static FLIPMANAGER => 0
 }

@@ -48,7 +48,6 @@ class ICatalog extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCollName 
      * @returns {IDispatch} 
      */
@@ -60,7 +59,6 @@ class ICatalog extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrConnectString 
      * @returns {IDispatch} 
      */
@@ -72,7 +70,6 @@ class ICatalog extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} retval 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ class ICatalog extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} retval 
      * @returns {HRESULT} 
      */

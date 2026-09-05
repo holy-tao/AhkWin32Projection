@@ -10,19 +10,22 @@ class eUserAllocationState extends Win32Enum {
 
     /**
      * The allocation state cannot be determined.
+     * Native name: AllocationStateUnknown
      * @type {Integer (Int32)}
      */
-    static AllocationStateUnknown => 0
+    static Unknown => 0
 
     /**
      * The allocation state is currently in use.
+     * Native name: AllocationStateBusy
      * @type {Integer (Int32)}
      */
-    static AllocationStateBusy => 1
+    static Busy => 1
 
     /**
      * Memory has been freed from the stack but has not been returned to the heap yet.
+     * Native name: AllocationStateFree
      * @type {Integer (Int32)}
      */
-    static AllocationStateFree => 2
+    static Free => 2
 }

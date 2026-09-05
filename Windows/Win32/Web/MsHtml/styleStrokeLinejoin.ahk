@@ -7,27 +7,32 @@
 class styleStrokeLinejoin extends Win32Enum {
 
     /**
+     * Native name: styleStrokeLinejoinNotSet
      * @type {Integer (Int32)}
      */
-    static styleStrokeLinejoinNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleStrokeLinejoinMiter
      * @type {Integer (Int32)}
      */
-    static styleStrokeLinejoinMiter => 1
+    static Miter => 1
 
     /**
+     * Native name: styleStrokeLinejoinRound
      * @type {Integer (Int32)}
      */
-    static styleStrokeLinejoinRound => 2
+    static Round => 2
 
     /**
+     * Native name: styleStrokeLinejoinBevel
      * @type {Integer (Int32)}
      */
-    static styleStrokeLinejoinBevel => 3
+    static Bevel => 3
 
     /**
+     * Native name: styleStrokeLinejoin_Max
      * @type {Integer (Int32)}
      */
-    static styleStrokeLinejoin_Max => 2147483647
+    static Max => 2147483647
 }

@@ -31,7 +31,6 @@ class IPrinterExtensionEvent extends IDispatch {
     static VTableNames => ["OnDriverEvent", "OnPrinterQueuesEnumerated"]
 
     /**
-     * 
      * @param {IPrinterExtensionEventArgs} pEventArgs 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IPrinterExtensionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPrinterExtensionContextCollection} pContextCollection 
      * @returns {HRESULT} 
      */

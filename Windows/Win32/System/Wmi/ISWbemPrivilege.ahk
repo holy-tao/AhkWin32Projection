@@ -67,7 +67,6 @@ class ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsEnabled() {
@@ -76,7 +75,6 @@ class ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsEnabled 
      * @returns {HRESULT} 
      */
@@ -86,7 +84,6 @@ class ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -96,7 +93,6 @@ class ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -106,7 +102,6 @@ class ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemPrivilegeEnum} 
      */
     get_Identifier() {

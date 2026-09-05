@@ -10,7 +10,8 @@ class WS_SAML_AUTHENTICATOR_TYPE extends Win32Enum {
 
     /**
      * Type ID for the SAML authenticator <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_cert_signed_saml_authenticator">WS_CERT_SIGNED_SAML_AUTHENTICATOR</a>.
+     * Native name: WS_CERT_SIGNED_SAML_AUTHENTICATOR_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_CERT_SIGNED_SAML_AUTHENTICATOR_TYPE => 1
+    static CERT_SIGNED_SAML_AUTHENTICATOR_TYPE => 1
 }

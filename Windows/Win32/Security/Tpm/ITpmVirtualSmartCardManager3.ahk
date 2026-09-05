@@ -33,7 +33,6 @@ class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2 {
     static VTableNames => ["CreateVirtualSmartCardWithAttestation"]
 
     /**
-     * 
      * @param {PWSTR} pszFriendlyName 
      * @param {Integer} bAdminAlgId 
      * @param {Pointer<Integer>} pbAdminKey 

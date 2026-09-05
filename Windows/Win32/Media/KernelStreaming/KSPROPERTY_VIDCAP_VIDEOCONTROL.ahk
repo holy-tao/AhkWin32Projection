@@ -7,22 +7,26 @@
 class KSPROPERTY_VIDCAP_VIDEOCONTROL extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_VIDEOCONTROL_CAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEOCONTROL_CAPS => 0
+    static CAPS => 0
 
     /**
+     * Native name: KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE => 1
+    static ACTUAL_FRAME_RATE => 1
 
     /**
+     * Native name: KSPROPERTY_VIDEOCONTROL_FRAME_RATES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEOCONTROL_FRAME_RATES => 2
+    static FRAME_RATES => 2
 
     /**
+     * Native name: KSPROPERTY_VIDEOCONTROL_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEOCONTROL_MODE => 3
+    static MODE => 3
 }

@@ -29,7 +29,6 @@ class IContinue extends IUnknown {
     static VTableNames => ["FContinue"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FContinue() {

@@ -29,7 +29,6 @@ class ID3D12DeviceRemovedExtendedDataSettings2 extends ID3D12DeviceRemovedExtend
     static VTableNames => ["UseMarkersOnlyAutoBreadcrumbs"]
 
     /**
-     * 
      * @param {BOOL} MarkersOnly 
      * @returns {String} Nothing - always returns an empty string
      */

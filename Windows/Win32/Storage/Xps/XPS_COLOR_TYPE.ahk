@@ -10,19 +10,22 @@ class XPS_COLOR_TYPE extends Win32Enum {
 
     /**
      * The color value is an sRGB value.
+     * Native name: XPS_COLOR_TYPE_SRGB
      * @type {Integer (Int32)}
      */
-    static XPS_COLOR_TYPE_SRGB => 1
+    static SRGB => 1
 
     /**
      * The color value is an scRGB value.
+     * Native name: XPS_COLOR_TYPE_SCRGB
      * @type {Integer (Int32)}
      */
-    static XPS_COLOR_TYPE_SCRGB => 2
+    static SCRGB => 2
 
     /**
      * The color value is specified using context color syntax.
+     * Native name: XPS_COLOR_TYPE_CONTEXT
      * @type {Integer (Int32)}
      */
-    static XPS_COLOR_TYPE_CONTEXT => 3
+    static CONTEXT => 3
 }

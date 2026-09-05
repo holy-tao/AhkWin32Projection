@@ -7,27 +7,32 @@
 class styleInitialColor extends Win32Enum {
 
     /**
+     * Native name: styleInitialColorNoInitial
      * @type {Integer (Int32)}
      */
-    static styleInitialColorNoInitial => 0
+    static NoInitial => 0
 
     /**
+     * Native name: styleInitialColorColorProperty
      * @type {Integer (Int32)}
      */
-    static styleInitialColorColorProperty => 1
+    static ColorProperty => 1
 
     /**
+     * Native name: styleInitialColorTransparent
      * @type {Integer (Int32)}
      */
-    static styleInitialColorTransparent => 2
+    static Transparent => 2
 
     /**
+     * Native name: styleInitialColorInvert
      * @type {Integer (Int32)}
      */
-    static styleInitialColorInvert => 3
+    static Invert => 3
 
     /**
+     * Native name: styleInitialColor_Max
      * @type {Integer (Int32)}
      */
-    static styleInitialColor_Max => 2147483647
+    static Max => 2147483647
 }

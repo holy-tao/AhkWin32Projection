@@ -7,37 +7,44 @@
 class NVMEOF_AUTH_ID extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthIdNegotiate
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIdNegotiate => 0
+    static Negotiate => 0
 
     /**
+     * Native name: NvmeofAuthIdChallenge
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIdChallenge => 1
+    static Challenge => 1
 
     /**
+     * Native name: NvmeofAuthIdReply
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIdReply => 2
+    static Reply => 2
 
     /**
+     * Native name: NvmeofAuthIdSuccess1
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIdSuccess1 => 3
+    static Success1 => 3
 
     /**
+     * Native name: NvmeofAuthIdSuccess2
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIdSuccess2 => 4
+    static Success2 => 4
 
     /**
+     * Native name: NvmeofAuthIdFailure2
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIdFailure2 => 240
+    static Failure2 => 240
 
     /**
+     * Native name: NvmeofAuthIdFailure1
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIdFailure1 => 241
+    static Failure1 => 241
 }

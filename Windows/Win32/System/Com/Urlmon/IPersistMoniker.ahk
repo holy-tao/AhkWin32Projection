@@ -33,7 +33,6 @@ class IPersistMoniker extends IUnknown {
     static VTableNames => ["GetClassID", "IsDirty", "Load", "Save", "SaveCompleted", "GetCurMoniker"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetClassID() {
@@ -43,7 +42,6 @@ class IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsDirty() {
@@ -131,7 +129,6 @@ class IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkName 
      * @param {IBindCtx} pbc 
      * @param {BOOL} fRemember 
@@ -143,7 +140,6 @@ class IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkName 
      * @param {IBindCtx} pibc 
      * @returns {HRESULT} 
@@ -154,7 +150,6 @@ class IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMoniker} 
      */
     GetCurMoniker() {

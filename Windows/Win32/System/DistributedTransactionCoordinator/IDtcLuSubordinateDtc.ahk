@@ -30,7 +30,6 @@ class IDtcLuSubordinateDtc extends IUnknown {
     static VTableNames => ["Unplug", "BackedOut", "BackOut", "Committed", "Forget", "Prepare", "RequestCommit"]
 
     /**
-     * 
      * @param {BOOL} fConversationLost 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BackedOut() {
@@ -49,7 +47,6 @@ class IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BackOut() {
@@ -58,7 +55,6 @@ class IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Committed() {
@@ -67,7 +63,6 @@ class IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Forget() {
@@ -76,7 +71,6 @@ class IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Prepare() {
@@ -85,7 +79,6 @@ class IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RequestCommit() {

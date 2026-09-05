@@ -10,19 +10,22 @@ class FEATURE_ENABLED_STATE extends Win32Enum {
 
     /**
      * TBD
+     * Native name: FEATURE_ENABLED_STATE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static FEATURE_ENABLED_STATE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * TBD
+     * Native name: FEATURE_ENABLED_STATE_DISABLED
      * @type {Integer (Int32)}
      */
-    static FEATURE_ENABLED_STATE_DISABLED => 1
+    static DISABLED => 1
 
     /**
      * TBD
+     * Native name: FEATURE_ENABLED_STATE_ENABLED
      * @type {Integer (Int32)}
      */
-    static FEATURE_ENABLED_STATE_ENABLED => 2
+    static ENABLED => 2
 }

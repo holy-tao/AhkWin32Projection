@@ -57,7 +57,6 @@ class IAccountingProviderConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} uConnectionParam 
      * @returns {HRESULT} 
      */
@@ -94,7 +93,6 @@ class IAccountingProviderConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} uConnectionParam 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 
@@ -106,7 +104,6 @@ class IAccountingProviderConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} uConnectionParam 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 

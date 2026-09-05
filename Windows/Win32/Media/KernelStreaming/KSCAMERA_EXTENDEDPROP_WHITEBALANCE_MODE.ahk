@@ -7,12 +7,14 @@
 class KSCAMERA_EXTENDEDPROP_WHITEBALANCE_MODE extends Win32Enum {
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WHITEBALANCE_TEMPERATURE
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WHITEBALANCE_TEMPERATURE => 1
+    static TEMPERATURE => 1
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WHITEBALANCE_PRESET
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WHITEBALANCE_PRESET => 2
+    static PRESET => 2
 }

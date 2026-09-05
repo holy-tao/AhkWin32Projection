@@ -58,31 +58,36 @@ class DXVA2_VideoTransferMatrix extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: DXVA2_VideoTransferMatrixMask
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransferMatrixMask => 7
+    static Mask => 7
 
     /**
      * Unknown. For standard-definition content, treat as DXVA2_VideoTransferMatrix_BT601. For high-definition content, treat as DXVA2_VideoTransferMatrix_BT709. (High-definition content is defined for this purpose as anything with a source height greater than 576 lines.)
+     * Native name: DXVA2_VideoTransferMatrix_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransferMatrix_Unknown => 0
+    static Unknown => 0
 
     /**
      * ITU-R BT.709 transfer matrix.
+     * Native name: DXVA2_VideoTransferMatrix_BT709
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransferMatrix_BT709 => 1
+    static BT709 => 1
 
     /**
      * ITU-R BT.601 transfer matrix. Also used for SMPTE 170 and ITU-R BT.470-2 System B,G.
+     * Native name: DXVA2_VideoTransferMatrix_BT601
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransferMatrix_BT601 => 2
+    static BT601 => 2
 
     /**
      * SMPTE 240M transfer matrix.
+     * Native name: DXVA2_VideoTransferMatrix_SMPTE240M
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransferMatrix_SMPTE240M => 3
+    static SMPTE240M => 3
 }

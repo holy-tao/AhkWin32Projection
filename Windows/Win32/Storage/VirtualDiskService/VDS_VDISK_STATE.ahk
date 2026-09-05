@@ -13,73 +13,85 @@ class VDS_VDISK_STATE extends Win32Enum {
 
     /**
      * VDS was not able to identify the virtual disk's current status.
+     * Native name: VDS_VST_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_VST_UNKNOWN => 0
+    static VST_UNKNOWN => 0
 
     /**
      * The virtual disk is has been added to the VDS virtual disk provider.
+     * Native name: VDS_VST_ADDED
      * @type {Integer (Int32)}
      */
-    static VDS_VST_ADDED => 1
+    static VST_ADDED => 1
 
     /**
      * A handle has been opened to the virtual disk file.
+     * Native name: VDS_VST_OPEN
      * @type {Integer (Int32)}
      */
-    static VDS_VST_OPEN => 2
+    static VST_OPEN => 2
 
     /**
      * The virtual disk is being attached
+     * Native name: VDS_VST_ATTACH_PENDING
      * @type {Integer (Int32)}
      */
-    static VDS_VST_ATTACH_PENDING => 3
+    static VST_ATTACH_PENDING => 3
 
     /**
      * The virtual disk is attached, but a handle has not been opened to the virtual disk file.
+     * Native name: VDS_VST_ATTACHED_NOT_OPEN
      * @type {Integer (Int32)}
      */
-    static VDS_VST_ATTACHED_NOT_OPEN => 4
+    static VST_ATTACHED_NOT_OPEN => 4
 
     /**
      * The virtual disk is attached and a handle has  been opened to the virtual disk file.
+     * Native name: VDS_VST_ATTACHED
      * @type {Integer (Int32)}
      */
-    static VDS_VST_ATTACHED => 5
+    static VST_ATTACHED => 5
 
     /**
      * The virtual disk is being detached and a handle is being opened to the virtual disk file.
+     * Native name: VDS_VST_DETACH_PENDING
      * @type {Integer (Int32)}
      */
-    static VDS_VST_DETACH_PENDING => 6
+    static VST_DETACH_PENDING => 6
 
     /**
      * The virtual disk is being compacted.
+     * Native name: VDS_VST_COMPACTING
      * @type {Integer (Int32)}
      */
-    static VDS_VST_COMPACTING => 7
+    static VST_COMPACTING => 7
 
     /**
      * The virtual disk is being merged.
+     * Native name: VDS_VST_MERGING
      * @type {Integer (Int32)}
      */
-    static VDS_VST_MERGING => 8
+    static VST_MERGING => 8
 
     /**
      * The virtual disk is being expanded.
+     * Native name: VDS_VST_EXPANDING
      * @type {Integer (Int32)}
      */
-    static VDS_VST_EXPANDING => 9
+    static VST_EXPANDING => 9
 
     /**
      * The virtual disk has been deleted.
+     * Native name: VDS_VST_DELETED
      * @type {Integer (Int32)}
      */
-    static VDS_VST_DELETED => 10
+    static VST_DELETED => 10
 
     /**
      * This value is reserved for system use.
+     * Native name: VDS_VST_MAX
      * @type {Integer (Int32)}
      */
-    static VDS_VST_MAX => 11
+    static VST_MAX => 11
 }

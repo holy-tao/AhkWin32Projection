@@ -10,7 +10,8 @@ class WICPngGamaProperties extends Win32Enum {
 
     /**
      * [VT_UI4] Indicates the gamma value.
+     * Native name: WICPngGamaGamma
      * @type {Integer (Int32)}
      */
-    static WICPngGamaGamma => 1
+    static Gamma => 1
 }

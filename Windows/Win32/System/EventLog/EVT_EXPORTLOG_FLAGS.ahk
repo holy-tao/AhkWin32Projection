@@ -10,24 +10,28 @@ class EVT_EXPORTLOG_FLAGS extends Win32Enum {
 
     /**
      * The source of the events is a channel.
+     * Native name: EvtExportLogChannelPath
      * @type {Integer (UInt32)}
      */
-    static EvtExportLogChannelPath => 1
+    static ExportLogChannelPath => 1
 
     /**
      * The source of the events is a previously exported log file.
+     * Native name: EvtExportLogFilePath
      * @type {Integer (UInt32)}
      */
-    static EvtExportLogFilePath => 2
+    static ExportLogFilePath => 2
 
     /**
      * Export events even if part of the query generates an error (is not well formed). The service validates the syntax of the XPath query to determine whether it is well formed. If the validation fails, the service parses the XPath into individual expressions. It builds a new XPath beginning with the leftmost expression. The service validates the expression and if it is valid, the service adds the next expression to the XPath. The service repeats this process until it finds the expression that is failing. It then uses the valid expressions as the XPath query (which means that you may not get the events that you expected). If no part of the XPath is valid, the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtexportlog">EvtExportLog</a> call fails.
+     * Native name: EvtExportLogTolerateQueryErrors
      * @type {Integer (UInt32)}
      */
-    static EvtExportLogTolerateQueryErrors => 4096
+    static ExportLogTolerateQueryErrors => 4096
 
     /**
+     * Native name: EvtExportLogOverwrite
      * @type {Integer (UInt32)}
      */
-    static EvtExportLogOverwrite => 8192
+    static ExportLogOverwrite => 8192
 }

@@ -39,7 +39,6 @@ class IADsServiceOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Status() {

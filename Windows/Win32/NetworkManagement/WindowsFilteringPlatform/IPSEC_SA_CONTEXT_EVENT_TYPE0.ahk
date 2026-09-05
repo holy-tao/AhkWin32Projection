@@ -10,19 +10,22 @@ class IPSEC_SA_CONTEXT_EVENT_TYPE0 extends Win32Enum {
 
     /**
      * A new IPsec SA context was added.
+     * Native name: IPSEC_SA_CONTEXT_EVENT_ADD
      * @type {Integer (Int32)}
      */
-    static IPSEC_SA_CONTEXT_EVENT_ADD => 1
+    static ADD => 1
 
     /**
      * An IPsec SA context was deleted.
+     * Native name: IPSEC_SA_CONTEXT_EVENT_DELETE
      * @type {Integer (Int32)}
      */
-    static IPSEC_SA_CONTEXT_EVENT_DELETE => 2
+    static DELETE => 2
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IPSEC_SA_CONTEXT_EVENT_MAX
      * @type {Integer (Int32)}
      */
-    static IPSEC_SA_CONTEXT_EVENT_MAX => 3
+    static MAX => 3
 }

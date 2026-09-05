@@ -7,42 +7,50 @@
 class IdentityUpdateEvent extends Win32BitflagEnum {
 
     /**
+     * Native name: IDENTITY_ASSOCIATED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_ASSOCIATED => 1
+    static ASSOCIATED => 1
 
     /**
+     * Native name: IDENTITY_DISASSOCIATED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_DISASSOCIATED => 2
+    static DISASSOCIATED => 2
 
     /**
+     * Native name: IDENTITY_CREATED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_CREATED => 4
+    static CREATED => 4
 
     /**
+     * Native name: IDENTITY_IMPORTED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_IMPORTED => 8
+    static IMPORTED => 8
 
     /**
+     * Native name: IDENTITY_DELETED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_DELETED => 16
+    static DELETED => 16
 
     /**
+     * Native name: IDENTITY_PROPCHANGED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_PROPCHANGED => 32
+    static PROPCHANGED => 32
 
     /**
+     * Native name: IDENTITY_CONNECTED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_CONNECTED => 64
+    static CONNECTED => 64
 
     /**
+     * Native name: IDENTITY_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static IDENTITY_DISCONNECTED => 128
+    static DISCONNECTED => 128
 }

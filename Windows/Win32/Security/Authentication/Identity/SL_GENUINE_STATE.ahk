@@ -10,31 +10,36 @@ class SL_GENUINE_STATE extends Win32Enum {
 
     /**
      * The installation is genuine.
+     * Native name: SL_GEN_STATE_IS_GENUINE
      * @type {Integer (Int32)}
      */
-    static SL_GEN_STATE_IS_GENUINE => 0
+    static GEN_STATE_IS_GENUINE => 0
 
     /**
      * The application does not have a valid license.
+     * Native name: SL_GEN_STATE_INVALID_LICENSE
      * @type {Integer (Int32)}
      */
-    static SL_GEN_STATE_INVALID_LICENSE => 1
+    static GEN_STATE_INVALID_LICENSE => 1
 
     /**
      * The <b>Tampered</b> flag of the license associated with the application is set.
+     * Native name: SL_GEN_STATE_TAMPERED
      * @type {Integer (Int32)}
      */
-    static SL_GEN_STATE_TAMPERED => 2
+    static GEN_STATE_TAMPERED => 2
 
     /**
      * The <b>Offline</b> flag of the license associated with the application is set.
+     * Native name: SL_GEN_STATE_OFFLINE
      * @type {Integer (Int32)}
      */
-    static SL_GEN_STATE_OFFLINE => 3
+    static GEN_STATE_OFFLINE => 3
 
     /**
      * The state of the installation has not changed since the last time it was checked.
+     * Native name: SL_GEN_STATE_LAST
      * @type {Integer (Int32)}
      */
-    static SL_GEN_STATE_LAST => 4
+    static GEN_STATE_LAST => 4
 }

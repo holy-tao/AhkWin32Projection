@@ -7,37 +7,44 @@
 class NVMEOF_ADDRESS_FAMILY extends Win32Enum {
 
     /**
+     * Native name: NvmeofAddressUnknown
      * @type {Integer (Int32)}
      */
-    static NvmeofAddressUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: NvmeofAddressIPv4
      * @type {Integer (Int32)}
      */
-    static NvmeofAddressIPv4 => 1
+    static AddressIPv4 => 1
 
     /**
+     * Native name: NvmeofAddressIPv6
      * @type {Integer (Int32)}
      */
-    static NvmeofAddressIPv6 => 2
+    static AddressIPv6 => 2
 
     /**
+     * Native name: NvmeofAddressIB
      * @type {Integer (Int32)}
      */
-    static NvmeofAddressIB => 3
+    static AddressIB => 3
 
     /**
+     * Native name: NvmeofAddressFC
      * @type {Integer (Int32)}
      */
-    static NvmeofAddressFC => 4
+    static AddressFC => 4
 
     /**
+     * Native name: NvmeofAddressLoopback
      * @type {Integer (Int32)}
      */
-    static NvmeofAddressLoopback => 254
+    static Loopback => 254
 
     /**
+     * Native name: NvmeofAddressMax
      * @type {Integer (Int32)}
      */
-    static NvmeofAddressMax => 255
+    static Max => 255
 }

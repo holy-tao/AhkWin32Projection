@@ -7,42 +7,50 @@
 class DISPID_SpeechGrammarRules extends Win32Enum {
 
     /**
+     * Native name: DISPID_SGRsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRsCount => 1
+    static SGRsCount => 1
 
     /**
+     * Native name: DISPID_SGRsDynamic
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRsDynamic => 2
+    static SGRsDynamic => 2
 
     /**
+     * Native name: DISPID_SGRsAdd
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRsAdd => 3
+    static SGRsAdd => 3
 
     /**
+     * Native name: DISPID_SGRsCommit
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRsCommit => 4
+    static SGRsCommit => 4
 
     /**
+     * Native name: DISPID_SGRsCommitAndSave
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRsCommitAndSave => 5
+    static SGRsCommitAndSave => 5
 
     /**
+     * Native name: DISPID_SGRsFindRule
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRsFindRule => 6
+    static SGRsFindRule => 6
 
     /**
+     * Native name: DISPID_SGRsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRsItem => 0
+    static SGRsItem => 0
 
     /**
+     * Native name: DISPID_SGRs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRs_NewEnum => -4
+    static SGRs_NewEnum => -4
 }

@@ -30,7 +30,6 @@ class IDebugStackFrameSniffer extends IUnknown {
     static VTableNames => ["EnumStackFrames"]
 
     /**
-     * 
      * @returns {IEnumDebugStackFrames} 
      */
     EnumStackFrames() {

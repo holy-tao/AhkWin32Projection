@@ -30,7 +30,6 @@ class IRpcSyntaxNegotiate extends IUnknown {
     static VTableNames => ["NegotiateSyntax"]
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {HRESULT} 
      */

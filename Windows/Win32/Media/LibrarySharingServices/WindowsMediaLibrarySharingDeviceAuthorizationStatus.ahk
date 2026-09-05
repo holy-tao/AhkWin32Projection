@@ -10,19 +10,22 @@ class WindowsMediaLibrarySharingDeviceAuthorizationStatus extends Win32Enum {
 
     /**
      * It is not known whether the device is authorized to have access to the media library.
+     * Native name: DEVICE_AUTHORIZATION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DEVICE_AUTHORIZATION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The device is authorized to have access to the media library.
+     * Native name: DEVICE_AUTHORIZATION_ALLOWED
      * @type {Integer (Int32)}
      */
-    static DEVICE_AUTHORIZATION_ALLOWED => 1
+    static ALLOWED => 1
 
     /**
      * The device is not authorized to have access to the media library.
+     * Native name: DEVICE_AUTHORIZATION_DENIED
      * @type {Integer (Int32)}
      */
-    static DEVICE_AUTHORIZATION_DENIED => 2
+    static DENIED => 2
 }

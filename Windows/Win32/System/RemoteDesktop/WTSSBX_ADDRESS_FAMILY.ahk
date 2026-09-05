@@ -10,31 +10,36 @@ class WTSSBX_ADDRESS_FAMILY extends Win32Enum {
 
     /**
      * An unspecified address family.
+     * Native name: WTSSBX_ADDRESS_FAMILY_AF_UNSPEC
      * @type {Integer (Int32)}
      */
-    static WTSSBX_ADDRESS_FAMILY_AF_UNSPEC => 0
+    static AF_UNSPEC => 0
 
     /**
      * An IPv4 address.
+     * Native name: WTSSBX_ADDRESS_FAMILY_AF_INET
      * @type {Integer (Int32)}
      */
-    static WTSSBX_ADDRESS_FAMILY_AF_INET => 1
+    static AF_INET => 1
 
     /**
      * An IPv6 address.
+     * Native name: WTSSBX_ADDRESS_FAMILY_AF_INET6
      * @type {Integer (Int32)}
      */
-    static WTSSBX_ADDRESS_FAMILY_AF_INET6 => 2
+    static AF_INET6 => 2
 
     /**
      * An IPX address.
+     * Native name: WTSSBX_ADDRESS_FAMILY_AF_IPX
      * @type {Integer (Int32)}
      */
-    static WTSSBX_ADDRESS_FAMILY_AF_IPX => 3
+    static AF_IPX => 3
 
     /**
      * A NetBIOS address.
+     * Native name: WTSSBX_ADDRESS_FAMILY_AF_NETBIOS
      * @type {Integer (Int32)}
      */
-    static WTSSBX_ADDRESS_FAMILY_AF_NETBIOS => 4
+    static AF_NETBIOS => 4
 }

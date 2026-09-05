@@ -32,7 +32,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     static VTableNames => ["msStopPeriodicTileUpdate", "msStartPeriodicTileUpdate", "msStartPeriodicTileUpdateBatch", "msClearTile", "msEnableTileNotificationQueue", "msPinnedSiteState", "msEnableTileNotificationQueueForSquare150x150", "msEnableTileNotificationQueueForWide310x150", "msEnableTileNotificationQueueForSquare310x310", "msScheduledTileNotification", "msRemoveScheduledTileNotification", "msStartPeriodicBadgeUpdate", "msStopPeriodicBadgeUpdate", "msLaunchInternetOptions"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msStopPeriodicTileUpdate() {
@@ -41,7 +40,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT} pollingUris 
      * @param {VARIANT} startTime 
      * @param {VARIANT} uiUpdateRecurrence 
@@ -53,7 +51,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT} pollingUris 
      * @param {VARIANT} startTime 
      * @param {VARIANT} uiUpdateRecurrence 
@@ -65,7 +62,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msClearTile() {
@@ -74,7 +70,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -84,7 +79,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     msPinnedSiteState() {
@@ -94,7 +88,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -104,7 +97,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -114,7 +106,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -124,7 +115,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotificationXml 
      * @param {BSTR} bstrNotificationId 
      * @param {BSTR} bstrNotificationTag 
@@ -142,7 +132,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotificationId 
      * @returns {HRESULT} 
      */
@@ -154,7 +143,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {BSTR} pollingUri 
      * @param {VARIANT} startTime 
      * @param {VARIANT} uiUpdateRecurrence 
@@ -168,7 +156,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msStopPeriodicBadgeUpdate() {
@@ -177,7 +164,6 @@ class IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msLaunchInternetOptions() {

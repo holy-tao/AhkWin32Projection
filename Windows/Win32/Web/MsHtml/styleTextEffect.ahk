@@ -7,27 +7,32 @@
 class styleTextEffect extends Win32Enum {
 
     /**
+     * Native name: styleTextEffectNone
      * @type {Integer (Int32)}
      */
-    static styleTextEffectNone => 0
+    static None => 0
 
     /**
+     * Native name: styleTextEffectEmboss
      * @type {Integer (Int32)}
      */
-    static styleTextEffectEmboss => 1
+    static Emboss => 1
 
     /**
+     * Native name: styleTextEffectEngrave
      * @type {Integer (Int32)}
      */
-    static styleTextEffectEngrave => 2
+    static Engrave => 2
 
     /**
+     * Native name: styleTextEffectOutline
      * @type {Integer (Int32)}
      */
-    static styleTextEffectOutline => 3
+    static Outline => 3
 
     /**
+     * Native name: styleTextEffect_Max
      * @type {Integer (Int32)}
      */
-    static styleTextEffect_Max => 2147483647
+    static Max => 2147483647
 }

@@ -80,7 +80,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -92,7 +91,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_archive() {
@@ -102,7 +100,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -114,7 +111,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -124,7 +120,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +129,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_declare() {
@@ -143,7 +137,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -155,7 +148,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_standby() {
@@ -165,7 +157,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -175,7 +166,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -185,7 +175,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -197,7 +186,6 @@ class IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_useMap() {

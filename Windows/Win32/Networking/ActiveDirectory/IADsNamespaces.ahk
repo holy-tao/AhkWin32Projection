@@ -40,7 +40,6 @@ class IADsNamespaces extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DefaultContainer() {
@@ -50,7 +49,6 @@ class IADsNamespaces extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDefaultContainer 
      * @returns {HRESULT} 
      */

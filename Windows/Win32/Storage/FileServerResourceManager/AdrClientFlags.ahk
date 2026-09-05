@@ -10,25 +10,29 @@ class AdrClientFlags extends Win32Enum {
 
     /**
      * No ADR client flags are specified.
+     * Native name: AdrClientFlags_None
      * @type {Integer (Int32)}
      */
-    static AdrClientFlags_None => 0
+    static None => 0
 
     /**
      * ADR client operations should fail when local paths are specified.
+     * Native name: AdrClientFlags_FailForLocalPaths
      * @type {Integer (Int32)}
      */
-    static AdrClientFlags_FailForLocalPaths => 1
+    static FailForLocalPaths => 1
 
     /**
      * ADR client operations should fail if the operation is not supported by the server.
+     * Native name: AdrClientFlags_FailIfNotSupportedByServer
      * @type {Integer (Int32)}
      */
-    static AdrClientFlags_FailIfNotSupportedByServer => 2
+    static FailIfNotSupportedByServer => 2
 
     /**
      * ADR client operations should fail if the computer is not joined to a domain.
+     * Native name: AdrClientFlags_FailIfNotDomainJoined
      * @type {Integer (Int32)}
      */
-    static AdrClientFlags_FailIfNotDomainJoined => 4
+    static FailIfNotDomainJoined => 4
 }

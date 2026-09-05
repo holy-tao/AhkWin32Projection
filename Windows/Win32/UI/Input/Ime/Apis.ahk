@@ -4815,7 +4815,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Integer>} lpuModifiers 
      * @param {Pointer<Integer>} lpuVKey 
@@ -4831,7 +4830,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -4846,7 +4844,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMC} param0 
      * @returns {BOOL} 
      */
@@ -4908,7 +4905,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {HWND} param1 
      * @param {Integer} param2 
@@ -4924,7 +4920,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @returns {BOOL} 
      */
@@ -4936,7 +4931,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {BOOL} 
@@ -4949,7 +4943,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMC} param0 
      * @returns {Pointer<INPUTCONTEXT>} 
      */
@@ -4961,7 +4954,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMC} param0 
      * @returns {BOOL} 
      */
@@ -4973,7 +4965,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMC} param0 
      * @returns {Integer} 
      */
@@ -4985,7 +4976,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HIMCC} 
      */
@@ -4996,7 +4986,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMCC} param0 
      * @returns {HIMCC} 
      */
@@ -5009,7 +4998,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMCC} param0 
      * @returns {Pointer<Void>} 
      */
@@ -5021,7 +5009,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMCC} param0 
      * @returns {BOOL} 
      */
@@ -5033,7 +5020,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMCC} param0 
      * @returns {Integer} 
      */
@@ -5045,7 +5031,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMCC} param0 
      * @param {Integer} param1 
      * @returns {HIMCC} 
@@ -5059,7 +5044,6 @@ class Ime {
     }
 
     /**
-     * 
      * @param {HIMCC} param0 
      * @returns {Integer} 
      */

@@ -30,7 +30,6 @@ class IMarkupContainer extends IUnknown {
     static VTableNames => ["OwningDoc"]
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     OwningDoc() {

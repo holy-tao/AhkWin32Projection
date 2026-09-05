@@ -7,27 +7,32 @@
 class styleTextAnchor extends Win32Enum {
 
     /**
+     * Native name: styleTextAnchorNotSet
      * @type {Integer (Int32)}
      */
-    static styleTextAnchorNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTextAnchorStart
      * @type {Integer (Int32)}
      */
-    static styleTextAnchorStart => 1
+    static Start => 1
 
     /**
+     * Native name: styleTextAnchorMiddle
      * @type {Integer (Int32)}
      */
-    static styleTextAnchorMiddle => 2
+    static Middle => 2
 
     /**
+     * Native name: styleTextAnchorEnd
      * @type {Integer (Int32)}
      */
-    static styleTextAnchorEnd => 3
+    static End => 3
 
     /**
+     * Native name: styleTextAnchor_Max
      * @type {Integer (Int32)}
      */
-    static styleTextAnchor_Max => 2147483647
+    static Max => 2147483647
 }

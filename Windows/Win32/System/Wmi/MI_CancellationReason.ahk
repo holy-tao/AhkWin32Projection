@@ -10,25 +10,29 @@ class MI_CancellationReason extends Win32Enum {
 
     /**
      * No reason for cancellation.
+     * Native name: MI_REASON_NONE
      * @type {Integer (Int32)}
      */
-    static MI_REASON_NONE => 0
+    static NONE => 0
 
     /**
      * Operation timed out.
+     * Native name: MI_REASON_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static MI_REASON_TIMEOUT => 1
+    static TIMEOUT => 1
 
     /**
      * The system is being shutdown.
+     * Native name: MI_REASON_SHUTDOWN
      * @type {Integer (Int32)}
      */
-    static MI_REASON_SHUTDOWN => 2
+    static SHUTDOWN => 2
 
     /**
      * The service is being stopped.
+     * Native name: MI_REASON_SERVICESTOP
      * @type {Integer (Int32)}
      */
-    static MI_REASON_SERVICESTOP => 3
+    static SERVICESTOP => 3
 }

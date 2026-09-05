@@ -12,13 +12,15 @@ class D3D12_MULTISAMPLE_QUALITY_LEVEL_FLAGS extends Win32BitflagEnum {
 
     /**
      * No options are supported.
+     * Native name: D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE => 0
+    static LEVELS_FLAG_NONE => 0
 
     /**
      * The number of quality levels can be determined for tiled resources.
+     * Native name: D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_TILED_RESOURCE
      * @type {Integer (Int32)}
      */
-    static D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_TILED_RESOURCE => 1
+    static LEVELS_FLAG_TILED_RESOURCE => 1
 }

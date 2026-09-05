@@ -55,7 +55,6 @@ class IGPMBackupDirEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BackupDir() {
@@ -65,7 +64,6 @@ class IGPMBackupDirEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMBackupType} 
      */
     get_BackupType() {

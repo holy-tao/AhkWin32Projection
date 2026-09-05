@@ -69,7 +69,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -81,7 +80,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -91,7 +89,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -103,7 +100,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {
@@ -113,7 +109,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -133,7 +127,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_rows() {
@@ -142,7 +135,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -152,7 +144,6 @@ class IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */

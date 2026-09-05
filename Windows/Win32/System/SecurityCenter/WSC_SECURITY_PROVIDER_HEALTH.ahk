@@ -10,25 +10,29 @@ class WSC_SECURITY_PROVIDER_HEALTH extends Win32Enum {
 
     /**
      * The status of the security provider category is good and does not need user attention.
+     * Native name: WSC_SECURITY_PROVIDER_HEALTH_GOOD
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PROVIDER_HEALTH_GOOD => 0
+    static GOOD => 0
 
     /**
      * The status of the security provider category is not monitored by WSC.
+     * Native name: WSC_SECURITY_PROVIDER_HEALTH_NOTMONITORED
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PROVIDER_HEALTH_NOTMONITORED => 1
+    static NOTMONITORED => 1
 
     /**
      * The status of the security provider category is poor and the computer may be at risk.
+     * Native name: WSC_SECURITY_PROVIDER_HEALTH_POOR
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PROVIDER_HEALTH_POOR => 2
+    static POOR => 2
 
     /**
      * The security provider category is in snooze state. Snooze indicates that WSC is not actively protecting the computer.
+     * Native name: WSC_SECURITY_PROVIDER_HEALTH_SNOOZE
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PROVIDER_HEALTH_SNOOZE => 3
+    static SNOOZE => 3
 }

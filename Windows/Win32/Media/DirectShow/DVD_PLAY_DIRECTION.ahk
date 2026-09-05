@@ -7,12 +7,14 @@
 class DVD_PLAY_DIRECTION extends Win32Enum {
 
     /**
+     * Native name: DVD_DIR_FORWARD
      * @type {Integer (Int32)}
      */
-    static DVD_DIR_FORWARD => 0
+    static DIR_FORWARD => 0
 
     /**
+     * Native name: DVD_DIR_BACKWARD
      * @type {Integer (Int32)}
      */
-    static DVD_DIR_BACKWARD => 1
+    static DIR_BACKWARD => 1
 }

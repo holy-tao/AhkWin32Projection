@@ -30,7 +30,6 @@ class IDebugHostSymbol2 extends IDebugHostSymbol {
     static VTableNames => ["GetLanguage"]
 
     /**
-     * 
      * @returns {LanguageKind} 
      */
     GetLanguage() {

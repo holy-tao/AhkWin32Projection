@@ -7,17 +7,20 @@
 class AM_DIGITAL_CP extends Win32Enum {
 
     /**
+     * Native name: AM_DIGITAL_CP_OFF
      * @type {Integer (Int32)}
      */
-    static AM_DIGITAL_CP_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: AM_DIGITAL_CP_ON
      * @type {Integer (Int32)}
      */
-    static AM_DIGITAL_CP_ON => 1
+    static ON => 1
 
     /**
+     * Native name: AM_DIGITAL_CP_DVD_COMPLIANT
      * @type {Integer (Int32)}
      */
-    static AM_DIGITAL_CP_DVD_COMPLIANT => 2
+    static DVD_COMPLIANT => 2
 }

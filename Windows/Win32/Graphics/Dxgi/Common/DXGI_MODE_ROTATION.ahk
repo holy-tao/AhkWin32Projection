@@ -7,27 +7,32 @@
 class DXGI_MODE_ROTATION extends Win32Enum {
 
     /**
+     * Native name: DXGI_MODE_ROTATION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_ROTATION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: DXGI_MODE_ROTATION_IDENTITY
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_ROTATION_IDENTITY => 1
+    static IDENTITY => 1
 
     /**
+     * Native name: DXGI_MODE_ROTATION_ROTATE90
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_ROTATION_ROTATE90 => 2
+    static ROTATE90 => 2
 
     /**
+     * Native name: DXGI_MODE_ROTATION_ROTATE180
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_ROTATION_ROTATE180 => 3
+    static ROTATE180 => 3
 
     /**
+     * Native name: DXGI_MODE_ROTATION_ROTATE270
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_ROTATION_ROTATE270 => 4
+    static ROTATE270 => 4
 }

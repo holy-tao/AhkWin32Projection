@@ -18,15 +18,17 @@ class PlatformId extends Win32Enum {
 
     /**
      * Apple PowerPC family.
+     * Native name: PlatformPowerPC
      * @type {Integer (Int32)}
      */
-    static PlatformPowerPC => 1
+    static PowerPC => 1
 
     /**
      * Apple Macintosh  family.
+     * Native name: PlatformMac
      * @type {Integer (Int32)}
      */
-    static PlatformMac => 2
+    static Mac => 2
 
     /**
      * EFI Family.

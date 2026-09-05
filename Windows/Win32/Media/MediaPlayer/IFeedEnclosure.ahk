@@ -95,7 +95,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Url() {
@@ -105,7 +104,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {
@@ -115,7 +113,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Length() {
@@ -124,7 +121,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -133,7 +129,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -142,7 +137,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_STATUS} 
      */
     get_DownloadStatus() {
@@ -151,7 +145,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     get_LastDownloadError() {
@@ -160,7 +153,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalPath() {
@@ -170,7 +162,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -179,7 +170,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
@@ -189,7 +179,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadMimeType() {
@@ -199,7 +188,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveFile() {
@@ -208,7 +196,6 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} downloadUrl 
      * @param {BSTR} downloadFilePath 
      * @param {BSTR} downloadMimeType 

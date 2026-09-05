@@ -34,7 +34,6 @@ class IPrivateDispatch extends IUnknown {
     static VTableNames => ["ADSIInitializeDispatchManager", "ADSIGetTypeInfoCount", "ADSIGetTypeInfo", "ADSIGetIDsOfNames", "ADSIInvoke"]
 
     /**
-     * 
      * @param {Integer} dwExtensionId 
      * @returns {HRESULT} 
      */
@@ -44,7 +43,6 @@ class IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     ADSIGetTypeInfoCount() {
@@ -53,7 +51,6 @@ class IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itinfo 
      * @param {Integer} lcid 
      * @returns {ITypeInfo} 
@@ -64,7 +61,6 @@ class IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Integer>>} rgszNames 
      * @param {Integer} cNames 
@@ -79,7 +75,6 @@ class IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispidMember 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} lcid 

@@ -7,22 +7,26 @@
 class StringDigitSubstitute extends Win32Enum {
 
     /**
+     * Native name: StringDigitSubstituteUser
      * @type {Integer (Int32)}
      */
-    static StringDigitSubstituteUser => 0
+    static User => 0
 
     /**
+     * Native name: StringDigitSubstituteNone
      * @type {Integer (Int32)}
      */
-    static StringDigitSubstituteNone => 1
+    static None => 1
 
     /**
+     * Native name: StringDigitSubstituteNational
      * @type {Integer (Int32)}
      */
-    static StringDigitSubstituteNational => 2
+    static National => 2
 
     /**
+     * Native name: StringDigitSubstituteTraditional
      * @type {Integer (Int32)}
      */
-    static StringDigitSubstituteTraditional => 3
+    static Traditional => 3
 }

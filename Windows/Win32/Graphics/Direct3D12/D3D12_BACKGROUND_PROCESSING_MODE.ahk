@@ -10,25 +10,29 @@ class D3D12_BACKGROUND_PROCESSING_MODE extends Win32Enum {
 
     /**
      * The default setting. Specifies that the driver may instrument workloads, and dynamically recompile shaders, in a low overhead, non-intrusive manner that avoids glitching the foreground workload.
+     * Native name: D3D12_BACKGROUND_PROCESSING_MODE_ALLOWED
      * @type {Integer (Int32)}
      */
-    static D3D12_BACKGROUND_PROCESSING_MODE_ALLOWED => 0
+    static ALLOWED => 0
 
     /**
      * Specifies that the driver may instrument as aggressively as possible. The understanding is that causing glitches is fine while in this mode, because the current work is being submitted specifically to train the system.
+     * Native name: D3D12_BACKGROUND_PROCESSING_MODE_ALLOW_INTRUSIVE_MEASUREMENTS
      * @type {Integer (Int32)}
      */
-    static D3D12_BACKGROUND_PROCESSING_MODE_ALLOW_INTRUSIVE_MEASUREMENTS => 1
+    static ALLOW_INTRUSIVE_MEASUREMENTS => 1
 
     /**
      * Specifies that background work should stop. This ensures that background shader recompilation won't consume CPU cycles. Available only in <b>Developer mode</b>.
+     * Native name: D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_BACKGROUND_WORK
      * @type {Integer (Int32)}
      */
-    static D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_BACKGROUND_WORK => 2
+    static DISABLE_BACKGROUND_WORK => 2
 
     /**
      * Specifies that all dynamic optimization should be disabled. For example, if you're doing an A/B performance comparison, then using this constant ensures that the driver doesn't change anything that might interfere with your results. Available only in <b>Developer mode</b>.
+     * Native name: D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_PROFILING_BY_SYSTEM
      * @type {Integer (Int32)}
      */
-    static D3D12_BACKGROUND_PROCESSING_MODE_DISABLE_PROFILING_BY_SYSTEM => 3
+    static DISABLE_PROFILING_BY_SYSTEM => 3
 }

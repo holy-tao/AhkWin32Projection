@@ -2724,7 +2724,6 @@ class BiometricFramework {
     }
 
     /**
-     * 
      * @param {Integer} SessionHandle 
      * @param {Integer} UnitId 
      * @returns {HRESULT} 
@@ -2735,7 +2734,6 @@ class BiometricFramework {
     }
 
     /**
-     * 
      * @param {Integer} SessionHandle 
      * @returns {HRESULT} 
      */
@@ -4326,7 +4324,6 @@ class BiometricFramework {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static WinBioIsESSCapable() {

@@ -30,7 +30,6 @@ class IInputPaneAnimationCoordinator extends IUnknown {
     static VTableNames => ["AddAnimation"]
 
     /**
-     * 
      * @param {IUnknown} device 
      * @param {IDCompositionAnimation} animation 
      * @returns {HRESULT} 

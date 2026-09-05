@@ -33,7 +33,6 @@ class IDataInitialize extends IUnknown {
     static VTableNames => ["GetDataSource", "GetInitializationString", "CreateDBInstance", "CreateDBInstanceEx", "LoadStringFromStorage", "WriteStringToStorage"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsCtx 
      * @param {PWSTR} pwszInitializationString 
@@ -49,7 +48,6 @@ class IDataInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pDataSource 
      * @param {Integer} fIncludePassword 
      * @returns {PWSTR} 
@@ -60,7 +58,6 @@ class IDataInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidProvider 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsCtx 
@@ -76,7 +73,6 @@ class IDataInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidProvider 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsCtx 
@@ -94,7 +90,6 @@ class IDataInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFileName 
      * @returns {PWSTR} 
      */
@@ -106,7 +101,6 @@ class IDataInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFileName 
      * @param {PWSTR} pwszInitializationString 
      * @param {Integer} dwCreationDisposition 

@@ -29,7 +29,6 @@ class ICorProfilerCallback5 extends ICorProfilerCallback4 {
     static VTableNames => ["ConditionalWeakTableElementReferences"]
 
     /**
-     * 
      * @param {Integer} cRootRefs 
      * @param {Pointer<Pointer>} keyRefIds 
      * @param {Pointer<Pointer>} valueRefIds 

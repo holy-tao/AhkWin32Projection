@@ -7,32 +7,38 @@
 class HLID_INFO extends Win32Enum {
 
     /**
+     * Native name: HLID_INVALID
      * @type {Integer (UInt32)}
      */
-    static HLID_INVALID => 0
+    static INVALID => 0
 
     /**
+     * Native name: HLID_PREVIOUS
      * @type {Integer (UInt32)}
      */
-    static HLID_PREVIOUS => 4294967295
+    static PREVIOUS => 4294967295
 
     /**
+     * Native name: HLID_NEXT
      * @type {Integer (UInt32)}
      */
-    static HLID_NEXT => 4294967294
+    static NEXT => 4294967294
 
     /**
+     * Native name: HLID_CURRENT
      * @type {Integer (UInt32)}
      */
-    static HLID_CURRENT => 4294967293
+    static CURRENT => 4294967293
 
     /**
+     * Native name: HLID_STACKBOTTOM
      * @type {Integer (UInt32)}
      */
-    static HLID_STACKBOTTOM => 4294967292
+    static STACKBOTTOM => 4294967292
 
     /**
+     * Native name: HLID_STACKTOP
      * @type {Integer (UInt32)}
      */
-    static HLID_STACKTOP => 4294967291
+    static STACKTOP => 4294967291
 }

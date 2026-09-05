@@ -30,7 +30,6 @@ class IRowChange extends IUnknown {
     static VTableNames => ["SetColumns"]
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBCOLUMNACCESS>} rgColumns 
      * @returns {HRESULT} 

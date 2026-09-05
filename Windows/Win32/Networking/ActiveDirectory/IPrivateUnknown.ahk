@@ -30,7 +30,6 @@ class IPrivateUnknown extends IUnknown {
     static VTableNames => ["ADSIInitializeObject", "ADSIReleaseObject"]
 
     /**
-     * 
      * @param {BSTR} lpszUserName 
      * @param {BSTR} lpszPassword 
      * @param {Integer} lnReserved 
@@ -45,7 +44,6 @@ class IPrivateUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ADSIReleaseObject() {

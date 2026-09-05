@@ -31,7 +31,6 @@ class IMediaRadioManager extends IUnknown {
     static VTableNames => ["GetRadioInstances", "OnSystemRadioStateChange"]
 
     /**
-     * 
      * @returns {IRadioInstanceCollection} 
      */
     GetRadioInstances() {
@@ -40,7 +39,6 @@ class IMediaRadioManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {SYSTEM_RADIO_STATE} sysRadioState 
      * @param {Integer} uTimeoutSec 
      * @returns {HRESULT} 

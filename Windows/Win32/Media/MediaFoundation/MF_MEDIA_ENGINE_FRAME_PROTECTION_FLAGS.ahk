@@ -10,19 +10,22 @@ class MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAGS extends Win32Enum {
 
     /**
      * The video frame should be protected.
+     * Native name: MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAG_PROTECTED
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAG_PROTECTED => 1
+    static FLAG_PROTECTED => 1
 
     /**
      * Direct3D surface protection must be applied to any surface that contains the frame.
+     * Native name: MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAG_REQUIRES_SURFACE_PROTECTION
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAG_REQUIRES_SURFACE_PROTECTION => 2
+    static FLAG_REQUIRES_SURFACE_PROTECTION => 2
 
     /**
      * Direct3D anti-screen-scrape protection must be applied to any surface that contains the frame.
+     * Native name: MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAG_REQUIRES_ANTI_SCREEN_SCRAPE_PROTECTION
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAG_REQUIRES_ANTI_SCREEN_SCRAPE_PROTECTION => 4
+    static FLAG_REQUIRES_ANTI_SCREEN_SCRAPE_PROTECTION => 4
 }

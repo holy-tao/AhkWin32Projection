@@ -34,7 +34,6 @@ class IInternetSession extends IUnknown {
     static VTableNames => ["RegisterNameSpace", "UnregisterNameSpace", "RegisterMimeFilter", "UnregisterMimeFilter", "CreateBinding", "SetSessionOption", "GetSessionOption"]
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pwzProtocol 
@@ -53,7 +52,6 @@ class IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {PWSTR} pszProtocol 
      * @returns {HRESULT} 
@@ -66,7 +64,6 @@ class IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pwzType 
@@ -80,7 +77,6 @@ class IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {PWSTR} pwzType 
      * @returns {HRESULT} 
@@ -93,7 +89,6 @@ class IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {PWSTR} szUrl 
      * @param {IUnknown} pUnkOuter 
@@ -110,7 +105,6 @@ class IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Integer} dwBufferLength 
@@ -125,7 +119,6 @@ class IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pdwBufferLength 

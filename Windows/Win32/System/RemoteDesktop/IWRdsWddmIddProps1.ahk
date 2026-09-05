@@ -30,7 +30,6 @@ class IWRdsWddmIddProps1 extends IUnknown {
     static VTableNames => ["GetHardwareId", "OnDriverLoad", "OnDriverUnload"]
 
     /**
-     * 
      * @param {PWSTR} pDisplayDriverHardwareId 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IWRdsWddmIddProps1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SessionId 
      * @param {PWSTR} DeviceInstance 
      * @returns {HRESULT} 
@@ -56,7 +54,6 @@ class IWRdsWddmIddProps1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SessionId 
      * @returns {HRESULT} 
      */

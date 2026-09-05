@@ -29,7 +29,6 @@ class IDebugHostType3 extends IDebugHostType2 {
     static VTableNames => ["GetContainingType"]
 
     /**
-     * 
      * @returns {IDebugHostType3} 
      */
     GetContainingType() {

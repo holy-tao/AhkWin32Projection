@@ -7,22 +7,26 @@
 class NVMEOF_SECURE_CHANNEL_PROTOCOL extends Win32Enum {
 
     /**
+     * Native name: NvmeofSecureChannelConcatNone
      * @type {Integer (Int32)}
      */
-    static NvmeofSecureChannelConcatNone => 0
+    static ConcatNone => 0
 
     /**
+     * Native name: NvmeofSecureChannelConcatWithTLS
      * @type {Integer (Int32)}
      */
-    static NvmeofSecureChannelConcatWithTLS => 1
+    static ConcatWithTLS => 1
 
     /**
+     * Native name: NvmeofSecureChannelNewTLSPSK
      * @type {Integer (Int32)}
      */
-    static NvmeofSecureChannelNewTLSPSK => 2
+    static NewTLSPSK => 2
 
     /**
+     * Native name: NvmeofSecureChannelReplaceTLSPSK
      * @type {Integer (Int32)}
      */
-    static NvmeofSecureChannelReplaceTLSPSK => 2
+    static ReplaceTLSPSK => 2
 }

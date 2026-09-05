@@ -7,27 +7,32 @@
 class PM_STARTTILE_TYPE extends Win32Enum {
 
     /**
+     * Native name: PM_STARTTILE_TYPE_PRIMARY
      * @type {Integer (Int32)}
      */
-    static PM_STARTTILE_TYPE_PRIMARY => 1
+    static PRIMARY => 1
 
     /**
+     * Native name: PM_STARTTILE_TYPE_SECONDARY
      * @type {Integer (Int32)}
      */
-    static PM_STARTTILE_TYPE_SECONDARY => 2
+    static SECONDARY => 2
 
     /**
+     * Native name: PM_STARTTILE_TYPE_APPLIST
      * @type {Integer (Int32)}
      */
-    static PM_STARTTILE_TYPE_APPLIST => 3
+    static APPLIST => 3
 
     /**
+     * Native name: PM_STARTTILE_TYPE_APPLISTPRIMARY
      * @type {Integer (Int32)}
      */
-    static PM_STARTTILE_TYPE_APPLISTPRIMARY => 4
+    static APPLISTPRIMARY => 4
 
     /**
+     * Native name: PM_STARTTILE_TYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static PM_STARTTILE_TYPE_INVALID => 5
+    static INVALID => 5
 }

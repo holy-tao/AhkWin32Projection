@@ -7,52 +7,62 @@
 class ComponentCategory extends Win32Enum {
 
     /**
+     * Native name: CategoryNotSet
      * @type {Integer (Int32)}
      */
-    static CategoryNotSet => -1
+    static NotSet => -1
 
     /**
+     * Native name: CategoryOther
      * @type {Integer (Int32)}
      */
-    static CategoryOther => 0
+    static Other => 0
 
     /**
+     * Native name: CategoryVideo
      * @type {Integer (Int32)}
      */
-    static CategoryVideo => 1
+    static Video => 1
 
     /**
+     * Native name: CategoryAudio
      * @type {Integer (Int32)}
      */
-    static CategoryAudio => 2
+    static Audio => 2
 
     /**
+     * Native name: CategoryText
      * @type {Integer (Int32)}
      */
-    static CategoryText => 3
+    static Text => 3
 
     /**
+     * Native name: CategorySubtitles
      * @type {Integer (Int32)}
      */
-    static CategorySubtitles => 4
+    static Subtitles => 4
 
     /**
+     * Native name: CategoryCaptions
      * @type {Integer (Int32)}
      */
-    static CategoryCaptions => 5
+    static Captions => 5
 
     /**
+     * Native name: CategorySuperimpose
      * @type {Integer (Int32)}
      */
-    static CategorySuperimpose => 6
+    static Superimpose => 6
 
     /**
+     * Native name: CategoryData
      * @type {Integer (Int32)}
      */
-    static CategoryData => 7
+    static Data => 7
 
     /**
+     * Native name: CATEGORY_COUNT
      * @type {Integer (Int32)}
      */
-    static CATEGORY_COUNT => 8
+    static COUNT => 8
 }

@@ -7,42 +7,50 @@
 class PM_TASK_TRANSITION extends Win32Enum {
 
     /**
+     * Native name: PM_TASK_TRANSITION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: PM_TASK_TRANSITION_NONE
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_NONE => 1
+    static NONE => 1
 
     /**
+     * Native name: PM_TASK_TRANSITION_TURNSTILE
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_TURNSTILE => 2
+    static TURNSTILE => 2
 
     /**
+     * Native name: PM_TASK_TRANSITION_SLIDE
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_SLIDE => 3
+    static SLIDE => 3
 
     /**
+     * Native name: PM_TASK_TRANSITION_SWIVEL
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_SWIVEL => 4
+    static SWIVEL => 4
 
     /**
+     * Native name: PM_TASK_TRANSITION_READERBOARD
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_READERBOARD => 5
+    static READERBOARD => 5
 
     /**
+     * Native name: PM_TASK_TRANSITION_CUSTOM
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_CUSTOM => 6
+    static CUSTOM => 6
 
     /**
+     * Native name: PM_TASK_TRANSITION_INVALID
      * @type {Integer (Int32)}
      */
-    static PM_TASK_TRANSITION_INVALID => 7
+    static INVALID => 7
 }

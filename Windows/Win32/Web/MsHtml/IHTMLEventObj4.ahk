@@ -36,7 +36,6 @@ class IHTMLEventObj4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_wheelDelta() {

@@ -29,7 +29,6 @@ class IRowsetWatchAll extends IUnknown {
     static VTableNames => ["Acknowledge", "Start", "StopWatching"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Acknowledge() {
@@ -38,7 +37,6 @@ class IRowsetWatchAll extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -47,7 +45,6 @@ class IRowsetWatchAll extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopWatching() {

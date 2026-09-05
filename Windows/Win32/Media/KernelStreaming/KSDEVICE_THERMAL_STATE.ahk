@@ -7,12 +7,14 @@
 class KSDEVICE_THERMAL_STATE extends Win32Enum {
 
     /**
+     * Native name: KSDEVICE_THERMAL_STATE_LOW
      * @type {Integer (Int32)}
      */
-    static KSDEVICE_THERMAL_STATE_LOW => 0
+    static LOW => 0
 
     /**
+     * Native name: KSDEVICE_THERMAL_STATE_HIGH
      * @type {Integer (Int32)}
      */
-    static KSDEVICE_THERMAL_STATE_HIGH => 1
+    static HIGH => 1
 }

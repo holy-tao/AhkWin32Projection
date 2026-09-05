@@ -32,7 +32,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     static VTableNames => ["AddService", "IsServiceInstalled", "InPrivateFilteringEnabled", "AddToFavoritesBar", "BuildNewTabPage", "SetRecentlyClosedVisible", "SetActivitiesVisible", "ContentDiscoveryReset", "IsSuggestedSitesEnabled", "EnableSuggestedSites", "NavigateToSuggestedSites", "ShowTabsHelp", "ShowInPrivateHelp"]
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {HRESULT} 
      */
@@ -44,7 +43,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} Verb 
      * @returns {Integer} 
@@ -58,7 +56,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     InPrivateFilteringEnabled() {
@@ -67,7 +64,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} Title 
      * @param {Pointer<VARIANT>} Type 
@@ -82,7 +78,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BuildNewTabPage() {
@@ -91,7 +86,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fVisible 
      * @returns {HRESULT} 
      */
@@ -101,7 +95,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fVisible 
      * @returns {HRESULT} 
      */
@@ -111,7 +104,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ContentDiscoveryReset() {
@@ -120,7 +112,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     IsSuggestedSitesEnabled() {
@@ -129,7 +120,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -139,7 +129,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRelativeUrl 
      * @returns {HRESULT} 
      */
@@ -151,7 +140,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShowTabsHelp() {
@@ -160,7 +148,6 @@ class IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShowInPrivateHelp() {

@@ -7,22 +7,26 @@
 class ACTRL_ACCESS_ENTRY_ACCESS_FLAGS extends Win32Enum {
 
     /**
+     * Native name: ACTRL_ACCESS_ALLOWED
      * @type {Integer (UInt32)}
      */
-    static ACTRL_ACCESS_ALLOWED => 1
+    static ALLOWED => 1
 
     /**
+     * Native name: ACTRL_ACCESS_DENIED
      * @type {Integer (UInt32)}
      */
-    static ACTRL_ACCESS_DENIED => 2
+    static DENIED => 2
 
     /**
+     * Native name: ACTRL_AUDIT_SUCCESS
      * @type {Integer (UInt32)}
      */
-    static ACTRL_AUDIT_SUCCESS => 4
+    static AUDIT_SUCCESS => 4
 
     /**
+     * Native name: ACTRL_AUDIT_FAILURE
      * @type {Integer (UInt32)}
      */
-    static ACTRL_AUDIT_FAILURE => 8
+    static AUDIT_FAILURE => 8
 }

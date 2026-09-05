@@ -44,7 +44,6 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLStyleSheetRule} 
      */
@@ -54,7 +53,6 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -63,7 +61,6 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IHTMLStyleSheetRule} 
      */
@@ -75,7 +72,6 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {Integer} index 
      * @returns {IHTMLStyleSheetRule} 
@@ -88,7 +84,6 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {Integer} 
      */

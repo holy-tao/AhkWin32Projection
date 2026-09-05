@@ -7,17 +7,20 @@
 class SPPROPSRC extends Win32Enum {
 
     /**
+     * Native name: SPPROPSRC_RECO_INST
      * @type {Integer (Int32)}
      */
-    static SPPROPSRC_RECO_INST => 0
+    static RECO_INST => 0
 
     /**
+     * Native name: SPPROPSRC_RECO_CTX
      * @type {Integer (Int32)}
      */
-    static SPPROPSRC_RECO_CTX => 1
+    static RECO_CTX => 1
 
     /**
+     * Native name: SPPROPSRC_RECO_GRAMMAR
      * @type {Integer (Int32)}
      */
-    static SPPROPSRC_RECO_GRAMMAR => 2
+    static RECO_GRAMMAR => 2
 }

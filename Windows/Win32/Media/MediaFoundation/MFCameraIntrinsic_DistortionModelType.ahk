@@ -7,12 +7,14 @@
 class MFCameraIntrinsic_DistortionModelType extends Win32Enum {
 
     /**
+     * Native name: MFCameraIntrinsic_DistortionModelType_6KT
      * @type {Integer (Int32)}
      */
-    static MFCameraIntrinsic_DistortionModelType_6KT => 0
+    static 6KT => 0
 
     /**
+     * Native name: MFCameraIntrinsic_DistortionModelType_ArcTan
      * @type {Integer (Int32)}
      */
-    static MFCameraIntrinsic_DistortionModelType_ArcTan => 1
+    static ArcTan => 1
 }

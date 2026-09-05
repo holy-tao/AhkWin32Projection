@@ -7,42 +7,50 @@
 class SmoothingMode extends Win32Enum {
 
     /**
+     * Native name: SmoothingModeInvalid
      * @type {Integer (Int32)}
      */
-    static SmoothingModeInvalid => -1
+    static Invalid => -1
 
     /**
+     * Native name: SmoothingModeDefault
      * @type {Integer (Int32)}
      */
-    static SmoothingModeDefault => 0
+    static Default => 0
 
     /**
+     * Native name: SmoothingModeHighSpeed
      * @type {Integer (Int32)}
      */
-    static SmoothingModeHighSpeed => 1
+    static HighSpeed => 1
 
     /**
+     * Native name: SmoothingModeHighQuality
      * @type {Integer (Int32)}
      */
-    static SmoothingModeHighQuality => 2
+    static HighQuality => 2
 
     /**
+     * Native name: SmoothingModeNone
      * @type {Integer (Int32)}
      */
-    static SmoothingModeNone => 3
+    static None => 3
 
     /**
+     * Native name: SmoothingModeAntiAlias
      * @type {Integer (Int32)}
      */
-    static SmoothingModeAntiAlias => 4
+    static AntiAlias => 4
 
     /**
+     * Native name: SmoothingModeAntiAlias8x4
      * @type {Integer (Int32)}
      */
-    static SmoothingModeAntiAlias8x4 => 4
+    static AntiAlias8x4 => 4
 
     /**
+     * Native name: SmoothingModeAntiAlias8x8
      * @type {Integer (Int32)}
      */
-    static SmoothingModeAntiAlias8x8 => 5
+    static AntiAlias8x8 => 5
 }

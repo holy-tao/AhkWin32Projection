@@ -7,22 +7,26 @@
 class PM_LIVETILE_RECURRENCE_TYPE extends Win32Enum {
 
     /**
+     * Native name: PM_LIVETILE_RECURRENCE_TYPE_INSTANT
      * @type {Integer (Int32)}
      */
-    static PM_LIVETILE_RECURRENCE_TYPE_INSTANT => 0
+    static INSTANT => 0
 
     /**
+     * Native name: PM_LIVETILE_RECURRENCE_TYPE_ONETIME
      * @type {Integer (Int32)}
      */
-    static PM_LIVETILE_RECURRENCE_TYPE_ONETIME => 1
+    static ONETIME => 1
 
     /**
+     * Native name: PM_LIVETILE_RECURRENCE_TYPE_INTERVAL
      * @type {Integer (Int32)}
      */
-    static PM_LIVETILE_RECURRENCE_TYPE_INTERVAL => 2
+    static INTERVAL => 2
 
     /**
+     * Native name: PM_LIVETILE_RECURRENCE_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static PM_LIVETILE_RECURRENCE_TYPE_MAX => 2
+    static MAX => 2
 }

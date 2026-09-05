@@ -10,13 +10,15 @@ class MC_POSITION_TYPE extends Win32Enum {
 
     /**
      * Horizontal position.
+     * Native name: MC_HORIZONTAL_POSITION
      * @type {Integer (Int32)}
      */
-    static MC_HORIZONTAL_POSITION => 0
+    static HORIZONTAL_POSITION => 0
 
     /**
      * Vertical position.
+     * Native name: MC_VERTICAL_POSITION
      * @type {Integer (Int32)}
      */
-    static MC_VERTICAL_POSITION => 1
+    static VERTICAL_POSITION => 1
 }

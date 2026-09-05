@@ -31,7 +31,6 @@ class IIndexableConcept extends IUnknown {
     static VTableNames => ["GetDimensionality", "GetAt", "SetAt"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {Integer} 
      */
@@ -41,7 +40,6 @@ class IIndexableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Integer} indexerCount 
      * @param {Pointer<IModelObject>} indexers 
@@ -55,7 +53,6 @@ class IIndexableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Integer} indexerCount 
      * @param {Pointer<IModelObject>} indexers 

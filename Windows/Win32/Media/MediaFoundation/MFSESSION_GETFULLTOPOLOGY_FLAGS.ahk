@@ -10,7 +10,8 @@ class MFSESSION_GETFULLTOPOLOGY_FLAGS extends Win32Enum {
 
     /**
      * Get the full topology for the presentation that the Media Session is currently playing.
+     * Native name: MFSESSION_GETFULLTOPOLOGY_CURRENT
      * @type {Integer (Int32)}
      */
-    static MFSESSION_GETFULLTOPOLOGY_CURRENT => 1
+    static CURRENT => 1
 }

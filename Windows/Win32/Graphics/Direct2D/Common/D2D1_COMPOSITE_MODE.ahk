@@ -28,79 +28,92 @@ class D2D1_COMPOSITE_MODE extends Win32Enum {
 
     /**
      * The standard source-over-destination blend mode.
+     * Native name: D2D1_COMPOSITE_MODE_SOURCE_OVER
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_SOURCE_OVER => 0
+    static SOURCE_OVER => 0
 
     /**
      * The destination is rendered over the source.
+     * Native name: D2D1_COMPOSITE_MODE_DESTINATION_OVER
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_DESTINATION_OVER => 1
+    static DESTINATION_OVER => 1
 
     /**
      * Performs a logical clip of the source pixels against the destination pixels.
+     * Native name: D2D1_COMPOSITE_MODE_SOURCE_IN
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_SOURCE_IN => 2
+    static SOURCE_IN => 2
 
     /**
      * The inverse of the <b>D2D1_COMPOSITE_MODE_SOURCE_IN</b> operation.
+     * Native name: D2D1_COMPOSITE_MODE_DESTINATION_IN
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_DESTINATION_IN => 3
+    static DESTINATION_IN => 3
 
     /**
      * This is the logical inverse to <b>D2D1_COMPOSITE_MODE_SOURCE_IN</b>.
+     * Native name: D2D1_COMPOSITE_MODE_SOURCE_OUT
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_SOURCE_OUT => 4
+    static SOURCE_OUT => 4
 
     /**
      * The is the logical inverse to <b>D2D1_COMPOSITE_MODE_DESTINATION_IN</b>.
+     * Native name: D2D1_COMPOSITE_MODE_DESTINATION_OUT
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_DESTINATION_OUT => 5
+    static DESTINATION_OUT => 5
 
     /**
      * Writes the source pixels over the destination where there are destination pixels.
+     * Native name: D2D1_COMPOSITE_MODE_SOURCE_ATOP
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_SOURCE_ATOP => 6
+    static SOURCE_ATOP => 6
 
     /**
      * The logical inverse of <b>D2D1_COMPOSITE_MODE_SOURCE_ATOP</b>.
+     * Native name: D2D1_COMPOSITE_MODE_DESTINATION_ATOP
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_DESTINATION_ATOP => 7
+    static DESTINATION_ATOP => 7
 
     /**
      * The source is inverted with the destination.
+     * Native name: D2D1_COMPOSITE_MODE_XOR
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_XOR => 8
+    static XOR => 8
 
     /**
      * The channel components are summed.
+     * Native name: D2D1_COMPOSITE_MODE_PLUS
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_PLUS => 9
+    static PLUS => 9
 
     /**
      * The source is copied to the destination; the destination pixels are ignored.
+     * Native name: D2D1_COMPOSITE_MODE_SOURCE_COPY
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_SOURCE_COPY => 10
+    static SOURCE_COPY => 10
 
     /**
      * Equivalent to <b>D2D1_COMPOSITE_MODE_SOURCE_COPY</b>, but pixels outside of the source bounds are unchanged.
+     * Native name: D2D1_COMPOSITE_MODE_BOUNDED_SOURCE_COPY
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_BOUNDED_SOURCE_COPY => 11
+    static BOUNDED_SOURCE_COPY => 11
 
     /**
      * Destination colors are inverted according to a source mask.
+     * Native name: D2D1_COMPOSITE_MODE_MASK_INVERT
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_MODE_MASK_INVERT => 12
+    static MASK_INVERT => 12
 }

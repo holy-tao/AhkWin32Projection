@@ -10,21 +10,24 @@ class FsrmPipelineModuleType extends Win32Enum {
 
     /**
      * The module type is unknown; do not use this value.
+     * Native name: FsrmPipelineModuleType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmPipelineModuleType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The module is a storage module. A storage module persists property values for the files that it 
      *       supports.
+     * Native name: FsrmPipelineModuleType_Storage
      * @type {Integer (Int32)}
      */
-    static FsrmPipelineModuleType_Storage => 1
+    static Storage => 1
 
     /**
      * The module is a classifier module. A classifier module assigns property values to files based on 
      *       classification rules.
+     * Native name: FsrmPipelineModuleType_Classifier
      * @type {Integer (Int32)}
      */
-    static FsrmPipelineModuleType_Classifier => 2
+    static Classifier => 2
 }

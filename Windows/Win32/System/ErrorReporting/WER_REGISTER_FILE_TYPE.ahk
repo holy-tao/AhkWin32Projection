@@ -7,17 +7,20 @@
 class WER_REGISTER_FILE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WerRegFileTypeUserDocument
      * @type {Integer (Int32)}
      */
-    static WerRegFileTypeUserDocument => 1
+    static RegFileTypeUserDocument => 1
 
     /**
+     * Native name: WerRegFileTypeOther
      * @type {Integer (Int32)}
      */
-    static WerRegFileTypeOther => 2
+    static RegFileTypeOther => 2
 
     /**
+     * Native name: WerRegFileTypeMax
      * @type {Integer (Int32)}
      */
-    static WerRegFileTypeMax => 3
+    static RegFileTypeMax => 3
 }

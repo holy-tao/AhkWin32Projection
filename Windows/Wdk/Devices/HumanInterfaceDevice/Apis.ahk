@@ -15,7 +15,6 @@ class HumanInterfaceDevice {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<VHF_CONFIG>} VhfConfig 
      * @param {Pointer<Pointer<Void>>} VhfHandle 
      * @returns {NTSTATUS} 
@@ -29,7 +28,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VhfHandle 
      * @returns {NTSTATUS} 
      */
@@ -42,7 +40,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VhfHandle 
      * @param {BOOLEAN} Wait 
      * @returns {String} Nothing - always returns an empty string
@@ -54,7 +51,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VhfHandle 
      * @param {Pointer<HID_XFER_PACKET>} HidTransferPacket 
      * @returns {NTSTATUS} 
@@ -68,7 +64,6 @@ class HumanInterfaceDevice {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VhfOperationHandle 
      * @param {NTSTATUS} CompletionStatus 
      * @returns {NTSTATUS} 

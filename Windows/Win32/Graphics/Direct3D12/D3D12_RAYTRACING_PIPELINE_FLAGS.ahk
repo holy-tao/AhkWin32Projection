@@ -10,24 +10,28 @@ class D3D12_RAYTRACING_PIPELINE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies no option.
+     * Native name: D3D12_RAYTRACING_PIPELINE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_PIPELINE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Specifies that for any **TraceRay** call within this raytracing pipeline, the [RAY_FLAG_SKIP_TRIANGLES](/windows/win32/api/d3d12/ne-d3d12-d3d12_ray_flags) ray flag should be added in. The resulting combination of ray flags must be valid. The presence of this flag in a raytracing pipeline config doesn't show up in a **RayFlags** call from a shader. Implementations might be able to optimize pipelines knowing that a particular primitive type need not be considered.
+     * Native name: D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_TRIANGLES
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_TRIANGLES => 256
+    static FLAG_SKIP_TRIANGLES => 256
 
     /**
      * Specifies that for any **TraceRay** call within this raytracing pipeline, the [RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES](/windows/win32/api/d3d12/ne-d3d12-d3d12_ray_flags) ray flag should be added in.
+     * Native name: D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES => 512
+    static FLAG_SKIP_PROCEDURAL_PRIMITIVES => 512
 
     /**
+     * Native name: D3D12_RAYTRACING_PIPELINE_FLAG_ALLOW_OPACITY_MICROMAPS
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_PIPELINE_FLAG_ALLOW_OPACITY_MICROMAPS => 1024
+    static FLAG_ALLOW_OPACITY_MICROMAPS => 1024
 }

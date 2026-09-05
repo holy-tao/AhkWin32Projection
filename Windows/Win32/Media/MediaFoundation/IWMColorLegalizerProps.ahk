@@ -29,7 +29,6 @@ class IWMColorLegalizerProps extends IUnknown {
     static VTableNames => ["SetColorLegalizerQuality"]
 
     /**
-     * 
      * @param {Integer} lquality 
      * @returns {HRESULT} 
      */

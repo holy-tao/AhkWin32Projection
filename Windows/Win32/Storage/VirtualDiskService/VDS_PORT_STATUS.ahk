@@ -17,39 +17,45 @@ class VDS_PORT_STATUS extends Win32Enum {
 
     /**
      * The status of the port cannot be determined.
+     * Native name: VDS_PRS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_PRS_UNKNOWN => 0
+    static PRS_UNKNOWN => 0
 
     /**
      * The port is physically present and in use. The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> value associated with this port status can be any value except <b>VDS_H_FAILED</b>.
+     * Native name: VDS_PRS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_PRS_ONLINE => 1
+    static PRS_ONLINE => 1
 
     /**
      * The port is busy. The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> value can be any value except <b>VDS_H_FAILED</b>.
+     * Native name: VDS_PRS_NOT_READY
      * @type {Integer (Int32)}
      */
-    static VDS_PRS_NOT_READY => 2
+    static PRS_NOT_READY => 2
 
     /**
      * Either the port or its controller is physically present but not available for use. For example, the port or its controller has been set to the inactive state. When this status is set,  a <b>VDS_NF_PORT_REMOVED</b> notification is sent. The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> value can be any value.
+     * Native name: VDS_PRS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_PRS_OFFLINE => 4
+    static PRS_OFFLINE => 4
 
     /**
      * The port has failed. The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> value should be <b>VDS_H_FAILED</b> or <b>VDS_H_FAILING</b>.
+     * Native name: VDS_PRS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_PRS_FAILED => 5
+    static PRS_FAILED => 5
 
     /**
      * The port's controller has been physically removed from the subsystem.  When this status is set, a <b>VDS_NF_PORT_DEPART</b> notification is sent.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_PRS_REMOVED
      * @type {Integer (Int32)}
      */
-    static VDS_PRS_REMOVED => 8
+    static PRS_REMOVED => 8
 }

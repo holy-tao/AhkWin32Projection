@@ -7,17 +7,20 @@
 class KSINTERFACE_STANDARD extends Win32Enum {
 
     /**
+     * Native name: KSINTERFACE_STANDARD_STREAMING
      * @type {Integer (Int32)}
      */
-    static KSINTERFACE_STANDARD_STREAMING => 0
+    static STREAMING => 0
 
     /**
+     * Native name: KSINTERFACE_STANDARD_LOOPED_STREAMING
      * @type {Integer (Int32)}
      */
-    static KSINTERFACE_STANDARD_LOOPED_STREAMING => 1
+    static LOOPED_STREAMING => 1
 
     /**
+     * Native name: KSINTERFACE_STANDARD_CONTROL
      * @type {Integer (Int32)}
      */
-    static KSINTERFACE_STANDARD_CONTROL => 2
+    static CONTROL => 2
 }

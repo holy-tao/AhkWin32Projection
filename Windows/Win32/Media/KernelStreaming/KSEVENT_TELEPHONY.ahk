@@ -7,7 +7,8 @@
 class KSEVENT_TELEPHONY extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_TELEPHONY_ENDPOINTPAIRS_CHANGED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_TELEPHONY_ENDPOINTPAIRS_CHANGED => 0
+    static ENDPOINTPAIRS_CHANGED => 0
 }

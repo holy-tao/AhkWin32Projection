@@ -31,7 +31,6 @@ class IViewObjectPresentFlip extends IUnknown {
     static VTableNames => ["NotifyRender", "RenderObjectToBitmap", "RenderObjectToSharedBuffer"]
 
     /**
-     * 
      * @param {BOOL} fRecreatePresenter 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IViewObjectPresentFlip extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pBitmap 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IViewObjectPresentFlip extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISurfacePresenterFlipBuffer} pBuffer 
      * @returns {HRESULT} 
      */

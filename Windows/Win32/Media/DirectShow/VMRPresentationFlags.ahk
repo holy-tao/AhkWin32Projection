@@ -10,30 +10,35 @@ class VMRPresentationFlags extends Win32Enum {
 
     /**
      * Indicates that the sample is a sync point.
+     * Native name: VMRSample_SyncPoint
      * @type {Integer (Int32)}
      */
-    static VMRSample_SyncPoint => 1
+    static Sample_SyncPoint => 1
 
     /**
      * Indicates that the sample is part of the preroll.
+     * Native name: VMRSample_Preroll
      * @type {Integer (Int32)}
      */
-    static VMRSample_Preroll => 2
+    static Sample_Preroll => 2
 
     /**
      * Indicates that the sample is a discontinuity.
+     * Native name: VMRSample_Discontinuity
      * @type {Integer (Int32)}
      */
-    static VMRSample_Discontinuity => 4
+    static Sample_Discontinuity => 4
 
     /**
      * Indicates that the time stamp on the sample is valid.
+     * Native name: VMRSample_TimeValid
      * @type {Integer (Int32)}
      */
-    static VMRSample_TimeValid => 8
+    static Sample_TimeValid => 8
 
     /**
+     * Native name: VMRSample_SrcDstRectsValid
      * @type {Integer (Int32)}
      */
-    static VMRSample_SrcDstRectsValid => 16
+    static Sample_SrcDstRectsValid => 16
 }

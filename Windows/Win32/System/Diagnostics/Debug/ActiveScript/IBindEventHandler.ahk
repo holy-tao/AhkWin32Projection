@@ -31,7 +31,6 @@ class IBindEventHandler extends IUnknown {
     static VTableNames => ["BindHandler"]
 
     /**
-     * 
      * @param {PWSTR} pstrEvent 
      * @param {IDispatch} pdisp 
      * @returns {HRESULT} 

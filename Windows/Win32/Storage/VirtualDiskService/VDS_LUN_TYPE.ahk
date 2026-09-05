@@ -18,183 +18,208 @@ class VDS_LUN_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_LT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_LT_UNKNOWN => 0
+    static LT_UNKNOWN => 0
 
     /**
      * The LUN type is default automagic—the provider configures the LUN automatically based on hints. This value is used as an input parameter only; it is not returned by queries.
+     * Native name: VDS_LT_DEFAULT
      * @type {Integer (Int32)}
      */
-    static VDS_LT_DEFAULT => 1
+    static LT_DEFAULT => 1
 
     /**
      * The LUN type is fault tolerant automagic—the provider configures the LUN automatically based on hints, but with the requirement that the resulting LUN is fault tolerant. This value is used as an input parameter only; it is not returned by queries.
+     * Native name: VDS_LT_FAULT_TOLERANT
      * @type {Integer (Int32)}
      */
-    static VDS_LT_FAULT_TOLERANT => 2
+    static LT_FAULT_TOLERANT => 2
 
     /**
      * The LUN type is non-fault tolerant automagic—the provider configures the LUN automatically based on hints, but with the requirement that the resulting LUN is non-fault tolerant. This value is used as an input parameter only; it is not returned by queries.
+     * Native name: VDS_LT_NON_FAULT_TOLERANT
      * @type {Integer (Int32)}
      */
-    static VDS_LT_NON_FAULT_TOLERANT => 3
+    static LT_NON_FAULT_TOLERANT => 3
 
     /**
      * The LUN type is simple—it is composed of extents from exactly one drive.
+     * Native name: VDS_LT_SIMPLE
      * @type {Integer (Int32)}
      */
-    static VDS_LT_SIMPLE => 10
+    static LT_SIMPLE => 10
 
     /**
      * The LUN's type is spanned—it is composed of extents from more than one drive.
+     * Native name: VDS_LT_SPAN
      * @type {Integer (Int32)}
      */
-    static VDS_LT_SPAN => 11
+    static LT_SPAN => 11
 
     /**
      * The LUN type is striped, which is equivalent to RAID 0.
+     * Native name: VDS_LT_STRIPE
      * @type {Integer (Int32)}
      */
-    static VDS_LT_STRIPE => 12
+    static LT_STRIPE => 12
 
     /**
      * The LUN type is mirrored, which is equivalent to RAID 1.
+     * Native name: VDS_LT_MIRROR
      * @type {Integer (Int32)}
      */
-    static VDS_LT_MIRROR => 13
+    static LT_MIRROR => 13
 
     /**
      * The LUN type is striped with parity, which accounts for RAID levels 3, 4, 5, and 6.
+     * Native name: VDS_LT_PARITY
      * @type {Integer (Int32)}
      */
-    static VDS_LT_PARITY => 14
+    static LT_PARITY => 14
 
     /**
      * The LUN type is RAID level 2.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID2
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID2 => 15
+    static LT_RAID2 => 15
 
     /**
      * The LUN type is RAID level 3.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID3
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID3 => 16
+    static LT_RAID3 => 16
 
     /**
      * The LUN type is RAID level 4.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID4
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID4 => 17
+    static LT_RAID4 => 17
 
     /**
      * The LUN type is RAID level 5.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID5
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID5 => 18
+    static LT_RAID5 => 18
 
     /**
      * The LUN type is RAID level 6.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID6
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID6 => 19
+    static LT_RAID6 => 19
 
     /**
      * The LUN type is RAID level 0+1.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID01
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID01 => 20
+    static LT_RAID01 => 20
 
     /**
      * The LUN type is RAID level 0+3.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID03
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID03 => 21
+    static LT_RAID03 => 21
 
     /**
      * The LUN type is RAID level 0+5.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID05
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID05 => 22
+    static LT_RAID05 => 22
 
     /**
      * The LUN type is RAID level 1+0.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID10
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID10 => 23
+    static LT_RAID10 => 23
 
     /**
      * The LUN type is RAID level 1+5.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID15
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID15 => 24
+    static LT_RAID15 => 24
 
     /**
      * The LUN type is RAID level 3+0.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID30
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID30 => 25
+    static LT_RAID30 => 25
 
     /**
      * The LUN type is RAID level 5+0.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID50
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID50 => 26
+    static LT_RAID50 => 26
 
     /**
      * The LUN type is RAID level 5+1.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID51
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID51 => 27
+    static LT_RAID51 => 27
 
     /**
      * The LUN type is RAID level 5+3.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID53
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID53 => 28
+    static LT_RAID53 => 28
 
     /**
      * The LUN type is RAID level 6+0.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID60
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID60 => 29
+    static LT_RAID60 => 29
 
     /**
      * The LUN type is RAID level 6+1.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_LT_RAID61
      * @type {Integer (Int32)}
      */
-    static VDS_LT_RAID61 => 30
+    static LT_RAID61 => 30
 }

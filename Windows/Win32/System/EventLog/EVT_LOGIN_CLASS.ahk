@@ -10,7 +10,8 @@ class EVT_LOGIN_CLASS extends Win32Enum {
 
     /**
      * Use Remote Procedure Call (RPC) login.
+     * Native name: EvtRpcLogin
      * @type {Integer (Int32)}
      */
-    static EvtRpcLogin => 1
+    static RpcLogin => 1
 }

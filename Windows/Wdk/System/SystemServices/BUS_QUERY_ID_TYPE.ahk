@@ -7,32 +7,38 @@
 class BUS_QUERY_ID_TYPE extends Win32Enum {
 
     /**
+     * Native name: BusQueryDeviceID
      * @type {Integer (Int32)}
      */
-    static BusQueryDeviceID => 0
+    static DeviceID => 0
 
     /**
+     * Native name: BusQueryHardwareIDs
      * @type {Integer (Int32)}
      */
-    static BusQueryHardwareIDs => 1
+    static HardwareIDs => 1
 
     /**
+     * Native name: BusQueryCompatibleIDs
      * @type {Integer (Int32)}
      */
-    static BusQueryCompatibleIDs => 2
+    static CompatibleIDs => 2
 
     /**
+     * Native name: BusQueryInstanceID
      * @type {Integer (Int32)}
      */
-    static BusQueryInstanceID => 3
+    static InstanceID => 3
 
     /**
+     * Native name: BusQueryDeviceSerialNumber
      * @type {Integer (Int32)}
      */
-    static BusQueryDeviceSerialNumber => 4
+    static DeviceSerialNumber => 4
 
     /**
+     * Native name: BusQueryContainerID
      * @type {Integer (Int32)}
      */
-    static BusQueryContainerID => 5
+    static ContainerID => 5
 }

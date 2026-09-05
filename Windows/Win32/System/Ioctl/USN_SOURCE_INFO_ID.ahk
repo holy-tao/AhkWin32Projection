@@ -7,22 +7,26 @@
 class USN_SOURCE_INFO_ID extends Win32Enum {
 
     /**
+     * Native name: USN_SOURCE_AUXILIARY_DATA
      * @type {Integer (UInt32)}
      */
-    static USN_SOURCE_AUXILIARY_DATA => 2
+    static AUXILIARY_DATA => 2
 
     /**
+     * Native name: USN_SOURCE_DATA_MANAGEMENT
      * @type {Integer (UInt32)}
      */
-    static USN_SOURCE_DATA_MANAGEMENT => 1
+    static DATA_MANAGEMENT => 1
 
     /**
+     * Native name: USN_SOURCE_REPLICATION_MANAGEMENT
      * @type {Integer (UInt32)}
      */
-    static USN_SOURCE_REPLICATION_MANAGEMENT => 4
+    static REPLICATION_MANAGEMENT => 4
 
     /**
+     * Native name: USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT
      * @type {Integer (UInt32)}
      */
-    static USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT => 8
+    static CLIENT_REPLICATION_MANAGEMENT => 8
 }

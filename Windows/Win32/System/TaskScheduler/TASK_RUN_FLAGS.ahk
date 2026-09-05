@@ -10,31 +10,36 @@ class TASK_RUN_FLAGS extends Win32Enum {
 
     /**
      * The task is run with all flags ignored.
+     * Native name: TASK_RUN_NO_FLAGS
      * @type {Integer (Int32)}
      */
-    static TASK_RUN_NO_FLAGS => 0
+    static NO_FLAGS => 0
 
     /**
      * The task is run as the user who is calling the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iregisteredtask-run">Run</a> method.
+     * Native name: TASK_RUN_AS_SELF
      * @type {Integer (Int32)}
      */
-    static TASK_RUN_AS_SELF => 1
+    static AS_SELF => 1
 
     /**
      * The task is run regardless of constraints such as "do not run on batteries" or "run only if idle".
+     * Native name: TASK_RUN_IGNORE_CONSTRAINTS
      * @type {Integer (Int32)}
      */
-    static TASK_RUN_IGNORE_CONSTRAINTS => 2
+    static IGNORE_CONSTRAINTS => 2
 
     /**
      * The task is run using a terminal server session identifier.
+     * Native name: TASK_RUN_USE_SESSION_ID
      * @type {Integer (Int32)}
      */
-    static TASK_RUN_USE_SESSION_ID => 4
+    static USE_SESSION_ID => 4
 
     /**
      * The task is run using a security identifier.
+     * Native name: TASK_RUN_USER_SID
      * @type {Integer (Int32)}
      */
-    static TASK_RUN_USER_SID => 8
+    static USER_SID => 8
 }

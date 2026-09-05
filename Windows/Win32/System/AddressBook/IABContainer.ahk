@@ -32,7 +32,6 @@ class IABContainer extends IMAPIContainer {
     static VTableNames => ["CreateEntry", "CopyEntries", "DeleteEntries", "ResolveNames"]
 
     /**
-     * 
      * @remarks
      * The **IABContainer::CreateEntry** method creates a new entry of a particular type in the specified container, returning a pointer to an interface implementation for further access to the entry. The new entry is created by using a template that has been selected from the container's list of available templates published in its one-off table. Callers access a container's one-off table by calling its [IMAPIProp::OpenProperty](imapiprop-openproperty.md) method and requesting the **PR_CREATE_TEMPLATES** ([PidTagCreateTemplates](pidtagcreatetemplates-canonical-property.md)) property.
      * @param {Integer} cbEntryID > [in] The count of the bytes in the entry identifier pointed to by the  _lpEntryID_ parameter.
@@ -59,7 +58,6 @@ class IABContainer extends IMAPIContainer {
     }
 
     /**
-     * 
      * @remarks
      * The **IABContainer::CopyEntries** method copies entries from the same container or a different container. A call to **CopyEntries** is functionally equivalent to making the following calls for each entry to be copied: 
      *   
@@ -125,7 +123,6 @@ class IABContainer extends IMAPIContainer {
     }
 
     /**
-     * 
      * @remarks
      * The **ResolveNames** method attempts to match unresolved recipients from the array of entries in the _lpAdrList_ parameter to recipients in this address book container. An unresolved recipient typically has only the **PR_DISPLAY_NAME** ([PidTagDisplayName](pidtagdisplayname-canonical-property.md)) property and possibly a few other properties. An unresolved recipient does not have the **PR_ENTRYID** ([PidTagEntryId](pidtagentryid-canonical-property.md)) property, and its corresponding flag in the _lpFlagList_ parameter is set to MAPI_UNRESOLVED. Conversely, a resolved recipient always has at least the **PR_ENTRYID** property plus several other properties such as **PR_EMAIL_ADDRESS** ([PidTagEmailAddress](pidtagemailaddress-canonical-property.md)), **PR_DISPLAY_NAME**, and **PR_ADDRTYPE** ([PidTagAddressType](pidtagaddresstype-canonical-property.md)).
      *   

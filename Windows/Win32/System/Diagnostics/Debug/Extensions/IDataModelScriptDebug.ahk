@@ -37,7 +37,6 @@ class IDataModelScriptDebug extends IUnknown {
     static VTableNames => ["GetDebugState", "GetCurrentPosition", "GetStack", "SetBreakpoint", "FindBreakpointById", "EnumerateBreakpoints", "GetEventFilter", "SetEventFilter", "StartDebugging", "StopDebugging"]
 
     /**
-     * 
      * @returns {ScriptDebugState} 
      */
     GetDebugState() {
@@ -46,7 +45,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ScriptDebugPosition>} currentPosition 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
@@ -58,7 +56,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugStack} 
      */
     GetStack() {
@@ -67,7 +64,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} linePosition 
      * @param {Integer} columnPosition 
      * @returns {IDataModelScriptDebugBreakpoint} 
@@ -78,7 +74,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} breakpointId 
      * @returns {IDataModelScriptDebugBreakpoint} 
      */
@@ -88,7 +83,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugBreakpointEnumerator} 
      */
     EnumerateBreakpoints() {
@@ -97,7 +91,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {ScriptDebugEventFilter} eventFilter 
      * @returns {Boolean} 
      */
@@ -107,7 +100,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {ScriptDebugEventFilter} eventFilter 
      * @param {Integer} isBreakEnabled 
      * @returns {HRESULT} 
@@ -118,7 +110,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptDebugClient} debugClient 
      * @returns {HRESULT} 
      */
@@ -128,7 +119,6 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptDebugClient} debugClient 
      * @returns {HRESULT} 
      */

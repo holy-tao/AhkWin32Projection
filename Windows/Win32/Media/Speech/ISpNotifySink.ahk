@@ -29,7 +29,6 @@ class ISpNotifySink extends IUnknown {
     static VTableNames => ["Notify"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Notify() {

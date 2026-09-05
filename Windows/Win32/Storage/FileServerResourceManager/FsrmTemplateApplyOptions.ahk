@@ -13,13 +13,15 @@ class FsrmTemplateApplyOptions extends Win32Enum {
      * 
      * Note that the comparison is made against the template as it exists in the database, not your local copy that 
      *        has not been committed yet.
+     * Native name: FsrmTemplateApplyOptions_ApplyToDerivedMatching
      * @type {Integer (Int32)}
      */
-    static FsrmTemplateApplyOptions_ApplyToDerivedMatching => 1
+    static ApplyToDerivedMatching => 1
 
     /**
      * Apply template changes to all derived objects, whether their properties match the template's or not.
+     * Native name: FsrmTemplateApplyOptions_ApplyToDerivedAll
      * @type {Integer (Int32)}
      */
-    static FsrmTemplateApplyOptions_ApplyToDerivedAll => 2
+    static ApplyToDerivedAll => 2
 }

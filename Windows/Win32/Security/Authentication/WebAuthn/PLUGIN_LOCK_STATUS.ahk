@@ -7,12 +7,14 @@
 class PLUGIN_LOCK_STATUS extends Win32Enum {
 
     /**
+     * Native name: PluginLocked
      * @type {Integer (Int32)}
      */
-    static PluginLocked => 0
+    static Locked => 0
 
     /**
+     * Native name: PluginUnlocked
      * @type {Integer (Int32)}
      */
-    static PluginUnlocked => 1
+    static Unlocked => 1
 }

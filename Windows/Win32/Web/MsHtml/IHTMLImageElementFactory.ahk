@@ -37,7 +37,6 @@ class IHTMLImageElementFactory extends IDispatch {
     static VTableNames => ["create"]
 
     /**
-     * 
      * @param {VARIANT} width 
      * @param {VARIANT} height 
      * @returns {IHTMLImgElement} 

@@ -54,9 +54,10 @@ class VSS_RESTORE_TARGET extends Win32Enum {
      * This value indicates an error on the part of the writer.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_RT_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_RT_UNDEFINED => 0
+    static RT_UNDEFINED => 0
 
     /**
      * This is the default restore target. 
@@ -65,9 +66,10 @@ class VSS_RESTORE_TARGET extends Win32Enum {
      * This value indicates that the restoration of the files included in a selected component (or the component set 
      *        defined by that component) should proceed according to the original restore method specified at backup time by 
      *        a <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a> value.
+     * Native name: VSS_RT_ORIGINAL
      * @type {Integer (Int32)}
      */
-    static VSS_RT_ORIGINAL => 1
+    static RT_ORIGINAL => 1
 
     /**
      * The files are restored to a location determined from an existing alternate location mapping. 
@@ -77,9 +79,10 @@ class VSS_RESTORE_TARGET extends Win32Enum {
      *        mappings have been set for all the files managed by a selected component or component set.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_RT_ALTERNATE
      * @type {Integer (Int32)}
      */
-    static VSS_RT_ALTERNATE => 2
+    static RT_ALTERNATE => 2
 
     /**
      * Use directed targeting by the writer at restore time to restore a file.
@@ -90,9 +93,10 @@ class VSS_RESTORE_TARGET extends Win32Enum {
      *        backed-up file is to be restored.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_RT_DIRECTED
      * @type {Integer (Int32)}
      */
-    static VSS_RT_DIRECTED => 3
+    static RT_DIRECTED => 3
 
     /**
      * The files are restored to the location at which they were at backup time, even if the original 
@@ -103,7 +107,8 @@ class VSS_RESTORE_TARGET extends Win32Enum {
      * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_RT_ORIGINAL_LOCATION
      * @type {Integer (Int32)}
      */
-    static VSS_RT_ORIGINAL_LOCATION => 4
+    static RT_ORIGINAL_LOCATION => 4
 }

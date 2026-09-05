@@ -12,31 +12,36 @@ class RO_ERROR_REPORTING_FLAGS extends Win32BitflagEnum {
 
     /**
      * Error functions raise structured exceptions when a debugger is attached.
+     * Native name: RO_ERROR_REPORTING_NONE
      * @type {Integer (Int32)}
      */
-    static RO_ERROR_REPORTING_NONE => 0
+    static NONE => 0
 
     /**
      * Error functions do not raise structured exceptions, even when a debugger is present.  Override the behavior of this flag by setting the <b>ForceExceptions</b> flag.
+     * Native name: RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS
      * @type {Integer (Int32)}
      */
-    static RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS => 1
+    static SUPPRESSEXCEPTIONS => 1
 
     /**
      * Error functions raise structured exceptions, even if no debugger is present.  This flag supercedes the <b>RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS</b> flag.  If this flag is set, structured exceptions are raised even if the <b>RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS</b> flag is set.
+     * Native name: RO_ERROR_REPORTING_FORCEEXCEPTIONS
      * @type {Integer (Int32)}
      */
-    static RO_ERROR_REPORTING_FORCEEXCEPTIONS => 2
+    static FORCEEXCEPTIONS => 2
 
     /**
      * Error functions report error strings through a COM object that is attached to the COM channel through the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-setrestrictederrorinfo">SetRestrictedErrorInfo</a> infrastructure. For the <b>SetRestrictedErrorInfo</b> call to succeed, the thread must be initialized into COM.
+     * Native name: RO_ERROR_REPORTING_USESETERRORINFO
      * @type {Integer (Int32)}
      */
-    static RO_ERROR_REPORTING_USESETERRORINFO => 4
+    static USESETERRORINFO => 4
 
     /**
      * Error functions do not report error strings through a COM object that is attached to the COM channel through the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-setrestrictederrorinfo">SetRestrictedErrorInfo</a> infrastructure.
+     * Native name: RO_ERROR_REPORTING_SUPPRESSSETERRORINFO
      * @type {Integer (Int32)}
      */
-    static RO_ERROR_REPORTING_SUPPRESSSETERRORINFO => 8
+    static SUPPRESSSETERRORINFO => 8
 }

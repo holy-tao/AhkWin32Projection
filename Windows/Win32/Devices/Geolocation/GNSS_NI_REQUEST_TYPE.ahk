@@ -7,12 +7,14 @@
 class GNSS_NI_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_NI_Request_SingleShot
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_Request_SingleShot => 1
+    static SingleShot => 1
 
     /**
+     * Native name: GNSS_NI_Request_AreaTrigger
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_Request_AreaTrigger => 2
+    static AreaTrigger => 2
 }

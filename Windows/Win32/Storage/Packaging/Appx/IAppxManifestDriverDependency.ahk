@@ -30,7 +30,6 @@ class IAppxManifestDriverDependency extends IUnknown {
     static VTableNames => ["GetDriverConstraints"]
 
     /**
-     * 
      * @returns {IAppxManifestDriverConstraintsEnumerator} 
      */
     GetDriverConstraints() {

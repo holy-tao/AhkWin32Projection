@@ -76,7 +76,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {STI_USD_CAPS} 
      */
     GetCapabilities() {
@@ -86,7 +85,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DEVICE_STATUS>} pDevStatus 
      * @returns {HRESULT} 
      */
@@ -96,7 +94,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeviceReset() {
@@ -105,7 +102,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
      */
@@ -194,7 +190,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     LockDevice() {
@@ -203,7 +198,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnLockDevice() {
@@ -212,7 +206,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -226,7 +219,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -238,7 +230,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -252,7 +243,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -264,7 +254,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hEvent 
      * @returns {HRESULT} 
      */
@@ -276,7 +265,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {STINOTIFY} 
      */
     GetNotificationData() {
@@ -286,7 +274,6 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {_ERROR_INFOW} 
      */
     GetLastErrorInfo() {

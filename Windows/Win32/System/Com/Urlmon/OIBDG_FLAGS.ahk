@@ -7,12 +7,14 @@
 class OIBDG_FLAGS extends Win32Enum {
 
     /**
+     * Native name: OIBDG_APARTMENTTHREADED
      * @type {Integer (Int32)}
      */
-    static OIBDG_APARTMENTTHREADED => 256
+    static APARTMENTTHREADED => 256
 
     /**
+     * Native name: OIBDG_DATAONLY
      * @type {Integer (Int32)}
      */
-    static OIBDG_DATAONLY => 4096
+    static DATAONLY => 4096
 }

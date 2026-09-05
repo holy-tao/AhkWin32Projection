@@ -7,12 +7,14 @@
 class GAMESTATS_OPEN_TYPE extends Win32Enum {
 
     /**
+     * Native name: GAMESTATS_OPEN_OPENORCREATE
      * @type {Integer (Int32)}
      */
-    static GAMESTATS_OPEN_OPENORCREATE => 0
+    static OPENORCREATE => 0
 
     /**
+     * Native name: GAMESTATS_OPEN_OPENONLY
      * @type {Integer (Int32)}
      */
-    static GAMESTATS_OPEN_OPENONLY => 1
+    static OPENONLY => 1
 }

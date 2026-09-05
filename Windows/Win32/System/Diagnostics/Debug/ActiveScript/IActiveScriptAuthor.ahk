@@ -36,7 +36,6 @@ class IActiveScriptAuthor extends IUnknown {
     static VTableNames => ["AddNamedItem", "AddScriptlet", "ParseScriptText", "GetScriptTextAttributes", "GetScriptletTextAttributes", "GetRoot", "GetLanguageFlags", "GetEventHandler", "RemoveNamedItem", "AddTypeLib", "RemoveTypeLib", "GetChars", "GetInfoFromContext", "IsCommitChar"]
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Integer} dwFlags 
      * @param {IDispatch} pdisp 
@@ -50,7 +49,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDefaultName 
      * @param {PWSTR} pszCode 
      * @param {PWSTR} pszItemName 
@@ -74,7 +72,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {PWSTR} pszItemName 
      * @param {PWSTR} pszDelimiter 
@@ -92,7 +89,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {Integer} cch 
      * @param {PWSTR} pszDelimiter 
@@ -111,7 +107,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {Integer} cch 
      * @param {PWSTR} pszDelimiter 
@@ -130,7 +125,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IScriptNode} 
      */
     GetRoot() {
@@ -139,7 +133,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLanguageFlags() {
@@ -148,7 +141,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @param {PWSTR} pszItem 
      * @param {PWSTR} pszSubItem 
@@ -165,7 +157,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @returns {HRESULT} 
      */
@@ -177,7 +168,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidTypeLib 
      * @param {Integer} dwMajor 
      * @param {Integer} dwMinor 
@@ -190,7 +180,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidTypeLib 
      * @param {Integer} dwMajor 
      * @param {Integer} dwMinor 
@@ -202,7 +191,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fRequestedList 
      * @returns {BSTR} 
      */
@@ -213,7 +201,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {Integer} cchCode 
      * @param {Integer} ichCurrentPosition 
@@ -240,7 +227,6 @@ class IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ch 
      * @returns {BOOL} 
      */

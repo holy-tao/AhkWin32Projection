@@ -7,17 +7,20 @@
 class NLA_INTERNET extends Win32Enum {
 
     /**
+     * Native name: NLA_INTERNET_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NLA_INTERNET_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: NLA_INTERNET_NO
      * @type {Integer (Int32)}
      */
-    static NLA_INTERNET_NO => 1
+    static NO => 1
 
     /**
+     * Native name: NLA_INTERNET_YES
      * @type {Integer (Int32)}
      */
-    static NLA_INTERNET_YES => 2
+    static YES => 2
 }

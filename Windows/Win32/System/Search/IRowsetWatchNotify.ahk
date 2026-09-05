@@ -30,7 +30,6 @@ class IRowsetWatchNotify extends IUnknown {
     static VTableNames => ["OnChange"]
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Integer} eChangeReason 
      * @returns {HRESULT} 

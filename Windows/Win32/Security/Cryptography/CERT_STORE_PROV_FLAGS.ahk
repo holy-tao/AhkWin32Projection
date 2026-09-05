@@ -7,27 +7,32 @@
 class CERT_STORE_PROV_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CERT_STORE_PROV_EXTERNAL_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_PROV_EXTERNAL_FLAG => 1
+    static EXTERNAL_FLAG => 1
 
     /**
+     * Native name: CERT_STORE_PROV_DELETED_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_PROV_DELETED_FLAG => 2
+    static DELETED_FLAG => 2
 
     /**
+     * Native name: CERT_STORE_PROV_NO_PERSIST_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_PROV_NO_PERSIST_FLAG => 4
+    static NO_PERSIST_FLAG => 4
 
     /**
+     * Native name: CERT_STORE_PROV_SYSTEM_STORE_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_PROV_SYSTEM_STORE_FLAG => 8
+    static SYSTEM_STORE_FLAG => 8
 
     /**
+     * Native name: CERT_STORE_PROV_LM_SYSTEM_STORE_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_PROV_LM_SYSTEM_STORE_FLAG => 16
+    static LM_SYSTEM_STORE_FLAG => 16
 }

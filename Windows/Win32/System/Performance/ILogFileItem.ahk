@@ -43,7 +43,6 @@ class ILogFileItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {

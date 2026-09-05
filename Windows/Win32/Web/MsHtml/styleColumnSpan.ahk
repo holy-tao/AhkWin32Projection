@@ -7,27 +7,32 @@
 class styleColumnSpan extends Win32Enum {
 
     /**
+     * Native name: styleColumnSpanNone
      * @type {Integer (Int32)}
      */
-    static styleColumnSpanNone => 0
+    static None => 0
 
     /**
+     * Native name: styleColumnSpanAll
      * @type {Integer (Int32)}
      */
-    static styleColumnSpanAll => 1
+    static All => 1
 
     /**
+     * Native name: styleColumnSpanOne
      * @type {Integer (Int32)}
      */
-    static styleColumnSpanOne => 2
+    static One => 2
 
     /**
+     * Native name: styleColumnSpanNotSet
      * @type {Integer (Int32)}
      */
-    static styleColumnSpanNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleColumnSpan_Max
      * @type {Integer (Int32)}
      */
-    static styleColumnSpan_Max => 2147483647
+    static Max => 2147483647
 }

@@ -29,7 +29,6 @@ class IHostFilter extends IUnknown {
     static VTableNames => ["MarkToken"]
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */

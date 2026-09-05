@@ -86,7 +86,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemObjectPath} 
@@ -97,7 +96,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -110,7 +108,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {HRESULT} 
@@ -121,7 +118,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -134,7 +130,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemObjectSet} 
@@ -145,7 +140,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -158,7 +152,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemObjectSet} 
@@ -169,7 +162,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -182,7 +174,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAssocClass 
      * @param {BSTR} strResultClass 
      * @param {BSTR} strResultRole 
@@ -208,7 +199,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strAssocClass 
      * @param {BSTR} strResultClass 
@@ -236,7 +226,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strResultClass 
      * @param {BSTR} strRole 
      * @param {VARIANT_BOOL} bClassesOnly 
@@ -256,7 +245,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strResultClass 
      * @param {BSTR} strRole 
@@ -278,7 +266,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strMethodName 
      * @param {IDispatch} objWbemInParameters 
      * @param {Integer} iFlags 
@@ -293,7 +280,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strMethodName 
      * @param {IDispatch} objWbemInParameters 
@@ -310,7 +296,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     Clone_() {
@@ -319,7 +304,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {BSTR} 
      */
@@ -330,7 +314,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {ISWbemObject} 
      */
@@ -340,7 +323,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {ISWbemObject} 
      */
@@ -350,7 +332,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemObject 
      * @param {Integer} iFlags 
      * @returns {VARIANT_BOOL} 
@@ -361,7 +342,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {
@@ -370,7 +350,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemPropertySet} 
      */
     get_Properties_() {
@@ -379,7 +358,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemMethodSet} 
      */
     get_Methods_() {
@@ -388,7 +366,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Derivation_() {
@@ -398,7 +375,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObjectPath} 
      */
     get_Path_() {
@@ -407,7 +383,6 @@ class ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {

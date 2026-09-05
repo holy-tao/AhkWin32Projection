@@ -10,73 +10,85 @@ class XHR_PROPERTY extends Win32Enum {
 
     /**
      * Sets a flag in the HTTP request that suppresses automatic prompts for credentials.
+     * Native name: XHR_PROP_NO_CRED_PROMPT
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_NO_CRED_PROMPT => 0
+    static PROP_NO_CRED_PROMPT => 0
 
     /**
      * Sets a flag in the HTTP request that configures the HTTP request that disables authentication for the request.
+     * Native name: XHR_PROP_NO_AUTH
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_NO_AUTH => 1
+    static PROP_NO_AUTH => 1
 
     /**
      * Sets the connect, send, and receive timeouts for HTTP socket operations.
      * 
      * <div class="alert"><b>Note</b>  This value will not affect the timeout behavior of the entire request process.</div>
      * <div> </div>
+     * Native name: XHR_PROP_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_TIMEOUT => 2
+    static PROP_TIMEOUT => 2
 
     /**
      * Suppresses adding default headers to the HTTP request.
+     * Native name: XHR_PROP_NO_DEFAULT_HEADERS
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_NO_DEFAULT_HEADERS => 3
+    static PROP_NO_DEFAULT_HEADERS => 3
 
     /**
      * Causes the HTTP stack to call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onheadersavailable">OnHeadersAvailable</a> callback method with an interim redirecting status code.  The <b>OnHeadersAvailable</b> will be called again for additional redirects and the final destination status code.
+     * Native name: XHR_PROP_REPORT_REDIRECT_STATUS
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_REPORT_REDIRECT_STATUS => 4
+    static PROP_REPORT_REDIRECT_STATUS => 4
 
     /**
      * Suppresses cache reads and writes for the HTTP request.
+     * Native name: XHR_PROP_NO_CACHE
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_NO_CACHE => 5
+    static PROP_NO_CACHE => 5
 
     /**
      * Causes the HTTP stack to provide <b>HRESULTS</b> with the underlying Win32 error code to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onerror">OnError</a> callback method in case of failure.
+     * Native name: XHR_PROP_EXTENDED_ERROR
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_EXTENDED_ERROR => 6
+    static PROP_EXTENDED_ERROR => 6
 
     /**
      * Causes the query string to be encoded in UTF8 instead of ACP for HTTP request.
+     * Native name: XHR_PROP_QUERY_STRING_UTF8
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_QUERY_STRING_UTF8 => 7
+    static PROP_QUERY_STRING_UTF8 => 7
 
     /**
      * Suppresses certain certificate errors.
+     * Native name: XHR_PROP_IGNORE_CERT_ERRORS
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_IGNORE_CERT_ERRORS => 8
+    static PROP_IGNORE_CERT_ERRORS => 8
 
     /**
+     * Native name: XHR_PROP_ONDATA_THRESHOLD
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_ONDATA_THRESHOLD => 9
+    static PROP_ONDATA_THRESHOLD => 9
 
     /**
+     * Native name: XHR_PROP_SET_ENTERPRISEID
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_SET_ENTERPRISEID => 10
+    static PROP_SET_ENTERPRISEID => 10
 
     /**
+     * Native name: XHR_PROP_MAX_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static XHR_PROP_MAX_CONNECTIONS => 11
+    static PROP_MAX_CONNECTIONS => 11
 }

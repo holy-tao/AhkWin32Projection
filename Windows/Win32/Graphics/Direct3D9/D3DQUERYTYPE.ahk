@@ -9,77 +9,92 @@
 class D3DQUERYTYPE extends Win32Enum {
 
     /**
+     * Native name: D3DQUERYTYPE_VCACHE
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_VCACHE => 4
+    static VCACHE => 4
 
     /**
+     * Native name: D3DQUERYTYPE_RESOURCEMANAGER
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_RESOURCEMANAGER => 5
+    static RESOURCEMANAGER => 5
 
     /**
+     * Native name: D3DQUERYTYPE_VERTEXSTATS
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_VERTEXSTATS => 6
+    static VERTEXSTATS => 6
 
     /**
+     * Native name: D3DQUERYTYPE_EVENT
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_EVENT => 8
+    static EVENT => 8
 
     /**
+     * Native name: D3DQUERYTYPE_OCCLUSION
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_OCCLUSION => 9
+    static OCCLUSION => 9
 
     /**
+     * Native name: D3DQUERYTYPE_TIMESTAMP
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_TIMESTAMP => 10
+    static TIMESTAMP => 10
 
     /**
+     * Native name: D3DQUERYTYPE_TIMESTAMPDISJOINT
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_TIMESTAMPDISJOINT => 11
+    static TIMESTAMPDISJOINT => 11
 
     /**
+     * Native name: D3DQUERYTYPE_TIMESTAMPFREQ
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_TIMESTAMPFREQ => 12
+    static TIMESTAMPFREQ => 12
 
     /**
+     * Native name: D3DQUERYTYPE_PIPELINETIMINGS
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_PIPELINETIMINGS => 13
+    static PIPELINETIMINGS => 13
 
     /**
+     * Native name: D3DQUERYTYPE_INTERFACETIMINGS
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_INTERFACETIMINGS => 14
+    static INTERFACETIMINGS => 14
 
     /**
+     * Native name: D3DQUERYTYPE_VERTEXTIMINGS
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_VERTEXTIMINGS => 15
+    static VERTEXTIMINGS => 15
 
     /**
+     * Native name: D3DQUERYTYPE_PIXELTIMINGS
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_PIXELTIMINGS => 16
+    static PIXELTIMINGS => 16
 
     /**
+     * Native name: D3DQUERYTYPE_BANDWIDTHTIMINGS
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_BANDWIDTHTIMINGS => 17
+    static BANDWIDTHTIMINGS => 17
 
     /**
+     * Native name: D3DQUERYTYPE_CACHEUTILIZATION
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_CACHEUTILIZATION => 18
+    static CACHEUTILIZATION => 18
 
     /**
+     * Native name: D3DQUERYTYPE_MEMORYPRESSURE
      * @type {Integer (Int32)}
      */
-    static D3DQUERYTYPE_MEMORYPRESSURE => 19
+    static MEMORYPRESSURE => 19
 }

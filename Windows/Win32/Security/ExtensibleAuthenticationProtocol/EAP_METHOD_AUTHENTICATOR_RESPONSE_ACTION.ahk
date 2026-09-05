@@ -10,37 +10,43 @@ class EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION extends Win32Enum {
 
     /**
      * The supplicant should discard the response as it is not usable by EAPHost.
+     * Native name: EAP_METHOD_AUTHENTICATOR_RESPONSE_DISCARD
      * @type {Integer (Int32)}
      */
-    static EAP_METHOD_AUTHENTICATOR_RESPONSE_DISCARD => 0
+    static DISCARD => 0
 
     /**
      * The supplicant should send the indicated packet to the authenticator.
+     * Native name: EAP_METHOD_AUTHENTICATOR_RESPONSE_SEND
      * @type {Integer (Int32)}
      */
-    static EAP_METHOD_AUTHENTICATOR_RESPONSE_SEND => 1
+    static SEND => 1
 
     /**
      * The supplicant should act on EAP attributes returned by the authenticator.
+     * Native name: EAP_METHOD_AUTHENTICATOR_RESPONSE_RESULT
      * @type {Integer (Int32)}
      */
-    static EAP_METHOD_AUTHENTICATOR_RESPONSE_RESULT => 2
+    static RESULT => 2
 
     /**
      * The supplicant should generate a  context-specific response to the authenticator request.
+     * Native name: EAP_METHOD_AUTHENTICATOR_RESPONSE_RESPOND
      * @type {Integer (Int32)}
      */
-    static EAP_METHOD_AUTHENTICATOR_RESPONSE_RESPOND => 3
+    static RESPOND => 3
 
     /**
      * The authenticator method has started authentication of the supplicant.
+     * Native name: EAP_METHOD_AUTHENTICATOR_RESPONSE_AUTHENTICATE
      * @type {Integer (Int32)}
      */
-    static EAP_METHOD_AUTHENTICATOR_RESPONSE_AUTHENTICATE => 4
+    static AUTHENTICATE => 4
 
     /**
      * The peer method should return the handle for the user identity of the supplicant.
+     * Native name: EAP_METHOD_AUTHENTICATOR_RESPONSE_HANDLE_IDENTITY
      * @type {Integer (Int32)}
      */
-    static EAP_METHOD_AUTHENTICATOR_RESPONSE_HANDLE_IDENTITY => 5
+    static HANDLE_IDENTITY => 5
 }

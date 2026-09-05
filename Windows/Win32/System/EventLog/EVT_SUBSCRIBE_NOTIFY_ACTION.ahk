@@ -10,13 +10,15 @@ class EVT_SUBSCRIBE_NOTIFY_ACTION extends Win32Enum {
 
     /**
      * Indicates that the <i>Event</i> parameter contains a Win32 error code.
+     * Native name: EvtSubscribeActionError
      * @type {Integer (Int32)}
      */
-    static EvtSubscribeActionError => 0
+    static Error => 0
 
     /**
      * Indicates that the <i>Event</i> parameter contains an event that matches the subscriber's query.
+     * Native name: EvtSubscribeActionDeliver
      * @type {Integer (Int32)}
      */
-    static EvtSubscribeActionDeliver => 1
+    static Deliver => 1
 }

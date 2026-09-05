@@ -30,7 +30,6 @@ class ICommandStream extends IUnknown {
     static VTableNames => ["GetCommandStream", "SetCommandStream"]
 
     /**
-     * 
      * @param {Pointer<Guid>} piid 
      * @param {Pointer<Guid>} pguidDialect 
      * @param {Pointer<IUnknown>} ppCommandStream 
@@ -42,7 +41,6 @@ class ICommandStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Guid>} rguidDialect 
      * @param {IUnknown} pCommandStream 

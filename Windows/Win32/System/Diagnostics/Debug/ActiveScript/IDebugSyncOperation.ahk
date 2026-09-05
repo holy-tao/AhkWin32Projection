@@ -30,7 +30,6 @@ class IDebugSyncOperation extends IUnknown {
     static VTableNames => ["GetTargetThread", "Execute", "InProgressAbort"]
 
     /**
-     * 
      * @returns {IDebugApplicationThread} 
      */
     GetTargetThread() {
@@ -39,7 +38,6 @@ class IDebugSyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     Execute() {
@@ -48,7 +46,6 @@ class IDebugSyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InProgressAbort() {

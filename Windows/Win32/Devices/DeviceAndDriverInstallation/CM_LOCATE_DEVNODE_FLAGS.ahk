@@ -7,27 +7,32 @@
 class CM_LOCATE_DEVNODE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: CM_LOCATE_DEVNODE_NORMAL
      * @type {Integer (UInt32)}
      */
-    static CM_LOCATE_DEVNODE_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: CM_LOCATE_DEVNODE_PHANTOM
      * @type {Integer (UInt32)}
      */
-    static CM_LOCATE_DEVNODE_PHANTOM => 1
+    static PHANTOM => 1
 
     /**
+     * Native name: CM_LOCATE_DEVNODE_CANCELREMOVE
      * @type {Integer (UInt32)}
      */
-    static CM_LOCATE_DEVNODE_CANCELREMOVE => 2
+    static CANCELREMOVE => 2
 
     /**
+     * Native name: CM_LOCATE_DEVNODE_NOVALIDATION
      * @type {Integer (UInt32)}
      */
-    static CM_LOCATE_DEVNODE_NOVALIDATION => 4
+    static NOVALIDATION => 4
 
     /**
+     * Native name: CM_LOCATE_DEVNODE_BITS
      * @type {Integer (UInt32)}
      */
-    static CM_LOCATE_DEVNODE_BITS => 7
+    static BITS => 7
 }

@@ -30,7 +30,6 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters", "SetPreset", "GetPreset", "SetQuality", "GetQuality"]
 
     /**
-     * 
      * @param {Pointer<DSFXI3DL2Reverb>} pcDsFxI3DL2Reverb 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXI3DL2Reverb} 
      */
     GetAllParameters() {
@@ -50,7 +48,6 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwPreset 
      * @returns {HRESULT} 
      */
@@ -60,7 +57,6 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPreset() {
@@ -69,7 +65,6 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lQuality 
      * @returns {HRESULT} 
      */
@@ -79,7 +74,6 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetQuality() {

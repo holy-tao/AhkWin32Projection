@@ -10,31 +10,36 @@ class D3D10_TEXTURE_ADDRESS_MODE extends Win32Enum {
 
     /**
      * Tile the texture at every integer junction. For example, for u values between 0 and 3, the texture is repeated three times.
+     * Native name: D3D10_TEXTURE_ADDRESS_WRAP
      * @type {Integer (Int32)}
      */
-    static D3D10_TEXTURE_ADDRESS_WRAP => 1
+    static WRAP => 1
 
     /**
      * Flip the texture at every integer junction. For u values between 0 and 1, for example, the texture is addressed normally; between 1 and 2, the texture is flipped (mirrored); between 2 and 3, the texture is normal again; and so on.
+     * Native name: D3D10_TEXTURE_ADDRESS_MIRROR
      * @type {Integer (Int32)}
      */
-    static D3D10_TEXTURE_ADDRESS_MIRROR => 2
+    static MIRROR => 2
 
     /**
      * Texture coordinates outside the range [0.0, 1.0] are set to the texture color at 0.0 or 1.0, respectively.
+     * Native name: D3D10_TEXTURE_ADDRESS_CLAMP
      * @type {Integer (Int32)}
      */
-    static D3D10_TEXTURE_ADDRESS_CLAMP => 3
+    static CLAMP => 3
 
     /**
      * Texture coordinates outside the range [0.0, 1.0] are set to the border color specified in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_sampler_desc">D3D10_SAMPLER_DESC</a> or HLSL code.
+     * Native name: D3D10_TEXTURE_ADDRESS_BORDER
      * @type {Integer (Int32)}
      */
-    static D3D10_TEXTURE_ADDRESS_BORDER => 4
+    static BORDER => 4
 
     /**
      * Similar to D3D10_TEXTURE_ADDRESS_MIRROR and D3D10_TEXTURE_ADDRESS_CLAMP. Takes the absolute value of the texture coordinate (thus, mirroring around 0), and then clamps to the maximum value.
+     * Native name: D3D10_TEXTURE_ADDRESS_MIRROR_ONCE
      * @type {Integer (Int32)}
      */
-    static D3D10_TEXTURE_ADDRESS_MIRROR_ONCE => 5
+    static MIRROR_ONCE => 5
 }

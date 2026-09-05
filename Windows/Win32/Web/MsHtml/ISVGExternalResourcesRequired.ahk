@@ -37,7 +37,6 @@ class ISVGExternalResourcesRequired extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedBoolean} 
      */
     get_externalResourcesRequired() {

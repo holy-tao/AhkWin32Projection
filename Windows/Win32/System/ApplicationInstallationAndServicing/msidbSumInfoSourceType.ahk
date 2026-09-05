@@ -7,22 +7,26 @@
 class msidbSumInfoSourceType extends Win32Enum {
 
     /**
+     * Native name: msidbSumInfoSourceTypeSFN
      * @type {Integer (Int32)}
      */
-    static msidbSumInfoSourceTypeSFN => 1
+    static TypeSFN => 1
 
     /**
+     * Native name: msidbSumInfoSourceTypeCompressed
      * @type {Integer (Int32)}
      */
-    static msidbSumInfoSourceTypeCompressed => 2
+    static Compressed => 2
 
     /**
+     * Native name: msidbSumInfoSourceTypeAdminImage
      * @type {Integer (Int32)}
      */
-    static msidbSumInfoSourceTypeAdminImage => 4
+    static AdminImage => 4
 
     /**
+     * Native name: msidbSumInfoSourceTypeLUAPackage
      * @type {Integer (Int32)}
      */
-    static msidbSumInfoSourceTypeLUAPackage => 8
+    static TypeLUAPackage => 8
 }

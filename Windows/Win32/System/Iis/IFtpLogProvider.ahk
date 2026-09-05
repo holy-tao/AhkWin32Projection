@@ -30,7 +30,6 @@ class IFtpLogProvider extends IUnknown {
     static VTableNames => ["Log"]
 
     /**
-     * 
      * @param {Pointer<LOGGING_PARAMETERS>} pLoggingParameters 
      * @returns {HRESULT} 
      */

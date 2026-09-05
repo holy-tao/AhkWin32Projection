@@ -7,62 +7,74 @@
 class SHCNF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SHCNF_IDLIST
      * @type {Integer (UInt32)}
      */
-    static SHCNF_IDLIST => 0
+    static IDLIST => 0
 
     /**
+     * Native name: SHCNF_PATHA
      * @type {Integer (UInt32)}
      */
-    static SHCNF_PATHA => 1
+    static PATHA => 1
 
     /**
+     * Native name: SHCNF_PRINTERA
      * @type {Integer (UInt32)}
      */
-    static SHCNF_PRINTERA => 2
+    static PRINTERA => 2
 
     /**
+     * Native name: SHCNF_DWORD
      * @type {Integer (UInt32)}
      */
-    static SHCNF_DWORD => 3
+    static DWORD => 3
 
     /**
+     * Native name: SHCNF_PATHW
      * @type {Integer (UInt32)}
      */
-    static SHCNF_PATHW => 5
+    static PATHW => 5
 
     /**
+     * Native name: SHCNF_PRINTERW
      * @type {Integer (UInt32)}
      */
-    static SHCNF_PRINTERW => 6
+    static PRINTERW => 6
 
     /**
+     * Native name: SHCNF_TYPE
      * @type {Integer (UInt32)}
      */
-    static SHCNF_TYPE => 255
+    static TYPE => 255
 
     /**
+     * Native name: SHCNF_FLUSH
      * @type {Integer (UInt32)}
      */
-    static SHCNF_FLUSH => 4096
+    static FLUSH => 4096
 
     /**
+     * Native name: SHCNF_FLUSHNOWAIT
      * @type {Integer (UInt32)}
      */
-    static SHCNF_FLUSHNOWAIT => 12288
+    static FLUSHNOWAIT => 12288
 
     /**
+     * Native name: SHCNF_NOTIFYRECURSIVE
      * @type {Integer (UInt32)}
      */
-    static SHCNF_NOTIFYRECURSIVE => 65536
+    static NOTIFYRECURSIVE => 65536
 
     /**
+     * Native name: SHCNF_PATH
      * @type {Integer (UInt32)}
      */
-    static SHCNF_PATH => 5
+    static PATH => 5
 
     /**
+     * Native name: SHCNF_PRINTER
      * @type {Integer (UInt32)}
      */
-    static SHCNF_PRINTER => 6
+    static PRINTER => 6
 }

@@ -143,7 +143,6 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -166,7 +165,6 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -313,7 +311,6 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -362,7 +359,6 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -372,7 +368,6 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */

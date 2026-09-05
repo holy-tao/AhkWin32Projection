@@ -12,13 +12,15 @@ class CSC_IISIntrinsicsConfig extends Win32Enum {
 
     /**
      * The current IIS intrinsics do not propagate to the new context. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.
+     * Native name: CSC_NoIISIntrinsics
      * @type {Integer (Int32)}
      */
-    static CSC_NoIISIntrinsics => 0
+    static NoIISIntrinsics => 0
 
     /**
      * The current IIS intrinsics propagate to the new context. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Inherit.
+     * Native name: CSC_InheritIISIntrinsics
      * @type {Integer (Int32)}
      */
-    static CSC_InheritIISIntrinsics => 1
+    static InheritIISIntrinsics => 1
 }

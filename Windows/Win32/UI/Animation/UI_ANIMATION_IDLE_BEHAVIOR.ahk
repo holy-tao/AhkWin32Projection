@@ -10,13 +10,15 @@ class UI_ANIMATION_IDLE_BEHAVIOR extends Win32Enum {
 
     /**
      * The timer continues to generate timer events (is enabled) when the animation manager is idle.
+     * Native name: UI_ANIMATION_IDLE_BEHAVIOR_CONTINUE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_IDLE_BEHAVIOR_CONTINUE => 0
+    static CONTINUE => 0
 
     /**
      * The timer is suspended (disabled) when the animation manager is idle.
+     * Native name: UI_ANIMATION_IDLE_BEHAVIOR_DISABLE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_IDLE_BEHAVIOR_DISABLE => 1
+    static DISABLE => 1
 }

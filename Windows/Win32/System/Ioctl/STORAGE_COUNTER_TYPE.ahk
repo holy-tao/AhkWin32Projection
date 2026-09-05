@@ -7,112 +7,134 @@
 class STORAGE_COUNTER_TYPE extends Win32Enum {
 
     /**
+     * Native name: StorageCounterTypeUnknown
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageCounterTypeTemperatureCelsius
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeTemperatureCelsius => 1
+    static TemperatureCelsius => 1
 
     /**
+     * Native name: StorageCounterTypeTemperatureCelsiusMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeTemperatureCelsiusMax => 2
+    static TemperatureCelsiusMax => 2
 
     /**
+     * Native name: StorageCounterTypeReadErrorsTotal
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeReadErrorsTotal => 3
+    static ReadErrorsTotal => 3
 
     /**
+     * Native name: StorageCounterTypeReadErrorsCorrected
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeReadErrorsCorrected => 4
+    static ReadErrorsCorrected => 4
 
     /**
+     * Native name: StorageCounterTypeReadErrorsUncorrected
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeReadErrorsUncorrected => 5
+    static ReadErrorsUncorrected => 5
 
     /**
+     * Native name: StorageCounterTypeWriteErrorsTotal
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeWriteErrorsTotal => 6
+    static WriteErrorsTotal => 6
 
     /**
+     * Native name: StorageCounterTypeWriteErrorsCorrected
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeWriteErrorsCorrected => 7
+    static WriteErrorsCorrected => 7
 
     /**
+     * Native name: StorageCounterTypeWriteErrorsUncorrected
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeWriteErrorsUncorrected => 8
+    static WriteErrorsUncorrected => 8
 
     /**
+     * Native name: StorageCounterTypeManufactureDate
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeManufactureDate => 9
+    static ManufactureDate => 9
 
     /**
+     * Native name: StorageCounterTypeStartStopCycleCount
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeStartStopCycleCount => 10
+    static StartStopCycleCount => 10
 
     /**
+     * Native name: StorageCounterTypeStartStopCycleCountMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeStartStopCycleCountMax => 11
+    static StartStopCycleCountMax => 11
 
     /**
+     * Native name: StorageCounterTypeLoadUnloadCycleCount
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeLoadUnloadCycleCount => 12
+    static LoadUnloadCycleCount => 12
 
     /**
+     * Native name: StorageCounterTypeLoadUnloadCycleCountMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeLoadUnloadCycleCountMax => 13
+    static LoadUnloadCycleCountMax => 13
 
     /**
+     * Native name: StorageCounterTypeWearPercentage
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeWearPercentage => 14
+    static WearPercentage => 14
 
     /**
+     * Native name: StorageCounterTypeWearPercentageWarning
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeWearPercentageWarning => 15
+    static WearPercentageWarning => 15
 
     /**
+     * Native name: StorageCounterTypeWearPercentageMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeWearPercentageMax => 16
+    static WearPercentageMax => 16
 
     /**
+     * Native name: StorageCounterTypePowerOnHours
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypePowerOnHours => 17
+    static PowerOnHours => 17
 
     /**
+     * Native name: StorageCounterTypeReadLatency100NSMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeReadLatency100NSMax => 18
+    static ReadLatency100NSMax => 18
 
     /**
+     * Native name: StorageCounterTypeWriteLatency100NSMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeWriteLatency100NSMax => 19
+    static WriteLatency100NSMax => 19
 
     /**
+     * Native name: StorageCounterTypeFlushLatency100NSMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeFlushLatency100NSMax => 20
+    static FlushLatency100NSMax => 20
 
     /**
+     * Native name: StorageCounterTypeMax
      * @type {Integer (Int32)}
      */
-    static StorageCounterTypeMax => 21
+    static Max => 21
 }

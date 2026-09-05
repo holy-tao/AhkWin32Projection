@@ -98,7 +98,6 @@ class IRemoteDesktopClientTouchPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} pointerSpeed 
      * @returns {HRESULT} 
      */

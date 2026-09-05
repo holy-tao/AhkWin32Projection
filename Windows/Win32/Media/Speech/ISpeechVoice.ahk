@@ -123,7 +123,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechVoiceStatus} 
      */
     get_Status() {
@@ -132,7 +131,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_Voice() {
@@ -141,7 +139,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} Voice 
      * @returns {HRESULT} 
      */
@@ -151,7 +148,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_AudioOutput() {
@@ -160,7 +156,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} AudioOutput 
      * @returns {HRESULT} 
      */
@@ -170,7 +165,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechBaseStream} 
      */
     get_AudioOutputStream() {
@@ -179,7 +173,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechBaseStream} AudioOutputStream 
      * @returns {HRESULT} 
      */
@@ -189,7 +182,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Rate() {
@@ -198,7 +190,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Rate 
      * @returns {HRESULT} 
      */
@@ -208,7 +199,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Volume() {
@@ -217,7 +207,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Volume 
      * @returns {HRESULT} 
      */
@@ -227,7 +216,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Allow 
      * @returns {HRESULT} 
      */
@@ -237,7 +225,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AllowAudioOutputFormatChangesOnNextSet() {
@@ -246,7 +233,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechVoiceEvents} 
      */
     get_EventInterests() {
@@ -255,7 +241,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechVoiceEvents} EventInterestFlags 
      * @returns {HRESULT} 
      */
@@ -265,7 +250,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechVoicePriority} _Priority 
      * @returns {HRESULT} 
      */
@@ -275,7 +259,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechVoicePriority} 
      */
     get_Priority() {
@@ -284,7 +267,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechVoiceEvents} Boundary 
      * @returns {HRESULT} 
      */
@@ -294,7 +276,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechVoiceEvents} 
      */
     get_AlertBoundary() {
@@ -303,7 +284,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {HRESULT} 
      */
@@ -313,7 +293,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SynchronousSpeakTimeout() {
@@ -322,7 +301,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Text 
      * @param {SpeechVoiceSpeakFlags} Flags 
      * @returns {Integer} 
@@ -335,7 +313,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechBaseStream} Stream 
      * @param {SpeechVoiceSpeakFlags} Flags 
      * @returns {Integer} 
@@ -368,7 +345,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Type 
      * @param {Integer} NumItems 
      * @returns {Integer} 
@@ -381,7 +357,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -395,7 +370,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -409,7 +383,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {VARIANT_BOOL} 
      */
@@ -419,7 +392,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SpeakCompleteEvent() {
@@ -428,7 +400,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
      * @returns {VARIANT_BOOL} 
@@ -441,7 +412,6 @@ class ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} hWndParent 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 

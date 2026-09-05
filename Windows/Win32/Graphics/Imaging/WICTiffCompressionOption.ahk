@@ -10,49 +10,57 @@ class WICTiffCompressionOption extends Win32Enum {
 
     /**
      * Indicates a suitable compression algorithm based on the image and pixel format.
+     * Native name: WICTiffCompressionDontCare
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionDontCare => 0
+    static DontCare => 0
 
     /**
      * Indicates no compression.
+     * Native name: WICTiffCompressionNone
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionNone => 1
+    static None => 1
 
     /**
      * Indicates a CCITT3 compression algorithm. This algorithm is only valid for 1bpp pixel formats.
+     * Native name: WICTiffCompressionCCITT3
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionCCITT3 => 2
+    static CompressionCCITT3 => 2
 
     /**
      * Indicates a CCITT4 compression algorithm. This algorithm is only valid for 1bpp pixel formats.
+     * Native name: WICTiffCompressionCCITT4
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionCCITT4 => 3
+    static CompressionCCITT4 => 3
 
     /**
      * Indicates a LZW compression algorithm.
+     * Native name: WICTiffCompressionLZW
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionLZW => 4
+    static CompressionLZW => 4
 
     /**
      * Indicates a RLE compression algorithm. This algorithm is only valid for 1bpp pixel formats.
+     * Native name: WICTiffCompressionRLE
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionRLE => 5
+    static CompressionRLE => 5
 
     /**
      * Indicates a ZIP compression algorithm.
+     * Native name: WICTiffCompressionZIP
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionZIP => 6
+    static CompressionZIP => 6
 
     /**
      * Indicates an LZWH differencing algorithm.
+     * Native name: WICTiffCompressionLZWHDifferencing
      * @type {Integer (Int32)}
      */
-    static WICTiffCompressionLZWHDifferencing => 7
+    static CompressionLZWHDifferencing => 7
 }

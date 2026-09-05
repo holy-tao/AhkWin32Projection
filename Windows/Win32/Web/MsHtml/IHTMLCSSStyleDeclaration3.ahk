@@ -191,7 +191,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -203,7 +202,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flex() {
@@ -213,7 +211,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -225,7 +222,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flexDirection() {
@@ -235,7 +231,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -247,7 +242,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flexWrap() {
@@ -257,7 +251,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -269,7 +262,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flexFlow() {
@@ -279,7 +271,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -289,7 +280,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_flexGrow() {
@@ -299,7 +289,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -309,7 +298,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_flexShrink() {
@@ -319,7 +307,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -329,7 +316,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_flexBasis() {
@@ -339,7 +325,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -351,7 +336,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_justifyContent() {
@@ -361,7 +345,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -373,7 +356,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alignItems() {
@@ -383,7 +365,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -395,7 +376,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alignSelf() {
@@ -405,7 +385,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -417,7 +396,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alignContent() {
@@ -427,7 +405,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -439,7 +416,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImage() {
@@ -449,7 +425,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -461,7 +436,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageSource() {
@@ -471,7 +445,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -483,7 +456,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageSlice() {
@@ -493,7 +465,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -505,7 +476,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageWidth() {
@@ -515,7 +485,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -527,7 +496,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageOutset() {
@@ -537,7 +505,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -549,7 +516,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageRepeat() {
@@ -559,7 +525,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -571,7 +536,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msImeAlign() {
@@ -581,7 +545,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -593,7 +556,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTextCombineHorizontal() {
@@ -603,7 +565,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -615,7 +576,6 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_touchAction() {

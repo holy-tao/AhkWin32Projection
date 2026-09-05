@@ -36,19 +36,22 @@ class eAVDDSurroundMode extends Win32Enum {
 
     /**
      * The bit stream does not indicate whether the audio is encoded in Dolby Surround.
+     * Native name: eAVDDSurroundMode_NotIndicated
      * @type {Integer (Int32)}
      */
-    static eAVDDSurroundMode_NotIndicated => 0
+    static NotIndicated => 0
 
     /**
      * The bit stream is not encoded in Dolby Surround.
+     * Native name: eAVDDSurroundMode_No
      * @type {Integer (Int32)}
      */
-    static eAVDDSurroundMode_No => 1
+    static No => 1
 
     /**
      * The bit stream is encoded in Dolby Surround.
+     * Native name: eAVDDSurroundMode_Yes
      * @type {Integer (Int32)}
      */
-    static eAVDDSurroundMode_Yes => 2
+    static Yes => 2
 }

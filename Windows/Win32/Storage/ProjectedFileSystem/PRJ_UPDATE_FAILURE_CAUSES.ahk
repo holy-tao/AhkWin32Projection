@@ -10,31 +10,36 @@ class PRJ_UPDATE_FAILURE_CAUSES extends Win32BitflagEnum {
 
     /**
      * The update did not fail.
+     * Native name: PRJ_UPDATE_FAILURE_CAUSE_NONE
      * @type {Integer (Int32)}
      */
-    static PRJ_UPDATE_FAILURE_CAUSE_NONE => 0
+    static CAUSE_NONE => 0
 
     /**
      * The item was a dirty placeholder (hydrated or not), and the provider did not specify PRJ_UPDATE_ALLOW_DIRTY_METADATA in <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ne-projectedfslib-prj_update_types">PRJ_UPDATE_TYPES</a>.
+     * Native name: PRJ_UPDATE_FAILURE_CAUSE_DIRTY_METADATA
      * @type {Integer (Int32)}
      */
-    static PRJ_UPDATE_FAILURE_CAUSE_DIRTY_METADATA => 1
+    static CAUSE_DIRTY_METADATA => 1
 
     /**
      * The item was a full file and the provider did not specify PRJ_UPDATE_ALLOW_DIRTY_DATA in <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ne-projectedfslib-prj_update_types">PRJ_UPDATE_TYPES</a>.
+     * Native name: PRJ_UPDATE_FAILURE_CAUSE_DIRTY_DATA
      * @type {Integer (Int32)}
      */
-    static PRJ_UPDATE_FAILURE_CAUSE_DIRTY_DATA => 2
+    static CAUSE_DIRTY_DATA => 2
 
     /**
      * The item was a tombstone and the provider did not specify PRJ_UPDATE_ALLOW_TOMBSTONE in <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ne-projectedfslib-prj_update_types">PRJ_UPDATE_TYPES</a>.
+     * Native name: PRJ_UPDATE_FAILURE_CAUSE_TOMBSTONE
      * @type {Integer (Int32)}
      */
-    static PRJ_UPDATE_FAILURE_CAUSE_TOMBSTONE => 4
+    static CAUSE_TOMBSTONE => 4
 
     /**
      * The item had the DOS read-only bit set and the provider did not specify PRJ_UPDATE_ALLOW_READ_ONLY in <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ne-projectedfslib-prj_update_types">PRJ_UPDATE_TYPES</a>.
+     * Native name: PRJ_UPDATE_FAILURE_CAUSE_READ_ONLY
      * @type {Integer (Int32)}
      */
-    static PRJ_UPDATE_FAILURE_CAUSE_READ_ONLY => 8
+    static CAUSE_READ_ONLY => 8
 }

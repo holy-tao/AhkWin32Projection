@@ -7,37 +7,44 @@
 class BREAKRESUMEACTION extends Win32Enum {
 
     /**
+     * Native name: BREAKRESUMEACTION_ABORT
      * @type {Integer (Int32)}
      */
-    static BREAKRESUMEACTION_ABORT => 0
+    static ABORT => 0
 
     /**
+     * Native name: BREAKRESUMEACTION_CONTINUE
      * @type {Integer (Int32)}
      */
-    static BREAKRESUMEACTION_CONTINUE => 1
+    static CONTINUE => 1
 
     /**
+     * Native name: BREAKRESUMEACTION_STEP_INTO
      * @type {Integer (Int32)}
      */
-    static BREAKRESUMEACTION_STEP_INTO => 2
+    static STEP_INTO => 2
 
     /**
+     * Native name: BREAKRESUMEACTION_STEP_OVER
      * @type {Integer (Int32)}
      */
-    static BREAKRESUMEACTION_STEP_OVER => 3
+    static STEP_OVER => 3
 
     /**
+     * Native name: BREAKRESUMEACTION_STEP_OUT
      * @type {Integer (Int32)}
      */
-    static BREAKRESUMEACTION_STEP_OUT => 4
+    static STEP_OUT => 4
 
     /**
+     * Native name: BREAKRESUMEACTION_IGNORE
      * @type {Integer (Int32)}
      */
-    static BREAKRESUMEACTION_IGNORE => 5
+    static IGNORE => 5
 
     /**
+     * Native name: BREAKRESUMEACTION_STEP_DOCUMENT
      * @type {Integer (Int32)}
      */
-    static BREAKRESUMEACTION_STEP_DOCUMENT => 6
+    static STEP_DOCUMENT => 6
 }

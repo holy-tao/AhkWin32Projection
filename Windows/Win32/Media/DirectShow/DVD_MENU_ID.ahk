@@ -12,37 +12,43 @@ class DVD_MENU_ID extends Win32Enum {
 
     /**
      * Specifies the top menu in a DVD-Video volume. This menu is also known as the Title Menu or Video Manager Menu and it provides access to all VTS (Video Title Set) menus on the disc.
+     * Native name: DVD_MENU_Title
      * @type {Integer (Int32)}
      */
-    static DVD_MENU_Title => 2
+    static Title => 2
 
     /**
      * Specifies the root menu for a VTS.
+     * Native name: DVD_MENU_Root
      * @type {Integer (Int32)}
      */
-    static DVD_MENU_Root => 3
+    static Root => 3
 
     /**
      * Specifies the subpicture submenu in a VTS menu.
+     * Native name: DVD_MENU_Subpicture
      * @type {Integer (Int32)}
      */
-    static DVD_MENU_Subpicture => 4
+    static Subpicture => 4
 
     /**
      * Specifies the audio submenu in a VTS menu.
+     * Native name: DVD_MENU_Audio
      * @type {Integer (Int32)}
      */
-    static DVD_MENU_Audio => 5
+    static Audio => 5
 
     /**
      * Specifies the angle submenu in a VTS menu.
+     * Native name: DVD_MENU_Angle
      * @type {Integer (Int32)}
      */
-    static DVD_MENU_Angle => 6
+    static Angle => 6
 
     /**
      * Choose a chapter submenu in a VTS menu.
+     * Native name: DVD_MENU_Chapter
      * @type {Integer (Int32)}
      */
-    static DVD_MENU_Chapter => 7
+    static Chapter => 7
 }

@@ -7,32 +7,38 @@
 class HLBWIF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: HLBWIF_HASFRAMEWNDINFO
      * @type {Integer (Int32)}
      */
-    static HLBWIF_HASFRAMEWNDINFO => 1
+    static HASFRAMEWNDINFO => 1
 
     /**
+     * Native name: HLBWIF_HASDOCWNDINFO
      * @type {Integer (Int32)}
      */
-    static HLBWIF_HASDOCWNDINFO => 2
+    static HASDOCWNDINFO => 2
 
     /**
+     * Native name: HLBWIF_FRAMEWNDMAXIMIZED
      * @type {Integer (Int32)}
      */
-    static HLBWIF_FRAMEWNDMAXIMIZED => 4
+    static FRAMEWNDMAXIMIZED => 4
 
     /**
+     * Native name: HLBWIF_DOCWNDMAXIMIZED
      * @type {Integer (Int32)}
      */
-    static HLBWIF_DOCWNDMAXIMIZED => 8
+    static DOCWNDMAXIMIZED => 8
 
     /**
+     * Native name: HLBWIF_HASWEBTOOLBARINFO
      * @type {Integer (Int32)}
      */
-    static HLBWIF_HASWEBTOOLBARINFO => 16
+    static HASWEBTOOLBARINFO => 16
 
     /**
+     * Native name: HLBWIF_WEBTOOLBARHIDDEN
      * @type {Integer (Int32)}
      */
-    static HLBWIF_WEBTOOLBARHIDDEN => 32
+    static WEBTOOLBARHIDDEN => 32
 }

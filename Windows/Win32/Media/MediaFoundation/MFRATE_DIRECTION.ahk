@@ -10,13 +10,15 @@ class MFRATE_DIRECTION extends Win32Enum {
 
     /**
      * Forward playback.
+     * Native name: MFRATE_FORWARD
      * @type {Integer (Int32)}
      */
-    static MFRATE_FORWARD => 0
+    static FORWARD => 0
 
     /**
      * Reverse playback.
+     * Native name: MFRATE_REVERSE
      * @type {Integer (Int32)}
      */
-    static MFRATE_REVERSE => 1
+    static REVERSE => 1
 }

@@ -10,30 +10,35 @@ class ASSOCKEY extends Win32Enum {
 
     /**
      * A key that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> through a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shellexecuteinfoa">SHELLEXECUTEINFO</a> structure.
+     * Native name: ASSOCKEY_SHELLEXECCLASS
      * @type {Integer (Int32)}
      */
-    static ASSOCKEY_SHELLEXECCLASS => 1
+    static SHELLEXECCLASS => 1
 
     /**
      * An <b>Application</b> key for the file type.
+     * Native name: ASSOCKEY_APP
      * @type {Integer (Int32)}
      */
-    static ASSOCKEY_APP => 2
+    static APP => 2
 
     /**
      * A ProgID or class key.
+     * Native name: ASSOCKEY_CLASS
      * @type {Integer (Int32)}
      */
-    static ASSOCKEY_CLASS => 3
+    static CLASS => 3
 
     /**
      * A BaseClass value.
+     * Native name: ASSOCKEY_BASECLASS
      * @type {Integer (Int32)}
      */
-    static ASSOCKEY_BASECLASS => 4
+    static BASECLASS => 4
 
     /**
+     * Native name: ASSOCKEY_MAX
      * @type {Integer (Int32)}
      */
-    static ASSOCKEY_MAX => 5
+    static MAX => 5
 }

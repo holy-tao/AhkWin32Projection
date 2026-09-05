@@ -31,7 +31,6 @@ class ITrusteeGroupAdmin extends IUnknown {
     static VTableNames => ["AddMember", "DeleteMember", "IsMember", "GetMembers", "GetMemberships"]
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<TRUSTEE_W>} pMemberTrustee 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<TRUSTEE_W>} pMemberTrustee 
      * @returns {HRESULT} 
@@ -53,7 +51,6 @@ class ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<TRUSTEE_W>} pMemberTrustee 
      * @returns {BOOL} 
@@ -64,7 +61,6 @@ class ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<Integer>} pcMembers 
      * @param {Pointer<Pointer<TRUSTEE_W>>} prgMembers 
@@ -79,7 +75,6 @@ class ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Pointer<Integer>} pcMemberships 
      * @param {Pointer<Pointer<TRUSTEE_W>>} prgMemberships 

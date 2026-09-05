@@ -7,22 +7,26 @@
 class D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_DISABLED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_DISABLED => 0
+    static DISABLED => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_SWITCHABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_SWITCHABLE => 1
+    static SWITCHABLE => 1
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_WIENER
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_WIENER => 2
+    static WIENER => 2
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_SGRPROJ
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE_SGRPROJ => 3
+    static SGRPROJ => 3
 }

@@ -7,32 +7,38 @@
 class SCRIPTSTATE extends Win32Enum {
 
     /**
+     * Native name: SCRIPTSTATE_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static SCRIPTSTATE_UNINITIALIZED => 0
+    static UNINITIALIZED => 0
 
     /**
+     * Native name: SCRIPTSTATE_INITIALIZED
      * @type {Integer (Int32)}
      */
-    static SCRIPTSTATE_INITIALIZED => 5
+    static INITIALIZED => 5
 
     /**
+     * Native name: SCRIPTSTATE_STARTED
      * @type {Integer (Int32)}
      */
-    static SCRIPTSTATE_STARTED => 1
+    static STARTED => 1
 
     /**
+     * Native name: SCRIPTSTATE_CONNECTED
      * @type {Integer (Int32)}
      */
-    static SCRIPTSTATE_CONNECTED => 2
+    static CONNECTED => 2
 
     /**
+     * Native name: SCRIPTSTATE_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static SCRIPTSTATE_DISCONNECTED => 3
+    static DISCONNECTED => 3
 
     /**
+     * Native name: SCRIPTSTATE_CLOSED
      * @type {Integer (Int32)}
      */
-    static SCRIPTSTATE_CLOSED => 4
+    static CLOSED => 4
 }

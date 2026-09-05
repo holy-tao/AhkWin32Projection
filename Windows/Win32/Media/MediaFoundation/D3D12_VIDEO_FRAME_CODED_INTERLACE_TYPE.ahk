@@ -7,12 +7,14 @@
 class D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE_FIELD_BASED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE_FIELD_BASED => 1
+    static FIELD_BASED => 1
 }

@@ -31,7 +31,6 @@ class IRTCUserSearchResult extends IUnknown {
     static VTableNames => ["get_Value"]
 
     /**
-     * 
      * @param {RTC_USER_SEARCH_COLUMN} enColumn 
      * @returns {BSTR} 
      */

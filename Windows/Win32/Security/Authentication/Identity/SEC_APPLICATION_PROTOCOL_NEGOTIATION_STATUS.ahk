@@ -10,19 +10,22 @@ class SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS extends Win32Enum {
 
     /**
      * No application protocol was negotiated.
+     * Native name: SecApplicationProtocolNegotiationStatus_None
      * @type {Integer (Int32)}
      */
-    static SecApplicationProtocolNegotiationStatus_None => 0
+    static None => 0
 
     /**
      * The application protocol was negotiated successfully.
+     * Native name: SecApplicationProtocolNegotiationStatus_Success
      * @type {Integer (Int32)}
      */
-    static SecApplicationProtocolNegotiationStatus_Success => 1
+    static Success => 1
 
     /**
      * The application protocol was negotiated successfully, but for selected clients only.
+     * Native name: SecApplicationProtocolNegotiationStatus_SelectedClientOnly
      * @type {Integer (Int32)}
      */
-    static SecApplicationProtocolNegotiationStatus_SelectedClientOnly => 2
+    static SelectedClientOnly => 2
 }

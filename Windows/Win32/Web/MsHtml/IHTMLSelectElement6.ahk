@@ -80,7 +80,6 @@ class IHTMLSelectElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -92,7 +91,6 @@ class IHTMLSelectElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {

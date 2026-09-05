@@ -61,9 +61,10 @@ class VSS_FILE_SPEC_BACKUP_TYPE extends Win32Enum {
      *       version of the file set to be available following the restore of any backup operation with a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
      *       <b>VSS_BT_FULL</b>.
+     * Native name: VSS_FSBT_FULL_BACKUP_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_FULL_BACKUP_REQUIRED => 1
+    static FSBT_FULL_BACKUP_REQUIRED => 1
 
     /**
      * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
@@ -72,9 +73,10 @@ class VSS_FILE_SPEC_BACKUP_TYPE extends Win32Enum {
      *       <b>VSS_BT_DIFFERENTIAL</b>.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_FSBT_DIFFERENTIAL_BACKUP_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_DIFFERENTIAL_BACKUP_REQUIRED => 2
+    static FSBT_DIFFERENTIAL_BACKUP_REQUIRED => 2
 
     /**
      * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
@@ -83,9 +85,10 @@ class VSS_FILE_SPEC_BACKUP_TYPE extends Win32Enum {
      *       <b>VSS_BT_INCREMENTAL</b>.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_FSBT_INCREMENTAL_BACKUP_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_INCREMENTAL_BACKUP_REQUIRED => 4
+    static FSBT_INCREMENTAL_BACKUP_REQUIRED => 4
 
     /**
      * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
@@ -94,63 +97,71 @@ class VSS_FILE_SPEC_BACKUP_TYPE extends Win32Enum {
      *       <b>VSS_BT_LOG</b>.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_FSBT_LOG_BACKUP_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_LOG_BACKUP_REQUIRED => 8
+    static FSBT_LOG_BACKUP_REQUIRED => 8
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
      *       original volume) when participating in a backup operation with a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
      *       <b>VSS_BT_FULL</b>.
+     * Native name: VSS_FSBT_FULL_SNAPSHOT_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_FULL_SNAPSHOT_REQUIRED => 256
+    static FSBT_FULL_SNAPSHOT_REQUIRED => 256
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
      *       original volume) when participating in a backup operation with a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
      *       <b>VSS_BT_DIFFERENTIAL</b>.
+     * Native name: VSS_FSBT_DIFFERENTIAL_SNAPSHOT_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_DIFFERENTIAL_SNAPSHOT_REQUIRED => 512
+    static FSBT_DIFFERENTIAL_SNAPSHOT_REQUIRED => 512
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
      *       original volume) when participating in a backup operation with a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
      *       <b>VSS_BT_INCREMENTAL</b>.
+     * Native name: VSS_FSBT_INCREMENTAL_SNAPSHOT_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_INCREMENTAL_SNAPSHOT_REQUIRED => 1024
+    static FSBT_INCREMENTAL_SNAPSHOT_REQUIRED => 1024
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
      *       original volume) when participating in a backup operation with a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
      *       <b>VSS_BT_LOG</b>).
+     * Native name: VSS_FSBT_LOG_SNAPSHOT_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_LOG_SNAPSHOT_REQUIRED => 2048
+    static FSBT_LOG_SNAPSHOT_REQUIRED => 2048
 
     /**
      * A writer tags a file set with this value to indicate to the requester that they expect the file to be created during the snapshot sequence.
+     * Native name: VSS_FSBT_CREATED_DURING_BACKUP
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_CREATED_DURING_BACKUP => 65536
+    static FSBT_CREATED_DURING_BACKUP => 65536
 
     /**
      * The default file backup specification type. A file set tagged with this value must always participate in 
      *       backup and restore operations.
+     * Native name: VSS_FSBT_ALL_BACKUP_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_ALL_BACKUP_REQUIRED => 15
+    static FSBT_ALL_BACKUP_REQUIRED => 15
 
     /**
      * The shadow copy requirement for backup. A file set tagged with this value must always be backed up from a 
      *       shadow copy of a volume (and never from the original volume) when participating in a backup operation.
+     * Native name: VSS_FSBT_ALL_SNAPSHOT_REQUIRED
      * @type {Integer (Int32)}
      */
-    static VSS_FSBT_ALL_SNAPSHOT_REQUIRED => 3840
+    static FSBT_ALL_SNAPSHOT_REQUIRED => 3840
 }

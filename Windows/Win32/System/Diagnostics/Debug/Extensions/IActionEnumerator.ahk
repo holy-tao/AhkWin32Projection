@@ -32,7 +32,6 @@ class IActionEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -41,7 +40,6 @@ class IActionEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} keyName 
      * @param {Pointer<BSTR>} actionName 
      * @param {Pointer<BSTR>} actionDescription 

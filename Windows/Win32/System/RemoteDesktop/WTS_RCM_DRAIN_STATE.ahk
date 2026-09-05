@@ -12,19 +12,22 @@ class WTS_RCM_DRAIN_STATE extends Win32Enum {
 
     /**
      * There has been no change in the drain state.
+     * Native name: WTS_DRAIN_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static WTS_DRAIN_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * The server is in drain mode, or it is entering drain mode. (It is not accepting new connections.)
+     * Native name: WTS_DRAIN_IN_DRAIN
      * @type {Integer (Int32)}
      */
-    static WTS_DRAIN_IN_DRAIN => 1
+    static IN_DRAIN => 1
 
     /**
      * The server is not in drain mode, or it is exiting drain mode. (It is accepting new connections.)
+     * Native name: WTS_DRAIN_NOT_IN_DRAIN
      * @type {Integer (Int32)}
      */
-    static WTS_DRAIN_NOT_IN_DRAIN => 2
+    static NOT_IN_DRAIN => 2
 }

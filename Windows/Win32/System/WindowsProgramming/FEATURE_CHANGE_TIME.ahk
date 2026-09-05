@@ -10,25 +10,29 @@ class FEATURE_CHANGE_TIME extends Win32Enum {
 
     /**
      * TBD
+     * Native name: FEATURE_CHANGE_TIME_READ
      * @type {Integer (Int32)}
      */
-    static FEATURE_CHANGE_TIME_READ => 0
+    static READ => 0
 
     /**
      * TBD
+     * Native name: FEATURE_CHANGE_TIME_MODULE_RELOAD
      * @type {Integer (Int32)}
      */
-    static FEATURE_CHANGE_TIME_MODULE_RELOAD => 1
+    static MODULE_RELOAD => 1
 
     /**
      * TBD
+     * Native name: FEATURE_CHANGE_TIME_SESSION
      * @type {Integer (Int32)}
      */
-    static FEATURE_CHANGE_TIME_SESSION => 2
+    static SESSION => 2
 
     /**
      * TBD
+     * Native name: FEATURE_CHANGE_TIME_REBOOT
      * @type {Integer (Int32)}
      */
-    static FEATURE_CHANGE_TIME_REBOOT => 3
+    static REBOOT => 3
 }

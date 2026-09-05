@@ -10,67 +10,77 @@ class D3D11_FORMAT_SUPPORT2 extends Win32Enum {
 
     /**
      * Format supports atomic add.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_ADD
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_ADD => 1
+    static UAV_ATOMIC_ADD => 1
 
     /**
      * Format supports atomic bitwise operations.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS => 2
+    static UAV_ATOMIC_BITWISE_OPS => 2
 
     /**
      * Format supports atomic compare with store or exchange.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE => 4
+    static UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE => 4
 
     /**
      * Format supports atomic exchange.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE => 8
+    static UAV_ATOMIC_EXCHANGE => 8
 
     /**
      * Format supports atomic min and max.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX => 16
+    static UAV_ATOMIC_SIGNED_MIN_OR_MAX => 16
 
     /**
      * Format supports atomic unsigned min and max.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX => 32
+    static UAV_ATOMIC_UNSIGNED_MIN_OR_MAX => 32
 
     /**
      * Format supports a typed load.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_TYPED_LOAD
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_TYPED_LOAD => 64
+    static UAV_TYPED_LOAD => 64
 
     /**
      * Format supports a typed store.
+     * Native name: D3D11_FORMAT_SUPPORT2_UAV_TYPED_STORE
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_UAV_TYPED_STORE => 128
+    static UAV_TYPED_STORE => 128
 
     /**
      * Format supports logic operations in blend state.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D11_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP => 256
+    static OUTPUT_MERGER_LOGIC_OP => 256
 
     /**
      * Format supports tiled resources.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
+     * Native name: D3D11_FORMAT_SUPPORT2_TILED
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_TILED => 512
+    static TILED => 512
 
     /**
      * Format supports shareable resources.
@@ -81,18 +91,21 @@ class D3D11_FORMAT_SUPPORT2 extends Win32Enum {
      * 
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
+     * Native name: D3D11_FORMAT_SUPPORT2_SHAREABLE
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_SHAREABLE => 1024
+    static SHAREABLE => 1024
 
     /**
      * Format supports multi-plane overlays.
+     * Native name: D3D11_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY => 16384
+    static MULTIPLANE_OVERLAY => 16384
 
     /**
+     * Native name: D3D11_FORMAT_SUPPORT2_DISPLAYABLE
      * @type {Integer (Int32)}
      */
-    static D3D11_FORMAT_SUPPORT2_DISPLAYABLE => 65536
+    static DISPLAYABLE => 65536
 }

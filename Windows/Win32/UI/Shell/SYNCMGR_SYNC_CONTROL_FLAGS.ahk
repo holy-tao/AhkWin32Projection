@@ -12,19 +12,22 @@ class SYNCMGR_SYNC_CONTROL_FLAGS extends Win32Enum {
 
     /**
      * Sync all items, regardless of whether they were just synced.
+     * Native name: SYNCMGR_SCF_NONE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_SCF_NONE => 0
+    static SCF_NONE => 0
 
     /**
      * Sync only items that are not currently syncing.
+     * Native name: SYNCMGR_SCF_IGNORE_IF_ALREADY_SYNCING
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_SCF_IGNORE_IF_ALREADY_SYNCING => 1
+    static SCF_IGNORE_IF_ALREADY_SYNCING => 1
 
     /**
      * A mask used to retrieve or verify valid <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags">SYNCMGR_SYNC_CONTROL_FLAGS</a> flags.
+     * Native name: SYNCMGR_SCF_VALID
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_SCF_VALID => 1
+    static SCF_VALID => 1
 }

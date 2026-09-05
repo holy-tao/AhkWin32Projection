@@ -31,7 +31,6 @@ class IXTLRuntime extends IXMLDOMNode {
     static VTableNames => ["uniqueID", "depth", "childNumber", "ancestorChildNumber", "absoluteChildNumber", "formatIndex", "formatNumber", "formatDate", "formatTime"]
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -41,7 +40,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -51,7 +49,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -61,7 +58,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNodeName 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
@@ -74,7 +70,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -84,7 +79,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @param {BSTR} bstrFormat 
      * @returns {BSTR} 
@@ -98,7 +92,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Float} dblNumber 
      * @param {BSTR} bstrFormat 
      * @returns {BSTR} 
@@ -112,7 +105,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} varDate 
      * @param {BSTR} bstrFormat 
      * @param {VARIANT} varDestLocale 
@@ -127,7 +119,6 @@ class IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} varTime 
      * @param {BSTR} bstrFormat 
      * @param {VARIANT} varDestLocale 

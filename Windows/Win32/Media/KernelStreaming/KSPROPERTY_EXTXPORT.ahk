@@ -7,57 +7,68 @@
 class KSPROPERTY_EXTXPORT extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_CAPABILITIES => 0
+    static CAPABILITIES => 0
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_INPUT_SIGNAL_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_INPUT_SIGNAL_MODE => 1
+    static INPUT_SIGNAL_MODE => 1
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_OUTPUT_SIGNAL_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_OUTPUT_SIGNAL_MODE => 2
+    static OUTPUT_SIGNAL_MODE => 2
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_LOAD_MEDIUM
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_LOAD_MEDIUM => 3
+    static LOAD_MEDIUM => 3
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_MEDIUM_INFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_MEDIUM_INFO => 4
+    static MEDIUM_INFO => 4
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_STATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_STATE => 5
+    static STATE => 5
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_STATE_NOTIFY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_STATE_NOTIFY => 6
+    static STATE_NOTIFY => 6
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_TIMECODE_SEARCH
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_TIMECODE_SEARCH => 7
+    static TIMECODE_SEARCH => 7
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_ATN_SEARCH
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_ATN_SEARCH => 8
+    static ATN_SEARCH => 8
 
     /**
+     * Native name: KSPROPERTY_EXTXPORT_RTC_SEARCH
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTXPORT_RTC_SEARCH => 9
+    static RTC_SEARCH => 9
 
     /**
+     * Native name: KSPROPERTY_RAW_AVC_CMD
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RAW_AVC_CMD => 10
+    static RAW_AVC_CMD => 10
 }

@@ -8526,7 +8526,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {Integer} cMessagesMax 
      * @returns {BOOL} 
      */
@@ -11053,7 +11052,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Pointer<UPDATELAYEREDWINDOWINFO>} pULWInfo 
      * @returns {BOOL} 
@@ -13988,7 +13986,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines IsCharLower as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
@@ -15194,7 +15191,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HMENU} _hMenu 
      * @param {Integer} cmd 
      * @param {PSTR} lpszNewItem 
@@ -15211,7 +15207,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HMENU} _hMenu 
      * @param {Integer} cmd 
      * @param {PWSTR} lpszNewItem 
@@ -17961,7 +17956,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {HWND} hwndFrom 
      * @param {Integer} fmt 
@@ -20871,7 +20865,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} nIndex 
      * @param {Integer} wNewWord 
@@ -22138,7 +22131,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {Integer} nFilterType 
      * @param {Pointer<HOOKPROC>} pfnFilterProc 
      * @returns {HHOOK} 
@@ -22150,7 +22142,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {Integer} nFilterType 
      * @param {Pointer<HOOKPROC>} pfnFilterProc 
      * @returns {HHOOK} 
@@ -22162,7 +22153,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {Integer} nCode 
      * @param {Pointer<HOOKPROC>} pfnFilterProc 
      * @returns {BOOL} 
@@ -30832,7 +30822,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {Integer} dwLevel 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -30878,7 +30867,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static CancelShutdown() {
@@ -30992,7 +30980,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HWND} hwndInherit 
      * @returns {BOOL} 
@@ -31502,7 +31489,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} topLevelWindow 
      * @returns {BOOL} 
      */
@@ -31514,7 +31500,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} topLevelWindow 
      * @param {Pointer<BOOL>} isIntercept 
      * @returns {BOOL} 
@@ -31529,7 +31514,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Pointer<WINDOW_ACTION>} pAction 
      * @returns {BOOL} 
@@ -31609,7 +31593,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static ConvertPrimaryPointerToMouseDrag() {
@@ -31639,7 +31622,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static GetCurrentMonitorTopologyId() {
@@ -31648,7 +31630,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {BOOL} fRegister 
      * @returns {BOOL} 
@@ -31661,7 +31642,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {POINT} ptCursor 
      * @param {MOVESIZE_OPERATION} moveSizeCode 
@@ -31905,7 +31885,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFamilyName 
      * @param {PWSTR} projectRoot 
      * @param {MrmPlatformVersion} platformVersion 
@@ -32096,7 +32075,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {MrmResourceIndexerHandle} indexer 
      * @param {MrmPackagingMode} packagingMode 
      * @param {MrmPackagingOptions} packagingOptions 
@@ -32356,7 +32334,6 @@ class WindowsAndMessaging {
     }
 
     /**
-     * 
      * @param {PWSTR} priFile 
      * @returns {Integer} 
      */

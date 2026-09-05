@@ -5222,7 +5222,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} providerContext 
      * @param {PSECURITY_DESCRIPTOR} sd 
@@ -5595,7 +5594,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Integer} id 
      * @param {Pointer<Pointer<FWPM_PROVIDER_CONTEXT3>>} providerContext 
@@ -5824,7 +5822,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<Guid>} key 
      * @param {Pointer<Pointer<FWPM_PROVIDER_CONTEXT3>>} providerContext 
@@ -6164,7 +6161,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {FWPM_PROVIDER_CONTEXT_ENUM_HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
@@ -10523,7 +10519,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Integer} flags 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} mainModePolicy 
@@ -15062,7 +15057,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
@@ -15082,7 +15076,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {FWPM_NET_EVENT_ENUM_HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
@@ -15711,7 +15704,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription 
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK3>} callback 
@@ -15729,7 +15721,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription 
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK4>} callback 
@@ -16961,7 +16952,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} connectionPolicy 
      * @param {FWP_IP_VERSION} ipVersion 
@@ -16980,7 +16970,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<Guid>} key 
      * @returns {Integer} 

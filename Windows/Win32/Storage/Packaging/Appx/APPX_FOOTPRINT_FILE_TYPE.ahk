@@ -10,31 +10,36 @@ class APPX_FOOTPRINT_FILE_TYPE extends Win32Enum {
 
     /**
      * The package manifest.
+     * Native name: APPX_FOOTPRINT_FILE_TYPE_MANIFEST
      * @type {Integer (Int32)}
      */
-    static APPX_FOOTPRINT_FILE_TYPE_MANIFEST => 0
+    static MANIFEST => 0
 
     /**
      * The package block map.
+     * Native name: APPX_FOOTPRINT_FILE_TYPE_BLOCKMAP
      * @type {Integer (Int32)}
      */
-    static APPX_FOOTPRINT_FILE_TYPE_BLOCKMAP => 1
+    static BLOCKMAP => 1
 
     /**
      * The package signature.
+     * Native name: APPX_FOOTPRINT_FILE_TYPE_SIGNATURE
      * @type {Integer (Int32)}
      */
-    static APPX_FOOTPRINT_FILE_TYPE_SIGNATURE => 2
+    static SIGNATURE => 2
 
     /**
      * The code signing catalog file used for code integrity checks.
+     * Native name: APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY
      * @type {Integer (Int32)}
      */
-    static APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY => 3
+    static CODEINTEGRITY => 3
 
     /**
      * The content group map used for streaming install.
+     * Native name: APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP
      * @type {Integer (Int32)}
      */
-    static APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP => 4
+    static CONTENTGROUPMAP => 4
 }

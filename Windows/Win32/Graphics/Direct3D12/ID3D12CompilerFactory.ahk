@@ -36,7 +36,6 @@ class ID3D12CompilerFactory extends IUnknown {
     static VTableNames => ["EnumerateAdapterFamilies", "EnumerateAdapterFamilyABIVersions", "EnumerateAdapterFamilyCompilerVersion", "GetApplicationProfileVersion", "CreateCompilerCacheSession", "CreateCompiler"]
 
     /**
-     * 
      * @param {Integer} AdapterFamilyIndex 
      * @returns {D3D12_ADAPTER_FAMILY} 
      */
@@ -47,7 +46,6 @@ class ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AdapterFamilyIndex 
      * @param {Pointer<Integer>} pNumABIVersions 
      * @returns {Integer} 
@@ -60,7 +58,6 @@ class ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AdapterFamilyIndex 
      * @returns {D3D12_VERSION_NUMBER} 
      */
@@ -71,7 +68,6 @@ class ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_TARGET>} pTarget 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
      * @returns {D3D12_VERSION_NUMBER} 
@@ -83,7 +79,6 @@ class ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_DATABASE_PATH>} pPaths 
      * @param {Integer} NumPaths 
      * @param {Pointer<D3D12_COMPILER_TARGET>} pTarget 
@@ -97,7 +92,6 @@ class ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12CompilerCacheSession} pCompilerCacheSession 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

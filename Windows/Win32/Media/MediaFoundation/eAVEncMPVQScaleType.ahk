@@ -10,19 +10,22 @@ class eAVEncMPVQScaleType extends Win32Enum {
 
     /**
      * The encoder selects the quantization scale.
+     * Native name: eAVEncMPVQScaleType_Auto
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVQScaleType_Auto => 0
+    static Auto => 0
 
     /**
      * The quantization scale is linear.
+     * Native name: eAVEncMPVQScaleType_Linear
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVQScaleType_Linear => 1
+    static Linear => 1
 
     /**
      * The quantization scale is non-linear.
+     * Native name: eAVEncMPVQScaleType_NonLinear
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVQScaleType_NonLinear => 2
+    static NonLinear => 2
 }

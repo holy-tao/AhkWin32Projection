@@ -12,24 +12,28 @@ class D3D11_FENCE_FLAG extends Win32BitflagEnum {
 
     /**
      * No options are specified.
+     * Native name: D3D11_FENCE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D11_FENCE_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * The fence is shared.
+     * Native name: D3D11_FENCE_FLAG_SHARED
      * @type {Integer (Int32)}
      */
-    static D3D11_FENCE_FLAG_SHARED => 2
+    static SHARED => 2
 
     /**
      * The fence is shared with another GPU adapter.
+     * Native name: D3D11_FENCE_FLAG_SHARED_CROSS_ADAPTER
      * @type {Integer (Int32)}
      */
-    static D3D11_FENCE_FLAG_SHARED_CROSS_ADAPTER => 4
+    static SHARED_CROSS_ADAPTER => 4
 
     /**
+     * Native name: D3D11_FENCE_FLAG_NON_MONITORED
      * @type {Integer (Int32)}
      */
-    static D3D11_FENCE_FLAG_NON_MONITORED => 8
+    static NON_MONITORED => 8
 }

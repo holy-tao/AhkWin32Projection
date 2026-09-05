@@ -7,17 +7,20 @@
 class SHFMT_RET extends Win32Enum {
 
     /**
+     * Native name: SHFMT_ERROR
      * @type {Integer (UInt32)}
      */
-    static SHFMT_ERROR => 4294967295
+    static ERROR => 4294967295
 
     /**
+     * Native name: SHFMT_CANCEL
      * @type {Integer (UInt32)}
      */
-    static SHFMT_CANCEL => 4294967294
+    static CANCEL => 4294967294
 
     /**
+     * Native name: SHFMT_NOFORMAT
      * @type {Integer (UInt32)}
      */
-    static SHFMT_NOFORMAT => 4294967293
+    static NOFORMAT => 4294967293
 }

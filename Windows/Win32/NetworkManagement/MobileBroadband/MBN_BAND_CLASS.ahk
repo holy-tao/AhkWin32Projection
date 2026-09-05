@@ -12,121 +12,141 @@ class MBN_BAND_CLASS extends Win32Enum {
 
     /**
      * Unknown band class.
+     * Native name: MBN_BAND_CLASS_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_NONE => 0
+    static NONE => 0
 
     /**
      * Band class 0.
+     * Native name: MBN_BAND_CLASS_0
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_0 => 1
+    static 0 => 1
 
     /**
      * Band class 1.
+     * Native name: MBN_BAND_CLASS_I
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_I => 2
+    static I => 2
 
     /**
      * Band class 2.
+     * Native name: MBN_BAND_CLASS_II
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_II => 4
+    static II => 4
 
     /**
      * Band class 3.
+     * Native name: MBN_BAND_CLASS_III
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_III => 8
+    static III => 8
 
     /**
      * Band class 4.
+     * Native name: MBN_BAND_CLASS_IV
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_IV => 16
+    static IV => 16
 
     /**
      * Band class 5.
+     * Native name: MBN_BAND_CLASS_V
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_V => 32
+    static V => 32
 
     /**
      * Band class 6.
+     * Native name: MBN_BAND_CLASS_VI
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_VI => 64
+    static VI => 64
 
     /**
      * Band class 7.
+     * Native name: MBN_BAND_CLASS_VII
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_VII => 128
+    static VII => 128
 
     /**
      * Band class 8.
+     * Native name: MBN_BAND_CLASS_VIII
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_VIII => 256
+    static VIII => 256
 
     /**
      * Band class 9.
+     * Native name: MBN_BAND_CLASS_IX
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_IX => 512
+    static IX => 512
 
     /**
      * Band class 10.
+     * Native name: MBN_BAND_CLASS_X
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_X => 1024
+    static X => 1024
 
     /**
      * Band class 11.
+     * Native name: MBN_BAND_CLASS_XI
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_XI => 2048
+    static XI => 2048
 
     /**
      * Band class 12.
+     * Native name: MBN_BAND_CLASS_XII
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_XII => 4096
+    static XII => 4096
 
     /**
      * Band class 13.
+     * Native name: MBN_BAND_CLASS_XIII
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_XIII => 8192
+    static XIII => 8192
 
     /**
      * Band class 14.
+     * Native name: MBN_BAND_CLASS_XIV
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_XIV => 16384
+    static XIV => 16384
 
     /**
      * Band class 15.
+     * Native name: MBN_BAND_CLASS_XV
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_XV => 32768
+    static XV => 32768
 
     /**
      * Band class 16.
+     * Native name: MBN_BAND_CLASS_XVI
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_XVI => 65536
+    static XVI => 65536
 
     /**
      * Band class 17.
+     * Native name: MBN_BAND_CLASS_XVII
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_XVII => 131072
+    static XVII => 131072
 
     /**
      * Custom band class.
+     * Native name: MBN_BAND_CLASS_CUSTOM
      * @type {Integer (Int32)}
      */
-    static MBN_BAND_CLASS_CUSTOM => -2147483648
+    static CUSTOM => -2147483648
 }

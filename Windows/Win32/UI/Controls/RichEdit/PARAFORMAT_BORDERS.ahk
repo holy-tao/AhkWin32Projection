@@ -7,37 +7,44 @@
 class PARAFORMAT_BORDERS extends Win32BitflagEnum {
 
     /**
+     * Native name: PARAFORMAT_BORDERS_LEFT
      * @type {Integer (UInt16)}
      */
-    static PARAFORMAT_BORDERS_LEFT => 1
+    static LEFT => 1
 
     /**
+     * Native name: PARAFORMAT_BORDERS_RIGHT
      * @type {Integer (UInt16)}
      */
-    static PARAFORMAT_BORDERS_RIGHT => 2
+    static RIGHT => 2
 
     /**
+     * Native name: PARAFORMAT_BORDERS_TOP
      * @type {Integer (UInt16)}
      */
-    static PARAFORMAT_BORDERS_TOP => 4
+    static TOP => 4
 
     /**
+     * Native name: PARAFORMAT_BORDERS_BOTTOM
      * @type {Integer (UInt16)}
      */
-    static PARAFORMAT_BORDERS_BOTTOM => 8
+    static BOTTOM => 8
 
     /**
+     * Native name: PARAFORMAT_BORDERS_INSIDE
      * @type {Integer (UInt16)}
      */
-    static PARAFORMAT_BORDERS_INSIDE => 16
+    static INSIDE => 16
 
     /**
+     * Native name: PARAFORMAT_BORDERS_OUTSIDE
      * @type {Integer (UInt16)}
      */
-    static PARAFORMAT_BORDERS_OUTSIDE => 32
+    static OUTSIDE => 32
 
     /**
+     * Native name: PARAFORMAT_BORDERS_AUTOCOLOR
      * @type {Integer (UInt16)}
      */
-    static PARAFORMAT_BORDERS_AUTOCOLOR => 64
+    static AUTOCOLOR => 64
 }

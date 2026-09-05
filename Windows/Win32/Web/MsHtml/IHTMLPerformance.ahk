@@ -53,7 +53,6 @@ class IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLPerformanceNavigation} 
      */
     get_navigation() {
@@ -62,7 +61,6 @@ class IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLPerformanceTiming} 
      */
     get_timing() {
@@ -71,7 +69,6 @@ class IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -81,7 +78,6 @@ class IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     toJSON() {

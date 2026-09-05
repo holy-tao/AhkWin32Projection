@@ -7,32 +7,38 @@
 class AudioSessionDisconnectReason extends Win32Enum {
 
     /**
+     * Native name: DisconnectReasonDeviceRemoval
      * @type {Integer (Int32)}
      */
-    static DisconnectReasonDeviceRemoval => 0
+    static DeviceRemoval => 0
 
     /**
+     * Native name: DisconnectReasonServerShutdown
      * @type {Integer (Int32)}
      */
-    static DisconnectReasonServerShutdown => 1
+    static ServerShutdown => 1
 
     /**
+     * Native name: DisconnectReasonFormatChanged
      * @type {Integer (Int32)}
      */
-    static DisconnectReasonFormatChanged => 2
+    static FormatChanged => 2
 
     /**
+     * Native name: DisconnectReasonSessionLogoff
      * @type {Integer (Int32)}
      */
-    static DisconnectReasonSessionLogoff => 3
+    static SessionLogoff => 3
 
     /**
+     * Native name: DisconnectReasonSessionDisconnected
      * @type {Integer (Int32)}
      */
-    static DisconnectReasonSessionDisconnected => 4
+    static SessionDisconnected => 4
 
     /**
+     * Native name: DisconnectReasonExclusiveModeOverride
      * @type {Integer (Int32)}
      */
-    static DisconnectReasonExclusiveModeOverride => 5
+    static ExclusiveModeOverride => 5
 }

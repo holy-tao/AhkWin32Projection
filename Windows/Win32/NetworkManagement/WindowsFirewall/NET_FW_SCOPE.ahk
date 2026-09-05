@@ -10,25 +10,29 @@ class NET_FW_SCOPE extends Win32Enum {
 
     /**
      * Scope is all.
+     * Native name: NET_FW_SCOPE_ALL
      * @type {Integer (Int32)}
      */
-    static NET_FW_SCOPE_ALL => 0
+    static ALL => 0
 
     /**
      * Scope is local subnet only.
+     * Native name: NET_FW_SCOPE_LOCAL_SUBNET
      * @type {Integer (Int32)}
      */
-    static NET_FW_SCOPE_LOCAL_SUBNET => 1
+    static LOCAL_SUBNET => 1
 
     /**
      * Scope is custom.
+     * Native name: NET_FW_SCOPE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static NET_FW_SCOPE_CUSTOM => 2
+    static CUSTOM => 2
 
     /**
      * Used for boundary checking only. Not valid for application programming.
+     * Native name: NET_FW_SCOPE_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_SCOPE_MAX => 3
+    static MAX => 3
 }

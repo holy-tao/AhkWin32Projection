@@ -15,43 +15,50 @@ class CONTROL_CHANNEL_TRIGGER_STATUS extends Win32Enum {
 
     /**
      * Status is invalid.
+     * Native name: CONTROL_CHANNEL_TRIGGER_STATUS_INVALID
      * @type {Integer (Int32)}
      */
-    static CONTROL_CHANNEL_TRIGGER_STATUS_INVALID => 0
+    static INVALID => 0
 
     /**
      * A software slot was allocated for the <a href="https://docs.microsoft.com/uwp/api/windows.networking.sockets.controlchanneltrigger">ControlChannelTrigger</a>.
+     * Native name: CONTROL_CHANNEL_TRIGGER_STATUS_SOFTWARE_SLOT_ALLOCATED
      * @type {Integer (Int32)}
      */
-    static CONTROL_CHANNEL_TRIGGER_STATUS_SOFTWARE_SLOT_ALLOCATED => 1
+    static SOFTWARE_SLOT_ALLOCATED => 1
 
     /**
      * A hardware slot was allocated for the <a href="https://docs.microsoft.com/uwp/api/windows.networking.sockets.controlchanneltrigger">ControlChannelTrigger</a>.
+     * Native name: CONTROL_CHANNEL_TRIGGER_STATUS_HARDWARE_SLOT_ALLOCATED
      * @type {Integer (Int32)}
      */
-    static CONTROL_CHANNEL_TRIGGER_STATUS_HARDWARE_SLOT_ALLOCATED => 2
+    static HARDWARE_SLOT_ALLOCATED => 2
 
     /**
      * A status policy error.
+     * Native name: CONTROL_CHANNEL_TRIGGER_STATUS_POLICY_ERROR
      * @type {Integer (Int32)}
      */
-    static CONTROL_CHANNEL_TRIGGER_STATUS_POLICY_ERROR => 3
+    static POLICY_ERROR => 3
 
     /**
      * A status system error.
+     * Native name: CONTROL_CHANNEL_TRIGGER_STATUS_SYSTEM_ERROR
      * @type {Integer (Int32)}
      */
-    static CONTROL_CHANNEL_TRIGGER_STATUS_SYSTEM_ERROR => 4
+    static SYSTEM_ERROR => 4
 
     /**
      * The TCP transport is disconnected.
+     * Native name: CONTROL_CHANNEL_TRIGGER_STATUS_TRANSPORT_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static CONTROL_CHANNEL_TRIGGER_STATUS_TRANSPORT_DISCONNECTED => 5
+    static TRANSPORT_DISCONNECTED => 5
 
     /**
      * Service is unavailable.
+     * Native name: CONTROL_CHANNEL_TRIGGER_STATUS_SERVICE_UNAVAILABLE
      * @type {Integer (Int32)}
      */
-    static CONTROL_CHANNEL_TRIGGER_STATUS_SERVICE_UNAVAILABLE => 6
+    static SERVICE_UNAVAILABLE => 6
 }

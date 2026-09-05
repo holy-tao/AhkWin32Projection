@@ -7,12 +7,14 @@
 class BINDINFOF extends Win32Enum {
 
     /**
+     * Native name: BINDINFOF_URLENCODESTGMEDDATA
      * @type {Integer (Int32)}
      */
-    static BINDINFOF_URLENCODESTGMEDDATA => 1
+    static URLENCODESTGMEDDATA => 1
 
     /**
+     * Native name: BINDINFOF_URLENCODEDEXTRAINFO
      * @type {Integer (Int32)}
      */
-    static BINDINFOF_URLENCODEDEXTRAINFO => 2
+    static URLENCODEDEXTRAINFO => 2
 }

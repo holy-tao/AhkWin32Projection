@@ -10,19 +10,22 @@ class APPX_ENCRYPTED_PACKAGE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No options.
+     * Native name: APPX_ENCRYPTED_PACKAGE_OPTION_NONE
      * @type {Integer (Int32)}
      */
-    static APPX_ENCRYPTED_PACKAGE_OPTION_NONE => 0
+    static OPTION_NONE => 0
 
     /**
      * Option to use diffusion.
+     * Native name: APPX_ENCRYPTED_PACKAGE_OPTION_DIFFUSION
      * @type {Integer (Int32)}
      */
-    static APPX_ENCRYPTED_PACKAGE_OPTION_DIFFUSION => 1
+    static OPTION_DIFFUSION => 1
 
     /**
      * Option to add page hashes.
+     * Native name: APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING
      * @type {Integer (Int32)}
      */
-    static APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING => 2
+    static OPTION_PAGE_HASHING => 2
 }

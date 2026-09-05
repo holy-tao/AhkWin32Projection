@@ -7,72 +7,86 @@
 class TAPE_DRIVE_PROBLEM_TYPE extends Win32Enum {
 
     /**
+     * Native name: TapeDriveProblemNone
      * @type {Integer (Int32)}
      */
-    static TapeDriveProblemNone => 0
+    static None => 0
 
     /**
+     * Native name: TapeDriveReadWriteWarning
      * @type {Integer (Int32)}
      */
-    static TapeDriveReadWriteWarning => 1
+    static ReadWriteWarning => 1
 
     /**
+     * Native name: TapeDriveReadWriteError
      * @type {Integer (Int32)}
      */
-    static TapeDriveReadWriteError => 2
+    static ReadWriteError => 2
 
     /**
+     * Native name: TapeDriveReadWarning
      * @type {Integer (Int32)}
      */
-    static TapeDriveReadWarning => 3
+    static ReadWarning => 3
 
     /**
+     * Native name: TapeDriveWriteWarning
      * @type {Integer (Int32)}
      */
-    static TapeDriveWriteWarning => 4
+    static WriteWarning => 4
 
     /**
+     * Native name: TapeDriveReadError
      * @type {Integer (Int32)}
      */
-    static TapeDriveReadError => 5
+    static ReadError => 5
 
     /**
+     * Native name: TapeDriveWriteError
      * @type {Integer (Int32)}
      */
-    static TapeDriveWriteError => 6
+    static WriteError => 6
 
     /**
+     * Native name: TapeDriveHardwareError
      * @type {Integer (Int32)}
      */
-    static TapeDriveHardwareError => 7
+    static HardwareError => 7
 
     /**
+     * Native name: TapeDriveUnsupportedMedia
      * @type {Integer (Int32)}
      */
-    static TapeDriveUnsupportedMedia => 8
+    static UnsupportedMedia => 8
 
     /**
+     * Native name: TapeDriveScsiConnectionError
      * @type {Integer (Int32)}
      */
-    static TapeDriveScsiConnectionError => 9
+    static ScsiConnectionError => 9
 
     /**
+     * Native name: TapeDriveTimetoClean
      * @type {Integer (Int32)}
      */
-    static TapeDriveTimetoClean => 10
+    static TimetoClean => 10
 
     /**
+     * Native name: TapeDriveCleanDriveNow
      * @type {Integer (Int32)}
      */
-    static TapeDriveCleanDriveNow => 11
+    static CleanDriveNow => 11
 
     /**
+     * Native name: TapeDriveMediaLifeExpired
      * @type {Integer (Int32)}
      */
-    static TapeDriveMediaLifeExpired => 12
+    static MediaLifeExpired => 12
 
     /**
+     * Native name: TapeDriveSnappedTape
      * @type {Integer (Int32)}
      */
-    static TapeDriveSnappedTape => 13
+    static SnappedTape => 13
 }

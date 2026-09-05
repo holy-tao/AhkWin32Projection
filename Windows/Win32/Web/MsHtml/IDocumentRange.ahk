@@ -30,7 +30,6 @@ class IDocumentRange extends IDispatch {
     static VTableNames => ["createRange"]
 
     /**
-     * 
      * @returns {IHTMLDOMRange} 
      */
     createRange() {

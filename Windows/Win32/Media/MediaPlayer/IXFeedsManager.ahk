@@ -35,7 +35,6 @@ class IXFeedsManager extends IUnknown {
     static VTableNames => ["RootFolder", "IsSubscribed", "ExistsFeed", "GetFeed", "GetFeedByUrl", "ExistsFolder", "GetFolder", "DeleteFeed", "DeleteFolder", "BackgroundSync", "BackgroundSyncStatus", "DefaultInterval", "SetDefaultInterval", "AsyncSyncAll", "Normalize", "ItemCountLimit"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -45,7 +44,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @returns {BOOL} 
      */
@@ -57,7 +55,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {BOOL} 
      */
@@ -69,7 +66,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -82,7 +78,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -95,7 +90,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {BOOL} 
      */
@@ -107,7 +101,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -120,7 +113,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -132,7 +124,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -144,7 +135,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {FEEDS_BACKGROUNDSYNC_ACTION} fbsa 
      * @returns {HRESULT} 
      */
@@ -154,7 +144,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FEEDS_BACKGROUNDSYNC_STATUS} 
      */
     BackgroundSyncStatus() {
@@ -163,7 +152,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     DefaultInterval() {
@@ -172,7 +160,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiInterval 
      * @returns {HRESULT} 
      */
@@ -182,7 +169,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncSyncAll() {
@@ -191,7 +177,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStreamIn 
      * @returns {IStream} 
      */
@@ -201,7 +186,6 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     ItemCountLimit() {

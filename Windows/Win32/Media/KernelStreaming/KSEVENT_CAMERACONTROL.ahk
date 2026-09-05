@@ -7,12 +7,14 @@
 class KSEVENT_CAMERACONTROL extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_CAMERACONTROL_FOCUS
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CAMERACONTROL_FOCUS => 0
+    static FOCUS => 0
 
     /**
+     * Native name: KSEVENT_CAMERACONTROL_ZOOM
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CAMERACONTROL_ZOOM => 1
+    static ZOOM => 1
 }

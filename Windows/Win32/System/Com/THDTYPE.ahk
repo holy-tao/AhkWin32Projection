@@ -10,13 +10,15 @@ class THDTYPE extends Win32Enum {
 
     /**
      * The thread does not support a message loop. This behavior is associated with multithreaded apartments.
+     * Native name: THDTYPE_BLOCKMESSAGES
      * @type {Integer (Int32)}
      */
-    static THDTYPE_BLOCKMESSAGES => 0
+    static BLOCKMESSAGES => 0
 
     /**
      * The thread supports a message loop. This behavior is associated with single-threaded apartments.
+     * Native name: THDTYPE_PROCESSMESSAGES
      * @type {Integer (Int32)}
      */
-    static THDTYPE_PROCESSMESSAGES => 1
+    static PROCESSMESSAGES => 1
 }

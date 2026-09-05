@@ -7,32 +7,38 @@
 class styleWebkitBoxPack extends Win32Enum {
 
     /**
+     * Native name: styleWebkitBoxPackStart
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxPackStart => 0
+    static Start => 0
 
     /**
+     * Native name: styleWebkitBoxPackEnd
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxPackEnd => 1
+    static End => 1
 
     /**
+     * Native name: styleWebkitBoxPackCenter
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxPackCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleWebkitBoxPackJustify
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxPackJustify => 3
+    static Justify => 3
 
     /**
+     * Native name: styleWebkitBoxPackNotSet
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxPackNotSet => 5
+    static NotSet => 5
 
     /**
+     * Native name: styleWebkitBoxPack_Max
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxPack_Max => 2147483647
+    static Max => 2147483647
 }

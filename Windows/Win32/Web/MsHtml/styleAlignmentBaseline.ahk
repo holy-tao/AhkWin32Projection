@@ -7,72 +7,86 @@
 class styleAlignmentBaseline extends Win32Enum {
 
     /**
+     * Native name: styleAlignmentBaselineNotSet
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleAlignmentBaselineAfterEdge
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineAfterEdge => 1
+    static AfterEdge => 1
 
     /**
+     * Native name: styleAlignmentBaselineAlphabetic
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineAlphabetic => 2
+    static Alphabetic => 2
 
     /**
+     * Native name: styleAlignmentBaselineAuto
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineAuto => 3
+    static Auto => 3
 
     /**
+     * Native name: styleAlignmentBaselineBaseline
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineBaseline => 4
+    static Baseline => 4
 
     /**
+     * Native name: styleAlignmentBaselineBeforeEdge
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineBeforeEdge => 5
+    static BeforeEdge => 5
 
     /**
+     * Native name: styleAlignmentBaselineCentral
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineCentral => 6
+    static Central => 6
 
     /**
+     * Native name: styleAlignmentBaselineHanging
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineHanging => 7
+    static Hanging => 7
 
     /**
+     * Native name: styleAlignmentBaselineMathematical
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineMathematical => 8
+    static Mathematical => 8
 
     /**
+     * Native name: styleAlignmentBaselineMiddle
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineMiddle => 9
+    static Middle => 9
 
     /**
+     * Native name: styleAlignmentBaselineTextAfterEdge
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineTextAfterEdge => 10
+    static TextAfterEdge => 10
 
     /**
+     * Native name: styleAlignmentBaselineTextBeforeEdge
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineTextBeforeEdge => 11
+    static TextBeforeEdge => 11
 
     /**
+     * Native name: styleAlignmentBaselineIdeographic
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaselineIdeographic => 12
+    static Ideographic => 12
 
     /**
+     * Native name: styleAlignmentBaseline_Max
      * @type {Integer (Int32)}
      */
-    static styleAlignmentBaseline_Max => 2147483647
+    static Max => 2147483647
 }

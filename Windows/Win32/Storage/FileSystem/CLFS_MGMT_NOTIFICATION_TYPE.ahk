@@ -7,22 +7,26 @@
 class CLFS_MGMT_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: ClfsMgmtAdvanceTailNotification
      * @type {Integer (Int32)}
      */
-    static ClfsMgmtAdvanceTailNotification => 0
+    static AdvanceTailNotification => 0
 
     /**
+     * Native name: ClfsMgmtLogFullHandlerNotification
      * @type {Integer (Int32)}
      */
-    static ClfsMgmtLogFullHandlerNotification => 1
+    static LogFullHandlerNotification => 1
 
     /**
+     * Native name: ClfsMgmtLogUnpinnedNotification
      * @type {Integer (Int32)}
      */
-    static ClfsMgmtLogUnpinnedNotification => 2
+    static LogUnpinnedNotification => 2
 
     /**
+     * Native name: ClfsMgmtLogWriteNotification
      * @type {Integer (Int32)}
      */
-    static ClfsMgmtLogWriteNotification => 3
+    static LogWriteNotification => 3
 }

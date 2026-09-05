@@ -31,7 +31,6 @@ class IDeconstructableConcept extends IUnknown {
     static VTableNames => ["GetConstructableModelName", "GetConstructorArgumentCount", "GetConstructorArguments"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {BSTR} 
      */
@@ -42,7 +41,6 @@ class IDeconstructableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {Integer} 
      */
@@ -52,7 +50,6 @@ class IDeconstructableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Integer} argCount 
      * @returns {IModelObject} 

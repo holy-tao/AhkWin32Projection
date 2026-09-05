@@ -61,7 +61,6 @@ class FolderItemVerbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -70,7 +69,6 @@ class FolderItemVerbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -79,7 +77,6 @@ class FolderItemVerbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {

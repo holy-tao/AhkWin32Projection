@@ -30,7 +30,6 @@ class IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
     static VTableNames => ["UnauthorizeEx", "IsQueueFrozen", "GetShellExtSupport"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsQueueFrozen() {
@@ -49,7 +47,6 @@ class IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetShellExtSupport() {

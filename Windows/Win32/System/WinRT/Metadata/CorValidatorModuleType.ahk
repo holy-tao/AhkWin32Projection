@@ -7,37 +7,44 @@
 class CorValidatorModuleType extends Win32Enum {
 
     /**
+     * Native name: ValidatorModuleTypeInvalid
      * @type {Integer (Int32)}
      */
-    static ValidatorModuleTypeInvalid => 0
+    static Invalid => 0
 
     /**
+     * Native name: ValidatorModuleTypeMin
      * @type {Integer (Int32)}
      */
-    static ValidatorModuleTypeMin => 1
+    static Min => 1
 
     /**
+     * Native name: ValidatorModuleTypePE
      * @type {Integer (Int32)}
      */
-    static ValidatorModuleTypePE => 1
+    static TypePE => 1
 
     /**
+     * Native name: ValidatorModuleTypeObj
      * @type {Integer (Int32)}
      */
-    static ValidatorModuleTypeObj => 2
+    static Obj => 2
 
     /**
+     * Native name: ValidatorModuleTypeEnc
      * @type {Integer (Int32)}
      */
-    static ValidatorModuleTypeEnc => 3
+    static Enc => 3
 
     /**
+     * Native name: ValidatorModuleTypeIncr
      * @type {Integer (Int32)}
      */
-    static ValidatorModuleTypeIncr => 4
+    static Incr => 4
 
     /**
+     * Native name: ValidatorModuleTypeMax
      * @type {Integer (Int32)}
      */
-    static ValidatorModuleTypeMax => 4
+    static Max => 4
 }

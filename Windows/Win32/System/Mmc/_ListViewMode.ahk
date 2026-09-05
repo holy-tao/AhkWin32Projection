@@ -10,31 +10,36 @@ class _ListViewMode extends Win32Enum {
 
     /**
      * The list view is displayed with small icons.
+     * Native name: ListMode_Small_Icons
      * @type {Integer (Int32)}
      */
-    static ListMode_Small_Icons => 0
+    static Small_Icons => 0
 
     /**
      * The list view is displayed with large icons.
+     * Native name: ListMode_Large_Icons
      * @type {Integer (Int32)}
      */
-    static ListMode_Large_Icons => 1
+    static Large_Icons => 1
 
     /**
      * A simple list view is displayed.
+     * Native name: ListMode_List
      * @type {Integer (Int32)}
      */
-    static ListMode_List => 2
+    static List => 2
 
     /**
      * A detailed list view is displayed.
+     * Native name: ListMode_Detail
      * @type {Integer (Int32)}
      */
-    static ListMode_Detail => 3
+    static Detail => 3
 
     /**
      * A filtered list view is displayed.
+     * Native name: ListMode_Filtered
      * @type {Integer (Int32)}
      */
-    static ListMode_Filtered => 4
+    static Filtered => 4
 }

@@ -7,22 +7,26 @@
 class styleBorderCollapse extends Win32Enum {
 
     /**
+     * Native name: styleBorderCollapseNotSet
      * @type {Integer (Int32)}
      */
-    static styleBorderCollapseNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleBorderCollapseSeparate
      * @type {Integer (Int32)}
      */
-    static styleBorderCollapseSeparate => 1
+    static Separate => 1
 
     /**
+     * Native name: styleBorderCollapseCollapse
      * @type {Integer (Int32)}
      */
-    static styleBorderCollapseCollapse => 2
+    static Collapse => 2
 
     /**
+     * Native name: styleBorderCollapse_Max
      * @type {Integer (Int32)}
      */
-    static styleBorderCollapse_Max => 2147483647
+    static Max => 2147483647
 }

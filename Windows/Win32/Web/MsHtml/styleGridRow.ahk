@@ -7,12 +7,14 @@
 class styleGridRow extends Win32Enum {
 
     /**
+     * Native name: styleGridRowNotSet
      * @type {Integer (Int32)}
      */
-    static styleGridRowNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleGridRow_Max
      * @type {Integer (Int32)}
      */
-    static styleGridRow_Max => 2147483647
+    static Max => 2147483647
 }

@@ -10,25 +10,29 @@ class eAVEncMPVSceneDetection extends Win32Enum {
 
     /**
      * No special behavior.
+     * Native name: eAVEncMPVSceneDetection_None
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVSceneDetection_None => 0
+    static None => 0
 
     /**
      * Insert an I frame.
+     * Native name: eAVEncMPVSceneDetection_InsertIPicture
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVSceneDetection_InsertIPicture => 1
+    static InsertIPicture => 1
 
     /**
      * Start a new group of pictures (GOP).
+     * Native name: eAVEncMPVSceneDetection_StartNewGOP
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVSceneDetection_StartNewGOP => 2
+    static StartNewGOP => 2
 
     /**
      * Start a new GOP in which the first consecutive B frames do not reference the previous GOP.
+     * Native name: eAVEncMPVSceneDetection_StartNewLocatableGOP
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVSceneDetection_StartNewLocatableGOP => 3
+    static StartNewLocatableGOP => 3
 }

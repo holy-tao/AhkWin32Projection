@@ -7,32 +7,38 @@
 class styleWebkitBoxOrient extends Win32Enum {
 
     /**
+     * Native name: styleWebkitBoxOrientHorizontal
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxOrientHorizontal => 0
+    static Horizontal => 0
 
     /**
+     * Native name: styleWebkitBoxOrientInlineAxis
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxOrientInlineAxis => 1
+    static InlineAxis => 1
 
     /**
+     * Native name: styleWebkitBoxOrientVertical
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxOrientVertical => 2
+    static Vertical => 2
 
     /**
+     * Native name: styleWebkitBoxOrientBlockAxis
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxOrientBlockAxis => 3
+    static BlockAxis => 3
 
     /**
+     * Native name: styleWebkitBoxOrientNotSet
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxOrientNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleWebkitBoxOrient_Max
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxOrient_Max => 2147483647
+    static Max => 2147483647
 }

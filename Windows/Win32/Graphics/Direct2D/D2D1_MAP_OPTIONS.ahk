@@ -15,25 +15,29 @@
 class D2D1_MAP_OPTIONS extends Win32BitflagEnum {
 
     /**
+     * Native name: D2D1_MAP_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_MAP_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * Allow CPU Read access.
+     * Native name: D2D1_MAP_OPTIONS_READ
      * @type {Integer (Int32)}
      */
-    static D2D1_MAP_OPTIONS_READ => 1
+    static READ => 1
 
     /**
      * Allow CPU Write access.
+     * Native name: D2D1_MAP_OPTIONS_WRITE
      * @type {Integer (Int32)}
      */
-    static D2D1_MAP_OPTIONS_WRITE => 2
+    static WRITE => 2
 
     /**
      * Discard the previous contents of the resource when it is mapped.
+     * Native name: D2D1_MAP_OPTIONS_DISCARD
      * @type {Integer (Int32)}
      */
-    static D2D1_MAP_OPTIONS_DISCARD => 4
+    static DISCARD => 4
 }

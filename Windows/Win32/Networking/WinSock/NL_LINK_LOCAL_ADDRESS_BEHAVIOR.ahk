@@ -10,28 +10,32 @@ class NL_LINK_LOCAL_ADDRESS_BEHAVIOR extends Win32Enum {
 
     /**
      * A link local IP address should never be used.
+     * Native name: LinkLocalAlwaysOff
      * @type {Integer (Int32)}
      */
-    static LinkLocalAlwaysOff => 0
+    static AlwaysOff => 0
 
     /**
      * A link local IP address should be used only if no other address is available. This setting is the
      *      default setting for an IPv4 interface.
+     * Native name: LinkLocalDelayed
      * @type {Integer (Int32)}
      */
-    static LinkLocalDelayed => 1
+    static Delayed => 1
 
     /**
      * A link local IP address should always be used. This setting is the default setting for an IPv6
      *      interface.
+     * Native name: LinkLocalAlwaysOn
      * @type {Integer (Int32)}
      */
-    static LinkLocalAlwaysOn => 2
+    static AlwaysOn => 2
 
     /**
      * When the properties of an IP interface are being set, the value for link local address behavior
      *      should be unchanged.
+     * Native name: LinkLocalUnchanged
      * @type {Integer (Int32)}
      */
-    static LinkLocalUnchanged => -1
+    static Unchanged => -1
 }

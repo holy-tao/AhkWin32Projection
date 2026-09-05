@@ -10,13 +10,15 @@ class SYNCMGR_CONFLICT_ITEM_TYPE extends Win32Enum {
 
     /**
      * The conflict item was updated.
+     * Native name: SYNCMGR_CIT_UPDATED
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_CIT_UPDATED => 1
+    static CIT_UPDATED => 1
 
     /**
      * The conflict item was deleted.
+     * Native name: SYNCMGR_CIT_DELETED
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_CIT_DELETED => 2
+    static CIT_DELETED => 2
 }

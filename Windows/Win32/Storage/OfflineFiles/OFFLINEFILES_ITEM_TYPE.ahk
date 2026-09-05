@@ -10,25 +10,29 @@ class OFFLINEFILES_ITEM_TYPE extends Win32Enum {
 
     /**
      * The item is a file.
+     * Native name: OFFLINEFILES_ITEM_TYPE_FILE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_TYPE_FILE => 0
+    static FILE => 0
 
     /**
      * The item is a directory.
+     * Native name: OFFLINEFILES_ITEM_TYPE_DIRECTORY
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_TYPE_DIRECTORY => 1
+    static DIRECTORY => 1
 
     /**
      * The item is a share.
+     * Native name: OFFLINEFILES_ITEM_TYPE_SHARE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_TYPE_SHARE => 2
+    static SHARE => 2
 
     /**
      * The item is a server.
+     * Native name: OFFLINEFILES_ITEM_TYPE_SERVER
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_TYPE_SERVER => 3
+    static SERVER => 3
 }

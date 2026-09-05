@@ -7,22 +7,26 @@
 class XACTHEURISTIC extends Win32Enum {
 
     /**
+     * Native name: XACTHEURISTIC_ABORT
      * @type {Integer (Int32)}
      */
-    static XACTHEURISTIC_ABORT => 1
+    static ABORT => 1
 
     /**
+     * Native name: XACTHEURISTIC_COMMIT
      * @type {Integer (Int32)}
      */
-    static XACTHEURISTIC_COMMIT => 2
+    static COMMIT => 2
 
     /**
+     * Native name: XACTHEURISTIC_DAMAGE
      * @type {Integer (Int32)}
      */
-    static XACTHEURISTIC_DAMAGE => 3
+    static DAMAGE => 3
 
     /**
+     * Native name: XACTHEURISTIC_DANGER
      * @type {Integer (Int32)}
      */
-    static XACTHEURISTIC_DANGER => 4
+    static DANGER => 4
 }

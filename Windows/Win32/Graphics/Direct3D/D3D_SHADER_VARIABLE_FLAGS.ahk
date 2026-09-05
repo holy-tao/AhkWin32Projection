@@ -12,27 +12,31 @@ class D3D_SHADER_VARIABLE_FLAGS extends Win32Enum {
 
     /**
      * Indicates that the registers assigned to this shader variable were explicitly declared in shader code (instead of automatically assigned by the compiler).
+     * Native name: D3D_SVF_USERPACKED
      * @type {Integer (Int32)}
      */
-    static D3D_SVF_USERPACKED => 1
+    static SVF_USERPACKED => 1
 
     /**
      * Indicates that this variable is used by this shader. This value confirms that a particular shader variable (which can be common to many different shaders) is indeed used by a particular shader.
+     * Native name: D3D_SVF_USED
      * @type {Integer (Int32)}
      */
-    static D3D_SVF_USED => 2
+    static SVF_USED => 2
 
     /**
      * Indicates that this variable is an interface.
+     * Native name: D3D_SVF_INTERFACE_POINTER
      * @type {Integer (Int32)}
      */
-    static D3D_SVF_INTERFACE_POINTER => 4
+    static SVF_INTERFACE_POINTER => 4
 
     /**
      * Indicates that this variable is a parameter of an interface.
+     * Native name: D3D_SVF_INTERFACE_PARAMETER
      * @type {Integer (Int32)}
      */
-    static D3D_SVF_INTERFACE_PARAMETER => 8
+    static SVF_INTERFACE_PARAMETER => 8
 
     /**
      * Indicates that the registers assigned to this shader variable were explicitly declared in shader code (instead of automatically assigned by the compiler).

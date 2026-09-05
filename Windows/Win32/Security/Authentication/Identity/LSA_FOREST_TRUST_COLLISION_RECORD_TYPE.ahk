@@ -12,19 +12,22 @@ class LSA_FOREST_TRUST_COLLISION_RECORD_TYPE extends Win32Enum {
 
     /**
      * Collision between <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> objects. This indicates a collision with a namespace element of another forest.
+     * Native name: CollisionTdo
      * @type {Integer (Int32)}
      */
-    static CollisionTdo => 0
+    static Tdo => 0
 
     /**
      * Collision between cross-references. This indicates a collision with a domain in the same forest.
+     * Native name: CollisionXref
      * @type {Integer (Int32)}
      */
-    static CollisionXref => 1
+    static Xref => 1
 
     /**
      * Collision that is not a collision between <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> objects or cross-references.
+     * Native name: CollisionOther
      * @type {Integer (Int32)}
      */
-    static CollisionOther => 2
+    static Other => 2
 }

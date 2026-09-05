@@ -12,19 +12,22 @@ class CaretPosition extends Win32Enum {
 
     /**
      * The caret is not at the beginning or the end of a line.
+     * Native name: CaretPosition_Unknown
      * @type {Integer (Int32)}
      */
-    static CaretPosition_Unknown => 0
+    static Unknown => 0
 
     /**
      * The caret is at the end of a line.
+     * Native name: CaretPosition_EndOfLine
      * @type {Integer (Int32)}
      */
-    static CaretPosition_EndOfLine => 1
+    static EndOfLine => 1
 
     /**
      * The caret is at the beginning of a line.
+     * Native name: CaretPosition_BeginningOfLine
      * @type {Integer (Int32)}
      */
-    static CaretPosition_BeginningOfLine => 2
+    static BeginningOfLine => 2
 }

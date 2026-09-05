@@ -7,17 +7,20 @@
 class MM_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: MM_ADDSEPARATOR
      * @type {Integer (UInt32)}
      */
-    static MM_ADDSEPARATOR => 1
+    static ADDSEPARATOR => 1
 
     /**
+     * Native name: MM_SUBMENUSHAVEIDS
      * @type {Integer (UInt32)}
      */
-    static MM_SUBMENUSHAVEIDS => 2
+    static SUBMENUSHAVEIDS => 2
 
     /**
+     * Native name: MM_DONTREMOVESEPS
      * @type {Integer (UInt32)}
      */
-    static MM_DONTREMOVESEPS => 4
+    static DONTREMOVESEPS => 4
 }

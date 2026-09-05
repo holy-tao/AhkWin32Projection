@@ -31,7 +31,6 @@ class ID3D12StateObjectProperties2 extends ID3D12StateObjectProperties1 {
     static VTableNames => ["GetGlobalRootSignatureForProgram", "GetGlobalRootSignatureForShader"]
 
     /**
-     * 
      * @param {PWSTR} pProgramName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -44,7 +43,6 @@ class ID3D12StateObjectProperties2 extends ID3D12StateObjectProperties1 {
     }
 
     /**
-     * 
      * @param {PWSTR} pExportName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

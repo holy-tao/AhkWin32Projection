@@ -10,7 +10,8 @@ class WbemTextFlagEnum extends Win32Enum {
 
     /**
      * Excludes qualifier flavors from the object text.
+     * Native name: wbemTextFlagNoFlavors
      * @type {Integer (Int32)}
      */
-    static wbemTextFlagNoFlavors => 1
+    static NoFlavors => 1
 }

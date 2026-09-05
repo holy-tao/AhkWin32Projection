@@ -7,22 +7,26 @@
 class styleMsContentZooming extends Win32Enum {
 
     /**
+     * Native name: styleMsContentZoomingNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomingNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleMsContentZoomingNone
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomingNone => 1
+    static None => 1
 
     /**
+     * Native name: styleMsContentZoomingZoom
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomingZoom => 2
+    static Zoom => 2
 
     /**
+     * Native name: styleMsContentZooming_Max
      * @type {Integer (Int32)}
      */
-    static styleMsContentZooming_Max => 2147483647
+    static Max => 2147483647
 }

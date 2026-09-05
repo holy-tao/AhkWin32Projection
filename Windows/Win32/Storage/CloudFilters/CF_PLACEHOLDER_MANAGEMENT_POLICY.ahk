@@ -12,25 +12,29 @@ class CF_PLACEHOLDER_MANAGEMENT_POLICY extends Win32Enum {
 
     /**
      * Only a sync provider can perform placeholder management operations in a sync roo
+     * Native name: CF_PLACEHOLDER_MANAGEMENT_POLICY_DEFAULT
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_MANAGEMENT_POLICY_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Any process can create a placeholder within an active sync root.
+     * Native name: CF_PLACEHOLDER_MANAGEMENT_POLICY_CREATE_UNRESTRICTED
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_MANAGEMENT_POLICY_CREATE_UNRESTRICTED => 1
+    static CREATE_UNRESTRICTED => 1
 
     /**
      * Any process can convert a file within an active sync root to a placeholder.
+     * Native name: CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_TO_UNRESTRICTED
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_TO_UNRESTRICTED => 2
+    static CONVERT_TO_UNRESTRICTED => 2
 
     /**
      * Any process can update a placeholder within an active sync root.
+     * Native name: CF_PLACEHOLDER_MANAGEMENT_POLICY_UPDATE_UNRESTRICTED
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_MANAGEMENT_POLICY_UPDATE_UNRESTRICTED => 4
+    static UPDATE_UNRESTRICTED => 4
 }

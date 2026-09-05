@@ -10,13 +10,15 @@ class BCRYPT_HASH_OPERATION_TYPE extends Win32Enum {
 
     /**
      * Equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcrypthashdata">BCryptHashData</a> function.
+     * Native name: BCRYPT_HASH_OPERATION_HASH_DATA
      * @type {Integer (Int32)}
      */
-    static BCRYPT_HASH_OPERATION_HASH_DATA => 1
+    static HASH_DATA => 1
 
     /**
      * Equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptfinishhash">BCryptFinishHash</a> function.
+     * Native name: BCRYPT_HASH_OPERATION_FINISH_HASH
      * @type {Integer (Int32)}
      */
-    static BCRYPT_HASH_OPERATION_FINISH_HASH => 2
+    static FINISH_HASH => 2
 }

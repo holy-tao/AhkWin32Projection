@@ -30,7 +30,6 @@ class ISpTTSEngineSite extends ISpEventSink {
     static VTableNames => ["GetActions", "Write", "GetRate", "GetVolume", "GetSkipInfo", "CompleteSkip"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActions() {
@@ -39,7 +38,6 @@ class ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} cb 
      * @returns {Integer} 
@@ -52,7 +50,6 @@ class ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRate() {
@@ -61,7 +58,6 @@ class ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVolume() {
@@ -70,7 +66,6 @@ class ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @param {Pointer<SPVSKIPTYPE>} peType 
      * @param {Pointer<Integer>} plNumItems 
      * @returns {HRESULT} 
@@ -84,7 +79,6 @@ class ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @param {Integer} ulNumSkipped 
      * @returns {HRESULT} 
      */

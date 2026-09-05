@@ -56,7 +56,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -65,7 +64,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationContactCollection} 
      */
     GetComponentItems() {
@@ -74,7 +72,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -86,7 +83,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationGroupCollection} 
      */
@@ -96,7 +92,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AntiLink() {
@@ -105,7 +100,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAntiLink 
      * @returns {HRESULT} 
      */
@@ -117,7 +111,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FavoriteOrder() {
@@ -126,7 +119,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} favoriteOrder 
      * @returns {HRESULT} 
      */
@@ -136,7 +128,6 @@ class IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {

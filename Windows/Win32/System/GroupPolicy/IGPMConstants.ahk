@@ -457,7 +457,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOApply() {
@@ -466,7 +465,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPORead() {
@@ -475,7 +473,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOEdit() {
@@ -484,7 +481,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOEditSecurityAndDelete() {
@@ -493,7 +489,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOCustom() {
@@ -502,7 +497,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterEdit() {
@@ -511,7 +505,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterFullControl() {
@@ -520,7 +513,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterCustom() {
@@ -529,7 +521,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMLink() {
@@ -538,7 +529,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMLogging() {
@@ -547,7 +537,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMPlanning() {
@@ -556,7 +545,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMGPOCreate() {
@@ -565,7 +553,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMWMICreate() {
@@ -574,7 +561,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMWMIFullControl() {
@@ -583,7 +569,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOPermissions() {
@@ -592,7 +577,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOEffectivePermissions() {
@@ -601,7 +585,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPODisplayName() {
@@ -610,7 +593,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOWMIFilter() {
@@ -619,7 +601,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOID() {
@@ -628,7 +609,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOComputerExtensions() {
@@ -637,7 +617,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOUserExtensions() {
@@ -646,7 +625,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertySOMLinks() {
@@ -655,7 +633,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPODomain() {
@@ -664,7 +641,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyBackupMostRecent() {
@@ -673,7 +649,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpEquals() {
@@ -682,7 +657,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpContains() {
@@ -691,7 +665,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpNotContains() {
@@ -700,7 +673,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpNotEquals() {
@@ -709,7 +681,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UsePDC() {
@@ -718,7 +689,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UseAnyDC() {
@@ -727,7 +697,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DoNotUseW2KDC() {
@@ -736,7 +705,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_SOMSite() {
@@ -745,7 +713,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_SOMDomain() {
@@ -754,7 +721,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_SOMOU() {
@@ -779,7 +745,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DoNotValidateDC() {
@@ -788,7 +753,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMReportType} 
      */
     get_ReportHTML() {
@@ -797,7 +761,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMReportType} 
      */
     get_ReportXML() {
@@ -806,7 +769,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_RSOPModeUnknown() {
@@ -815,7 +777,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_RSOPModePlanning() {
@@ -824,7 +785,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_RSOPModeLogging() {
@@ -833,7 +793,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUser() {
@@ -842,7 +801,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeComputer() {
@@ -851,7 +809,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeLocalGroup() {
@@ -860,7 +817,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeGlobalGroup() {
@@ -869,7 +825,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUniversalGroup() {
@@ -878,7 +833,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUNCPath() {
@@ -887,7 +841,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUnknown() {
@@ -896,7 +849,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionSameAsSource() {
@@ -905,7 +857,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionNone() {
@@ -914,7 +865,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionByRelativeName() {
@@ -923,7 +873,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionSet() {
@@ -932,7 +881,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MigrationTableOnly() {
@@ -941,7 +889,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ProcessSecurity() {
@@ -950,7 +897,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopLoggingNoComputer() {
@@ -959,7 +905,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopLoggingNoUser() {
@@ -968,7 +913,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeSlowLink() {
@@ -977,7 +921,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} vbMerge 
      * @returns {Integer} 
      */
@@ -987,7 +930,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeUserWQLFilterTrue() {
@@ -996,7 +938,6 @@ class IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeCompWQLFilterTrue() {

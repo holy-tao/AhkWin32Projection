@@ -132,7 +132,6 @@ class ISpeechResourceLoader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrResourceUri 
      * @param {Pointer<BSTR>} pbstrLocalPath 
      * @param {Pointer<BSTR>} pbstrMIMEType 
@@ -147,7 +146,6 @@ class ISpeechResourceLoader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} pbstrLocalPath 
      * @returns {HRESULT} 
      */

@@ -36,7 +36,6 @@ class IFeedItem2 extends IFeedItem {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EffectiveId() {

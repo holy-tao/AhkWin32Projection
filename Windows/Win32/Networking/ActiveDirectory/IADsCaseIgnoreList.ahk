@@ -40,7 +40,6 @@ class IADsCaseIgnoreList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CaseIgnoreList() {
@@ -50,7 +49,6 @@ class IADsCaseIgnoreList extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vCaseIgnoreList 
      * @returns {HRESULT} 
      */

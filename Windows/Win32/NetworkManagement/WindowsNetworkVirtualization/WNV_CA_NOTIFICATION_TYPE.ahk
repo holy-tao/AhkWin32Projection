@@ -7,22 +7,26 @@
 class WNV_CA_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: WnvCustomerAddressAdded
      * @type {Integer (Int32)}
      */
-    static WnvCustomerAddressAdded => 0
+    static CustomerAddressAdded => 0
 
     /**
+     * Native name: WnvCustomerAddressDeleted
      * @type {Integer (Int32)}
      */
-    static WnvCustomerAddressDeleted => 1
+    static CustomerAddressDeleted => 1
 
     /**
+     * Native name: WnvCustomerAddressMoved
      * @type {Integer (Int32)}
      */
-    static WnvCustomerAddressMoved => 2
+    static CustomerAddressMoved => 2
 
     /**
+     * Native name: WnvCustomerAddressMax
      * @type {Integer (Int32)}
      */
-    static WnvCustomerAddressMax => 3
+    static CustomerAddressMax => 3
 }

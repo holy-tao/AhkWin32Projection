@@ -77,7 +77,6 @@ class ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isAbstract() {
@@ -86,7 +85,6 @@ class ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {ISchemaAny} 
      */
     get_anyAttribute() {
@@ -95,7 +93,6 @@ class ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
@@ -104,7 +101,6 @@ class ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {SCHEMACONTENTTYPE} 
      */
     get_contentType() {
@@ -113,7 +109,6 @@ class ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {ISchemaModelGroup} 
      */
     get_contentModel() {
@@ -122,7 +117,6 @@ class ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_prohibitedSubstitutions() {

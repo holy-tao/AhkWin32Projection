@@ -30,7 +30,6 @@ class IElementBehaviorSiteLayout extends IUnknown {
     static VTableNames => ["InvalidateLayoutInfo", "InvalidateSize", "GetMediaResolution"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateLayoutInfo() {
@@ -39,7 +38,6 @@ class IElementBehaviorSiteLayout extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateSize() {
@@ -48,7 +46,6 @@ class IElementBehaviorSiteLayout extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SIZE} 
      */
     GetMediaResolution() {

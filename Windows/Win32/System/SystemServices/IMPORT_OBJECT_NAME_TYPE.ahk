@@ -7,9 +7,10 @@
 class IMPORT_OBJECT_NAME_TYPE extends Win32Enum {
 
     /**
+     * Native name: IMPORT_OBJECT_ORDINAL
      * @type {Integer (Int32)}
      */
-    static IMPORT_OBJECT_ORDINAL => 0
+    static ORDINAL => 0
 
     /**
      * @type {Integer (Int32)}
@@ -17,17 +18,20 @@ class IMPORT_OBJECT_NAME_TYPE extends Win32Enum {
     static IMPORT_OBJECT_NAME => 1
 
     /**
+     * Native name: IMPORT_OBJECT_NAME_NO_PREFIX
      * @type {Integer (Int32)}
      */
-    static IMPORT_OBJECT_NAME_NO_PREFIX => 2
+    static NO_PREFIX => 2
 
     /**
+     * Native name: IMPORT_OBJECT_NAME_UNDECORATE
      * @type {Integer (Int32)}
      */
-    static IMPORT_OBJECT_NAME_UNDECORATE => 3
+    static UNDECORATE => 3
 
     /**
+     * Native name: IMPORT_OBJECT_NAME_EXPORTAS
      * @type {Integer (Int32)}
      */
-    static IMPORT_OBJECT_NAME_EXPORTAS => 4
+    static EXPORTAS => 4
 }

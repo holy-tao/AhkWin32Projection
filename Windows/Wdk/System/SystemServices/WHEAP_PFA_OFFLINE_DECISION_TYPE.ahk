@@ -7,12 +7,14 @@
 class WHEAP_PFA_OFFLINE_DECISION_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheapPfaOfflinePredictiveFailure
      * @type {Integer (Int32)}
      */
-    static WheapPfaOfflinePredictiveFailure => 1
+    static PredictiveFailure => 1
 
     /**
+     * Native name: WheapPfaOfflineUncorrectedError
      * @type {Integer (Int32)}
      */
-    static WheapPfaOfflineUncorrectedError => 2
+    static UncorrectedError => 2
 }

@@ -10,43 +10,50 @@ class DIRECTMANIPULATION_MOTION_TYPES extends Win32BitflagEnum {
 
     /**
      * None.
+     * Native name: DIRECTMANIPULATION_MOTION_NONE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_MOTION_NONE => 0
+    static NONE => 0
 
     /**
      * Translation in the horizontal axis.
+     * Native name: DIRECTMANIPULATION_MOTION_TRANSLATEX
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_MOTION_TRANSLATEX => 1
+    static TRANSLATEX => 1
 
     /**
      * Translation in the vertical axis.
+     * Native name: DIRECTMANIPULATION_MOTION_TRANSLATEY
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_MOTION_TRANSLATEY => 2
+    static TRANSLATEY => 2
 
     /**
      * Zoom.
+     * Native name: DIRECTMANIPULATION_MOTION_ZOOM
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_MOTION_ZOOM => 4
+    static ZOOM => 4
 
     /**
      * The horizontal center of the manipulation.
+     * Native name: DIRECTMANIPULATION_MOTION_CENTERX
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_MOTION_CENTERX => 16
+    static CENTERX => 16
 
     /**
      * The vertical center of the manipulation.
+     * Native name: DIRECTMANIPULATION_MOTION_CENTERY
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_MOTION_CENTERY => 32
+    static CENTERY => 32
 
     /**
      * All manipulation motion.
+     * Native name: DIRECTMANIPULATION_MOTION_ALL
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_MOTION_ALL => 55
+    static ALL => 55
 }

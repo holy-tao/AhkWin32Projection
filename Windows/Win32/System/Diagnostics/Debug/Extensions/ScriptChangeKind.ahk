@@ -7,7 +7,8 @@
 class ScriptChangeKind extends Win32Enum {
 
     /**
+     * Native name: ScriptRename
      * @type {Integer (Int32)}
      */
-    static ScriptRename => 0
+    static Rename => 0
 }

@@ -38,7 +38,6 @@ class IHTMLTableRow2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IHTMLTableRow2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {

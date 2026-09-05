@@ -17,145 +17,171 @@ class D3D12_VIDEO_ENCODER_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Indicates whether the given configuration is supported by the encoder in combination with the rest of the flags to convey certain limitations or no general support. The Direct3D 12 Debug layer can provide further information.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_GENERAL_SUPPORT_OK
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_GENERAL_SUPPORT_OK => 1
+    static FLAG_GENERAL_SUPPORT_OK => 1
 
     /**
      * Support for changing the rate control in the middle of the encoding session.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_RECONFIGURATION_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_RECONFIGURATION_AVAILABLE => 2
+    static FLAG_RATE_CONTROL_RECONFIGURATION_AVAILABLE => 2
 
     /**
      * Support for changing the resolution in the middle of the encoding session.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RESOLUTION_RECONFIGURATION_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RESOLUTION_RECONFIGURATION_AVAILABLE => 4
+    static FLAG_RESOLUTION_RECONFIGURATION_AVAILABLE => 4
 
     /**
      * Support for configuring the VBV Initial fullness and capacity for rate control algorithms.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_VBV_SIZE_CONFIG_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_VBV_SIZE_CONFIG_AVAILABLE => 8
+    static FLAG_RATE_CONTROL_VBV_SIZE_CONFIG_AVAILABLE => 8
 
     /**
      * Support for rate control modes that involve frame analysis to optimize the bitrate usage at the cost of a slower performance.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_FRAME_ANALYSIS_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_FRAME_ANALYSIS_AVAILABLE => 16
+    static FLAG_RATE_CONTROL_FRAME_ANALYSIS_AVAILABLE => 16
 
     /**
      * When this flag is set, textures referring reconstructed pictures can only be referenced as a texture array, as opposed to an array of separate texture 2D resources with each resource having array size of 1. When this capability is not required, there is more flexibility for the host. This is important for scenarios where the resolution changes frequently and the DPB needs to be flushed for an IDR frame, because a texture array can only be allocated and deallocated as an single unit, but separate texture 2D resources can be allocated and deallocated individually.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RECONSTRUCTED_FRAMES_REQUIRE_TEXTURE_ARRAYS
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RECONSTRUCTED_FRAMES_REQUIRE_TEXTURE_ARRAYS => 32
+    static FLAG_RECONSTRUCTED_FRAMES_REQUIRE_TEXTURE_ARRAYS => 32
 
     /**
      * Support for Delta QP usage in rate control
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_DELTA_QP_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_DELTA_QP_AVAILABLE => 64
+    static FLAG_RATE_CONTROL_DELTA_QP_AVAILABLE => 64
 
     /**
      * Support for dynamic subregion layout changes during an encoding session.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_LAYOUT_RECONFIGURATION_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_LAYOUT_RECONFIGURATION_AVAILABLE => 128
+    static FLAG_SUBREGION_LAYOUT_RECONFIGURATION_AVAILABLE => 128
 
     /**
      * Support for adjustable QP range in rate control.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_ADJUSTABLE_QP_RANGE_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_ADJUSTABLE_QP_RANGE_AVAILABLE => 256
+    static FLAG_RATE_CONTROL_ADJUSTABLE_QP_RANGE_AVAILABLE => 256
 
     /**
      * Support for adjustable initial QP in rate control.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_INITIAL_QP_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_INITIAL_QP_AVAILABLE => 512
+    static FLAG_RATE_CONTROL_INITIAL_QP_AVAILABLE => 512
 
     /**
      * Ssupport for setting a maximum cap in the bitrate algorithm per each encoded frame.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_MAX_FRAME_SIZE_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_MAX_FRAME_SIZE_AVAILABLE => 1024
+    static FLAG_RATE_CONTROL_MAX_FRAME_SIZE_AVAILABLE => 1024
 
     /**
      * Support for dynamic GOP changes during an encode session.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SEQUENCE_GOP_RECONFIGURATION_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SEQUENCE_GOP_RECONFIGURATION_AVAILABLE => 2048
+    static FLAG_SEQUENCE_GOP_RECONFIGURATION_AVAILABLE => 2048
 
     /**
      * Support for the caller to limit the precision used for motion search on frame encode.
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_MOTION_ESTIMATION_PRECISION_MODE_LIMIT_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_MOTION_ESTIMATION_PRECISION_MODE_LIMIT_AVAILABLE => 4096
+    static FLAG_MOTION_ESTIMATION_PRECISION_MODE_LIMIT_AVAILABLE => 4096
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_EXTENSION1_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_EXTENSION1_SUPPORT => 8192
+    static FLAG_RATE_CONTROL_EXTENSION1_SUPPORT => 8192
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_QUALITY_VS_SPEED_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_QUALITY_VS_SPEED_AVAILABLE => 16384
+    static FLAG_RATE_CONTROL_QUALITY_VS_SPEED_AVAILABLE => 16384
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_READABLE_RECONSTRUCTED_PICTURE_LAYOUT_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_READABLE_RECONSTRUCTED_PICTURE_LAYOUT_AVAILABLE => 32768
+    static FLAG_READABLE_RECONSTRUCTED_PICTURE_LAYOUT_AVAILABLE => 32768
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_QP_MAP_METADATA_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_QP_MAP_METADATA_AVAILABLE => 65536
+    static FLAG_PER_BLOCK_QP_MAP_METADATA_AVAILABLE => 65536
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_SATD_MAP_METADATA_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_SATD_MAP_METADATA_AVAILABLE => 131072
+    static FLAG_PER_BLOCK_SATD_MAP_METADATA_AVAILABLE => 131072
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_RC_BIT_ALLOCATION_MAP_METADATA_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_PER_BLOCK_RC_BIT_ALLOCATION_MAP_METADATA_AVAILABLE => 262144
+    static FLAG_PER_BLOCK_RC_BIT_ALLOCATION_MAP_METADATA_AVAILABLE => 262144
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_ARRAY_OF_BUFFERS_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_ARRAY_OF_BUFFERS_AVAILABLE => 524288
+    static FLAG_SUBREGION_NOTIFICATION_ARRAY_OF_BUFFERS_AVAILABLE => 524288
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_SINGLE_BUFFER_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_NOTIFICATION_SINGLE_BUFFER_AVAILABLE => 1048576
+    static FLAG_SUBREGION_NOTIFICATION_SINGLE_BUFFER_AVAILABLE => 1048576
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_FRAME_PSNR_METADATA_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_FRAME_PSNR_METADATA_AVAILABLE => 2097152
+    static FLAG_FRAME_PSNR_METADATA_AVAILABLE => 2097152
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGIONS_PSNR_METADATA_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGIONS_PSNR_METADATA_AVAILABLE => 4194304
+    static FLAG_SUBREGIONS_PSNR_METADATA_AVAILABLE => 4194304
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_SPATIAL_ADAPTIVE_QP_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_SPATIAL_ADAPTIVE_QP_AVAILABLE => 8388608
+    static FLAG_RATE_CONTROL_SPATIAL_ADAPTIVE_QP_AVAILABLE => 8388608
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_SUPPORT_FLAG_INTRA_REFRESH_NO_SUBREGION_LAYOUT_CONSTRAINTS_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_SUPPORT_FLAG_INTRA_REFRESH_NO_SUBREGION_LAYOUT_CONSTRAINTS_AVAILABLE => 16777216
+    static FLAG_INTRA_REFRESH_NO_SUBREGION_LAYOUT_CONSTRAINTS_AVAILABLE => 16777216
 }

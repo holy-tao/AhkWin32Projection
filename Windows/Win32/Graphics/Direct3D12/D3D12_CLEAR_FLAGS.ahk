@@ -13,13 +13,15 @@ class D3D12_CLEAR_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates the depth buffer should be cleared.
+     * Native name: D3D12_CLEAR_FLAG_DEPTH
      * @type {Integer (Int32)}
      */
-    static D3D12_CLEAR_FLAG_DEPTH => 1
+    static FLAG_DEPTH => 1
 
     /**
      * Indicates the stencil buffer should be cleared.
+     * Native name: D3D12_CLEAR_FLAG_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D12_CLEAR_FLAG_STENCIL => 2
+    static FLAG_STENCIL => 2
 }

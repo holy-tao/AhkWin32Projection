@@ -7,47 +7,56 @@
 class DXVA_SampleFormat extends Win32Enum {
 
     /**
+     * Native name: DXVA_SampleFormatMask
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFormatMask => 255
+    static Mask => 255
 
     /**
+     * Native name: DXVA_SampleUnknown
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DXVA_SamplePreviousFrame
      * @type {Integer (Int32)}
      */
-    static DXVA_SamplePreviousFrame => 1
+    static PreviousFrame => 1
 
     /**
+     * Native name: DXVA_SampleProgressiveFrame
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleProgressiveFrame => 2
+    static ProgressiveFrame => 2
 
     /**
+     * Native name: DXVA_SampleFieldInterleavedEvenFirst
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFieldInterleavedEvenFirst => 3
+    static FieldInterleavedEvenFirst => 3
 
     /**
+     * Native name: DXVA_SampleFieldInterleavedOddFirst
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFieldInterleavedOddFirst => 4
+    static FieldInterleavedOddFirst => 4
 
     /**
+     * Native name: DXVA_SampleFieldSingleEven
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFieldSingleEven => 5
+    static FieldSingleEven => 5
 
     /**
+     * Native name: DXVA_SampleFieldSingleOdd
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFieldSingleOdd => 6
+    static FieldSingleOdd => 6
 
     /**
+     * Native name: DXVA_SampleSubStream
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleSubStream => 7
+    static SubStream => 7
 }

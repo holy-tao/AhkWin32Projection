@@ -10,19 +10,22 @@ class UI_ANIMATION_ROUNDING_MODE extends Win32Enum {
 
     /**
      * Round to the nearest integer.
+     * Native name: UI_ANIMATION_ROUNDING_NEAREST
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_ROUNDING_NEAREST => 0
+    static NEAREST => 0
 
     /**
      * Round down.
+     * Native name: UI_ANIMATION_ROUNDING_FLOOR
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_ROUNDING_FLOOR => 1
+    static FLOOR => 1
 
     /**
      * Round up.
+     * Native name: UI_ANIMATION_ROUNDING_CEILING
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_ROUNDING_CEILING => 2
+    static CEILING => 2
 }

@@ -10,19 +10,22 @@ class MF_TOPOLOGY_RESOLUTION_STATUS_FLAGS extends Win32Enum {
 
     /**
      * The topology was resolved successfully.
+     * Native name: MF_TOPOLOGY_RESOLUTION_SUCCEEDED
      * @type {Integer (Int32)}
      */
-    static MF_TOPOLOGY_RESOLUTION_SUCCEEDED => 0
+    static SUCCEEDED => 0
 
     /**
      * An optional topology node was rejected because the topology loader could not find a media type for the connection.
+     * Native name: MF_OPTIONAL_NODE_REJECTED_MEDIA_TYPE
      * @type {Integer (Int32)}
      */
-    static MF_OPTIONAL_NODE_REJECTED_MEDIA_TYPE => 1
+    static OPTIONAL_NODE_REJECTED_MEDIA_TYPE => 1
 
     /**
      * An optional topology node was rejected because it could not be loaded into a protected process.
+     * Native name: MF_OPTIONAL_NODE_REJECTED_PROTECTED_PROCESS
      * @type {Integer (Int32)}
      */
-    static MF_OPTIONAL_NODE_REJECTED_PROTECTED_PROCESS => 2
+    static OPTIONAL_NODE_REJECTED_PROTECTED_PROCESS => 2
 }

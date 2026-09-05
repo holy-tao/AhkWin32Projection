@@ -10,19 +10,22 @@ class OLECMDTEXTF extends Win32Enum {
 
     /**
      * No extra information is requested.
+     * Native name: OLECMDTEXTF_NONE
      * @type {Integer (Int32)}
      */
-    static OLECMDTEXTF_NONE => 0
+    static NONE => 0
 
     /**
      * The object should provide the localized name of the command.
+     * Native name: OLECMDTEXTF_NAME
      * @type {Integer (Int32)}
      */
-    static OLECMDTEXTF_NAME => 1
+    static NAME => 1
 
     /**
      * The object should provide a localized status string for the command.
+     * Native name: OLECMDTEXTF_STATUS
      * @type {Integer (Int32)}
      */
-    static OLECMDTEXTF_STATUS => 2
+    static STATUS => 2
 }

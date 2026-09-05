@@ -6160,7 +6160,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Integer} ulPid 
      * @param {Pointer<Integer>} pInfo 
      * @param {TCPIP_OWNER_MODULE_INFO_CLASS} _Class 
@@ -15784,7 +15783,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} CompartmentGuid 
      * @param {Pointer<Integer>} CompartmentId 
      * @returns {WIN32_ERROR} 
@@ -15797,7 +15795,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId 
      * @param {Pointer<Guid>} CompartmentGuid 
      * @returns {WIN32_ERROR} 
@@ -16358,7 +16355,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CompartmentScope 
      * @param {Pointer<Integer>} CompartmentId 
      * @returns {String} Nothing - always returns an empty string
@@ -16371,7 +16367,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Integer} CompartmentScope 
      * @returns {WIN32_ERROR} 
      */
@@ -16381,7 +16376,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {HANDLE} JobHandle 
      * @returns {NET_IF_COMPARTMENT_ID} 
      */
@@ -16393,7 +16387,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {HANDLE} JobHandle 
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId 
      * @returns {WIN32_ERROR} 
@@ -16567,7 +16560,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_SETTINGS>} Settings 
      * @returns {WIN32_ERROR} 
      */
@@ -16577,7 +16569,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_SETTINGS>} Settings 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16586,7 +16577,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_SETTINGS>} Settings 
      * @returns {WIN32_ERROR} 
      */
@@ -16694,7 +16684,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
      * @returns {Integer} 
      */
@@ -16704,7 +16693,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
      * @returns {Integer} 
      */
@@ -16714,7 +16702,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16723,7 +16710,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
      * @returns {Integer} 
      */
@@ -16733,7 +16719,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
      * @returns {Integer} 
      */
@@ -16743,7 +16728,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {ADDRESS_FAMILY} Family 
      * @param {Pointer<Pointer<MIB_FL_VIRTUAL_INTERFACE_TABLE>>} Table 
      * @returns {Integer} 
@@ -16756,7 +16740,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Integer} dwName 
      * @param {PFFORWARD_ACTION} inAction 
      * @param {PFFORWARD_ACTION} outAction 
@@ -16773,7 +16756,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @returns {Integer} 
      */
@@ -16785,7 +16767,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ih 
      * @param {Integer} cInFilters 
      * @param {Pointer<PF_FILTER_DESCRIPTOR>} pfiltIn 
@@ -16803,7 +16784,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ih 
      * @param {Integer} cInFilters 
      * @param {Pointer<PF_FILTER_DESCRIPTOR>} pfiltIn 
@@ -16819,7 +16799,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @param {Integer} cFilters 
      * @param {Pointer<Pointer<Void>>} pvHandles 
@@ -16834,7 +16813,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @returns {Integer} 
      */
@@ -16846,7 +16824,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @param {Integer} dwIndex 
      * @param {PFADDRESSTYPE} pfatLinkType 
@@ -16862,7 +16839,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @param {PFADDRESSTYPE} pfatType 
      * @param {Pointer<Integer>} IPAddress 
@@ -16877,7 +16853,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @param {Pointer<PF_LATEBIND_INFO>} pLateBindInfo 
      * @returns {Integer} 
@@ -16890,7 +16865,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @param {GLOBAL_FILTER} gfFilter 
      * @returns {Integer} 
@@ -16903,7 +16877,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @param {GLOBAL_FILTER} gfFilter 
      * @returns {Integer} 
@@ -16916,7 +16889,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {HANDLE} hEvent 
      * @returns {Integer} 
      */
@@ -16928,7 +16900,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBuffer 
      * @param {Integer} dwSize 
      * @param {Integer} dwThreshold 
@@ -16949,7 +16920,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static PfDeleteLog() {
@@ -16958,7 +16928,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInterface 
      * @param {Pointer<PF_INTERFACE_STATS>} ppfStats 
      * @param {Pointer<Integer>} pdwBufferSize 
@@ -16974,7 +16943,6 @@ class IpHelper {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInInterface 
      * @param {Pointer<Void>} pOutInterface 
      * @param {Integer} cBytes 

@@ -7,17 +7,20 @@
 class BDA_CONDITIONALACCESS_SESSION_RESULT extends Win32Enum {
 
     /**
+     * Native name: CONDITIONALACCESS_SUCCESSFULL
      * @type {Integer (Int32)}
      */
-    static CONDITIONALACCESS_SUCCESSFULL => 0
+    static SUCCESSFULL => 0
 
     /**
+     * Native name: CONDITIONALACCESS_ENDED_NOCHANGE
      * @type {Integer (Int32)}
      */
-    static CONDITIONALACCESS_ENDED_NOCHANGE => 1
+    static ENDED_NOCHANGE => 1
 
     /**
+     * Native name: CONDITIONALACCESS_ABORTED
      * @type {Integer (Int32)}
      */
-    static CONDITIONALACCESS_ABORTED => 2
+    static ABORTED => 2
 }

@@ -32,7 +32,6 @@ class ID3D12StateObjectDatabase extends IUnknown {
     static VTableNames => ["SetApplicationDesc", "GetApplicationDesc", "StorePipelineStateDesc", "FindPipelineStateDesc", "StoreStateObjectDesc", "FindStateObjectDesc", "FindObjectVersion"]
 
     /**
-     * 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12ApplicationDescFunc>} CallbackFunc 
      * @param {Pointer<Void>} pContext 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Integer} _Version 
@@ -70,7 +67,6 @@ class ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Pointer<D3D12PipelineStateFunc>} CallbackFunc 
@@ -86,7 +82,6 @@ class ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Integer} _Version 
@@ -104,7 +99,6 @@ class ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Pointer<D3D12StateObjectFunc>} CallbackFunc 
@@ -120,7 +114,6 @@ class ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @returns {Integer} 

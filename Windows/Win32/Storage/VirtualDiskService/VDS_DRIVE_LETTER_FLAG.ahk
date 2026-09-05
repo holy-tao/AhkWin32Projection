@@ -15,7 +15,8 @@ class VDS_DRIVE_LETTER_FLAG extends Win32Enum {
 
     /**
      * If set, the drive letter disappears after the computer reboots.
+     * Native name: VDS_DLF_NON_PERSISTENT
      * @type {Integer (Int32)}
      */
-    static VDS_DLF_NON_PERSISTENT => 1
+    static DLF_NON_PERSISTENT => 1
 }

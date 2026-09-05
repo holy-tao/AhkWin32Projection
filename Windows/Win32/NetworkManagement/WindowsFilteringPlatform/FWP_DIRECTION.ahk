@@ -10,19 +10,22 @@ class FWP_DIRECTION extends Win32Enum {
 
     /**
      * Specifies outbound traffic.
+     * Native name: FWP_DIRECTION_OUTBOUND
      * @type {Integer (Int32)}
      */
-    static FWP_DIRECTION_OUTBOUND => 0
+    static OUTBOUND => 0
 
     /**
      * Specifies inbound traffic.
+     * Native name: FWP_DIRECTION_INBOUND
      * @type {Integer (Int32)}
      */
-    static FWP_DIRECTION_INBOUND => 1
+    static INBOUND => 1
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWP_DIRECTION_MAX
      * @type {Integer (Int32)}
      */
-    static FWP_DIRECTION_MAX => 2
+    static MAX => 2
 }

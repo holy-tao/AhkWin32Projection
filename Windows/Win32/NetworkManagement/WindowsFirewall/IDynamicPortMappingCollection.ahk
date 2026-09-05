@@ -47,7 +47,6 @@ class IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -56,7 +55,6 @@ class IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
@@ -71,7 +69,6 @@ class IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -80,7 +77,6 @@ class IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
@@ -95,7 +91,6 @@ class IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 

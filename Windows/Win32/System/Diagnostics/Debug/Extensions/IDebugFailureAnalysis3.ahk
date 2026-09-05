@@ -40,7 +40,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     static VTableNames => ["GetFailureClass", "GetFailureType", "GetFailureCode", "Get", "GetNext", "GetString", "GetBuffer", "GetUlong", "GetUlong64", "NextEntry", "SetString", "SetExtensionCommand", "SetUlong", "SetUlong64", "SetBuffer", "AddString", "AddExtensionCommand", "AddUlong", "AddUlong64", "AddBuffer", "GetDebugFATagControl", "GetAnalysisXml", "AddStructuredAnalysisData", "AddThreads", "AttributeGet", "AttributeGetName", "AttributeSet", "BlameApplication", "BlameProcess", "BlameThread", "BlameStitch", "BlameTEB", "BlameETHREAD", "ProblemClassIsSet", "ProblemClassDelete", "ProblemClassSet", "ProblemClassSetBSTR", "SetAdditionalXML", "GetAdditionalXML", "DeleteAdditionalXML"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureClass() {
@@ -49,7 +48,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEBUG_FAILURE_TYPE} 
      */
     GetFailureType() {
@@ -58,7 +56,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureCode() {
@@ -78,7 +75,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {DEBUG_FLR_PARAM_TYPE} TagMask 
@@ -90,7 +86,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @param {Integer} MaxSize 
@@ -104,7 +99,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Buf 
      * @param {Integer} _Size 
@@ -116,7 +110,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -129,7 +122,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -142,7 +134,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -152,7 +143,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @returns {Pointer<FA_ENTRY>} 
@@ -165,7 +155,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
@@ -178,7 +167,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -189,7 +177,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -200,7 +187,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {FA_ENTRY_TYPE} EntryType 
      * @param {Integer} Buf 
@@ -213,7 +199,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @returns {Pointer<FA_ENTRY>} 
@@ -226,7 +211,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
@@ -239,7 +223,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -250,7 +233,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -261,7 +243,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {FA_ENTRY_TYPE} EntryType 
      * @param {Integer} Buf 
@@ -274,7 +255,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugFAEntryTags} 
      */
     GetDebugFATagControl() {
@@ -283,7 +263,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IXMLDOMElement} 
      */
     GetAnalysisXml() {
@@ -292,7 +271,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {IDebugFailureAnalysis2} Analysis 
      * @returns {HRESULT} 
@@ -303,7 +281,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pDebugFailureThreadEnum 
      * @returns {HRESULT} 
      */
@@ -313,7 +290,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {VARIANT} 
      */
@@ -324,7 +300,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -335,7 +310,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
@@ -346,7 +320,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Postfix 
      * @returns {HRESULT} 
      */
@@ -358,7 +331,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Postfix 
      * @returns {HRESULT} 
      */
@@ -370,7 +342,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pThread 
      * @returns {HRESULT} 
      */
@@ -380,7 +351,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pThread 
      * @param {BSTR} Stitch 
      * @returns {HRESULT} 
@@ -393,7 +363,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @returns {HRESULT} 
      */
@@ -403,7 +372,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @returns {HRESULT} 
      */
@@ -413,7 +381,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {VARIANT_BOOL} 
      */
@@ -423,7 +390,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
      */
@@ -433,7 +399,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
      */
@@ -443,7 +408,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -456,7 +420,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Key 
      * @param {IUnknown} pXMLDOMElement 
      * @returns {HRESULT} 
@@ -469,7 +432,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Key 
      * @returns {IUnknown} 
      */
@@ -481,7 +443,6 @@ class IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Key 
      * @returns {HRESULT} 
      */

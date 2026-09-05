@@ -7,17 +7,20 @@
 class BDA_SignalType extends Win32Enum {
 
     /**
+     * Native name: Bda_SignalType_Unknown
      * @type {Integer (Int32)}
      */
-    static Bda_SignalType_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: Bda_SignalType_Analog
      * @type {Integer (Int32)}
      */
-    static Bda_SignalType_Analog => 1
+    static Analog => 1
 
     /**
+     * Native name: Bda_SignalType_Digital
      * @type {Integer (Int32)}
      */
-    static Bda_SignalType_Digital => 2
+    static Digital => 2
 }

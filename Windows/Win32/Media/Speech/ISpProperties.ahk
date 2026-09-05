@@ -30,7 +30,6 @@ class ISpProperties extends IUnknown {
     static VTableNames => ["SetPropertyNum", "GetPropertyNum", "SetPropertyString", "GetPropertyString"]
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {Integer} lValue 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class ISpProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {Pointer<Integer>} plValue 
      * @returns {HRESULT} 
@@ -58,7 +56,6 @@ class ISpProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {PWSTR} pValue 
      * @returns {HRESULT} 
@@ -72,7 +69,6 @@ class ISpProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @returns {PWSTR} 
      */

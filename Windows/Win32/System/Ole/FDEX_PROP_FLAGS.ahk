@@ -7,72 +7,86 @@
 class FDEX_PROP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: fdexPropCanGet
      * @type {Integer (UInt32)}
      */
-    static fdexPropCanGet => 1
+    static CanGet => 1
 
     /**
+     * Native name: fdexPropCannotGet
      * @type {Integer (UInt32)}
      */
-    static fdexPropCannotGet => 2
+    static CannotGet => 2
 
     /**
+     * Native name: fdexPropCanPut
      * @type {Integer (UInt32)}
      */
-    static fdexPropCanPut => 4
+    static CanPut => 4
 
     /**
+     * Native name: fdexPropCannotPut
      * @type {Integer (UInt32)}
      */
-    static fdexPropCannotPut => 8
+    static CannotPut => 8
 
     /**
+     * Native name: fdexPropCanPutRef
      * @type {Integer (UInt32)}
      */
-    static fdexPropCanPutRef => 16
+    static CanPutRef => 16
 
     /**
+     * Native name: fdexPropCannotPutRef
      * @type {Integer (UInt32)}
      */
-    static fdexPropCannotPutRef => 32
+    static CannotPutRef => 32
 
     /**
+     * Native name: fdexPropNoSideEffects
      * @type {Integer (UInt32)}
      */
-    static fdexPropNoSideEffects => 64
+    static NoSideEffects => 64
 
     /**
+     * Native name: fdexPropDynamicType
      * @type {Integer (UInt32)}
      */
-    static fdexPropDynamicType => 128
+    static DynamicType => 128
 
     /**
+     * Native name: fdexPropCanCall
      * @type {Integer (UInt32)}
      */
-    static fdexPropCanCall => 256
+    static CanCall => 256
 
     /**
+     * Native name: fdexPropCannotCall
      * @type {Integer (UInt32)}
      */
-    static fdexPropCannotCall => 512
+    static CannotCall => 512
 
     /**
+     * Native name: fdexPropCanConstruct
      * @type {Integer (UInt32)}
      */
-    static fdexPropCanConstruct => 1024
+    static CanConstruct => 1024
 
     /**
+     * Native name: fdexPropCannotConstruct
      * @type {Integer (UInt32)}
      */
-    static fdexPropCannotConstruct => 2048
+    static CannotConstruct => 2048
 
     /**
+     * Native name: fdexPropCanSourceEvents
      * @type {Integer (UInt32)}
      */
-    static fdexPropCanSourceEvents => 4096
+    static CanSourceEvents => 4096
 
     /**
+     * Native name: fdexPropCannotSourceEvents
      * @type {Integer (UInt32)}
      */
-    static fdexPropCannotSourceEvents => 8192
+    static CannotSourceEvents => 8192
 }

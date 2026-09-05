@@ -18,75 +18,87 @@ class VDS_NOTIFICATION_TARGET_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_NTT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_UNKNOWN => 0
+    static NTT_UNKNOWN => 0
 
     /**
      * The target is a disk pack. This value corresponds to the <b>VDS_OT_PACK</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * Native name: VDS_NTT_PACK
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_PACK => 10
+    static NTT_PACK => 10
 
     /**
      * The target is a volume. This value corresponds to the <b>VDS_OT_VOLUME</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * Native name: VDS_NTT_VOLUME
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_VOLUME => 11
+    static NTT_VOLUME => 11
 
     /**
      * The target is a disk. This value corresponds to the <b>VDS_OT_DISK</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * Native name: VDS_NTT_DISK
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_DISK => 13
+    static NTT_DISK => 13
 
     /**
      * The target is a partition.
+     * Native name: VDS_NTT_PARTITION
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_PARTITION => 60
+    static NTT_PARTITION => 60
 
     /**
      * The target is a drive letter.
+     * Native name: VDS_NTT_DRIVE_LETTER
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_DRIVE_LETTER => 61
+    static NTT_DRIVE_LETTER => 61
 
     /**
      * The target is a file system.
+     * Native name: VDS_NTT_FILE_SYSTEM
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_FILE_SYSTEM => 62
+    static NTT_FILE_SYSTEM => 62
 
     /**
      * The target is a drive letter  or volume GUID path.
+     * Native name: VDS_NTT_MOUNT_POINT
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_MOUNT_POINT => 63
+    static NTT_MOUNT_POINT => 63
 
     /**
      * The target is a subsystem. This value corresponds to the <b>VDS_OT_SUB_SYSTEM</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * Native name: VDS_NTT_SUB_SYSTEM
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_SUB_SYSTEM => 30
+    static NTT_SUB_SYSTEM => 30
 
     /**
      * The target is a controller. This value corresponds to the <b>VDS_OT_CONTROLLER</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * Native name: VDS_NTT_CONTROLLER
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_CONTROLLER => 31
+    static NTT_CONTROLLER => 31
 
     /**
      * The target is a drive. This value corresponds to the <b>VDS_OT_DRIVE</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * Native name: VDS_NTT_DRIVE
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_DRIVE => 32
+    static NTT_DRIVE => 32
 
     /**
      * The target is a LUN. This value corresponds to the <b>VDS_OT_LUN</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * Native name: VDS_NTT_LUN
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_LUN => 33
+    static NTT_LUN => 33
 
     /**
      * The target is a controller port.
@@ -94,9 +106,10 @@ class VDS_NOTIFICATION_TARGET_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
      * <div> </div>
+     * Native name: VDS_NTT_PORT
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_PORT => 35
+    static NTT_PORT => 35
 
     /**
      * The target is an iSCSI portal.
@@ -104,9 +117,10 @@ class VDS_NOTIFICATION_TARGET_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
      * <div> </div>
+     * Native name: VDS_NTT_PORTAL
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_PORTAL => 36
+    static NTT_PORTAL => 36
 
     /**
      * The target is a target.
@@ -114,9 +128,10 @@ class VDS_NOTIFICATION_TARGET_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
      * <div> </div>
+     * Native name: VDS_NTT_TARGET
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_TARGET => 37
+    static NTT_TARGET => 37
 
     /**
      * The target is an iSCSI portal group.
@@ -124,13 +139,15 @@ class VDS_NOTIFICATION_TARGET_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
      * <div> </div>
+     * Native name: VDS_NTT_PORTAL_GROUP
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_PORTAL_GROUP => 38
+    static NTT_PORTAL_GROUP => 38
 
     /**
      * This member is not currently used.
+     * Native name: VDS_NTT_SERVICE
      * @type {Integer (Int32)}
      */
-    static VDS_NTT_SERVICE => 200
+    static NTT_SERVICE => 200
 }

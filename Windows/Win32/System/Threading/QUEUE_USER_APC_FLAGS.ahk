@@ -21,19 +21,22 @@ class QUEUE_USER_APC_FLAGS extends Win32Enum {
 
     /**
      * No flags are passed. Behavior is identical to [QueueUserAPC function](nf-processthreadsapi-queueuserapc.md).
+     * Native name: QUEUE_USER_APC_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static QUEUE_USER_APC_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
      * Queue a special user-mode APC instead of a regular user-mode APC.
+     * Native name: QUEUE_USER_APC_FLAGS_SPECIAL_USER_APC
      * @type {Integer (Int32)}
      */
-    static QUEUE_USER_APC_FLAGS_SPECIAL_USER_APC => 1
+    static SPECIAL_USER_APC => 1
 
     /**
      * Receive the processor context that was interrupted when the thread was directed to call the APC function.
+     * Native name: QUEUE_USER_APC_CALLBACK_DATA_CONTEXT
      * @type {Integer (Int32)}
      */
-    static QUEUE_USER_APC_CALLBACK_DATA_CONTEXT => 65536
+    static CALLBACK_DATA_CONTEXT => 65536
 }

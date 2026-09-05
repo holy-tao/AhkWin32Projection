@@ -10,19 +10,22 @@ class SHELL_UI_COMPONENT extends Win32Enum {
 
     /**
      * This UI component is a taskbar icon.
+     * Native name: SHELL_UI_COMPONENT_TASKBARS
      * @type {Integer (Int32)}
      */
-    static SHELL_UI_COMPONENT_TASKBARS => 0
+    static TASKBARS => 0
 
     /**
      * This UI component is an icon in the notification area.
+     * Native name: SHELL_UI_COMPONENT_NOTIFICATIONAREA
      * @type {Integer (Int32)}
      */
-    static SHELL_UI_COMPONENT_NOTIFICATIONAREA => 1
+    static NOTIFICATIONAREA => 1
 
     /**
      * This UI component is a deskband icon.
+     * Native name: SHELL_UI_COMPONENT_DESKBAND
      * @type {Integer (Int32)}
      */
-    static SHELL_UI_COMPONENT_DESKBAND => 2
+    static DESKBAND => 2
 }

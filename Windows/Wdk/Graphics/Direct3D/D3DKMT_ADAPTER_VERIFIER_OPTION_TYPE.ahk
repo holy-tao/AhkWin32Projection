@@ -7,12 +7,14 @@
 class D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_ADAPTER_VERIFIER_OPTION_VIDMM_FLAGS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_ADAPTER_VERIFIER_OPTION_VIDMM_FLAGS => 1000
+    static VIDMM_FLAGS => 1000
 
     /**
+     * Native name: D3DKMT_ADAPTER_VERIFIER_OPTION_VIDMM_TRIM_INTERVAL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_ADAPTER_VERIFIER_OPTION_VIDMM_TRIM_INTERVAL => 1001
+    static VIDMM_TRIM_INTERVAL => 1001
 }

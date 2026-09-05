@@ -12,42 +12,50 @@ class SymbolKind extends Win32Enum {
     static Symbol => 0
 
     /**
+     * Native name: SymbolModule
      * @type {Integer (Int32)}
      */
-    static SymbolModule => 1
+    static Module => 1
 
     /**
+     * Native name: SymbolType
      * @type {Integer (Int32)}
      */
-    static SymbolType => 2
+    static Type => 2
 
     /**
+     * Native name: SymbolField
      * @type {Integer (Int32)}
      */
-    static SymbolField => 3
+    static Field => 3
 
     /**
+     * Native name: SymbolConstant
      * @type {Integer (Int32)}
      */
-    static SymbolConstant => 4
+    static Constant => 4
 
     /**
+     * Native name: SymbolData
      * @type {Integer (Int32)}
      */
-    static SymbolData => 5
+    static Data => 5
 
     /**
+     * Native name: SymbolBaseClass
      * @type {Integer (Int32)}
      */
-    static SymbolBaseClass => 6
+    static BaseClass => 6
 
     /**
+     * Native name: SymbolPublic
      * @type {Integer (Int32)}
      */
-    static SymbolPublic => 7
+    static Public => 7
 
     /**
+     * Native name: SymbolFunction
      * @type {Integer (Int32)}
      */
-    static SymbolFunction => 8
+    static Function => 8
 }

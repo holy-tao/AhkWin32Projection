@@ -18,25 +18,29 @@ class D2D1_LINE_JOIN extends Win32Enum {
 
     /**
      * Regular angular vertices.
+     * Native name: D2D1_LINE_JOIN_MITER
      * @type {Integer (Int32)}
      */
-    static D2D1_LINE_JOIN_MITER => 0
+    static MITER => 0
 
     /**
      * Beveled vertices.
+     * Native name: D2D1_LINE_JOIN_BEVEL
      * @type {Integer (Int32)}
      */
-    static D2D1_LINE_JOIN_BEVEL => 1
+    static BEVEL => 1
 
     /**
      * Rounded vertices.
+     * Native name: D2D1_LINE_JOIN_ROUND
      * @type {Integer (Int32)}
      */
-    static D2D1_LINE_JOIN_ROUND => 2
+    static ROUND => 2
 
     /**
      * Regular angular vertices unless the join would extend beyond the miter limit; otherwise, beveled vertices.
+     * Native name: D2D1_LINE_JOIN_MITER_OR_BEVEL
      * @type {Integer (Int32)}
      */
-    static D2D1_LINE_JOIN_MITER_OR_BEVEL => 3
+    static MITER_OR_BEVEL => 3
 }

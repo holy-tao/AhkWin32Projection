@@ -30,7 +30,6 @@ class IPreferredRuntimeTypeConcept extends IUnknown {
     static VTableNames => ["CastToPreferredRuntimeType"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IModelObject} 
      */

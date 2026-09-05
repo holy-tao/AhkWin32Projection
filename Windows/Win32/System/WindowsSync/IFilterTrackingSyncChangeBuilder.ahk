@@ -30,7 +30,6 @@ class IFilterTrackingSyncChangeBuilder extends IUnknown {
     static VTableNames => ["AddFilterChange", "SetAllChangeUnitsPresentFlag"]
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @param {Pointer<SYNC_FILTER_CHANGE>} pFilterChange 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IFilterTrackingSyncChangeBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetAllChangeUnitsPresentFlag() {

@@ -31,7 +31,6 @@ class ITransactionEnlistmentAsync extends IUnknown {
     static VTableNames => ["PrepareRequestDone", "CommitRequestDone", "AbortRequestDone"]
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @param {IMoniker} pmk 
      * @param {Pointer<BOID>} pboidReason 
@@ -43,7 +42,6 @@ class ITransactionEnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class ITransactionEnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @returns {HRESULT} 
      */

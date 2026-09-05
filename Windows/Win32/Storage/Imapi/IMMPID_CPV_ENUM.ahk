@@ -7,17 +7,20 @@
 class IMMPID_CPV_ENUM extends Win32Enum {
 
     /**
+     * Native name: IMMPID_CPV_BEFORE__
      * @type {Integer (Int32)}
      */
-    static IMMPID_CPV_BEFORE__ => 32767
+    static BEFORE__ => 32767
 
     /**
+     * Native name: IMMPID_CP_START
      * @type {Integer (Int32)}
      */
-    static IMMPID_CP_START => 32768
+    static CP_START => 32768
 
     /**
+     * Native name: IMMPID_CPV_AFTER__
      * @type {Integer (Int32)}
      */
-    static IMMPID_CPV_AFTER__ => 32769
+    static AFTER__ => 32769
 }

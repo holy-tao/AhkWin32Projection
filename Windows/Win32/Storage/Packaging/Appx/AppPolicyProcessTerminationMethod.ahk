@@ -10,13 +10,15 @@ class AppPolicyProcessTerminationMethod extends Win32Enum {
 
     /**
      * Allows DLLs to execute code at shutdown. This value is expected for a desktop application, or for a Desktop Bridge application.
+     * Native name: AppPolicyProcessTerminationMethod_ExitProcess
      * @type {Integer (Int32)}
      */
-    static AppPolicyProcessTerminationMethod_ExitProcess => 0
+    static ExitProcess => 0
 
     /**
      * Immediately ends the process. This value is expected for a UWP app.
+     * Native name: AppPolicyProcessTerminationMethod_TerminateProcess
      * @type {Integer (Int32)}
      */
-    static AppPolicyProcessTerminationMethod_TerminateProcess => 1
+    static TerminateProcess => 1
 }

@@ -7,22 +7,26 @@
 class ScriptExecutionKind extends Win32Enum {
 
     /**
+     * Native name: ScriptExecutionNormal
      * @type {Integer (Int32)}
      */
-    static ScriptExecutionNormal => 0
+    static Normal => 0
 
     /**
+     * Native name: ScriptExecutionStepIn
      * @type {Integer (Int32)}
      */
-    static ScriptExecutionStepIn => 1
+    static StepIn => 1
 
     /**
+     * Native name: ScriptExecutionStepOut
      * @type {Integer (Int32)}
      */
-    static ScriptExecutionStepOut => 2
+    static StepOut => 2
 
     /**
+     * Native name: ScriptExecutionStepOver
      * @type {Integer (Int32)}
      */
-    static ScriptExecutionStepOver => 3
+    static StepOver => 3
 }

@@ -7,22 +7,26 @@
 class REG_PINFLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: REG_PINFLAG_B_ZERO
      * @type {Integer (Int32)}
      */
-    static REG_PINFLAG_B_ZERO => 1
+    static B_ZERO => 1
 
     /**
+     * Native name: REG_PINFLAG_B_RENDERER
      * @type {Integer (Int32)}
      */
-    static REG_PINFLAG_B_RENDERER => 2
+    static B_RENDERER => 2
 
     /**
+     * Native name: REG_PINFLAG_B_MANY
      * @type {Integer (Int32)}
      */
-    static REG_PINFLAG_B_MANY => 4
+    static B_MANY => 4
 
     /**
+     * Native name: REG_PINFLAG_B_OUTPUT
      * @type {Integer (Int32)}
      */
-    static REG_PINFLAG_B_OUTPUT => 8
+    static B_OUTPUT => 8
 }

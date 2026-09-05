@@ -7,32 +7,38 @@
 class MINIDUMP_THREAD_INFO_DUMP_FLAGS extends Win32Enum {
 
     /**
+     * Native name: MINIDUMP_THREAD_INFO_ERROR_THREAD
      * @type {Integer (UInt32)}
      */
-    static MINIDUMP_THREAD_INFO_ERROR_THREAD => 1
+    static ERROR_THREAD => 1
 
     /**
+     * Native name: MINIDUMP_THREAD_INFO_EXITED_THREAD
      * @type {Integer (UInt32)}
      */
-    static MINIDUMP_THREAD_INFO_EXITED_THREAD => 4
+    static EXITED_THREAD => 4
 
     /**
+     * Native name: MINIDUMP_THREAD_INFO_INVALID_CONTEXT
      * @type {Integer (UInt32)}
      */
-    static MINIDUMP_THREAD_INFO_INVALID_CONTEXT => 16
+    static INVALID_CONTEXT => 16
 
     /**
+     * Native name: MINIDUMP_THREAD_INFO_INVALID_INFO
      * @type {Integer (UInt32)}
      */
-    static MINIDUMP_THREAD_INFO_INVALID_INFO => 8
+    static INVALID_INFO => 8
 
     /**
+     * Native name: MINIDUMP_THREAD_INFO_INVALID_TEB
      * @type {Integer (UInt32)}
      */
-    static MINIDUMP_THREAD_INFO_INVALID_TEB => 32
+    static INVALID_TEB => 32
 
     /**
+     * Native name: MINIDUMP_THREAD_INFO_WRITING_THREAD
      * @type {Integer (UInt32)}
      */
-    static MINIDUMP_THREAD_INFO_WRITING_THREAD => 2
+    static WRITING_THREAD => 2
 }

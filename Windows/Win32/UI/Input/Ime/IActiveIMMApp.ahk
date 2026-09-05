@@ -53,7 +53,6 @@ class IActiveIMMApp extends IUnknown {
     static VTableNames => ["AssociateContext", "ConfigureIMEA", "ConfigureIMEW", "CreateContext", "DestroyContext", "EnumRegisterWordA", "EnumRegisterWordW", "EscapeA", "EscapeW", "GetCandidateListA", "GetCandidateListW", "GetCandidateListCountA", "GetCandidateListCountW", "GetCandidateWindow", "GetCompositionFontA", "GetCompositionFontW", "GetCompositionStringA", "GetCompositionStringW", "GetCompositionWindow", "GetContext", "GetConversionListA", "GetConversionListW", "GetConversionStatus", "GetDefaultIMEWnd", "GetDescriptionA", "GetDescriptionW", "GetGuideLineA", "GetGuideLineW", "GetIMEFileNameA", "GetIMEFileNameW", "GetOpenStatus", "GetProperty", "GetRegisterWordStyleA", "GetRegisterWordStyleW", "GetStatusWindowPos", "GetVirtualKey", "InstallIMEA", "InstallIMEW", "IsIME", "IsUIMessageA", "IsUIMessageW", "NotifyIME", "RegisterWordA", "RegisterWordW", "ReleaseContext", "SetCandidateWindow", "SetCompositionFontA", "SetCompositionFontW", "SetCompositionStringA", "SetCompositionStringW", "SetCompositionWindow", "SetConversionStatus", "SetOpenStatus", "SetStatusWindowPos", "SimulateHotKey", "UnregisterWordA", "UnregisterWordW", "Activate", "Deactivate", "OnDefWindowProc", "FilterClientWindows", "GetCodePageA", "GetLangId", "AssociateContextEx", "DisableIME", "GetImeMenuItemsA", "GetImeMenuItemsW", "EnumInputContext"]
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} hIME 
      * @returns {HIMC} 
@@ -68,7 +67,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HWND} _hWnd 
      * @param {Integer} dwMode 
@@ -84,7 +82,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HWND} _hWnd 
      * @param {Integer} dwMode 
@@ -175,7 +172,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -195,7 +191,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -215,7 +210,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {Integer} uEscape 
@@ -233,7 +227,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {Integer} uEscape 
@@ -251,7 +244,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} uBufLen 
@@ -269,7 +261,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} uBufLen 
@@ -287,7 +278,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<Integer>} pdwListSize 
      * @param {Pointer<Integer>} pdwBufLen 
@@ -304,7 +294,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<Integer>} pdwListSize 
      * @param {Pointer<Integer>} pdwBufLen 
@@ -321,7 +310,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @returns {CANDIDATEFORM} 
@@ -335,7 +323,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {LOGFONTA} 
      */
@@ -348,7 +335,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {LOGFONTW} 
      */
@@ -361,7 +347,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -380,7 +365,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -399,7 +383,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {COMPOSITIONFORM} 
      */
@@ -412,7 +395,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {HIMC} 
      */
@@ -425,7 +407,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {PSTR} pSrc 
@@ -447,7 +428,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {PWSTR} pSrc 
@@ -498,7 +478,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {HWND} 
      */
@@ -511,7 +490,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PSTR} szDescription 
@@ -526,7 +504,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PWSTR} szDescription 
@@ -541,7 +518,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -557,7 +533,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -573,7 +548,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PSTR} szFileName 
@@ -588,7 +562,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PWSTR} szFileName 
@@ -603,7 +576,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
      */
@@ -633,7 +605,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFA>} pStyleBuf 
@@ -650,7 +621,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFW>} pStyleBuf 
@@ -667,7 +637,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {POINT} 
      */
@@ -680,7 +649,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {Integer} 
      */
@@ -692,7 +660,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} szIMEFileName 
      * @param {PSTR} szLayoutText 
      * @returns {HKL} 
@@ -707,7 +674,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szIMEFileName 
      * @param {PWSTR} szLayoutText 
      * @returns {HKL} 
@@ -722,7 +688,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {HRESULT} 
      */
@@ -734,7 +699,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndIME 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
@@ -749,7 +713,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndIME 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
@@ -764,7 +727,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
@@ -779,7 +741,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -796,7 +757,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -813,7 +773,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
@@ -827,7 +786,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<CANDIDATEFORM>} pCandidate 
      * @returns {HRESULT} 
@@ -840,7 +798,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<LOGFONTA>} plf 
      * @returns {HRESULT} 
@@ -853,7 +810,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<LOGFONTW>} plf 
      * @returns {HRESULT} 
@@ -866,7 +822,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -886,7 +841,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -906,7 +860,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<COMPOSITIONFORM>} pCompForm 
      * @returns {HRESULT} 
@@ -919,7 +872,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} fdwConversion 
      * @param {Integer} fdwSentence 
@@ -933,7 +885,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {BOOL} fOpen 
      * @returns {HRESULT} 
@@ -946,7 +897,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<POINT>} pptPos 
      * @returns {HRESULT} 
@@ -959,7 +909,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} dwHotKeyID 
      * @returns {HRESULT} 
@@ -972,7 +921,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -989,7 +937,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -1006,7 +953,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fRestoreLayout 
      * @returns {HRESULT} 
      */
@@ -1016,7 +962,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Deactivate() {
@@ -1025,7 +970,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} _Msg 
      * @param {WPARAM} _wParam 
@@ -1040,7 +984,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} aaClassList 
      * @param {Integer} uSize 
      * @returns {HRESULT} 
@@ -1053,7 +996,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {Integer} 
      */
@@ -1065,7 +1007,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {Integer} 
      */
@@ -1077,7 +1018,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
@@ -1092,7 +1032,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idThread 
      * @returns {HRESULT} 
      */
@@ -1102,7 +1041,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
      * @param {Integer} dwType 
@@ -1122,7 +1060,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
      * @param {Integer} dwType 
@@ -1142,7 +1079,6 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idThread 
      * @returns {IEnumInputContext} 
      */

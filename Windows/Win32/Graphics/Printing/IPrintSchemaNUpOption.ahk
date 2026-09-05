@@ -36,7 +36,6 @@ class IPrintSchemaNUpOption extends IPrintSchemaOption {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PagesPerSheet() {

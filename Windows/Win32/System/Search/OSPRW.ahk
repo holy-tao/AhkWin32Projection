@@ -7,22 +7,26 @@
 class OSPRW extends Win32Enum {
 
     /**
+     * Native name: OSPRW_DEFAULT
      * @type {Integer (Int32)}
      */
-    static OSPRW_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
+     * Native name: OSPRW_READONLY
      * @type {Integer (Int32)}
      */
-    static OSPRW_READONLY => 0
+    static READONLY => 0
 
     /**
+     * Native name: OSPRW_READWRITE
      * @type {Integer (Int32)}
      */
-    static OSPRW_READWRITE => 1
+    static READWRITE => 1
 
     /**
+     * Native name: OSPRW_MIXED
      * @type {Integer (Int32)}
      */
-    static OSPRW_MIXED => 2
+    static MIXED => 2
 }

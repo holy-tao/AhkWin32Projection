@@ -10,25 +10,29 @@ class DVD_AUDIO_APPMODE extends Win32Enum {
 
     /**
      * No special audio mode. The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-navigator-filter">DVD Navigator Filter</a> will send the audio to the decoder with no special processing.
+     * Native name: DVD_AudioMode_None
      * @type {Integer (Int32)}
      */
-    static DVD_AudioMode_None => 0
+    static Mode_None => 0
 
     /**
      * The current audio mode is karaoke content.
+     * Native name: DVD_AudioMode_Karaoke
      * @type {Integer (Int32)}
      */
-    static DVD_AudioMode_Karaoke => 1
+    static Mode_Karaoke => 1
 
     /**
      * The current audio mode is surround sound.
+     * Native name: DVD_AudioMode_Surround
      * @type {Integer (Int32)}
      */
-    static DVD_AudioMode_Surround => 2
+    static Mode_Surround => 2
 
     /**
      * Unrecognized audio mode.
+     * Native name: DVD_AudioMode_Other
      * @type {Integer (Int32)}
      */
-    static DVD_AudioMode_Other => 3
+    static Mode_Other => 3
 }

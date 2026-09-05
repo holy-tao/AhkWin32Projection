@@ -7,17 +7,20 @@
 class GNSS_AGNSS_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_AGNSS_TimeInjection
      * @type {Integer (Int32)}
      */
-    static GNSS_AGNSS_TimeInjection => 1
+    static TimeInjection => 1
 
     /**
+     * Native name: GNSS_AGNSS_PositionInjection
      * @type {Integer (Int32)}
      */
-    static GNSS_AGNSS_PositionInjection => 2
+    static PositionInjection => 2
 
     /**
+     * Native name: GNSS_AGNSS_BlobInjection
      * @type {Integer (Int32)}
      */
-    static GNSS_AGNSS_BlobInjection => 3
+    static BlobInjection => 3
 }

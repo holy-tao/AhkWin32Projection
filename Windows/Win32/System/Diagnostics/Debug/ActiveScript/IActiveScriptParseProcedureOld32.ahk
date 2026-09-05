@@ -31,7 +31,6 @@ class IActiveScriptParseProcedureOld32 extends IUnknown {
     static VTableNames => ["ParseProcedureText"]
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {PWSTR} pstrFormalParams 
      * @param {PWSTR} pstrItemName 

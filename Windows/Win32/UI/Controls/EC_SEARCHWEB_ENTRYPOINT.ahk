@@ -10,13 +10,15 @@ class EC_SEARCHWEB_ENTRYPOINT extends Win32Enum {
 
     /**
      * Entry point is external.
+     * Native name: EC_SEARCHWEB_ENTRYPOINT_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static EC_SEARCHWEB_ENTRYPOINT_EXTERNAL => 0
+    static EXTERNAL => 0
 
     /**
      * Entry point is a context menu.
+     * Native name: EC_SEARCHWEB_ENTRYPOINT_CONTEXTMENU
      * @type {Integer (Int32)}
      */
-    static EC_SEARCHWEB_ENTRYPOINT_CONTEXTMENU => 1
+    static CONTEXTMENU => 1
 }

@@ -15,37 +15,43 @@ class D3D11_SHADER_TYPE extends Win32Enum {
 
     /**
      * Identifies a vertex shader.
+     * Native name: D3D11_VERTEX_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_VERTEX_SHADER => 1
+    static VERTEX_SHADER => 1
 
     /**
      * Identifies a hull shader.
+     * Native name: D3D11_HULL_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_HULL_SHADER => 2
+    static HULL_SHADER => 2
 
     /**
      * Identifies a domain shader.
+     * Native name: D3D11_DOMAIN_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_DOMAIN_SHADER => 3
+    static DOMAIN_SHADER => 3
 
     /**
      * Identifies a geometry shader.
+     * Native name: D3D11_GEOMETRY_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_GEOMETRY_SHADER => 4
+    static GEOMETRY_SHADER => 4
 
     /**
      * Identifies a pixel shader.
+     * Native name: D3D11_PIXEL_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_PIXEL_SHADER => 5
+    static PIXEL_SHADER => 5
 
     /**
      * Identifies a compute shader.
+     * Native name: D3D11_COMPUTE_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPUTE_SHADER => 6
+    static COMPUTE_SHADER => 6
 }

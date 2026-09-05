@@ -46,7 +46,6 @@ class IPortableDeviceUnitsStream extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {

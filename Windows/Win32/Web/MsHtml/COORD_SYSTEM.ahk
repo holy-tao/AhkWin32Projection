@@ -7,37 +7,44 @@
 class COORD_SYSTEM extends Win32Enum {
 
     /**
+     * Native name: COORD_SYSTEM_GLOBAL
      * @type {Integer (Int32)}
      */
-    static COORD_SYSTEM_GLOBAL => 0
+    static GLOBAL => 0
 
     /**
+     * Native name: COORD_SYSTEM_PARENT
      * @type {Integer (Int32)}
      */
-    static COORD_SYSTEM_PARENT => 1
+    static PARENT => 1
 
     /**
+     * Native name: COORD_SYSTEM_CONTAINER
      * @type {Integer (Int32)}
      */
-    static COORD_SYSTEM_CONTAINER => 2
+    static CONTAINER => 2
 
     /**
+     * Native name: COORD_SYSTEM_CONTENT
      * @type {Integer (Int32)}
      */
-    static COORD_SYSTEM_CONTENT => 3
+    static CONTENT => 3
 
     /**
+     * Native name: COORD_SYSTEM_FRAME
      * @type {Integer (Int32)}
      */
-    static COORD_SYSTEM_FRAME => 4
+    static FRAME => 4
 
     /**
+     * Native name: COORD_SYSTEM_CLIENT
      * @type {Integer (Int32)}
      */
-    static COORD_SYSTEM_CLIENT => 5
+    static CLIENT => 5
 
     /**
+     * Native name: COORD_SYSTEM_Max
      * @type {Integer (Int32)}
      */
-    static COORD_SYSTEM_Max => 2147483647
+    static Max => 2147483647
 }

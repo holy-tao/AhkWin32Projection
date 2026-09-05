@@ -7,22 +7,26 @@
 class STORAGE_ZONED_DEVICE_TYPES extends Win32Enum {
 
     /**
+     * Native name: ZonedDeviceTypeUnknown
      * @type {Integer (Int32)}
      */
-    static ZonedDeviceTypeUnknown => 0
+    static TypeUnknown => 0
 
     /**
+     * Native name: ZonedDeviceTypeHostManaged
      * @type {Integer (Int32)}
      */
-    static ZonedDeviceTypeHostManaged => 1
+    static TypeHostManaged => 1
 
     /**
+     * Native name: ZonedDeviceTypeHostAware
      * @type {Integer (Int32)}
      */
-    static ZonedDeviceTypeHostAware => 2
+    static TypeHostAware => 2
 
     /**
+     * Native name: ZonedDeviceTypeDeviceManaged
      * @type {Integer (Int32)}
      */
-    static ZonedDeviceTypeDeviceManaged => 3
+    static TypeDeviceManaged => 3
 }

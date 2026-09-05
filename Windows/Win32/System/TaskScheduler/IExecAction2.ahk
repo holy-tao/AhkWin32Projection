@@ -38,7 +38,6 @@ class IExecAction2 extends IExecAction {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pHideAppWindow 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class IExecAction2 extends IExecAction {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} hideAppWindow 
      * @returns {HRESULT} 
      */

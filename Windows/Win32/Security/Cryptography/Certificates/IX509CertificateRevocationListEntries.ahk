@@ -47,7 +47,6 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {IX509CertificateRevocationListEntry} 
      */
@@ -57,7 +56,6 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -66,7 +64,6 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -75,7 +72,6 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX509CertificateRevocationListEntry} pVal 
      * @returns {HRESULT} 
      */
@@ -85,7 +81,6 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} SerialNumber 
      * @returns {Integer} 
@@ -136,7 +130,6 @@ class IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX509CertificateRevocationListEntries} pValue 
      * @returns {HRESULT} 
      */

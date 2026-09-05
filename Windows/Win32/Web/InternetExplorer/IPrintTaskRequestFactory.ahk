@@ -30,7 +30,6 @@ class IPrintTaskRequestFactory extends IUnknown {
     static VTableNames => ["CreatePrintTaskRequest"]
 
     /**
-     * 
      * @param {IPrintTaskRequestHandler} pPrintTaskRequestHandler 
      * @returns {HRESULT} 
      */

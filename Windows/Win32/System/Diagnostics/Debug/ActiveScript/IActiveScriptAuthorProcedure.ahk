@@ -31,7 +31,6 @@ class IActiveScriptAuthorProcedure extends IUnknown {
     static VTableNames => ["ParseProcedureText"]
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {PWSTR} pszFormalParams 
      * @param {PWSTR} pszProcedureName 

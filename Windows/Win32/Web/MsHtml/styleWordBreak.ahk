@@ -7,27 +7,32 @@
 class styleWordBreak extends Win32Enum {
 
     /**
+     * Native name: styleWordBreakNotSet
      * @type {Integer (Int32)}
      */
-    static styleWordBreakNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleWordBreakNormal
      * @type {Integer (Int32)}
      */
-    static styleWordBreakNormal => 1
+    static Normal => 1
 
     /**
+     * Native name: styleWordBreakBreakAll
      * @type {Integer (Int32)}
      */
-    static styleWordBreakBreakAll => 2
+    static BreakAll => 2
 
     /**
+     * Native name: styleWordBreakKeepAll
      * @type {Integer (Int32)}
      */
-    static styleWordBreakKeepAll => 3
+    static KeepAll => 3
 
     /**
+     * Native name: styleWordBreak_Max
      * @type {Integer (Int32)}
      */
-    static styleWordBreak_Max => 2147483647
+    static Max => 2147483647
 }

@@ -10,13 +10,15 @@ class MBN_PROVIDER_CONSTANTS extends Win32Enum {
 
     /**
      * The maximum length of the <b>providerName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_provider">MBN_PROVIDER</a> structure.
+     * Native name: MBN_PROVIDERNAME_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_PROVIDERNAME_LEN => 20
+    static PROVIDERNAME_LEN => 20
 
     /**
      * The maximum length of the <b>providerID</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_provider">MBN_PROVIDER</a> structure.
+     * Native name: MBN_PROVIDERID_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_PROVIDERID_LEN => 6
+    static PROVIDERID_LEN => 6
 }

@@ -7,12 +7,14 @@
 class MFT_AUDIO_DECODER_DEGRADATION_REASON extends Win32Enum {
 
     /**
+     * Native name: MFT_AUDIO_DECODER_DEGRADATION_REASON_NONE
      * @type {Integer (Int32)}
      */
-    static MFT_AUDIO_DECODER_DEGRADATION_REASON_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: MFT_AUDIO_DECODER_DEGRADATION_REASON_LICENSING_REQUIREMENT
      * @type {Integer (Int32)}
      */
-    static MFT_AUDIO_DECODER_DEGRADATION_REASON_LICENSING_REQUIREMENT => 1
+    static LICENSING_REQUIREMENT => 1
 }

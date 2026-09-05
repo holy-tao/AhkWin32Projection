@@ -7,9 +7,10 @@
 class PDH_DLL_VERSION extends Win32Enum {
 
     /**
+     * Native name: PDH_CVERSION_WIN50
      * @type {Integer (UInt32)}
      */
-    static PDH_CVERSION_WIN50 => 1280
+    static CVERSION_WIN50 => 1280
 
     /**
      * @type {Integer (UInt32)}

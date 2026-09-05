@@ -12,19 +12,22 @@ class DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies nominal range YCbCr, which isn't an absolute color space, but a way of encoding RGB info.
+     * Native name: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_NOMINAL_RANGE
      * @type {Integer (Int32)}
      */
-    static DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_NOMINAL_RANGE => 1
+    static FLAG_NOMINAL_RANGE => 1
 
     /**
      * Specifies BT.709, which standardizes the format of high-definition television and has 16:9 (widescreen) aspect ratio.
+     * Native name: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_BT709
      * @type {Integer (Int32)}
      */
-    static DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_BT709 => 2
+    static FLAG_BT709 => 2
 
     /**
      * Specifies xvYCC or extended-gamut YCC (also x.v.Color) color space that can be used in the video electronics of television sets to support a gamut 1.8 times as large as that of the sRGB color space.
+     * Native name: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_xvYCC
      * @type {Integer (Int32)}
      */
-    static DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_xvYCC => 4
+    static FLAG_xvYCC => 4
 }

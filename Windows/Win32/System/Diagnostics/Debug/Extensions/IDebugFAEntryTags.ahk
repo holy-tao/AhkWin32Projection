@@ -27,7 +27,6 @@ class IDebugFAEntryTags extends Win32ComInterface {
     static VTableNames => ["GetType", "SetType", "GetProperties", "SetProperties", "GetTagByName", "IsValidTagToSet"]
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @returns {FA_ENTRY_TYPE} 
      */
@@ -37,7 +36,6 @@ class IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {FA_ENTRY_TYPE} EntryType 
      * @returns {HRESULT} 
@@ -48,7 +46,6 @@ class IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Name 
      * @param {Pointer<Integer>} NameSize 
@@ -65,7 +62,6 @@ class IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Name 
      * @param {PSTR} Description 
@@ -81,7 +77,6 @@ class IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PSTR} PluginId 
      * @param {PSTR} TagName 
      * @returns {DEBUG_FLR_PARAM_TYPE} 
@@ -95,7 +90,6 @@ class IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @returns {BOOL} 
      */

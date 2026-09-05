@@ -32,7 +32,6 @@ class ISpCFGInterpreterSite extends IUnknown {
     static VTableNames => ["AddTextReplacement", "AddProperty", "GetResourceValue"]
 
     /**
-     * 
      * @param {Pointer<SPPHRASEREPLACEMENT>} pReplace 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ISpCFGInterpreterSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASEPROPERTY>} pProperty 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class ISpCFGInterpreterSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszResourceName 
      * @returns {PWSTR} 
      */

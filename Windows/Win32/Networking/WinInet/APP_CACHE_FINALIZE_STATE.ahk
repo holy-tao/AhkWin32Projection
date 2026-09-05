@@ -7,17 +7,20 @@
 class APP_CACHE_FINALIZE_STATE extends Win32Enum {
 
     /**
+     * Native name: AppCacheFinalizeStateIncomplete
      * @type {Integer (Int32)}
      */
-    static AppCacheFinalizeStateIncomplete => 0
+    static Incomplete => 0
 
     /**
+     * Native name: AppCacheFinalizeStateManifestChange
      * @type {Integer (Int32)}
      */
-    static AppCacheFinalizeStateManifestChange => 1
+    static ManifestChange => 1
 
     /**
+     * Native name: AppCacheFinalizeStateComplete
      * @type {Integer (Int32)}
      */
-    static AppCacheFinalizeStateComplete => 2
+    static Complete => 2
 }

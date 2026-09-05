@@ -31,7 +31,6 @@ class IActiveIMMRegistrar extends IUnknown {
     static VTableNames => ["RegisterIME", "UnregisterIME"]
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} lgid 
      * @param {PWSTR} pszIconFile 
@@ -47,7 +46,6 @@ class IActiveIMMRegistrar extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @returns {HRESULT} 
      */

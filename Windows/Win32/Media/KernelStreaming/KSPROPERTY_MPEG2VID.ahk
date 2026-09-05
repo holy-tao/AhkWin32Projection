@@ -7,27 +7,32 @@
 class KSPROPERTY_MPEG2VID extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_MPEG2VID_MODES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MPEG2VID_MODES => 0
+    static MODES => 0
 
     /**
+     * Native name: KSPROPERTY_MPEG2VID_CUR_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MPEG2VID_CUR_MODE => 1
+    static CUR_MODE => 1
 
     /**
+     * Native name: KSPROPERTY_MPEG2VID_4_3_RECT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MPEG2VID_4_3_RECT => 2
+    static 4_3_RECT => 2
 
     /**
+     * Native name: KSPROPERTY_MPEG2VID_16_9_RECT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MPEG2VID_16_9_RECT => 3
+    static 16_9_RECT => 3
 
     /**
+     * Native name: KSPROPERTY_MPEG2VID_16_9_PANSCAN
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MPEG2VID_16_9_PANSCAN => 4
+    static 16_9_PANSCAN => 4
 }

@@ -7,17 +7,20 @@
 class LINE_DIRECTION extends Win32Enum {
 
     /**
+     * Native name: LINE_DIRECTION_RightToLeft
      * @type {Integer (Int32)}
      */
-    static LINE_DIRECTION_RightToLeft => 1
+    static RightToLeft => 1
 
     /**
+     * Native name: LINE_DIRECTION_LeftToRight
      * @type {Integer (Int32)}
      */
-    static LINE_DIRECTION_LeftToRight => 2
+    static LeftToRight => 2
 
     /**
+     * Native name: LINE_DIRECTION_Max
      * @type {Integer (Int32)}
      */
-    static LINE_DIRECTION_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,27 +7,32 @@
 class POOL_EXTENDED_PARAMETER_TYPE extends Win32Enum {
 
     /**
+     * Native name: PoolExtendedParameterInvalidType
      * @type {Integer (Int32)}
      */
-    static PoolExtendedParameterInvalidType => 0
+    static InvalidType => 0
 
     /**
+     * Native name: PoolExtendedParameterPriority
      * @type {Integer (Int32)}
      */
-    static PoolExtendedParameterPriority => 1
+    static Priority => 1
 
     /**
+     * Native name: PoolExtendedParameterSecurePool
      * @type {Integer (Int32)}
      */
-    static PoolExtendedParameterSecurePool => 2
+    static SecurePool => 2
 
     /**
+     * Native name: PoolExtendedParameterNumaNode
      * @type {Integer (Int32)}
      */
-    static PoolExtendedParameterNumaNode => 3
+    static NumaNode => 3
 
     /**
+     * Native name: PoolExtendedParameterMax
      * @type {Integer (Int32)}
      */
-    static PoolExtendedParameterMax => 4
+    static Max => 4
 }

@@ -32,7 +32,6 @@ class ISpRecoResult2 extends ISpRecoResult {
     static VTableNames => ["CommitAlternate", "CommitText", "SetTextFeedback"]
 
     /**
-     * 
      * @param {ISpPhraseAlt} pPhraseAlt 
      * @returns {ISpRecoResult} 
      */
@@ -42,7 +41,6 @@ class ISpRecoResult2 extends ISpRecoResult {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @param {PWSTR} pszCorrectedData 
@@ -57,7 +55,6 @@ class ISpRecoResult2 extends ISpRecoResult {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFeedback 
      * @param {BOOL} fSuccessful 
      * @returns {HRESULT} 

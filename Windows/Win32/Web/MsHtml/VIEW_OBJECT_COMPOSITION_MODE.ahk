@@ -7,17 +7,20 @@
 class VIEW_OBJECT_COMPOSITION_MODE extends Win32Enum {
 
     /**
+     * Native name: VIEW_OBJECT_COMPOSITION_MODE_LEGACY
      * @type {Integer (Int32)}
      */
-    static VIEW_OBJECT_COMPOSITION_MODE_LEGACY => 0
+    static LEGACY => 0
 
     /**
+     * Native name: VIEW_OBJECT_COMPOSITION_MODE_SURFACEPRESENTER
      * @type {Integer (Int32)}
      */
-    static VIEW_OBJECT_COMPOSITION_MODE_SURFACEPRESENTER => 1
+    static SURFACEPRESENTER => 1
 
     /**
+     * Native name: VIEW_OBJECT_COMPOSITION_MODE_Max
      * @type {Integer (Int32)}
      */
-    static VIEW_OBJECT_COMPOSITION_MODE_Max => 2147483647
+    static Max => 2147483647
 }

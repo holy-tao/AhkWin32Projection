@@ -30,7 +30,6 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9 {
     static VTableNames => ["EnumerateObjectReferences", "IsFrozenObject", "GetLOHObjectSizeThreshold", "RequestReJITWithInliners", "SuspendRuntime", "ResumeRuntime"]
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer<ObjectReferenceCallback>} callback 
      * @param {Pointer<Void>} clientData 
@@ -44,7 +43,6 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9 {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer<BOOL>} pbFrozen 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pThreshold 
      * @returns {HRESULT} 
      */
@@ -69,7 +66,6 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9 {
     }
 
     /**
-     * 
      * @param {Integer} dwRejitFlags 
      * @param {Integer} cFunctions 
      * @param {Pointer<Pointer>} moduleIds 
@@ -85,7 +81,6 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SuspendRuntime() {
@@ -94,7 +89,6 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResumeRuntime() {

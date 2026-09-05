@@ -36,7 +36,6 @@ class AsyncIIdentityAdvise extends IUnknown {
     static VTableNames => ["Begin_IdentityUpdated", "Finish_IdentityUpdated"]
 
     /**
-     * 
      * @param {Integer} dwIdentityUpdateEvents 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ class AsyncIIdentityAdvise extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_IdentityUpdated() {

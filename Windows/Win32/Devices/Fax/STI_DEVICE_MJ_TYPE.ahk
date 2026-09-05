@@ -7,22 +7,26 @@
 class STI_DEVICE_MJ_TYPE extends Win32Enum {
 
     /**
+     * Native name: StiDeviceTypeDefault
      * @type {Integer (Int32)}
      */
-    static StiDeviceTypeDefault => 0
+    static Default => 0
 
     /**
+     * Native name: StiDeviceTypeScanner
      * @type {Integer (Int32)}
      */
-    static StiDeviceTypeScanner => 1
+    static Scanner => 1
 
     /**
+     * Native name: StiDeviceTypeDigitalCamera
      * @type {Integer (Int32)}
      */
-    static StiDeviceTypeDigitalCamera => 2
+    static DigitalCamera => 2
 
     /**
+     * Native name: StiDeviceTypeStreamingVideo
      * @type {Integer (Int32)}
      */
-    static StiDeviceTypeStreamingVideo => 3
+    static StreamingVideo => 3
 }

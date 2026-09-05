@@ -114,7 +114,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSourceCount() {
@@ -123,7 +122,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {IDxcBlobEncoding} 
      */
@@ -133,7 +131,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {BSTR} 
      */
@@ -144,7 +141,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlagCount() {
@@ -153,7 +149,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {BSTR} 
      */
@@ -164,7 +159,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArgCount() {
@@ -173,7 +167,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {BSTR} 
      */
@@ -184,7 +177,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArgPairCount() {
@@ -193,7 +185,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @param {Pointer<BSTR>} pName 
      * @param {Pointer<BSTR>} pValue 
@@ -205,7 +196,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDefineCount() {
@@ -214,7 +204,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {BSTR} 
      */
@@ -225,7 +214,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetTargetProfile() {
@@ -235,7 +223,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetEntryPoint() {
@@ -245,7 +232,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetMainFileName() {
@@ -255,7 +241,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlob} 
      */
     GetHash() {
@@ -275,7 +260,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsFullPDB() {
@@ -284,7 +268,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlob} 
      */
     GetFullPDB() {
@@ -293,7 +276,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcVersionInfo} 
      */
     GetVersionInfo() {
@@ -302,7 +284,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcCompiler3} pCompiler 
      * @returns {HRESULT} 
      */
@@ -312,7 +293,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcResult} 
      */
     CompileForFullPDB() {
@@ -321,7 +301,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DxcArgPair>} pArgPairs 
      * @param {Integer} uNumArgPairs 
      * @returns {HRESULT} 
@@ -332,7 +311,6 @@ class IDxcPdbUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pRootSignature 
      * @returns {HRESULT} 
      */

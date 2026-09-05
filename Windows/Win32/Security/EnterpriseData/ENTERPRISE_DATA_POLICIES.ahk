@@ -10,25 +10,29 @@ class ENTERPRISE_DATA_POLICIES extends Win32BitflagEnum {
 
     /**
      * The app is not managed by enterprise policy.
+     * Native name: ENTERPRISE_POLICY_NONE
      * @type {Integer (Int32)}
      */
-    static ENTERPRISE_POLICY_NONE => 0
+    static POLICY_NONE => 0
 
     /**
      * The app is allowed to access enterprise resources according to the enterprise policy.
+     * Native name: ENTERPRISE_POLICY_ALLOWED
      * @type {Integer (Int32)}
      */
-    static ENTERPRISE_POLICY_ALLOWED => 1
+    static POLICY_ALLOWED => 1
 
     /**
      * The app is enlightened (self-declared in the app's resource file).
+     * Native name: ENTERPRISE_POLICY_ENLIGHTENED
      * @type {Integer (Int32)}
      */
-    static ENTERPRISE_POLICY_ENLIGHTENED => 2
+    static POLICY_ENLIGHTENED => 2
 
     /**
      * The app is marked as exempt by the enterprise policy.
+     * Native name: ENTERPRISE_POLICY_EXEMPT
      * @type {Integer (Int32)}
      */
-    static ENTERPRISE_POLICY_EXEMPT => 4
+    static POLICY_EXEMPT => 4
 }

@@ -7,27 +7,32 @@
 class NtmsNotificationOperations extends Win32Enum {
 
     /**
+     * Native name: NTMS_OBJ_UPDATE
      * @type {Integer (Int32)}
      */
-    static NTMS_OBJ_UPDATE => 1
+    static OBJ_UPDATE => 1
 
     /**
+     * Native name: NTMS_OBJ_INSERT
      * @type {Integer (Int32)}
      */
-    static NTMS_OBJ_INSERT => 2
+    static OBJ_INSERT => 2
 
     /**
+     * Native name: NTMS_OBJ_DELETE
      * @type {Integer (Int32)}
      */
-    static NTMS_OBJ_DELETE => 3
+    static OBJ_DELETE => 3
 
     /**
+     * Native name: NTMS_EVENT_SIGNAL
      * @type {Integer (Int32)}
      */
-    static NTMS_EVENT_SIGNAL => 4
+    static EVENT_SIGNAL => 4
 
     /**
+     * Native name: NTMS_EVENT_COMPLETE
      * @type {Integer (Int32)}
      */
-    static NTMS_EVENT_COMPLETE => 5
+    static EVENT_COMPLETE => 5
 }

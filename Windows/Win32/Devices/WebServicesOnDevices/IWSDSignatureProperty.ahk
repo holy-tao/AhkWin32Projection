@@ -58,7 +58,6 @@ class IWSDSignatureProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pbKeyInfo 
      * @param {Pointer<Integer>} pdwKeyInfoSize 
      * @returns {HRESULT} 

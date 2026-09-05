@@ -32,7 +32,6 @@ class IDebugHostMemory5 extends IDebugHostMemory4 {
     static VTableNames => ["ReadIntrinsics", "ReadOrdinalIntrinsics"]
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} vt 
@@ -49,7 +48,6 @@ class IDebugHostMemory5 extends IDebugHostMemory4 {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} ordinalSize 

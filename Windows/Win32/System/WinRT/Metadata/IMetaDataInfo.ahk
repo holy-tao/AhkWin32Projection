@@ -29,7 +29,6 @@ class IMetaDataInfo extends IUnknown {
     static VTableNames => ["GetFileMapping"]
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppvData 
      * @param {Pointer<Integer>} pcbData 
      * @param {Pointer<Integer>} pdwMappingType 

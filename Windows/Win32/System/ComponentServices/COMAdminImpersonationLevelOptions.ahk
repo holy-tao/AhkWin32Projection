@@ -7,22 +7,26 @@
 class COMAdminImpersonationLevelOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminImpersonationAnonymous
      * @type {Integer (Int32)}
      */
-    static COMAdminImpersonationAnonymous => 1
+    static Anonymous => 1
 
     /**
+     * Native name: COMAdminImpersonationIdentify
      * @type {Integer (Int32)}
      */
-    static COMAdminImpersonationIdentify => 2
+    static Identify => 2
 
     /**
+     * Native name: COMAdminImpersonationImpersonate
      * @type {Integer (Int32)}
      */
-    static COMAdminImpersonationImpersonate => 3
+    static Impersonate => 3
 
     /**
+     * Native name: COMAdminImpersonationDelegate
      * @type {Integer (Int32)}
      */
-    static COMAdminImpersonationDelegate => 4
+    static Delegate => 4
 }

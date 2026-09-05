@@ -54,7 +54,6 @@ class Isolation {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Reserved 
      * @returns {BOOL} 
      * @deprecated IsProcessInWDAGContainer is deprecated and might not work on all platforms. For more info, see MSDN.
@@ -67,7 +66,6 @@ class Isolation {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      * @deprecated IsProcessInIsolatedContainer is deprecated and might not work on all platforms. For more info, see MSDN.
      */

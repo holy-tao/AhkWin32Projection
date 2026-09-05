@@ -7,22 +7,26 @@
 class ECustomDumpFlavor extends Win32Enum {
 
     /**
+     * Native name: DUMP_FLAVOR_Mini
      * @type {Integer (Int32)}
      */
-    static DUMP_FLAVOR_Mini => 0
+    static Mini => 0
 
     /**
+     * Native name: DUMP_FLAVOR_CriticalCLRState
      * @type {Integer (Int32)}
      */
-    static DUMP_FLAVOR_CriticalCLRState => 1
+    static CriticalCLRState => 1
 
     /**
+     * Native name: DUMP_FLAVOR_NonHeapCLRState
      * @type {Integer (Int32)}
      */
-    static DUMP_FLAVOR_NonHeapCLRState => 2
+    static NonHeapCLRState => 2
 
     /**
+     * Native name: DUMP_FLAVOR_Default
      * @type {Integer (Int32)}
      */
-    static DUMP_FLAVOR_Default => 0
+    static Default => 0
 }

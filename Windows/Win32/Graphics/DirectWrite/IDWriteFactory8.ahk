@@ -37,7 +37,6 @@ class IDWriteFactory8 extends IDWriteFactory7 {
     static VTableNames => ["TranslateColorGlyphRun"]
 
     /**
-     * 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription 

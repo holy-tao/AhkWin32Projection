@@ -48,7 +48,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlText() {
@@ -58,7 +57,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -70,7 +68,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -80,7 +77,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     parentElement() {
@@ -89,7 +85,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     duplicate() {
@@ -98,7 +93,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTxtRange} Range 
      * @returns {VARIANT_BOOL} 
      */
@@ -108,7 +102,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTxtRange} Range 
      * @returns {VARIANT_BOOL} 
      */
@@ -118,7 +111,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fStart 
      * @returns {HRESULT} 
      */
@@ -128,7 +120,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Start 
      * @returns {HRESULT} 
      */
@@ -138,7 +129,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @returns {VARIANT_BOOL} 
      */
@@ -150,7 +140,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -163,7 +152,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -176,7 +164,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -383,7 +370,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} html 
      * @returns {HRESULT} 
      */
@@ -395,7 +381,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} element 
      * @returns {HRESULT} 
      */
@@ -405,7 +390,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} how 
      * @param {IHTMLTxtRange} SourceRange 
      * @returns {HRESULT} 
@@ -418,7 +402,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} how 
      * @param {IHTMLTxtRange} SourceRange 
      * @returns {Integer} 
@@ -431,7 +414,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _String 
      * @param {Integer} count 
      * @param {Integer} Flags 
@@ -445,7 +427,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -456,7 +437,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getBookmark() {
@@ -466,7 +446,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Bookmark 
      * @returns {VARIANT_BOOL} 
      */
@@ -478,7 +457,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -490,7 +468,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -502,7 +479,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -514,7 +490,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -526,7 +501,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {BSTR} 
      */
@@ -539,7 +513,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT} 
      */
@@ -552,7 +525,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
@@ -566,7 +538,6 @@ class IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */

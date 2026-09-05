@@ -33,7 +33,6 @@ class IMFTimedTextRuby extends IUnknown {
     static VTableNames => ["GetRubyText", "GetRubyPosition", "GetRubyAlign", "GetRubyReserve"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetRubyText() {
@@ -42,7 +41,6 @@ class IMFTimedTextRuby extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_RUBY_POSITION} 
      */
     GetRubyPosition() {
@@ -51,7 +49,6 @@ class IMFTimedTextRuby extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_RUBY_ALIGN} 
      */
     GetRubyAlign() {
@@ -60,7 +57,6 @@ class IMFTimedTextRuby extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_RUBY_RESERVE} 
      */
     GetRubyReserve() {

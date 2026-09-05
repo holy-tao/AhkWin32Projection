@@ -33,7 +33,6 @@ class IDtcToXaHelper extends IUnknown {
     static VTableNames => ["Close", "TranslateTridToXid"]
 
     /**
-     * 
      * @param {BOOL} i_fDoRecovery 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class IDtcToXaHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITransaction} pITransaction 
      * @param {Pointer<Guid>} pguidBqual 
      * @returns {XID} 

@@ -46,7 +46,6 @@ class IJsDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {JS_PROPERTY_MEMBERS} members 
      * @returns {IJsEnumDebugProperty} 
      */

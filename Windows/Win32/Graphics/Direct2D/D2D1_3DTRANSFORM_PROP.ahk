@@ -15,9 +15,10 @@ class D2D1_3DTRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_3DTRANSFORM_INTERPOLATION_MODE.
      * 
      * Default value is D2D1_3DTRANSFORM_INTERPOLATION_MODE_LINEAR.
+     * Native name: D2D1_3DTRANSFORM_PROP_INTERPOLATION_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_3DTRANSFORM_PROP_INTERPOLATION_MODE => 0
+    static INTERPOLATION_MODE => 0
 
     /**
      * The mode used to calculate the border of the image, soft or hard. See Border modes for more info.
@@ -26,9 +27,10 @@ class D2D1_3DTRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_BORDER_MODE.
      * 
      * Default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_3DTRANSFORM_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_3DTRANSFORM_PROP_BORDER_MODE => 1
+    static BORDER_MODE => 1
 
     /**
      * A 4x4 transform matrix applied to the projection plane. The following matrix calculation is used to map points from one 3D coordinate system
@@ -52,7 +54,8 @@ class D2D1_3DTRANSFORM_PROP extends Win32Enum {
      *               0, 1, 0, 0,
      *               0, 0, 1, 0,
      *               0, 0, 0, 1).
+     * Native name: D2D1_3DTRANSFORM_PROP_TRANSFORM_MATRIX
      * @type {Integer (Int32)}
      */
-    static D2D1_3DTRANSFORM_PROP_TRANSFORM_MATRIX => 2
+    static TRANSFORM_MATRIX => 2
 }

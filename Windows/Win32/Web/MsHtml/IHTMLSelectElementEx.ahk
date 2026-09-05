@@ -30,7 +30,6 @@ class IHTMLSelectElementEx extends IUnknown {
     static VTableNames => ["ShowDropdown", "SetSelectExFlags", "GetSelectExFlags", "GetDropdownOpen"]
 
     /**
-     * 
      * @param {BOOL} fShow 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IHTMLSelectElementEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
      */
@@ -50,7 +48,6 @@ class IHTMLSelectElementEx extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSelectExFlags() {
@@ -59,7 +56,6 @@ class IHTMLSelectElementEx extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetDropdownOpen() {

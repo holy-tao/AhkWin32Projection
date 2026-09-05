@@ -54,7 +54,6 @@ class ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Selected() {
@@ -73,7 +71,6 @@ class ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -83,7 +80,6 @@ class ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -92,7 +88,6 @@ class ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @param {SysmonDataType} iWhich 
      * @returns {VARIANT} 

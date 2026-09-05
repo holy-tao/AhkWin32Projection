@@ -12,82 +12,98 @@ class D3DKMT_QUERYRESULT_PREEMPTION_ATTEMPT_RESULT extends Win32Enum {
     static D3DKMT_PreemptionAttempt => 0
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptSuccess
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptSuccess => 1
+    static Success => 1
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissNoCommand
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissNoCommand => 2
+    static MissNoCommand => 2
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissNotEnabled
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissNotEnabled => 3
+    static MissNotEnabled => 3
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissNextFence
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissNextFence => 4
+    static MissNextFence => 4
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissPagingCommand
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissPagingCommand => 5
+    static MissPagingCommand => 5
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissSplittedCommand
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissSplittedCommand => 6
+    static MissSplittedCommand => 6
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissFenceCommand
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissFenceCommand => 7
+    static MissFenceCommand => 7
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissRenderPendingFlip
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissRenderPendingFlip => 8
+    static MissRenderPendingFlip => 8
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissNotMakingProgress
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissNotMakingProgress => 9
+    static MissNotMakingProgress => 9
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissLessPriority
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissLessPriority => 10
+    static MissLessPriority => 10
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissRemainingQuantum
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissRemainingQuantum => 11
+    static MissRemainingQuantum => 11
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissRemainingPreemptionQuantum
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissRemainingPreemptionQuantum => 12
+    static MissRemainingPreemptionQuantum => 12
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissAlreadyPreempting
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissAlreadyPreempting => 13
+    static MissAlreadyPreempting => 13
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissGlobalBlock
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissGlobalBlock => 14
+    static MissGlobalBlock => 14
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptMissAlreadyRunning
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptMissAlreadyRunning => 15
+    static MissAlreadyRunning => 15
 
     /**
+     * Native name: D3DKMT_PreemptionAttemptStatisticsMax
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PreemptionAttemptStatisticsMax => 16
+    static StatisticsMax => 16
 }

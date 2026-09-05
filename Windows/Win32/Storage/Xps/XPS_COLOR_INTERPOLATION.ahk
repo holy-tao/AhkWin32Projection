@@ -10,13 +10,15 @@ class XPS_COLOR_INTERPOLATION extends Win32Enum {
 
     /**
      * First, the color values are converted to scRGB, then a linear interpolation is performed between them.
+     * Native name: XPS_COLOR_INTERPOLATION_SCRGBLINEAR
      * @type {Integer (Int32)}
      */
-    static XPS_COLOR_INTERPOLATION_SCRGBLINEAR => 1
+    static SCRGBLINEAR => 1
 
     /**
      * First, the color values are converted to sRGB, then a linear interpolation is performed between them.
+     * Native name: XPS_COLOR_INTERPOLATION_SRGBLINEAR
      * @type {Integer (Int32)}
      */
-    static XPS_COLOR_INTERPOLATION_SRGBLINEAR => 2
+    static SRGBLINEAR => 2
 }

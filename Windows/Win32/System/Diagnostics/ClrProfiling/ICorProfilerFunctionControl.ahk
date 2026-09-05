@@ -30,7 +30,6 @@ class ICorProfilerFunctionControl extends IUnknown {
     static VTableNames => ["SetCodegenFlags", "SetILFunctionBody", "SetILInstrumentedCodeMap"]
 
     /**
-     * 
      * @param {Integer} flags 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ICorProfilerFunctionControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbNewILMethodHeader 
      * @param {Pointer<Integer>} pbNewILMethodHeader 
      * @returns {HRESULT} 
@@ -53,7 +51,6 @@ class ICorProfilerFunctionControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cILMapEntries 
      * @param {Pointer<COR_IL_MAP>} rgILMapEntries 
      * @returns {HRESULT} 

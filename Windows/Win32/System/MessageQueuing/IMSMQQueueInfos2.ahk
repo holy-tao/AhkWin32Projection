@@ -37,7 +37,6 @@ class IMSMQQueueInfos2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -46,7 +45,6 @@ class IMSMQQueueInfos2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo2} 
      */
     Next() {
@@ -55,7 +53,6 @@ class IMSMQQueueInfos2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {

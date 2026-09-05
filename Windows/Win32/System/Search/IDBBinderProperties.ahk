@@ -29,7 +29,6 @@ class IDBBinderProperties extends IDBProperties {
     static VTableNames => ["Reset"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

@@ -59,7 +59,6 @@ class IDOMTextEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -69,7 +68,6 @@ class IDOMTextEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_inputMethod() {
@@ -78,7 +76,6 @@ class IDOMTextEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -98,7 +95,6 @@ class IDOMTextEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_locale() {

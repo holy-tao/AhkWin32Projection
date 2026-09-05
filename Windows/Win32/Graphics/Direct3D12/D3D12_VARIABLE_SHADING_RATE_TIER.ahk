@@ -10,19 +10,22 @@ class D3D12_VARIABLE_SHADING_RATE_TIER extends Win32Enum {
 
     /**
      * Specifies that variable-rate shading is not supported.
+     * Native name: D3D12_VARIABLE_SHADING_RATE_TIER_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VARIABLE_SHADING_RATE_TIER_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * Specifies that variable-rate shading tier 1 is supported.
+     * Native name: D3D12_VARIABLE_SHADING_RATE_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D12_VARIABLE_SHADING_RATE_TIER_1 => 1
+    static 1 => 1
 
     /**
      * Specifies that variable-rate shading tier 2 is supported.
+     * Native name: D3D12_VARIABLE_SHADING_RATE_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D12_VARIABLE_SHADING_RATE_TIER_2 => 2
+    static 2 => 2
 }

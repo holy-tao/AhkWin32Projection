@@ -10,55 +10,64 @@ class CLUSCTL_GROUPSET_CODES extends Win32Enum {
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-collection-get-common-properties">CLUSCTL_GROUPSET_GET_COMMON_PROPERTIES</a>.
+     * Native name: CLUSCTL_GROUPSET_GET_COMMON_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUPSET_GET_COMMON_PROPERTIES => 134217817
+    static GET_COMMON_PROPERTIES => 134217817
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-collection-get-ro-common-properties">CLUSCTL_GROUPSET_GET_RO_COMMON_PROPERTIES</a>.
+     * Native name: CLUSCTL_GROUPSET_GET_RO_COMMON_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUPSET_GET_RO_COMMON_PROPERTIES => 134217813
+    static GET_RO_COMMON_PROPERTIES => 134217813
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-collection-set-common-properties">CLUSCTL_GROUPSET_SET_COMMON_PROPERTIES</a>.
+     * Native name: CLUSCTL_GROUPSET_SET_COMMON_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUPSET_SET_COMMON_PROPERTIES => 138412126
+    static SET_COMMON_PROPERTIES => 138412126
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-collection-get-groups">CLUSCTL_GROUPSET_GET_GROUPS</a>.
+     * Native name: CLUSCTL_GROUPSET_GET_GROUPS
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUPSET_GET_GROUPS => 134229361
+    static GET_GROUPS => 134229361
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-collection-get-provider-groups">CLUSCTL_GROUPSET_GET_PROVIDER_GROUPS</a>.
+     * Native name: CLUSCTL_GROUPSET_GET_PROVIDER_GROUPS
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUPSET_GET_PROVIDER_GROUPS => 134229365
+    static GET_PROVIDER_GROUPS => 134229365
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-collection-get-provider-collections">CLUSCTL_GROUPSET_GET_PROVIDER_GROUPSETS</a>.
+     * Native name: CLUSCTL_GROUPSET_GET_PROVIDER_GROUPSETS
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUPSET_GET_PROVIDER_GROUPSETS => 134229369
+    static GET_PROVIDER_GROUPSETS => 134229369
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-get-provider-groups">CLUSCTL_GROUP_GET_PROVIDER_GROUPS</a>.
+     * Native name: CLUSCTL_GROUP_GET_PROVIDER_GROUPS
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUP_GET_PROVIDER_GROUPS => 134229373
+    static GROUP_GET_PROVIDER_GROUPS => 134229373
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-get-provider-collections">CLUSCTL_GROUP_GET_PROVIDER_GROUPSETS</a>.
+     * Native name: CLUSCTL_GROUP_GET_PROVIDER_GROUPSETS
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUP_GET_PROVIDER_GROUPSETS => 134229377
+    static GROUP_GET_PROVIDER_GROUPSETS => 134229377
 
     /**
      * See CLCTL_GET_ID.
+     * Native name: CLUSCTL_GROUPSET_GET_ID
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_GROUPSET_GET_ID => 134217785
+    static GET_ID => 134217785
 }

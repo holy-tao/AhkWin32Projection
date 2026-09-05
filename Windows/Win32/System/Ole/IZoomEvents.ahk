@@ -29,7 +29,6 @@ class IZoomEvents extends IUnknown {
     static VTableNames => ["OnZoomPercentChanged"]
 
     /**
-     * 
      * @param {Integer} ulZoomPercent 
      * @returns {HRESULT} 
      */

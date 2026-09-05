@@ -7,182 +7,218 @@
 class msidbControlAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbControlAttributesVisible
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesVisible => 1
+    static Visible => 1
 
     /**
+     * Native name: msidbControlAttributesEnabled
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesEnabled => 2
+    static Enabled => 2
 
     /**
+     * Native name: msidbControlAttributesSunken
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesSunken => 4
+    static Sunken => 4
 
     /**
+     * Native name: msidbControlAttributesIndirect
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesIndirect => 8
+    static Indirect => 8
 
     /**
+     * Native name: msidbControlAttributesInteger
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesInteger => 16
+    static Integer => 16
 
     /**
+     * Native name: msidbControlAttributesRTLRO
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesRTLRO => 32
+    static AttributesRTLRO => 32
 
     /**
+     * Native name: msidbControlAttributesRightAligned
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesRightAligned => 64
+    static RightAligned => 64
 
     /**
+     * Native name: msidbControlAttributesLeftScroll
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesLeftScroll => 128
+    static LeftScroll => 128
 
     /**
+     * Native name: msidbControlAttributesBiDi
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesBiDi => 224
+    static BiDi => 224
 
     /**
+     * Native name: msidbControlAttributesTransparent
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesTransparent => 65536
+    static Transparent => 65536
 
     /**
+     * Native name: msidbControlAttributesNoPrefix
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesNoPrefix => 131072
+    static NoPrefix => 131072
 
     /**
+     * Native name: msidbControlAttributesNoWrap
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesNoWrap => 262144
+    static NoWrap => 262144
 
     /**
+     * Native name: msidbControlAttributesFormatSize
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesFormatSize => 524288
+    static FormatSize => 524288
 
     /**
+     * Native name: msidbControlAttributesUsersLanguage
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesUsersLanguage => 1048576
+    static UsersLanguage => 1048576
 
     /**
+     * Native name: msidbControlAttributesMultiline
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesMultiline => 65536
+    static Multiline => 65536
 
     /**
+     * Native name: msidbControlAttributesPasswordInput
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesPasswordInput => 2097152
+    static PasswordInput => 2097152
 
     /**
+     * Native name: msidbControlAttributesProgress95
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesProgress95 => 65536
+    static Progress95 => 65536
 
     /**
+     * Native name: msidbControlAttributesRemovableVolume
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesRemovableVolume => 65536
+    static RemovableVolume => 65536
 
     /**
+     * Native name: msidbControlAttributesFixedVolume
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesFixedVolume => 131072
+    static FixedVolume => 131072
 
     /**
+     * Native name: msidbControlAttributesRemoteVolume
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesRemoteVolume => 262144
+    static RemoteVolume => 262144
 
     /**
+     * Native name: msidbControlAttributesCDROMVolume
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesCDROMVolume => 524288
+    static AttributesCDROMVolume => 524288
 
     /**
+     * Native name: msidbControlAttributesRAMDiskVolume
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesRAMDiskVolume => 1048576
+    static AttributesRAMDiskVolume => 1048576
 
     /**
+     * Native name: msidbControlAttributesFloppyVolume
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesFloppyVolume => 2097152
+    static FloppyVolume => 2097152
 
     /**
+     * Native name: msidbControlShowRollbackCost
      * @type {Integer (Int32)}
      */
-    static msidbControlShowRollbackCost => 4194304
+    static ShowRollbackCost => 4194304
 
     /**
+     * Native name: msidbControlAttributesSorted
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesSorted => 65536
+    static Sorted => 65536
 
     /**
+     * Native name: msidbControlAttributesComboList
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesComboList => 131072
+    static ComboList => 131072
 
     /**
+     * Native name: msidbControlAttributesImageHandle
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesImageHandle => 65536
+    static ImageHandle => 65536
 
     /**
+     * Native name: msidbControlAttributesPushLike
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesPushLike => 131072
+    static PushLike => 131072
 
     /**
+     * Native name: msidbControlAttributesBitmap
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesBitmap => 262144
+    static Bitmap => 262144
 
     /**
+     * Native name: msidbControlAttributesIcon
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesIcon => 524288
+    static Icon => 524288
 
     /**
+     * Native name: msidbControlAttributesFixedSize
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesFixedSize => 1048576
+    static FixedSize => 1048576
 
     /**
+     * Native name: msidbControlAttributesIconSize16
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesIconSize16 => 2097152
+    static IconSize16 => 2097152
 
     /**
+     * Native name: msidbControlAttributesIconSize32
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesIconSize32 => 4194304
+    static IconSize32 => 4194304
 
     /**
+     * Native name: msidbControlAttributesIconSize48
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesIconSize48 => 6291456
+    static IconSize48 => 6291456
 
     /**
+     * Native name: msidbControlAttributesElevationShield
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesElevationShield => 8388608
+    static ElevationShield => 8388608
 
     /**
+     * Native name: msidbControlAttributesHasBorder
      * @type {Integer (Int32)}
      */
-    static msidbControlAttributesHasBorder => 16777216
+    static HasBorder => 16777216
 }

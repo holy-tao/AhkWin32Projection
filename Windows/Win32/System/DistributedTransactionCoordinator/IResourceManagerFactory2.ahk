@@ -32,7 +32,6 @@ class IResourceManagerFactory2 extends IResourceManagerFactory {
     static VTableNames => ["CreateEx"]
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidRM 
      * @param {PSTR} pszRMName 
      * @param {IResourceManagerSink} pIResMgrSink 

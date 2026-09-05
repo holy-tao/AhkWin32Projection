@@ -7,37 +7,44 @@
 class stylePageBreak extends Win32Enum {
 
     /**
+     * Native name: stylePageBreakNotSet
      * @type {Integer (Int32)}
      */
-    static stylePageBreakNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: stylePageBreakAuto
      * @type {Integer (Int32)}
      */
-    static stylePageBreakAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: stylePageBreakAlways
      * @type {Integer (Int32)}
      */
-    static stylePageBreakAlways => 2
+    static Always => 2
 
     /**
+     * Native name: stylePageBreakLeft
      * @type {Integer (Int32)}
      */
-    static stylePageBreakLeft => 3
+    static Left => 3
 
     /**
+     * Native name: stylePageBreakRight
      * @type {Integer (Int32)}
      */
-    static stylePageBreakRight => 4
+    static Right => 4
 
     /**
+     * Native name: stylePageBreakAvoid
      * @type {Integer (Int32)}
      */
-    static stylePageBreakAvoid => 5
+    static Avoid => 5
 
     /**
+     * Native name: stylePageBreak_Max
      * @type {Integer (Int32)}
      */
-    static stylePageBreak_Max => 2147483647
+    static Max => 2147483647
 }

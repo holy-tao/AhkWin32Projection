@@ -38,7 +38,6 @@ class IPMExtensionShareTargetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcTypes 
      * @param {Pointer<Pointer<BSTR>>} ppTypes 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ class IPMExtensionShareTargetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcDataFormats 
      * @param {Pointer<Pointer<BSTR>>} ppDataFormats 
      * @returns {HRESULT} 
@@ -66,7 +64,6 @@ class IPMExtensionShareTargetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SupportsAllFileTypes() {

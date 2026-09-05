@@ -7,17 +7,20 @@
 class DOT11_DS_INFO extends Win32Enum {
 
     /**
+     * Native name: DOT11_DS_CHANGED
      * @type {Integer (Int32)}
      */
-    static DOT11_DS_CHANGED => 0
+    static CHANGED => 0
 
     /**
+     * Native name: DOT11_DS_UNCHANGED
      * @type {Integer (Int32)}
      */
-    static DOT11_DS_UNCHANGED => 1
+    static UNCHANGED => 1
 
     /**
+     * Native name: DOT11_DS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DOT11_DS_UNKNOWN => 2
+    static UNKNOWN => 2
 }

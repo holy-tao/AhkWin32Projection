@@ -19,24 +19,28 @@
 class D3D_TESSELLATOR_DOMAIN extends Win32Enum {
 
     /**
+     * Native name: D3D_TESSELLATOR_DOMAIN_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_DOMAIN_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: D3D_TESSELLATOR_DOMAIN_ISOLINE
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_DOMAIN_ISOLINE => 1
+    static ISOLINE => 1
 
     /**
+     * Native name: D3D_TESSELLATOR_DOMAIN_TRI
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_DOMAIN_TRI => 2
+    static TRI => 2
 
     /**
+     * Native name: D3D_TESSELLATOR_DOMAIN_QUAD
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_DOMAIN_QUAD => 3
+    static QUAD => 3
 
     /**
      * The data type is undefined.

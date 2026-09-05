@@ -12,49 +12,57 @@ class TYMED extends Win32Enum {
 
     /**
      * The storage medium is a global memory handle (<b>HGLOBAL</b>). Allocate the global handle with the GMEM_MOVEABLE flag. If the <b>punkForRelease</b> member of <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> is <b>NULL</b>, the destination process should use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> to release the memory.
+     * Native name: TYMED_HGLOBAL
      * @type {Integer (Int32)}
      */
-    static TYMED_HGLOBAL => 1
+    static HGLOBAL => 1
 
     /**
      * The storage medium is a disk file identified by a path. If the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> <b>punkForRelease</b> member is <b>NULL</b>, the destination process should use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openfile">OpenFile</a> to delete the file.
+     * Native name: TYMED_FILE
      * @type {Integer (Int32)}
      */
-    static TYMED_FILE => 2
+    static FILE => 2
 
     /**
      * The storage medium is a stream object identified by an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer. Use <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> to read the data. If the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> <b>punkForRelease</b> member is not <b>NULL</b>, the destination process should use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> to release the stream component.
+     * Native name: TYMED_ISTREAM
      * @type {Integer (Int32)}
      */
-    static TYMED_ISTREAM => 4
+    static ISTREAM => 4
 
     /**
      * The storage medium is a storage component identified by an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer. The data is in the streams and storages contained by this <b>IStorage</b> instance. If the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> <b>punkForRelease</b> member is not <b>NULL</b>, the destination process should use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> to release the storage component.
+     * Native name: TYMED_ISTORAGE
      * @type {Integer (Int32)}
      */
-    static TYMED_ISTORAGE => 8
+    static ISTORAGE => 8
 
     /**
      * The storage medium is a GDI component (<b>HBITMAP</b>). If the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> <b>punkForRelease</b> member is <b>NULL</b>, the destination process should use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> to delete the bitmap.
+     * Native name: TYMED_GDI
      * @type {Integer (Int32)}
      */
-    static TYMED_GDI => 16
+    static GDI => 16
 
     /**
      * The storage medium is a metafile (<b>METAFILEPICT</b>). Use the GDI functions to access the metafile's data. If the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> <b>punkForRelease</b> member is <b>NULL</b>, the destination process should use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> to delete the bitmap.
+     * Native name: TYMED_MFPICT
      * @type {Integer (Int32)}
      */
-    static TYMED_MFPICT => 32
+    static MFPICT => 32
 
     /**
      * The storage medium is an enhanced metafile (<b>HENHMETAFILE</b>). If the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> <b>punkForRelease</b> member is <b>NULL</b>, the destination process should use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> to delete the bitmap.
+     * Native name: TYMED_ENHMF
      * @type {Integer (Int32)}
      */
-    static TYMED_ENHMF => 64
+    static ENHMF => 64
 
     /**
      * No data is being passed.
+     * Native name: TYMED_NULL
      * @type {Integer (Int32)}
      */
-    static TYMED_NULL => 0
+    static NULL => 0
 }

@@ -10,13 +10,15 @@ class ADS_PASSWORD_ENCODING_ENUM extends Win32Enum {
 
     /**
      * Passwords are encoded using SSL.
+     * Native name: ADS_PASSWORD_ENCODE_REQUIRE_SSL
      * @type {Integer (Int32)}
      */
-    static ADS_PASSWORD_ENCODE_REQUIRE_SSL => 0
+    static ENCODE_REQUIRE_SSL => 0
 
     /**
      * Passwords are not encoded and are transmitted in plaintext.
+     * Native name: ADS_PASSWORD_ENCODE_CLEAR
      * @type {Integer (Int32)}
      */
-    static ADS_PASSWORD_ENCODE_CLEAR => 1
+    static ENCODE_CLEAR => 1
 }

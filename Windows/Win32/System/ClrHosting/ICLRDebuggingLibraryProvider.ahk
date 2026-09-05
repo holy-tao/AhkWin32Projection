@@ -31,7 +31,6 @@ class ICLRDebuggingLibraryProvider extends IUnknown {
     static VTableNames => ["ProvideLibrary"]
 
     /**
-     * 
      * @param {PWSTR} pwszFileName 
      * @param {Integer} dwTimestamp 
      * @param {Integer} dwSizeOfImage 

@@ -10,7 +10,8 @@ class WbemTimeout extends Win32Enum {
 
     /**
      * Use for parameters that use a time-out value such as <i>iTimeoutMs</i> for <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-execnotificationquery">ISWbemServices.ExecNotificationQuery</a> and the call will not return unless an event is received.
+     * Native name: wbemTimeoutInfinite
      * @type {Integer (Int32)}
      */
-    static wbemTimeoutInfinite => -1
+    static Infinite => -1
 }

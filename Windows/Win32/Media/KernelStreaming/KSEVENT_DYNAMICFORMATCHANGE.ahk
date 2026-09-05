@@ -7,7 +7,8 @@
 class KSEVENT_DYNAMICFORMATCHANGE extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_DYNAMIC_FORMAT_CHANGE
      * @type {Integer (Int32)}
      */
-    static KSEVENT_DYNAMIC_FORMAT_CHANGE => 0
+    static DYNAMIC_FORMAT_CHANGE => 0
 }

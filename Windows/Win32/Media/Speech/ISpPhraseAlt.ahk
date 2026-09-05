@@ -29,7 +29,6 @@ class ISpPhraseAlt extends ISpPhrase {
     static VTableNames => ["GetAltInfo", "Commit"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pulStartElementInParent 
      * @param {Pointer<Integer>} pcElementsInParent 
      * @param {Pointer<Integer>} pcElementsInAlt 
@@ -45,7 +44,6 @@ class ISpPhraseAlt extends ISpPhrase {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {

@@ -46,7 +46,6 @@ class IHTMLTableCell3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ class IHTMLTableCell3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ch() {
@@ -68,7 +66,6 @@ class IHTMLTableCell3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ class IHTMLTableCell3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_chOff() {

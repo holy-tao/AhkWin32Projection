@@ -194,7 +194,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -203,7 +202,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -212,7 +210,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientX() {
@@ -221,7 +218,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientY() {
@@ -230,7 +226,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -239,7 +234,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -248,7 +242,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -257,7 +250,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
@@ -266,7 +258,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_button() {
@@ -275,7 +266,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_relatedTarget() {
@@ -284,7 +274,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -310,7 +299,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} keyArg 
      * @returns {VARIANT_BOOL} 
      */
@@ -322,7 +310,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_buttons() {
@@ -331,7 +318,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_fromElement() {
@@ -340,7 +326,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_toElement() {
@@ -349,7 +334,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -358,7 +342,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_y() {
@@ -367,7 +350,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetX() {
@@ -376,7 +358,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetY() {
@@ -385,7 +366,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageX() {
@@ -394,7 +374,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageY() {
@@ -403,7 +382,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_layerX() {
@@ -412,7 +390,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_layerY() {
@@ -421,7 +398,6 @@ class IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_which() {

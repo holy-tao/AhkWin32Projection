@@ -10,13 +10,15 @@ class NVME_DIRECTIVE_TYPES extends Win32Enum {
 
     /**
      * A directive for an Identify operation.
+     * Native name: NVME_DIRECTIVE_TYPE_IDENTIFY
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_TYPE_IDENTIFY => 0
+    static TYPE_IDENTIFY => 0
 
     /**
      * A directive for a Streams operation.
+     * Native name: NVME_DIRECTIVE_TYPE_STREAMS
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_TYPE_STREAMS => 1
+    static TYPE_STREAMS => 1
 }

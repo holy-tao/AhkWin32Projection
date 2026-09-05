@@ -12,19 +12,22 @@ class CSC_SxsConfig extends Win32Enum {
 
     /**
      * Side-by-side assemblies are not used within the enclosed context. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.
+     * Native name: CSC_NoSxs
      * @type {Integer (Int32)}
      */
-    static CSC_NoSxs => 0
+    static NoSxs => 0
 
     /**
      * The current side-by-side assembly of the enclosed context is used. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Inherit.
+     * Native name: CSC_InheritSxs
      * @type {Integer (Int32)}
      */
-    static CSC_InheritSxs => 1
+    static InheritSxs => 1
 
     /**
      * A new side-by-side assembly is created for the enclosed context.
+     * Native name: CSC_NewSxs
      * @type {Integer (Int32)}
      */
-    static CSC_NewSxs => 2
+    static NewSxs => 2
 }

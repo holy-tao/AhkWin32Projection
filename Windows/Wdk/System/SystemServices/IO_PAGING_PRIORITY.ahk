@@ -7,27 +7,32 @@
 class IO_PAGING_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: IoPagingPriorityInvalid
      * @type {Integer (Int32)}
      */
-    static IoPagingPriorityInvalid => 0
+    static Invalid => 0
 
     /**
+     * Native name: IoPagingPriorityNormal
      * @type {Integer (Int32)}
      */
-    static IoPagingPriorityNormal => 1
+    static Normal => 1
 
     /**
+     * Native name: IoPagingPriorityHigh
      * @type {Integer (Int32)}
      */
-    static IoPagingPriorityHigh => 2
+    static High => 2
 
     /**
+     * Native name: IoPagingPriorityReserved1
      * @type {Integer (Int32)}
      */
-    static IoPagingPriorityReserved1 => 3
+    static Reserved1 => 3
 
     /**
+     * Native name: IoPagingPriorityReserved2
      * @type {Integer (Int32)}
      */
-    static IoPagingPriorityReserved2 => 4
+    static Reserved2 => 4
 }

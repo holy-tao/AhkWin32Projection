@@ -10,19 +10,22 @@ class FAILURE_TYPE extends Win32Enum {
 
     /**
      * A general failure.
+     * Native name: FAILURE_TYPE_GENERAL
      * @type {Integer (Int32)}
      */
-    static FAILURE_TYPE_GENERAL => 0
+    static GENERAL => 0
 
     /**
      * An embedded failure.
+     * Native name: FAILURE_TYPE_EMBEDDED
      * @type {Integer (Int32)}
      */
-    static FAILURE_TYPE_EMBEDDED => 1
+    static EMBEDDED => 1
 
     /**
      * A network failure.
+     * Native name: FAILURE_TYPE_NETWORK_LOSS
      * @type {Integer (Int32)}
      */
-    static FAILURE_TYPE_NETWORK_LOSS => 2
+    static NETWORK_LOSS => 2
 }

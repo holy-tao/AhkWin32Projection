@@ -31,7 +31,6 @@ class IErrorLookup extends IUnknown {
     static VTableNames => ["GetErrorDescription", "GetHelpInfo", "ReleaseErrors"]
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {Integer} dwLookupID 
      * @param {Pointer<DISPPARAMS>} pdispparams 
@@ -46,7 +45,6 @@ class IErrorLookup extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {Integer} dwLookupID 
      * @param {Integer} lcid 
@@ -62,7 +60,6 @@ class IErrorLookup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwDynamicErrorID 
      * @returns {HRESULT} 
      */

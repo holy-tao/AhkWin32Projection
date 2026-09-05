@@ -31,7 +31,6 @@ class ICLROnEventManager extends IUnknown {
     static VTableNames => ["RegisterActionOnEvent", "UnregisterActionOnEvent"]
 
     /**
-     * 
      * @param {EClrEvent} event 
      * @param {IActionOnCLREvent} pAction 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class ICLROnEventManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrEvent} event 
      * @param {IActionOnCLREvent} pAction 
      * @returns {HRESULT} 

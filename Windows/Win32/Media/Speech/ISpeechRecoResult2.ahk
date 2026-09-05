@@ -31,7 +31,6 @@ class ISpeechRecoResult2 extends ISpeechRecoResult {
     static VTableNames => ["SetTextFeedback"]
 
     /**
-     * 
      * @param {BSTR} Feedback 
      * @param {VARIANT_BOOL} WasSuccessful 
      * @returns {HRESULT} 

@@ -10,13 +10,15 @@ class PEER_GROUP_STATUS extends Win32Enum {
 
     /**
      * The peer group is awaiting new connections.
+     * Native name: PEER_GROUP_STATUS_LISTENING
      * @type {Integer (Int32)}
      */
-    static PEER_GROUP_STATUS_LISTENING => 1
+    static LISTENING => 1
 
     /**
      * The peer group has at least one connection.
+     * Native name: PEER_GROUP_STATUS_HAS_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static PEER_GROUP_STATUS_HAS_CONNECTIONS => 2
+    static HAS_CONNECTIONS => 2
 }

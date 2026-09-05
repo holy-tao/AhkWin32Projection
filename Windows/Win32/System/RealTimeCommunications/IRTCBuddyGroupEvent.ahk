@@ -60,7 +60,6 @@ class IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_GROUP_EVENT_TYPE} 
      */
     get_EventType() {
@@ -69,7 +68,6 @@ class IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCBuddyGroup} 
      */
     get_Group() {
@@ -78,7 +76,6 @@ class IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCBuddy2} 
      */
     get_Buddy() {
@@ -87,7 +84,6 @@ class IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {

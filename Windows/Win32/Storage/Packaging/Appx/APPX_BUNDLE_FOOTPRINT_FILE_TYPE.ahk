@@ -10,31 +10,36 @@ class APPX_BUNDLE_FOOTPRINT_FILE_TYPE extends Win32Enum {
 
     /**
      * The bundle's first footprint file, which is the bundle manifest.
+     * Native name: APPX_BUNDLE_FOOTPRINT_FILE_TYPE_FIRST
      * @type {Integer (Int32)}
      */
-    static APPX_BUNDLE_FOOTPRINT_FILE_TYPE_FIRST => 0
+    static FIRST => 0
 
     /**
      * The bundle manifest.
+     * Native name: APPX_BUNDLE_FOOTPRINT_FILE_TYPE_MANIFEST
      * @type {Integer (Int32)}
      */
-    static APPX_BUNDLE_FOOTPRINT_FILE_TYPE_MANIFEST => 0
+    static MANIFEST => 0
 
     /**
      * The bundle block map.
+     * Native name: APPX_BUNDLE_FOOTPRINT_FILE_TYPE_BLOCKMAP
      * @type {Integer (Int32)}
      */
-    static APPX_BUNDLE_FOOTPRINT_FILE_TYPE_BLOCKMAP => 1
+    static BLOCKMAP => 1
 
     /**
      * The bundle signature.
+     * Native name: APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE
      * @type {Integer (Int32)}
      */
-    static APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE => 2
+    static SIGNATURE => 2
 
     /**
      * The bundle's last footprint file, which is the bundle signature.
+     * Native name: APPX_BUNDLE_FOOTPRINT_FILE_TYPE_LAST
      * @type {Integer (Int32)}
      */
-    static APPX_BUNDLE_FOOTPRINT_FILE_TYPE_LAST => 2
+    static LAST => 2
 }

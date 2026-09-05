@@ -12,43 +12,50 @@ class AMExtendedSeekingCapabilities extends Win32Enum {
 
     /**
      * Indicates that the stream is seekable.
+     * Native name: AM_EXSEEK_CANSEEK
      * @type {Integer (Int32)}
      */
-    static AM_EXSEEK_CANSEEK => 1
+    static EXSEEK_CANSEEK => 1
 
     /**
      * Indicates that the filter supports rates other than 1.0.
+     * Native name: AM_EXSEEK_CANSCAN
      * @type {Integer (Int32)}
      */
-    static AM_EXSEEK_CANSCAN => 2
+    static EXSEEK_CANSCAN => 2
 
     /**
      * Indicates that the stream contains markers.
+     * Native name: AM_EXSEEK_MARKERSEEK
      * @type {Integer (Int32)}
      */
-    static AM_EXSEEK_MARKERSEEK => 4
+    static EXSEEK_MARKERSEEK => 4
 
     /**
      * Indicates that the filter can play back at rates other than 1.0.
+     * Native name: AM_EXSEEK_SCANWITHOUTCLOCK
      * @type {Integer (Int32)}
      */
-    static AM_EXSEEK_SCANWITHOUTCLOCK => 8
+    static EXSEEK_SCANWITHOUTCLOCK => 8
 
     /**
      * Indicates that the filter can seek to a new frame without displaying the new frame when it finds it.
+     * Native name: AM_EXSEEK_NOSTANDARDREPAINT
      * @type {Integer (Int32)}
      */
-    static AM_EXSEEK_NOSTANDARDREPAINT => 16
+    static EXSEEK_NOSTANDARDREPAINT => 16
 
     /**
      * Indicates that the filter can seek while the stream is buffering.
+     * Native name: AM_EXSEEK_BUFFERING
      * @type {Integer (Int32)}
      */
-    static AM_EXSEEK_BUFFERING => 32
+    static EXSEEK_BUFFERING => 32
 
     /**
      * Indicates that the filter's video pin has been created.
+     * Native name: AM_EXSEEK_SENDS_VIDEOFRAMEREADY
      * @type {Integer (Int32)}
      */
-    static AM_EXSEEK_SENDS_VIDEOFRAMEREADY => 64
+    static EXSEEK_SENDS_VIDEOFRAMEREADY => 64
 }

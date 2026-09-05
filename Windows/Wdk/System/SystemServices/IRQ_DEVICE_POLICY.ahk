@@ -7,37 +7,44 @@
 class IRQ_DEVICE_POLICY extends Win32Enum {
 
     /**
+     * Native name: IrqPolicyMachineDefault
      * @type {Integer (Int32)}
      */
-    static IrqPolicyMachineDefault => 0
+    static MachineDefault => 0
 
     /**
+     * Native name: IrqPolicyAllCloseProcessors
      * @type {Integer (Int32)}
      */
-    static IrqPolicyAllCloseProcessors => 1
+    static AllCloseProcessors => 1
 
     /**
+     * Native name: IrqPolicyOneCloseProcessor
      * @type {Integer (Int32)}
      */
-    static IrqPolicyOneCloseProcessor => 2
+    static OneCloseProcessor => 2
 
     /**
+     * Native name: IrqPolicyAllProcessorsInMachine
      * @type {Integer (Int32)}
      */
-    static IrqPolicyAllProcessorsInMachine => 3
+    static AllProcessorsInMachine => 3
 
     /**
+     * Native name: IrqPolicySpecifiedProcessors
      * @type {Integer (Int32)}
      */
-    static IrqPolicySpecifiedProcessors => 4
+    static SpecifiedProcessors => 4
 
     /**
+     * Native name: IrqPolicySpreadMessagesAcrossAllProcessors
      * @type {Integer (Int32)}
      */
-    static IrqPolicySpreadMessagesAcrossAllProcessors => 5
+    static SpreadMessagesAcrossAllProcessors => 5
 
     /**
+     * Native name: IrqPolicyAllProcessorsInMachineWhenSteered
      * @type {Integer (Int32)}
      */
-    static IrqPolicyAllProcessorsInMachineWhenSteered => 6
+    static AllProcessorsInMachineWhenSteered => 6
 }

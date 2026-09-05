@@ -7,57 +7,68 @@
 class DitherType extends Win32Enum {
 
     /**
+     * Native name: DitherTypeNone
      * @type {Integer (Int32)}
      */
-    static DitherTypeNone => 0
+    static None => 0
 
     /**
+     * Native name: DitherTypeSolid
      * @type {Integer (Int32)}
      */
-    static DitherTypeSolid => 1
+    static Solid => 1
 
     /**
+     * Native name: DitherTypeOrdered4x4
      * @type {Integer (Int32)}
      */
-    static DitherTypeOrdered4x4 => 2
+    static Ordered4x4 => 2
 
     /**
+     * Native name: DitherTypeOrdered8x8
      * @type {Integer (Int32)}
      */
-    static DitherTypeOrdered8x8 => 3
+    static Ordered8x8 => 3
 
     /**
+     * Native name: DitherTypeOrdered16x16
      * @type {Integer (Int32)}
      */
-    static DitherTypeOrdered16x16 => 4
+    static Ordered16x16 => 4
 
     /**
+     * Native name: DitherTypeSpiral4x4
      * @type {Integer (Int32)}
      */
-    static DitherTypeSpiral4x4 => 5
+    static Spiral4x4 => 5
 
     /**
+     * Native name: DitherTypeSpiral8x8
      * @type {Integer (Int32)}
      */
-    static DitherTypeSpiral8x8 => 6
+    static Spiral8x8 => 6
 
     /**
+     * Native name: DitherTypeDualSpiral4x4
      * @type {Integer (Int32)}
      */
-    static DitherTypeDualSpiral4x4 => 7
+    static DualSpiral4x4 => 7
 
     /**
+     * Native name: DitherTypeDualSpiral8x8
      * @type {Integer (Int32)}
      */
-    static DitherTypeDualSpiral8x8 => 8
+    static DualSpiral8x8 => 8
 
     /**
+     * Native name: DitherTypeErrorDiffusion
      * @type {Integer (Int32)}
      */
-    static DitherTypeErrorDiffusion => 9
+    static ErrorDiffusion => 9
 
     /**
+     * Native name: DitherTypeMax
      * @type {Integer (Int32)}
      */
-    static DitherTypeMax => 10
+    static Max => 10
 }

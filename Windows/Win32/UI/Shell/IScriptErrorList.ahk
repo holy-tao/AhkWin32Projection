@@ -31,7 +31,6 @@ class IScriptErrorList extends IDispatch {
     static VTableNames => ["advanceError", "retreatError", "canAdvanceError", "canRetreatError", "getErrorLine", "getErrorChar", "getErrorCode", "getErrorMsg", "getErrorUrl", "getAlwaysShowLockState", "getDetailsPaneOpen", "setDetailsPaneOpen", "getPerErrorDisplay", "setPerErrorDisplay"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     advanceError() {
@@ -40,7 +39,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     retreatError() {
@@ -49,7 +47,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     canAdvanceError() {
@@ -58,7 +55,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     canRetreatError() {
@@ -67,7 +63,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getErrorLine() {
@@ -76,7 +71,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getErrorChar() {
@@ -85,7 +79,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getErrorCode() {
@@ -94,7 +87,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getErrorMsg() {
@@ -104,7 +96,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getErrorUrl() {
@@ -114,7 +105,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     getAlwaysShowLockState() {
@@ -123,7 +113,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     getDetailsPaneOpen() {
@@ -132,7 +121,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} fDetailsPaneOpen 
      * @returns {HRESULT} 
      */
@@ -142,7 +130,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     getPerErrorDisplay() {
@@ -151,7 +138,6 @@ class IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} fPerErrorDisplay 
      * @returns {HRESULT} 
      */

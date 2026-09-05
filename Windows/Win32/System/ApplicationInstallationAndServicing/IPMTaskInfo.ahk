@@ -164,7 +164,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -174,7 +173,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -184,7 +182,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pNavigationPage 
      * @returns {HRESULT} 
      */
@@ -194,7 +191,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_TASK_TRANSITION} 
      */
     get_TaskTransition() {
@@ -203,7 +199,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PACKMAN_RUNTIME} 
      */
     get_RuntimeType() {
@@ -212,7 +207,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_ACTIVATION_POLICY} 
      */
     get_ActivationPolicy() {
@@ -221,7 +215,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_TASK_TYPE} 
      */
     get_TaskType() {
@@ -230,7 +223,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -241,7 +233,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImagePath 
      * @returns {HRESULT} 
      */
@@ -251,7 +242,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageParams 
      * @returns {HRESULT} 
      */
@@ -261,7 +251,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pInstallRootFolder 
      * @returns {HRESULT} 
      */
@@ -271,7 +260,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDataRootFolder 
      * @returns {HRESULT} 
      */
@@ -281,7 +269,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsSingleInstanceHost() {
@@ -290,7 +277,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsInteropEnabled() {
@@ -299,7 +285,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_STATE} 
      */
     get_ApplicationState() {
@@ -308,7 +293,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_INSTALL_TYPE} 
      */
     get_InstallType() {
@@ -317,7 +301,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pTargetMajorVersion 
      * @param {Pointer<Integer>} pTargetMinorVersion 
      * @returns {HRESULT} 
@@ -331,7 +314,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BitsPerPixel() {
@@ -340,7 +322,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SuppressesDehydration() {
@@ -349,7 +330,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBackgroundExecutionAbilities 
      * @returns {HRESULT} 
      */
@@ -359,7 +339,6 @@ class IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOptedForExtendedMem() {

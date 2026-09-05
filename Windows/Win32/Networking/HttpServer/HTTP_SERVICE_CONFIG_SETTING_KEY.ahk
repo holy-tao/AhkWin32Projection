@@ -7,12 +7,14 @@
 class HTTP_SERVICE_CONFIG_SETTING_KEY extends Win32Enum {
 
     /**
+     * Native name: HttpNone
      * @type {Integer (Int32)}
      */
-    static HttpNone => 0
+    static None => 0
 
     /**
+     * Native name: HttpTlsThrottle
      * @type {Integer (Int32)}
      */
-    static HttpTlsThrottle => 1
+    static TlsThrottle => 1
 }

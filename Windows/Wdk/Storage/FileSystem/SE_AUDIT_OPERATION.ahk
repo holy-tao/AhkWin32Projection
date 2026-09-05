@@ -7,67 +7,80 @@
 class SE_AUDIT_OPERATION extends Win32Enum {
 
     /**
+     * Native name: AuditPrivilegeObject
      * @type {Integer (Int32)}
      */
-    static AuditPrivilegeObject => 0
+    static PrivilegeObject => 0
 
     /**
+     * Native name: AuditPrivilegeService
      * @type {Integer (Int32)}
      */
-    static AuditPrivilegeService => 1
+    static PrivilegeService => 1
 
     /**
+     * Native name: AuditAccessCheck
      * @type {Integer (Int32)}
      */
-    static AuditAccessCheck => 2
+    static AccessCheck => 2
 
     /**
+     * Native name: AuditOpenObject
      * @type {Integer (Int32)}
      */
-    static AuditOpenObject => 3
+    static OpenObject => 3
 
     /**
+     * Native name: AuditOpenObjectWithTransaction
      * @type {Integer (Int32)}
      */
-    static AuditOpenObjectWithTransaction => 4
+    static OpenObjectWithTransaction => 4
 
     /**
+     * Native name: AuditCloseObject
      * @type {Integer (Int32)}
      */
-    static AuditCloseObject => 5
+    static CloseObject => 5
 
     /**
+     * Native name: AuditDeleteObject
      * @type {Integer (Int32)}
      */
-    static AuditDeleteObject => 6
+    static DeleteObject => 6
 
     /**
+     * Native name: AuditOpenObjectForDelete
      * @type {Integer (Int32)}
      */
-    static AuditOpenObjectForDelete => 7
+    static OpenObjectForDelete => 7
 
     /**
+     * Native name: AuditOpenObjectForDeleteWithTransaction
      * @type {Integer (Int32)}
      */
-    static AuditOpenObjectForDeleteWithTransaction => 8
+    static OpenObjectForDeleteWithTransaction => 8
 
     /**
+     * Native name: AuditCloseNonObject
      * @type {Integer (Int32)}
      */
-    static AuditCloseNonObject => 9
+    static CloseNonObject => 9
 
     /**
+     * Native name: AuditOpenNonObject
      * @type {Integer (Int32)}
      */
-    static AuditOpenNonObject => 10
+    static OpenNonObject => 10
 
     /**
+     * Native name: AuditObjectReference
      * @type {Integer (Int32)}
      */
-    static AuditObjectReference => 11
+    static ObjectReference => 11
 
     /**
+     * Native name: AuditHandleCreation
      * @type {Integer (Int32)}
      */
-    static AuditHandleCreation => 12
+    static HandleCreation => 12
 }

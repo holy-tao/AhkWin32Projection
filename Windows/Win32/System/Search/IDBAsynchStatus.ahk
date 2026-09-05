@@ -30,7 +30,6 @@ class IDBAsynchStatus extends IUnknown {
     static VTableNames => ["Abort", "GetStatus"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IDBAsynchStatus extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @param {Pointer<Pointer>} pulProgress 

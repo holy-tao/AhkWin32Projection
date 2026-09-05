@@ -10,7 +10,8 @@ class MFSequencerTopologyFlags extends Win32Enum {
 
     /**
      * This topology is the last topology in the sequence.
+     * Native name: SequencerTopologyFlags_Last
      * @type {Integer (Int32)}
      */
-    static SequencerTopologyFlags_Last => 1
+    static Last => 1
 }

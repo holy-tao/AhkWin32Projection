@@ -30,7 +30,6 @@ class IViewChapter extends IUnknown {
     static VTableNames => ["GetSpecification", "OpenViewChapter"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -40,7 +39,6 @@ class IViewChapter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hSource 
      * @returns {Pointer} 
      */

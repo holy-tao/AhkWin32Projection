@@ -10,30 +10,35 @@ class MF_SHARING_ENGINE_EVENT extends Win32Enum {
 
     /**
      * Reserved for internal use.
+     * Native name: MF_SHARING_ENGINE_EVENT_DISCONNECT
      * @type {Integer (Int32)}
      */
-    static MF_SHARING_ENGINE_EVENT_DISCONNECT => 2000
+    static DISCONNECT => 2000
 
     /**
      * Reserved for internal use.
+     * Native name: MF_SHARING_ENGINE_EVENT_LOCALRENDERINGSTARTED
      * @type {Integer (Int32)}
      */
-    static MF_SHARING_ENGINE_EVENT_LOCALRENDERINGSTARTED => 2001
+    static LOCALRENDERINGSTARTED => 2001
 
     /**
      * Reserved for internal use.
+     * Native name: MF_SHARING_ENGINE_EVENT_LOCALRENDERINGENDED
      * @type {Integer (Int32)}
      */
-    static MF_SHARING_ENGINE_EVENT_LOCALRENDERINGENDED => 2002
+    static LOCALRENDERINGENDED => 2002
 
     /**
      * The device has stopped.
+     * Native name: MF_SHARING_ENGINE_EVENT_STOPPED
      * @type {Integer (Int32)}
      */
-    static MF_SHARING_ENGINE_EVENT_STOPPED => 2003
+    static STOPPED => 2003
 
     /**
+     * Native name: MF_SHARING_ENGINE_EVENT_ERROR
      * @type {Integer (Int32)}
      */
-    static MF_SHARING_ENGINE_EVENT_ERROR => 2501
+    static ERROR => 2501
 }

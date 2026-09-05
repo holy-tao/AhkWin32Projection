@@ -32,7 +32,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     static VTableNames => ["GetInputCount", "GetOutputCount", "IsInputValid", "IsOutputValid", "GetInputEdgeDescription", "GetOutputEdgeDescription", "HasTensorShapeDescription", "GetTensorShapeDescription", "GetExecutionInterface"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputCount() {
@@ -41,7 +40,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -50,7 +48,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Boolean} 
      */
@@ -60,7 +57,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Boolean} 
      */
@@ -70,7 +66,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -81,7 +76,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -92,7 +86,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     HasTensorShapeDescription() {
@@ -101,7 +94,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @returns {IMLOperatorTensorShapeDescription} 
      */
     GetTensorShapeDescription() {
@@ -110,7 +102,6 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Pointer<IUnknown>} executionObject 
      * @returns {String} Nothing - always returns an empty string
      */

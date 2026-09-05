@@ -31,7 +31,6 @@ class ID3DShaderCacheExplorer extends IUnknown {
     static VTableNames => ["GetApplicationFromExePath"]
 
     /**
-     * 
      * @param {PWSTR} pFullExePath 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

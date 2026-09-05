@@ -12,19 +12,22 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAGS extends Win32BitflagE
 
     /**
      * Search block size is not supported by the encoder.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The encoder supports a search block size of 8x8 pixels.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAG_8X8
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAG_8X8 => 1
+    static FLAG_8X8 => 1
 
     /**
      * The encoder supports a search block size of 16x16 pixels.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAG_16X16
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAG_16X16 => 2
+    static FLAG_16X16 => 2
 }

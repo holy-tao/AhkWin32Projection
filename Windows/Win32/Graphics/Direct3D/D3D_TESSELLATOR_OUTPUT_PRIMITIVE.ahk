@@ -19,29 +19,34 @@
 class D3D_TESSELLATOR_OUTPUT_PRIMITIVE extends Win32Enum {
 
     /**
+     * Native name: D3D_TESSELLATOR_OUTPUT_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_OUTPUT_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: D3D_TESSELLATOR_OUTPUT_POINT
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_OUTPUT_POINT => 1
+    static POINT => 1
 
     /**
+     * Native name: D3D_TESSELLATOR_OUTPUT_LINE
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_OUTPUT_LINE => 2
+    static LINE => 2
 
     /**
+     * Native name: D3D_TESSELLATOR_OUTPUT_TRIANGLE_CW
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_OUTPUT_TRIANGLE_CW => 3
+    static TRIANGLE_CW => 3
 
     /**
+     * Native name: D3D_TESSELLATOR_OUTPUT_TRIANGLE_CCW
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_OUTPUT_TRIANGLE_CCW => 4
+    static TRIANGLE_CCW => 4
 
     /**
      * The output primitive type is undefined.

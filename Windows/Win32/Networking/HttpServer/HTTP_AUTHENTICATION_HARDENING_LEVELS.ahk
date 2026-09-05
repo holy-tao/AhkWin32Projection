@@ -10,19 +10,22 @@ class HTTP_AUTHENTICATION_HARDENING_LEVELS extends Win32Enum {
 
     /**
      * Server is not hardened and operates without Channel Binding Token (CBT) support.
+     * Native name: HttpAuthenticationHardeningLegacy
      * @type {Integer (Int32)}
      */
-    static HttpAuthenticationHardeningLegacy => 0
+    static Legacy => 0
 
     /**
      * Server is partially hardened.  Clients that support CBT are serviced appropriately.  Legacy clients are also serviced.
+     * Native name: HttpAuthenticationHardeningMedium
      * @type {Integer (Int32)}
      */
-    static HttpAuthenticationHardeningMedium => 1
+    static Medium => 1
 
     /**
      * Server is hardened.  Only clients that supported CBT are serviced.
+     * Native name: HttpAuthenticationHardeningStrict
      * @type {Integer (Int32)}
      */
-    static HttpAuthenticationHardeningStrict => 2
+    static Strict => 2
 }

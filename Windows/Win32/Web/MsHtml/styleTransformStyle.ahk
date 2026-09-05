@@ -7,22 +7,26 @@
 class styleTransformStyle extends Win32Enum {
 
     /**
+     * Native name: styleTransformStyleFlat
      * @type {Integer (Int32)}
      */
-    static styleTransformStyleFlat => 0
+    static Flat => 0
 
     /**
+     * Native name: styleTransformStylePreserve3D
      * @type {Integer (Int32)}
      */
-    static styleTransformStylePreserve3D => 1
+    static Preserve3D => 1
 
     /**
+     * Native name: styleTransformStyleNotSet
      * @type {Integer (Int32)}
      */
-    static styleTransformStyleNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleTransformStyle_Max
      * @type {Integer (Int32)}
      */
-    static styleTransformStyle_Max => 2147483647
+    static Max => 2147483647
 }

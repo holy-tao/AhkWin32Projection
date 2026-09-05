@@ -7,37 +7,44 @@
 class GdiplusStartupParams extends Win32Enum {
 
     /**
+     * Native name: GdiplusStartupDefault
      * @type {Integer (Int32)}
      */
-    static GdiplusStartupDefault => 0
+    static Default => 0
 
     /**
+     * Native name: GdiplusStartupNoSetRound
      * @type {Integer (Int32)}
      */
-    static GdiplusStartupNoSetRound => 1
+    static NoSetRound => 1
 
     /**
+     * Native name: GdiplusStartupSetPSValue
      * @type {Integer (Int32)}
      */
-    static GdiplusStartupSetPSValue => 2
+    static SetPSValue => 2
 
     /**
+     * Native name: GdiplusStartupReserved0
      * @type {Integer (Int32)}
      */
-    static GdiplusStartupReserved0 => 4
+    static Reserved0 => 4
 
     /**
+     * Native name: GdiplusStartupReserved1
      * @type {Integer (Int32)}
      */
-    static GdiplusStartupReserved1 => 8
+    static Reserved1 => 8
 
     /**
+     * Native name: GdiplusStartupReserved2
      * @type {Integer (Int32)}
      */
-    static GdiplusStartupReserved2 => 16
+    static Reserved2 => 16
 
     /**
+     * Native name: GdiplusStartupTransparencyMask
      * @type {Integer (Int32)}
      */
-    static GdiplusStartupTransparencyMask => -16777216
+    static TransparencyMask => -16777216
 }

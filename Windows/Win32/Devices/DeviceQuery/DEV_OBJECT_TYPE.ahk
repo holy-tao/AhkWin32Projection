@@ -7,67 +7,80 @@
 class DEV_OBJECT_TYPE extends Win32Enum {
 
     /**
+     * Native name: DevObjectTypeUnknown
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DevObjectTypeDeviceInterface
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDeviceInterface => 1
+    static DeviceInterface => 1
 
     /**
+     * Native name: DevObjectTypeDeviceContainer
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDeviceContainer => 2
+    static DeviceContainer => 2
 
     /**
+     * Native name: DevObjectTypeDevice
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDevice => 3
+    static Device => 3
 
     /**
+     * Native name: DevObjectTypeDeviceInterfaceClass
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDeviceInterfaceClass => 4
+    static DeviceInterfaceClass => 4
 
     /**
+     * Native name: DevObjectTypeAEP
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeAEP => 5
+    static TypeAEP => 5
 
     /**
+     * Native name: DevObjectTypeAEPContainer
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeAEPContainer => 6
+    static TypeAEPContainer => 6
 
     /**
+     * Native name: DevObjectTypeDeviceInstallerClass
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDeviceInstallerClass => 7
+    static DeviceInstallerClass => 7
 
     /**
+     * Native name: DevObjectTypeDeviceInterfaceDisplay
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDeviceInterfaceDisplay => 8
+    static DeviceInterfaceDisplay => 8
 
     /**
+     * Native name: DevObjectTypeDeviceContainerDisplay
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDeviceContainerDisplay => 9
+    static DeviceContainerDisplay => 9
 
     /**
+     * Native name: DevObjectTypeAEPService
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeAEPService => 10
+    static TypeAEPService => 10
 
     /**
+     * Native name: DevObjectTypeDevicePanel
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeDevicePanel => 11
+    static DevicePanel => 11
 
     /**
+     * Native name: DevObjectTypeAEPProtocol
      * @type {Integer (Int32)}
      */
-    static DevObjectTypeAEPProtocol => 12
+    static TypeAEPProtocol => 12
 }

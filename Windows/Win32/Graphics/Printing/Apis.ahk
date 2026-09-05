@@ -7122,7 +7122,6 @@ class Printing {
 
 ;@region Methods
     /**
-     * 
      * @param {HWND} hWndOwner 
      * @param {Pointer<PFNPROPSHEETUI>} _pfnPropSheetUI 
      * @param {LPARAM} _lParam 
@@ -7139,7 +7138,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HWND} hWndOwner 
      * @param {Pointer<PFNPROPSHEETUI>} _pfnPropSheetUI 
      * @param {LPARAM} _lParam 
@@ -7156,7 +7154,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @returns {Pointer} 
      */
@@ -7168,7 +7165,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {Pointer} CPSUIUserData 
      * @returns {BOOL} 
@@ -10019,7 +10015,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HANDLE} hInst 
      * @param {Pointer<DEVMODEA>} pDevModeOutput 
@@ -11328,7 +11323,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Flags 
      * @returns {Integer} 
@@ -11528,7 +11522,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} _Error 
      * @param {HWND} _hWnd 
@@ -11548,7 +11541,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} _Error 
      * @param {HWND} _hWnd 
@@ -11596,7 +11588,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<Integer>} pForm 
@@ -11612,7 +11603,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<Integer>} pForm 
@@ -12320,7 +12310,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hXcv 
      * @param {PWSTR} pszDataName 
      * @param {Integer} pInputData 
@@ -12921,7 +12910,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PSTR} pszName 
      * @param {Integer} dwLevel 
@@ -13385,7 +13373,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pEnvironment 
@@ -13467,7 +13454,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {PWSTR} pszName 
@@ -13483,7 +13469,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer<PrintPropertyValue>} pValue 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13492,7 +13477,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Integer} cProperties 
      * @param {Pointer<Pointer<PrintNamedProperty>>} ppProperties 
      * @returns {String} Nothing - always returns an empty string
@@ -13504,7 +13488,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<PrintNamedProperty>} pProperty 
@@ -13518,7 +13501,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {PWSTR} pszName 
@@ -13533,7 +13515,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<Integer>} pcProperties 
@@ -13551,7 +13532,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PWSTR} pszPrinter 
      * @param {Pointer<HANDLE>} phFile 
@@ -13569,7 +13549,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer<DEVQUERYPRINT_INFO>} pDQPInfo 
      * @returns {BOOL} 
      */
@@ -13747,7 +13726,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hNotify 
      * @returns {HRESULT} 
      */
@@ -13759,7 +13737,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {Pointer<Guid>} pNotificationType 
      * @param {PrintAsyncNotifyUserFilter} eNotifyFilter 
@@ -13775,7 +13752,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PWSTR} pPrinter 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -13788,7 +13764,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrinterName 
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {PWSTR} pwszDocName 
@@ -13804,7 +13779,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @returns {BOOL} 
      */
@@ -13816,7 +13790,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @returns {Integer} 
      */
@@ -13828,7 +13801,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @returns {HDC} 
      */
@@ -13841,7 +13813,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} Page 
      * @param {Pointer<Integer>} pdwPageType 
@@ -13858,7 +13829,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {Pointer<DOCINFOW>} pDocInfo 
      * @returns {BOOL} 
@@ -13871,7 +13841,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @returns {BOOL} 
      */
@@ -13883,7 +13852,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {HANDLE} hemf 
      * @param {Pointer<RECT>} prectDocument 
@@ -13900,7 +13868,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} dwOptimization 
      * @returns {BOOL} 
@@ -13913,7 +13880,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @returns {BOOL} 
      */
@@ -13925,7 +13891,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} dwPageNumber 
      * @param {Pointer<Pointer<DEVMODEW>>} pCurrDM 
@@ -13943,7 +13908,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {Pointer<DEVMODEW>} pCurrDM 
      * @returns {BOOL} 
@@ -13956,7 +13920,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PWSTR} pPrinterName 
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {Pointer<ATTRIBUTE_INFO_3>} pAttributeInfo 
@@ -13970,7 +13933,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PWSTR} pPrinterName 
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {Integer} dwLevel 
@@ -13987,7 +13949,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<DEVMODEW>} pDevMode 
      * @returns {HANDLE} 
@@ -14001,7 +13962,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinterIC 
      * @param {Integer} pIn 
      * @param {Integer} cIn 
@@ -14018,7 +13978,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinterIC 
      * @returns {BOOL} 
      */
@@ -14030,7 +13989,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<DEVMODEA>} pDevMode 
      * @param {Pointer<Integer>} pResID 
@@ -14046,7 +14004,6 @@ class Printing {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     static RevertToPrinterSelf() {
@@ -14056,7 +14013,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hToken 
      * @returns {BOOL} 
      */
@@ -14068,7 +14024,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwChangeFlags 
      * @param {Pointer<Integer>} pdwResult 
@@ -14086,7 +14041,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hNotify 
      * @param {Integer} dwColor 
      * @param {Integer} fdwFlags 
@@ -14105,7 +14059,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<PRINTER_NOTIFY_INFO_DATA>} pDataSrc 
      * @returns {BOOL} 
@@ -14118,7 +14071,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Integer} cPrinterNotifyInfoData 
      * @returns {Pointer<PRINTER_NOTIFY_INFO>} 
      */
@@ -14128,7 +14080,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pInfo 
      * @returns {BOOL} 
      */
@@ -14138,7 +14089,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @returns {Pointer<BIDI_RESPONSE_CONTAINER>} 
      */
@@ -14148,7 +14098,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer} NumBytes 
      * @returns {Pointer<Void>} 
      */
@@ -14158,7 +14107,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer<BIDI_RESPONSE_CONTAINER>} pData 
      * @returns {Integer} 
      */
@@ -14168,7 +14116,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pMemPointer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14179,7 +14126,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pInfoDest 
      * @param {Pointer<PRINTER_NOTIFY_INFO_DATA>} pDataSrc 
      * @param {Integer} fdwFlags 
@@ -14191,7 +14137,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinterRPC 
      * @param {Integer} fdwFilterFlags 
      * @param {Integer} fdwOptions 
@@ -14208,7 +14153,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwFlags 
      * @param {Integer} fdwOptions 
@@ -14229,7 +14173,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
      */
@@ -14241,7 +14184,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwFilterFlags 
      * @param {Integer} fdwOptions 
@@ -14264,7 +14206,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<Integer>} pfdwChange 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
@@ -14283,7 +14224,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} dwColor 
      * @param {Pointer<PRINTER_NOTIFY_OPTIONS>} pOptions 
@@ -14300,7 +14240,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pInfo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14309,7 +14248,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
      */
@@ -14321,7 +14259,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPrinterName 
      * @param {PWSTR} pszKey 
      * @param {Integer} dwCopyFileEvent 
@@ -14336,7 +14273,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPrinterName 
      * @param {PWSTR} pszDirectory 
      * @param {Pointer<Integer>} pSplClientInfo 
@@ -14363,7 +14299,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<SHOWUIPARAMS>} pUIParams 
@@ -14380,7 +14315,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<BOOL>} pIsSessionZero 
@@ -14396,7 +14330,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {HANDLE} 
      */
@@ -14409,7 +14342,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {HANDLE} hDeviceObject 
      * @returns {HRESULT} 
@@ -14423,7 +14355,6 @@ class Printing {
     }
 
     /**
-     * 
      * @param {HANDLE} hDeviceObject 
      * @returns {HRESULT} 
      */

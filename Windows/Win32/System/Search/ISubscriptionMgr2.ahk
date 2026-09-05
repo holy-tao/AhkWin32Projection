@@ -33,7 +33,6 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     static VTableNames => ["GetItemFromURL", "GetItemFromCookie", "GetSubscriptionRunState", "EnumSubscriptions", "UpdateItems", "AbortItems", "AbortAll"]
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {ISubscriptionItem} 
      */
@@ -45,7 +44,6 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pSubscriptionCookie 
      * @returns {ISubscriptionItem} 
      */
@@ -55,7 +53,6 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwNumCookies 
      * @param {Pointer<Guid>} pCookies 
      * @returns {Integer} 
@@ -66,7 +63,6 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {IEnumSubscription} 
      */
@@ -76,7 +72,6 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} dwNumCookies 
      * @param {Pointer<Guid>} pCookies 
@@ -88,7 +83,6 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwNumCookies 
      * @param {Pointer<Guid>} pCookies 
      * @returns {HRESULT} 
@@ -99,7 +93,6 @@ class ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AbortAll() {

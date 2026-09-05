@@ -30,7 +30,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     static VTableNames => ["GetInputCount", "GetOutputCount", "IsInputValid", "IsOutputValid", "GetInputEdgeDescription", "GetInputTensorDimensionCount", "GetInputTensorShape", "SetOutputTensorShape"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputCount() {
@@ -39,7 +38,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -48,7 +46,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Boolean} 
      */
@@ -58,7 +55,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Boolean} 
      */
@@ -68,7 +64,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -79,7 +74,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Integer} 
      */
@@ -89,7 +83,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 
@@ -100,7 +93,6 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @param {Pointer<Integer>} dimensions 

@@ -7,17 +7,20 @@
 class GameInputEnumerationKind extends Win32Enum {
 
     /**
+     * Native name: GameInputNoEnumeration
      * @type {Integer (Int32)}
      */
-    static GameInputNoEnumeration => 0
+    static NoEnumeration => 0
 
     /**
+     * Native name: GameInputAsyncEnumeration
      * @type {Integer (Int32)}
      */
-    static GameInputAsyncEnumeration => 1
+    static AsyncEnumeration => 1
 
     /**
+     * Native name: GameInputBlockingEnumeration
      * @type {Integer (Int32)}
      */
-    static GameInputBlockingEnumeration => 2
+    static BlockingEnumeration => 2
 }

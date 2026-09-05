@@ -10,19 +10,22 @@ class COMPOSITION_FRAME_ID_TYPE extends Win32Enum {
 
     /**
      * The compositor has started working on the frame.
+     * Native name: COMPOSITION_FRAME_ID_CREATED
      * @type {Integer (Int32)}
      */
-    static COMPOSITION_FRAME_ID_CREATED => 0
+    static CREATED => 0
 
     /**
      * CPU work is completed and any presents have taken place.
+     * Native name: COMPOSITION_FRAME_ID_CONFIRMED
      * @type {Integer (Int32)}
      */
-    static COMPOSITION_FRAME_ID_CONFIRMED => 1
+    static CONFIRMED => 1
 
     /**
      * GPU work is completed for all render targets associated with the frame.
+     * Native name: COMPOSITION_FRAME_ID_COMPLETED
      * @type {Integer (Int32)}
      */
-    static COMPOSITION_FRAME_ID_COMPLETED => 2
+    static COMPLETED => 2
 }

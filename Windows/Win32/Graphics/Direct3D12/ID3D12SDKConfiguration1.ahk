@@ -31,7 +31,6 @@ class ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration {
     static VTableNames => ["CreateDeviceFactory", "FreeUnusedSDKs"]
 
     /**
-     * 
      * @param {Integer} SDKVersion 
      * @param {PSTR} SDKPath 
      * @param {Pointer<Guid>} riid 
@@ -45,7 +44,6 @@ class ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     FreeUnusedSDKs() {

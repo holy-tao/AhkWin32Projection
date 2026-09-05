@@ -10,31 +10,36 @@ class APPX_PACKAGE_ARCHITECTURE extends Win32Enum {
 
     /**
      * The x86 processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE_X86
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE_X86 => 0
+    static X86 => 0
 
     /**
      * The ARM processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE_ARM
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE_ARM => 5
+    static ARM => 5
 
     /**
      * The x64 processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE_X64
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE_X64 => 9
+    static X64 => 9
 
     /**
      * Any  processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE_NEUTRAL
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE_NEUTRAL => 11
+    static NEUTRAL => 11
 
     /**
      * The 64-bit ARM processor architecture.
+     * Native name: APPX_PACKAGE_ARCHITECTURE_ARM64
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_ARCHITECTURE_ARM64 => 12
+    static ARM64 => 12
 }

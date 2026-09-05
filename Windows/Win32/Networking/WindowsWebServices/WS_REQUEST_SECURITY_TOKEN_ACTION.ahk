@@ -10,19 +10,22 @@ class WS_REQUEST_SECURITY_TOKEN_ACTION extends Win32Enum {
 
     /**
      * Use the "request" action defined in WS-Trust.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_ACTION_ISSUE
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_ACTION_ISSUE => 1
+    static ISSUE => 1
 
     /**
      * Use the "request" action defined in WS-SecureConversation.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_ACTION_NEW_CONTEXT
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_ACTION_NEW_CONTEXT => 2
+    static NEW_CONTEXT => 2
 
     /**
      * Use the "renew" action defined in WS-SecureConversation. Requires <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_request_security_token_property_id">WS_REQUEST_SECURITY_TOKEN_PROPERTY_EXISTING_TOKEN</a>.
+     * Native name: WS_REQUEST_SECURITY_TOKEN_ACTION_RENEW_CONTEXT
      * @type {Integer (Int32)}
      */
-    static WS_REQUEST_SECURITY_TOKEN_ACTION_RENEW_CONTEXT => 3
+    static RENEW_CONTEXT => 3
 }

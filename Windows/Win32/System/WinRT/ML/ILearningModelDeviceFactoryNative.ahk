@@ -30,7 +30,6 @@ class ILearningModelDeviceFactoryNative extends IUnknown {
     static VTableNames => ["CreateFromD3D12CommandQueue"]
 
     /**
-     * 
      * @param {ID3D12CommandQueue} value 
      * @returns {IUnknown} 
      */

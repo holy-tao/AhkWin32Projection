@@ -30,7 +30,6 @@ class IEnumSpObjectTokens extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "Item", "GetCount"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<ISpObjectToken>} pelt 
      * @param {Pointer<Integer>} pceltFetched 
@@ -44,7 +43,6 @@ class IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSpObjectTokens} 
      */
     Clone() {
@@ -88,7 +84,6 @@ class IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 
      */

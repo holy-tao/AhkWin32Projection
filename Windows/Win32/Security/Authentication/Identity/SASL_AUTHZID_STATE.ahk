@@ -7,12 +7,14 @@
 class SASL_AUTHZID_STATE extends Win32Enum {
 
     /**
+     * Native name: Sasl_AuthZIDForbidden
      * @type {Integer (Int32)}
      */
-    static Sasl_AuthZIDForbidden => 0
+    static AuthZIDForbidden => 0
 
     /**
+     * Native name: Sasl_AuthZIDProcessed
      * @type {Integer (Int32)}
      */
-    static Sasl_AuthZIDProcessed => 1
+    static AuthZIDProcessed => 1
 }

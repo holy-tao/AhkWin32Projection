@@ -10,7 +10,8 @@ class D2D1_EXPOSURE_PROP extends Win32Enum {
 
     /**
      * The D2D1_EXPOSURE_PROP_EXPOSURE_VALUE property is a float value that specifies how much to increase or decrease the exposure of the image. The allowed range is -2.0 to 2.0. The default value is 0.0 (no change).
+     * Native name: D2D1_EXPOSURE_PROP_EXPOSURE_VALUE
      * @type {Integer (Int32)}
      */
-    static D2D1_EXPOSURE_PROP_EXPOSURE_VALUE => 0
+    static EXPOSURE_VALUE => 0
 }

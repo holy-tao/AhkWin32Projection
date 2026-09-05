@@ -14,7 +14,8 @@ class CLUS_FLAGS extends Win32Enum {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> function with the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-get-flags">CLUSCTL_RESOURCE_GET_FLAGS</a> control 
      *        code can retrieve the flags that are set for a resource.
+     * Native name: CLUS_FLAG_CORE
      * @type {Integer (Int32)}
      */
-    static CLUS_FLAG_CORE => 1
+    static FLAG_CORE => 1
 }

@@ -10,19 +10,22 @@ class HTTP_SERVICE_BINDING_TYPE extends Win32Enum {
 
     /**
      * No type.
+     * Native name: HttpServiceBindingTypeNone
      * @type {Integer (Int32)}
      */
-    static HttpServiceBindingTypeNone => 0
+    static None => 0
 
     /**
      * Unicode.
+     * Native name: HttpServiceBindingTypeW
      * @type {Integer (Int32)}
      */
-    static HttpServiceBindingTypeW => 1
+    static TypeW => 1
 
     /**
      * ASCII
+     * Native name: HttpServiceBindingTypeA
      * @type {Integer (Int32)}
      */
-    static HttpServiceBindingTypeA => 2
+    static TypeA => 2
 }

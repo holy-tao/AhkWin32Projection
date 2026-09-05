@@ -52,7 +52,6 @@ class ISWbemNamedValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -62,7 +61,6 @@ class ISWbemNamedValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varValue 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ class ISWbemNamedValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {

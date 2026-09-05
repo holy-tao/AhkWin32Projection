@@ -44,7 +44,6 @@ class IActiveScriptSiteWindow extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */

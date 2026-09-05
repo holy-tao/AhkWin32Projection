@@ -7,42 +7,50 @@
 class NETLOGON_LOGON_INFO_CLASS extends Win32Enum {
 
     /**
+     * Native name: NetlogonInteractiveInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonInteractiveInformation => 1
+    static InteractiveInformation => 1
 
     /**
+     * Native name: NetlogonNetworkInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonNetworkInformation => 2
+    static NetworkInformation => 2
 
     /**
+     * Native name: NetlogonServiceInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonServiceInformation => 3
+    static ServiceInformation => 3
 
     /**
+     * Native name: NetlogonGenericInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonGenericInformation => 4
+    static GenericInformation => 4
 
     /**
+     * Native name: NetlogonInteractiveTransitiveInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonInteractiveTransitiveInformation => 5
+    static InteractiveTransitiveInformation => 5
 
     /**
+     * Native name: NetlogonNetworkTransitiveInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonNetworkTransitiveInformation => 6
+    static NetworkTransitiveInformation => 6
 
     /**
+     * Native name: NetlogonServiceTransitiveInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonServiceTransitiveInformation => 7
+    static ServiceTransitiveInformation => 7
 
     /**
+     * Native name: NetlogonTicketLogonInformation
      * @type {Integer (Int32)}
      */
-    static NetlogonTicketLogonInformation => 8
+    static TicketLogonInformation => 8
 }

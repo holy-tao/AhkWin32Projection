@@ -7,7 +7,8 @@
 class KSPROPERTY_DRMAUDIOSTREAM extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_DRMAUDIOSTREAM_CONTENTID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DRMAUDIOSTREAM_CONTENTID => 0
+    static CONTENTID => 0
 }

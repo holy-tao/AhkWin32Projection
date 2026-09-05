@@ -7,32 +7,38 @@
 class NtmsOpreqState extends Win32Enum {
 
     /**
+     * Native name: NTMS_OPSTATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_OPSTATE_UNKNOWN => 0
+    static OPSTATE_UNKNOWN => 0
 
     /**
+     * Native name: NTMS_OPSTATE_SUBMITTED
      * @type {Integer (Int32)}
      */
-    static NTMS_OPSTATE_SUBMITTED => 1
+    static OPSTATE_SUBMITTED => 1
 
     /**
+     * Native name: NTMS_OPSTATE_ACTIVE
      * @type {Integer (Int32)}
      */
-    static NTMS_OPSTATE_ACTIVE => 2
+    static OPSTATE_ACTIVE => 2
 
     /**
+     * Native name: NTMS_OPSTATE_INPROGRESS
      * @type {Integer (Int32)}
      */
-    static NTMS_OPSTATE_INPROGRESS => 3
+    static OPSTATE_INPROGRESS => 3
 
     /**
+     * Native name: NTMS_OPSTATE_REFUSED
      * @type {Integer (Int32)}
      */
-    static NTMS_OPSTATE_REFUSED => 4
+    static OPSTATE_REFUSED => 4
 
     /**
+     * Native name: NTMS_OPSTATE_COMPLETE
      * @type {Integer (Int32)}
      */
-    static NTMS_OPSTATE_COMPLETE => 5
+    static OPSTATE_COMPLETE => 5
 }

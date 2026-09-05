@@ -7,27 +7,32 @@
 class COMAdminApplicationExportOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminExportNoUsers
      * @type {Integer (Int32)}
      */
-    static COMAdminExportNoUsers => 0
+    static NoUsers => 0
 
     /**
+     * Native name: COMAdminExportUsers
      * @type {Integer (Int32)}
      */
-    static COMAdminExportUsers => 1
+    static Users => 1
 
     /**
+     * Native name: COMAdminExportApplicationProxy
      * @type {Integer (Int32)}
      */
-    static COMAdminExportApplicationProxy => 2
+    static ApplicationProxy => 2
 
     /**
+     * Native name: COMAdminExportForceOverwriteOfFiles
      * @type {Integer (Int32)}
      */
-    static COMAdminExportForceOverwriteOfFiles => 4
+    static ForceOverwriteOfFiles => 4
 
     /**
+     * Native name: COMAdminExportIn10Format
      * @type {Integer (Int32)}
      */
-    static COMAdminExportIn10Format => 16
+    static In10Format => 16
 }

@@ -31,7 +31,6 @@ class IDebugHost extends IUnknown {
     static VTableNames => ["GetHostDefinedInterface", "GetCurrentContext", "GetDefaultMetadata"]
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetHostDefinedInterface() {
@@ -40,7 +39,6 @@ class IDebugHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     GetCurrentContext() {
@@ -49,7 +47,6 @@ class IDebugHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IKeyStore} 
      */
     GetDefaultMetadata() {

@@ -7,387 +7,464 @@
 class FILE_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: FileDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileDirectoryInformation => 1
+    static DirectoryInformation => 1
 
     /**
+     * Native name: FileFullDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileFullDirectoryInformation => 2
+    static FullDirectoryInformation => 2
 
     /**
+     * Native name: FileBothDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileBothDirectoryInformation => 3
+    static BothDirectoryInformation => 3
 
     /**
+     * Native name: FileBasicInformation
      * @type {Integer (Int32)}
      */
-    static FileBasicInformation => 4
+    static BasicInformation => 4
 
     /**
+     * Native name: FileStandardInformation
      * @type {Integer (Int32)}
      */
-    static FileStandardInformation => 5
+    static StandardInformation => 5
 
     /**
+     * Native name: FileInternalInformation
      * @type {Integer (Int32)}
      */
-    static FileInternalInformation => 6
+    static InternalInformation => 6
 
     /**
+     * Native name: FileEaInformation
      * @type {Integer (Int32)}
      */
-    static FileEaInformation => 7
+    static EaInformation => 7
 
     /**
+     * Native name: FileAccessInformation
      * @type {Integer (Int32)}
      */
-    static FileAccessInformation => 8
+    static AccessInformation => 8
 
     /**
+     * Native name: FileNameInformation
      * @type {Integer (Int32)}
      */
-    static FileNameInformation => 9
+    static NameInformation => 9
 
     /**
+     * Native name: FileRenameInformation
      * @type {Integer (Int32)}
      */
-    static FileRenameInformation => 10
+    static RenameInformation => 10
 
     /**
+     * Native name: FileLinkInformation
      * @type {Integer (Int32)}
      */
-    static FileLinkInformation => 11
+    static LinkInformation => 11
 
     /**
+     * Native name: FileNamesInformation
      * @type {Integer (Int32)}
      */
-    static FileNamesInformation => 12
+    static NamesInformation => 12
 
     /**
+     * Native name: FileDispositionInformation
      * @type {Integer (Int32)}
      */
-    static FileDispositionInformation => 13
+    static DispositionInformation => 13
 
     /**
+     * Native name: FilePositionInformation
      * @type {Integer (Int32)}
      */
-    static FilePositionInformation => 14
+    static PositionInformation => 14
 
     /**
+     * Native name: FileFullEaInformation
      * @type {Integer (Int32)}
      */
-    static FileFullEaInformation => 15
+    static FullEaInformation => 15
 
     /**
+     * Native name: FileModeInformation
      * @type {Integer (Int32)}
      */
-    static FileModeInformation => 16
+    static ModeInformation => 16
 
     /**
+     * Native name: FileAlignmentInformation
      * @type {Integer (Int32)}
      */
-    static FileAlignmentInformation => 17
+    static AlignmentInformation => 17
 
     /**
+     * Native name: FileAllInformation
      * @type {Integer (Int32)}
      */
-    static FileAllInformation => 18
+    static AllInformation => 18
 
     /**
+     * Native name: FileAllocationInformation
      * @type {Integer (Int32)}
      */
-    static FileAllocationInformation => 19
+    static AllocationInformation => 19
 
     /**
+     * Native name: FileEndOfFileInformation
      * @type {Integer (Int32)}
      */
-    static FileEndOfFileInformation => 20
+    static EndOfFileInformation => 20
 
     /**
+     * Native name: FileAlternateNameInformation
      * @type {Integer (Int32)}
      */
-    static FileAlternateNameInformation => 21
+    static AlternateNameInformation => 21
 
     /**
+     * Native name: FileStreamInformation
      * @type {Integer (Int32)}
      */
-    static FileStreamInformation => 22
+    static StreamInformation => 22
 
     /**
+     * Native name: FilePipeInformation
      * @type {Integer (Int32)}
      */
-    static FilePipeInformation => 23
+    static PipeInformation => 23
 
     /**
+     * Native name: FilePipeLocalInformation
      * @type {Integer (Int32)}
      */
-    static FilePipeLocalInformation => 24
+    static PipeLocalInformation => 24
 
     /**
+     * Native name: FilePipeRemoteInformation
      * @type {Integer (Int32)}
      */
-    static FilePipeRemoteInformation => 25
+    static PipeRemoteInformation => 25
 
     /**
+     * Native name: FileMailslotQueryInformation
      * @type {Integer (Int32)}
      */
-    static FileMailslotQueryInformation => 26
+    static MailslotQueryInformation => 26
 
     /**
+     * Native name: FileMailslotSetInformation
      * @type {Integer (Int32)}
      */
-    static FileMailslotSetInformation => 27
+    static MailslotSetInformation => 27
 
     /**
+     * Native name: FileCompressionInformation
      * @type {Integer (Int32)}
      */
-    static FileCompressionInformation => 28
+    static CompressionInformation => 28
 
     /**
+     * Native name: FileObjectIdInformation
      * @type {Integer (Int32)}
      */
-    static FileObjectIdInformation => 29
+    static ObjectIdInformation => 29
 
     /**
+     * Native name: FileCompletionInformation
      * @type {Integer (Int32)}
      */
-    static FileCompletionInformation => 30
+    static CompletionInformation => 30
 
     /**
+     * Native name: FileMoveClusterInformation
      * @type {Integer (Int32)}
      */
-    static FileMoveClusterInformation => 31
+    static MoveClusterInformation => 31
 
     /**
+     * Native name: FileQuotaInformation
      * @type {Integer (Int32)}
      */
-    static FileQuotaInformation => 32
+    static QuotaInformation => 32
 
     /**
+     * Native name: FileReparsePointInformation
      * @type {Integer (Int32)}
      */
-    static FileReparsePointInformation => 33
+    static ReparsePointInformation => 33
 
     /**
+     * Native name: FileNetworkOpenInformation
      * @type {Integer (Int32)}
      */
-    static FileNetworkOpenInformation => 34
+    static NetworkOpenInformation => 34
 
     /**
+     * Native name: FileAttributeTagInformation
      * @type {Integer (Int32)}
      */
-    static FileAttributeTagInformation => 35
+    static AttributeTagInformation => 35
 
     /**
+     * Native name: FileTrackingInformation
      * @type {Integer (Int32)}
      */
-    static FileTrackingInformation => 36
+    static TrackingInformation => 36
 
     /**
+     * Native name: FileIdBothDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileIdBothDirectoryInformation => 37
+    static IdBothDirectoryInformation => 37
 
     /**
+     * Native name: FileIdFullDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileIdFullDirectoryInformation => 38
+    static IdFullDirectoryInformation => 38
 
     /**
+     * Native name: FileValidDataLengthInformation
      * @type {Integer (Int32)}
      */
-    static FileValidDataLengthInformation => 39
+    static ValidDataLengthInformation => 39
 
     /**
+     * Native name: FileShortNameInformation
      * @type {Integer (Int32)}
      */
-    static FileShortNameInformation => 40
+    static ShortNameInformation => 40
 
     /**
+     * Native name: FileIoCompletionNotificationInformation
      * @type {Integer (Int32)}
      */
-    static FileIoCompletionNotificationInformation => 41
+    static IoCompletionNotificationInformation => 41
 
     /**
+     * Native name: FileIoStatusBlockRangeInformation
      * @type {Integer (Int32)}
      */
-    static FileIoStatusBlockRangeInformation => 42
+    static IoStatusBlockRangeInformation => 42
 
     /**
+     * Native name: FileIoPriorityHintInformation
      * @type {Integer (Int32)}
      */
-    static FileIoPriorityHintInformation => 43
+    static IoPriorityHintInformation => 43
 
     /**
+     * Native name: FileSfioReserveInformation
      * @type {Integer (Int32)}
      */
-    static FileSfioReserveInformation => 44
+    static SfioReserveInformation => 44
 
     /**
+     * Native name: FileSfioVolumeInformation
      * @type {Integer (Int32)}
      */
-    static FileSfioVolumeInformation => 45
+    static SfioVolumeInformation => 45
 
     /**
+     * Native name: FileHardLinkInformation
      * @type {Integer (Int32)}
      */
-    static FileHardLinkInformation => 46
+    static HardLinkInformation => 46
 
     /**
+     * Native name: FileProcessIdsUsingFileInformation
      * @type {Integer (Int32)}
      */
-    static FileProcessIdsUsingFileInformation => 47
+    static ProcessIdsUsingFileInformation => 47
 
     /**
+     * Native name: FileNormalizedNameInformation
      * @type {Integer (Int32)}
      */
-    static FileNormalizedNameInformation => 48
+    static NormalizedNameInformation => 48
 
     /**
+     * Native name: FileNetworkPhysicalNameInformation
      * @type {Integer (Int32)}
      */
-    static FileNetworkPhysicalNameInformation => 49
+    static NetworkPhysicalNameInformation => 49
 
     /**
+     * Native name: FileIdGlobalTxDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileIdGlobalTxDirectoryInformation => 50
+    static IdGlobalTxDirectoryInformation => 50
 
     /**
+     * Native name: FileIsRemoteDeviceInformation
      * @type {Integer (Int32)}
      */
-    static FileIsRemoteDeviceInformation => 51
+    static IsRemoteDeviceInformation => 51
 
     /**
+     * Native name: FileUnusedInformation
      * @type {Integer (Int32)}
      */
-    static FileUnusedInformation => 52
+    static UnusedInformation => 52
 
     /**
+     * Native name: FileNumaNodeInformation
      * @type {Integer (Int32)}
      */
-    static FileNumaNodeInformation => 53
+    static NumaNodeInformation => 53
 
     /**
+     * Native name: FileStandardLinkInformation
      * @type {Integer (Int32)}
      */
-    static FileStandardLinkInformation => 54
+    static StandardLinkInformation => 54
 
     /**
+     * Native name: FileRemoteProtocolInformation
      * @type {Integer (Int32)}
      */
-    static FileRemoteProtocolInformation => 55
+    static RemoteProtocolInformation => 55
 
     /**
+     * Native name: FileRenameInformationBypassAccessCheck
      * @type {Integer (Int32)}
      */
-    static FileRenameInformationBypassAccessCheck => 56
+    static RenameInformationBypassAccessCheck => 56
 
     /**
+     * Native name: FileLinkInformationBypassAccessCheck
      * @type {Integer (Int32)}
      */
-    static FileLinkInformationBypassAccessCheck => 57
+    static LinkInformationBypassAccessCheck => 57
 
     /**
+     * Native name: FileVolumeNameInformation
      * @type {Integer (Int32)}
      */
-    static FileVolumeNameInformation => 58
+    static VolumeNameInformation => 58
 
     /**
+     * Native name: FileIdInformation
      * @type {Integer (Int32)}
      */
-    static FileIdInformation => 59
+    static IdInformation => 59
 
     /**
+     * Native name: FileIdExtdDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileIdExtdDirectoryInformation => 60
+    static IdExtdDirectoryInformation => 60
 
     /**
+     * Native name: FileReplaceCompletionInformation
      * @type {Integer (Int32)}
      */
-    static FileReplaceCompletionInformation => 61
+    static ReplaceCompletionInformation => 61
 
     /**
+     * Native name: FileHardLinkFullIdInformation
      * @type {Integer (Int32)}
      */
-    static FileHardLinkFullIdInformation => 62
+    static HardLinkFullIdInformation => 62
 
     /**
+     * Native name: FileIdExtdBothDirectoryInformation
      * @type {Integer (Int32)}
      */
-    static FileIdExtdBothDirectoryInformation => 63
+    static IdExtdBothDirectoryInformation => 63
 
     /**
+     * Native name: FileDispositionInformationEx
      * @type {Integer (Int32)}
      */
-    static FileDispositionInformationEx => 64
+    static DispositionInformationEx => 64
 
     /**
+     * Native name: FileRenameInformationEx
      * @type {Integer (Int32)}
      */
-    static FileRenameInformationEx => 65
+    static RenameInformationEx => 65
 
     /**
+     * Native name: FileRenameInformationExBypassAccessCheck
      * @type {Integer (Int32)}
      */
-    static FileRenameInformationExBypassAccessCheck => 66
+    static RenameInformationExBypassAccessCheck => 66
 
     /**
+     * Native name: FileDesiredStorageClassInformation
      * @type {Integer (Int32)}
      */
-    static FileDesiredStorageClassInformation => 67
+    static DesiredStorageClassInformation => 67
 
     /**
+     * Native name: FileStatInformation
      * @type {Integer (Int32)}
      */
-    static FileStatInformation => 68
+    static StatInformation => 68
 
     /**
+     * Native name: FileMemoryPartitionInformation
      * @type {Integer (Int32)}
      */
-    static FileMemoryPartitionInformation => 69
+    static MemoryPartitionInformation => 69
 
     /**
+     * Native name: FileStatLxInformation
      * @type {Integer (Int32)}
      */
-    static FileStatLxInformation => 70
+    static StatLxInformation => 70
 
     /**
+     * Native name: FileCaseSensitiveInformation
      * @type {Integer (Int32)}
      */
-    static FileCaseSensitiveInformation => 71
+    static CaseSensitiveInformation => 71
 
     /**
+     * Native name: FileLinkInformationEx
      * @type {Integer (Int32)}
      */
-    static FileLinkInformationEx => 72
+    static LinkInformationEx => 72
 
     /**
+     * Native name: FileLinkInformationExBypassAccessCheck
      * @type {Integer (Int32)}
      */
-    static FileLinkInformationExBypassAccessCheck => 73
+    static LinkInformationExBypassAccessCheck => 73
 
     /**
+     * Native name: FileStorageReserveIdInformation
      * @type {Integer (Int32)}
      */
-    static FileStorageReserveIdInformation => 74
+    static StorageReserveIdInformation => 74
 
     /**
+     * Native name: FileCaseSensitiveInformationForceAccessCheck
      * @type {Integer (Int32)}
      */
-    static FileCaseSensitiveInformationForceAccessCheck => 75
+    static CaseSensitiveInformationForceAccessCheck => 75
 
     /**
+     * Native name: FileKnownFolderInformation
      * @type {Integer (Int32)}
      */
-    static FileKnownFolderInformation => 76
+    static KnownFolderInformation => 76
 
     /**
+     * Native name: FileMaximumInformation
      * @type {Integer (Int32)}
      */
-    static FileMaximumInformation => 77
+    static MaximumInformation => 77
 }

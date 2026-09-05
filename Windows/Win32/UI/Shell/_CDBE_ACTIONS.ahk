@@ -7,17 +7,20 @@
 class _CDBE_ACTIONS extends Win32Enum {
 
     /**
+     * Native name: CDBE_TYPE_MUSIC
      * @type {Integer (Int32)}
      */
-    static CDBE_TYPE_MUSIC => 1
+    static TYPE_MUSIC => 1
 
     /**
+     * Native name: CDBE_TYPE_DATA
      * @type {Integer (Int32)}
      */
-    static CDBE_TYPE_DATA => 2
+    static TYPE_DATA => 2
 
     /**
+     * Native name: CDBE_TYPE_ALL
      * @type {Integer (Int32)}
      */
-    static CDBE_TYPE_ALL => -1
+    static TYPE_ALL => -1
 }

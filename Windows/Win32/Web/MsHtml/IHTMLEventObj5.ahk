@@ -70,7 +70,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +81,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -92,7 +90,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +101,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -114,7 +110,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_source() {
@@ -123,7 +118,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -135,7 +129,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_origin() {
@@ -145,7 +138,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -155,7 +147,6 @@ class IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_issession() {

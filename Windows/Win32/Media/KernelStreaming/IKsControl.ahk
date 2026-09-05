@@ -30,7 +30,6 @@ class IKsControl extends IUnknown {
     static VTableNames => ["KsProperty", "KsMethod", "KsEvent"]
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} _Property 
      * @param {Integer} PropertyLength 
      * @param {Pointer<Void>} PropertyData 
@@ -45,7 +44,6 @@ class IKsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} Method 
      * @param {Integer} MethodLength 
      * @param {Pointer<Void>} _MethodData 
@@ -60,7 +58,6 @@ class IKsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} Event 
      * @param {Integer} EventLength 
      * @param {Pointer<Void>} EventData 

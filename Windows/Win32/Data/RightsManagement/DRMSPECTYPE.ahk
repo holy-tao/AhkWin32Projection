@@ -10,13 +10,15 @@ class DRMSPECTYPE extends Win32Enum {
 
     /**
      * Currently not supported.
+     * Native name: DRMSPECTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DRMSPECTYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * File name.
+     * Native name: DRMSPECTYPE_FILENAME
      * @type {Integer (Int32)}
      */
-    static DRMSPECTYPE_FILENAME => 1
+    static FILENAME => 1
 }

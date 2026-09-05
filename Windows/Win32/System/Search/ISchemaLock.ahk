@@ -31,7 +31,6 @@ class ISchemaLock extends IUnknown {
     static VTableNames => ["GetSchemaLock", "ReleaseSchemaLock"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Integer} lmMode 
      * @param {Pointer<HANDLE>} phLockHandle 
@@ -46,7 +45,6 @@ class ISchemaLock extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hLockHandle 
      * @returns {HRESULT} 
      */

@@ -30,7 +30,6 @@ class ITipTransaction extends IUnknown {
     static VTableNames => ["Push", "GetTransactionUrl"]
 
     /**
-     * 
      * @param {Pointer<Integer>} i_pszRemoteTmUrl 
      * @returns {PSTR} 
      */
@@ -42,7 +41,6 @@ class ITipTransaction extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     GetTransactionUrl() {

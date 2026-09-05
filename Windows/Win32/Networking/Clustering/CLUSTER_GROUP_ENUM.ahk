@@ -14,19 +14,22 @@ class CLUSTER_GROUP_ENUM extends Win32Enum {
 
     /**
      * The resources in the group.
+     * Native name: CLUSTER_GROUP_ENUM_CONTAINS
      * @type {Integer (Int32)}
      */
-    static CLUSTER_GROUP_ENUM_CONTAINS => 1
+    static CONTAINS => 1
 
     /**
      * The nodes in the preferred owners list of the group.
+     * Native name: CLUSTER_GROUP_ENUM_NODES
      * @type {Integer (Int32)}
      */
-    static CLUSTER_GROUP_ENUM_NODES => 2
+    static NODES => 2
 
     /**
      * All the resources in the group and all the nodes in the preferred owners list of the group.
+     * Native name: CLUSTER_GROUP_ENUM_ALL
      * @type {Integer (Int32)}
      */
-    static CLUSTER_GROUP_ENUM_ALL => 3
+    static ALL => 3
 }

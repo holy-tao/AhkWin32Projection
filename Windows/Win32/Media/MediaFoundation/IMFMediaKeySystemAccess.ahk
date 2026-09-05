@@ -46,7 +46,6 @@ class IMFMediaKeySystemAccess extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPropertyStore} pCdmCustomConfig 
      * @returns {IMFMediaKeys2} 
      */
@@ -56,7 +55,6 @@ class IMFMediaKeySystemAccess extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     get_SupportedConfiguration() {
@@ -65,7 +63,6 @@ class IMFMediaKeySystemAccess extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_KeySystem() {

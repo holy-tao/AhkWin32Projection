@@ -30,7 +30,6 @@ class IEnumDiscMasterFormats extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} cFormats 
      * @param {Pointer<Guid>} lpiidFormatID 
      * @param {Pointer<Integer>} pcFetched 
@@ -44,7 +43,6 @@ class IEnumDiscMasterFormats extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cFormats 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumDiscMasterFormats extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumDiscMasterFormats extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDiscMasterFormats} 
      */
     Clone() {

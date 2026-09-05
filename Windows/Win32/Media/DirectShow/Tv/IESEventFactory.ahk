@@ -38,7 +38,6 @@ class IESEventFactory extends IUnknown {
     static VTableNames => ["CreateESEvent"]
 
     /**
-     * 
      * @param {IUnknown} pServiceProvider 
      * @param {Integer} dwEventId 
      * @param {Guid} guidEventType 

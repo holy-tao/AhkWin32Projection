@@ -7,22 +7,26 @@
 class msidbTextStyleStyleBits extends Win32Enum {
 
     /**
+     * Native name: msidbTextStyleStyleBitsBold
      * @type {Integer (Int32)}
      */
-    static msidbTextStyleStyleBitsBold => 1
+    static Bold => 1
 
     /**
+     * Native name: msidbTextStyleStyleBitsItalic
      * @type {Integer (Int32)}
      */
-    static msidbTextStyleStyleBitsItalic => 2
+    static Italic => 2
 
     /**
+     * Native name: msidbTextStyleStyleBitsUnderline
      * @type {Integer (Int32)}
      */
-    static msidbTextStyleStyleBitsUnderline => 4
+    static Underline => 4
 
     /**
+     * Native name: msidbTextStyleStyleBitsStrike
      * @type {Integer (Int32)}
      */
-    static msidbTextStyleStyleBitsStrike => 8
+    static Strike => 8
 }

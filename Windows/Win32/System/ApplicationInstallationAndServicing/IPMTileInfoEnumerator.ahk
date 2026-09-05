@@ -37,7 +37,6 @@ class IPMTileInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMTileInfo} 
      */
     get_Next() {

@@ -7,17 +7,20 @@
 class XEKL_KEYSIZE extends Win32Enum {
 
     /**
+     * Native name: XEKL_KEYSIZE_MIN
      * @type {Integer (Int32)}
      */
-    static XEKL_KEYSIZE_MIN => 1
+    static MIN => 1
 
     /**
+     * Native name: XEKL_KEYSIZE_MAX
      * @type {Integer (Int32)}
      */
-    static XEKL_KEYSIZE_MAX => 2
+    static MAX => 2
 
     /**
+     * Native name: XEKL_KEYSIZE_INC
      * @type {Integer (Int32)}
      */
-    static XEKL_KEYSIZE_INC => 3
+    static INC => 3
 }

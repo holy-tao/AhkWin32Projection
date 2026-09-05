@@ -7,7 +7,8 @@
 class WLDP_POLICY_SETTING extends Win32Enum {
 
     /**
+     * Native name: WLDP_POLICY_SETTING_AV_PERF_MODE
      * @type {Integer (Int32)}
      */
-    static WLDP_POLICY_SETTING_AV_PERF_MODE => 1000
+    static AV_PERF_MODE => 1000
 }

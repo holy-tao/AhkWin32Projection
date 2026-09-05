@@ -7,12 +7,14 @@
 class D3D12_MESSAGE_CALLBACK_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_MESSAGE_CALLBACK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_CALLBACK_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: D3D12_MESSAGE_CALLBACK_IGNORE_FILTERS
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_CALLBACK_IGNORE_FILTERS => 1
+    static IGNORE_FILTERS => 1
 }

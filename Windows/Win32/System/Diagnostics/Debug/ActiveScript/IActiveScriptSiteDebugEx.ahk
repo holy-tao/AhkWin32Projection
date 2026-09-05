@@ -31,7 +31,6 @@ class IActiveScriptSiteDebugEx extends IUnknown {
     static VTableNames => ["OnCanNotJITScriptErrorDebug"]
 
     /**
-     * 
      * @param {IActiveScriptErrorDebug} pErrorDebug 
      * @returns {BOOL} 
      */

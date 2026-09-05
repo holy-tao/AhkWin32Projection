@@ -9,12 +9,14 @@
 class POWER_PLATFORM_ROLE_VERSION extends Win32Enum {
 
     /**
+     * Native name: POWER_PLATFORM_ROLE_V1
      * @type {Integer (UInt32)}
      */
-    static POWER_PLATFORM_ROLE_V1 => 1
+    static V1 => 1
 
     /**
+     * Native name: POWER_PLATFORM_ROLE_V2
      * @type {Integer (UInt32)}
      */
-    static POWER_PLATFORM_ROLE_V2 => 2
+    static V2 => 2
 }

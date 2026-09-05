@@ -12,25 +12,29 @@ class D3D12_FILTER_REDUCTION_TYPE extends Win32Enum {
 
     /**
      * The filter type is standard.
+     * Native name: D3D12_FILTER_REDUCTION_TYPE_STANDARD
      * @type {Integer (Int32)}
      */
-    static D3D12_FILTER_REDUCTION_TYPE_STANDARD => 0
+    static STANDARD => 0
 
     /**
      * The filter type is comparison.
+     * Native name: D3D12_FILTER_REDUCTION_TYPE_COMPARISON
      * @type {Integer (Int32)}
      */
-    static D3D12_FILTER_REDUCTION_TYPE_COMPARISON => 1
+    static COMPARISON => 1
 
     /**
      * The filter type is minimum.
+     * Native name: D3D12_FILTER_REDUCTION_TYPE_MINIMUM
      * @type {Integer (Int32)}
      */
-    static D3D12_FILTER_REDUCTION_TYPE_MINIMUM => 2
+    static MINIMUM => 2
 
     /**
      * The filter type is maximum.
+     * Native name: D3D12_FILTER_REDUCTION_TYPE_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static D3D12_FILTER_REDUCTION_TYPE_MAXIMUM => 3
+    static MAXIMUM => 3
 }

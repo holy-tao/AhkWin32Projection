@@ -62,7 +62,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_longDesc() {
@@ -84,7 +82,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vrml() {
@@ -106,7 +102,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -118,7 +113,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lowsrc() {
@@ -128,7 +122,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -140,7 +133,6 @@ class IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dynsrc() {

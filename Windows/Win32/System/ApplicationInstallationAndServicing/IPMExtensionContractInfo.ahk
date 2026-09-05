@@ -30,7 +30,6 @@ class IPMExtensionContractInfo extends IUnknown {
     static VTableNames => ["get_InvocationInfo"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAUMID 
      * @param {Pointer<BSTR>} pArgs 
      * @returns {HRESULT} 

@@ -12,55 +12,64 @@ class NVME_ACCESS_FREQUENCIES extends Win32Enum {
 
     /**
      * No frequency information provided.
+     * Native name: NVME_ACCESS_FREQUENCY_NONE
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_NONE => 0
+    static FREQUENCY_NONE => 0
 
     /**
      * The typical number of reads and writes expected for this LBA range.
+     * Native name: NVME_ACCESS_FREQUENCY_TYPICAL
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_TYPICAL => 1
+    static FREQUENCY_TYPICAL => 1
 
     /**
      * Indicates infrequent writes and infrequent reads to the LBA range.
+     * Native name: NVME_ACCESS_FREQUENCY_INFR_WRITE_INFR_READ
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_INFR_WRITE_INFR_READ => 2
+    static FREQUENCY_INFR_WRITE_INFR_READ => 2
 
     /**
      * Indicates infrequent writes and frequent reads to the LBA range.
+     * Native name: NVME_ACCESS_FREQUENCY_INFR_WRITE_FR_READ
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_INFR_WRITE_FR_READ => 3
+    static FREQUENCY_INFR_WRITE_FR_READ => 3
 
     /**
      * Indicates frequent writes and infrequent reads to the LBA range.
+     * Native name: NVME_ACCESS_FREQUENCY_FR_WRITE_INFR_READ
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_FR_WRITE_INFR_READ => 4
+    static FREQUENCY_FR_WRITE_INFR_READ => 4
 
     /**
      * Indicates frequent writes and frequent reads to the LBA range.
+     * Native name: NVME_ACCESS_FREQUENCY_FR_WRITE_FR_READ
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_FR_WRITE_FR_READ => 5
+    static FREQUENCY_FR_WRITE_FR_READ => 5
 
     /**
      * A one time read. For example, the command is due to a virus scan, backup, file copy, or archive.
+     * Native name: NVME_ACCESS_FREQUENCY_ONE_TIME_READ
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_ONE_TIME_READ => 6
+    static FREQUENCY_ONE_TIME_READ => 6
 
     /**
      * A speculative read. The command is part of a prefetch operation.
+     * Native name: NVME_ACCESS_FREQUENCY_SPECULATIVE_READ
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_SPECULATIVE_READ => 7
+    static FREQUENCY_SPECULATIVE_READ => 7
 
     /**
      * The LBA range is going to be overwritten in the near future.
+     * Native name: NVME_ACCESS_FREQUENCY_WILL_BE_OVERWRITTEN
      * @type {Integer (Int32)}
      */
-    static NVME_ACCESS_FREQUENCY_WILL_BE_OVERWRITTEN => 8
+    static FREQUENCY_WILL_BE_OVERWRITTEN => 8
 }

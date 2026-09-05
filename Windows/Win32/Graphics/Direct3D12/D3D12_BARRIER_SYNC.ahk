@@ -7,122 +7,146 @@
 class D3D12_BARRIER_SYNC extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_ALL
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_ALL => 1
+    static ALL => 1
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_DRAW
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_DRAW => 2
+    static DRAW => 2
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_INDEX_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_INDEX_INPUT => 4
+    static INDEX_INPUT => 4
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_VERTEX_SHADING
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_VERTEX_SHADING => 8
+    static VERTEX_SHADING => 8
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_PIXEL_SHADING
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_PIXEL_SHADING => 16
+    static PIXEL_SHADING => 16
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_DEPTH_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_DEPTH_STENCIL => 32
+    static DEPTH_STENCIL => 32
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_RENDER_TARGET
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_RENDER_TARGET => 64
+    static RENDER_TARGET => 64
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_COMPUTE_SHADING
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_COMPUTE_SHADING => 128
+    static COMPUTE_SHADING => 128
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_RAYTRACING
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_RAYTRACING => 256
+    static RAYTRACING => 256
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_COPY
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_COPY => 512
+    static COPY => 512
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_RESOLVE
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_RESOLVE => 1024
+    static RESOLVE => 1024
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_EXECUTE_INDIRECT
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_EXECUTE_INDIRECT => 2048
+    static EXECUTE_INDIRECT => 2048
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_PREDICATION
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_PREDICATION => 2048
+    static PREDICATION => 2048
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_ALL_SHADING
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_ALL_SHADING => 4096
+    static ALL_SHADING => 4096
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_NON_PIXEL_SHADING
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_NON_PIXEL_SHADING => 8192
+    static NON_PIXEL_SHADING => 8192
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_EMIT_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_EMIT_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO => 16384
+    static EMIT_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO => 16384
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_CLEAR_UNORDERED_ACCESS_VIEW
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_CLEAR_UNORDERED_ACCESS_VIEW => 32768
+    static CLEAR_UNORDERED_ACCESS_VIEW => 32768
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_VIDEO_DECODE
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_VIDEO_DECODE => 1048576
+    static VIDEO_DECODE => 1048576
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_VIDEO_PROCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_VIDEO_PROCESS => 2097152
+    static VIDEO_PROCESS => 2097152
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_VIDEO_ENCODE
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_VIDEO_ENCODE => 4194304
+    static VIDEO_ENCODE => 4194304
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_BUILD_RAYTRACING_ACCELERATION_STRUCTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_BUILD_RAYTRACING_ACCELERATION_STRUCTURE => 8388608
+    static BUILD_RAYTRACING_ACCELERATION_STRUCTURE => 8388608
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_COPY_RAYTRACING_ACCELERATION_STRUCTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_COPY_RAYTRACING_ACCELERATION_STRUCTURE => 16777216
+    static COPY_RAYTRACING_ACCELERATION_STRUCTURE => 16777216
 
     /**
+     * Native name: D3D12_BARRIER_SYNC_SPLIT
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_SYNC_SPLIT => -2147483648
+    static SPLIT => -2147483648
 }

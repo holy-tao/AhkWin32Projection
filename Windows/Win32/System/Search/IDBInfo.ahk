@@ -31,7 +31,6 @@ class IDBInfo extends IUnknown {
     static VTableNames => ["GetKeywords", "GetLiteralInfo"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetKeywords() {
@@ -40,7 +39,6 @@ class IDBInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cLiterals 
      * @param {Pointer<Integer>} rgLiterals 
      * @param {Pointer<Integer>} pcLiteralInfo 

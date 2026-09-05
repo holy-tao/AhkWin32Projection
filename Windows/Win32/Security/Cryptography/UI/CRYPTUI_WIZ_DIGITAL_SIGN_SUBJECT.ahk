@@ -7,17 +7,20 @@
 class CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT extends Win32Enum {
 
     /**
+     * Native name: CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT_BLOB
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT_BLOB => 2
+    static BLOB => 2
 
     /**
+     * Native name: CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT_FILE
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT_FILE => 1
+    static FILE => 1
 
     /**
+     * Native name: CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT_NONE
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT_NONE => 0
+    static NONE => 0
 }

@@ -7,42 +7,50 @@
 class TOUCHEVENTF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: TOUCHEVENTF_MOVE
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_MOVE => 1
+    static MOVE => 1
 
     /**
+     * Native name: TOUCHEVENTF_DOWN
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_DOWN => 2
+    static DOWN => 2
 
     /**
+     * Native name: TOUCHEVENTF_UP
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_UP => 4
+    static UP => 4
 
     /**
+     * Native name: TOUCHEVENTF_INRANGE
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_INRANGE => 8
+    static INRANGE => 8
 
     /**
+     * Native name: TOUCHEVENTF_PRIMARY
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_PRIMARY => 16
+    static PRIMARY => 16
 
     /**
+     * Native name: TOUCHEVENTF_NOCOALESCE
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_NOCOALESCE => 32
+    static NOCOALESCE => 32
 
     /**
+     * Native name: TOUCHEVENTF_PEN
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_PEN => 64
+    static PEN => 64
 
     /**
+     * Native name: TOUCHEVENTF_PALM
      * @type {Integer (UInt32)}
      */
-    static TOUCHEVENTF_PALM => 128
+    static PALM => 128
 }

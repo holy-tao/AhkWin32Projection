@@ -31,7 +31,6 @@ class ICertEncodeCRLDistInfo2 extends ICertEncodeCRLDistInfo {
     static VTableNames => ["DecodeBlob", "EncodeBlob"]
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class ICertEncodeCRLDistInfo2 extends ICertEncodeCRLDistInfo {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */

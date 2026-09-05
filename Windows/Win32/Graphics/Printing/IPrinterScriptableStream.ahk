@@ -30,7 +30,6 @@ class IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
     static VTableNames => ["Commit", "Seek", "SetSize"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {
@@ -39,7 +38,6 @@ class IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
     }
 
     /**
-     * 
      * @param {Integer} lOffset 
      * @param {STREAM_SEEK} streamSeek 
      * @returns {Integer} 
@@ -50,7 +48,6 @@ class IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
     }
 
     /**
-     * 
      * @param {Integer} lSize 
      * @returns {HRESULT} 
      */

@@ -10,49 +10,57 @@ class IMAPI_FORMAT2_DATA_WRITE_ACTION extends Win32Enum {
 
     /**
      * Validating that the current media is supported.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_VALIDATING_MEDIA
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_VALIDATING_MEDIA => 0
+    static VALIDATING_MEDIA => 0
 
     /**
      * Formatting media, when required.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_FORMATTING_MEDIA
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_FORMATTING_MEDIA => 1
+    static FORMATTING_MEDIA => 1
 
     /**
      * Initializing the hardware, for example, setting drive write speeds.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_INITIALIZING_HARDWARE
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_INITIALIZING_HARDWARE => 2
+    static INITIALIZING_HARDWARE => 2
 
     /**
      * Optimizing laser intensity for writing to the media.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_CALIBRATING_POWER
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_CALIBRATING_POWER => 3
+    static CALIBRATING_POWER => 3
 
     /**
      * Writing data to the media.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_WRITING_DATA
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_WRITING_DATA => 4
+    static WRITING_DATA => 4
 
     /**
      * Finalizing the write.  This state is media dependent and can include items such as closing the track or session, or finishing background formatting.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_FINALIZATION
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_FINALIZATION => 5
+    static FINALIZATION => 5
 
     /**
      * Successfully finished the write process.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_COMPLETED
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_COMPLETED => 6
+    static COMPLETED => 6
 
     /**
      * Verifying the integrity of the burned media.
+     * Native name: IMAPI_FORMAT2_DATA_WRITE_ACTION_VERIFYING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_WRITE_ACTION_VERIFYING => 7
+    static VERIFYING => 7
 }

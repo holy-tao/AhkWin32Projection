@@ -39,43 +39,50 @@ class TYSPEC extends Win32Enum {
 
     /**
      * A CLSID.
+     * Native name: TYSPEC_CLSID
      * @type {Integer (Int32)}
      */
-    static TYSPEC_CLSID => 0
+    static CLSID => 0
 
     /**
      * A file name extension.
+     * Native name: TYSPEC_FILEEXT
      * @type {Integer (Int32)}
      */
-    static TYSPEC_FILEEXT => 1
+    static FILEEXT => 1
 
     /**
      * A MIME type.
+     * Native name: TYSPEC_MIMETYPE
      * @type {Integer (Int32)}
      */
-    static TYSPEC_MIMETYPE => 2
+    static MIMETYPE => 2
 
     /**
      * A file name.
+     * Native name: TYSPEC_FILENAME
      * @type {Integer (Int32)}
      */
-    static TYSPEC_FILENAME => 3
+    static FILENAME => 3
 
     /**
      * A PROGID.
+     * Native name: TYSPEC_PROGID
      * @type {Integer (Int32)}
      */
-    static TYSPEC_PROGID => 4
+    static PROGID => 4
 
     /**
      * A package name.
+     * Native name: TYSPEC_PACKAGENAME
      * @type {Integer (Int32)}
      */
-    static TYSPEC_PACKAGENAME => 5
+    static PACKAGENAME => 5
 
     /**
      * An object ID.
+     * Native name: TYSPEC_OBJECTID
      * @type {Integer (Int32)}
      */
-    static TYSPEC_OBJECTID => 6
+    static OBJECTID => 6
 }

@@ -10,13 +10,15 @@ class _AM_FILTER_MISC_FLAGS extends Win32Enum {
 
     /**
      * The filter is a renderer and sends an <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ec-complete">EC_COMPLETE</a> event at the end of the stream.
+     * Native name: AM_FILTER_MISC_FLAGS_IS_RENDERER
      * @type {Integer (Int32)}
      */
-    static AM_FILTER_MISC_FLAGS_IS_RENDERER => 1
+    static IS_RENDERER => 1
 
     /**
      * The filter is a source filter.
+     * Native name: AM_FILTER_MISC_FLAGS_IS_SOURCE
      * @type {Integer (Int32)}
      */
-    static AM_FILTER_MISC_FLAGS_IS_SOURCE => 2
+    static IS_SOURCE => 2
 }

@@ -11,19 +11,22 @@ class DS_MANGLE_FOR extends Win32Enum {
     /**
      * Indicates that the relative distinguished name is  not mangled or that the type of mangling is 
      *       unknown.
+     * Native name: DS_MANGLE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DS_MANGLE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Indicates that the relative distinguished name has been mangled for deletion.
+     * Native name: DS_MANGLE_OBJECT_RDN_FOR_DELETION
      * @type {Integer (Int32)}
      */
-    static DS_MANGLE_OBJECT_RDN_FOR_DELETION => 1
+    static OBJECT_RDN_FOR_DELETION => 1
 
     /**
      * Indicates that the relative distinguished name has been mangled due to a naming conflict.
+     * Native name: DS_MANGLE_OBJECT_RDN_FOR_NAME_CONFLICT
      * @type {Integer (Int32)}
      */
-    static DS_MANGLE_OBJECT_RDN_FOR_NAME_CONFLICT => 2
+    static OBJECT_RDN_FOR_NAME_CONFLICT => 2
 }

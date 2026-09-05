@@ -10,49 +10,57 @@ class DWRITE_PANOSE_FILL extends Win32Enum {
 
     /**
      * Any fill.
+     * Native name: DWRITE_PANOSE_FILL_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_ANY => 0
+    static ANY => 0
 
     /**
      * No fit for fill.
+     * Native name: DWRITE_PANOSE_FILL_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * The fill is the standard solid fill.
+     * Native name: DWRITE_PANOSE_FILL_STANDARD_SOLID_FILL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_STANDARD_SOLID_FILL => 2
+    static STANDARD_SOLID_FILL => 2
 
     /**
      * No fill.
+     * Native name: DWRITE_PANOSE_FILL_NO_FILL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_NO_FILL => 3
+    static NO_FILL => 3
 
     /**
      * The fill is patterned fill.
+     * Native name: DWRITE_PANOSE_FILL_PATTERNED_FILL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_PATTERNED_FILL => 4
+    static PATTERNED_FILL => 4
 
     /**
      * The fill is complex fill.
+     * Native name: DWRITE_PANOSE_FILL_COMPLEX_FILL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_COMPLEX_FILL => 5
+    static COMPLEX_FILL => 5
 
     /**
      * The fill is shaped fill.
+     * Native name: DWRITE_PANOSE_FILL_SHAPED_FILL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_SHAPED_FILL => 6
+    static SHAPED_FILL => 6
 
     /**
      * The fill is drawn distressed.
+     * Native name: DWRITE_PANOSE_FILL_DRAWN_DISTRESSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FILL_DRAWN_DISTRESSED => 7
+    static DRAWN_DISTRESSED => 7
 }

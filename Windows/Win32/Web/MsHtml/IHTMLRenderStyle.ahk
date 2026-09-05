@@ -109,7 +109,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -121,7 +120,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textLineThroughStyle() {
@@ -131,7 +129,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -143,7 +140,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textUnderlineStyle() {
@@ -153,7 +149,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -165,7 +160,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textEffect() {
@@ -175,7 +169,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -185,7 +178,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textColor() {
@@ -195,7 +187,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -205,7 +196,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textBackgroundColor() {
@@ -215,7 +205,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -225,7 +214,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textDecorationColor() {
@@ -235,7 +223,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -245,7 +232,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_renderingPriority() {
@@ -254,7 +240,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -266,7 +251,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultTextSelection() {
@@ -276,7 +260,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -288,7 +271,6 @@ class IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textDecoration() {

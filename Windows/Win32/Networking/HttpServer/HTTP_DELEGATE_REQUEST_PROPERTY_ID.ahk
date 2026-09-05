@@ -10,13 +10,15 @@ class HTTP_DELEGATE_REQUEST_PROPERTY_ID extends Win32Enum {
 
     /**
      * This property is reserved.
+     * Native name: DelegateRequestReservedProperty
      * @type {Integer (Int32)}
      */
-    static DelegateRequestReservedProperty => 0
+    static ReservedProperty => 0
 
     /**
      * Specifies the property that provides the target url to which a delegated request should be delivered.
+     * Native name: DelegateRequestDelegateUrlProperty
      * @type {Integer (Int32)}
      */
-    static DelegateRequestDelegateUrlProperty => 1
+    static DelegateUrlProperty => 1
 }

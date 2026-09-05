@@ -7,7 +7,8 @@
 class WIN32_MEMORY_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: MemoryRegionInfo
      * @type {Integer (Int32)}
      */
-    static MemoryRegionInfo => 0
+    static RegionInfo => 0
 }

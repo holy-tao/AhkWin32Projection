@@ -142,7 +142,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -152,7 +151,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -164,7 +162,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -174,7 +171,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -186,7 +182,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -196,7 +191,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -206,7 +200,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_status() {
@@ -216,7 +209,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -226,7 +218,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -235,7 +226,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -244,7 +234,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -256,7 +245,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -460,7 +448,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -470,7 +457,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -480,7 +466,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -490,7 +475,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -500,7 +484,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -510,7 +493,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
@@ -519,7 +501,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -529,7 +510,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_rows() {
@@ -538,7 +518,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -548,7 +527,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_cols() {
@@ -557,7 +535,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -569,7 +546,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wrap() {
@@ -579,7 +555,6 @@ class IHTMLTextAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {

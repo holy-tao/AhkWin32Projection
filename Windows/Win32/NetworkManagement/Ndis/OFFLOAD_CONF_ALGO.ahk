@@ -7,27 +7,32 @@
 class OFFLOAD_CONF_ALGO extends Win32Enum {
 
     /**
+     * Native name: OFFLOAD_IPSEC_CONF_NONE
      * @type {Integer (Int32)}
      */
-    static OFFLOAD_IPSEC_CONF_NONE => 0
+    static IPSEC_CONF_NONE => 0
 
     /**
+     * Native name: OFFLOAD_IPSEC_CONF_DES
      * @type {Integer (Int32)}
      */
-    static OFFLOAD_IPSEC_CONF_DES => 1
+    static IPSEC_CONF_DES => 1
 
     /**
+     * Native name: OFFLOAD_IPSEC_CONF_RESERVED
      * @type {Integer (Int32)}
      */
-    static OFFLOAD_IPSEC_CONF_RESERVED => 2
+    static IPSEC_CONF_RESERVED => 2
 
     /**
+     * Native name: OFFLOAD_IPSEC_CONF_3_DES
      * @type {Integer (Int32)}
      */
-    static OFFLOAD_IPSEC_CONF_3_DES => 3
+    static IPSEC_CONF_3_DES => 3
 
     /**
+     * Native name: OFFLOAD_IPSEC_CONF_MAX
      * @type {Integer (Int32)}
      */
-    static OFFLOAD_IPSEC_CONF_MAX => 4
+    static IPSEC_CONF_MAX => 4
 }

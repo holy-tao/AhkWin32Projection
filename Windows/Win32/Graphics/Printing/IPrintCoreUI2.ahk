@@ -32,7 +32,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     static VTableNames => ["GetOptions", "SetOptions", "EnumConstrainedOptions", "WhyConstrained", "GetGlobalAttribute", "GetFeatureAttribute", "GetOptionAttribute", "EnumFeatures", "EnumOptions", "QuerySimulationSupport"]
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Integer} pmszFeaturesRequested 
      * @param {Integer} cbIn 
@@ -48,7 +47,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Integer} dwFlags 
      * @param {Integer} pmszFeatureOptionBuf 
@@ -61,7 +59,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {Integer} pmszConstrainedOptionList 
@@ -78,7 +75,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 
@@ -97,7 +93,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
@@ -119,7 +114,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszAttribute 
@@ -143,7 +137,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 
@@ -169,7 +162,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Integer} pmszFeatureList 
      * @param {Integer} cbSize 
@@ -183,7 +175,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {Integer} pmszOptionList 
@@ -200,7 +191,6 @@ class IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinter 
      * @param {Integer} dwLevel 
      * @param {Integer} pCaps 

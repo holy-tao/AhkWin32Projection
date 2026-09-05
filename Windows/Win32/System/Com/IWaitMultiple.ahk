@@ -30,7 +30,6 @@ class IWaitMultiple extends IUnknown {
     static VTableNames => ["WaitMultiple", "AddSynchronize"]
 
     /**
-     * 
      * @param {Integer} timeout 
      * @returns {ISynchronize} 
      */
@@ -40,7 +39,6 @@ class IWaitMultiple extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISynchronize} pSync 
      * @returns {HRESULT} 
      */

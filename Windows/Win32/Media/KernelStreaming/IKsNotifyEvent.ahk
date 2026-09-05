@@ -29,7 +29,6 @@ class IKsNotifyEvent extends IUnknown {
     static VTableNames => ["KsNotifyEvent"]
 
     /**
-     * 
      * @param {Integer} Event 
      * @param {Pointer} lParam1 
      * @param {Pointer} lParam2 

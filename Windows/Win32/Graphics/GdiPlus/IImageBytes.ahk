@@ -29,7 +29,6 @@ class IImageBytes extends IUnknown {
     static VTableNames => ["CountBytes", "LockBytes", "UnlockBytes"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pcb 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IImageBytes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cb 
      * @param {Integer} ulOffset 
      * @param {Pointer<Pointer<Void>>} ppvBytes 
@@ -55,7 +53,6 @@ class IImageBytes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvBytes 
      * @param {Integer} cb 
      * @param {Integer} ulOffset 

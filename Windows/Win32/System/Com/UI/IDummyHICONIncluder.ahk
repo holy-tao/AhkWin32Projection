@@ -31,7 +31,6 @@ class IDummyHICONIncluder extends IUnknown {
     static VTableNames => ["Dummy"]
 
     /**
-     * 
      * @param {HICON} h1 
      * @param {HDC} h2 
      * @returns {HRESULT} 

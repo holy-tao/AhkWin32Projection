@@ -7,17 +7,20 @@
 class styleBool extends Win32Enum {
 
     /**
+     * Native name: styleBoolFalse
      * @type {Integer (Int32)}
      */
-    static styleBoolFalse => 0
+    static False => 0
 
     /**
+     * Native name: styleBoolTrue
      * @type {Integer (Int32)}
      */
-    static styleBoolTrue => 1
+    static True => 1
 
     /**
+     * Native name: styleBool_Max
      * @type {Integer (Int32)}
      */
-    static styleBool_Max => 2147483647
+    static Max => 2147483647
 }

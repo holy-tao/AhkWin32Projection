@@ -47,7 +47,6 @@ class IActiveScriptProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwProperty 
      * @param {Pointer<VARIANT>} pvarIndex 
      * @param {Pointer<VARIANT>} pvarValue 

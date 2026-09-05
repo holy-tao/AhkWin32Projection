@@ -7,17 +7,20 @@
 class CRYPT_XML_TRANSFORM_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRYPT_XML_TRANSFORM_ON_STREAM
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_TRANSFORM_ON_STREAM => 1
+    static ON_STREAM => 1
 
     /**
+     * Native name: CRYPT_XML_TRANSFORM_ON_NODESET
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_TRANSFORM_ON_NODESET => 2
+    static ON_NODESET => 2
 
     /**
+     * Native name: CRYPT_XML_TRANSFORM_URI_QUERY_STRING
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_TRANSFORM_URI_QUERY_STRING => 3
+    static URI_QUERY_STRING => 3
 }

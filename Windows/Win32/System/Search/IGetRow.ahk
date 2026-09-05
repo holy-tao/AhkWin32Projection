@@ -31,7 +31,6 @@ class IGetRow extends IUnknown {
     static VTableNames => ["GetRowFromHROW", "GetURLFromHROW"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} hRow 
      * @param {Pointer<Guid>} riid 
@@ -43,7 +42,6 @@ class IGetRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @returns {PWSTR} 
      */

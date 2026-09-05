@@ -7,27 +7,32 @@
 class MPR_VS extends Win32Enum {
 
     /**
+     * Native name: MPR_VS_Default
      * @type {Integer (UInt32)}
      */
-    static MPR_VS_Default => 0
+    static Default => 0
 
     /**
+     * Native name: MPR_VS_PptpOnly
      * @type {Integer (UInt32)}
      */
-    static MPR_VS_PptpOnly => 1
+    static PptpOnly => 1
 
     /**
+     * Native name: MPR_VS_PptpFirst
      * @type {Integer (UInt32)}
      */
-    static MPR_VS_PptpFirst => 2
+    static PptpFirst => 2
 
     /**
+     * Native name: MPR_VS_L2tpOnly
      * @type {Integer (UInt32)}
      */
-    static MPR_VS_L2tpOnly => 3
+    static L2tpOnly => 3
 
     /**
+     * Native name: MPR_VS_L2tpFirst
      * @type {Integer (UInt32)}
      */
-    static MPR_VS_L2tpFirst => 4
+    static L2tpFirst => 4
 }

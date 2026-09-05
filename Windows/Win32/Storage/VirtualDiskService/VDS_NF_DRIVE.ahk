@@ -7,22 +7,26 @@
 class VDS_NF_DRIVE extends Win32Enum {
 
     /**
+     * Native name: VDS_NF_DRIVE_ARRIVE
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_DRIVE_ARRIVE => 105
+    static ARRIVE => 105
 
     /**
+     * Native name: VDS_NF_DRIVE_DEPART
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_DRIVE_DEPART => 106
+    static DEPART => 106
 
     /**
+     * Native name: VDS_NF_DRIVE_MODIFY
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_DRIVE_MODIFY => 107
+    static MODIFY => 107
 
     /**
+     * Native name: VDS_NF_DRIVE_REMOVED
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_DRIVE_REMOVED => 354
+    static REMOVED => 354
 }

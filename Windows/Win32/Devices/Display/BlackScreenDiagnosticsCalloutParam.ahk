@@ -7,12 +7,14 @@
 class BlackScreenDiagnosticsCalloutParam extends Win32Enum {
 
     /**
+     * Native name: BlackScreenDiagnosticsData
      * @type {Integer (Int32)}
      */
-    static BlackScreenDiagnosticsData => 1
+    static Data => 1
 
     /**
+     * Native name: BlackScreenDisplayRecovery
      * @type {Integer (Int32)}
      */
-    static BlackScreenDisplayRecovery => 2
+    static DisplayRecovery => 2
 }

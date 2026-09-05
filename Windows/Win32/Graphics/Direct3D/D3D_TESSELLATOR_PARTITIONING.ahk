@@ -19,29 +19,34 @@
 class D3D_TESSELLATOR_PARTITIONING extends Win32Enum {
 
     /**
+     * Native name: D3D_TESSELLATOR_PARTITIONING_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_PARTITIONING_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: D3D_TESSELLATOR_PARTITIONING_INTEGER
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_PARTITIONING_INTEGER => 1
+    static INTEGER => 1
 
     /**
+     * Native name: D3D_TESSELLATOR_PARTITIONING_POW2
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_PARTITIONING_POW2 => 2
+    static POW2 => 2
 
     /**
+     * Native name: D3D_TESSELLATOR_PARTITIONING_FRACTIONAL_ODD
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_PARTITIONING_FRACTIONAL_ODD => 3
+    static FRACTIONAL_ODD => 3
 
     /**
+     * Native name: D3D_TESSELLATOR_PARTITIONING_FRACTIONAL_EVEN
      * @type {Integer (Int32)}
      */
-    static D3D_TESSELLATOR_PARTITIONING_FRACTIONAL_EVEN => 4
+    static FRACTIONAL_EVEN => 4
 
     /**
      * The partitioning type is undefined.

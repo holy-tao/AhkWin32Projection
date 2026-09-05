@@ -10,19 +10,22 @@ class PackageDependencyLifetimeKind extends Win32Enum {
 
     /**
      * The current process is the lifetime artifact. The package dependency is implicitly deleted when the process terminates.
+     * Native name: PackageDependencyLifetimeKind_Process
      * @type {Integer (Int32)}
      */
-    static PackageDependencyLifetimeKind_Process => 0
+    static Process => 0
 
     /**
      * The lifetime artifact is an absolute filename or path. The package dependency is implicitly deleted when this is deleted.
+     * Native name: PackageDependencyLifetimeKind_FilePath
      * @type {Integer (Int32)}
      */
-    static PackageDependencyLifetimeKind_FilePath => 1
+    static FilePath => 1
 
     /**
      * The lifetime artifact is a registry key in the format *root*\\*subkey*, where *root* is one of the following: HKEY_LOCAL_MACHINE, HKEY_CURRENT_USER, HKEY_CLASSES_ROOT, or HKEY_USERS. The package dependency is implicitly deleted when this is deleted.
+     * Native name: PackageDependencyLifetimeKind_RegistryKey
      * @type {Integer (Int32)}
      */
-    static PackageDependencyLifetimeKind_RegistryKey => 2
+    static RegistryKey => 2
 }

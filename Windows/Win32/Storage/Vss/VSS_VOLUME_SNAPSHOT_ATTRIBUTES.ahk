@@ -66,9 +66,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        <b>VSS_CTX_NAS_ROLLBACK</b>.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_PERSISTENT
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_PERSISTENT => 1
+    static VOLSNAP_ATTR_PERSISTENT => 1
 
     /**
      * <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-a">Auto-recovery</a> is disabled for the shadow copy.
@@ -80,9 +81,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      * Disabling auto-recovery also prevents writers from excluding files from the shadow copy. When auto-recovery is disabled, a writer can still call the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadataex-addexcludefilesfromsnapshot">IVssCreateWriterMetadataEx::AddExcludeFilesFromSnapshot</a> method, but the writer's <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a> method cannot delete the files from the shadow copy.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Vista.
+     * Native name: VSS_VOLSNAP_ATTR_NO_AUTORECOVERY
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_NO_AUTORECOVERY => 2
+    static VOLSNAP_ATTR_NO_AUTORECOVERY => 2
 
     /**
      * The specified shadow copy is a <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-c">client-accessible shadow copy</a> that supports Shadow Copies for Shared Folders, and should not be exposed.      
@@ -90,9 +92,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      * This attribute is automatically set for <b>VSS_CTX_CLIENT_ACCESSIBLE</b> and <b>VSS_CTX_CLIENT_ACCESSIBLE_WRITERS</b>.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_CLIENT_ACCESSIBLE
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_CLIENT_ACCESSIBLE => 4
+    static VOLSNAP_ATTR_CLIENT_ACCESSIBLE => 4
 
     /**
      * The shadow copy is not automatically deleted when the shadow copy requester process ends. The shadow copy 
@@ -107,9 +110,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        <b>VSS_CTX_NAS_ROLLBACK</b>.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_NO_AUTO_RELEASE
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_NO_AUTO_RELEASE => 8
+    static VOLSNAP_ATTR_NO_AUTO_RELEASE => 8
 
     /**
      * No writers are involved in creating the shadow copy.
@@ -121,9 +125,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        <b>VSS_CTX_CLIENT_ACCESSIBLE</b>.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_NO_WRITERS
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_NO_WRITERS => 16
+    static VOLSNAP_ATTR_NO_WRITERS => 16
 
     /**
      * The shadow copy is to be transported and therefore should not be surfaced locally.
@@ -136,9 +141,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/VSS/importing-transportable-shadow-copied-volumes">Importing Transportable 
      *        Shadow Copied Volumes</a> for more information.
+     * Native name: VSS_VOLSNAP_ATTR_TRANSPORTABLE
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_TRANSPORTABLE => 32
+    static VOLSNAP_ATTR_TRANSPORTABLE => 32
 
     /**
      * The shadow copy is not currently exposed.
@@ -147,9 +153,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      * Unless the shadow copy is explicitly exposed or mounted, this attribute is set for all shadow copies.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_NOT_SURFACED
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_NOT_SURFACED => 64
+    static VOLSNAP_ATTR_NOT_SURFACED => 64
 
     /**
      * The shadow copy is not transacted.
@@ -159,9 +166,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      * Setting this attribute guarantees that the requester will not receive VSS_E_TRANSACTION_FREEZE_TIMEOUT errors. However, it may cause unwanted consequences, such as the loss of transactional integrity or even data loss.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Vista.
+     * Native name: VSS_VOLSNAP_ATTR_NOT_TRANSACTED
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_NOT_TRANSACTED => 128
+    static VOLSNAP_ATTR_NOT_TRANSACTED => 128
 
     /**
      * Indicates that a given provider is a hardware provider.
@@ -174,9 +182,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        method) of a shadow copy by a bit mask (or bitwise OR) of this enumeration value and a valid shadow copy 
      *        context value from 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a>.
+     * Native name: VSS_VOLSNAP_ATTR_HARDWARE_ASSISTED
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_HARDWARE_ASSISTED => 65536
+    static VOLSNAP_ATTR_HARDWARE_ASSISTED => 65536
 
     /**
      * Indicates that a given provider uses differential data or a copy-on-write mechanism to implement shadow copies.
@@ -187,9 +196,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        provider installed on the system supports the requested attributes, a VSS_E_VOLUME_NOT_SUPPORTED error will be 
      *        returned to 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addtosnapshotset">IVssBackupComponents::AddToSnapshotSet</a>.
+     * Native name: VSS_VOLSNAP_ATTR_DIFFERENTIAL
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_DIFFERENTIAL => 131072
+    static VOLSNAP_ATTR_DIFFERENTIAL => 131072
 
     /**
      * Indicates that a given provider uses a PLEX or mirrored split mechanism to implement shadow copies.
@@ -200,9 +210,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        provider installed on the system supports the requested attributes, a VSS_E_VOLUME_NOT_SUPPORTED error will be 
      *        returned to 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addtosnapshotset">IVssBackupComponents::AddToSnapshotSet</a>.
+     * Native name: VSS_VOLSNAP_ATTR_PLEX
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_PLEX => 262144
+    static VOLSNAP_ATTR_PLEX => 262144
 
     /**
      * The shadow copy of the volume was imported onto this machine using the 
@@ -215,9 +226,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      * This attribute is automatically set if a shadow copy is imported.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_IMPORTED
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_IMPORTED => 524288
+    static VOLSNAP_ATTR_IMPORTED => 524288
 
     /**
      * The shadow copy is locally exposed. If this bit flag and the VSS_VOLSNAP_ATTR_EXPOSED_REMOTELY bit flag are 
@@ -229,9 +241,10 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        method to expose a shadow copy locally.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_EXPOSED_LOCALLY
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_EXPOSED_LOCALLY => 1048576
+    static VOLSNAP_ATTR_EXPOSED_LOCALLY => 1048576
 
     /**
      * The shadow copy is remotely exposed. If this bit flag and the VSS_VOLSNAP_ATTR_EXPOSED_LOCALLY bit flag are 
@@ -243,44 +256,50 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
      *        method to expose a shadow copy locally.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_EXPOSED_REMOTELY
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_EXPOSED_REMOTELY => 2097152
+    static VOLSNAP_ATTR_EXPOSED_REMOTELY => 2097152
 
     /**
      * Indicates that the writer will need to <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-a">auto-recover</a> the component in <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a>.
      * 
      * This attribute should not be used explicitly by requesters when setting the context of a shadow copy.
+     * Native name: VSS_VOLSNAP_ATTR_AUTORECOVER
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_AUTORECOVER => 4194304
+    static VOLSNAP_ATTR_AUTORECOVER => 4194304
 
     /**
      * Indicates that the writer will need to <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-a">auto-recover</a> the component in <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a> if the shadow copy is being used for rollback (for data mining, for example).
      * 
      * A requester would set this flag in the shadow copy context to indicate that the shadow copy is being created for a non-backup purpose such as data mining.
+     * Native name: VSS_VOLSNAP_ATTR_ROLLBACK_RECOVERY
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_ROLLBACK_RECOVERY => 8388608
+    static VOLSNAP_ATTR_ROLLBACK_RECOVERY => 8388608
 
     /**
      * Reserved for system use.
      * 
      * <b>Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008.
+     * Native name: VSS_VOLSNAP_ATTR_DELAYED_POSTSNAPSHOT
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_DELAYED_POSTSNAPSHOT => 16777216
+    static VOLSNAP_ATTR_DELAYED_POSTSNAPSHOT => 16777216
 
     /**
      * Indicates that TxF recovery should be enforced during shadow copy creation.
      * 
      * <b>Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008.
+     * Native name: VSS_VOLSNAP_ATTR_TXF_RECOVERY
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_TXF_RECOVERY => 33554432
+    static VOLSNAP_ATTR_TXF_RECOVERY => 33554432
 
     /**
+     * Native name: VSS_VOLSNAP_ATTR_FILE_SHARE
      * @type {Integer (Int32)}
      */
-    static VSS_VOLSNAP_ATTR_FILE_SHARE => 67108864
+    static VOLSNAP_ATTR_FILE_SHARE => 67108864
 }

@@ -7,32 +7,38 @@
 class PAN_FAMILY_TYPE extends Win32Enum {
 
     /**
+     * Native name: PAN_FAMILY_ANY
      * @type {Integer (Byte)}
      */
-    static PAN_FAMILY_ANY => 0x00
+    static ANY => 0x00
 
     /**
+     * Native name: PAN_FAMILY_NO_FIT
      * @type {Integer (Byte)}
      */
-    static PAN_FAMILY_NO_FIT => 0x01
+    static NO_FIT => 0x01
 
     /**
+     * Native name: PAN_FAMILY_TEXT_DISPLAY
      * @type {Integer (Byte)}
      */
-    static PAN_FAMILY_TEXT_DISPLAY => 0x02
+    static TEXT_DISPLAY => 0x02
 
     /**
+     * Native name: PAN_FAMILY_SCRIPT
      * @type {Integer (Byte)}
      */
-    static PAN_FAMILY_SCRIPT => 0x03
+    static SCRIPT => 0x03
 
     /**
+     * Native name: PAN_FAMILY_DECORATIVE
      * @type {Integer (Byte)}
      */
-    static PAN_FAMILY_DECORATIVE => 0x04
+    static DECORATIVE => 0x04
 
     /**
+     * Native name: PAN_FAMILY_PICTORIAL
      * @type {Integer (Byte)}
      */
-    static PAN_FAMILY_PICTORIAL => 0x05
+    static PICTORIAL => 0x05
 }

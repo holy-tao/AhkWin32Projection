@@ -30,7 +30,6 @@ class IDebugHostConstant extends IDebugHostSymbol {
     static VTableNames => ["GetValue"]
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetValue() {

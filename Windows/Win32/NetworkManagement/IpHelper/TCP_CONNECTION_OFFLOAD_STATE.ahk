@@ -14,31 +14,36 @@ class TCP_CONNECTION_OFFLOAD_STATE extends Win32Enum {
 
     /**
      * The TCP connection is currently owned by the network stack on the local computer, and is not offloaded
+     * Native name: TcpConnectionOffloadStateInHost
      * @type {Integer (Int32)}
      */
-    static TcpConnectionOffloadStateInHost => 0
+    static InHost => 0
 
     /**
      * The TCP connection is in the process of being offloaded, but the offload has not been completed.
+     * Native name: TcpConnectionOffloadStateOffloading
      * @type {Integer (Int32)}
      */
-    static TcpConnectionOffloadStateOffloading => 1
+    static Offloading => 1
 
     /**
      * The TCP connection is offloaded to the network interface controller.
+     * Native name: TcpConnectionOffloadStateOffloaded
      * @type {Integer (Int32)}
      */
-    static TcpConnectionOffloadStateOffloaded => 2
+    static Offloaded => 2
 
     /**
      * The TCP connection is in the process of being uploaded back to the network stack on the local computer, but the reinstate-to-host process has not completed.
+     * Native name: TcpConnectionOffloadStateUploading
      * @type {Integer (Int32)}
      */
-    static TcpConnectionOffloadStateUploading => 3
+    static Uploading => 3
 
     /**
      * The maximum possible value for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tcpmib/ne-tcpmib-tcp_connection_offload_state">TCP_CONNECTION_OFFLOAD_STATE</a> enumeration type. This is not a legal value for the possible TCP connection offload state.
+     * Native name: TcpConnectionOffloadStateMax
      * @type {Integer (Int32)}
      */
-    static TcpConnectionOffloadStateMax => 4
+    static Max => 4
 }

@@ -7,22 +7,26 @@
 class TUNNEL_SUB_TYPE extends Win32Enum {
 
     /**
+     * Native name: TUNNEL_SUB_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static TUNNEL_SUB_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: TUNNEL_SUB_TYPE_CP
      * @type {Integer (Int32)}
      */
-    static TUNNEL_SUB_TYPE_CP => 1
+    static CP => 1
 
     /**
+     * Native name: TUNNEL_SUB_TYPE_IPTLS
      * @type {Integer (Int32)}
      */
-    static TUNNEL_SUB_TYPE_IPTLS => 2
+    static IPTLS => 2
 
     /**
+     * Native name: TUNNEL_SUB_TYPE_HA
      * @type {Integer (Int32)}
      */
-    static TUNNEL_SUB_TYPE_HA => 3
+    static HA => 3
 }

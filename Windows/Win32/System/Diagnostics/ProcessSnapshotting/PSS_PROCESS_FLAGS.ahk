@@ -12,37 +12,43 @@ class PSS_PROCESS_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flag.
+     * Native name: PSS_PROCESS_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static PSS_PROCESS_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
      * The process is protected.
+     * Native name: PSS_PROCESS_FLAGS_PROTECTED
      * @type {Integer (Int32)}
      */
-    static PSS_PROCESS_FLAGS_PROTECTED => 1
+    static PROTECTED => 1
 
     /**
      * The process is a 32-bit process running on a 64-bit native OS.
+     * Native name: PSS_PROCESS_FLAGS_WOW64
      * @type {Integer (Int32)}
      */
-    static PSS_PROCESS_FLAGS_WOW64 => 2
+    static WOW64 => 2
 
     /**
      * Undefined.
+     * Native name: PSS_PROCESS_FLAGS_RESERVED_03
      * @type {Integer (Int32)}
      */
-    static PSS_PROCESS_FLAGS_RESERVED_03 => 4
+    static RESERVED_03 => 4
 
     /**
      * Undefined.
+     * Native name: PSS_PROCESS_FLAGS_RESERVED_04
      * @type {Integer (Int32)}
      */
-    static PSS_PROCESS_FLAGS_RESERVED_04 => 8
+    static RESERVED_04 => 8
 
     /**
      * The process is frozen; for example,  a debugger is attached and broken into the process or a Store process is suspended by a lifetime management service.
+     * Native name: PSS_PROCESS_FLAGS_FROZEN
      * @type {Integer (Int32)}
      */
-    static PSS_PROCESS_FLAGS_FROZEN => 16
+    static FROZEN => 16
 }

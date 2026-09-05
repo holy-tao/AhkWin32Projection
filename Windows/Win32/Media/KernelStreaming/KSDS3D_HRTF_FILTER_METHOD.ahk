@@ -17,7 +17,8 @@ class KSDS3D_HRTF_FILTER_METHOD extends Win32Enum {
     static CASCADE_FORM => 1
 
     /**
+     * Native name: KSDS3D_FILTER_METHOD_COUNT
      * @type {Integer (Int32)}
      */
-    static KSDS3D_FILTER_METHOD_COUNT => 2
+    static COUNT => 2
 }

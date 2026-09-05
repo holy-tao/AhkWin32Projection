@@ -12,19 +12,22 @@ class NVME_FUSED_OPERATION_CODES extends Win32Enum {
 
     /**
      * A normal operation without fusing commands.
+     * Native name: NVME_FUSED_OPERATION_NORMAL
      * @type {Integer (Int32)}
      */
-    static NVME_FUSED_OPERATION_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The first command in a fused operation.
+     * Native name: NVME_FUSED_OPERATION_FIRST_CMD
      * @type {Integer (Int32)}
      */
-    static NVME_FUSED_OPERATION_FIRST_CMD => 1
+    static FIRST_CMD => 1
 
     /**
      * The second command in a fused operation.
+     * Native name: NVME_FUSED_OPERATION_SECOND_CMD
      * @type {Integer (Int32)}
      */
-    static NVME_FUSED_OPERATION_SECOND_CMD => 2
+    static SECOND_CMD => 2
 }

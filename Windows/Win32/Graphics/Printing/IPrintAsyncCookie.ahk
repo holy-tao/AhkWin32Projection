@@ -24,7 +24,6 @@ class IPrintAsyncCookie extends IUnknown {
     static VTableNames => ["FinishAsyncCall", "CancelAsyncCall"]
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @returns {HRESULT} 
      */
@@ -34,7 +33,6 @@ class IPrintAsyncCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @returns {HRESULT} 
      */

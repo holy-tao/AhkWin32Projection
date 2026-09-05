@@ -7,12 +7,14 @@
 class ASSOC_FILTER extends Win32BitflagEnum {
 
     /**
+     * Native name: ASSOC_FILTER_NONE
      * @type {Integer (Int32)}
      */
-    static ASSOC_FILTER_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: ASSOC_FILTER_RECOMMENDED
      * @type {Integer (Int32)}
      */
-    static ASSOC_FILTER_RECOMMENDED => 1
+    static RECOMMENDED => 1
 }

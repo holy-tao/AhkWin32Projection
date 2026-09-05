@@ -44,7 +44,6 @@ class IDebugDocumentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetDocumentClassId() {

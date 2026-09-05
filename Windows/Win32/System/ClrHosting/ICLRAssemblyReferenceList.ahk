@@ -30,7 +30,6 @@ class ICLRAssemblyReferenceList extends IUnknown {
     static VTableNames => ["IsStringAssemblyReferenceInList", "IsAssemblyReferenceInList"]
 
     /**
-     * 
      * @param {PWSTR} pwzAssemblyName 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ICLRAssemblyReferenceList extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pName 
      * @returns {HRESULT} 
      */

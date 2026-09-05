@@ -12,55 +12,64 @@ class D2D1_FILTER extends Win32Enum {
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_MAG_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_MAG_MIP_POINT => 0
+    static MIN_MAG_MIP_POINT => 0
 
     /**
      * Use point sampling for minification and magnification; use linear interpolation for mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_MAG_POINT_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_MAG_POINT_MIP_LINEAR => 1
+    static MIN_MAG_POINT_MIP_LINEAR => 1
 
     /**
      * Use point sampling for minification; use linear interpolation for magnification; use point sampling for mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT => 4
+    static MIN_POINT_MAG_LINEAR_MIP_POINT => 4
 
     /**
      * Use point sampling for minification; use linear interpolation for magnification and mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_POINT_MAG_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_POINT_MAG_MIP_LINEAR => 5
+    static MIN_POINT_MAG_MIP_LINEAR => 5
 
     /**
      * Use linear interpolation for minification; use point sampling for magnification and mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_LINEAR_MAG_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_LINEAR_MAG_MIP_POINT => 16
+    static MIN_LINEAR_MAG_MIP_POINT => 16
 
     /**
      * Use linear interpolation for minification; use point sampling for magnification; use linear interpolation for mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR => 17
+    static MIN_LINEAR_MAG_POINT_MIP_LINEAR => 17
 
     /**
      * Use linear interpolation for minification and magnification; use point sampling for mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_MAG_LINEAR_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_MAG_LINEAR_MIP_POINT => 20
+    static MIN_MAG_LINEAR_MIP_POINT => 20
 
     /**
      * Use linear interpolation for minification, magnification, and mip-level sampling.
+     * Native name: D2D1_FILTER_MIN_MAG_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_MIN_MAG_MIP_LINEAR => 21
+    static MIN_MAG_MIP_LINEAR => 21
 
     /**
      * Use anisotropic interpolation for minification, magnification, and mip-level sampling.
+     * Native name: D2D1_FILTER_ANISOTROPIC
      * @type {Integer (Int32)}
      */
-    static D2D1_FILTER_ANISOTROPIC => 85
+    static ANISOTROPIC => 85
 }

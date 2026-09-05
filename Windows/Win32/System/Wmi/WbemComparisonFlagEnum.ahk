@@ -10,43 +10,50 @@ class WbemComparisonFlagEnum extends Win32Enum {
 
     /**
      * Used to compare all properties, qualifiers, and flavors.
+     * Native name: wbemComparisonFlagIncludeAll
      * @type {Integer (Int32)}
      */
-    static wbemComparisonFlagIncludeAll => 0
+    static IncludeAll => 0
 
     /**
      * Ignores all qualifiers (including <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/key-qualifier">Key</a> and <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/standard-wmi-qualifiers">Dynamic</a>) in comparison.
+     * Native name: wbemComparisonFlagIgnoreQualifiers
      * @type {Integer (Int32)}
      */
-    static wbemComparisonFlagIgnoreQualifiers => 1
+    static IgnoreQualifiers => 1
 
     /**
      * Ignores the source of the objects, namely the server and the namespace they came from, in comparison to other objects.
+     * Native name: wbemComparisonFlagIgnoreObjectSource
      * @type {Integer (Int32)}
      */
-    static wbemComparisonFlagIgnoreObjectSource => 2
+    static IgnoreObjectSource => 2
 
     /**
      * Ignores default values of properties (only meaningful when comparing classes).
+     * Native name: wbemComparisonFlagIgnoreDefaultValues
      * @type {Integer (Int32)}
      */
-    static wbemComparisonFlagIgnoreDefaultValues => 4
+    static IgnoreDefaultValues => 4
 
     /**
      * Instructs the system to assume that the objects being compared are instances of the same class. Consequently, this constant compares instance-related information only. Use to optimize performance. If the objects are not of the same class, the results will be undefined.
+     * Native name: wbemComparisonFlagIgnoreClass
      * @type {Integer (Int32)}
      */
-    static wbemComparisonFlagIgnoreClass => 8
+    static IgnoreClass => 8
 
     /**
      * Compares string values in a case-insensitive manner. This applies both to strings and to qualifier values. Property and qualifier names are always compared in a case-insensitive manner whether this constant is specified or not.
+     * Native name: wbemComparisonFlagIgnoreCase
      * @type {Integer (Int32)}
      */
-    static wbemComparisonFlagIgnoreCase => 16
+    static IgnoreCase => 16
 
     /**
      * Ignore qualifier flavors. This constant still takes qualifier values into account, but ignores flavor distinctions such as propagation rules and override restrictions.
+     * Native name: wbemComparisonFlagIgnoreFlavor
      * @type {Integer (Int32)}
      */
-    static wbemComparisonFlagIgnoreFlavor => 32
+    static IgnoreFlavor => 32
 }

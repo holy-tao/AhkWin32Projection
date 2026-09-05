@@ -38,7 +38,6 @@ class IGameInputDevice extends IUnknown {
     static VTableNames => ["GetDeviceInfo", "GetDeviceStatus", "GetBatteryState", "CreateForceFeedbackEffect", "IsForceFeedbackMotorPoweredOn", "SetForceFeedbackMotorGain", "SetHapticMotorState", "SetRumbleState", "SetInputSynchronizationState", "SendInputSynchronizationHint", "PowerOff", "CreateRawDeviceReport", "GetRawDeviceFeature", "SetRawDeviceFeature", "SendRawDeviceOutput", "SendRawDeviceOutputWithResponse", "ExecuteRawDeviceIoControl", "AcquireExclusiveRawDeviceAccess", "ReleaseExclusiveRawDeviceAccess"]
 
     /**
-     * 
      * @returns {Pointer<GameInputDeviceInfo>} 
      */
     GetDeviceInfo() {
@@ -47,7 +46,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {GameInputDeviceStatus} 
      */
     GetDeviceStatus() {
@@ -56,7 +54,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputBatteryState>} state 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -65,7 +62,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
      * @returns {IGameInputForceFeedbackEffect} 
@@ -76,7 +72,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @returns {Boolean} 
      */
@@ -86,7 +81,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @param {Float} masterGain 
      * @returns {String} Nothing - always returns an empty string
@@ -96,7 +90,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @param {Pointer<GameInputHapticFeedbackParams>} params 
      * @returns {HRESULT} 
@@ -107,7 +100,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputRumbleParams>} params 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -116,7 +108,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} enabled 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -125,7 +116,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     SendInputSynchronizationHint() {
@@ -133,7 +123,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     PowerOff() {
@@ -141,7 +130,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reportId 
      * @param {GameInputRawDeviceReportKind} reportKind 
      * @returns {IGameInputRawDeviceReport} 
@@ -152,7 +140,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reportId 
      * @returns {IGameInputRawDeviceReport} 
      */
@@ -162,7 +149,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputRawDeviceReport} report 
      * @returns {HRESULT} 
      */
@@ -172,7 +158,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputRawDeviceReport} report 
      * @returns {HRESULT} 
      */
@@ -182,7 +167,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputRawDeviceReport} requestReport 
      * @returns {IGameInputRawDeviceReport} 
      */
@@ -192,7 +176,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} controlCode 
      * @param {Pointer} inputBufferSize 
      * @param {Integer} inputBuffer 
@@ -206,7 +189,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} timeoutInMicroseconds 
      * @returns {Boolean} 
      */
@@ -216,7 +198,6 @@ class IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     ReleaseExclusiveRawDeviceAccess() {

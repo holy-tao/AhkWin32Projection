@@ -10,30 +10,35 @@ class PROCESSOR_CACHE_TYPE extends Win32Enum {
 
     /**
      * The cache is unified.
+     * Native name: CacheUnified
      * @type {Integer (Int32)}
      */
-    static CacheUnified => 0
+    static Unified => 0
 
     /**
      * The cache is for processor instructions.
+     * Native name: CacheInstruction
      * @type {Integer (Int32)}
      */
-    static CacheInstruction => 1
+    static Instruction => 1
 
     /**
      * The cache is for data.
+     * Native name: CacheData
      * @type {Integer (Int32)}
      */
-    static CacheData => 2
+    static Data => 2
 
     /**
      * The cache is for traces.
+     * Native name: CacheTrace
      * @type {Integer (Int32)}
      */
-    static CacheTrace => 3
+    static Trace => 3
 
     /**
+     * Native name: CacheUnknown
      * @type {Integer (Int32)}
      */
-    static CacheUnknown => 4
+    static Unknown => 4
 }

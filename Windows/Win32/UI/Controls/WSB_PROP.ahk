@@ -7,62 +7,74 @@
 class WSB_PROP extends Win32Enum {
 
     /**
+     * Native name: WSB_PROP_CXHSCROLL
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_CXHSCROLL => 2
+    static CXHSCROLL => 2
 
     /**
+     * Native name: WSB_PROP_CXHTHUMB
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_CXHTHUMB => 16
+    static CXHTHUMB => 16
 
     /**
+     * Native name: WSB_PROP_CXVSCROLL
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_CXVSCROLL => 8
+    static CXVSCROLL => 8
 
     /**
+     * Native name: WSB_PROP_CYHSCROLL
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_CYHSCROLL => 4
+    static CYHSCROLL => 4
 
     /**
+     * Native name: WSB_PROP_CYVSCROLL
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_CYVSCROLL => 1
+    static CYVSCROLL => 1
 
     /**
+     * Native name: WSB_PROP_CYVTHUMB
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_CYVTHUMB => 32
+    static CYVTHUMB => 32
 
     /**
+     * Native name: WSB_PROP_HBKGCOLOR
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_HBKGCOLOR => 128
+    static HBKGCOLOR => 128
 
     /**
+     * Native name: WSB_PROP_HSTYLE
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_HSTYLE => 512
+    static HSTYLE => 512
 
     /**
+     * Native name: WSB_PROP_PALETTE
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_PALETTE => 2048
+    static PALETTE => 2048
 
     /**
+     * Native name: WSB_PROP_VBKGCOLOR
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_VBKGCOLOR => 64
+    static VBKGCOLOR => 64
 
     /**
+     * Native name: WSB_PROP_VSTYLE
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_VSTYLE => 256
+    static VSTYLE => 256
 
     /**
+     * Native name: WSB_PROP_WINSTYLE
      * @type {Integer (Int32)}
      */
-    static WSB_PROP_WINSTYLE => 1024
+    static WINSTYLE => 1024
 }

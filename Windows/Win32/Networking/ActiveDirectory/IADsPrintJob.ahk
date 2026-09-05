@@ -126,7 +126,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HostPrintQueue() {
@@ -136,7 +135,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_User() {
@@ -146,7 +144,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserPath() {
@@ -156,7 +153,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_TimeSubmitted() {
@@ -165,7 +161,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalPages() {
@@ -174,7 +169,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Size() {
@@ -183,7 +177,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -193,7 +186,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -205,7 +197,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Priority() {
@@ -214,7 +205,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPriority 
      * @returns {HRESULT} 
      */
@@ -224,7 +214,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_StartTime() {
@@ -233,7 +222,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daStartTime 
      * @returns {HRESULT} 
      */
@@ -243,7 +231,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UntilTime() {
@@ -252,7 +239,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daUntilTime 
      * @returns {HRESULT} 
      */
@@ -262,7 +248,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Notify() {
@@ -272,7 +257,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotify 
      * @returns {HRESULT} 
      */
@@ -284,7 +268,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NotifyPath() {
@@ -294,7 +277,6 @@ class IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotifyPath 
      * @returns {HRESULT} 
      */

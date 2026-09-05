@@ -39,7 +39,6 @@ class IHTMLFormElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ class IHTMLFormElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_acceptCharset() {
@@ -61,7 +59,6 @@ class IHTMLFormElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} urn 
      * @returns {IDispatch} 
      */

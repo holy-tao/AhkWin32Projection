@@ -10,31 +10,36 @@ class D3D11_VIDEO_DECODER_CAPS extends Win32Enum {
 
     /**
      * Indicates that the graphics driver supports at least a subset of downsampling operations.
+     * Native name: D3D11_VIDEO_DECODER_CAPS_DOWNSAMPLE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_CAPS_DOWNSAMPLE => 1
+    static DOWNSAMPLE => 1
 
     /**
      * Indicates that the decoding hardware cannot support the decode operation in real-time. Decoding is still supported for transcoding scenarios.
      * 
      * With this capability, it is possible that decoding can occur in real-time if downsampling is enabled.
+     * Native name: D3D11_VIDEO_DECODER_CAPS_NON_REAL_TIME
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_CAPS_NON_REAL_TIME => 2
+    static NON_REAL_TIME => 2
 
     /**
      * Indicates that the driver supports changing down sample parameters after the initial down sample parameters have been applied. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderupdatedownsampling">ID3D11VideoContext1::DecoderUpdateDownsampling</a>.
+     * Native name: D3D11_VIDEO_DECODER_CAPS_DOWNSAMPLE_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_CAPS_DOWNSAMPLE_DYNAMIC => 4
+    static DOWNSAMPLE_DYNAMIC => 4
 
     /**
+     * Native name: D3D11_VIDEO_DECODER_CAPS_DOWNSAMPLE_REQUIRED
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_CAPS_DOWNSAMPLE_REQUIRED => 8
+    static DOWNSAMPLE_REQUIRED => 8
 
     /**
+     * Native name: D3D11_VIDEO_DECODER_CAPS_UNSUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_CAPS_UNSUPPORTED => 16
+    static UNSUPPORTED => 16
 }

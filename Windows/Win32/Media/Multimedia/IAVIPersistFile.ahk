@@ -29,7 +29,6 @@ class IAVIPersistFile extends IPersistFile {
     static VTableNames => ["Reserved1"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reserved1() {

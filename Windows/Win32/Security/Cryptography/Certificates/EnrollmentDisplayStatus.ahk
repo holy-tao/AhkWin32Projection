@@ -10,13 +10,15 @@ class EnrollmentDisplayStatus extends Win32Enum {
 
     /**
      * Status is not displayed.
+     * Native name: DisplayNo
      * @type {Integer (Int32)}
      */
-    static DisplayNo => 0
+    static No => 0
 
     /**
      * Status is displayed.
+     * Native name: DisplayYes
      * @type {Integer (Int32)}
      */
-    static DisplayYes => 1
+    static Yes => 1
 }

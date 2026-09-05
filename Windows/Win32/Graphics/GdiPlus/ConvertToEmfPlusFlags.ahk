@@ -7,22 +7,26 @@
 class ConvertToEmfPlusFlags extends Win32Enum {
 
     /**
+     * Native name: ConvertToEmfPlusFlagsDefault
      * @type {Integer (Int32)}
      */
-    static ConvertToEmfPlusFlagsDefault => 0
+    static Default => 0
 
     /**
+     * Native name: ConvertToEmfPlusFlagsRopUsed
      * @type {Integer (Int32)}
      */
-    static ConvertToEmfPlusFlagsRopUsed => 1
+    static RopUsed => 1
 
     /**
+     * Native name: ConvertToEmfPlusFlagsText
      * @type {Integer (Int32)}
      */
-    static ConvertToEmfPlusFlagsText => 2
+    static Text => 2
 
     /**
+     * Native name: ConvertToEmfPlusFlagsInvalidRecord
      * @type {Integer (Int32)}
      */
-    static ConvertToEmfPlusFlagsInvalidRecord => 4
+    static InvalidRecord => 4
 }

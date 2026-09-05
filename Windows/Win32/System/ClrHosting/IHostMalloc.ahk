@@ -30,7 +30,6 @@ class IHostMalloc extends IUnknown {
     static VTableNames => ["Alloc", "DebugAlloc", "Free"]
 
     /**
-     * 
      * @param {Pointer} cbSize 
      * @param {EMemoryCriticalLevel} eCriticalLevel 
      * @returns {Pointer<Void>} 
@@ -41,7 +40,6 @@ class IHostMalloc extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cbSize 
      * @param {EMemoryCriticalLevel} eCriticalLevel 
      * @param {Pointer<Integer>} pszFileName 
@@ -56,7 +54,6 @@ class IHostMalloc extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pMem 
      * @returns {HRESULT} 
      */

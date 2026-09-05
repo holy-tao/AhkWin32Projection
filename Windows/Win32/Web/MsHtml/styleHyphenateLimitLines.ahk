@@ -7,12 +7,14 @@
 class styleHyphenateLimitLines extends Win32Enum {
 
     /**
+     * Native name: styleHyphenateLimitLinesNoLimit
      * @type {Integer (Int32)}
      */
-    static styleHyphenateLimitLinesNoLimit => 0
+    static NoLimit => 0
 
     /**
+     * Native name: styleHyphenateLimitLines_Max
      * @type {Integer (Int32)}
      */
-    static styleHyphenateLimitLines_Max => 2147483647
+    static Max => 2147483647
 }

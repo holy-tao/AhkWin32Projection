@@ -30,7 +30,6 @@ class IMFMediaSource2 extends IMFMediaSourceEx {
     static VTableNames => ["SetMediaType"]
 
     /**
-     * 
      * @param {Integer} dwStreamID 
      * @param {IMFMediaType} pMediaType 
      * @returns {HRESULT} 

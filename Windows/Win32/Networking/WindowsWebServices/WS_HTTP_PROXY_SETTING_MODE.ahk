@@ -11,21 +11,24 @@ class WS_HTTP_PROXY_SETTING_MODE extends Win32Enum {
     /**
      * The channel will automatically detect the proxy setting based on the IE configuration for the
      *                     user at the point the channel is opened. This is the default setting for the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>.
+     * Native name: WS_HTTP_PROXY_SETTING_MODE_AUTO
      * @type {Integer (Int32)}
      */
-    static WS_HTTP_PROXY_SETTING_MODE_AUTO => 1
+    static AUTO => 1
 
     /**
      * No proxy will be used to service the request on the channel.
+     * Native name: WS_HTTP_PROXY_SETTING_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static WS_HTTP_PROXY_SETTING_MODE_NONE => 2
+    static NONE => 2
 
     /**
      * If an application chooses to explicitly control the HTTP proxy it can use this setting.
      *                     The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_CUSTOM_HTTP_PROXY</a> property specifies the custom proxy to be used
      *                     with the channel and must be set on the channel if this setting is used.
+     * Native name: WS_HTTP_PROXY_SETTING_MODE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static WS_HTTP_PROXY_SETTING_MODE_CUSTOM => 3
+    static CUSTOM => 3
 }

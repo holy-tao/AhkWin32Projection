@@ -7,22 +7,26 @@
 class svgUnitTypes extends Win32Enum {
 
     /**
+     * Native name: SVG_UNITTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_UNITTYPE_UNKNOWN => 0
+    static UNITTYPE_UNKNOWN => 0
 
     /**
+     * Native name: SVG_UNITTYPE_USERSPACEONUSE
      * @type {Integer (Int32)}
      */
-    static SVG_UNITTYPE_USERSPACEONUSE => 1
+    static UNITTYPE_USERSPACEONUSE => 1
 
     /**
+     * Native name: SVG_UNITTYPE_OBJECTBOUNDINGBOX
      * @type {Integer (Int32)}
      */
-    static SVG_UNITTYPE_OBJECTBOUNDINGBOX => 2
+    static UNITTYPE_OBJECTBOUNDINGBOX => 2
 
     /**
+     * Native name: svgUnitTypes_Max
      * @type {Integer (Int32)}
      */
-    static svgUnitTypes_Max => 2147483647
+    static Max => 2147483647
 }

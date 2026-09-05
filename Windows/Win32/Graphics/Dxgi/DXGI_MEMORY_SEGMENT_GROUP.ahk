@@ -14,13 +14,15 @@ class DXGI_MEMORY_SEGMENT_GROUP extends Win32Enum {
 
     /**
      * The grouping of segments which is considered local to the video adapter, and represents the fastest available memory to the GPU. Applications should target the local segment group as the target size for their working set.
+     * Native name: DXGI_MEMORY_SEGMENT_GROUP_LOCAL
      * @type {Integer (Int32)}
      */
-    static DXGI_MEMORY_SEGMENT_GROUP_LOCAL => 0
+    static LOCAL => 0
 
     /**
      * The grouping of segments which is considered non-local to the video adapter, and may have slower performance than the local segment group.
+     * Native name: DXGI_MEMORY_SEGMENT_GROUP_NON_LOCAL
      * @type {Integer (Int32)}
      */
-    static DXGI_MEMORY_SEGMENT_GROUP_NON_LOCAL => 1
+    static NON_LOCAL => 1
 }

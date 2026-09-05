@@ -33,7 +33,6 @@ class IDebugHostModule extends IDebugHostSymbol {
     static VTableNames => ["GetImageName", "GetBaseLocation", "GetVersion", "FindTypeByName", "FindSymbolByRVA", "FindSymbolByName"]
 
     /**
-     * 
      * @param {Integer} allowPath 
      * @returns {BSTR} 
      */
@@ -44,7 +43,6 @@ class IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Location} 
      */
     GetBaseLocation() {
@@ -77,7 +75,6 @@ class IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {PWSTR} typeName 
      * @returns {IDebugHostType} 
      */
@@ -89,7 +86,6 @@ class IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @returns {IDebugHostSymbol} 
      */
@@ -99,7 +95,6 @@ class IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {PWSTR} symbolName 
      * @returns {IDebugHostSymbol} 
      */

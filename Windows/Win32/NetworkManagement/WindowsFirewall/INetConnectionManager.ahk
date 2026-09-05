@@ -31,7 +31,6 @@ class INetConnectionManager extends IUnknown {
     static VTableNames => ["EnumConnections"]
 
     /**
-     * 
      * @param {NETCONMGR_ENUM_FLAGS} Flags 
      * @returns {IEnumNetConnection} 
      */

@@ -139,7 +139,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -151,7 +150,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_applicationName() {
@@ -161,7 +159,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -173,7 +170,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -183,7 +179,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -195,7 +190,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_icon() {
@@ -205,7 +199,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -217,7 +210,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_singleInstance() {
@@ -227,7 +219,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -239,7 +230,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_minimizeButton() {
@@ -249,7 +239,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -261,7 +250,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_maximizeButton() {
@@ -271,7 +259,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -283,7 +270,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_border() {
@@ -293,7 +279,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -305,7 +290,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderStyle() {
@@ -315,7 +299,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -327,7 +310,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_sysMenu() {
@@ -337,7 +319,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -349,7 +330,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_caption() {
@@ -359,7 +339,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -371,7 +350,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_windowState() {
@@ -381,7 +359,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -393,7 +370,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_showInTaskBar() {
@@ -403,7 +379,6 @@ class IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_commandLine() {

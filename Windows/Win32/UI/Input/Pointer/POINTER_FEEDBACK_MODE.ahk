@@ -10,19 +10,22 @@ class POINTER_FEEDBACK_MODE extends Win32Enum {
 
     /**
      * Visual feedback might be suppressed by the user's pen (Settings -&gt; Devices -&gt; Pen &amp; Windows Ink) and touch (Settings -&gt; Ease of Access -&gt; Cursor &amp; pointer size) settings.
+     * Native name: POINTER_FEEDBACK_DEFAULT
      * @type {Integer (Int32)}
      */
-    static POINTER_FEEDBACK_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
      * Visual feedback overrides the user's pen and touch settings.
+     * Native name: POINTER_FEEDBACK_INDIRECT
      * @type {Integer (Int32)}
      */
-    static POINTER_FEEDBACK_INDIRECT => 2
+    static INDIRECT => 2
 
     /**
      * Visual feedback is disabled.
+     * Native name: POINTER_FEEDBACK_NONE
      * @type {Integer (Int32)}
      */
-    static POINTER_FEEDBACK_NONE => 3
+    static NONE => 3
 }

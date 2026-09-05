@@ -41,7 +41,6 @@ class IModelObject extends IUnknown {
     static VTableNames => ["GetContext", "GetKind", "GetIntrinsicValue", "GetIntrinsicValueAs", "GetKeyValue", "SetKeyValue", "EnumerateKeyValues", "GetRawValue", "EnumerateRawValues", "Dereference", "TryCastToRuntimeType", "GetConcept", "GetLocation", "GetTypeInfo", "GetTargetInfo", "GetNumberOfParentModels", "GetParentModel", "AddParentModel", "RemoveParentModel", "GetKey", "GetKeyReference", "SetKey", "ClearKeys", "EnumerateKeys", "EnumerateKeyReferences", "SetConcept", "ClearConcepts", "GetRawReference", "EnumerateRawReferences", "SetContextForDataModel", "GetContextForDataModel", "Compare", "IsEqualTo"]
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     GetContext() {
@@ -50,7 +49,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ModelObjectKind} 
      */
     GetKind() {
@@ -59,7 +57,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetIntrinsicValue() {
@@ -69,7 +66,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARENUM} vt 
      * @returns {VARIANT} 
      */
@@ -80,7 +76,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -94,7 +89,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @returns {HRESULT} 
@@ -107,7 +101,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateKeyValues() {
@@ -116,7 +109,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
@@ -130,7 +122,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {Integer} searchFlags 
      * @returns {IRawEnumerator} 
@@ -141,7 +132,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     Dereference() {
@@ -150,7 +140,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     TryCastToRuntimeType() {
@@ -159,7 +148,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} conceptId 
      * @param {Pointer<IUnknown>} conceptInterface 
      * @param {Pointer<IKeyStore>} conceptMetadata 
@@ -171,7 +159,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Location} 
      */
     GetLocation() {
@@ -181,7 +168,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetTypeInfo() {
@@ -190,7 +176,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Location>} _location 
      * @param {Pointer<IDebugHostType>} type 
      * @returns {HRESULT} 
@@ -201,7 +186,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfParentModels() {
@@ -210,7 +194,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} i 
      * @param {Pointer<IModelObject>} model 
      * @param {Pointer<IModelObject>} contextObject 
@@ -222,7 +205,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} model 
      * @param {IModelObject} contextObject 
      * @param {Integer} override 
@@ -234,7 +216,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} model 
      * @returns {HRESULT} 
      */
@@ -244,7 +225,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -258,7 +238,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} objectReference 
      * @param {Pointer<IKeyStore>} metadata 
@@ -272,7 +251,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @param {IKeyStore} metadata 
@@ -286,7 +264,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearKeys() {
@@ -295,7 +272,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateKeys() {
@@ -304,7 +280,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateKeyReferences() {
@@ -313,7 +288,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} conceptId 
      * @param {IUnknown} conceptInterface 
      * @param {IKeyStore} conceptMetadata 
@@ -325,7 +299,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearConcepts() {
@@ -334,7 +307,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
@@ -348,7 +320,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {Integer} searchFlags 
      * @returns {IRawEnumerator} 
@@ -359,7 +330,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModelObject 
      * @param {IUnknown} _context 
      * @returns {HRESULT} 
@@ -370,7 +340,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModelObject 
      * @returns {IUnknown} 
      */
@@ -380,7 +349,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} other 
      * @returns {IModelObject} 
      */
@@ -390,7 +358,6 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} other 
      * @returns {Boolean} 
      */

@@ -43,7 +43,6 @@ class ILatLongReportFactory extends ILocationReportFactory {
     }
 
     /**
-     * 
      * @returns {IDispLatLongReport} 
      */
     get_LatLongReport() {

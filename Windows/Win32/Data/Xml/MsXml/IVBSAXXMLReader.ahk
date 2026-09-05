@@ -80,7 +80,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT_BOOL} 
      */
@@ -92,7 +91,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
@@ -105,7 +103,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT} 
      */
@@ -118,7 +115,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
@@ -131,7 +127,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXEntityResolver} 
      */
     get_entityResolver() {
@@ -140,7 +135,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXEntityResolver} oResolver 
      * @returns {HRESULT} 
      */
@@ -150,7 +144,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXContentHandler} 
      */
     get_contentHandler() {
@@ -159,7 +152,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXContentHandler} oHandler 
      * @returns {HRESULT} 
      */
@@ -169,7 +161,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXDTDHandler} 
      */
     get_dtdHandler() {
@@ -178,7 +169,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXDTDHandler} oHandler 
      * @returns {HRESULT} 
      */
@@ -188,7 +178,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXErrorHandler} 
      */
     get_errorHandler() {
@@ -197,7 +186,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXErrorHandler} oHandler 
      * @returns {HRESULT} 
      */
@@ -207,7 +195,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_baseURL() {
@@ -217,7 +204,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strBaseURL 
      * @returns {HRESULT} 
      */
@@ -229,7 +215,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_secureBaseURL() {
@@ -239,7 +224,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strSecureBaseURL 
      * @returns {HRESULT} 
      */
@@ -251,7 +235,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varInput 
      * @returns {HRESULT} 
      */
@@ -261,7 +244,6 @@ class IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURL 
      * @returns {HRESULT} 
      */

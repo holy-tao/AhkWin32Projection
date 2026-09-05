@@ -10,7 +10,8 @@ class WICPngHistProperties extends Win32Enum {
 
     /**
      * [VT_VECTOR | VT_UI2] Indicates the approximate usage frequency of each color in the color palette.
+     * Native name: WICPngHistFrequencies
      * @type {Integer (Int32)}
      */
-    static WICPngHistFrequencies => 1
+    static Frequencies => 1
 }

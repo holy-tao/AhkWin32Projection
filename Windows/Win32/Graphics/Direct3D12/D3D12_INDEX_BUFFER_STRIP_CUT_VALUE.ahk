@@ -12,19 +12,22 @@ class D3D12_INDEX_BUFFER_STRIP_CUT_VALUE extends Win32Enum {
 
     /**
      * Indicates that there is no cut value.
+     * Native name: D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED
      * @type {Integer (Int32)}
      */
-    static D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * Indicates that 0xFFFF should be used as the cut value.
+     * Native name: D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFF
      * @type {Integer (Int32)}
      */
-    static D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFF => 1
+    static 0xFFFF => 1
 
     /**
      * Indicates that 0xFFFFFFFF should be used as the cut value.
+     * Native name: D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFFFFFF
      * @type {Integer (Int32)}
      */
-    static D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_0xFFFFFFFF => 2
+    static 0xFFFFFFFF => 2
 }

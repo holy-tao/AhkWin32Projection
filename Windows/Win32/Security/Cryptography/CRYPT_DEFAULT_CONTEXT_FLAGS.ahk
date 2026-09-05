@@ -7,12 +7,14 @@
 class CRYPT_DEFAULT_CONTEXT_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRYPT_DEFAULT_CONTEXT_AUTO_RELEASE_FLAG
      * @type {Integer (UInt32)}
      */
-    static CRYPT_DEFAULT_CONTEXT_AUTO_RELEASE_FLAG => 1
+    static AUTO_RELEASE_FLAG => 1
 
     /**
+     * Native name: CRYPT_DEFAULT_CONTEXT_PROCESS_FLAG
      * @type {Integer (UInt32)}
      */
-    static CRYPT_DEFAULT_CONTEXT_PROCESS_FLAG => 2
+    static PROCESS_FLAG => 2
 }

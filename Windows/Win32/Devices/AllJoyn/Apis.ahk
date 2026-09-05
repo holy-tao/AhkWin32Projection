@@ -440,7 +440,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Integer} outBufferSize 
      * @param {Integer} inBufferSize 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
@@ -453,7 +452,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {HANDLE} serverBusHandle 
      * @param {HANDLE} abortEvent 
      * @returns {Integer} 
@@ -467,7 +465,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static alljoyn_unity_deferred_callbacks_process() {
@@ -476,7 +473,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Integer} mainthread_only 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -485,7 +481,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {QStatus} _status 
      * @returns {PSTR} 
      */
@@ -495,7 +490,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {alljoyn_msgarg} 
      */
     static alljoyn_msgarg_create() {
@@ -504,7 +498,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {PSTR} signature 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {alljoyn_msgarg} 
@@ -520,7 +513,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -529,7 +521,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer} _size 
      * @returns {alljoyn_msgarg} 
      */
@@ -539,7 +530,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} index 
      * @returns {alljoyn_msgarg} 
@@ -550,7 +540,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -567,7 +556,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -584,7 +572,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} source 
      * @returns {alljoyn_msgarg} 
      */
@@ -594,7 +581,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} destination 
      * @param {alljoyn_msgarg} source 
      * @returns {String} Nothing - always returns an empty string
@@ -604,7 +590,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} lhv 
      * @param {alljoyn_msgarg} rhv 
      * @returns {Integer} 
@@ -615,7 +600,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} args 
      * @param {Pointer<Pointer>} numArgs 
      * @param {PSTR} signature 
@@ -635,7 +619,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} args 
      * @param {Pointer} numArgs 
      * @param {PSTR} signature 
@@ -653,7 +636,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} str 
      * @param {Pointer} buf 
@@ -668,7 +650,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} args 
      * @param {Pointer} numArgs 
      * @param {PSTR} str 
@@ -684,7 +665,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} str 
      * @param {Pointer} buf 
@@ -698,7 +678,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} values 
      * @param {Pointer} numValues 
      * @param {PSTR} str 
@@ -713,7 +692,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
      * @returns {Integer} 
@@ -726,7 +704,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} elemSig 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -743,7 +720,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {alljoyn_typeid} 
      */
@@ -753,7 +729,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -762,7 +737,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -771,7 +745,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} args 
      * @param {Pointer} argOffset 
      * @param {Pointer<Pointer>} numArgs 
@@ -792,7 +765,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -809,7 +781,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} y 
      * @returns {QStatus} 
@@ -820,7 +791,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} b 
      * @returns {QStatus} 
@@ -831,7 +801,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} n 
      * @returns {QStatus} 
@@ -842,7 +811,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} q 
      * @returns {QStatus} 
@@ -853,7 +821,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} i 
      * @returns {QStatus} 
@@ -864,7 +831,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} u 
      * @returns {QStatus} 
@@ -875,7 +841,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} x 
      * @returns {QStatus} 
@@ -886,7 +851,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Integer} t 
      * @returns {QStatus} 
@@ -897,7 +861,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Float} d 
      * @returns {QStatus} 
@@ -908,7 +871,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} s 
      * @returns {QStatus} 
@@ -921,7 +883,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} o 
      * @returns {QStatus} 
@@ -934,7 +895,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} g 
      * @returns {QStatus} 
@@ -947,7 +907,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} y 
      * @returns {QStatus} 
@@ -960,7 +919,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} b 
      * @returns {QStatus} 
@@ -973,7 +931,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} n 
      * @returns {QStatus} 
@@ -986,7 +943,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} q 
      * @returns {QStatus} 
@@ -999,7 +955,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} i 
      * @returns {QStatus} 
@@ -1012,7 +967,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} u 
      * @returns {QStatus} 
@@ -1025,7 +979,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} x 
      * @returns {QStatus} 
@@ -1038,7 +991,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Integer>} t 
      * @returns {QStatus} 
@@ -1051,7 +1003,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Float>} d 
      * @returns {QStatus} 
@@ -1064,7 +1015,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer<Integer>>} s 
      * @returns {QStatus} 
@@ -1077,7 +1027,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer<Integer>>} o 
      * @returns {QStatus} 
@@ -1090,7 +1039,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer<Integer>>} g 
      * @returns {QStatus} 
@@ -1103,7 +1051,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {alljoyn_msgarg} v 
      * @returns {QStatus} 
@@ -1114,7 +1061,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} ay 
@@ -1128,7 +1074,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} ab 
@@ -1142,7 +1087,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} an 
@@ -1156,7 +1100,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} aq 
@@ -1170,7 +1113,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} ai 
@@ -1184,7 +1126,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} au 
@@ -1198,7 +1139,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} ax 
@@ -1212,7 +1152,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Integer>} at 
@@ -1226,7 +1165,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Float>} ad 
@@ -1240,7 +1178,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Pointer<Integer>>} _as 
@@ -1254,7 +1191,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Pointer<Integer>>} ao 
@@ -1268,7 +1204,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} length 
      * @param {Pointer<Pointer<Integer>>} ag 
@@ -1282,7 +1217,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} ay 
@@ -1297,7 +1231,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} ab 
@@ -1312,7 +1245,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} an 
@@ -1327,7 +1259,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} aq 
@@ -1342,7 +1273,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} ai 
@@ -1357,7 +1287,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} au 
@@ -1372,7 +1301,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} ax 
@@ -1387,7 +1315,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Integer>} at 
@@ -1402,7 +1329,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer<Pointer>} length 
      * @param {Pointer<Float>} ad 
@@ -1417,7 +1343,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
      * @param {Pointer<Pointer>} length 
@@ -1435,7 +1360,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {Pointer} 
      */
@@ -1445,7 +1369,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} index 
      * @param {Pointer<alljoyn_msgarg>} element 
@@ -1458,7 +1381,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} index 
      * @returns {PSTR} 
@@ -1469,7 +1391,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {alljoyn_msgarg} 
      */
@@ -1479,7 +1400,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {alljoyn_msgarg} 
      */
@@ -1489,7 +1409,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {alljoyn_msgarg} key 
      * @param {alljoyn_msgarg} value 
@@ -1501,7 +1420,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {alljoyn_msgarg} struct_members 
      * @param {Pointer} num_members 
@@ -1513,7 +1431,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {Pointer} 
      */
@@ -1523,7 +1440,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {Pointer} index 
      * @returns {alljoyn_msgarg} 
@@ -1534,7 +1450,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {alljoyn_aboutdata} 
      */
     static alljoyn_aboutdata_create_empty() {
@@ -1543,7 +1458,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {PSTR} defaultLanguage 
      * @returns {alljoyn_aboutdata} 
      */
@@ -1555,7 +1469,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} language 
      * @returns {alljoyn_aboutdata} 
@@ -1568,7 +1481,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1577,7 +1489,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} aboutDataXml 
      * @returns {QStatus} 
@@ -1590,7 +1501,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} language 
      * @returns {Integer} 
@@ -1603,7 +1513,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} language 
@@ -1617,7 +1526,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Integer>} appId 
      * @param {Pointer} num 
@@ -1631,7 +1539,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} appId 
      * @returns {QStatus} 
@@ -1644,7 +1551,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} appId 
      * @param {Pointer<Pointer>} num 
@@ -1659,7 +1565,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} defaultLanguage 
      * @returns {QStatus} 
@@ -1672,7 +1577,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} defaultLanguage 
      * @returns {QStatus} 
@@ -1685,7 +1589,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} deviceName 
      * @param {PSTR} language 
@@ -1700,7 +1603,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} deviceName 
      * @param {PSTR} language 
@@ -1716,7 +1618,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} deviceId 
      * @returns {QStatus} 
@@ -1729,7 +1630,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} deviceId 
      * @returns {QStatus} 
@@ -1742,7 +1642,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} appName 
      * @param {PSTR} language 
@@ -1757,7 +1656,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} appName 
      * @param {PSTR} language 
@@ -1773,7 +1671,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} manufacturer 
      * @param {PSTR} language 
@@ -1788,7 +1685,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} manufacturer 
      * @param {PSTR} language 
@@ -1804,7 +1700,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} modelNumber 
      * @returns {QStatus} 
@@ -1817,7 +1712,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} modelNumber 
      * @returns {QStatus} 
@@ -1830,7 +1724,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} language 
      * @returns {QStatus} 
@@ -1843,7 +1736,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} languageTags 
      * @param {Pointer} num 
@@ -1857,7 +1749,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} description 
      * @param {PSTR} language 
@@ -1872,7 +1763,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} description 
      * @param {PSTR} language 
@@ -1888,7 +1778,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} dateOfManufacture 
      * @returns {QStatus} 
@@ -1901,7 +1790,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} dateOfManufacture 
      * @returns {QStatus} 
@@ -1914,7 +1802,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} softwareVersion 
      * @returns {QStatus} 
@@ -1927,7 +1814,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} softwareVersion 
      * @returns {QStatus} 
@@ -1940,7 +1826,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} ajSoftwareVersion 
      * @returns {QStatus} 
@@ -1953,7 +1838,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} hardwareVersion 
      * @returns {QStatus} 
@@ -1966,7 +1850,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} hardwareVersion 
      * @returns {QStatus} 
@@ -1979,7 +1862,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} supportUrl 
      * @returns {QStatus} 
@@ -1992,7 +1874,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} supportUrl 
      * @returns {QStatus} 
@@ -2005,7 +1886,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} name 
      * @param {alljoyn_msgarg} value 
@@ -2021,7 +1901,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} name 
      * @param {Pointer<alljoyn_msgarg>} value 
@@ -2039,7 +1918,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {Pointer<Pointer<Integer>>} fields 
      * @param {Pointer} num_fields 
@@ -2053,7 +1931,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {alljoyn_msgarg} msgArg 
      * @param {PSTR} language 
@@ -2067,7 +1944,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {alljoyn_msgarg} msgArg 
      * @returns {QStatus} 
@@ -2078,7 +1954,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} fieldName 
      * @returns {Integer} 
@@ -2091,7 +1966,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} fieldName 
      * @returns {Integer} 
@@ -2104,7 +1978,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} fieldName 
      * @returns {Integer} 
@@ -2117,7 +1990,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdata} data 
      * @param {PSTR} fieldName 
      * @returns {PSTR} 
@@ -2130,7 +2002,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {alljoyn_abouticon} 
      */
     static alljoyn_abouticon_create() {
@@ -2139,7 +2010,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticon} icon 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2148,7 +2018,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticon} icon 
      * @param {Pointer<Pointer<Integer>>} data 
      * @param {Pointer<Pointer>} _size 
@@ -2162,7 +2031,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticon} icon 
      * @param {PSTR} type 
      * @param {Pointer<Integer>} data 
@@ -2180,7 +2048,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticon} icon 
      * @param {Pointer<Pointer<Integer>>} type 
      * @param {Pointer<Pointer<Integer>>} url 
@@ -2194,7 +2061,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticon} icon 
      * @param {PSTR} type 
      * @param {PSTR} url 
@@ -2209,7 +2075,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticon} icon 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2218,7 +2083,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticon} icon 
      * @param {alljoyn_msgarg} arg 
      * @returns {QStatus} 
@@ -2229,7 +2093,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getdefaultclaimcapabilities() {
@@ -2238,7 +2101,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<alljoyn_applicationstate>} state 
      * @returns {QStatus} 
@@ -2251,7 +2113,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {alljoyn_applicationstate} state 
      * @returns {QStatus} 
@@ -2262,7 +2123,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Pointer<Integer>>} publicKey 
      * @returns {QStatus} 
@@ -2275,7 +2135,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} publicKey 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2286,7 +2145,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Pointer<Integer>>} manifestTemplateXml 
      * @returns {QStatus} 
@@ -2299,7 +2157,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} manifestTemplateXml 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2310,7 +2167,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} manifestTemplateXml 
      * @returns {QStatus} 
@@ -2323,7 +2179,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} claimCapabilities 
      * @returns {QStatus} 
@@ -2336,7 +2191,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Integer} claimCapabilities 
      * @returns {QStatus} 
@@ -2347,7 +2201,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} additionalInfo 
      * @returns {QStatus} 
@@ -2360,7 +2213,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Integer} additionalInfo 
      * @returns {QStatus} 
@@ -2371,7 +2223,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @returns {QStatus} 
      */
@@ -2381,7 +2232,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} caKey 
      * @param {Pointer<Integer>} identityCertificateChain 
@@ -2404,7 +2254,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} identityCertificateChain 
      * @param {Pointer<Pointer<Integer>>} manifestsXmls 
@@ -2420,7 +2269,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Pointer<Integer>>} identityCertificateChain 
      * @returns {QStatus} 
@@ -2433,7 +2281,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} certificateChain 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2444,7 +2291,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<alljoyn_manifestarray>} manifestArray 
      * @returns {QStatus} 
@@ -2455,7 +2301,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_manifestarray>} manifestArray 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2464,7 +2309,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Pointer<Integer>>} manifestsXmls 
      * @param {Pointer} manifestsCount 
@@ -2479,7 +2323,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<alljoyn_certificateid>} certificateId 
      * @returns {QStatus} 
@@ -2490,7 +2333,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_certificateid>} certificateId 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2499,7 +2341,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} policyXml 
      * @returns {QStatus} 
@@ -2512,7 +2353,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Pointer<Integer>>} policyXml 
      * @returns {QStatus} 
@@ -2525,7 +2365,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Pointer<Integer>>} policyXml 
      * @returns {QStatus} 
@@ -2538,7 +2377,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} policyXml 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2549,7 +2387,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @returns {QStatus} 
      */
@@ -2559,7 +2396,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<alljoyn_certificateidarray>} certificateIds 
      * @returns {QStatus} 
@@ -2570,7 +2406,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_certificateidarray>} certificateIdArray 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2579,7 +2414,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} membershipCertificateChain 
      * @returns {QStatus} 
@@ -2592,7 +2426,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @param {Pointer<Integer>} serial 
      * @param {Pointer} serialLen 
@@ -2611,7 +2444,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @returns {QStatus} 
      */
@@ -2621,7 +2453,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurator} configurator 
      * @returns {QStatus} 
      */
@@ -2631,7 +2462,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_applicationstatelistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_applicationstatelistener} 
@@ -2644,7 +2474,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_applicationstatelistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2653,7 +2482,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_keystorelistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_keystorelistener} 
@@ -2666,7 +2494,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_keystorelistener_with_synchronization_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_keystorelistener} 
@@ -2679,7 +2506,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_keystorelistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2688,7 +2514,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_keystorelistener} listener 
      * @param {alljoyn_keystore} keyStore 
      * @param {PSTR} source 
@@ -2704,7 +2529,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_keystorelistener} listener 
      * @param {alljoyn_keystore} keyStore 
      * @param {PSTR} sink 
@@ -2721,7 +2545,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Integer} traffic 
      * @param {Integer} isMultipoint 
      * @param {Integer} proximity 
@@ -2734,7 +2557,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2743,7 +2565,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @returns {Integer} 
      */
@@ -2753,7 +2574,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @param {Integer} traffic 
      * @returns {String} Nothing - always returns an empty string
@@ -2763,7 +2583,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @returns {Integer} 
      */
@@ -2773,7 +2592,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @param {Integer} isMultipoint 
      * @returns {String} Nothing - always returns an empty string
@@ -2783,7 +2601,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @returns {Integer} 
      */
@@ -2793,7 +2610,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @param {Integer} proximity 
      * @returns {String} Nothing - always returns an empty string
@@ -2803,7 +2619,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @returns {Integer} 
      */
@@ -2813,7 +2628,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} opts 
      * @param {Integer} transports 
      * @returns {String} Nothing - always returns an empty string
@@ -2823,7 +2637,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} one 
      * @param {alljoyn_sessionopts} other 
      * @returns {Integer} 
@@ -2834,7 +2647,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionopts} one 
      * @param {alljoyn_sessionopts} other 
      * @returns {Integer} 
@@ -2845,7 +2657,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {alljoyn_message} 
      */
@@ -2855,7 +2666,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2864,7 +2674,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -2874,7 +2683,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -2884,7 +2692,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -2894,7 +2701,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -2904,7 +2710,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @param {Pointer<Integer>} tillExpireMS 
      * @returns {Integer} 
@@ -2917,7 +2722,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -2927,7 +2731,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -2937,7 +2740,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -2947,7 +2749,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {alljoyn_messagetype} 
      */
@@ -2957,7 +2758,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @param {Pointer<Pointer>} numArgs 
      * @param {Pointer<alljoyn_msgarg>} args 
@@ -2971,7 +2771,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @param {Pointer} argN 
      * @returns {alljoyn_msgarg} 
@@ -2982,7 +2781,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @param {PSTR} signature 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -2999,7 +2797,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -3009,7 +2806,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -3019,7 +2815,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -3029,7 +2824,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -3039,7 +2833,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -3049,7 +2842,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -3059,7 +2851,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -3069,7 +2860,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -3079,7 +2869,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {PSTR} 
      */
@@ -3089,7 +2878,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -3099,7 +2887,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -3109,7 +2896,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @param {PSTR} errorMessage 
      * @param {Pointer<Pointer>} errorMessage_size 
@@ -3125,7 +2911,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @param {PSTR} str 
      * @param {Pointer} buf 
@@ -3139,7 +2924,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @param {PSTR} str 
      * @param {Pointer} buf 
@@ -3153,7 +2937,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} _msg 
      * @returns {Integer} 
      */
@@ -3163,7 +2946,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_message} one 
      * @param {alljoyn_message} other 
      * @returns {Integer} 
@@ -3174,7 +2956,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Integer} endian 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3183,7 +2964,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_authlistener} listener 
      * @param {Pointer<Void>} authContext 
      * @param {Integer} accept 
@@ -3198,7 +2978,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_authlistener} listener 
      * @param {Pointer<Void>} authContext 
      * @param {Integer} accept 
@@ -3212,7 +2991,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_authlistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_authlistener} 
@@ -3225,7 +3003,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_authlistenerasync_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_authlistener} 
@@ -3238,7 +3015,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_authlistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3247,7 +3023,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_authlistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3256,7 +3031,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_authlistener} listener 
      * @param {Pointer<Integer>} sharedSecret 
      * @param {Pointer} sharedSecretSize 
@@ -3270,7 +3044,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {alljoyn_credentials} 
      */
     static alljoyn_credentials_create() {
@@ -3279,7 +3052,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3288,7 +3060,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @param {Integer} creds 
      * @returns {Integer} 
@@ -3299,7 +3070,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @param {PSTR} pwd 
      * @returns {String} Nothing - always returns an empty string
@@ -3311,7 +3081,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @param {PSTR} userName 
      * @returns {String} Nothing - always returns an empty string
@@ -3323,7 +3092,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @param {PSTR} certChain 
      * @returns {String} Nothing - always returns an empty string
@@ -3335,7 +3103,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @param {PSTR} pk 
      * @returns {String} Nothing - always returns an empty string
@@ -3347,7 +3114,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @param {PSTR} logonEntry 
      * @returns {String} Nothing - always returns an empty string
@@ -3359,7 +3125,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @param {Integer} expiration 
      * @returns {String} Nothing - always returns an empty string
@@ -3369,7 +3134,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {PSTR} 
      */
@@ -3379,7 +3143,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {PSTR} 
      */
@@ -3389,7 +3152,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {PSTR} 
      */
@@ -3399,7 +3161,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {PSTR} 
      */
@@ -3409,7 +3170,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {PSTR} 
      */
@@ -3419,7 +3179,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {Integer} 
      */
@@ -3429,7 +3188,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_credentials} cred 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3438,7 +3196,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_buslistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_buslistener} 
@@ -3451,7 +3208,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_buslistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3460,7 +3216,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_member} member 
      * @returns {Pointer} 
      */
@@ -3470,7 +3225,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_member} member 
      * @param {Pointer} index 
      * @param {PSTR} name 
@@ -3490,7 +3244,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_member} member 
      * @param {PSTR} name 
      * @param {PSTR} value 
@@ -3508,7 +3261,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_member} member 
      * @param {PSTR} argName 
      * @returns {Pointer} 
@@ -3521,7 +3273,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_member} member 
      * @param {PSTR} argName 
      * @param {Pointer} index 
@@ -3543,7 +3294,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_member} member 
      * @param {PSTR} argName 
      * @param {PSTR} name 
@@ -3563,7 +3313,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_property} _property 
      * @returns {Pointer} 
      */
@@ -3573,7 +3322,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_property} _property 
      * @param {Pointer} index 
      * @param {PSTR} name 
@@ -3593,7 +3341,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_property} _property 
      * @param {PSTR} name 
      * @param {PSTR} value 
@@ -3611,7 +3358,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3620,7 +3366,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} value 
@@ -3635,7 +3380,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} value 
@@ -3653,7 +3397,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {Pointer} 
      */
@@ -3663,7 +3406,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {Pointer} index 
      * @param {PSTR} name 
@@ -3683,7 +3425,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {Pointer<alljoyn_interfacedescription_member>} member 
@@ -3697,7 +3438,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {alljoyn_messagetype} type 
      * @param {PSTR} name 
@@ -3718,7 +3458,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} name 
@@ -3735,7 +3474,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} name 
@@ -3755,7 +3493,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {Pointer<alljoyn_interfacedescription_member>} members 
      * @param {Pointer} numMembers 
@@ -3767,7 +3504,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} inSig 
@@ -3784,7 +3520,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} inputSig 
@@ -3806,7 +3541,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {Pointer<alljoyn_interfacedescription_member>} member 
@@ -3820,7 +3554,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} sig 
@@ -3840,7 +3573,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {Pointer<alljoyn_interfacedescription_member>} member 
@@ -3854,7 +3586,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {Pointer<alljoyn_interfacedescription_property>} _property 
@@ -3868,7 +3599,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {Pointer<alljoyn_interfacedescription_property>} props 
      * @param {Pointer} numProps 
@@ -3880,7 +3610,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} signature 
@@ -3896,7 +3625,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} _property 
      * @param {PSTR} name 
@@ -3913,7 +3641,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} _property 
      * @param {PSTR} name 
@@ -3933,7 +3660,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @returns {Integer} 
@@ -3946,7 +3672,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {Integer} 
      */
@@ -3956,7 +3681,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {PSTR} 
      */
@@ -3966,7 +3690,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} str 
      * @param {Pointer} buf 
@@ -3981,7 +3704,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {Integer} 
      */
@@ -3991,7 +3713,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {alljoyn_interfacedescription_securitypolicy} 
      */
@@ -4001,7 +3722,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} language 
      * @returns {String} Nothing - always returns an empty string
@@ -4013,7 +3733,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {Pointer<Pointer<Integer>>} languages 
      * @param {Pointer} _size 
@@ -4027,7 +3746,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} languages 
      * @param {Pointer} languagesSize 
@@ -4041,7 +3759,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} description 
      * @returns {String} Nothing - always returns an empty string
@@ -4053,7 +3770,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} description 
      * @param {PSTR} languageTag 
@@ -4068,7 +3784,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} description 
      * @param {Pointer} maxLanguageLength 
@@ -4084,7 +3799,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} description 
@@ -4099,7 +3813,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} description 
@@ -4116,7 +3829,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} description 
@@ -4134,7 +3846,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} argName 
@@ -4151,7 +3862,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} arg 
@@ -4170,7 +3880,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} arg 
@@ -4190,7 +3899,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} description 
@@ -4205,7 +3913,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} name 
      * @param {PSTR} description 
@@ -4222,7 +3929,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} _property 
      * @param {PSTR} description 
@@ -4240,7 +3946,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {Pointer<alljoyn_interfacedescription_translation_callback_ptr>} translationCallback 
      * @returns {String} Nothing - always returns an empty string
@@ -4250,7 +3955,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {Pointer<alljoyn_interfacedescription_translation_callback_ptr>} 
      */
@@ -4260,7 +3964,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {Integer} 
      */
@@ -4270,7 +3973,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} argName 
@@ -4289,7 +3991,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} iface 
      * @param {PSTR} member 
      * @param {PSTR} argName 
@@ -4311,7 +4012,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription} one 
      * @param {alljoyn_interfacedescription} other 
      * @returns {Integer} 
@@ -4322,7 +4022,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_member} one 
      * @param {alljoyn_interfacedescription_member} other 
      * @returns {Integer} 
@@ -4333,7 +4032,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_interfacedescription_property} one 
      * @param {alljoyn_interfacedescription_property} other 
      * @returns {Integer} 
@@ -4344,7 +4042,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {PSTR} _path 
      * @param {Integer} isPlaceholder 
      * @param {Pointer<alljoyn_busobject_callbacks>} callbacks_in 
@@ -4361,7 +4058,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -4370,7 +4066,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @returns {PSTR} 
      */
@@ -4380,7 +4075,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {PSTR} ifcName 
      * @param {PSTR} propName 
@@ -4396,7 +4090,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {PSTR} ifcName 
      * @param {Pointer<Pointer<Integer>>} propNames 
@@ -4413,7 +4106,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {PSTR} _buffer 
      * @param {Pointer} bufferSz 
@@ -4427,7 +4119,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {QStatus} 
@@ -4438,7 +4129,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_interfacedescription_member} member 
      * @param {Pointer<alljoyn_messagereceiver_methodhandler_ptr>} handler 
@@ -4453,7 +4143,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {Pointer<alljoyn_busobject_methodentry>} entries 
      * @param {Pointer} numEntries 
@@ -4465,7 +4154,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_message} _msg 
      * @param {alljoyn_msgarg} args 
@@ -4478,7 +4166,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_message} _msg 
      * @param {PSTR} _error 
@@ -4494,7 +4181,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_message} _msg 
      * @param {QStatus} _status 
@@ -4506,7 +4192,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @returns {alljoyn_busattachment} 
      */
@@ -4516,7 +4201,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {PSTR} destination 
      * @param {Integer} sessionId 
@@ -4536,7 +4220,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {Integer} serialNumber 
      * @returns {QStatus} 
@@ -4547,7 +4230,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_message} _msg 
      * @returns {QStatus} 
@@ -4558,7 +4240,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @returns {Integer} 
      */
@@ -4568,7 +4249,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {Pointer<Pointer<Integer>>} interfaces 
      * @param {Pointer} numInterfaces 
@@ -4582,7 +4262,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_interfacedescription} iface 
      * @param {alljoyn_about_announceflag} isAnnounced 
@@ -4594,7 +4273,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {QStatus} 
@@ -4605,7 +4283,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} service 
      * @param {PSTR} _path 
@@ -4621,7 +4298,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} service 
      * @param {PSTR} _path 
@@ -4637,7 +4313,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -4646,7 +4321,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {QStatus} 
@@ -4657,7 +4331,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} name 
      * @returns {QStatus} 
@@ -4670,7 +4343,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {Pointer<alljoyn_proxybusobject>} children 
      * @param {Pointer} numChildren 
@@ -4684,7 +4356,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} _path 
      * @returns {alljoyn_proxybusobject} 
@@ -4697,7 +4368,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {alljoyn_proxybusobject} child 
      * @returns {QStatus} 
@@ -4708,7 +4378,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} _path 
      * @returns {QStatus} 
@@ -4721,7 +4390,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {QStatus} 
      */
@@ -4731,7 +4399,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {Pointer<alljoyn_proxybusobject_listener_introspectcb_ptr>} callback 
      * @param {Pointer<Void>} _context 
@@ -4745,7 +4412,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {PSTR} _property 
@@ -4761,7 +4427,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {PSTR} _property 
@@ -4781,7 +4446,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {alljoyn_msgarg} values 
@@ -4795,7 +4459,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {Pointer<alljoyn_proxybusobject_listener_getallpropertiescb_ptr>} callback 
@@ -4813,7 +4476,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {PSTR} _property 
@@ -4829,7 +4491,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {Pointer<Pointer<Integer>>} _properties 
@@ -4849,7 +4510,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {Pointer<alljoyn_proxybusobject_listener_propertieschanged_ptr>} callback 
@@ -4863,7 +4523,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @param {PSTR} _property 
@@ -4884,7 +4543,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} ifaceName 
      * @param {PSTR} methodName 
@@ -4904,7 +4562,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {alljoyn_interfacedescription_member} method 
      * @param {alljoyn_msgarg} args 
@@ -4920,7 +4577,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} ifaceName 
      * @param {PSTR} methodName 
@@ -4938,7 +4594,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {alljoyn_interfacedescription_member} method 
      * @param {alljoyn_msgarg} args 
@@ -4952,7 +4607,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} ifaceName 
      * @param {PSTR} methodName 
@@ -4975,7 +4629,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {alljoyn_interfacedescription_member} method 
      * @param {Pointer<alljoyn_messagereceiver_replyhandler_ptr>} replyFunc 
@@ -4994,7 +4647,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} xml 
      * @param {PSTR} identifier 
@@ -5009,7 +4661,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {Integer} forceAuth 
      * @returns {QStatus} 
@@ -5020,7 +4671,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {Integer} forceAuth 
      * @returns {QStatus} 
@@ -5031,7 +4681,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @returns {alljoyn_interfacedescription} 
@@ -5044,7 +4693,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {Pointer<alljoyn_interfacedescription>} ifaces 
      * @param {Pointer} numIfaces 
@@ -5058,7 +4706,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {PSTR} 
      */
@@ -5068,7 +4715,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {PSTR} 
      */
@@ -5078,7 +4724,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {PSTR} 
      */
@@ -5088,7 +4733,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {Integer} 
      */
@@ -5098,7 +4742,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @param {PSTR} iface 
      * @returns {Integer} 
@@ -5111,7 +4754,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} source 
      * @returns {alljoyn_proxybusobject} 
      */
@@ -5121,7 +4763,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {Integer} 
      */
@@ -5131,7 +4772,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {Integer} 
      */
@@ -5141,7 +4781,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxyObj 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5150,7 +4789,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_permissionconfigurationlistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_permissionconfigurationlistener} 
@@ -5163,7 +4801,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_permissionconfigurationlistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5172,7 +4809,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_sessionlistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_sessionlistener} 
@@ -5185,7 +4821,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionlistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5194,7 +4829,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_sessionportlistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_sessionportlistener} 
@@ -5207,7 +4841,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_sessionportlistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5216,7 +4849,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_aboutlistener_callback>} callback 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_aboutlistener} 
@@ -5229,7 +4861,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutlistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5238,7 +4869,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {PSTR} applicationName 
      * @param {Integer} allowRemoteMessages 
      * @returns {alljoyn_busattachment} 
@@ -5251,7 +4881,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {PSTR} applicationName 
      * @param {Integer} allowRemoteMessages 
      * @param {Integer} concurrency 
@@ -5265,7 +4894,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5274,7 +4902,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {QStatus} 
      */
@@ -5284,7 +4911,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {QStatus} 
      */
@@ -5294,7 +4920,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {QStatus} 
      */
@@ -5304,7 +4929,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {Integer} 
      */
@@ -5314,7 +4938,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {PSTR} 
      */
@@ -5324,7 +4947,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5333,7 +4955,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Pointer<alljoyn_interfacedescription>} iface 
@@ -5349,7 +4970,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Pointer<alljoyn_interfacedescription>} iface 
@@ -5366,7 +4986,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} connectSpec 
      * @returns {QStatus} 
@@ -5379,7 +4998,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_buslistener} listener 
      * @returns {String} Nothing - always returns an empty string
@@ -5389,7 +5007,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_buslistener} listener 
      * @returns {String} Nothing - always returns an empty string
@@ -5399,7 +5016,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} namePrefix 
      * @returns {QStatus} 
@@ -5412,7 +5028,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} namePrefix 
      * @param {Integer} transports 
@@ -5426,7 +5041,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} namePrefix 
      * @returns {QStatus} 
@@ -5439,7 +5053,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} namePrefix 
      * @param {Integer} transports 
@@ -5453,7 +5066,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Integer} transports 
@@ -5467,7 +5079,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Integer} transports 
@@ -5481,7 +5092,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @returns {alljoyn_interfacedescription} 
@@ -5494,7 +5104,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} sessionHost 
      * @param {Integer} sessionPort 
@@ -5513,7 +5122,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} sessionHost 
      * @param {Integer} sessionPort 
@@ -5533,7 +5141,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_busobject} obj 
      * @returns {QStatus} 
@@ -5544,7 +5151,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_busobject} obj 
      * @returns {QStatus} 
@@ -5555,7 +5161,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_busobject} _object 
      * @returns {String} Nothing - always returns an empty string
@@ -5565,7 +5170,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} requestedName 
      * @param {Integer} flags 
@@ -5579,7 +5183,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @returns {QStatus} 
@@ -5592,7 +5195,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<Integer>} sessionPort 
      * @param {alljoyn_sessionopts} opts 
@@ -5607,7 +5209,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Integer} sessionPort 
      * @returns {QStatus} 
@@ -5618,7 +5219,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} authMechanisms 
      * @param {alljoyn_authlistener} listener 
@@ -5635,7 +5235,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} authMechanisms 
      * @param {alljoyn_authlistener} authListener 
@@ -5653,7 +5252,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {Integer} 
      */
@@ -5663,7 +5261,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} xml 
      * @returns {QStatus} 
@@ -5676,7 +5273,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<alljoyn_interfacedescription>} ifaces 
      * @param {Pointer} numIfaces 
@@ -5690,7 +5286,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_interfacedescription} iface 
      * @returns {QStatus} 
@@ -5701,7 +5296,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {Integer} 
      */
@@ -5711,7 +5305,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {Integer} 
      */
@@ -5721,7 +5314,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {Integer} 
      */
@@ -5731,7 +5323,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} unused 
      * @returns {QStatus} 
@@ -5744,7 +5335,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {alljoyn_proxybusobject} 
      */
@@ -5754,7 +5344,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {alljoyn_proxybusobject} 
      */
@@ -5764,7 +5353,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {alljoyn_proxybusobject} 
      */
@@ -5774,7 +5362,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {PSTR} 
      */
@@ -5784,7 +5371,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {PSTR} 
      */
@@ -5794,7 +5380,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {alljoyn_interfacedescription_member} member 
@@ -5809,7 +5394,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {alljoyn_interfacedescription_member} member 
@@ -5824,7 +5408,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {alljoyn_interfacedescription_member} member 
@@ -5839,7 +5422,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {alljoyn_interfacedescription_member} member 
@@ -5854,7 +5436,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {QStatus} 
      */
@@ -5864,7 +5445,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_keystorelistener} listener 
      * @returns {QStatus} 
@@ -5875,7 +5455,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {QStatus} 
      */
@@ -5885,7 +5464,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5894,7 +5472,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} guid 
      * @returns {QStatus} 
@@ -5907,7 +5484,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} guid 
      * @param {Integer} timeout 
@@ -5921,7 +5497,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} guid 
      * @param {Pointer<Integer>} timeout 
@@ -5937,7 +5512,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} authMechanism 
      * @param {PSTR} userName 
@@ -5954,7 +5528,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} rule 
      * @returns {QStatus} 
@@ -5967,7 +5540,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} rule 
      * @returns {QStatus} 
@@ -5980,7 +5552,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Integer} sessionId 
      * @param {alljoyn_sessionlistener} listener 
@@ -5992,7 +5563,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Integer} sessionId 
      * @returns {QStatus} 
@@ -6003,7 +5573,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Integer} forceAuth 
@@ -6017,7 +5586,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Integer} forceAuth 
@@ -6031,7 +5599,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Integer} sessionId 
      * @param {PSTR} memberName 
@@ -6045,7 +5612,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Integer} sessionid 
      * @param {Pointer<Integer>} linkTimeout 
@@ -6059,7 +5625,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Integer} sessionid 
      * @param {Integer} linkTimeout 
@@ -6075,7 +5640,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Pointer<Integer>} hasOwner 
@@ -6091,7 +5655,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {PSTR} guid 
@@ -6109,7 +5672,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} module 
      * @param {Integer} level 
@@ -6123,7 +5685,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static alljoyn_busattachment_gettimestamp() {
@@ -6132,7 +5693,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} name 
      * @param {Integer} timeout 
@@ -6146,7 +5706,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_aboutlistener} aboutListener 
      * @returns {String} Nothing - always returns an empty string
@@ -6156,7 +5715,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_aboutlistener} aboutListener 
      * @returns {String} Nothing - always returns an empty string
@@ -6166,7 +5724,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6175,7 +5732,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<Pointer<Integer>>} implementsInterfaces 
      * @param {Pointer} numberInterfaces 
@@ -6189,7 +5745,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} implementsInterface 
      * @returns {QStatus} 
@@ -6202,7 +5757,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<Pointer<Integer>>} implementsInterfaces 
      * @param {Pointer} numberInterfaces 
@@ -6216,7 +5770,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} implementsInterface 
      * @returns {QStatus} 
@@ -6229,7 +5782,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {alljoyn_permissionconfigurator} 
      */
@@ -6239,7 +5791,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_applicationstatelistener} listener 
      * @returns {QStatus} 
@@ -6250,7 +5801,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_applicationstatelistener} listener 
      * @returns {QStatus} 
@@ -6261,7 +5811,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {PSTR} applicationName 
      * @returns {QStatus} 
      */
@@ -6273,7 +5822,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_abouticon} icon 
      * @returns {alljoyn_abouticonobj} 
@@ -6284,7 +5832,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticonobj} icon 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6293,7 +5840,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} busName 
      * @param {Integer} sessionId 
@@ -6307,7 +5853,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticonproxy} proxy 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6316,7 +5861,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticonproxy} proxy 
      * @param {alljoyn_abouticon} icon 
      * @returns {QStatus} 
@@ -6327,7 +5871,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_abouticonproxy} proxy 
      * @param {Pointer<Integer>} _version 
      * @returns {QStatus} 
@@ -6340,7 +5883,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_aboutdatalistener_callbacks>} callbacks 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_aboutdatalistener} 
@@ -6353,7 +5895,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutdatalistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6362,7 +5903,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {alljoyn_about_announceflag} isAnnounced 
      * @returns {alljoyn_aboutobj} 
@@ -6373,7 +5913,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobj} obj 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6382,7 +5921,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobj} obj 
      * @param {Integer} sessionPort 
      * @param {alljoyn_aboutdata} aboutData 
@@ -6394,7 +5932,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobj} obj 
      * @param {Integer} sessionPort 
      * @param {alljoyn_aboutdatalistener} aboutListener 
@@ -6406,7 +5943,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobj} obj 
      * @returns {QStatus} 
      */
@@ -6416,7 +5952,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {alljoyn_aboutobjectdescription} 
      */
     static alljoyn_aboutobjectdescription_create() {
@@ -6425,7 +5960,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_msgarg} arg 
      * @returns {alljoyn_aboutobjectdescription} 
      */
@@ -6435,7 +5969,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {alljoyn_msgarg} arg 
      * @returns {QStatus} 
@@ -6446,7 +5979,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6455,7 +5987,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {Pointer<Pointer<Integer>>} paths 
      * @param {Pointer} numPaths 
@@ -6469,7 +6000,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {PSTR} _path 
      * @param {Pointer<Pointer<Integer>>} interfaces 
@@ -6486,7 +6016,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {PSTR} interfaceName 
      * @param {Pointer<Pointer<Integer>>} paths 
@@ -6503,7 +6032,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6512,7 +6040,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {PSTR} _path 
      * @returns {Integer} 
@@ -6525,7 +6052,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {PSTR} interfaceName 
      * @returns {Integer} 
@@ -6538,7 +6064,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {PSTR} _path 
      * @param {PSTR} interfaceName 
@@ -6553,7 +6078,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutobjectdescription} description 
      * @param {alljoyn_msgarg} msgArg 
      * @returns {QStatus} 
@@ -6564,7 +6088,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {PSTR} busName 
      * @param {Integer} sessionId 
@@ -6578,7 +6101,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutproxy} proxy 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6587,7 +6109,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutproxy} proxy 
      * @param {alljoyn_msgarg} objectDesc 
      * @returns {QStatus} 
@@ -6598,7 +6119,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutproxy} proxy 
      * @param {PSTR} language 
      * @param {alljoyn_msgarg} data 
@@ -6612,7 +6132,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_aboutproxy} proxy 
      * @param {Pointer<Integer>} _version 
      * @returns {QStatus} 
@@ -6625,7 +6144,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_pinglistener_callback>} callback 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_pinglistener} 
@@ -6638,7 +6156,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_pinglistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6647,7 +6164,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @returns {alljoyn_autopinger} 
      */
@@ -6657,7 +6173,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6666,7 +6181,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6675,7 +6189,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6684,7 +6197,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @param {PSTR} group 
      * @param {alljoyn_pinglistener} listener 
@@ -6698,7 +6210,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @param {PSTR} group 
      * @returns {String} Nothing - always returns an empty string
@@ -6710,7 +6221,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @param {PSTR} group 
      * @param {Integer} pinginterval 
@@ -6724,7 +6234,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @param {PSTR} group 
      * @param {PSTR} destination 
@@ -6739,7 +6248,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_autopinger} autopinger 
      * @param {PSTR} group 
      * @param {PSTR} destination 
@@ -6755,7 +6263,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     static alljoyn_getversion() {
@@ -6764,7 +6271,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     static alljoyn_getbuildinfo() {
@@ -6773,7 +6279,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static alljoyn_getnumericversion() {
@@ -6782,7 +6287,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {QStatus} 
      */
     static alljoyn_init() {
@@ -6791,7 +6295,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {QStatus} 
      */
     static alljoyn_shutdown() {
@@ -6800,7 +6303,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {QStatus} 
      */
     static alljoyn_routerinit() {
@@ -6809,7 +6311,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} configXml 
      * @returns {QStatus} 
      */
@@ -6821,7 +6322,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {QStatus} 
      */
     static alljoyn_routershutdown() {
@@ -6830,7 +6330,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} proxy 
      * @returns {alljoyn_proxybusobject_ref} 
      */
@@ -6840,7 +6339,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject_ref} ref 
      * @returns {alljoyn_proxybusobject} 
      */
@@ -6850,7 +6348,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject_ref} ref 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6859,7 +6356,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject_ref} ref 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6868,7 +6364,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_observerlistener_callback>} callback 
      * @param {Pointer<Void>} _context 
      * @returns {alljoyn_observerlistener} 
@@ -6881,7 +6376,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observerlistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6890,7 +6384,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<Pointer<Integer>>} mandatoryInterfaces 
      * @param {Pointer} numMandatoryInterfaces 
@@ -6904,7 +6397,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observer} observer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6913,7 +6405,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observer} observer 
      * @param {alljoyn_observerlistener} listener 
      * @param {Integer} triggerOnExisting 
@@ -6924,7 +6415,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observer} observer 
      * @param {alljoyn_observerlistener} listener 
      * @returns {String} Nothing - always returns an empty string
@@ -6934,7 +6424,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observer} observer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6943,7 +6432,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observer} observer 
      * @param {PSTR} uniqueBusName 
      * @param {PSTR} objectPath 
@@ -6958,7 +6446,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observer} observer 
      * @returns {alljoyn_proxybusobject_ref} 
      */
@@ -6968,7 +6455,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_observer} observer 
      * @param {alljoyn_proxybusobject_ref} proxyref 
      * @returns {alljoyn_proxybusobject_ref} 
@@ -6979,7 +6465,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {PSTR} authMechanism 
      * @param {PSTR} password 
      * @returns {QStatus} 
@@ -6993,7 +6478,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_getpermissionmanagementsessionport() {
@@ -7002,7 +6486,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_busattachment} bus 
      * @param {Pointer<Integer>} appBusName 
      * @param {Integer} sessionId 
@@ -7016,7 +6499,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7025,7 +6507,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Integer>} caKey 
      * @param {Pointer<Integer>} identityCertificateChain 
@@ -7048,7 +6529,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Pointer<Integer>>} manifestTemplateXml 
      * @returns {QStatus} 
@@ -7061,7 +6541,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} manifestTemplateXml 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7072,7 +6551,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<alljoyn_applicationstate>} applicationState 
      * @returns {QStatus} 
@@ -7085,7 +6563,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Integer>} capabilities 
      * @returns {QStatus} 
@@ -7098,7 +6575,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Integer>} additionalInfo 
      * @returns {QStatus} 
@@ -7111,7 +6587,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Pointer<Integer>>} policyXml 
      * @returns {QStatus} 
@@ -7124,7 +6599,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Pointer<Integer>>} policyXml 
      * @returns {QStatus} 
@@ -7137,7 +6611,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} policyXml 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7148,7 +6621,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Integer>} policyXml 
      * @returns {QStatus} 
@@ -7161,7 +6633,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Integer>} identityCertificateChain 
      * @param {Pointer<Pointer<Integer>>} manifestsXmls 
@@ -7177,7 +6648,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Integer>} membershipCertificateChain 
      * @returns {QStatus} 
@@ -7190,7 +6660,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @returns {QStatus} 
      */
@@ -7200,7 +6669,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @returns {QStatus} 
      */
@@ -7210,7 +6678,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @returns {QStatus} 
      */
@@ -7220,7 +6687,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @returns {QStatus} 
      */
@@ -7230,7 +6696,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {alljoyn_securityapplicationproxy} proxy 
      * @param {Pointer<Pointer<Integer>>} eccPublicKey 
      * @returns {QStatus} 
@@ -7243,7 +6708,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} eccPublicKey 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7254,7 +6718,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} unsignedManifestXml 
      * @param {Pointer<Integer>} identityCertificatePem 
      * @param {Pointer<Integer>} signingPrivateKeyPem 
@@ -7272,7 +6735,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} signedManifestXml 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7283,7 +6745,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} unsignedManifestXml 
      * @param {Pointer<Integer>} identityCertificatePem 
      * @param {Pointer<Pointer<Integer>>} digest 
@@ -7301,7 +6762,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} digest 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7312,7 +6772,6 @@ class AllJoyn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} unsignedManifestXml 
      * @param {Pointer<Integer>} identityCertificatePem 
      * @param {Pointer<Integer>} signature 

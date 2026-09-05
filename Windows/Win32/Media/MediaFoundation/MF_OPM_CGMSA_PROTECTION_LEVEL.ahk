@@ -12,37 +12,43 @@ class MF_OPM_CGMSA_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * CGMS-A is disabled.
+     * Native name: MF_OPM_CGMSA_OFF
      * @type {Integer (Int32)}
      */
-    static MF_OPM_CGMSA_OFF => 0
+    static OFF => 0
 
     /**
      * The protection level is Copy Freely.
+     * Native name: MF_OPM_CGMSA_COPY_FREELY
      * @type {Integer (Int32)}
      */
-    static MF_OPM_CGMSA_COPY_FREELY => 1
+    static COPY_FREELY => 1
 
     /**
      * The protection level is Copy No More.
+     * Native name: MF_OPM_CGMSA_COPY_NO_MORE
      * @type {Integer (Int32)}
      */
-    static MF_OPM_CGMSA_COPY_NO_MORE => 2
+    static COPY_NO_MORE => 2
 
     /**
      * The protection level is Copy One Generation.
+     * Native name: MF_OPM_CGMSA_COPY_ONE_GENERATION
      * @type {Integer (Int32)}
      */
-    static MF_OPM_CGMSA_COPY_ONE_GENERATION => 3
+    static COPY_ONE_GENERATION => 3
 
     /**
      * The protection level is Copy Never.
+     * Native name: MF_OPM_CGMSA_COPY_NEVER
      * @type {Integer (Int32)}
      */
-    static MF_OPM_CGMSA_COPY_NEVER => 4
+    static COPY_NEVER => 4
 
     /**
      * Redistribution control (also called the broadcast flag) is required. This flag can be combined with the other flags.
+     * Native name: MF_OPM_CGMSA_REDISTRIBUTION_CONTROL_REQUIRED
      * @type {Integer (Int32)}
      */
-    static MF_OPM_CGMSA_REDISTRIBUTION_CONTROL_REQUIRED => 8
+    static REDISTRIBUTION_CONTROL_REQUIRED => 8
 }

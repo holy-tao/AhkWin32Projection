@@ -7,17 +7,20 @@
 class D3DKMT_MULTIPLANE_OVERLAY_FLAGS extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_MULTIPLANE_OVERLAY_FLAG_VERTICAL_FLIP
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MULTIPLANE_OVERLAY_FLAG_VERTICAL_FLIP => 1
+    static FLAG_VERTICAL_FLIP => 1
 
     /**
+     * Native name: D3DKMT_MULTIPLANE_OVERLAY_FLAG_HORIZONTAL_FLIP
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MULTIPLANE_OVERLAY_FLAG_HORIZONTAL_FLIP => 2
+    static FLAG_HORIZONTAL_FLIP => 2
 
     /**
+     * Native name: D3DKMT_MULTIPLANE_OVERLAY_FLAG_STATIC_CHECK
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MULTIPLANE_OVERLAY_FLAG_STATIC_CHECK => 4
+    static FLAG_STATIC_CHECK => 4
 }

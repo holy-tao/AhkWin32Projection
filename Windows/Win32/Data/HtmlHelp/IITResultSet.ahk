@@ -37,7 +37,6 @@ class IITResultSet extends IUnknown {
     static VTableNames => ["SetColumnPriority", "SetColumnHeap", "SetKeyProp", "Add", "Add1", "Add2", "Add3", "Append", "Set", "Set1", "Set2", "Set3", "Copy", "AppendRows", "Get", "GetKeyProp", "GetColumnPriority", "GetRowCount", "GetColumnCount", "GetColumn", "GetColumn1", "GetColumnFromPropID", "Clear", "ClearRows", "Free", "IsCompleted", "Cancel", "Pause", "GetRowStatus", "GetColumnStatus"]
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {PRIORITY} ColumnPriority 
      * @returns {HRESULT} 
@@ -48,7 +47,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Void>} lpvHeap 
      * @param {Pointer<PFNCOLHEAPFREE>} _pfnColHeapFree 
@@ -62,7 +60,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} PropID 
      * @returns {HRESULT} 
      */
@@ -285,7 +282,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Void>} lpvData 
@@ -300,7 +296,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {PWSTR} lpwStr 
@@ -314,7 +309,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer} dwData 
@@ -326,7 +320,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Pointer<Void>} lpvHdr 
      * @param {Pointer<Void>} lpvData 
@@ -341,7 +334,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {IITResultSet} pRSCopy 
      * @returns {HRESULT} 
      */
@@ -351,7 +343,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {IITResultSet} pResSrc 
      * @param {Integer} lRowSrcFirst 
      * @param {Integer} cSrcRows 
@@ -412,7 +403,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} KeyPropID 
      * @returns {HRESULT} 
      */
@@ -424,7 +414,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<PRIORITY>} ColumnPriority 
      * @returns {HRESULT} 
@@ -470,7 +459,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lNumberOfColumns 
      * @returns {HRESULT} 
      */
@@ -482,7 +470,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Integer>} PropID 
      * @param {Pointer<Integer>} dwType 
@@ -503,7 +490,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Integer>} PropID 
      * @returns {HRESULT} 
@@ -516,7 +502,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} PropID 
      * @param {Pointer<Integer>} lColumnIndex 
      * @returns {HRESULT} 
@@ -557,7 +542,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearRows() {
@@ -566,7 +550,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Free() {
@@ -575,7 +558,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsCompleted() {
@@ -584,7 +566,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -606,7 +587,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowFirst 
      * @param {Integer} cRows 
      * @param {Pointer<ROWSTATUS>} lpRowStatus 
@@ -618,7 +598,6 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COLUMNSTATUS>} lpColStatus 
      * @returns {HRESULT} 
      */

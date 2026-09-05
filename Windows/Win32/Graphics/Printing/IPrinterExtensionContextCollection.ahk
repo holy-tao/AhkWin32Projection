@@ -45,7 +45,6 @@ class IPrinterExtensionContextCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -54,7 +53,6 @@ class IPrinterExtensionContextCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ulIndex 
      * @returns {IPrinterExtensionContext} 
      */
@@ -64,7 +62,6 @@ class IPrinterExtensionContextCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

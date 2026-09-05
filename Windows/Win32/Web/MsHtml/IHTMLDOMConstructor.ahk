@@ -38,7 +38,6 @@ class IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_constructor() {
@@ -47,7 +46,6 @@ class IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT} 
      */
@@ -60,7 +58,6 @@ class IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT} 
      */
@@ -73,7 +70,6 @@ class IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @param {Pointer<VARIANT>} pdispHandler 
      * @returns {HRESULT} 
@@ -86,7 +82,6 @@ class IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @param {Pointer<VARIANT>} pdispHandler 
      * @returns {HRESULT} 

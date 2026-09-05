@@ -32,7 +32,6 @@ class IHlinkSite extends IUnknown {
     static VTableNames => ["QueryService", "GetMoniker", "ReadyToNavigate", "OnNavigationComplete"]
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
@@ -44,7 +43,6 @@ class IHlinkSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Integer} dwAssign 
      * @param {Integer} dwWhich 
@@ -56,7 +54,6 @@ class IHlinkSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -67,7 +64,6 @@ class IHlinkSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Integer} dwreserved 
      * @param {HRESULT} hrError 

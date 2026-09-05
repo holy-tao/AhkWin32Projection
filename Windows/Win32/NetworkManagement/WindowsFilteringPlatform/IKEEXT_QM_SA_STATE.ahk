@@ -10,31 +10,36 @@ class IKEEXT_QM_SA_STATE extends Win32Enum {
 
     /**
      * Initial state.  No QM packets have been sent to the peer.
+     * Native name: IKEEXT_QM_SA_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_QM_SA_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * First packet has been sent to the peer.
+     * Native name: IKEEXT_QM_SA_STATE_INITIAL
      * @type {Integer (Int32)}
      */
-    static IKEEXT_QM_SA_STATE_INITIAL => 1
+    static INITIAL => 1
 
     /**
      * Final packet has been sent to the peer.
+     * Native name: IKEEXT_QM_SA_STATE_FINAL
      * @type {Integer (Int32)}
      */
-    static IKEEXT_QM_SA_STATE_FINAL => 2
+    static FINAL => 2
 
     /**
      * QM has been completed.
+     * Native name: IKEEXT_QM_SA_STATE_COMPLETE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_QM_SA_STATE_COMPLETE => 3
+    static COMPLETE => 3
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_QM_SA_STATE_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_QM_SA_STATE_MAX => 4
+    static MAX => 4
 }

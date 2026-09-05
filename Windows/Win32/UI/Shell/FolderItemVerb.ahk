@@ -59,7 +59,6 @@ class FolderItemVerb extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -68,7 +67,6 @@ class FolderItemVerb extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -77,7 +75,6 @@ class FolderItemVerb extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {

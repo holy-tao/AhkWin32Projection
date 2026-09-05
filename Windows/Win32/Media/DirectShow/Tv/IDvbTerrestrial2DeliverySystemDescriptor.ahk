@@ -29,7 +29,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     static VTableNames => ["GetTag", "GetLength", "GetTagExtension", "GetCentreFrequency", "GetPLPId", "GetT2SystemId", "GetMultipleInputMode", "GetBandwidth", "GetGuardInterval", "GetTransmissionMode", "GetCellId", "GetOtherFrequencyFlag", "GetTFSFlag"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTag() {
@@ -38,7 +37,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -47,7 +45,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTagExtension() {
@@ -56,7 +53,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCentreFrequency() {
@@ -65,7 +61,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPLPId() {
@@ -74,7 +69,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetT2SystemId() {
@@ -83,7 +77,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMultipleInputMode() {
@@ -92,7 +85,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetBandwidth() {
@@ -101,7 +93,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetGuardInterval() {
@@ -110,7 +101,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTransmissionMode() {
@@ -119,7 +109,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCellId() {
@@ -128,7 +117,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOtherFrequencyFlag() {
@@ -137,7 +125,6 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTFSFlag() {

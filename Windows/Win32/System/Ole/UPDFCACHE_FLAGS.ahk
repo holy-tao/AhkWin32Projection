@@ -7,47 +7,56 @@
 class UPDFCACHE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: UPDFCACHE_ALL
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_ALL => 2147483647
+    static ALL => 2147483647
 
     /**
+     * Native name: UPDFCACHE_ALLBUTNODATACACHE
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_ALLBUTNODATACACHE => 2147483646
+    static ALLBUTNODATACACHE => 2147483646
 
     /**
+     * Native name: UPDFCACHE_NORMALCACHE
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_NORMALCACHE => 8
+    static NORMALCACHE => 8
 
     /**
+     * Native name: UPDFCACHE_IFBLANK
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_IFBLANK => 16
+    static IFBLANK => 16
 
     /**
+     * Native name: UPDFCACHE_ONLYIFBLANK
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_ONLYIFBLANK => 2147483648
+    static ONLYIFBLANK => 2147483648
 
     /**
+     * Native name: UPDFCACHE_NODATACACHE
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_NODATACACHE => 1
+    static NODATACACHE => 1
 
     /**
+     * Native name: UPDFCACHE_ONSAVECACHE
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_ONSAVECACHE => 2
+    static ONSAVECACHE => 2
 
     /**
+     * Native name: UPDFCACHE_ONSTOPCACHE
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_ONSTOPCACHE => 4
+    static ONSTOPCACHE => 4
 
     /**
+     * Native name: UPDFCACHE_IFBLANKORONSAVECACHE
      * @type {Integer (UInt32)}
      */
-    static UPDFCACHE_IFBLANKORONSAVECACHE => 18
+    static IFBLANKORONSAVECACHE => 18
 }

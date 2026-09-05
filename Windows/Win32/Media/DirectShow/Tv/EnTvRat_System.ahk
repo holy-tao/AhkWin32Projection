@@ -57,12 +57,14 @@ class EnTvRat_System extends Win32Enum {
     static AgeBased => 9
 
     /**
+     * Native name: TvRat_kSystems
      * @type {Integer (Int32)}
      */
-    static TvRat_kSystems => 10
+    static kSystems => 10
 
     /**
+     * Native name: TvRat_SystemDontKnow
      * @type {Integer (Int32)}
      */
-    static TvRat_SystemDontKnow => 255
+    static DontKnow => 255
 }

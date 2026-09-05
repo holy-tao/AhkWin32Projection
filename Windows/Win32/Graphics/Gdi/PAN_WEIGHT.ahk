@@ -7,67 +7,80 @@
 class PAN_WEIGHT extends Win32Enum {
 
     /**
+     * Native name: PAN_WEIGHT_ANY
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_ANY => 0x00
+    static ANY => 0x00
 
     /**
+     * Native name: PAN_WEIGHT_NO_FIT
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_NO_FIT => 0x01
+    static NO_FIT => 0x01
 
     /**
+     * Native name: PAN_WEIGHT_INDEX
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_INDEX => 0x02
+    static INDEX => 0x02
 
     /**
+     * Native name: PAN_WEIGHT_VERY_LIGHT
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_VERY_LIGHT => 0x02
+    static VERY_LIGHT => 0x02
 
     /**
+     * Native name: PAN_WEIGHT_LIGHT
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_LIGHT => 0x03
+    static LIGHT => 0x03
 
     /**
+     * Native name: PAN_WEIGHT_THIN
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_THIN => 0x04
+    static THIN => 0x04
 
     /**
+     * Native name: PAN_WEIGHT_BOOK
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_BOOK => 0x05
+    static BOOK => 0x05
 
     /**
+     * Native name: PAN_WEIGHT_MEDIUM
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_MEDIUM => 0x06
+    static MEDIUM => 0x06
 
     /**
+     * Native name: PAN_WEIGHT_DEMI
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_DEMI => 0x07
+    static DEMI => 0x07
 
     /**
+     * Native name: PAN_WEIGHT_BOLD
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_BOLD => 0x08
+    static BOLD => 0x08
 
     /**
+     * Native name: PAN_WEIGHT_HEAVY
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_HEAVY => 0x09
+    static HEAVY => 0x09
 
     /**
+     * Native name: PAN_WEIGHT_BLACK
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_BLACK => 0x0A
+    static BLACK => 0x0A
 
     /**
+     * Native name: PAN_WEIGHT_NORD
      * @type {Integer (Byte)}
      */
-    static PAN_WEIGHT_NORD => 0x0B
+    static NORD => 0x0B
 }

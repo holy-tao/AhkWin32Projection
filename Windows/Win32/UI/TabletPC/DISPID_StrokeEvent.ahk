@@ -7,12 +7,14 @@
 class DISPID_StrokeEvent extends Win32Enum {
 
     /**
+     * Native name: DISPID_SEStrokesAdded
      * @type {Integer (Int32)}
      */
-    static DISPID_SEStrokesAdded => 1
+    static SEStrokesAdded => 1
 
     /**
+     * Native name: DISPID_SEStrokesRemoved
      * @type {Integer (Int32)}
      */
-    static DISPID_SEStrokesRemoved => 2
+    static SEStrokesRemoved => 2
 }

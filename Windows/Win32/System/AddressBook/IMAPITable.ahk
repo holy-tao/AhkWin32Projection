@@ -32,7 +32,6 @@ class IMAPITable extends IUnknown {
     static VTableNames => ["GetLastError", "Advise", "Unadvise", "GetStatus", "SetColumns", "QueryColumns", "GetRowCount", "SeekRow", "SeekRowApprox", "QueryPosition", "FindRow", "Restrict", "CreateBookmark", "FreeBookmark", "SortTable", "QuerySortOrder", "QueryRows", "Abort", "ExpandRow", "CollapseRow", "WaitForCompletion", "GetCollapseState", "SetCollapseState"]
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::GetLastError** method returns detailed information, if available, about a prior method call that failed. This information can be displayed in a message or a dialog box.
      * @param {HRESULT} _hResult > [in] HRESULT containing the error generated in the previous method call.
@@ -309,7 +308,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The cursor position in a table after a call to the **IMAPITable::SeekRowApprox** method is heuristically the fraction and might not be exact. For example, certain providers might implement a table on top of a binary tree, treating the table's halfway point as the top of the tree for performance reasons. If the tree is not balanced, then the halfway point used might not be exactly halfway through the table.
      * @param {Integer} ulNumerator > [in] Pointer to the numerator of the fraction representing the table position. If the  _ulNumerator_ parameter is zero, the cursor is positioned at the beginning of the table regardless of the denominator value. If  _ulNumerator_ is equal to the  _ulDenominator_ parameter, the cursor is positioned after the last table row.
@@ -329,7 +327,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::QueryPosition** method determines the current row position and returns both the number of the current row and a fractional value indicating its relative position to the end of the table. MAPI defines the current row as the next row to be read.
      * @param {Pointer<Integer>} lpulRow > [out] Pointer to the number of the current row. The row number is zero-based; the first row in the table is zero.
@@ -434,7 +431,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::CreateBookmark** method marks a table position by creating a value called a bookmark. A bookmark can be used to return to the position identified by the bookmark. The bookmarked position is associated with the object at that row in the table. 
      *   
@@ -457,7 +453,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::FreeBookmark** method releases a bookmark that is no longer needed. The bookmark is no longer valid after this call. Whenever a table is released from memory, all of its associated bookmarks are also released.
      * @param {Integer} bkPosition > [in] The bookmark to be freed, created by calling the [IMAPITable::CreateBookmark](imapitable-createbookmark.md) method.
@@ -476,7 +471,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::SortTable** method orders the rows in a table view. Whereas some tables support both standard and categorized sorting on various sort key columns, other tables are more limited in their support. Address book providers ordinarily do not support table sorting. Message store providers usually support sorting to the extent that they keep the sort order of folders that results when a full table (a table without restrictions) is sorted. 
      *   
@@ -538,7 +532,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::QuerySortOrder** method retrieves the current sort order for a table. Sort orders are described with an [SSortOrderSet](ssortorderset.md) structure. 
      *   
@@ -620,7 +613,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::Abort** method stops any asynchronous operation that is currently in progress.
      * @returns {HRESULT} None
@@ -706,7 +698,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::WaitForCompletion** method suspends processing until any asynchronous operations currently under way for the table have completed. **WaitForCompletion** can allow the asynchronous operations either to fully complete or to run for a certain number of milliseconds, as indicated by  _ulTimeout_, before being interrupted. To detect asynchronous operations in progress, call the [IMAPITable::GetStatus](imapitable-getstatus.md) method.
      * @param {Integer} ulFlags > Reserved; must be zero.
@@ -733,7 +724,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::GetCollapseState** method works with the [IMAPITable::SetCollapseState](imapitable-setcollapsestate.md) method to change the user's view of a categorized table. **GetCollapseState** saves the data that is needed for **SetCollapseState** to use to rebuild the appropriate views of the categories of a categorized table. Service providers determine the data to be saved. However, most service providers implementing **GetCollapseState** save the following: 
      *   
@@ -772,7 +762,6 @@ class IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::SetCollapseState** method reestablishes the expanded or collapsed state of the table view. **SetCollapseState** and **GetCollapseState** work together as follows: 
      *   

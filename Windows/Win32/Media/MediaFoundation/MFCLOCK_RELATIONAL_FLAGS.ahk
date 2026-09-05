@@ -10,7 +10,8 @@ class MFCLOCK_RELATIONAL_FLAGS extends Win32Enum {
 
     /**
      * Jitter values are always negative. In other words, the time returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfclock-getcorrelatedtime">IMFClock::GetCorrelatedTime</a> might jitter behind the actual clock time, but will never jitter ahead of the actual time. If this flag is not present, the clock might jitter in either direction.
+     * Native name: MFCLOCK_RELATIONAL_FLAG_JITTER_NEVER_AHEAD
      * @type {Integer (Int32)}
      */
-    static MFCLOCK_RELATIONAL_FLAG_JITTER_NEVER_AHEAD => 1
+    static FLAG_JITTER_NEVER_AHEAD => 1
 }

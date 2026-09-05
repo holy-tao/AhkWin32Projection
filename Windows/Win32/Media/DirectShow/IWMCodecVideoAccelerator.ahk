@@ -32,7 +32,6 @@ class IWMCodecVideoAccelerator extends IUnknown {
     static VTableNames => ["NegotiateConnection", "SetPlayerNotify"]
 
     /**
-     * 
      * @param {IAMVideoAccelerator} pIAMVA 
      * @param {Pointer<AM_MEDIA_TYPE>} pMediaType 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IWMCodecVideoAccelerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IWMPlayerTimestampHook} pHook 
      * @returns {HRESULT} 
      */

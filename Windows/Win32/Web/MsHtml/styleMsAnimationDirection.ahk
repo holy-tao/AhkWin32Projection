@@ -7,32 +7,38 @@
 class styleMsAnimationDirection extends Win32Enum {
 
     /**
+     * Native name: styleMsAnimationDirectionNormal
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationDirectionNormal => 0
+    static Normal => 0
 
     /**
+     * Native name: styleMsAnimationDirectionAlternate
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationDirectionAlternate => 1
+    static Alternate => 1
 
     /**
+     * Native name: styleMsAnimationDirectionReverse
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationDirectionReverse => 2
+    static Reverse => 2
 
     /**
+     * Native name: styleMsAnimationDirectionAlternateReverse
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationDirectionAlternateReverse => 3
+    static AlternateReverse => 3
 
     /**
+     * Native name: styleMsAnimationDirectionNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationDirectionNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleMsAnimationDirection_Max
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationDirection_Max => 2147483647
+    static Max => 2147483647
 }

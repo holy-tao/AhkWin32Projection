@@ -10,19 +10,22 @@ class DWRITE_PARAGRAPH_ALIGNMENT extends Win32Enum {
 
     /**
      * The top of the text flow is aligned to the top edge of the layout box.
+     * Native name: DWRITE_PARAGRAPH_ALIGNMENT_NEAR
      * @type {Integer (Int32)}
      */
-    static DWRITE_PARAGRAPH_ALIGNMENT_NEAR => 0
+    static NEAR => 0
 
     /**
      * The bottom of the text flow is aligned to the bottom edge of the layout box.
+     * Native name: DWRITE_PARAGRAPH_ALIGNMENT_FAR
      * @type {Integer (Int32)}
      */
-    static DWRITE_PARAGRAPH_ALIGNMENT_FAR => 1
+    static FAR => 1
 
     /**
      * The center of the flow is aligned to the center of the layout box.
+     * Native name: DWRITE_PARAGRAPH_ALIGNMENT_CENTER
      * @type {Integer (Int32)}
      */
-    static DWRITE_PARAGRAPH_ALIGNMENT_CENTER => 2
+    static CENTER => 2
 }

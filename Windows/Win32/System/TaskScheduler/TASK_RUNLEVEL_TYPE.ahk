@@ -10,13 +10,15 @@ class TASK_RUNLEVEL_TYPE extends Win32Enum {
 
     /**
      * Tasks will be run with the least privileges.
+     * Native name: TASK_RUNLEVEL_LUA
      * @type {Integer (Int32)}
      */
-    static TASK_RUNLEVEL_LUA => 0
+    static LUA => 0
 
     /**
      * Tasks will be run with the highest privileges.
+     * Native name: TASK_RUNLEVEL_HIGHEST
      * @type {Integer (Int32)}
      */
-    static TASK_RUNLEVEL_HIGHEST => 1
+    static HIGHEST => 1
 }

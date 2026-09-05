@@ -7,17 +7,20 @@
 class DISPLAYCONFIG_ADVANCED_COLOR_MODE extends Win32Enum {
 
     /**
+     * Native name: DISPLAYCONFIG_ADVANCED_COLOR_MODE_SDR
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_ADVANCED_COLOR_MODE_SDR => 0
+    static SDR => 0
 
     /**
+     * Native name: DISPLAYCONFIG_ADVANCED_COLOR_MODE_WCG
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_ADVANCED_COLOR_MODE_WCG => 1
+    static WCG => 1
 
     /**
+     * Native name: DISPLAYCONFIG_ADVANCED_COLOR_MODE_HDR
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_ADVANCED_COLOR_MODE_HDR => 2
+    static HDR => 2
 }

@@ -31,7 +31,6 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl {
     static VTableNames => ["SetSdrWhiteLevel", "GetSdrWhiteLevel", "SetToneMappingMode", "GetToneMappingMode", "DoesSupportToneMappingMode"]
 
     /**
-     * 
      * @param {Float} fWhiteLevelInNits 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetSdrWhiteLevel() {
@@ -50,7 +48,6 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl {
     }
 
     /**
-     * 
      * @param {WICBitmapToneMappingMode} _mode 
      * @returns {HRESULT} 
      */
@@ -60,7 +57,6 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl {
     }
 
     /**
-     * 
      * @returns {WICBitmapToneMappingMode} 
      */
     GetToneMappingMode() {
@@ -69,7 +65,6 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl {
     }
 
     /**
-     * 
      * @param {WICBitmapToneMappingMode} _mode 
      * @returns {BOOL} 
      */

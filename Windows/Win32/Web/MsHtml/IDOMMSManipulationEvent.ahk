@@ -52,7 +52,6 @@ class IDOMMSManipulationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_lastState() {
@@ -61,7 +60,6 @@ class IDOMMSManipulationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_currentState() {
@@ -70,7 +68,6 @@ class IDOMMSManipulationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

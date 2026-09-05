@@ -309,7 +309,8 @@ class IMAGEHLP_SYMBOL_TYPE_INFO extends Win32Enum {
     static TI_GET_DISCRIMINATEDUNION_TAG_RANGES => 38
 
     /**
+     * Native name: IMAGEHLP_SYMBOL_TYPE_INFO_MAX
      * @type {Integer (Int32)}
      */
-    static IMAGEHLP_SYMBOL_TYPE_INFO_MAX => 39
+    static MAX => 39
 }

@@ -26,17 +26,20 @@
 class INSTALLLEVEL extends Win32Enum {
 
     /**
+     * Native name: INSTALLLEVEL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static INSTALLLEVEL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: INSTALLLEVEL_MINIMUM
      * @type {Integer (Int32)}
      */
-    static INSTALLLEVEL_MINIMUM => 1
+    static MINIMUM => 1
 
     /**
+     * Native name: INSTALLLEVEL_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static INSTALLLEVEL_MAXIMUM => 65535
+    static MAXIMUM => 65535
 }

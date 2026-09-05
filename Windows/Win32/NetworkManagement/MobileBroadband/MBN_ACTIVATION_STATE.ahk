@@ -10,31 +10,36 @@ class MBN_ACTIVATION_STATE extends Win32Enum {
 
     /**
      * The connection state is unknown.
+     * Native name: MBN_ACTIVATION_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_ACTIVATION_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * The connection has been established.
+     * Native name: MBN_ACTIVATION_STATE_ACTIVATED
      * @type {Integer (Int32)}
      */
-    static MBN_ACTIVATION_STATE_ACTIVATED => 1
+    static ACTIVATED => 1
 
     /**
      * The device is establishing the connection.
+     * Native name: MBN_ACTIVATION_STATE_ACTIVATING
      * @type {Integer (Int32)}
      */
-    static MBN_ACTIVATION_STATE_ACTIVATING => 2
+    static ACTIVATING => 2
 
     /**
      * There is no connection.
+     * Native name: MBN_ACTIVATION_STATE_DEACTIVATED
      * @type {Integer (Int32)}
      */
-    static MBN_ACTIVATION_STATE_DEACTIVATED => 3
+    static DEACTIVATED => 3
 
     /**
      * The device is in the process of disconnection.
+     * Native name: MBN_ACTIVATION_STATE_DEACTIVATING
      * @type {Integer (Int32)}
      */
-    static MBN_ACTIVATION_STATE_DEACTIVATING => 4
+    static DEACTIVATING => 4
 }

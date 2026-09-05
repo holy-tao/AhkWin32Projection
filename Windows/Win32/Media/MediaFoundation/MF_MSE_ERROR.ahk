@@ -10,25 +10,29 @@ class MF_MSE_ERROR extends Win32Enum {
 
     /**
      * Specifies no error.
+     * Native name: MF_MSE_ERROR_NOERROR
      * @type {Integer (Int32)}
      */
-    static MF_MSE_ERROR_NOERROR => 0
+    static NOERROR => 0
 
     /**
      * Specifies an error with the network.
+     * Native name: MF_MSE_ERROR_NETWORK
      * @type {Integer (Int32)}
      */
-    static MF_MSE_ERROR_NETWORK => 1
+    static NETWORK => 1
 
     /**
      * Specifies an error with decoding.
+     * Native name: MF_MSE_ERROR_DECODE
      * @type {Integer (Int32)}
      */
-    static MF_MSE_ERROR_DECODE => 2
+    static DECODE => 2
 
     /**
      * Specifies an unknown error.
+     * Native name: MF_MSE_ERROR_UNKNOWN_ERROR
      * @type {Integer (Int32)}
      */
-    static MF_MSE_ERROR_UNKNOWN_ERROR => 3
+    static UNKNOWN_ERROR => 3
 }

@@ -330,7 +330,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {Integer} privilegeId 
      * @param {HSTRING} scope 
      * @param {HSTRING} policy 
@@ -345,7 +344,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {HSTRING} serviceConfigurationId 
      * @param {HSTRING} sessionTemplateName 
@@ -368,7 +366,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {HSTRING} promptDisplayText 
      * @param {Pointer<HSTRING>} xuids 
@@ -391,7 +388,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -408,7 +404,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -425,7 +420,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -440,7 +434,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {Integer} privilegeId 
      * @param {HSTRING} scope 
@@ -462,7 +455,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {Integer} privilegeId 
      * @param {HSTRING} scope 
@@ -478,7 +470,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {HSTRING} serviceConfigurationId 
      * @param {HSTRING} sessionTemplateName 
      * @param {HSTRING} sessionId 
@@ -502,7 +493,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {HSTRING} serviceConfigurationId 
      * @param {HSTRING} sessionTemplateName 
@@ -527,7 +517,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} _context 
@@ -541,7 +530,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -556,7 +544,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} _context 
      * @returns {HRESULT} 
@@ -569,7 +556,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} _context 
@@ -583,7 +569,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} _context 
      * @returns {HRESULT} 
@@ -596,7 +581,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} _context 
@@ -610,7 +594,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} _context 
      * @returns {HRESULT} 
@@ -623,7 +606,6 @@ class Gaming {
     }
 
     /**
-     * 
      * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} _context 

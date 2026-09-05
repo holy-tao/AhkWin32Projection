@@ -92,7 +92,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AddressLine1() {
@@ -102,7 +101,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AddressLine2() {
@@ -112,7 +110,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_City() {
@@ -122,7 +119,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StateProvince() {
@@ -132,7 +128,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PostalCode() {
@@ -142,7 +137,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CountryRegion() {
@@ -152,7 +146,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DetailLevel() {
@@ -161,7 +154,6 @@ class IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Timestamp() {

@@ -32,7 +32,6 @@ class IDistList extends IMAPIContainer {
     static VTableNames => ["CreateEntry", "CopyEntries", "DeleteEntries", "ResolveNames"]
 
     /**
-     * 
      * @param {Integer} cbEntryID 
      * @param {Integer} lpEntryID 
      * @param {Integer} ulCreateFlags 
@@ -44,7 +43,6 @@ class IDistList extends IMAPIContainer {
     }
 
     /**
-     * 
      * @param {Pointer<SBinaryArray>} lpEntries 
      * @param {Pointer} ulUIParam 
      * @param {IMAPIProgress} lpProgress 
@@ -57,7 +55,6 @@ class IDistList extends IMAPIContainer {
     }
 
     /**
-     * 
      * @param {Pointer<SBinaryArray>} lpEntries 
      * @param {Integer} ulFlags 
      * @returns {HRESULT} 
@@ -68,7 +65,6 @@ class IDistList extends IMAPIContainer {
     }
 
     /**
-     * 
      * @param {Pointer<SPropTagArray>} lpPropTagArray 
      * @param {Integer} ulFlags 
      * @param {Pointer<ADRLIST>} lpAdrList 

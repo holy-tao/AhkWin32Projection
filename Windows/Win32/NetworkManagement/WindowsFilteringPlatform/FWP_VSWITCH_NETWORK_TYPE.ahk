@@ -10,25 +10,29 @@ class FWP_VSWITCH_NETWORK_TYPE extends Win32Enum {
 
     /**
      * Specifies an unknown network type.
+     * Native name: FWP_VSWITCH_NETWORK_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static FWP_VSWITCH_NETWORK_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Specifies a private network.
+     * Native name: FWP_VSWITCH_NETWORK_TYPE_PRIVATE
      * @type {Integer (Int32)}
      */
-    static FWP_VSWITCH_NETWORK_TYPE_PRIVATE => 1
+    static PRIVATE => 1
 
     /**
      * Specifies an internal network.
+     * Native name: FWP_VSWITCH_NETWORK_TYPE_INTERNAL
      * @type {Integer (Int32)}
      */
-    static FWP_VSWITCH_NETWORK_TYPE_INTERNAL => 2
+    static INTERNAL => 2
 
     /**
      * Specifies an external network.
+     * Native name: FWP_VSWITCH_NETWORK_TYPE_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static FWP_VSWITCH_NETWORK_TYPE_EXTERNAL => 3
+    static EXTERNAL => 3
 }

@@ -7,12 +7,14 @@
 class AMBISONICS_NORMALIZATION extends Win32Enum {
 
     /**
+     * Native name: AMBISONICS_NORMALIZATION_SN3D
      * @type {Integer (Int32)}
      */
-    static AMBISONICS_NORMALIZATION_SN3D => 0
+    static SN3D => 0
 
     /**
+     * Native name: AMBISONICS_NORMALIZATION_N3D
      * @type {Integer (Int32)}
      */
-    static AMBISONICS_NORMALIZATION_N3D => 1
+    static N3D => 1
 }

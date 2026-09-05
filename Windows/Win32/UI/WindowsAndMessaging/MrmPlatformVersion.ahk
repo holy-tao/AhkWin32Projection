@@ -9,17 +9,20 @@
 class MrmPlatformVersion extends Win32Enum {
 
     /**
+     * Native name: MrmPlatformVersion_Default
      * @type {Integer (Int32)}
      */
-    static MrmPlatformVersion_Default => 0
+    static Default => 0
 
     /**
+     * Native name: MrmPlatformVersion_Windows10_0_0_0
      * @type {Integer (Int32)}
      */
-    static MrmPlatformVersion_Windows10_0_0_0 => 17432576
+    static Windows10_0_0_0 => 17432576
 
     /**
+     * Native name: MrmPlatformVersion_Windows10_0_0_5
      * @type {Integer (Int32)}
      */
-    static MrmPlatformVersion_Windows10_0_0_5 => 17432581
+    static Windows10_0_0_5 => 17432581
 }

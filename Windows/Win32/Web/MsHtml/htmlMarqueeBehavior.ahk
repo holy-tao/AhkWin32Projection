@@ -7,22 +7,26 @@
 class htmlMarqueeBehavior extends Win32Enum {
 
     /**
+     * Native name: htmlMarqueeBehaviorscroll
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeBehaviorscroll => 1
+    static Behaviorscroll => 1
 
     /**
+     * Native name: htmlMarqueeBehaviorslide
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeBehaviorslide => 2
+    static Behaviorslide => 2
 
     /**
+     * Native name: htmlMarqueeBehavioralternate
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeBehavioralternate => 3
+    static Behavioralternate => 3
 
     /**
+     * Native name: htmlMarqueeBehavior_Max
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeBehavior_Max => 2147483647
+    static Max => 2147483647
 }

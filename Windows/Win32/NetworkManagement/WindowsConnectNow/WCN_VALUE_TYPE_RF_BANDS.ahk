@@ -10,13 +10,15 @@ class WCN_VALUE_TYPE_RF_BANDS extends Win32Enum {
 
     /**
      * The request is being sent on the 2.4 GHz frequency band.
+     * Native name: WCN_VALUE_RB_24GHZ
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_RB_24GHZ => 1
+    static RB_24GHZ => 1
 
     /**
      * The request is being sent on the 5.0 Ghz frequency band.
+     * Native name: WCN_VALUE_RB_50GHZ
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_RB_50GHZ => 2
+    static RB_50GHZ => 2
 }

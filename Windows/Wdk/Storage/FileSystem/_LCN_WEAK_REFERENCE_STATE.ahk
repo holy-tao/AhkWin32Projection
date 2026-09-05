@@ -7,12 +7,14 @@
 class _LCN_WEAK_REFERENCE_STATE extends Win32Enum {
 
     /**
+     * Native name: LCN_WEAK_REFERENCE_VALID
      * @type {Integer (Int32)}
      */
-    static LCN_WEAK_REFERENCE_VALID => 1
+    static VALID => 1
 
     /**
+     * Native name: LCN_CHECKSUM_VALID
      * @type {Integer (Int32)}
      */
-    static LCN_CHECKSUM_VALID => 2
+    static CHECKSUM_VALID => 2
 }

@@ -158,7 +158,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -168,7 +167,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerdown() {
@@ -178,7 +176,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -188,7 +185,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointermove() {
@@ -198,7 +194,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -208,7 +203,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerup() {
@@ -218,7 +212,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -228,7 +221,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerover() {
@@ -238,7 +230,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -248,7 +239,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerout() {
@@ -258,7 +248,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -268,7 +257,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointercancel() {
@@ -278,7 +266,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -288,7 +275,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerhover() {
@@ -298,7 +284,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -308,7 +293,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturestart() {
@@ -318,7 +302,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -328,7 +311,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturechange() {
@@ -338,7 +320,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -348,7 +329,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgestureend() {
@@ -358,7 +338,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -368,7 +347,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturehold() {
@@ -378,7 +356,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -388,7 +365,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturetap() {
@@ -398,7 +374,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -408,7 +383,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturedoubletap() {
@@ -418,7 +392,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -428,7 +401,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsinertiastart() {
@@ -438,7 +410,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLApplicationCache} 
      */
     get_applicationCache() {
@@ -447,7 +418,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -457,7 +427,6 @@ class IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpopstate() {

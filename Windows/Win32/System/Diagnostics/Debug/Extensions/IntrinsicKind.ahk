@@ -7,19 +7,22 @@
 class IntrinsicKind extends Win32Enum {
 
     /**
+     * Native name: IntrinsicVoid
      * @type {Integer (Int32)}
      */
-    static IntrinsicVoid => 0
+    static Void => 0
 
     /**
+     * Native name: IntrinsicBool
      * @type {Integer (Int32)}
      */
-    static IntrinsicBool => 1
+    static Bool => 1
 
     /**
+     * Native name: IntrinsicChar
      * @type {Integer (Int32)}
      */
-    static IntrinsicChar => 2
+    static Char => 2
 
     /**
      * @type {Integer (Int32)}
@@ -27,9 +30,10 @@ class IntrinsicKind extends Win32Enum {
     static IntrinsicWChar => 3
 
     /**
+     * Native name: IntrinsicInt
      * @type {Integer (Int32)}
      */
-    static IntrinsicInt => 4
+    static Int => 4
 
     /**
      * @type {Integer (Int32)}
@@ -37,9 +41,10 @@ class IntrinsicKind extends Win32Enum {
     static IntrinsicUInt => 5
 
     /**
+     * Native name: IntrinsicLong
      * @type {Integer (Int32)}
      */
-    static IntrinsicLong => 6
+    static Long => 6
 
     /**
      * @type {Integer (Int32)}
@@ -47,9 +52,10 @@ class IntrinsicKind extends Win32Enum {
     static IntrinsicULong => 7
 
     /**
+     * Native name: IntrinsicFloat
      * @type {Integer (Int32)}
      */
-    static IntrinsicFloat => 8
+    static Float => 8
 
     /**
      * @type {Integer (Int32)}
@@ -57,12 +63,14 @@ class IntrinsicKind extends Win32Enum {
     static IntrinsicHRESULT => 9
 
     /**
+     * Native name: IntrinsicChar16
      * @type {Integer (Int32)}
      */
-    static IntrinsicChar16 => 10
+    static Char16 => 10
 
     /**
+     * Native name: IntrinsicChar32
      * @type {Integer (Int32)}
      */
-    static IntrinsicChar32 => 11
+    static Char32 => 11
 }

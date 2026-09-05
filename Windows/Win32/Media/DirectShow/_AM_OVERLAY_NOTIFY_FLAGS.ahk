@@ -12,19 +12,22 @@ class _AM_OVERLAY_NOTIFY_FLAGS extends Win32Enum {
 
     /**
      * The rectangle will be changed from visible to invisible, or vice-versa.
+     * Native name: AM_OVERLAY_NOTIFY_VISIBLE_CHANGE
      * @type {Integer (Int32)}
      */
-    static AM_OVERLAY_NOTIFY_VISIBLE_CHANGE => 1
+    static VISIBLE_CHANGE => 1
 
     /**
      * Source rectangle changed or changing.
+     * Native name: AM_OVERLAY_NOTIFY_SOURCE_CHANGE
      * @type {Integer (Int32)}
      */
-    static AM_OVERLAY_NOTIFY_SOURCE_CHANGE => 2
+    static SOURCE_CHANGE => 2
 
     /**
      * Destination rectangle changed or changing.
+     * Native name: AM_OVERLAY_NOTIFY_DEST_CHANGE
      * @type {Integer (Int32)}
      */
-    static AM_OVERLAY_NOTIFY_DEST_CHANGE => 4
+    static DEST_CHANGE => 4
 }

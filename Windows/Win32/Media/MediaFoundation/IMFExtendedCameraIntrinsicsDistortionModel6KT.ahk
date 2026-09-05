@@ -30,7 +30,6 @@ class IMFExtendedCameraIntrinsicsDistortionModel6KT extends IUnknown {
     static VTableNames => ["GetDistortionModel", "SetDistortionModel"]
 
     /**
-     * 
      * @returns {MFCameraIntrinsic_DistortionModel6KT} 
      */
     GetDistortionModel() {
@@ -40,7 +39,6 @@ class IMFExtendedCameraIntrinsicsDistortionModel6KT extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<MFCameraIntrinsic_DistortionModel6KT>} pDistortionModel 
      * @returns {HRESULT} 
      */

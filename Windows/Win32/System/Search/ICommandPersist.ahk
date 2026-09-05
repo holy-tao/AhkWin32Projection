@@ -30,7 +30,6 @@ class ICommandPersist extends IUnknown {
     static VTableNames => ["DeleteCommand", "GetCurrentCommand", "LoadCommand", "SaveCommand"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pCommandID 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ICommandPersist extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<DBID>} 
      */
     GetCurrentCommand() {
@@ -49,7 +47,6 @@ class ICommandPersist extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pCommandID 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -60,7 +57,6 @@ class ICommandPersist extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pCommandID 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 

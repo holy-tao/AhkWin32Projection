@@ -10,7 +10,8 @@ class AM_LINE21_CCLEVEL extends Win32Enum {
 
     /**
      * TeleCaption II.
+     * Native name: AM_L21_CCLEVEL_TC2
      * @type {Integer (Int32)}
      */
-    static AM_L21_CCLEVEL_TC2 => 0
+    static L21_CCLEVEL_TC2 => 0
 }

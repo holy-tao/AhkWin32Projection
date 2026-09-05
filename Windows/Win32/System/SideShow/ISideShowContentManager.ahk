@@ -32,7 +32,6 @@ class ISideShowContentManager extends IUnknown {
     static VTableNames => ["Add", "Remove", "RemoveAll", "SetEventSink", "GetDeviceCapabilities"]
 
     /**
-     * 
      * @param {ISideShowContent} in_pIContent 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ISideShowContentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} in_contentId 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class ISideShowContentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveAll() {
@@ -61,7 +58,6 @@ class ISideShowContentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowEvents} in_pIEvents 
      * @returns {HRESULT} 
      */
@@ -71,7 +67,6 @@ class ISideShowContentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISideShowCapabilitiesCollection} 
      */
     GetDeviceCapabilities() {

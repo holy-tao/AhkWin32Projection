@@ -31,7 +31,6 @@ class ICommandText extends ICommand {
     static VTableNames => ["GetCommandText", "SetCommandText"]
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidDialect 
      * @returns {PWSTR} 
      */
@@ -41,7 +40,6 @@ class ICommandText extends ICommand {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidDialect 
      * @param {PWSTR} pwszCommand 
      * @returns {HRESULT} 

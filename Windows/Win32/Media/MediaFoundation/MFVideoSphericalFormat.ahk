@@ -7,22 +7,26 @@
 class MFVideoSphericalFormat extends Win32Enum {
 
     /**
+     * Native name: MFVideoSphericalFormat_Unsupported
      * @type {Integer (Int32)}
      */
-    static MFVideoSphericalFormat_Unsupported => 0
+    static Unsupported => 0
 
     /**
+     * Native name: MFVideoSphericalFormat_Equirectangular
      * @type {Integer (Int32)}
      */
-    static MFVideoSphericalFormat_Equirectangular => 1
+    static Equirectangular => 1
 
     /**
+     * Native name: MFVideoSphericalFormat_CubeMap
      * @type {Integer (Int32)}
      */
-    static MFVideoSphericalFormat_CubeMap => 2
+    static CubeMap => 2
 
     /**
+     * Native name: MFVideoSphericalFormat_3DMesh
      * @type {Integer (Int32)}
      */
-    static MFVideoSphericalFormat_3DMesh => 3
+    static 3DMesh => 3
 }

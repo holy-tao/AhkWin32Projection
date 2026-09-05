@@ -21,31 +21,36 @@ class BG_AUTH_SCHEME extends Win32Enum {
 
     /**
      * <em>Basic</em> is a scheme in which the user name and password are sent in clear-text to the server or proxy.
+     * Native name: BG_AUTH_SCHEME_BASIC
      * @type {Integer (Int32)}
      */
-    static BG_AUTH_SCHEME_BASIC => 1
+    static BASIC => 1
 
     /**
      * <em>Digest</em> is a challenge-response scheme that uses a server-specified data string for the challenge.
+     * Native name: BG_AUTH_SCHEME_DIGEST
      * @type {Integer (Int32)}
      */
-    static BG_AUTH_SCHEME_DIGEST => 2
+    static DIGEST => 2
 
     /**
      * <em>NTLM</em> is a challenge-response scheme that uses the credentials of the user for authentication in a Windows network environment.
+     * Native name: BG_AUTH_SCHEME_NTLM
      * @type {Integer (Int32)}
      */
-    static BG_AUTH_SCHEME_NTLM => 3
+    static NTLM => 3
 
     /**
      * <em>Simple and Protected Negotiation</em> (Snego) is a challenge-response scheme that negotiates with the server or proxy to determine which scheme to use for authentication. Examples are the Kerberos protocol, and NTLM.
+     * Native name: BG_AUTH_SCHEME_NEGOTIATE
      * @type {Integer (Int32)}
      */
-    static BG_AUTH_SCHEME_NEGOTIATE => 4
+    static NEGOTIATE => 4
 
     /**
      * <em>Passport</em> is a centralized authentication service provided by Microsoft that offers a single logon for member sites.
+     * Native name: BG_AUTH_SCHEME_PASSPORT
      * @type {Integer (Int32)}
      */
-    static BG_AUTH_SCHEME_PASSPORT => 5
+    static PASSPORT => 5
 }

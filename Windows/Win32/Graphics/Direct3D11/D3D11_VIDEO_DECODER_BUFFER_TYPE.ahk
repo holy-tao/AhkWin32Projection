@@ -10,60 +10,70 @@ class D3D11_VIDEO_DECODER_BUFFER_TYPE extends Win32Enum {
 
     /**
      * Picture decoding parameter buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_PICTURE_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_PICTURE_PARAMETERS => 0
+    static PICTURE_PARAMETERS => 0
 
     /**
      * Macroblock control command buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_MACROBLOCK_CONTROL
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_MACROBLOCK_CONTROL => 1
+    static MACROBLOCK_CONTROL => 1
 
     /**
      * Residual difference block data buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_RESIDUAL_DIFFERENCE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_RESIDUAL_DIFFERENCE => 2
+    static RESIDUAL_DIFFERENCE => 2
 
     /**
      * Deblocking filter control command buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_DEBLOCKING_CONTROL
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_DEBLOCKING_CONTROL => 3
+    static DEBLOCKING_CONTROL => 3
 
     /**
      * Inverse quantization matrix buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_INVERSE_QUANTIZATION_MATRIX
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_INVERSE_QUANTIZATION_MATRIX => 4
+    static INVERSE_QUANTIZATION_MATRIX => 4
 
     /**
      * Slice-control buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_SLICE_CONTROL
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_SLICE_CONTROL => 5
+    static SLICE_CONTROL => 5
 
     /**
      * Bitstream data buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_BITSTREAM
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_BITSTREAM => 6
+    static BITSTREAM => 6
 
     /**
      * Motion vector buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_MOTION_VECTOR
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_MOTION_VECTOR => 7
+    static MOTION_VECTOR => 7
 
     /**
      * Film grain synthesis data buffer.
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_FILM_GRAIN
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_FILM_GRAIN => 8
+    static FILM_GRAIN => 8
 
     /**
+     * Native name: D3D11_VIDEO_DECODER_BUFFER_HUFFMAN_TABLE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_BUFFER_HUFFMAN_TABLE => 9
+    static HUFFMAN_TABLE => 9
 }

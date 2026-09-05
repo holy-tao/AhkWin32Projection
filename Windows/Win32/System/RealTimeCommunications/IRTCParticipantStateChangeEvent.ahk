@@ -52,7 +52,6 @@ class IRTCParticipantStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -61,7 +60,6 @@ class IRTCParticipantStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_PARTICIPANT_STATE} 
      */
     get_State() {
@@ -70,7 +68,6 @@ class IRTCParticipantStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {

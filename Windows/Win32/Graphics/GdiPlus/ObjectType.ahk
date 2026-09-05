@@ -7,67 +7,80 @@
 class ObjectType extends Win32Enum {
 
     /**
+     * Native name: ObjectTypeInvalid
      * @type {Integer (Int32)}
      */
-    static ObjectTypeInvalid => 0
+    static Invalid => 0
 
     /**
+     * Native name: ObjectTypeBrush
      * @type {Integer (Int32)}
      */
-    static ObjectTypeBrush => 1
+    static Brush => 1
 
     /**
+     * Native name: ObjectTypePen
      * @type {Integer (Int32)}
      */
-    static ObjectTypePen => 2
+    static Pen => 2
 
     /**
+     * Native name: ObjectTypePath
      * @type {Integer (Int32)}
      */
-    static ObjectTypePath => 3
+    static Path => 3
 
     /**
+     * Native name: ObjectTypeRegion
      * @type {Integer (Int32)}
      */
-    static ObjectTypeRegion => 4
+    static Region => 4
 
     /**
+     * Native name: ObjectTypeImage
      * @type {Integer (Int32)}
      */
-    static ObjectTypeImage => 5
+    static Image => 5
 
     /**
+     * Native name: ObjectTypeFont
      * @type {Integer (Int32)}
      */
-    static ObjectTypeFont => 6
+    static Font => 6
 
     /**
+     * Native name: ObjectTypeStringFormat
      * @type {Integer (Int32)}
      */
-    static ObjectTypeStringFormat => 7
+    static StringFormat => 7
 
     /**
+     * Native name: ObjectTypeImageAttributes
      * @type {Integer (Int32)}
      */
-    static ObjectTypeImageAttributes => 8
+    static ImageAttributes => 8
 
     /**
+     * Native name: ObjectTypeCustomLineCap
      * @type {Integer (Int32)}
      */
-    static ObjectTypeCustomLineCap => 9
+    static CustomLineCap => 9
 
     /**
+     * Native name: ObjectTypeGraphics
      * @type {Integer (Int32)}
      */
-    static ObjectTypeGraphics => 10
+    static Graphics => 10
 
     /**
+     * Native name: ObjectTypeMax
      * @type {Integer (Int32)}
      */
-    static ObjectTypeMax => 10
+    static Max => 10
 
     /**
+     * Native name: ObjectTypeMin
      * @type {Integer (Int32)}
      */
-    static ObjectTypeMin => 1
+    static Min => 1
 }

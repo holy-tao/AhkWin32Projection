@@ -30,7 +30,6 @@ class IActivationFilter extends IUnknown {
     static VTableNames => ["HandleActivation"]
 
     /**
-     * 
      * @param {Integer} dwActivationType 
      * @param {Pointer<Guid>} rclsid 
      * @returns {Guid} 

@@ -10,31 +10,36 @@ class WPC_ARGS_SAFERAPPBLOCKED extends Win32Enum {
 
     /**
      * The time stamp for the blocked application.
+     * Native name: WPC_ARGS_SAFERAPPBLOCKED_TIMESTAMP
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_SAFERAPPBLOCKED_TIMESTAMP => 0
+    static TIMESTAMP => 0
 
     /**
      * The user identifier of the blocked application.
+     * Native name: WPC_ARGS_SAFERAPPBLOCKED_USERID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_SAFERAPPBLOCKED_USERID => 1
+    static USERID => 1
 
     /**
      * The location of the blocked application.
+     * Native name: WPC_ARGS_SAFERAPPBLOCKED_PATH
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_SAFERAPPBLOCKED_PATH => 2
+    static PATH => 2
 
     /**
      * The rule identifier of the blocked application.
+     * Native name: WPC_ARGS_SAFERAPPBLOCKED_RULEID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_SAFERAPPBLOCKED_RULEID => 3
+    static RULEID => 3
 
     /**
      * The arguments of the blocked application.
+     * Native name: WPC_ARGS_SAFERAPPBLOCKED_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_SAFERAPPBLOCKED_CARGS => 4
+    static CARGS => 4
 }

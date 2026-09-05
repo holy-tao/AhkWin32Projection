@@ -25,13 +25,15 @@ class XAPO_BUFFER_FLAGS extends Win32Enum {
 
     /**
      * Stream buffer contains only silent samples.
+     * Native name: XAPO_BUFFER_SILENT
      * @type {Integer (Int32)}
      */
-    static XAPO_BUFFER_SILENT => 0
+    static SILENT => 0
 
     /**
      * Stream buffer contains audio data to be processed.
+     * Native name: XAPO_BUFFER_VALID
      * @type {Integer (Int32)}
      */
-    static XAPO_BUFFER_VALID => 1
+    static VALID => 1
 }

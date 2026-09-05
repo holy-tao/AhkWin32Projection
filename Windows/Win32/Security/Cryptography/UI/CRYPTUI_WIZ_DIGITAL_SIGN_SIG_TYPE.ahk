@@ -7,12 +7,14 @@
 class CRYPTUI_WIZ_DIGITAL_SIGN_SIG_TYPE extends Win32Enum {
 
     /**
+     * Native name: CRYPTUI_WIZ_DIGITAL_SIGN_COMMERCIAL
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_DIGITAL_SIGN_COMMERCIAL => 1
+    static COMMERCIAL => 1
 
     /**
+     * Native name: CRYPTUI_WIZ_DIGITAL_SIGN_INDIVIDUAL
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_DIGITAL_SIGN_INDIVIDUAL => 2
+    static INDIVIDUAL => 2
 }

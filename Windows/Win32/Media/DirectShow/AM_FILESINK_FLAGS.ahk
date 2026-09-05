@@ -7,7 +7,8 @@
 class AM_FILESINK_FLAGS extends Win32Enum {
 
     /**
+     * Native name: AM_FILE_OVERWRITE
      * @type {Integer (Int32)}
      */
-    static AM_FILE_OVERWRITE => 1
+    static FILE_OVERWRITE => 1
 }

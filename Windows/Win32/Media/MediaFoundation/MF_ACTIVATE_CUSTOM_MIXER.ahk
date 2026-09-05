@@ -7,7 +7,8 @@
 class MF_ACTIVATE_CUSTOM_MIXER extends Win32Enum {
 
     /**
+     * Native name: MF_ACTIVATE_CUSTOM_MIXER_ALLOWFAIL
      * @type {Integer (Int32)}
      */
-    static MF_ACTIVATE_CUSTOM_MIXER_ALLOWFAIL => 1
+    static ALLOWFAIL => 1
 }

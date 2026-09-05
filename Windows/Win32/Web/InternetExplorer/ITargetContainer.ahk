@@ -31,7 +31,6 @@ class ITargetContainer extends IUnknown {
     static VTableNames => ["GetFrameUrl", "GetFramesContainer"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameUrl() {
@@ -40,7 +39,6 @@ class ITargetContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {

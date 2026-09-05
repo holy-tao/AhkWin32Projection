@@ -10,13 +10,15 @@ class MFSHUTDOWN_STATUS extends Win32Enum {
 
     /**
      * The shutdown operation has started but is not yet complete.
+     * Native name: MFSHUTDOWN_INITIATED
      * @type {Integer (Int32)}
      */
-    static MFSHUTDOWN_INITIATED => 0
+    static INITIATED => 0
 
     /**
      * Shutdown is complete.
+     * Native name: MFSHUTDOWN_COMPLETED
      * @type {Integer (Int32)}
      */
-    static MFSHUTDOWN_COMPLETED => 1
+    static COMPLETED => 1
 }

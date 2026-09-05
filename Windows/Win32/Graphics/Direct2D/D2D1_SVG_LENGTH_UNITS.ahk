@@ -10,13 +10,15 @@ class D2D1_SVG_LENGTH_UNITS extends Win32Enum {
 
     /**
      * The length is unitless.
+     * Native name: D2D1_SVG_LENGTH_UNITS_NUMBER
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_LENGTH_UNITS_NUMBER => 0
+    static NUMBER => 0
 
     /**
      * The length is a percentage value.
+     * Native name: D2D1_SVG_LENGTH_UNITS_PERCENTAGE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_LENGTH_UNITS_PERCENTAGE => 1
+    static PERCENTAGE => 1
 }

@@ -30,7 +30,6 @@ class ID3D12DebugDevice2 extends ID3D12DebugDevice {
     static VTableNames => ["SetDebugParameter", "GetDebugParameter"]
 
     /**
-     * 
      * @param {D3D12_DEBUG_DEVICE_PARAMETER_TYPE} Type 
      * @param {Integer} pData 
      * @param {Integer} DataSize 
@@ -42,7 +41,6 @@ class ID3D12DebugDevice2 extends ID3D12DebugDevice {
     }
 
     /**
-     * 
      * @param {D3D12_DEBUG_DEVICE_PARAMETER_TYPE} Type 
      * @param {Integer} pData 
      * @param {Integer} DataSize 

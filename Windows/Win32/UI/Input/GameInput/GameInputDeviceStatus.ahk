@@ -7,57 +7,68 @@
 class GameInputDeviceStatus extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputDeviceNoStatus
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceNoStatus => 0
+    static NoStatus => 0
 
     /**
+     * Native name: GameInputDeviceConnected
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceConnected => 1
+    static Connected => 1
 
     /**
+     * Native name: GameInputDeviceInputEnabled
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceInputEnabled => 2
+    static InputEnabled => 2
 
     /**
+     * Native name: GameInputDeviceOutputEnabled
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceOutputEnabled => 4
+    static OutputEnabled => 4
 
     /**
+     * Native name: GameInputDeviceRawIoEnabled
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceRawIoEnabled => 8
+    static RawIoEnabled => 8
 
     /**
+     * Native name: GameInputDeviceAudioCapture
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceAudioCapture => 16
+    static AudioCapture => 16
 
     /**
+     * Native name: GameInputDeviceAudioRender
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceAudioRender => 32
+    static AudioRender => 32
 
     /**
+     * Native name: GameInputDeviceSynchronized
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceSynchronized => 64
+    static Synchronized => 64
 
     /**
+     * Native name: GameInputDeviceWireless
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceWireless => 128
+    static Wireless => 128
 
     /**
+     * Native name: GameInputDeviceUserIdle
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceUserIdle => 1048576
+    static UserIdle => 1048576
 
     /**
+     * Native name: GameInputDeviceAnyStatus
      * @type {Integer (Int32)}
      */
-    static GameInputDeviceAnyStatus => 16777215
+    static AnyStatus => 16777215
 }

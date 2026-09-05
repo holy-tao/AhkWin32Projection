@@ -36,7 +36,6 @@ class IDispatchEx extends IDispatch {
     static VTableNames => ["GetDispID", "InvokeEx", "DeleteMemberByName", "DeleteMemberByDispID", "GetMemberProperties", "GetMemberName", "GetNextDispID", "GetNameSpaceParent"]
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Integer} grfdex 
      * @returns {Integer} 
@@ -49,7 +48,6 @@ class IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @param {Integer} lcid 
      * @param {Integer} wFlags 
@@ -65,7 +63,6 @@ class IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Integer} grfdex 
      * @returns {HRESULT} 
@@ -78,7 +75,6 @@ class IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {HRESULT} 
      */
@@ -88,7 +84,6 @@ class IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @param {Integer} grfdexFetch 
      * @returns {FDEX_PROP_FLAGS} 
@@ -99,7 +94,6 @@ class IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {BSTR} 
      */
@@ -110,7 +104,6 @@ class IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} grfdex 
      * @param {Integer} id 
      * @returns {Integer} 
@@ -121,7 +114,6 @@ class IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetNameSpaceParent() {

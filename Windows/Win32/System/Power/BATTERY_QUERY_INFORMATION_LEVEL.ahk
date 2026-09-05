@@ -12,42 +12,50 @@ class BATTERY_QUERY_INFORMATION_LEVEL extends Win32Enum {
     static BatteryInformation => 0
 
     /**
+     * Native name: BatteryGranularityInformation
      * @type {Integer (Int32)}
      */
-    static BatteryGranularityInformation => 1
+    static GranularityInformation => 1
 
     /**
+     * Native name: BatteryTemperature
      * @type {Integer (Int32)}
      */
-    static BatteryTemperature => 2
+    static Temperature => 2
 
     /**
+     * Native name: BatteryEstimatedTime
      * @type {Integer (Int32)}
      */
-    static BatteryEstimatedTime => 3
+    static EstimatedTime => 3
 
     /**
+     * Native name: BatteryDeviceName
      * @type {Integer (Int32)}
      */
-    static BatteryDeviceName => 4
+    static DeviceName => 4
 
     /**
+     * Native name: BatteryManufactureDate
      * @type {Integer (Int32)}
      */
-    static BatteryManufactureDate => 5
+    static ManufactureDate => 5
 
     /**
+     * Native name: BatteryManufactureName
      * @type {Integer (Int32)}
      */
-    static BatteryManufactureName => 6
+    static ManufactureName => 6
 
     /**
+     * Native name: BatteryUniqueID
      * @type {Integer (Int32)}
      */
-    static BatteryUniqueID => 7
+    static UniqueID => 7
 
     /**
+     * Native name: BatterySerialNumber
      * @type {Integer (Int32)}
      */
-    static BatterySerialNumber => 8
+    static SerialNumber => 8
 }

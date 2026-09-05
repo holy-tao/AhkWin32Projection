@@ -7,17 +7,20 @@
 class SECURITY_PRODUCT_TYPE extends Win32Enum {
 
     /**
+     * Native name: SECURITY_PRODUCT_TYPE_ANTIVIRUS
      * @type {Integer (Int32)}
      */
-    static SECURITY_PRODUCT_TYPE_ANTIVIRUS => 0
+    static ANTIVIRUS => 0
 
     /**
+     * Native name: SECURITY_PRODUCT_TYPE_FIREWALL
      * @type {Integer (Int32)}
      */
-    static SECURITY_PRODUCT_TYPE_FIREWALL => 1
+    static FIREWALL => 1
 
     /**
+     * Native name: SECURITY_PRODUCT_TYPE_ANTISPYWARE
      * @type {Integer (Int32)}
      */
-    static SECURITY_PRODUCT_TYPE_ANTISPYWARE => 2
+    static ANTISPYWARE => 2
 }

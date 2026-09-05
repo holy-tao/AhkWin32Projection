@@ -42,7 +42,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GenerationId() {
@@ -51,7 +50,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechLexiconType} Flags 
      * @param {Pointer<Integer>} GenerationID 
      * @param {Pointer<ISpeechLexiconWords>} Words 
@@ -65,7 +63,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -81,7 +78,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -96,7 +92,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -112,7 +107,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -127,7 +121,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechLexiconType} _TypeFlags 
@@ -141,7 +134,6 @@ class ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} GenerationID 
      * @returns {ISpeechLexiconWords} 
      */

@@ -30,7 +30,6 @@ class ID3D12PipelineState1 extends ID3D12PipelineState {
     static VTableNames => ["GetRootSignature"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

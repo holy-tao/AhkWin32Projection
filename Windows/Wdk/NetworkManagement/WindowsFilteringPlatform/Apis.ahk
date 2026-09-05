@@ -96,7 +96,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @returns {FWPM_SERVICE_STATE} 
      */
     static FwpmBfeStateGet0() {
@@ -105,7 +104,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceObject 
      * @param {Pointer<FWPM_SERVICE_STATE_CHANGE_CALLBACK0>} callback 
      * @param {Pointer<Void>} _context 
@@ -122,7 +120,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} changeHandle 
      * @returns {NTSTATUS} 
      */
@@ -2066,7 +2063,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} engineHandle 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} providerContext 
      * @param {PSECURITY_DESCRIPTOR} sd 
@@ -2440,7 +2436,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} engineHandle 
      * @param {Integer} id 
      * @param {Pointer<Pointer<FWPM_PROVIDER_CONTEXT3>>} providerContext 
@@ -2670,7 +2665,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} engineHandle 
      * @param {Pointer<Guid>} key 
      * @param {Pointer<Pointer<FWPM_PROVIDER_CONTEXT3>>} providerContext 
@@ -3011,7 +3005,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} engineHandle 
      * @param {HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
@@ -6383,7 +6376,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} engineHandle 
      * @param {Integer} flags 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} mainModePolicy 
@@ -10301,7 +10293,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} engineHandle 
      * @param {HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
@@ -10322,7 +10313,6 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * 
      * @param {HANDLE} engineHandle 
      * @param {HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 

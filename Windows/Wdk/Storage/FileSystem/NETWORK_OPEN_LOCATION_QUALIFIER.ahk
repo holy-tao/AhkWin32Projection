@@ -7,17 +7,20 @@
 class NETWORK_OPEN_LOCATION_QUALIFIER extends Win32Enum {
 
     /**
+     * Native name: NetworkOpenLocationAny
      * @type {Integer (Int32)}
      */
-    static NetworkOpenLocationAny => 0
+    static Any => 0
 
     /**
+     * Native name: NetworkOpenLocationRemote
      * @type {Integer (Int32)}
      */
-    static NetworkOpenLocationRemote => 1
+    static Remote => 1
 
     /**
+     * Native name: NetworkOpenLocationLoopback
      * @type {Integer (Int32)}
      */
-    static NetworkOpenLocationLoopback => 2
+    static Loopback => 2
 }

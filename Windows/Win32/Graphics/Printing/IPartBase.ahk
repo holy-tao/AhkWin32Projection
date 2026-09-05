@@ -32,7 +32,6 @@ class IPartBase extends IUnknown {
     static VTableNames => ["GetUri", "GetStream", "GetPartCompression", "SetPartCompression"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUri() {
@@ -42,7 +41,6 @@ class IPartBase extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrintReadStream} 
      */
     GetStream() {
@@ -51,7 +49,6 @@ class IPartBase extends IUnknown {
     }
 
     /**
-     * 
      * @returns {EXpsCompressionOptions} 
      */
     GetPartCompression() {
@@ -60,7 +57,6 @@ class IPartBase extends IUnknown {
     }
 
     /**
-     * 
      * @param {EXpsCompressionOptions} compression 
      * @returns {HRESULT} 
      */

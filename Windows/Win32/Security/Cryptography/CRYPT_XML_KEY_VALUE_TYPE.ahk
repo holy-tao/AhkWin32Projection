@@ -7,22 +7,26 @@
 class CRYPT_XML_KEY_VALUE_TYPE extends Win32Enum {
 
     /**
+     * Native name: CRYPT_XML_KEY_VALUE_TYPE_DSA
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEY_VALUE_TYPE_DSA => 1
+    static DSA => 1
 
     /**
+     * Native name: CRYPT_XML_KEY_VALUE_TYPE_RSA
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEY_VALUE_TYPE_RSA => 2
+    static RSA => 2
 
     /**
+     * Native name: CRYPT_XML_KEY_VALUE_TYPE_ECDSA
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEY_VALUE_TYPE_ECDSA => 3
+    static ECDSA => 3
 
     /**
+     * Native name: CRYPT_XML_KEY_VALUE_TYPE_CUSTOM
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEY_VALUE_TYPE_CUSTOM => 4
+    static CUSTOM => 4
 }

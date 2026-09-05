@@ -9,27 +9,32 @@
 class WpdParameterAttributeForm extends Win32Enum {
 
     /**
+     * Native name: WPD_PARAMETER_ATTRIBUTE_FORM_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_ATTRIBUTE_FORM_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: WPD_PARAMETER_ATTRIBUTE_FORM_RANGE
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_ATTRIBUTE_FORM_RANGE => 1
+    static RANGE => 1
 
     /**
+     * Native name: WPD_PARAMETER_ATTRIBUTE_FORM_ENUMERATION
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_ATTRIBUTE_FORM_ENUMERATION => 2
+    static ENUMERATION => 2
 
     /**
+     * Native name: WPD_PARAMETER_ATTRIBUTE_FORM_REGULAR_EXPRESSION
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_ATTRIBUTE_FORM_REGULAR_EXPRESSION => 3
+    static REGULAR_EXPRESSION => 3
 
     /**
+     * Native name: WPD_PARAMETER_ATTRIBUTE_FORM_OBJECT_IDENTIFIER
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_ATTRIBUTE_FORM_OBJECT_IDENTIFIER => 4
+    static OBJECT_IDENTIFIER => 4
 }

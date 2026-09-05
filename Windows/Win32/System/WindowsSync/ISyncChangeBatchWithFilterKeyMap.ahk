@@ -32,7 +32,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     static VTableNames => ["GetFilterKeyMap", "SetFilterKeyMap", "SetFilterForgottenKnowledge", "GetFilteredReplicaLearnedKnowledge", "GetLearnedFilterForgottenKnowledge", "GetFilteredReplicaLearnedForgottenKnowledge", "GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete", "GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete"]
 
     /**
-     * 
      * @returns {IFilterKeyMap} 
      */
     GetFilterKeyMap() {
@@ -41,7 +40,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFilterKeyMap} pIFilterKeyMap 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @param {ISyncKnowledge} pFilterForgottenKnowledge 
      * @returns {HRESULT} 
@@ -62,7 +59,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -73,7 +69,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 
@@ -85,7 +80,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -96,7 +90,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -107,7 +100,6 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 

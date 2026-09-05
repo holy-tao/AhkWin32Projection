@@ -30,7 +30,6 @@ class INetCfgLock extends IUnknown {
     static VTableNames => ["AcquireWriteLock", "ReleaseWriteLock", "IsWriteLocked"]
 
     /**
-     * 
      * @param {Integer} cmsTimeout 
      * @param {PWSTR} pszwClientDescription 
      * @returns {PWSTR} 
@@ -43,7 +42,6 @@ class INetCfgLock extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReleaseWriteLock() {
@@ -52,7 +50,6 @@ class INetCfgLock extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     IsWriteLocked() {

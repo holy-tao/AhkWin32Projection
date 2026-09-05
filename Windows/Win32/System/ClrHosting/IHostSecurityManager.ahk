@@ -136,7 +136,6 @@ class IHostSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EContextType} _eContextType 
      * @returns {IHostSecurityContext} 
      */
@@ -146,7 +145,6 @@ class IHostSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EContextType} _eContextType 
      * @param {IHostSecurityContext} pSecurityContext 
      * @returns {HRESULT} 

@@ -7,27 +7,32 @@
 class styleFlexWrap extends Win32Enum {
 
     /**
+     * Native name: styleFlexWrapNowrap
      * @type {Integer (Int32)}
      */
-    static styleFlexWrapNowrap => 0
+    static Nowrap => 0
 
     /**
+     * Native name: styleFlexWrapWrap
      * @type {Integer (Int32)}
      */
-    static styleFlexWrapWrap => 1
+    static Wrap => 1
 
     /**
+     * Native name: styleFlexWrapWrapReverse
      * @type {Integer (Int32)}
      */
-    static styleFlexWrapWrapReverse => 2
+    static WrapReverse => 2
 
     /**
+     * Native name: styleFlexWrapNotSet
      * @type {Integer (Int32)}
      */
-    static styleFlexWrapNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleFlexWrap_Max
      * @type {Integer (Int32)}
      */
-    static styleFlexWrap_Max => 2147483647
+    static Max => 2147483647
 }

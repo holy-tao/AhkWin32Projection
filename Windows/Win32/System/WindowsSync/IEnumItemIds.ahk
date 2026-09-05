@@ -29,7 +29,6 @@ class IEnumItemIds extends IUnknown {
     static VTableNames => ["Next"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pbItemId 
      * @param {Pointer<Integer>} pcbItemIdSize 
      * @returns {HRESULT} 

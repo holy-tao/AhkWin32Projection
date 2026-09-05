@@ -10,175 +10,204 @@ class URL_SCHEME extends Win32Enum {
 
     /**
      * An invalid scheme.
+     * Native name: URL_SCHEME_INVALID
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_INVALID => -1
+    static INVALID => -1
 
     /**
      * An unknown scheme.
+     * Native name: URL_SCHEME_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * FTP (ftp:).
+     * Native name: URL_SCHEME_FTP
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_FTP => 1
+    static FTP => 1
 
     /**
      * HTTP (http:).
+     * Native name: URL_SCHEME_HTTP
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_HTTP => 2
+    static HTTP => 2
 
     /**
      * Gopher (gopher:).
+     * Native name: URL_SCHEME_GOPHER
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_GOPHER => 3
+    static GOPHER => 3
 
     /**
      * Mail-to (mailto:).
+     * Native name: URL_SCHEME_MAILTO
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_MAILTO => 4
+    static MAILTO => 4
 
     /**
      * Usenet news (news:).
+     * Native name: URL_SCHEME_NEWS
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_NEWS => 5
+    static NEWS => 5
 
     /**
      * Usenet news with NNTP (nntp:).
+     * Native name: URL_SCHEME_NNTP
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_NNTP => 6
+    static NNTP => 6
 
     /**
      * Telnet (telnet:).
+     * Native name: URL_SCHEME_TELNET
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_TELNET => 7
+    static TELNET => 7
 
     /**
      * Wide Area Information Server (wais:).
+     * Native name: URL_SCHEME_WAIS
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_WAIS => 8
+    static WAIS => 8
 
     /**
      * File (file:).
+     * Native name: URL_SCHEME_FILE
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_FILE => 9
+    static FILE => 9
 
     /**
      * URL moniker (mk:).
+     * Native name: URL_SCHEME_MK
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_MK => 10
+    static MK => 10
 
     /**
      * URL HTTPS (https:).
+     * Native name: URL_SCHEME_HTTPS
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_HTTPS => 11
+    static HTTPS => 11
 
     /**
      * Shell (shell:).
+     * Native name: URL_SCHEME_SHELL
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_SHELL => 12
+    static SHELL => 12
 
     /**
      * NNTP news postings with SSL (snews:).
+     * Native name: URL_SCHEME_SNEWS
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_SNEWS => 13
+    static SNEWS => 13
 
     /**
      * Local (local:).
+     * Native name: URL_SCHEME_LOCAL
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_LOCAL => 14
+    static LOCAL => 14
 
     /**
      * JavaScript (javascript:).
+     * Native name: URL_SCHEME_JAVASCRIPT
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_JAVASCRIPT => 15
+    static JAVASCRIPT => 15
 
     /**
      * VBScript (vbscript:).
+     * Native name: URL_SCHEME_VBSCRIPT
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_VBSCRIPT => 16
+    static VBSCRIPT => 16
 
     /**
      * About (about:).
+     * Native name: URL_SCHEME_ABOUT
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_ABOUT => 17
+    static ABOUT => 17
 
     /**
      * Res (res:).
+     * Native name: URL_SCHEME_RES
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_RES => 18
+    static RES => 18
 
     /**
      * Internet Explorer 6 and later only. Shell-rooted (ms-shell-rooted:)
+     * Native name: URL_SCHEME_MSSHELLROOTED
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_MSSHELLROOTED => 19
+    static MSSHELLROOTED => 19
 
     /**
      * Internet Explorer 6 and later only. Shell ID-list (ms-shell-idlist:).
+     * Native name: URL_SCHEME_MSSHELLIDLIST
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_MSSHELLIDLIST => 20
+    static MSSHELLIDLIST => 20
 
     /**
      * Internet Explorer 6 and later only. MSHelp (hcp:).
+     * Native name: URL_SCHEME_MSHELP
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_MSHELP => 21
+    static MSHELP => 21
 
     /**
      * Not supported.
+     * Native name: URL_SCHEME_MSSHELLDEVICE
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_MSSHELLDEVICE => 22
+    static MSSHELLDEVICE => 22
 
     /**
      * Internet Explorer 7 and later only. Wildcard (*:).
+     * Native name: URL_SCHEME_WILDCARD
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_WILDCARD => 23
+    static WILDCARD => 23
 
     /**
      * Windows Vista and later only. Search-MS (search-ms:).
+     * Native name: URL_SCHEME_SEARCH_MS
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_SEARCH_MS => 24
+    static SEARCH_MS => 24
 
     /**
      * Windows Vista with SP1 and later only. Search (search:).
+     * Native name: URL_SCHEME_SEARCH
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_SEARCH => 25
+    static SEARCH => 25
 
     /**
      * <b>Windows 7 and later</b>. Known folder (knownfolder:).
+     * Native name: URL_SCHEME_KNOWNFOLDER
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_KNOWNFOLDER => 26
+    static KNOWNFOLDER => 26
 
     /**
      * The highest legitimate value in the enumeration, used for validation purposes.
+     * Native name: URL_SCHEME_MAXVALUE
      * @type {Integer (Int32)}
      */
-    static URL_SCHEME_MAXVALUE => 27
+    static MAXVALUE => 27
 }

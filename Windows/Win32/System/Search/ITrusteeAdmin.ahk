@@ -32,7 +32,6 @@ class ITrusteeAdmin extends IUnknown {
     static VTableNames => ["CompareTrustees", "CreateTrustee", "DeleteTrustee", "SetTrusteeProperties", "GetTrusteeProperties"]
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee1 
      * @param {Pointer<TRUSTEE_W>} pTrustee2 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
@@ -55,7 +53,6 @@ class ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @returns {HRESULT} 
      */
@@ -65,7 +62,6 @@ class ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
@@ -77,7 +73,6 @@ class ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 

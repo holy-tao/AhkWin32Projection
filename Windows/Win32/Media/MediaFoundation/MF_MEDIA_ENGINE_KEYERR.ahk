@@ -12,37 +12,43 @@ class MF_MEDIA_ENGINE_KEYERR extends Win32Enum {
 
     /**
      * Unknown error occurred.
+     * Native name: MF_MEDIAENGINE_KEYERR_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAENGINE_KEYERR_UNKNOWN => 1
+    static MEDIAENGINE_KEYERR_UNKNOWN => 1
 
     /**
      * An error with the client occurred.
+     * Native name: MF_MEDIAENGINE_KEYERR_CLIENT
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAENGINE_KEYERR_CLIENT => 2
+    static MEDIAENGINE_KEYERR_CLIENT => 2
 
     /**
      * An error with the service occurred.
+     * Native name: MF_MEDIAENGINE_KEYERR_SERVICE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAENGINE_KEYERR_SERVICE => 3
+    static MEDIAENGINE_KEYERR_SERVICE => 3
 
     /**
      * An error with the output occurred.
+     * Native name: MF_MEDIAENGINE_KEYERR_OUTPUT
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAENGINE_KEYERR_OUTPUT => 4
+    static MEDIAENGINE_KEYERR_OUTPUT => 4
 
     /**
      * An error occurred related to a hardware change.
+     * Native name: MF_MEDIAENGINE_KEYERR_HARDWARECHANGE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAENGINE_KEYERR_HARDWARECHANGE => 5
+    static MEDIAENGINE_KEYERR_HARDWARECHANGE => 5
 
     /**
      * An error with the domain occurred.
+     * Native name: MF_MEDIAENGINE_KEYERR_DOMAIN
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAENGINE_KEYERR_DOMAIN => 6
+    static MEDIAENGINE_KEYERR_DOMAIN => 6
 }

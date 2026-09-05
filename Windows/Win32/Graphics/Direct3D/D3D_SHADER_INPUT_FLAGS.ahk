@@ -13,39 +13,45 @@ class D3D_SHADER_INPUT_FLAGS extends Win32Enum {
 
     /**
      * Assign a shader input to a register based on the register assignment in the HLSL code (instead of letting the compiler choose the register).
+     * Native name: D3D_SIF_USERPACKED
      * @type {Integer (Int32)}
      */
-    static D3D_SIF_USERPACKED => 1
+    static SIF_USERPACKED => 1
 
     /**
      * Use a comparison sampler, which uses the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmp">SampleCmp (DirectX HLSL Texture Object)</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmplevelzero">SampleCmpLevelZero (DirectX HLSL Texture Object)</a> sampling functions.
+     * Native name: D3D_SIF_COMPARISON_SAMPLER
      * @type {Integer (Int32)}
      */
-    static D3D_SIF_COMPARISON_SAMPLER => 2
+    static SIF_COMPARISON_SAMPLER => 2
 
     /**
      * A 2-bit value for encoding texture components.
+     * Native name: D3D_SIF_TEXTURE_COMPONENT_0
      * @type {Integer (Int32)}
      */
-    static D3D_SIF_TEXTURE_COMPONENT_0 => 4
+    static SIF_TEXTURE_COMPONENT_0 => 4
 
     /**
      * A 2-bit value for encoding texture components.
+     * Native name: D3D_SIF_TEXTURE_COMPONENT_1
      * @type {Integer (Int32)}
      */
-    static D3D_SIF_TEXTURE_COMPONENT_1 => 8
+    static SIF_TEXTURE_COMPONENT_1 => 8
 
     /**
      * A 2-bit value for encoding texture components.
+     * Native name: D3D_SIF_TEXTURE_COMPONENTS
      * @type {Integer (Int32)}
      */
-    static D3D_SIF_TEXTURE_COMPONENTS => 12
+    static SIF_TEXTURE_COMPONENTS => 12
 
     /**
      * This value is reserved.
+     * Native name: D3D_SIF_UNUSED
      * @type {Integer (Int32)}
      */
-    static D3D_SIF_UNUSED => 16
+    static SIF_UNUSED => 16
 
     /**
      * Assign a shader input to a register based on the register assignment in the HLSL code (instead of letting the compiler choose the register).

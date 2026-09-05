@@ -7,32 +7,38 @@
 class NVMEOF_TRANSPORT_TYPE extends Win32Enum {
 
     /**
+     * Native name: NvmeofTransportUnknown
      * @type {Integer (Int32)}
      */
-    static NvmeofTransportUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: NvmeofTransportRdma
      * @type {Integer (Int32)}
      */
-    static NvmeofTransportRdma => 1
+    static Rdma => 1
 
     /**
+     * Native name: NvmeofTransportFC
      * @type {Integer (Int32)}
      */
-    static NvmeofTransportFC => 2
+    static TransportFC => 2
 
     /**
+     * Native name: NvmeofTransportTcp
      * @type {Integer (Int32)}
      */
-    static NvmeofTransportTcp => 3
+    static Tcp => 3
 
     /**
+     * Native name: NvmeofTransportLoopback
      * @type {Integer (Int32)}
      */
-    static NvmeofTransportLoopback => 254
+    static Loopback => 254
 
     /**
+     * Native name: NvmeofTransportMax
      * @type {Integer (Int32)}
      */
-    static NvmeofTransportMax => 255
+    static Max => 255
 }

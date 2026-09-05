@@ -7,17 +7,20 @@
 class CTL_MODIFY_REQUEST_OPERATION extends Win32Enum {
 
     /**
+     * Native name: CTL_MODIFY_REQUEST_ADD_TRUSTED
      * @type {Integer (UInt32)}
      */
-    static CTL_MODIFY_REQUEST_ADD_TRUSTED => 3
+    static ADD_TRUSTED => 3
 
     /**
+     * Native name: CTL_MODIFY_REQUEST_ADD_NOT_TRUSTED
      * @type {Integer (UInt32)}
      */
-    static CTL_MODIFY_REQUEST_ADD_NOT_TRUSTED => 1
+    static ADD_NOT_TRUSTED => 1
 
     /**
+     * Native name: CTL_MODIFY_REQUEST_REMOVE
      * @type {Integer (UInt32)}
      */
-    static CTL_MODIFY_REQUEST_REMOVE => 2
+    static REMOVE => 2
 }

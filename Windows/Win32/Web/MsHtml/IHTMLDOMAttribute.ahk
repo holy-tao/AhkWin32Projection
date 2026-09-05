@@ -60,7 +60,6 @@ class IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -70,7 +69,6 @@ class IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +78,6 @@ class IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -90,7 +87,6 @@ class IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {

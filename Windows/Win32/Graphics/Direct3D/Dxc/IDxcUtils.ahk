@@ -42,7 +42,6 @@ class IDxcUtils extends IUnknown {
     static VTableNames => ["CreateBlobFromBlob", "CreateBlobFromPinned", "MoveToBlob", "CreateBlob", "LoadFile", "CreateReadOnlyStreamFromBlob", "CreateDefaultIncludeHandler", "GetBlobAsUtf8", "GetBlobAsWide", "GetDxilContainerPart", "CreateReflection", "BuildArguments", "GetPDBContents"]
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @param {Integer} offset 
      * @param {Integer} length 
@@ -54,7 +53,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {Integer} _size 
      * @param {DXC_CP} codePage 
@@ -66,7 +64,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {IMalloc} pIMalloc 
      * @param {Integer} _size 
@@ -92,7 +89,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pFileName 
      * @param {Pointer<DXC_CP>} pCodePage 
      * @returns {IDxcBlobEncoding} 
@@ -107,7 +103,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IStream} 
      */
@@ -117,7 +112,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcIncludeHandler} 
      */
     CreateDefaultIncludeHandler() {
@@ -126,7 +120,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobUtf8} 
      */
@@ -136,7 +129,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobUtf16} 
      */
@@ -146,7 +138,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pShader 
      * @param {Integer} DxcPart 
      * @param {Pointer<Pointer<Void>>} ppPartData 
@@ -162,7 +153,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pData 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvReflection 
@@ -176,7 +166,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pSourceName 
      * @param {PWSTR} pEntryPoint 
      * @param {PWSTR} pTargetProfile 
@@ -198,7 +187,6 @@ class IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pPDBBlob 
      * @param {Pointer<IDxcBlob>} ppHash 
      * @param {Pointer<IDxcBlob>} ppContainer 

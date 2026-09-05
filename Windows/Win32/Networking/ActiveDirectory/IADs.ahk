@@ -75,7 +75,6 @@ class IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -85,7 +84,6 @@ class IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Class() {
@@ -95,7 +93,6 @@ class IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GUID() {
@@ -105,7 +102,6 @@ class IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ADsPath() {
@@ -115,7 +111,6 @@ class IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Parent() {
@@ -125,7 +120,6 @@ class IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Schema() {

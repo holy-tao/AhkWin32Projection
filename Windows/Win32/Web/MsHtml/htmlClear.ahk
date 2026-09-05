@@ -7,37 +7,44 @@
 class htmlClear extends Win32Enum {
 
     /**
+     * Native name: htmlClearNotSet
      * @type {Integer (Int32)}
      */
-    static htmlClearNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlClearAll
      * @type {Integer (Int32)}
      */
-    static htmlClearAll => 1
+    static All => 1
 
     /**
+     * Native name: htmlClearLeft
      * @type {Integer (Int32)}
      */
-    static htmlClearLeft => 2
+    static Left => 2
 
     /**
+     * Native name: htmlClearRight
      * @type {Integer (Int32)}
      */
-    static htmlClearRight => 3
+    static Right => 3
 
     /**
+     * Native name: htmlClearBoth
      * @type {Integer (Int32)}
      */
-    static htmlClearBoth => 4
+    static Both => 4
 
     /**
+     * Native name: htmlClearNone
      * @type {Integer (Int32)}
      */
-    static htmlClearNone => 5
+    static None => 5
 
     /**
+     * Native name: htmlClear_Max
      * @type {Integer (Int32)}
      */
-    static htmlClear_Max => 2147483647
+    static Max => 2147483647
 }

@@ -30,7 +30,6 @@ class IDebugPlmClient extends IUnknown {
     static VTableNames => ["LaunchPlmPackageForDebugWide"]
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 

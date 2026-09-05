@@ -7,17 +7,20 @@
 class DISPID_SpeechPhoneConverter extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPCLangId
      * @type {Integer (Int32)}
      */
-    static DISPID_SPCLangId => 1
+    static SPCLangId => 1
 
     /**
+     * Native name: DISPID_SPCPhoneToId
      * @type {Integer (Int32)}
      */
-    static DISPID_SPCPhoneToId => 2
+    static SPCPhoneToId => 2
 
     /**
+     * Native name: DISPID_SPCIdToPhone
      * @type {Integer (Int32)}
      */
-    static DISPID_SPCIdToPhone => 3
+    static SPCIdToPhone => 3
 }

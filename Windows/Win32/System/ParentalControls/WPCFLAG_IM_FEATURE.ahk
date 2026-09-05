@@ -10,55 +10,64 @@ class WPCFLAG_IM_FEATURE extends Win32Enum {
 
     /**
      * No instant messaging features were used.
+     * Native name: WPCFLAG_IM_FEATURE_NONE
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_NONE => 0
+    static NONE => 0
 
     /**
      * The video feature was used during the instant messaging session.
+     * Native name: WPCFLAG_IM_FEATURE_VIDEO
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_VIDEO => 1
+    static VIDEO => 1
 
     /**
      * The audio feature was used during the instant messaging session.
+     * Native name: WPCFLAG_IM_FEATURE_AUDIO
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_AUDIO => 2
+    static AUDIO => 2
 
     /**
      * The game feature was used during the instant messaging session.
+     * Native name: WPCFLAG_IM_FEATURE_GAME
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_GAME => 4
+    static GAME => 4
 
     /**
      * The short message service feature was used during the instant messaging session.
+     * Native name: WPCFLAG_IM_FEATURE_SMS
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_SMS => 8
+    static SMS => 8
 
     /**
      * Files were swapped during the instant messaging session.
+     * Native name: WPCFLAG_IM_FEATURE_FILESWAP
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_FILESWAP => 16
+    static FILESWAP => 16
 
     /**
      * URL or website locations were swapped during the instant messaging session.
+     * Native name: WPCFLAG_IM_FEATURE_URLSWAP
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_URLSWAP => 32
+    static URLSWAP => 32
 
     /**
      * The top bit means sending or receiving.
+     * Native name: WPCFLAG_IM_FEATURE_SENDING
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_SENDING => -2147483648
+    static SENDING => -2147483648
 
     /**
      * All features were used during the instant messaging session
+     * Native name: WPCFLAG_IM_FEATURE_ALL
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_FEATURE_ALL => -1
+    static ALL => -1
 }

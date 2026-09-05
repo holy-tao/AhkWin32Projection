@@ -30,7 +30,6 @@ class IHTMLElementCollection3 extends IDispatch {
     static VTableNames => ["namedItem"]
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IDispatch} 
      */

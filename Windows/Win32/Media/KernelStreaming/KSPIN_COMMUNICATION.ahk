@@ -7,27 +7,32 @@
 class KSPIN_COMMUNICATION extends Win32Enum {
 
     /**
+     * Native name: KSPIN_COMMUNICATION_NONE
      * @type {Integer (Int32)}
      */
-    static KSPIN_COMMUNICATION_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: KSPIN_COMMUNICATION_SINK
      * @type {Integer (Int32)}
      */
-    static KSPIN_COMMUNICATION_SINK => 1
+    static SINK => 1
 
     /**
+     * Native name: KSPIN_COMMUNICATION_SOURCE
      * @type {Integer (Int32)}
      */
-    static KSPIN_COMMUNICATION_SOURCE => 2
+    static SOURCE => 2
 
     /**
+     * Native name: KSPIN_COMMUNICATION_BOTH
      * @type {Integer (Int32)}
      */
-    static KSPIN_COMMUNICATION_BOTH => 3
+    static BOTH => 3
 
     /**
+     * Native name: KSPIN_COMMUNICATION_BRIDGE
      * @type {Integer (Int32)}
      */
-    static KSPIN_COMMUNICATION_BRIDGE => 4
+    static BRIDGE => 4
 }

@@ -87,7 +87,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_Pin() {
@@ -96,7 +95,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ConnectedTo() {
@@ -105,7 +103,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ConnectionMediaType() {
@@ -114,7 +111,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_FilterInfo() {
@@ -123,7 +119,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -133,7 +128,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Direction() {
@@ -142,7 +136,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PinID() {
@@ -152,7 +145,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_MediaTypes() {
@@ -161,7 +153,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
      */
@@ -171,7 +162,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
      */
@@ -181,7 +171,6 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pPin 
      * @param {IDispatch} pMediaType 
      * @returns {HRESULT} 

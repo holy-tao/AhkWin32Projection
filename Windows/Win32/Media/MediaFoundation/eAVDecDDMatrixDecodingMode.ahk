@@ -7,17 +7,20 @@
 class eAVDecDDMatrixDecodingMode extends Win32Enum {
 
     /**
+     * Native name: eAVDecDDMatrixDecodingMode_OFF
      * @type {Integer (Int32)}
      */
-    static eAVDecDDMatrixDecodingMode_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: eAVDecDDMatrixDecodingMode_ON
      * @type {Integer (Int32)}
      */
-    static eAVDecDDMatrixDecodingMode_ON => 1
+    static ON => 1
 
     /**
+     * Native name: eAVDecDDMatrixDecodingMode_AUTO
      * @type {Integer (Int32)}
      */
-    static eAVDecDDMatrixDecodingMode_AUTO => 2
+    static AUTO => 2
 }

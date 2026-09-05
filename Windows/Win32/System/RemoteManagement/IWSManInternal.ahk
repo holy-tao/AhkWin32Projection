@@ -37,7 +37,6 @@ class IWSManInternal extends IDispatch {
     static VTableNames => ["ConfigSDDL"]
 
     /**
-     * 
      * @param {IDispatch} session 
      * @param {VARIANT} resourceUri 
      * @param {Integer} flags 

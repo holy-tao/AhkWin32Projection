@@ -16,7 +16,8 @@ class GPMBackupType extends Win32Enum {
 
     /**
      * Backup of a Starter Group Policy object.
+     * Native name: typeStarterGPO
      * @type {Integer (Int32)}
      */
-    static typeStarterGPO => 1
+    static StarterGPO => 1
 }

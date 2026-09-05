@@ -41,7 +41,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     static VTableNames => ["Begin_ConnectIdentity", "Finish_ConnectIdentity", "Begin_DisconnectIdentity", "Finish_DisconnectIdentity", "Begin_IsConnected", "Finish_IsConnected", "Begin_GetUrl", "Finish_GetUrl", "Begin_GetAccountState", "Finish_GetAccountState"]
 
     /**
-     * 
      * @param {Pointer<Integer>} AuthBuffer 
      * @param {Integer} AuthBufferSize 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_ConnectIdentity() {
@@ -63,7 +61,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_DisconnectIdentity() {
@@ -72,7 +69,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_DisconnectIdentity() {
@@ -81,7 +77,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_IsConnected() {
@@ -90,7 +85,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Finish_IsConnected() {
@@ -99,7 +93,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDENTITY_URL} Identifier 
      * @param {IBindCtx} _Context 
      * @returns {HRESULT} 
@@ -110,7 +103,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} PostData 
      * @param {Pointer<PWSTR>} Url 
      * @returns {HRESULT} 
@@ -123,7 +115,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_GetAccountState() {
@@ -132,7 +123,6 @@ class AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ACCOUNT_STATE} 
      */
     Finish_GetAccountState() {

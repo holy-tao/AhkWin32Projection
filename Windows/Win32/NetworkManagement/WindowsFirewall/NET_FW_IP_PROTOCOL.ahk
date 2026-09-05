@@ -10,18 +10,21 @@ class NET_FW_IP_PROTOCOL extends Win32Enum {
 
     /**
      * Transmission Control Protocol.
+     * Native name: NET_FW_IP_PROTOCOL_TCP
      * @type {Integer (Int32)}
      */
-    static NET_FW_IP_PROTOCOL_TCP => 6
+    static TCP => 6
 
     /**
      * User Datagram Protocol.
+     * Native name: NET_FW_IP_PROTOCOL_UDP
      * @type {Integer (Int32)}
      */
-    static NET_FW_IP_PROTOCOL_UDP => 17
+    static UDP => 17
 
     /**
+     * Native name: NET_FW_IP_PROTOCOL_ANY
      * @type {Integer (Int32)}
      */
-    static NET_FW_IP_PROTOCOL_ANY => 256
+    static ANY => 256
 }

@@ -7,27 +7,32 @@
 class CASTING_CONNECTION_STATE extends Win32Enum {
 
     /**
+     * Native name: CASTING_CONNECTION_STATE_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static CASTING_CONNECTION_STATE_DISCONNECTED => 0
+    static DISCONNECTED => 0
 
     /**
+     * Native name: CASTING_CONNECTION_STATE_CONNECTED
      * @type {Integer (Int32)}
      */
-    static CASTING_CONNECTION_STATE_CONNECTED => 1
+    static CONNECTED => 1
 
     /**
+     * Native name: CASTING_CONNECTION_STATE_RENDERING
      * @type {Integer (Int32)}
      */
-    static CASTING_CONNECTION_STATE_RENDERING => 2
+    static RENDERING => 2
 
     /**
+     * Native name: CASTING_CONNECTION_STATE_DISCONNECTING
      * @type {Integer (Int32)}
      */
-    static CASTING_CONNECTION_STATE_DISCONNECTING => 3
+    static DISCONNECTING => 3
 
     /**
+     * Native name: CASTING_CONNECTION_STATE_CONNECTING
      * @type {Integer (Int32)}
      */
-    static CASTING_CONNECTION_STATE_CONNECTING => 4
+    static CONNECTING => 4
 }

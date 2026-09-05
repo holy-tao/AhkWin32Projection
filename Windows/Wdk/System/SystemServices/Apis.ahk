@@ -7759,7 +7759,6 @@ class SystemServices {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DriverServiceName 
      * @returns {NTSTATUS} 
      */
@@ -7770,7 +7769,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DriverServiceName 
      * @returns {NTSTATUS} 
      */
@@ -7781,7 +7779,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
@@ -7794,7 +7791,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TmHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -7810,7 +7806,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TmHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -7826,7 +7821,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionManagerHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -7842,7 +7836,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionManagerHandle 
      * @returns {NTSTATUS} 
      */
@@ -7855,7 +7848,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} RootObjectHandle 
      * @param {KTMOBJECT_TYPE} QueryType 
      * @param {Integer} ObjectCursor 
@@ -7874,7 +7866,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -7898,7 +7889,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {TRANSACTION_INFORMATION_CLASS} TransactionInformationClass 
      * @param {Integer} TransactionInformation 
@@ -7917,7 +7907,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {BOOLEAN} Wait 
      * @returns {NTSTATUS} 
@@ -7931,7 +7920,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {BOOLEAN} Wait 
      * @returns {NTSTATUS} 
@@ -7945,7 +7933,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @returns {NTSTATUS} 
      */
@@ -7958,7 +7945,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {RESOURCEMANAGER_INFORMATION_CLASS} ResourceManagerInformationClass 
      * @param {Integer} ResourceManagerInformation 
@@ -7977,7 +7963,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {RESOURCEMANAGER_INFORMATION_CLASS} ResourceManagerInformationClass 
      * @param {Integer} ResourceManagerInformation 
@@ -7993,7 +7978,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EnlistmentHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} ResourceManagerHandle 
@@ -8016,7 +8000,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Void>} EnlistmentKey 
      * @returns {NTSTATUS} 
@@ -8032,7 +8015,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8048,7 +8030,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8064,7 +8045,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8080,7 +8060,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8096,7 +8075,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8112,7 +8090,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8128,7 +8105,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8144,7 +8120,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8160,7 +8135,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8176,7 +8150,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -8192,7 +8165,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
@@ -8203,7 +8175,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POWER_INFORMATION_LEVEL} InformationLevel 
      * @param {Integer} InputBuffer 
      * @param {Integer} InputBufferLength 
@@ -8218,7 +8189,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} _Luid 
      * @returns {NTSTATUS} 
      */
@@ -8229,7 +8199,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TargetHandle 
      * @param {HANDLE} SourceHandle 
      * @param {PARTITION_INFORMATION_CLASS} PartitionInformationClass 
@@ -8247,7 +8216,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManager 
      * @param {Pointer<Guid>} ProtocolId 
      * @param {Integer} ProtocolInformationSize 
@@ -8266,7 +8234,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} LogFileName 
      * @param {Pointer<Guid>} ExistingTransactionManagerGuid 
      * @returns {NTSTATUS} 
@@ -8278,7 +8245,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Integer} RequestCookie 
      * @param {Integer} BufferLength 
@@ -8296,7 +8262,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Integer} RequestCookie 
      * @param {NTSTATUS} PropStatus 
@@ -8311,7 +8276,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TargetHandle 
      * @param {HANDLE} SourceHandle 
      * @param {PARTITION_INFORMATION_CLASS} PartitionInformationClass 
@@ -8329,7 +8293,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VoidFailedAssertion 
      * @param {Pointer<Void>} VoidFileName 
      * @param {Integer} LineNumber 
@@ -8346,7 +8309,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Value 
      * @param {Integer} Base 
      * @param {Pointer<UNICODE_STRING>} _String 
@@ -8359,7 +8321,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Value 
      * @param {Integer} Base 
      * @param {Pointer<UNICODE_STRING>} _String 
@@ -8372,7 +8333,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} _String 
      * @param {Integer} Base 
      * @param {Pointer<Integer>} Value 
@@ -8387,7 +8347,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} _String 
      * @param {Integer} Base 
      * @param {Pointer<Integer>} _Number 
@@ -8404,7 +8363,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {String} Nothing - always returns an empty string
@@ -8416,7 +8374,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} RelativeTo 
      * @param {PWSTR} _Path 
      * @param {Pointer<RTL_QUERY_REGISTRY_TABLE>} QueryTable 
@@ -8436,7 +8393,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SystemRoutineName 
      * @returns {Pointer<Void>} 
      */
@@ -8446,7 +8402,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} RelativeTo 
      * @param {PWSTR} _Path 
      * @param {PWSTR} _ValueName 
@@ -8465,7 +8420,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} RelativeTo 
      * @param {PWSTR} _Path 
      * @param {PWSTR} _ValueName 
@@ -8481,7 +8435,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} RelativeTo 
      * @param {PWSTR} _Path 
      * @returns {NTSTATUS} 
@@ -8495,7 +8448,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} RelativeTo 
      * @param {PWSTR} _Path 
      * @returns {NTSTATUS} 
@@ -8509,7 +8461,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {NTSTATUS} 
@@ -8523,7 +8474,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} String1 
      * @param {Pointer} String1Length 
      * @param {Pointer<Integer>} String2 
@@ -8561,7 +8511,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} String1 
      * @param {Pointer<UNICODE_STRING>} String2 
      * @param {BOOLEAN} CaseInSensitive 
@@ -8573,7 +8522,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} _String 
      * @param {BOOLEAN} CaseInSensitive 
      * @param {Integer} HashAlgorithm 
@@ -8589,7 +8537,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {Pointer<UNICODE_STRING>} SourceString 
      * @returns {String} Nothing - always returns an empty string
@@ -8599,7 +8546,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Destination 
      * @param {Pointer<UNICODE_STRING>} Source 
      * @returns {NTSTATUS} 
@@ -8611,7 +8557,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Destination 
      * @param {PWSTR} Source 
      * @returns {NTSTATUS} 
@@ -8625,7 +8570,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} SourceCharacter 
      * @returns {Integer} 
      */
@@ -8635,7 +8579,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} SourceCharacter 
      * @returns {Integer} 
      */
@@ -8645,7 +8588,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} utf8String 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -8654,7 +8596,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} UnicodeString 
      * @returns {Integer} 
      */
@@ -8664,7 +8605,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} AnsiString 
      * @returns {Integer} 
      */
@@ -8753,7 +8693,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<UNICODE_STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -8766,7 +8705,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {Pointer<STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -8779,7 +8717,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} Guid 
      * @param {Pointer<UNICODE_STRING>} GuidString 
      * @returns {NTSTATUS} 
@@ -8791,7 +8728,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} GuidString 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -8803,7 +8739,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} NamespaceGuid 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -8817,7 +8752,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Source 
      * @param {Pointer} Length 
      * @returns {String} Nothing - always returns an empty string
@@ -8829,7 +8763,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -8838,7 +8771,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSTR} Format 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
@@ -8854,7 +8786,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ComponentId 
      * @param {Integer} Level 
      * @param {PSTR} Format 
@@ -8872,7 +8803,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ComponentId 
      * @param {Integer} Level 
      * @param {PSTR} Format 
@@ -8889,7 +8819,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSTR} Prefix 
      * @param {Integer} ComponentId 
      * @param {Integer} Level 
@@ -8908,7 +8837,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSTR} Format 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
@@ -8924,7 +8852,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ComponentId 
      * @param {Integer} Level 
      * @returns {NTSTATUS} 
@@ -8936,7 +8863,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ComponentId 
      * @param {Integer} Level 
      * @param {BOOLEAN} State 
@@ -8949,7 +8875,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PDEBUG_PRINT_CALLBACK>} DebugPrintCallback 
      * @param {BOOLEAN} Enable 
      * @returns {NTSTATUS} 
@@ -8961,7 +8886,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Time 
      * @param {Pointer<TIME_FIELDS>} TimeFields 
      * @returns {String} Nothing - always returns an empty string
@@ -8973,7 +8897,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<TIME_FIELDS>} TimeFields 
      * @param {Pointer<Integer>} Time 
      * @returns {BOOLEAN} 
@@ -8986,7 +8909,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Pointer<Integer>} BitMapBuffer 
      * @param {Integer} SizeOfBitMap 
@@ -8999,7 +8921,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} BitNumber 
      * @returns {String} Nothing - always returns an empty string
@@ -9009,7 +8930,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} BitNumber 
      * @returns {String} Nothing - always returns an empty string
@@ -9019,7 +8939,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} BitNumber 
      * @returns {BOOLEAN} 
@@ -9030,7 +8949,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9039,7 +8957,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9048,7 +8965,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} NumberToFind 
      * @param {Integer} HintIndex 
@@ -9060,7 +8976,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} NumberToFind 
      * @param {Integer} HintIndex 
@@ -9072,7 +8987,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} NumberToFind 
      * @param {Integer} HintIndex 
@@ -9084,7 +8998,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} NumberToFind 
      * @param {Integer} HintIndex 
@@ -9096,7 +9009,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} StartingIndex 
      * @param {Integer} NumberToClear 
@@ -9107,7 +9019,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} StartingIndex 
      * @param {Integer} NumberToSet 
@@ -9118,7 +9029,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Pointer<RTL_BITMAP_RUN>} RunArray 
      * @param {Integer} SizeOfRunArray 
@@ -9131,7 +9041,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Pointer<Integer>} StartingIndex 
      * @returns {Integer} 
@@ -9144,7 +9053,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Pointer<Integer>} StartingIndex 
      * @returns {Integer} 
@@ -9157,7 +9065,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} StartingIndex 
      * @param {Integer} Length 
@@ -9169,7 +9076,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} StartingIndex 
      * @param {Integer} Length 
@@ -9181,7 +9087,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @returns {Integer} 
      */
@@ -9191,7 +9096,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @returns {Integer} 
      */
@@ -9201,7 +9105,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} StartingIndex 
      * @param {Integer} Length 
@@ -9213,7 +9116,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} StartingIndex 
      * @param {Integer} Length 
@@ -9225,7 +9127,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} FromIndex 
      * @param {Pointer<Integer>} StartingRunIndex 
@@ -9239,7 +9140,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} BitMapHeader 
      * @param {Integer} FromIndex 
      * @param {Pointer<Integer>} StartingRunIndex 
@@ -9253,7 +9153,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Set 
      * @returns {Integer} 
      */
@@ -9263,7 +9162,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Set 
      * @returns {Integer} 
      */
@@ -9273,7 +9171,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} Target 
      * @returns {Integer} 
      */
@@ -9283,7 +9180,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} Source 
      * @param {Pointer<RTL_BITMAP>} Destination 
      * @param {Integer} TargetBit 
@@ -9294,7 +9190,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_BITMAP>} Source 
      * @param {Pointer<RTL_BITMAP>} Destination 
      * @param {Integer} TargetBit 
@@ -9306,7 +9201,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Integer} Revision 
      * @returns {NTSTATUS} 
@@ -9320,7 +9214,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {BOOLEAN} 
      */
@@ -9332,7 +9225,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {Integer} 
      */
@@ -9344,7 +9236,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} SecurityDescriptorInput 
      * @param {Integer} SecurityDescriptorLength 
      * @param {Integer} RequiredInformation 
@@ -9356,7 +9247,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {BOOLEAN} DaclPresent 
      * @param {Pointer<ACL>} Dacl 
@@ -9390,7 +9280,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<OSVERSIONINFOEXW>} VersionInfo 
      * @param {Integer} TypeMask 
      * @param {Integer} ConditionMask 
@@ -9403,7 +9292,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Version 
      * @returns {BOOLEAN} 
      */
@@ -9413,7 +9301,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Version 
      * @returns {BOOLEAN} 
      */
@@ -9423,7 +9310,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_RESOURCE_DESCRIPTOR>} Descriptor 
      * @param {Integer} Type 
      * @param {Integer} Length 
@@ -9439,7 +9325,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CM_PARTIAL_RESOURCE_DESCRIPTOR>} Descriptor 
      * @param {Integer} Type 
      * @param {Integer} Length 
@@ -9453,7 +9338,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_RESOURCE_DESCRIPTOR>} Descriptor 
      * @param {Pointer<Integer>} Alignment 
      * @param {Pointer<Integer>} MinimumAddress 
@@ -9470,7 +9354,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CM_PARTIAL_RESOURCE_DESCRIPTOR>} Descriptor 
      * @param {Pointer<Integer>} Start 
      * @returns {Integer} 
@@ -9483,7 +9366,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} SourceLength 
      * @param {Pointer<Integer>} TargetLength 
      * @returns {NTSTATUS} 
@@ -9497,7 +9379,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<BOOLEAN>} UntrustedObject 
@@ -9515,7 +9396,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ComponentName 
      * @returns {Integer} 
      */
@@ -9525,7 +9405,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} LogFileName 
      * @param {Pointer<Guid>} ExistingTransactionManagerGuid 
      * @returns {NTSTATUS} 
@@ -9537,7 +9416,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionManagerHandle 
      * @param {TRANSACTIONMANAGER_INFORMATION_CLASS} TransactionManagerInformationClass 
      * @param {Integer} TransactionManagerInformation 
@@ -9556,7 +9434,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TmHandle 
      * @param {TRANSACTIONMANAGER_INFORMATION_CLASS} TransactionManagerInformationClass 
      * @param {Integer} TransactionManagerInformation 
@@ -9572,7 +9449,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -9589,7 +9465,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {TRANSACTION_INFORMATION_CLASS} TransactionInformationClass 
      * @param {Integer} TransactionInformation 
@@ -9605,7 +9480,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EnlistmentHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} ResourceManagerHandle 
@@ -9622,7 +9496,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {ENLISTMENT_INFORMATION_CLASS} EnlistmentInformationClass 
      * @param {Integer} EnlistmentInformation 
@@ -9641,7 +9514,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {ENLISTMENT_INFORMATION_CLASS} EnlistmentInformationClass 
      * @param {Integer} EnlistmentInformation 
@@ -9657,7 +9529,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} ResourceManagerHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} TmHandle 
@@ -9676,7 +9547,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} ResourceManagerHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} TmHandle 
@@ -9693,7 +9563,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Pointer<TRANSACTION_NOTIFICATION>} TransactionNotification 
      * @param {Integer} NotificationLength 
@@ -9715,7 +9584,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManager 
      * @param {Pointer<Guid>} ProtocolId 
      * @param {Integer} ProtocolInformationSize 
@@ -9734,7 +9602,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Integer} RequestCookie 
      * @param {Integer} BufferLength 
@@ -9752,7 +9619,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Integer} RequestCookie 
      * @param {NTSTATUS} PropStatus 
@@ -9767,7 +9633,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} NewIrql 
      * @returns {Integer} 
      */
@@ -9777,7 +9642,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} _Mdl 
      * @param {BOOLEAN} ReadOperation 
      * @param {BOOLEAN} DmaOperation 
@@ -9788,7 +9652,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeGetCurrentIrql() {
@@ -9797,7 +9660,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {Pointer<PKDEFERRED_ROUTINE>} DeferredRoutine 
      * @param {Pointer<Void>} DeferredContext 
@@ -9810,7 +9672,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {Pointer<PKDEFERRED_ROUTINE>} DeferredRoutine 
      * @param {Pointer<Void>} DeferredContext 
@@ -9823,7 +9684,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {Pointer<Void>} SystemArgument1 
      * @param {Pointer<Void>} SystemArgument2 
@@ -9838,7 +9698,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @returns {BOOLEAN} 
      */
@@ -9848,7 +9707,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {BOOLEAN} WaitIfActive 
      * @returns {BOOLEAN} 
@@ -9859,7 +9717,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _DumpType 
      * @param {Integer} Flags 
      * @param {Integer} _Buffer 
@@ -9876,7 +9733,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {KDPC_IMPORTANCE} Importance 
      * @returns {String} Nothing - always returns an empty string
@@ -9886,7 +9742,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {Integer} _Number 
      * @returns {String} Nothing - always returns an empty string
@@ -9896,7 +9751,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeFlushQueuedDpcs() {
@@ -9904,7 +9758,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9913,7 +9766,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @param {Pointer<KDEVICE_QUEUE_ENTRY>} DeviceQueueEntry 
      * @returns {BOOLEAN} 
@@ -9924,7 +9776,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @param {Pointer<KDEVICE_QUEUE_ENTRY>} DeviceQueueEntry 
      * @param {Integer} _SortKey 
@@ -9936,7 +9787,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @returns {Pointer<KDEVICE_QUEUE_ENTRY>} 
      */
@@ -9946,7 +9796,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @param {Integer} _SortKey 
      * @returns {Pointer<KDEVICE_QUEUE_ENTRY>} 
@@ -9957,7 +9806,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @param {Integer} _SortKey 
      * @returns {Pointer<KDEVICE_QUEUE_ENTRY>} 
@@ -9968,7 +9816,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDEVICE_QUEUE>} DeviceQueue 
      * @param {Pointer<KDEVICE_QUEUE_ENTRY>} DeviceQueueEntry 
      * @returns {BOOLEAN} 
@@ -9979,7 +9826,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKINTERRUPT} Interrupt 
      * @param {Pointer<PKSYNCHRONIZE_ROUTINE>} SynchronizeRoutine 
      * @param {Pointer<Void>} SynchronizeContext 
@@ -9993,7 +9839,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKINTERRUPT} Interrupt 
      * @returns {Integer} 
      */
@@ -10003,7 +9848,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKINTERRUPT} Interrupt 
      * @param {Integer} OldIrql 
      * @returns {String} Nothing - always returns an empty string
@@ -10013,7 +9857,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KEVENT>} Event 
      * @param {EVENT_TYPE} Type 
      * @param {BOOLEAN} State 
@@ -10024,7 +9867,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KEVENT>} Event 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10033,7 +9875,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KEVENT>} Event 
      * @returns {Integer} 
      */
@@ -10043,7 +9884,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KEVENT>} Event 
      * @returns {Integer} 
      */
@@ -10053,7 +9893,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KEVENT>} Event 
      * @param {Integer} Increment 
      * @param {BOOLEAN} Wait 
@@ -10065,7 +9904,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KMUTANT>} Mutex 
      * @param {Integer} Level 
      * @returns {String} Nothing - always returns an empty string
@@ -10075,7 +9913,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KMUTANT>} Mutex 
      * @returns {Integer} 
      */
@@ -10085,7 +9922,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KMUTANT>} Mutex 
      * @param {BOOLEAN} Wait 
      * @returns {Integer} 
@@ -10096,7 +9932,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KSEMAPHORE>} Semaphore 
      * @param {Integer} Count 
      * @param {Integer} Limit 
@@ -10107,7 +9942,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KSEMAPHORE>} Semaphore 
      * @returns {Integer} 
      */
@@ -10117,7 +9951,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KSEMAPHORE>} Semaphore 
      * @param {Integer} Increment 
      * @param {Integer} Adjustment 
@@ -10130,7 +9963,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} WaitMode 
      * @param {BOOLEAN} Alertable 
      * @param {Pointer<Integer>} _Interval 
@@ -10145,7 +9977,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKTHREAD} Thread 
      * @returns {Integer} 
      */
@@ -10155,7 +9986,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKTHREAD} Thread 
      * @param {Pointer<Integer>} UserTime 
      * @returns {Integer} 
@@ -10168,7 +9998,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKTHREAD} Thread 
      * @param {Pointer<Integer>} CycleTimeStamp 
      * @returns {Integer} 
@@ -10181,7 +10010,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {Pointer<PROCESSOR_NUMBER>} ProcNumber 
      * @returns {NTSTATUS} 
@@ -10193,7 +10021,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeRevertToUserAffinityThread() {
@@ -10201,7 +10028,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} Affinity 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10210,7 +10036,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} Affinity 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10219,7 +10044,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<GROUP_AFFINITY>} Affinity 
      * @param {Pointer<GROUP_AFFINITY>} PreviousAffinity 
      * @returns {String} Nothing - always returns an empty string
@@ -10229,7 +10053,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<GROUP_AFFINITY>} PreviousAffinity 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10238,7 +10061,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} Affinity 
      * @returns {Pointer} 
      */
@@ -10248,7 +10070,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKTHREAD} Thread 
      * @param {Integer} _Priority 
      * @returns {Integer} 
@@ -10259,7 +10080,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeEnterCriticalRegion() {
@@ -10267,7 +10087,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeLeaveCriticalRegion() {
@@ -10275,7 +10094,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeEnterGuardedRegion() {
@@ -10283,7 +10101,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeLeaveGuardedRegion() {
@@ -10291,7 +10108,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static KeAreApcsDisabled() {
@@ -10300,7 +10116,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTIMER>} Timer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10309,7 +10124,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTIMER>} Timer 
      * @param {TIMER_TYPE} Type 
      * @returns {String} Nothing - always returns an empty string
@@ -10319,7 +10133,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTIMER>} param0 
      * @returns {BOOLEAN} 
      */
@@ -10329,7 +10142,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTIMER>} Timer 
      * @returns {BOOLEAN} 
      */
@@ -10339,7 +10151,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTIMER>} Timer 
      * @param {Integer} DueTime 
      * @param {Pointer<KDPC>} Dpc 
@@ -10351,7 +10162,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTIMER>} Timer 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
@@ -10364,7 +10174,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTIMER>} Timer 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
@@ -10378,7 +10187,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Pointer<Void>>} _Object 
      * @param {WAIT_TYPE} WaitType 
@@ -10399,7 +10207,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {KWAIT_REASON} WaitReason 
      * @param {Integer} WaitMode 
@@ -10417,7 +10224,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PKIPI_BROADCAST_WORKER>} BroadcastFunction 
      * @param {Pointer} _Context 
      * @returns {Pointer} 
@@ -10428,7 +10234,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10439,7 +10244,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @returns {BOOLEAN} 
      */
@@ -10451,7 +10255,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @returns {BOOLEAN} 
      */
@@ -10463,7 +10266,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @returns {Integer} 
      */
@@ -10475,7 +10277,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @param {Integer} OldIrql 
      * @returns {String} Nothing - always returns an empty string
@@ -10487,7 +10288,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @param {Pointer<KLOCK_QUEUE_HANDLE>} LockHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -10499,7 +10299,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KLOCK_QUEUE_HANDLE>} LockHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10508,7 +10307,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @param {Pointer<KLOCK_QUEUE_HANDLE>} LockHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -10520,7 +10318,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KLOCK_QUEUE_HANDLE>} LockHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10529,7 +10326,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @param {Pointer<KLOCK_QUEUE_HANDLE>} LockHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -10541,7 +10337,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KLOCK_QUEUE_HANDLE>} LockHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10550,7 +10345,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC_WATCHDOG_INFORMATION>} WatchdogInformation 
      * @returns {NTSTATUS} 
      */
@@ -10561,7 +10355,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeIsExecutingDpc() {
@@ -10570,7 +10363,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KBUGCHECK_CALLBACK_RECORD>} CallbackRecord 
      * @returns {BOOLEAN} 
      */
@@ -10580,7 +10372,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KBUGCHECK_CALLBACK_RECORD>} CallbackRecord 
      * @param {Pointer<PKBUGCHECK_CALLBACK_ROUTINE>} CallbackRoutine 
      * @param {Integer} _Buffer 
@@ -10596,7 +10387,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} KtriageDumpDataArray 
      * @param {Integer} _Size 
      * @returns {NTSTATUS} 
@@ -10608,7 +10398,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTRIAGE_DUMP_DATA_ARRAY>} KtriageDumpDataArray 
      * @param {Pointer<Void>} _Address 
      * @param {Pointer} _Size 
@@ -10623,7 +10412,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KBUGCHECK_REASON_CALLBACK_RECORD>} CallbackRecord 
      * @returns {BOOLEAN} 
      */
@@ -10633,7 +10421,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KBUGCHECK_REASON_CALLBACK_RECORD>} CallbackRecord 
      * @param {Pointer<PKBUGCHECK_REASON_CALLBACK_ROUTINE>} CallbackRoutine 
      * @param {KBUGCHECK_CALLBACK_REASON} Reason 
@@ -10648,7 +10435,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PNMI_CALLBACK>} CallbackRoutine 
      * @param {Pointer<Void>} _Context 
      * @returns {Pointer<Void>} 
@@ -10661,7 +10447,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @returns {NTSTATUS} 
      */
@@ -10674,7 +10459,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PBOUND_CALLBACK>} CallbackRoutine 
      * @returns {Pointer<Void>} 
      */
@@ -10684,7 +10468,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @returns {NTSTATUS} 
      */
@@ -10697,7 +10480,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BUGCHECK_ERROR} BugCheckCode 
      * @param {Pointer} BugCheckParameter1 
      * @param {Pointer} BugCheckParameter2 
@@ -10710,7 +10492,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CurrentTime 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10721,7 +10502,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} QpcTimeStamp 
      * @returns {Integer} 
      */
@@ -10733,7 +10513,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} QpcTimeStamp 
      * @returns {Integer} 
      */
@@ -10745,7 +10524,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeQueryTimeIncrement() {
@@ -10754,7 +10532,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeQueryUnbiasedInterruptTime() {
@@ -10763,7 +10540,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeGetRecommendedSharedDataAlignment() {
@@ -10772,7 +10548,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     static KeQueryActiveProcessors() {
@@ -10781,7 +10556,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} ActiveProcessors 
      * @returns {Integer} 
      */
@@ -10793,7 +10567,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} GroupNumber 
      * @returns {Integer} 
      */
@@ -10803,7 +10576,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeQueryMaximumProcessorCount() {
@@ -10812,7 +10584,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} GroupNumber 
      * @returns {Integer} 
      */
@@ -10822,7 +10593,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeQueryActiveGroupCount() {
@@ -10831,7 +10601,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeQueryMaximumGroupCount() {
@@ -10840,7 +10609,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} GroupNumber 
      * @returns {Pointer} 
      */
@@ -10850,7 +10618,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PROCESSOR_NUMBER>} ProcNumber 
      * @returns {Integer} 
      */
@@ -10860,7 +10627,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} NodeNumber 
      * @param {Pointer<GROUP_AFFINITY>} Affinity 
      * @param {Pointer<Integer>} Count 
@@ -10873,7 +10639,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} NodeNumber 
      * @returns {Integer} 
      */
@@ -10883,7 +10648,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeQueryHighestNodeNumber() {
@@ -10892,7 +10656,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeGetCurrentNodeNumber() {
@@ -10901,7 +10664,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PROCESSOR_NUMBER>} ProcessorNumber 
      * @param {LOGICAL_PROCESSOR_RELATIONSHIP} RelationshipType 
      * @param {Integer} Information 
@@ -10917,7 +10679,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static KeShouldYieldProcessor() {
@@ -10926,7 +10687,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} NodeNumber 
      * @param {Pointer<GROUP_AFFINITY>} GroupAffinities 
      * @param {Integer} GroupAffinitiesCount 
@@ -10942,7 +10702,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} NodeNumber 
      * @returns {Integer} 
      */
@@ -10952,7 +10711,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static KeAreAllApcsDisabled() {
@@ -10961,7 +10719,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} Mutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10970,7 +10727,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} Mutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10979,7 +10735,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} Mutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10988,7 +10743,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} Mutex 
      * @returns {BOOLEAN} 
      */
@@ -10998,7 +10752,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} FastMutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11007,7 +10760,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} FastMutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11016,7 +10768,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PPROCESSOR_CALLBACK_FUNCTION>} CallbackFunction 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Integer} Flags 
@@ -11030,7 +10781,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11041,7 +10791,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ProcIndex 
      * @param {Pointer<PROCESSOR_NUMBER>} ProcNumber 
      * @returns {NTSTATUS} 
@@ -11053,7 +10802,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PROCESSOR_NUMBER>} ProcNumber 
      * @returns {Integer} 
      */
@@ -11063,7 +10811,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {Pointer<XSTATE_SAVE>} XStateSave 
      * @returns {NTSTATUS} 
@@ -11075,7 +10822,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<XSTATE_SAVE>} XStateSave 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11084,7 +10830,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} AuxiliaryCounterValue 
      * @param {Pointer<Integer>} PerformanceCounterValue 
      * @param {Pointer<Integer>} ConversionError 
@@ -11100,7 +10845,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} PerformanceCounterValue 
      * @param {Pointer<Integer>} AuxiliaryCounterValue 
      * @param {Pointer<Integer>} ConversionError 
@@ -11116,7 +10860,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} AuxiliaryCounterFrequency 
      * @returns {NTSTATUS} 
      */
@@ -11129,7 +10872,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     static KdDisableDebugger() {
@@ -11139,7 +10881,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     static KdEnableDebugger() {
@@ -11149,7 +10890,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static KdRefreshDebuggerNotPresent() {
@@ -11158,7 +10898,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {KD_OPTION} Option 
      * @param {Integer} InBufferBytes 
      * @param {Pointer<Void>} InBuffer 
@@ -11178,7 +10917,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} NumberOfBytes 
      * @returns {Pointer<Void>} 
@@ -11190,7 +10928,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} NumberOfBytes 
      * @returns {Pointer<Void>} 
@@ -11202,7 +10939,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Tag 
@@ -11215,7 +10951,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Tag 
@@ -11229,7 +10964,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Tag 
@@ -11241,7 +10975,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Tag 
@@ -11255,7 +10988,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} P 
      * @param {Integer} Tag 
      * @param {Pointer<POOL_EXTENDED_PARAMETER>} ExtendedParameters 
@@ -11269,7 +11001,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer} Tag 
      * @param {Pointer<POOL_CREATE_EXTENDED_PARAMS>} Params 
@@ -11283,7 +11014,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} PoolHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11294,7 +11024,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} SecurePoolHandle 
      * @param {Integer} Tag 
      * @param {Pointer<Void>} Allocation 
@@ -11316,7 +11045,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} SecurePoolHandle 
      * @param {Integer} Tag 
      * @param {Pointer<Void>} Allocation 
@@ -11333,7 +11061,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Tag 
@@ -11346,7 +11073,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} P 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11357,7 +11083,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} P 
      * @param {Integer} Tag 
      * @returns {String} Nothing - always returns an empty string
@@ -11369,7 +11094,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} FastMutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11378,7 +11102,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} FastMutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11387,7 +11110,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} FastMutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11396,7 +11118,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} FastMutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11405,7 +11126,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FAST_MUTEX>} FastMutex 
      * @returns {BOOLEAN} 
      */
@@ -11415,7 +11135,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Addend 
      * @param {Integer} Increment 
      * @param {Pointer<Pointer>} Lock 
@@ -11430,7 +11149,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @param {Pointer} Length 
      * @param {Integer} Alignment 
@@ -11441,7 +11159,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {NTSTATUS} _Status 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11450,7 +11167,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @param {Pointer} Length 
      * @param {Integer} Alignment 
@@ -11461,7 +11177,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WORK_QUEUE_ITEM>} WorkItem 
      * @param {WORK_QUEUE_TYPE} QueueType 
      * @returns {String} Nothing - always returns an empty string
@@ -11471,7 +11186,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ProcessorFeature 
      * @returns {BOOLEAN} 
      */
@@ -11481,7 +11195,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {NTSTATUS} 
      */
@@ -11492,7 +11205,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {NTSTATUS} 
      */
@@ -11503,7 +11215,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @param {BOOLEAN} Wait 
      * @returns {BOOLEAN} 
@@ -11514,7 +11225,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {Pointer<Void>} 
      */
@@ -11524,7 +11234,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @param {BOOLEAN} Wait 
      * @returns {BOOLEAN} 
@@ -11535,7 +11244,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {Pointer<Void>} 
      */
@@ -11545,7 +11253,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @param {BOOLEAN} Wait 
      * @returns {BOOLEAN} 
@@ -11556,7 +11263,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @param {BOOLEAN} Wait 
      * @returns {BOOLEAN} 
@@ -11567,7 +11273,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {Pointer<Void>} 
      */
@@ -11577,7 +11282,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11586,7 +11290,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11595,7 +11298,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @param {Pointer} ResourceThreadId 
      * @returns {String} Nothing - always returns an empty string
@@ -11605,7 +11307,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @param {Pointer<Void>} OwnerPointer 
      * @returns {String} Nothing - always returns an empty string
@@ -11617,7 +11318,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @param {Pointer<Void>} OwnerPointer 
      * @param {Integer} Flags 
@@ -11630,7 +11330,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11639,7 +11338,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {NTSTATUS} 
      */
@@ -11650,7 +11348,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {Integer} 
      */
@@ -11660,7 +11357,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {Integer} 
      */
@@ -11670,7 +11366,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {BOOLEAN} 
      */
@@ -11680,7 +11375,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {Integer} 
      */
@@ -11690,7 +11384,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ExGetPreviousMode() {
@@ -11699,7 +11392,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} DesiredTime 
      * @param {BOOLEAN} SetResolution 
      * @returns {Integer} 
@@ -11710,7 +11402,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MaximumTime 
      * @param {Pointer<Integer>} MinimumTime 
      * @param {Pointer<Integer>} CurrentTime 
@@ -11725,7 +11416,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _SystemTime 
      * @param {Pointer<Integer>} LocalTime 
      * @returns {String} Nothing - always returns an empty string
@@ -11738,7 +11428,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} LocalTime 
      * @param {Pointer<Integer>} _SystemTime 
      * @returns {String} Nothing - always returns an empty string
@@ -11751,7 +11440,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PEXT_CALLBACK>} Callback 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Integer} Attributes 
@@ -11765,7 +11453,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_TIMER} Timer 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
@@ -11778,7 +11465,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_TIMER} Timer 
      * @param {Pointer<Void>} Parameters 
      * @returns {BOOLEAN} 
@@ -11791,7 +11477,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_TIMER} Timer 
      * @param {BOOLEAN} Cancel 
      * @param {BOOLEAN} Wait 
@@ -11804,7 +11489,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PCALLBACK_OBJECT>} CallbackObject 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {BOOLEAN} Create 
@@ -11820,7 +11504,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PCALLBACK_OBJECT} CallbackObject 
      * @param {Pointer<PCALLBACK_FUNCTION>} CallbackFunction 
      * @param {Pointer<Void>} CallbackContext 
@@ -11834,7 +11517,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackRegistration 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11845,7 +11527,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackObject 
      * @param {Pointer<Void>} Argument1 
      * @param {Pointer<Void>} Argument2 
@@ -11860,7 +11541,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {SUITE_TYPE} SuiteType 
      * @returns {BOOLEAN} 
      */
@@ -11870,7 +11550,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11879,7 +11558,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11888,7 +11566,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @returns {BOOLEAN} 
      */
@@ -11898,7 +11575,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @param {Integer} Count 
      * @returns {BOOLEAN} 
@@ -11909,7 +11585,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11918,7 +11593,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @param {Integer} Count 
      * @returns {String} Nothing - always returns an empty string
@@ -11928,7 +11602,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11937,7 +11610,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<EX_RUNDOWN_REF>} RunRef 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11946,7 +11618,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Integer} PoolTag 
      * @returns {PEX_RUNDOWN_REF_CACHE_AWARE} 
@@ -11957,7 +11628,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     static ExSizeOfRundownProtectionCacheAware() {
@@ -11966,7 +11636,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @param {Pointer} RunRefSize 
      * @returns {String} Nothing - always returns an empty string
@@ -11976,7 +11645,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11985,7 +11653,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @returns {BOOLEAN} 
      */
@@ -11995,7 +11662,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12004,7 +11670,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @param {Integer} Count 
      * @returns {BOOLEAN} 
@@ -12015,7 +11680,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRef 
      * @param {Integer} Count 
      * @returns {String} Nothing - always returns an empty string
@@ -12025,7 +11689,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRef 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12034,7 +11697,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12043,7 +11705,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12052,7 +11713,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -12062,7 +11722,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEX_RUNDOWN_REF_CACHE_AWARE} RunRefCacheAware 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12071,7 +11730,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12082,7 +11740,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -12094,7 +11751,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -12106,7 +11762,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -12118,7 +11773,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -12130,7 +11784,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12141,7 +11794,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {Integer} 
      */
@@ -12153,7 +11805,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12164,7 +11815,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @param {Integer} OldIrql 
      * @returns {String} Nothing - always returns an empty string
@@ -12176,7 +11826,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {Integer} 
      */
@@ -12188,7 +11837,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12199,7 +11847,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {Integer} 
      */
@@ -12211,7 +11858,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12222,7 +11868,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @param {Integer} OldIrql 
      * @returns {String} Nothing - always returns an empty string
@@ -12234,7 +11879,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {Integer} 
      */
@@ -12246,7 +11890,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpinLock 
      * @returns {Integer} 
      */
@@ -12258,7 +11901,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} VariableName 
      * @param {Pointer<Guid>} VendorGuid 
      * @param {Integer} Value 
@@ -12276,7 +11918,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} VariableName 
      * @param {Pointer<Guid>} VendorGuid 
      * @param {Integer} Value 
@@ -12291,7 +11932,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static ExIsManufacturingModeEnabled() {
@@ -12300,7 +11940,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static ExIsSoftBoot() {
@@ -12309,7 +11948,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {FIRMWARE_TYPE} 
      */
     static ExGetFirmwareType() {
@@ -12318,7 +11956,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} FirmwareTableProviderSignature 
      * @param {Integer} FirmwareTableBuffer 
      * @param {Integer} BufferLength 
@@ -12334,7 +11971,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} FirmwareTableProviderSignature 
      * @param {Integer} FirmwareTableID 
      * @param {Integer} FirmwareTableBuffer 
@@ -12351,7 +11987,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PEX_CALLBACK_FUNCTION>} Function 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} Cookie 
@@ -12367,7 +12002,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Cookie 
      * @returns {NTSTATUS} 
      */
@@ -12378,7 +12012,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PEX_CALLBACK_FUNCTION>} Function 
      * @param {Pointer<UNICODE_STRING>} Altitude 
      * @param {Pointer<Void>} Driver 
@@ -12399,7 +12032,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Major 
      * @param {Pointer<Integer>} Minor 
      * @returns {String} Nothing - always returns an empty string
@@ -12412,7 +12044,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} Cookie 
      * @param {Pointer<Void>} NewContext 
@@ -12431,7 +12062,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Cookie 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<Pointer>} _ObjectID 
@@ -12450,7 +12080,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Cookie 
      * @param {Pointer<Void>} _Object 
      * @returns {Pointer<Void>} 
@@ -12464,7 +12093,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Cookie 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<Pointer>} _ObjectID 
@@ -12484,7 +12112,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12493,7 +12120,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {MM_SYSTEMSIZE} 
      */
     static MmQuerySystemSize() {
@@ -12502,7 +12128,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} VerifierFlags 
      * @returns {NTSTATUS} 
      */
@@ -12515,7 +12140,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ThunkBuffer 
      * @param {Integer} ThunkBufferSize 
      * @returns {NTSTATUS} 
@@ -12527,7 +12151,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} EntryRoutine 
      * @param {Integer} ThunkBuffer 
      * @param {Integer} ThunkBufferSize 
@@ -12540,7 +12163,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Pointer<FILE_SEGMENT_ELEMENT>} SegmentArray 
      * @param {Integer} AccessMode 
@@ -12552,7 +12174,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {PEPROCESS} Process 
      * @param {Integer} AccessMode 
@@ -12564,7 +12185,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Integer} AccessMode 
      * @param {LOCK_OPERATION} Operation 
@@ -12575,7 +12195,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12584,7 +12203,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12593,7 +12211,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MM_PHYSICAL_ADDRESS_LIST>} PhysicalAddressList 
      * @param {Pointer} NumberOfEntries 
      * @param {Pointer<Pointer<MDL>>} NewMdl 
@@ -12608,7 +12225,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @returns {Integer} 
      */
@@ -12618,7 +12234,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} StartAddress 
      * @param {Integer} NumberOfBytes 
      * @param {MEMORY_CACHING_TYPE} CacheType 
@@ -12632,7 +12247,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Integer} AccessMode 
      * @returns {Pointer<Void>} 
@@ -12643,7 +12257,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Integer} Protection 
      * @param {Pointer<PMM_MDL_ROUTINE>} DriverRoutine 
@@ -12659,7 +12272,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Va 
      * @param {Integer} PageTotal 
      * @param {Pointer<MDL>} MemoryDumpMdl 
@@ -12675,7 +12287,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} StartAddress 
      * @param {Pointer} NumberOfBytes 
      * @returns {Integer} 
@@ -12686,7 +12297,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Integer} NumberOfBytes 
      * @returns {NTSTATUS} 
@@ -12698,7 +12308,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Integer} NewProtect 
      * @returns {NTSTATUS} 
@@ -12710,7 +12319,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Integer} AccessMode 
      * @param {MEMORY_CACHING_TYPE} CacheType 
@@ -12727,7 +12335,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BaseAddress 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @returns {String} Nothing - always returns an empty string
@@ -12739,7 +12346,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} PoolTag 
      * @param {Integer} Flags 
@@ -12751,7 +12357,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} PoolTag 
      * @returns {Pointer<Void>} 
@@ -12762,7 +12367,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BaseAddress 
      * @param {Integer} PoolTag 
      * @returns {String} Nothing - always returns an empty string
@@ -12774,7 +12378,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MappingAddress 
      * @param {Integer} PoolTag 
      * @param {Pointer<MDL>} MemoryDescriptorList 
@@ -12789,7 +12392,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BaseAddress 
      * @param {Integer} PoolTag 
      * @param {Pointer<MDL>} MemoryDescriptorList 
@@ -12802,7 +12404,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} LowAddress 
      * @param {Integer} HighAddress 
      * @param {Integer} SkipBytes 
@@ -12818,7 +12419,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} LowAddress 
      * @param {Integer} HighAddress 
      * @param {Integer} SkipBytes 
@@ -12837,7 +12437,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} LowAddress 
      * @param {Integer} HighAddress 
      * @param {Integer} SkipBytes 
@@ -12852,7 +12451,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} LowAddress 
      * @param {Integer} HighAddress 
      * @param {Integer} SkipBytes 
@@ -12865,7 +12463,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -12875,7 +12472,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12884,7 +12480,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Pointer} NumberOfBytes 
      * @param {MEMORY_CACHING_TYPE} CacheType 
@@ -12896,7 +12491,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} BaseAddress 
      * @param {Pointer} NumberOfBytes 
      * @returns {String} Nothing - always returns an empty string
@@ -12906,7 +12500,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Protect 
@@ -12918,7 +12511,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} HighestAcceptableAddress 
      * @returns {Pointer<Void>} 
@@ -12929,7 +12521,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} LowestAcceptableAddress 
      * @param {Integer} HighestAcceptableAddress 
@@ -12943,7 +12534,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} LowestAcceptableAddress 
      * @param {Integer} HighestAcceptableAddress 
@@ -12958,7 +12548,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} LowestAcceptableAddress 
      * @param {Integer} HighestAcceptableAddress 
@@ -12973,7 +12562,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} NumberOfBytes 
      * @param {Integer} LowestAcceptableAddress 
      * @param {Integer} HighestAcceptableAddress 
@@ -12997,7 +12585,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BaseAddress 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13008,7 +12595,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} BaseAddress 
      * @param {Pointer} NumberOfBytes 
      * @param {MEMORY_CACHING_TYPE} CacheType 
@@ -13019,7 +12605,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Base 
      * @param {Pointer} Length 
      * @returns {Pointer} 
@@ -13030,7 +12615,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Integer} Base 
      * @param {Pointer} Length 
@@ -13042,7 +12626,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {MM_MDL_PAGE_CONTENTS_STATE} State 
      * @returns {MM_MDL_PAGE_CONTENTS_STATE} 
@@ -13053,7 +12636,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} AddressWithinSection 
      * @returns {Pointer<Void>} 
      */
@@ -13065,7 +12647,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} AddressWithinSection 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13076,7 +12657,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} AddressWithinSection 
      * @returns {Pointer<Void>} 
      */
@@ -13088,7 +12668,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ImageSectionHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13099,7 +12678,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @returns {Integer} 
      */
@@ -13109,7 +12687,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @returns {Integer} 
      */
@@ -13119,7 +12696,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} AddressWithinSection 
      * @returns {Integer} 
      */
@@ -13131,7 +12707,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} AddressWithinSection 
      * @param {Pointer} _Size 
      * @param {Integer} Flags 
@@ -13146,7 +12721,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13155,7 +12729,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13164,7 +12737,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13173,7 +12745,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13182,7 +12753,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} ParentDescriptor 
      * @param {PSECURITY_DESCRIPTOR} ExplicitDescriptor 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewDescriptor 
@@ -13202,7 +12772,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _ObjectType 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSECURITY_DESCRIPTOR} ParentSecurityDescriptor 
@@ -13219,7 +12788,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} ParentDescriptor 
      * @param {PSECURITY_DESCRIPTOR} ExplicitDescriptor 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewDescriptor 
@@ -13241,7 +12809,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @returns {NTSTATUS} 
      */
@@ -13252,7 +12819,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @param {BOOLEAN} SubjectContextLocked 
@@ -13277,7 +12843,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<SE_ADT_PARAMETER_ARRAY>} AuditParameters 
      * @param {SE_ADT_PARAMETER_TYPE} Type 
      * @param {Integer} Index 
@@ -13293,7 +12858,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer<UNICODE_STRING>} SourceName 
      * @param {PSID} UserSid 
@@ -13307,7 +12871,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Length 
      * @param {Integer} _SecurityDescriptor 
      * @returns {BOOLEAN} 
@@ -13318,7 +12881,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {SE_IMAGE_TYPE} _ImageType 
      * @param {SE_IMAGE_VERIFICATION_CALLBACK_TYPE} CallbackType 
      * @param {Pointer<PSE_IMAGE_VERIFICATION_CALLBACK_FUNCTION>} CallbackFunction 
@@ -13338,7 +12900,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13349,7 +12910,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} ThreadHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -13370,7 +12930,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {NTSTATUS} ExitStatus 
      * @returns {NTSTATUS} 
      */
@@ -13381,7 +12940,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ApcContext 
      * @param {Pointer<Pointer<Void>>} ApcRoutine 
      * @returns {NTSTATUS} 
@@ -13396,7 +12954,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MajorVersion 
      * @param {Pointer<Integer>} MinorVersion 
      * @param {Pointer<Integer>} BuildNumber 
@@ -13413,7 +12970,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @param {Pointer<Integer>} CycleTimeStamp 
      * @returns {Integer} 
@@ -13426,7 +12982,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PAFFINITY_TOKEN>} AffinityToken 
      * @returns {NTSTATUS} 
      */
@@ -13439,7 +12994,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PAFFINITY_TOKEN} AffinityToken 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13448,7 +13002,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<GROUP_AFFINITY>} GroupAffinities 
      * @param {Integer} GroupCount 
      * @param {PAFFINITY_TOKEN} AffinityToken 
@@ -13461,7 +13014,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PAFFINITY_TOKEN} AffinityToken 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13470,7 +13022,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Irql 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13481,7 +13032,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<Void>} ClientIdentificationAddress 
      * @param {Integer} DriverObjectExtensionSize 
@@ -13498,7 +13048,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} IoObject 
      * @param {Integer} EntrySize 
      * @returns {Pointer<Void>} 
@@ -13511,7 +13060,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} StackSize 
      * @param {BOOLEAN} ChargeQuota 
      * @returns {Pointer<IRP>} 
@@ -13522,7 +13070,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} StackSize 
      * @param {BOOLEAN} ChargeQuota 
@@ -13534,7 +13081,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VirtualAddress 
      * @param {Integer} Length 
      * @param {BOOLEAN} SecondaryBuffer 
@@ -13550,7 +13096,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} SourceDevice 
      * @param {Pointer<UNICODE_STRING>} TargetDevice 
      * @param {Pointer<Pointer<DEVICE_OBJECT>>} AttachedDevice 
@@ -13565,7 +13110,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} SourceDevice 
      * @param {Pointer<DEVICE_OBJECT>} TargetDevice 
      * @returns {Pointer<DEVICE_OBJECT>} 
@@ -13576,7 +13120,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} MajorFunction 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} _Buffer 
@@ -13594,7 +13137,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} IoControlCode 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} InputBuffer 
@@ -13615,7 +13157,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} SourceMdl 
      * @param {Pointer<MDL>} TargetMdl 
      * @param {Pointer<Void>} VirtualAddress 
@@ -13629,7 +13170,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<BOOTDISK_INFORMATION>} BootDiskInformation 
      * @param {Integer} _Size 
      * @returns {NTSTATUS} 
@@ -13641,7 +13181,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<BOOTDISK_INFORMATION_LITE>>} BootDiskInformation 
      * @returns {NTSTATUS} 
      */
@@ -13654,7 +13193,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} MajorFunction 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} _Buffer 
@@ -13673,7 +13211,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
@@ -13685,7 +13222,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
@@ -13695,7 +13231,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} DesiredAccess 
      * @param {Integer} DesiredShareAccess 
      * @param {Pointer<FILE_OBJECT>} FileObject 
@@ -13710,7 +13245,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} DesiredAccess 
      * @param {Integer} DesiredShareAccess 
      * @param {Pointer<FILE_OBJECT>} FileObject 
@@ -13728,7 +13262,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} DesiredAccess 
      * @param {Integer} DesiredShareAccess 
      * @param {Pointer<FILE_OBJECT>} FileObject 
@@ -13744,7 +13277,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} PriorityBoost 
      * @returns {String} Nothing - always returns an empty string
@@ -13754,7 +13286,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PKINTERRUPT>} InterruptObject 
      * @param {Pointer<PKSERVICE_ROUTINE>} ServiceRoutine 
      * @param {Pointer<Void>} ServiceContext 
@@ -13779,7 +13310,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CONNECT_INTERRUPT_PARAMETERS>} Parameters 
      * @returns {NTSTATUS} 
      */
@@ -13790,7 +13320,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Integer} DeviceExtensionSize 
      * @param {Pointer<UNICODE_STRING>} DeviceName 
@@ -13809,7 +13338,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} MajorVersion 
      * @param {Integer} MinorVersion 
      * @returns {BOOLEAN} 
@@ -13820,7 +13348,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} FileHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -13848,7 +13375,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} EventName 
      * @param {Pointer<HANDLE>} EventHandle 
      * @returns {Pointer<KEVENT>} 
@@ -13859,7 +13385,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {Pointer<UNICODE_STRING>} DeviceName 
      * @returns {NTSTATUS} 
@@ -13871,7 +13396,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} EventName 
      * @param {Pointer<HANDLE>} EventHandle 
      * @returns {Pointer<KEVENT>} 
@@ -13882,7 +13406,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {Pointer<UNICODE_STRING>} DeviceName 
      * @returns {NTSTATUS} 
@@ -13894,7 +13417,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13903,7 +13425,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @returns {NTSTATUS} 
      */
@@ -13914,7 +13435,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} TargetDevice 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13923,7 +13443,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKINTERRUPT} InterruptObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13932,7 +13451,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_DISCONNECT_INTERRUPT_PARAMETERS>} Parameters 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13941,7 +13459,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS>} Parameters 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13950,7 +13467,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS>} Parameters 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13959,7 +13475,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKINTERRUPT} InterruptObject 
      * @param {Pointer<GROUP_AFFINITY>} GroupAffinity 
      * @returns {NTSTATUS} 
@@ -13971,7 +13486,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13980,7 +13494,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} _Mdl 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -13989,7 +13502,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {Pointer<DEVICE_OBJECT>} 
      */
@@ -13999,7 +13511,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<Void>} ClientIdentificationAddress 
      * @returns {Pointer<Void>} 
@@ -14012,7 +13523,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {PEPROCESS} 
      */
     static IoGetCurrentProcess() {
@@ -14021,7 +13531,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<Pointer<FILE_OBJECT>>} FileObject 
@@ -14038,7 +13547,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<DEVICE_DESCRIPTION>} DeviceDescription 
      * @param {Pointer<Integer>} NumberOfMapRegisters 
@@ -14052,7 +13560,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Version 
      * @param {Pointer<DMA_IOMMU_INTERFACE>} InterfaceOut 
      * @returns {NTSTATUS} 
@@ -14064,7 +13571,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Version 
      * @param {Integer} Flags 
      * @param {Pointer<DMA_IOMMU_INTERFACE_EX>} InterfaceOut 
@@ -14077,7 +13583,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
@@ -14088,7 +13593,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
@@ -14100,7 +13604,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     static IoGetInitialStack() {
@@ -14109,7 +13612,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} LowLimit 
      * @param {Pointer<Pointer>} HighLimit 
      * @returns {String} Nothing - always returns an empty string
@@ -14122,7 +13624,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} RegionStart 
      * @param {Pointer} RegionSize 
      * @returns {Integer} 
@@ -14133,7 +13634,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Pointer<DEVICE_OBJECT>} 
      */
@@ -14143,7 +13643,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<IRP>} 
      */
     static IoGetTopLevelIrp() {
@@ -14152,7 +13651,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} PacketSize 
      * @param {Integer} StackSize 
@@ -14163,7 +13661,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14172,7 +13669,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} PacketSize 
@@ -14184,7 +13680,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<PIO_TIMER_ROUTINE>} TimerRoutine 
      * @param {Pointer<Void>} _Context 
@@ -14199,7 +13694,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {NTSTATUS} Iostatus 
      * @returns {String} Nothing - always returns an empty string
@@ -14209,7 +13703,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {NTSTATUS} 
      */
@@ -14220,7 +13713,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {NTSTATUS} 
      */
@@ -14231,7 +13723,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Irql 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14240,7 +13731,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<SHARE_ACCESS>} ShareAccess 
      * @returns {String} Nothing - always returns an empty string
@@ -14250,7 +13740,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<SHARE_ACCESS>} ShareAccess 
      * @param {Pointer<LINK_SHARE_ACCESS>} LinkShareAccess 
@@ -14261,7 +13750,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<SHARE_ACCESS>} ShareAccess 
      * @param {Pointer<LINK_SHARE_ACCESS>} LinkShareAccess 
@@ -14273,7 +13761,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<PIO_COMPLETION_ROUTINE>} CompletionRoutine 
@@ -14292,7 +13779,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} DesiredAccess 
      * @param {Integer} DesiredShareAccess 
      * @param {Pointer<FILE_OBJECT>} FileObject 
@@ -14304,7 +13790,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} DesiredAccess 
      * @param {Integer} DesiredShareAccess 
      * @param {Pointer<FILE_OBJECT>} FileObject 
@@ -14319,7 +13804,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} DesiredAccess 
      * @param {Integer} DesiredShareAccess 
      * @param {Pointer<FILE_OBJECT>} FileObject 
@@ -14333,7 +13817,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14342,7 +13825,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_REMOVE_LOCK>} Lock 
      * @param {Integer} AllocateTag 
      * @param {Integer} MaxLockedMinutes 
@@ -14355,7 +13837,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_REMOVE_LOCK>} RemoveLock 
      * @param {Pointer<Void>} Tag 
      * @param {PSTR} _File 
@@ -14374,7 +13855,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_REMOVE_LOCK>} RemoveLock 
      * @param {Pointer<Void>} Tag 
      * @param {Integer} RemlockSize 
@@ -14387,7 +13867,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_REMOVE_LOCK>} RemoveLock 
      * @param {Pointer<Void>} Tag 
      * @param {Integer} RemlockSize 
@@ -14400,7 +13879,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} StackSize 
      * @returns {Integer} 
@@ -14411,7 +13889,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {BOOLEAN} Cancelable 
      * @returns {String} Nothing - always returns an empty string
@@ -14421,7 +13898,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {BOOLEAN} Cancelable 
      * @param {Integer} Key 
@@ -14432,7 +13908,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Integer>} Key 
@@ -14446,7 +13921,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {BOOLEAN} DeferredStartIo 
      * @param {BOOLEAN} NonCancelable 
@@ -14457,7 +13931,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14466,7 +13939,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14475,7 +13947,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14484,7 +13955,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<SHARE_ACCESS>} ShareAccess 
      * @returns {String} Nothing - always returns an empty string
@@ -14494,7 +13964,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<SHARE_ACCESS>} ShareAccess 
      * @param {Pointer<LINK_SHARE_ACCESS>} LinkShareAccess 
@@ -14505,7 +13974,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<SHARE_ACCESS>} ShareAccess 
      * @param {Pointer<LINK_SHARE_ACCESS>} LinkShareAccess 
@@ -14517,7 +13985,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ElEntry 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14528,7 +13995,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} IoObject 
      * @param {Pointer<HANDLE>} ThreadHandle 
      * @param {Integer} DesiredAccess 
@@ -14551,7 +14017,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {PIO_WORKITEM} 
      */
@@ -14561,7 +14026,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PIO_WORKITEM} IoWorkItem 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14570,7 +14034,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PIO_WORKITEM} IoWorkItem 
      * @param {Pointer<PIO_WORKITEM_ROUTINE>} WorkerRoutine 
      * @param {WORK_QUEUE_TYPE} QueueType 
@@ -14584,7 +14047,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PIO_WORKITEM} IoWorkItem 
      * @param {Pointer<PIO_WORKITEM_ROUTINE_EX>} WorkerRoutine 
      * @param {WORK_QUEUE_TYPE} QueueType 
@@ -14598,7 +14060,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static IoSizeofWorkItem() {
@@ -14607,7 +14068,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} IoObject 
      * @param {PIO_WORKITEM} IoWorkItem 
      * @returns {String} Nothing - always returns an empty string
@@ -14619,7 +14079,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PIO_WORKITEM} IoWorkItem 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14628,7 +14087,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PIO_WORKITEM} IoWorkItem 
      * @param {Pointer<PIO_WORKITEM_ROUTINE_EX>} WorkerRoutine 
      * @param {WORK_QUEUE_TYPE} QueueType 
@@ -14643,7 +14101,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} Action 
      * @returns {NTSTATUS} 
@@ -14655,7 +14112,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} Guid 
      * @param {Integer} InstanceCount 
      * @param {Pointer<Integer>} FirstInstanceId 
@@ -14670,7 +14126,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {BOOLEAN} CombineNames 
@@ -14684,7 +14139,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} WnodeEventItem 
      * @returns {NTSTATUS} 
      */
@@ -14697,7 +14151,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} Guid 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<Pointer<Void>>} DataBlockObject 
@@ -14712,7 +14165,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<Integer>} InOutBufferSize 
      * @param {Integer} OutBuffer 
@@ -14728,7 +14180,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} DataBlockObjectList 
      * @param {Integer} ObjectCount 
      * @param {Pointer<Integer>} InOutBufferSize 
@@ -14745,7 +14196,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
      * @param {Pointer<Integer>} InOutBufferSize 
@@ -14762,7 +14212,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} DataBlockObjectList 
      * @param {Pointer<UNICODE_STRING>} InstanceNames 
      * @param {Integer} ObjectCount 
@@ -14780,7 +14229,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
      * @param {Integer} _Version 
@@ -14797,7 +14245,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
      * @param {Integer} DataItemId 
@@ -14815,7 +14262,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
      * @param {Integer} MethodId 
@@ -14834,7 +14280,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<WMI_NOTIFICATION_CALLBACK>} Callback 
      * @param {Pointer<Void>} _Context 
@@ -14850,7 +14295,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -14867,7 +14311,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataBlockObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -14882,7 +14325,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
@@ -14892,7 +14334,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
@@ -14902,7 +14343,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ElEntry 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -14913,7 +14353,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<PIO_CSQ_INSERT_IRP>} CsqInsertIrp 
      * @param {Pointer<PIO_CSQ_REMOVE_IRP>} CsqRemoveIrp 
@@ -14930,7 +14369,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<PIO_CSQ_INSERT_IRP_EX>} CsqInsertIrp 
      * @param {Pointer<PIO_CSQ_REMOVE_IRP>} CsqRemoveIrp 
@@ -14947,7 +14385,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
@@ -14958,7 +14395,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
@@ -14974,7 +14410,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<Void>} PeekContext 
      * @returns {Pointer<IRP>} 
@@ -14987,7 +14422,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
      * @returns {Pointer<IRP>} 
@@ -14998,7 +14432,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} RequiredAccess 
      * @returns {NTSTATUS} 
@@ -15010,7 +14443,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {IO_PRIORITY_HINT} 
      */
@@ -15020,7 +14452,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {IO_PRIORITY_HINT} PriorityHint 
      * @returns {NTSTATUS} 
@@ -15032,7 +14463,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} Length 
      * @param {Pointer<Void>} Signature 
@@ -15049,7 +14479,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Void>} Signature 
      * @returns {Pointer<Void>} 
@@ -15062,7 +14491,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Void>} Signature 
      * @returns {NTSTATUS} 
@@ -15076,7 +14504,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<Void>>} IoAttributionHandle 
      * @returns {NTSTATUS} 
@@ -15090,7 +14517,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} OpaqueHandle 
      * @param {Pointer<IO_ATTRIBUTION_INFORMATION>} AttributionInformation 
      * @returns {NTSTATUS} 
@@ -15104,7 +14530,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} AttributionSource 
      * @param {Integer} Flags 
@@ -15119,7 +14544,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {IO_CONTAINER_INFORMATION_CLASS} InformationClass 
      * @param {Pointer<Void>} ContainerObject 
      * @param {Integer} _Buffer 
@@ -15135,7 +14559,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {IO_CONTAINER_NOTIFICATION_CLASS} NotificationClass 
      * @param {Pointer<PIO_CONTAINER_NOTIFICATION_FUNCTION>} CallbackFunction 
      * @param {Integer} NotificationInformation 
@@ -15152,7 +14575,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackRegistration 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15163,7 +14585,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer} _Size 
@@ -15180,7 +14601,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataHandle 
      * @returns {NTSTATUS} 
      */
@@ -15193,7 +14613,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<Pointer>} BufferSize 
@@ -15208,7 +14627,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Integer} _Buffer 
@@ -15224,7 +14642,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataHandle 
      * @param {Integer} _Buffer 
      * @param {Pointer} _Size 
@@ -15239,7 +14656,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<UNICODE_STRING>} PhysicalDeviceId 
@@ -15256,7 +14672,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<UNICODE_STRING>} PhysicalDeviceId 
@@ -15277,7 +14692,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<UNICODE_STRING>} PhysicalDeviceId 
@@ -15297,7 +14711,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<UNICODE_STRING>} PhysicalDeviceId 
@@ -15318,7 +14731,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {TRACE_INFORMATION_CLASS} TraceInformationClass 
      * @param {Integer} TraceInformation 
      * @param {Integer} TraceInformationLength 
@@ -15336,7 +14748,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ProviderId 
      * @param {Pointer<PETWENABLECALLBACK>} EnableCallback 
      * @param {Pointer<Void>} CallbackContext 
@@ -15352,7 +14763,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @returns {NTSTATUS} 
      */
@@ -15365,7 +14775,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @param {EVENT_INFO_CLASS} InformationClass 
      * @param {Integer} EventInformation 
@@ -15381,7 +14790,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @returns {BOOLEAN} 
@@ -15394,7 +14802,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @param {Integer} Level 
      * @param {Integer} Keyword 
@@ -15408,7 +14815,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ControlCode 
      * @param {Pointer<Guid>} ActivityId 
      * @returns {NTSTATUS} 
@@ -15420,7 +14826,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @param {Pointer<Guid>} ActivityId 
@@ -15437,7 +14842,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @param {Pointer<Guid>} ActivityId 
@@ -15455,7 +14859,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @param {Integer} Level 
      * @param {Integer} Keyword 
@@ -15473,7 +14876,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {REGHANDLE} _RegHandle 
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor 
      * @param {Integer} Filter 
@@ -15493,7 +14895,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} CveId 
      * @param {Pointer<UNICODE_STRING>} AdditionalDetails 
      * @returns {NTSTATUS} 
@@ -15505,7 +14906,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {DEVICE_RELATION_TYPE} Type 
      * @returns {String} Nothing - always returns an empty string
@@ -15515,7 +14915,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15524,7 +14923,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<PIO_DEVICE_EJECT_CALLBACK>} Callback 
      * @param {Pointer<Void>} _Context 
@@ -15540,7 +14938,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {DEVICE_REGISTRY_PROPERTY} DeviceProperty 
      * @param {Integer} BufferLength 
@@ -15557,7 +14954,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} DevInstKeyType 
      * @param {Integer} DesiredAccess 
@@ -15571,7 +14967,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {Pointer<UNICODE_STRING>} ReferenceString 
@@ -15585,7 +14980,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<HANDLE>} DeviceInterfaceRegKey 
@@ -15598,7 +14992,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {BOOLEAN} Enable 
      * @returns {NTSTATUS} 
@@ -15610,7 +15003,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Integer} Flags 
@@ -15626,7 +15018,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {Pointer<Guid>} AliasInterfaceClassGuid 
      * @param {Pointer<UNICODE_STRING>} AliasSymbolicLinkName 
@@ -15639,7 +15030,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {IO_NOTIFICATION_EVENT_CATEGORY} EventCategory 
      * @param {Integer} EventCategoryFlags 
      * @param {Pointer<Void>} EventCategoryData 
@@ -15660,7 +15050,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NotificationEntry 
      * @returns {NTSTATUS} 
      */
@@ -15673,7 +15062,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NotificationEntry 
      * @returns {NTSTATUS} 
      */
@@ -15686,7 +15074,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<Void>} NotificationStructure 
      * @returns {NTSTATUS} 
@@ -15700,7 +15087,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15709,7 +15095,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<Void>} NotificationStructure 
      * @param {Pointer<PDEVICE_CHANGE_COMPLETE_CALLBACK>} Callback 
@@ -15726,7 +15111,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {DRIVER_DIRECTORY_TYPE} DirectoryType 
      * @param {Integer} Flags 
@@ -15740,7 +15124,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {DEVICE_DIRECTORY_TYPE} DirectoryType 
      * @param {Integer} Flags 
@@ -15757,7 +15140,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {DRIVER_REGKEY_TYPE} RegKeyType 
      * @param {Integer} DesiredAccess 
@@ -15772,7 +15154,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
      * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
@@ -15789,7 +15170,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
      * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
@@ -15811,7 +15191,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
@@ -15828,7 +15207,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SymbolicLinkName 
      * @param {Pointer<DEVPROPKEY>} _PropertyKey 
      * @param {Integer} Lcid 
@@ -15850,7 +15228,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
      * @param {Pointer<Integer>} NodeNumber 
      * @returns {NTSTATUS} 
@@ -15864,7 +15241,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} TargetPdo 
      * @param {Pointer<DEVICE_OBJECT>} SparePdo 
      * @param {Integer} Flags 
@@ -15877,7 +15253,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeFlushWriteBuffer() {
@@ -15885,7 +15260,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} PerformanceFrequency 
      * @returns {Integer} 
      */
@@ -15897,7 +15271,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} MicroSeconds 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15906,7 +15279,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MemoryMap 
      * @param {Integer} Flags 
      * @param {Pointer<Void>} _Address 
@@ -15922,7 +15294,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15931,7 +15302,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} StateHandle 
      * @param {Integer} Flags 
      * @returns {Pointer<Void>} 
@@ -15944,7 +15314,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} PowerRequest 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<COUNTED_REASON_CONTEXT>} _Context 
@@ -15959,7 +15328,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PowerRequest 
      * @param {POWER_REQUEST_TYPE} Type 
      * @returns {NTSTATUS} 
@@ -15973,7 +15341,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PowerRequest 
      * @param {POWER_REQUEST_TYPE} Type 
      * @returns {NTSTATUS} 
@@ -15987,7 +15354,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PowerRequest 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15998,7 +15364,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} MinorFunction 
      * @param {POWER_STATE} PowerState 
@@ -16017,7 +15382,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16026,7 +15390,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16035,7 +15398,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
@@ -16045,7 +15407,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} StateHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16056,7 +15417,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {POWER_STATE_TYPE} Type 
      * @param {POWER_STATE} State 
@@ -16068,7 +15428,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
@@ -16080,7 +15439,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16089,7 +15447,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} ConservationIdleTime 
      * @param {Integer} PerformanceIdleTime 
@@ -16102,7 +15459,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} IdlePointer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16113,7 +15469,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} IdlePointer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16124,7 +15479,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} IdlePointer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16135,7 +15489,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
      * @param {Pointer<Integer>} SecondsRemaining 
      * @returns {BOOLEAN} 
@@ -16148,7 +15501,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Guid>} SettingGuid 
      * @param {Pointer<PPOWER_SETTING_CALLBACK>} Callback 
@@ -16166,7 +15518,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @returns {NTSTATUS} 
      */
@@ -16179,7 +15530,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
      * @param {Pointer<PO_FX_DEVICE_V1>} Device 
      * @param {Pointer<POHANDLE>} _Handle 
@@ -16194,7 +15544,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16203,7 +15552,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16212,7 +15560,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
@@ -16223,7 +15570,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
@@ -16237,7 +15583,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @param {Integer} Flags 
@@ -16248,7 +15593,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16257,7 +15601,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @returns {String} Nothing - always returns an empty string
@@ -16267,7 +15610,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @returns {String} Nothing - always returns an empty string
@@ -16277,7 +15619,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @param {Integer} Flags 
@@ -16288,7 +15629,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @param {Integer} Latency 
@@ -16299,7 +15639,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @param {Integer} Residency 
@@ -16310,7 +15649,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @param {BOOLEAN} WakeHint 
@@ -16321,7 +15659,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} IdleTimeout 
      * @returns {String} Nothing - always returns an empty string
@@ -16331,7 +15668,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16340,7 +15676,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Pointer<Guid>} PowerControlCode 
      * @param {Pointer<Void>} InBuffer 
@@ -16361,7 +15696,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} Pdo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16370,7 +15704,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} _Component 
      * @param {Integer} Flags 
@@ -16388,7 +15721,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} Flags 
      * @param {Integer} _Component 
@@ -16403,7 +15735,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} Flags 
      * @param {Integer} _Component 
@@ -16419,7 +15750,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Integer} Flags 
      * @param {Integer} _Component 
@@ -16436,7 +15766,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {DEVICE_POWER_STATE} TargetState 
      * @returns {NTSTATUS} 
@@ -16448,7 +15777,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16457,7 +15785,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ThermalRequest 
      * @param {Pointer<DEVICE_OBJECT>} TargetDeviceObject 
      * @param {Pointer<DEVICE_OBJECT>} PolicyDeviceObject 
@@ -16474,7 +15801,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ThermalRequest 
      * @param {PO_THERMAL_REQUEST_TYPE} Type 
      * @returns {BOOLEAN} 
@@ -16487,7 +15813,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ThermalRequest 
      * @param {Integer} Throttle 
      * @returns {NTSTATUS} 
@@ -16501,7 +15826,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ThermalRequest 
      * @param {BOOLEAN} Engaged 
      * @returns {NTSTATUS} 
@@ -16515,7 +15839,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ThermalRequest 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16526,7 +15849,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POHANDLE} _Handle 
      * @param {Pointer<PPO_FX_DRIPS_WATCHDOG_CALLBACK>} Callback 
      * @param {BOOLEAN} IncludeChildDevices 
@@ -16538,7 +15860,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} DesiredAccess 
      * @param {POBJECT_TYPE} _ObjectType 
@@ -16558,7 +15879,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} DesiredAccess 
      * @param {POBJECT_TYPE} _ObjectType 
@@ -16579,7 +15899,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @returns {BOOLEAN} 
      */
@@ -16591,7 +15910,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {BOOLEAN} 
@@ -16604,7 +15922,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} PreviousMode 
      * @returns {NTSTATUS} 
@@ -16618,7 +15935,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @returns {Pointer} 
      */
@@ -16630,7 +15946,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {Pointer} 
@@ -16643,7 +15958,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} DesiredAccess 
      * @param {POBJECT_TYPE} _ObjectType 
@@ -16659,7 +15973,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} DesiredAccess 
      * @param {POBJECT_TYPE} _ObjectType 
@@ -16676,7 +15989,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @returns {Pointer} 
      */
@@ -16688,7 +16000,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {Pointer} 
@@ -16701,7 +16012,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16712,7 +16022,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} Tag 
      * @returns {String} Nothing - always returns an empty string
@@ -16724,7 +16033,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Pointer<BOOLEAN>} MemoryAllocated 
@@ -16740,7 +16048,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {BOOLEAN} MemoryAllocated 
      * @returns {String} Nothing - always returns an empty string
@@ -16752,7 +16059,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<OB_CALLBACK_REGISTRATION>} CallbackRegistration 
      * @param {Pointer<Pointer<Void>>} RegistrationHandle 
      * @returns {NTSTATUS} 
@@ -16766,7 +16072,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RegistrationHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16777,7 +16082,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ObGetFilterVersion() {
@@ -16786,7 +16090,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} FileHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -16809,7 +16112,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} FileHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -16825,7 +16127,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DriverServiceName 
      * @returns {NTSTATUS} 
      */
@@ -16836,7 +16137,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DriverServiceName 
      * @returns {NTSTATUS} 
      */
@@ -16847,7 +16147,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FileInformation 
@@ -16864,7 +16163,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FileInformation 
@@ -16881,7 +16179,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -16907,7 +16204,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -16933,7 +16229,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
@@ -16946,7 +16241,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @returns {NTSTATUS} 
      */
@@ -16959,7 +16253,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} SectionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -16980,7 +16273,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} LinkHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -16993,7 +16285,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} LinkHandle 
      * @param {Pointer<UNICODE_STRING>} LinkTarget 
      * @param {Pointer<Integer>} ReturnedLength 
@@ -17010,7 +16301,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TmHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -17026,7 +16316,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TmHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -17042,7 +16331,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionManagerHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17058,7 +16346,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionManagerHandle 
      * @returns {NTSTATUS} 
      */
@@ -17071,7 +16358,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionManagerHandle 
      * @param {TRANSACTIONMANAGER_INFORMATION_CLASS} TransactionManagerInformationClass 
      * @param {Integer} TransactionManagerInformation 
@@ -17090,7 +16376,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TmHandle 
      * @param {TRANSACTIONMANAGER_INFORMATION_CLASS} TransactionManagerInformationClass 
      * @param {Pointer<Void>} TransactionManagerInformation 
@@ -17108,7 +16393,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} RootObjectHandle 
      * @param {KTMOBJECT_TYPE} QueryType 
      * @param {Integer} ObjectCursor 
@@ -17127,7 +16411,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -17151,7 +16434,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -17168,7 +16450,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {TRANSACTION_INFORMATION_CLASS} TransactionInformationClass 
      * @param {Integer} TransactionInformation 
@@ -17187,7 +16468,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {TRANSACTION_INFORMATION_CLASS} TransactionInformationClass 
      * @param {Pointer<Void>} TransactionInformation 
@@ -17205,7 +16485,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {BOOLEAN} Wait 
      * @returns {NTSTATUS} 
@@ -17219,7 +16498,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {BOOLEAN} Wait 
      * @returns {NTSTATUS} 
@@ -17233,7 +16511,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} ResourceManagerHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} TmHandle 
@@ -17252,7 +16529,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} ResourceManagerHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} TmHandle 
@@ -17269,7 +16545,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @returns {NTSTATUS} 
      */
@@ -17282,7 +16557,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {Pointer<TRANSACTION_NOTIFICATION>} TransactionNotification 
      * @param {Integer} NotificationLength 
@@ -17304,7 +16578,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {RESOURCEMANAGER_INFORMATION_CLASS} ResourceManagerInformationClass 
      * @param {Integer} ResourceManagerInformation 
@@ -17323,7 +16596,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} ResourceManagerHandle 
      * @param {RESOURCEMANAGER_INFORMATION_CLASS} ResourceManagerInformationClass 
      * @param {Integer} ResourceManagerInformation 
@@ -17339,7 +16611,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EnlistmentHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} ResourceManagerHandle 
@@ -17362,7 +16633,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EnlistmentHandle 
      * @param {Integer} DesiredAccess 
      * @param {HANDLE} RmHandle 
@@ -17379,7 +16649,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {ENLISTMENT_INFORMATION_CLASS} EnlistmentInformationClass 
      * @param {Integer} EnlistmentInformation 
@@ -17398,7 +16667,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {ENLISTMENT_INFORMATION_CLASS} EnlistmentInformationClass 
      * @param {Integer} EnlistmentInformation 
@@ -17414,7 +16682,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Void>} EnlistmentKey 
      * @returns {NTSTATUS} 
@@ -17430,7 +16697,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17446,7 +16712,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17462,7 +16727,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17478,7 +16742,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17494,7 +16757,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17510,7 +16772,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17526,7 +16787,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17542,7 +16802,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17558,7 +16817,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17574,7 +16832,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} EnlistmentHandle 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -17590,7 +16847,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FileInformation 
@@ -17664,7 +16920,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {Integer} 
      */
@@ -17674,7 +16929,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} cidContainer 
      * @param {Integer} offBlock 
      * @param {Integer} cRecord 
@@ -17686,7 +16940,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {Integer} 
      */
@@ -17696,7 +16949,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {Integer} 
      */
@@ -17706,7 +16958,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {BOOLEAN} 
      */
@@ -17716,7 +16967,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {Pointer<CLFS_MGMT_CLIENT_REGISTRATION>} RegistrationData 
      * @param {Pointer<Pointer<Void>>} ClientCookie 
@@ -17731,7 +16981,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ClientCookie 
      * @returns {NTSTATUS} 
      */
@@ -17744,7 +16993,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Client 
      * @param {NTSTATUS} Reason 
      * @returns {NTSTATUS} 
@@ -17758,7 +17006,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Client 
      * @returns {NTSTATUS} 
      */
@@ -17771,7 +17018,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {Integer} Policy 
      * @param {Integer} PolicyLength 
@@ -17784,7 +17030,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {CLFS_MGMT_POLICY_TYPE} PolicyType 
      * @param {Integer} Policy 
@@ -17800,7 +17045,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {CLFS_MGMT_POLICY_TYPE} PolicyType 
      * @returns {NTSTATUS} 
@@ -17812,7 +17056,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {Pointer<Integer>} NewSizeInContainers 
      * @param {Pointer<Integer>} ResultingSizeInContainers 
@@ -17831,7 +17074,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {Pointer<Pointer<Void>>} ClientCookie 
      * @param {Pointer<Integer>} NewSizeInContainers 
@@ -17852,7 +17094,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     static ClfsInitialize() {
@@ -17862,7 +17103,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static ClfsFinalize() {
@@ -17870,7 +17110,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FILE_OBJECT>>} pplfoLog 
      * @param {Pointer<UNICODE_STRING>} puszLogFileName 
      * @param {Integer} fDesiredAccess 
@@ -17895,7 +17134,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @returns {NTSTATUS} 
      */
@@ -17906,7 +17144,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} puszLogFileName 
      * @param {Pointer<Void>} pvReserved 
      * @param {Integer} fLogOptionFlag 
@@ -17923,7 +17160,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Pointer<Integer>} pcbContainer 
      * @param {Pointer<UNICODE_STRING>} puszContainerPath 
@@ -17938,7 +17174,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Integer} cContainers 
      * @param {Pointer<Integer>} pcbContainer 
@@ -17954,7 +17189,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Pointer<UNICODE_STRING>} puszContainerPath 
      * @param {BOOLEAN} fForce 
@@ -17967,7 +17201,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Integer} cContainers 
      * @param {Pointer<UNICODE_STRING>} rgwszContainerPath 
@@ -17981,7 +17214,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Pointer<CLS_LSN>} plsnArchiveTail 
      * @returns {NTSTATUS} 
@@ -17993,7 +17225,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Pointer<CLS_LSN>} plsnEnd 
      * @returns {NTSTATUS} 
@@ -18005,7 +17236,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Integer} cFromContainer 
      * @param {Integer} cContainers 
@@ -18020,7 +17250,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_SCAN_CONTEXT>} pcxScan 
      * @param {Integer} eScanMode 
      * @returns {NTSTATUS} 
@@ -18032,7 +17261,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Integer} cidLogicalContainer 
      * @param {Pointer<UNICODE_STRING>} puszContainerName 
@@ -18048,7 +17276,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Integer} pinfoBuffer 
      * @param {Pointer<Integer>} pcbInfoBuffer 
@@ -18063,7 +17290,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {CLS_LOG_INFORMATION_CLASS} eInformationClass 
      * @param {Integer} pinfoInputBuffer 
@@ -18081,7 +17307,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {CLS_LOG_INFORMATION_CLASS} eInformationClass 
      * @param {Integer} pinfoBuffer 
@@ -18095,7 +17320,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Pointer<Pointer<Void>>} ppvRestartBuffer 
      * @param {Pointer<Integer>} pcbRestartBuffer 
@@ -18115,7 +17339,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvReadContext 
      * @param {Pointer<Pointer<Void>>} ppvRestartBuffer 
      * @param {Pointer<Integer>} pcbRestartBuffer 
@@ -18133,7 +17356,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Integer} pvRestartBuffer 
      * @param {Integer} cbRestartBuffer 
@@ -18153,7 +17375,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Pointer<CLS_LSN>} plsnBase 
      * @param {Integer} fFlags 
@@ -18168,7 +17389,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @returns {NTSTATUS} 
      */
@@ -18179,7 +17399,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @returns {NTSTATUS} 
      */
@@ -18190,7 +17409,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {POOL_TYPE} ePoolType 
      * @param {Pointer<PALLOCATE_FUNCTION>} pfnAllocBuffer 
@@ -18210,7 +17428,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {POOL_TYPE} ePoolType 
      * @param {Pointer<PALLOCATE_FUNCTION>} pfnAllocBuffer 
@@ -18232,7 +17449,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @returns {NTSTATUS} 
      */
@@ -18245,7 +17461,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Pointer<CLS_WRITE_ENTRY>} rgWriteEntries 
      * @param {Integer} cWriteEntries 
@@ -18267,7 +17482,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Pointer<CLS_WRITE_ENTRY>} rgWriteEntries 
      * @param {Integer} cWriteEntries 
@@ -18290,7 +17504,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Integer} cRecords 
      * @param {Pointer<Integer>} rgcbReservation 
@@ -18308,7 +17521,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Integer} cRecords 
      * @param {Pointer<Integer>} pcbAdjustment 
@@ -18324,7 +17536,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Integer} cRecords 
      * @param {Pointer<Integer>} pcbAdjustment 
@@ -18340,7 +17551,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @returns {NTSTATUS} 
      */
@@ -18353,7 +17563,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Pointer<CLS_LSN>} plsnFlush 
      * @param {Pointer<CLS_LSN>} plsnLastFlushed 
@@ -18368,7 +17577,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshalContext 
      * @param {Pointer<CLS_LSN>} plsnFirst 
      * @param {CLFS_CONTEXT_MODE} peContextMode 
@@ -18393,7 +17601,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvReadContext 
      * @param {Pointer<Pointer<Void>>} ppvBuffer 
      * @param {Pointer<Integer>} pcbBuffer 
@@ -18416,7 +17623,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCursorContext 
      * @returns {NTSTATUS} 
      */
@@ -18429,7 +17635,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} plfoLog 
      * @param {Integer} pvStatsBuffer 
      * @param {Integer} cbStatsBuffer 
@@ -18446,7 +17651,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {CLS_LSN} 
      */
@@ -18456,7 +17660,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {CLS_LSN} 
      */
@@ -18466,7 +17669,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsnStart 
      * @param {Pointer<CLS_LSN>} plsnFinish 
      * @param {Integer} cbContainer 
@@ -18483,7 +17685,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} TransactionManager 
      * @param {Pointer<UNICODE_STRING>} LogFileName 
      * @param {Pointer<Guid>} TmId 
@@ -18499,7 +17700,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} LogFileName 
      * @param {Pointer<Guid>} ExistingTransactionManagerGuid 
      * @returns {NTSTATUS} 
@@ -18511,7 +17711,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTM>} Tm 
      * @param {Pointer<Integer>} TargetVirtualClock 
      * @returns {NTSTATUS} 
@@ -18526,7 +17725,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {BOOLEAN} Wait 
      * @returns {NTSTATUS} 
@@ -18540,7 +17738,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {BOOLEAN} Wait 
      * @returns {NTSTATUS} 
@@ -18554,7 +17751,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EnlistmentHandle 
      * @param {Integer} PreviousMode 
      * @param {Integer} DesiredAccess 
@@ -18577,7 +17773,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Void>} EnlistmentKey 
      * @returns {NTSTATUS} 
@@ -18592,7 +17787,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18607,7 +17801,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18622,7 +17815,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18637,7 +17829,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18652,7 +17843,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18667,7 +17857,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18682,7 +17871,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18697,7 +17885,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18712,7 +17899,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18727,7 +17913,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Pointer<Void>>} Key 
      * @returns {NTSTATUS} 
@@ -18742,7 +17927,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<BOOLEAN>} LastReference 
      * @returns {NTSTATUS} 
@@ -18757,7 +17941,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18772,7 +17955,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} Enlistment 
      * @param {Pointer<Integer>} TmVirtualClock 
      * @returns {NTSTATUS} 
@@ -18787,7 +17969,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KRESOURCEMANAGER>} ResourceManager 
      * @param {Pointer<PTM_RM_NOTIFICATION>} CallbackRoutine 
      * @param {Pointer<Void>} RMKey 
@@ -18803,7 +17984,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KRESOURCEMANAGER>} ResourceManager 
      * @returns {NTSTATUS} 
      */
@@ -18816,7 +17996,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KRESOURCEMANAGER>} ResourceManager 
      * @param {Integer} RequestCookie 
      * @param {Integer} BufferLength 
@@ -18833,7 +18012,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KRESOURCEMANAGER>} ResourceManager 
      * @param {Integer} RequestCookie 
      * @param {NTSTATUS} _Status 
@@ -18848,7 +18026,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {Pointer<Guid>} TransactionId 
      * @returns {String} Nothing - always returns an empty string
@@ -18860,7 +18037,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @returns {BOOLEAN} 
      */
@@ -18872,7 +18048,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PPCW_REGISTRATION>} Registration 
      * @param {Pointer<PCW_REGISTRATION_INFORMATION>} Info 
      * @returns {NTSTATUS} 
@@ -18886,7 +18061,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PPCW_REGISTRATION} Registration 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18895,7 +18069,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PPCW_INSTANCE>} Instance 
      * @param {PPCW_REGISTRATION} Registration 
      * @param {Pointer<UNICODE_STRING>} Name 
@@ -18912,7 +18085,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PPCW_INSTANCE} Instance 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18921,7 +18093,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PPCW_BUFFER} _Buffer 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Integer} Id 
@@ -18936,7 +18107,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} _Handle 
      * @param {PEPROCESS} TargetProcess 
      * @param {Pointer<MDL>} _Mdl 
@@ -18951,7 +18121,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} GlobalHandle 
      * @returns {NTSTATUS} 
      */
@@ -18964,7 +18133,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18973,7 +18141,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @param {Pointer<PRTL_RUN_ONCE_INIT_FN>} InitFn 
      * @param {Pointer<Void>} Parameter 
@@ -18990,7 +18157,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<Void>>} _Context 
@@ -19005,7 +18171,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @param {Integer} Flags 
      * @param {Pointer<Void>} _Context 
@@ -19020,7 +18185,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<PRTL_AVL_COMPARE_ROUTINE>} CompareRoutine 
      * @param {Pointer<PRTL_AVL_ALLOCATE_ROUTINE>} AllocateRoutine 
@@ -19035,7 +18199,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -19050,7 +18213,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -19068,7 +18230,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @returns {BOOLEAN} 
@@ -19081,7 +18242,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<Void>} NodeOrParent 
      * @returns {String} Nothing - always returns an empty string
@@ -19093,7 +18253,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @returns {Pointer<Void>} 
@@ -19106,7 +18265,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Pointer<Void>>} NodeOrParent 
@@ -19123,7 +18281,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {BOOLEAN} Restart 
      * @returns {Pointer<Void>} 
@@ -19134,7 +18291,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<Pointer<Void>>} RestartKey 
      * @returns {Pointer<Void>} 
@@ -19147,7 +18303,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Pointer<Void>>} RestartKey 
@@ -19162,7 +18317,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<PRTL_AVL_MATCH_FUNCTION>} MatchFunction 
      * @param {Pointer<Void>} MatchData 
@@ -19183,7 +18337,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Integer} I 
      * @returns {Pointer<Void>} 
@@ -19194,7 +18347,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @returns {Integer} 
      */
@@ -19204,7 +18356,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @returns {BOOLEAN} 
      */
@@ -19214,7 +18365,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_SPLAY_LINKS>} Links 
      * @returns {Pointer<RTL_SPLAY_LINKS>} 
      */
@@ -19224,7 +18374,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_SPLAY_LINKS>} Links 
      * @returns {Pointer<RTL_SPLAY_LINKS>} 
      */
@@ -19234,7 +18383,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_SPLAY_LINKS>} Links 
      * @param {Pointer<Pointer<RTL_SPLAY_LINKS>>} Root 
      * @returns {String} Nothing - always returns an empty string
@@ -19246,7 +18394,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_SPLAY_LINKS>} Links 
      * @returns {Pointer<RTL_SPLAY_LINKS>} 
      */
@@ -19256,7 +18403,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_SPLAY_LINKS>} Links 
      * @returns {Pointer<RTL_SPLAY_LINKS>} 
      */
@@ -19266,7 +18412,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_SPLAY_LINKS>} Links 
      * @returns {Pointer<RTL_SPLAY_LINKS>} 
      */
@@ -19276,7 +18421,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_SPLAY_LINKS>} Links 
      * @returns {Pointer<RTL_SPLAY_LINKS>} 
      */
@@ -19286,7 +18430,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Pointer<PRTL_GENERIC_COMPARE_ROUTINE>} CompareRoutine 
      * @param {Pointer<PRTL_GENERIC_ALLOCATE_ROUTINE>} AllocateRoutine 
@@ -19301,7 +18444,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -19316,7 +18458,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -19334,7 +18475,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @returns {BOOLEAN} 
@@ -19347,7 +18487,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @returns {Pointer<Void>} 
@@ -19360,7 +18499,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Pointer<Void>>} NodeOrParent 
@@ -19377,7 +18515,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {BOOLEAN} Restart 
      * @returns {Pointer<Void>} 
@@ -19388,7 +18525,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Pointer<Pointer<Void>>} RestartKey 
      * @returns {Pointer<Void>} 
@@ -19401,7 +18537,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Integer} I 
      * @returns {Pointer<Void>} 
@@ -19412,7 +18547,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @returns {Integer} 
      */
@@ -19422,7 +18556,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @returns {BOOLEAN} 
      */
@@ -19432,7 +18565,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<RTL_DYNAMIC_HASH_TABLE>>} HashTable 
      * @param {Integer} Shift 
      * @returns {BOOLEAN} 
@@ -19447,7 +18579,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<RTL_DYNAMIC_HASH_TABLE>>} HashTable 
      * @param {Integer} InitialSize 
      * @param {Integer} Shift 
@@ -19463,7 +18594,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -19472,7 +18602,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} Entry 
      * @param {Pointer} Signature 
@@ -19485,7 +18614,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} Entry 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} _Context 
@@ -19497,7 +18625,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer} Signature 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} _Context 
@@ -19509,7 +18636,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_CONTEXT>} _Context 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
@@ -19520,7 +18646,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {BOOLEAN} 
@@ -19531,7 +18656,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
@@ -19542,7 +18666,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {String} Nothing - always returns an empty string
@@ -19552,7 +18675,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {BOOLEAN} 
@@ -19563,7 +18685,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
@@ -19574,7 +18695,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {String} Nothing - always returns an empty string
@@ -19584,7 +18704,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {BOOLEAN} 
@@ -19595,7 +18714,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>} 
@@ -19606,7 +18724,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE_ENUMERATOR>} _Enumerator 
      * @returns {String} Nothing - always returns an empty string
@@ -19616,7 +18733,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @returns {BOOLEAN} 
      */
@@ -19626,7 +18742,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_DYNAMIC_HASH_TABLE>} HashTable 
      * @returns {BOOLEAN} 
      */
@@ -19636,7 +18751,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} CallersAddress 
      * @param {Pointer<Pointer<Void>>} CallersCaller 
      * @returns {String} Nothing - always returns an empty string
@@ -19649,7 +18763,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Callers 
      * @param {Integer} Count 
      * @param {Integer} Flags 
@@ -19663,7 +18776,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} FeatureMask 
      * @returns {Integer} 
      */
@@ -19673,7 +18785,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<STRING>} SourceString 
      * @returns {String} Nothing - always returns an empty string
@@ -19683,7 +18794,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {CHAR} Character 
      * @returns {CHAR} 
      */
@@ -19693,7 +18803,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} String1 
      * @param {Pointer<STRING>} String2 
      * @param {BOOLEAN} CaseInSensitive 
@@ -19705,7 +18814,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} String1 
      * @param {Pointer<STRING>} String2 
      * @param {BOOLEAN} CaseInSensitive 
@@ -19717,7 +18825,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<STRING>} SourceString 
      * @returns {String} Nothing - always returns an empty string
@@ -19740,7 +18847,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} String1 
      * @param {Pointer<UNICODE_STRING>} String2 
      * @param {BOOLEAN} CaseInSensitive 
@@ -19752,7 +18858,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {Pointer<UNICODE_STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -19765,7 +18870,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} PrimaryHandle 
      * @param {HANDLE} FallbackHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
@@ -19788,7 +18892,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} AccessMask 
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @returns {String} Nothing - always returns an empty string
@@ -19800,7 +18903,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VolumeDeviceObject 
      * @param {Pointer<UNICODE_STRING>} DosName 
      * @returns {NTSTATUS} 
@@ -19814,7 +18916,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSTR} Prompt 
      * @param {Integer} Response 
      * @param {Integer} Length 
@@ -19828,7 +18929,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static RtlGetActiveConsoleId() {
@@ -19837,7 +18937,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static RtlGetConsoleSessionForegroundProcessId() {
@@ -19880,7 +18979,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static RtlIsMultiSessionSku() {
@@ -19889,7 +18987,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static RtlIsStateSeparationEnabled() {
@@ -19898,7 +18995,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PWSTR} SourceID 
      * @param {PWSTR} CustomValue 
      * @param {PWSTR} DefaultPath 
@@ -19921,7 +19017,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSTR} apiSetName 
      * @returns {NTSTATUS} 
      */
@@ -19934,7 +19029,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static RtlIsMultiUsersInSessionSku() {
@@ -19943,7 +19037,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<NT_PRODUCT_TYPE>} NtProductType 
      * @returns {BOOLEAN} 
      */
@@ -19955,7 +19048,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     static RtlGetNtSystemRoot() {
@@ -19964,7 +19056,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Integer} SecurityDescriptorLength 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor 
@@ -19980,7 +19071,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {RTL_SYSTEM_GLOBAL_DATA_ID} DataId 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} _Size 
@@ -19995,7 +19085,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<KEVENT>} Event 
      * @param {Integer} Increment 
      * @param {BOOLEAN} Wait 
@@ -20007,7 +19096,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PEXPAND_STACK_CALLOUT>} Callout 
      * @param {Pointer<Void>} Parameter 
      * @param {Pointer} _Size 
@@ -20022,7 +19110,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PEXPAND_STACK_CALLOUT>} Callout 
      * @param {Pointer<Void>} Parameter 
      * @param {Pointer} _Size 
@@ -20040,7 +19127,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PKTHREAD} Thread 
      * @param {Integer} Increment 
      * @returns {Integer} 
@@ -20051,7 +19137,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BUGCHECK_ERROR} BugCheckCode 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20060,7 +19145,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static KeInvalidateAllCaches() {
@@ -20069,7 +19153,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BaseAddress 
      * @param {Integer} Length 
      * @returns {String} Nothing - always returns an empty string
@@ -20081,7 +19164,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HARDWARE_COUNTER>} CounterArray 
      * @param {Integer} Count 
      * @returns {NTSTATUS} 
@@ -20093,7 +19175,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HARDWARE_COUNTER>} CounterArray 
      * @param {Integer} MaximumCount 
      * @param {Pointer<Integer>} Count 
@@ -20108,7 +19189,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static ExRaiseDatatypeMisalignment() {
@@ -20116,7 +19196,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static ExRaiseAccessViolation() {
@@ -20124,7 +19203,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ZONE_HEADER>} Zone 
      * @param {Integer} BlockSize 
      * @param {Pointer<Void>} InitialSegment 
@@ -20140,7 +19218,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ZONE_HEADER>} Zone 
      * @param {Pointer<Void>} Segment 
      * @param {Integer} SegmentSize 
@@ -20155,7 +19232,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<ZONE_HEADER>} Zone 
      * @param {Pointer<Void>} Segment 
      * @param {Integer} SegmentSize 
@@ -20172,7 +19248,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} Uuid 
      * @returns {NTSTATUS} 
      */
@@ -20183,7 +19258,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static MmIsThisAnNtAsSystem() {
@@ -20192,7 +19266,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} BaseAddress 
      * @param {Pointer} NumberOfBytes 
      * @param {Pointer<Void>} PageAddress 
@@ -20207,7 +19280,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} StartAddress 
      * @param {Pointer<Integer>} NumberOfBytes 
      * @returns {NTSTATUS} 
@@ -20222,7 +19294,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VirtualAddress 
      * @param {Pointer<Pointer>} NumberOfBytes 
      * @param {Pointer<MDL>} NewMdl 
@@ -20242,7 +19313,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} StartAddress 
      * @param {Pointer<Integer>} NumberOfBytes 
      * @returns {NTSTATUS} 
@@ -20257,7 +19327,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<PHYSICAL_MEMORY_RANGE>} 
      */
     static MmGetPhysicalMemoryRanges() {
@@ -20266,7 +19335,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PartitionObject 
      * @returns {Pointer<PHYSICAL_MEMORY_RANGE>} 
      */
@@ -20278,7 +19346,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PartitionObject 
      * @param {Integer} Flags 
      * @returns {Pointer<PHYSICAL_MEMORY_RANGE>} 
@@ -20291,7 +19358,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Pointer} NumberOfBytes 
      * @param {MEMORY_CACHING_TYPE} CacheType 
@@ -20303,7 +19369,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} BaseAddress 
      * @param {Pointer} NumberOfBytes 
      * @returns {String} Nothing - always returns an empty string
@@ -20313,7 +19378,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BaseAddress 
      * @returns {Integer} 
      */
@@ -20325,7 +19389,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Pointer<MEMORY_CACHING_TYPE>} CacheType 
      * @returns {NTSTATUS} 
@@ -20339,7 +19402,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} TargetAddress 
      * @param {MM_COPY_ADDRESS} SourceAddress 
      * @param {Pointer} NumberOfBytes 
@@ -20357,7 +19419,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Integer} Flags 
      * @param {Pointer<MEMORY_CACHING_TYPE>} CacheType 
@@ -20372,7 +19433,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @returns {Pointer<Void>} 
      */
@@ -20382,7 +19442,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @returns {Pointer<Void>} 
      */
@@ -20392,7 +19451,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} BaseAddress 
      * @param {Pointer} NumberOfBytes 
      * @returns {String} Nothing - always returns an empty string
@@ -20402,7 +19460,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VirtualAddress 
      * @returns {BOOLEAN} 
      */
@@ -20414,7 +19471,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VirtualAddress 
      * @returns {BOOLEAN} 
      */
@@ -20426,7 +19482,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ImageSectionHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20437,7 +19492,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @param {Pointer} _Size 
      * @param {Integer} ProbeMode 
@@ -20450,7 +19504,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @param {Pointer} _Size 
      * @param {Integer} ProbeMode 
@@ -20464,7 +19517,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} SecureHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20475,7 +19527,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
@@ -20495,7 +19546,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
@@ -20512,7 +19562,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MappedBase 
      * @returns {NTSTATUS} 
      */
@@ -20525,7 +19574,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
@@ -20545,7 +19593,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Section 
      * @param {Pointer<Pointer<Void>>} MappedBase 
      * @param {Pointer<Pointer>} ViewSize 
@@ -20562,7 +19609,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MappedBase 
      * @returns {NTSTATUS} 
      */
@@ -20575,7 +19621,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     static MmCreateMirror() {
@@ -20585,7 +19630,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {LUID} PrivilegeValue 
      * @param {Integer} PreviousMode 
      * @returns {BOOLEAN} 
@@ -20596,7 +19640,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PCREATE_PROCESS_NOTIFY_ROUTINE>} NotifyRoutine 
      * @param {BOOLEAN} Remove 
      * @returns {NTSTATUS} 
@@ -20608,7 +19651,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PCREATE_PROCESS_NOTIFY_ROUTINE_EX>} NotifyRoutine 
      * @param {BOOLEAN} Remove 
      * @returns {NTSTATUS} 
@@ -20620,7 +19662,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSCREATEPROCESSNOTIFYTYPE} NotifyType 
      * @param {Pointer<Void>} NotifyInformation 
      * @param {BOOLEAN} Remove 
@@ -20635,7 +19676,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PCREATE_THREAD_NOTIFY_ROUTINE>} NotifyRoutine 
      * @returns {NTSTATUS} 
      */
@@ -20646,7 +19686,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSCREATETHREADNOTIFYTYPE} NotifyType 
      * @param {Pointer<Void>} NotifyInformation 
      * @returns {NTSTATUS} 
@@ -20660,7 +19699,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PCREATE_THREAD_NOTIFY_ROUTINE>} NotifyRoutine 
      * @returns {NTSTATUS} 
      */
@@ -20671,7 +19709,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PLOAD_IMAGE_NOTIFY_ROUTINE>} NotifyRoutine 
      * @returns {NTSTATUS} 
      */
@@ -20682,7 +19719,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PLOAD_IMAGE_NOTIFY_ROUTINE>} NotifyRoutine 
      * @param {Pointer} Flags 
      * @returns {NTSTATUS} 
@@ -20694,7 +19730,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PLOAD_IMAGE_NOTIFY_ROUTINE>} NotifyRoutine 
      * @returns {NTSTATUS} 
      */
@@ -20705,7 +19740,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     static PsGetCurrentProcessId() {
@@ -20715,7 +19749,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     static PsGetCurrentThreadId() {
@@ -20725,7 +19758,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BOOLEAN} Prefetching 
      * @returns {BOOLEAN} 
      */
@@ -20735,7 +19767,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static PsIsCurrentThreadPrefetching() {
@@ -20744,7 +19775,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @returns {Integer} 
      */
@@ -20754,7 +19784,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @returns {Integer} 
      */
@@ -20764,7 +19793,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @returns {NTSTATUS} 
      */
@@ -20775,7 +19803,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {NTSTATUS} 
      */
@@ -20786,7 +19813,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @returns {HANDLE} 
      */
@@ -20797,7 +19823,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {HANDLE} 
      */
@@ -20808,7 +19833,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {Pointer} Key 
      * @param {Integer} Flags 
@@ -20820,7 +19844,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {HANDLE} 
      */
@@ -20831,7 +19854,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {Integer} 
      */
@@ -20841,7 +19863,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     static PsGetCurrentThreadTeb() {
@@ -20850,7 +19871,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEJOB} Job 
      * @param {Pointer<PESILO>} Silo 
      * @returns {NTSTATUS} 
@@ -20864,7 +19884,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEJOB} Job 
      * @param {Pointer<PESILO>} ServerSilo 
      * @returns {NTSTATUS} 
@@ -20878,7 +19897,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {PESILO} 
      */
@@ -20888,7 +19906,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {PESILO} 
      */
@@ -20898,7 +19915,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} PreviousSilo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20907,7 +19923,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {BOOLEAN} 
      */
@@ -20917,7 +19932,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {PESILO} 
      */
     static PsGetHostSilo() {
@@ -20926,7 +19940,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {PESILO} 
      */
     static PsGetCurrentSilo() {
@@ -20935,7 +19948,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {PESILO} 
      */
     static PsGetCurrentServerSilo() {
@@ -20944,7 +19956,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<UNICODE_STRING>} 
      */
     static PsGetCurrentServerSiloName() {
@@ -20953,7 +19964,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static PsIsCurrentThreadInServerSilo() {
@@ -20962,7 +19972,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {NTSTATUS} 
      */
@@ -20973,7 +19982,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20982,7 +19990,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer} Reserved 
      * @param {Pointer<Integer>} ReturnedContextSlot 
      * @returns {NTSTATUS} 
@@ -20996,7 +20003,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ContextSlot 
      * @returns {NTSTATUS} 
      */
@@ -21007,7 +20013,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} _Size 
      * @param {POOL_TYPE} PoolType 
@@ -21024,7 +20029,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} ContextSlot 
      * @param {Pointer<Void>} SiloContext 
@@ -21039,7 +20043,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} ContextSlot 
      * @param {Pointer<Void>} NewSiloContext 
@@ -21056,7 +20059,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} ContextSlot 
      * @param {Pointer<Pointer<Void>>} ReturnedSiloContext 
@@ -21071,7 +20073,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} ContextSlot 
      * @param {Pointer<Pointer<Void>>} RemovedSiloContext 
@@ -21086,7 +20087,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SiloContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21097,7 +20097,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SiloContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21108,7 +20107,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} ContextSlot 
      * @param {Pointer<Void>} SiloContext 
@@ -21123,7 +20121,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} ContextSlot 
      * @returns {NTSTATUS} 
@@ -21135,7 +20132,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @param {Integer} ContextSlot 
      * @param {Pointer<Pointer<Void>>} ReturnedSiloContext 
@@ -21150,7 +20146,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<SILO_MONITOR_REGISTRATION>} Registration 
      * @param {Pointer<PSILO_MONITOR>} ReturnedMonitor 
      * @returns {NTSTATUS} 
@@ -21164,7 +20159,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSILO_MONITOR} _Monitor 
      * @returns {NTSTATUS} 
      */
@@ -21175,7 +20169,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSILO_MONITOR} _Monitor 
      * @returns {Integer} 
      */
@@ -21185,7 +20178,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PSILO_MONITOR} _Monitor 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21194,7 +20186,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {Integer} 
      */
@@ -21204,7 +20195,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} ServerSilo 
      * @param {NTSTATUS} ExitStatus 
      * @returns {String} Nothing - always returns an empty string
@@ -21214,7 +20204,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PEJOB} Job 
      * @returns {PESILO} 
      */
@@ -21224,7 +20213,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {PESILO} 
      */
@@ -21234,7 +20222,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {Pointer<Guid>} 
      */
@@ -21244,7 +20231,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} NumberOfMapRegisters 
@@ -21262,7 +20248,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CONTROLLER_OBJECT>} ControllerObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<DRIVER_CONTROL>} ExecutionRoutine 
@@ -21276,7 +20261,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} RegistryPath 
      * @param {Pointer<UNICODE_STRING>} DriverClassName 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
@@ -21294,7 +20278,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} SourceDevice 
      * @param {Pointer<DEVICE_OBJECT>} TargetDevice 
      * @returns {NTSTATUS} 
@@ -21306,7 +20289,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Size 
      * @returns {Pointer<CONTROLLER_OBJECT>} 
      */
@@ -21316,7 +20298,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CONTROLLER_OBJECT>} ControllerObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21325,7 +20306,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<CONTROLLER_OBJECT>} ControllerObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21334,7 +20314,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<CONFIGURATION_INFORMATION>} 
      */
     static IoGetConfigurationInformation() {
@@ -21343,7 +20322,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<GENERIC_MAPPING>} 
      */
     static IoGetFileObjectGenericMapping() {
@@ -21352,7 +20330,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {String} Nothing - always returns an empty string
@@ -21362,7 +20339,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} StackSize 
      * @returns {Pointer<IRP>} 
@@ -21373,7 +20349,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} StackSize 
@@ -21385,7 +20360,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<INTERFACE_TYPE>} BusType 
      * @param {Pointer<Integer>} BusNumber 
      * @param {Pointer<CONFIGURATION_TYPE>} ControllerType 
@@ -21411,7 +20385,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<VPB>} _Vpb 
      * @param {Pointer<DEVICE_OBJECT>} RealDeviceObject 
@@ -21422,7 +20395,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {NTSTATUS} ErrorStatus 
      * @param {Pointer<UNICODE_STRING>} _String 
      * @param {PKTHREAD} Thread 
@@ -21434,7 +20406,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BOOLEAN} EnableHardErrors 
      * @returns {BOOLEAN} 
      */
@@ -21444,7 +20415,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_REINITIALIZE>} DriverReinitializationRoutine 
      * @param {Pointer<Void>} _Context 
@@ -21457,7 +20427,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_REINITIALIZE>} DriverReinitializationRoutine 
      * @param {Pointer<Void>} _Context 
@@ -21470,7 +20439,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DriverClassName 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Integer} DriverList 
@@ -21491,7 +20459,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {INTERFACE_TYPE} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} BusAddress 
@@ -21508,7 +20475,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
@@ -21518,7 +20484,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {Integer} MBRTypeIdentifier 
@@ -21532,7 +20497,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {BOOLEAN} ReturnRecognizedPartitions 
@@ -21548,7 +20512,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {Integer} PartitionNumber 
@@ -21562,7 +20525,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {Integer} SectorsPerTrack 
@@ -21577,7 +20539,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<CREATE_DISK>} Disk 
      * @returns {NTSTATUS} 
@@ -21589,7 +20550,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Pointer<DRIVE_LAYOUT_INFORMATION_EX>>} DriveLayout 
      * @returns {NTSTATUS} 
@@ -21603,7 +20563,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<DRIVE_LAYOUT_INFORMATION_EX>} DriveLayout 
      * @returns {NTSTATUS} 
@@ -21615,7 +20574,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} PartitionNumber 
      * @param {Pointer<SET_PARTITION_INFORMATION_EX>} PartitionInfo 
@@ -21628,7 +20586,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {BOOLEAN} FixErrors 
      * @returns {NTSTATUS} 
@@ -21640,7 +20597,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} BytesPerSector 
      * @param {Pointer<DISK_SIGNATURE>} Signature 
@@ -21653,7 +20609,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VolumeDeviceObject 
      * @param {Pointer<UNICODE_STRING>} DosName 
      * @returns {NTSTATUS} 
@@ -21667,7 +20622,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VolumeDeviceObject 
      * @param {Pointer<UNICODE_STRING>} GuidPath 
      * @returns {NTSTATUS} 
@@ -21681,7 +20635,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VolumeDeviceObject 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -21695,7 +20648,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} VolumeDeviceName 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -21707,7 +20659,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} VolumeDeviceName 
      * @param {Pointer<UNICODE_STRING>} GuidPath 
      * @returns {NTSTATUS} 
@@ -21719,7 +20670,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} VolumeNameString 
      * @returns {NTSTATUS} 
      */
@@ -21730,7 +20680,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} FileHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -21760,7 +20709,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Pointer<IO_FOEXT_SILO_PARAMETERS>} 
      */
@@ -21770,7 +20718,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {PESILO} 
      */
@@ -21780,7 +20727,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Pointer<TXN_PARAMETER_BLOCK>} 
      */
@@ -21790,7 +20736,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} FileHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -21819,7 +20764,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer>} ExtraCreateParameter 
      * @returns {NTSTATUS} 
@@ -21833,7 +20777,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21842,7 +20785,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<Pointer>>} ExtraCreateParameter 
      * @returns {NTSTATUS} 
@@ -21856,7 +20798,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FileInformation 
@@ -21873,7 +20814,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} SourceDevice 
      * @param {Pointer<DEVICE_OBJECT>} TargetDevice 
      * @param {Pointer<Pointer<DEVICE_OBJECT>>} AttachedToDeviceObject 
@@ -21888,7 +20828,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {BOOLEAN} 
      */
@@ -21898,7 +20837,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {BOOLEAN} Remote 
      * @returns {NTSTATUS} 
@@ -21910,7 +20848,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {BOOLEAN} 
      */
@@ -21920,7 +20857,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {NTSTATUS} 
      */
@@ -21931,7 +20867,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {IO_PAGING_PRIORITY} 
      */
@@ -21941,7 +20876,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PBOOT_DRIVER_CALLBACK_FUNCTION>} CallbackFunction 
      * @param {Pointer<Void>} CallbackContext 
      * @returns {Pointer<Void>} 
@@ -21954,7 +20888,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21965,7 +20898,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -21977,7 +20909,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -21989,7 +20920,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Guid>} PropagatedId 
      * @param {Pointer<Pointer<Guid>>} OriginalId 
@@ -22004,7 +20934,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ActivityId 
      * @returns {Pointer<Guid>} 
      */
@@ -22014,7 +20943,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} OriginalId 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22023,7 +20951,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {Pointer<Guid>} 
      */
     static IoGetActivityIdThread() {
@@ -22032,7 +20959,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ActivityId 
      * @param {Pointer<Guid>} RelatedActivityId 
      * @returns {String} Nothing - always returns an empty string
@@ -22042,7 +20968,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Integer>} ZeroingOffset 
      * @returns {NTSTATUS} 
@@ -22056,7 +20981,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
@@ -22067,7 +20991,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} ZeroingOffset 
      * @returns {NTSTATUS} 
@@ -22079,7 +21002,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {NTSTATUS} _Status 
      * @returns {Integer} 
      */
@@ -22089,7 +21011,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PEPROCESS} Process 
      * @returns {NTSTATUS} 
@@ -22101,7 +21022,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PEPROCESS} Process 
      * @returns {NTSTATUS} 
@@ -22113,7 +21033,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {PEPROCESS} 
      */
@@ -22123,7 +21042,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} MasterIrp 
      * @param {NTSTATUS} _Status 
      * @returns {String} Nothing - always returns an empty string
@@ -22133,7 +21051,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<UNICODE_STRING>} FullPath 
      * @returns {NTSTATUS} 
@@ -22145,7 +21062,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {INTERFACE_TYPE} LegacyBusType 
      * @param {Integer} BusNumber 
@@ -22165,7 +21081,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @returns {NTSTATUS} 
      */
@@ -22176,7 +21091,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Integer} DriverList 
      * @param {Integer} DriverListSize 
@@ -22195,7 +21109,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PHAL_RESET_DISPLAY_PARAMETERS>} ResetDisplayParameters 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22204,7 +21117,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} RegistryPath 
      * @param {Pointer<UNICODE_STRING>} DriverClassName 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
@@ -22224,7 +21136,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {INTERFACE_TYPE} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} BusInterruptLevel 
@@ -22242,7 +21153,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BUS_DATA_TYPE} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -22256,7 +21166,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BUS_DATA_TYPE} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -22271,7 +21180,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {INTERFACE_TYPE} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} BusAddress 
@@ -22288,7 +21196,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Pointer<Integer>} NumberOfMapRegisters 
      * @returns {Pointer<Void>} 
@@ -22302,7 +21209,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} _Adapter 
      * @param {Integer} NumberOfMapRegisters 
      * @param {HAL_DMA_CRASH_DUMP_REGISTER_TYPE} Type 
@@ -22321,7 +21227,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} _Adapter 
      * @param {HAL_DMA_CRASH_DUMP_REGISTER_TYPE} Type 
      * @returns {NTSTATUS} 
@@ -22335,7 +21240,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BUS_DATA_TYPE} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -22349,7 +21253,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {BUS_DATA_TYPE} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -22364,7 +21267,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_DESCRIPTION>} DeviceDescription 
      * @param {Pointer<Integer>} NumberOfMapRegisters 
      * @returns {Pointer<_ADAPTER_OBJECT>} 
@@ -22377,7 +21279,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} Frequency 
      * @returns {BOOLEAN} 
      */
@@ -22387,7 +21288,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Pointer<WAIT_CONTEXT_BLOCK>} Wcb 
      * @param {Integer} NumberOfMapRegisters 
@@ -22403,7 +21303,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} LogicalAddress 
@@ -22419,7 +21318,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Integer} Length 
      * @param {Integer} LogicalAddress 
@@ -22435,7 +21333,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @returns {Integer} 
      */
@@ -22447,7 +21344,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
@@ -22466,7 +21362,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22477,7 +21372,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Pointer<Void>} MapRegisterBase 
      * @param {Integer} NumberOfMapRegisters 
@@ -22491,7 +21385,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<_ADAPTER_OBJECT>} AdapterObject 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
@@ -22511,7 +21404,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Pointer<WHEA_ERROR_RECORD>} ErrorRecord 
      * @returns {String} Nothing - always returns an empty string
@@ -22521,7 +21413,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<GROUP_AFFINITY>} GroupAffinty 
      * @param {Integer} GroupCount 
      * @param {Pointer<PHYSICAL_COUNTER_RESOURCE_LIST>} ResourceList 
@@ -22535,7 +21426,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} CounterSetHandle 
      * @returns {NTSTATUS} 
      */
@@ -22548,7 +21438,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {NTSTATUS} _Status 
      * @returns {BOOLEAN} 
      */
@@ -22558,7 +21447,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -22583,7 +21471,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
@@ -22594,7 +21481,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {POWER_INFORMATION_LEVEL} InformationLevel 
      * @param {Integer} InputBuffer 
      * @param {Integer} InputBufferLength 
@@ -22609,7 +21495,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} _Luid 
      * @returns {NTSTATUS} 
      */
@@ -22620,7 +21505,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER>} Configuration 
      * @param {Integer} NumberPreallocatedErrorReports 
@@ -22635,7 +21519,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER>} Configuration 
      * @param {Integer} NumBuffersToPreallocate 
@@ -22651,7 +21534,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ErrorSourceId 
      * @returns {NTSTATUS} 
      */
@@ -22662,7 +21544,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ErrorSourceId 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} ErrorData 
@@ -22681,7 +21562,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ErrorSourceId 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {Pointer<Void>} 
@@ -22692,7 +21572,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ErrorHandle 
      * @param {Integer} SectionDataLength 
      * @param {Pointer<WHEA_DRIVER_BUFFER_SET>} BufferSet 
@@ -22707,7 +21586,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ErrorHandle 
      * @returns {NTSTATUS} 
      */
@@ -22720,7 +21598,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ErrorHandle 
      * @returns {NTSTATUS} 
      */
@@ -22733,7 +21610,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ErrorHandle 
      * @param {WHEA_ERROR_SEVERITY} ErrorSeverity 
      * @returns {NTSTATUS} 
@@ -22747,7 +21623,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_DRIVER_BUFFER_SET>} BufferSet 
      * @param {Integer} NameLength 
      * @param {Integer} Name 
@@ -22760,7 +21635,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_ERROR_PACKET_V2>} ErrorPacket 
      * @returns {NTSTATUS} 
      */
@@ -22771,7 +21645,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
@@ -22785,7 +21658,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_ERROR_RECORD_HEADER>} Header 
      * @returns {NTSTATUS} 
      */
@@ -22796,7 +21668,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {WHEA_ERROR_SOURCE_TYPE} SourceType 
      * @param {Pointer<WHEA_ERROR_SOURCE_CONFIGURATION>} Configuration 
      * @returns {NTSTATUS} 
@@ -22808,7 +21679,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {WHEA_ERROR_SOURCE_TYPE} SourceType 
      * @returns {NTSTATUS} 
      */
@@ -22819,7 +21689,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ErrorSourceId 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22828,7 +21697,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_EVENT_LOG_ENTRY>} Entry 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22837,7 +21705,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} ErrorSourceId 
      * @returns {WHEA_ERROR_SOURCE_STATE} 
      */
@@ -22847,7 +21714,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static WheaIsCriticalState() {
@@ -22856,7 +21722,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER>} Handler 
      * @param {Pointer<Void>} _Context 
      * @returns {BOOLEAN} 
@@ -22869,7 +21734,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static WheaHighIrqlLogSelEventHandlerUnregister() {
@@ -22877,7 +21741,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PFN_IN_USE_PAGE_OFFLINE_NOTIFY>} Callback 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
@@ -22891,7 +21754,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PFN_IN_USE_PAGE_OFFLINE_NOTIFY>} Callback 
      * @returns {NTSTATUS} 
      */
@@ -22902,7 +21764,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static WheaGetNotifyAllOfflinesPolicy() {
@@ -22911,7 +21772,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PHVL_WHEA_ERROR_NOTIFICATION>} Callback 
      * @returns {NTSTATUS} 
      */
@@ -22922,7 +21782,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<PHVL_WHEA_ERROR_NOTIFICATION>} Callback 
      * @returns {NTSTATUS} 
      */
@@ -22933,7 +21792,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Integer} _Size 
      * @returns {Pointer<Void>} 
      */
@@ -22943,7 +21801,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Address 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22954,7 +21811,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static PshedIsSystemWheaEnabled() {
@@ -22963,7 +21819,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2>} Packet 
      * @returns {NTSTATUS} 
      */
@@ -22974,7 +21829,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22985,7 +21839,6 @@ class SystemServices {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Pointer<PKSYNCHRONIZE_ROUTINE>} SynchronizeRoutine 
      * @param {Pointer<Void>} SynchronizeContext 

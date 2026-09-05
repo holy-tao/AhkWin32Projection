@@ -159,7 +159,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -171,7 +170,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_content() {
@@ -181,7 +179,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -193,7 +190,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_captionSide() {
@@ -203,7 +199,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -215,7 +210,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_counterIncrement() {
@@ -225,7 +219,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -237,7 +230,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_counterReset() {
@@ -247,7 +239,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -259,7 +250,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outline() {
@@ -269,7 +259,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -279,7 +268,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_outlineWidth() {
@@ -289,7 +277,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -301,7 +288,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outlineStyle() {
@@ -311,7 +297,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -321,7 +306,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_outlineColor() {
@@ -331,7 +315,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -343,7 +326,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_boxSizing() {
@@ -353,7 +335,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -365,7 +346,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderSpacing() {
@@ -375,7 +355,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -385,7 +364,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_orphans() {
@@ -395,7 +373,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -405,7 +382,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_widows() {
@@ -415,7 +391,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -427,7 +402,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pageBreakInside() {
@@ -437,7 +411,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -449,7 +422,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_emptyCells() {
@@ -459,7 +431,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -471,7 +442,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msBlockProgression() {
@@ -481,7 +451,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -493,7 +462,6 @@ class IHTMLStyle6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_quotes() {

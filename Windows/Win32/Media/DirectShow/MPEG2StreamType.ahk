@@ -172,14 +172,16 @@ class MPEG2StreamType extends Win32Enum {
     static HEVC_TEMPORAL_VIDEO_SUBSET => 37
 
     /**
+     * Native name: MPEG_H_AUDIO
      * @type {Integer (Int32)}
      */
-    static MPEG_H_AUDIO => 45
+    static H_AUDIO => 45
 
     /**
+     * Native name: MPEG_H_AUDIO_MS
      * @type {Integer (Int32)}
      */
-    static MPEG_H_AUDIO_MS => 46
+    static H_AUDIO_MS => 46
 
     /**
      * @type {Integer (Int32)}

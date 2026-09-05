@@ -7,37 +7,44 @@
 class CLUS_AFFINITY_RULE_TYPE extends Win32Enum {
 
     /**
+     * Native name: CLUS_AFFINITY_RULE_NONE
      * @type {Integer (Int32)}
      */
-    static CLUS_AFFINITY_RULE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: CLUS_AFFINITY_RULE_SAME_FAULT_DOMAIN
      * @type {Integer (Int32)}
      */
-    static CLUS_AFFINITY_RULE_SAME_FAULT_DOMAIN => 1
+    static SAME_FAULT_DOMAIN => 1
 
     /**
+     * Native name: CLUS_AFFINITY_RULE_SAME_NODE
      * @type {Integer (Int32)}
      */
-    static CLUS_AFFINITY_RULE_SAME_NODE => 2
+    static SAME_NODE => 2
 
     /**
+     * Native name: CLUS_AFFINITY_RULE_DIFFERENT_FAULT_DOMAIN
      * @type {Integer (Int32)}
      */
-    static CLUS_AFFINITY_RULE_DIFFERENT_FAULT_DOMAIN => 3
+    static DIFFERENT_FAULT_DOMAIN => 3
 
     /**
+     * Native name: CLUS_AFFINITY_RULE_DIFFERENT_NODE
      * @type {Integer (Int32)}
      */
-    static CLUS_AFFINITY_RULE_DIFFERENT_NODE => 4
+    static DIFFERENT_NODE => 4
 
     /**
+     * Native name: CLUS_AFFINITY_RULE_MIN
      * @type {Integer (Int32)}
      */
-    static CLUS_AFFINITY_RULE_MIN => 0
+    static MIN => 0
 
     /**
+     * Native name: CLUS_AFFINITY_RULE_MAX
      * @type {Integer (Int32)}
      */
-    static CLUS_AFFINITY_RULE_MAX => 4
+    static MAX => 4
 }

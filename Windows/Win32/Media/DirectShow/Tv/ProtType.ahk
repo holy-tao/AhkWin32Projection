@@ -10,61 +10,71 @@ class ProtType extends Win32Enum {
 
     /**
      * Copy Free.
+     * Native name: PROT_COPY_FREE
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_FREE => 1
+    static COPY_FREE => 1
 
     /**
      * Copy Once.
+     * Native name: PROT_COPY_ONCE
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_ONCE => 2
+    static COPY_ONCE => 2
 
     /**
      * Copy Never.
+     * Native name: PROT_COPY_NEVER
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_NEVER => 3
+    static COPY_NEVER => 3
 
     /**
      * Reserved.
+     * Native name: PROT_COPY_NEVER_REALLY
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_NEVER_REALLY => 4
+    static COPY_NEVER_REALLY => 4
 
     /**
      * Copy No More.
+     * Native name: PROT_COPY_NO_MORE
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_NO_MORE => 5
+    static COPY_NO_MORE => 5
 
     /**
      * The Copy Control Information (CCI) flag indicates Copy Free, but the Constrained Image Trigger (CIT) bit is set. The content is encrypted.
+     * Native name: PROT_COPY_FREE_CIT
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_FREE_CIT => 6
+    static COPY_FREE_CIT => 6
 
     /**
      * Reserved.
+     * Native name: PROT_COPY_BF
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_BF => 7
+    static COPY_BF => 7
 
     /**
      * Reserved.
+     * Native name: PROT_COPY_CN_RECORDING_STOP
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_CN_RECORDING_STOP => 8
+    static COPY_CN_RECORDING_STOP => 8
 
     /**
      * The Copy Control Information (CCI) flag indicates Copy Free, but the Redistribution Control Trigger (RCT) bit is set. The content is encrypted.
+     * Native name: PROT_COPY_FREE_SECURE
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_FREE_SECURE => 9
+    static COPY_FREE_SECURE => 9
 
     /**
      * Error or invalid protection scheme. Treat as Copy Never.
+     * Native name: PROT_COPY_INVALID
      * @type {Integer (Int32)}
      */
-    static PROT_COPY_INVALID => 50
+    static COPY_INVALID => 50
 }

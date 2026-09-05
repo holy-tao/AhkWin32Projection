@@ -11,17 +11,20 @@
 class D3DSCANLINEORDERING extends Win32Enum {
 
     /**
+     * Native name: D3DSCANLINEORDERING_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3DSCANLINEORDERING_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: D3DSCANLINEORDERING_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static D3DSCANLINEORDERING_PROGRESSIVE => 1
+    static PROGRESSIVE => 1
 
     /**
+     * Native name: D3DSCANLINEORDERING_INTERLACED
      * @type {Integer (Int32)}
      */
-    static D3DSCANLINEORDERING_INTERLACED => 2
+    static INTERLACED => 2
 }

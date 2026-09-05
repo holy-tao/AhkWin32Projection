@@ -10,19 +10,22 @@ class ISCSI_AUTH_TYPES extends Win32Enum {
 
     /**
      * No authentication type was specified.
+     * Native name: ISCSI_NO_AUTH_TYPE
      * @type {Integer (Int32)}
      */
-    static ISCSI_NO_AUTH_TYPE => 0
+    static NO_AUTH_TYPE => 0
 
     /**
      * Challenge Handshake Authentication Protocol (CHAP) authentication.
+     * Native name: ISCSI_CHAP_AUTH_TYPE
      * @type {Integer (Int32)}
      */
-    static ISCSI_CHAP_AUTH_TYPE => 1
+    static CHAP_AUTH_TYPE => 1
 
     /**
      * Mutual (2-way) CHAP authentication.
+     * Native name: ISCSI_MUTUAL_CHAP_AUTH_TYPE
      * @type {Integer (Int32)}
      */
-    static ISCSI_MUTUAL_CHAP_AUTH_TYPE => 2
+    static MUTUAL_CHAP_AUTH_TYPE => 2
 }

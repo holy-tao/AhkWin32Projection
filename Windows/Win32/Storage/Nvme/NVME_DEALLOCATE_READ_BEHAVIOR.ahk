@@ -7,17 +7,20 @@
 class NVME_DEALLOCATE_READ_BEHAVIOR extends Win32Enum {
 
     /**
+     * Native name: NVME_READ_BEHAVIOR_NOT_REPORTED
      * @type {Integer (Int32)}
      */
-    static NVME_READ_BEHAVIOR_NOT_REPORTED => 0
+    static NOT_REPORTED => 0
 
     /**
+     * Native name: NVME_READ_BEHAVIOR_RETURN_ZERO
      * @type {Integer (Int32)}
      */
-    static NVME_READ_BEHAVIOR_RETURN_ZERO => 1
+    static RETURN_ZERO => 1
 
     /**
+     * Native name: NVME_READ_BEHAVIOR_RETURN_ONES
      * @type {Integer (Int32)}
      */
-    static NVME_READ_BEHAVIOR_RETURN_ONES => 2
+    static RETURN_ONES => 2
 }

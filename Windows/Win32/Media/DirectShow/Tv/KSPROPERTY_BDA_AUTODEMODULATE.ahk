@@ -7,12 +7,14 @@
 class KSPROPERTY_BDA_AUTODEMODULATE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_BDA_AUTODEMODULATE_START
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_AUTODEMODULATE_START => 0
+    static START => 0
 
     /**
+     * Native name: KSPROPERTY_BDA_AUTODEMODULATE_STOP
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_AUTODEMODULATE_STOP => 1
+    static STOP => 1
 }

@@ -32,7 +32,6 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13 {
     static VTableNames => ["EnumerateNonGCObjects", "GetNonGCHeapBounds", "EventPipeCreateProvider2"]
 
     /**
-     * 
      * @returns {ICorProfilerObjectEnum} 
      */
     EnumerateNonGCObjects() {
@@ -41,7 +40,6 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13 {
     }
 
     /**
-     * 
      * @param {Integer} cObjectRanges 
      * @param {Pointer<Integer>} pcObjectRanges 
      * @param {Pointer<COR_PRF_NONGC_HEAP_RANGE>} ranges 
@@ -55,7 +53,6 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13 {
     }
 
     /**
-     * 
      * @param {PWSTR} providerName 
      * @param {Pointer<Pointer<EventPipeProviderCallback>>} pCallback 
      * @returns {Pointer} 

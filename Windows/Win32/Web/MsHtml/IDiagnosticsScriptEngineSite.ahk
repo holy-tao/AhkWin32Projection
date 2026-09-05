@@ -31,7 +31,6 @@ class IDiagnosticsScriptEngineSite extends IUnknown {
     static VTableNames => ["OnMessage", "OnScriptError"]
 
     /**
-     * 
      * @param {Pointer<PWSTR>} pszData 
      * @param {Integer} ulDataCount 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IDiagnosticsScriptEngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptError} pScriptError 
      * @returns {HRESULT} 
      */

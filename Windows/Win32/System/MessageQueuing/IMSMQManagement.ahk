@@ -94,7 +94,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Machine 
      * @param {Pointer<VARIANT>} _Pathname 
      * @param {Pointer<VARIANT>} FormatName 
@@ -106,7 +105,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FormatName() {
@@ -116,7 +114,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Machine() {
@@ -126,7 +123,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MessageCount() {
@@ -135,7 +131,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ForeignStatus() {
@@ -144,7 +139,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_QueueType() {
@@ -153,7 +147,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
@@ -162,7 +155,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TransactionalStatus() {
@@ -171,7 +163,6 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_BytesInQueue() {

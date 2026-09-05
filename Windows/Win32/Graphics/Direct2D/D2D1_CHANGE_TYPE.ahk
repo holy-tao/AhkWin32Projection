@@ -10,25 +10,29 @@ class D2D1_CHANGE_TYPE extends Win32BitflagEnum {
 
     /**
      * There were no changes.
+     * Native name: D2D1_CHANGE_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANGE_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * The properties of the effect changed.
+     * Native name: D2D1_CHANGE_TYPE_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANGE_TYPE_PROPERTIES => 1
+    static PROPERTIES => 1
 
     /**
      * The context state changed.
+     * Native name: D2D1_CHANGE_TYPE_CONTEXT
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANGE_TYPE_CONTEXT => 2
+    static CONTEXT => 2
 
     /**
      * The effect’s transform graph has changed.  This happens only when an effect supports a variable input count.
+     * Native name: D2D1_CHANGE_TYPE_GRAPH
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANGE_TYPE_GRAPH => 3
+    static GRAPH => 3
 }

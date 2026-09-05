@@ -32,7 +32,6 @@ class IPrintDocumentPageSource extends IUnknown {
     static VTableNames => ["GetPreviewPageCollection", "MakeDocument"]
 
     /**
-     * 
      * @param {IPrintDocumentPackageTarget} docPackageTarget 
      * @returns {IPrintPreviewPageCollection} 
      */
@@ -42,7 +41,6 @@ class IPrintDocumentPageSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInspectable} printTaskOptions 
      * @param {IPrintDocumentPackageTarget} docPackageTarget 
      * @returns {HRESULT} 

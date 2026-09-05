@@ -10124,7 +10124,6 @@ class PortableDevices {
 
 ;@region Methods
     /**
-     * 
      * @param {PWSTR} pszXmlIn 
      * @param {Pointer<PWSTR>} rgszAllowedCspNodes 
      * @param {Integer} dwNumAllowedCspNodes 

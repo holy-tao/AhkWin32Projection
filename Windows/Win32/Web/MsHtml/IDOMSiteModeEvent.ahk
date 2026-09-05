@@ -50,7 +50,6 @@ class IDOMSiteModeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_buttonID() {
@@ -59,7 +58,6 @@ class IDOMSiteModeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_actionURL() {

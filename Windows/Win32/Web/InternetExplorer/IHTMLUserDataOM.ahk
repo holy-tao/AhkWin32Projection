@@ -46,7 +46,6 @@ class IHTMLUserDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_XMLDocument() {
@@ -145,7 +144,6 @@ class IHTMLUserDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -158,7 +156,6 @@ class IHTMLUserDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -171,7 +168,6 @@ class IHTMLUserDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
      */
@@ -183,7 +179,6 @@ class IHTMLUserDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
@@ -195,7 +190,6 @@ class IHTMLUserDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_expires() {

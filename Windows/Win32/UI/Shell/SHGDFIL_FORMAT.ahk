@@ -7,17 +7,20 @@
 class SHGDFIL_FORMAT extends Win32Enum {
 
     /**
+     * Native name: SHGDFIL_FINDDATA
      * @type {Integer (Int32)}
      */
-    static SHGDFIL_FINDDATA => 1
+    static FINDDATA => 1
 
     /**
+     * Native name: SHGDFIL_NETRESOURCE
      * @type {Integer (Int32)}
      */
-    static SHGDFIL_NETRESOURCE => 2
+    static NETRESOURCE => 2
 
     /**
+     * Native name: SHGDFIL_DESCRIPTIONID
      * @type {Integer (Int32)}
      */
-    static SHGDFIL_DESCRIPTIONID => 3
+    static DESCRIPTIONID => 3
 }

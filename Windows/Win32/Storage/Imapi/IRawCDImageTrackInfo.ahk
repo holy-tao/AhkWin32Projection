@@ -249,7 +249,6 @@ class IRawCDImageTrackInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lbaOffset 
      * @returns {HRESULT} 
      */
@@ -259,7 +258,6 @@ class IRawCDImageTrackInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lbaOffset 
      * @returns {HRESULT} 
      */

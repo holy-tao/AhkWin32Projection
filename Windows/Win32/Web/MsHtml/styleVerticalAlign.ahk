@@ -7,62 +7,74 @@
 class styleVerticalAlign extends Win32Enum {
 
     /**
+     * Native name: styleVerticalAlignAuto
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleVerticalAlignBaseline
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignBaseline => 1
+    static Baseline => 1
 
     /**
+     * Native name: styleVerticalAlignSub
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignSub => 2
+    static Sub => 2
 
     /**
+     * Native name: styleVerticalAlignSuper
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignSuper => 3
+    static Super => 3
 
     /**
+     * Native name: styleVerticalAlignTop
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignTop => 4
+    static Top => 4
 
     /**
+     * Native name: styleVerticalAlignTextTop
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignTextTop => 5
+    static TextTop => 5
 
     /**
+     * Native name: styleVerticalAlignMiddle
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignMiddle => 6
+    static Middle => 6
 
     /**
+     * Native name: styleVerticalAlignBottom
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignBottom => 7
+    static Bottom => 7
 
     /**
+     * Native name: styleVerticalAlignTextBottom
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignTextBottom => 8
+    static TextBottom => 8
 
     /**
+     * Native name: styleVerticalAlignInherit
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignInherit => 9
+    static Inherit => 9
 
     /**
+     * Native name: styleVerticalAlignNotSet
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlignNotSet => 10
+    static NotSet => 10
 
     /**
+     * Native name: styleVerticalAlign_Max
      * @type {Integer (Int32)}
      */
-    static styleVerticalAlign_Max => 2147483647
+    static Max => 2147483647
 }

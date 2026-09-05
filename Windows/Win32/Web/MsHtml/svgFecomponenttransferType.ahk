@@ -7,37 +7,44 @@
 class svgFecomponenttransferType extends Win32Enum {
 
     /**
+     * Native name: SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY
      * @type {Integer (Int32)}
      */
-    static SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY => 1
+    static IDENTITY => 1
 
     /**
+     * Native name: SVG_FECOMPONENTTRANSFER_TYPE_TABLE
      * @type {Integer (Int32)}
      */
-    static SVG_FECOMPONENTTRANSFER_TYPE_TABLE => 2
+    static TABLE => 2
 
     /**
+     * Native name: SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE
      * @type {Integer (Int32)}
      */
-    static SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE => 3
+    static DISCRETE => 3
 
     /**
+     * Native name: SVG_FECOMPONENTTRANSFER_TYPE_LINEAR
      * @type {Integer (Int32)}
      */
-    static SVG_FECOMPONENTTRANSFER_TYPE_LINEAR => 4
+    static LINEAR => 4
 
     /**
+     * Native name: SVG_FECOMPONENTTRANSFER_TYPE_GAMMA
      * @type {Integer (Int32)}
      */
-    static SVG_FECOMPONENTTRANSFER_TYPE_GAMMA => 5
+    static GAMMA => 5
 
     /**
+     * Native name: svgFecomponenttransferType_Max
      * @type {Integer (Int32)}
      */
-    static svgFecomponenttransferType_Max => 2147483647
+    static Max => 2147483647
 }

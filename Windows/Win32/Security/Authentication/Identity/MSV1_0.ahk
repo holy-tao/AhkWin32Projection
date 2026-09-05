@@ -7,12 +7,14 @@
 class MSV1_0 extends Win32Enum {
 
     /**
+     * Native name: MSV1_0_PASSTHRU
      * @type {Integer (UInt32)}
      */
-    static MSV1_0_PASSTHRU => 1
+    static PASSTHRU => 1
 
     /**
+     * Native name: MSV1_0_GUEST_LOGON
      * @type {Integer (UInt32)}
      */
-    static MSV1_0_GUEST_LOGON => 2
+    static GUEST_LOGON => 2
 }

@@ -7,17 +7,20 @@
 class DISPID_InkGesture extends Win32Enum {
 
     /**
+     * Native name: DISPID_IGId
      * @type {Integer (Int32)}
      */
-    static DISPID_IGId => 0
+    static IGId => 0
 
     /**
+     * Native name: DISPID_IGGetHotPoint
      * @type {Integer (Int32)}
      */
-    static DISPID_IGGetHotPoint => 1
+    static IGGetHotPoint => 1
 
     /**
+     * Native name: DISPID_IGConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_IGConfidence => 2
+    static IGConfidence => 2
 }

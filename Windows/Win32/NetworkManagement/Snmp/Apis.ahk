@@ -3540,7 +3540,6 @@ class Snmp {
     }
 
     /**
-     * 
      * @param {Pointer} hEntity 
      * @param {Integer} lStatus 
      * @param {Integer} nUseEntityAddr 

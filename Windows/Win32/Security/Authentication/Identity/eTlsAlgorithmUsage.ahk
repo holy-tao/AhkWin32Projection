@@ -10,31 +10,36 @@ class eTlsAlgorithmUsage extends Win32Enum {
 
     /**
      * Key exchange algorithm. (*e.g. RSA, ECDHE, DHE*)
+     * Native name: TlsParametersCngAlgUsageKeyExchange
      * @type {Integer (Int32)}
      */
-    static TlsParametersCngAlgUsageKeyExchange => 0
+    static ParametersCngAlgUsageKeyExchange => 0
 
     /**
      * Signature algorithm. (*e.g. RSA, DSA, ECDSA*)
+     * Native name: TlsParametersCngAlgUsageSignature
      * @type {Integer (Int32)}
      */
-    static TlsParametersCngAlgUsageSignature => 1
+    static ParametersCngAlgUsageSignature => 1
 
     /**
      * Encryption algorithm. (*e.g. AES, DES, RC4*)
+     * Native name: TlsParametersCngAlgUsageCipher
      * @type {Integer (Int32)}
      */
-    static TlsParametersCngAlgUsageCipher => 2
+    static ParametersCngAlgUsageCipher => 2
 
     /**
      * Digest of cipher suite. (*e.g. SHA1, SHA256, SHA384*)
+     * Native name: TlsParametersCngAlgUsageDigest
      * @type {Integer (Int32)}
      */
-    static TlsParametersCngAlgUsageDigest => 3
+    static ParametersCngAlgUsageDigest => 3
 
     /**
      * Signature and/or hash used to sign certificate. (*e.g. RSA, DSA, ECDSA, SHA1, SHA256*)
+     * Native name: TlsParametersCngAlgUsageCertSig
      * @type {Integer (Int32)}
      */
-    static TlsParametersCngAlgUsageCertSig => 4
+    static ParametersCngAlgUsageCertSig => 4
 }

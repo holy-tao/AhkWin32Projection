@@ -12,16 +12,18 @@ class WS_XML_CANONICALIZATION_ALGORITHM extends Win32Enum {
      * The exclusive XML canonicalization algorithm
      *           represented by the URI 'http://www.w3.org/2001/10/xml-exc-c14n#' and
      *           defined in <a href="https://datatracker.ietf.org/doc/html/rfc3741">RFC 3741</a>.
+     * Native name: WS_EXCLUSIVE_XML_CANONICALIZATION_ALGORITHM
      * @type {Integer (Int32)}
      */
-    static WS_EXCLUSIVE_XML_CANONICALIZATION_ALGORITHM => 0
+    static EXCLUSIVE_XML_CANONICALIZATION_ALGORITHM => 0
 
     /**
      * The exclusive XML canonicalization with comments algorithm
      *           defined in <a href="https://datatracker.ietf.org/doc/html/rfc3741">RFC 3741</a>.
+     * Native name: WS_EXCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM
      * @type {Integer (Int32)}
      */
-    static WS_EXCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM => 1
+    static EXCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM => 1
 
     /**
      * The inclusive XML canonicalization algorithm
@@ -30,9 +32,10 @@ class WS_XML_CANONICALIZATION_ALGORITHM extends Win32Enum {
      *         
      * 
      * Inclusive canonicalization can only be applied to entire xml documents.
+     * Native name: WS_INCLUSIVE_XML_CANONICALIZATION_ALGORITHM
      * @type {Integer (Int32)}
      */
-    static WS_INCLUSIVE_XML_CANONICALIZATION_ALGORITHM => 2
+    static INCLUSIVE_XML_CANONICALIZATION_ALGORITHM => 2
 
     /**
      * The inclusive XML canonicalization with comments algorithm
@@ -42,7 +45,8 @@ class WS_XML_CANONICALIZATION_ALGORITHM extends Win32Enum {
      *         
      * 
      * Inclusive canonicalization can only be applied to entire xml documents.
+     * Native name: WS_INCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM
      * @type {Integer (Int32)}
      */
-    static WS_INCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM => 3
+    static INCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM => 3
 }

@@ -7,32 +7,38 @@
 class WHEAP_DPC_ERROR_EVENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheapDpcErrNoErr
      * @type {Integer (Int32)}
      */
-    static WheapDpcErrNoErr => 0
+    static ErrNoErr => 0
 
     /**
+     * Native name: WheapDpcErrBusNotFound
      * @type {Integer (Int32)}
      */
-    static WheapDpcErrBusNotFound => 1
+    static ErrBusNotFound => 1
 
     /**
+     * Native name: WheapDpcErrDpcedSubtree
      * @type {Integer (Int32)}
      */
-    static WheapDpcErrDpcedSubtree => 2
+    static ErrDpcedSubtree => 2
 
     /**
+     * Native name: WheapDpcErrDeviceIdBad
      * @type {Integer (Int32)}
      */
-    static WheapDpcErrDeviceIdBad => 3
+    static ErrDeviceIdBad => 3
 
     /**
+     * Native name: WheapDpcErrResetFailed
      * @type {Integer (Int32)}
      */
-    static WheapDpcErrResetFailed => 4
+    static ErrResetFailed => 4
 
     /**
+     * Native name: WheapDpcErrNoChildren
      * @type {Integer (Int32)}
      */
-    static WheapDpcErrNoChildren => 5
+    static ErrNoChildren => 5
 }

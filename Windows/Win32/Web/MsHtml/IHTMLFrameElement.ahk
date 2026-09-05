@@ -44,7 +44,6 @@ class IHTMLFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class IHTMLFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {

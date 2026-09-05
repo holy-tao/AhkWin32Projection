@@ -10,13 +10,15 @@ class WbemObjectTextFormatEnum extends Win32Enum {
 
     /**
      * XML format conforming to the DMTF (Distributed Management Task Force) CIM document type definition (DTD) version 2.0.
+     * Native name: wbemObjectTextFormatCIMDTD20
      * @type {Integer (Int32)}
      */
-    static wbemObjectTextFormatCIMDTD20 => 1
+    static FormatCIMDTD20 => 1
 
     /**
      * XML format as defined by the extended WMI version of DMTF CIM DTD version 2.0. Using this value enables WMI-specific extensions, such as embedded objects or scope.
+     * Native name: wbemObjectTextFormatWMIDTD20
      * @type {Integer (Int32)}
      */
-    static wbemObjectTextFormatWMIDTD20 => 2
+    static FormatWMIDTD20 => 2
 }

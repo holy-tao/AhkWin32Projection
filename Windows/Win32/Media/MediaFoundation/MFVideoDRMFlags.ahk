@@ -12,19 +12,22 @@ class MFVideoDRMFlags extends Win32Enum {
 
     /**
      * No copy protection is required.
+     * Native name: MFVideoDRMFlag_None
      * @type {Integer (Int32)}
      */
-    static MFVideoDRMFlag_None => 0
+    static Flag_None => 0
 
     /**
      * Analog copy protection should be applied.
+     * Native name: MFVideoDRMFlag_AnalogProtected
      * @type {Integer (Int32)}
      */
-    static MFVideoDRMFlag_AnalogProtected => 1
+    static Flag_AnalogProtected => 1
 
     /**
      * Digital copy protection should be applied.
+     * Native name: MFVideoDRMFlag_DigitallyProtected
      * @type {Integer (Int32)}
      */
-    static MFVideoDRMFlag_DigitallyProtected => 2
+    static Flag_DigitallyProtected => 2
 }

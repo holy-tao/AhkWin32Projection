@@ -30,7 +30,6 @@ class IVssAdminEx extends IVssAdmin {
     static VTableNames => ["GetProviderCapability", "GetProviderContext", "SetProviderContext"]
 
     /**
-     * 
      * @param {Guid} pProviderId 
      * @returns {Integer} 
      */
@@ -40,7 +39,6 @@ class IVssAdminEx extends IVssAdmin {
     }
 
     /**
-     * 
      * @param {Guid} ProviderId 
      * @returns {Integer} 
      */
@@ -50,7 +48,6 @@ class IVssAdminEx extends IVssAdmin {
     }
 
     /**
-     * 
      * @param {Guid} ProviderId 
      * @param {Integer} lContext 
      * @returns {HRESULT} 

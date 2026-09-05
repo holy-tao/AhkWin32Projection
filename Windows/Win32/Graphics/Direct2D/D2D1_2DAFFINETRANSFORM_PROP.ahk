@@ -15,9 +15,10 @@ class D2D1_2DAFFINETRANSFORM_PROP extends Win32Enum {
      * Type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_2daffinetransform_interpolation_mode">D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE</a>.
      * 
      * Default value is D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE_LINEAR.
+     * Native name: D2D1_2DAFFINETRANSFORM_PROP_INTERPOLATION_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_2DAFFINETRANSFORM_PROP_INTERPOLATION_MODE => 0
+    static INTERPOLATION_MODE => 0
 
     /**
      * The mode used to calculate the border of the image, soft or hard.
@@ -26,9 +27,10 @@ class D2D1_2DAFFINETRANSFORM_PROP extends Win32Enum {
      * Type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_border_mode">D2D1_BORDER_MODE</a>.
      * 
      * Default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_2DAFFINETRANSFORM_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_2DAFFINETRANSFORM_PROP_BORDER_MODE => 1
+    static BORDER_MODE => 1
 
     /**
      * The 3x2 matrix to transform the image using the Direct2D matrix transform.
@@ -37,9 +39,10 @@ class D2D1_2DAFFINETRANSFORM_PROP extends Win32Enum {
      * Type is <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>.
      * 
      * Default value is Matrix3x2F::Identity().
+     * Native name: D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX
      * @type {Integer (Int32)}
      */
-    static D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX => 2
+    static TRANSFORM_MATRIX => 2
 
     /**
      * In the high quality cubic interpolation mode, the sharpness level of the scaling filter as a float between 0 and 1. The values are unitless. You can use sharpness to adjust the quality of an image when you scale the image.
@@ -51,7 +54,8 @@ class D2D1_2DAFFINETRANSFORM_PROP extends Win32Enum {
      * Type is FLOAT.
      * 
      * Default value is 1.0f.
+     * Native name: D2D1_2DAFFINETRANSFORM_PROP_SHARPNESS
      * @type {Integer (Int32)}
      */
-    static D2D1_2DAFFINETRANSFORM_PROP_SHARPNESS => 3
+    static SHARPNESS => 3
 }

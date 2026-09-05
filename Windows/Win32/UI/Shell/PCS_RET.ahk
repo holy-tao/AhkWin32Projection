@@ -7,27 +7,32 @@
 class PCS_RET extends Win32BitflagEnum {
 
     /**
+     * Native name: PCS_FATAL
      * @type {Integer (UInt32)}
      */
-    static PCS_FATAL => 2147483648
+    static FATAL => 2147483648
 
     /**
+     * Native name: PCS_REPLACEDCHAR
      * @type {Integer (UInt32)}
      */
-    static PCS_REPLACEDCHAR => 1
+    static REPLACEDCHAR => 1
 
     /**
+     * Native name: PCS_REMOVEDCHAR
      * @type {Integer (UInt32)}
      */
-    static PCS_REMOVEDCHAR => 2
+    static REMOVEDCHAR => 2
 
     /**
+     * Native name: PCS_TRUNCATED
      * @type {Integer (UInt32)}
      */
-    static PCS_TRUNCATED => 4
+    static TRUNCATED => 4
 
     /**
+     * Native name: PCS_PATHTOOLONG
      * @type {Integer (UInt32)}
      */
-    static PCS_PATHTOOLONG => 8
+    static PATHTOOLONG => 8
 }

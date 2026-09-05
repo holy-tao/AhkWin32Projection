@@ -7,22 +7,26 @@
 class SCHEMAWHITESPACE extends Win32Enum {
 
     /**
+     * Native name: SCHEMAWHITESPACE_NONE
      * @type {Integer (Int32)}
      */
-    static SCHEMAWHITESPACE_NONE => -1
+    static NONE => -1
 
     /**
+     * Native name: SCHEMAWHITESPACE_PRESERVE
      * @type {Integer (Int32)}
      */
-    static SCHEMAWHITESPACE_PRESERVE => 0
+    static PRESERVE => 0
 
     /**
+     * Native name: SCHEMAWHITESPACE_REPLACE
      * @type {Integer (Int32)}
      */
-    static SCHEMAWHITESPACE_REPLACE => 1
+    static REPLACE => 1
 
     /**
+     * Native name: SCHEMAWHITESPACE_COLLAPSE
      * @type {Integer (Int32)}
      */
-    static SCHEMAWHITESPACE_COLLAPSE => 2
+    static COLLAPSE => 2
 }

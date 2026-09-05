@@ -31,7 +31,6 @@ class ICodeAddressConcept extends IUnknown {
     static VTableNames => ["GetContainingSymbol"]
 
     /**
-     * 
      * @param {IModelObject} pContextObject 
      * @returns {IDebugHostSymbol} 
      */

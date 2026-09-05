@@ -10,19 +10,22 @@ class WMPServices_StreamState extends Win32Enum {
 
     /**
      * The stream is stopped.
+     * Native name: WMPServices_StreamState_Stop
      * @type {Integer (Int32)}
      */
-    static WMPServices_StreamState_Stop => 0
+    static Stop => 0
 
     /**
      * The stream is paused.
+     * Native name: WMPServices_StreamState_Pause
      * @type {Integer (Int32)}
      */
-    static WMPServices_StreamState_Pause => 1
+    static Pause => 1
 
     /**
      * The stream is playing.
+     * Native name: WMPServices_StreamState_Play
      * @type {Integer (Int32)}
      */
-    static WMPServices_StreamState_Play => 2
+    static Play => 2
 }

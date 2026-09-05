@@ -10,19 +10,22 @@ class DHCP_SEARCH_INFO_TYPE extends Win32Enum {
 
     /**
      * The search will be performed against the assigned DHCP client IP address, represented as a 32-bit unsigned integer value.
+     * Native name: DhcpClientIpAddress
      * @type {Integer (Int32)}
      */
-    static DhcpClientIpAddress => 0
+    static ClientIpAddress => 0
 
     /**
      * The search will be performed against the MAC address of the DHCP client network interface device, represented as a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_BINARY_DATA</a> structure.
+     * Native name: DhcpClientHardwareAddress
      * @type {Integer (Int32)}
      */
-    static DhcpClientHardwareAddress => 1
+    static ClientHardwareAddress => 1
 
     /**
      * The search will be performed against the DHCP client's network name, represented as a Unicode string.
+     * Native name: DhcpClientName
      * @type {Integer (Int32)}
      */
-    static DhcpClientName => 2
+    static ClientName => 2
 }

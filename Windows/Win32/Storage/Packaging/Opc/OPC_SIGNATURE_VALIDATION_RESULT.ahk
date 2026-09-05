@@ -15,15 +15,17 @@ class OPC_SIGNATURE_VALIDATION_RESULT extends Win32Enum {
      * 
      * <div class="alert"><b>Important</b>  Signature trust decisions must be based on the validity of the signature  as well as other format- and application-specific factors, including:  validation of the identity of the package originator, signing policy, certificate quality, and possibly the existence of a valid time stamp.</div>
      * <div> </div>
+     * Native name: OPC_SIGNATURE_VALID
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_VALID => 0
+    static VALID => 0
 
     /**
      * The signature is not valid.
      * 
      * Signature markup or signed package components might have been altered. Alternatively, the signature might not exist in the current package.
+     * Native name: OPC_SIGNATURE_INVALID
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_INVALID => -1
+    static INVALID => -1
 }

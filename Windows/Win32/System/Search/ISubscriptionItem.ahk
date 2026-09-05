@@ -34,7 +34,6 @@ class ISubscriptionItem extends IUnknown {
     static VTableNames => ["GetCookie", "GetSubscriptionItemInfo", "SetSubscriptionItemInfo", "ReadProperties", "WriteProperties", "EnumProperties", "NotifyChanged"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetCookie() {
@@ -44,7 +43,6 @@ class ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SUBSCRIPTIONITEMINFO} 
      */
     GetSubscriptionItemInfo() {
@@ -54,7 +52,6 @@ class ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SUBSCRIPTIONITEMINFO>} pSubscriptionItemInfo 
      * @returns {HRESULT} 
      */
@@ -64,7 +61,6 @@ class ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nCount 
      * @param {Pointer<PWSTR>} rgwszName 
      * @returns {VARIANT} 
@@ -78,7 +74,6 @@ class ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nCount 
      * @param {Pointer<PWSTR>} rgwszName 
      * @param {Pointer<VARIANT>} rgValue 
@@ -92,7 +87,6 @@ class ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumItemProperties} 
      */
     EnumProperties() {
@@ -101,7 +95,6 @@ class ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyChanged() {

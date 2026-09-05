@@ -32,7 +32,6 @@ class IIEWebDriverSite extends IDispatch {
     static VTableNames => ["WindowOperation", "DetachWebdriver", "GetCapabilityValue"]
 
     /**
-     * 
      * @param {Integer} operationCode 
      * @param {Integer} _hWnd 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IIEWebDriverSite extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkWD 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class IIEWebDriverSite extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkWD 
      * @param {PWSTR} capName 
      * @returns {VARIANT} 

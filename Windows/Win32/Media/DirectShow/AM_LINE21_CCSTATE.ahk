@@ -10,13 +10,15 @@ class AM_LINE21_CCSTATE extends Win32Enum {
 
     /**
      * Closed captioning off.
+     * Native name: AM_L21_CCSTATE_Off
      * @type {Integer (Int32)}
      */
-    static AM_L21_CCSTATE_Off => 0
+    static L21_CCSTATE_Off => 0
 
     /**
      * Closed captioning on.
+     * Native name: AM_L21_CCSTATE_On
      * @type {Integer (Int32)}
      */
-    static AM_L21_CCSTATE_On => 1
+    static L21_CCSTATE_On => 1
 }

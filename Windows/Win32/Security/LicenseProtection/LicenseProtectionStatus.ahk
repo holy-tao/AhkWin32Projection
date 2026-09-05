@@ -12,22 +12,26 @@ class LicenseProtectionStatus extends Win32Enum {
     static Success => 0
 
     /**
+     * Native name: LicenseKeyNotFound
      * @type {Integer (Int32)}
      */
-    static LicenseKeyNotFound => 1
+    static KeyNotFound => 1
 
     /**
+     * Native name: LicenseKeyUnprotected
      * @type {Integer (Int32)}
      */
-    static LicenseKeyUnprotected => 2
+    static KeyUnprotected => 2
 
     /**
+     * Native name: LicenseKeyCorrupted
      * @type {Integer (Int32)}
      */
-    static LicenseKeyCorrupted => 3
+    static KeyCorrupted => 3
 
     /**
+     * Native name: LicenseKeyAlreadyExists
      * @type {Integer (Int32)}
      */
-    static LicenseKeyAlreadyExists => 4
+    static KeyAlreadyExists => 4
 }

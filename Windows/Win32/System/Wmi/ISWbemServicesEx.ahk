@@ -39,7 +39,6 @@ class ISWbemServicesEx extends ISWbemServices {
     static VTableNames => ["Put", "PutAsync"]
 
     /**
-     * 
      * @param {ISWbemObjectEx} objWbemObject 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -51,7 +50,6 @@ class ISWbemServicesEx extends ISWbemServices {
     }
 
     /**
-     * 
      * @param {ISWbemSink} objWbemSink 
      * @param {ISWbemObjectEx} objWbemObject 
      * @param {Integer} iFlags 

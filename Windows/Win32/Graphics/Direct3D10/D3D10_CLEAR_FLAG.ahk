@@ -12,13 +12,15 @@ class D3D10_CLEAR_FLAG extends Win32Enum {
 
     /**
      * Clear the depth buffer.
+     * Native name: D3D10_CLEAR_DEPTH
      * @type {Integer (Int32)}
      */
-    static D3D10_CLEAR_DEPTH => 1
+    static DEPTH => 1
 
     /**
      * Clear the stencil buffer.
+     * Native name: D3D10_CLEAR_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D10_CLEAR_STENCIL => 2
+    static STENCIL => 2
 }

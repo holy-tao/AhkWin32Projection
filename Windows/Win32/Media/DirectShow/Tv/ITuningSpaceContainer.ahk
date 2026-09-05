@@ -178,7 +178,6 @@ class ITuningSpaceContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} SpaceCLSID 
      * @returns {ITuningSpaces} 
      */

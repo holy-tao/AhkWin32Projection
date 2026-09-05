@@ -7,12 +7,14 @@
 class DXGKMDT_OPM_DPCP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_DPCP_OFF
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_DPCP_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: DXGKMDT_OPM_DPCP_ON
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_DPCP_ON => 1
+    static ON => 1
 }

@@ -36,7 +36,6 @@ class IMSMQQueueInfos extends IDispatch {
     static VTableNames => ["Reset", "Next"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -45,7 +44,6 @@ class IMSMQQueueInfos extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     Next() {

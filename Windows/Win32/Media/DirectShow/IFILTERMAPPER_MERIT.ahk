@@ -7,32 +7,38 @@
 class IFILTERMAPPER_MERIT extends Win32Enum {
 
     /**
+     * Native name: MERIT_PREFERRED
      * @type {Integer (Int32)}
      */
-    static MERIT_PREFERRED => 8388608
+    static PREFERRED => 8388608
 
     /**
+     * Native name: MERIT_NORMAL
      * @type {Integer (Int32)}
      */
-    static MERIT_NORMAL => 6291456
+    static NORMAL => 6291456
 
     /**
+     * Native name: MERIT_UNLIKELY
      * @type {Integer (Int32)}
      */
-    static MERIT_UNLIKELY => 4194304
+    static UNLIKELY => 4194304
 
     /**
+     * Native name: MERIT_DO_NOT_USE
      * @type {Integer (Int32)}
      */
-    static MERIT_DO_NOT_USE => 2097152
+    static DO_NOT_USE => 2097152
 
     /**
+     * Native name: MERIT_SW_COMPRESSOR
      * @type {Integer (Int32)}
      */
-    static MERIT_SW_COMPRESSOR => 1048576
+    static SW_COMPRESSOR => 1048576
 
     /**
+     * Native name: MERIT_HW_COMPRESSOR
      * @type {Integer (Int32)}
      */
-    static MERIT_HW_COMPRESSOR => 1048656
+    static HW_COMPRESSOR => 1048656
 }

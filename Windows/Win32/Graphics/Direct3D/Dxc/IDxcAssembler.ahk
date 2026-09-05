@@ -31,7 +31,6 @@ class IDxcAssembler extends IUnknown {
     static VTableNames => ["AssembleToContainer"]
 
     /**
-     * 
      * @param {IDxcBlob} pShader 
      * @returns {IDxcOperationResult} 
      */

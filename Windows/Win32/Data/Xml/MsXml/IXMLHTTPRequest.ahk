@@ -192,7 +192,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -206,7 +205,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @returns {BSTR} 
      */
@@ -219,7 +217,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getAllResponseHeaders() {
@@ -510,7 +507,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_status() {
@@ -519,7 +515,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_statusText() {
@@ -529,7 +524,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_responseXML() {
@@ -538,7 +532,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_responseText() {
@@ -548,7 +541,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_responseBody() {
@@ -558,7 +550,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_responseStream() {
@@ -568,7 +559,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -577,7 +567,6 @@ class IXMLHTTPRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pReadyStateSink 
      * @returns {HRESULT} 
      */

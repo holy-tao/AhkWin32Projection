@@ -7,22 +7,26 @@
 class D3D12_LINE_RASTERIZATION_MODE extends Win32Enum {
 
     /**
+     * Native name: D3D12_LINE_RASTERIZATION_MODE_ALIASED
      * @type {Integer (Int32)}
      */
-    static D3D12_LINE_RASTERIZATION_MODE_ALIASED => 0
+    static ALIASED => 0
 
     /**
+     * Native name: D3D12_LINE_RASTERIZATION_MODE_ALPHA_ANTIALIASED
      * @type {Integer (Int32)}
      */
-    static D3D12_LINE_RASTERIZATION_MODE_ALPHA_ANTIALIASED => 1
+    static ALPHA_ANTIALIASED => 1
 
     /**
+     * Native name: D3D12_LINE_RASTERIZATION_MODE_QUADRILATERAL_WIDE
      * @type {Integer (Int32)}
      */
-    static D3D12_LINE_RASTERIZATION_MODE_QUADRILATERAL_WIDE => 2
+    static QUADRILATERAL_WIDE => 2
 
     /**
+     * Native name: D3D12_LINE_RASTERIZATION_MODE_QUADRILATERAL_NARROW
      * @type {Integer (Int32)}
      */
-    static D3D12_LINE_RASTERIZATION_MODE_QUADRILATERAL_NARROW => 3
+    static QUADRILATERAL_NARROW => 3
 }

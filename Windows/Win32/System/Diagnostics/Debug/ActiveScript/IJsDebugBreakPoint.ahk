@@ -94,7 +94,6 @@ class IJsDebugBreakPoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -103,7 +102,6 @@ class IJsDebugBreakPoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pDocumentId 
      * @param {Pointer<Integer>} pCharacterOffset 
      * @param {Pointer<Integer>} pStatementCharCount 

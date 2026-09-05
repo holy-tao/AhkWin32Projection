@@ -10,49 +10,57 @@ class NVME_STATUS_MEDIA_ERROR_CODES extends Win32Enum {
 
     /**
      * The write data could not be committed to the media.
+     * Native name: NVME_STATUS_NVM_WRITE_FAULT
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_WRITE_FAULT => 128
+    static NVM_WRITE_FAULT => 128
 
     /**
      * The read data could not be recovered from the media.
+     * Native name: NVME_STATUS_NVM_UNRECOVERED_READ_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_UNRECOVERED_READ_ERROR => 129
+    static NVM_UNRECOVERED_READ_ERROR => 129
 
     /**
      * The command was aborted due to an end-to-end guard check failure.
+     * Native name: NVME_STATUS_NVM_END_TO_END_GUARD_CHECK_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_END_TO_END_GUARD_CHECK_ERROR => 130
+    static NVM_END_TO_END_GUARD_CHECK_ERROR => 130
 
     /**
      * The command was aborted due to an end-to-end application tag check failure.
+     * Native name: NVME_STATUS_NVM_END_TO_END_APPLICATION_TAG_CHECK_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_END_TO_END_APPLICATION_TAG_CHECK_ERROR => 131
+    static NVM_END_TO_END_APPLICATION_TAG_CHECK_ERROR => 131
 
     /**
      * The command was aborted due to an end-to-end reference tag check failure.
+     * Native name: NVME_STATUS_NVM_END_TO_END_REFERENCE_TAG_CHECK_ERROR
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_END_TO_END_REFERENCE_TAG_CHECK_ERROR => 132
+    static NVM_END_TO_END_REFERENCE_TAG_CHECK_ERROR => 132
 
     /**
      * The command failed due to a miscompare during a Compare command.
+     * Native name: NVME_STATUS_NVM_COMPARE_FAILURE
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_COMPARE_FAILURE => 133
+    static NVM_COMPARE_FAILURE => 133
 
     /**
      * Access to the namespace and/or Logical Block Address (LBA) range is denied due to lack of access rights. For more information, see the [TCG Storage Interface Interactions Specification (SIIS)](https://trustedcomputinggroup.org).
+     * Native name: NVME_STATUS_NVM_ACCESS_DENIED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_ACCESS_DENIED => 134
+    static NVM_ACCESS_DENIED => 134
 
     /**
      * The command failed due to an attempt to read from an LBA range containing a deallocated or unwritten logical block.
+     * Native name: NVME_STATUS_NVM_DEALLOCATED_OR_UNWRITTEN_LOGICAL_BLOCK
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_NVM_DEALLOCATED_OR_UNWRITTEN_LOGICAL_BLOCK => 135
+    static NVM_DEALLOCATED_OR_UNWRITTEN_LOGICAL_BLOCK => 135
 }

@@ -13,9 +13,10 @@ class VDS_ISCSI_LOGIN_FLAG extends Win32Enum {
 
     /**
      * Reserved for future use.
+     * Native name: VDS_ILF_REQUIRE_IPSEC
      * @type {Integer (Int32)}
      */
-    static VDS_ILF_REQUIRE_IPSEC => 1
+    static ILF_REQUIRE_IPSEC => 1
 
     /**
      * If this flag is set, the login is allowed to proceed and create a new login session even if there is already a login session to the target.
@@ -23,7 +24,8 @@ class VDS_ISCSI_LOGIN_FLAG extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Multipathing software must be present or else data corruption may occur.</div>
      * <div> </div>
+     * Native name: VDS_ILF_MULTIPATH_ENABLED
      * @type {Integer (Int32)}
      */
-    static VDS_ILF_MULTIPATH_ENABLED => 2
+    static ILF_MULTIPATH_ENABLED => 2
 }

@@ -7,22 +7,26 @@
 class styleClipRule extends Win32Enum {
 
     /**
+     * Native name: styleClipRuleNotSet
      * @type {Integer (Int32)}
      */
-    static styleClipRuleNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleClipRuleNonZero
      * @type {Integer (Int32)}
      */
-    static styleClipRuleNonZero => 1
+    static NonZero => 1
 
     /**
+     * Native name: styleClipRuleEvenOdd
      * @type {Integer (Int32)}
      */
-    static styleClipRuleEvenOdd => 2
+    static EvenOdd => 2
 
     /**
+     * Native name: styleClipRule_Max
      * @type {Integer (Int32)}
      */
-    static styleClipRule_Max => 2147483647
+    static Max => 2147483647
 }

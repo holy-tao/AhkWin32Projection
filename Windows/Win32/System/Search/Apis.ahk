@@ -17468,7 +17468,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} ParameterNumber 
      * @param {Integer} ValueType 
@@ -18039,7 +18038,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} iCol 
      * @param {Integer} iField 
@@ -18059,7 +18057,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Integer} fDescType 
@@ -18079,7 +18076,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Pointer<Integer>} szColName 
@@ -18105,7 +18101,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdesc 
      * @param {Integer} iRecord 
      * @param {Pointer<Integer>} szName 
@@ -18135,7 +18130,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fOption 
      * @param {Integer} vParam 
@@ -18149,7 +18143,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} iCol 
      * @param {Integer} iField 
@@ -18169,7 +18162,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Integer} fDescType 
@@ -18189,7 +18181,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Pointer<Integer>} szColName 
@@ -18215,7 +18206,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdesc 
      * @param {Integer} iRecord 
      * @param {Pointer<Integer>} szName 
@@ -18245,7 +18235,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fOption 
      * @param {Integer} vParam 
@@ -20344,7 +20333,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 
@@ -20364,7 +20352,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 
@@ -20431,7 +20418,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PSTR} param1 
      * @returns {Integer} 
@@ -20446,7 +20432,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PWSTR} param1 
      * @returns {Integer} 
@@ -20534,7 +20519,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PSTR} param1 
      * @returns {Integer} 
@@ -20549,7 +20533,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PWSTR} param1 
      * @returns {Integer} 
@@ -20564,7 +20547,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {PSTR} 
      */
@@ -20574,7 +20556,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {PWSTR} 
      */
@@ -20584,7 +20565,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @returns {Integer} 
      */
@@ -20596,7 +20576,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 
@@ -20612,7 +20591,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 
@@ -20628,7 +20606,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchServerName 
      * @param {PWSTR} pwchInstanceName 
      * @returns {HANDLE} 
@@ -20643,7 +20620,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnumHandle 
      * @param {Pointer<Integer>} prgEnumData 
      * @param {Pointer<Integer>} piEnumLength 
@@ -20660,7 +20636,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnumHandle 
      * @returns {Integer} 
      */
@@ -21320,7 +21295,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} hInput 
      * @param {Pointer<Pointer<Void>>} phOutput 
@@ -21335,7 +21309,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} dwValue 
      * @returns {BOOL} 
      */
@@ -21345,7 +21318,6 @@ class Search {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ODBCGetTryWaitValue() {
@@ -21354,7 +21326,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Integer>} szDSN 
      * @param {Integer} cchDSN 
@@ -21375,7 +21346,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} henv 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Void>} hstmt 
@@ -21400,7 +21370,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} TextLength 
@@ -21415,7 +21384,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
@@ -21433,7 +21401,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cchCursorMax 
@@ -21450,7 +21417,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DescriptorHandle 
      * @param {Integer} RecNumber 
      * @param {Integer} FieldIdentifier 
@@ -21467,7 +21433,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdesc 
      * @param {Integer} iRecord 
      * @param {Integer} iField 
@@ -21486,7 +21451,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
@@ -21506,7 +21470,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
@@ -21529,7 +21492,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cchSqlStr 
@@ -21544,7 +21506,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
      * @param {Integer} rgbValue 
@@ -21559,7 +21520,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cchCursor 
@@ -21574,7 +21534,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21598,7 +21557,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fOption 
      * @param {Pointer<Void>} pvParam 
@@ -21613,7 +21571,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fInfoType 
      * @param {Integer} rgbInfoValue 
@@ -21630,7 +21587,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} DataType 
      * @returns {Integer} 
@@ -21643,7 +21599,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fColType 
      * @param {Pointer<Integer>} szCatalogName 
@@ -21667,7 +21622,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21690,7 +21644,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21714,7 +21667,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
      * @param {Pointer<Integer>} szDSN 
@@ -21737,7 +21689,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer} _hwnd 
      * @param {Pointer<Integer>} szConnStrIn 
@@ -21759,7 +21710,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cchConnStrIn 
@@ -21779,7 +21729,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21803,7 +21752,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
@@ -21821,7 +21769,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
@@ -21837,7 +21784,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szPkCatalogName 
      * @param {Integer} cchPkCatalogName 
@@ -21867,7 +21813,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Integer>} szSqlStrIn 
      * @param {Integer} cchSqlStrIn 
@@ -21887,7 +21832,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21908,7 +21852,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21932,7 +21875,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21953,7 +21895,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
@@ -21974,7 +21915,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
      * @param {Pointer<Integer>} szDriverDesc 
@@ -21997,7 +21937,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Integer>} szDSN 
      * @param {Integer} cbDSN 
@@ -22018,7 +21957,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} henv 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Void>} hstmt 
@@ -22043,7 +21981,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cbSqlStr 
@@ -22058,7 +21995,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
@@ -22076,7 +22012,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cbCursorMax 
@@ -22093,7 +22028,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdesc 
      * @param {Integer} iRecord 
      * @param {Integer} iField 
@@ -22112,7 +22046,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
@@ -22132,7 +22065,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
@@ -22155,7 +22087,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
@@ -22173,7 +22104,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} DataType 
      * @returns {Integer} 
@@ -22186,7 +22116,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cbSqlStr 
@@ -22201,7 +22130,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
      * @param {Integer} rgbValue 
@@ -22216,7 +22144,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cbCursor 
@@ -22231,7 +22158,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22255,7 +22181,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fOption 
      * @param {Pointer<Void>} pvParam 
@@ -22270,7 +22195,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fInfoType 
      * @param {Integer} rgbInfoValue 
@@ -22287,7 +22211,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fColType 
      * @param {Pointer<Integer>} szCatalogName 
@@ -22311,7 +22234,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22334,7 +22256,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22358,7 +22279,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
      * @param {Pointer<Integer>} szDSN 
@@ -22381,7 +22301,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer} _hwnd 
      * @param {Pointer<Integer>} szConnStrIn 
@@ -22403,7 +22322,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cbConnStrIn 
@@ -22423,7 +22341,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22447,7 +22364,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szPkCatalogName 
      * @param {Integer} cbPkCatalogName 
@@ -22477,7 +22393,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Integer>} szSqlStrIn 
      * @param {Integer} cbSqlStrIn 
@@ -22497,7 +22412,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22518,7 +22432,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22542,7 +22455,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22563,7 +22475,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hstmt 
      * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
@@ -22584,7 +22495,6 @@ class Search {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
      * @param {Pointer<Integer>} szDriverDesc 

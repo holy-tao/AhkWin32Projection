@@ -30,7 +30,6 @@ class ICatalogFileInfo extends IUnknown {
     static VTableNames => ["GetCatalogFile", "GetJavaTrust"]
 
     /**
-     * 
      * @returns {PSTR} 
      */
     GetCatalogFile() {
@@ -39,7 +38,6 @@ class ICatalogFileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     GetJavaTrust() {

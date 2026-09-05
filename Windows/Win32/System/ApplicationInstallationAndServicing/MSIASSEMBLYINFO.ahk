@@ -7,12 +7,14 @@
 class MSIASSEMBLYINFO extends Win32Enum {
 
     /**
+     * Native name: MSIASSEMBLYINFO_NETASSEMBLY
      * @type {Integer (UInt32)}
      */
-    static MSIASSEMBLYINFO_NETASSEMBLY => 0
+    static NETASSEMBLY => 0
 
     /**
+     * Native name: MSIASSEMBLYINFO_WIN32ASSEMBLY
      * @type {Integer (UInt32)}
      */
-    static MSIASSEMBLYINFO_WIN32ASSEMBLY => 1
+    static WIN32ASSEMBLY => 1
 }

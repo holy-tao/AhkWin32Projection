@@ -29,7 +29,6 @@ class IPortableDeviceServiceOpenCallback extends IUnknown {
     static VTableNames => ["OnComplete"]
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
      */

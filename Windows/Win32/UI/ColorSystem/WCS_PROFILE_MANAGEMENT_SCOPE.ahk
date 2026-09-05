@@ -10,13 +10,15 @@ class WCS_PROFILE_MANAGEMENT_SCOPE extends Win32Enum {
 
     /**
      * Indicates that the profile management operation affects all users.
+     * Native name: WCS_PROFILE_MANAGEMENT_SCOPE_SYSTEM_WIDE
      * @type {Integer (Int32)}
      */
-    static WCS_PROFILE_MANAGEMENT_SCOPE_SYSTEM_WIDE => 0
+    static SYSTEM_WIDE => 0
 
     /**
      * Indicates that the profile management operation affects only the current user.
+     * Native name: WCS_PROFILE_MANAGEMENT_SCOPE_CURRENT_USER
      * @type {Integer (Int32)}
      */
-    static WCS_PROFILE_MANAGEMENT_SCOPE_CURRENT_USER => 1
+    static CURRENT_USER => 1
 }

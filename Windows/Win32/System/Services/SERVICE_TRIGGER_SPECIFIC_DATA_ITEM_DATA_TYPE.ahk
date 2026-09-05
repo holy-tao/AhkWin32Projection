@@ -7,27 +7,32 @@
 class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE extends Win32Enum {
 
     /**
+     * Native name: SERVICE_TRIGGER_DATA_TYPE_BINARY
      * @type {Integer (UInt32)}
      */
-    static SERVICE_TRIGGER_DATA_TYPE_BINARY => 1
+    static BINARY => 1
 
     /**
+     * Native name: SERVICE_TRIGGER_DATA_TYPE_STRING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_TRIGGER_DATA_TYPE_STRING => 2
+    static STRING => 2
 
     /**
+     * Native name: SERVICE_TRIGGER_DATA_TYPE_LEVEL
      * @type {Integer (UInt32)}
      */
-    static SERVICE_TRIGGER_DATA_TYPE_LEVEL => 3
+    static LEVEL => 3
 
     /**
+     * Native name: SERVICE_TRIGGER_DATA_TYPE_KEYWORD_ANY
      * @type {Integer (UInt32)}
      */
-    static SERVICE_TRIGGER_DATA_TYPE_KEYWORD_ANY => 4
+    static KEYWORD_ANY => 4
 
     /**
+     * Native name: SERVICE_TRIGGER_DATA_TYPE_KEYWORD_ALL
      * @type {Integer (UInt32)}
      */
-    static SERVICE_TRIGGER_DATA_TYPE_KEYWORD_ALL => 5
+    static KEYWORD_ALL => 5
 }

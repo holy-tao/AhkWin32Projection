@@ -48,7 +48,6 @@ class IDirectInputDevice8W extends IUnknown {
     static VTableNames => ["GetCapabilities", "EnumObjects", "GetProperty", "SetProperty", "Acquire", "Unacquire", "GetDeviceState", "GetDeviceData", "SetDataFormat", "SetEventNotification", "SetCooperativeLevel", "GetObjectInfo", "GetDeviceInfo", "RunControlPanel", "Initialize", "CreateEffect", "EnumEffects", "GetEffectInfo", "GetForceFeedbackState", "SendForceFeedbackCommand", "EnumCreatedEffectObjects", "Escape", "Poll", "SendDeviceData", "EnumEffectsInFile", "WriteEffectToFile", "BuildActionMap", "SetActionMap", "GetImageInfo"]
 
     /**
-     * 
      * @param {Pointer<DIDEVCAPS>} param0 
      * @returns {HRESULT} 
      */
@@ -93,7 +92,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIPROPHEADER>} param1 
      * @returns {HRESULT} 
@@ -104,7 +102,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Acquire() {
@@ -113,7 +110,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unacquire() {
@@ -122,7 +118,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @returns {HRESULT} 
@@ -135,7 +130,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICEOBJECTDATA>} param1 
      * @param {Pointer<Integer>} param2 
@@ -150,7 +144,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDATAFORMAT>} param0 
      * @returns {HRESULT} 
      */
@@ -160,7 +153,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {HRESULT} 
      */
@@ -172,7 +164,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -185,7 +176,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEOBJECTINSTANCEW>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -197,7 +187,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEINSTANCEW>} param0 
      * @returns {HRESULT} 
      */
@@ -207,7 +196,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -258,7 +246,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIEFFECT>} param1 
      * @param {IUnknown} param3 
@@ -270,7 +257,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPDIENUMEFFECTSCALLBACKW>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
@@ -284,7 +270,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIEFFECTINFOW>} param0 
      * @param {Pointer<Guid>} param1 
      * @returns {HRESULT} 
@@ -295,7 +280,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -307,7 +291,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -317,7 +300,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPDIENUMCREATEDEFFECTOBJECTSCALLBACK>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
@@ -382,7 +364,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Poll() {
@@ -391,7 +372,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICEOBJECTDATA>} param1 
      * @param {Pointer<Integer>} param2 
@@ -406,7 +386,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Pointer<LPDIENUMEFFECTSINFILECALLBACK>} param1 
      * @param {Pointer<Void>} param2 
@@ -423,7 +402,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<DIFILEEFFECT>} param2 
@@ -438,7 +416,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIACTIONFORMATW>} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 
@@ -452,7 +429,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIACTIONFORMATW>} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 
@@ -466,7 +442,6 @@ class IDirectInputDevice8W extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEIMAGEINFOHEADERW>} param0 
      * @returns {HRESULT} 
      */

@@ -10,31 +10,36 @@ class DWRITE_FONT_SOURCE_TYPE extends Win32Enum {
 
     /**
      * Specifies that the font source is unknown, or is not any of the other defined font source types.
+     * Native name: DWRITE_FONT_SOURCE_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SOURCE_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Specifies that the font source is a font file that's installed for all users on the device.
+     * Native name: DWRITE_FONT_SOURCE_TYPE_PER_MACHINE
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SOURCE_TYPE_PER_MACHINE => 1
+    static PER_MACHINE => 1
 
     /**
      * Specifies that the font source is a font file that's installed for the current user.
+     * Native name: DWRITE_FONT_SOURCE_TYPE_PER_USER
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SOURCE_TYPE_PER_USER => 2
+    static PER_USER => 2
 
     /**
      * Specifies that the font source is an APPX package, which includes one or more font files. The font source name is the full name of the package.
+     * Native name: DWRITE_FONT_SOURCE_TYPE_APPX_PACKAGE
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SOURCE_TYPE_APPX_PACKAGE => 3
+    static APPX_PACKAGE => 3
 
     /**
      * Specifies that the font source is a font provider for downloadable fonts.
+     * Native name: DWRITE_FONT_SOURCE_TYPE_REMOTE_FONT_PROVIDER
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SOURCE_TYPE_REMOTE_FONT_PROVIDER => 4
+    static REMOTE_FONT_PROVIDER => 4
 }

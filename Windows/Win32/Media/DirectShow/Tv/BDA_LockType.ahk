@@ -7,22 +7,26 @@
 class BDA_LockType extends Win32Enum {
 
     /**
+     * Native name: Bda_LockType_None
      * @type {Integer (Int32)}
      */
-    static Bda_LockType_None => 0
+    static None => 0
 
     /**
+     * Native name: Bda_LockType_PLL
      * @type {Integer (Int32)}
      */
-    static Bda_LockType_PLL => 1
+    static PLL => 1
 
     /**
+     * Native name: Bda_LockType_DecoderDemod
      * @type {Integer (Int32)}
      */
-    static Bda_LockType_DecoderDemod => 2
+    static DecoderDemod => 2
 
     /**
+     * Native name: Bda_LockType_Complete
      * @type {Integer (Int32)}
      */
-    static Bda_LockType_Complete => 128
+    static Complete => 128
 }

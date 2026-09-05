@@ -15,9 +15,10 @@ class D2D1_COLORMATRIX_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-5x4-f">D2D1_MATRIX_5X4_F</a>.
      * 
      * The default value is the identity matrix, Matrix5x4F(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0).
+     * Native name: D2D1_COLORMATRIX_PROP_COLOR_MATRIX
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMATRIX_PROP_COLOR_MATRIX => 0
+    static COLOR_MATRIX => 0
 
     /**
      * The alpha mode of the output. 
@@ -26,9 +27,10 @@ class D2D1_COLORMATRIX_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_colormatrix_alpha_mode">D2D1_COLORMATRIX_ALPHA_MODE</a>.
      * 
      * The default value is D2D1_COLORMATRIX_ALPHA_MODE_PREMULTIPLIED.
+     * Native name: D2D1_COLORMATRIX_PROP_ALPHA_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMATRIX_PROP_ALPHA_MODE => 1
+    static ALPHA_MODE => 1
 
     /**
      * Whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph. 
@@ -41,7 +43,8 @@ class D2D1_COLORMATRIX_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value is FALSE.
+     * Native name: D2D1_COLORMATRIX_PROP_CLAMP_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMATRIX_PROP_CLAMP_OUTPUT => 2
+    static CLAMP_OUTPUT => 2
 }

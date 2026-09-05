@@ -31,7 +31,6 @@ class IObjectWrapperConcept extends IUnknown {
     static VTableNames => ["GetWrappedObject"]
 
     /**
-     * 
      * @param {IModelObject} pContextObject 
      * @param {Pointer<IModelObject>} wrappedObject 
      * @param {Pointer<WrappedObjectPreference>} pUsagePreference 

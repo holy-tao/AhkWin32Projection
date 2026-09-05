@@ -7,22 +7,26 @@
 class D3D12_COMPILER_VALUE_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3D12_COMPILER_VALUE_TYPE_OBJECT_CODE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMPILER_VALUE_TYPE_OBJECT_CODE => 0
+    static OBJECT_CODE => 0
 
     /**
+     * Native name: D3D12_COMPILER_VALUE_TYPE_METADATA
      * @type {Integer (Int32)}
      */
-    static D3D12_COMPILER_VALUE_TYPE_METADATA => 1
+    static METADATA => 1
 
     /**
+     * Native name: D3D12_COMPILER_VALUE_TYPE_DEBUG_PDB
      * @type {Integer (Int32)}
      */
-    static D3D12_COMPILER_VALUE_TYPE_DEBUG_PDB => 2
+    static DEBUG_PDB => 2
 
     /**
+     * Native name: D3D12_COMPILER_VALUE_TYPE_PERFORMANCE_DATA
      * @type {Integer (Int32)}
      */
-    static D3D12_COMPILER_VALUE_TYPE_PERFORMANCE_DATA => 3
+    static PERFORMANCE_DATA => 3
 }

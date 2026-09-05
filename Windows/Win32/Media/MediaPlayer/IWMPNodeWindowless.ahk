@@ -30,7 +30,6 @@ class IWMPNodeWindowless extends IWMPWindowMessageSink {
     static VTableNames => ["OnDraw"]
 
     /**
-     * 
      * @param {Pointer} _hdc 
      * @param {Pointer<RECT>} prcDraw 
      * @returns {HRESULT} 

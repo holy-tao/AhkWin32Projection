@@ -96,7 +96,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCClient} 
      */
     get_Client() {
@@ -105,7 +104,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_SESSION_STATE} 
      */
     get_State() {
@@ -114,7 +112,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_SESSION_TYPE} 
      */
     get_Type() {
@@ -123,7 +120,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCProfile} 
      */
     get_Profile() {
@@ -132,7 +128,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Participants() {
@@ -141,7 +136,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Answer() {
@@ -150,7 +144,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_TERMINATE_REASON} enReason 
      * @returns {HRESULT} 
      */
@@ -160,7 +153,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
@@ -175,7 +167,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrAddress 
      * @param {BSTR} bstrName 
      * @returns {IRTCParticipant} 
@@ -189,7 +180,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCParticipant} pParticipant 
      * @returns {HRESULT} 
      */
@@ -199,7 +189,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumParticipants} 
      */
     EnumerateParticipants() {
@@ -208,7 +197,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_CanAddParticipants() {
@@ -217,7 +205,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RedirectedUserURI() {
@@ -227,7 +214,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RedirectedUserName() {
@@ -237,7 +223,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NextRedirectedUser() {
@@ -274,7 +259,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_MESSAGING_USER_STATUS} enUserStatus 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
@@ -285,7 +269,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaType 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
@@ -296,7 +279,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaType 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
@@ -307,7 +289,6 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaType 
      * @param {BSTR} EncryptionKey 
      * @returns {HRESULT} 

@@ -31,7 +31,6 @@ class ID3D12SwapChainAssistant extends IUnknown {
     static VTableNames => ["GetLUID", "GetSwapChainObject", "GetCurrentResourceAndCommandQueue", "InsertImplicitSync"]
 
     /**
-     * 
      * @returns {LUID} 
      */
     GetLUID() {
@@ -40,7 +39,6 @@ class ID3D12SwapChainAssistant extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -50,7 +48,6 @@ class ID3D12SwapChainAssistant extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riidResource 
      * @param {Pointer<Pointer<Void>>} ppvResource 
      * @param {Pointer<Guid>} riidQueue 
@@ -66,7 +63,6 @@ class ID3D12SwapChainAssistant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InsertImplicitSync() {

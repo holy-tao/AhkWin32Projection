@@ -7,27 +7,32 @@
 class GameInputMotionAccuracy extends Win32Enum {
 
     /**
+     * Native name: GameInputMotionAccuracyUnknown
      * @type {Integer (Int32)}
      */
-    static GameInputMotionAccuracyUnknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: GameInputMotionUnavailable
      * @type {Integer (Int32)}
      */
-    static GameInputMotionUnavailable => 0
+    static Unavailable => 0
 
     /**
+     * Native name: GameInputMotionUnreliable
      * @type {Integer (Int32)}
      */
-    static GameInputMotionUnreliable => 1
+    static Unreliable => 1
 
     /**
+     * Native name: GameInputMotionApproximate
      * @type {Integer (Int32)}
      */
-    static GameInputMotionApproximate => 2
+    static Approximate => 2
 
     /**
+     * Native name: GameInputMotionAccurate
      * @type {Integer (Int32)}
      */
-    static GameInputMotionAccurate => 3
+    static Accurate => 3
 }

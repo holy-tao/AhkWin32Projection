@@ -30,7 +30,6 @@ class IPrinterBidiSetRequestCallback extends IUnknown {
     static VTableNames => ["Completed"]
 
     /**
-     * 
      * @param {BSTR} bstrResponse 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 

@@ -7,32 +7,38 @@
 class DTCLUCOMPARESTATE extends Win32Enum {
 
     /**
+     * Native name: DTCLUCOMPARESTATE_COMMITTED
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATE_COMMITTED => 1
+    static COMMITTED => 1
 
     /**
+     * Native name: DTCLUCOMPARESTATE_HEURISTICCOMMITTED
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATE_HEURISTICCOMMITTED => 2
+    static HEURISTICCOMMITTED => 2
 
     /**
+     * Native name: DTCLUCOMPARESTATE_HEURISTICMIXED
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATE_HEURISTICMIXED => 3
+    static HEURISTICMIXED => 3
 
     /**
+     * Native name: DTCLUCOMPARESTATE_HEURISTICRESET
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATE_HEURISTICRESET => 4
+    static HEURISTICRESET => 4
 
     /**
+     * Native name: DTCLUCOMPARESTATE_INDOUBT
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATE_INDOUBT => 5
+    static INDOUBT => 5
 
     /**
+     * Native name: DTCLUCOMPARESTATE_RESET
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATE_RESET => 6
+    static RESET => 6
 }

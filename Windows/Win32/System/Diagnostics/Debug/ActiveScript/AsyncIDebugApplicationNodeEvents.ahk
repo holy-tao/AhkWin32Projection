@@ -36,7 +36,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     static VTableNames => ["Begin_onAddChild", "Finish_onAddChild", "Begin_onRemoveChild", "Finish_onRemoveChild", "Begin_onDetach", "Finish_onDetach", "Begin_onAttach", "Finish_onAttach"]
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpChild 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_onAddChild() {
@@ -55,7 +53,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpChild 
      * @returns {HRESULT} 
      */
@@ -65,7 +62,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_onRemoveChild() {
@@ -74,7 +70,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_onDetach() {
@@ -83,7 +78,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_onDetach() {
@@ -92,7 +86,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpParent 
      * @returns {HRESULT} 
      */
@@ -102,7 +95,6 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_onAttach() {

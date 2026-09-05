@@ -72,7 +72,6 @@ class IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -82,7 +81,6 @@ class IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -92,7 +90,6 @@ class IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGName 
      * @returns {HRESULT} 
      */
@@ -102,7 +99,6 @@ class IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxStartupLatency() {
@@ -111,7 +107,6 @@ class IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExpectedRuntime() {
@@ -120,7 +115,6 @@ class IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsBootWorker() {

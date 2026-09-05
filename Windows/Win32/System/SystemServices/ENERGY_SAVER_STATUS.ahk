@@ -7,17 +7,20 @@
 class ENERGY_SAVER_STATUS extends Win32Enum {
 
     /**
+     * Native name: ENERGY_SAVER_OFF
      * @type {Integer (Int32)}
      */
-    static ENERGY_SAVER_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: ENERGY_SAVER_STANDARD
      * @type {Integer (Int32)}
      */
-    static ENERGY_SAVER_STANDARD => 1
+    static STANDARD => 1
 
     /**
+     * Native name: ENERGY_SAVER_HIGH_SAVINGS
      * @type {Integer (Int32)}
      */
-    static ENERGY_SAVER_HIGH_SAVINGS => 2
+    static HIGH_SAVINGS => 2
 }

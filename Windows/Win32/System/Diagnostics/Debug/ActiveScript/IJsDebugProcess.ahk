@@ -32,7 +32,6 @@ class IJsDebugProcess extends IUnknown {
     static VTableNames => ["CreateStackWalker", "CreateBreakPoint", "PerformAsyncBreak", "GetExternalStepAddress"]
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {IJsDebugStackWalker} 
      */
@@ -42,7 +41,6 @@ class IJsDebugProcess extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} documentId 
      * @param {Integer} characterOffset 
      * @param {Integer} characterCount 
@@ -55,7 +53,6 @@ class IJsDebugProcess extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {HRESULT} 
      */
@@ -65,7 +62,6 @@ class IJsDebugProcess extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExternalStepAddress() {

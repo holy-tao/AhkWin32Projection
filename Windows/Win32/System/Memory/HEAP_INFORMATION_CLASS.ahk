@@ -24,26 +24,30 @@ class HEAP_INFORMATION_CLASS extends Win32Enum {
      * <li>A <a href="https://docs.microsoft.com/windows/desktop/Memory/low-fragmentation-heap">low-fragmentation heap</a> (LFH), which does not support look-aside lists.</li>
      * </ul>
      * For more information about look-aside lists, see the Remarks section.
+     * Native name: HeapCompatibilityInformation
      * @type {Integer (Int32)}
      */
-    static HeapCompatibilityInformation => 0
+    static CompatibilityInformation => 0
 
     /**
      * The terminate-on-corruption feature. If the heap manager detects an error in any heap used by the 
      *          process, it calls the Windows Error Reporting service and terminates the process.
      * 
      * After a process enables this feature, it cannot be disabled.
+     * Native name: HeapEnableTerminationOnCorruption
      * @type {Integer (Int32)}
      */
-    static HeapEnableTerminationOnCorruption => 1
+    static EnableTerminationOnCorruption => 1
 
     /**
+     * Native name: HeapOptimizeResources
      * @type {Integer (Int32)}
      */
-    static HeapOptimizeResources => 3
+    static OptimizeResources => 3
 
     /**
+     * Native name: HeapTag
      * @type {Integer (Int32)}
      */
-    static HeapTag => 7
+    static Tag => 7
 }

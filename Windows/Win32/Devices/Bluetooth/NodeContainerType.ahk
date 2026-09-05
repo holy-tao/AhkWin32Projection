@@ -7,12 +7,14 @@
 class NodeContainerType extends Win32Enum {
 
     /**
+     * Native name: NodeContainerTypeSequence
      * @type {Integer (Int32)}
      */
-    static NodeContainerTypeSequence => 0
+    static Sequence => 0
 
     /**
+     * Native name: NodeContainerTypeAlternative
      * @type {Integer (Int32)}
      */
-    static NodeContainerTypeAlternative => 1
+    static Alternative => 1
 }

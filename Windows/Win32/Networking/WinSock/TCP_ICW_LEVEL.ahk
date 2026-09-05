@@ -7,37 +7,44 @@
 class TCP_ICW_LEVEL extends Win32Enum {
 
     /**
+     * Native name: TCP_ICW_LEVEL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static TCP_ICW_LEVEL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: TCP_ICW_LEVEL_HIGH
      * @type {Integer (Int32)}
      */
-    static TCP_ICW_LEVEL_HIGH => 1
+    static HIGH => 1
 
     /**
+     * Native name: TCP_ICW_LEVEL_VERY_HIGH
      * @type {Integer (Int32)}
      */
-    static TCP_ICW_LEVEL_VERY_HIGH => 2
+    static VERY_HIGH => 2
 
     /**
+     * Native name: TCP_ICW_LEVEL_AGGRESSIVE
      * @type {Integer (Int32)}
      */
-    static TCP_ICW_LEVEL_AGGRESSIVE => 3
+    static AGGRESSIVE => 3
 
     /**
+     * Native name: TCP_ICW_LEVEL_EXPERIMENTAL
      * @type {Integer (Int32)}
      */
-    static TCP_ICW_LEVEL_EXPERIMENTAL => 4
+    static EXPERIMENTAL => 4
 
     /**
+     * Native name: TCP_ICW_LEVEL_COMPAT
      * @type {Integer (Int32)}
      */
-    static TCP_ICW_LEVEL_COMPAT => 254
+    static COMPAT => 254
 
     /**
+     * Native name: TCP_ICW_LEVEL_MAX
      * @type {Integer (Int32)}
      */
-    static TCP_ICW_LEVEL_MAX => 255
+    static MAX => 255
 }

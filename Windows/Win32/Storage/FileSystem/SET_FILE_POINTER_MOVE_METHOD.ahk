@@ -7,17 +7,20 @@
 class SET_FILE_POINTER_MOVE_METHOD extends Win32Enum {
 
     /**
+     * Native name: FILE_BEGIN
      * @type {Integer (UInt32)}
      */
-    static FILE_BEGIN => 0
+    static BEGIN => 0
 
     /**
+     * Native name: FILE_CURRENT
      * @type {Integer (UInt32)}
      */
-    static FILE_CURRENT => 1
+    static CURRENT => 1
 
     /**
+     * Native name: FILE_END
      * @type {Integer (UInt32)}
      */
-    static FILE_END => 2
+    static END => 2
 }

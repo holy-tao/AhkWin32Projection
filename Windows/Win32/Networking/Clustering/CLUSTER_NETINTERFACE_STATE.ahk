@@ -11,35 +11,40 @@ class CLUSTER_NETINTERFACE_STATE extends Win32Enum {
     /**
      * The operation was not successful. For more information about the error, call the function 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * Native name: ClusterNetInterfaceStateUnknown
      * @type {Integer (Int32)}
      */
-    static ClusterNetInterfaceStateUnknown => -1
+    static NetInterfaceStateUnknown => -1
 
     /**
      * The node that owns the network interface is down.
+     * Native name: ClusterNetInterfaceUnavailable
      * @type {Integer (Int32)}
      */
-    static ClusterNetInterfaceUnavailable => 0
+    static NetInterfaceUnavailable => 0
 
     /**
      * The network interface cannot communicate with any other network interface.
+     * Native name: ClusterNetInterfaceFailed
      * @type {Integer (Int32)}
      */
-    static ClusterNetInterfaceFailed => 1
+    static NetInterfaceFailed => 1
 
     /**
      * The network interface cannot communicate with at least one other network interface whose state is not 
      *       <b>ClusterNetInterfaceFailed</b> or 
      *       <b>ClusterNetInterfaceUnavailable</b>.
+     * Native name: ClusterNetInterfaceUnreachable
      * @type {Integer (Int32)}
      */
-    static ClusterNetInterfaceUnreachable => 2
+    static NetInterfaceUnreachable => 2
 
     /**
      * The network interface can communicate with all other network interfaces whose state is not 
      *       <b>ClusterNetInterfaceFailed</b> or 
      *       <b>ClusterNetInterfaceUnavailable</b>.
+     * Native name: ClusterNetInterfaceUp
      * @type {Integer (Int32)}
      */
-    static ClusterNetInterfaceUp => 3
+    static NetInterfaceUp => 3
 }

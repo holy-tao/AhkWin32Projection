@@ -10,7 +10,8 @@ class CF_CALLBACK_RENAME_COMPLETION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No rename completion flag.
+     * Native name: CF_CALLBACK_RENAME_COMPLETION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_RENAME_COMPLETION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

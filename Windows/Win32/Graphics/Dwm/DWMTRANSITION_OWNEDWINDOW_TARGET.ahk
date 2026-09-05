@@ -10,13 +10,15 @@ class DWMTRANSITION_OWNEDWINDOW_TARGET extends Win32Enum {
 
     /**
      * Indicates no animation.
+     * Native name: DWMTRANSITION_OWNEDWINDOW_NULL
      * @type {Integer (Int32)}
      */
-    static DWMTRANSITION_OWNEDWINDOW_NULL => -1
+    static NULL => -1
 
     /**
      * Indicates that the window is repositioned.
+     * Native name: DWMTRANSITION_OWNEDWINDOW_REPOSITION
      * @type {Integer (Int32)}
      */
-    static DWMTRANSITION_OWNEDWINDOW_REPOSITION => 0
+    static REPOSITION => 0
 }

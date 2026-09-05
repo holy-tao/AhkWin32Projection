@@ -31,7 +31,6 @@ class ICLRStrongName2 extends IUnknown {
     static VTableNames => ["StrongNameGetPublicKeyEx", "StrongNameSignatureVerificationEx2"]
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -53,7 +52,6 @@ class ICLRStrongName2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {BOOLEAN} fForceVerification 
      * @param {Pointer<Integer>} pbEcmaPublicKey 

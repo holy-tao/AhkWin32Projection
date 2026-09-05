@@ -35,7 +35,6 @@ class IPrintSchemaAsyncOperation extends IDispatch {
     static VTableNames => ["Start", "Cancel"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -44,7 +43,6 @@ class IPrintSchemaAsyncOperation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {

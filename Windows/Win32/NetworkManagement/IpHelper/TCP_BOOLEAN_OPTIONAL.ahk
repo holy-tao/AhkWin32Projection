@@ -14,19 +14,22 @@ class TCP_BOOLEAN_OPTIONAL extends Win32Enum {
 
     /**
      * The option should be disabled.
+     * Native name: TcpBoolOptDisabled
      * @type {Integer (Int32)}
      */
-    static TcpBoolOptDisabled => 0
+    static BoolOptDisabled => 0
 
     /**
      * The option should be enabled.
+     * Native name: TcpBoolOptEnabled
      * @type {Integer (Int32)}
      */
-    static TcpBoolOptEnabled => 1
+    static BoolOptEnabled => 1
 
     /**
      * The option should be unchanged.
+     * Native name: TcpBoolOptUnchanged
      * @type {Integer (Int32)}
      */
-    static TcpBoolOptUnchanged => -1
+    static BoolOptUnchanged => -1
 }

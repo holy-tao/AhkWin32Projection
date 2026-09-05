@@ -33,7 +33,6 @@ class IXpsRasterizationFactory1 extends IUnknown {
     static VTableNames => ["CreateRasterizer"]
 
     /**
-     * 
      * @param {IXpsOMPage} xpsPage 
      * @param {Float} DPI 
      * @param {XPSRAS_RENDERING_MODE} nonTextRenderingMode 

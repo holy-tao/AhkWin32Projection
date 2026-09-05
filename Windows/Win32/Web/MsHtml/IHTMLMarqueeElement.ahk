@@ -150,7 +150,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +159,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -170,7 +168,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -180,7 +177,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollDelay() {
@@ -189,7 +185,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -201,7 +196,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_direction() {
@@ -211,7 +205,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -223,7 +216,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_behavior() {
@@ -233,7 +225,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -243,7 +234,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollAmount() {
@@ -252,7 +242,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -262,7 +251,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loop() {
@@ -271,7 +259,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -281,7 +268,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -290,7 +276,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -300,7 +285,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -309,7 +293,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -319,7 +302,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfinish() {
@@ -329,7 +311,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -339,7 +320,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstart() {
@@ -349,7 +329,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -359,7 +338,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbounce() {
@@ -369,7 +347,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -379,7 +356,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -389,7 +365,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -399,7 +374,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -409,7 +383,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -419,7 +392,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_trueSpeed() {
@@ -428,7 +400,6 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     start() {

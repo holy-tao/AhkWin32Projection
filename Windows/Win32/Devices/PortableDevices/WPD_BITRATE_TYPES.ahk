@@ -9,22 +9,26 @@
 class WPD_BITRATE_TYPES extends Win32Enum {
 
     /**
+     * Native name: WPD_BITRATE_TYPE_UNUSED
      * @type {Integer (Int32)}
      */
-    static WPD_BITRATE_TYPE_UNUSED => 0
+    static TYPE_UNUSED => 0
 
     /**
+     * Native name: WPD_BITRATE_TYPE_DISCRETE
      * @type {Integer (Int32)}
      */
-    static WPD_BITRATE_TYPE_DISCRETE => 1
+    static TYPE_DISCRETE => 1
 
     /**
+     * Native name: WPD_BITRATE_TYPE_VARIABLE
      * @type {Integer (Int32)}
      */
-    static WPD_BITRATE_TYPE_VARIABLE => 2
+    static TYPE_VARIABLE => 2
 
     /**
+     * Native name: WPD_BITRATE_TYPE_FREE
      * @type {Integer (Int32)}
      */
-    static WPD_BITRATE_TYPE_FREE => 3
+    static TYPE_FREE => 3
 }

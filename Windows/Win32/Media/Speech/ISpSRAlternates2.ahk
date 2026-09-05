@@ -32,7 +32,6 @@ class ISpSRAlternates2 extends ISpSRAlternates {
     static VTableNames => ["CommitText"]
 
     /**
-     * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {PWSTR} pcszNewText 
      * @param {SPCOMMITFLAGS} commitFlags 

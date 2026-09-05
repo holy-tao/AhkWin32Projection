@@ -10,30 +10,35 @@ class AMVP_MODE extends Win32Enum {
 
     /**
      * Weave.
+     * Native name: AMVP_MODE_WEAVE
      * @type {Integer (Int32)}
      */
-    static AMVP_MODE_WEAVE => 0
+    static WEAVE => 0
 
     /**
      * Interleaved bob. Bob mode in which resources are allocated to switch to weave mode, for example, on the next frame.
+     * Native name: AMVP_MODE_BOBINTERLEAVED
      * @type {Integer (Int32)}
      */
-    static AMVP_MODE_BOBINTERLEAVED => 1
+    static BOBINTERLEAVED => 1
 
     /**
+     * Native name: AMVP_MODE_BOBNONINTERLEAVED
      * @type {Integer (Int32)}
      */
-    static AMVP_MODE_BOBNONINTERLEAVED => 2
+    static BOBNONINTERLEAVED => 2
 
     /**
      * Skip even fields.
+     * Native name: AMVP_MODE_SKIPEVEN
      * @type {Integer (Int32)}
      */
-    static AMVP_MODE_SKIPEVEN => 3
+    static SKIPEVEN => 3
 
     /**
      * Skip odd fields.
+     * Native name: AMVP_MODE_SKIPODD
      * @type {Integer (Int32)}
      */
-    static AMVP_MODE_SKIPODD => 4
+    static SKIPODD => 4
 }

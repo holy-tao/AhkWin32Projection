@@ -7,12 +7,14 @@
 class CSV_DOWN_LEVEL_FILE_TYPE extends Win32Enum {
 
     /**
+     * Native name: CsvDownLevelFileObject
      * @type {Integer (Int32)}
      */
-    static CsvDownLevelFileObject => 0
+    static Object => 0
 
     /**
+     * Native name: CsvCsvFsInternalFileObject
      * @type {Integer (Int32)}
      */
-    static CsvCsvFsInternalFileObject => 1
+    static CsvFsInternalFileObject => 1
 }

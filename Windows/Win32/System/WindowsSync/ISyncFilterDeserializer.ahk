@@ -30,7 +30,6 @@ class ISyncFilterDeserializer extends IUnknown {
     static VTableNames => ["DeserializeSyncFilter"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pbSyncFilter 
      * @param {Integer} dwCbSyncFilter 
      * @returns {ISyncFilter} 

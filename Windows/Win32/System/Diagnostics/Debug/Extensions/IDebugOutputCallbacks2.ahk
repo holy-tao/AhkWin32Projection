@@ -31,7 +31,6 @@ class IDebugOutputCallbacks2 extends IUnknown {
     static VTableNames => ["Output", "GetInterestMask", "Output2"]
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PSTR} Text 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IDebugOutputCallbacks2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInterestMask() {
@@ -53,7 +51,6 @@ class IDebugOutputCallbacks2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Flags 
      * @param {Integer} Arg 

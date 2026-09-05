@@ -29,7 +29,6 @@ class IGetSVGDocument extends IDispatch {
     static VTableNames => ["getSVGDocument"]
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     getSVGDocument() {

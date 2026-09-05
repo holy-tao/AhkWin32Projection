@@ -30,7 +30,6 @@ class IHTMLPainterOverlay extends IUnknown {
     static VTableNames => ["OnMove"]
 
     /**
-     * 
      * @param {RECT} rcDevice 
      * @returns {HRESULT} 
      */

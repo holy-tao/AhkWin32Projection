@@ -28,7 +28,6 @@ class ID3D12VideoEncoderHeap1 extends ID3D12VideoEncoderHeap {
     static VTableNames => ["GetPow2DownscaleFactor"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPow2DownscaleFactor() {

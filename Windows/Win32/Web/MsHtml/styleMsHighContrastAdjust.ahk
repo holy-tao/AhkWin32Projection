@@ -7,22 +7,26 @@
 class styleMsHighContrastAdjust extends Win32Enum {
 
     /**
+     * Native name: styleMsHighContrastAdjustNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsHighContrastAdjustNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleMsHighContrastAdjustAuto
      * @type {Integer (Int32)}
      */
-    static styleMsHighContrastAdjustAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleMsHighContrastAdjustNone
      * @type {Integer (Int32)}
      */
-    static styleMsHighContrastAdjustNone => 2
+    static None => 2
 
     /**
+     * Native name: styleMsHighContrastAdjust_Max
      * @type {Integer (Int32)}
      */
-    static styleMsHighContrastAdjust_Max => 2147483647
+    static Max => 2147483647
 }

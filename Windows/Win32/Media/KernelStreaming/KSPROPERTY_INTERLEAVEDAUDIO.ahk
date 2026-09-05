@@ -7,7 +7,8 @@
 class KSPROPERTY_INTERLEAVEDAUDIO extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_INTERLEAVEDAUDIO_FORMATINFORMATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_INTERLEAVEDAUDIO_FORMATINFORMATION => 1
+    static FORMATINFORMATION => 1
 }

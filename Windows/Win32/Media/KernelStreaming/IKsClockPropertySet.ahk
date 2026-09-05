@@ -32,7 +32,6 @@ class IKsClockPropertySet extends IUnknown {
     static VTableNames => ["KsGetTime", "KsSetTime", "KsGetPhysicalTime", "KsSetPhysicalTime", "KsGetCorrelatedTime", "KsSetCorrelatedTime", "KsGetCorrelatedPhysicalTime", "KsSetCorrelatedPhysicalTime", "KsGetResolution", "KsGetState"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsGetTime() {
@@ -41,7 +40,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Time 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsGetPhysicalTime() {
@@ -60,7 +57,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Time 
      * @returns {HRESULT} 
      */
@@ -70,7 +66,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSCORRELATED_TIME} 
      */
     KsGetCorrelatedTime() {
@@ -80,7 +75,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSCORRELATED_TIME>} CorrelatedTime 
      * @returns {HRESULT} 
      */
@@ -90,7 +84,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSCORRELATED_TIME} 
      */
     KsGetCorrelatedPhysicalTime() {
@@ -100,7 +93,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSCORRELATED_TIME>} CorrelatedTime 
      * @returns {HRESULT} 
      */
@@ -110,7 +102,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSRESOLUTION} 
      */
     KsGetResolution() {
@@ -120,7 +111,6 @@ class IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSSTATE} 
      */
     KsGetState() {

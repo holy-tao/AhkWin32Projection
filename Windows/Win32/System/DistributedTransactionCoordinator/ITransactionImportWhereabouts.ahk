@@ -29,7 +29,6 @@ class ITransactionImportWhereabouts extends IUnknown {
     static VTableNames => ["GetWhereaboutsSize", "GetWhereabouts"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetWhereaboutsSize() {
@@ -38,7 +37,6 @@ class ITransactionImportWhereabouts extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbWhereabouts 
      * @param {Pointer<Integer>} rgbWhereabouts 
      * @param {Pointer<Integer>} pcbUsed 

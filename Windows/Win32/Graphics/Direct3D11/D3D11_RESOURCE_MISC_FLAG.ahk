@@ -16,9 +16,10 @@ class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
 
     /**
      * Enables MIP map generation by using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-generatemips">ID3D11DeviceContext::GenerateMips</a> on a texture resource. The resource must be created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">bind flags</a> that specify that the resource is a render target and a shader resource.
+     * Native name: D3D11_RESOURCE_MISC_GENERATE_MIPS
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_GENERATE_MIPS => 1
+    static GENERATE_MIPS => 1
 
     /**
      * Enables resource data sharing between two or more Direct3D devices. The only resources that can be shared are 2D non-mipmapped textures.
@@ -37,39 +38,45 @@ class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
      * <div class="alert"><b>Note</b>  Starting with Windows 8, we recommend that you enable resource data sharing between two or more Direct3D devices by using a combination of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_misc_flag">D3D11_RESOURCE_MISC_SHARED_NTHANDLE</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_misc_flag">D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX</a> flags instead.
      *             </div>
      * <div> </div>
+     * Native name: D3D11_RESOURCE_MISC_SHARED
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_SHARED => 2
+    static SHARED => 2
 
     /**
      * Sets a resource to be a cube texture created from a <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-texture2darray">Texture2DArray</a> that contains 6 textures.
+     * Native name: D3D11_RESOURCE_MISC_TEXTURECUBE
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_TEXTURECUBE => 4
+    static TEXTURECUBE => 4
 
     /**
      * Enables instancing of GPU-generated content.
+     * Native name: D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS => 16
+    static DRAWINDIRECT_ARGS => 16
 
     /**
      * Enables a resource as a <a href="https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-advanced-stages-cs-resources">byte address buffer</a>.
+     * Native name: D3D11_RESOURCE_MISC_BUFFER_ALLOW_RAW_VIEWS
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_BUFFER_ALLOW_RAW_VIEWS => 32
+    static BUFFER_ALLOW_RAW_VIEWS => 32
 
     /**
      * Enables a resource as a <a href="https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-advanced-stages-cs-resources">structured buffer</a>.
+     * Native name: D3D11_RESOURCE_MISC_BUFFER_STRUCTURED
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_BUFFER_STRUCTURED => 64
+    static BUFFER_STRUCTURED => 64
 
     /**
      * Enables a resource with MIP map clamping for use with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-setresourceminlod">ID3D11DeviceContext::SetResourceMinLOD</a>.
+     * Native name: D3D11_RESOURCE_MISC_RESOURCE_CLAMP
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_RESOURCE_CLAMP => 128
+    static RESOURCE_CLAMP => 128
 
     /**
      * Enables the resource  to be synchronized by using the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgikeyedmutex-acquiresync">IDXGIKeyedMutex::AcquireSync</a>  and 
@@ -103,9 +110,10 @@ class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>WARP</b> devices fully support shared resources.
      *             </div>
      * <div> </div>
+     * Native name: D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX => 256
+    static SHARED_KEYEDMUTEX => 256
 
     /**
      * Enables a resource compatible with GDI. You must set the <b>D3D11_RESOURCE_MISC_GDI_COMPATIBLE</b> flag  on surfaces that you use with GDI. Setting the <b>D3D11_RESOURCE_MISC_GDI_COMPATIBLE</b> flag allows GDI rendering on the surface via <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgisurface1-getdc">IDXGISurface1::GetDC</a>.
@@ -134,9 +142,10 @@ class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
      * <li>You cannot use D3D11_RESOURCE_MISC_GDI_COMPATIBLE with multisampling. Therefore, set the <b>Count</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure to 1. Then, set the <b>SampleDesc</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture2d_desc">D3D11_TEXTURE2D_DESC</a> structure to this <b>DXGI_SAMPLE_DESC</b> structure.
      *               </li>
      * </ul>
+     * Native name: D3D11_RESOURCE_MISC_GDI_COMPATIBLE
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_GDI_COMPATIBLE => 512
+    static GDI_COMPATIBLE => 512
 
     /**
      * Set this flag to enable the use of NT HANDLE values when you create a shared resource.  By enabling this flag, you deprecate the use of existing HANDLE values.
@@ -147,33 +156,37 @@ class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
      * Without this flag set, the runtime does not strictly validate shared resource parameters (that is, formats, flags, usage, and so on). When the runtime does not validate shared resource parameters, behavior of much of the Direct3D   API might be undefined and might vary from driver to driver.  
      * 
      * <b>Direct3D 11 and earlier:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D11_RESOURCE_MISC_SHARED_NTHANDLE
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_SHARED_NTHANDLE => 2048
+    static SHARED_NTHANDLE => 2048
 
     /**
      * Set this flag to indicate that the resource might contain protected content; therefore, the operating system should  use the resource only when the driver and hardware support content protection.  If the driver and hardware do not support content protection and you try to create a resource with this flag, the resource creation fails.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D11_RESOURCE_MISC_RESTRICTED_CONTENT
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_RESTRICTED_CONTENT => 4096
+    static RESTRICTED_CONTENT => 4096
 
     /**
      * Set this flag to indicate that the operating system  restricts access to the shared surface. You can use this flag together with the D3D11_RESOURCE_MISC_RESTRICT_SHARED_RESOURCE_DRIVER flag and only when you create a shared surface. The process that creates the shared resource can always open the shared resource.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D11_RESOURCE_MISC_RESTRICT_SHARED_RESOURCE
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_RESTRICT_SHARED_RESOURCE => 8192
+    static RESTRICT_SHARED_RESOURCE => 8192
 
     /**
      * Set this flag to indicate that the driver  restricts access to the shared surface. You can use this flag in conjunction with the D3D11_RESOURCE_MISC_RESTRICT_SHARED_RESOURCE flag and only when you create a shared surface. The process that creates the shared resource can always open the shared resource.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D11_RESOURCE_MISC_RESTRICT_SHARED_RESOURCE_DRIVER
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_RESTRICT_SHARED_RESOURCE_DRIVER => 16384
+    static RESTRICT_SHARED_RESOURCE_DRIVER => 16384
 
     /**
      * Set this flag to indicate that the resource is guarded. Such a resource is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-idcompositionsurface-begindraw">IDCompositionSurface::BeginDraw</a> (DirectComposition) and <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-isurfaceimagesourcenative-begindraw">ISurfaceImageSourceNative::BeginDraw</a> (Windows Runtime) APIs.  For these APIs, you provide a region of interest (ROI) on a surface to update. This surface isn't compatible with multiple render targets (MRT).
@@ -186,25 +199,28 @@ class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
      * <li>When a guarded resource is set as a render target, it must be the only target.</li>
      * </ul>
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D11_RESOURCE_MISC_GUARDED
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_GUARDED => 32768
+    static GUARDED => 32768
 
     /**
      * Set this flag to indicate that the resource is a tile pool.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
+     * Native name: D3D11_RESOURCE_MISC_TILE_POOL
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_TILE_POOL => 131072
+    static TILE_POOL => 131072
 
     /**
      * Set this flag to indicate that the resource is a tiled resource.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
+     * Native name: D3D11_RESOURCE_MISC_TILED
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_TILED => 262144
+    static TILED => 262144
 
     /**
      * Set this flag to indicate that the resource should be created such that it will be protected by the hardware.  Resource creation will fail if hardware content protection is not supported.
@@ -229,24 +245,28 @@ class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
      * </div>
      * <div> </div>
      * <b>Note</b>  This enumeration value is supported starting with Windows 10.
+     * Native name: D3D11_RESOURCE_MISC_HW_PROTECTED
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_HW_PROTECTED => 524288
+    static HW_PROTECTED => 524288
 
     /**
      * Enables the resource to work with the [displayable surfaces](/windows/win32/direct3d11/displayable-surfaces) feature. You must use **D3D11_RESOURCE_MISC_SHARED_DISPLAYABLE** in combination with both **D3D11_RESOURCE_MISC_SHARED** and **D3D11_RESOURCE_MISC_SHARED_NTHANDLE**.
+     * Native name: D3D11_RESOURCE_MISC_SHARED_DISPLAYABLE
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_SHARED_DISPLAYABLE => 1048576
+    static SHARED_DISPLAYABLE => 1048576
 
     /**
      * TBD
+     * Native name: D3D11_RESOURCE_MISC_SHARED_EXCLUSIVE_WRITER
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_SHARED_EXCLUSIVE_WRITER => 2097152
+    static SHARED_EXCLUSIVE_WRITER => 2097152
 
     /**
+     * Native name: D3D11_RESOURCE_MISC_NO_SHADER_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_MISC_NO_SHADER_ACCESS => 4194304
+    static NO_SHADER_ACCESS => 4194304
 }

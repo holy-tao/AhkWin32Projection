@@ -7,22 +7,26 @@
 class DISPIDSPTSI extends Win32Enum {
 
     /**
+     * Native name: DISPIDSPTSI_ActiveOffset
      * @type {Integer (Int32)}
      */
-    static DISPIDSPTSI_ActiveOffset => 1
+    static ActiveOffset => 1
 
     /**
+     * Native name: DISPIDSPTSI_ActiveLength
      * @type {Integer (Int32)}
      */
-    static DISPIDSPTSI_ActiveLength => 2
+    static ActiveLength => 2
 
     /**
+     * Native name: DISPIDSPTSI_SelectionOffset
      * @type {Integer (Int32)}
      */
-    static DISPIDSPTSI_SelectionOffset => 3
+    static SelectionOffset => 3
 
     /**
+     * Native name: DISPIDSPTSI_SelectionLength
      * @type {Integer (Int32)}
      */
-    static DISPIDSPTSI_SelectionLength => 4
+    static SelectionLength => 4
 }

@@ -30,7 +30,6 @@ class IEnumDebugExtendedPropertyInfo extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<ExtendedDebugPropertyInfo>} rgExtendedPropertyInfo 
      * @param {Pointer<Integer>} pceltFetched 
@@ -44,7 +43,6 @@ class IEnumDebugExtendedPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumDebugExtendedPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumDebugExtendedPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugExtendedPropertyInfo} 
      */
     Clone() {
@@ -72,7 +68,6 @@ class IEnumDebugExtendedPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {

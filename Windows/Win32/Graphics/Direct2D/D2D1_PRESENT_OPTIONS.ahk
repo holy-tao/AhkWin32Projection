@@ -10,19 +10,22 @@ class D2D1_PRESENT_OPTIONS extends Win32BitflagEnum {
 
     /**
      * The render target waits until the display refreshes to present and discards the frame upon presenting.
+     * Native name: D2D1_PRESENT_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_PRESENT_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * The render target does not discard the frame upon presenting.
+     * Native name: D2D1_PRESENT_OPTIONS_RETAIN_CONTENTS
      * @type {Integer (Int32)}
      */
-    static D2D1_PRESENT_OPTIONS_RETAIN_CONTENTS => 1
+    static RETAIN_CONTENTS => 1
 
     /**
      * The render target does not wait until the display refreshes to present.
+     * Native name: D2D1_PRESENT_OPTIONS_IMMEDIATELY
      * @type {Integer (Int32)}
      */
-    static D2D1_PRESENT_OPTIONS_IMMEDIATELY => 2
+    static IMMEDIATELY => 2
 }

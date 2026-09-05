@@ -7,22 +7,26 @@
 class TELEPHONY_CALLSTATE extends Win32Enum {
 
     /**
+     * Native name: TELEPHONY_CALLSTATE_DISABLED
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLSTATE_DISABLED => 0
+    static DISABLED => 0
 
     /**
+     * Native name: TELEPHONY_CALLSTATE_ENABLED
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLSTATE_ENABLED => 1
+    static ENABLED => 1
 
     /**
+     * Native name: TELEPHONY_CALLSTATE_HOLD
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLSTATE_HOLD => 2
+    static HOLD => 2
 
     /**
+     * Native name: TELEPHONY_CALLSTATE_PROVIDERTRANSITION
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_CALLSTATE_PROVIDERTRANSITION => 3
+    static PROVIDERTRANSITION => 3
 }

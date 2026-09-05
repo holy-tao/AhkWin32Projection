@@ -7,27 +7,32 @@
 class DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: DeviceInternalStatusDataRequestTypeUndefined
      * @type {Integer (Int32)}
      */
-    static DeviceInternalStatusDataRequestTypeUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: DeviceCurrentInternalStatusDataHeader
      * @type {Integer (Int32)}
      */
-    static DeviceCurrentInternalStatusDataHeader => 1
+    static CurrentInternalStatusDataHeader => 1
 
     /**
+     * Native name: DeviceCurrentInternalStatusData
      * @type {Integer (Int32)}
      */
-    static DeviceCurrentInternalStatusData => 2
+    static CurrentInternalStatusData => 2
 
     /**
+     * Native name: DeviceSavedInternalStatusDataHeader
      * @type {Integer (Int32)}
      */
-    static DeviceSavedInternalStatusDataHeader => 3
+    static SavedInternalStatusDataHeader => 3
 
     /**
+     * Native name: DeviceSavedInternalStatusData
      * @type {Integer (Int32)}
      */
-    static DeviceSavedInternalStatusData => 4
+    static SavedInternalStatusData => 4
 }

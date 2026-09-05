@@ -12,120 +12,140 @@ class eAVEncH264VLevel extends Win32Enum {
 
     /**
      * Level 1.
+     * Native name: eAVEncH264VLevel1
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel1 => 10
+    static Level1 => 10
 
     /**
      * Level 1b.
+     * Native name: eAVEncH264VLevel1_b
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel1_b => 11
+    static Level1_b => 11
 
     /**
      * Level 1.1.
+     * Native name: eAVEncH264VLevel1_1
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel1_1 => 11
+    static Level1_1 => 11
 
     /**
      * Level 1.2.
+     * Native name: eAVEncH264VLevel1_2
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel1_2 => 12
+    static Level1_2 => 12
 
     /**
      * Level 1.3.
+     * Native name: eAVEncH264VLevel1_3
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel1_3 => 13
+    static Level1_3 => 13
 
     /**
      * Level 2.
+     * Native name: eAVEncH264VLevel2
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel2 => 20
+    static Level2 => 20
 
     /**
      * Level 2.1.
+     * Native name: eAVEncH264VLevel2_1
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel2_1 => 21
+    static Level2_1 => 21
 
     /**
      * Level 2.2.
+     * Native name: eAVEncH264VLevel2_2
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel2_2 => 22
+    static Level2_2 => 22
 
     /**
      * Level 3.
+     * Native name: eAVEncH264VLevel3
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel3 => 30
+    static Level3 => 30
 
     /**
      * Level 3.1.
+     * Native name: eAVEncH264VLevel3_1
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel3_1 => 31
+    static Level3_1 => 31
 
     /**
      * Level 3.2.
+     * Native name: eAVEncH264VLevel3_2
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel3_2 => 32
+    static Level3_2 => 32
 
     /**
      * Level 4.
+     * Native name: eAVEncH264VLevel4
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel4 => 40
+    static Level4 => 40
 
     /**
      * Level 4.1.
+     * Native name: eAVEncH264VLevel4_1
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel4_1 => 41
+    static Level4_1 => 41
 
     /**
      * Level 4.2.
+     * Native name: eAVEncH264VLevel4_2
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel4_2 => 42
+    static Level4_2 => 42
 
     /**
      * Level 5.
+     * Native name: eAVEncH264VLevel5
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel5 => 50
+    static Level5 => 50
 
     /**
      * Level 5.1.
+     * Native name: eAVEncH264VLevel5_1
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel5_1 => 51
+    static Level5_1 => 51
 
     /**
      * Level 5.2
      * 
      * Supported in Windows 8.1 and later.
+     * Native name: eAVEncH264VLevel5_2
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel5_2 => 52
+    static Level5_2 => 52
 
     /**
+     * Native name: eAVEncH264VLevel6
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel6 => 60
+    static Level6 => 60
 
     /**
+     * Native name: eAVEncH264VLevel6_1
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel6_1 => 61
+    static Level6_1 => 61
 
     /**
+     * Native name: eAVEncH264VLevel6_2
      * @type {Integer (Int32)}
      */
-    static eAVEncH264VLevel6_2 => 62
+    static Level6_2 => 62
 }

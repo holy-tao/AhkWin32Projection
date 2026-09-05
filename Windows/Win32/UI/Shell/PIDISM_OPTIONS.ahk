@@ -7,17 +7,20 @@
 class PIDISM_OPTIONS extends Win32Enum {
 
     /**
+     * Native name: PIDISM_GLOBAL
      * @type {Integer (Int32)}
      */
-    static PIDISM_GLOBAL => 0
+    static GLOBAL => 0
 
     /**
+     * Native name: PIDISM_WATCH
      * @type {Integer (Int32)}
      */
-    static PIDISM_WATCH => 1
+    static WATCH => 1
 
     /**
+     * Native name: PIDISM_DONTWATCH
      * @type {Integer (Int32)}
      */
-    static PIDISM_DONTWATCH => 2
+    static DONTWATCH => 2
 }

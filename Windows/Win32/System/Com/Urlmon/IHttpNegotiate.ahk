@@ -30,7 +30,6 @@ class IHttpNegotiate extends IUnknown {
     static VTableNames => ["BeginningTransaction", "OnResponse"]
 
     /**
-     * 
      * @param {PWSTR} szURL 
      * @param {PWSTR} szHeaders 
      * @param {Integer} dwReserved 
@@ -45,7 +44,6 @@ class IHttpNegotiate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwResponseCode 
      * @param {PWSTR} szResponseHeaders 
      * @param {PWSTR} szRequestHeaders 

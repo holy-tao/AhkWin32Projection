@@ -12,19 +12,22 @@ class DXGI_GPU_PREFERENCE extends Win32Enum {
 
     /**
      * No preference of GPU.
+     * Native name: DXGI_GPU_PREFERENCE_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static DXGI_GPU_PREFERENCE_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * Preference for the minimum-powered GPU (such as an integrated graphics processor, or iGPU).
+     * Native name: DXGI_GPU_PREFERENCE_MINIMUM_POWER
      * @type {Integer (Int32)}
      */
-    static DXGI_GPU_PREFERENCE_MINIMUM_POWER => 1
+    static MINIMUM_POWER => 1
 
     /**
      * Preference for the highest performing GPU, such as a discrete graphics processor (dGPU) or external graphics processor (xGPU).
+     * Native name: DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE
      * @type {Integer (Int32)}
      */
-    static DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE => 2
+    static HIGH_PERFORMANCE => 2
 }

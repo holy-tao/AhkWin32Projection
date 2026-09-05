@@ -7,17 +7,20 @@
 class TOUCHINPUTMASKF_MASK extends Win32BitflagEnum {
 
     /**
+     * Native name: TOUCHINPUTMASKF_TIMEFROMSYSTEM
      * @type {Integer (UInt32)}
      */
-    static TOUCHINPUTMASKF_TIMEFROMSYSTEM => 1
+    static TIMEFROMSYSTEM => 1
 
     /**
+     * Native name: TOUCHINPUTMASKF_EXTRAINFO
      * @type {Integer (UInt32)}
      */
-    static TOUCHINPUTMASKF_EXTRAINFO => 2
+    static EXTRAINFO => 2
 
     /**
+     * Native name: TOUCHINPUTMASKF_CONTACTAREA
      * @type {Integer (UInt32)}
      */
-    static TOUCHINPUTMASKF_CONTACTAREA => 4
+    static CONTACTAREA => 4
 }

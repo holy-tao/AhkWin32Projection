@@ -10,19 +10,22 @@ class WICRawCapabilities extends Win32Enum {
 
     /**
      * The capability is not supported.
+     * Native name: WICRawCapabilityNotSupported
      * @type {Integer (Int32)}
      */
-    static WICRawCapabilityNotSupported => 0
+    static CapabilityNotSupported => 0
 
     /**
      * The capability supports only get operations.
+     * Native name: WICRawCapabilityGetSupported
      * @type {Integer (Int32)}
      */
-    static WICRawCapabilityGetSupported => 1
+    static CapabilityGetSupported => 1
 
     /**
      * The capability supports get and set operations.
+     * Native name: WICRawCapabilityFullySupported
      * @type {Integer (Int32)}
      */
-    static WICRawCapabilityFullySupported => 2
+    static CapabilityFullySupported => 2
 }

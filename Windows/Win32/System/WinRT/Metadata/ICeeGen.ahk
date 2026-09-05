@@ -32,7 +32,6 @@ class ICeeGen extends IUnknown {
     static VTableNames => ["EmitString", "GetString", "AllocateMethodBuffer", "GetMethodBuffer", "GetIMapTokenIface", "GenerateCeeFile", "GetIlSection", "GetStringSection", "AddSectionReloc", "GetSectionCreate", "GetSectionDataLen", "GetSectionBlock", "TruncateSection", "GenerateCeeMemoryImage", "ComputePointer"]
 
     /**
-     * 
      * @param {PWSTR} lpString 
      * @param {Pointer<Integer>} RVA 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} RVA 
      * @returns {PWSTR} 
      */
@@ -57,7 +55,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cchBuffer 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 
      * @param {Pointer<Integer>} RVA 
@@ -72,7 +69,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} RVA 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 
      * @returns {HRESULT} 
@@ -85,7 +81,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetIMapTokenIface() {
@@ -94,7 +89,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GenerateCeeFile() {
@@ -103,7 +97,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _section 
      * @returns {HRESULT} 
      */
@@ -115,7 +108,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _section 
      * @returns {HRESULT} 
      */
@@ -127,7 +119,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} offset 
      * @param {Pointer<Void>} relativeTo 
@@ -143,7 +134,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {Integer} flags 
      * @param {Pointer<Pointer<Void>>} _section 
@@ -159,7 +149,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Pointer<Integer>} dataLen 
      * @returns {HRESULT} 
@@ -173,7 +162,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} len 
      * @param {Integer} align 
@@ -189,7 +177,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} len 
      * @returns {HRESULT} 
@@ -202,7 +189,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppImage 
      * @returns {HRESULT} 
      */
@@ -214,7 +200,6 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} RVA 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 

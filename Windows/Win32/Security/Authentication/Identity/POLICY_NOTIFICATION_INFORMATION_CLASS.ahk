@@ -10,53 +10,62 @@ class POLICY_NOTIFICATION_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Notify when any of the audited categories are changed.
+     * Native name: PolicyNotifyAuditEventsInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyAuditEventsInformation => 1
+    static NotifyAuditEventsInformation => 1
 
     /**
      * Notify when the account domain information changes.
+     * Native name: PolicyNotifyAccountDomainInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyAccountDomainInformation => 2
+    static NotifyAccountDomainInformation => 2
 
     /**
      * Notify when the LSA server changes its role from primary to backup, or vice versa.
+     * Native name: PolicyNotifyServerRoleInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyServerRoleInformation => 3
+    static NotifyServerRoleInformation => 3
 
     /**
      * Notify when the DNS domain information changes or if the primary domain information changes.
+     * Native name: PolicyNotifyDnsDomainInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyDnsDomainInformation => 4
+    static NotifyDnsDomainInformation => 4
 
     /**
      * Notify when the Encrypting File System (EFS) domain information changes.
+     * Native name: PolicyNotifyDomainEfsInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyDomainEfsInformation => 5
+    static NotifyDomainEfsInformation => 5
 
     /**
      * Notify when the Kerberos ticket for the domain changes.
+     * Native name: PolicyNotifyDomainKerberosTicketInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyDomainKerberosTicketInformation => 6
+    static NotifyDomainKerberosTicketInformation => 6
 
     /**
      * Notify when the machine account password changes.
+     * Native name: PolicyNotifyMachineAccountPasswordInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyMachineAccountPasswordInformation => 7
+    static NotifyMachineAccountPasswordInformation => 7
 
     /**
+     * Native name: PolicyNotifyGlobalSaclInformation
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyGlobalSaclInformation => 8
+    static NotifyGlobalSaclInformation => 8
 
     /**
+     * Native name: PolicyNotifyMax
      * @type {Integer (Int32)}
      */
-    static PolicyNotifyMax => 9
+    static NotifyMax => 9
 }

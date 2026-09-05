@@ -7,107 +7,128 @@
 class TOKEN_ACCESS_MASK extends Win32BitflagEnum {
 
     /**
+     * Native name: TOKEN_DELETE
      * @type {Integer (UInt32)}
      */
-    static TOKEN_DELETE => 65536
+    static DELETE => 65536
 
     /**
+     * Native name: TOKEN_READ_CONTROL
      * @type {Integer (UInt32)}
      */
-    static TOKEN_READ_CONTROL => 131072
+    static READ_CONTROL => 131072
 
     /**
+     * Native name: TOKEN_WRITE_DAC
      * @type {Integer (UInt32)}
      */
-    static TOKEN_WRITE_DAC => 262144
+    static WRITE_DAC => 262144
 
     /**
+     * Native name: TOKEN_WRITE_OWNER
      * @type {Integer (UInt32)}
      */
-    static TOKEN_WRITE_OWNER => 524288
+    static WRITE_OWNER => 524288
 
     /**
+     * Native name: TOKEN_ACCESS_SYSTEM_SECURITY
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ACCESS_SYSTEM_SECURITY => 16777216
+    static SYSTEM_SECURITY => 16777216
 
     /**
+     * Native name: TOKEN_ASSIGN_PRIMARY
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ASSIGN_PRIMARY => 1
+    static ASSIGN_PRIMARY => 1
 
     /**
+     * Native name: TOKEN_DUPLICATE
      * @type {Integer (UInt32)}
      */
-    static TOKEN_DUPLICATE => 2
+    static DUPLICATE => 2
 
     /**
+     * Native name: TOKEN_IMPERSONATE
      * @type {Integer (UInt32)}
      */
-    static TOKEN_IMPERSONATE => 4
+    static IMPERSONATE => 4
 
     /**
+     * Native name: TOKEN_QUERY
      * @type {Integer (UInt32)}
      */
-    static TOKEN_QUERY => 8
+    static QUERY => 8
 
     /**
+     * Native name: TOKEN_QUERY_SOURCE
      * @type {Integer (UInt32)}
      */
-    static TOKEN_QUERY_SOURCE => 16
+    static QUERY_SOURCE => 16
 
     /**
+     * Native name: TOKEN_ADJUST_PRIVILEGES
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ADJUST_PRIVILEGES => 32
+    static ADJUST_PRIVILEGES => 32
 
     /**
+     * Native name: TOKEN_ADJUST_GROUPS
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ADJUST_GROUPS => 64
+    static ADJUST_GROUPS => 64
 
     /**
+     * Native name: TOKEN_ADJUST_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ADJUST_DEFAULT => 128
+    static ADJUST_DEFAULT => 128
 
     /**
+     * Native name: TOKEN_ADJUST_SESSIONID
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ADJUST_SESSIONID => 256
+    static ADJUST_SESSIONID => 256
 
     /**
+     * Native name: TOKEN_READ
      * @type {Integer (UInt32)}
      */
-    static TOKEN_READ => 131080
+    static READ => 131080
 
     /**
+     * Native name: TOKEN_WRITE
      * @type {Integer (UInt32)}
      */
-    static TOKEN_WRITE => 131296
+    static WRITE => 131296
 
     /**
+     * Native name: TOKEN_EXECUTE
      * @type {Integer (UInt32)}
      */
-    static TOKEN_EXECUTE => 131072
+    static EXECUTE => 131072
 
     /**
+     * Native name: TOKEN_TRUST_CONSTRAINT_MASK
      * @type {Integer (UInt32)}
      */
-    static TOKEN_TRUST_CONSTRAINT_MASK => 131096
+    static TRUST_CONSTRAINT_MASK => 131096
 
     /**
+     * Native name: TOKEN_ACCESS_PSEUDO_HANDLE_WIN8
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ACCESS_PSEUDO_HANDLE_WIN8 => 24
+    static PSEUDO_HANDLE_WIN8 => 24
 
     /**
+     * Native name: TOKEN_ACCESS_PSEUDO_HANDLE
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ACCESS_PSEUDO_HANDLE => 24
+    static PSEUDO_HANDLE => 24
 
     /**
+     * Native name: TOKEN_ALL_ACCESS
      * @type {Integer (UInt32)}
      */
-    static TOKEN_ALL_ACCESS => 983551
+    static ALL_ACCESS => 983551
 }

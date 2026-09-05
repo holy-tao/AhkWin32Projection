@@ -93,7 +93,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -103,7 +102,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
      */
@@ -115,7 +113,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ADsType() {
@@ -124,7 +121,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnADsType 
      * @returns {HRESULT} 
      */
@@ -134,7 +130,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ControlCode() {
@@ -143,7 +138,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnControlCode 
      * @returns {HRESULT} 
      */
@@ -153,7 +147,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Values() {
@@ -163,7 +156,6 @@ class IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vValues 
      * @returns {HRESULT} 
      */

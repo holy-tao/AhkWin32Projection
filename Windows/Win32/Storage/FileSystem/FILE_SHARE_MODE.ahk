@@ -7,22 +7,26 @@
 class FILE_SHARE_MODE extends Win32BitflagEnum {
 
     /**
+     * Native name: FILE_SHARE_NONE
      * @type {Integer (UInt32)}
      */
-    static FILE_SHARE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: FILE_SHARE_DELETE
      * @type {Integer (UInt32)}
      */
-    static FILE_SHARE_DELETE => 4
+    static DELETE => 4
 
     /**
+     * Native name: FILE_SHARE_READ
      * @type {Integer (UInt32)}
      */
-    static FILE_SHARE_READ => 1
+    static READ => 1
 
     /**
+     * Native name: FILE_SHARE_WRITE
      * @type {Integer (UInt32)}
      */
-    static FILE_SHARE_WRITE => 2
+    static WRITE => 2
 }

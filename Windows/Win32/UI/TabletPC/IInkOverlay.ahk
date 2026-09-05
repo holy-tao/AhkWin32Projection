@@ -480,7 +480,6 @@ class IInkOverlay extends IDispatch {
     }
 
     /**
-     * 
      * @param {IInkRenderer} NewInkRenderer 
      * @returns {HRESULT} 
      */
@@ -504,7 +503,6 @@ class IInkOverlay extends IDispatch {
     }
 
     /**
-     * 
      * @param {IInkDisp} NewInk 
      * @returns {HRESULT} 
      */
@@ -843,7 +841,6 @@ class IInkOverlay extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPictureDisp} MouseIcon 
      * @returns {HRESULT} 
      */

@@ -7,7 +7,8 @@
 class DXGKMT_POWER_SHARED_TYPE extends Win32Enum {
 
     /**
+     * Native name: DXGKMT_POWER_SHARED_TYPE_AUDIO
      * @type {Integer (Int32)}
      */
-    static DXGKMT_POWER_SHARED_TYPE_AUDIO => 0
+    static AUDIO => 0
 }

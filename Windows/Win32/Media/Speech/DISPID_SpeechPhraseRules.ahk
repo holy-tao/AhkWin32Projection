@@ -7,17 +7,20 @@
 class DISPID_SpeechPhraseRules extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPRulesCount
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRulesCount => 1
+    static SPRulesCount => 1
 
     /**
+     * Native name: DISPID_SPRulesItem
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRulesItem => 0
+    static SPRulesItem => 0
 
     /**
+     * Native name: DISPID_SPRules_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRules_NewEnum => -4
+    static SPRules_NewEnum => -4
 }

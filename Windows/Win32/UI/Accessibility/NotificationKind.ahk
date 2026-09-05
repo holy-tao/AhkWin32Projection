@@ -10,31 +10,36 @@ class NotificationKind extends Win32Enum {
 
     /**
      * The current element and/or the container has had something added to it that should be presented to the user.
+     * Native name: NotificationKind_ItemAdded
      * @type {Integer (Int32)}
      */
-    static NotificationKind_ItemAdded => 0
+    static ItemAdded => 0
 
     /**
      * The current element has had something removed from inside of it that should be presented to the user.
+     * Native name: NotificationKind_ItemRemoved
      * @type {Integer (Int32)}
      */
-    static NotificationKind_ItemRemoved => 1
+    static ItemRemoved => 1
 
     /**
      * The current element has a notification that an action was completed.
+     * Native name: NotificationKind_ActionCompleted
      * @type {Integer (Int32)}
      */
-    static NotificationKind_ActionCompleted => 2
+    static ActionCompleted => 2
 
     /**
      * The current element has a notification that an action was aborted.
+     * Native name: NotificationKind_ActionAborted
      * @type {Integer (Int32)}
      */
-    static NotificationKind_ActionAborted => 3
+    static ActionAborted => 3
 
     /**
      * The current element has a notification not an add, remove, completed, or aborted action.
+     * Native name: NotificationKind_Other
      * @type {Integer (Int32)}
      */
-    static NotificationKind_Other => 4
+    static Other => 4
 }

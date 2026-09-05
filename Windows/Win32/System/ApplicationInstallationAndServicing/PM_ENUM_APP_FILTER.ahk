@@ -7,47 +7,56 @@
 class PM_ENUM_APP_FILTER extends Win32Enum {
 
     /**
+     * Native name: PM_APP_FILTER_ALL
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_ALL => 0
+    static ALL => 0
 
     /**
+     * Native name: PM_APP_FILTER_VISIBLE
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_VISIBLE => 1
+    static VISIBLE => 1
 
     /**
+     * Native name: PM_APP_FILTER_GENRE
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_GENRE => 2
+    static GENRE => 2
 
     /**
+     * Native name: PM_APP_FILTER_NONGAMES
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_NONGAMES => 3
+    static NONGAMES => 3
 
     /**
+     * Native name: PM_APP_FILTER_HUBTYPE
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_HUBTYPE => 4
+    static HUBTYPE => 4
 
     /**
+     * Native name: PM_APP_FILTER_PINABLEONKIDZONE
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_PINABLEONKIDZONE => 5
+    static PINABLEONKIDZONE => 5
 
     /**
+     * Native name: PM_APP_FILTER_ALL_INCLUDE_MODERN
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_ALL_INCLUDE_MODERN => 6
+    static ALL_INCLUDE_MODERN => 6
 
     /**
+     * Native name: PM_APP_FILTER_FRAMEWORK
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_FRAMEWORK => 7
+    static FRAMEWORK => 7
 
     /**
+     * Native name: PM_APP_FILTER_MAX
      * @type {Integer (Int32)}
      */
-    static PM_APP_FILTER_MAX => 8
+    static MAX => 8
 }

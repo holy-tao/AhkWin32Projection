@@ -37,7 +37,6 @@ class AsyncIFtpAuthenticationProvider extends IUnknown {
     static VTableNames => ["Begin_AuthenticateUser", "Finish_AuthenticateUser"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -55,7 +54,6 @@ class AsyncIFtpAuthenticationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppszCanonicalUserName 
      * @param {Pointer<BOOL>} pfAuthenticated 
      * @returns {HRESULT} 

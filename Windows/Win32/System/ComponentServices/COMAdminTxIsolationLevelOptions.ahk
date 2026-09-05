@@ -14,31 +14,36 @@ class COMAdminTxIsolationLevelOptions extends Win32Enum {
 
     /**
      * Any isolation level is supported. A downstream component that has this isolation level always uses the same isolation level that its immediate upstream component uses. If the root object in a transaction has its isolation level configured to COMAdminTxIsolationLevelAny, its isolation level becomes COMAdminTxIsolationLevelSerializable.
+     * Native name: COMAdminTxIsolationLevelAny
      * @type {Integer (Int32)}
      */
-    static COMAdminTxIsolationLevelAny => 0
+    static Any => 0
 
     /**
      * A transaction can read any data, even if it is being modified by another transaction. Any type of new data can be inserted during a transaction. This is the least safe isolation level but allows the highest concurrency.
+     * Native name: COMAdminTxIsolationLevelReadUnCommitted
      * @type {Integer (Int32)}
      */
-    static COMAdminTxIsolationLevelReadUnCommitted => 1
+    static ReadUnCommitted => 1
 
     /**
      * A transaction cannot read data that is being modified by another transaction that has not committed. Any type of new data can be inserted during a transaction. This is the default isolation level in Microsoft SQL Server.
+     * Native name: COMAdminTxIsolationLevelReadCommitted
      * @type {Integer (Int32)}
      */
-    static COMAdminTxIsolationLevelReadCommitted => 2
+    static ReadCommitted => 2
 
     /**
      * Data read by a current transaction cannot be changed by another transaction until the current transaction finishes. Any type of new data can be inserted during a transaction.
+     * Native name: COMAdminTxIsolationLevelRepeatableRead
      * @type {Integer (Int32)}
      */
-    static COMAdminTxIsolationLevelRepeatableRead => 3
+    static RepeatableRead => 3
 
     /**
      * Data read by a current transaction cannot be changed by another transaction until the current transaction finishes. No new data can be inserted that would affect the current transaction. This is the safest isolation level and is the default, but allows the lowest level of concurrency.
+     * Native name: COMAdminTxIsolationLevelSerializable
      * @type {Integer (Int32)}
      */
-    static COMAdminTxIsolationLevelSerializable => 4
+    static Serializable => 4
 }

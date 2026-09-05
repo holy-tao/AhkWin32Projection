@@ -101,7 +101,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +112,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -123,7 +121,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -133,7 +130,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -143,7 +139,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -153,7 +148,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -163,7 +157,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -173,7 +166,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -183,7 +175,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -193,7 +184,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_styleSheet() {
@@ -202,7 +192,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -212,7 +201,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -221,7 +209,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -233,7 +220,6 @@ class IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {

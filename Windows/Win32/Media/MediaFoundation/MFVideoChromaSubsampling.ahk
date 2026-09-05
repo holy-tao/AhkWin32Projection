@@ -14,67 +14,78 @@ class MFVideoChromaSubsampling extends Win32Enum {
 
     /**
      * Unknown encoding scheme.
+     * Native name: MFVideoChromaSubsampling_Unknown
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_Unknown => 0
+    static Unknown => 0
 
     /**
      * Chroma should be reconstructed as if the underlying video was progressive content, rather than skipping fields or applying chroma filtering to minimize artifacts from reconstructing 4:2:0 interlaced chroma.
+     * Native name: MFVideoChromaSubsampling_ProgressiveChroma
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_ProgressiveChroma => 8
+    static ProgressiveChroma => 8
 
     /**
      * Chroma samples are aligned horizontally with the luma samples, or with multiples of the luma samples. If this flag is not set, chroma samples are located 1/2 pixel to the right of the corresponding luma sample.
+     * Native name: MFVideoChromaSubsampling_Horizontally_Cosited
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_Horizontally_Cosited => 4
+    static Horizontally_Cosited => 4
 
     /**
      * Chroma samples are aligned vertically with the luma samples, or with multiples of the luma samples. If this flag is not set, chroma samples are located 1/2 pixel down from the corresponding luma sample.
+     * Native name: MFVideoChromaSubsampling_Vertically_Cosited
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_Vertically_Cosited => 2
+    static Vertically_Cosited => 2
 
     /**
      * The U and V planes are aligned vertically. If this flag is not set, the chroma planes are assumed to be out of phase by 1/2 chroma sample, alternating between a line of U followed by a line of V.
+     * Native name: MFVideoChromaSubsampling_Vertically_AlignedChromaPlanes
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_Vertically_AlignedChromaPlanes => 1
+    static Vertically_AlignedChromaPlanes => 1
 
     /**
      * Specifies the chroma encoding scheme for MPEG-2 video. Chroma samples are aligned horizontally with the luma samples, but are not aligned vertically. The U and V planes are aligned vertically.
+     * Native name: MFVideoChromaSubsampling_MPEG2
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_MPEG2 => 5
+    static MPEG2 => 5
 
     /**
      * Specifies the chroma encoding scheme for MPEG-1 video.
+     * Native name: MFVideoChromaSubsampling_MPEG1
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_MPEG1 => 1
+    static MPEG1 => 1
 
     /**
      * Specifies the chroma encoding scheme for PAL DV video.
+     * Native name: MFVideoChromaSubsampling_DV_PAL
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_DV_PAL => 6
+    static DV_PAL => 6
 
     /**
      * Chroma samples are aligned vertically and horizontally with the luma samples. YUV formats such as 4:4:4, 4:2:2, and 4:1:1 are always cosited in both directions and should use this flag.
+     * Native name: MFVideoChromaSubsampling_Cosited
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_Cosited => 7
+    static Cosited => 7
 
     /**
      * Reserved.
+     * Native name: MFVideoChromaSubsampling_Last
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_Last => 8
+    static Last => 8
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.
+     * Native name: MFVideoChromaSubsampling_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static MFVideoChromaSubsampling_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

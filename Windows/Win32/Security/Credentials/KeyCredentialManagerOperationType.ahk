@@ -10,19 +10,22 @@ class KeyCredentialManagerOperationType extends Win32Enum {
 
     /**
      * Start the Provisioning operation.
+     * Native name: KeyCredentialManagerProvisioning
      * @type {Integer (Int32)}
      */
-    static KeyCredentialManagerProvisioning => 0
+    static Provisioning => 0
 
     /**
      * Start the User Change PIN operation.
+     * Native name: KeyCredentialManagerPinChange
      * @type {Integer (Int32)}
      */
-    static KeyCredentialManagerPinChange => 1
+    static PinChange => 1
 
     /**
      * Start the User PIN Reset operation.
+     * Native name: KeyCredentialManagerPinReset
      * @type {Integer (Int32)}
      */
-    static KeyCredentialManagerPinReset => 2
+    static PinReset => 2
 }

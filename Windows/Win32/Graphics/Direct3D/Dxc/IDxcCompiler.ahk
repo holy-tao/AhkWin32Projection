@@ -35,7 +35,6 @@ class IDxcCompiler extends IUnknown {
     static VTableNames => ["Compile", "Preprocess", "Disassemble"]
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {PWSTR} pEntryPoint 
@@ -59,7 +58,6 @@ class IDxcCompiler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {Pointer<PWSTR>} pArguments 
@@ -79,7 +77,6 @@ class IDxcCompiler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @returns {IDxcBlobEncoding} 
      */

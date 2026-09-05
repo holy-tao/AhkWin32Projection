@@ -10,19 +10,22 @@ class WICProgressOperation extends Win32Enum {
 
     /**
      * Receive copy pixel operation.
+     * Native name: WICProgressOperationCopyPixels
      * @type {Integer (Int32)}
      */
-    static WICProgressOperationCopyPixels => 1
+    static CopyPixels => 1
 
     /**
      * Receive write pixel operation.
+     * Native name: WICProgressOperationWritePixels
      * @type {Integer (Int32)}
      */
-    static WICProgressOperationWritePixels => 2
+    static WritePixels => 2
 
     /**
      * Receive all progress operations available.
+     * Native name: WICProgressOperationAll
      * @type {Integer (Int32)}
      */
-    static WICProgressOperationAll => 65535
+    static All => 65535
 }

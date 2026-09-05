@@ -10,25 +10,29 @@ class WICMetadataCreationOptions extends Win32Enum {
 
     /**
      * The default metadata creation options. The default value is <b>WICMetadataCreationAllowUnknown</b>.
+     * Native name: WICMetadataCreationDefault
      * @type {Integer (Int32)}
      */
-    static WICMetadataCreationDefault => 0
+    static Default => 0
 
     /**
      * Allow unknown metadata creation.
+     * Native name: WICMetadataCreationAllowUnknown
      * @type {Integer (Int32)}
      */
-    static WICMetadataCreationAllowUnknown => 0
+    static AllowUnknown => 0
 
     /**
      * Fail on unknown metadata creation.
+     * Native name: WICMetadataCreationFailUnknown
      * @type {Integer (Int32)}
      */
-    static WICMetadataCreationFailUnknown => 65536
+    static FailUnknown => 65536
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ne-wincodecsdk-wicmetadatacreationoptions">WICMetadataCreationOptions</a> mask.
+     * Native name: WICMetadataCreationMask
      * @type {Integer (Int32)}
      */
-    static WICMetadataCreationMask => -65536
+    static Mask => -65536
 }

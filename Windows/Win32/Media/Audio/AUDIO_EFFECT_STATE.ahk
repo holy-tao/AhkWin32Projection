@@ -14,13 +14,15 @@ class AUDIO_EFFECT_STATE extends Win32Enum {
 
     /**
      * The audio effect is off.
+     * Native name: AUDIO_EFFECT_STATE_OFF
      * @type {Integer (Int32)}
      */
-    static AUDIO_EFFECT_STATE_OFF => 0
+    static OFF => 0
 
     /**
      * The audio effect is on.
+     * Native name: AUDIO_EFFECT_STATE_ON
      * @type {Integer (Int32)}
      */
-    static AUDIO_EFFECT_STATE_ON => 1
+    static ON => 1
 }

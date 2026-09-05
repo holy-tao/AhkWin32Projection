@@ -236,7 +236,6 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     }
 
     /**
-     * 
      * @returns {IXpsOMPackage1} 
      */
     CreatePackage1() {
@@ -283,7 +282,6 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     }
 
     /**
-     * 
      * @param {Pointer<XPS_SIZE>} pageDimensions 
      * @param {PWSTR} language 
      * @param {IOpcPartUri} partUri 

@@ -10,19 +10,22 @@ class OFFLINEFILES_ITEM_TIME extends Win32Enum {
 
     /**
      * Use the item's creation time.
+     * Native name: OFFLINEFILES_ITEM_TIME_CREATION
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_TIME_CREATION => 0
+    static CREATION => 0
 
     /**
      * Use the item's last-access time.
+     * Native name: OFFLINEFILES_ITEM_TIME_LASTACCESS
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_TIME_LASTACCESS => 1
+    static LASTACCESS => 1
 
     /**
      * Use the item's last-write time.
+     * Native name: OFFLINEFILES_ITEM_TIME_LASTWRITE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_TIME_LASTWRITE => 2
+    static LASTWRITE => 2
 }

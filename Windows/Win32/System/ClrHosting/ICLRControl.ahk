@@ -31,7 +31,6 @@ class ICLRControl extends IUnknown {
     static VTableNames => ["GetCLRManager", "SetAppDomainManagerType"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -41,7 +40,6 @@ class ICLRControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAppDomainManagerAssembly 
      * @param {PWSTR} pwzAppDomainManagerType 
      * @returns {HRESULT} 

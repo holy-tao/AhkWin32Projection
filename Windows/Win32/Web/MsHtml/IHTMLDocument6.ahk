@@ -63,7 +63,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocumentCompatibleInfoCollection} 
      */
     get_compatible() {
@@ -72,7 +71,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_documentMode() {
@@ -82,7 +80,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstorage() {
@@ -102,7 +98,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -112,7 +107,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstoragecommit() {
@@ -122,7 +116,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrId 
      * @returns {IHTMLElement2} 
      */
@@ -134,7 +127,6 @@ class IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     updateSettings() {

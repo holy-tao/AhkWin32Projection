@@ -32,7 +32,6 @@ class IDebugBreakpoint extends IUnknown {
     static VTableNames => ["GetId", "GetType", "GetAdder", "GetFlags", "AddFlags", "RemoveFlags", "SetFlags", "GetOffset", "SetOffset", "GetDataParameters", "SetDataParameters", "GetPassCount", "SetPassCount", "GetCurrentPassCount", "GetMatchThreadId", "SetMatchThreadId", "GetCommand", "SetCommand", "GetOffsetExpression", "SetOffsetExpression", "GetParameters"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetId() {
@@ -41,7 +40,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} BreakType 
      * @param {Pointer<Integer>} ProcType 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugClient} 
      */
     GetAdder() {
@@ -64,7 +61,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -73,7 +69,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -83,7 +78,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -185,7 +179,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOffset() {
@@ -194,7 +187,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {HRESULT} 
      */
@@ -204,7 +196,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Size 
      * @param {Pointer<Integer>} AccessType 
      * @returns {HRESULT} 
@@ -218,7 +209,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Size 
      * @param {Integer} AccessType 
      * @returns {HRESULT} 
@@ -229,7 +219,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPassCount() {
@@ -238,7 +227,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @returns {HRESULT} 
      */
@@ -248,7 +236,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentPassCount() {
@@ -257,7 +244,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMatchThreadId() {
@@ -266,7 +252,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Thread 
      * @returns {HRESULT} 
      */
@@ -276,7 +261,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -289,7 +273,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Command 
      * @returns {HRESULT} 
      */
@@ -301,7 +284,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -314,7 +296,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Expression 
      * @returns {HRESULT} 
      */
@@ -326,7 +307,6 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEBUG_BREAKPOINT_PARAMETERS} 
      */
     GetParameters() {

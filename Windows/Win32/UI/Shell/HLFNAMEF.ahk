@@ -7,27 +7,32 @@
 class HLFNAMEF extends Win32BitflagEnum {
 
     /**
+     * Native name: HLFNAMEF_DEFAULT
      * @type {Integer (Int32)}
      */
-    static HLFNAMEF_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: HLFNAMEF_TRYCACHE
      * @type {Integer (Int32)}
      */
-    static HLFNAMEF_TRYCACHE => 1
+    static TRYCACHE => 1
 
     /**
+     * Native name: HLFNAMEF_TRYPRETTYTARGET
      * @type {Integer (Int32)}
      */
-    static HLFNAMEF_TRYPRETTYTARGET => 2
+    static TRYPRETTYTARGET => 2
 
     /**
+     * Native name: HLFNAMEF_TRYFULLTARGET
      * @type {Integer (Int32)}
      */
-    static HLFNAMEF_TRYFULLTARGET => 4
+    static TRYFULLTARGET => 4
 
     /**
+     * Native name: HLFNAMEF_TRYWIN95SHORTCUT
      * @type {Integer (Int32)}
      */
-    static HLFNAMEF_TRYWIN95SHORTCUT => 8
+    static TRYWIN95SHORTCUT => 8
 }

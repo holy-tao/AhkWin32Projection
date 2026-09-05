@@ -7,42 +7,50 @@
 class IO_SESSION_EVENT extends Win32Enum {
 
     /**
+     * Native name: IoSessionEventIgnore
      * @type {Integer (Int32)}
      */
-    static IoSessionEventIgnore => 0
+    static Ignore => 0
 
     /**
+     * Native name: IoSessionEventCreated
      * @type {Integer (Int32)}
      */
-    static IoSessionEventCreated => 1
+    static Created => 1
 
     /**
+     * Native name: IoSessionEventTerminated
      * @type {Integer (Int32)}
      */
-    static IoSessionEventTerminated => 2
+    static Terminated => 2
 
     /**
+     * Native name: IoSessionEventConnected
      * @type {Integer (Int32)}
      */
-    static IoSessionEventConnected => 3
+    static Connected => 3
 
     /**
+     * Native name: IoSessionEventDisconnected
      * @type {Integer (Int32)}
      */
-    static IoSessionEventDisconnected => 4
+    static Disconnected => 4
 
     /**
+     * Native name: IoSessionEventLogon
      * @type {Integer (Int32)}
      */
-    static IoSessionEventLogon => 5
+    static Logon => 5
 
     /**
+     * Native name: IoSessionEventLogoff
      * @type {Integer (Int32)}
      */
-    static IoSessionEventLogoff => 6
+    static Logoff => 6
 
     /**
+     * Native name: IoSessionEventMax
      * @type {Integer (Int32)}
      */
-    static IoSessionEventMax => 7
+    static Max => 7
 }

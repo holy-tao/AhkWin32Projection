@@ -38,7 +38,6 @@ class IHTMLListElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IHTMLListElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_compact() {

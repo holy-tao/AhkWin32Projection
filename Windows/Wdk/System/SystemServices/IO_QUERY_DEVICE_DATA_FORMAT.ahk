@@ -7,22 +7,26 @@
 class IO_QUERY_DEVICE_DATA_FORMAT extends Win32Enum {
 
     /**
+     * Native name: IoQueryDeviceIdentifier
      * @type {Integer (Int32)}
      */
-    static IoQueryDeviceIdentifier => 0
+    static Identifier => 0
 
     /**
+     * Native name: IoQueryDeviceConfigurationData
      * @type {Integer (Int32)}
      */
-    static IoQueryDeviceConfigurationData => 1
+    static ConfigurationData => 1
 
     /**
+     * Native name: IoQueryDeviceComponentInformation
      * @type {Integer (Int32)}
      */
-    static IoQueryDeviceComponentInformation => 2
+    static ComponentInformation => 2
 
     /**
+     * Native name: IoQueryDeviceMaxData
      * @type {Integer (Int32)}
      */
-    static IoQueryDeviceMaxData => 3
+    static MaxData => 3
 }

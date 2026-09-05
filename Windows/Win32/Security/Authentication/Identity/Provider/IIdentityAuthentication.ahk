@@ -30,7 +30,6 @@ class IIdentityAuthentication extends IUnknown {
     static VTableNames => ["SetIdentityCredential", "ValidateIdentityCredential"]
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IIdentityAuthentication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @param {Pointer<IPropertyStore>} ppIdentityProperties 

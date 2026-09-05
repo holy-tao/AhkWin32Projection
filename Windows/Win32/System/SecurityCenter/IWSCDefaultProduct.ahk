@@ -37,7 +37,6 @@ class IWSCDefaultProduct extends IDispatch {
     static VTableNames => ["SetDefaultProduct"]
 
     /**
-     * 
      * @param {SECURITY_PRODUCT_TYPE} eType 
      * @param {BSTR} pGuid 
      * @returns {HRESULT} 

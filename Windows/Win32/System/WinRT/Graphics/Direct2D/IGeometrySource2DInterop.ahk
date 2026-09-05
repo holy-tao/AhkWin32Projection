@@ -31,7 +31,6 @@ class IGeometrySource2DInterop extends IUnknown {
     static VTableNames => ["GetGeometry", "TryGetGeometryUsingFactory"]
 
     /**
-     * 
      * @returns {ID2D1Geometry} 
      */
     GetGeometry() {
@@ -40,7 +39,6 @@ class IGeometrySource2DInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID2D1Factory} factory 
      * @returns {ID2D1Geometry} 
      */

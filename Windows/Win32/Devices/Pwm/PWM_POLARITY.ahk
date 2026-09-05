@@ -10,13 +10,15 @@ class PWM_POLARITY extends Win32Enum {
 
     /**
      * Active High.
+     * Native name: PWM_ACTIVE_HIGH
      * @type {Integer (Int32)}
      */
-    static PWM_ACTIVE_HIGH => 0
+    static ACTIVE_HIGH => 0
 
     /**
      * Active Low.
+     * Native name: PWM_ACTIVE_LOW
      * @type {Integer (Int32)}
      */
-    static PWM_ACTIVE_LOW => 1
+    static ACTIVE_LOW => 1
 }

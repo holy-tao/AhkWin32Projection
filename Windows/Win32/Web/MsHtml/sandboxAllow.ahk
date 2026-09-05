@@ -7,32 +7,38 @@
 class sandboxAllow extends Win32Enum {
 
     /**
+     * Native name: sandboxAllowScripts
      * @type {Integer (Int32)}
      */
-    static sandboxAllowScripts => 0
+    static Scripts => 0
 
     /**
+     * Native name: sandboxAllowSameOrigin
      * @type {Integer (Int32)}
      */
-    static sandboxAllowSameOrigin => 1
+    static SameOrigin => 1
 
     /**
+     * Native name: sandboxAllowTopNavigation
      * @type {Integer (Int32)}
      */
-    static sandboxAllowTopNavigation => 2
+    static TopNavigation => 2
 
     /**
+     * Native name: sandboxAllowForms
      * @type {Integer (Int32)}
      */
-    static sandboxAllowForms => 3
+    static Forms => 3
 
     /**
+     * Native name: sandboxAllowPopups
      * @type {Integer (Int32)}
      */
-    static sandboxAllowPopups => 4
+    static Popups => 4
 
     /**
+     * Native name: sandboxAllow_Max
      * @type {Integer (Int32)}
      */
-    static sandboxAllow_Max => 2147483647
+    static Max => 2147483647
 }

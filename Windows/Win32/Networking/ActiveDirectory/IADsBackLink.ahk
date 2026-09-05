@@ -48,7 +48,6 @@ class IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RemoteID() {
@@ -57,7 +56,6 @@ class IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnRemoteID 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectName() {
@@ -77,7 +74,6 @@ class IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectName 
      * @returns {HRESULT} 
      */

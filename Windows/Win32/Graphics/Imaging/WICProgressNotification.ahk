@@ -10,25 +10,29 @@ class WICProgressNotification extends Win32Enum {
 
     /**
      * The callback should be called when codec operations begin.
+     * Native name: WICProgressNotificationBegin
      * @type {Integer (Int32)}
      */
-    static WICProgressNotificationBegin => 65536
+    static Begin => 65536
 
     /**
      * The callback should be called when codec operations end.
+     * Native name: WICProgressNotificationEnd
      * @type {Integer (Int32)}
      */
-    static WICProgressNotificationEnd => 131072
+    static End => 131072
 
     /**
      * The callback should be called frequently to report status.
+     * Native name: WICProgressNotificationFrequent
      * @type {Integer (Int32)}
      */
-    static WICProgressNotificationFrequent => 262144
+    static Frequent => 262144
 
     /**
      * The callback should be called on all available progress notifications.
+     * Native name: WICProgressNotificationAll
      * @type {Integer (Int32)}
      */
-    static WICProgressNotificationAll => -65536
+    static All => -65536
 }

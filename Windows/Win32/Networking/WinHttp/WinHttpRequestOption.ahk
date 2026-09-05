@@ -14,102 +14,122 @@
 class WinHttpRequestOption extends Win32Enum {
 
     /**
+     * Native name: WinHttpRequestOption_UserAgentString
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_UserAgentString => 0
+    static UserAgentString => 0
 
     /**
+     * Native name: WinHttpRequestOption_URL
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_URL => 1
+    static URL => 1
 
     /**
+     * Native name: WinHttpRequestOption_URLCodePage
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_URLCodePage => 2
+    static URLCodePage => 2
 
     /**
+     * Native name: WinHttpRequestOption_EscapePercentInURL
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_EscapePercentInURL => 3
+    static EscapePercentInURL => 3
 
     /**
+     * Native name: WinHttpRequestOption_SslErrorIgnoreFlags
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_SslErrorIgnoreFlags => 4
+    static SslErrorIgnoreFlags => 4
 
     /**
+     * Native name: WinHttpRequestOption_SelectCertificate
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_SelectCertificate => 5
+    static SelectCertificate => 5
 
     /**
+     * Native name: WinHttpRequestOption_EnableRedirects
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_EnableRedirects => 6
+    static EnableRedirects => 6
 
     /**
+     * Native name: WinHttpRequestOption_UrlEscapeDisable
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_UrlEscapeDisable => 7
+    static UrlEscapeDisable => 7
 
     /**
+     * Native name: WinHttpRequestOption_UrlEscapeDisableQuery
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_UrlEscapeDisableQuery => 8
+    static UrlEscapeDisableQuery => 8
 
     /**
+     * Native name: WinHttpRequestOption_SecureProtocols
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_SecureProtocols => 9
+    static SecureProtocols => 9
 
     /**
+     * Native name: WinHttpRequestOption_EnableTracing
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_EnableTracing => 10
+    static EnableTracing => 10
 
     /**
+     * Native name: WinHttpRequestOption_RevertImpersonationOverSsl
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_RevertImpersonationOverSsl => 11
+    static RevertImpersonationOverSsl => 11
 
     /**
+     * Native name: WinHttpRequestOption_EnableHttpsToHttpRedirects
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_EnableHttpsToHttpRedirects => 12
+    static EnableHttpsToHttpRedirects => 12
 
     /**
+     * Native name: WinHttpRequestOption_EnablePassportAuthentication
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_EnablePassportAuthentication => 13
+    static EnablePassportAuthentication => 13
 
     /**
+     * Native name: WinHttpRequestOption_MaxAutomaticRedirects
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_MaxAutomaticRedirects => 14
+    static MaxAutomaticRedirects => 14
 
     /**
+     * Native name: WinHttpRequestOption_MaxResponseHeaderSize
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_MaxResponseHeaderSize => 15
+    static MaxResponseHeaderSize => 15
 
     /**
+     * Native name: WinHttpRequestOption_MaxResponseDrainSize
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_MaxResponseDrainSize => 16
+    static MaxResponseDrainSize => 16
 
     /**
+     * Native name: WinHttpRequestOption_EnableHttp1_1
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_EnableHttp1_1 => 17
+    static EnableHttp1_1 => 17
 
     /**
+     * Native name: WinHttpRequestOption_EnableCertificateRevocationCheck
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_EnableCertificateRevocationCheck => 18
+    static EnableCertificateRevocationCheck => 18
 
     /**
+     * Native name: WinHttpRequestOption_RejectUserpwd
      * @type {Integer (Int32)}
      */
-    static WinHttpRequestOption_RejectUserpwd => 19
+    static RejectUserpwd => 19
 }

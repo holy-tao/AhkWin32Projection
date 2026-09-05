@@ -129,7 +129,6 @@ class IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwBreakWordType 
      * @returns {HRESULT} 
      */
@@ -139,7 +138,6 @@ class IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwBreakWordType 
      * @returns {HRESULT} 
      */
@@ -151,7 +149,6 @@ class IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfBreakFlags 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -162,7 +159,6 @@ class IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pgrfBreakFlags 
      * @param {Pointer<Integer>} pdwReserved 
      * @returns {HRESULT} 
@@ -176,7 +172,6 @@ class IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwExtDataType 
      * @returns {HRESULT} 
@@ -187,7 +182,6 @@ class IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IStemmer} pStemmer 
      * @returns {HRESULT} 
@@ -198,7 +192,6 @@ class IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IStemmer} 
      */
     GetWordStemmer() {

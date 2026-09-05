@@ -10,25 +10,29 @@ class WMT_PLAY_MODE extends Win32Enum {
 
     /**
      * The reader will select the most appropriate play mode based on the location of the content.
+     * Native name: WMT_PLAY_MODE_AUTOSELECT
      * @type {Integer (Int32)}
      */
-    static WMT_PLAY_MODE_AUTOSELECT => 0
+    static AUTOSELECT => 0
 
     /**
      * The reader will read files from a local storage location.
+     * Native name: WMT_PLAY_MODE_LOCAL
      * @type {Integer (Int32)}
      */
-    static WMT_PLAY_MODE_LOCAL => 1
+    static LOCAL => 1
 
     /**
      * The reader will download files from network locations.
+     * Native name: WMT_PLAY_MODE_DOWNLOAD
      * @type {Integer (Int32)}
      */
-    static WMT_PLAY_MODE_DOWNLOAD => 2
+    static DOWNLOAD => 2
 
     /**
      * The reader will stream files from network locations.
+     * Native name: WMT_PLAY_MODE_STREAMING
      * @type {Integer (Int32)}
      */
-    static WMT_PLAY_MODE_STREAMING => 3
+    static STREAMING => 3
 }

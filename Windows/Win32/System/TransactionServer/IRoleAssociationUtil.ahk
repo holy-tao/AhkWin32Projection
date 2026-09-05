@@ -36,7 +36,6 @@ class IRoleAssociationUtil extends IDispatch {
     static VTableNames => ["AssociateRole", "AssociateRoleByName"]
 
     /**
-     * 
      * @param {BSTR} bstrRoleID 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IRoleAssociationUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRoleName 
      * @returns {HRESULT} 
      */

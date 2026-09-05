@@ -10,13 +10,15 @@ class D2D1_COLORMATRIX_ALPHA_MODE extends Win32Enum {
 
     /**
      * The effect un-premultiplies the input, applies the color matrix, and premultiplies the output.
+     * Native name: D2D1_COLORMATRIX_ALPHA_MODE_PREMULTIPLIED
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMATRIX_ALPHA_MODE_PREMULTIPLIED => 1
+    static PREMULTIPLIED => 1
 
     /**
      * The effect applies the color matrix directly to the input, and doesn't premultiply the output.
+     * Native name: D2D1_COLORMATRIX_ALPHA_MODE_STRAIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMATRIX_ALPHA_MODE_STRAIGHT => 2
+    static STRAIGHT => 2
 }

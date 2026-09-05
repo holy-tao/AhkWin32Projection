@@ -35,7 +35,6 @@ class IPrinterQueueView extends IDispatch {
     static VTableNames => ["SetViewRange"]
 
     /**
-     * 
      * @param {Integer} ulViewOffset 
      * @param {Integer} ulViewSize 
      * @returns {HRESULT} 

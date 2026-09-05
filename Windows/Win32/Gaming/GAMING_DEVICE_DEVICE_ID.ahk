@@ -12,46 +12,54 @@ class GAMING_DEVICE_DEVICE_ID extends Win32Enum {
 
     /**
      * The device is not in the Xbox family.
+     * Native name: GAMING_DEVICE_DEVICE_ID_NONE
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_NONE => 0
+    static NONE => 0
 
     /**
      * The device is an Xbox One (original).
+     * Native name: GAMING_DEVICE_DEVICE_ID_XBOX_ONE
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_XBOX_ONE => 1988865574
+    static XBOX_ONE => 1988865574
 
     /**
      * The device is an Xbox One S.
+     * Native name: GAMING_DEVICE_DEVICE_ID_XBOX_ONE_S
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_XBOX_ONE_S => 712204761
+    static XBOX_ONE_S => 712204761
 
     /**
      * The device is an Xbox One X.
+     * Native name: GAMING_DEVICE_DEVICE_ID_XBOX_ONE_X
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_XBOX_ONE_X => 1523980231
+    static XBOX_ONE_X => 1523980231
 
     /**
      * The device is an Xbox One X dev kit.
+     * Native name: GAMING_DEVICE_DEVICE_ID_XBOX_ONE_X_DEVKIT
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_XBOX_ONE_X_DEVKIT => 284675555
+    static XBOX_ONE_X_DEVKIT => 284675555
 
     /**
+     * Native name: GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_S
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_S => 489159355
+    static XBOX_SERIES_S => 489159355
 
     /**
+     * Native name: GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_X
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_X => 796540415
+    static XBOX_SERIES_X => 796540415
 
     /**
+     * Native name: GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_X_DEVKIT
      * @type {Integer (Int32)}
      */
-    static GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_X_DEVKIT => -561359263
+    static XBOX_SERIES_X_DEVKIT => -561359263
 }

@@ -29,7 +29,6 @@ class IWrappedProtocol extends IUnknown {
     static VTableNames => ["GetWrapperCode"]
 
     /**
-     * 
      * @param {Pointer} dwReserved 
      * @returns {Integer} 
      */

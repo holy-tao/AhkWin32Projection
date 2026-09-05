@@ -7,12 +7,14 @@
 class VarArgsKind extends Win32Enum {
 
     /**
+     * Native name: VarArgsNone
      * @type {Integer (Int32)}
      */
-    static VarArgsNone => 0
+    static None => 0
 
     /**
+     * Native name: VarArgsCStyle
      * @type {Integer (Int32)}
      */
-    static VarArgsCStyle => 1
+    static ArgsCStyle => 1
 }

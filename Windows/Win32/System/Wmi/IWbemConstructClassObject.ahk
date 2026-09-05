@@ -30,7 +30,6 @@ class IWbemConstructClassObject extends IUnknown {
     static VTableNames => ["SetInheritanceChain", "SetPropertyOrigin", "SetMethodOrigin", "SetServerNamespace"]
 
     /**
-     * 
      * @param {Integer} lNumAntecedents 
      * @param {Integer} awszAntecedents 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IWbemConstructClassObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszPropertyName 
      * @param {Integer} lOriginIndex 
      * @returns {HRESULT} 
@@ -54,7 +52,6 @@ class IWbemConstructClassObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszMethodName 
      * @param {Integer} lOriginIndex 
      * @returns {HRESULT} 
@@ -67,7 +64,6 @@ class IWbemConstructClassObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszServer 
      * @param {PWSTR} wszNamespace 
      * @returns {HRESULT} 

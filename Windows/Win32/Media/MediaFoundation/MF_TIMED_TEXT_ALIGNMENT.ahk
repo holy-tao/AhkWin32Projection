@@ -10,19 +10,22 @@ class MF_TIMED_TEXT_ALIGNMENT extends Win32Enum {
 
     /**
      * Text is aligned at the start of its parent block element.
+     * Native name: MF_TIMED_TEXT_ALIGNMENT_START
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ALIGNMENT_START => 0
+    static START => 0
 
     /**
      * Text is aligned at the end of its parent block element.
+     * Native name: MF_TIMED_TEXT_ALIGNMENT_END
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ALIGNMENT_END => 1
+    static END => 1
 
     /**
      * Text is aligned in the center of its parent block element.
+     * Native name: MF_TIMED_TEXT_ALIGNMENT_CENTER
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ALIGNMENT_CENTER => 2
+    static CENTER => 2
 }

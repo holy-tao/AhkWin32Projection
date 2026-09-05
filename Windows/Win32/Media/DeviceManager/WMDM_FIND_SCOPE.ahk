@@ -9,12 +9,14 @@
 class WMDM_FIND_SCOPE extends Win32Enum {
 
     /**
+     * Native name: WMDM_FIND_SCOPE_GLOBAL
      * @type {Integer (Int32)}
      */
-    static WMDM_FIND_SCOPE_GLOBAL => 0
+    static GLOBAL => 0
 
     /**
+     * Native name: WMDM_FIND_SCOPE_IMMEDIATE_CHILDREN
      * @type {Integer (Int32)}
      */
-    static WMDM_FIND_SCOPE_IMMEDIATE_CHILDREN => 1
+    static IMMEDIATE_CHILDREN => 1
 }

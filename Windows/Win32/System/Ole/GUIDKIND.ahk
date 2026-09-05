@@ -10,7 +10,8 @@ class GUIDKIND extends Win32Enum {
 
     /**
      * The interface identifier (IID) of the object's outgoing dispinterface, labeled [source, default]. The outgoing interface in question must be derived from <b>IDispatch</b>.
+     * Native name: GUIDKIND_DEFAULT_SOURCE_DISP_IID
      * @type {Integer (Int32)}
      */
-    static GUIDKIND_DEFAULT_SOURCE_DISP_IID => 1
+    static DEFAULT_SOURCE_DISP_IID => 1
 }

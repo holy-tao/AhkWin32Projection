@@ -7,22 +7,26 @@
 class SCRIPTLANGUAGEVERSION extends Win32Enum {
 
     /**
+     * Native name: SCRIPTLANGUAGEVERSION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SCRIPTLANGUAGEVERSION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: SCRIPTLANGUAGEVERSION_5_7
      * @type {Integer (Int32)}
      */
-    static SCRIPTLANGUAGEVERSION_5_7 => 1
+    static 5_7 => 1
 
     /**
+     * Native name: SCRIPTLANGUAGEVERSION_5_8
      * @type {Integer (Int32)}
      */
-    static SCRIPTLANGUAGEVERSION_5_8 => 2
+    static 5_8 => 2
 
     /**
+     * Native name: SCRIPTLANGUAGEVERSION_MAX
      * @type {Integer (Int32)}
      */
-    static SCRIPTLANGUAGEVERSION_MAX => 255
+    static MAX => 255
 }

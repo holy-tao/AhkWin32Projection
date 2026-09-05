@@ -7,12 +7,14 @@
 class NVMEOF_AUTH_TYPE extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthTypeCommonMessages
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthTypeCommonMessages => 0
+    static CommonMessages => 0
 
     /**
+     * Native name: NvmeofAuthTypeDHCHAPMessages
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthTypeDHCHAPMessages => 1
+    static TypeDHCHAPMessages => 1
 }

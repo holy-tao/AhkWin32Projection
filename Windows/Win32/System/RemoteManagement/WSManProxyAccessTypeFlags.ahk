@@ -10,25 +10,29 @@ class WSManProxyAccessTypeFlags extends Win32Enum {
 
     /**
      * Use the Internet Explorer proxy configuration for the current user.
+     * Native name: WSManProxyIEConfig
      * @type {Integer (Int32)}
      */
-    static WSManProxyIEConfig => 1
+    static ProxyIEConfig => 1
 
     /**
      * Use the proxy settings configured for WinHTTP. This is the default setting.
+     * Native name: WSManProxyWinHttpConfig
      * @type {Integer (Int32)}
      */
-    static WSManProxyWinHttpConfig => 2
+    static WinHttpConfig => 2
 
     /**
      * Force autodetection of a proxy.
+     * Native name: WSManProxyAutoDetect
      * @type {Integer (Int32)}
      */
-    static WSManProxyAutoDetect => 4
+    static AutoDetect => 4
 
     /**
      * Do not use a proxy server. All host names are resolved locally.
+     * Native name: WSManProxyNoProxyServer
      * @type {Integer (Int32)}
      */
-    static WSManProxyNoProxyServer => 8
+    static NoProxyServer => 8
 }

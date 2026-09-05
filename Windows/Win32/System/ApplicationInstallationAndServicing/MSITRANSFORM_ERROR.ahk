@@ -7,42 +7,50 @@
 class MSITRANSFORM_ERROR extends Win32Enum {
 
     /**
+     * Native name: MSITRANSFORM_ERROR_ADDEXISTINGROW
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_ADDEXISTINGROW => 1
+    static ADDEXISTINGROW => 1
 
     /**
+     * Native name: MSITRANSFORM_ERROR_DELMISSINGROW
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_DELMISSINGROW => 2
+    static DELMISSINGROW => 2
 
     /**
+     * Native name: MSITRANSFORM_ERROR_ADDEXISTINGTABLE
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_ADDEXISTINGTABLE => 4
+    static ADDEXISTINGTABLE => 4
 
     /**
+     * Native name: MSITRANSFORM_ERROR_DELMISSINGTABLE
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_DELMISSINGTABLE => 8
+    static DELMISSINGTABLE => 8
 
     /**
+     * Native name: MSITRANSFORM_ERROR_UPDATEMISSINGROW
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_UPDATEMISSINGROW => 16
+    static UPDATEMISSINGROW => 16
 
     /**
+     * Native name: MSITRANSFORM_ERROR_CHANGECODEPAGE
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_CHANGECODEPAGE => 32
+    static CHANGECODEPAGE => 32
 
     /**
+     * Native name: MSITRANSFORM_ERROR_VIEWTRANSFORM
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_VIEWTRANSFORM => 256
+    static VIEWTRANSFORM => 256
 
     /**
+     * Native name: MSITRANSFORM_ERROR_NONE
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_ERROR_NONE => 0
+    static NONE => 0
 }

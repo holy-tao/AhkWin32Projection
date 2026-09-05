@@ -31,7 +31,6 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer {
     static VTableNames => ["SetFX", "AcquireResources", "GetObjectInPath"]
 
     /**
-     * 
      * @param {Integer} dwEffectsCount 
      * @param {Pointer<DSEFFECTDESC>} pDSFXDesc 
      * @returns {Integer} 
@@ -42,7 +41,6 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} dwEffectsCount 
      * @returns {Integer} 
@@ -53,7 +51,6 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidObject 
      * @param {Integer} dwIndex 
      * @param {Pointer<Guid>} rguidInterface 

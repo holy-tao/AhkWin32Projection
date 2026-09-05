@@ -7,52 +7,62 @@
 class WPC_ARGS_WEBSITEVISITEVENT extends Win32Enum {
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_URL
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_URL => 0
+    static URL => 0
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_DECISION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_DECISION => 1
+    static DECISION => 1
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_CATEGORIES
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_CATEGORIES => 2
+    static CATEGORIES => 2
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_BLOCKEDCATEGORIES
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_BLOCKEDCATEGORIES => 3
+    static BLOCKEDCATEGORIES => 3
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_SERIALIZEDAPPLICATION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_SERIALIZEDAPPLICATION => 4
+    static SERIALIZEDAPPLICATION => 4
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_TITLE
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_TITLE => 5
+    static TITLE => 5
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_CONTENTTYPE
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_CONTENTTYPE => 6
+    static CONTENTTYPE => 6
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_REFERRER
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_REFERRER => 7
+    static REFERRER => 7
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_TELEMETRY
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_TELEMETRY => 8
+    static TELEMETRY => 8
 
     /**
+     * Native name: WPC_ARGS_WEBSITEVISITEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_WEBSITEVISITEVENT_CARGS => 9
+    static CARGS => 9
 }

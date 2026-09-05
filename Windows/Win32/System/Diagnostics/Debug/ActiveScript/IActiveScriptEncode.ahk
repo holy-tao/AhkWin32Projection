@@ -31,7 +31,6 @@ class IActiveScriptEncode extends IUnknown {
     static VTableNames => ["EncodeSection", "DecodeScript", "GetEncodeProgId"]
 
     /**
-     * 
      * @param {PWSTR} pchIn 
      * @param {Integer} cchIn 
      * @param {PWSTR} pchOut 
@@ -50,7 +49,6 @@ class IActiveScriptEncode extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchIn 
      * @param {Integer} cchIn 
      * @param {PWSTR} pchOut 
@@ -69,7 +67,6 @@ class IActiveScriptEncode extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrOut 
      * @returns {HRESULT} 
      */

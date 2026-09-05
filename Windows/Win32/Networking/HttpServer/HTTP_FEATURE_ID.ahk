@@ -10,106 +10,126 @@ class HTTP_FEATURE_ID extends Win32Enum {
 
     /**
      * Specifies an unknown feature.
+     * Native name: HttpFeatureUnknown
      * @type {Integer (Int32)}
      */
-    static HttpFeatureUnknown => 0
+    static Unknown => 0
 
     /**
      * Specifies HTTP response trailers.
+     * Native name: HttpFeatureResponseTrailers
      * @type {Integer (Int32)}
      */
-    static HttpFeatureResponseTrailers => 1
+    static ResponseTrailers => 1
 
     /**
      * Specifies HTTP API timings.
+     * Native name: HttpFeatureApiTimings
      * @type {Integer (Int32)}
      */
-    static HttpFeatureApiTimings => 2
+    static ApiTimings => 2
 
     /**
      * Specifies a request for delegation.
+     * Native name: HttpFeatureDelegateEx
      * @type {Integer (Int32)}
      */
-    static HttpFeatureDelegateEx => 3
+    static DelegateEx => 3
 
     /**
+     * Native name: HttpFeatureHttp3
      * @type {Integer (Int32)}
      */
-    static HttpFeatureHttp3 => 4
+    static Http3 => 4
 
     /**
+     * Native name: HttpFeatureTlsSessionTickets
      * @type {Integer (Int32)}
      */
-    static HttpFeatureTlsSessionTickets => 5
+    static TlsSessionTickets => 5
 
     /**
+     * Native name: HttpFeatureDisableTlsSessionId
      * @type {Integer (Int32)}
      */
-    static HttpFeatureDisableTlsSessionId => 6
+    static DisableTlsSessionId => 6
 
     /**
+     * Native name: HttpFeatureTlsDualCerts
      * @type {Integer (Int32)}
      */
-    static HttpFeatureTlsDualCerts => 7
+    static TlsDualCerts => 7
 
     /**
+     * Native name: HttpFeatureAutomaticChunkedEncoding
      * @type {Integer (Int32)}
      */
-    static HttpFeatureAutomaticChunkedEncoding => 8
+    static AutomaticChunkedEncoding => 8
 
     /**
+     * Native name: HttpFeatureDedicatedReqQueueDelegationType
      * @type {Integer (Int32)}
      */
-    static HttpFeatureDedicatedReqQueueDelegationType => 9
+    static DedicatedReqQueueDelegationType => 9
 
     /**
+     * Native name: HttpFeatureFastForwardResponse
      * @type {Integer (Int32)}
      */
-    static HttpFeatureFastForwardResponse => 10
+    static FastForwardResponse => 10
 
     /**
+     * Native name: HttpFeatureCacheTlsClientHello
      * @type {Integer (Int32)}
      */
-    static HttpFeatureCacheTlsClientHello => 11
+    static CacheTlsClientHello => 11
 
     /**
+     * Native name: HttpFeatureIdleConnectionTimeoutRequestProperty
      * @type {Integer (Int32)}
      */
-    static HttpFeatureIdleConnectionTimeoutRequestProperty => 12
+    static IdleConnectionTimeoutRequestProperty => 12
 
     /**
+     * Native name: HttpFeatureDisableAiaFlag
      * @type {Integer (Int32)}
      */
-    static HttpFeatureDisableAiaFlag => 13
+    static DisableAiaFlag => 13
 
     /**
+     * Native name: HttpFeatureDscp
      * @type {Integer (Int32)}
      */
-    static HttpFeatureDscp => 14
+    static Dscp => 14
 
     /**
+     * Native name: HttpFeatureQueryCipherInfo
      * @type {Integer (Int32)}
      */
-    static HttpFeatureQueryCipherInfo => 15
+    static QueryCipherInfo => 15
 
     /**
+     * Native name: HttpFeatureQueryInitialPacketTtl
      * @type {Integer (Int32)}
      */
-    static HttpFeatureQueryInitialPacketTtl => 16
+    static QueryInitialPacketTtl => 16
 
     /**
+     * Native name: HttpFeatureTlsHandshakePerformanceCounters
      * @type {Integer (Int32)}
      */
-    static HttpFeatureTlsHandshakePerformanceCounters => 17
+    static TlsHandshakePerformanceCounters => 17
 
     /**
+     * Native name: HttpFeatureLast
      * @type {Integer (Int32)}
      */
-    static HttpFeatureLast => 18
+    static Last => 18
 
     /**
      * Specifies the maximum number of supported features.
+     * Native name: HttpFeaturemax
      * @type {Integer (Int32)}
      */
-    static HttpFeaturemax => -1
+    static Featuremax => -1
 }

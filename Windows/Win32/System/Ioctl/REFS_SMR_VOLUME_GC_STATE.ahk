@@ -7,22 +7,26 @@
 class REFS_SMR_VOLUME_GC_STATE extends Win32Enum {
 
     /**
+     * Native name: SmrGcStateInactive
      * @type {Integer (Int32)}
      */
-    static SmrGcStateInactive => 0
+    static Inactive => 0
 
     /**
+     * Native name: SmrGcStatePaused
      * @type {Integer (Int32)}
      */
-    static SmrGcStatePaused => 1
+    static Paused => 1
 
     /**
+     * Native name: SmrGcStateActive
      * @type {Integer (Int32)}
      */
-    static SmrGcStateActive => 2
+    static Active => 2
 
     /**
+     * Native name: SmrGcStateActiveFullSpeed
      * @type {Integer (Int32)}
      */
-    static SmrGcStateActiveFullSpeed => 3
+    static ActiveFullSpeed => 3
 }

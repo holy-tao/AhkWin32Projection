@@ -37,7 +37,6 @@ class AsyncIFtpRoleProvider extends IUnknown {
     static VTableNames => ["Begin_IsUserInRole", "Finish_IsUserInRole"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -55,7 +54,6 @@ class AsyncIFtpRoleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Finish_IsUserInRole() {

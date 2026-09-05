@@ -7,87 +7,104 @@
 class KSPROPERTY_PIN extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_PIN_CINSTANCES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_CINSTANCES => 0
+    static CINSTANCES => 0
 
     /**
+     * Native name: KSPROPERTY_PIN_CTYPES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_CTYPES => 1
+    static CTYPES => 1
 
     /**
+     * Native name: KSPROPERTY_PIN_DATAFLOW
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_DATAFLOW => 2
+    static DATAFLOW => 2
 
     /**
+     * Native name: KSPROPERTY_PIN_DATARANGES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_DATARANGES => 3
+    static DATARANGES => 3
 
     /**
+     * Native name: KSPROPERTY_PIN_DATAINTERSECTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_DATAINTERSECTION => 4
+    static DATAINTERSECTION => 4
 
     /**
+     * Native name: KSPROPERTY_PIN_INTERFACES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_INTERFACES => 5
+    static INTERFACES => 5
 
     /**
+     * Native name: KSPROPERTY_PIN_MEDIUMS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_MEDIUMS => 6
+    static MEDIUMS => 6
 
     /**
+     * Native name: KSPROPERTY_PIN_COMMUNICATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_COMMUNICATION => 7
+    static COMMUNICATION => 7
 
     /**
+     * Native name: KSPROPERTY_PIN_GLOBALCINSTANCES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_GLOBALCINSTANCES => 8
+    static GLOBALCINSTANCES => 8
 
     /**
+     * Native name: KSPROPERTY_PIN_NECESSARYINSTANCES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_NECESSARYINSTANCES => 9
+    static NECESSARYINSTANCES => 9
 
     /**
+     * Native name: KSPROPERTY_PIN_PHYSICALCONNECTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_PHYSICALCONNECTION => 10
+    static PHYSICALCONNECTION => 10
 
     /**
+     * Native name: KSPROPERTY_PIN_CATEGORY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_CATEGORY => 11
+    static CATEGORY => 11
 
     /**
+     * Native name: KSPROPERTY_PIN_NAME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_NAME => 12
+    static NAME => 12
 
     /**
+     * Native name: KSPROPERTY_PIN_CONSTRAINEDDATARANGES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_CONSTRAINEDDATARANGES => 13
+    static CONSTRAINEDDATARANGES => 13
 
     /**
+     * Native name: KSPROPERTY_PIN_PROPOSEDATAFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_PROPOSEDATAFORMAT => 14
+    static PROPOSEDATAFORMAT => 14
 
     /**
+     * Native name: KSPROPERTY_PIN_PROPOSEDATAFORMAT2
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_PROPOSEDATAFORMAT2 => 15
+    static PROPOSEDATAFORMAT2 => 15
 
     /**
+     * Native name: KSPROPERTY_PIN_MODEDATAFORMATS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PIN_MODEDATAFORMATS => 16
+    static MODEDATAFORMATS => 16
 }

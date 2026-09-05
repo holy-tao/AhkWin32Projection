@@ -75,7 +75,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -84,7 +83,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -93,7 +91,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -102,7 +99,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusProperty} 
      */
@@ -112,7 +108,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {VARIANT} varValue 
      * @returns {ISClusProperty} 
@@ -125,7 +120,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */
@@ -135,7 +129,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     SaveChanges() {
@@ -145,7 +138,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ReadOnly() {
@@ -155,7 +147,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Private() {
@@ -165,7 +156,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Common() {
@@ -175,7 +165,6 @@ class ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Modified() {

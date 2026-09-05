@@ -10,13 +10,15 @@ class D3DX11_FFT_DATA_TYPE extends Win32Enum {
 
     /**
      * Real numbers.
+     * Native name: D3DX11_FFT_DATA_TYPE_REAL
      * @type {Integer (Int32)}
      */
-    static D3DX11_FFT_DATA_TYPE_REAL => 0
+    static REAL => 0
 
     /**
      * Complex numbers.
+     * Native name: D3DX11_FFT_DATA_TYPE_COMPLEX
      * @type {Integer (Int32)}
      */
-    static D3DX11_FFT_DATA_TYPE_COMPLEX => 1
+    static COMPLEX => 1
 }

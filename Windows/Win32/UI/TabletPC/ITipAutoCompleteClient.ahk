@@ -39,7 +39,6 @@ class ITipAutoCompleteClient extends IUnknown {
     static VTableNames => ["AdviseProvider", "UnadviseProvider", "UserSelection", "PreferredRects", "RequestShowUI"]
 
     /**
-     * 
      * @param {HWND} hWndField 
      * @param {ITipAutoCompleteProvider} pIProvider 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ class ITipAutoCompleteClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndField 
      * @param {ITipAutoCompleteProvider} pIProvider 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ class ITipAutoCompleteClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UserSelection() {
@@ -74,7 +71,6 @@ class ITipAutoCompleteClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} prcACList 
      * @param {Pointer<RECT>} prcField 
      * @param {Pointer<RECT>} prcModifiedACList 
@@ -89,7 +85,6 @@ class ITipAutoCompleteClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndList 
      * @returns {BOOL} 
      */

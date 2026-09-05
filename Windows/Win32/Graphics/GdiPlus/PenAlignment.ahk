@@ -7,12 +7,14 @@
 class PenAlignment extends Win32Enum {
 
     /**
+     * Native name: PenAlignmentCenter
      * @type {Integer (Int32)}
      */
-    static PenAlignmentCenter => 0
+    static Center => 0
 
     /**
+     * Native name: PenAlignmentInset
      * @type {Integer (Int32)}
      */
-    static PenAlignmentInset => 1
+    static Inset => 1
 }

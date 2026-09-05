@@ -11,27 +11,32 @@
 class WPD_EXPOSURE_METERING_MODES extends Win32Enum {
 
     /**
+     * Native name: WPD_EXPOSURE_METERING_MODE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_EXPOSURE_METERING_MODE_UNDEFINED => 0
+    static MODE_UNDEFINED => 0
 
     /**
+     * Native name: WPD_EXPOSURE_METERING_MODE_AVERAGE
      * @type {Integer (Int32)}
      */
-    static WPD_EXPOSURE_METERING_MODE_AVERAGE => 1
+    static MODE_AVERAGE => 1
 
     /**
+     * Native name: WPD_EXPOSURE_METERING_MODE_CENTER_WEIGHTED_AVERAGE
      * @type {Integer (Int32)}
      */
-    static WPD_EXPOSURE_METERING_MODE_CENTER_WEIGHTED_AVERAGE => 2
+    static MODE_CENTER_WEIGHTED_AVERAGE => 2
 
     /**
+     * Native name: WPD_EXPOSURE_METERING_MODE_MULTI_SPOT
      * @type {Integer (Int32)}
      */
-    static WPD_EXPOSURE_METERING_MODE_MULTI_SPOT => 3
+    static MODE_MULTI_SPOT => 3
 
     /**
+     * Native name: WPD_EXPOSURE_METERING_MODE_CENTER_SPOT
      * @type {Integer (Int32)}
      */
-    static WPD_EXPOSURE_METERING_MODE_CENTER_SPOT => 4
+    static MODE_CENTER_SPOT => 4
 }

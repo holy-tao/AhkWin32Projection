@@ -10,27 +10,31 @@ class DHCP_OPTION_SCOPE_TYPE extends Win32Enum {
 
     /**
      * The DHCP options correspond to the default scope.
+     * Native name: DhcpDefaultOptions
      * @type {Integer (Int32)}
      */
-    static DhcpDefaultOptions => 0
+    static DefaultOptions => 0
 
     /**
      * The  DHCP options correspond to the global scope.
+     * Native name: DhcpGlobalOptions
      * @type {Integer (Int32)}
      */
-    static DhcpGlobalOptions => 1
+    static GlobalOptions => 1
 
     /**
      * The  DHCP options correspond to a specific subnet scope.
+     * Native name: DhcpSubnetOptions
      * @type {Integer (Int32)}
      */
-    static DhcpSubnetOptions => 2
+    static SubnetOptions => 2
 
     /**
      * The DHCP options correspond to a reserved IP address.
+     * Native name: DhcpReservedOptions
      * @type {Integer (Int32)}
      */
-    static DhcpReservedOptions => 3
+    static ReservedOptions => 3
 
     /**
      * The DHCP options correspond to a multicast scope.

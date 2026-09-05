@@ -100,7 +100,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} URL 
      * @param {Pointer<VARIANT>} Flags 
      * @param {Pointer<VARIANT>} TargetFrameName 
@@ -114,7 +113,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {OLECMDID} cmdID 
      * @returns {OLECMDF} 
      */
@@ -124,7 +122,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {OLECMDID} cmdID 
      * @param {OLECMDEXECOPT} cmdexecopt 
      * @param {Pointer<VARIANT>} pvaIn 
@@ -137,7 +134,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvaClsid 
      * @param {Pointer<VARIANT>} pvarShow 
      * @param {Pointer<VARIANT>} pvarSize 
@@ -149,7 +145,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {READYSTATE} 
      */
     get_ReadyState() {
@@ -158,7 +153,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Offline() {
@@ -167,7 +161,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bOffline 
      * @returns {HRESULT} 
      */
@@ -177,7 +170,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Silent() {
@@ -186,7 +178,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSilent 
      * @returns {HRESULT} 
      */
@@ -196,7 +187,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_RegisterAsBrowser() {
@@ -205,7 +195,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bRegister 
      * @returns {HRESULT} 
      */
@@ -215,7 +204,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_RegisterAsDropTarget() {
@@ -224,7 +212,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bRegister 
      * @returns {HRESULT} 
      */
@@ -267,7 +254,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AddressBar() {
@@ -276,7 +262,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -286,7 +271,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Resizable() {
@@ -295,7 +279,6 @@ class IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */

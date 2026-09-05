@@ -12,9 +12,10 @@ class EXTENDED_AGP_REGISTER extends Win32Enum {
     static IsochStatus => 0
 
     /**
+     * Native name: AgpControl
      * @type {Integer (Int32)}
      */
-    static AgpControl => 1
+    static Control => 1
 
     /**
      * @type {Integer (Int32)}

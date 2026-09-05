@@ -10,7 +10,8 @@ class WICJpegLuminanceProperties extends Win32Enum {
 
     /**
      * [VT_UI2|VT_VECTOR] Indicates the metadata property is a luminance table.
+     * Native name: WICJpegLuminanceTable
      * @type {Integer (Int32)}
      */
-    static WICJpegLuminanceTable => 1
+    static Table => 1
 }

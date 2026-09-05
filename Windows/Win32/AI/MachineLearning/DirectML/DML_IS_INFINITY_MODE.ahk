@@ -7,17 +7,20 @@
 class DML_IS_INFINITY_MODE extends Win32Enum {
 
     /**
+     * Native name: DML_IS_INFINITY_MODE_EITHER
      * @type {Integer (Int32)}
      */
-    static DML_IS_INFINITY_MODE_EITHER => 0
+    static EITHER => 0
 
     /**
+     * Native name: DML_IS_INFINITY_MODE_POSITIVE
      * @type {Integer (Int32)}
      */
-    static DML_IS_INFINITY_MODE_POSITIVE => 1
+    static POSITIVE => 1
 
     /**
+     * Native name: DML_IS_INFINITY_MODE_NEGATIVE
      * @type {Integer (Int32)}
      */
-    static DML_IS_INFINITY_MODE_NEGATIVE => 2
+    static NEGATIVE => 2
 }

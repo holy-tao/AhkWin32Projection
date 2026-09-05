@@ -57,13 +57,15 @@ class MF_TRANSCODE_ADJUST_PROFILE_FLAGS extends Win32Enum {
 
     /**
      * Media Foundation uses the application-specified settings for audio and video streams. If the required settings are not provided by the application, the topology is created but the encoding session fails. For the video stream, the frame rate and the interlace mode settings are modified. For more information, see Remarks.
+     * Native name: MF_TRANSCODE_ADJUST_PROFILE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MF_TRANSCODE_ADJUST_PROFILE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * For both audio and video streams, the missing stream settings are filled by copying the input source attributes. This flag ensures the transcoded output file is the closest match to the input file.
+     * Native name: MF_TRANSCODE_ADJUST_PROFILE_USE_SOURCE_ATTRIBUTES
      * @type {Integer (Int32)}
      */
-    static MF_TRANSCODE_ADJUST_PROFILE_USE_SOURCE_ATTRIBUTES => 1
+    static USE_SOURCE_ATTRIBUTES => 1
 }

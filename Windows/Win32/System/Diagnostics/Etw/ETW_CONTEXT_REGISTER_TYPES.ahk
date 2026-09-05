@@ -7,17 +7,20 @@
 class ETW_CONTEXT_REGISTER_TYPES extends Win32BitflagEnum {
 
     /**
+     * Native name: EtwContextRegisterTypeNone
      * @type {Integer (Int32)}
      */
-    static EtwContextRegisterTypeNone => 0
+    static TypeNone => 0
 
     /**
+     * Native name: EtwContextRegisterTypeControl
      * @type {Integer (Int32)}
      */
-    static EtwContextRegisterTypeControl => 1
+    static TypeControl => 1
 
     /**
+     * Native name: EtwContextRegisterTypeInteger
      * @type {Integer (Int32)}
      */
-    static EtwContextRegisterTypeInteger => 2
+    static TypeInteger => 2
 }

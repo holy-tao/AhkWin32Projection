@@ -11,17 +11,20 @@
 class D3DBACKBUFFER_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DBACKBUFFER_TYPE_MONO
      * @type {Integer (Int32)}
      */
-    static D3DBACKBUFFER_TYPE_MONO => 0
+    static MONO => 0
 
     /**
+     * Native name: D3DBACKBUFFER_TYPE_LEFT
      * @type {Integer (Int32)}
      */
-    static D3DBACKBUFFER_TYPE_LEFT => 1
+    static LEFT => 1
 
     /**
+     * Native name: D3DBACKBUFFER_TYPE_RIGHT
      * @type {Integer (Int32)}
      */
-    static D3DBACKBUFFER_TYPE_RIGHT => 2
+    static RIGHT => 2
 }

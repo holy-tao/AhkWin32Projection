@@ -7,22 +7,26 @@
 class D3D12_DISPATCH_MODE extends Win32Enum {
 
     /**
+     * Native name: D3D12_DISPATCH_MODE_NODE_CPU_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_DISPATCH_MODE_NODE_CPU_INPUT => 0
+    static NODE_CPU_INPUT => 0
 
     /**
+     * Native name: D3D12_DISPATCH_MODE_NODE_GPU_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_DISPATCH_MODE_NODE_GPU_INPUT => 1
+    static NODE_GPU_INPUT => 1
 
     /**
+     * Native name: D3D12_DISPATCH_MODE_MULTI_NODE_CPU_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_DISPATCH_MODE_MULTI_NODE_CPU_INPUT => 2
+    static MULTI_NODE_CPU_INPUT => 2
 
     /**
+     * Native name: D3D12_DISPATCH_MODE_MULTI_NODE_GPU_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_DISPATCH_MODE_MULTI_NODE_GPU_INPUT => 3
+    static MULTI_NODE_GPU_INPUT => 3
 }

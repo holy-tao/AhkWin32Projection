@@ -7,17 +7,20 @@
 class INTERNET_ACCESS_TYPE extends Win32Enum {
 
     /**
+     * Native name: INTERNET_OPEN_TYPE_DIRECT
      * @type {Integer (UInt32)}
      */
-    static INTERNET_OPEN_TYPE_DIRECT => 1
+    static OPEN_TYPE_DIRECT => 1
 
     /**
+     * Native name: INTERNET_OPEN_TYPE_PRECONFIG
      * @type {Integer (UInt32)}
      */
-    static INTERNET_OPEN_TYPE_PRECONFIG => 0
+    static OPEN_TYPE_PRECONFIG => 0
 
     /**
+     * Native name: INTERNET_OPEN_TYPE_PROXY
      * @type {Integer (UInt32)}
      */
-    static INTERNET_OPEN_TYPE_PROXY => 3
+    static OPEN_TYPE_PROXY => 3
 }

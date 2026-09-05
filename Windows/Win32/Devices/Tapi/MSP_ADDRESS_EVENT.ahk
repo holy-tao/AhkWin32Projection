@@ -10,13 +10,15 @@ class MSP_ADDRESS_EVENT extends Win32Enum {
 
     /**
      * A new terminal arrived by PNP.
+     * Native name: ADDRESS_TERMINAL_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static ADDRESS_TERMINAL_AVAILABLE => 0
+    static TERMINAL_AVAILABLE => 0
 
     /**
      * A terminal has been removed by PNP.
+     * Native name: ADDRESS_TERMINAL_UNAVAILABLE
      * @type {Integer (Int32)}
      */
-    static ADDRESS_TERMINAL_UNAVAILABLE => 1
+    static TERMINAL_UNAVAILABLE => 1
 }

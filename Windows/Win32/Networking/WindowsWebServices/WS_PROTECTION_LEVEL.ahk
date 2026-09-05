@@ -10,19 +10,22 @@ class WS_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * No signing or encryption.
+     * Native name: WS_PROTECTION_LEVEL_NONE
      * @type {Integer (Int32)}
      */
-    static WS_PROTECTION_LEVEL_NONE => 1
+    static NONE => 1
 
     /**
      * Only signing.
+     * Native name: WS_PROTECTION_LEVEL_SIGN
      * @type {Integer (Int32)}
      */
-    static WS_PROTECTION_LEVEL_SIGN => 2
+    static SIGN => 2
 
     /**
      * Signing and encryption.
+     * Native name: WS_PROTECTION_LEVEL_SIGN_AND_ENCRYPT
      * @type {Integer (Int32)}
      */
-    static WS_PROTECTION_LEVEL_SIGN_AND_ENCRYPT => 3
+    static SIGN_AND_ENCRYPT => 3
 }

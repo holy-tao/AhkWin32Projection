@@ -7,7 +7,8 @@
 class OPERATION_START_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: OPERATION_START_TRACE_CURRENT_THREAD
      * @type {Integer (UInt32)}
      */
-    static OPERATION_START_TRACE_CURRENT_THREAD => 1
+    static TRACE_CURRENT_THREAD => 1
 }

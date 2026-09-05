@@ -7,22 +7,26 @@
 class ETW_PMC_COUNTER_OWNER_TYPE extends Win32Enum {
 
     /**
+     * Native name: EtwPmcOwnerFree
      * @type {Integer (Int32)}
      */
-    static EtwPmcOwnerFree => 0
+    static Free => 0
 
     /**
+     * Native name: EtwPmcOwnerUntagged
      * @type {Integer (Int32)}
      */
-    static EtwPmcOwnerUntagged => 1
+    static Untagged => 1
 
     /**
+     * Native name: EtwPmcOwnerTagged
      * @type {Integer (Int32)}
      */
-    static EtwPmcOwnerTagged => 2
+    static Tagged => 2
 
     /**
+     * Native name: EtwPmcOwnerTaggedWithSource
      * @type {Integer (Int32)}
      */
-    static EtwPmcOwnerTaggedWithSource => 3
+    static TaggedWithSource => 3
 }

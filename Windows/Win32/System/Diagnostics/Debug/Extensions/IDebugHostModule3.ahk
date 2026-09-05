@@ -30,7 +30,6 @@ class IDebugHostModule3 extends IDebugHostModule2 {
     static VTableNames => ["GetRange"]
 
     /**
-     * 
      * @param {Pointer<Location>} moduleStart 
      * @param {Pointer<Location>} moduleEnd 
      * @returns {HRESULT} 

@@ -10,7 +10,8 @@ class CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS extends Win32BitflagEnum {
 
     /**
      * No fetch placeholder flags.
+     * Native name: CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

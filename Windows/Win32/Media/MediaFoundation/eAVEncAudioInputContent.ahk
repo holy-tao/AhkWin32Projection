@@ -10,19 +10,22 @@ class eAVEncAudioInputContent extends Win32Enum {
 
     /**
      * The audio content is not known.
+     * Native name: AVEncAudioInputContent_Unknown
      * @type {Integer (Int32)}
      */
-    static AVEncAudioInputContent_Unknown => 0
+    static Unknown => 0
 
     /**
      * The audio contains voice.
+     * Native name: AVEncAudioInputContent_Voice
      * @type {Integer (Int32)}
      */
-    static AVEncAudioInputContent_Voice => 1
+    static Voice => 1
 
     /**
      * The audio contains music.
+     * Native name: AVEncAudioInputContent_Music
      * @type {Integer (Int32)}
      */
-    static AVEncAudioInputContent_Music => 2
+    static Music => 2
 }

@@ -10,37 +10,43 @@ class SynchronizedInputType extends Win32BitflagEnum {
 
     /**
      * A key has been released.
+     * Native name: SynchronizedInputType_KeyUp
      * @type {Integer (Int32)}
      */
-    static SynchronizedInputType_KeyUp => 1
+    static KeyUp => 1
 
     /**
      * A key has been pressed.
+     * Native name: SynchronizedInputType_KeyDown
      * @type {Integer (Int32)}
      */
-    static SynchronizedInputType_KeyDown => 2
+    static KeyDown => 2
 
     /**
      * The left mouse button has been released.
+     * Native name: SynchronizedInputType_LeftMouseUp
      * @type {Integer (Int32)}
      */
-    static SynchronizedInputType_LeftMouseUp => 4
+    static LeftMouseUp => 4
 
     /**
      * The left mouse button has been pressed.
+     * Native name: SynchronizedInputType_LeftMouseDown
      * @type {Integer (Int32)}
      */
-    static SynchronizedInputType_LeftMouseDown => 8
+    static LeftMouseDown => 8
 
     /**
      * The right mouse button has been released.
+     * Native name: SynchronizedInputType_RightMouseUp
      * @type {Integer (Int32)}
      */
-    static SynchronizedInputType_RightMouseUp => 16
+    static RightMouseUp => 16
 
     /**
      * The right mouse button has been pressed.
+     * Native name: SynchronizedInputType_RightMouseDown
      * @type {Integer (Int32)}
      */
-    static SynchronizedInputType_RightMouseDown => 32
+    static RightMouseDown => 32
 }

@@ -7,47 +7,56 @@
 class FINDTEXT_FLAGS extends Win32Enum {
 
     /**
+     * Native name: FINDTEXT_BACKWARDS
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_BACKWARDS => 1
+    static BACKWARDS => 1
 
     /**
+     * Native name: FINDTEXT_WHOLEWORD
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_WHOLEWORD => 2
+    static WHOLEWORD => 2
 
     /**
+     * Native name: FINDTEXT_MATCHCASE
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_MATCHCASE => 4
+    static MATCHCASE => 4
 
     /**
+     * Native name: FINDTEXT_RAW
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_RAW => 131072
+    static RAW => 131072
 
     /**
+     * Native name: FINDTEXT_MATCHREPEATEDWHITESPACE
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_MATCHREPEATEDWHITESPACE => 262144
+    static MATCHREPEATEDWHITESPACE => 262144
 
     /**
+     * Native name: FINDTEXT_MATCHDIAC
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_MATCHDIAC => 536870912
+    static MATCHDIAC => 536870912
 
     /**
+     * Native name: FINDTEXT_MATCHKASHIDA
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_MATCHKASHIDA => 1073741824
+    static MATCHKASHIDA => 1073741824
 
     /**
+     * Native name: FINDTEXT_MATCHALEFHAMZA
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_MATCHALEFHAMZA => -2147483648
+    static MATCHALEFHAMZA => -2147483648
 
     /**
+     * Native name: FINDTEXT_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static FINDTEXT_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

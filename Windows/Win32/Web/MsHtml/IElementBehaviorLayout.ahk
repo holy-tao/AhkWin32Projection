@@ -32,7 +32,6 @@ class IElementBehaviorLayout extends IUnknown {
     static VTableNames => ["GetSize", "GetLayoutInfo", "GetPosition", "MapSize"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {SIZE} sizeContent 
      * @param {Pointer<POINT>} pptTranslateBy 
@@ -46,7 +45,6 @@ class IElementBehaviorLayout extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLayoutInfo() {
@@ -55,7 +53,6 @@ class IElementBehaviorLayout extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @param {Pointer<POINT>} pptTopLeft 
      * @returns {HRESULT} 
@@ -66,7 +63,6 @@ class IElementBehaviorLayout extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SIZE>} psizeIn 
      * @returns {RECT} 
      */

@@ -16,21 +16,24 @@ class NET_IF_ADMIN_STATUS extends Win32Enum {
      *      ready to transmit and receive network data because that depends on the operational status of the
      *      interface. For more information about the operational status of an interface, see 
      *      <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-operational-status">OID_GEN_OPERATIONAL_STATUS</a>.
+     * Native name: NET_IF_ADMIN_STATUS_UP
      * @type {Integer (Int32)}
      */
-    static NET_IF_ADMIN_STATUS_UP => 1
+    static UP => 1
 
     /**
      * Specifies that the interface is down, and this interface cannot be used to transmit or receive
      *      network data.
+     * Native name: NET_IF_ADMIN_STATUS_DOWN
      * @type {Integer (Int32)}
      */
-    static NET_IF_ADMIN_STATUS_DOWN => 2
+    static DOWN => 2
 
     /**
      * Specifies that the interface is in a test mode, and no network data can be transmitted or
      *      received.
+     * Native name: NET_IF_ADMIN_STATUS_TESTING
      * @type {Integer (Int32)}
      */
-    static NET_IF_ADMIN_STATUS_TESTING => 3
+    static TESTING => 3
 }

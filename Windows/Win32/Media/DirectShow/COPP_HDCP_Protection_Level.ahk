@@ -14,31 +14,36 @@ class COPP_HDCP_Protection_Level extends Win32Enum {
 
     /**
      * HDCP protection is not enabled. See Remarks.
+     * Native name: COPP_HDCP_Level0
      * @type {Integer (Int32)}
      */
-    static COPP_HDCP_Level0 => 0
+    static Level0 => 0
 
     /**
      * Minimum HDCP level. Equivalent to <b>COPP_HDCP_Level0</b>.
+     * Native name: COPP_HDCP_LevelMin
      * @type {Integer (Int32)}
      */
-    static COPP_HDCP_LevelMin => 0
+    static Min => 0
 
     /**
      * HDCP is enabled.
+     * Native name: COPP_HDCP_Level1
      * @type {Integer (Int32)}
      */
-    static COPP_HDCP_Level1 => 1
+    static Level1 => 1
 
     /**
      * Maximum HDCP level. Equivalent to <b>COPP_HDCP_Level1</b>.
+     * Native name: COPP_HDCP_LevelMax
      * @type {Integer (Int32)}
      */
-    static COPP_HDCP_LevelMax => 1
+    static Max => 1
 
     /**
      * Reserved.
+     * Native name: COPP_HDCP_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static COPP_HDCP_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

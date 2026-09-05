@@ -53,7 +53,6 @@ class IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -65,7 +64,6 @@ class IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -75,7 +73,6 @@ class IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isAlternate() {
@@ -84,7 +81,6 @@ class IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isPrefAlternate() {

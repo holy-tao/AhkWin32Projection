@@ -10,19 +10,22 @@ class MF_MEDIA_ENGINE_S3D_PACKING_MODE extends Win32Enum {
 
     /**
      * None.
+     * Native name: MF_MEDIA_ENGINE_S3D_PACKING_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_S3D_PACKING_MODE_NONE => 0
+    static NONE => 0
 
     /**
      * The views are packed side-by-side in a single frame.
+     * Native name: MF_MEDIA_ENGINE_S3D_PACKING_MODE_SIDE_BY_SIDE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_S3D_PACKING_MODE_SIDE_BY_SIDE => 1
+    static SIDE_BY_SIDE => 1
 
     /**
      * The views are packed top-to-bottom in a single frame.
+     * Native name: MF_MEDIA_ENGINE_S3D_PACKING_MODE_TOP_BOTTOM
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_S3D_PACKING_MODE_TOP_BOTTOM => 2
+    static TOP_BOTTOM => 2
 }

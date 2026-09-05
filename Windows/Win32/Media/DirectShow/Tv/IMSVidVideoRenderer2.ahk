@@ -131,7 +131,6 @@ class IMSVidVideoRenderer2 extends IMSVidVideoRenderer {
     }
 
     /**
-     * 
      * @param {IVMRSurfaceAllocator} AllocPresent 
      * @param {Integer} ID 
      * @returns {HRESULT} 

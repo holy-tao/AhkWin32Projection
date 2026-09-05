@@ -3457,7 +3457,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoRequestToCancel 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
@@ -3472,7 +3471,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -3497,7 +3495,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EventHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -3512,7 +3509,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @returns {NTSTATUS} 
      */
@@ -3523,7 +3519,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -3549,7 +3544,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -3574,7 +3568,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FsInformation 
@@ -3591,7 +3584,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FsInformation 
@@ -3608,7 +3600,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -3633,7 +3624,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} SourceProcessHandle 
      * @param {HANDLE} SourceHandle 
      * @param {HANDLE} TargetProcessHandle 
@@ -3691,7 +3681,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
@@ -3712,7 +3701,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
@@ -3731,7 +3719,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} BaseAddress 
      * @param {MEMORY_INFORMATION_CLASS} MemoryInformationClass 
@@ -3752,7 +3739,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {VIRTUAL_MEMORY_INFORMATION_CLASS} VmInformationClass 
      * @param {Pointer} NumberOfEntries 
@@ -3770,7 +3756,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} EventHandle 
      * @param {Pointer<Integer>} PreviousState 
      * @returns {NTSTATUS} 
@@ -3786,7 +3771,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
@@ -3805,7 +3789,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} DesiredAccess 
      * @param {Integer} HandleAttributes 
@@ -3821,7 +3804,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<HANDLE>} TokenHandle 
@@ -3836,7 +3818,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @param {Integer} DesiredAccess 
      * @param {BOOLEAN} OpenAsSelf 
@@ -3853,7 +3834,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @param {Integer} DesiredAccess 
      * @param {BOOLEAN} OpenAsSelf 
@@ -3869,7 +3849,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
      * @param {Integer} TokenInformation 
@@ -3888,7 +3867,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
      * @param {Integer} TokenInformation 
@@ -3904,7 +3882,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
@@ -3920,7 +3897,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -3947,7 +3923,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Pointer<Integer>} ByteOffset 
@@ -3967,7 +3942,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -3988,7 +3962,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -4004,7 +3977,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @returns {NTSTATUS} 
@@ -4018,7 +3990,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -4041,7 +4012,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -4057,7 +4027,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ExistingTokenHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -4075,7 +4044,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} DirectoryHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -4088,7 +4056,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {Pointer<FILE_NETWORK_OPEN_INFORMATION>} FileInformation 
      * @returns {NTSTATUS} 
@@ -4171,7 +4138,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} DirectoryHandle 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} Length 
@@ -4194,7 +4160,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {BOOLEAN} DisableAllPrivileges 
      * @param {Pointer<TOKEN_PRIVILEGES>} NewState 
@@ -4214,7 +4179,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {BOOLEAN} ResetToDefault 
      * @param {Pointer<TOKEN_GROUPS>} NewState 
@@ -4234,7 +4198,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ClientToken 
      * @param {Pointer<PRIVILEGE_SET>} RequiredPrivileges 
      * @param {Pointer<BOOLEAN>} Result 
@@ -4251,7 +4214,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4279,7 +4241,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4312,7 +4273,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4345,7 +4305,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {HANDLE} ClientToken 
@@ -4380,7 +4339,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4408,7 +4366,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {HANDLE} ClientToken 
@@ -4428,7 +4385,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {BOOLEAN} GenerateOnClose 
@@ -4443,7 +4399,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {BOOLEAN} GenerateOnClose 
@@ -4458,7 +4413,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<UNICODE_STRING>} ServiceName 
      * @param {HANDLE} ClientToken 
@@ -4475,7 +4429,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ExistingTokenHandle 
      * @param {Integer} Flags 
      * @param {Pointer<TOKEN_GROUPS>} SidsToDisable 
@@ -4493,7 +4446,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @returns {NTSTATUS} 
      */
@@ -4506,7 +4458,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} SectionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -4529,7 +4480,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @param {Integer} DesiredAccess 
      * @param {BOOLEAN} OpenAsSelf 
@@ -4545,7 +4495,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<HANDLE>} TokenHandle 
@@ -4560,7 +4509,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ExistingTokenHandle 
      * @param {Integer} Flags 
      * @param {Pointer<TOKEN_GROUPS>} SidsToDisable 
@@ -4578,7 +4526,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @returns {NTSTATUS} 
      */
@@ -4591,7 +4538,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {BOOLEAN} DisableAllPrivileges 
      * @param {Pointer<TOKEN_PRIVILEGES>} NewState 
@@ -4611,7 +4557,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {BOOLEAN} ResetToDefault 
      * @param {Pointer<TOKEN_GROUPS>} NewState 
@@ -4631,7 +4576,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ClientToken 
      * @param {Pointer<PRIVILEGE_SET>} RequiredPrivileges 
      * @param {Pointer<BOOLEAN>} Result 
@@ -4648,7 +4592,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4676,7 +4619,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4709,7 +4651,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4742,7 +4683,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {HANDLE} ClientToken 
@@ -4777,7 +4717,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
@@ -4805,7 +4744,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {HANDLE} ClientToken 
@@ -4825,7 +4763,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {BOOLEAN} GenerateOnClose 
@@ -4840,7 +4777,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<Void>} HandleId 
      * @param {BOOLEAN} GenerateOnClose 
@@ -4855,7 +4791,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} SubsystemName 
      * @param {Pointer<UNICODE_STRING>} ServiceName 
      * @param {HANDLE} ClientToken 
@@ -4872,7 +4807,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer<Void>} HeapBase 
      * @param {Pointer} ReserveSize 
@@ -4890,7 +4824,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} HeapHandle 
      * @returns {Pointer<Void>} 
      */
@@ -4902,7 +4835,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} HeapHandle 
      * @param {Integer} Flags 
      * @param {Pointer} _Size 
@@ -4941,7 +4873,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Seed 
      * @returns {Integer} 
      */
@@ -4953,7 +4884,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Seed 
      * @returns {Integer} 
      */
@@ -4965,7 +4895,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {PWSTR} SourceString 
      * @returns {NTSTATUS} 
@@ -4979,7 +4908,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {PWSTR} SourceString 
      * @returns {BOOLEAN} 
@@ -4992,7 +4920,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} String1 
      * @param {Pointer<STRING>} String2 
      * @param {BOOLEAN} CaseInSensitive 
@@ -5004,7 +4931,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} Destination 
      * @param {Pointer<STRING>} Source 
      * @returns {NTSTATUS} 
@@ -5016,7 +4942,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {Pointer<STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -5029,7 +4954,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<UNICODE_STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -5042,7 +4966,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {Pointer<STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -5055,7 +4978,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<UNICODE_STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -5068,7 +4990,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<UNICODE_STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -5081,7 +5002,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
@@ -5094,7 +5014,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer<UNICODE_STRING>} StringIn 
      * @param {Pointer<UNICODE_STRING>} StringOut 
@@ -5107,7 +5026,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DestinationString 
      * @param {Pointer<UNICODE_STRING>} SourceString 
      * @param {BOOLEAN} AllocateDestinationString 
@@ -5120,7 +5038,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} UnicodeString 
      * @returns {Integer} 
      */
@@ -5130,7 +5047,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} OemString 
      * @returns {Integer} 
      */
@@ -5140,7 +5056,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} UnicodeString 
      * @param {Integer} MaxBytesInUnicodeString 
      * @param {Pointer<Integer>} BytesInUnicodeString 
@@ -5157,7 +5072,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} BytesInUnicodeString 
      * @param {Integer} MultiByteString 
      * @param {Integer} BytesInMultiByteString 
@@ -5172,7 +5086,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} MultiByteString 
      * @param {Integer} MaxBytesInMultiByteString 
      * @param {Pointer<Integer>} BytesInMultiByteString 
@@ -5189,7 +5102,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} MultiByteString 
      * @param {Integer} MaxBytesInMultiByteString 
      * @param {Pointer<Integer>} BytesInMultiByteString 
@@ -5206,7 +5118,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} UnicodeString 
      * @param {Integer} MaxBytesInUnicodeString 
      * @param {Pointer<Integer>} BytesInUnicodeString 
@@ -5223,7 +5134,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} OemString 
      * @param {Integer} MaxBytesInOemString 
      * @param {Pointer<Integer>} BytesInOemString 
@@ -5240,7 +5150,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} OemString 
      * @param {Integer} MaxBytesInOemString 
      * @param {Pointer<Integer>} BytesInOemString 
@@ -5257,7 +5166,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} NormForm 
      * @param {PWSTR} SourceString 
      * @param {Integer} SourceStringLength 
@@ -5277,7 +5185,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} NormForm 
      * @param {PWSTR} SourceString 
      * @param {Integer} SourceStringLength 
@@ -5295,7 +5202,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PWSTR} SourceString 
      * @param {Integer} SourceStringLength 
@@ -5315,7 +5221,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PWSTR} SourceString 
      * @param {Integer} SourceStringLength 
@@ -5335,7 +5240,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PWSTR} SourceString 
      * @param {Integer} SourceStringLength 
@@ -5355,7 +5259,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {BOOLEAN} AllowExtendedCharacters 
      * @param {Pointer<GENERATE_NAME_CONTEXT>} _Context 
@@ -5369,7 +5272,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} _Char 
      * @returns {BOOLEAN} 
      */
@@ -5381,7 +5283,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PREFIX_TABLE>} PrefixTable 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5390,7 +5291,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PREFIX_TABLE>} PrefixTable 
      * @param {Pointer<STRING>} Prefix 
      * @param {Pointer<PREFIX_TABLE_ENTRY>} PrefixTableEntry 
@@ -5402,7 +5302,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PREFIX_TABLE>} PrefixTable 
      * @param {Pointer<PREFIX_TABLE_ENTRY>} PrefixTableEntry 
      * @returns {String} Nothing - always returns an empty string
@@ -5412,7 +5311,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PREFIX_TABLE>} PrefixTable 
      * @param {Pointer<STRING>} FullName 
      * @returns {Pointer<PREFIX_TABLE_ENTRY>} 
@@ -5423,7 +5321,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_PREFIX_TABLE>} PrefixTable 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -5432,7 +5329,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_PREFIX_TABLE>} PrefixTable 
      * @param {Pointer<UNICODE_STRING>} Prefix 
      * @param {Pointer<UNICODE_PREFIX_TABLE_ENTRY>} PrefixTableEntry 
@@ -5444,7 +5340,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_PREFIX_TABLE>} PrefixTable 
      * @param {Pointer<UNICODE_PREFIX_TABLE_ENTRY>} PrefixTableEntry 
      * @returns {String} Nothing - always returns an empty string
@@ -5454,7 +5349,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_PREFIX_TABLE>} PrefixTable 
      * @param {Pointer<UNICODE_STRING>} FullName 
      * @param {Integer} CaseInsensitiveIndex 
@@ -5466,7 +5360,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_PREFIX_TABLE>} PrefixTable 
      * @param {BOOLEAN} Restart 
      * @returns {Pointer<UNICODE_PREFIX_TABLE_ENTRY>} 
@@ -5477,7 +5370,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormatAndEngine 
      * @param {Pointer<Integer>} CompressBufferWorkSpaceSize 
      * @param {Pointer<Integer>} CompressFragmentWorkSpaceSize 
@@ -5493,7 +5385,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormatAndEngine 
      * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
@@ -5514,7 +5405,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormat 
      * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
@@ -5532,7 +5422,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormat 
      * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
@@ -5552,7 +5441,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormat 
      * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
@@ -5573,7 +5461,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormat 
      * @param {Integer} UncompressedFragment 
      * @param {Integer} UncompressedFragmentSize 
@@ -5594,7 +5481,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormat 
      * @param {Integer} UncompressedFragment 
      * @param {Integer} UncompressedFragmentSize 
@@ -5616,7 +5502,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormat 
      * @param {Pointer<Pointer<Integer>>} CompressedBuffer 
      * @param {Pointer<Integer>} EndOfCompressedBufferPlus1 
@@ -5636,7 +5521,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} CompressionFormat 
      * @param {Pointer<Pointer<Integer>>} CompressedBuffer 
      * @param {Pointer<Integer>} EndOfCompressedBufferPlus1 
@@ -5655,7 +5539,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
      * @param {Integer} CompressedBuffer 
@@ -5672,7 +5555,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
      * @param {Integer} CompressedBuffer 
@@ -5691,7 +5573,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Pointer} Length 
      * @param {Integer} Pattern 
@@ -5703,7 +5584,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Time 
      * @param {Pointer<Integer>} ElapsedSeconds 
      * @returns {BOOLEAN} 
@@ -5717,7 +5597,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} ElapsedSeconds 
      * @param {Pointer<Integer>} Time 
      * @returns {String} Nothing - always returns an empty string
@@ -5729,7 +5608,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} ElapsedSeconds 
      * @param {Pointer<Integer>} Time 
      * @returns {String} Nothing - always returns an empty string
@@ -5741,7 +5619,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @returns {BOOLEAN} 
      */
@@ -5751,7 +5628,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} Sid1 
      * @param {PSID} Sid2 
      * @returns {BOOLEAN} 
@@ -5762,7 +5638,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} Sid1 
      * @param {PSID} Sid2 
      * @returns {BOOLEAN} 
@@ -5773,7 +5648,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} SubAuthorityCount 
      * @returns {Integer} 
      */
@@ -5783,7 +5657,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @returns {Pointer<Void>} 
      */
@@ -5793,7 +5666,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
      * @param {Integer} SubAuthority0 
@@ -5816,7 +5688,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
      * @param {Pointer<Integer>} SubAuthorities 
@@ -5833,7 +5704,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
@@ -5846,7 +5716,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
@@ -5863,7 +5732,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @returns {Pointer<SID_IDENTIFIER_AUTHORITY>} 
      */
@@ -5873,7 +5741,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @param {Integer} SubAuthority 
      * @returns {Pointer<Integer>} 
@@ -5884,7 +5751,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @returns {Pointer<Integer>} 
      */
@@ -5894,7 +5760,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @returns {Integer} 
      */
@@ -5904,7 +5769,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} DestinationSidLength 
      * @param {Integer} DestinationSid 
      * @param {PSID} SourceSid 
@@ -5917,7 +5781,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ServiceName 
      * @param {Integer} ServiceSid 
      * @param {Pointer<Integer>} ServiceSidLength 
@@ -5932,7 +5795,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<BOOLEAN>} SaclPresent 
      * @param {Pointer<Pointer<ACL>>} Sacl 
@@ -5952,7 +5814,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} OldSid 
      * @param {PSID} NewSid 
@@ -5970,7 +5831,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Integer} BaseSubAuthority 
      * @param {Integer} _Sid 
@@ -5986,7 +5846,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} DestinationLuid 
      * @param {Pointer<LUID>} SourceLuid 
      * @returns {String} Nothing - always returns an empty string
@@ -5996,7 +5855,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} _Acl 
      * @param {Integer} AclLength 
      * @param {Integer} AclRevision 
@@ -6009,7 +5867,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceRevision 
      * @param {Integer} StartingAceIndex 
@@ -6024,7 +5881,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceIndex 
      * @returns {NTSTATUS} 
@@ -6036,7 +5892,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceIndex 
      * @param {Pointer<Pointer<Void>>} Ace 
@@ -6051,7 +5906,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceRevision 
      * @param {Integer} AccessMask 
@@ -6065,7 +5919,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceRevision 
      * @param {Integer} AceFlags 
@@ -6080,7 +5933,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<BOOLEAN>} DaclPresent 
      * @param {Pointer<Pointer<ACL>>} Dacl 
@@ -6100,7 +5952,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} Owner 
      * @param {BOOLEAN} OwnerDefaulted 
@@ -6115,7 +5966,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} Group 
      * @param {BOOLEAN} GroupDefaulted 
@@ -6130,7 +5980,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<PSID>} Group 
      * @param {Pointer<BOOLEAN>} GroupDefaulted 
@@ -6148,7 +5997,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} AbsoluteSecurityDescriptor 
      * @param {Integer} SelfRelativeSecurityDescriptor 
      * @param {Pointer<Integer>} BufferLength 
@@ -6165,7 +6013,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} SelfRelativeSecurityDescriptor 
      * @param {Integer} AbsoluteSecurityDescriptor 
      * @param {Pointer<Integer>} AbsoluteSecurityDescriptorSize 
@@ -6194,7 +6041,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<PSID>} Owner 
      * @param {Pointer<BOOLEAN>} OwnerDefaulted 
@@ -6212,7 +6058,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {NTSTATUS} _Status 
      * @returns {Integer} 
      */
@@ -6222,7 +6067,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CPTABLEINFO>} CustomCP 
      * @param {Integer} UnicodeString 
      * @param {Integer} MaxBytesInUnicodeString 
@@ -6240,7 +6084,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CPTABLEINFO>} CustomCP 
      * @param {Integer} CustomCPString 
      * @param {Integer} MaxBytesInCustomCPString 
@@ -6258,7 +6101,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CPTABLEINFO>} CustomCP 
      * @param {Integer} CustomCPString 
      * @param {Integer} MaxBytesInCustomCPString 
@@ -6276,7 +6118,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} TableBase 
      * @param {Pointer<CPTABLEINFO>} CodePageTable 
      * @returns {String} Nothing - always returns an empty string
@@ -6288,7 +6129,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} VolumeRootPath 
      * @returns {NTSTATUS} 
      */
@@ -6299,7 +6139,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Altitude1 
      * @param {Pointer<UNICODE_STRING>} Altitude2 
      * @returns {Integer} 
@@ -6310,7 +6149,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} TokenObject 
      * @param {Integer} PackageFullName 
      * @param {Pointer<Pointer>} PackageSize 
@@ -6331,7 +6169,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} TokenObject 
      * @param {Integer} PackageFullName 
      * @param {Pointer<Pointer>} PackageSize 
@@ -6353,7 +6190,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} ReparseTag 
      * @returns {BOOLEAN} 
      */
@@ -6363,7 +6199,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} FileAttributes 
      * @param {Integer} ReparseTag 
      * @returns {BOOLEAN} 
@@ -6374,7 +6209,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} FileAttributes 
      * @param {Integer} ReparseTag 
      * @returns {BOOLEAN} 
@@ -6385,7 +6219,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<BOOLEAN>} IsPartialPlaceholder 
      * @returns {NTSTATUS} 
@@ -6401,7 +6234,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InfoBuffer 
      * @param {FILE_INFORMATION_CLASS} InfoClass 
      * @param {Pointer<BOOLEAN>} IsPartialPlaceholder 
@@ -6417,7 +6249,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {CHAR} 
      */
     static RtlQueryThreadPlaceholderCompatibilityMode() {
@@ -6426,7 +6257,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {CHAR} _Mode 
      * @returns {CHAR} 
      */
@@ -6436,7 +6266,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {CHAR} 
      */
     static RtlQueryProcessPlaceholderCompatibilityMode() {
@@ -6445,7 +6274,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {CHAR} _Mode 
      * @returns {CHAR} 
      */
@@ -7217,7 +7045,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FileInformation 
@@ -7232,7 +7059,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FileInformation 
@@ -7316,7 +7142,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FileInformation 
@@ -7333,7 +7158,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -7359,7 +7183,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Integer} Flags 
      * @param {Integer} Parameters 
@@ -7376,7 +7199,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
      * @param {Integer} _SecurityDescriptor 
@@ -7395,7 +7217,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} SectionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -7416,7 +7237,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} SectionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -7439,7 +7259,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} BaseAddress 
      * @param {Pointer} ZeroBits 
@@ -7459,7 +7278,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KMUTANT>} Mutant 
      * @param {BOOLEAN} InitialOwner 
      * @returns {String} Nothing - always returns an empty string
@@ -7469,7 +7287,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KMUTANT>} Mutant 
      * @returns {Integer} 
      */
@@ -7479,7 +7296,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KMUTANT>} Mutant 
      * @param {Integer} Increment 
      * @param {BOOLEAN} Abandoned 
@@ -7492,7 +7308,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KQUEUE>} Queue 
      * @param {Integer} Count 
      * @returns {String} Nothing - always returns an empty string
@@ -7502,7 +7317,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KQUEUE>} Queue 
      * @returns {Integer} 
      */
@@ -7512,7 +7326,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KQUEUE>} Queue 
      * @param {Pointer<LIST_ENTRY>} Entry 
      * @returns {Integer} 
@@ -7523,7 +7336,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KQUEUE>} Queue 
      * @param {Pointer<LIST_ENTRY>} Entry 
      * @returns {Integer} 
@@ -7534,7 +7346,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KQUEUE>} Queue 
      * @param {Integer} WaitMode 
      * @param {Pointer<Integer>} Timeout 
@@ -7548,7 +7359,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KQUEUE>} Queue 
      * @param {Integer} WaitMode 
      * @param {BOOLEAN} Alertable 
@@ -7566,7 +7376,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KQUEUE>} Queue 
      * @returns {Pointer<LIST_ENTRY>} 
      */
@@ -7576,7 +7385,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PRKPROCESS} Process 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7585,7 +7393,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static KeDetachProcess() {
@@ -7593,7 +7400,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PRKPROCESS} PROCESS 
      * @param {Pointer<KAPC_STATE>} ApcState 
      * @returns {String} Nothing - always returns an empty string
@@ -7603,7 +7409,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<KAPC_STATE>} ApcState 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7612,7 +7417,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PKTHREAD} Thread 
      * @param {Integer} Processor 
      * @returns {Integer} 
@@ -7623,7 +7427,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} Enable 
      * @returns {BOOLEAN} 
      */
@@ -7633,7 +7436,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {KSPIN_LOCK_QUEUE_NUMBER} _Number 
      * @returns {Integer} 
      */
@@ -7643,7 +7445,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {KSPIN_LOCK_QUEUE_NUMBER} _Number 
      * @param {Integer} OldIrql 
      * @returns {String} Nothing - always returns an empty string
@@ -7653,7 +7454,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {KSPIN_LOCK_QUEUE_NUMBER} _Number 
      * @param {Pointer<Integer>} OldIrql 
      * @returns {Integer} 
@@ -7666,7 +7466,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} SpinLock 
      * @returns {Integer} 
      */
@@ -7678,7 +7477,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PoolBlock 
      * @param {Pointer<BOOLEAN>} QuotaCharged 
      * @returns {Pointer} 
@@ -7692,7 +7490,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7701,7 +7498,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_CLIENT_CONTEXT>} ClientContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7710,7 +7506,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {PEPROCESS} Process 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
@@ -7721,7 +7516,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer<UNICODE_STRING>} SourceName 
      * @param {PSID} UserSid 
@@ -7736,7 +7530,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<TOKEN_ACCESS_INFORMATION>} PrimaryTokenInformation 
      * @param {Pointer<TOKEN_ACCESS_INFORMATION>} ClientTokenInformation 
@@ -7761,7 +7554,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<Void>} PrimaryToken 
      * @param {Pointer<Void>} ClientToken 
@@ -7788,7 +7580,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TOKEN_ACCESS_INFORMATION>} AccessInformation 
      * @param {Pointer<Void>} Token 
      * @param {Integer} Length 
@@ -7805,7 +7596,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PRIVILEGE_SET>} RequiredPrivileges 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @param {Integer} AccessMode 
@@ -7817,7 +7607,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PRIVILEGE_SET>} Privileges 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7826,7 +7615,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
@@ -7848,7 +7636,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
@@ -7871,7 +7658,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
@@ -7893,7 +7679,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
@@ -7916,7 +7701,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} Sacl 
      * @param {Pointer<ACL>} ResourceSacl 
      * @param {Pointer<Void>} Token 
@@ -7935,7 +7719,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {HANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
@@ -7949,7 +7732,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {HANDLE} _Handle 
      * @param {Pointer<Guid>} TransactionId 
@@ -7964,7 +7746,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @returns {TOKEN_TYPE} 
      */
@@ -7976,7 +7757,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @returns {BOOLEAN} 
      */
@@ -7988,7 +7768,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @returns {BOOLEAN} 
      */
@@ -8000,7 +7779,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @returns {BOOLEAN} 
      */
@@ -8012,7 +7790,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ExistingToken 
      * @param {Integer} Flags 
      * @param {Pointer<TOKEN_GROUPS>} SidsToDisable 
@@ -8031,7 +7808,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @param {Pointer<LUID>} AuthenticationId 
      * @returns {NTSTATUS} 
@@ -8045,7 +7821,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @param {Pointer<Integer>} SessionId 
      * @returns {NTSTATUS} 
@@ -8060,7 +7835,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @param {Pointer<Integer>} SessionId 
      * @param {Pointer<BOOLEAN>} IsServiceSession 
@@ -8077,7 +7851,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @param {Pointer<PESILO>} pServerSilo 
      * @returns {NTSTATUS} 
@@ -8092,7 +7865,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} ClientThread 
      * @param {Pointer<SECURITY_QUALITY_OF_SERVICE>} ClientSecurityQos 
      * @param {BOOLEAN} RemoteSession 
@@ -8106,7 +7878,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_CLIENT_CONTEXT>} ClientContext 
      * @param {PETHREAD} ServerThread 
      * @returns {String} Nothing - always returns an empty string
@@ -8116,7 +7887,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_CLIENT_CONTEXT>} ClientContext 
      * @param {PETHREAD} ServerThread 
      * @returns {NTSTATUS} 
@@ -8128,7 +7898,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
      * @param {Pointer<SECURITY_QUALITY_OF_SERVICE>} ClientSecurityQos 
      * @param {BOOLEAN} ServerIsRemote 
@@ -8142,7 +7911,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SecurityInformation 
      * @param {Integer} _SecurityDescriptor 
      * @param {Pointer<Integer>} Length 
@@ -8159,7 +7927,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor 
@@ -8180,7 +7947,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor 
@@ -8202,7 +7968,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @param {Pointer<PRIVILEGE_SET>} Privileges 
      * @returns {NTSTATUS} 
@@ -8214,7 +7979,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @param {Pointer<UNICODE_STRING>} LinkName 
      * @param {BOOLEAN} bSuccess 
@@ -8225,7 +7989,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @param {Pointer<UNICODE_STRING>} LinkName 
      * @param {BOOLEAN} bSuccess 
@@ -8237,7 +8000,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} bSuccess 
      * @param {Integer} SelftestCode 
      * @returns {String} Nothing - always returns an empty string
@@ -8247,7 +8009,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} TransactionId 
      * @param {Pointer<Guid>} ResourceManagerId 
      * @param {Integer} NewTransactionState 
@@ -8258,7 +8019,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} AccessGranted 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {BOOLEAN} 
@@ -8271,7 +8031,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} AccessGranted 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
@@ -8285,7 +8044,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @returns {BOOLEAN} 
@@ -8298,7 +8056,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} AccessGranted 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
@@ -8315,7 +8072,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @param {Pointer<BOOLEAN>} StagingEnabled 
@@ -8331,7 +8087,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _ObjectType 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
@@ -8346,7 +8101,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _ObjectType 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
@@ -8361,7 +8115,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _ObjectType 
      * @param {PSECURITY_DESCRIPTOR} ChildDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
@@ -8377,7 +8130,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} AccessGranted 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {BOOLEAN} 
@@ -8390,7 +8142,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} AccessGranted 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
@@ -8404,7 +8155,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {BOOLEAN} AccessGranted 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
@@ -8418,7 +8168,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @returns {String} Nothing - always returns an empty string
@@ -8428,7 +8177,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PSE_LOGON_SESSION_TERMINATED_ROUTINE>} CallbackRoutine 
      * @returns {NTSTATUS} 
      */
@@ -8439,7 +8187,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PSE_LOGON_SESSION_TERMINATED_ROUTINE>} CallbackRoutine 
      * @returns {NTSTATUS} 
      */
@@ -8450,7 +8197,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX>} CallbackRoutine 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
@@ -8464,7 +8210,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX>} CallbackRoutine 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
@@ -8478,7 +8223,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @returns {NTSTATUS} 
      */
@@ -8489,7 +8233,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {PESILO} pServerSilo 
      * @returns {NTSTATUS} 
@@ -8501,7 +8244,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Token 
      * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
      * @param {Pointer<Pointer<Void>>} TokenInformation 
@@ -8517,7 +8259,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @param {Pointer<Pointer<UNICODE_STRING>>} pImageFileName 
      * @returns {NTSTATUS} 
@@ -8531,7 +8272,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} _Context 
      * @param {Integer} PreviousMode 
      * @returns {BOOLEAN} 
@@ -8542,7 +8282,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} CurrentDescriptor 
      * @param {PSECURITY_DESCRIPTOR} NewDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
@@ -8559,7 +8298,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
      * @param {PSECURITY_DESCRIPTOR} OriginalDescriptor 
      * @param {PSECURITY_DESCRIPTOR} ProposedDescriptor 
@@ -8580,7 +8318,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {HANDLE} Token 
      * @returns {NTSTATUS} 
@@ -8594,7 +8331,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @returns {Pointer<Void>} 
      */
@@ -8604,7 +8340,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PrimaryToken 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -8615,7 +8350,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ImpersonationToken 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -8626,7 +8360,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {Pointer<BOOLEAN>} CopyOnOpen 
      * @param {Pointer<BOOLEAN>} EffectiveOnly 
@@ -8643,7 +8376,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static PsGetProcessExitTime() {
@@ -8652,7 +8384,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {BOOLEAN} 
      */
@@ -8662,7 +8393,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {Pointer<Void>} Token 
      * @param {BOOLEAN} CopyOnOpen 
@@ -8679,7 +8409,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {Pointer<SE_IMPERSONATION_STATE>} ImpersonationState 
      * @returns {BOOLEAN} 
@@ -8690,7 +8419,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {Pointer<SE_IMPERSONATION_STATE>} ImpersonationState 
      * @returns {String} Nothing - always returns an empty string
@@ -8700,7 +8428,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static PsRevertToSelf() {
@@ -8708,7 +8435,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessId 
      * @param {Pointer<PEPROCESS>} Process 
      * @returns {NTSTATUS} 
@@ -8724,7 +8450,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadId 
      * @param {Pointer<PETHREAD>} Thread 
      * @returns {NTSTATUS} 
@@ -8740,7 +8465,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} Amount 
@@ -8751,7 +8475,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} Amount 
@@ -8764,7 +8487,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} Amount 
@@ -8775,7 +8497,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {PEPROCESS} 
      */
@@ -8785,7 +8506,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {BOOLEAN} 
      */
@@ -8795,7 +8515,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @param {Integer} BytesRead 
      * @param {Integer} BytesWritten 
@@ -8809,7 +8528,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static PsIsDiskCountersEnabled() {
@@ -8818,7 +8536,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} FilterDriverObject 
      * @param {Pointer<FS_FILTER_CALLBACKS>} Callbacks 
      * @returns {NTSTATUS} 
@@ -8830,7 +8547,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Irql 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -8841,7 +8557,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} DesiredAccess 
      * @param {Integer} GrantedAccess 
      * @returns {NTSTATUS} 
@@ -8855,7 +8570,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_FULL_EA_INFORMATION>} EaBuffer 
      * @param {Integer} EaLength 
      * @param {Pointer<Integer>} ErrorOffset 
@@ -8870,7 +8584,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} GrantedAccess 
      * @param {Integer} MajorFunction 
      * @param {Integer} MinorFunction 
@@ -8889,7 +8602,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} Length 
      * @param {BOOLEAN} SetOperation 
@@ -8902,7 +8614,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @param {Integer} Length 
      * @param {BOOLEAN} SetOperation 
@@ -8915,7 +8626,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_QUOTA_INFORMATION>} QuotaBuffer 
      * @param {Integer} QuotaLength 
      * @param {Pointer<Integer>} ErrorOffset 
@@ -8930,7 +8640,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {Pointer<FILE_OBJECT>} 
@@ -8941,7 +8650,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<HANDLE>} FileHandle 
@@ -8953,7 +8661,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {Pointer<FILE_OBJECT>} 
@@ -8964,7 +8671,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CREATE_STREAM_FILE_OPTIONS>} CreateOptions 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
@@ -8981,7 +8687,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {Integer} DesiredAccess 
      * @param {Integer} OpenOptions 
@@ -8995,7 +8700,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Pointer<Integer>} StartingOffset 
@@ -9012,7 +8716,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {Pointer<DEVICE_OBJECT>} 
      */
@@ -9022,7 +8725,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Pointer<DEVICE_OBJECT>} 
      */
@@ -9032,7 +8734,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {Pointer<DEVICE_OBJECT>} 
      */
@@ -9042,7 +8743,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {Integer} 
      */
@@ -9052,7 +8752,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {PEPROCESS} 
      */
@@ -9062,7 +8761,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
@@ -9072,7 +8770,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {BOOLEAN} 
      */
@@ -9082,7 +8779,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<REPARSE_DATA_BUFFER>} ReparseBuffer 
      * @returns {BOOLEAN} 
@@ -9093,7 +8789,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Pointer<OBJECT_NAME_INFORMATION>>} ObjectNameInformation 
      * @returns {NTSTATUS} 
@@ -9107,7 +8802,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} Length 
@@ -9125,7 +8819,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @param {Integer} Length 
@@ -9143,7 +8836,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9152,7 +8844,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9161,7 +8852,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_FS_NOTIFICATION>} DriverNotificationRoutine 
      * @returns {NTSTATUS} 
@@ -9173,7 +8863,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_FS_NOTIFICATION>} DriverNotificationRoutine 
      * @param {BOOLEAN} SynchronizeWithMounts 
@@ -9186,7 +8875,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} DriverObjectList 
      * @param {Integer} DriverObjectListSize 
      * @param {Pointer<Integer>} ActualNumberDriverObjects 
@@ -9201,7 +8889,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} NewFileName 
      * @param {Integer} FileNameLength 
@@ -9214,7 +8901,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Irql 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9223,7 +8909,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
@@ -9233,7 +8918,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} Length 
@@ -9249,7 +8933,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<MDL>} MemoryDescriptorList 
      * @param {Pointer<Integer>} StartingOffset 
@@ -9266,7 +8949,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {PEPROCESS} 
      */
@@ -9276,7 +8958,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9285,7 +8966,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DRIVER_FS_NOTIFICATION>} DriverNotificationRoutine 
      * @returns {String} Nothing - always returns an empty string
@@ -9295,7 +8975,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {BOOLEAN} AllowRawMount 
      * @returns {NTSTATUS} 
@@ -9307,7 +8986,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Integer>} pSessionId 
      * @returns {NTSTATUS} 
@@ -9321,7 +8999,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Integer} DeviceObjectList 
      * @param {Integer} DeviceObjectListSize 
@@ -9337,7 +9014,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {Pointer<DEVICE_OBJECT>} 
      */
@@ -9347,7 +9023,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {Pointer<DEVICE_OBJECT>} 
      */
@@ -9357,7 +9032,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} FileSystemDeviceObject 
      * @param {Pointer<Pointer<DEVICE_OBJECT>>} DiskDeviceObject 
      * @returns {NTSTATUS} 
@@ -9371,7 +9045,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PETHREAD} Thread 
@@ -9385,7 +9058,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IO_PRIORITY_INFO>} InputPriorityInfo 
      * @param {Pointer<IO_PRIORITY_INFO>} OutputPriorityInfo 
      * @param {PETHREAD} Thread 
@@ -9398,7 +9070,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<IO_IRP_EXT_TRACK_OFFSET_HEADER>>} RetFsTrackOffsetBlob 
      * @param {Pointer<Integer>} RetTrackedOffset 
@@ -9414,7 +9085,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<IO_IRP_EXT_TRACK_OFFSET_HEADER>} FsTrackOffsetBlob 
      * @param {Integer} TrackedOffset 
@@ -9427,7 +9097,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
@@ -9438,7 +9107,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
@@ -9448,7 +9116,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<WORK_QUEUE_ITEM>} WorkItem 
      * @returns {NTSTATUS} 
      */
@@ -9459,7 +9126,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static MmIsRecursiveIoFault() {
@@ -9468,7 +9134,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @param {BOOLEAN} DelayClose 
      * @returns {BOOLEAN} 
@@ -9479,7 +9144,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @param {Integer} ForceCloseFlags 
      * @returns {BOOLEAN} 
@@ -9490,7 +9154,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static MmGetMaximumFileSectionSize() {
@@ -9499,7 +9162,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @param {MMFLUSH_TYPE} FlushType 
      * @returns {BOOLEAN} 
@@ -9510,7 +9172,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionPointer 
      * @param {Pointer<Integer>} NewFileSize 
      * @returns {BOOLEAN} 
@@ -9523,7 +9184,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @param {Pointer} Length 
      * @returns {BOOLEAN} 
@@ -9534,7 +9194,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} FsSectionPointer 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} SectionIsActive 
@@ -9549,7 +9208,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} NumberOfLists 
      * @param {Pointer<Pointer<READ_LIST>>} ReadLists 
      * @returns {NTSTATUS} 
@@ -9563,7 +9221,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionPointer 
      * @returns {Integer} 
      */
@@ -9573,7 +9230,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} _Mdl 
      * @returns {Integer} 
      */
@@ -9583,7 +9239,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<ACCESS_STATE>} PassedAccessState 
      * @param {Integer} DesiredAccess 
@@ -9602,7 +9257,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} HandleAttributes 
      * @param {Pointer<ACCESS_STATE>} PassedAccessState 
@@ -9621,7 +9275,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} HandleAttributes 
      * @param {Pointer<ACCESS_STATE>} PassedAccessState 
@@ -9641,7 +9294,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9652,7 +9304,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Integer} ObjectNameInfo 
      * @param {Integer} Length 
@@ -9669,7 +9320,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @returns {BOOLEAN} 
      */
@@ -9681,7 +9331,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
@@ -9697,7 +9346,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
@@ -9709,7 +9357,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -9728,7 +9375,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -9747,7 +9393,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -9766,7 +9411,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -9785,7 +9429,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<MDL>} MdlChain 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
@@ -9797,7 +9440,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -9816,7 +9458,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -9835,7 +9476,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Pointer<MDL>} MdlChain 
@@ -9850,7 +9490,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9859,7 +9498,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9868,7 +9506,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileSize 
      * @returns {NTSTATUS} 
@@ -9882,7 +9519,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PCOMPLETE_LOCK_IRP_ROUTINE>} CompleteLockIrpRoutine 
      * @param {Pointer<PUNLOCK_ROUTINE>} UnlockRoutine 
      * @returns {Pointer<FILE_LOCK>} 
@@ -9893,7 +9529,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9902,7 +9537,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<PCOMPLETE_LOCK_IRP_ROUTINE>} CompleteLockIrpRoutine 
      * @param {Pointer<PUNLOCK_ROUTINE>} UnlockRoutine 
@@ -9913,7 +9547,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9922,7 +9555,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} _Context 
@@ -9937,7 +9569,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
@@ -9948,7 +9579,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
@@ -9959,7 +9589,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<Integer>} AllocationSize 
      * @returns {BOOLEAN} 
@@ -9972,7 +9601,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<Integer>} StartingByte 
      * @param {Pointer<Integer>} Length 
@@ -9991,7 +9619,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<Integer>} StartingByte 
      * @param {Pointer<Integer>} Length 
@@ -10011,7 +9638,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {BOOLEAN} Restart 
      * @returns {Pointer<FILE_LOCK_INFO>} 
@@ -10022,7 +9648,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @returns {BOOLEAN} 
      */
@@ -10032,7 +9657,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @returns {BOOLEAN} 
      */
@@ -10042,7 +9666,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
@@ -10064,7 +9687,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PEPROCESS} ProcessId 
@@ -10080,7 +9702,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PEPROCESS} ProcessId 
@@ -10097,7 +9718,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
@@ -10122,7 +9742,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TUNNEL>} Cache 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10131,7 +9750,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TUNNEL>} Cache 
      * @param {Integer} DirectoryKey 
      * @param {Pointer<UNICODE_STRING>} ShortName 
@@ -10146,7 +9764,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TUNNEL>} Cache 
      * @param {Integer} DirectoryKey 
      * @param {Pointer<UNICODE_STRING>} Name 
@@ -10164,7 +9781,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TUNNEL>} Cache 
      * @param {Integer} DirectoryKey 
      * @param {Pointer<UNICODE_STRING>} ShortName 
@@ -10179,7 +9795,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TUNNEL>} Cache 
      * @param {Integer} DirectoryKey 
      * @param {Pointer<UNICODE_STRING>} Name 
@@ -10198,7 +9813,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TUNNEL>} Cache 
      * @param {Integer} DirectoryKey 
      * @returns {String} Nothing - always returns an empty string
@@ -10208,7 +9822,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<TUNNEL>} Cache 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10217,7 +9830,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {STRING} _Path 
      * @param {Pointer<STRING>} FirstName 
      * @param {Pointer<STRING>} RemainingName 
@@ -10228,7 +9840,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} Name 
      * @returns {BOOLEAN} 
      */
@@ -10238,7 +9849,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} Expression 
      * @param {Pointer<STRING>} Name 
      * @returns {BOOLEAN} 
@@ -10249,7 +9859,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {STRING} DbcsName 
      * @param {BOOLEAN} WildCardsPermissible 
      * @param {BOOLEAN} PathNamePermissible 
@@ -10262,7 +9871,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {STRING} DbcsName 
      * @param {BOOLEAN} WildCardsPermissible 
      * @param {BOOLEAN} PathNamePermissible 
@@ -10275,7 +9883,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {NTSTATUS} Exception 
      * @param {NTSTATUS} GenericException 
      * @returns {NTSTATUS} 
@@ -10287,7 +9894,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {NTSTATUS} Exception 
      * @returns {BOOLEAN} 
      */
@@ -10297,7 +9903,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {Pointer<ERESOURCE>} 
      */
     static FsRtlAllocateResource() {
@@ -10306,7 +9911,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {POOL_TYPE} PoolType 
      * @returns {String} Nothing - always returns an empty string
@@ -10316,7 +9920,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10325,7 +9928,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {BOOLEAN} SelfSynchronized 
      * @returns {String} Nothing - always returns an empty string
@@ -10335,7 +9937,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @returns {String} Nothing - always returns an empty string
@@ -10345,7 +9946,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
@@ -10358,7 +9958,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} SectorCount 
@@ -10369,7 +9968,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Pointer<Integer>} Lbn 
@@ -10391,7 +9989,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
@@ -10406,7 +10003,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} OpaqueMcb 
      * @param {Pointer<Integer>} LargeVbn 
      * @param {Pointer<Integer>} LargeLbn 
@@ -10423,7 +10019,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @returns {Integer} 
      */
@@ -10433,7 +10028,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} RunIndex 
      * @param {Pointer<Integer>} Vbn 
@@ -10451,7 +10045,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Amount 
@@ -10463,7 +10056,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {POOL_TYPE} PoolType 
      * @returns {String} Nothing - always returns an empty string
@@ -10473,7 +10065,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {POOL_TYPE} PoolType 
      * @param {Integer} Flags 
@@ -10485,7 +10076,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10494,7 +10084,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10503,7 +10092,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @returns {String} Nothing - always returns an empty string
@@ -10513,7 +10101,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
@@ -10526,7 +10113,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
@@ -10540,7 +10126,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} SectorCount 
@@ -10552,7 +10137,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Pointer<Integer>} Lbn 
@@ -10574,7 +10158,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
@@ -10589,7 +10172,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} OpaqueMcb 
      * @param {Pointer<Integer>} LargeVbn 
      * @param {Pointer<Integer>} LargeLbn 
@@ -10606,7 +10188,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @returns {Integer} 
      */
@@ -10616,7 +10197,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} RunIndex 
      * @param {Pointer<Integer>} Vbn 
@@ -10634,7 +10214,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Amount 
@@ -10646,7 +10225,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @param {POOL_TYPE} PoolType 
      * @returns {String} Nothing - always returns an empty string
@@ -10656,7 +10234,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10665,7 +10242,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @returns {String} Nothing - always returns an empty string
@@ -10675,7 +10251,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
@@ -10688,7 +10263,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} SectorCount 
@@ -10699,7 +10273,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Pointer<Integer>} Lbn 
@@ -10717,7 +10290,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
@@ -10732,7 +10304,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @returns {Integer} 
      */
@@ -10742,7 +10313,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} RunIndex 
      * @param {Pointer<Integer>} Vbn 
@@ -10760,7 +10330,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} TargetDevice 
      * @returns {NTSTATUS} 
      */
@@ -10771,7 +10340,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10782,7 +10350,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10793,7 +10360,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} OpenCount 
@@ -10808,7 +10374,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} _Context 
@@ -10826,7 +10391,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
@@ -10845,7 +10409,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Integer} NewLowerOplockState 
      * @param {Pointer<Void>} CompletionRoutineContext 
@@ -10864,7 +10427,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} OpenCount 
@@ -10881,7 +10443,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -10893,7 +10454,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -10905,7 +10465,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -10917,7 +10476,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IO_STACK_LOCATION>} IrpSp 
      * @param {Pointer<IRP>} _Irp 
@@ -10936,7 +10494,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
@@ -10946,7 +10503,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
@@ -10965,7 +10521,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
@@ -10988,7 +10543,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -11000,7 +10554,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
@@ -11019,7 +10572,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} OpenCount 
@@ -11035,7 +10587,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} Fo1 
      * @param {Pointer<FILE_OBJECT>} Fo2 
      * @returns {BOOLEAN} 
@@ -11046,7 +10597,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} EventCode 
      * @returns {NTSTATUS} 
@@ -11058,7 +10608,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} EventCode 
      * @param {Pointer<TARGET_DEVICE_CUSTOM_NOTIFICATION>} Event 
@@ -11071,7 +10620,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PNOTIFY_SYNC>} NotifySync 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11082,7 +10630,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<PNOTIFY_SYNC>} NotifySync 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11093,7 +10640,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @param {Pointer<Void>} FsContext 
@@ -11113,7 +10659,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @param {Pointer<Void>} FsContext 
@@ -11134,7 +10679,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @param {Pointer<STRING>} FullTargetName 
@@ -11155,7 +10699,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @param {Pointer<STRING>} FullTargetName 
@@ -11174,7 +10717,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @param {Pointer<Void>} FsContext 
@@ -11187,7 +10729,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @returns {String} Nothing - always returns an empty string
@@ -11197,7 +10738,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {UNICODE_STRING} _Path 
      * @param {Pointer<UNICODE_STRING>} FirstName 
      * @param {Pointer<UNICODE_STRING>} RemainingName 
@@ -11208,7 +10748,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @returns {BOOLEAN} 
      */
@@ -11218,7 +10757,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ConstantNameA 
      * @param {Pointer<UNICODE_STRING>} ConstantNameB 
      * @param {BOOLEAN} IgnoreCase 
@@ -11233,7 +10771,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Expression 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {BOOLEAN} IgnoreCase 
@@ -11248,7 +10785,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Expression 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {BOOLEAN} IgnoreCase 
@@ -11263,7 +10799,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<KEVENT>} Event 
      * @param {Pointer<PFSRTL_STACK_OVERFLOW_ROUTINE>} StackOverflowRoutine 
@@ -11276,7 +10811,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<KEVENT>} Event 
      * @param {Pointer<PFSRTL_STACK_OVERFLOW_ROUTINE>} StackOverflowRoutine 
@@ -11289,7 +10823,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} MupHandle 
      * @param {Pointer<UNICODE_STRING>} RedirectorDeviceName 
      * @param {BOOLEAN} MailslotsSupported 
@@ -11302,7 +10835,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} MupHandle 
      * @param {Pointer<UNICODE_STRING>} RedirDevName 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
@@ -11316,7 +10848,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} RedirDevName 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<FSRTL_UNC_PROVIDER_REGISTRATION>} Registration 
@@ -11330,7 +10861,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11341,7 +10871,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} Timeout 
      * @param {Pointer<IRP>} _Irp 
@@ -11357,7 +10886,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Pointer<Void>>} ObjectArray 
      * @param {WAIT_TYPE} WaitType 
@@ -11376,7 +10904,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} pFileObject 
      * @param {Integer} Level 
      * @param {Integer} pBuffer 
@@ -11392,7 +10919,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} pProviderName 
      * @param {Pointer<Integer>} pProviderId 
      * @returns {NTSTATUS} 
@@ -11406,7 +10932,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} PerFileContextPointer 
      * @param {Pointer<FSRTL_PER_FILE_CONTEXT>} Ptr 
      * @returns {NTSTATUS} 
@@ -11420,7 +10945,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} PerFileContextPointer 
      * @param {Pointer<Void>} OwnerId 
      * @param {Pointer<Void>} InstanceId 
@@ -11436,7 +10960,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} PerFileContextPointer 
      * @param {Pointer<Void>} OwnerId 
      * @param {Pointer<Void>} InstanceId 
@@ -11452,7 +10975,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} PerFileContextPointer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11463,7 +10985,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FSRTL_ADVANCED_FCB_HEADER>} PerStreamContext 
      * @param {Pointer<FSRTL_PER_STREAM_CONTEXT>} Ptr 
      * @returns {NTSTATUS} 
@@ -11475,7 +10996,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FSRTL_ADVANCED_FCB_HEADER>} StreamContext 
      * @param {Pointer<Void>} OwnerId 
      * @param {Pointer<Void>} InstanceId 
@@ -11490,7 +11010,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FSRTL_ADVANCED_FCB_HEADER>} StreamContext 
      * @param {Pointer<Void>} OwnerId 
      * @param {Pointer<Void>} InstanceId 
@@ -11505,7 +11024,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Integer} Tag 
      * @returns {Pointer<Void>} 
@@ -11516,7 +11034,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} AePushLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11527,7 +11044,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FSRTL_ADVANCED_FCB_HEADER>} AdvancedHeader 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11536,7 +11052,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<FSRTL_PER_FILEOBJECT_CONTEXT>} Ptr 
      * @returns {NTSTATUS} 
@@ -11548,7 +11063,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Void>} OwnerId 
      * @param {Pointer<Void>} InstanceId 
@@ -11563,7 +11077,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Void>} OwnerId 
      * @param {Pointer<Void>} InstanceId 
@@ -11578,7 +11091,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlIncrementCcFastReadNotPossible() {
@@ -11586,7 +11098,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlIncrementCcFastReadWait() {
@@ -11594,7 +11105,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlIncrementCcFastReadNoWait() {
@@ -11602,7 +11112,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlIncrementCcFastReadResourceMiss() {
@@ -11610,7 +11119,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlIncrementCcFastMdlReadWait() {
@@ -11618,7 +11126,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Integer} 
      */
@@ -11628,7 +11135,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Integer} 
      */
@@ -11638,7 +11144,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} SectionHandle 
      * @param {Pointer<Pointer<Void>>} SectionObject 
      * @param {Pointer<Integer>} SectionFileSize 
@@ -11662,7 +11167,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} BufferLength 
      * @param {Integer} ReparseBuffer 
      * @returns {NTSTATUS} 
@@ -11674,7 +11178,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} OriginalString 
      * @param {Integer} PathLength 
      * @param {Pointer<Integer>} NewLength 
@@ -11689,7 +11192,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} ReparseTag 
      * @returns {BOOLEAN} 
      */
@@ -11699,7 +11201,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<ECP_LIST>>} EcpList 
      * @returns {NTSTATUS} 
@@ -11713,7 +11214,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11724,7 +11224,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @returns {NTSTATUS} 
      */
@@ -11737,7 +11236,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} EcpType 
      * @param {Integer} SizeOfContext 
      * @param {Integer} Flags 
@@ -11755,7 +11253,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EcpContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11766,7 +11263,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ECP_HEADER>} Ecp 
      * @param {Integer} EcpFlags 
      * @param {Pointer<PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK>} CleanupCallback 
@@ -11783,7 +11279,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Lookaside 
      * @param {Integer} Flags 
      * @param {Pointer} _Size 
@@ -11797,7 +11292,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Lookaside 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -11809,7 +11303,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} EcpType 
      * @param {Integer} SizeOfContext 
      * @param {Integer} Flags 
@@ -11828,7 +11321,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Void>} EcpContext 
      * @returns {NTSTATUS} 
@@ -11843,7 +11335,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Guid>} EcpType 
      * @param {Pointer<Pointer<Void>>} EcpContext 
@@ -11861,7 +11352,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Guid>} EcpType 
      * @param {Pointer<Pointer<Void>>} EcpContext 
@@ -11879,7 +11369,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<ECP_LIST>>} EcpList 
      * @returns {NTSTATUS} 
@@ -11893,7 +11382,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @returns {NTSTATUS} 
@@ -11907,7 +11395,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Void>} CurrentEcpContext 
      * @param {Pointer<Guid>} NextEcpType 
@@ -11927,7 +11414,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EcpContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11938,7 +11424,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EcpContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11949,7 +11434,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EcpContext 
      * @returns {BOOLEAN} 
      */
@@ -11961,7 +11445,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EcpContext 
      * @returns {BOOLEAN} 
      */
@@ -11973,7 +11456,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {PEPROCESS} 
      */
@@ -11985,7 +11467,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
@@ -12009,7 +11490,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {Pointer<LIST_ENTRY>} 
      */
     static FsRtlGetCurrentProcessLoaderList() {
@@ -12018,7 +11498,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @returns {BOOLEAN} 
      */
@@ -12028,7 +11507,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} CurrentFileObject 
      * @param {Pointer<FILE_OBJECT>} NewFileObject 
      * @param {FSRTL_CHANGE_BACKING_TYPE} ChangeBackingType 
@@ -12042,7 +11520,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
@@ -12057,7 +11534,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static FsRtlAreVolumeStartupApplicationsComplete() {
@@ -12066,7 +11542,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static FsRtlQueryMaximumVirtualDiskNestingLevel() {
@@ -12075,7 +11550,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Integer>} NestingLevel 
      * @param {Pointer<Integer>} NestingFlags 
@@ -12091,7 +11565,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} VolumeDeviceObject 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -12103,7 +11576,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} IoCtl 
      * @param {Integer} Flags 
@@ -12125,7 +11597,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<FILE_FS_SECTOR_SIZE_INFORMATION>} SectorSizeInfo 
      * @returns {NTSTATUS} 
@@ -12137,7 +11608,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Integer>} SupportedFeatures 
      * @returns {NTSTATUS} 
@@ -12151,7 +11621,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FsControlCode 
      * @param {Integer} InputBuffer 
@@ -12170,7 +11639,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} ReturnedEaData 
      * @param {Integer} Length 
@@ -12192,7 +11660,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} EaBuffer 
      * @param {Integer} Length 
@@ -12205,7 +11672,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileInformation 
      * @param {Integer} Length 
@@ -12222,7 +11688,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} Vdl 
      * @returns {NTSTATUS} 
@@ -12236,7 +11701,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} BytesRead 
      * @param {Integer} BytesWritten 
      * @returns {String} Nothing - always returns an empty string
@@ -12246,7 +11710,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {NTSTATUS} DismountStatus 
      * @returns {String} Nothing - always returns an empty string
@@ -12256,7 +11719,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} _DriverObj 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
@@ -12268,7 +11730,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static FsRtlIsMobileOS() {
@@ -12277,7 +11738,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} StartPage 
      * @param {Integer} NumberOfPages 
      * @param {Integer} Flags 
@@ -12289,7 +11749,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {BOOLEAN} 
      */
@@ -12299,7 +11758,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<CC_FILE_SIZES>} FileSizes 
      * @param {BOOLEAN} PinAccess 
@@ -12314,7 +11772,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} TruncateSize 
      * @param {Pointer<CACHE_UNINITIALIZE_EVENT>} UninitializeEvent 
@@ -12328,7 +11785,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<CC_FILE_SIZES>} FileSizes 
      * @returns {String} Nothing - always returns an empty string
@@ -12338,7 +11794,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<CC_FILE_SIZES>} FileSizes 
      * @returns {NTSTATUS} 
@@ -12350,7 +11805,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12365,7 +11819,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12380,7 +11833,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} DirtyPageThreshold 
      * @returns {String} Nothing - always returns an empty string
@@ -12390,7 +11842,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12404,7 +11855,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @param {BOOLEAN} BcbListHeld 
      * @returns {Integer} 
@@ -12415,7 +11865,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} StartOffset 
      * @param {Pointer<Integer>} EndOffset 
@@ -12431,7 +11880,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Bcb 
      * @returns {Pointer<Void>} 
      */
@@ -12443,7 +11891,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Bcb 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12454,7 +11901,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Bcb 
      * @param {BOOLEAN} WriteThrough 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
@@ -12467,7 +11913,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @returns {Pointer<FILE_OBJECT>} 
      */
@@ -12477,7 +11922,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
      * @returns {Pointer<FILE_OBJECT>} 
      */
@@ -12487,7 +11931,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Bcb 
      * @returns {Pointer<FILE_OBJECT>} 
      */
@@ -12499,7 +11942,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12513,7 +11955,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} BytesToWrite 
      * @param {BOOLEAN} Wait 
@@ -12526,7 +11967,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PCC_POST_DEFERRED_WRITE>} PostRoutine 
      * @param {Pointer<Void>} Context1 
@@ -12543,7 +11983,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12560,7 +11999,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileOffset 
      * @param {Integer} Length 
@@ -12574,7 +12012,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12590,7 +12027,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileOffset 
      * @param {Integer} Length 
@@ -12602,7 +12038,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12618,7 +12053,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<MDL>} MdlChain 
      * @returns {String} Nothing - always returns an empty string
@@ -12628,7 +12062,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12644,7 +12077,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Pointer<MDL>} MdlChain 
@@ -12657,7 +12089,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<MDL>} MdlChain 
      * @returns {String} Nothing - always returns an empty string
@@ -12667,7 +12098,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12680,7 +12110,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     static CcWaitForCurrentLazyWriterActivity() {
@@ -12690,7 +12119,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} Granularity 
      * @returns {String} Nothing - always returns an empty string
@@ -12700,7 +12128,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12717,7 +12144,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12735,7 +12161,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12754,7 +12179,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12768,7 +12192,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<CC_FILE_SIZES>} FileSizes 
      * @param {BOOLEAN} PinAccess 
@@ -12784,7 +12207,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12803,7 +12225,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12822,7 +12243,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12839,7 +12259,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -12859,7 +12278,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BcbVoid 
      * @param {Pointer<Integer>} Lsn 
      * @returns {String} Nothing - always returns an empty string
@@ -12872,7 +12290,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Bcb 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12883,7 +12300,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Bcb 
      * @param {Pointer<Void>} OwnerPointer 
      * @returns {String} Nothing - always returns an empty string
@@ -12896,7 +12312,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Bcb 
      * @param {Pointer} ResourceThreadId 
      * @returns {String} Nothing - always returns an empty string
@@ -12908,7 +12323,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {BOOLEAN} DisableReadAhead 
      * @param {BOOLEAN} DisableWriteBehind 
@@ -12919,7 +12333,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -12929,7 +12342,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {BOOLEAN} EnableParallelFlush 
      * @returns {String} Nothing - always returns an empty string
@@ -12939,7 +12351,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Void>} LogHandle 
      * @param {Pointer<PFLUSH_TO_LSN>} FlushToLsnRoutine 
@@ -12952,7 +12363,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LogHandle 
      * @param {Pointer<PDIRTY_PAGE_ROUTINE>} DirtyPageRoutine 
      * @param {Pointer<Void>} Context1 
@@ -12969,7 +12379,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<VPB>} _Vpb 
      * @returns {BOOLEAN} 
      */
@@ -12979,7 +12388,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<VPB>} _Vpb 
      * @param {Pointer<Integer>} NumberOfDirtyPages 
      * @returns {BOOLEAN} 
@@ -12992,7 +12400,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {NTSTATUS} _Status 
      * @returns {BOOLEAN} 
      */
@@ -13002,7 +12409,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CC_ERROR_CALLBACK_CONTEXT>} _Context 
      * @returns {NTSTATUS} 
      */
@@ -13844,7 +13250,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ServiceClass 
      * @param {Pointer<UNICODE_STRING>} ServiceName 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -13864,7 +13269,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ServiceClass 
      * @param {Pointer<UNICODE_STRING>} ServiceName 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -13885,7 +13289,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ServiceClass 
      * @param {Pointer<UNICODE_STRING>} ServiceName 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -13907,7 +13310,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSID} _Sid 
      * @param {Pointer<Integer>} NameSize 
      * @param {Pointer<UNICODE_STRING>} NameBuffer 
@@ -13927,7 +13329,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Pointer<Integer>} SidSize 
      * @param {PSID} _Sid 
@@ -13947,7 +13348,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {WELL_KNOWN_SID_TYPE} SidType 
      * @param {PSID} _Sid 
      * @param {Integer} SidBufferSize 
@@ -13963,7 +13363,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<SECURITY_USER_DATA>>} UserInformation 
@@ -13978,7 +13377,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HRESULT} SecStatus 
      * @returns {NTSTATUS} 
      */
@@ -13989,7 +13387,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {OBJECT_INFORMATION_CLASS} ObjectInformationClass 
      * @param {Integer} ObjectInformation 
@@ -14008,7 +13405,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -14033,7 +13429,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} EventHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -14048,7 +13443,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @returns {NTSTATUS} 
      */
@@ -14059,7 +13453,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -14085,7 +13478,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -14110,7 +13502,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FsInformation 
@@ -14127,7 +13518,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FsInformation 
@@ -14144,7 +13534,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -14169,7 +13558,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} SourceProcessHandle 
      * @param {HANDLE} SourceHandle 
      * @param {HANDLE} TargetProcessHandle 
@@ -14190,7 +13578,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} DirectoryHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -14203,7 +13590,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
      * @param {Pointer} ZeroBits 
@@ -14224,7 +13610,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
@@ -14245,7 +13630,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
@@ -14264,7 +13648,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} BaseAddress 
      * @param {MEMORY_INFORMATION_CLASS} MemoryInformationClass 
@@ -14285,7 +13668,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {VIRTUAL_MEMORY_INFORMATION_CLASS} VmInformationClass 
      * @param {Pointer} NumberOfEntries 
@@ -14303,7 +13685,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} EventHandle 
      * @param {Pointer<Integer>} PreviousState 
      * @returns {NTSTATUS} 
@@ -14319,7 +13700,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
@@ -14338,7 +13718,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} DesiredAccess 
      * @param {Integer} HandleAttributes 
@@ -14354,7 +13733,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ThreadHandle 
      * @param {Integer} DesiredAccess 
      * @param {BOOLEAN} OpenAsSelf 
@@ -14371,7 +13749,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
      * @param {Integer} TokenInformation 
@@ -14390,7 +13767,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
      * @param {Integer} TokenInformation 
@@ -14406,7 +13782,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
@@ -14422,7 +13797,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
      * @param {Integer} _SecurityDescriptor 
@@ -14441,7 +13815,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {HANDLE} Event 
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
@@ -14468,7 +13841,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Pointer<Integer>} ByteOffset 
@@ -14488,7 +13860,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -14509,7 +13880,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -14525,7 +13895,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @returns {NTSTATUS} 
@@ -14539,7 +13908,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Integer} FLags 
      * @param {Integer} Parameters 
@@ -14556,7 +13924,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -14579,7 +13946,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} _Buffer 
@@ -14595,7 +13961,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} ExistingTokenHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -14613,7 +13978,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} DosFileName 
      * @returns {Integer} 
      */
@@ -14625,7 +13989,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} DosFileName 
      * @param {Pointer<UNICODE_STRING>} NtFileName 
      * @param {Pointer<PWSTR>} FilePart 
@@ -14644,7 +14007,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} DirectoryHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -14657,7 +14019,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {Pointer<FILE_NETWORK_OPEN_INFORMATION>} FileInformation 
      * @returns {NTSTATUS} 
@@ -14669,7 +14030,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Pointer<OPLOCK_KEY_ECP_CONTEXT>} 
      */
@@ -14679,7 +14039,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {Pointer<OPLOCK_KEY_CONTEXT>} 
      */

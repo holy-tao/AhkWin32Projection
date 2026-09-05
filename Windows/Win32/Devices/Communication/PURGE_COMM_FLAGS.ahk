@@ -7,22 +7,26 @@
 class PURGE_COMM_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: PURGE_RXABORT
      * @type {Integer (UInt32)}
      */
-    static PURGE_RXABORT => 2
+    static RXABORT => 2
 
     /**
+     * Native name: PURGE_RXCLEAR
      * @type {Integer (UInt32)}
      */
-    static PURGE_RXCLEAR => 8
+    static RXCLEAR => 8
 
     /**
+     * Native name: PURGE_TXABORT
      * @type {Integer (UInt32)}
      */
-    static PURGE_TXABORT => 1
+    static TXABORT => 1
 
     /**
+     * Native name: PURGE_TXCLEAR
      * @type {Integer (UInt32)}
      */
-    static PURGE_TXCLEAR => 4
+    static TXCLEAR => 4
 }

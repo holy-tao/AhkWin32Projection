@@ -7,57 +7,68 @@
 class D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE extends Win32Enum {
 
     /**
+     * Native name: D3DKMDT_VPPI_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_UNINITIALIZED => 0
+    static VPPI_UNINITIALIZED => 0
 
     /**
+     * Native name: D3DKMDT_VPPI_PRIMARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_PRIMARY => 1
+    static VPPI_PRIMARY => 1
 
     /**
+     * Native name: D3DKMDT_VPPI_SECONDARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_SECONDARY => 2
+    static VPPI_SECONDARY => 2
 
     /**
+     * Native name: D3DKMDT_VPPI_TERTIARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_TERTIARY => 3
+    static VPPI_TERTIARY => 3
 
     /**
+     * Native name: D3DKMDT_VPPI_QUATERNARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_QUATERNARY => 4
+    static VPPI_QUATERNARY => 4
 
     /**
+     * Native name: D3DKMDT_VPPI_QUINARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_QUINARY => 5
+    static VPPI_QUINARY => 5
 
     /**
+     * Native name: D3DKMDT_VPPI_SENARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_SENARY => 6
+    static VPPI_SENARY => 6
 
     /**
+     * Native name: D3DKMDT_VPPI_SEPTENARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_SEPTENARY => 7
+    static VPPI_SEPTENARY => 7
 
     /**
+     * Native name: D3DKMDT_VPPI_OCTONARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_OCTONARY => 8
+    static VPPI_OCTONARY => 8
 
     /**
+     * Native name: D3DKMDT_VPPI_NONARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_NONARY => 9
+    static VPPI_NONARY => 9
 
     /**
+     * Native name: D3DKMDT_VPPI_DENARY
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_VPPI_DENARY => 10
+    static VPPI_DENARY => 10
 }

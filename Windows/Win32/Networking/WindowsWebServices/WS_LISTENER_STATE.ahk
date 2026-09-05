@@ -23,32 +23,38 @@
 class WS_LISTENER_STATE extends Win32Enum {
 
     /**
+     * Native name: WS_LISTENER_STATE_CREATED
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_STATE_CREATED => 0
+    static CREATED => 0
 
     /**
+     * Native name: WS_LISTENER_STATE_OPENING
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_STATE_OPENING => 1
+    static OPENING => 1
 
     /**
+     * Native name: WS_LISTENER_STATE_OPEN
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_STATE_OPEN => 2
+    static OPEN => 2
 
     /**
+     * Native name: WS_LISTENER_STATE_FAULTED
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_STATE_FAULTED => 3
+    static FAULTED => 3
 
     /**
+     * Native name: WS_LISTENER_STATE_CLOSING
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_STATE_CLOSING => 4
+    static CLOSING => 4
 
     /**
+     * Native name: WS_LISTENER_STATE_CLOSED
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_STATE_CLOSED => 5
+    static CLOSED => 5
 }

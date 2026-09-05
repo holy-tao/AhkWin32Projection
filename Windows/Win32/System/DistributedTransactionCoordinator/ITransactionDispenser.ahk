@@ -31,7 +31,6 @@ class ITransactionDispenser extends IUnknown {
     static VTableNames => ["GetOptionsObject", "BeginTransaction"]
 
     /**
-     * 
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
@@ -40,7 +39,6 @@ class ITransactionDispenser extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkOuter 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 

@@ -7,32 +7,38 @@
 class COMAdminComponentFlags extends Win32Enum {
 
     /**
+     * Native name: COMAdminCompFlagTypeInfoFound
      * @type {Integer (Int32)}
      */
-    static COMAdminCompFlagTypeInfoFound => 1
+    static CompFlagTypeInfoFound => 1
 
     /**
+     * Native name: COMAdminCompFlagCOMPlusPropertiesFound
      * @type {Integer (Int32)}
      */
-    static COMAdminCompFlagCOMPlusPropertiesFound => 2
+    static CompFlagCOMPlusPropertiesFound => 2
 
     /**
+     * Native name: COMAdminCompFlagProxyFound
      * @type {Integer (Int32)}
      */
-    static COMAdminCompFlagProxyFound => 4
+    static CompFlagProxyFound => 4
 
     /**
+     * Native name: COMAdminCompFlagInterfacesFound
      * @type {Integer (Int32)}
      */
-    static COMAdminCompFlagInterfacesFound => 8
+    static CompFlagInterfacesFound => 8
 
     /**
+     * Native name: COMAdminCompFlagAlreadyInstalled
      * @type {Integer (Int32)}
      */
-    static COMAdminCompFlagAlreadyInstalled => 16
+    static CompFlagAlreadyInstalled => 16
 
     /**
+     * Native name: COMAdminCompFlagNotInApplication
      * @type {Integer (Int32)}
      */
-    static COMAdminCompFlagNotInApplication => 32
+    static CompFlagNotInApplication => 32
 }

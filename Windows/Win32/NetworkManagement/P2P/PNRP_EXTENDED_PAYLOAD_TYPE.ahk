@@ -7,17 +7,20 @@
 class PNRP_EXTENDED_PAYLOAD_TYPE extends Win32Enum {
 
     /**
+     * Native name: PNRP_EXTENDED_PAYLOAD_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static PNRP_EXTENDED_PAYLOAD_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: PNRP_EXTENDED_PAYLOAD_TYPE_BINARY
      * @type {Integer (Int32)}
      */
-    static PNRP_EXTENDED_PAYLOAD_TYPE_BINARY => 1
+    static BINARY => 1
 
     /**
+     * Native name: PNRP_EXTENDED_PAYLOAD_TYPE_STRING
      * @type {Integer (Int32)}
      */
-    static PNRP_EXTENDED_PAYLOAD_TYPE_STRING => 2
+    static STRING => 2
 }

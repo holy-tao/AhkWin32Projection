@@ -7,12 +7,14 @@
 class WBEMSTATUS_FORMAT extends Win32Enum {
 
     /**
+     * Native name: WBEMSTATUS_FORMAT_NEWLINE
      * @type {Integer (Int32)}
      */
-    static WBEMSTATUS_FORMAT_NEWLINE => 0
+    static NEWLINE => 0
 
     /**
+     * Native name: WBEMSTATUS_FORMAT_NO_NEWLINE
      * @type {Integer (Int32)}
      */
-    static WBEMSTATUS_FORMAT_NO_NEWLINE => 1
+    static NO_NEWLINE => 1
 }

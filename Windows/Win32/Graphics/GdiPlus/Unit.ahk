@@ -7,37 +7,44 @@
 class Unit extends Win32Enum {
 
     /**
+     * Native name: UnitWorld
      * @type {Integer (Int32)}
      */
-    static UnitWorld => 0
+    static World => 0
 
     /**
+     * Native name: UnitDisplay
      * @type {Integer (Int32)}
      */
-    static UnitDisplay => 1
+    static Display => 1
 
     /**
+     * Native name: UnitPixel
      * @type {Integer (Int32)}
      */
-    static UnitPixel => 2
+    static Pixel => 2
 
     /**
+     * Native name: UnitPoint
      * @type {Integer (Int32)}
      */
-    static UnitPoint => 3
+    static Point => 3
 
     /**
+     * Native name: UnitInch
      * @type {Integer (Int32)}
      */
-    static UnitInch => 4
+    static Inch => 4
 
     /**
+     * Native name: UnitDocument
      * @type {Integer (Int32)}
      */
-    static UnitDocument => 5
+    static Document => 5
 
     /**
+     * Native name: UnitMillimeter
      * @type {Integer (Int32)}
      */
-    static UnitMillimeter => 6
+    static Millimeter => 6
 }

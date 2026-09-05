@@ -62,7 +62,6 @@ class FolderItems3 extends FolderItems2 {
     }
 
     /**
-     * 
      * @returns {FolderItemVerbs} 
      */
     get_Verbs() {

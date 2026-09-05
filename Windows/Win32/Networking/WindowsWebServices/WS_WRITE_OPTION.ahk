@@ -31,9 +31,10 @@ class WS_WRITE_OPTION extends Win32Enum {
      * This option is not supported for pointer types
      *                     (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_WSZ_TYPE</a> and <b>WS_XML_BUFFER_TYPE</b>).  
      *                     The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_write_option">WS_WRITE_REQUIRED_POINTER</a> option should be used for these types.
+     * Native name: WS_WRITE_REQUIRED_VALUE
      * @type {Integer (Int32)}
      */
-    static WS_WRITE_REQUIRED_VALUE => 1
+    static REQUIRED_VALUE => 1
 
     /**
      * The storage specified contains a pointer to the value.  The
@@ -59,9 +60,10 @@ class WS_WRITE_OPTION extends Win32Enum {
      * If the pointer to the value specified in the storage is <b>NULL</b>, 
      *                     <b>E_INVALIDARG</b> is returned.
      *                 (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
+     * Native name: WS_WRITE_REQUIRED_POINTER
      * @type {Integer (Int32)}
      */
-    static WS_WRITE_REQUIRED_POINTER => 2
+    static REQUIRED_POINTER => 2
 
     /**
      * The storage specified contains a pointer to the value.  The
@@ -102,9 +104,10 @@ class WS_WRITE_OPTION extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_BYTES_TYPE</a>
      * </li>
      * </ul>
+     * Native name: WS_WRITE_NILLABLE_VALUE
      * @type {Integer (Int32)}
      */
-    static WS_WRITE_NILLABLE_VALUE => 3
+    static NILLABLE_VALUE => 3
 
     /**
      * For all types, the storage specified contains a pointer to the value.  The
@@ -131,7 +134,8 @@ class WS_WRITE_OPTION extends Win32Enum {
      * // if value is NULL
      * &lt;element xsi:nil='true'/&gt;
      * ```
+     * Native name: WS_WRITE_NILLABLE_POINTER
      * @type {Integer (Int32)}
      */
-    static WS_WRITE_NILLABLE_POINTER => 4
+    static NILLABLE_POINTER => 4
 }

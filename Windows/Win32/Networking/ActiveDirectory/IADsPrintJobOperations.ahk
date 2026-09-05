@@ -60,7 +60,6 @@ class IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Status() {
@@ -69,7 +68,6 @@ class IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TimeElapsed() {
@@ -78,7 +76,6 @@ class IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PagesPrinted() {
@@ -87,7 +84,6 @@ class IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Position() {
@@ -96,7 +92,6 @@ class IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPosition 
      * @returns {HRESULT} 
      */

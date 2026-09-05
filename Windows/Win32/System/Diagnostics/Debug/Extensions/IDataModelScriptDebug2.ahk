@@ -31,7 +31,6 @@ class IDataModelScriptDebug2 extends IDataModelScriptDebug {
     static VTableNames => ["SetBreakpointAtFunction"]
 
     /**
-     * 
      * @param {PWSTR} functionName 
      * @returns {IDataModelScriptDebugBreakpoint} 
      */

@@ -32,7 +32,6 @@ class IDataModelScriptDebugVariableSetEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -41,7 +40,6 @@ class IDataModelScriptDebugVariableSetEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} variableName 
      * @param {Pointer<IModelObject>} variableValue 
      * @param {Pointer<IKeyStore>} variableMetadata 

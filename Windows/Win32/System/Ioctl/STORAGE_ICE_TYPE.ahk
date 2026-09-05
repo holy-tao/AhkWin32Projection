@@ -7,17 +7,20 @@
 class STORAGE_ICE_TYPE extends Win32Enum {
 
     /**
+     * Native name: StorageIceTypeUnknown
      * @type {Integer (Int32)}
      */
-    static StorageIceTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageIceTypeUfs
      * @type {Integer (Int32)}
      */
-    static StorageIceTypeUfs => 1
+    static Ufs => 1
 
     /**
+     * Native name: StorageIceTypeNvme
      * @type {Integer (Int32)}
      */
-    static StorageIceTypeNvme => 2
+    static Nvme => 2
 }

@@ -7,42 +7,50 @@
 class UMS_THREAD_INFO_CLASS extends Win32Enum {
 
     /**
+     * Native name: UmsThreadInvalidInfoClass
      * @type {Integer (Int32)}
      */
-    static UmsThreadInvalidInfoClass => 0
+    static InvalidInfoClass => 0
 
     /**
+     * Native name: UmsThreadUserContext
      * @type {Integer (Int32)}
      */
-    static UmsThreadUserContext => 1
+    static UserContext => 1
 
     /**
+     * Native name: UmsThreadPriority
      * @type {Integer (Int32)}
      */
-    static UmsThreadPriority => 2
+    static Priority => 2
 
     /**
+     * Native name: UmsThreadAffinity
      * @type {Integer (Int32)}
      */
-    static UmsThreadAffinity => 3
+    static Affinity => 3
 
     /**
+     * Native name: UmsThreadTeb
      * @type {Integer (Int32)}
      */
-    static UmsThreadTeb => 4
+    static Teb => 4
 
     /**
+     * Native name: UmsThreadIsSuspended
      * @type {Integer (Int32)}
      */
-    static UmsThreadIsSuspended => 5
+    static IsSuspended => 5
 
     /**
+     * Native name: UmsThreadIsTerminated
      * @type {Integer (Int32)}
      */
-    static UmsThreadIsTerminated => 6
+    static IsTerminated => 6
 
     /**
+     * Native name: UmsThreadMaxInfoClass
      * @type {Integer (Int32)}
      */
-    static UmsThreadMaxInfoClass => 7
+    static MaxInfoClass => 7
 }

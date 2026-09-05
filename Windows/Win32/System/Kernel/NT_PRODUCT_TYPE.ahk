@@ -7,17 +7,20 @@
 class NT_PRODUCT_TYPE extends Win32Enum {
 
     /**
+     * Native name: NtProductWinNt
      * @type {Integer (Int32)}
      */
-    static NtProductWinNt => 1
+    static WinNt => 1
 
     /**
+     * Native name: NtProductLanManNt
      * @type {Integer (Int32)}
      */
-    static NtProductLanManNt => 2
+    static LanManNt => 2
 
     /**
+     * Native name: NtProductServer
      * @type {Integer (Int32)}
      */
-    static NtProductServer => 3
+    static Server => 3
 }

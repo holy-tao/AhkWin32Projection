@@ -10,61 +10,71 @@ class DWRITE_PANOSE_ASPECT extends Win32Enum {
 
     /**
      * Any aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_ANY => 0
+    static ANY => 0
 
     /**
      * No fit for aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Super condensed aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_SUPER_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_SUPER_CONDENSED => 2
+    static SUPER_CONDENSED => 2
 
     /**
      * Very condensed aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_VERY_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_VERY_CONDENSED => 3
+    static VERY_CONDENSED => 3
 
     /**
      * Condensed aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_CONDENSED => 4
+    static CONDENSED => 4
 
     /**
      * Normal aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_NORMAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_NORMAL => 5
+    static NORMAL => 5
 
     /**
      * Extended aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_EXTENDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_EXTENDED => 6
+    static EXTENDED => 6
 
     /**
      * Very extended aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_VERY_EXTENDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_VERY_EXTENDED => 7
+    static VERY_EXTENDED => 7
 
     /**
      * Super extended aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_SUPER_EXTENDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_SUPER_EXTENDED => 8
+    static SUPER_EXTENDED => 8
 
     /**
      * Monospace aspect.
+     * Native name: DWRITE_PANOSE_ASPECT_MONOSPACED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_MONOSPACED => 9
+    static MONOSPACED => 9
 }

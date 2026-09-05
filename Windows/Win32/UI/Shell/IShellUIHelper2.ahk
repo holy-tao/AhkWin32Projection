@@ -31,7 +31,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     static VTableNames => ["AddSearchProvider", "RunOnceShown", "SkipRunOnce", "CustomizeSettings", "SqmEnabled", "PhishingEnabled", "BrandImageUri", "SkipTabsWelcome", "DiagnoseConnection", "CustomizeClearType", "IsSearchProviderInstalled", "IsSearchMigrated", "DefaultSearchProvider", "RunOnceRequiredSettingsComplete", "RunOnceHasShown", "SearchGuideUrl"]
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RunOnceShown() {
@@ -52,7 +50,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SkipRunOnce() {
@@ -61,7 +58,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fSQM 
      * @param {VARIANT_BOOL} fPhishing 
      * @param {BSTR} bstrLocale 
@@ -75,7 +71,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     SqmEnabled() {
@@ -84,7 +79,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     PhishingEnabled() {
@@ -93,7 +87,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     BrandImageUri() {
@@ -103,7 +96,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SkipTabsWelcome() {
@@ -112,7 +104,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DiagnoseConnection() {
@@ -121,7 +112,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fSet 
      * @returns {HRESULT} 
      */
@@ -131,7 +121,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {Integer} 
      */
@@ -143,7 +132,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     IsSearchMigrated() {
@@ -152,7 +140,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     DefaultSearchProvider() {
@@ -162,7 +149,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fComplete 
      * @returns {HRESULT} 
      */
@@ -172,7 +158,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     RunOnceHasShown() {
@@ -181,7 +166,6 @@ class IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     SearchGuideUrl() {

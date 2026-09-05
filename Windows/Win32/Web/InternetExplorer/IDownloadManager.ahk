@@ -33,7 +33,6 @@ class IDownloadManager extends IUnknown {
     static VTableNames => ["Download"]
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @param {IBindCtx} pbc 
      * @param {Integer} dwBindVerb 

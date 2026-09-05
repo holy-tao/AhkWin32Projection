@@ -7,27 +7,32 @@
 class ALERT_SYSTEM_SEV extends Win32Enum {
 
     /**
+     * Native name: ALERT_SYSTEM_INFORMATIONAL
      * @type {Integer (UInt32)}
      */
-    static ALERT_SYSTEM_INFORMATIONAL => 1
+    static INFORMATIONAL => 1
 
     /**
+     * Native name: ALERT_SYSTEM_WARNING
      * @type {Integer (UInt32)}
      */
-    static ALERT_SYSTEM_WARNING => 2
+    static WARNING => 2
 
     /**
+     * Native name: ALERT_SYSTEM_ERROR
      * @type {Integer (UInt32)}
      */
-    static ALERT_SYSTEM_ERROR => 3
+    static ERROR => 3
 
     /**
+     * Native name: ALERT_SYSTEM_QUERY
      * @type {Integer (UInt32)}
      */
-    static ALERT_SYSTEM_QUERY => 4
+    static QUERY => 4
 
     /**
+     * Native name: ALERT_SYSTEM_CRITICAL
      * @type {Integer (UInt32)}
      */
-    static ALERT_SYSTEM_CRITICAL => 5
+    static CRITICAL => 5
 }

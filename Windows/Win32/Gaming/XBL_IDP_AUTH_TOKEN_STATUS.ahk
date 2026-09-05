@@ -10,55 +10,64 @@ class XBL_IDP_AUTH_TOKEN_STATUS extends Win32Enum {
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_SUCCESS
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_SUCCESS => 0
+    static SUCCESS => 0
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_OFFLINE_SUCCESS
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_OFFLINE_SUCCESS => 1
+    static OFFLINE_SUCCESS => 1
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_NO_ACCOUNT_SET
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_NO_ACCOUNT_SET => 2
+    static NO_ACCOUNT_SET => 2
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_LOAD_MSA_ACCOUNT_FAILED
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_LOAD_MSA_ACCOUNT_FAILED => 3
+    static LOAD_MSA_ACCOUNT_FAILED => 3
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_XBOX_VETO
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_XBOX_VETO => 4
+    static XBOX_VETO => 4
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_MSA_INTERRUPT
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_MSA_INTERRUPT => 5
+    static MSA_INTERRUPT => 5
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_OFFLINE_NO_CONSENT
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_OFFLINE_NO_CONSENT => 6
+    static OFFLINE_NO_CONSENT => 6
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_VIEW_NOT_SET
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_VIEW_NOT_SET => 7
+    static VIEW_NOT_SET => 7
 
     /**
      * Reserved for Microsoft use.
+     * Native name: XBL_IDP_AUTH_TOKEN_STATUS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static XBL_IDP_AUTH_TOKEN_STATUS_UNKNOWN => -1
+    static UNKNOWN => -1
 }

@@ -30,7 +30,6 @@ class ID3D12PageableTools extends IUnknown {
     static VTableNames => ["GetAllocation"]
 
     /**
-     * 
      * @returns {D3D12_GPU_VIRTUAL_ADDRESS_RANGE} 
      */
     GetAllocation() {

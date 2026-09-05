@@ -34,7 +34,6 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3 {
     static VTableNames => ["SetFontAxisValues", "GetFontAxisValueCount", "GetFontAxisValues", "GetAutomaticFontAxes", "SetAutomaticFontAxes"]
 
     /**
-     * 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
      * @param {DWRITE_TEXT_RANGE} textRange 
@@ -46,7 +45,6 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @param {Integer} currentPosition 
      * @returns {Integer} 
      */
@@ -56,7 +54,6 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @param {Integer} currentPosition 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
@@ -69,7 +66,6 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @returns {DWRITE_AUTOMATIC_FONT_AXES} 
      */
     GetAutomaticFontAxes() {
@@ -78,7 +74,6 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @param {DWRITE_AUTOMATIC_FONT_AXES} automaticFontAxes 
      * @returns {HRESULT} 
      */

@@ -51,7 +51,6 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -60,7 +59,6 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_remainingSpace() {
@@ -69,7 +67,6 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {BSTR} 
      */
@@ -80,7 +77,6 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {VARIANT} 
      */
@@ -93,7 +89,6 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -107,7 +102,6 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {HRESULT} 
      */
@@ -119,7 +113,6 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {

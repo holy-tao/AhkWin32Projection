@@ -7,12 +7,14 @@
 class AM_PROPERTY_DVDKARAOKE extends Win32Enum {
 
     /**
+     * Native name: AM_PROPERTY_DVDKARAOKE_ENABLE
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_DVDKARAOKE_ENABLE => 0
+    static ENABLE => 0
 
     /**
+     * Native name: AM_PROPERTY_DVDKARAOKE_DATA
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_DVDKARAOKE_DATA => 1
+    static DATA => 1
 }

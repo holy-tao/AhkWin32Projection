@@ -30,7 +30,6 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
     static VTableNames => ["CreateWatchRegion", "ChangeWatchMode", "DeleteWatchRegion", "GetWatchRegionInfo", "Refresh", "ShrinkWatchRegion"]
 
     /**
-     * 
      * @param {Integer} dwWatchMode 
      * @returns {Pointer} 
      */
@@ -40,7 +39,6 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @param {Integer} dwWatchMode 
      * @returns {HRESULT} 
@@ -51,7 +49,6 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @returns {HRESULT} 
      */
@@ -61,7 +58,6 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @param {Pointer<Integer>} pdwWatchMode 
      * @param {Pointer<Pointer>} phChapter 
@@ -82,7 +78,6 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcChangesObtained 
      * @returns {Pointer<DBROWWATCHCHANGE>} 
      */
@@ -94,7 +89,6 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 

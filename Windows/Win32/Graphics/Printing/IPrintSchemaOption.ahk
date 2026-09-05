@@ -47,7 +47,6 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Selected() {
@@ -56,7 +55,6 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {PrintSchemaConstrainedSetting} 
      */
     get_Constrained() {
@@ -65,7 +63,6 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IUnknown} 

@@ -339,7 +339,6 @@ class IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Inherited() {
@@ -348,7 +347,6 @@ class IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Inheritable() {
@@ -357,7 +355,6 @@ class IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Denied() {
@@ -366,7 +363,6 @@ class IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_Permission() {
@@ -375,7 +371,6 @@ class IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IGPMTrustee} 
      */
     get_Trustee() {

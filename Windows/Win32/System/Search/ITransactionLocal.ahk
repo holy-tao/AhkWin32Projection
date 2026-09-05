@@ -30,7 +30,6 @@ class ITransactionLocal extends ITransaction {
     static VTableNames => ["GetOptionsObject", "StartTransaction"]
 
     /**
-     * 
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
@@ -39,7 +38,6 @@ class ITransactionLocal extends ITransaction {
     }
 
     /**
-     * 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
      * @param {ITransactionOptions} pOtherOptions 

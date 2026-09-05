@@ -15,154 +15,176 @@ class MFVideoTransferFunction extends Win32Enum {
 
     /**
      * Unknown. Treat as MFVideoTransFunc_709.
+     * Native name: MFVideoTransFunc_Unknown
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_Unknown => 0
+    static TransFunc_Unknown => 0
 
     /**
      * Linear RGB (gamma = 1.0).
+     * Native name: MFVideoTransFunc_10
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_10 => 1
+    static TransFunc_10 => 1
 
     /**
      * True 1.8 gamma, L' = L^1/1.8.
+     * Native name: MFVideoTransFunc_18
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_18 => 2
+    static TransFunc_18 => 2
 
     /**
      * True 2.0 gamma, L' = L^1/2.0.
+     * Native name: MFVideoTransFunc_20
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_20 => 3
+    static TransFunc_20 => 3
 
     /**
      * True 2.2 gamma, L' = L^1/2.2. This transfer function is used in ITU-R BT.470-2 System M (NTSC).
+     * Native name: MFVideoTransFunc_22
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_22 => 4
+    static TransFunc_22 => 4
 
     /**
      * ITU-R BT.709 transfer function. Gamma 2.2 curve with a linear segment in the lower range. This transfer function is used in BT.709, BT.601, SMPTE 296M, SMPTE 170M, BT.470, and SPMTE 274M. In addition BT-1361 uses this function within the range [0...1].
+     * Native name: MFVideoTransFunc_709
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_709 => 5
+    static TransFunc_709 => 5
 
     /**
      * SPMTE 240M transfer function. Gamma 2.2 curve with a linear segment in the lower range.
+     * Native name: MFVideoTransFunc_240M
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_240M => 6
+    static TransFunc_240M => 6
 
     /**
      * sRGB transfer function. Gamma 2.4 curve with a linear segment in the lower range.
+     * Native name: MFVideoTransFunc_sRGB
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_sRGB => 7
+    static TransFunc_sRGB => 7
 
     /**
      * True 2.8 gamma. L' = L^1/2.8. This transfer function is used in ITU-R BT.470-2 System B, G (PAL).
+     * Native name: MFVideoTransFunc_28
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_28 => 8
+    static TransFunc_28 => 8
 
     /**
      * Logarithmic transfer (100:1 range); for example, as used in H.264 video.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_Log_100
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_Log_100 => 9
+    static TransFunc_Log_100 => 9
 
     /**
      * Logarithmic transfer (316.22777:1 range); for example, as used in H.264 video.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_Log_316
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_Log_316 => 10
+    static TransFunc_Log_316 => 10
 
     /**
      * Symmetric ITU-R BT.709.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_709_sym
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_709_sym => 11
+    static TransFunc_709_sym => 11
 
     /**
      * Constant luminance ITU-R BT.2020.  See <a href="https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf">Recommendation  ITU-R  BT.2020-2</a>.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_2020_const
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_2020_const => 12
+    static TransFunc_2020_const => 12
 
     /**
      * Non-constant luminance ITU-R BT.2020.  See <a href="https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf">Recommendation  ITU-R  BT.2020-2</a>.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_2020
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_2020 => 13
+    static TransFunc_2020 => 13
 
     /**
      * True 2.6 gamma, L’=L^1/2.6
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_26
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_26 => 14
+    static TransFunc_26 => 14
 
     /**
      * SMPTE ST.2084 also known as PQ.  Also defined in ITU-R BT.2100
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_2084
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_2084 => 15
+    static TransFunc_2084 => 15
 
     /**
      * Hybrid Log-Gamma, ARIB STD-B67
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
      * <div> </div>
+     * Native name: MFVideoTransFunc_HLG
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_HLG => 16
+    static TransFunc_HLG => 16
 
     /**
+     * Native name: MFVideoTransFunc_10_rel
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_10_rel => 17
+    static TransFunc_10_rel => 17
 
     /**
+     * Native name: MFVideoTransFunc_BT1361_ECG
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_BT1361_ECG => 18
+    static TransFunc_BT1361_ECG => 18
 
     /**
+     * Native name: MFVideoTransFunc_SMPTE428
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_SMPTE428 => 19
+    static TransFunc_SMPTE428 => 19
 
     /**
      * Reserved.
+     * Native name: MFVideoTransFunc_Last
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_Last => 20
+    static TransFunc_Last => 20
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.
+     * Native name: MFVideoTransFunc_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_ForceDWORD => 2147483647
+    static TransFunc_ForceDWORD => 2147483647
 }

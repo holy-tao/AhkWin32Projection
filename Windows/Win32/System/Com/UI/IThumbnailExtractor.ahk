@@ -31,7 +31,6 @@ class IThumbnailExtractor extends IUnknown {
     static VTableNames => ["ExtractThumbnail", "OnFileUpdated"]
 
     /**
-     * 
      * @param {IStorage} pStg 
      * @param {Integer} ulLength 
      * @param {Integer} ulHeight 
@@ -49,7 +48,6 @@ class IThumbnailExtractor extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStorage} pStg 
      * @returns {HRESULT} 
      */

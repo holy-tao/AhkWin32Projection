@@ -7,62 +7,74 @@
 class MSITRANSFORM_VALIDATE extends Win32Enum {
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_LANGUAGE
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_LANGUAGE => 1
+    static LANGUAGE => 1
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_PRODUCT
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_PRODUCT => 2
+    static PRODUCT => 2
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_PLATFORM
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_PLATFORM => 4
+    static PLATFORM => 4
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_MAJORVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_MAJORVERSION => 8
+    static MAJORVERSION => 8
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_MINORVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_MINORVERSION => 16
+    static MINORVERSION => 16
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_UPDATEVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_UPDATEVERSION => 32
+    static UPDATEVERSION => 32
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_NEWLESSBASEVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_NEWLESSBASEVERSION => 64
+    static NEWLESSBASEVERSION => 64
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_NEWLESSEQUALBASEVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_NEWLESSEQUALBASEVERSION => 128
+    static NEWLESSEQUALBASEVERSION => 128
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_NEWEQUALBASEVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_NEWEQUALBASEVERSION => 256
+    static NEWEQUALBASEVERSION => 256
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_NEWGREATEREQUALBASEVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_NEWGREATEREQUALBASEVERSION => 512
+    static NEWGREATEREQUALBASEVERSION => 512
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_NEWGREATERBASEVERSION
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_NEWGREATERBASEVERSION => 1024
+    static NEWGREATERBASEVERSION => 1024
 
     /**
+     * Native name: MSITRANSFORM_VALIDATE_UPGRADECODE
      * @type {Integer (Int32)}
      */
-    static MSITRANSFORM_VALIDATE_UPGRADECODE => 2048
+    static UPGRADECODE => 2048
 }

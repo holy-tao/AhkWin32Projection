@@ -12,13 +12,15 @@ class CF_HARDLINK_POLICY extends Win32BitflagEnum {
 
     /**
      * Default; No hard links can be created on any placeholder.
+     * Native name: CF_HARDLINK_POLICY_NONE
      * @type {Integer (Int32)}
      */
-    static CF_HARDLINK_POLICY_NONE => 0
+    static NONE => 0
 
     /**
      * Hard links can be created on a placeholder under the same sync root or no sync root.
+     * Native name: CF_HARDLINK_POLICY_ALLOWED
      * @type {Integer (Int32)}
      */
-    static CF_HARDLINK_POLICY_ALLOWED => 1
+    static ALLOWED => 1
 }

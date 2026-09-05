@@ -7,47 +7,56 @@
 class ImageCodecFlags extends Win32Enum {
 
     /**
+     * Native name: ImageCodecFlagsEncoder
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsEncoder => 1
+    static Encoder => 1
 
     /**
+     * Native name: ImageCodecFlagsDecoder
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsDecoder => 2
+    static Decoder => 2
 
     /**
+     * Native name: ImageCodecFlagsSupportBitmap
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsSupportBitmap => 4
+    static SupportBitmap => 4
 
     /**
+     * Native name: ImageCodecFlagsSupportVector
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsSupportVector => 8
+    static SupportVector => 8
 
     /**
+     * Native name: ImageCodecFlagsSeekableEncode
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsSeekableEncode => 16
+    static SeekableEncode => 16
 
     /**
+     * Native name: ImageCodecFlagsBlockingDecode
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsBlockingDecode => 32
+    static BlockingDecode => 32
 
     /**
+     * Native name: ImageCodecFlagsBuiltin
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsBuiltin => 65536
+    static Builtin => 65536
 
     /**
+     * Native name: ImageCodecFlagsSystem
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsSystem => 131072
+    static System => 131072
 
     /**
+     * Native name: ImageCodecFlagsUser
      * @type {Integer (Int32)}
      */
-    static ImageCodecFlagsUser => 262144
+    static User => 262144
 }

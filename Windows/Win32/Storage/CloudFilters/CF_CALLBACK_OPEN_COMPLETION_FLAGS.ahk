@@ -10,19 +10,22 @@ class CF_CALLBACK_OPEN_COMPLETION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No open completion flag.
+     * Native name: CF_CALLBACK_OPEN_COMPLETION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_OPEN_COMPLETION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * A flag set if the placeholder metadata is corrupted.
+     * Native name: CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNKNOWN => 1
+    static FLAG_PLACEHOLDER_UNKNOWN => 1
 
     /**
      * A flag set if the placeholder metadata is of an older and unsupported version.
+     * Native name: CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED => 2
+    static FLAG_PLACEHOLDER_UNSUPPORTED => 2
 }

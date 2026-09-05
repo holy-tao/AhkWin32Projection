@@ -67,7 +67,6 @@ class IDialBranding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {HBITMAP} 
      */

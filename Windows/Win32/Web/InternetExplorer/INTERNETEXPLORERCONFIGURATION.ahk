@@ -7,17 +7,20 @@
 class INTERNETEXPLORERCONFIGURATION extends Win32Enum {
 
     /**
+     * Native name: INTERNETEXPLORERCONFIGURATION_HOST
      * @type {Integer (Int32)}
      */
-    static INTERNETEXPLORERCONFIGURATION_HOST => 1
+    static HOST => 1
 
     /**
+     * Native name: INTERNETEXPLORERCONFIGURATION_WEB_DRIVER
      * @type {Integer (Int32)}
      */
-    static INTERNETEXPLORERCONFIGURATION_WEB_DRIVER => 2
+    static WEB_DRIVER => 2
 
     /**
+     * Native name: INTERNETEXPLORERCONFIGURATION_WEB_DRIVER_EDGE
      * @type {Integer (Int32)}
      */
-    static INTERNETEXPLORERCONFIGURATION_WEB_DRIVER_EDGE => 4
+    static WEB_DRIVER_EDGE => 4
 }

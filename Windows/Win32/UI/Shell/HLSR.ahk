@@ -7,17 +7,20 @@
 class HLSR extends Win32Enum {
 
     /**
+     * Native name: HLSR_HOME
      * @type {Integer (Int32)}
      */
-    static HLSR_HOME => 0
+    static HOME => 0
 
     /**
+     * Native name: HLSR_SEARCHPAGE
      * @type {Integer (Int32)}
      */
-    static HLSR_SEARCHPAGE => 1
+    static SEARCHPAGE => 1
 
     /**
+     * Native name: HLSR_HISTORYFOLDER
      * @type {Integer (Int32)}
      */
-    static HLSR_HISTORYFOLDER => 2
+    static HISTORYFOLDER => 2
 }

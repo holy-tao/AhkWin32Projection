@@ -7,22 +7,26 @@
 class AM_LINE21_CCSTYLE extends Win32Enum {
 
     /**
+     * Native name: AM_L21_CCSTYLE_None
      * @type {Integer (Int32)}
      */
-    static AM_L21_CCSTYLE_None => 0
+    static L21_CCSTYLE_None => 0
 
     /**
+     * Native name: AM_L21_CCSTYLE_PopOn
      * @type {Integer (Int32)}
      */
-    static AM_L21_CCSTYLE_PopOn => 1
+    static L21_CCSTYLE_PopOn => 1
 
     /**
+     * Native name: AM_L21_CCSTYLE_PaintOn
      * @type {Integer (Int32)}
      */
-    static AM_L21_CCSTYLE_PaintOn => 2
+    static L21_CCSTYLE_PaintOn => 2
 
     /**
+     * Native name: AM_L21_CCSTYLE_RollUp
      * @type {Integer (Int32)}
      */
-    static AM_L21_CCSTYLE_RollUp => 3
+    static L21_CCSTYLE_RollUp => 3
 }

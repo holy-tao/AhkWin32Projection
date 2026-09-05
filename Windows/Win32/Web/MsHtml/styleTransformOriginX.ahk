@@ -7,27 +7,32 @@
 class styleTransformOriginX extends Win32Enum {
 
     /**
+     * Native name: styleTransformOriginXNotSet
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginXNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTransformOriginXLeft
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginXLeft => 1
+    static Left => 1
 
     /**
+     * Native name: styleTransformOriginXCenter
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginXCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleTransformOriginXRight
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginXRight => 3
+    static Right => 3
 
     /**
+     * Native name: styleTransformOriginX_Max
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginX_Max => 2147483647
+    static Max => 2147483647
 }

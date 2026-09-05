@@ -17,44 +17,52 @@
 class D3D_RESOURCE_RETURN_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3D_RETURN_TYPE_UNORM
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_UNORM => 1
+    static UNORM => 1
 
     /**
+     * Native name: D3D_RETURN_TYPE_SNORM
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_SNORM => 2
+    static SNORM => 2
 
     /**
+     * Native name: D3D_RETURN_TYPE_SINT
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_SINT => 3
+    static SINT => 3
 
     /**
+     * Native name: D3D_RETURN_TYPE_UINT
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_UINT => 4
+    static UINT => 4
 
     /**
+     * Native name: D3D_RETURN_TYPE_FLOAT
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_FLOAT => 5
+    static FLOAT => 5
 
     /**
+     * Native name: D3D_RETURN_TYPE_MIXED
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_MIXED => 6
+    static MIXED => 6
 
     /**
+     * Native name: D3D_RETURN_TYPE_DOUBLE
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_DOUBLE => 7
+    static DOUBLE => 7
 
     /**
+     * Native name: D3D_RETURN_TYPE_CONTINUED
      * @type {Integer (Int32)}
      */
-    static D3D_RETURN_TYPE_CONTINUED => 8
+    static CONTINUED => 8
 
     /**
      * @type {Integer (Int32)}

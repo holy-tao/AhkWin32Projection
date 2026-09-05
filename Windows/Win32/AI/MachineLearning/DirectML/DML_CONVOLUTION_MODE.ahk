@@ -10,13 +10,15 @@ class DML_CONVOLUTION_MODE extends Win32Enum {
 
     /**
      * Specifies the convolution mode. When used along with [DML_CONVOLUTION_DIRECTION_FORWARD](/windows/win32/api/directml/ne-directml-dml_convolution_direction), this flips the filter along the height and width axes.
+     * Native name: DML_CONVOLUTION_MODE_CONVOLUTION
      * @type {Integer (Int32)}
      */
-    static DML_CONVOLUTION_MODE_CONVOLUTION => 0
+    static CONVOLUTION => 0
 
     /**
      * Specifies the cross-correlation mode. If in doubt, use this mode&mdash;it is appropriate for the vast majority of machine learning (ML) model inference. When used along with [DML_CONVOLUTION_DIRECTION_BACKWARD](/windows/win32/api/directml/ne-directml-dml_convolution_direction), this flips the filter along the height and width axes.
+     * Native name: DML_CONVOLUTION_MODE_CROSS_CORRELATION
      * @type {Integer (Int32)}
      */
-    static DML_CONVOLUTION_MODE_CROSS_CORRELATION => 1
+    static CROSS_CORRELATION => 1
 }

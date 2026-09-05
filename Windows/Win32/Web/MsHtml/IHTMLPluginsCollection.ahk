@@ -37,7 +37,6 @@ class IHTMLPluginsCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -46,7 +45,6 @@ class IHTMLPluginsCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} reload 
      * @returns {HRESULT} 
      */

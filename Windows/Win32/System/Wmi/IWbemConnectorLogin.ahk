@@ -32,7 +32,6 @@ class IWbemConnectorLogin extends IUnknown {
     static VTableNames => ["ConnectorLogin"]
 
     /**
-     * 
      * @param {PWSTR} wszNetworkResource 
      * @param {PWSTR} wszPreferredLocale 
      * @param {Integer} lFlags 

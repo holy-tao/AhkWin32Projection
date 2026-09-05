@@ -7,17 +7,20 @@
 class MM_MDL_PAGE_CONTENTS_STATE extends Win32Enum {
 
     /**
+     * Native name: MmMdlPageContentsDynamic
      * @type {Integer (Int32)}
      */
-    static MmMdlPageContentsDynamic => 0
+    static Dynamic => 0
 
     /**
+     * Native name: MmMdlPageContentsInvariant
      * @type {Integer (Int32)}
      */
-    static MmMdlPageContentsInvariant => 1
+    static Invariant => 1
 
     /**
+     * Native name: MmMdlPageContentsQuery
      * @type {Integer (Int32)}
      */
-    static MmMdlPageContentsQuery => 2
+    static Query => 2
 }

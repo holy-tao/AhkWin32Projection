@@ -151,7 +151,6 @@ class IWiaPropertyStorage extends IUnknown {
     static VTableNames => ["ReadMultiple", "WriteMultiple", "DeleteMultiple", "ReadPropertyNames", "WritePropertyNames", "DeletePropertyNames", "Commit", "Revert", "Enum", "SetTimes", "SetClass", "Stat", "GetPropertyAttributes", "GetCount", "GetPropertyStream", "SetPropertyStream"]
 
     /**
-     * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
      * @returns {PROPVARIANT} 
@@ -163,7 +162,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
      * @param {Pointer<PROPVARIANT>} rgpropvar 
@@ -176,7 +174,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
      * @returns {HRESULT} 
@@ -187,7 +184,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
      * @returns {PWSTR} 
@@ -200,7 +196,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
      * @param {Pointer<PWSTR>} rglpwstrName 
@@ -215,7 +210,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
      * @returns {HRESULT} 
@@ -228,7 +222,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfCommitFlags 
      * @returns {HRESULT} 
      */
@@ -238,7 +231,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Revert() {
@@ -247,7 +239,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSTATPROPSTG} 
      */
     Enum() {
@@ -256,7 +247,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FILETIME>} pctime 
      * @param {Pointer<FILETIME>} patime 
      * @param {Pointer<FILETIME>} pmtime 
@@ -268,7 +258,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @returns {HRESULT} 
      */
@@ -278,7 +267,6 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {STATPROPSETSTG} 
      */
     Stat() {

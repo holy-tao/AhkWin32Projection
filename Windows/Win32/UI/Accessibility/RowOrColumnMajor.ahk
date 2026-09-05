@@ -10,19 +10,22 @@ class RowOrColumnMajor extends Win32Enum {
 
     /**
      * Data in the table should be read row by row.
+     * Native name: RowOrColumnMajor_RowMajor
      * @type {Integer (Int32)}
      */
-    static RowOrColumnMajor_RowMajor => 0
+    static RowMajor => 0
 
     /**
      * Data in the table should be read column by column.
+     * Native name: RowOrColumnMajor_ColumnMajor
      * @type {Integer (Int32)}
      */
-    static RowOrColumnMajor_ColumnMajor => 1
+    static ColumnMajor => 1
 
     /**
      * The best way to present the data is indeterminate.
+     * Native name: RowOrColumnMajor_Indeterminate
      * @type {Integer (Int32)}
      */
-    static RowOrColumnMajor_Indeterminate => 2
+    static Indeterminate => 2
 }

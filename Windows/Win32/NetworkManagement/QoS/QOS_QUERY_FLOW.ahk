@@ -10,19 +10,22 @@ class QOS_QUERY_FLOW extends Win32Enum {
 
     /**
      * Indicates an information request for the flow fundamentals. This information includes bottleneck bandwidth, available bandwidth, and the average Round Trip Time (RTT)
+     * Native name: QOSQueryFlowFundamentals
      * @type {Integer (Int32)}
      */
-    static QOSQueryFlowFundamentals => 0
+    static Fundamentals => 0
 
     /**
      * Indicates a request for information detailing the QoS priority being added to flow packets.
+     * Native name: QOSQueryPacketPriority
      * @type {Integer (Int32)}
      */
-    static QOSQueryPacketPriority => 1
+    static PacketPriority => 1
 
     /**
      * Indicates a request for the flow rate specified during the creation of an agreement with the QoS subsystem via the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qossetflow">QOSSetFlow</a>  function.
+     * Native name: QOSQueryOutgoingRate
      * @type {Integer (Int32)}
      */
-    static QOSQueryOutgoingRate => 2
+    static OutgoingRate => 2
 }

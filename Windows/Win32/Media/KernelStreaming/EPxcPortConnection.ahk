@@ -7,22 +7,26 @@
 class EPxcPortConnection extends Win32Enum {
 
     /**
+     * Native name: ePortConnJack
      * @type {Integer (Int32)}
      */
-    static ePortConnJack => 0
+    static ConnJack => 0
 
     /**
+     * Native name: ePortConnIntegratedDevice
      * @type {Integer (Int32)}
      */
-    static ePortConnIntegratedDevice => 1
+    static ConnIntegratedDevice => 1
 
     /**
+     * Native name: ePortConnBothIntegratedAndJack
      * @type {Integer (Int32)}
      */
-    static ePortConnBothIntegratedAndJack => 2
+    static ConnBothIntegratedAndJack => 2
 
     /**
+     * Native name: ePortConnUnknown
      * @type {Integer (Int32)}
      */
-    static ePortConnUnknown => 3
+    static ConnUnknown => 3
 }

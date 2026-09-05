@@ -7,12 +7,14 @@
 class htmlLoop extends Win32Enum {
 
     /**
+     * Native name: htmlLoopLoopInfinite
      * @type {Integer (Int32)}
      */
-    static htmlLoopLoopInfinite => -1
+    static LoopInfinite => -1
 
     /**
+     * Native name: htmlLoop_Max
      * @type {Integer (Int32)}
      */
-    static htmlLoop_Max => 2147483647
+    static Max => 2147483647
 }

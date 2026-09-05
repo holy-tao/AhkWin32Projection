@@ -7,12 +7,14 @@
 class D3DSHADER_ADDRESSMODE_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DSHADER_ADDRMODE_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D3DSHADER_ADDRMODE_ABSOLUTE => 0
+    static ADDRMODE_ABSOLUTE => 0
 
     /**
+     * Native name: D3DSHADER_ADDRMODE_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D3DSHADER_ADDRMODE_RELATIVE => 8192
+    static ADDRMODE_RELATIVE => 8192
 }

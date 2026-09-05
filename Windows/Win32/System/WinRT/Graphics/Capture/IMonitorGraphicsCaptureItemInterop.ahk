@@ -30,7 +30,6 @@ class IMonitorGraphicsCaptureItemInterop extends IUnknown {
     static VTableNames => ["GetMonitor"]
 
     /**
-     * 
      * @param {Pointer<HMONITOR>} _monitor 
      * @returns {HRESULT} 
      */

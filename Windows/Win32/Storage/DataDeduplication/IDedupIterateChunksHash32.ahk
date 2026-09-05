@@ -30,7 +30,6 @@ class IDedupIterateChunksHash32 extends IUnknown {
     static VTableNames => ["PushBuffer", "Next", "Drain", "Reset"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} ulBufferLength 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IDedupIterateChunksHash32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulMaxChunks 
      * @param {Pointer<DEDUP_CHUNK_INFO_HASH32>} pArrChunks 
      * @param {Pointer<Integer>} pulFetched 
@@ -57,7 +55,6 @@ class IDedupIterateChunksHash32 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Drain() {
@@ -66,7 +63,6 @@ class IDedupIterateChunksHash32 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

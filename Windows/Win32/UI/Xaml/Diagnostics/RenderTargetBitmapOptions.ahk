@@ -16,7 +16,8 @@ class RenderTargetBitmapOptions extends Win32Enum {
 
     /**
      * The texture associated with the visual and its children should be rendered.
+     * Native name: RenderTargetAndChildren
      * @type {Integer (Int32)}
      */
-    static RenderTargetAndChildren => 1
+    static AndChildren => 1
 }

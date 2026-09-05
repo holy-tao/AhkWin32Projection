@@ -10,23 +10,27 @@ class D3D12_DRED_VERSION extends Win32Enum {
 
     /**
      * Specifies DRED version 1.0.
+     * Native name: D3D12_DRED_VERSION_1_0
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_VERSION_1_0 => 1
+    static 1_0 => 1
 
     /**
      * Specifies DRED version 1.1.
+     * Native name: D3D12_DRED_VERSION_1_1
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_VERSION_1_1 => 2
+    static 1_1 => 2
 
     /**
+     * Native name: D3D12_DRED_VERSION_1_2
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_VERSION_1_2 => 3
+    static 1_2 => 3
 
     /**
+     * Native name: D3D12_DRED_VERSION_1_3
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_VERSION_1_3 => 4
+    static 1_3 => 4
 }

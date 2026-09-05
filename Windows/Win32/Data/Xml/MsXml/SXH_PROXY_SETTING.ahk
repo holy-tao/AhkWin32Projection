@@ -7,22 +7,26 @@
 class SXH_PROXY_SETTING extends Win32Enum {
 
     /**
+     * Native name: SXH_PROXY_SET_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SXH_PROXY_SET_DEFAULT => 0
+    static SET_DEFAULT => 0
 
     /**
+     * Native name: SXH_PROXY_SET_PRECONFIG
      * @type {Integer (Int32)}
      */
-    static SXH_PROXY_SET_PRECONFIG => 0
+    static SET_PRECONFIG => 0
 
     /**
+     * Native name: SXH_PROXY_SET_DIRECT
      * @type {Integer (Int32)}
      */
-    static SXH_PROXY_SET_DIRECT => 1
+    static SET_DIRECT => 1
 
     /**
+     * Native name: SXH_PROXY_SET_PROXY
      * @type {Integer (Int32)}
      */
-    static SXH_PROXY_SET_PROXY => 2
+    static SET_PROXY => 2
 }

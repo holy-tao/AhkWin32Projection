@@ -7,7 +7,8 @@
 class DISPID_InkTablet2 extends Win32Enum {
 
     /**
+     * Native name: DISPID_IT2DeviceKind
      * @type {Integer (Int32)}
      */
-    static DISPID_IT2DeviceKind => 0
+    static IT2DeviceKind => 0
 }

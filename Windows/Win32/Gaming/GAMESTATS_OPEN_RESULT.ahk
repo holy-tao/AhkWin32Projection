@@ -7,12 +7,14 @@
 class GAMESTATS_OPEN_RESULT extends Win32Enum {
 
     /**
+     * Native name: GAMESTATS_OPEN_CREATED
      * @type {Integer (Int32)}
      */
-    static GAMESTATS_OPEN_CREATED => 0
+    static CREATED => 0
 
     /**
+     * Native name: GAMESTATS_OPEN_OPENED
      * @type {Integer (Int32)}
      */
-    static GAMESTATS_OPEN_OPENED => 1
+    static OPENED => 1
 }

@@ -14,25 +14,29 @@ class WLAN_HOSTED_NETWORK_OPCODE extends Win32Enum {
 
     /**
      * The opcode used to query or set the wireless Hosted Network connection settings.
+     * Native name: wlan_hosted_network_opcode_connection_settings
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_opcode_connection_settings => 0
+    static connection_settings => 0
 
     /**
      * The opcode used to query the wireless Hosted Network security settings.
+     * Native name: wlan_hosted_network_opcode_security_settings
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_opcode_security_settings => 1
+    static security_settings => 1
 
     /**
      * The opcode used to query the wireless Hosted Network station profile.
+     * Native name: wlan_hosted_network_opcode_station_profile
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_opcode_station_profile => 2
+    static station_profile => 2
 
     /**
      * The opcode used to query or set the wireless Hosted Network enabled flag.
+     * Native name: wlan_hosted_network_opcode_enable
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_opcode_enable => 3
+    static enable => 3
 }

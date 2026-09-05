@@ -7,27 +7,32 @@
 class D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_VSSLO_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static D3DDDI_VSSLO_UNINITIALIZED => 0
+    static VSSLO_UNINITIALIZED => 0
 
     /**
+     * Native name: D3DDDI_VSSLO_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_VSSLO_PROGRESSIVE => 1
+    static VSSLO_PROGRESSIVE => 1
 
     /**
+     * Native name: D3DDDI_VSSLO_INTERLACED_UPPERFIELDFIRST
      * @type {Integer (Int32)}
      */
-    static D3DDDI_VSSLO_INTERLACED_UPPERFIELDFIRST => 2
+    static VSSLO_INTERLACED_UPPERFIELDFIRST => 2
 
     /**
+     * Native name: D3DDDI_VSSLO_INTERLACED_LOWERFIELDFIRST
      * @type {Integer (Int32)}
      */
-    static D3DDDI_VSSLO_INTERLACED_LOWERFIELDFIRST => 3
+    static VSSLO_INTERLACED_LOWERFIELDFIRST => 3
 
     /**
+     * Native name: D3DDDI_VSSLO_OTHER
      * @type {Integer (Int32)}
      */
-    static D3DDDI_VSSLO_OTHER => 255
+    static VSSLO_OTHER => 255
 }

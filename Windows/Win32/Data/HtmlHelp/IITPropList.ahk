@@ -412,7 +412,6 @@ class IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<CProperty>} Prop 
      * @returns {HRESULT} 
      */
@@ -632,7 +631,6 @@ class IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<CProperty>} _Property 
      * @returns {HRESULT} 
      */
@@ -642,7 +640,6 @@ class IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} cProp 
      * @returns {HRESULT} 
      */
@@ -816,7 +813,6 @@ class IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvHeader 
      * @param {Integer} dwHdrSize 
      * @param {IStream} pStream 
@@ -830,7 +826,6 @@ class IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvData 
      * @param {Integer} dwBufSize 
      * @returns {HRESULT} 
@@ -843,7 +838,6 @@ class IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvData 
      * @param {Integer} dwBufSize 
      * @returns {HRESULT} 

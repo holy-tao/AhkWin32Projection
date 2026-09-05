@@ -30,7 +30,6 @@ class ISAXLexicalHandler extends IUnknown {
     static VTableNames => ["startDTD", "endDTD", "startEntity", "endEntity", "startCDATA", "endCDATA", "comment"]
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 
@@ -49,7 +48,6 @@ class ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endDTD() {
@@ -58,7 +56,6 @@ class ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @returns {HRESULT} 
@@ -71,7 +68,6 @@ class ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @returns {HRESULT} 
@@ -84,7 +80,6 @@ class ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startCDATA() {
@@ -93,7 +88,6 @@ class ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endCDATA() {
@@ -102,7 +96,6 @@ class ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchChars 
      * @param {Integer} cchChars 
      * @returns {HRESULT} 

@@ -10,13 +10,15 @@ class D3D12_PROTECTED_SESSION_STATUS extends Win32Enum {
 
     /**
      * Indicates that the protected session is in a valid state.
+     * Native name: D3D12_PROTECTED_SESSION_STATUS_OK
      * @type {Integer (Int32)}
      */
-    static D3D12_PROTECTED_SESSION_STATUS_OK => 0
+    static OK => 0
 
     /**
      * Indicates that the protected session is not in a valid state.
+     * Native name: D3D12_PROTECTED_SESSION_STATUS_INVALID
      * @type {Integer (Int32)}
      */
-    static D3D12_PROTECTED_SESSION_STATUS_INVALID => 1
+    static INVALID => 1
 }

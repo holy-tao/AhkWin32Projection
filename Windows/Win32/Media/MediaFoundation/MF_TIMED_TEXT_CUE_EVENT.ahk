@@ -10,19 +10,22 @@ class MF_TIMED_TEXT_CUE_EVENT extends Win32Enum {
 
     /**
      * The cue has become active.
+     * Native name: MF_TIMED_TEXT_CUE_EVENT_ACTIVE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_CUE_EVENT_ACTIVE => 0
+    static ACTIVE => 0
 
     /**
      * The cue has become inactive.
+     * Native name: MF_TIMED_TEXT_CUE_EVENT_INACTIVE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_CUE_EVENT_INACTIVE => 1
+    static INACTIVE => 1
 
     /**
      * All cues have been deactivated.
+     * Native name: MF_TIMED_TEXT_CUE_EVENT_CLEAR
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_CUE_EVENT_CLEAR => 2
+    static CLEAR => 2
 }

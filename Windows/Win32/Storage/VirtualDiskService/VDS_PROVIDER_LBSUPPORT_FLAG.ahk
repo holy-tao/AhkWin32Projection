@@ -13,44 +13,51 @@ class VDS_PROVIDER_LBSUPPORT_FLAG extends Win32Enum {
 
     /**
      * The provider supports using one primary path with the other paths being backup paths.
+     * Native name: VDS_LBF_FAILOVER
      * @type {Integer (Int32)}
      */
-    static VDS_LBF_FAILOVER => 1
+    static LBF_FAILOVER => 1
 
     /**
      * The provider supports using all paths in round robin fashion.
+     * Native name: VDS_LBF_ROUND_ROBIN
      * @type {Integer (Int32)}
      */
-    static VDS_LBF_ROUND_ROBIN => 2
+    static LBF_ROUND_ROBIN => 2
 
     /**
      * The provider supports using primary paths in round robin fashion. The backup paths are used if all of the 
      *       primary paths fail.
+     * Native name: VDS_LBF_ROUND_ROBIN_WITH_SUBSET
      * @type {Integer (Int32)}
      */
-    static VDS_LBF_ROUND_ROBIN_WITH_SUBSET => 4
+    static LBF_ROUND_ROBIN_WITH_SUBSET => 4
 
     /**
      * The provider supports using the path with the least number of active requests.
+     * Native name: VDS_LBF_DYN_LEAST_QUEUE_DEPTH
      * @type {Integer (Int32)}
      */
-    static VDS_LBF_DYN_LEAST_QUEUE_DEPTH => 8
+    static LBF_DYN_LEAST_QUEUE_DEPTH => 8
 
     /**
      * The provider supports using the path with the least weight (each path is assigned a weight).
+     * Native name: VDS_LBF_WEIGHTED_PATHS
      * @type {Integer (Int32)}
      */
-    static VDS_LBF_WEIGHTED_PATHS => 16
+    static LBF_WEIGHTED_PATHS => 16
 
     /**
      * The provider supports using the path with the least blocks.
+     * Native name: VDS_LBF_LEAST_BLOCKS
      * @type {Integer (Int32)}
      */
-    static VDS_LBF_LEAST_BLOCKS => 32
+    static LBF_LEAST_BLOCKS => 32
 
     /**
      * The provider supports a vendor-specific policy.
+     * Native name: VDS_LBF_VENDOR_SPECIFIC
      * @type {Integer (Int32)}
      */
-    static VDS_LBF_VENDOR_SPECIFIC => 64
+    static LBF_VENDOR_SPECIFIC => 64
 }

@@ -54,7 +54,6 @@ class IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -73,7 +71,6 @@ class IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -83,7 +80,6 @@ class IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -92,7 +88,6 @@ class IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} contextId 
      * @returns {ICanvasRenderingContext2D} 
      */
@@ -104,7 +99,6 @@ class IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} type 
      * @param {VARIANT} jpegquality 
      * @returns {BSTR} 

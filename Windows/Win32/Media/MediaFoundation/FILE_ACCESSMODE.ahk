@@ -7,22 +7,26 @@
 class FILE_ACCESSMODE extends Win32Enum {
 
     /**
+     * Native name: ACCESSMODE_READ
      * @type {Integer (Int32)}
      */
-    static ACCESSMODE_READ => 1
+    static READ => 1
 
     /**
+     * Native name: ACCESSMODE_WRITE
      * @type {Integer (Int32)}
      */
-    static ACCESSMODE_WRITE => 2
+    static WRITE => 2
 
     /**
+     * Native name: ACCESSMODE_READWRITE
      * @type {Integer (Int32)}
      */
-    static ACCESSMODE_READWRITE => 3
+    static READWRITE => 3
 
     /**
+     * Native name: ACCESSMODE_WRITE_EXCLUSIVE
      * @type {Integer (Int32)}
      */
-    static ACCESSMODE_WRITE_EXCLUSIVE => 4
+    static WRITE_EXCLUSIVE => 4
 }

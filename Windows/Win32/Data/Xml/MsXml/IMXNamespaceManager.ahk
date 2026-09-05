@@ -32,7 +32,6 @@ class IMXNamespaceManager extends IUnknown {
     static VTableNames => ["putAllowOverride", "getAllowOverride", "reset", "pushContext", "pushNodeContext", "popContext", "declarePrefix", "getDeclaredPrefix", "getPrefix", "getURI"]
 
     /**
-     * 
      * @param {VARIANT_BOOL} fOverride 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     getAllowOverride() {
@@ -51,7 +49,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -60,7 +57,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     pushContext() {
@@ -69,7 +65,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} contextNode 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {HRESULT} 
@@ -80,7 +75,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     popContext() {
@@ -89,7 +83,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} prefix 
      * @param {PWSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -103,7 +96,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {PWSTR} pwchPrefix 
      * @param {Pointer<Integer>} pcchPrefix 
@@ -119,7 +111,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszNamespaceURI 
      * @param {Integer} nIndex 
      * @param {PWSTR} pwchPrefix 
@@ -137,7 +128,6 @@ class IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchPrefix 
      * @param {IXMLDOMNode} pContextNode 
      * @param {PWSTR} pwchUri 

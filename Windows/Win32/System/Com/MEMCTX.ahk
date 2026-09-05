@@ -7,27 +7,32 @@
 class MEMCTX extends Win32Enum {
 
     /**
+     * Native name: MEMCTX_TASK
      * @type {Integer (Int32)}
      */
-    static MEMCTX_TASK => 1
+    static TASK => 1
 
     /**
+     * Native name: MEMCTX_SHARED
      * @type {Integer (Int32)}
      */
-    static MEMCTX_SHARED => 2
+    static SHARED => 2
 
     /**
+     * Native name: MEMCTX_MACSYSTEM
      * @type {Integer (Int32)}
      */
-    static MEMCTX_MACSYSTEM => 3
+    static MACSYSTEM => 3
 
     /**
+     * Native name: MEMCTX_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MEMCTX_UNKNOWN => -1
+    static UNKNOWN => -1
 
     /**
+     * Native name: MEMCTX_SAME
      * @type {Integer (Int32)}
      */
-    static MEMCTX_SAME => -2
+    static SAME => -2
 }

@@ -7,12 +7,14 @@
 class BATTERY_DEVTYPE extends Win32Enum {
 
     /**
+     * Native name: BATTERY_DEVTYPE_GAMEPAD
      * @type {Integer (Byte)}
      */
-    static BATTERY_DEVTYPE_GAMEPAD => 0x00
+    static GAMEPAD => 0x00
 
     /**
+     * Native name: BATTERY_DEVTYPE_HEADSET
      * @type {Integer (Byte)}
      */
-    static BATTERY_DEVTYPE_HEADSET => 0x01
+    static HEADSET => 0x01
 }

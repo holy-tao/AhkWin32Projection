@@ -52,7 +52,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} requestedReportInterval 
      * @returns {HRESULT} 
      */
@@ -62,7 +61,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopListeningForReports() {
@@ -71,7 +69,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Status() {
@@ -80,7 +77,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ReportInterval() {
@@ -89,7 +85,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} millisecondsRequested 
      * @returns {HRESULT} 
      */
@@ -99,7 +94,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DesiredAccuracy() {
@@ -108,7 +102,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} desiredAccuracy 
      * @returns {HRESULT} 
      */
@@ -118,7 +111,6 @@ class ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _hWnd 
      * @returns {HRESULT} 
      */

@@ -10,7 +10,8 @@ class MF_ATTRIBUTE_SERIALIZE_OPTIONS extends Win32Enum {
 
     /**
      * If this flag is set, <b>IUnknown</b> pointers in the attribute store are marshaled to and from the stream. If this flag is absent, <b>IUnknown</b> pointers in the attribute store are not marshaled or serialized.
+     * Native name: MF_ATTRIBUTE_SERIALIZE_UNKNOWN_BYREF
      * @type {Integer (Int32)}
      */
-    static MF_ATTRIBUTE_SERIALIZE_UNKNOWN_BYREF => 1
+    static UNKNOWN_BYREF => 1
 }

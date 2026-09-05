@@ -32,7 +32,6 @@ class IHighlightRenderingServices extends IUnknown {
     static VTableNames => ["AddSegment", "MoveSegmentToPointers", "RemoveSegment"]
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointerStart 
      * @param {IDisplayPointer} pDispPointerEnd 
      * @param {IHTMLRenderStyle} pIRenderStyle 
@@ -44,7 +43,6 @@ class IHighlightRenderingServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHighlightSegment} pISegment 
      * @param {IDisplayPointer} pDispPointerStart 
      * @param {IDisplayPointer} pDispPointerEnd 
@@ -56,7 +54,6 @@ class IHighlightRenderingServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHighlightSegment} pISegment 
      * @returns {HRESULT} 
      */

@@ -31,7 +31,6 @@ class IDebugHostModule5 extends IDebugHostModule4 {
     static VTableNames => ["GetPrimaryCompilerInformation"]
 
     /**
-     * 
      * @param {Pointer<KnownCompiler>} pCompilerId 
      * @param {Pointer<BSTR>} pPrimaryCompilerString 
      * @returns {HRESULT} 

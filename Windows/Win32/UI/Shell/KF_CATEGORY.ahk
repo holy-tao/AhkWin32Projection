@@ -19,21 +19,24 @@ class KF_CATEGORY extends Win32Enum {
 
     /**
      * Virtual folders are not part of the file system, which is to say that they have no path. For example, <b>Control Panel</b> and <b>Printers</b> are virtual folders. A number of features such as folder path and redirection do not apply to this category.
+     * Native name: KF_CATEGORY_VIRTUAL
      * @type {Integer (Int32)}
      */
-    static KF_CATEGORY_VIRTUAL => 1
+    static VIRTUAL => 1
 
     /**
      * Fixed file system folders are not managed by the Shell and are usually given a permanent path when the system is installed. For example, the <b>Windows</b> and <b>Program Files</b> folders are fixed folders. A number of features such as redirection do not apply to this category.
+     * Native name: KF_CATEGORY_FIXED
      * @type {Integer (Int32)}
      */
-    static KF_CATEGORY_FIXED => 2
+    static FIXED => 2
 
     /**
      * Common folders are those file system folders used for sharing data and settings, accessible by all users of a system. For example, all users share a common <b>Documents</b> folder as well as their per-user <b>Documents</b> folder.
+     * Native name: KF_CATEGORY_COMMON
      * @type {Integer (Int32)}
      */
-    static KF_CATEGORY_COMMON => 3
+    static COMMON => 3
 
     /**
      * Per-user folders are those stored under each user's profile and accessible only by that user. For example, <c>%USERPROFILE%\Pictures</c>. This category of folder usually supports many features including aliasing, redirection and customization. 
@@ -44,7 +47,8 @@ class KF_CATEGORY extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  The user profile root folder (<a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Profile</a>) does not support redirection.</div>
      * <div> </div>
+     * Native name: KF_CATEGORY_PERUSER
      * @type {Integer (Int32)}
      */
-    static KF_CATEGORY_PERUSER => 4
+    static PERUSER => 4
 }

@@ -10,43 +10,50 @@ class MF_TIMED_TEXT_WRITING_MODE extends Win32Enum {
 
     /**
      * Text is written from left to right and top to bottom.
+     * Native name: MF_TIMED_TEXT_WRITING_MODE_LRTB
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_WRITING_MODE_LRTB => 0
+    static LRTB => 0
 
     /**
      * Text is written from right to left and top to bottom.
+     * Native name: MF_TIMED_TEXT_WRITING_MODE_RLTB
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_WRITING_MODE_RLTB => 1
+    static RLTB => 1
 
     /**
      * Text is written from top to bottom and right to left.
+     * Native name: MF_TIMED_TEXT_WRITING_MODE_TBRL
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_WRITING_MODE_TBRL => 2
+    static TBRL => 2
 
     /**
      * Text is written from top to bottom and left to right.
+     * Native name: MF_TIMED_TEXT_WRITING_MODE_TBLR
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_WRITING_MODE_TBLR => 3
+    static TBLR => 3
 
     /**
      * Text is written from left to right.
+     * Native name: MF_TIMED_TEXT_WRITING_MODE_LR
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_WRITING_MODE_LR => 4
+    static LR => 4
 
     /**
      * Text is written from right to left.
+     * Native name: MF_TIMED_TEXT_WRITING_MODE_RL
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_WRITING_MODE_RL => 5
+    static RL => 5
 
     /**
      * Text is written from top to bottom.
+     * Native name: MF_TIMED_TEXT_WRITING_MODE_TB
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_WRITING_MODE_TB => 6
+    static TB => 6
 }

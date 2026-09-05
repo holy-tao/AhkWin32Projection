@@ -10,13 +10,15 @@ class POLICY_LSA_SERVER_ROLE extends Win32Enum {
 
     /**
      * Indicates a backup LSA server.
+     * Native name: PolicyServerRoleBackup
      * @type {Integer (Int32)}
      */
-    static PolicyServerRoleBackup => 2
+    static Backup => 2
 
     /**
      * Indicates a primary LSA server, a workstation, or a standalone computer.
+     * Native name: PolicyServerRolePrimary
      * @type {Integer (Int32)}
      */
-    static PolicyServerRolePrimary => 3
+    static Primary => 3
 }

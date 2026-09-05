@@ -31,7 +31,6 @@ class IPartThumbnail extends IPartBase {
     static VTableNames => ["GetThumbnailProperties", "SetThumbnailContent"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetThumbnailProperties() {
@@ -41,7 +40,6 @@ class IPartThumbnail extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} pContentType 
      * @returns {HRESULT} 
      */

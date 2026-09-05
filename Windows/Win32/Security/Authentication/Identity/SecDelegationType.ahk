@@ -9,27 +9,32 @@
 class SecDelegationType extends Win32Enum {
 
     /**
+     * Native name: SecFull
      * @type {Integer (Int32)}
      */
-    static SecFull => 0
+    static Full => 0
 
     /**
+     * Native name: SecService
      * @type {Integer (Int32)}
      */
-    static SecService => 1
+    static Service => 1
 
     /**
+     * Native name: SecTree
      * @type {Integer (Int32)}
      */
-    static SecTree => 2
+    static Tree => 2
 
     /**
+     * Native name: SecDirectory
      * @type {Integer (Int32)}
      */
-    static SecDirectory => 3
+    static Directory => 3
 
     /**
+     * Native name: SecObject
      * @type {Integer (Int32)}
      */
-    static SecObject => 4
+    static Object => 4
 }

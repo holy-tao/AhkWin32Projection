@@ -52,7 +52,6 @@ class IHTMLMSCSSKeyframeRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class IHTMLMSCSSKeyframeRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_keyText() {
@@ -74,7 +72,6 @@ class IHTMLMSCSSKeyframeRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRuleStyle} 
      */
     get_style() {

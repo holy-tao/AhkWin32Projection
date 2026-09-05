@@ -60,7 +60,6 @@ class IHTMLStyleSheetRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -72,7 +71,6 @@ class IHTMLStyleSheetRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selectorText() {
@@ -82,7 +80,6 @@ class IHTMLStyleSheetRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRuleStyle} 
      */
     get_style() {
@@ -91,7 +88,6 @@ class IHTMLStyleSheetRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {

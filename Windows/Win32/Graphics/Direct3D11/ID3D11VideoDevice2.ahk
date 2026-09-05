@@ -47,7 +47,6 @@ class ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
     }
 
     /**
-     * 
      * @param {ID3D11CryptoSession} pCryptoSession 
      * @param {D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS} flags 
      * @param {Integer} DataSize 

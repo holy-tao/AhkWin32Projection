@@ -31,7 +31,6 @@ class IMLangFontLink extends IMLangCodePages {
     static VTableNames => ["GetFontCodePages", "MapFont", "ReleaseFont", "ResetFontMapping"]
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {HFONT} _hFont 
      * @returns {Integer} 
@@ -45,7 +44,6 @@ class IMLangFontLink extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {Integer} dwCodePages 
      * @param {HFONT} hSrcFont 
@@ -61,7 +59,6 @@ class IMLangFontLink extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HFONT} _hFont 
      * @returns {HRESULT} 
      */
@@ -73,7 +70,6 @@ class IMLangFontLink extends IMLangCodePages {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetFontMapping() {

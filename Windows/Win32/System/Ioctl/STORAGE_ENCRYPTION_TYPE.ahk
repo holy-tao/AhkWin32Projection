@@ -7,17 +7,20 @@
 class STORAGE_ENCRYPTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: StorageEncryptionTypeUnknown
      * @type {Integer (Int32)}
      */
-    static StorageEncryptionTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageEncryptionTypeEDrive
      * @type {Integer (Int32)}
      */
-    static StorageEncryptionTypeEDrive => 1
+    static TypeEDrive => 1
 
     /**
+     * Native name: StorageEncryptionTypeTcgOpal
      * @type {Integer (Int32)}
      */
-    static StorageEncryptionTypeTcgOpal => 2
+    static TcgOpal => 2
 }

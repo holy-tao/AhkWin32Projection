@@ -10,19 +10,22 @@ class MC_DRIVE_TYPE extends Win32Enum {
 
     /**
      * Red drive.
+     * Native name: MC_RED_DRIVE
      * @type {Integer (Int32)}
      */
-    static MC_RED_DRIVE => 0
+    static RED_DRIVE => 0
 
     /**
      * Green drive.
+     * Native name: MC_GREEN_DRIVE
      * @type {Integer (Int32)}
      */
-    static MC_GREEN_DRIVE => 1
+    static GREEN_DRIVE => 1
 
     /**
      * Blue drive.
+     * Native name: MC_BLUE_DRIVE
      * @type {Integer (Int32)}
      */
-    static MC_BLUE_DRIVE => 2
+    static BLUE_DRIVE => 2
 }

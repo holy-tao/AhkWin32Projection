@@ -9,44 +9,52 @@
 class MEM_EXTENDED_PARAMETER_TYPE extends Win32Enum {
 
     /**
+     * Native name: MemExtendedParameterInvalidType
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterInvalidType => 0
+    static InvalidType => 0
 
     /**
      * This extended parameter type is used to specify alignment and virtual address range restrictions for new memory allocations created by <a href="../memoryapi/nf-memoryapi-virtualalloc2.md">VirtualAlloc2</a> and <a href="../memoryapi/nf-memoryapi-mapviewoffile3.md">MapViewOfFile3</a>.
+     * Native name: MemExtendedParameterAddressRequirements
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterAddressRequirements => 1
+    static AddressRequirements => 1
 
     /**
      * This extended parameter type is used to specify the preferred NUMA node for new memory allocations created by <a href="../memoryapi/nf-memoryapi-virtualalloc2.md">VirtualAlloc2</a> and <a href="../memoryapi/nf-memoryapi-mapviewoffile3.md">MapViewOfFile3</a>.
+     * Native name: MemExtendedParameterNumaNode
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterNumaNode => 2
+    static NumaNode => 2
 
     /**
+     * Native name: MemExtendedParameterPartitionHandle
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterPartitionHandle => 3
+    static PartitionHandle => 3
 
     /**
+     * Native name: MemExtendedParameterUserPhysicalHandle
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterUserPhysicalHandle => 4
+    static UserPhysicalHandle => 4
 
     /**
+     * Native name: MemExtendedParameterAttributeFlags
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterAttributeFlags => 5
+    static AttributeFlags => 5
 
     /**
+     * Native name: MemExtendedParameterImageMachine
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterImageMachine => 6
+    static ImageMachine => 6
 
     /**
+     * Native name: MemExtendedParameterMax
      * @type {Integer (Int32)}
      */
-    static MemExtendedParameterMax => 7
+    static Max => 7
 }

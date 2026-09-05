@@ -7,17 +7,20 @@
 class DISPID_SpeechGrammarRuleStateTransitions extends Win32Enum {
 
     /**
+     * Native name: DISPID_SGRSTsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTsCount => 1
+    static SGRSTsCount => 1
 
     /**
+     * Native name: DISPID_SGRSTsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTsItem => 0
+    static SGRSTsItem => 0
 
     /**
+     * Native name: DISPID_SGRSTs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTs_NewEnum => -4
+    static SGRSTs_NewEnum => -4
 }

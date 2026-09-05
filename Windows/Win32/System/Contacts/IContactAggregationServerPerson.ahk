@@ -119,7 +119,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -128,7 +127,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -137,7 +135,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AggregateId() {
@@ -146,7 +143,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -158,7 +154,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AntiLink() {
@@ -167,7 +162,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAntiLink 
      * @returns {HRESULT} 
      */
@@ -179,7 +173,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AntiLinkBaseline() {
@@ -188,7 +181,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAntiLink 
      * @returns {HRESULT} 
      */
@@ -200,7 +192,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FavoriteOrder() {
@@ -209,7 +200,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} favoriteOrder 
      * @returns {HRESULT} 
      */
@@ -219,7 +209,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FavoriteOrderBaseline() {
@@ -228,7 +217,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} favoriteOrder 
      * @returns {HRESULT} 
      */
@@ -238,7 +226,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_Groups() {
@@ -247,7 +234,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pGroups 
      * @returns {HRESULT} 
      */
@@ -257,7 +243,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_GroupsBaseline() {
@@ -266,7 +251,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pGroups 
      * @returns {HRESULT} 
      */
@@ -276,7 +260,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -285,7 +268,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsTombstone() {
@@ -294,7 +276,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} isTombstone 
      * @returns {HRESULT} 
      */
@@ -304,7 +285,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_LinkedAggregateId() {
@@ -313,7 +293,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pLinkedAggregateId 
      * @returns {HRESULT} 
      */
@@ -325,7 +304,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_ObjectId() {
@@ -334,7 +312,6 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pObjectId 
      * @returns {HRESULT} 
      */

@@ -12,19 +12,22 @@ class NLM_NETWORK_CATEGORY extends Win32Enum {
 
     /**
      * The network is a public (untrusted) network.
+     * Native name: NLM_NETWORK_CATEGORY_PUBLIC
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_CATEGORY_PUBLIC => 0
+    static PUBLIC => 0
 
     /**
      * The network is a private (trusted) network.
+     * Native name: NLM_NETWORK_CATEGORY_PRIVATE
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_CATEGORY_PRIVATE => 1
+    static PRIVATE => 1
 
     /**
      * The network is authenticated against an Active Directory domain.
+     * Native name: NLM_NETWORK_CATEGORY_DOMAIN_AUTHENTICATED
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_CATEGORY_DOMAIN_AUTHENTICATED => 2
+    static DOMAIN_AUTHENTICATED => 2
 }

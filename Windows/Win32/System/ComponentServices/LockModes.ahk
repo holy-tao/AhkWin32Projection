@@ -7,12 +7,14 @@
 class LockModes extends Win32Enum {
 
     /**
+     * Native name: LockSetGet
      * @type {Integer (Int32)}
      */
-    static LockSetGet => 0
+    static SetGet => 0
 
     /**
+     * Native name: LockMethod
      * @type {Integer (Int32)}
      */
-    static LockMethod => 1
+    static Method => 1
 }

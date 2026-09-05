@@ -7,12 +7,14 @@
 class WBEM_LIMITATION_FLAG_TYPE extends Win32Enum {
 
     /**
+     * Native name: WBEM_FLAG_EXCLUDE_OBJECT_QUALIFIERS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_EXCLUDE_OBJECT_QUALIFIERS => 16
+    static EXCLUDE_OBJECT_QUALIFIERS => 16
 
     /**
+     * Native name: WBEM_FLAG_EXCLUDE_PROPERTY_QUALIFIERS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_EXCLUDE_PROPERTY_QUALIFIERS => 32
+    static EXCLUDE_PROPERTY_QUALIFIERS => 32
 }

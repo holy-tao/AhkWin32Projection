@@ -7,32 +7,38 @@
 class CERT_FIND_CHAIN_IN_STORE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CERT_CHAIN_FIND_BY_ISSUER_COMPARE_KEY_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_CHAIN_FIND_BY_ISSUER_COMPARE_KEY_FLAG => 1
+    static FIND_BY_ISSUER_COMPARE_KEY_FLAG => 1
 
     /**
+     * Native name: CERT_CHAIN_FIND_BY_ISSUER_COMPLEX_CHAIN_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_CHAIN_FIND_BY_ISSUER_COMPLEX_CHAIN_FLAG => 2
+    static FIND_BY_ISSUER_COMPLEX_CHAIN_FLAG => 2
 
     /**
+     * Native name: CERT_CHAIN_FIND_BY_ISSUER_CACHE_ONLY_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_CHAIN_FIND_BY_ISSUER_CACHE_ONLY_FLAG => 32768
+    static FIND_BY_ISSUER_CACHE_ONLY_FLAG => 32768
 
     /**
+     * Native name: CERT_CHAIN_FIND_BY_ISSUER_CACHE_ONLY_URL_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_CHAIN_FIND_BY_ISSUER_CACHE_ONLY_URL_FLAG => 4
+    static FIND_BY_ISSUER_CACHE_ONLY_URL_FLAG => 4
 
     /**
+     * Native name: CERT_CHAIN_FIND_BY_ISSUER_LOCAL_MACHINE_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_CHAIN_FIND_BY_ISSUER_LOCAL_MACHINE_FLAG => 8
+    static FIND_BY_ISSUER_LOCAL_MACHINE_FLAG => 8
 
     /**
+     * Native name: CERT_CHAIN_FIND_BY_ISSUER_NO_KEY_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_CHAIN_FIND_BY_ISSUER_NO_KEY_FLAG => 16384
+    static FIND_BY_ISSUER_NO_KEY_FLAG => 16384
 }

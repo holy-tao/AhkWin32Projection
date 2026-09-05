@@ -7,22 +7,26 @@
 class MSISOURCETYPE extends Win32Enum {
 
     /**
+     * Native name: MSISOURCETYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MSISOURCETYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: MSISOURCETYPE_NETWORK
      * @type {Integer (Int32)}
      */
-    static MSISOURCETYPE_NETWORK => 1
+    static NETWORK => 1
 
     /**
+     * Native name: MSISOURCETYPE_URL
      * @type {Integer (Int32)}
      */
-    static MSISOURCETYPE_URL => 2
+    static URL => 2
 
     /**
+     * Native name: MSISOURCETYPE_MEDIA
      * @type {Integer (Int32)}
      */
-    static MSISOURCETYPE_MEDIA => 4
+    static MEDIA => 4
 }

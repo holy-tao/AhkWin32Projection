@@ -28,37 +28,43 @@ class VSS_APPLICATION_LEVEL extends Win32Enum {
     /**
      * The level at which this writer's freeze state will occur is not known. This indicates an application 
      *       error.
+     * Native name: VSS_APP_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VSS_APP_UNKNOWN => 0
+    static APP_UNKNOWN => 0
 
     /**
      * This writer freeze state will occur at the system application level.
+     * Native name: VSS_APP_SYSTEM
      * @type {Integer (Int32)}
      */
-    static VSS_APP_SYSTEM => 1
+    static APP_SYSTEM => 1
 
     /**
      * This writer freeze state will occur at the back-end application level.
+     * Native name: VSS_APP_BACK_END
      * @type {Integer (Int32)}
      */
-    static VSS_APP_BACK_END => 2
+    static APP_BACK_END => 2
 
     /**
      * This writer freeze state will occur at the front-end application level.
+     * Native name: VSS_APP_FRONT_END
      * @type {Integer (Int32)}
      */
-    static VSS_APP_FRONT_END => 3
+    static APP_FRONT_END => 3
 
     /**
+     * Native name: VSS_APP_SYSTEM_RM
      * @type {Integer (Int32)}
      */
-    static VSS_APP_SYSTEM_RM => 4
+    static APP_SYSTEM_RM => 4
 
     /**
      * This writer freeze state will be determined automatically. This enumeration value is reserved for future 
      *       use.
+     * Native name: VSS_APP_AUTO
      * @type {Integer (Int32)}
      */
-    static VSS_APP_AUTO => -1
+    static APP_AUTO => -1
 }

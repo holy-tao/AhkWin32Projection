@@ -10,22 +10,25 @@ class CF_CALLBACK_FETCH_DATA_FLAGS extends Win32BitflagEnum {
 
     /**
      * No data fetch flag.
+     * Native name: CF_CALLBACK_FETCH_DATA_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_FETCH_DATA_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Flag to be used if the callback is invoked as a result of previously interrupted hydration process, due to either unexpected shutdown of the sync provider or power loss, etc.
+     * Native name: CF_CALLBACK_FETCH_DATA_FLAG_RECOVERY
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_FETCH_DATA_FLAG_RECOVERY => 1
+    static FLAG_RECOVERY => 1
 
     /**
      * >[!NOTE]
      * >This value is new for Windows 10, version 1803.
      * 
      * Flag to be used if the callback is invoked as a result of a call to [CfHydratePlaceholder](nf-cfapi-cfhydrateplaceholder.md).
+     * Native name: CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION => 2
+    static FLAG_EXPLICIT_HYDRATION => 2
 }

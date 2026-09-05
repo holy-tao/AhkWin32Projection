@@ -7,32 +7,38 @@
 class msidbUpgradeAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbUpgradeAttributesMigrateFeatures
      * @type {Integer (Int32)}
      */
-    static msidbUpgradeAttributesMigrateFeatures => 1
+    static MigrateFeatures => 1
 
     /**
+     * Native name: msidbUpgradeAttributesOnlyDetect
      * @type {Integer (Int32)}
      */
-    static msidbUpgradeAttributesOnlyDetect => 2
+    static OnlyDetect => 2
 
     /**
+     * Native name: msidbUpgradeAttributesIgnoreRemoveFailure
      * @type {Integer (Int32)}
      */
-    static msidbUpgradeAttributesIgnoreRemoveFailure => 4
+    static IgnoreRemoveFailure => 4
 
     /**
+     * Native name: msidbUpgradeAttributesVersionMinInclusive
      * @type {Integer (Int32)}
      */
-    static msidbUpgradeAttributesVersionMinInclusive => 256
+    static VersionMinInclusive => 256
 
     /**
+     * Native name: msidbUpgradeAttributesVersionMaxInclusive
      * @type {Integer (Int32)}
      */
-    static msidbUpgradeAttributesVersionMaxInclusive => 512
+    static VersionMaxInclusive => 512
 
     /**
+     * Native name: msidbUpgradeAttributesLanguagesExclusive
      * @type {Integer (Int32)}
      */
-    static msidbUpgradeAttributesLanguagesExclusive => 1024
+    static LanguagesExclusive => 1024
 }

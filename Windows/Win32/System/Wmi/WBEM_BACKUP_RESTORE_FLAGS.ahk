@@ -10,13 +10,15 @@ class WBEM_BACKUP_RESTORE_FLAGS extends Win32Enum {
 
     /**
      * Does not shut down active clients; returns an error if there are any.
+     * Native name: WBEM_FLAG_BACKUP_RESTORE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_BACKUP_RESTORE_DEFAULT => 0
+    static FLAG_BACKUP_RESTORE_DEFAULT => 0
 
     /**
      * Shuts down any active clients.
+     * Native name: WBEM_FLAG_BACKUP_RESTORE_FORCE_SHUTDOWN
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_BACKUP_RESTORE_FORCE_SHUTDOWN => 1
+    static FLAG_BACKUP_RESTORE_FORCE_SHUTDOWN => 1
 }

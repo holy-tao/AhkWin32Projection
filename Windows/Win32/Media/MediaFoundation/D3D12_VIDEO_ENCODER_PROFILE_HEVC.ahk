@@ -12,48 +12,57 @@ class D3D12_VIDEO_ENCODER_PROFILE_HEVC extends Win32Enum {
 
     /**
      * Main profile.
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN => 0
+    static MAIN => 0
 
     /**
      * Main 10 profile.
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10 => 1
+    static MAIN10 => 1
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12 => 2
+    static MAIN12 => 2
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10_422
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10_422 => 3
+    static MAIN10_422 => 3
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12_422
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12_422 => 4
+    static MAIN12_422 => 4
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN_444
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN_444 => 5
+    static MAIN_444 => 5
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10_444
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10_444 => 6
+    static MAIN10_444 => 6
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12_444
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12_444 => 7
+    static MAIN12_444 => 7
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN16_444
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN16_444 => 8
+    static MAIN16_444 => 8
 }

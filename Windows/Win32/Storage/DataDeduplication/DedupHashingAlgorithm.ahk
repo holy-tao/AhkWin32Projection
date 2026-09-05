@@ -7,12 +7,14 @@
 class DedupHashingAlgorithm extends Win32Enum {
 
     /**
+     * Native name: DedupHashingAlgorithm_Unknonwn
      * @type {Integer (Int32)}
      */
-    static DedupHashingAlgorithm_Unknonwn => 0
+    static Unknonwn => 0
 
     /**
+     * Native name: DedupHashingAlgorithm_V1
      * @type {Integer (Int32)}
      */
-    static DedupHashingAlgorithm_V1 => 1
+    static V1 => 1
 }

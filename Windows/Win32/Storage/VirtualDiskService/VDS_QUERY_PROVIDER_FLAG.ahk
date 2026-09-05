@@ -15,21 +15,24 @@ class VDS_QUERY_PROVIDER_FLAG extends Win32Enum {
 
     /**
      * If set, the operation queries for software providers.
+     * Native name: VDS_QUERY_SOFTWARE_PROVIDERS
      * @type {Integer (Int32)}
      */
-    static VDS_QUERY_SOFTWARE_PROVIDERS => 1
+    static SOFTWARE_PROVIDERS => 1
 
     /**
      * If set, the operation queries for hardware providers.
+     * Native name: VDS_QUERY_HARDWARE_PROVIDERS
      * @type {Integer (Int32)}
      */
-    static VDS_QUERY_HARDWARE_PROVIDERS => 2
+    static HARDWARE_PROVIDERS => 2
 
     /**
      * If set, the operation queries for virtual disk providers.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDS_QUERY_VIRTUALDISK_PROVIDERS
      * @type {Integer (Int32)}
      */
-    static VDS_QUERY_VIRTUALDISK_PROVIDERS => 4
+    static VIRTUALDISK_PROVIDERS => 4
 }

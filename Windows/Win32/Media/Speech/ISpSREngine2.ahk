@@ -36,7 +36,6 @@ class ISpSREngine2 extends ISpSREngine {
     static VTableNames => ["PrivateCallImmediate", "SetAdaptationData2", "SetGrammarPrefix", "SetRulePriority", "EmulateRecognition", "SetSLMWeight", "SetRuleWeight", "SetTrainingState", "ResetAcousticModelAdaptation", "OnLoadCFG", "OnUnloadCFG"]
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {Pointer<Void>} pInCallFrame 
      * @param {Integer} ulInCallFrameSize 
@@ -55,7 +54,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
@@ -75,7 +73,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszPrefix 
      * @param {BOOL} fIsPrefixRequired 
@@ -91,7 +88,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {Pointer<Void>} pvClientRuleContext 
      * @param {Integer} nRulePriority 
@@ -107,7 +103,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {ISpPhrase} pPhrase 
      * @param {Integer} dwCompareFlags 
      * @returns {HRESULT} 
@@ -118,7 +113,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Float} flWeight 
      * @returns {HRESULT} 
@@ -131,7 +125,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {Pointer<Void>} pvClientRuleContext 
      * @param {Float} flWeight 
@@ -147,7 +140,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {BOOL} fDoingTraining 
      * @param {BOOL} fAdaptFromTrainingData 
      * @returns {HRESULT} 
@@ -158,7 +150,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetAcousticModelAdaptation() {
@@ -167,7 +158,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Pointer<SPBINARYGRAMMAR>} pGrammarData 
      * @param {Integer} ulGrammarID 
@@ -181,7 +171,6 @@ class ISpSREngine2 extends ISpSREngine {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Integer} ulGrammarID 
      * @returns {HRESULT} 

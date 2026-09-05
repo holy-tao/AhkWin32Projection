@@ -30,7 +30,6 @@ class IDvbServiceAttributeDescriptor extends IUnknown {
     static VTableNames => ["GetTag", "GetLength", "GetCountOfRecords", "GetRecordServiceId", "GetRecordNumericSelectionFlag", "GetRecordVisibleServiceFlag"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTag() {
@@ -39,7 +38,6 @@ class IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -48,7 +46,6 @@ class IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCountOfRecords() {
@@ -57,7 +54,6 @@ class IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {Integer} 
      */
@@ -67,7 +63,6 @@ class IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {BOOL} 
      */
@@ -77,7 +72,6 @@ class IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {BOOL} 
      */

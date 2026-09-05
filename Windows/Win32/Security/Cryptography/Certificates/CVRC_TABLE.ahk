@@ -7,22 +7,26 @@
 class CVRC_TABLE extends Win32Enum {
 
     /**
+     * Native name: CVRC_TABLE_ATTRIBUTES
      * @type {Integer (Int32)}
      */
-    static CVRC_TABLE_ATTRIBUTES => 16384
+    static ATTRIBUTES => 16384
 
     /**
+     * Native name: CVRC_TABLE_CRL
      * @type {Integer (Int32)}
      */
-    static CVRC_TABLE_CRL => 20480
+    static CRL => 20480
 
     /**
+     * Native name: CVRC_TABLE_EXTENSIONS
      * @type {Integer (Int32)}
      */
-    static CVRC_TABLE_EXTENSIONS => 12288
+    static EXTENSIONS => 12288
 
     /**
+     * Native name: CVRC_TABLE_REQCERT
      * @type {Integer (Int32)}
      */
-    static CVRC_TABLE_REQCERT => 0
+    static REQCERT => 0
 }

@@ -10,7 +10,8 @@ class UI_VIEWTYPE extends Win32Enum {
 
     /**
      * A Ribbon View.
+     * Native name: UI_VIEWTYPE_RIBBON
      * @type {Integer (Int32)}
      */
-    static UI_VIEWTYPE_RIBBON => 1
+    static RIBBON => 1
 }

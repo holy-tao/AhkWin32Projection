@@ -7,22 +7,26 @@
 class TRUSTED_DOMAIN_TRUST_TYPE extends Win32Enum {
 
     /**
+     * Native name: TRUST_TYPE_DOWNLEVEL
      * @type {Integer (UInt32)}
      */
-    static TRUST_TYPE_DOWNLEVEL => 1
+    static DOWNLEVEL => 1
 
     /**
+     * Native name: TRUST_TYPE_UPLEVEL
      * @type {Integer (UInt32)}
      */
-    static TRUST_TYPE_UPLEVEL => 2
+    static UPLEVEL => 2
 
     /**
+     * Native name: TRUST_TYPE_MIT
      * @type {Integer (UInt32)}
      */
-    static TRUST_TYPE_MIT => 3
+    static MIT => 3
 
     /**
+     * Native name: TRUST_TYPE_DCE
      * @type {Integer (UInt32)}
      */
-    static TRUST_TYPE_DCE => 4
+    static DCE => 4
 }

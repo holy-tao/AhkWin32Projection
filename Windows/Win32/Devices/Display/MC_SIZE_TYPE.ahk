@@ -10,13 +10,15 @@ class MC_SIZE_TYPE extends Win32Enum {
 
     /**
      * Width.
+     * Native name: MC_WIDTH
      * @type {Integer (Int32)}
      */
-    static MC_WIDTH => 0
+    static WIDTH => 0
 
     /**
      * Height.
+     * Native name: MC_HEIGHT
      * @type {Integer (Int32)}
      */
-    static MC_HEIGHT => 1
+    static HEIGHT => 1
 }

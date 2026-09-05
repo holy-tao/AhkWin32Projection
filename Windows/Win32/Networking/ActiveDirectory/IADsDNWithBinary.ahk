@@ -49,7 +49,6 @@ class IADsDNWithBinary extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_BinaryValue() {
@@ -59,7 +58,6 @@ class IADsDNWithBinary extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vBinaryValue 
      * @returns {HRESULT} 
      */
@@ -69,7 +67,6 @@ class IADsDNWithBinary extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DNString() {
@@ -79,7 +76,6 @@ class IADsDNWithBinary extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDNString 
      * @returns {HRESULT} 
      */

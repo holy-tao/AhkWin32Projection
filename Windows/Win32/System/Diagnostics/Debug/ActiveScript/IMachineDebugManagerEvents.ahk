@@ -30,7 +30,6 @@ class IMachineDebugManagerEvents extends IUnknown {
     static VTableNames => ["onAddApplication", "onRemoveApplication"]
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IMachineDebugManagerEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 

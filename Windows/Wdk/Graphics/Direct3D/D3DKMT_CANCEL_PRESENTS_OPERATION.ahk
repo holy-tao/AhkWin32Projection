@@ -7,12 +7,14 @@
 class D3DKMT_CANCEL_PRESENTS_OPERATION extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_CANCEL_PRESENTS_OPERATION_CANCEL_FROM
      * @type {Integer (Int32)}
      */
-    static D3DKMT_CANCEL_PRESENTS_OPERATION_CANCEL_FROM => 0
+    static CANCEL_FROM => 0
 
     /**
+     * Native name: D3DKMT_CANCEL_PRESENTS_OPERATION_REPROGRAM_INTERRUPT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_CANCEL_PRESENTS_OPERATION_REPROGRAM_INTERRUPT => 1
+    static REPROGRAM_INTERRUPT => 1
 }

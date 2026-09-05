@@ -16,9 +16,10 @@ class D2D1_DIRECTIONALBLUR_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 3.0f.
+     * Native name: D2D1_DIRECTIONALBLUR_PROP_STANDARD_DEVIATION
      * @type {Integer (Int32)}
      */
-    static D2D1_DIRECTIONALBLUR_PROP_STANDARD_DEVIATION => 0
+    static STANDARD_DEVIATION => 0
 
     /**
      * The angle of the blur relative to the x-axis, in the counterclockwise direction. The units are specified in degrees.
@@ -29,9 +30,10 @@ class D2D1_DIRECTIONALBLUR_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 0.0f.
+     * Native name: D2D1_DIRECTIONALBLUR_PROP_ANGLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DIRECTIONALBLUR_PROP_ANGLE => 1
+    static ANGLE => 1
 
     /**
      * The optimization mode. See Optimization modes for more info.
@@ -40,9 +42,10 @@ class D2D1_DIRECTIONALBLUR_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_directionalblur_optimization">D2D1_DIRECTIONALBLUR_OPTIMIZATION</a>.
      * 
      * The default value is D2D1_DIRECTIONALBLUR_OPTIMIZATION_BALANCED.
+     * Native name: D2D1_DIRECTIONALBLUR_PROP_OPTIMIZATION
      * @type {Integer (Int32)}
      */
-    static D2D1_DIRECTIONALBLUR_PROP_OPTIMIZATION => 2
+    static OPTIMIZATION => 2
 
     /**
      * The mode used to calculate the border of the image, soft or hard. See Border modes for more info.
@@ -51,7 +54,8 @@ class D2D1_DIRECTIONALBLUR_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_border_mode">D2D1_BORDER_MODE</a>.
      * 
      * The default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_DIRECTIONALBLUR_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_DIRECTIONALBLUR_PROP_BORDER_MODE => 3
+    static BORDER_MODE => 3
 }

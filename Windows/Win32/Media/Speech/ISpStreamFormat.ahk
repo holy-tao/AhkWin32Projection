@@ -31,7 +31,6 @@ class ISpStreamFormat extends IStream {
     static VTableNames => ["GetFormat"]
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
      */

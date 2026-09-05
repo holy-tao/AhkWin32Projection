@@ -7,22 +7,26 @@
 class KD_CALLBACK_ACTION extends Win32Enum {
 
     /**
+     * Native name: KdConfigureDeviceAndContinue
      * @type {Integer (Int32)}
      */
-    static KdConfigureDeviceAndContinue => 0
+    static ConfigureDeviceAndContinue => 0
 
     /**
+     * Native name: KdSkipDeviceAndContinue
      * @type {Integer (Int32)}
      */
-    static KdSkipDeviceAndContinue => 1
+    static SkipDeviceAndContinue => 1
 
     /**
+     * Native name: KdConfigureDeviceAndStop
      * @type {Integer (Int32)}
      */
-    static KdConfigureDeviceAndStop => 2
+    static ConfigureDeviceAndStop => 2
 
     /**
+     * Native name: KdSkipDeviceAndStop
      * @type {Integer (Int32)}
      */
-    static KdSkipDeviceAndStop => 3
+    static SkipDeviceAndStop => 3
 }

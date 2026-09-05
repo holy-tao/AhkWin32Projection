@@ -7,7 +7,8 @@
 class D2D1_OPACITY_PROP extends Win32Enum {
 
     /**
+     * Native name: D2D1_OPACITY_PROP_OPACITY
      * @type {Integer (Int32)}
      */
-    static D2D1_OPACITY_PROP_OPACITY => 0
+    static OPACITY => 0
 }

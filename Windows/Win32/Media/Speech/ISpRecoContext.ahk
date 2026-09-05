@@ -43,7 +43,6 @@ class ISpRecoContext extends ISpEventSource {
     static VTableNames => ["GetRecognizer", "CreateGrammar", "GetStatus", "GetMaxAlternates", "SetMaxAlternates", "SetAudioOptions", "GetAudioOptions", "DeserializeResult", "Bookmark", "SetAdaptationData", "Pause", "Resume", "SetVoice", "GetVoice", "SetVoicePurgeEvent", "GetVoicePurgeEvent", "SetContextState", "GetContextState"]
 
     /**
-     * 
      * @returns {ISpRecognizer} 
      */
     GetRecognizer() {
@@ -52,7 +51,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} ullGrammarId 
      * @returns {ISpRecoGrammar} 
      */
@@ -62,7 +60,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECOCONTEXTSTATUS>} pStatus 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcAlternates 
      * @returns {HRESULT} 
      */
@@ -84,7 +80,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} cAlternates 
      * @returns {HRESULT} 
      */
@@ -94,7 +89,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {SPAUDIOOPTIONS} Options 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
@@ -106,7 +100,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOOPTIONS>} pOptions 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<Pointer<WAVEFORMATEX>>} ppCoMemWFEX 
@@ -121,7 +114,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPSERIALIZEDRESULT>} pSerializedResult 
      * @returns {ISpRecoResult} 
      */
@@ -131,7 +123,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {SPBOOKMARKOPTIONS} Options 
      * @param {Integer} ullStreamPosition 
      * @param {LPARAM} lparamEvent 
@@ -143,7 +134,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
      * @returns {HRESULT} 
@@ -180,7 +170,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {ISpVoice} pVoice 
      * @param {BOOL} fAllowFormatChanges 
      * @returns {HRESULT} 
@@ -191,7 +180,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpVoice} 
      */
     GetVoice() {
@@ -200,7 +188,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} ullEventInterest 
      * @returns {HRESULT} 
      */
@@ -210,7 +197,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pullEventInterest 
      * @returns {HRESULT} 
      */
@@ -222,7 +208,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {SPCONTEXTSTATE} eContextState 
      * @returns {HRESULT} 
      */
@@ -232,7 +217,6 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPCONTEXTSTATE>} peContextState 
      * @returns {HRESULT} 
      */

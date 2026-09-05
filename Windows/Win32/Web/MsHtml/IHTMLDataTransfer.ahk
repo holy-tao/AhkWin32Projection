@@ -48,7 +48,6 @@ class IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} format 
      * @param {Pointer<VARIANT>} data 
      * @returns {VARIANT_BOOL} 
@@ -61,7 +60,6 @@ class IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} format 
      * @returns {VARIANT} 
      */
@@ -74,7 +72,6 @@ class IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} format 
      * @returns {VARIANT_BOOL} 
      */
@@ -86,7 +83,6 @@ class IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +94,6 @@ class IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dropEffect() {
@@ -108,7 +103,6 @@ class IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +114,6 @@ class IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_effectAllowed() {

@@ -4045,7 +4045,6 @@ class P2P {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _hGroup 
      * @param {Pointer<Void>} hPeerEventHandle 
      * @returns {HRESULT} 

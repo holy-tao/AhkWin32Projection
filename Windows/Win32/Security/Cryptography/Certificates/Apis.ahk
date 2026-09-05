@@ -5548,7 +5548,6 @@ class Certificates {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} pTargetName 
      * @param {Integer} cCriteria 
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria 
@@ -5565,7 +5564,6 @@ class Certificates {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CONTEXT>} pCert 
      * @param {Pointer<SecPkgContext_IssuerListInfoEx>} pTrustedIssuers 
      * @param {Pointer<Pointer<CERT_CHAIN_CONTEXT>>} ppCertChainContext 

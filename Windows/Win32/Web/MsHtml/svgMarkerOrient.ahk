@@ -7,22 +7,26 @@
 class svgMarkerOrient extends Win32Enum {
 
     /**
+     * Native name: SVG_MARKER_ORIENT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_MARKER_ORIENT_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: SVG_MARKER_ORIENT_AUTO
      * @type {Integer (Int32)}
      */
-    static SVG_MARKER_ORIENT_AUTO => 1
+    static AUTO => 1
 
     /**
+     * Native name: SVG_MARKER_ORIENT_ANGLE
      * @type {Integer (Int32)}
      */
-    static SVG_MARKER_ORIENT_ANGLE => 2
+    static ANGLE => 2
 
     /**
+     * Native name: svgMarkerOrient_Max
      * @type {Integer (Int32)}
      */
-    static svgMarkerOrient_Max => 2147483647
+    static Max => 2147483647
 }

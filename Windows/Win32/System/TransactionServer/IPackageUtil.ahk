@@ -36,7 +36,6 @@ class IPackageUtil extends IDispatch {
     static VTableNames => ["InstallPackage", "ExportPackage", "ShutdownPackage"]
 
     /**
-     * 
      * @param {BSTR} bstrPackageFile 
      * @param {BSTR} bstrInstallPath 
      * @param {Integer} lOptions 
@@ -51,7 +50,6 @@ class IPackageUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPackageID 
      * @param {BSTR} bstrPackageFile 
      * @param {Integer} lOptions 
@@ -66,7 +64,6 @@ class IPackageUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPackageID 
      * @returns {HRESULT} 
      */

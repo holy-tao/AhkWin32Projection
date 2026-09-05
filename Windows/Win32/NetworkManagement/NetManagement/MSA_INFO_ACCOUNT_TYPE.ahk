@@ -7,9 +7,10 @@
 class MSA_INFO_ACCOUNT_TYPE extends Win32Enum {
 
     /**
+     * Native name: MsaAccountFalse
      * @type {Integer (Int32)}
      */
-    static MsaAccountFalse => 0
+    static False => 0
 
     /**
      * @type {Integer (Int32)}

@@ -67,7 +67,6 @@ class IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaX() {
@@ -76,7 +75,6 @@ class IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaY() {
@@ -85,7 +83,6 @@ class IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaZ() {
@@ -94,7 +91,6 @@ class IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaMode() {
@@ -103,7 +99,6 @@ class IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

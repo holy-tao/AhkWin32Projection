@@ -34,7 +34,6 @@ class IXpsRasterizationFactory2 extends IUnknown {
     static VTableNames => ["CreateRasterizer"]
 
     /**
-     * 
      * @param {IXpsOMPage} xpsPage 
      * @param {Float} DPIX 
      * @param {Float} DPIY 

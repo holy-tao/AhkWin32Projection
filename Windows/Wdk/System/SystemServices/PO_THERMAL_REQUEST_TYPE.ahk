@@ -7,12 +7,14 @@
 class PO_THERMAL_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: PoThermalRequestPassive
      * @type {Integer (Int32)}
      */
-    static PoThermalRequestPassive => 0
+    static Passive => 0
 
     /**
+     * Native name: PoThermalRequestActive
      * @type {Integer (Int32)}
      */
-    static PoThermalRequestActive => 1
+    static Active => 1
 }

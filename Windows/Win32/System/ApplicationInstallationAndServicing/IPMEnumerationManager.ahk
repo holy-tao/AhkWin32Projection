@@ -56,7 +56,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMApplicationInfoEnumerator} 
      */
@@ -66,7 +65,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMTileInfoEnumerator} 
      */
@@ -76,7 +74,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMTaskInfoEnumerator} 
      */
@@ -86,7 +83,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMExtensionInfoEnumerator} 
      */
@@ -96,7 +92,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMBackgroundServiceAgentInfoEnumerator} 
      */
@@ -106,7 +101,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMBackgroundWorkerInfoEnumerator} 
      */
@@ -116,7 +110,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {IPMApplicationInfo} 
      */
@@ -126,7 +119,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} TileID 
      * @returns {IPMTileInfo} 
@@ -139,7 +131,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} TaskID 
      * @returns {IPMTaskInfo} 
@@ -152,7 +143,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {PWSTR} TaskID 
      * @returns {IPMTaskInfo} 
@@ -165,7 +155,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BSAID 
      * @returns {IPMBackgroundServiceAgentInfo} 
      */
@@ -175,7 +164,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMLiveTileJobInfoEnumerator} 
      */
     get_AllLiveTileJobs() {
@@ -184,7 +172,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} TileID 
      * @param {PM_LIVETILE_RECURRENCE_TYPE} RecurrenceType 
@@ -198,7 +185,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {IPMApplicationInfo} 
      */
@@ -208,7 +194,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} FileType 
      * @param {PM_LOGO_SIZE} LogoSize 
      * @param {Pointer<BSTR>} pLogo 
@@ -222,7 +207,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} SysAppID0 
      * @param {BSTR} SysAppID1 
      * @returns {IPMApplicationInfo} 
@@ -236,7 +220,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @param {Pointer<Integer>} pcTiles 
      * @param {Pointer<Pointer<PM_STARTTILEBLOB>>} ppTileBlobs 
@@ -251,7 +234,6 @@ class IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @param {Pointer<Integer>} pcApps 
      * @param {Pointer<Pointer<PM_STARTAPPBLOB>>} ppAppBlobs 

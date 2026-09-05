@@ -7,92 +7,110 @@
 class SHGFI_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SHGFI_ADDOVERLAYS
      * @type {Integer (UInt32)}
      */
-    static SHGFI_ADDOVERLAYS => 32
+    static ADDOVERLAYS => 32
 
     /**
+     * Native name: SHGFI_ATTR_SPECIFIED
      * @type {Integer (UInt32)}
      */
-    static SHGFI_ATTR_SPECIFIED => 131072
+    static ATTR_SPECIFIED => 131072
 
     /**
+     * Native name: SHGFI_ATTRIBUTES
      * @type {Integer (UInt32)}
      */
-    static SHGFI_ATTRIBUTES => 2048
+    static ATTRIBUTES => 2048
 
     /**
+     * Native name: SHGFI_DISPLAYNAME
      * @type {Integer (UInt32)}
      */
-    static SHGFI_DISPLAYNAME => 512
+    static DISPLAYNAME => 512
 
     /**
+     * Native name: SHGFI_EXETYPE
      * @type {Integer (UInt32)}
      */
-    static SHGFI_EXETYPE => 8192
+    static EXETYPE => 8192
 
     /**
+     * Native name: SHGFI_ICON
      * @type {Integer (UInt32)}
      */
-    static SHGFI_ICON => 256
+    static ICON => 256
 
     /**
+     * Native name: SHGFI_ICONLOCATION
      * @type {Integer (UInt32)}
      */
-    static SHGFI_ICONLOCATION => 4096
+    static ICONLOCATION => 4096
 
     /**
+     * Native name: SHGFI_LARGEICON
      * @type {Integer (UInt32)}
      */
-    static SHGFI_LARGEICON => 0
+    static LARGEICON => 0
 
     /**
+     * Native name: SHGFI_LINKOVERLAY
      * @type {Integer (UInt32)}
      */
-    static SHGFI_LINKOVERLAY => 32768
+    static LINKOVERLAY => 32768
 
     /**
+     * Native name: SHGFI_OPENICON
      * @type {Integer (UInt32)}
      */
-    static SHGFI_OPENICON => 2
+    static OPENICON => 2
 
     /**
+     * Native name: SHGFI_OVERLAYINDEX
      * @type {Integer (UInt32)}
      */
-    static SHGFI_OVERLAYINDEX => 64
+    static OVERLAYINDEX => 64
 
     /**
+     * Native name: SHGFI_PIDL
      * @type {Integer (UInt32)}
      */
-    static SHGFI_PIDL => 8
+    static PIDL => 8
 
     /**
+     * Native name: SHGFI_SELECTED
      * @type {Integer (UInt32)}
      */
-    static SHGFI_SELECTED => 65536
+    static SELECTED => 65536
 
     /**
+     * Native name: SHGFI_SHELLICONSIZE
      * @type {Integer (UInt32)}
      */
-    static SHGFI_SHELLICONSIZE => 4
+    static SHELLICONSIZE => 4
 
     /**
+     * Native name: SHGFI_SMALLICON
      * @type {Integer (UInt32)}
      */
-    static SHGFI_SMALLICON => 1
+    static SMALLICON => 1
 
     /**
+     * Native name: SHGFI_SYSICONINDEX
      * @type {Integer (UInt32)}
      */
-    static SHGFI_SYSICONINDEX => 16384
+    static SYSICONINDEX => 16384
 
     /**
+     * Native name: SHGFI_TYPENAME
      * @type {Integer (UInt32)}
      */
-    static SHGFI_TYPENAME => 1024
+    static TYPENAME => 1024
 
     /**
+     * Native name: SHGFI_USEFILEATTRIBUTES
      * @type {Integer (UInt32)}
      */
-    static SHGFI_USEFILEATTRIBUTES => 16
+    static USEFILEATTRIBUTES => 16
 }

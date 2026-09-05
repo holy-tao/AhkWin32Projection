@@ -7,22 +7,26 @@
 class LinearGradientMode extends Win32Enum {
 
     /**
+     * Native name: LinearGradientModeHorizontal
      * @type {Integer (Int32)}
      */
-    static LinearGradientModeHorizontal => 0
+    static Horizontal => 0
 
     /**
+     * Native name: LinearGradientModeVertical
      * @type {Integer (Int32)}
      */
-    static LinearGradientModeVertical => 1
+    static Vertical => 1
 
     /**
+     * Native name: LinearGradientModeForwardDiagonal
      * @type {Integer (Int32)}
      */
-    static LinearGradientModeForwardDiagonal => 2
+    static ForwardDiagonal => 2
 
     /**
+     * Native name: LinearGradientModeBackwardDiagonal
      * @type {Integer (Int32)}
      */
-    static LinearGradientModeBackwardDiagonal => 3
+    static BackwardDiagonal => 3
 }

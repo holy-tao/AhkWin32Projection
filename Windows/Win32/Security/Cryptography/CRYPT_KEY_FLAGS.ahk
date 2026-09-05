@@ -7,94 +7,112 @@
 class CRYPT_KEY_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRYPT_EXPORTABLE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_EXPORTABLE => 1
+    static EXPORTABLE => 1
 
     /**
+     * Native name: CRYPT_USER_PROTECTED
      * @type {Integer (UInt32)}
      */
-    static CRYPT_USER_PROTECTED => 2
+    static USER_PROTECTED => 2
 
     /**
+     * Native name: CRYPT_ARCHIVABLE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_ARCHIVABLE => 16384
+    static ARCHIVABLE => 16384
 
     /**
+     * Native name: CRYPT_CREATE_IV
      * @type {Integer (UInt32)}
      */
-    static CRYPT_CREATE_IV => 512
+    static CREATE_IV => 512
 
     /**
+     * Native name: CRYPT_CREATE_SALT
      * @type {Integer (UInt32)}
      */
-    static CRYPT_CREATE_SALT => 4
+    static CREATE_SALT => 4
 
     /**
+     * Native name: CRYPT_DATA_KEY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_DATA_KEY => 2048
+    static DATA_KEY => 2048
 
     /**
+     * Native name: CRYPT_FORCE_KEY_PROTECTION_HIGH
      * @type {Integer (UInt32)}
      */
-    static CRYPT_FORCE_KEY_PROTECTION_HIGH => 32768
+    static FORCE_KEY_PROTECTION_HIGH => 32768
 
     /**
+     * Native name: CRYPT_KEK
      * @type {Integer (UInt32)}
      */
-    static CRYPT_KEK => 1024
+    static KEK => 1024
 
     /**
+     * Native name: CRYPT_INITIATOR
      * @type {Integer (UInt32)}
      */
-    static CRYPT_INITIATOR => 64
+    static INITIATOR => 64
 
     /**
+     * Native name: CRYPT_NO_SALT
      * @type {Integer (UInt32)}
      */
-    static CRYPT_NO_SALT => 16
+    static NO_SALT => 16
 
     /**
+     * Native name: CRYPT_ONLINE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_ONLINE => 128
+    static ONLINE => 128
 
     /**
+     * Native name: CRYPT_PREGEN
      * @type {Integer (UInt32)}
      */
-    static CRYPT_PREGEN => 64
+    static PREGEN => 64
 
     /**
+     * Native name: CRYPT_RECIPIENT
      * @type {Integer (UInt32)}
      */
-    static CRYPT_RECIPIENT => 16
+    static RECIPIENT => 16
 
     /**
+     * Native name: CRYPT_SF
      * @type {Integer (UInt32)}
      */
-    static CRYPT_SF => 256
+    static SF => 256
 
     /**
+     * Native name: CRYPT_SGCKEY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_SGCKEY => 8192
+    static SGCKEY => 8192
 
     /**
+     * Native name: CRYPT_VOLATILE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_VOLATILE => 4096
+    static VOLATILE => 4096
 
     /**
+     * Native name: CRYPT_MACHINE_KEYSET
      * @type {Integer (UInt32)}
      */
-    static CRYPT_MACHINE_KEYSET => 32
+    static MACHINE_KEYSET => 32
 
     /**
+     * Native name: CRYPT_USER_KEYSET
      * @type {Integer (UInt32)}
      */
-    static CRYPT_USER_KEYSET => 4096
+    static USER_KEYSET => 4096
 
     /**
      * @type {Integer (UInt32)}
@@ -122,34 +140,40 @@ class CRYPT_KEY_FLAGS extends Win32BitflagEnum {
     static PKCS12_INCLUDE_EXTENDED_PROPERTIES => 16
 
     /**
+     * Native name: CRYPT_OAEP
      * @type {Integer (UInt32)}
      */
-    static CRYPT_OAEP => 64
+    static OAEP => 64
 
     /**
+     * Native name: CRYPT_BLOB_VER3
      * @type {Integer (UInt32)}
      */
-    static CRYPT_BLOB_VER3 => 128
+    static BLOB_VER3 => 128
 
     /**
+     * Native name: CRYPT_DESTROYKEY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_DESTROYKEY => 4
+    static DESTROYKEY => 4
 
     /**
+     * Native name: CRYPT_SSL2_FALLBACK
      * @type {Integer (UInt32)}
      */
-    static CRYPT_SSL2_FALLBACK => 2
+    static SSL2_FALLBACK => 2
 
     /**
+     * Native name: CRYPT_Y_ONLY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_Y_ONLY => 1
+    static Y_ONLY => 1
 
     /**
+     * Native name: CRYPT_IPSEC_HMAC_KEY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_IPSEC_HMAC_KEY => 256
+    static IPSEC_HMAC_KEY => 256
 
     /**
      * @type {Integer (UInt32)}

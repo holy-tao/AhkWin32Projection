@@ -7,47 +7,56 @@
 class CertKeyType extends Win32Enum {
 
     /**
+     * Native name: KeyTypeOther
      * @type {Integer (UInt32)}
      */
-    static KeyTypeOther => 0
+    static Other => 0
 
     /**
+     * Native name: KeyTypeVirtualSmartCard
      * @type {Integer (UInt32)}
      */
-    static KeyTypeVirtualSmartCard => 1
+    static VirtualSmartCard => 1
 
     /**
+     * Native name: KeyTypePhysicalSmartCard
      * @type {Integer (UInt32)}
      */
-    static KeyTypePhysicalSmartCard => 2
+    static PhysicalSmartCard => 2
 
     /**
+     * Native name: KeyTypePassport
      * @type {Integer (UInt32)}
      */
-    static KeyTypePassport => 3
+    static Passport => 3
 
     /**
+     * Native name: KeyTypePassportRemote
      * @type {Integer (UInt32)}
      */
-    static KeyTypePassportRemote => 4
+    static PassportRemote => 4
 
     /**
+     * Native name: KeyTypePassportSmartCard
      * @type {Integer (UInt32)}
      */
-    static KeyTypePassportSmartCard => 5
+    static PassportSmartCard => 5
 
     /**
+     * Native name: KeyTypeHardware
      * @type {Integer (UInt32)}
      */
-    static KeyTypeHardware => 6
+    static Hardware => 6
 
     /**
+     * Native name: KeyTypeSoftware
      * @type {Integer (UInt32)}
      */
-    static KeyTypeSoftware => 7
+    static Software => 7
 
     /**
+     * Native name: KeyTypeSelfSigned
      * @type {Integer (UInt32)}
      */
-    static KeyTypeSelfSigned => 8
+    static SelfSigned => 8
 }

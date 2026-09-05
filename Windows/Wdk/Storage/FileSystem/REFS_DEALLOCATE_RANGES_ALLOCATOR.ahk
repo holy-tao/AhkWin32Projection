@@ -7,22 +7,26 @@
 class REFS_DEALLOCATE_RANGES_ALLOCATOR extends Win32Enum {
 
     /**
+     * Native name: REFS_DEALLOCATE_RANGES_ALLOCATOR_NONE
      * @type {Integer (Int32)}
      */
-    static REFS_DEALLOCATE_RANGES_ALLOCATOR_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: REFS_DEALLOCATE_RANGES_ALLOCATOR_SAA
      * @type {Integer (Int32)}
      */
-    static REFS_DEALLOCATE_RANGES_ALLOCATOR_SAA => 1
+    static SAA => 1
 
     /**
+     * Native name: REFS_DEALLOCATE_RANGES_ALLOCATOR_CAA
      * @type {Integer (Int32)}
      */
-    static REFS_DEALLOCATE_RANGES_ALLOCATOR_CAA => 2
+    static CAA => 2
 
     /**
+     * Native name: REFS_DEALLOCATE_RANGES_ALLOCATOR_MAA
      * @type {Integer (Int32)}
      */
-    static REFS_DEALLOCATE_RANGES_ALLOCATOR_MAA => 3
+    static MAA => 3
 }

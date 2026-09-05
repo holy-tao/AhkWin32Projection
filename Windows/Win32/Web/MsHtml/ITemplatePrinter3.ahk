@@ -41,7 +41,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_headerFooterFont() {
@@ -63,7 +61,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -76,7 +73,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -89,7 +85,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -102,7 +97,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -115,7 +109,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */
@@ -125,7 +118,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */
@@ -135,7 +127,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */
@@ -145,7 +136,6 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */

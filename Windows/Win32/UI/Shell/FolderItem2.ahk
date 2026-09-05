@@ -37,7 +37,6 @@ class FolderItem2 extends FolderItem {
     static VTableNames => ["InvokeVerbEx", "ExtendedProperty"]
 
     /**
-     * 
      * @param {VARIANT} vVerb 
      * @param {VARIANT} vArgs 
      * @returns {HRESULT} 

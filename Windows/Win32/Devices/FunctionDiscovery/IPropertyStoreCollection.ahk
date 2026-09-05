@@ -37,7 +37,6 @@ class IPropertyStoreCollection extends IUnknown {
     static VTableNames => ["GetCount", "Get", "Item", "Add", "Remove", "Delete", "DeleteAll"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -78,7 +77,6 @@ class IPropertyStoreCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPropertyStore} pIPropertyStore 
      * @returns {HRESULT} 
      */
@@ -88,7 +86,6 @@ class IPropertyStoreCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {IPropertyStore} 
      */
@@ -98,7 +95,6 @@ class IPropertyStoreCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {HRESULT} 
      */
@@ -108,7 +104,6 @@ class IPropertyStoreCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteAll() {

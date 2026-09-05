@@ -10,13 +10,15 @@ class ResourceType extends Win32Enum {
 
     /**
      * The resource is a <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/staticresource-markup-extension">StaticResource</a>.
+     * Native name: ResourceTypeStatic
      * @type {Integer (Int32)}
      */
-    static ResourceTypeStatic => 0
+    static Static => 0
 
     /**
      * The resource is a <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/themeresource-markup-extension">ThemeResource</a>.
+     * Native name: ResourceTypeTheme
      * @type {Integer (Int32)}
      */
-    static ResourceTypeTheme => 1
+    static Theme => 1
 }

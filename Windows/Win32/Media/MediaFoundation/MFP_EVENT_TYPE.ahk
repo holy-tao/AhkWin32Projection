@@ -195,79 +195,92 @@ class MFP_EVENT_TYPE extends Win32Enum {
 
     /**
      * Playback has started. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-play">IMFPMediaPlayer::Play</a> method completes.
+     * Native name: MFP_EVENT_TYPE_PLAY
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_PLAY => 0
+    static PLAY => 0
 
     /**
      * Playback has paused. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-pause">IMFPMediaPlayer::Pause</a> method completes.
+     * Native name: MFP_EVENT_TYPE_PAUSE
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_PAUSE => 1
+    static PAUSE => 1
 
     /**
      * Playback has stopped. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-stop">IMFPMediaPlayer::Stop</a> method completes.
+     * Native name: MFP_EVENT_TYPE_STOP
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_STOP => 2
+    static STOP => 2
 
     /**
      * The MFPlay player object has seeked to a new playback position. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-setposition">IMFPMediaPlayer::SetPosition</a> method completes.
+     * Native name: MFP_EVENT_TYPE_POSITION_SET
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_POSITION_SET => 3
+    static POSITION_SET => 3
 
     /**
      * The playback rate has changed. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-setrate">IMFPMediaPlayer::SetRate</a> method completes.
+     * Native name: MFP_EVENT_TYPE_RATE_SET
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_RATE_SET => 4
+    static RATE_SET => 4
 
     /**
      * A new media item was created. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-createmediaitemfromurl">IMFPMediaPlayer::CreateMediaItemFromURL</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-createmediaitemfromobject">CreateMediaItemFromObject</a> method completes.
+     * Native name: MFP_EVENT_TYPE_MEDIAITEM_CREATED
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_MEDIAITEM_CREATED => 5
+    static MEDIAITEM_CREATED => 5
 
     /**
      * A media item is ready for playback. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-setmediaitem">IMFPMediaPlayer::SetMediaItem</a> method completes.
+     * Native name: MFP_EVENT_TYPE_MEDIAITEM_SET
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_MEDIAITEM_SET => 6
+    static MEDIAITEM_SET => 6
 
     /**
      * A frame-step operation has completed. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-framestep">IMFPMediaPlayer::FrameStep</a> method completes.
+     * Native name: MFP_EVENT_TYPE_FRAME_STEP
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_FRAME_STEP => 7
+    static FRAME_STEP => 7
 
     /**
      * The current media item was cleared. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-clearmediaitem">IMFPMediaPlayer::ClearMediaItem</a> method completes.
+     * Native name: MFP_EVENT_TYPE_MEDIAITEM_CLEARED
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_MEDIAITEM_CLEARED => 8
+    static MEDIAITEM_CLEARED => 8
 
     /**
      * A pipeline object sent an event. The player object forwards certain pipeline events to the application. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mf_event">MFP_MF_EVENT</a>.
+     * Native name: MFP_EVENT_TYPE_MF
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_MF => 9
+    static MF => 9
 
     /**
      * A playback error has occurred.
+     * Native name: MFP_EVENT_TYPE_ERROR
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_ERROR => 10
+    static ERROR => 10
 
     /**
      * Playback has ended. The player object sends this event when playback reaches the end of the media file.
+     * Native name: MFP_EVENT_TYPE_PLAYBACK_ENDED
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_PLAYBACK_ENDED => 11
+    static PLAYBACK_ENDED => 11
 
     /**
      * The media source requires authentication before it can play the file.
+     * Native name: MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL
      * @type {Integer (Int32)}
      */
-    static MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL => 12
+    static ACQUIRE_USER_CREDENTIAL => 12
 }

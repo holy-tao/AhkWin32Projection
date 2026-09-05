@@ -68,7 +68,6 @@ class IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserURI() {
@@ -78,7 +77,6 @@ class IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -88,7 +86,6 @@ class IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Removable() {
@@ -97,7 +94,6 @@ class IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_PARTICIPANT_STATE} 
      */
     get_State() {
@@ -106,7 +102,6 @@ class IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCSession} 
      */
     get_Session() {

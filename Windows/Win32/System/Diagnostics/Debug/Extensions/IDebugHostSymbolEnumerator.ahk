@@ -30,7 +30,6 @@ class IDebugHostSymbolEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -39,7 +38,6 @@ class IDebugHostSymbolEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostSymbol} 
      */
     GetNext() {

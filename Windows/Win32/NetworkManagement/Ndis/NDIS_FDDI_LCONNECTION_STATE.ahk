@@ -7,52 +7,62 @@
 class NDIS_FDDI_LCONNECTION_STATE extends Win32Enum {
 
     /**
+     * Native name: NdisFddiStateOff
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateOff => 1
+    static Off => 1
 
     /**
+     * Native name: NdisFddiStateBreak
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateBreak => 2
+    static Break => 2
 
     /**
+     * Native name: NdisFddiStateTrace
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateTrace => 3
+    static Trace => 3
 
     /**
+     * Native name: NdisFddiStateConnect
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateConnect => 4
+    static Connect => 4
 
     /**
+     * Native name: NdisFddiStateNext
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateNext => 5
+    static Next => 5
 
     /**
+     * Native name: NdisFddiStateSignal
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateSignal => 6
+    static Signal => 6
 
     /**
+     * Native name: NdisFddiStateJoin
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateJoin => 7
+    static Join => 7
 
     /**
+     * Native name: NdisFddiStateVerify
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateVerify => 8
+    static Verify => 8
 
     /**
+     * Native name: NdisFddiStateActive
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateActive => 9
+    static Active => 9
 
     /**
+     * Native name: NdisFddiStateMaintenance
      * @type {Integer (Int32)}
      */
-    static NdisFddiStateMaintenance => 10
+    static Maintenance => 10
 }

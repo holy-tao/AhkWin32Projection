@@ -31,7 +31,6 @@ class INetCfgSysPrep extends IUnknown {
     static VTableNames => ["HrSetupSetFirstDword", "HrSetupSetFirstString", "HrSetupSetFirstStringAsBool", "HrSetupSetFirstMultiSzField"]
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {Integer} dwValue 
@@ -46,7 +45,6 @@ class INetCfgSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {PWSTR} pwszValue 
@@ -62,7 +60,6 @@ class INetCfgSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {BOOL} fValue 
@@ -77,7 +74,6 @@ class INetCfgSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {PWSTR} pmszValue 

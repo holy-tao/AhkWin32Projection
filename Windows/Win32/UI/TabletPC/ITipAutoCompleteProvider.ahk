@@ -31,7 +31,6 @@ class ITipAutoCompleteProvider extends IUnknown {
     static VTableNames => ["UpdatePendingText", "Show"]
 
     /**
-     * 
      * @param {BSTR} bstrPendingText 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class ITipAutoCompleteProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fShow 
      * @returns {HRESULT} 
      */

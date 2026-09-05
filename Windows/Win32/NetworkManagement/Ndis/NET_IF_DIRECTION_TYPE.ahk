@@ -11,27 +11,31 @@ class NET_IF_DIRECTION_TYPE extends Win32Enum {
     /**
      * Indicates the send and receive direction type. This direction type indicates that the NDIS network
      *      interface can send and receive data.
+     * Native name: NET_IF_DIRECTION_SENDRECEIVE
      * @type {Integer (Int32)}
      */
-    static NET_IF_DIRECTION_SENDRECEIVE => 0
+    static SENDRECEIVE => 0
 
     /**
      * Indicates the send only direction type. This direction type indicates that the NDIS network
      *      interface can only send data.
+     * Native name: NET_IF_DIRECTION_SENDONLY
      * @type {Integer (Int32)}
      */
-    static NET_IF_DIRECTION_SENDONLY => 1
+    static SENDONLY => 1
 
     /**
      * Indicates the receive only direction type. This direction type indicates that the NDIS network
      *      interface can only receive data.
+     * Native name: NET_IF_DIRECTION_RECEIVEONLY
      * @type {Integer (Int32)}
      */
-    static NET_IF_DIRECTION_RECEIVEONLY => 2
+    static RECEIVEONLY => 2
 
     /**
      * A maximum value for testing purposes.
+     * Native name: NET_IF_DIRECTION_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static NET_IF_DIRECTION_MAXIMUM => 3
+    static MAXIMUM => 3
 }

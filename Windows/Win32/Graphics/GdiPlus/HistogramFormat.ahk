@@ -7,42 +7,50 @@
 class HistogramFormat extends Win32Enum {
 
     /**
+     * Native name: HistogramFormatARGB
      * @type {Integer (Int32)}
      */
-    static HistogramFormatARGB => 0
+    static FormatARGB => 0
 
     /**
+     * Native name: HistogramFormatPARGB
      * @type {Integer (Int32)}
      */
-    static HistogramFormatPARGB => 1
+    static FormatPARGB => 1
 
     /**
+     * Native name: HistogramFormatRGB
      * @type {Integer (Int32)}
      */
-    static HistogramFormatRGB => 2
+    static FormatRGB => 2
 
     /**
+     * Native name: HistogramFormatGray
      * @type {Integer (Int32)}
      */
-    static HistogramFormatGray => 3
+    static Gray => 3
 
     /**
+     * Native name: HistogramFormatB
      * @type {Integer (Int32)}
      */
-    static HistogramFormatB => 4
+    static FormatB => 4
 
     /**
+     * Native name: HistogramFormatG
      * @type {Integer (Int32)}
      */
-    static HistogramFormatG => 5
+    static FormatG => 5
 
     /**
+     * Native name: HistogramFormatR
      * @type {Integer (Int32)}
      */
-    static HistogramFormatR => 6
+    static FormatR => 6
 
     /**
+     * Native name: HistogramFormatA
      * @type {Integer (Int32)}
      */
-    static HistogramFormatA => 7
+    static FormatA => 7
 }

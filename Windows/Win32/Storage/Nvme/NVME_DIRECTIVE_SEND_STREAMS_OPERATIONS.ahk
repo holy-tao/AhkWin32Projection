@@ -12,13 +12,15 @@ class NVME_DIRECTIVE_SEND_STREAMS_OPERATIONS extends Win32Enum {
 
     /**
      * A release identifier directive sent to a Streams operation.
+     * Native name: NVME_DIRECTIVE_SEND_STREAMS_OPERATION_RELEASE_IDENTIFIER
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_SEND_STREAMS_OPERATION_RELEASE_IDENTIFIER => 1
+    static OPERATION_RELEASE_IDENTIFIER => 1
 
     /**
      * A release resources directive sent to a Streams operation.
+     * Native name: NVME_DIRECTIVE_SEND_STREAMS_OPERATION_RELEASE_RESOURCES
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_SEND_STREAMS_OPERATION_RELEASE_RESOURCES => 2
+    static OPERATION_RELEASE_RESOURCES => 2
 }

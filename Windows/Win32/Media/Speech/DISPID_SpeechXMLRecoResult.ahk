@@ -7,12 +7,14 @@
 class DISPID_SpeechXMLRecoResult extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRRGetXMLResult
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRGetXMLResult => 10
+    static SRRGetXMLResult => 10
 
     /**
+     * Native name: DISPID_SRRGetXMLErrorInfo
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRGetXMLErrorInfo => 11
+    static SRRGetXMLErrorInfo => 11
 }

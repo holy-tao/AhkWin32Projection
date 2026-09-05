@@ -12,25 +12,29 @@ class DWRITE_GLYPH_ORIENTATION_ANGLE extends Win32Enum {
 
     /**
      * Glyph orientation is upright.
+     * Native name: DWRITE_GLYPH_ORIENTATION_ANGLE_0_DEGREES
      * @type {Integer (Int32)}
      */
-    static DWRITE_GLYPH_ORIENTATION_ANGLE_0_DEGREES => 0
+    static 0_DEGREES => 0
 
     /**
      * Glyph orientation is rotated 90 degrees clockwise.
+     * Native name: DWRITE_GLYPH_ORIENTATION_ANGLE_90_DEGREES
      * @type {Integer (Int32)}
      */
-    static DWRITE_GLYPH_ORIENTATION_ANGLE_90_DEGREES => 1
+    static 90_DEGREES => 1
 
     /**
      * Glyph orientation is upside-down.
+     * Native name: DWRITE_GLYPH_ORIENTATION_ANGLE_180_DEGREES
      * @type {Integer (Int32)}
      */
-    static DWRITE_GLYPH_ORIENTATION_ANGLE_180_DEGREES => 2
+    static 180_DEGREES => 2
 
     /**
      * Glyph orientation is rotated 270 degrees clockwise.
+     * Native name: DWRITE_GLYPH_ORIENTATION_ANGLE_270_DEGREES
      * @type {Integer (Int32)}
      */
-    static DWRITE_GLYPH_ORIENTATION_ANGLE_270_DEGREES => 3
+    static 270_DEGREES => 3
 }

@@ -10,25 +10,29 @@ class AM_WST_SERVICE extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: AM_WST_SERVICE_None
      * @type {Integer (Int32)}
      */
-    static AM_WST_SERVICE_None => 0
+    static None => 0
 
     /**
      * Reserved.
+     * Native name: AM_WST_SERVICE_Text
      * @type {Integer (Int32)}
      */
-    static AM_WST_SERVICE_Text => 1
+    static Text => 1
 
     /**
      * Reserved.
+     * Native name: AM_WST_SERVICE_IDS
      * @type {Integer (Int32)}
      */
-    static AM_WST_SERVICE_IDS => 2
+    static IDS => 2
 
     /**
      * Reserved.
+     * Native name: AM_WST_SERVICE_Invalid
      * @type {Integer (Int32)}
      */
-    static AM_WST_SERVICE_Invalid => 3
+    static Invalid => 3
 }

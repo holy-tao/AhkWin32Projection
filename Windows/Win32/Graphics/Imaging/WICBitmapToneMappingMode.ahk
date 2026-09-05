@@ -7,22 +7,26 @@
 class WICBitmapToneMappingMode extends Win32Enum {
 
     /**
+     * Native name: WICBitmapToneMappingMode_None
      * @type {Integer (Int32)}
      */
-    static WICBitmapToneMappingMode_None => 0
+    static None => 0
 
     /**
+     * Native name: WICBitmapToneMappingMode_Default
      * @type {Integer (Int32)}
      */
-    static WICBitmapToneMappingMode_Default => 1
+    static Default => 1
 
     /**
+     * Native name: WICBitmapToneMappingMode_D2D
      * @type {Integer (Int32)}
      */
-    static WICBitmapToneMappingMode_D2D => 2
+    static D2D => 2
 
     /**
+     * Native name: WICBitmapToneMappingMode_GainMap
      * @type {Integer (Int32)}
      */
-    static WICBitmapToneMappingMode_GainMap => 3
+    static GainMap => 3
 }

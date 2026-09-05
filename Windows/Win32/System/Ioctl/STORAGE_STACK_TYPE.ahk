@@ -7,17 +7,20 @@
 class STORAGE_STACK_TYPE extends Win32Enum {
 
     /**
+     * Native name: StorageStackTypeUnknown
      * @type {Integer (Int32)}
      */
-    static StorageStackTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageStackTypeScsi
      * @type {Integer (Int32)}
      */
-    static StorageStackTypeScsi => 1
+    static Scsi => 1
 
     /**
+     * Native name: StorageStackTypeNVMe
      * @type {Integer (Int32)}
      */
-    static StorageStackTypeNVMe => 2
+    static TypeNVMe => 2
 }

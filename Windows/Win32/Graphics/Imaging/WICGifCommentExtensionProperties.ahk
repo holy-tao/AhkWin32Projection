@@ -10,7 +10,8 @@ class WICGifCommentExtensionProperties extends Win32Enum {
 
     /**
      * [VT_LPSTR] Indicates the comment text.
+     * Native name: WICGifCommentExtensionText
      * @type {Integer (Int32)}
      */
-    static WICGifCommentExtensionText => 1
+    static Text => 1
 }

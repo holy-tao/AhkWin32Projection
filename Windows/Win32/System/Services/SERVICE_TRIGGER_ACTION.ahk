@@ -7,12 +7,14 @@
 class SERVICE_TRIGGER_ACTION extends Win32Enum {
 
     /**
+     * Native name: SERVICE_TRIGGER_ACTION_SERVICE_START
      * @type {Integer (UInt32)}
      */
-    static SERVICE_TRIGGER_ACTION_SERVICE_START => 1
+    static SERVICE_START => 1
 
     /**
+     * Native name: SERVICE_TRIGGER_ACTION_SERVICE_STOP
      * @type {Integer (UInt32)}
      */
-    static SERVICE_TRIGGER_ACTION_SERVICE_STOP => 2
+    static SERVICE_STOP => 2
 }

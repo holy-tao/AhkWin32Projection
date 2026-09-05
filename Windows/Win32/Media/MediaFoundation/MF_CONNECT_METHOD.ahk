@@ -10,21 +10,24 @@ class MF_CONNECT_METHOD extends Win32Enum {
 
     /**
      * Connect the node directly to its upstream neighbor. Fail otherwise.
+     * Native name: MF_CONNECT_DIRECT
      * @type {Integer (Int32)}
      */
-    static MF_CONNECT_DIRECT => 0
+    static DIRECT => 0
 
     /**
      * Add a converter transform upstream from this node, if needed to complete the connection. Converter transforms include color-space converters for video, and audio resamplers for audio.
+     * Native name: MF_CONNECT_ALLOW_CONVERTER
      * @type {Integer (Int32)}
      */
-    static MF_CONNECT_ALLOW_CONVERTER => 1
+    static ALLOW_CONVERTER => 1
 
     /**
      * Add a decoder transform upstream upstream from this node, if needed to complete the connection. The numeric value of this flag includes the <b>MF_CONNECT_ALLOW_CONVERTER</b> flag. Therefore, setting the <b>MF_CONNECT_ALLOW_DECODER</b> flag sets the <b>MF_CONNECT_ALLOW_CONVERTER</b> flag as well.
+     * Native name: MF_CONNECT_ALLOW_DECODER
      * @type {Integer (Int32)}
      */
-    static MF_CONNECT_ALLOW_DECODER => 3
+    static ALLOW_DECODER => 3
 
     /**
      * Controls the order in which the topology loader attempts to  
@@ -32,19 +35,22 @@ class MF_CONNECT_METHOD extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MF_CONNECT_RESOLVE_INDEPENDENT_OUTPUTTYPES
      * @type {Integer (Int32)}
      */
-    static MF_CONNECT_RESOLVE_INDEPENDENT_OUTPUTTYPES => 4
+    static RESOLVE_INDEPENDENT_OUTPUTTYPES => 4
 
     /**
      * This node is optional. If the topology loader cannot connect this node, it will skip the node and continue.
+     * Native name: MF_CONNECT_AS_OPTIONAL
      * @type {Integer (Int32)}
      */
-    static MF_CONNECT_AS_OPTIONAL => 65536
+    static AS_OPTIONAL => 65536
 
     /**
      * The entire topology branch starting at this node is optional. If the topology loader cannot resolve this branch, it will skip the branch and continue.
+     * Native name: MF_CONNECT_AS_OPTIONAL_BRANCH
      * @type {Integer (Int32)}
      */
-    static MF_CONNECT_AS_OPTIONAL_BRANCH => 131072
+    static AS_OPTIONAL_BRANCH => 131072
 }

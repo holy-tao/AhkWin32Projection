@@ -7,7 +7,8 @@
 class DXGI_CREATE_FACTORY_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DXGI_CREATE_FACTORY_DEBUG
      * @type {Integer (UInt32)}
      */
-    static DXGI_CREATE_FACTORY_DEBUG => 1
+    static DEBUG => 1
 }

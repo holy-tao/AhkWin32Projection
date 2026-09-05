@@ -18,19 +18,22 @@ class NET_IF_MEDIA_DUPLEX_STATE extends Win32Enum {
 
     /**
      * The duplex state of the miniport adapter is unknown.
+     * Native name: MediaDuplexStateUnknown
      * @type {Integer (Int32)}
      */
-    static MediaDuplexStateUnknown => 0
+    static Unknown => 0
 
     /**
      * The miniport adapter can transmit or receive but not both simultaneously.
+     * Native name: MediaDuplexStateHalf
      * @type {Integer (Int32)}
      */
-    static MediaDuplexStateHalf => 1
+    static Half => 1
 
     /**
      * The miniport adapter can transmit and receive simultaneously.
+     * Native name: MediaDuplexStateFull
      * @type {Integer (Int32)}
      */
-    static MediaDuplexStateFull => 2
+    static Full => 2
 }

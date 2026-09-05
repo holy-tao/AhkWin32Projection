@@ -15,31 +15,36 @@ class VDS_LUN_PLEX_STATUS extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_LPS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_LPS_UNKNOWN => 0
+    static LPS_UNKNOWN => 0
 
     /**
      * The plex is available.
+     * Native name: VDS_LPS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_LPS_ONLINE => 1
+    static LPS_ONLINE => 1
 
     /**
      * The plex is busy.
+     * Native name: VDS_LPS_NOT_READY
      * @type {Integer (Int32)}
      */
-    static VDS_LPS_NOT_READY => 2
+    static LPS_NOT_READY => 2
 
     /**
      * The plex is unavailable.
+     * Native name: VDS_LPS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_LPS_OFFLINE => 4
+    static LPS_OFFLINE => 4
 
     /**
      * The plex has failed.
+     * Native name: VDS_LPS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_LPS_FAILED => 5
+    static LPS_FAILED => 5
 }

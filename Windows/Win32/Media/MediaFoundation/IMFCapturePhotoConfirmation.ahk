@@ -31,7 +31,6 @@ class IMFCapturePhotoConfirmation extends IUnknown {
     static VTableNames => ["SetPhotoConfirmationCallback", "SetPixelFormat", "GetPixelFormat"]
 
     /**
-     * 
      * @param {IMFAsyncCallback} pNotificationCallback 
      * @returns {HRESULT} 
      */

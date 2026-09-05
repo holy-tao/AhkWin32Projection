@@ -10,19 +10,22 @@ class WMT_MUSICSPEECH_CLASS_MODE extends Win32Enum {
 
     /**
      * Not currently supported. Do not use.
+     * Native name: WMT_MS_CLASS_MUSIC
      * @type {Integer (Int32)}
      */
-    static WMT_MS_CLASS_MUSIC => 0
+    static MS_CLASS_MUSIC => 0
 
     /**
      * Compression optimized for speech.
+     * Native name: WMT_MS_CLASS_SPEECH
      * @type {Integer (Int32)}
      */
-    static WMT_MS_CLASS_SPEECH => 1
+    static MS_CLASS_SPEECH => 1
 
     /**
      * Compression optimized for a mixture of music and speech.
+     * Native name: WMT_MS_CLASS_MIXED
      * @type {Integer (Int32)}
      */
-    static WMT_MS_CLASS_MIXED => 2
+    static MS_CLASS_MIXED => 2
 }

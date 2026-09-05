@@ -7,27 +7,32 @@
 class styleRubyOverhang extends Win32Enum {
 
     /**
+     * Native name: styleRubyOverhangNotSet
      * @type {Integer (Int32)}
      */
-    static styleRubyOverhangNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleRubyOverhangAuto
      * @type {Integer (Int32)}
      */
-    static styleRubyOverhangAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleRubyOverhangWhitespace
      * @type {Integer (Int32)}
      */
-    static styleRubyOverhangWhitespace => 2
+    static Whitespace => 2
 
     /**
+     * Native name: styleRubyOverhangNone
      * @type {Integer (Int32)}
      */
-    static styleRubyOverhangNone => 3
+    static None => 3
 
     /**
+     * Native name: styleRubyOverhang_Max
      * @type {Integer (Int32)}
      */
-    static styleRubyOverhang_Max => 2147483647
+    static Max => 2147483647
 }

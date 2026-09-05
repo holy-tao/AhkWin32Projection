@@ -10,9 +10,10 @@ class D3D11_TILED_RESOURCES_TIER extends Win32Enum {
 
     /**
      * Tiled resources are not supported.
+     * Native name: D3D11_TILED_RESOURCES_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D11_TILED_RESOURCES_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * Tier_1 tiled resources are supported.
@@ -24,9 +25,10 @@ class D3D11_TILED_RESOURCES_TIER extends Win32Enum {
      *             
      * 
      * If you access tiles (read or write) that are <b>NULL</b>-mapped, you get undefined behavior, which includes device-removed.  Apps can map all tiles to a single "default" tile to avoid this condition.
+     * Native name: D3D11_TILED_RESOURCES_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D11_TILED_RESOURCES_TIER_1 => 1
+    static 1 => 1
 
     /**
      * Tier_2 tiled resources are supported.
@@ -44,16 +46,18 @@ class D3D11_TILED_RESOURCES_TIER extends Win32Enum {
      * <li>Reading from <b>NULL</b>-mapped tiles treat that sampled value as zero.  Writes to <b>NULL</b>-mapped tiles are discarded.
      *               </li>
      * </ul>
+     * Native name: D3D11_TILED_RESOURCES_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D11_TILED_RESOURCES_TIER_2 => 2
+    static 2 => 2
 
     /**
      * Tier_3 tiled resources are supported.
      *             
      * 
      * Superset of Tier_2 functionality, Tier 3 is essentially Tier 2 but with the additional support of Texture3D for Tiled Resources.
+     * Native name: D3D11_TILED_RESOURCES_TIER_3
      * @type {Integer (Int32)}
      */
-    static D3D11_TILED_RESOURCES_TIER_3 => 3
+    static 3 => 3
 }

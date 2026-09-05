@@ -58,7 +58,6 @@ class IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_lengthComputable() {
@@ -67,7 +66,6 @@ class IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loaded() {
@@ -76,7 +74,6 @@ class IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_total() {
@@ -85,7 +82,6 @@ class IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

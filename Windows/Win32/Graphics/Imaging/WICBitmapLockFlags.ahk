@@ -10,13 +10,15 @@ class WICBitmapLockFlags extends Win32Enum {
 
     /**
      * A read access lock.
+     * Native name: WICBitmapLockRead
      * @type {Integer (Int32)}
      */
-    static WICBitmapLockRead => 1
+    static Read => 1
 
     /**
      * A write access lock.
+     * Native name: WICBitmapLockWrite
      * @type {Integer (Int32)}
      */
-    static WICBitmapLockWrite => 2
+    static Write => 2
 }

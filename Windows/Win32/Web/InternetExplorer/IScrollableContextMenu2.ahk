@@ -30,7 +30,6 @@ class IScrollableContextMenu2 extends IScrollableContextMenu {
     static VTableNames => ["AddSeparator", "SetPlacement"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddSeparator() {
@@ -39,7 +38,6 @@ class IScrollableContextMenu2 extends IScrollableContextMenu {
     }
 
     /**
-     * 
      * @param {SCROLLABLECONTEXTMENU_PLACEMENT} scmp 
      * @returns {HRESULT} 
      */

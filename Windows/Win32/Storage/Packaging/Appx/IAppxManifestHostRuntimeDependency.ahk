@@ -40,7 +40,6 @@ class IAppxManifestHostRuntimeDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetPublisher() {
@@ -49,7 +48,6 @@ class IAppxManifestHostRuntimeDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinVersion() {

@@ -30,7 +30,6 @@ class IRowsetChange extends IUnknown {
     static VTableNames => ["DeleteRows", "SetData", "InsertRow"]
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
@@ -44,7 +43,6 @@ class IRowsetChange extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pData 
@@ -60,7 +58,6 @@ class IRowsetChange extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pData 

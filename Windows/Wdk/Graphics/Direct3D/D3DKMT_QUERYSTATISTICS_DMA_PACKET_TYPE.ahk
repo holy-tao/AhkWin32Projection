@@ -7,27 +7,32 @@
 class D3DKMT_QUERYSTATISTICS_DMA_PACKET_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_ClientRenderBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_ClientRenderBuffer => 0
+    static ClientRenderBuffer => 0
 
     /**
+     * Native name: D3DKMT_ClientPagingBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_ClientPagingBuffer => 1
+    static ClientPagingBuffer => 1
 
     /**
+     * Native name: D3DKMT_SystemPagingBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SystemPagingBuffer => 2
+    static SystemPagingBuffer => 2
 
     /**
+     * Native name: D3DKMT_SystemPreemptionBuffer
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SystemPreemptionBuffer => 3
+    static SystemPreemptionBuffer => 3
 
     /**
+     * Native name: D3DKMT_DmaPacketTypeMax
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DmaPacketTypeMax => 4
+    static Max => 4
 }

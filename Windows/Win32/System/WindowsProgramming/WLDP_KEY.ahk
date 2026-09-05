@@ -7,17 +7,20 @@
 class WLDP_KEY extends Win32Enum {
 
     /**
+     * Native name: KEY_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static KEY_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: KEY_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static KEY_OVERRIDE => 1
+    static OVERRIDE => 1
 
     /**
+     * Native name: KEY_ALL_KEYS
      * @type {Integer (Int32)}
      */
-    static KEY_ALL_KEYS => 2
+    static ALL_KEYS => 2
 }

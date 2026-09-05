@@ -29,7 +29,6 @@ class IConvertType extends IUnknown {
     static VTableNames => ["CanConvert"]
 
     /**
-     * 
      * @param {Integer} wFromType 
      * @param {Integer} wToType 
      * @param {Integer} dwConvertFlags 

@@ -41,7 +41,6 @@ class AsyncIIdentityStore extends IUnknown {
     static VTableNames => ["Begin_GetCount", "Finish_GetCount", "Begin_GetAt", "Finish_GetAt", "Begin_AddToCache", "Finish_AddToCache", "Begin_ConvertToSid", "Finish_ConvertToSid", "Begin_EnumerateIdentities", "Finish_EnumerateIdentities", "Begin_Reset", "Finish_Reset"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_GetCount() {
@@ -50,7 +49,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_GetCount() {
@@ -59,7 +57,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwProvider 
      * @param {Pointer<Guid>} pProvGuid 
      * @returns {HRESULT} 
@@ -70,7 +67,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pProvGuid 
      * @returns {IUnknown} 
      */
@@ -80,7 +76,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<Guid>} ProviderGUID 
      * @returns {HRESULT} 
@@ -93,7 +88,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_AddToCache() {
@@ -102,7 +96,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<Guid>} ProviderGUID 
      * @param {Integer} cbSid 
@@ -119,7 +112,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _pSid 
      * @returns {Integer} 
      */
@@ -131,7 +123,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDENTITY_TYPE} eIdentityType 
      * @param {Pointer<PROPERTYKEY>} pFilterkey 
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue 
@@ -143,7 +134,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     Finish_EnumerateIdentities() {
@@ -152,7 +142,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_Reset() {
@@ -161,7 +150,6 @@ class AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Reset() {

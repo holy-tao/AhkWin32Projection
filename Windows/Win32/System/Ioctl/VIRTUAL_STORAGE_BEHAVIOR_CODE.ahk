@@ -7,27 +7,32 @@
 class VIRTUAL_STORAGE_BEHAVIOR_CODE extends Win32Enum {
 
     /**
+     * Native name: VirtualStorageBehaviorUndefined
      * @type {Integer (Int32)}
      */
-    static VirtualStorageBehaviorUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: VirtualStorageBehaviorCacheWriteThrough
      * @type {Integer (Int32)}
      */
-    static VirtualStorageBehaviorCacheWriteThrough => 1
+    static CacheWriteThrough => 1
 
     /**
+     * Native name: VirtualStorageBehaviorCacheWriteBack
      * @type {Integer (Int32)}
      */
-    static VirtualStorageBehaviorCacheWriteBack => 2
+    static CacheWriteBack => 2
 
     /**
+     * Native name: VirtualStorageBehaviorStopIoProcessing
      * @type {Integer (Int32)}
      */
-    static VirtualStorageBehaviorStopIoProcessing => 3
+    static StopIoProcessing => 3
 
     /**
+     * Native name: VirtualStorageBehaviorRestartIoProcessing
      * @type {Integer (Int32)}
      */
-    static VirtualStorageBehaviorRestartIoProcessing => 4
+    static RestartIoProcessing => 4
 }

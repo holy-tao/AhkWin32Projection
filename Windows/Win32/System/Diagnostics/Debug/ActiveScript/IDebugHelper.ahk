@@ -42,7 +42,6 @@ class IDebugHelper extends IUnknown {
     static VTableNames => ["CreatePropertyBrowser", "CreatePropertyBrowserEx", "CreateSimpleConnectionPoint"]
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvar 
      * @param {PWSTR} bstrName 
      * @param {IDebugApplicationThread} pdat 
@@ -56,7 +55,6 @@ class IDebugHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvar 
      * @param {PWSTR} bstrName 
      * @param {IDebugApplicationThread} pdat 
@@ -71,7 +69,6 @@ class IDebugHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @returns {ISimpleConnectionPoint} 
      */

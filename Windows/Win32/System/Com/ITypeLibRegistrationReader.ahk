@@ -30,7 +30,6 @@ class ITypeLibRegistrationReader extends IUnknown {
     static VTableNames => ["EnumTypeLibRegistrations"]
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     EnumTypeLibRegistrations() {

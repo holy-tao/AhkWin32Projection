@@ -15,67 +15,78 @@ class DXGI_INFO_QUEUE_MESSAGE_CATEGORY extends Win32Enum {
 
     /**
      * Unknown category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Miscellaneous category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_MISCELLANEOUS
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_MISCELLANEOUS => 1
+    static MISCELLANEOUS => 1
 
     /**
      * Initialization category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_INITIALIZATION
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_INITIALIZATION => 2
+    static INITIALIZATION => 2
 
     /**
      * Cleanup category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_CLEANUP
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_CLEANUP => 3
+    static CLEANUP => 3
 
     /**
      * Compilation category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_COMPILATION
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_COMPILATION => 4
+    static COMPILATION => 4
 
     /**
      * State creation category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_CREATION
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_CREATION => 5
+    static STATE_CREATION => 5
 
     /**
      * State setting category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_SETTING
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_SETTING => 6
+    static STATE_SETTING => 6
 
     /**
      * State getting category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_GETTING
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_GETTING => 7
+    static STATE_GETTING => 7
 
     /**
      * Resource manipulation category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_RESOURCE_MANIPULATION
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_RESOURCE_MANIPULATION => 8
+    static RESOURCE_MANIPULATION => 8
 
     /**
      * Execution category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_EXECUTION
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_EXECUTION => 9
+    static EXECUTION => 9
 
     /**
      * Shader category.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_CATEGORY_SHADER
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_CATEGORY_SHADER => 10
+    static SHADER => 10
 }

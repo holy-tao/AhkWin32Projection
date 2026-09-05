@@ -10,48 +10,56 @@ class CapStyle extends Win32Enum {
 
     /**
      * None.
+     * Native name: CapStyle_None
      * @type {Integer (Int32)}
      */
-    static CapStyle_None => 0
+    static None => 0
 
     /**
      * Small capitals.
+     * Native name: CapStyle_SmallCap
      * @type {Integer (Int32)}
      */
-    static CapStyle_SmallCap => 1
+    static SmallCap => 1
 
     /**
      * All capitals.
+     * Native name: CapStyle_AllCap
      * @type {Integer (Int32)}
      */
-    static CapStyle_AllCap => 2
+    static AllCap => 2
 
     /**
      * All petite capitals.
+     * Native name: CapStyle_AllPetiteCaps
      * @type {Integer (Int32)}
      */
-    static CapStyle_AllPetiteCaps => 3
+    static AllPetiteCaps => 3
 
     /**
      * Petite capitals.
+     * Native name: CapStyle_PetiteCaps
      * @type {Integer (Int32)}
      */
-    static CapStyle_PetiteCaps => 4
+    static PetiteCaps => 4
 
     /**
      * Single case.
+     * Native name: CapStyle_Unicase
      * @type {Integer (Int32)}
      */
-    static CapStyle_Unicase => 5
+    static Unicase => 5
 
     /**
      * Title case.
+     * Native name: CapStyle_Titling
      * @type {Integer (Int32)}
      */
-    static CapStyle_Titling => 6
+    static Titling => 6
 
     /**
+     * Native name: CapStyle_Other
      * @type {Integer (Int32)}
      */
-    static CapStyle_Other => -1
+    static Other => -1
 }

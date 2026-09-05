@@ -10,25 +10,29 @@ class eAVEncMPAEmphasisType extends Win32Enum {
 
     /**
      * None.
+     * Native name: eAVEncMPAEmphasisType_None
      * @type {Integer (Int32)}
      */
-    static eAVEncMPAEmphasisType_None => 0
+    static None => 0
 
     /**
      * 50/15 Î¼s.
+     * Native name: eAVEncMPAEmphasisType_50_15
      * @type {Integer (Int32)}
      */
-    static eAVEncMPAEmphasisType_50_15 => 1
+    static 50_15 => 1
 
     /**
      * Reserved.
+     * Native name: eAVEncMPAEmphasisType_Reserved
      * @type {Integer (Int32)}
      */
-    static eAVEncMPAEmphasisType_Reserved => 2
+    static Reserved => 2
 
     /**
      * CCITT J.17.
+     * Native name: eAVEncMPAEmphasisType_CCITT_J17
      * @type {Integer (Int32)}
      */
-    static eAVEncMPAEmphasisType_CCITT_J17 => 3
+    static CCITT_J17 => 3
 }

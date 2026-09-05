@@ -90,7 +90,6 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzProperty 
      * @param {PWSTR} pwzValue 
      * @returns {HRESULT} 
@@ -104,7 +103,6 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Dial() {
@@ -113,7 +111,6 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     HangUp() {
@@ -122,7 +119,6 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetConnectedState() {
@@ -131,7 +127,6 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetConnectHandle() {

@@ -7,107 +7,128 @@
 class GameInputUiNavigationButtons extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputUiNavigationNone
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputUiNavigationMenu
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationMenu => 1
+    static Menu => 1
 
     /**
+     * Native name: GameInputUiNavigationView
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationView => 2
+    static View => 2
 
     /**
+     * Native name: GameInputUiNavigationAccept
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationAccept => 4
+    static Accept => 4
 
     /**
+     * Native name: GameInputUiNavigationCancel
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationCancel => 8
+    static Cancel => 8
 
     /**
+     * Native name: GameInputUiNavigationUp
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationUp => 16
+    static Up => 16
 
     /**
+     * Native name: GameInputUiNavigationDown
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationDown => 32
+    static Down => 32
 
     /**
+     * Native name: GameInputUiNavigationLeft
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationLeft => 64
+    static Left => 64
 
     /**
+     * Native name: GameInputUiNavigationRight
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationRight => 128
+    static Right => 128
 
     /**
+     * Native name: GameInputUiNavigationContext1
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationContext1 => 256
+    static Context1 => 256
 
     /**
+     * Native name: GameInputUiNavigationContext2
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationContext2 => 512
+    static Context2 => 512
 
     /**
+     * Native name: GameInputUiNavigationContext3
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationContext3 => 1024
+    static Context3 => 1024
 
     /**
+     * Native name: GameInputUiNavigationContext4
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationContext4 => 2048
+    static Context4 => 2048
 
     /**
+     * Native name: GameInputUiNavigationPageUp
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationPageUp => 4096
+    static PageUp => 4096
 
     /**
+     * Native name: GameInputUiNavigationPageDown
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationPageDown => 8192
+    static PageDown => 8192
 
     /**
+     * Native name: GameInputUiNavigationPageLeft
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationPageLeft => 16384
+    static PageLeft => 16384
 
     /**
+     * Native name: GameInputUiNavigationPageRight
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationPageRight => 32768
+    static PageRight => 32768
 
     /**
+     * Native name: GameInputUiNavigationScrollUp
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationScrollUp => 65536
+    static ScrollUp => 65536
 
     /**
+     * Native name: GameInputUiNavigationScrollDown
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationScrollDown => 131072
+    static ScrollDown => 131072
 
     /**
+     * Native name: GameInputUiNavigationScrollLeft
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationScrollLeft => 262144
+    static ScrollLeft => 262144
 
     /**
+     * Native name: GameInputUiNavigationScrollRight
      * @type {Integer (Int32)}
      */
-    static GameInputUiNavigationScrollRight => 524288
+    static ScrollRight => 524288
 }

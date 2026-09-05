@@ -96,7 +96,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varDestination 
      * @returns {HRESULT} 
      */
@@ -106,7 +105,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_output() {
@@ -116,7 +114,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strEncoding 
      * @returns {HRESULT} 
      */
@@ -128,7 +125,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_encoding() {
@@ -138,7 +134,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fWriteByteOrderMark 
      * @returns {HRESULT} 
      */
@@ -148,7 +143,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_byteOrderMark() {
@@ -157,7 +151,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fIndentMode 
      * @returns {HRESULT} 
      */
@@ -167,7 +160,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_indent() {
@@ -176,7 +168,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
      */
@@ -186,7 +177,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_standalone() {
@@ -195,7 +185,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
      */
@@ -205,7 +194,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_omitXMLDeclaration() {
@@ -214,7 +202,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strVersion 
      * @returns {HRESULT} 
      */
@@ -226,7 +213,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -236,7 +222,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
      */
@@ -246,7 +231,6 @@ class IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disableOutputEscaping() {

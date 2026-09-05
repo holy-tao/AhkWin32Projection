@@ -7,27 +7,32 @@
 class NtmsUITypes extends Win32Enum {
 
     /**
+     * Native name: NTMS_UITYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static NTMS_UITYPE_INVALID => 0
+    static UITYPE_INVALID => 0
 
     /**
+     * Native name: NTMS_UITYPE_INFO
      * @type {Integer (Int32)}
      */
-    static NTMS_UITYPE_INFO => 1
+    static UITYPE_INFO => 1
 
     /**
+     * Native name: NTMS_UITYPE_REQ
      * @type {Integer (Int32)}
      */
-    static NTMS_UITYPE_REQ => 2
+    static UITYPE_REQ => 2
 
     /**
+     * Native name: NTMS_UITYPE_ERR
      * @type {Integer (Int32)}
      */
-    static NTMS_UITYPE_ERR => 3
+    static UITYPE_ERR => 3
 
     /**
+     * Native name: NTMS_UITYPE_MAX
      * @type {Integer (Int32)}
      */
-    static NTMS_UITYPE_MAX => 4
+    static UITYPE_MAX => 4
 }

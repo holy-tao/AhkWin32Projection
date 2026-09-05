@@ -4144,7 +4144,6 @@ class Usb {
     }
 
     /**
-     * 
      * @param {Pointer<USB_CONFIGURATION_DESCRIPTOR>} ConfigurationDescriptor 
      * @param {Pointer<Void>} StartPosition 
      * @param {Integer} InterfaceNumber 
@@ -4168,7 +4167,6 @@ class Usb {
     }
 
     /**
-     * 
      * @param {Integer} DescriptorBuffer 
      * @param {Integer} TotalLength 
      * @param {Pointer<Void>} StartPosition 

@@ -30,7 +30,6 @@ class ICLRHostBindingPolicyManager extends IUnknown {
     static VTableNames => ["ModifyApplicationPolicy", "EvaluatePolicy"]
 
     /**
-     * 
      * @param {PWSTR} pwzSourceAssemblyIdentity 
      * @param {PWSTR} pwzTargetAssemblyIdentity 
      * @param {Pointer<Integer>} pbApplicationPolicy 
@@ -51,7 +50,6 @@ class ICLRHostBindingPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzReferenceIdentity 
      * @param {Pointer<Integer>} pbApplicationPolicy 
      * @param {Integer} cbAppPolicySize 

@@ -44,7 +44,6 @@ class ISwapChainBackgroundPanelNative extends IUnknown {
     static VTableNames => ["SetSwapChain"]
 
     /**
-     * 
      * @param {IDXGISwapChain} swapChain 
      * @returns {HRESULT} 
      */

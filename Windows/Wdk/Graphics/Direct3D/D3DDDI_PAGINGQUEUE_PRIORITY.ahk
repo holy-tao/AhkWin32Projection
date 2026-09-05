@@ -7,17 +7,20 @@
 class D3DDDI_PAGINGQUEUE_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_PAGINGQUEUE_PRIORITY_BELOW_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3DDDI_PAGINGQUEUE_PRIORITY_BELOW_NORMAL => -1
+    static BELOW_NORMAL => -1
 
     /**
+     * Native name: D3DDDI_PAGINGQUEUE_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3DDDI_PAGINGQUEUE_PRIORITY_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: D3DDDI_PAGINGQUEUE_PRIORITY_ABOVE_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3DDDI_PAGINGQUEUE_PRIORITY_ABOVE_NORMAL => 1
+    static ABOVE_NORMAL => 1
 }

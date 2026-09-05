@@ -32,7 +32,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     static VTableNames => ["msIsSiteMode", "msSiteModeShowThumbBar", "msSiteModeAddThumbBarButton", "msSiteModeUpdateThumbBarButton", "msSiteModeSetIconOverlay", "msSiteModeClearIconOverlay", "msAddSiteMode", "msSiteModeCreateJumpList", "msSiteModeAddJumpListItem", "msSiteModeClearJumpList", "msSiteModeShowJumpList", "msSiteModeAddButtonStyle", "msSiteModeShowButtonStyle", "msSiteModeActivate", "msIsSiteModeFirstRun", "msAddTrackingProtectionList", "msTrackingProtectionEnabled", "msActiveXFilteringEnabled"]
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     msIsSiteMode() {
@@ -41,7 +40,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeShowThumbBar() {
@@ -50,7 +48,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrIconURL 
      * @param {BSTR} bstrTooltip 
      * @returns {VARIANT} 
@@ -65,7 +62,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT} ButtonID 
      * @param {VARIANT_BOOL} fEnabled 
      * @param {VARIANT_BOOL} fVisible 
@@ -77,7 +73,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} IconUrl 
      * @param {Pointer<VARIANT>} pvarDescription 
      * @returns {HRESULT} 
@@ -90,7 +85,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeClearIconOverlay() {
@@ -99,7 +93,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msAddSiteMode() {
@@ -108,7 +101,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @returns {HRESULT} 
      */
@@ -120,7 +112,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrActionUri 
      * @param {BSTR} bstrIconUri 
@@ -137,7 +128,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeClearJumpList() {
@@ -146,7 +136,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeShowJumpList() {
@@ -155,7 +144,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT} uiButtonID 
      * @param {BSTR} bstrIconUrl 
      * @param {BSTR} bstrTooltip 
@@ -171,7 +159,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT} uiButtonID 
      * @param {VARIANT} uiStyleID 
      * @returns {HRESULT} 
@@ -182,7 +169,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeActivate() {
@@ -191,7 +177,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fPreserveState 
      * @returns {VARIANT} 
      */
@@ -202,7 +187,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} bstrFilterName 
      * @returns {HRESULT} 
@@ -216,7 +200,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     msTrackingProtectionEnabled() {
@@ -225,7 +208,6 @@ class IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     msActiveXFilteringEnabled() {

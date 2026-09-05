@@ -9,22 +9,26 @@
 class MrmResourceIndexerMessageSeverity extends Win32Enum {
 
     /**
+     * Native name: MrmResourceIndexerMessageSeverityVerbose
      * @type {Integer (Int32)}
      */
-    static MrmResourceIndexerMessageSeverityVerbose => 0
+    static Verbose => 0
 
     /**
+     * Native name: MrmResourceIndexerMessageSeverityInfo
      * @type {Integer (Int32)}
      */
-    static MrmResourceIndexerMessageSeverityInfo => 1
+    static Info => 1
 
     /**
+     * Native name: MrmResourceIndexerMessageSeverityWarning
      * @type {Integer (Int32)}
      */
-    static MrmResourceIndexerMessageSeverityWarning => 2
+    static Warning => 2
 
     /**
+     * Native name: MrmResourceIndexerMessageSeverityError
      * @type {Integer (Int32)}
      */
-    static MrmResourceIndexerMessageSeverityError => 3
+    static Error => 3
 }

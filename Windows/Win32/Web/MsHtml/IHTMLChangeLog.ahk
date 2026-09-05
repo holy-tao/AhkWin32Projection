@@ -29,7 +29,6 @@ class IHTMLChangeLog extends IUnknown {
     static VTableNames => ["GetNextChange"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBuffer 
      * @param {Integer} nBufferSize 
      * @returns {Integer} 

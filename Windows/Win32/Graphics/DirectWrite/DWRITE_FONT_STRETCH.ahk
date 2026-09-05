@@ -18,67 +18,78 @@ class DWRITE_FONT_STRETCH extends Win32Enum {
 
     /**
      * Predefined font stretch : Not known (0).
+     * Native name: DWRITE_FONT_STRETCH_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * Predefined font stretch : Ultra-condensed (1).
+     * Native name: DWRITE_FONT_STRETCH_ULTRA_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_ULTRA_CONDENSED => 1
+    static ULTRA_CONDENSED => 1
 
     /**
      * Predefined font stretch : Extra-condensed (2).
+     * Native name: DWRITE_FONT_STRETCH_EXTRA_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_EXTRA_CONDENSED => 2
+    static EXTRA_CONDENSED => 2
 
     /**
      * Predefined font stretch : Condensed (3).
+     * Native name: DWRITE_FONT_STRETCH_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_CONDENSED => 3
+    static CONDENSED => 3
 
     /**
      * Predefined font stretch : Semi-condensed (4).
+     * Native name: DWRITE_FONT_STRETCH_SEMI_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_SEMI_CONDENSED => 4
+    static SEMI_CONDENSED => 4
 
     /**
      * Predefined font stretch : Normal (5).
+     * Native name: DWRITE_FONT_STRETCH_NORMAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_NORMAL => 5
+    static NORMAL => 5
 
     /**
      * Predefined font stretch : Medium (5).
+     * Native name: DWRITE_FONT_STRETCH_MEDIUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_MEDIUM => 5
+    static MEDIUM => 5
 
     /**
      * Predefined font stretch : Semi-expanded (6).
+     * Native name: DWRITE_FONT_STRETCH_SEMI_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_SEMI_EXPANDED => 6
+    static SEMI_EXPANDED => 6
 
     /**
      * Predefined font stretch : Expanded (7).
+     * Native name: DWRITE_FONT_STRETCH_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_EXPANDED => 7
+    static EXPANDED => 7
 
     /**
      * Predefined font stretch : Extra-expanded (8).
+     * Native name: DWRITE_FONT_STRETCH_EXTRA_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_EXTRA_EXPANDED => 8
+    static EXTRA_EXPANDED => 8
 
     /**
      * Predefined font stretch : Ultra-expanded (9).
+     * Native name: DWRITE_FONT_STRETCH_ULTRA_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STRETCH_ULTRA_EXPANDED => 9
+    static ULTRA_EXPANDED => 9
 }

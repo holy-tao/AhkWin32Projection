@@ -12,43 +12,50 @@ class D3D11_UAV_DIMENSION extends Win32Enum {
 
     /**
      * The view type is unknown.
+     * Native name: D3D11_UAV_DIMENSION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D11_UAV_DIMENSION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * View the resource as a buffer.
+     * Native name: D3D11_UAV_DIMENSION_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D11_UAV_DIMENSION_BUFFER => 1
+    static BUFFER => 1
 
     /**
      * View the resource as a 1D texture.
+     * Native name: D3D11_UAV_DIMENSION_TEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D11_UAV_DIMENSION_TEXTURE1D => 2
+    static TEXTURE1D => 2
 
     /**
      * View the resource as a 1D texture array.
+     * Native name: D3D11_UAV_DIMENSION_TEXTURE1DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D11_UAV_DIMENSION_TEXTURE1DARRAY => 3
+    static TEXTURE1DARRAY => 3
 
     /**
      * View the resource as a 2D texture.
+     * Native name: D3D11_UAV_DIMENSION_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D11_UAV_DIMENSION_TEXTURE2D => 4
+    static TEXTURE2D => 4
 
     /**
      * View the resource as a 2D texture array.
+     * Native name: D3D11_UAV_DIMENSION_TEXTURE2DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D11_UAV_DIMENSION_TEXTURE2DARRAY => 5
+    static TEXTURE2DARRAY => 5
 
     /**
      * View the resource as a 3D texture array.
+     * Native name: D3D11_UAV_DIMENSION_TEXTURE3D
      * @type {Integer (Int32)}
      */
-    static D3D11_UAV_DIMENSION_TEXTURE3D => 8
+    static TEXTURE3D => 8
 }

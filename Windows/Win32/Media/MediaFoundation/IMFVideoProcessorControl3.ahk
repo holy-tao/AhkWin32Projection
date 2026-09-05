@@ -34,7 +34,6 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2 {
     static VTableNames => ["GetNaturalOutputType", "EnableSphericalVideoProcessing", "SetSphericalVideoProperties", "SetOutputDevice"]
 
     /**
-     * 
      * @returns {IMFMediaType} 
      */
     GetNaturalOutputType() {
@@ -43,7 +42,6 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2 {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @param {MFVideoSphericalFormat} eFormat 
      * @param {MFVideoSphericalProjectionMode} eProjectionMode 
@@ -55,7 +53,6 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2 {
     }
 
     /**
-     * 
      * @param {Float} X 
      * @param {Float} Y 
      * @param {Float} Z 
@@ -69,7 +66,6 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2 {
     }
 
     /**
-     * 
      * @param {IUnknown} pOutputDevice 
      * @returns {HRESULT} 
      */

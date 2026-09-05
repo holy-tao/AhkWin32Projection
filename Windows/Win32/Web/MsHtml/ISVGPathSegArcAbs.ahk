@@ -92,7 +92,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -102,7 +101,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -111,7 +109,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -121,7 +118,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y() {
@@ -130,7 +126,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -140,7 +135,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_r1() {
@@ -149,7 +143,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -159,7 +152,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_r2() {
@@ -168,7 +160,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +169,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_angle() {
@@ -187,7 +177,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -197,7 +186,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_largeArcFlag() {
@@ -206,7 +194,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -216,7 +203,6 @@ class ISVGPathSegArcAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_sweepFlag() {

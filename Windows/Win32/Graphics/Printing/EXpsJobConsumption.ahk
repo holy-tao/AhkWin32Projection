@@ -7,17 +7,20 @@
 class EXpsJobConsumption extends Win32Enum {
 
     /**
+     * Native name: XpsJob_DocumentSequenceAdded
      * @type {Integer (Int32)}
      */
-    static XpsJob_DocumentSequenceAdded => 0
+    static DocumentSequenceAdded => 0
 
     /**
+     * Native name: XpsJob_FixedDocumentAdded
      * @type {Integer (Int32)}
      */
-    static XpsJob_FixedDocumentAdded => 1
+    static FixedDocumentAdded => 1
 
     /**
+     * Native name: XpsJob_FixedPageAdded
      * @type {Integer (Int32)}
      */
-    static XpsJob_FixedPageAdded => 2
+    static FixedPageAdded => 2
 }

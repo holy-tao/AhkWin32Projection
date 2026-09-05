@@ -7,12 +7,14 @@
 class UPropertyNameChoice extends Win32Enum {
 
     /**
+     * Native name: U_SHORT_PROPERTY_NAME
      * @type {Integer (Int32)}
      */
-    static U_SHORT_PROPERTY_NAME => 0
+    static SHORT_PROPERTY_NAME => 0
 
     /**
+     * Native name: U_LONG_PROPERTY_NAME
      * @type {Integer (Int32)}
      */
-    static U_LONG_PROPERTY_NAME => 1
+    static LONG_PROPERTY_NAME => 1
 }

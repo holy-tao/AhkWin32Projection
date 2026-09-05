@@ -10,20 +10,23 @@ class DXGI_RECLAIM_RESOURCE_RESULTS extends Win32Enum {
 
     /**
      * The surface was successfully reclaimed and has valid content. This result is identical to the <i>false</i> value returned by the older <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources">ReclaimResources</a> API.
+     * Native name: DXGI_RECLAIM_RESOURCE_RESULT_OK
      * @type {Integer (Int32)}
      */
-    static DXGI_RECLAIM_RESOURCE_RESULT_OK => 0
+    static RESULT_OK => 0
 
     /**
      * The surface was reclaimed, but the old content was lost and must be regenerated. This result is identical to the <i>true</i> value returned by the older <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources">ReclaimResources</a> API.
+     * Native name: DXGI_RECLAIM_RESOURCE_RESULT_DISCARDED
      * @type {Integer (Int32)}
      */
-    static DXGI_RECLAIM_RESOURCE_RESULT_DISCARDED => 1
+    static RESULT_DISCARDED => 1
 
     /**
      * Both the surface and its contents are lost and invalid. The surface must be 
      * recreated and the content regenerated in order to be used. All future use of that resource is invalid. Attempts to bind it to the pipeline or map a resource which returns this value will never succeed, and the resource cannot be reclaimed again.
+     * Native name: DXGI_RECLAIM_RESOURCE_RESULT_NOT_COMMITTED
      * @type {Integer (Int32)}
      */
-    static DXGI_RECLAIM_RESOURCE_RESULT_NOT_COMMITTED => 2
+    static RESULT_NOT_COMMITTED => 2
 }

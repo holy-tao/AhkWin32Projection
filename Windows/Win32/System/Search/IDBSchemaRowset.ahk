@@ -32,7 +32,6 @@ class IDBSchemaRowset extends IUnknown {
     static VTableNames => ["GetRowset", "GetSchemas"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} rguidSchema 
      * @param {Integer} cRestrictions 
@@ -48,7 +47,6 @@ class IDBSchemaRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcSchemas 
      * @param {Pointer<Pointer<Guid>>} prgSchemas 
      * @param {Pointer<Pointer<Integer>>} prgRestrictionSupport 

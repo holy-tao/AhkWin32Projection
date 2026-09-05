@@ -7,17 +7,20 @@
 class NVME_DISCOVERY_INFO_MGMT_TASK extends Win32Enum {
 
     /**
+     * Native name: NVME_DISCOVERY_INFO_MGMT_TASK_REGISTER
      * @type {Integer (Int32)}
      */
-    static NVME_DISCOVERY_INFO_MGMT_TASK_REGISTER => 0
+    static REGISTER => 0
 
     /**
+     * Native name: NVME_DISCOVERY_INFO_MGMT_TASK_DEREGISTER
      * @type {Integer (Int32)}
      */
-    static NVME_DISCOVERY_INFO_MGMT_TASK_DEREGISTER => 1
+    static DEREGISTER => 1
 
     /**
+     * Native name: NVME_DISCOVERY_INFO_MGMT_TASK_UPDATE
      * @type {Integer (Int32)}
      */
-    static NVME_DISCOVERY_INFO_MGMT_TASK_UPDATE => 2
+    static UPDATE => 2
 }

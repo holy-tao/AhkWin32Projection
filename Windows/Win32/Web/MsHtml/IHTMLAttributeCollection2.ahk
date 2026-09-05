@@ -31,7 +31,6 @@ class IHTMLAttributeCollection2 extends IDispatch {
     static VTableNames => ["getNamedItem", "setNamedItem", "removeNamedItem"]
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -43,7 +42,6 @@ class IHTMLAttributeCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute} ppNode 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -53,7 +51,6 @@ class IHTMLAttributeCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute} 
      */

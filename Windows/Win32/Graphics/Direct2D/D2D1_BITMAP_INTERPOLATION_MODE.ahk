@@ -12,13 +12,15 @@ class D2D1_BITMAP_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * Use the exact color of the nearest bitmap pixel to the current rendering pixel.
+     * Native name: D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR => 0
+    static NEAREST_NEIGHBOR => 0
 
     /**
      * Interpolate a color from the four bitmap pixels that are the nearest to the rendering pixel.
+     * Native name: D2D1_BITMAP_INTERPOLATION_MODE_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAP_INTERPOLATION_MODE_LINEAR => 1
+    static LINEAR => 1
 }

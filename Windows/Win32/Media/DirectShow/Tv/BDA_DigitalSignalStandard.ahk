@@ -7,42 +7,50 @@
 class BDA_DigitalSignalStandard extends Win32Enum {
 
     /**
+     * Native name: Bda_DigitalStandard_None
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_None => 0
+    static None => 0
 
     /**
+     * Native name: Bda_DigitalStandard_DVB_T
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_DVB_T => 1
+    static DVB_T => 1
 
     /**
+     * Native name: Bda_DigitalStandard_DVB_S
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_DVB_S => 2
+    static DVB_S => 2
 
     /**
+     * Native name: Bda_DigitalStandard_DVB_C
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_DVB_C => 4
+    static DVB_C => 4
 
     /**
+     * Native name: Bda_DigitalStandard_ATSC
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_ATSC => 8
+    static ATSC => 8
 
     /**
+     * Native name: Bda_DigitalStandard_ISDB_T
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_ISDB_T => 16
+    static ISDB_T => 16
 
     /**
+     * Native name: Bda_DigitalStandard_ISDB_S
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_ISDB_S => 32
+    static ISDB_S => 32
 
     /**
+     * Native name: Bda_DigitalStandard_ISDB_C
      * @type {Integer (Int32)}
      */
-    static Bda_DigitalStandard_ISDB_C => 64
+    static ISDB_C => 64
 }

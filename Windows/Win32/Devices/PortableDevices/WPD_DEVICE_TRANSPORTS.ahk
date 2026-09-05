@@ -9,22 +9,26 @@
 class WPD_DEVICE_TRANSPORTS extends Win32Enum {
 
     /**
+     * Native name: WPD_DEVICE_TRANSPORT_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TRANSPORT_UNSPECIFIED => 0
+    static TRANSPORT_UNSPECIFIED => 0
 
     /**
+     * Native name: WPD_DEVICE_TRANSPORT_USB
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TRANSPORT_USB => 1
+    static TRANSPORT_USB => 1
 
     /**
+     * Native name: WPD_DEVICE_TRANSPORT_IP
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TRANSPORT_IP => 2
+    static TRANSPORT_IP => 2
 
     /**
+     * Native name: WPD_DEVICE_TRANSPORT_BLUETOOTH
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TRANSPORT_BLUETOOTH => 3
+    static TRANSPORT_BLUETOOTH => 3
 }

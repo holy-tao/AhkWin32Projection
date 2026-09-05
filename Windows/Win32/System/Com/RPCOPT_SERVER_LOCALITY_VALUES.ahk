@@ -7,17 +7,20 @@
 class RPCOPT_SERVER_LOCALITY_VALUES extends Win32Enum {
 
     /**
+     * Native name: SERVER_LOCALITY_PROCESS_LOCAL
      * @type {Integer (Int32)}
      */
-    static SERVER_LOCALITY_PROCESS_LOCAL => 0
+    static PROCESS_LOCAL => 0
 
     /**
+     * Native name: SERVER_LOCALITY_MACHINE_LOCAL
      * @type {Integer (Int32)}
      */
-    static SERVER_LOCALITY_MACHINE_LOCAL => 1
+    static MACHINE_LOCAL => 1
 
     /**
+     * Native name: SERVER_LOCALITY_REMOTE
      * @type {Integer (Int32)}
      */
-    static SERVER_LOCALITY_REMOTE => 2
+    static REMOTE => 2
 }

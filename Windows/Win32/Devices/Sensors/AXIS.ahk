@@ -7,22 +7,26 @@
 class AXIS extends Win32Enum {
 
     /**
+     * Native name: AXIS_X
      * @type {Integer (Int32)}
      */
-    static AXIS_X => 0
+    static X => 0
 
     /**
+     * Native name: AXIS_Y
      * @type {Integer (Int32)}
      */
-    static AXIS_Y => 1
+    static Y => 1
 
     /**
+     * Native name: AXIS_Z
      * @type {Integer (Int32)}
      */
-    static AXIS_Z => 2
+    static Z => 2
 
     /**
+     * Native name: AXIS_MAX
      * @type {Integer (Int32)}
      */
-    static AXIS_MAX => 3
+    static MAX => 3
 }

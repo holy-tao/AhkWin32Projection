@@ -10,13 +10,15 @@ class D3DX11_SCAN_DIRECTION extends Win32Enum {
 
     /**
      * Scan forward.
+     * Native name: D3DX11_SCAN_DIRECTION_FORWARD
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_DIRECTION_FORWARD => 1
+    static FORWARD => 1
 
     /**
      * Scan backward.
+     * Native name: D3DX11_SCAN_DIRECTION_BACKWARD
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_DIRECTION_BACKWARD => 2
+    static BACKWARD => 2
 }

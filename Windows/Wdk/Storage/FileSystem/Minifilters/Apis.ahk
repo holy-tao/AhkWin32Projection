@@ -554,7 +554,6 @@ class Minifilters {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -563,7 +562,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -572,7 +570,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @returns {BOOLEAN} 
      */
@@ -582,7 +579,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Pointer<Void>} CompletionContext 
@@ -600,7 +596,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_NAME_CONTROL>} NameCtrl 
      * @param {Integer} NewSize 
      * @returns {NTSTATUS} 
@@ -612,7 +607,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {NTSTATUS} 
@@ -624,7 +618,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @returns {NTSTATUS} 
      */
@@ -635,7 +628,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PFLT_CONTEXT} SectionContext 
@@ -661,7 +653,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_CONTEXT} SectionContext 
      * @returns {NTSTATUS} 
      */
@@ -672,7 +663,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} Driver 
      * @param {Pointer<FLT_REGISTRATION>} Registration 
      * @param {Pointer<PFLT_FILTER>} RetFilter 
@@ -687,7 +677,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -696,7 +685,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @returns {NTSTATUS} 
      */
@@ -707,7 +695,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PSTR} FltMgrRoutineName 
      * @returns {Pointer<Void>} 
      */
@@ -719,7 +706,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {FLT_PREOP_CALLBACK_STATUS} CallbackStatus 
      * @param {Pointer<Void>} _Context 
@@ -732,7 +718,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -741,7 +726,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<PFLT_GET_OPERATION_STATUS_CALLBACK>} CallbackRoutine 
      * @param {Pointer<Void>} RequesterContext 
@@ -756,7 +740,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} NumberOfBytes 
@@ -769,7 +752,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} Tag 
@@ -782,7 +764,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} NameOptions 
      * @param {Pointer<Pointer<FLT_FILE_NAME_INFORMATION>>} FileNameInformation 
@@ -797,7 +778,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Integer} NameOptions 
@@ -813,7 +793,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_FILE_NAME_INFORMATION>} FileNameInformation 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -822,7 +801,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_FILE_NAME_INFORMATION>} FileNameInformation 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -831,7 +809,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @param {Pointer<UNICODE_STRING>} _Extension 
      * @param {Pointer<UNICODE_STRING>} Stream 
@@ -845,7 +822,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_FILE_NAME_INFORMATION>} FileNameInformation 
      * @returns {NTSTATUS} 
      */
@@ -856,7 +832,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<FLT_FILE_NAME_INFORMATION>} FileNameInformation 
      * @param {Pointer<Pointer<FLT_FILE_NAME_INFORMATION>>} RetTunneledFileNameInformation 
@@ -871,7 +846,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<UNICODE_STRING>} VolumeName 
      * @param {Pointer<Integer>} BufferSizeNeeded 
@@ -886,7 +860,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {HANDLE} RootDirectory 
@@ -907,7 +880,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<BOOLEAN>} IsDirectory 
@@ -922,7 +894,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FilterName 
      * @returns {NTSTATUS} 
      */
@@ -933,7 +904,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FilterName 
      * @returns {NTSTATUS} 
      */
@@ -944,7 +914,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -960,7 +929,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<UNICODE_STRING>} Altitude 
@@ -977,7 +945,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -990,7 +957,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Pointer<FLT_CALLBACK_DATA>>} RetNewCallbackData 
@@ -1005,7 +971,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} Flags 
@@ -1021,7 +986,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1030,7 +994,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1039,7 +1002,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1048,7 +1010,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<PFLT_COMPLETED_ASYNC_IO_CALLBACK>} CallbackRoutine 
      * @param {Pointer<Void>} CallbackContext 
@@ -1063,7 +1024,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} OriginatingFileObject 
      * @param {Pointer<FLT_CALLBACK_DATA>} ChildCallbackData 
      * @returns {NTSTATUS} 
@@ -1075,7 +1035,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<HANDLE>} FileHandle 
@@ -1106,7 +1065,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<HANDLE>} FileHandle 
@@ -1131,7 +1089,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<HANDLE>} FileHandle 
@@ -1160,7 +1117,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<HANDLE>} FileHandle 
@@ -1188,7 +1144,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<HANDLE>} FileHandle 
@@ -1214,7 +1169,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<HANDLE>} VolumeHandle 
      * @param {Pointer<Pointer<FILE_OBJECT>>} VolumeFileObject 
@@ -1229,7 +1183,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
@@ -1252,7 +1205,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
@@ -1278,7 +1230,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileTag 
@@ -1294,7 +1245,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileTag 
@@ -1313,7 +1263,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileTag 
@@ -1327,7 +1276,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
@@ -1350,7 +1298,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
@@ -1376,7 +1323,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
@@ -1395,7 +1341,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<MDL>} MdlChain 
@@ -1407,7 +1352,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
@@ -1426,7 +1370,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
@@ -1441,7 +1384,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -1459,7 +1401,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileInformation 
@@ -1477,7 +1418,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileInformation 
@@ -1492,7 +1432,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileInformation 
@@ -1513,7 +1452,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileInformation 
@@ -1533,7 +1471,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
@@ -1557,7 +1494,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} _Buffer 
@@ -1571,7 +1507,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} ReturnedEaData 
@@ -1594,7 +1529,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} EaBuffer 
@@ -1608,7 +1542,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FsInformation 
@@ -1626,7 +1559,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} SecurityInformation 
@@ -1644,7 +1576,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} SecurityInformation 
@@ -1660,7 +1591,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {NTSTATUS} 
@@ -1672,7 +1602,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FlushType 
@@ -1686,7 +1615,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FsControlCode 
@@ -1706,7 +1634,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} IoControlCode 
@@ -1726,7 +1653,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} InitiatingInstance 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {String} Nothing - always returns an empty string
@@ -1736,7 +1662,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @returns {NTSTATUS} 
      */
@@ -1749,7 +1674,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {String} Nothing - always returns an empty string
@@ -1759,7 +1683,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @returns {NTSTATUS} 
      */
@@ -1770,7 +1693,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PFLT_INSTANCE} Instance 
      * @returns {BOOLEAN} 
@@ -1781,7 +1703,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {BOOLEAN} 
      */
@@ -1791,7 +1712,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {BOOLEAN} 
      */
@@ -1801,7 +1721,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {BOOLEAN} 
      */
@@ -1811,7 +1730,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Integer} ContextType 
      * @param {Pointer} ContextSize 
@@ -1828,7 +1746,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Integer} DesiredContexts 
      * @param {Pointer<FLT_RELATED_CONTEXTS>} Contexts 
@@ -1839,7 +1756,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_RELATED_CONTEXTS>} Contexts 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1848,7 +1764,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Integer} DesiredContexts 
      * @param {Pointer} ContextsSize 
@@ -1862,7 +1777,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer} ContextsSize 
      * @param {Pointer<FLT_RELATED_CONTEXTS_EX>} Contexts 
      * @returns {String} Nothing - always returns an empty string
@@ -1872,7 +1786,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {FLT_SET_CONTEXT_OPERATION} Operation 
      * @param {PFLT_CONTEXT} NewContext 
@@ -1888,7 +1801,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {FLT_SET_CONTEXT_OPERATION} Operation 
      * @param {PFLT_CONTEXT} NewContext 
@@ -1904,7 +1816,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {FLT_SET_CONTEXT_OPERATION} Operation 
@@ -1921,7 +1832,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {FLT_SET_CONTEXT_OPERATION} Operation 
@@ -1938,7 +1848,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {FLT_SET_CONTEXT_OPERATION} Operation 
@@ -1955,7 +1864,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {FLT_SET_CONTEXT_OPERATION} Operation 
@@ -1973,7 +1881,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_CONTEXT} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1982,7 +1889,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<PFLT_CONTEXT>} OldContext 
@@ -1997,7 +1903,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<PFLT_CONTEXT>} OldContext 
      * @returns {NTSTATUS} 
@@ -2011,7 +1916,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_CONTEXT>} OldContext 
@@ -2026,7 +1930,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_CONTEXT>} OldContext 
@@ -2041,7 +1944,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_CONTEXT>} OldContext 
@@ -2056,7 +1958,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {Pointer<PFLT_CONTEXT>} OldContext 
@@ -2072,7 +1973,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<PFLT_CONTEXT>} _Context 
@@ -2087,7 +1987,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<PFLT_CONTEXT>} _Context 
      * @returns {NTSTATUS} 
@@ -2101,7 +2000,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_CONTEXT>} _Context 
@@ -2116,7 +2014,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_CONTEXT>} _Context 
@@ -2131,7 +2028,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_CONTEXT>} _Context 
@@ -2146,7 +2042,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {Pointer<PFLT_CONTEXT>} _Context 
@@ -2162,7 +2057,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_CONTEXT>} _Context 
@@ -2177,7 +2071,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_CONTEXT} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2186,7 +2079,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_CONTEXT} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2195,7 +2087,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FilterName 
      * @param {Pointer<PFLT_FILTER>} RetFilter 
      * @returns {NTSTATUS} 
@@ -2209,7 +2100,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<UNICODE_STRING>} VolumeName 
      * @param {Pointer<PFLT_VOLUME>} RetVolume 
@@ -2224,7 +2114,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<UNICODE_STRING>} InstanceName 
@@ -2240,7 +2129,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<PFLT_VOLUME>} RetVolume 
      * @returns {NTSTATUS} 
@@ -2254,7 +2142,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<PFLT_FILTER>} RetFilter 
      * @returns {NTSTATUS} 
@@ -2268,7 +2155,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<PFLT_VOLUME>} RetVolume 
@@ -2283,7 +2169,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<PFLT_VOLUME>} RetVolume 
@@ -2298,7 +2183,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {BOOLEAN} 
      */
@@ -2308,7 +2192,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<Pointer<DEVICE_OBJECT>>} DeviceObject 
      * @returns {NTSTATUS} 
@@ -2322,7 +2205,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<Pointer<DEVICE_OBJECT>>} DiskDeviceObject 
      * @returns {NTSTATUS} 
@@ -2336,7 +2218,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} CurrentInstance 
      * @param {Pointer<PFLT_INSTANCE>} LowerInstance 
      * @returns {NTSTATUS} 
@@ -2350,7 +2231,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} CurrentInstance 
      * @param {Pointer<PFLT_INSTANCE>} UpperInstance 
      * @returns {NTSTATUS} 
@@ -2364,7 +2244,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<PFLT_INSTANCE>} Instance 
      * @returns {NTSTATUS} 
@@ -2378,7 +2257,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<PFLT_INSTANCE>} Instance 
      * @returns {NTSTATUS} 
@@ -2392,7 +2270,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance1 
      * @param {PFLT_INSTANCE} Instance2 
      * @returns {Integer} 
@@ -2403,7 +2280,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {FILTER_INFORMATION_CLASS} InformationClass 
      * @param {Integer} _Buffer 
@@ -2420,7 +2296,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {INSTANCE_INFORMATION_CLASS} InformationClass 
      * @param {Integer} _Buffer 
@@ -2437,7 +2312,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {FILTER_VOLUME_INFORMATION_CLASS} InformationClass 
      * @param {Integer} _Buffer 
@@ -2454,7 +2328,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Integer} VolumeProperties 
      * @param {Integer} VolumePropertiesLength 
@@ -2470,7 +2343,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} FltObject 
      * @param {Pointer<BOOLEAN>} IsWritable 
      * @returns {NTSTATUS} 
@@ -2485,7 +2357,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} FltObject 
      * @param {Pointer<FLT_FILESYSTEM_TYPE>} FileSystemType 
      * @returns {NTSTATUS} 
@@ -2500,7 +2371,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} FltObject 
      * @param {Pointer<BOOLEAN>} IsSnapshotVolume 
      * @returns {NTSTATUS} 
@@ -2515,7 +2385,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Pointer<UNICODE_STRING>} VolumeGuidName 
      * @param {Pointer<Integer>} BufferSizeNeeded 
@@ -2530,7 +2399,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<IO_STATUS_BLOCK>} Iosb 
      * @param {Integer} FsInformation 
@@ -2545,7 +2413,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<IO_STATUS_BLOCK>} Iosb 
      * @param {Integer} FsInformation 
@@ -2560,7 +2427,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<PFLT_FILTER>} FilterList 
      * @param {Integer} FilterListSize 
      * @param {Pointer<Integer>} NumberFiltersReturned 
@@ -2576,7 +2442,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<PFLT_VOLUME>} VolumeList 
      * @param {Integer} VolumeListSize 
@@ -2593,7 +2458,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<PFLT_INSTANCE>} InstanceList 
@@ -2611,7 +2475,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {FILTER_INFORMATION_CLASS} InformationClass 
      * @param {Integer} _Buffer 
@@ -2628,7 +2491,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Integer} Index 
      * @param {INSTANCE_INFORMATION_CLASS} InformationClass 
@@ -2646,7 +2508,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Integer} Index 
      * @param {INSTANCE_INFORMATION_CLASS} InformationClass 
@@ -2664,7 +2525,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} VolumeName 
      * @param {Integer} Index 
      * @param {INSTANCE_INFORMATION_CLASS} InformationClass 
@@ -2682,7 +2542,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} Index 
      * @param {INSTANCE_INFORMATION_CLASS} InformationClass 
@@ -2700,7 +2559,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Integer} Index 
      * @param {FILTER_VOLUME_INFORMATION_CLASS} InformationClass 
@@ -2718,7 +2576,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} FltObject 
      * @returns {NTSTATUS} 
      */
@@ -2731,7 +2588,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} FltObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2742,7 +2598,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<PFLT_PORT>} ServerPort 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -2763,7 +2618,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_PORT} ServerPort 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2772,7 +2626,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<PFLT_PORT>} ClientPort 
      * @returns {String} Nothing - always returns an empty string
@@ -2784,7 +2637,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<PFLT_PORT>} ClientPort 
      * @param {Integer} SenderBuffer 
@@ -2805,7 +2657,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
      * @param {Integer} DesiredAccess 
      * @returns {NTSTATUS} 
@@ -2817,7 +2668,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2828,7 +2678,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {BOOLEAN} 
      */
@@ -2838,7 +2687,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<PFLT_COMPLETE_CANCELED_CALLBACK>} CanceledCallback 
      * @returns {NTSTATUS} 
@@ -2850,7 +2698,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {NTSTATUS} 
      */
@@ -2861,7 +2708,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {BOOLEAN} 
      */
@@ -2871,7 +2717,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @returns {PFLT_DEFERRED_IO_WORKITEM} 
      */
     static FltAllocateDeferredIoWorkItem() {
@@ -2880,7 +2725,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_DEFERRED_IO_WORKITEM} FltWorkItem 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2889,7 +2733,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @returns {PFLT_GENERIC_WORKITEM} 
      */
     static FltAllocateGenericWorkItem() {
@@ -2898,7 +2741,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_GENERIC_WORKITEM} FltWorkItem 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2907,7 +2749,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_DEFERRED_IO_WORKITEM} FltWorkItem 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<PFLT_DEFERRED_IO_WORKITEM_ROUTINE>} WorkerRoutine 
@@ -2924,7 +2765,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_GENERIC_WORKITEM} FltWorkItem 
      * @param {Pointer<Void>} FltObject 
      * @param {Pointer<PFLT_GENERIC_WORKITEM_ROUTINE>} WorkerRoutine 
@@ -2942,7 +2782,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {NTSTATUS} 
      */
@@ -2953,7 +2792,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Pointer<Pointer<MDL>>>} MdlAddressPointer 
      * @param {Pointer<Pointer<Pointer<Void>>>} _Buffer 
@@ -2973,7 +2811,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {Pointer<MDL>} 
      */
@@ -2983,7 +2820,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2992,7 +2828,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {Pointer<Void>} 
      */
@@ -3002,7 +2837,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<PFLT_CALLBACK_DATA_QUEUE_INSERT_IO>} CbdqInsertIo 
@@ -3020,7 +2854,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3029,7 +2862,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3038,7 +2870,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<FLT_CALLBACK_DATA>} Cbd 
      * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
@@ -3054,7 +2885,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<IO_CSQ_IRP_CONTEXT>} _Context 
      * @returns {Pointer<FLT_CALLBACK_DATA>} 
@@ -3065,7 +2895,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<Void>} PeekContext 
      * @returns {Pointer<FLT_CALLBACK_DATA>} 
@@ -3078,7 +2907,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3089,7 +2917,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3100,7 +2927,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} OpenCount 
@@ -3114,7 +2940,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Void>} _Context 
@@ -3131,7 +2956,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -3143,7 +2967,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -3155,7 +2978,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} Flags 
@@ -3173,7 +2995,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -3185,7 +3006,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @returns {BOOLEAN} 
      */
@@ -3197,7 +3017,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} Flags 
@@ -3215,7 +3034,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Void>} _Context 
@@ -3232,7 +3050,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} Flags 
@@ -3250,7 +3067,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {BOOLEAN} 
      */
@@ -3260,7 +3076,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} OpenCount 
@@ -3275,7 +3090,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} Fo1 
      * @param {Pointer<FILE_OBJECT>} Fo2 
      * @returns {BOOLEAN} 
@@ -3286,7 +3100,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3295,7 +3108,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3304,7 +3116,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<PFLT_COMPLETE_LOCK_CALLBACK_DATA_ROUTINE>} CompleteLockCallbackDataRoutine 
      * @param {Pointer<PUNLOCK_ROUTINE>} UnlockRoutine 
      * @returns {Pointer<FILE_LOCK>} 
@@ -3315,7 +3126,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3324,7 +3134,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Void>} _Context 
@@ -3338,7 +3147,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {BOOLEAN} 
@@ -3349,7 +3157,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {BOOLEAN} 
@@ -3360,7 +3167,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3369,7 +3175,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3378,7 +3183,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<ERESOURCE>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3387,7 +3191,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3398,7 +3201,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3409,7 +3211,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3420,7 +3221,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3431,7 +3231,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3442,7 +3241,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -3454,7 +3252,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -3466,7 +3263,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} PushLock 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
@@ -3478,7 +3274,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} Timeout 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
@@ -3494,7 +3289,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Pointer<Void>>} ObjectArray 
      * @param {WAIT_TYPE} WaitType 
@@ -3513,7 +3307,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {BOOLEAN} 
      */
@@ -3523,7 +3316,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {BOOLEAN} 
      */
@@ -3533,7 +3325,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {PEPROCESS} 
      */
@@ -3543,7 +3334,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {Integer} 
      */
@@ -3553,7 +3343,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {HANDLE} 
      */
@@ -3564,7 +3353,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @param {Pointer<Void>} FsContext 
@@ -3585,7 +3373,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Integer>} SessionId 
      * @returns {NTSTATUS} 
@@ -3599,7 +3386,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} SourceInstance 
      * @param {PFLT_INSTANCE} TargetInstance 
      * @param {Pointer<BOOLEAN>} SourceDeviceStackSizeModified 
@@ -3614,7 +3400,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} SourceInstance 
      * @param {PFLT_INSTANCE} TargetInstance 
      * @param {Pointer<BOOLEAN>} RedirectionAllowed 
@@ -3629,7 +3414,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {PFLT_INSTANCE} TargetInstance 
      * @param {Pointer<BOOLEAN>} RedirectionAllowedThisIo 
@@ -3646,7 +3430,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {NTSTATUS} OperationStatus 
@@ -3660,7 +3443,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {PFLT_CONTEXT} _TransactionContext 
@@ -3676,7 +3458,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {PFLT_CONTEXT} _TransactionContext 
@@ -3691,7 +3472,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {PFLT_CONTEXT} _TransactionContext 
@@ -3706,7 +3486,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {PFLT_CONTEXT} _TransactionContext 
@@ -3721,7 +3500,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {PFLT_CONTEXT} _TransactionContext 
@@ -3736,7 +3514,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {PFLT_CONTEXT} _TransactionContext 
@@ -3751,7 +3528,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
      * @param {PFLT_CONTEXT} _TransactionContext 
@@ -3766,7 +3542,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<ECP_LIST>>} EcpList 
@@ -3781,7 +3556,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Guid>} EcpType 
      * @param {Integer} SizeOfContext 
@@ -3800,7 +3574,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} Lookaside 
      * @param {Integer} Flags 
@@ -3815,7 +3588,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} Lookaside 
      * @param {Integer} Flags 
@@ -3828,7 +3600,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Guid>} EcpType 
      * @param {Integer} SizeOfContext 
@@ -3848,7 +3619,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Void>} EcpContext 
@@ -3864,7 +3634,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Guid>} EcpType 
@@ -3883,7 +3652,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Guid>} EcpType 
@@ -3902,7 +3670,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @returns {String} Nothing - always returns an empty string
@@ -3914,7 +3681,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} EcpContext 
      * @returns {String} Nothing - always returns an empty string
@@ -3926,7 +3692,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Pointer<ECP_LIST>>} EcpList 
@@ -3941,7 +3706,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<ECP_LIST>} EcpList 
@@ -3956,7 +3720,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @param {Pointer<Void>} CurrentEcpContext 
@@ -3977,7 +3740,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} EcpContext 
      * @returns {String} Nothing - always returns an empty string
@@ -3989,7 +3751,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} EcpContext 
      * @returns {BOOLEAN} 
@@ -4002,7 +3763,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} EcpContext 
      * @returns {BOOLEAN} 
@@ -4015,7 +3775,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} EcpContext 
      * @returns {String} Nothing - always returns an empty string
@@ -4027,7 +3786,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<OPEN_REPARSE_LIST_ENTRY>} OpenReparseEntry 
@@ -4040,7 +3798,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<OPEN_REPARSE_LIST_ENTRY>} OpenReparseEntry 
@@ -4051,7 +3808,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<ECP_LIST>} EcpList 
@@ -4066,7 +3822,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @returns {String} Nothing - always returns an empty string
@@ -4078,7 +3833,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Integer} InfoClassFlags 
@@ -4091,7 +3845,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Integer} InfoClass 
@@ -4106,7 +3859,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Integer} InfoClass 
@@ -4124,7 +3876,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PETHREAD} Thread 
@@ -4138,7 +3889,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<IO_PRIORITY_INFO>} InputPriorityInfo 
      * @param {Pointer<IO_PRIORITY_INFO>} OutputPriorityInfo 
      * @param {PETHREAD} Thread 
@@ -4151,7 +3901,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @returns {IO_PRIORITY_HINT} 
      */
@@ -4161,7 +3910,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @returns {IO_PRIORITY_HINT} 
      */
@@ -4171,7 +3919,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {IO_PRIORITY_HINT} PriorityHint 
      * @returns {NTSTATUS} 
@@ -4183,7 +3930,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {IO_PRIORITY_HINT} 
      */
@@ -4193,7 +3939,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {IO_PRIORITY_HINT} PriorityHint 
      * @returns {NTSTATUS} 
@@ -4205,7 +3950,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @returns {IO_PRIORITY_HINT} 
      */
@@ -4215,7 +3959,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {PETHREAD} Thread 
      * @param {IO_PRIORITY_HINT} PriorityHint 
      * @returns {NTSTATUS} 
@@ -4227,7 +3970,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -4239,7 +3981,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Guid>} Guid 
      * @returns {NTSTATUS} 
@@ -4251,7 +3992,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Guid>} PropagateId 
      * @param {Pointer<Pointer<Guid>>} OriginalId 
@@ -4266,7 +4006,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<Integer>} ZeroingOffset 
      * @returns {NTSTATUS} 
@@ -4280,7 +4019,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @returns {NTSTATUS} 
      */
@@ -4291,7 +4029,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Integer} ZeroingOffset 
      * @returns {NTSTATUS} 
@@ -4303,7 +4040,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @returns {Pointer<Void>} 
      */
@@ -4313,7 +4049,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} SourceData 
      * @param {Pointer<FLT_CALLBACK_DATA>} TargetData 
      * @param {Integer} Flags 
@@ -4326,7 +4061,6 @@ class Minifilters {
     }
 
     /**
-     * 
      * @param {Integer} IrpMajorCode 
      * @returns {PSTR} 
      */

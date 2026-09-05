@@ -10,7 +10,8 @@ class D3D12_VIDEO_ENCODER_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.
+     * Native name: D3D12_VIDEO_ENCODER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

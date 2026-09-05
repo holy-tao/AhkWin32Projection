@@ -17,31 +17,36 @@ class DXGI_INFO_QUEUE_MESSAGE_SEVERITY extends Win32Enum {
 
     /**
      * Defines some type of corruption that has occurred.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_SEVERITY_CORRUPTION
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_SEVERITY_CORRUPTION => 0
+    static CORRUPTION => 0
 
     /**
      * Defines an error message.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_SEVERITY_ERROR
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_SEVERITY_ERROR => 1
+    static ERROR => 1
 
     /**
      * Defines a warning message.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_SEVERITY_WARNING
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_SEVERITY_WARNING => 2
+    static WARNING => 2
 
     /**
      * Defines an information message.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_SEVERITY_INFO
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_SEVERITY_INFO => 3
+    static INFO => 3
 
     /**
      * Defines a message other than corruption, error, warning, or information.
+     * Native name: DXGI_INFO_QUEUE_MESSAGE_SEVERITY_MESSAGE
      * @type {Integer (Int32)}
      */
-    static DXGI_INFO_QUEUE_MESSAGE_SEVERITY_MESSAGE => 4
+    static MESSAGE => 4
 }

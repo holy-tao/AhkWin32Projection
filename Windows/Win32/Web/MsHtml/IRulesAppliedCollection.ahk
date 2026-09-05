@@ -59,7 +59,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IRulesApplied} 
      */
@@ -69,7 +68,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -78,7 +76,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_element() {
@@ -87,7 +84,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IRulesApplied} 
      */
@@ -99,7 +95,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_propertyCount() {
@@ -108,7 +103,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -119,7 +113,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {Integer} index 
      * @returns {IRulesApplied} 
@@ -132,7 +125,6 @@ class IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {Integer} 
      */

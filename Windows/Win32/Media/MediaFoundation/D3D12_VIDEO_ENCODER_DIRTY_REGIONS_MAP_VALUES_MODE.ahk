@@ -7,12 +7,14 @@
 class D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE_DIRTY
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE_DIRTY => 0
+    static DIRTY => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE_SKIP
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE_SKIP => 1
+    static SKIP => 1
 }

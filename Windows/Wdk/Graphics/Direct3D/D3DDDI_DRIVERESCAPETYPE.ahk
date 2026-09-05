@@ -7,22 +7,26 @@
 class D3DDDI_DRIVERESCAPETYPE extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_DRIVERESCAPETYPE_TRANSLATEALLOCATIONHANDLE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_DRIVERESCAPETYPE_TRANSLATEALLOCATIONHANDLE => 0
+    static TRANSLATEALLOCATIONHANDLE => 0
 
     /**
+     * Native name: D3DDDI_DRIVERESCAPETYPE_TRANSLATERESOURCEHANDLE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_DRIVERESCAPETYPE_TRANSLATERESOURCEHANDLE => 1
+    static TRANSLATERESOURCEHANDLE => 1
 
     /**
+     * Native name: D3DDDI_DRIVERESCAPETYPE_CPUEVENTUSAGE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_DRIVERESCAPETYPE_CPUEVENTUSAGE => 2
+    static CPUEVENTUSAGE => 2
 
     /**
+     * Native name: D3DDDI_DRIVERESCAPETYPE_MAX
      * @type {Integer (Int32)}
      */
-    static D3DDDI_DRIVERESCAPETYPE_MAX => 3
+    static MAX => 3
 }

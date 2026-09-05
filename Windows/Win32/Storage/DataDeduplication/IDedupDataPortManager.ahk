@@ -74,7 +74,6 @@ class IDedupDataPortManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @param {BSTR} _Path 
      * @returns {DedupDataPortVolumeStatus} 
@@ -87,7 +86,6 @@ class IDedupDataPortManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @param {BSTR} _Path 
      * @returns {IDedupDataPort} 

@@ -73,7 +73,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwRegister 
      * @returns {HRESULT} 
      */
@@ -83,7 +82,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HLBWINFO>} phlbwi 
      * @returns {HRESULT} 
      */
@@ -93,7 +91,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HLBWINFO} 
      */
     GetBrowseWindowInfo() {
@@ -103,7 +100,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
@@ -118,7 +114,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -134,7 +129,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -150,7 +144,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @param {Integer} grfHLFNAMEF 
      * @returns {IEnumHLITEM} 
@@ -161,7 +154,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLQF 
      * @param {Integer} uHLID 
      * @returns {HRESULT} 
@@ -172,7 +164,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @returns {IHlink} 
      */
@@ -182,7 +173,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @returns {HRESULT} 
      */
@@ -192,7 +182,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -203,7 +192,6 @@ class IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reserved 
      * @returns {HRESULT} 
      */

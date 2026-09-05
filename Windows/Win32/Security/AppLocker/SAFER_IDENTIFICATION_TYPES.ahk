@@ -12,31 +12,36 @@ class SAFER_IDENTIFICATION_TYPES extends Win32Enum {
 
     /**
      * The header is for a default level structure.
+     * Native name: SaferIdentityDefault
      * @type {Integer (Int32)}
      */
-    static SaferIdentityDefault => 0
+    static IdentityDefault => 0
 
     /**
      * The header is for a <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_pathname_identification">SAFER_PATHNAME_IDENTIFICATION</a> structure.
+     * Native name: SaferIdentityTypeImageName
      * @type {Integer (Int32)}
      */
-    static SaferIdentityTypeImageName => 1
+    static IdentityTypeImageName => 1
 
     /**
      * The header is for a <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_hash_identification">SAFER_HASH_IDENTIFICATION</a> structure.
+     * Native name: SaferIdentityTypeImageHash
      * @type {Integer (Int32)}
      */
-    static SaferIdentityTypeImageHash => 2
+    static IdentityTypeImageHash => 2
 
     /**
      * The header is for a <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_urlzone_identification">SAFER_URLZONE_IDENTIFICATION</a> structure.
+     * Native name: SaferIdentityTypeUrlZone
      * @type {Integer (Int32)}
      */
-    static SaferIdentityTypeUrlZone => 3
+    static IdentityTypeUrlZone => 3
 
     /**
      * The header is for a <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_pathname_identification">SAFER_PATHNAME_IDENTIFICATION</a> structure.
+     * Native name: SaferIdentityTypeCertificate
      * @type {Integer (Int32)}
      */
-    static SaferIdentityTypeCertificate => 4
+    static IdentityTypeCertificate => 4
 }

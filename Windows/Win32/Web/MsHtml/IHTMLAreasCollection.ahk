@@ -53,7 +53,6 @@ class IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ class IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -72,7 +70,6 @@ class IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -81,7 +78,6 @@ class IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
@@ -92,7 +88,6 @@ class IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} tagName 
      * @returns {IDispatch} 
      */
@@ -142,7 +137,6 @@ class IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */

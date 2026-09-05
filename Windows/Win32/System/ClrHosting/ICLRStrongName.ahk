@@ -33,7 +33,6 @@ class ICLRStrongName extends IUnknown {
     static VTableNames => ["GetHashFromAssemblyFile", "GetHashFromAssemblyFileW", "GetHashFromBlob", "GetHashFromFile", "GetHashFromFileW", "GetHashFromHandle", "StrongNameCompareAssemblies", "StrongNameFreeBuffer", "StrongNameGetBlob", "StrongNameGetBlobFromImage", "StrongNameGetPublicKey", "StrongNameHashSize", "StrongNameKeyDelete", "StrongNameKeyGen", "StrongNameKeyGenEx", "StrongNameKeyInstall", "StrongNameSignatureGeneration", "StrongNameSignatureGenerationEx", "StrongNameSignatureSize", "StrongNameSignatureVerification", "StrongNameSignatureVerificationEx", "StrongNameSignatureVerificationFromImage", "StrongNameTokenFromAssembly", "StrongNameTokenFromAssemblyEx", "StrongNameTokenFromPublicKey"]
 
     /**
-     * 
      * @param {PSTR} pszFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -53,7 +52,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -73,7 +71,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBlob 
      * @param {Integer} cchBlob 
      * @param {Pointer<Integer>} piHashAlg 
@@ -93,7 +90,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pszFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -113,7 +109,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -133,7 +128,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hFile 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -153,7 +147,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAssembly1 
      * @param {PWSTR} pwzAssembly2 
      * @returns {Integer} 
@@ -167,7 +160,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbMemory 
      * @returns {HRESULT} 
      */
@@ -179,7 +171,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Integer>} pbBlob 
      * @param {Pointer<Integer>} pcbBlob 
@@ -196,7 +187,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBase 
      * @param {Integer} dwLength 
      * @param {Pointer<Integer>} pcbBlob 
@@ -211,7 +201,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -231,7 +220,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulHashAlg 
      * @returns {Integer} 
      */
@@ -241,7 +229,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @returns {HRESULT} 
      */
@@ -253,7 +240,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Integer} dwFlags 
      * @param {Pointer<Pointer<Integer>>} ppbKeyBlob 
@@ -271,7 +257,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Integer} dwFlags 
      * @param {Integer} dwKeySize 
@@ -290,7 +275,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -306,7 +290,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
@@ -328,7 +311,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {PWSTR} wszKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
@@ -351,7 +333,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbPublicKeyBlob 
      * @param {Integer} cbPublicKeyBlob 
      * @param {Pointer<Integer>} pcbSize 
@@ -366,7 +347,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwInFlags 
      * @returns {Integer} 
@@ -379,7 +359,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {BOOLEAN} fForceVerification 
      * @returns {Integer} 
@@ -392,7 +371,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBase 
      * @param {Integer} dwLength 
      * @param {Integer} dwInFlags 
@@ -406,7 +384,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Pointer<Integer>>} ppbStrongNameToken 
      * @param {Pointer<Integer>} pcbStrongNameToken 
@@ -423,7 +400,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Pointer<Integer>>} ppbStrongNameToken 
      * @param {Pointer<Integer>} pcbStrongNameToken 
@@ -444,7 +420,6 @@ class ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbPublicKeyBlob 
      * @param {Integer} cbPublicKeyBlob 
      * @param {Pointer<Pointer<Integer>>} ppbStrongNameToken 

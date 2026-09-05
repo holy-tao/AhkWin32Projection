@@ -61,7 +61,6 @@ class IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ class IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_compact() {
@@ -80,7 +78,6 @@ class IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ class IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_start() {
@@ -99,7 +95,6 @@ class IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -111,7 +106,6 @@ class IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {

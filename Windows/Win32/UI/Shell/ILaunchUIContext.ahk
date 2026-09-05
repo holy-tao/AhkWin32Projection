@@ -30,7 +30,6 @@ class ILaunchUIContext extends IUnknown {
     static VTableNames => ["SetAssociatedWindow", "SetTabGroupingPreference"]
 
     /**
-     * 
      * @param {HWND} value 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ILaunchUIContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} value 
      * @returns {HRESULT} 
      */

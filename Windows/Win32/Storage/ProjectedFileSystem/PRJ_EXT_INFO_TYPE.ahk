@@ -10,7 +10,8 @@ class PRJ_EXT_INFO_TYPE extends Win32Enum {
 
     /**
      * This <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_extended_info">PRJ_EXTENDED_INFO</a> specifies the target of a symbolic link.
+     * Native name: PRJ_EXT_INFO_TYPE_SYMLINK
      * @type {Integer (Int32)}
      */
-    static PRJ_EXT_INFO_TYPE_SYMLINK => 1
+    static SYMLINK => 1
 }

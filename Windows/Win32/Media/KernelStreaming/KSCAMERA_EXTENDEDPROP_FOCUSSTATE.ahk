@@ -7,27 +7,32 @@
 class KSCAMERA_EXTENDEDPROP_FOCUSSTATE extends Win32Enum {
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_FOCUSSTATE_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_FOCUSSTATE_UNINITIALIZED => 0
+    static UNINITIALIZED => 0
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_FOCUSSTATE_LOST
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_FOCUSSTATE_LOST => 1
+    static LOST => 1
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_FOCUSSTATE_SEARCHING
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_FOCUSSTATE_SEARCHING => 2
+    static SEARCHING => 2
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FOCUSED
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FOCUSED => 3
+    static FOCUSED => 3
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FAILED
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FAILED => 4
+    static FAILED => 4
 }

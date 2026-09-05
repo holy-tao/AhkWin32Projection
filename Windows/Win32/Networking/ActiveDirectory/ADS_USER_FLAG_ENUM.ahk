@@ -25,125 +25,144 @@ class ADS_USER_FLAG_ENUM extends Win32Enum {
      * The logon script is executed. This flag does not work for the ADSI LDAP provider on either read or write 
      *       operations. For the  ADSI WinNT provider, this flag is  read-only data, and it cannot be set for user 
      *       objects.
+     * Native name: ADS_UF_SCRIPT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_SCRIPT => 1
+    static UF_SCRIPT => 1
 
     /**
      * The user account is disabled.
+     * Native name: ADS_UF_ACCOUNTDISABLE
      * @type {Integer (Int32)}
      */
-    static ADS_UF_ACCOUNTDISABLE => 2
+    static UF_ACCOUNTDISABLE => 2
 
     /**
      * The home directory is required.
+     * Native name: ADS_UF_HOMEDIR_REQUIRED
      * @type {Integer (Int32)}
      */
-    static ADS_UF_HOMEDIR_REQUIRED => 8
+    static UF_HOMEDIR_REQUIRED => 8
 
     /**
      * The account is currently locked out.
+     * Native name: ADS_UF_LOCKOUT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_LOCKOUT => 16
+    static UF_LOCKOUT => 16
 
     /**
      * No password is required.
+     * Native name: ADS_UF_PASSWD_NOTREQD
      * @type {Integer (Int32)}
      */
-    static ADS_UF_PASSWD_NOTREQD => 32
+    static UF_PASSWD_NOTREQD => 32
 
     /**
      * The user cannot change the password. This flag can be read, but not set directly.  For more information and 
      *       a code example that shows how to prevent a user from changing the password, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ADSI/user-cannot-change-password">User Cannot Change Password</a>.
+     * Native name: ADS_UF_PASSWD_CANT_CHANGE
      * @type {Integer (Int32)}
      */
-    static ADS_UF_PASSWD_CANT_CHANGE => 64
+    static UF_PASSWD_CANT_CHANGE => 64
 
     /**
      * The user can send an encrypted password.
+     * Native name: ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED
      * @type {Integer (Int32)}
      */
-    static ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED => 128
+    static UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED => 128
 
     /**
      * This is an account for users whose primary account is in another domain. This account provides user access 
      *       to this domain, but not to any domain that trusts this domain. Also known as a  local user account.
+     * Native name: ADS_UF_TEMP_DUPLICATE_ACCOUNT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_TEMP_DUPLICATE_ACCOUNT => 256
+    static UF_TEMP_DUPLICATE_ACCOUNT => 256
 
     /**
      * This is a default account type that represents a typical user.
+     * Native name: ADS_UF_NORMAL_ACCOUNT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_NORMAL_ACCOUNT => 512
+    static UF_NORMAL_ACCOUNT => 512
 
     /**
      * This is a permit to trust account for a system domain that trusts other domains.
+     * Native name: ADS_UF_INTERDOMAIN_TRUST_ACCOUNT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_INTERDOMAIN_TRUST_ACCOUNT => 2048
+    static UF_INTERDOMAIN_TRUST_ACCOUNT => 2048
 
     /**
      * This is a computer account for a Windows or Windows Server that is a member of this domain.
+     * Native name: ADS_UF_WORKSTATION_TRUST_ACCOUNT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_WORKSTATION_TRUST_ACCOUNT => 4096
+    static UF_WORKSTATION_TRUST_ACCOUNT => 4096
 
     /**
      * This is a computer account for a system backup domain controller that is a member of this domain.
+     * Native name: ADS_UF_SERVER_TRUST_ACCOUNT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_SERVER_TRUST_ACCOUNT => 8192
+    static UF_SERVER_TRUST_ACCOUNT => 8192
 
     /**
      * When set, the password will not expire on this account.
+     * Native name: ADS_UF_DONT_EXPIRE_PASSWD
      * @type {Integer (Int32)}
      */
-    static ADS_UF_DONT_EXPIRE_PASSWD => 65536
+    static UF_DONT_EXPIRE_PASSWD => 65536
 
     /**
      * This is an Majority Node Set (MNS) logon account. With MNS, you can configure a multi-node Windows cluster 
      *       without using a common shared disk.
+     * Native name: ADS_UF_MNS_LOGON_ACCOUNT
      * @type {Integer (Int32)}
      */
-    static ADS_UF_MNS_LOGON_ACCOUNT => 131072
+    static UF_MNS_LOGON_ACCOUNT => 131072
 
     /**
      * When set, this flag will force the user to log on using a smart card.
+     * Native name: ADS_UF_SMARTCARD_REQUIRED
      * @type {Integer (Int32)}
      */
-    static ADS_UF_SMARTCARD_REQUIRED => 262144
+    static UF_SMARTCARD_REQUIRED => 262144
 
     /**
      * When set, the service account (user or computer account), under which a service runs, is trusted for 
      *       Kerberos delegation. Any such service can impersonate a client requesting the service. To enable a service for 
      *       Kerberos delegation, set this flag on the  <b>userAccountControl</b> property of the 
      *       service account.
+     * Native name: ADS_UF_TRUSTED_FOR_DELEGATION
      * @type {Integer (Int32)}
      */
-    static ADS_UF_TRUSTED_FOR_DELEGATION => 524288
+    static UF_TRUSTED_FOR_DELEGATION => 524288
 
     /**
      * When set, the security context of the user will not be delegated to a service even if the service account 
      *       is set as trusted for Kerberos delegation.
+     * Native name: ADS_UF_NOT_DELEGATED
      * @type {Integer (Int32)}
      */
-    static ADS_UF_NOT_DELEGATED => 1048576
+    static UF_NOT_DELEGATED => 1048576
 
     /**
      * Restrict this principal to use only Data Encryption Standard (DES) encryption types for keys.
+     * Native name: ADS_UF_USE_DES_KEY_ONLY
      * @type {Integer (Int32)}
      */
-    static ADS_UF_USE_DES_KEY_ONLY => 2097152
+    static UF_USE_DES_KEY_ONLY => 2097152
 
     /**
      * This account does not require Kerberos preauthentication for logon.
+     * Native name: ADS_UF_DONT_REQUIRE_PREAUTH
      * @type {Integer (Int32)}
      */
-    static ADS_UF_DONT_REQUIRE_PREAUTH => 4194304
+    static UF_DONT_REQUIRE_PREAUTH => 4194304
 
     /**
      * The user password has expired. This flag is created by the system using data from the  password last set 
@@ -153,15 +172,17 @@ class ADS_USER_FLAG_ENUM extends Win32Enum {
      *       (<b>usri3_password_expired</b> member) or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_4">USER_INFO_4</a> 
      *       (<b>usri4_password_expired</b> member) structure.
+     * Native name: ADS_UF_PASSWORD_EXPIRED
      * @type {Integer (Int32)}
      */
-    static ADS_UF_PASSWORD_EXPIRED => 8388608
+    static UF_PASSWORD_EXPIRED => 8388608
 
     /**
      * The account is enabled for delegation. This is a security-sensitive setting; accounts with this option 
      *       enabled should be strictly controlled. This setting enables a service running under the account to assume a 
      *       client identity and authenticate as that user to other remote servers on the network.
+     * Native name: ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION
      * @type {Integer (Int32)}
      */
-    static ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION => 16777216
+    static UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION => 16777216
 }

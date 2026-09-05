@@ -10,13 +10,15 @@ class eAVDecAACDownmixMode extends Win32Enum {
 
     /**
      * Use the standard ISO MPEG-2/MPEG-4 downmix equations.
+     * Native name: eAVDecAACUseISODownmix
      * @type {Integer (Int32)}
      */
-    static eAVDecAACUseISODownmix => 0
+    static UseISODownmix => 0
 
     /**
      * Use the downmix equations defined by ARIB document STD-B21.
+     * Native name: eAVDecAACUseARIBDownmix
      * @type {Integer (Int32)}
      */
-    static eAVDecAACUseARIBDownmix => 1
+    static UseARIBDownmix => 1
 }

@@ -12,127 +12,148 @@ class IMAPI_MEDIA_PHYSICAL_TYPE extends Win32Enum {
 
     /**
      * The disc recorder contains an unknown media type or the recorder is empty.
+     * Native name: IMAPI_MEDIA_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The drive contains CD-ROM or CD-R/RW media.
+     * Native name: IMAPI_MEDIA_TYPE_CDROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_CDROM => 1
+    static CDROM => 1
 
     /**
      * The drive contains write once (CD-R) media.
+     * Native name: IMAPI_MEDIA_TYPE_CDR
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_CDR => 2
+    static CDR => 2
 
     /**
      * The drive contains rewritable (CD-RW) media.
+     * Native name: IMAPI_MEDIA_TYPE_CDRW
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_CDRW => 3
+    static CDRW => 3
 
     /**
      * Either the DVD drive or DVD media is read-only.
+     * Native name: IMAPI_MEDIA_TYPE_DVDROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDROM => 4
+    static DVDROM => 4
 
     /**
      * The drive contains DVD-RAM media.
+     * Native name: IMAPI_MEDIA_TYPE_DVDRAM
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDRAM => 5
+    static DVDRAM => 5
 
     /**
      * The drive contains write once media that supports the DVD plus format (DVD+R) .
+     * Native name: IMAPI_MEDIA_TYPE_DVDPLUSR
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDPLUSR => 6
+    static DVDPLUSR => 6
 
     /**
      * The drive contains rewritable media that supports the DVD plus format (DVD+RW).
+     * Native name: IMAPI_MEDIA_TYPE_DVDPLUSRW
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDPLUSRW => 7
+    static DVDPLUSRW => 7
 
     /**
      * The drive contains write once dual layer media that supports the DVD plus format (DVD+R DL).
+     * Native name: IMAPI_MEDIA_TYPE_DVDPLUSR_DUALLAYER
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDPLUSR_DUALLAYER => 8
+    static DVDPLUSR_DUALLAYER => 8
 
     /**
      * The drive contains write once media that supports the DVD dash format (DVD-R).
+     * Native name: IMAPI_MEDIA_TYPE_DVDDASHR
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDDASHR => 9
+    static DVDDASHR => 9
 
     /**
      * The drive contains rewritable media that supports the DVD dash format (DVD-RW).
+     * Native name: IMAPI_MEDIA_TYPE_DVDDASHRW
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDDASHRW => 10
+    static DVDDASHRW => 10
 
     /**
      * The drive contains write once dual layer media that supports the DVD dash format (DVD-R DL).
+     * Native name: IMAPI_MEDIA_TYPE_DVDDASHR_DUALLAYER
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDDASHR_DUALLAYER => 11
+    static DVDDASHR_DUALLAYER => 11
 
     /**
      * The drive contains a media type that supports random-access writes. This media type supports hardware defect management that identifies and avoids using damaged tracks.
+     * Native name: IMAPI_MEDIA_TYPE_DISK
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DISK => 12
+    static DISK => 12
 
     /**
      * The drive contains rewritable dual layer media that supports the DVD plus format (DVD+RW DL).
+     * Native name: IMAPI_MEDIA_TYPE_DVDPLUSRW_DUALLAYER
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_DVDPLUSRW_DUALLAYER => 13
+    static DVDPLUSRW_DUALLAYER => 13
 
     /**
      * The drive contains high definition read only DVD media (HD DVD-ROM).
+     * Native name: IMAPI_MEDIA_TYPE_HDDVDROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_HDDVDROM => 14
+    static HDDVDROM => 14
 
     /**
      * The drive contains write once high definition media (HD DVD-R).
+     * Native name: IMAPI_MEDIA_TYPE_HDDVDR
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_HDDVDR => 15
+    static HDDVDR => 15
 
     /**
      * The drive contains random access high definition media (HD DVD-RAM).
+     * Native name: IMAPI_MEDIA_TYPE_HDDVDRAM
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_HDDVDRAM => 16
+    static HDDVDRAM => 16
 
     /**
      * The drive contains read only Blu-ray media (BD-ROM).
+     * Native name: IMAPI_MEDIA_TYPE_BDROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_BDROM => 17
+    static BDROM => 17
 
     /**
      * The drive contains write once Blu-ray media (BD-R).
+     * Native name: IMAPI_MEDIA_TYPE_BDR
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_BDR => 18
+    static BDR => 18
 
     /**
      * The drive contains rewritable Blu-ray media (BD-RE) media.
+     * Native name: IMAPI_MEDIA_TYPE_BDRE
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_BDRE => 19
+    static BDRE => 19
 
     /**
      * This value is the maximum value defined in IMAPI_MEDIA_PHYSICAL_TYPE.
+     * Native name: IMAPI_MEDIA_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IMAPI_MEDIA_TYPE_MAX => 19
+    static MAX => 19
 }

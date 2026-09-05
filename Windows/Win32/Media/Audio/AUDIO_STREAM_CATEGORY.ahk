@@ -36,85 +36,99 @@ class AUDIO_STREAM_CATEGORY extends Win32Enum {
 
     /**
      * Other audio stream.
+     * Native name: AudioCategory_Other
      * @type {Integer (Int32)}
      */
-    static AudioCategory_Other => 0
+    static Other => 0
 
     /**
      * Media that will only stream when the app is in the foreground. This enumeration value has been deprecated. For more information, see the Remarks section.
+     * Native name: AudioCategory_ForegroundOnlyMedia
      * @type {Integer (Int32)}
      */
-    static AudioCategory_ForegroundOnlyMedia => 1
+    static ForegroundOnlyMedia => 1
 
     /**
      * Real-time communications, such as VOIP or chat.
+     * Native name: AudioCategory_Communications
      * @type {Integer (Int32)}
      */
-    static AudioCategory_Communications => 3
+    static Communications => 3
 
     /**
      * Alert sounds.
+     * Native name: AudioCategory_Alerts
      * @type {Integer (Int32)}
      */
-    static AudioCategory_Alerts => 4
+    static Alerts => 4
 
     /**
      * Sound effects.
+     * Native name: AudioCategory_SoundEffects
      * @type {Integer (Int32)}
      */
-    static AudioCategory_SoundEffects => 5
+    static SoundEffects => 5
 
     /**
      * Game sound effects.
+     * Native name: AudioCategory_GameEffects
      * @type {Integer (Int32)}
      */
-    static AudioCategory_GameEffects => 6
+    static GameEffects => 6
 
     /**
      * Background audio for games.
+     * Native name: AudioCategory_GameMedia
      * @type {Integer (Int32)}
      */
-    static AudioCategory_GameMedia => 7
+    static GameMedia => 7
 
     /**
      * Game chat audio. Similar to <b>AudioCategory_Communications</b> except that <b>AudioCategory_GameChat</b> will not attenuate other streams.
+     * Native name: AudioCategory_GameChat
      * @type {Integer (Int32)}
      */
-    static AudioCategory_GameChat => 8
+    static GameChat => 8
 
     /**
      * Speech.
+     * Native name: AudioCategory_Speech
      * @type {Integer (Int32)}
      */
-    static AudioCategory_Speech => 9
+    static Speech => 9
 
     /**
      * Stream that includes audio with dialog.
+     * Native name: AudioCategory_Movie
      * @type {Integer (Int32)}
      */
-    static AudioCategory_Movie => 10
+    static Movie => 10
 
     /**
      * Stream that includes audio without dialog.
+     * Native name: AudioCategory_Media
      * @type {Integer (Int32)}
      */
-    static AudioCategory_Media => 11
+    static Media => 11
 
     /**
      * Media is audio captured with the intent of capturing voice sources located in the ‘far field’. (Far away from the microphone.)
+     * Native name: AudioCategory_FarFieldSpeech
      * @type {Integer (Int32)}
      */
-    static AudioCategory_FarFieldSpeech => 12
+    static FarFieldSpeech => 12
 
     /**
      * Media is captured audio that requires consistent speech processing for the captured audio stream across all Windows devices. Used by applications that process speech data using machine learning algorithms.
+     * Native name: AudioCategory_UniformSpeech
      * @type {Integer (Int32)}
      */
-    static AudioCategory_UniformSpeech => 13
+    static UniformSpeech => 13
 
     /**
      * Media is audio captured with the intent of enabling dictation or typing by voice.
+     * Native name: AudioCategory_VoiceTyping
      * @type {Integer (Int32)}
      */
-    static AudioCategory_VoiceTyping => 14
+    static VoiceTyping => 14
 }

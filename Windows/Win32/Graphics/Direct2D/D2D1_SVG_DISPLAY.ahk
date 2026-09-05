@@ -10,13 +10,15 @@ class D2D1_SVG_DISPLAY extends Win32Enum {
 
     /**
      * The element uses the default display behavior.
+     * Native name: D2D1_SVG_DISPLAY_INLINE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_DISPLAY_INLINE => 0
+    static INLINE => 0
 
     /**
      * The element and all children are not rendered directly.
+     * Native name: D2D1_SVG_DISPLAY_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_DISPLAY_NONE => 1
+    static NONE => 1
 }

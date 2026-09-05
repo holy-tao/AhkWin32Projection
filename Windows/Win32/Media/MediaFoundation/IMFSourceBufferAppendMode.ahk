@@ -30,7 +30,6 @@ class IMFSourceBufferAppendMode extends IUnknown {
     static VTableNames => ["GetAppendMode", "SetAppendMode"]
 
     /**
-     * 
      * @returns {MF_MSE_APPEND_MODE} 
      */
     GetAppendMode() {
@@ -39,7 +38,6 @@ class IMFSourceBufferAppendMode extends IUnknown {
     }
 
     /**
-     * 
      * @param {MF_MSE_APPEND_MODE} _mode 
      * @returns {HRESULT} 
      */

@@ -7,12 +7,14 @@
 class ACTIVEOBJECT_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: ACTIVEOBJECT_STRONG
      * @type {Integer (UInt32)}
      */
-    static ACTIVEOBJECT_STRONG => 0
+    static STRONG => 0
 
     /**
+     * Native name: ACTIVEOBJECT_WEAK
      * @type {Integer (UInt32)}
      */
-    static ACTIVEOBJECT_WEAK => 1
+    static WEAK => 1
 }

@@ -7,32 +7,38 @@
 class msidbServiceControlEvent extends Win32Enum {
 
     /**
+     * Native name: msidbServiceControlEventStart
      * @type {Integer (Int32)}
      */
-    static msidbServiceControlEventStart => 1
+    static Start => 1
 
     /**
+     * Native name: msidbServiceControlEventStop
      * @type {Integer (Int32)}
      */
-    static msidbServiceControlEventStop => 2
+    static Stop => 2
 
     /**
+     * Native name: msidbServiceControlEventDelete
      * @type {Integer (Int32)}
      */
-    static msidbServiceControlEventDelete => 8
+    static Delete => 8
 
     /**
+     * Native name: msidbServiceControlEventUninstallStart
      * @type {Integer (Int32)}
      */
-    static msidbServiceControlEventUninstallStart => 16
+    static UninstallStart => 16
 
     /**
+     * Native name: msidbServiceControlEventUninstallStop
      * @type {Integer (Int32)}
      */
-    static msidbServiceControlEventUninstallStop => 32
+    static UninstallStop => 32
 
     /**
+     * Native name: msidbServiceControlEventUninstallDelete
      * @type {Integer (Int32)}
      */
-    static msidbServiceControlEventUninstallDelete => 128
+    static UninstallDelete => 128
 }

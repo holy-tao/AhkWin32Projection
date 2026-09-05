@@ -12,61 +12,71 @@ class MBN_SMS_CDMA_ENCODING extends Win32Enum {
 
     /**
      * Octet encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_OCTET
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_OCTET => 0
+    static OCTET => 0
 
     /**
      * EPM encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_EPM
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_EPM => 1
+    static EPM => 1
 
     /**
      * 7 bit ASCII encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_7BIT_ASCII
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_7BIT_ASCII => 2
+    static 7BIT_ASCII => 2
 
     /**
      * IA5 encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_IA5
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_IA5 => 3
+    static IA5 => 3
 
     /**
      * Unicode encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_UNICODE
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_UNICODE => 4
+    static UNICODE => 4
 
     /**
      * Shift JIS encoding for the Japanese Language.
+     * Native name: MBN_SMS_CDMA_ENCODING_SHIFT_JIS
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_SHIFT_JIS => 5
+    static SHIFT_JIS => 5
 
     /**
      * Korean encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_KOREAN
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_KOREAN => 6
+    static KOREAN => 6
 
     /**
      * Latin Hebrew encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_LATIN_HEBREW
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_LATIN_HEBREW => 7
+    static LATIN_HEBREW => 7
 
     /**
      * Latin encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_LATIN
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_LATIN => 8
+    static LATIN => 8
 
     /**
      * GSM 7 bit encoding.
+     * Native name: MBN_SMS_CDMA_ENCODING_GSM_7BIT
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CDMA_ENCODING_GSM_7BIT => 9
+    static GSM_7BIT => 9
 }

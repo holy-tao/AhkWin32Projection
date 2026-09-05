@@ -68,7 +68,6 @@ class IInkTablets extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

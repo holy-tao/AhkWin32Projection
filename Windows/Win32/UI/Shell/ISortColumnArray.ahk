@@ -31,7 +31,6 @@ class ISortColumnArray extends IUnknown {
     static VTableNames => ["GetCount", "GetAt", "GetSortType"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -40,7 +39,6 @@ class ISortColumnArray extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {SORTCOLUMN} 
      */
@@ -51,7 +49,6 @@ class ISortColumnArray extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SORT_ORDER_TYPE} 
      */
     GetSortType() {

@@ -7,32 +7,38 @@
 class KSPROPERTY_CLOCK extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CLOCK_TIME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CLOCK_TIME => 0
+    static TIME => 0
 
     /**
+     * Native name: KSPROPERTY_CLOCK_PHYSICALTIME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CLOCK_PHYSICALTIME => 1
+    static PHYSICALTIME => 1
 
     /**
+     * Native name: KSPROPERTY_CLOCK_CORRELATEDTIME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CLOCK_CORRELATEDTIME => 2
+    static CORRELATEDTIME => 2
 
     /**
+     * Native name: KSPROPERTY_CLOCK_CORRELATEDPHYSICALTIME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CLOCK_CORRELATEDPHYSICALTIME => 3
+    static CORRELATEDPHYSICALTIME => 3
 
     /**
+     * Native name: KSPROPERTY_CLOCK_RESOLUTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CLOCK_RESOLUTION => 4
+    static RESOLUTION => 4
 
     /**
+     * Native name: KSPROPERTY_CLOCK_STATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CLOCK_STATE => 5
+    static STATE => 5
 }

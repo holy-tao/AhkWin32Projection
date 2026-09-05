@@ -196,7 +196,6 @@ class IDataCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDataCollectorSet} group 
      * @returns {HRESULT} 
      */
@@ -737,7 +736,6 @@ class IDataCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -798,7 +796,6 @@ class IDataCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Latest 
      * @returns {BSTR} 
      */

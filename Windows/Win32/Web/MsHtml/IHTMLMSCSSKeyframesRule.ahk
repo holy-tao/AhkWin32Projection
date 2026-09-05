@@ -53,7 +53,6 @@ class IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -65,7 +64,6 @@ class IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -75,7 +73,6 @@ class IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
@@ -84,7 +81,6 @@ class IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRule 
      * @returns {HRESULT} 
      */
@@ -96,7 +92,6 @@ class IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {HRESULT} 
      */
@@ -108,7 +103,6 @@ class IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {IHTMLMSCSSKeyframeRule} 
      */

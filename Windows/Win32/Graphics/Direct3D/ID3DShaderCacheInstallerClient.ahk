@@ -31,7 +31,6 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface {
     static VTableNames => ["GetInstallerName", "GetInstallerScope", "HandleDriverUpdate"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pNameLength 
      * @param {PWSTR} pName 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE} 
      */
     GetInstallerScope() {
@@ -55,7 +53,6 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {ID3DShaderCacheInstaller} pInstaller 
      * @returns {HRESULT} 
      */

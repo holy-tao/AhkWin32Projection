@@ -10,25 +10,29 @@ class MF_TIMED_TEXT_TRACK_KIND extends Win32Enum {
 
     /**
      * The kind of timed text track is unknown.
+     * Native name: MF_TIMED_TEXT_TRACK_KIND_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_TRACK_KIND_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The kind of timed text track is subtitles.
+     * Native name: MF_TIMED_TEXT_TRACK_KIND_SUBTITLES
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_TRACK_KIND_SUBTITLES => 1
+    static SUBTITLES => 1
 
     /**
      * The kind of timed text track is closed captions.
+     * Native name: MF_TIMED_TEXT_TRACK_KIND_CAPTIONS
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_TRACK_KIND_CAPTIONS => 2
+    static CAPTIONS => 2
 
     /**
      * The kind of timed text track is metadata.
+     * Native name: MF_TIMED_TEXT_TRACK_KIND_METADATA
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_TRACK_KIND_METADATA => 3
+    static METADATA => 3
 }

@@ -30,7 +30,6 @@ class ITransactionImport extends IUnknown {
     static VTableNames => ["Import"]
 
     /**
-     * 
      * @param {Integer} cbTransactionCookie 
      * @param {Pointer<Integer>} rgbTransactionCookie 
      * @param {Pointer<Guid>} piid 

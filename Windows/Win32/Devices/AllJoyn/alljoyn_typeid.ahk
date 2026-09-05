@@ -7,162 +7,194 @@
 class alljoyn_typeid extends Win32Enum {
 
     /**
+     * Native name: ALLJOYN_INVALID
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_INVALID => 0
+    static INVALID => 0
 
     /**
+     * Native name: ALLJOYN_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_ARRAY => 97
+    static ARRAY => 97
 
     /**
+     * Native name: ALLJOYN_BOOLEAN
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_BOOLEAN => 98
+    static BOOLEAN => 98
 
     /**
+     * Native name: ALLJOYN_DOUBLE
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_DOUBLE => 100
+    static DOUBLE => 100
 
     /**
+     * Native name: ALLJOYN_DICT_ENTRY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_DICT_ENTRY => 101
+    static DICT_ENTRY => 101
 
     /**
+     * Native name: ALLJOYN_SIGNATURE
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_SIGNATURE => 103
+    static SIGNATURE => 103
 
     /**
+     * Native name: ALLJOYN_HANDLE
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_HANDLE => 104
+    static HANDLE => 104
 
     /**
+     * Native name: ALLJOYN_INT32
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_INT32 => 105
+    static INT32 => 105
 
     /**
+     * Native name: ALLJOYN_INT16
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_INT16 => 110
+    static INT16 => 110
 
     /**
+     * Native name: ALLJOYN_OBJECT_PATH
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_OBJECT_PATH => 111
+    static OBJECT_PATH => 111
 
     /**
+     * Native name: ALLJOYN_UINT16
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_UINT16 => 113
+    static UINT16 => 113
 
     /**
+     * Native name: ALLJOYN_STRUCT
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_STRUCT => 114
+    static STRUCT => 114
 
     /**
+     * Native name: ALLJOYN_STRING
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_STRING => 115
+    static STRING => 115
 
     /**
+     * Native name: ALLJOYN_UINT64
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_UINT64 => 116
+    static UINT64 => 116
 
     /**
+     * Native name: ALLJOYN_UINT32
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_UINT32 => 117
+    static UINT32 => 117
 
     /**
+     * Native name: ALLJOYN_VARIANT
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_VARIANT => 118
+    static VARIANT => 118
 
     /**
+     * Native name: ALLJOYN_INT64
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_INT64 => 120
+    static INT64 => 120
 
     /**
+     * Native name: ALLJOYN_BYTE
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_BYTE => 121
+    static BYTE => 121
 
     /**
+     * Native name: ALLJOYN_STRUCT_OPEN
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_STRUCT_OPEN => 40
+    static STRUCT_OPEN => 40
 
     /**
+     * Native name: ALLJOYN_STRUCT_CLOSE
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_STRUCT_CLOSE => 41
+    static STRUCT_CLOSE => 41
 
     /**
+     * Native name: ALLJOYN_DICT_ENTRY_OPEN
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_DICT_ENTRY_OPEN => 123
+    static DICT_ENTRY_OPEN => 123
 
     /**
+     * Native name: ALLJOYN_DICT_ENTRY_CLOSE
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_DICT_ENTRY_CLOSE => 125
+    static DICT_ENTRY_CLOSE => 125
 
     /**
+     * Native name: ALLJOYN_BOOLEAN_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_BOOLEAN_ARRAY => 25185
+    static BOOLEAN_ARRAY => 25185
 
     /**
+     * Native name: ALLJOYN_DOUBLE_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_DOUBLE_ARRAY => 25697
+    static DOUBLE_ARRAY => 25697
 
     /**
+     * Native name: ALLJOYN_INT32_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_INT32_ARRAY => 26977
+    static INT32_ARRAY => 26977
 
     /**
+     * Native name: ALLJOYN_INT16_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_INT16_ARRAY => 28257
+    static INT16_ARRAY => 28257
 
     /**
+     * Native name: ALLJOYN_UINT16_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_UINT16_ARRAY => 29025
+    static UINT16_ARRAY => 29025
 
     /**
+     * Native name: ALLJOYN_UINT64_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_UINT64_ARRAY => 29793
+    static UINT64_ARRAY => 29793
 
     /**
+     * Native name: ALLJOYN_UINT32_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_UINT32_ARRAY => 30049
+    static UINT32_ARRAY => 30049
 
     /**
+     * Native name: ALLJOYN_INT64_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_INT64_ARRAY => 30817
+    static INT64_ARRAY => 30817
 
     /**
+     * Native name: ALLJOYN_BYTE_ARRAY
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_BYTE_ARRAY => 31073
+    static BYTE_ARRAY => 31073
 
     /**
+     * Native name: ALLJOYN_WILDCARD
      * @type {Integer (Int32)}
      */
-    static ALLJOYN_WILDCARD => 42
+    static WILDCARD => 42
 }

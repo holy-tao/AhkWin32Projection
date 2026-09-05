@@ -31,7 +31,6 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     static VTableNames => ["GetZoneAttributesEx", "GetZoneSecurityState", "GetIESecurityState", "FixUnsecureSettings"]
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<ZONEATTRIBUTES>} pZoneAttributes 
      * @param {Integer} dwFlags 
@@ -43,7 +42,6 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     }
 
     /**
-     * 
      * @param {Integer} dwZoneIndex 
      * @param {BOOL} fRespectPolicy 
      * @param {Pointer<Integer>} pdwState 
@@ -59,7 +57,6 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     }
 
     /**
-     * 
      * @param {BOOL} fRespectPolicy 
      * @param {Pointer<Integer>} pdwState 
      * @param {Pointer<BOOL>} pfPolicyEncountered 
@@ -75,7 +72,6 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FixUnsecureSettings() {

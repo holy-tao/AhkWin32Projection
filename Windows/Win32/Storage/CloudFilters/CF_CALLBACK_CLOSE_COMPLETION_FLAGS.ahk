@@ -10,13 +10,15 @@ class CF_CALLBACK_CLOSE_COMPLETION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No close completion flags.
+     * Native name: CF_CALLBACK_CLOSE_COMPLETION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_CLOSE_COMPLETION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * A flag set if a placeholder is deleted as a result of the close.
+     * Native name: CF_CALLBACK_CLOSE_COMPLETION_FLAG_DELETED
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_CLOSE_COMPLETION_FLAG_DELETED => 1
+    static FLAG_DELETED => 1
 }

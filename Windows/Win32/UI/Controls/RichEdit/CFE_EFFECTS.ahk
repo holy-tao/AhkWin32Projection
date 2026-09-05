@@ -7,127 +7,152 @@
 class CFE_EFFECTS extends Win32BitflagEnum {
 
     /**
+     * Native name: CFE_ALLCAPS
      * @type {Integer (UInt32)}
      */
-    static CFE_ALLCAPS => 128
+    static ALLCAPS => 128
 
     /**
+     * Native name: CFE_AUTOBACKCOLOR
      * @type {Integer (UInt32)}
      */
-    static CFE_AUTOBACKCOLOR => 67108864
+    static AUTOBACKCOLOR => 67108864
 
     /**
+     * Native name: CFE_DISABLED
      * @type {Integer (UInt32)}
      */
-    static CFE_DISABLED => 8192
+    static DISABLED => 8192
 
     /**
+     * Native name: CFE_EMBOSS
      * @type {Integer (UInt32)}
      */
-    static CFE_EMBOSS => 2048
+    static EMBOSS => 2048
 
     /**
+     * Native name: CFE_HIDDEN
      * @type {Integer (UInt32)}
      */
-    static CFE_HIDDEN => 256
+    static HIDDEN => 256
 
     /**
+     * Native name: CFE_IMPRINT
      * @type {Integer (UInt32)}
      */
-    static CFE_IMPRINT => 4096
+    static IMPRINT => 4096
 
     /**
+     * Native name: CFE_OUTLINE
      * @type {Integer (UInt32)}
      */
-    static CFE_OUTLINE => 512
+    static OUTLINE => 512
 
     /**
+     * Native name: CFE_REVISED
      * @type {Integer (UInt32)}
      */
-    static CFE_REVISED => 16384
+    static REVISED => 16384
 
     /**
+     * Native name: CFE_SHADOW
      * @type {Integer (UInt32)}
      */
-    static CFE_SHADOW => 1024
+    static SHADOW => 1024
 
     /**
+     * Native name: CFE_SMALLCAPS
      * @type {Integer (UInt32)}
      */
-    static CFE_SMALLCAPS => 64
+    static SMALLCAPS => 64
 
     /**
+     * Native name: CFE_AUTOCOLOR
      * @type {Integer (UInt32)}
      */
-    static CFE_AUTOCOLOR => 1073741824
+    static AUTOCOLOR => 1073741824
 
     /**
+     * Native name: CFE_BOLD
      * @type {Integer (UInt32)}
      */
-    static CFE_BOLD => 1
+    static BOLD => 1
 
     /**
+     * Native name: CFE_ITALIC
      * @type {Integer (UInt32)}
      */
-    static CFE_ITALIC => 2
+    static ITALIC => 2
 
     /**
+     * Native name: CFE_STRIKEOUT
      * @type {Integer (UInt32)}
      */
-    static CFE_STRIKEOUT => 8
+    static STRIKEOUT => 8
 
     /**
+     * Native name: CFE_UNDERLINE
      * @type {Integer (UInt32)}
      */
-    static CFE_UNDERLINE => 4
+    static UNDERLINE => 4
 
     /**
+     * Native name: CFE_PROTECTED
      * @type {Integer (UInt32)}
      */
-    static CFE_PROTECTED => 16
+    static PROTECTED => 16
 
     /**
+     * Native name: CFE_LINK
      * @type {Integer (UInt32)}
      */
-    static CFE_LINK => 32
+    static LINK => 32
 
     /**
+     * Native name: CFE_SUBSCRIPT
      * @type {Integer (UInt32)}
      */
-    static CFE_SUBSCRIPT => 65536
+    static SUBSCRIPT => 65536
 
     /**
+     * Native name: CFE_SUPERSCRIPT
      * @type {Integer (UInt32)}
      */
-    static CFE_SUPERSCRIPT => 131072
+    static SUPERSCRIPT => 131072
 
     /**
+     * Native name: CFE_FONTBOUND
      * @type {Integer (UInt32)}
      */
-    static CFE_FONTBOUND => 1048576
+    static FONTBOUND => 1048576
 
     /**
+     * Native name: CFE_LINKPROTECTED
      * @type {Integer (UInt32)}
      */
-    static CFE_LINKPROTECTED => 8388608
+    static LINKPROTECTED => 8388608
 
     /**
+     * Native name: CFE_EXTENDED
      * @type {Integer (UInt32)}
      */
-    static CFE_EXTENDED => 33554432
+    static EXTENDED => 33554432
 
     /**
+     * Native name: CFE_MATHNOBUILDUP
      * @type {Integer (UInt32)}
      */
-    static CFE_MATHNOBUILDUP => 134217728
+    static MATHNOBUILDUP => 134217728
 
     /**
+     * Native name: CFE_MATH
      * @type {Integer (UInt32)}
      */
-    static CFE_MATH => 268435456
+    static MATH => 268435456
 
     /**
+     * Native name: CFE_MATHORDINARY
      * @type {Integer (UInt32)}
      */
-    static CFE_MATHORDINARY => 536870912
+    static MATHORDINARY => 536870912
 }

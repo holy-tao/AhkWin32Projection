@@ -12,19 +12,22 @@ class DVD_SUBPICTURE_CODING extends Win32Enum {
 
     /**
      * Indicates that the subpicture uses run length encoding.
+     * Native name: DVD_SPCoding_RunLength
      * @type {Integer (Int32)}
      */
-    static DVD_SPCoding_RunLength => 0
+    static SPCoding_RunLength => 0
 
     /**
      * Indicates that subpicture uses extended encoding.
+     * Native name: DVD_SPCoding_Extended
      * @type {Integer (Int32)}
      */
-    static DVD_SPCoding_Extended => 1
+    static SPCoding_Extended => 1
 
     /**
      * Indicates that the subpicture uses some other encoding scheme.
+     * Native name: DVD_SPCoding_Other
      * @type {Integer (Int32)}
      */
-    static DVD_SPCoding_Other => 2
+    static SPCoding_Other => 2
 }

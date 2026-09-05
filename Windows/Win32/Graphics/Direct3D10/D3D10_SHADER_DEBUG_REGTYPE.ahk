@@ -13,69 +13,80 @@ class D3D10_SHADER_DEBUG_REGTYPE extends Win32Enum {
 
     /**
      * Input register.
+     * Native name: D3D10_SHADER_DEBUG_REG_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_INPUT => 0
+    static REG_INPUT => 0
 
     /**
      * Output register.
+     * Native name: D3D10_SHADER_DEBUG_REG_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_OUTPUT => 1
+    static REG_OUTPUT => 1
 
     /**
      * Constant buffer register.
+     * Native name: D3D10_SHADER_DEBUG_REG_CBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_CBUFFER => 2
+    static REG_CBUFFER => 2
 
     /**
      * Texture buffer register.
+     * Native name: D3D10_SHADER_DEBUG_REG_TBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_TBUFFER => 3
+    static REG_TBUFFER => 3
 
     /**
      * Temporary register.
+     * Native name: D3D10_SHADER_DEBUG_REG_TEMP
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_TEMP => 4
+    static REG_TEMP => 4
 
     /**
      * Array of temporary registers.
+     * Native name: D3D10_SHADER_DEBUG_REG_TEMPARRAY
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_TEMPARRAY => 5
+    static REG_TEMPARRAY => 5
 
     /**
      * Texture register.
+     * Native name: D3D10_SHADER_DEBUG_REG_TEXTURE
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_TEXTURE => 6
+    static REG_TEXTURE => 6
 
     /**
      * Sampler register.
+     * Native name: D3D10_SHADER_DEBUG_REG_SAMPLER
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_SAMPLER => 7
+    static REG_SAMPLER => 7
 
     /**
      * Immediate constant buffer register.
+     * Native name: D3D10_SHADER_DEBUG_REG_IMMEDIATECBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_IMMEDIATECBUFFER => 8
+    static REG_IMMEDIATECBUFFER => 8
 
     /**
      * Literal register.
+     * Native name: D3D10_SHADER_DEBUG_REG_LITERAL
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_LITERAL => 9
+    static REG_LITERAL => 9
 
     /**
      * Unused register.
+     * Native name: D3D10_SHADER_DEBUG_REG_UNUSED
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_REG_UNUSED => 10
+    static REG_UNUSED => 10
 
     /**
      * Interface register.

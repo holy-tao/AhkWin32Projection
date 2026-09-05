@@ -7,17 +7,20 @@
 class VDS_NF_PACK extends Win32Enum {
 
     /**
+     * Native name: VDS_NF_PACK_ARRIVE
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_PACK_ARRIVE => 1
+    static ARRIVE => 1
 
     /**
+     * Native name: VDS_NF_PACK_DEPART
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_PACK_DEPART => 2
+    static DEPART => 2
 
     /**
+     * Native name: VDS_NF_PACK_MODIFY
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_PACK_MODIFY => 3
+    static MODIFY => 3
 }

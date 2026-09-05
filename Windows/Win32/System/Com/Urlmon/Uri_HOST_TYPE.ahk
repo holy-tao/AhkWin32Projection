@@ -7,27 +7,32 @@
 class Uri_HOST_TYPE extends Win32Enum {
 
     /**
+     * Native name: Uri_HOST_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static Uri_HOST_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: Uri_HOST_DNS
      * @type {Integer (Int32)}
      */
-    static Uri_HOST_DNS => 1
+    static DNS => 1
 
     /**
+     * Native name: Uri_HOST_IPV4
      * @type {Integer (Int32)}
      */
-    static Uri_HOST_IPV4 => 2
+    static IPV4 => 2
 
     /**
+     * Native name: Uri_HOST_IPV6
      * @type {Integer (Int32)}
      */
-    static Uri_HOST_IPV6 => 3
+    static IPV6 => 3
 
     /**
+     * Native name: Uri_HOST_IDN
      * @type {Integer (Int32)}
      */
-    static Uri_HOST_IDN => 4
+    static IDN => 4
 }

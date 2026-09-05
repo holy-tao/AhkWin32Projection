@@ -9,166 +9,193 @@
 class NVME_LOG_PAGES extends Win32Enum {
 
     /**
+     * Native name: NVME_LOG_PAGE_SUPPORTED_LOG_PAGES
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_SUPPORTED_LOG_PAGES => 0
+    static PAGE_SUPPORTED_LOG_PAGES => 0
 
     /**
      * The Error Information log page that contains extended error information for a command that completed with an error or reported an error that is not specific to a particular command.
      * 
      * The information contained in the Error Information log page is defined in the [NVME_ERROR_INFO_LOG](ns-nvme-nvme_error_info_log.md) structure.
+     * Native name: NVME_LOG_PAGE_ERROR_INFO
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_ERROR_INFO => 1
+    static PAGE_ERROR_INFO => 1
 
     /**
      * The SMART / Health Information log page that contains SMART and general health information.
      * 
      * The information contained in the SMART/Health Information log page is defined in the [NVME_HEALTH_INFO_LOG](ns-nvme-nvme_health_info_log.md) structure.
+     * Native name: NVME_LOG_PAGE_HEALTH_INFO
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_HEALTH_INFO => 2
+    static PAGE_HEALTH_INFO => 2
 
     /**
      * The Firmware Slot Information log page that describes the firmware revision stored in each supported firmware slot.
      * 
      * The information contained in the Firmware Slot Information log page is defined in the [FIRMWARE_SLOT_INFO_LOG](ns-nvme-nvme_firmware_slot_info_log.md) structure.
+     * Native name: NVME_LOG_PAGE_FIRMWARE_SLOT_INFO
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_FIRMWARE_SLOT_INFO => 3
+    static PAGE_FIRMWARE_SLOT_INFO => 3
 
     /**
      * The Changed Namespace List log page that describes namespaces in the controller that have changed [Identify Namespace](../nvme/ns-nvme-nvme_identify_namespace_data.md) information since the last time the log page was read.
      * 
      * The information contained in the Changed Namespace List log page is defined in the [CHANGED_NAMESPACE_LIST_LOG](ns-nvme-nvme_changed_namespace_list_log.md) structure.
+     * Native name: NVME_LOG_PAGE_CHANGED_NAMESPACE_LIST
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_CHANGED_NAMESPACE_LIST => 4
+    static PAGE_CHANGED_NAMESPACE_LIST => 4
 
     /**
      * The Commands Supported and Effects log page that describes the commands that the controller supports and the effects of those commands on the state of the NVM subsystem.
      * 
      * The information contained in the Commands Supported and Effects log page is defined in the [NVME_COMMAND_EFFECTS_LOG](ns-nvme-nvme_command_effects_log.md) structure.
+     * Native name: NVME_LOG_PAGE_COMMAND_EFFECTS
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_COMMAND_EFFECTS => 5
+    static PAGE_COMMAND_EFFECTS => 5
 
     /**
      * The Device Self-Test log page that describes the status, completion percentage, and results of a device self-test.
      * 
      * The information contained in the Device Self Test log page is defined in the [NVME_DEVICE_SELF_TEST_LOG](ns-nvme-nvme_device_self_test_log.md) structure.
+     * Native name: NVME_LOG_PAGE_DEVICE_SELF_TEST
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_DEVICE_SELF_TEST => 6
+    static PAGE_DEVICE_SELF_TEST => 6
 
     /**
      * The Telemetry Host-Initiated log page that describes telemetry data from the host.
      * 
      * The information contained in the Telemetry Host-Initiated log page is defined in the [NVME_TELEMETRY_HOST_INITIATED_LOG](ns-nvme-nvme_device_self_test_log.md) structure.
+     * Native name: NVME_LOG_PAGE_TELEMETRY_HOST_INITIATED
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_TELEMETRY_HOST_INITIATED => 7
+    static PAGE_TELEMETRY_HOST_INITIATED => 7
 
     /**
      * The Telemetry Controller-Initiated log page that describes telemetry data from the controller.
+     * Native name: NVME_LOG_PAGE_TELEMETRY_CTLR_INITIATED
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_TELEMETRY_CTLR_INITIATED => 8
+    static PAGE_TELEMETRY_CTLR_INITIATED => 8
 
     /**
      * The Endurance Group Information log page that contains information about the amount of data being read from and written to an Endurance Group.
      * 
      * The information contained in the Endurance Group Information log page is defined in the [NVME_ENDURANCE_GROUP_LOG](ns-nvme-nvme_endurance_group_log.md) structure.
+     * Native name: NVME_LOG_PAGE_ENDURANCE_GROUP_INFORMATION
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_ENDURANCE_GROUP_INFORMATION => 9
+    static PAGE_ENDURANCE_GROUP_INFORMATION => 9
 
     /**
+     * Native name: NVME_LOG_PAGE_PREDICTABLE_LATENCY_NVM_SET
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_PREDICTABLE_LATENCY_NVM_SET => 10
+    static PAGE_PREDICTABLE_LATENCY_NVM_SET => 10
 
     /**
+     * Native name: NVME_LOG_PAGE_PREDICTABLE_LATENCY_EVENT_AGGREGATE
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_PREDICTABLE_LATENCY_EVENT_AGGREGATE => 11
+    static PAGE_PREDICTABLE_LATENCY_EVENT_AGGREGATE => 11
 
     /**
+     * Native name: NVME_LOG_PAGE_ASYMMETRIC_NAMESPACE_ACCESS
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_ASYMMETRIC_NAMESPACE_ACCESS => 12
+    static PAGE_ASYMMETRIC_NAMESPACE_ACCESS => 12
 
     /**
+     * Native name: NVME_LOG_PAGE_PERSISTENT_EVENT_LOG
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_PERSISTENT_EVENT_LOG => 13
+    static PAGE_PERSISTENT_EVENT_LOG => 13
 
     /**
+     * Native name: NVME_LOG_PAGE_LBA_STATUS_INFORMATION
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_LBA_STATUS_INFORMATION => 14
+    static PAGE_LBA_STATUS_INFORMATION => 14
 
     /**
+     * Native name: NVME_LOG_PAGE_ENDURANCE_GROUP_EVENT_AGGREGATE
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_ENDURANCE_GROUP_EVENT_AGGREGATE => 15
+    static PAGE_ENDURANCE_GROUP_EVENT_AGGREGATE => 15
 
     /**
+     * Native name: NVME_LOG_PAGE_MEDIA_UNIT_STATUS
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_MEDIA_UNIT_STATUS => 16
+    static PAGE_MEDIA_UNIT_STATUS => 16
 
     /**
+     * Native name: NVME_LOG_PAGE_SUPPORTED_CAPACITY_CONFIGURATION_LIST
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_SUPPORTED_CAPACITY_CONFIGURATION_LIST => 17
+    static PAGE_SUPPORTED_CAPACITY_CONFIGURATION_LIST => 17
 
     /**
+     * Native name: NVME_LOG_PAGE_FEATURE_IDENTIFIERS_SUPPORTED_AND_EFFECTS
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_FEATURE_IDENTIFIERS_SUPPORTED_AND_EFFECTS => 18
+    static PAGE_FEATURE_IDENTIFIERS_SUPPORTED_AND_EFFECTS => 18
 
     /**
+     * Native name: NVME_LOG_PAGE_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS => 19
+    static PAGE_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS => 19
 
     /**
+     * Native name: NVME_LOG_PAGE_COMMAND_AND_FEATURE_LOCKDOWN
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_COMMAND_AND_FEATURE_LOCKDOWN => 20
+    static PAGE_COMMAND_AND_FEATURE_LOCKDOWN => 20
 
     /**
+     * Native name: NVME_LOG_PAGE_BOOT_PARTITON
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_BOOT_PARTITON => 21
+    static PAGE_BOOT_PARTITON => 21
 
     /**
+     * Native name: NVME_LOG_PAGE_ROTATIONAL_MEDIA_INFORMATION
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_ROTATIONAL_MEDIA_INFORMATION => 22
+    static PAGE_ROTATIONAL_MEDIA_INFORMATION => 22
 
     /**
+     * Native name: NVME_LOG_PAGE_DISCOVERY
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_DISCOVERY => 112
+    static PAGE_DISCOVERY => 112
 
     /**
      * The Reservation Notification log page that is created whenever an unmasked reservation notification occurs on any namespace that may be accessed by the controller.
      * 
      * The information contained in the Reservation Notification log page is defined in the [NVME_RESERVATION_NOTIFICATION_LOG](ns-nvme-nvme_reservation_notification_log.md) structure.
+     * Native name: NVME_LOG_PAGE_RESERVATION_NOTIFICATION
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_RESERVATION_NOTIFICATION => 128
+    static PAGE_RESERVATION_NOTIFICATION => 128
 
     /**
      * The Sanitize Status log page that is created whenever an unmasked reservation notification occurs on any namespace that may be accessed by the controller.
+     * Native name: NVME_LOG_PAGE_SANITIZE_STATUS
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_SANITIZE_STATUS => 129
+    static PAGE_SANITIZE_STATUS => 129
 
     /**
+     * Native name: NVME_LOG_PAGE_CHANGED_ZONE_LIST
      * @type {Integer (Int32)}
      */
-    static NVME_LOG_PAGE_CHANGED_ZONE_LIST => 191
+    static PAGE_CHANGED_ZONE_LIST => 191
 }

@@ -7,22 +7,26 @@
 class DCOMPOSITION_DEPTH_MODE extends Win32Enum {
 
     /**
+     * Native name: DCOMPOSITION_DEPTH_MODE_TREE
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_DEPTH_MODE_TREE => 0
+    static TREE => 0
 
     /**
+     * Native name: DCOMPOSITION_DEPTH_MODE_SPATIAL
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_DEPTH_MODE_SPATIAL => 1
+    static SPATIAL => 1
 
     /**
+     * Native name: DCOMPOSITION_DEPTH_MODE_SORTED
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_DEPTH_MODE_SORTED => 3
+    static SORTED => 3
 
     /**
+     * Native name: DCOMPOSITION_DEPTH_MODE_INHERIT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_DEPTH_MODE_INHERIT => -1
+    static INHERIT => -1
 }

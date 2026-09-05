@@ -11,22 +11,26 @@
 class WPD_EFFECT_MODES extends Win32Enum {
 
     /**
+     * Native name: WPD_EFFECT_MODE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_EFFECT_MODE_UNDEFINED => 0
+    static MODE_UNDEFINED => 0
 
     /**
+     * Native name: WPD_EFFECT_MODE_COLOR
      * @type {Integer (Int32)}
      */
-    static WPD_EFFECT_MODE_COLOR => 1
+    static MODE_COLOR => 1
 
     /**
+     * Native name: WPD_EFFECT_MODE_BLACK_AND_WHITE
      * @type {Integer (Int32)}
      */
-    static WPD_EFFECT_MODE_BLACK_AND_WHITE => 2
+    static MODE_BLACK_AND_WHITE => 2
 
     /**
+     * Native name: WPD_EFFECT_MODE_SEPIA
      * @type {Integer (Int32)}
      */
-    static WPD_EFFECT_MODE_SEPIA => 3
+    static MODE_SEPIA => 3
 }

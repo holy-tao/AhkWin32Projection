@@ -10,47 +10,54 @@ class RESDLL_CONTEXT_OPERATION_TYPE extends Win32Enum {
 
     /**
      * A group fail back.
+     * Native name: ResdllContextOperationTypeFailback
      * @type {Integer (Int32)}
      */
-    static ResdllContextOperationTypeFailback => 0
+    static Failback => 0
 
     /**
      * A node drain.
+     * Native name: ResdllContextOperationTypeDrain
      * @type {Integer (Int32)}
      */
-    static ResdllContextOperationTypeDrain => 1
+    static Drain => 1
 
     /**
      * A node drain failure.
+     * Native name: ResdllContextOperationTypeDrainFailure
      * @type {Integer (Int32)}
      */
-    static ResdllContextOperationTypeDrainFailure => 2
+    static DrainFailure => 2
 
     /**
      * An embedded failure.
+     * Native name: ResdllContextOperationTypeEmbeddedFailure
      * @type {Integer (Int32)}
      */
-    static ResdllContextOperationTypeEmbeddedFailure => 3
+    static EmbeddedFailure => 3
 
     /**
      * A preemption failure.
+     * Native name: ResdllContextOperationTypePreemption
      * @type {Integer (Int32)}
      */
-    static ResdllContextOperationTypePreemption => 4
+    static Preemption => 4
 
     /**
      * A network connection failure.
      * 
      * <b>Windows Server 2012:  </b>This value is not supported before Windows Server 2012 R2.
+     * Native name: ResdllContextOperationTypeNetworkDisconnect
      * @type {Integer (Int32)}
      */
-    static ResdllContextOperationTypeNetworkDisconnect => 5
+    static NetworkDisconnect => 5
 
     /**
      * A network connection was disconnected and it is being re-established.
      * 
      * <b>Windows Server 2012:  </b>This value is not supported before Windows Server 2012 R2.
+     * Native name: ResdllContextOperationTypeNetworkDisconnectMoveRetry
      * @type {Integer (Int32)}
      */
-    static ResdllContextOperationTypeNetworkDisconnectMoveRetry => 6
+    static NetworkDisconnectMoveRetry => 6
 }

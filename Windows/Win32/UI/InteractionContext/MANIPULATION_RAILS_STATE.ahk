@@ -10,25 +10,29 @@ class MANIPULATION_RAILS_STATE extends Win32Enum {
 
     /**
      * Rail state not defined yet.
+     * Native name: MANIPULATION_RAILS_STATE_UNDECIDED
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_RAILS_STATE_UNDECIDED => 0
+    static UNDECIDED => 0
 
     /**
      * Interaction is not constrained to rail.
+     * Native name: MANIPULATION_RAILS_STATE_FREE
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_RAILS_STATE_FREE => 1
+    static FREE => 1
 
     /**
      * Interaction is constrained to rail.
+     * Native name: MANIPULATION_RAILS_STATE_RAILED
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_RAILS_STATE_RAILED => 2
+    static RAILED => 2
 
     /**
      * Maximum number of interactions exceeded.
+     * Native name: MANIPULATION_RAILS_STATE_MAX
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_RAILS_STATE_MAX => -1
+    static MAX => -1
 }

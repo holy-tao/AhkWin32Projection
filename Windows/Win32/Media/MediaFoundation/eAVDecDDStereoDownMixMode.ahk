@@ -10,19 +10,22 @@ class eAVDecDDStereoDownMixMode extends Win32Enum {
 
     /**
      * The decoder selects the mode automatically.
+     * Native name: eAVDecDDStereoDownMixMode_Auto
      * @type {Integer (Int32)}
      */
-    static eAVDecDDStereoDownMixMode_Auto => 0
+    static Auto => 0
 
     /**
      * Left total/right total (Lt/Rt) downmix. (Surround compatible.)
+     * Native name: eAVDecDDStereoDownMixMode_LtRt
      * @type {Integer (Int32)}
      */
-    static eAVDecDDStereoDownMixMode_LtRt => 1
+    static LtRt => 1
 
     /**
      * Left only/right only (Lo/Ro) downmix. (Stereo.)
+     * Native name: eAVDecDDStereoDownMixMode_LoRo
      * @type {Integer (Int32)}
      */
-    static eAVDecDDStereoDownMixMode_LoRo => 2
+    static LoRo => 2
 }

@@ -30,7 +30,6 @@ class IElementBehaviorCategory extends IUnknown {
     static VTableNames => ["GetCategory"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetCategory() {

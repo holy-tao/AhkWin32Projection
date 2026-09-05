@@ -17,31 +17,36 @@ class VDS_PACK_FLAG extends Win32Enum {
 
     /**
      * If set, an external pack is eligible for online status.
+     * Native name: VDS_PKF_FOREIGN
      * @type {Integer (Int32)}
      */
-    static VDS_PKF_FOREIGN => 1
+    static PKF_FOREIGN => 1
 
     /**
      * If  set, a dynamic pack lacks the required quorum. A quorum is the minimum number of disks in a dynamic pack (n/2 + 1) required to enable online status. This flag prevents the caller from granting online status to the same pack on multiple computers.
+     * Native name: VDS_PKF_NOQUORUM
      * @type {Integer (Int32)}
      */
-    static VDS_PKF_NOQUORUM => 2
+    static PKF_NOQUORUM => 2
 
     /**
      * If set, the pack policy prevents online eligibility.  This flag applies exclusively to packs managed by  the Windows Server 2003 version of VDS, which allows only one pack at a time to maintain online status.
+     * Native name: VDS_PKF_POLICY
      * @type {Integer (Int32)}
      */
-    static VDS_PKF_POLICY => 4
+    static PKF_POLICY => 4
 
     /**
      * If set, a pack contains a disk with a corrupted database.
+     * Native name: VDS_PKF_CORRUPTED
      * @type {Integer (Int32)}
      */
-    static VDS_PKF_CORRUPTED => 8
+    static PKF_CORRUPTED => 8
 
     /**
      * If set, a  pack with sufficient disk quorum failed to achieve online status due to an error.
+     * Native name: VDS_PKF_ONLINE_ERROR
      * @type {Integer (Int32)}
      */
-    static VDS_PKF_ONLINE_ERROR => 16
+    static PKF_ONLINE_ERROR => 16
 }

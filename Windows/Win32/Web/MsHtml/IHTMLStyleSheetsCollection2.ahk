@@ -30,7 +30,6 @@ class IHTMLStyleSheetsCollection2 extends IDispatch {
     static VTableNames => ["item"]
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {VARIANT} 
      */

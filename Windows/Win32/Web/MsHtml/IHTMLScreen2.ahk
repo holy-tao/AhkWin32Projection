@@ -57,7 +57,6 @@ class IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_logicalXDPI() {
@@ -66,7 +65,6 @@ class IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_logicalYDPI() {
@@ -75,7 +73,6 @@ class IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deviceXDPI() {
@@ -84,7 +81,6 @@ class IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deviceYDPI() {

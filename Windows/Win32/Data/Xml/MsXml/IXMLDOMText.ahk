@@ -29,7 +29,6 @@ class IXMLDOMText extends IXMLDOMCharacterData {
     static VTableNames => ["splitText"]
 
     /**
-     * 
      * @param {Integer} offset 
      * @returns {IXMLDOMText} 
      */

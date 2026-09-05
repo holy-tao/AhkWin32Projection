@@ -7,17 +7,20 @@
 class PDH_LOG extends Win32Enum {
 
     /**
+     * Native name: PDH_LOG_READ_ACCESS
      * @type {Integer (UInt32)}
      */
-    static PDH_LOG_READ_ACCESS => 65536
+    static READ_ACCESS => 65536
 
     /**
+     * Native name: PDH_LOG_WRITE_ACCESS
      * @type {Integer (UInt32)}
      */
-    static PDH_LOG_WRITE_ACCESS => 131072
+    static WRITE_ACCESS => 131072
 
     /**
+     * Native name: PDH_LOG_UPDATE_ACCESS
      * @type {Integer (UInt32)}
      */
-    static PDH_LOG_UPDATE_ACCESS => 262144
+    static UPDATE_ACCESS => 262144
 }

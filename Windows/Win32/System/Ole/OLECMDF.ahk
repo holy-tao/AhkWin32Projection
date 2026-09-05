@@ -12,37 +12,43 @@ class OLECMDF extends Win32Enum {
 
     /**
      * The command is supported by this object.
+     * Native name: OLECMDF_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static OLECMDF_SUPPORTED => 1
+    static SUPPORTED => 1
 
     /**
      * The command is available and enabled.
+     * Native name: OLECMDF_ENABLED
      * @type {Integer (Int32)}
      */
-    static OLECMDF_ENABLED => 2
+    static ENABLED => 2
 
     /**
      * The command is an on-off toggle and is currently on.
+     * Native name: OLECMDF_LATCHED
      * @type {Integer (Int32)}
      */
-    static OLECMDF_LATCHED => 4
+    static LATCHED => 4
 
     /**
      * Reserved for future use.
+     * Native name: OLECMDF_NINCHED
      * @type {Integer (Int32)}
      */
-    static OLECMDF_NINCHED => 8
+    static NINCHED => 8
 
     /**
      * The command is hidden.
+     * Native name: OLECMDF_INVISIBLE
      * @type {Integer (Int32)}
      */
-    static OLECMDF_INVISIBLE => 16
+    static INVISIBLE => 16
 
     /**
      * The command is hidden on the context menu.
+     * Native name: OLECMDF_DEFHIDEONCTXTMENU
      * @type {Integer (Int32)}
      */
-    static OLECMDF_DEFHIDEONCTXTMENU => 32
+    static DEFHIDEONCTXTMENU => 32
 }

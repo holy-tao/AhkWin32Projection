@@ -31,7 +31,6 @@ class ID3D12VideoDevice4 extends ID3D12VideoDevice3 {
     static VTableNames => ["CreateVideoEncoderHeap1"]
 
     /**
-     * 
      * @param {Pointer<D3D12_VIDEO_ENCODER_HEAP_DESC1>} pDesc 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

@@ -7,22 +7,26 @@
 class NVMEOF_AUTH_SECURE_CHANNEL extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthSCUnspecified
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthSCUnspecified => 0
+    static AuthSCUnspecified => 0
 
     /**
+     * Native name: NvmeofAuthSCAuthRequired
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthSCAuthRequired => 1
+    static AuthSCAuthRequired => 1
 
     /**
+     * Native name: NvmeofAuthSCAuthConcatSCRequired
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthSCAuthConcatSCRequired => 2
+    static AuthSCAuthConcatSCRequired => 2
 
     /**
+     * Native name: NvmeofAuthSCReserved
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthSCReserved => 3
+    static AuthSCReserved => 3
 }

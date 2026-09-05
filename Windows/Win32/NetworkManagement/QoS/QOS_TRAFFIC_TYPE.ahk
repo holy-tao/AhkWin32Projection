@@ -20,47 +20,53 @@ class QOS_TRAFFIC_TYPE extends Win32Enum {
      * Flow traffic has the same network priority as regular traffic not associated with QOS.
      * 
      * This traffic type is the same as not specifying priority, and as a result,  the DSCP mark and 802.1p tag are not added to sent traffic.
+     * Native name: QOSTrafficTypeBestEffort
      * @type {Integer (Int32)}
      */
-    static QOSTrafficTypeBestEffort => 0
+    static BestEffort => 0
 
     /**
      * Flow traffic has a network priority lower than that of <b>QOSTrafficTypeBestEffort</b>.  This traffic type could be used for traffic of an application doing data backup.
      * 
      * Sent traffic will contain a DSCP mark with a value of 0x08 and an 802.1p tag with a value of 2.
+     * Native name: QOSTrafficTypeBackground
      * @type {Integer (Int32)}
      */
-    static QOSTrafficTypeBackground => 1
+    static Background => 1
 
     /**
      * Flow traffic has a network priority higher than <b>QOSTrafficTypeBestEffort</b>, yet lower than <b>QOSTrafficTypeAudioVideo</b>.  This traffic type should be used for data traffic that is more important than normal end-user scenarios, such as email.
      * 
      * Sent traffic will contain a DSCP mark with value of 0x28 and 802.1p tag with a value of 5.
+     * Native name: QOSTrafficTypeExcellentEffort
      * @type {Integer (Int32)}
      */
-    static QOSTrafficTypeExcellentEffort => 2
+    static ExcellentEffort => 2
 
     /**
      * Flow traffic has a network priority higher than <b>QOSTrafficTypeExcellentEffort</b>, yet lower than <b>QOSTrafficTypeVoice</b>.  This traffic type should be used for A/V streaming scenarios such as MPEG2 streaming.
      * 
      * Sent traffic will contain a DSCP mark with a value of 0x28 and an 802.1p tag with a value of 5.
+     * Native name: QOSTrafficTypeAudioVideo
      * @type {Integer (Int32)}
      */
-    static QOSTrafficTypeAudioVideo => 3
+    static AudioVideo => 3
 
     /**
      * Flow traffic has a network priority higher than <b>QOSTrafficTypeAudioVideo</b>, yet lower than <b>QOSTrafficTypeControl</b>.  This traffic type should be used for realtime voice streams such as VOIP.
      * 
      * Sent traffic will contain a DSCP mark with a value of 0x38 and an 802.1p tag with a value of 7.
+     * Native name: QOSTrafficTypeVoice
      * @type {Integer (Int32)}
      */
-    static QOSTrafficTypeVoice => 4
+    static Voice => 4
 
     /**
      * Flow traffic has the highest network priority.  This traffic type should only be used for the most critical of data.  For example, it may be used for data carrying user inputs.
      * 
      * Sent traffic will contain a DSCP mark with a value of 0x38 and an 802.1p tag with a value of 7.
+     * Native name: QOSTrafficTypeControl
      * @type {Integer (Int32)}
      */
-    static QOSTrafficTypeControl => 5
+    static Control => 5
 }

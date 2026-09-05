@@ -7,27 +7,32 @@
 class RPC_C_IMP_LEVEL extends Win32Enum {
 
     /**
+     * Native name: RPC_C_IMP_LEVEL_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static RPC_C_IMP_LEVEL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: RPC_C_IMP_LEVEL_ANONYMOUS
      * @type {Integer (UInt32)}
      */
-    static RPC_C_IMP_LEVEL_ANONYMOUS => 1
+    static ANONYMOUS => 1
 
     /**
+     * Native name: RPC_C_IMP_LEVEL_IDENTIFY
      * @type {Integer (UInt32)}
      */
-    static RPC_C_IMP_LEVEL_IDENTIFY => 2
+    static IDENTIFY => 2
 
     /**
+     * Native name: RPC_C_IMP_LEVEL_IMPERSONATE
      * @type {Integer (UInt32)}
      */
-    static RPC_C_IMP_LEVEL_IMPERSONATE => 3
+    static IMPERSONATE => 3
 
     /**
+     * Native name: RPC_C_IMP_LEVEL_DELEGATE
      * @type {Integer (UInt32)}
      */
-    static RPC_C_IMP_LEVEL_DELEGATE => 4
+    static DELEGATE => 4
 }

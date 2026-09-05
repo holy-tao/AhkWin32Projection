@@ -7,22 +7,26 @@
 class MEDIAPLAYBACK_STATE extends Win32Enum {
 
     /**
+     * Native name: MEDIAPLAYBACK_RESUME
      * @type {Integer (Int32)}
      */
-    static MEDIAPLAYBACK_RESUME => 0
+    static RESUME => 0
 
     /**
+     * Native name: MEDIAPLAYBACK_PAUSE
      * @type {Integer (Int32)}
      */
-    static MEDIAPLAYBACK_PAUSE => 1
+    static PAUSE => 1
 
     /**
+     * Native name: MEDIAPLAYBACK_PAUSE_AND_SUSPEND
      * @type {Integer (Int32)}
      */
-    static MEDIAPLAYBACK_PAUSE_AND_SUSPEND => 2
+    static PAUSE_AND_SUSPEND => 2
 
     /**
+     * Native name: MEDIAPLAYBACK_RESUME_FROM_SUSPEND
      * @type {Integer (Int32)}
      */
-    static MEDIAPLAYBACK_RESUME_FROM_SUSPEND => 3
+    static RESUME_FROM_SUSPEND => 3
 }

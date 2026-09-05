@@ -10,12 +10,14 @@ class TAKE_SNAPSHOT_VHDSET_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
+     * Native name: TAKE_SNAPSHOT_VHDSET_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static TAKE_SNAPSHOT_VHDSET_FLAG_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: TAKE_SNAPSHOT_VHDSET_FLAG_WRITEABLE
      * @type {Integer (Int32)}
      */
-    static TAKE_SNAPSHOT_VHDSET_FLAG_WRITEABLE => 1
+    static WRITEABLE => 1
 }

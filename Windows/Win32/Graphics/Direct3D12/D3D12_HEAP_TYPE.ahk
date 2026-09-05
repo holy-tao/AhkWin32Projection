@@ -41,9 +41,10 @@ class D3D12_HEAP_TYPE extends Win32Enum {
 
     /**
      * Specifies the default heap. This heap type experiences the most bandwidth for the GPU, but cannot provide CPU access. The GPU can read and write to the memory from this pool, and resource transition barriers may be changed. The majority of heaps and resources are expected to be located here, and are typically populated through resources in upload heaps.
+     * Native name: D3D12_HEAP_TYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_TYPE_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
      * Specifies a heap used for uploading. This heap type has CPU access optimized for uploading to the GPU, but does not experience the maximum amount of bandwidth for the GPU. This heap type is best for CPU-write-once, GPU-read-once data; but GPU-read-once is stricter than necessary. GPU-read-once-or-from-cache is an acceptable use-case for the data; but such usages are hard to judge due to differing GPU cache designs and sizes. If in doubt, stick to the GPU-read-once definition or profile the difference on many GPUs between copying the data to a _DEFAULT heap vs. reading the data from an _UPLOAD heap.
@@ -61,17 +62,19 @@ class D3D12_HEAP_TYPE extends Win32Enum {
      * <li>Re-initializing the contents of a resource every frame.</li>
      * <li>Uploading constant data which is only used every other Draw call, where each Draw uses a non-trivial amount of other data.</li>
      * </ul>
+     * Native name: D3D12_HEAP_TYPE_UPLOAD
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_TYPE_UPLOAD => 2
+    static UPLOAD => 2
 
     /**
      * Specifies a heap used for reading back. This heap type has CPU access optimized for reading data back from the GPU, but does not experience the maximum amount of bandwidth for the GPU. This heap type is best for GPU-write-once, CPU-readable data. The CPU cache behavior is write-back, which is conducive for multiple sub-cache-line CPU reads.
      * 
      * Resources in this heap must be created with <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE</a>_COPY_DEST, and cannot be changed away from this.
+     * Native name: D3D12_HEAP_TYPE_READBACK
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_TYPE_READBACK => 3
+    static READBACK => 3
 
     /**
      * Specifies a custom heap. The application may specify the memory pool and CPU cache properties directly, which can be useful for UMA optimizations, multi-engine, multi-adapter, or other special cases. To do so, the application is expected to understand the adapter architecture to make the right choice. For more details, see
@@ -79,12 +82,14 @@ class D3D12_HEAP_TYPE extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a>_ARCHITECTURE,
      * <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture">D3D12_FEATURE_DATA_ARCHITECTURE</a>, and
      * <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getcustomheapproperties">GetCustomHeapProperties</a>.
+     * Native name: D3D12_HEAP_TYPE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_TYPE_CUSTOM => 4
+    static CUSTOM => 4
 
     /**
+     * Native name: D3D12_HEAP_TYPE_GPU_UPLOAD
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_TYPE_GPU_UPLOAD => 5
+    static GPU_UPLOAD => 5
 }

@@ -7,17 +7,20 @@
 class JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL extends Win32Enum {
 
     /**
+     * Native name: ToleranceIntervalShort
      * @type {Integer (Int32)}
      */
-    static ToleranceIntervalShort => 1
+    static Short => 1
 
     /**
+     * Native name: ToleranceIntervalMedium
      * @type {Integer (Int32)}
      */
-    static ToleranceIntervalMedium => 2
+    static Medium => 2
 
     /**
+     * Native name: ToleranceIntervalLong
      * @type {Integer (Int32)}
      */
-    static ToleranceIntervalLong => 3
+    static Long => 3
 }

@@ -31,7 +31,6 @@ class IRowsetRefresh extends IUnknown {
     static VTableNames => ["RefreshVisibleData", "GetLastVisibleData"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
@@ -52,7 +51,6 @@ class IRowsetRefresh extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 

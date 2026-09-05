@@ -7,17 +7,20 @@
 class GpTestControlEnum extends Win32Enum {
 
     /**
+     * Native name: TestControlForceBilinear
      * @type {Integer (Int32)}
      */
-    static TestControlForceBilinear => 0
+    static ForceBilinear => 0
 
     /**
+     * Native name: TestControlNoICM
      * @type {Integer (Int32)}
      */
-    static TestControlNoICM => 1
+    static NoICM => 1
 
     /**
+     * Native name: TestControlGetBuildNumber
      * @type {Integer (Int32)}
      */
-    static TestControlGetBuildNumber => 2
+    static GetBuildNumber => 2
 }

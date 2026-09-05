@@ -31,7 +31,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     static VTableNames => ["DefineAssembly", "DefineAssemblyRef", "DefineFile", "DefineExportedType", "DefineManifestResource", "SetAssemblyProps", "SetAssemblyRefProps", "SetFileProps", "SetExportedTypeProps", "SetManifestResourceProps"]
 
     /**
-     * 
      * @param {Pointer<Void>} pbPublicKey 
      * @param {Integer} cbPublicKey 
      * @param {Integer} ulHashAlgId 
@@ -52,7 +51,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbPublicKeyOrToken 
      * @param {Integer} cbPublicKeyOrToken 
      * @param {PWSTR} szName 
@@ -75,7 +73,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -94,7 +91,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Integer} tkImplementation 
      * @param {Integer} tkTypeDef 
@@ -112,7 +108,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Integer} tkImplementation 
      * @param {Integer} dwOffset 
@@ -130,7 +125,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pma 
      * @param {Pointer<Void>} pbPublicKey 
      * @param {Integer} cbPublicKey 
@@ -150,7 +144,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ar 
      * @param {Pointer<Void>} pbPublicKeyOrToken 
      * @param {Integer} cbPublicKeyOrToken 
@@ -172,7 +165,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _file 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -187,7 +179,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ct 
      * @param {Integer} tkImplementation 
      * @param {Integer} tkTypeDef 
@@ -200,7 +191,6 @@ class IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} mr 
      * @param {Integer} tkImplementation 
      * @param {Integer} dwOffset 

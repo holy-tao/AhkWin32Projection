@@ -7,17 +7,20 @@
 class msifiFastInstallBits extends Win32Enum {
 
     /**
+     * Native name: msifiFastInstallNoSR
      * @type {Integer (Int32)}
      */
-    static msifiFastInstallNoSR => 1
+    static NoSR => 1
 
     /**
+     * Native name: msifiFastInstallQuickCosting
      * @type {Integer (Int32)}
      */
-    static msifiFastInstallQuickCosting => 2
+    static QuickCosting => 2
 
     /**
+     * Native name: msifiFastInstallLessPrgMsg
      * @type {Integer (Int32)}
      */
-    static msifiFastInstallLessPrgMsg => 4
+    static LessPrgMsg => 4
 }

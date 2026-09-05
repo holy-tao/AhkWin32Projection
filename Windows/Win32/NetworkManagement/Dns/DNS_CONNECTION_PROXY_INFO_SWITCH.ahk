@@ -7,17 +7,20 @@
 class DNS_CONNECTION_PROXY_INFO_SWITCH extends Win32Enum {
 
     /**
+     * Native name: DNS_CONNECTION_PROXY_INFO_SWITCH_CONFIG
      * @type {Integer (Int32)}
      */
-    static DNS_CONNECTION_PROXY_INFO_SWITCH_CONFIG => 0
+    static CONFIG => 0
 
     /**
+     * Native name: DNS_CONNECTION_PROXY_INFO_SWITCH_SCRIPT
      * @type {Integer (Int32)}
      */
-    static DNS_CONNECTION_PROXY_INFO_SWITCH_SCRIPT => 1
+    static SCRIPT => 1
 
     /**
+     * Native name: DNS_CONNECTION_PROXY_INFO_SWITCH_WPAD
      * @type {Integer (Int32)}
      */
-    static DNS_CONNECTION_PROXY_INFO_SWITCH_WPAD => 2
+    static WPAD => 2
 }

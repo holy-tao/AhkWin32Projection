@@ -7,17 +7,20 @@
 class DISPID_InkCursorButtons extends Win32Enum {
 
     /**
+     * Native name: DISPID_ICBs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_ICBs_NewEnum => -4
+    static ICBs_NewEnum => -4
 
     /**
+     * Native name: DISPID_ICBsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_ICBsItem => 0
+    static ICBsItem => 0
 
     /**
+     * Native name: DISPID_ICBsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_ICBsCount => 1
+    static ICBsCount => 1
 }

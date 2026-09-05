@@ -7,32 +7,38 @@
 class CombineMode extends Win32Enum {
 
     /**
+     * Native name: CombineModeReplace
      * @type {Integer (Int32)}
      */
-    static CombineModeReplace => 0
+    static Replace => 0
 
     /**
+     * Native name: CombineModeIntersect
      * @type {Integer (Int32)}
      */
-    static CombineModeIntersect => 1
+    static Intersect => 1
 
     /**
+     * Native name: CombineModeUnion
      * @type {Integer (Int32)}
      */
-    static CombineModeUnion => 2
+    static Union => 2
 
     /**
+     * Native name: CombineModeXor
      * @type {Integer (Int32)}
      */
-    static CombineModeXor => 3
+    static Xor => 3
 
     /**
+     * Native name: CombineModeExclude
      * @type {Integer (Int32)}
      */
-    static CombineModeExclude => 4
+    static Exclude => 4
 
     /**
+     * Native name: CombineModeComplement
      * @type {Integer (Int32)}
      */
-    static CombineModeComplement => 5
+    static Complement => 5
 }

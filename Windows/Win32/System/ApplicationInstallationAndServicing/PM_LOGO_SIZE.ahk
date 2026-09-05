@@ -7,22 +7,26 @@
 class PM_LOGO_SIZE extends Win32Enum {
 
     /**
+     * Native name: PM_LOGO_SIZE_SMALL
      * @type {Integer (Int32)}
      */
-    static PM_LOGO_SIZE_SMALL => 0
+    static SMALL => 0
 
     /**
+     * Native name: PM_LOGO_SIZE_MEDIUM
      * @type {Integer (Int32)}
      */
-    static PM_LOGO_SIZE_MEDIUM => 1
+    static MEDIUM => 1
 
     /**
+     * Native name: PM_LOGO_SIZE_LARGE
      * @type {Integer (Int32)}
      */
-    static PM_LOGO_SIZE_LARGE => 2
+    static LARGE => 2
 
     /**
+     * Native name: PM_LOGO_SIZE_INVALID
      * @type {Integer (Int32)}
      */
-    static PM_LOGO_SIZE_INVALID => 3
+    static INVALID => 3
 }

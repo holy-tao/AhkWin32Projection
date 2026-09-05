@@ -94,7 +94,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_correspondingElement() {
@@ -103,7 +102,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGUseElement} 
      */
     get_correspondingUseElement() {
@@ -112,7 +110,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_parentNode() {
@@ -121,7 +118,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstanceList} 
      */
     get_childNodes() {
@@ -130,7 +126,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_firstChild() {
@@ -139,7 +134,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_lastChild() {
@@ -148,7 +142,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_previousSibling() {
@@ -157,7 +150,6 @@ class ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_nextSibling() {

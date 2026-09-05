@@ -30,7 +30,6 @@ class IRowsetNewRowAfter extends IUnknown {
     static VTableNames => ["SetNewDataAfter"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} cbbmPrevious 
      * @param {Pointer<Integer>} pbmPrevious 

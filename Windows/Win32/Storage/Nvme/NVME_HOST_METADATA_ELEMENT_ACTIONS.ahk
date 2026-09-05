@@ -7,17 +7,20 @@
 class NVME_HOST_METADATA_ELEMENT_ACTIONS extends Win32Enum {
 
     /**
+     * Native name: NVME_HOST_METADATA_ADD_REPLACE_ENTRY
      * @type {Integer (Int32)}
      */
-    static NVME_HOST_METADATA_ADD_REPLACE_ENTRY => 0
+    static ADD_REPLACE_ENTRY => 0
 
     /**
+     * Native name: NVME_HOST_METADATA_DELETE_ENTRY_MULTIPLE
      * @type {Integer (Int32)}
      */
-    static NVME_HOST_METADATA_DELETE_ENTRY_MULTIPLE => 1
+    static DELETE_ENTRY_MULTIPLE => 1
 
     /**
+     * Native name: NVME_HOST_METADATA_ADD_ENTRY_MULTIPLE
      * @type {Integer (Int32)}
      */
-    static NVME_HOST_METADATA_ADD_ENTRY_MULTIPLE => 2
+    static ADD_ENTRY_MULTIPLE => 2
 }

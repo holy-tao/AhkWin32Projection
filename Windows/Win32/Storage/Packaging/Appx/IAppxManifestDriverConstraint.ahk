@@ -40,7 +40,6 @@ class IAppxManifestDriverConstraint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinVersion() {
@@ -49,7 +48,6 @@ class IAppxManifestDriverConstraint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetMinDate() {

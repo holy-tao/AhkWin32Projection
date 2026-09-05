@@ -13,19 +13,22 @@ class __VDS_PARTITION_STYLE extends Win32Enum {
 
     /**
      * This value is not intended for use.
+     * Native name: VDS_PARTITION_STYLE_MBR
      * @type {Integer (Int32)}
      */
-    static VDS_PARTITION_STYLE_MBR => 0
+    static MBR => 0
 
     /**
      * This value is not intended for use.
+     * Native name: VDS_PARTITION_STYLE_GPT
      * @type {Integer (Int32)}
      */
-    static VDS_PARTITION_STYLE_GPT => 1
+    static GPT => 1
 
     /**
      * This value is not intended for use.
+     * Native name: VDS_PARTITION_STYLE_RAW
      * @type {Integer (Int32)}
      */
-    static VDS_PARTITION_STYLE_RAW => 2
+    static RAW => 2
 }

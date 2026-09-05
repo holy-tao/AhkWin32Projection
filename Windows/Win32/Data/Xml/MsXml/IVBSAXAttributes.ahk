@@ -37,7 +37,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -46,7 +45,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -57,7 +55,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -68,7 +65,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -79,7 +75,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @returns {Integer} 
@@ -93,7 +88,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQName 
      * @returns {Integer} 
      */
@@ -105,7 +99,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -116,7 +109,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @returns {BSTR} 
@@ -131,7 +123,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQName 
      * @returns {BSTR} 
      */
@@ -144,7 +135,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -155,7 +145,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @returns {BSTR} 
@@ -170,7 +159,6 @@ class IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQName 
      * @returns {BSTR} 
      */

@@ -7,27 +7,32 @@
 class htmlGlyphMode extends Win32Enum {
 
     /**
+     * Native name: htmlGlyphModeNone
      * @type {Integer (Int32)}
      */
-    static htmlGlyphModeNone => 0
+    static None => 0
 
     /**
+     * Native name: htmlGlyphModeBegin
      * @type {Integer (Int32)}
      */
-    static htmlGlyphModeBegin => 1
+    static Begin => 1
 
     /**
+     * Native name: htmlGlyphModeEnd
      * @type {Integer (Int32)}
      */
-    static htmlGlyphModeEnd => 2
+    static End => 2
 
     /**
+     * Native name: htmlGlyphModeBoth
      * @type {Integer (Int32)}
      */
-    static htmlGlyphModeBoth => 3
+    static Both => 3
 
     /**
+     * Native name: htmlGlyphMode_Max
      * @type {Integer (Int32)}
      */
-    static htmlGlyphMode_Max => 2147483647
+    static Max => 2147483647
 }

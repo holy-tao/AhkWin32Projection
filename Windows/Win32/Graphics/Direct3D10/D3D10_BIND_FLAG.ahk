@@ -21,43 +21,50 @@ class D3D10_BIND_FLAG extends Win32Enum {
 
     /**
      * Bind a buffer as a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">vertex buffer</a> to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage">input-assembler stage</a>.
+     * Native name: D3D10_BIND_VERTEX_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D10_BIND_VERTEX_BUFFER => 1
+    static VERTEX_BUFFER => 1
 
     /**
      * Bind a buffer as an <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">index buffer</a> to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage">input-assembler stage</a>.
+     * Native name: D3D10_BIND_INDEX_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D10_BIND_INDEX_BUFFER => 2
+    static INDEX_BUFFER => 2
 
     /**
      * Bind a buffer as a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">constant buffer</a> to a <a href="https://docs.microsoft.com/previous-versions/bb205146(v=vs.85)">shader stage</a>; this flag may NOT be combined with any other bind flag.
+     * Native name: D3D10_BIND_CONSTANT_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D10_BIND_CONSTANT_BUFFER => 4
+    static CONSTANT_BUFFER => 4
 
     /**
      * Bind a buffer or texture to a <a href="https://docs.microsoft.com/previous-versions/bb205146(v=vs.85)">shader stage</a>; this flag cannot be used with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map">D3D10_MAP_WRITE_NO_OVERWRITE</a> flag.
+     * Native name: D3D10_BIND_SHADER_RESOURCE
      * @type {Integer (Int32)}
      */
-    static D3D10_BIND_SHADER_RESOURCE => 8
+    static SHADER_RESOURCE => 8
 
     /**
      * Bind an output buffer for the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-stream-stage">stream-output stage</a>.
+     * Native name: D3D10_BIND_STREAM_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D10_BIND_STREAM_OUTPUT => 16
+    static STREAM_OUTPUT => 16
 
     /**
      * Bind a texture as a render target for the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a>.
+     * Native name: D3D10_BIND_RENDER_TARGET
      * @type {Integer (Int32)}
      */
-    static D3D10_BIND_RENDER_TARGET => 32
+    static RENDER_TARGET => 32
 
     /**
      * Bind a texture as a depth-stencil target for the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a>.
+     * Native name: D3D10_BIND_DEPTH_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D10_BIND_DEPTH_STENCIL => 64
+    static DEPTH_STENCIL => 64
 }

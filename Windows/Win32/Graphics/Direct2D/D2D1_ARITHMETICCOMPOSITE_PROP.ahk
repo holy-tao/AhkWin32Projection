@@ -15,9 +15,10 @@ class D2D1_ARITHMETICCOMPOSITE_PROP extends Win32Enum {
      * Type is D2D1_VECTOR_4F.
      * 
      * Default value is {1.0f, 0.0f, 0.0f, 0.0f}.
+     * Native name: D2D1_ARITHMETICCOMPOSITE_PROP_COEFFICIENTS
      * @type {Integer (Int32)}
      */
-    static D2D1_ARITHMETICCOMPOSITE_PROP_COEFFICIENTS => 0
+    static COEFFICIENTS => 0
 
     /**
      * The effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph.
@@ -28,7 +29,8 @@ class D2D1_ARITHMETICCOMPOSITE_PROP extends Win32Enum {
      * Type is BOOL.
      * 
      * Default value is FALSE.
+     * Native name: D2D1_ARITHMETICCOMPOSITE_PROP_CLAMP_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D2D1_ARITHMETICCOMPOSITE_PROP_CLAMP_OUTPUT => 1
+    static CLAMP_OUTPUT => 1
 }

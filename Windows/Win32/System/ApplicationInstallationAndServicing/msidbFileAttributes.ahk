@@ -7,72 +7,86 @@
 class msidbFileAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbFileAttributesReadOnly
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesReadOnly => 1
+    static ReadOnly => 1
 
     /**
+     * Native name: msidbFileAttributesHidden
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesHidden => 2
+    static Hidden => 2
 
     /**
+     * Native name: msidbFileAttributesSystem
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesSystem => 4
+    static System => 4
 
     /**
+     * Native name: msidbFileAttributesReserved0
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesReserved0 => 8
+    static Reserved0 => 8
 
     /**
+     * Native name: msidbFileAttributesIsolatedComp
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesIsolatedComp => 16
+    static IsolatedComp => 16
 
     /**
+     * Native name: msidbFileAttributesReserved1
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesReserved1 => 64
+    static Reserved1 => 64
 
     /**
+     * Native name: msidbFileAttributesReserved2
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesReserved2 => 128
+    static Reserved2 => 128
 
     /**
+     * Native name: msidbFileAttributesReserved3
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesReserved3 => 256
+    static Reserved3 => 256
 
     /**
+     * Native name: msidbFileAttributesVital
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesVital => 512
+    static Vital => 512
 
     /**
+     * Native name: msidbFileAttributesChecksum
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesChecksum => 1024
+    static Checksum => 1024
 
     /**
+     * Native name: msidbFileAttributesPatchAdded
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesPatchAdded => 4096
+    static PatchAdded => 4096
 
     /**
+     * Native name: msidbFileAttributesNoncompressed
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesNoncompressed => 8192
+    static Noncompressed => 8192
 
     /**
+     * Native name: msidbFileAttributesCompressed
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesCompressed => 16384
+    static Compressed => 16384
 
     /**
+     * Native name: msidbFileAttributesReserved4
      * @type {Integer (Int32)}
      */
-    static msidbFileAttributesReserved4 => 32768
+    static Reserved4 => 32768
 }

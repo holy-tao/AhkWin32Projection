@@ -52,7 +52,6 @@ class IDOMUIEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_view() {
@@ -61,7 +60,6 @@ class IDOMUIEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_detail() {
@@ -70,7 +68,6 @@ class IDOMUIEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

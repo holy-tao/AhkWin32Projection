@@ -125,7 +125,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -137,7 +136,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -147,7 +145,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -159,7 +156,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rel() {
@@ -169,7 +165,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -181,7 +176,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rev() {
@@ -191,7 +185,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -203,7 +196,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -213,7 +205,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -223,7 +214,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -233,7 +223,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -243,7 +232,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -253,7 +241,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -263,7 +250,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -273,7 +259,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -283,7 +268,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_styleSheet() {
@@ -292,7 +276,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -302,7 +285,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -311,7 +293,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -323,7 +304,6 @@ class IHTMLLinkElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {

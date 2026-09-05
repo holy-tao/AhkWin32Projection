@@ -37,7 +37,6 @@ class IOpenServiceManager extends IUnknown {
     static VTableNames => ["InstallService", "UninstallService", "GetServiceByID"]
 
     /**
-     * 
      * @param {PWSTR} pwzServiceUrl 
      * @returns {IOpenService} 
      */
@@ -49,7 +48,6 @@ class IOpenServiceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOpenService} pService 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ class IOpenServiceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzID 
      * @returns {IOpenService} 
      */

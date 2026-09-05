@@ -10,19 +10,22 @@ class IPSEC_TOKEN_TYPE extends Win32Enum {
 
     /**
      * Machine token.
+     * Native name: IPSEC_TOKEN_TYPE_MACHINE
      * @type {Integer (Int32)}
      */
-    static IPSEC_TOKEN_TYPE_MACHINE => 0
+    static MACHINE => 0
 
     /**
      * Impersonation token.
+     * Native name: IPSEC_TOKEN_TYPE_IMPERSONATION
      * @type {Integer (Int32)}
      */
-    static IPSEC_TOKEN_TYPE_IMPERSONATION => 1
+    static IMPERSONATION => 1
 
     /**
      * Maximum value for testing only.
+     * Native name: IPSEC_TOKEN_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IPSEC_TOKEN_TYPE_MAX => 2
+    static MAX => 2
 }

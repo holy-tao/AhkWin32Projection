@@ -7,22 +7,26 @@
 class RCVALL_VALUE extends Win32Enum {
 
     /**
+     * Native name: RCVALL_OFF
      * @type {Integer (Int32)}
      */
-    static RCVALL_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: RCVALL_ON
      * @type {Integer (Int32)}
      */
-    static RCVALL_ON => 1
+    static ON => 1
 
     /**
+     * Native name: RCVALL_SOCKETLEVELONLY
      * @type {Integer (Int32)}
      */
-    static RCVALL_SOCKETLEVELONLY => 2
+    static SOCKETLEVELONLY => 2
 
     /**
+     * Native name: RCVALL_IPLEVEL
      * @type {Integer (Int32)}
      */
-    static RCVALL_IPLEVEL => 3
+    static IPLEVEL => 3
 }

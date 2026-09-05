@@ -7,62 +7,74 @@
 class SECPKG_FAILURE_SPECIAL_REASON extends Win32Enum {
 
     /**
+     * Native name: SecpkgFailureReason_Unknown
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: SecpkgFailureReason_NoFailure
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_NoFailure => 1
+    static NoFailure => 1
 
     /**
+     * Native name: SecpkgFailureReason_LocalAccount
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_LocalAccount => 2
+    static LocalAccount => 2
 
     /**
+     * Native name: SecpkgFailureReason_DomainAccount
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_DomainAccount => 3
+    static DomainAccount => 3
 
     /**
+     * Native name: SecpkgFailureReason_CloudAccount
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_CloudAccount => 4
+    static CloudAccount => 4
 
     /**
+     * Native name: SecpkgFailureReason_NullTarget
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_NullTarget => 5
+    static NullTarget => 5
 
     /**
+     * Native name: SecpkgFailureReason_UnknownTarget
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_UnknownTarget => 6
+    static UnknownTarget => 6
 
     /**
+     * Native name: SecpkgFailureReason_IpAddress
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_IpAddress => 7
+    static IpAddress => 7
 
     /**
+     * Native name: SecpkgFailureReason_DupTarget
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_DupTarget => 8
+    static DupTarget => 8
 
     /**
+     * Native name: SecpkgFailureReason_NoLineOfSight
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_NoLineOfSight => 9
+    static NoLineOfSight => 9
 
     /**
+     * Native name: SecpkgFailureReason_Loopback
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_Loopback => 10
+    static Loopback => 10
 
     /**
+     * Native name: SecpkgFailureReason_NullSession
      * @type {Integer (Int32)}
      */
-    static SecpkgFailureReason_NullSession => 11
+    static NullSession => 11
 }

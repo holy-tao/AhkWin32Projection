@@ -12,7 +12,6 @@ class NonVolatile {
 
 ;@region Methods
     /**
-     * 
      * @param {Integer} NvBuffer 
      * @param {Pointer} _Size 
      * @param {Pointer<Pointer<Void>>} NvToken 
@@ -26,7 +25,6 @@ class NonVolatile {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NvToken 
      * @returns {Integer} 
      */
@@ -38,7 +36,6 @@ class NonVolatile {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NvToken 
      * @param {Integer} NvBuffer 
      * @param {Pointer} _Size 
@@ -53,7 +50,6 @@ class NonVolatile {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NvToken 
      * @returns {Integer} 
      */
@@ -65,7 +61,6 @@ class NonVolatile {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NvToken 
      * @param {Integer} NvDestination 
      * @param {Integer} Source 
@@ -81,7 +76,6 @@ class NonVolatile {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NvToken 
      * @param {Integer} NvDestination 
      * @param {Pointer} _Size 
@@ -97,7 +91,6 @@ class NonVolatile {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NvToken 
      * @param {Pointer<NV_MEMORY_RANGE>} NvRanges 
      * @param {Pointer} NumRanges 

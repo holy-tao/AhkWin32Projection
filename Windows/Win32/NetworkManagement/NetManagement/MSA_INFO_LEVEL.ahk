@@ -10,18 +10,21 @@ class MSA_INFO_LEVEL extends Win32Enum {
 
     /**
      * The default level.
+     * Native name: MsaInfoLevel0
      * @type {Integer (Int32)}
      */
-    static MsaInfoLevel0 => 0
+    static Level0 => 0
 
     /**
+     * Native name: MsaInfoLevel1
      * @type {Integer (Int32)}
      */
-    static MsaInfoLevel1 => 1
+    static Level1 => 1
 
     /**
      * The maximum level.
+     * Native name: MsaInfoLevelMax
      * @type {Integer (Int32)}
      */
-    static MsaInfoLevelMax => 2
+    static Max => 2
 }

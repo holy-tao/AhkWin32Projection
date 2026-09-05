@@ -51,7 +51,6 @@ class DFConstraint extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -61,7 +60,6 @@ class DFConstraint extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {

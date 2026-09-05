@@ -31,7 +31,6 @@ class IKeyStore extends IUnknown {
     static VTableNames => ["GetKey", "SetKey", "GetKeyValue", "SetKeyValue", "ClearKeys"]
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -45,7 +44,6 @@ class IKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @param {IKeyStore} metadata 
@@ -59,7 +57,6 @@ class IKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -73,7 +70,6 @@ class IKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @returns {HRESULT} 
@@ -86,7 +82,6 @@ class IKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearKeys() {

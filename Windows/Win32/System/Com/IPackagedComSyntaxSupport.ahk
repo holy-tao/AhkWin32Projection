@@ -29,7 +29,6 @@ class IPackagedComSyntaxSupport extends IUnknown {
     static VTableNames => ["GetSupportedVersion"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSupportedVersion() {

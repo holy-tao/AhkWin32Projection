@@ -12,43 +12,50 @@ class BLUETOOTH_AUTHENTICATION_REQUIREMENTS extends Win32Enum {
 
     /**
      * Protection against a "Man in the Middle" attack is not required for authentication.
+     * Native name: BLUETOOTH_MITM_ProtectionNotRequired
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_MITM_ProtectionNotRequired => 0
+    static MITM_ProtectionNotRequired => 0
 
     /**
      * Protection against a "Man in the Middle" attack is required for authentication.
+     * Native name: BLUETOOTH_MITM_ProtectionRequired
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_MITM_ProtectionRequired => 1
+    static MITM_ProtectionRequired => 1
 
     /**
      * Protection against a "Man in the Middle" attack is not required for bonding.
+     * Native name: BLUETOOTH_MITM_ProtectionNotRequiredBonding
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_MITM_ProtectionNotRequiredBonding => 2
+    static MITM_ProtectionNotRequiredBonding => 2
 
     /**
      * Protection against a "Man in the Middle" attack is required for bonding.
+     * Native name: BLUETOOTH_MITM_ProtectionRequiredBonding
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_MITM_ProtectionRequiredBonding => 3
+    static MITM_ProtectionRequiredBonding => 3
 
     /**
      * Protection against a "Man in the Middle" attack is not required for General Bonding.
+     * Native name: BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding => 4
+    static MITM_ProtectionNotRequiredGeneralBonding => 4
 
     /**
      * Protection against a "Man in the Middle" attack is required for General Bonding.
+     * Native name: BLUETOOTH_MITM_ProtectionRequiredGeneralBonding
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_MITM_ProtectionRequiredGeneralBonding => 5
+    static MITM_ProtectionRequiredGeneralBonding => 5
 
     /**
      * Protection against "Man in the Middle" attack is not defined.
+     * Native name: BLUETOOTH_MITM_ProtectionNotDefined
      * @type {Integer (Int32)}
      */
-    static BLUETOOTH_MITM_ProtectionNotDefined => 255
+    static MITM_ProtectionNotDefined => 255
 }

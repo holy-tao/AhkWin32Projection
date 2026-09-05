@@ -7,22 +7,26 @@
 class WCN_VALUE_TYPE_RESPONSE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WCN_VALUE_RspT_ENROLLEE_INFO
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_RspT_ENROLLEE_INFO => 0
+    static RspT_ENROLLEE_INFO => 0
 
     /**
+     * Native name: WCN_VALUE_RspT_ENROLLEE_OPEN_1X
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_RspT_ENROLLEE_OPEN_1X => 1
+    static RspT_ENROLLEE_OPEN_1X => 1
 
     /**
+     * Native name: WCN_VALUE_RspT_REGISTRAR
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_RspT_REGISTRAR => 2
+    static RspT_REGISTRAR => 2
 
     /**
+     * Native name: WCN_VALUE_RspT_AP
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_RspT_AP => 3
+    static RspT_AP => 3
 }

@@ -7,222 +7,266 @@
 class UIA_TEXTATTRIBUTE_ID extends Win32Enum {
 
     /**
+     * Native name: UIA_AnimationStyleAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_AnimationStyleAttributeId => 40000
+    static AnimationStyleAttributeId => 40000
 
     /**
+     * Native name: UIA_BackgroundColorAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_BackgroundColorAttributeId => 40001
+    static BackgroundColorAttributeId => 40001
 
     /**
+     * Native name: UIA_BulletStyleAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_BulletStyleAttributeId => 40002
+    static BulletStyleAttributeId => 40002
 
     /**
+     * Native name: UIA_CapStyleAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_CapStyleAttributeId => 40003
+    static CapStyleAttributeId => 40003
 
     /**
+     * Native name: UIA_CultureAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_CultureAttributeId => 40004
+    static CultureAttributeId => 40004
 
     /**
+     * Native name: UIA_FontNameAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_FontNameAttributeId => 40005
+    static FontNameAttributeId => 40005
 
     /**
+     * Native name: UIA_FontSizeAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_FontSizeAttributeId => 40006
+    static FontSizeAttributeId => 40006
 
     /**
+     * Native name: UIA_FontWeightAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_FontWeightAttributeId => 40007
+    static FontWeightAttributeId => 40007
 
     /**
+     * Native name: UIA_ForegroundColorAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_ForegroundColorAttributeId => 40008
+    static ForegroundColorAttributeId => 40008
 
     /**
+     * Native name: UIA_HorizontalTextAlignmentAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_HorizontalTextAlignmentAttributeId => 40009
+    static HorizontalTextAlignmentAttributeId => 40009
 
     /**
+     * Native name: UIA_IndentationFirstLineAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IndentationFirstLineAttributeId => 40010
+    static IndentationFirstLineAttributeId => 40010
 
     /**
+     * Native name: UIA_IndentationLeadingAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IndentationLeadingAttributeId => 40011
+    static IndentationLeadingAttributeId => 40011
 
     /**
+     * Native name: UIA_IndentationTrailingAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IndentationTrailingAttributeId => 40012
+    static IndentationTrailingAttributeId => 40012
 
     /**
+     * Native name: UIA_IsHiddenAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IsHiddenAttributeId => 40013
+    static IsHiddenAttributeId => 40013
 
     /**
+     * Native name: UIA_IsItalicAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IsItalicAttributeId => 40014
+    static IsItalicAttributeId => 40014
 
     /**
+     * Native name: UIA_IsReadOnlyAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IsReadOnlyAttributeId => 40015
+    static IsReadOnlyAttributeId => 40015
 
     /**
+     * Native name: UIA_IsSubscriptAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IsSubscriptAttributeId => 40016
+    static IsSubscriptAttributeId => 40016
 
     /**
+     * Native name: UIA_IsSuperscriptAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IsSuperscriptAttributeId => 40017
+    static IsSuperscriptAttributeId => 40017
 
     /**
+     * Native name: UIA_MarginBottomAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_MarginBottomAttributeId => 40018
+    static MarginBottomAttributeId => 40018
 
     /**
+     * Native name: UIA_MarginLeadingAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_MarginLeadingAttributeId => 40019
+    static MarginLeadingAttributeId => 40019
 
     /**
+     * Native name: UIA_MarginTopAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_MarginTopAttributeId => 40020
+    static MarginTopAttributeId => 40020
 
     /**
+     * Native name: UIA_MarginTrailingAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_MarginTrailingAttributeId => 40021
+    static MarginTrailingAttributeId => 40021
 
     /**
+     * Native name: UIA_OutlineStylesAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_OutlineStylesAttributeId => 40022
+    static OutlineStylesAttributeId => 40022
 
     /**
+     * Native name: UIA_OverlineColorAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_OverlineColorAttributeId => 40023
+    static OverlineColorAttributeId => 40023
 
     /**
+     * Native name: UIA_OverlineStyleAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_OverlineStyleAttributeId => 40024
+    static OverlineStyleAttributeId => 40024
 
     /**
+     * Native name: UIA_StrikethroughColorAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_StrikethroughColorAttributeId => 40025
+    static StrikethroughColorAttributeId => 40025
 
     /**
+     * Native name: UIA_StrikethroughStyleAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_StrikethroughStyleAttributeId => 40026
+    static StrikethroughStyleAttributeId => 40026
 
     /**
+     * Native name: UIA_TabsAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_TabsAttributeId => 40027
+    static TabsAttributeId => 40027
 
     /**
+     * Native name: UIA_TextFlowDirectionsAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_TextFlowDirectionsAttributeId => 40028
+    static TextFlowDirectionsAttributeId => 40028
 
     /**
+     * Native name: UIA_UnderlineColorAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_UnderlineColorAttributeId => 40029
+    static UnderlineColorAttributeId => 40029
 
     /**
+     * Native name: UIA_UnderlineStyleAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_UnderlineStyleAttributeId => 40030
+    static UnderlineStyleAttributeId => 40030
 
     /**
+     * Native name: UIA_AnnotationTypesAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_AnnotationTypesAttributeId => 40031
+    static AnnotationTypesAttributeId => 40031
 
     /**
+     * Native name: UIA_AnnotationObjectsAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_AnnotationObjectsAttributeId => 40032
+    static AnnotationObjectsAttributeId => 40032
 
     /**
+     * Native name: UIA_StyleNameAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_StyleNameAttributeId => 40033
+    static StyleNameAttributeId => 40033
 
     /**
+     * Native name: UIA_StyleIdAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_StyleIdAttributeId => 40034
+    static StyleIdAttributeId => 40034
 
     /**
+     * Native name: UIA_LinkAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_LinkAttributeId => 40035
+    static LinkAttributeId => 40035
 
     /**
+     * Native name: UIA_IsActiveAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_IsActiveAttributeId => 40036
+    static IsActiveAttributeId => 40036
 
     /**
+     * Native name: UIA_SelectionActiveEndAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_SelectionActiveEndAttributeId => 40037
+    static SelectionActiveEndAttributeId => 40037
 
     /**
+     * Native name: UIA_CaretPositionAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_CaretPositionAttributeId => 40038
+    static CaretPositionAttributeId => 40038
 
     /**
+     * Native name: UIA_CaretBidiModeAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_CaretBidiModeAttributeId => 40039
+    static CaretBidiModeAttributeId => 40039
 
     /**
+     * Native name: UIA_LineSpacingAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_LineSpacingAttributeId => 40040
+    static LineSpacingAttributeId => 40040
 
     /**
+     * Native name: UIA_BeforeParagraphSpacingAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_BeforeParagraphSpacingAttributeId => 40041
+    static BeforeParagraphSpacingAttributeId => 40041
 
     /**
+     * Native name: UIA_AfterParagraphSpacingAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_AfterParagraphSpacingAttributeId => 40042
+    static AfterParagraphSpacingAttributeId => 40042
 
     /**
+     * Native name: UIA_SayAsInterpretAsAttributeId
      * @type {Integer (Int32)}
      */
-    static UIA_SayAsInterpretAsAttributeId => 40043
+    static SayAsInterpretAsAttributeId => 40043
 }

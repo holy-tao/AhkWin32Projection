@@ -10,31 +10,36 @@ class APTTYPE extends Win32Enum {
 
     /**
      * The current thread.
+     * Native name: APTTYPE_CURRENT
      * @type {Integer (Int32)}
      */
-    static APTTYPE_CURRENT => -1
+    static CURRENT => -1
 
     /**
      * A single-threaded apartment.
+     * Native name: APTTYPE_STA
      * @type {Integer (Int32)}
      */
-    static APTTYPE_STA => 0
+    static STA => 0
 
     /**
      * A multithreaded apartment.
+     * Native name: APTTYPE_MTA
      * @type {Integer (Int32)}
      */
-    static APTTYPE_MTA => 1
+    static MTA => 1
 
     /**
      * A neutral apartment.
+     * Native name: APTTYPE_NA
      * @type {Integer (Int32)}
      */
-    static APTTYPE_NA => 2
+    static NA => 2
 
     /**
      * The main single-threaded apartment.
+     * Native name: APTTYPE_MAINSTA
      * @type {Integer (Int32)}
      */
-    static APTTYPE_MAINSTA => 3
+    static MAINSTA => 3
 }

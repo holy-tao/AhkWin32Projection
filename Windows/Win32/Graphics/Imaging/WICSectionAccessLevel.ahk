@@ -10,13 +10,15 @@ class WICSectionAccessLevel extends Win32Enum {
 
     /**
      * Indicates a read only access level.
+     * Native name: WICSectionAccessLevelRead
      * @type {Integer (Int32)}
      */
-    static WICSectionAccessLevelRead => 1
+    static Read => 1
 
     /**
      * Indicates a read/write access level.
+     * Native name: WICSectionAccessLevelReadWrite
      * @type {Integer (Int32)}
      */
-    static WICSectionAccessLevelReadWrite => 3
+    static ReadWrite => 3
 }

@@ -10,31 +10,36 @@ class eAVEncMPVProfile extends Win32Enum {
 
     /**
      * The profile is not known.
+     * Native name: eAVEncMPVProfile_unknown
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVProfile_unknown => 0
+    static unknown => 0
 
     /**
      * Simple Profile.
+     * Native name: eAVEncMPVProfile_Simple
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVProfile_Simple => 1
+    static Simple => 1
 
     /**
      * Main Profile.
+     * Native name: eAVEncMPVProfile_Main
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVProfile_Main => 2
+    static Main => 2
 
     /**
      * High Profile.
+     * Native name: eAVEncMPVProfile_High
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVProfile_High => 3
+    static High => 3
 
     /**
      * 4:2:2 Profile.
+     * Native name: eAVEncMPVProfile_422
      * @type {Integer (Int32)}
      */
-    static eAVEncMPVProfile_422 => 4
+    static 422 => 4
 }

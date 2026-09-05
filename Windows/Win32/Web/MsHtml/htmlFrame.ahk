@@ -7,57 +7,68 @@
 class htmlFrame extends Win32Enum {
 
     /**
+     * Native name: htmlFrameNotSet
      * @type {Integer (Int32)}
      */
-    static htmlFrameNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlFramevoid
      * @type {Integer (Int32)}
      */
-    static htmlFramevoid => 1
+    static Framevoid => 1
 
     /**
+     * Native name: htmlFrameabove
      * @type {Integer (Int32)}
      */
-    static htmlFrameabove => 2
+    static Frameabove => 2
 
     /**
+     * Native name: htmlFramebelow
      * @type {Integer (Int32)}
      */
-    static htmlFramebelow => 3
+    static Framebelow => 3
 
     /**
+     * Native name: htmlFramehsides
      * @type {Integer (Int32)}
      */
-    static htmlFramehsides => 4
+    static Framehsides => 4
 
     /**
+     * Native name: htmlFramelhs
      * @type {Integer (Int32)}
      */
-    static htmlFramelhs => 5
+    static Framelhs => 5
 
     /**
+     * Native name: htmlFramerhs
      * @type {Integer (Int32)}
      */
-    static htmlFramerhs => 6
+    static Framerhs => 6
 
     /**
+     * Native name: htmlFramevsides
      * @type {Integer (Int32)}
      */
-    static htmlFramevsides => 7
+    static Framevsides => 7
 
     /**
+     * Native name: htmlFramebox
      * @type {Integer (Int32)}
      */
-    static htmlFramebox => 8
+    static Framebox => 8
 
     /**
+     * Native name: htmlFrameborder
      * @type {Integer (Int32)}
      */
-    static htmlFrameborder => 9
+    static Frameborder => 9
 
     /**
+     * Native name: htmlFrame_Max
      * @type {Integer (Int32)}
      */
-    static htmlFrame_Max => 2147483647
+    static Max => 2147483647
 }

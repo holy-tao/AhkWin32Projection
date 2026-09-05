@@ -7,37 +7,44 @@
 class KS_SEEKING_CAPABILITIES extends Win32Enum {
 
     /**
+     * Native name: KS_SEEKING_CanSeekAbsolute
      * @type {Integer (Int32)}
      */
-    static KS_SEEKING_CanSeekAbsolute => 1
+    static CanSeekAbsolute => 1
 
     /**
+     * Native name: KS_SEEKING_CanSeekForwards
      * @type {Integer (Int32)}
      */
-    static KS_SEEKING_CanSeekForwards => 2
+    static CanSeekForwards => 2
 
     /**
+     * Native name: KS_SEEKING_CanSeekBackwards
      * @type {Integer (Int32)}
      */
-    static KS_SEEKING_CanSeekBackwards => 4
+    static CanSeekBackwards => 4
 
     /**
+     * Native name: KS_SEEKING_CanGetCurrentPos
      * @type {Integer (Int32)}
      */
-    static KS_SEEKING_CanGetCurrentPos => 8
+    static CanGetCurrentPos => 8
 
     /**
+     * Native name: KS_SEEKING_CanGetStopPos
      * @type {Integer (Int32)}
      */
-    static KS_SEEKING_CanGetStopPos => 16
+    static CanGetStopPos => 16
 
     /**
+     * Native name: KS_SEEKING_CanGetDuration
      * @type {Integer (Int32)}
      */
-    static KS_SEEKING_CanGetDuration => 32
+    static CanGetDuration => 32
 
     /**
+     * Native name: KS_SEEKING_CanPlayBackwards
      * @type {Integer (Int32)}
      */
-    static KS_SEEKING_CanPlayBackwards => 64
+    static CanPlayBackwards => 64
 }

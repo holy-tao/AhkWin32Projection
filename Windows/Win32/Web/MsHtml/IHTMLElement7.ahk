@@ -239,7 +239,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -249,7 +248,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerdown() {
@@ -259,7 +257,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -269,7 +266,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointermove() {
@@ -279,7 +275,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -289,7 +284,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerup() {
@@ -299,7 +293,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -309,7 +302,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerover() {
@@ -319,7 +311,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -329,7 +320,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerout() {
@@ -339,7 +329,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -349,7 +338,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointercancel() {
@@ -359,7 +347,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -369,7 +356,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerhover() {
@@ -379,7 +365,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -389,7 +374,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmslostpointercapture() {
@@ -399,7 +383,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -409,7 +392,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgotpointercapture() {
@@ -419,7 +401,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -429,7 +410,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturestart() {
@@ -439,7 +419,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -449,7 +428,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturechange() {
@@ -459,7 +437,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -469,7 +446,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgestureend() {
@@ -479,7 +455,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -489,7 +464,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturehold() {
@@ -499,7 +473,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -509,7 +482,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturetap() {
@@ -519,7 +491,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -529,7 +500,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturedoubletap() {
@@ -539,7 +509,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -549,7 +518,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsinertiastart() {
@@ -559,7 +527,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} pointerId 
      * @returns {HRESULT} 
      */
@@ -569,7 +536,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} pointerId 
      * @returns {HRESULT} 
      */
@@ -579,7 +545,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -589,7 +554,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmstransitionstart() {
@@ -599,7 +563,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -609,7 +572,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmstransitionend() {
@@ -619,7 +581,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -629,7 +590,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsanimationstart() {
@@ -639,7 +599,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -649,7 +608,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsanimationend() {
@@ -659,7 +617,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -669,7 +626,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsanimationiteration() {
@@ -679,7 +635,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -689,7 +644,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oninvalid() {
@@ -699,7 +653,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -711,7 +664,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xmsAcceleratorKey() {
@@ -721,7 +673,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -731,7 +682,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_spellcheck() {
@@ -741,7 +691,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -751,7 +700,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsmanipulationstatechanged() {
@@ -761,7 +709,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -771,7 +718,6 @@ class IHTMLElement7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncuechange() {

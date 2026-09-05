@@ -31,7 +31,6 @@ class ISideShowEvents extends IUnknown {
     static VTableNames => ["ContentMissing", "ApplicationEvent", "DeviceAdded", "DeviceRemoved"]
 
     /**
-     * 
      * @param {Integer} in_contentId 
      * @returns {ISideShowContent} 
      */
@@ -41,7 +40,6 @@ class ISideShowEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pICapabilities 
      * @param {Integer} in_dwEventId 
      * @param {Integer} in_dwEventSize 
@@ -56,7 +54,6 @@ class ISideShowEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pIDevice 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class ISideShowEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pIDevice 
      * @returns {HRESULT} 
      */

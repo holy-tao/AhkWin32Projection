@@ -44,7 +44,6 @@ class IUIAutomationClientInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ProcessId() {
@@ -53,7 +52,6 @@ class IUIAutomationClientInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProcessName() {

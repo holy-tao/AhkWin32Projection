@@ -12,25 +12,29 @@ class CSC_ThreadPool extends Win32Enum {
 
     /**
      * No thread pool is used. If this value is used to configure a <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> object that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>, an error (CO_E_THREADPOOL_CONFIG) is returned. This is the default thread pool setting for <b>CServiceConfig</b> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.
+     * Native name: CSC_ThreadPoolNone
      * @type {Integer (Int32)}
      */
-    static CSC_ThreadPoolNone => 0
+    static None => 0
 
     /**
      * The same type of thread pool apartment as the caller's thread apartment is used. If the caller's thread apartment is the neutral apartment, a single-threaded apartment is used. This is the default thread pool setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Inherit.
+     * Native name: CSC_ThreadPoolInherit
      * @type {Integer (Int32)}
      */
-    static CSC_ThreadPoolInherit => 1
+    static Inherit => 1
 
     /**
      * A single-threaded apartment (STA) is used.
+     * Native name: CSC_STAThreadPool
      * @type {Integer (Int32)}
      */
-    static CSC_STAThreadPool => 2
+    static STAThreadPool => 2
 
     /**
      * A multithreaded apartment (MTA) is used.
+     * Native name: CSC_MTAThreadPool
      * @type {Integer (Int32)}
      */
-    static CSC_MTAThreadPool => 3
+    static MTAThreadPool => 3
 }

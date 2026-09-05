@@ -10,13 +10,15 @@ class WCN_VALUE_TYPE_CONNECTION_TYPE extends Win32Enum {
 
     /**
      * Specifies an ESS (infrastructure network) connection.
+     * Native name: WCN_VALUE_CT_ESS
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_CT_ESS => 1
+    static CT_ESS => 1
 
     /**
      * Specifies an IBSS (ad-hoc network) connection.
+     * Native name: WCN_VALUE_CT_IBSS
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_CT_IBSS => 2
+    static CT_IBSS => 2
 }

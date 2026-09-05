@@ -75,7 +75,6 @@ class IDWriteFont3 extends IDWriteFont2 {
     }
 
     /**
-     * 
      * @param {Integer} unicodeValue 
      * @returns {BOOL} 
      */

@@ -15,7 +15,8 @@ class D2D1_TILE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a>.
      * 
      * The default is {0.0f, 0.0f, 100.0f, 100.0f}.
+     * Native name: D2D1_TILE_PROP_RECT
      * @type {Integer (Int32)}
      */
-    static D2D1_TILE_PROP_RECT => 0
+    static RECT => 0
 }

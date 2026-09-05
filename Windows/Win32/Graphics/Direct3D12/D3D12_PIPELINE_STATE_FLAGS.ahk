@@ -14,29 +14,34 @@ class D3D12_PIPELINE_STATE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates no flags.
+     * Native name: D3D12_PIPELINE_STATE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_PIPELINE_STATE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Indicates that the pipeline state should be compiled with additional information to assist debugging.
      *           This can only be set on WARP devices.
+     * Native name: D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG
      * @type {Integer (Int32)}
      */
-    static D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG => 1
+    static FLAG_TOOL_DEBUG => 1
 
     /**
+     * Native name: D3D12_PIPELINE_STATE_FLAG_DYNAMIC_DEPTH_BIAS
      * @type {Integer (Int32)}
      */
-    static D3D12_PIPELINE_STATE_FLAG_DYNAMIC_DEPTH_BIAS => 4
+    static FLAG_DYNAMIC_DEPTH_BIAS => 4
 
     /**
+     * Native name: D3D12_PIPELINE_STATE_FLAG_DYNAMIC_INDEX_BUFFER_STRIP_CUT
      * @type {Integer (Int32)}
      */
-    static D3D12_PIPELINE_STATE_FLAG_DYNAMIC_INDEX_BUFFER_STRIP_CUT => 8
+    static FLAG_DYNAMIC_INDEX_BUFFER_STRIP_CUT => 8
 
     /**
+     * Native name: D3D12_PIPELINE_STATE_FLAG_DISABLE_CACHED_BLOB
      * @type {Integer (Int32)}
      */
-    static D3D12_PIPELINE_STATE_FLAG_DISABLE_CACHED_BLOB => 16
+    static FLAG_DISABLE_CACHED_BLOB => 16
 }

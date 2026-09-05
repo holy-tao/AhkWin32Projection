@@ -10,19 +10,22 @@ class CLUSTER_ROLE_STATE extends Win32Enum {
 
     /**
      * It is unknown whether or not the role is clustered.
+     * Native name: ClusterRoleUnknown
      * @type {Integer (Int32)}
      */
-    static ClusterRoleUnknown => -1
+    static Unknown => -1
 
     /**
      * The role is clustered.
+     * Native name: ClusterRoleClustered
      * @type {Integer (Int32)}
      */
-    static ClusterRoleClustered => 0
+    static Clustered => 0
 
     /**
      * The role is not clustered.
+     * Native name: ClusterRoleUnclustered
      * @type {Integer (Int32)}
      */
-    static ClusterRoleUnclustered => 1
+    static Unclustered => 1
 }

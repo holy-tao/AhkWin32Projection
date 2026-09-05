@@ -117,7 +117,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -127,7 +126,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -139,7 +137,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -149,7 +146,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -159,7 +155,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainName() {
@@ -169,7 +164,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_CreationTime() {
@@ -178,7 +172,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ModificationTime() {
@@ -187,7 +180,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UserDSVersionNumber() {
@@ -196,7 +188,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ComputerDSVersionNumber() {
@@ -205,7 +196,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UserSysvolVersionNumber() {
@@ -214,7 +204,6 @@ class IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ComputerSysvolVersionNumber() {

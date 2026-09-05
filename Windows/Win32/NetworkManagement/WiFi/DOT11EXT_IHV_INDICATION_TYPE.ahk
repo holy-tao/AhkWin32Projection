@@ -7,27 +7,32 @@
 class DOT11EXT_IHV_INDICATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: IndicationTypeNicSpecificNotification
      * @type {Integer (Int32)}
      */
-    static IndicationTypeNicSpecificNotification => 0
+    static NicSpecificNotification => 0
 
     /**
+     * Native name: IndicationTypePmkidCandidateList
      * @type {Integer (Int32)}
      */
-    static IndicationTypePmkidCandidateList => 1
+    static PmkidCandidateList => 1
 
     /**
+     * Native name: IndicationTypeTkipMicFailure
      * @type {Integer (Int32)}
      */
-    static IndicationTypeTkipMicFailure => 2
+    static TkipMicFailure => 2
 
     /**
+     * Native name: IndicationTypePhyStateChange
      * @type {Integer (Int32)}
      */
-    static IndicationTypePhyStateChange => 3
+    static PhyStateChange => 3
 
     /**
+     * Native name: IndicationTypeLinkQuality
      * @type {Integer (Int32)}
      */
-    static IndicationTypeLinkQuality => 4
+    static LinkQuality => 4
 }

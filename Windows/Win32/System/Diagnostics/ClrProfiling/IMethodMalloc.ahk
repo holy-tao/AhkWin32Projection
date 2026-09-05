@@ -28,7 +28,6 @@ class IMethodMalloc extends IUnknown {
     static VTableNames => ["Alloc"]
 
     /**
-     * 
      * @param {Integer} cb 
      * @returns {Pointer<Void>} 
      */

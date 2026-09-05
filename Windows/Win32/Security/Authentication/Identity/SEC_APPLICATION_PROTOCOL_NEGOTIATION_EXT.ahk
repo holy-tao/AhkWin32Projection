@@ -10,19 +10,22 @@ class SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT extends Win32Enum {
 
     /**
      * No application protocol extension is used.
+     * Native name: SecApplicationProtocolNegotiationExt_None
      * @type {Integer (Int32)}
      */
-    static SecApplicationProtocolNegotiationExt_None => 0
+    static None => 0
 
     /**
      * Next Protocol Negotiation (NPN) type.
+     * Native name: SecApplicationProtocolNegotiationExt_NPN
      * @type {Integer (Int32)}
      */
-    static SecApplicationProtocolNegotiationExt_NPN => 1
+    static NPN => 1
 
     /**
      * Application-Layer Protocol Negotiation (ALPN) type.
+     * Native name: SecApplicationProtocolNegotiationExt_ALPN
      * @type {Integer (Int32)}
      */
-    static SecApplicationProtocolNegotiationExt_ALPN => 2
+    static ALPN => 2
 }

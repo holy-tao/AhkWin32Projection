@@ -10,27 +10,31 @@ class IPSEC_TRANSFORM_TYPE extends Win32Enum {
 
     /**
      * Specifies Authentication Header (AH) transform.
+     * Native name: IPSEC_TRANSFORM_AH
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRANSFORM_AH => 1
+    static AH => 1
 
     /**
      * Specifies Encapsulating Security Payload (ESP)  authentication-only transform.
+     * Native name: IPSEC_TRANSFORM_ESP_AUTH
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRANSFORM_ESP_AUTH => 2
+    static ESP_AUTH => 2
 
     /**
      * Specifies ESP cipher transform.
+     * Native name: IPSEC_TRANSFORM_ESP_CIPHER
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRANSFORM_ESP_CIPHER => 3
+    static ESP_CIPHER => 3
 
     /**
      * Specifies ESP authentication and cipher transform.
+     * Native name: IPSEC_TRANSFORM_ESP_AUTH_AND_CIPHER
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRANSFORM_ESP_AUTH_AND_CIPHER => 4
+    static ESP_AUTH_AND_CIPHER => 4
 
     /**
      * Specifies that the first packet should be sent twice: once with ESP/AH encapsulation, and once in clear text. The entire session is then sent in clear text.
@@ -40,13 +44,15 @@ class IPSEC_TRANSFORM_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008 R2, Windows 7, or later.</div>
      * <div> </div>
+     * Native name: IPSEC_TRANSFORM_ESP_AUTH_FW
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRANSFORM_ESP_AUTH_FW => 5
+    static ESP_AUTH_FW => 5
 
     /**
      * Maximum value for testing only.
+     * Native name: IPSEC_TRANSFORM_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRANSFORM_TYPE_MAX => 6
+    static MAX => 6
 }

@@ -32,7 +32,6 @@ class IDebugHostModule4 extends IDebugHostModule3 {
     static VTableNames => ["FindTypeByName2"]
 
     /**
-     * 
      * @param {IDebugHostSymbol} pEnclosingSymbol 
      * @param {PWSTR} typeName 
      * @returns {IDebugHostType} 

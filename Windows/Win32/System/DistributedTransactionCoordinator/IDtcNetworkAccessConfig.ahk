@@ -30,7 +30,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     static VTableNames => ["GetAnyNetworkAccess", "SetAnyNetworkAccess", "GetNetworkAdministrationAccess", "SetNetworkAdministrationAccess", "GetNetworkTransactionAccess", "SetNetworkTransactionAccess", "GetNetworkClientAccess", "SetNetworkClientAccess", "GetNetworkTIPAccess", "SetNetworkTIPAccess", "GetXAAccess", "SetXAAccess", "RestartDtcService"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetAnyNetworkAccess() {
@@ -39,7 +38,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bAnyNetworkAccess 
      * @returns {HRESULT} 
      */
@@ -49,7 +47,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkAdministrationAccess() {
@@ -58,7 +55,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkAdministrationAccess 
      * @returns {HRESULT} 
      */
@@ -68,7 +64,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkTransactionAccess() {
@@ -77,7 +72,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkTransactionAccess 
      * @returns {HRESULT} 
      */
@@ -87,7 +81,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkClientAccess() {
@@ -96,7 +89,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkClientAccess 
      * @returns {HRESULT} 
      */
@@ -106,7 +98,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkTIPAccess() {
@@ -115,7 +106,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkTIPAccess 
      * @returns {HRESULT} 
      */
@@ -125,7 +115,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetXAAccess() {
@@ -134,7 +123,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bXAAccess 
      * @returns {HRESULT} 
      */
@@ -144,7 +132,6 @@ class IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestartDtcService() {

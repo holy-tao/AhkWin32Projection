@@ -7,27 +7,32 @@
 class htmlMediaErr extends Win32Enum {
 
     /**
+     * Native name: htmlMediaErrAborted
      * @type {Integer (Int32)}
      */
-    static htmlMediaErrAborted => 0
+    static Aborted => 0
 
     /**
+     * Native name: htmlMediaErrNetwork
      * @type {Integer (Int32)}
      */
-    static htmlMediaErrNetwork => 1
+    static Network => 1
 
     /**
+     * Native name: htmlMediaErrDecode
      * @type {Integer (Int32)}
      */
-    static htmlMediaErrDecode => 2
+    static Decode => 2
 
     /**
+     * Native name: htmlMediaErrSrcNotSupported
      * @type {Integer (Int32)}
      */
-    static htmlMediaErrSrcNotSupported => 3
+    static SrcNotSupported => 3
 
     /**
+     * Native name: htmlMediaErr_Max
      * @type {Integer (Int32)}
      */
-    static htmlMediaErr_Max => 2147483647
+    static Max => 2147483647
 }

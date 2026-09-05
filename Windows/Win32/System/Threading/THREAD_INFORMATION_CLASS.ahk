@@ -10,30 +10,35 @@ class THREAD_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Lower the memory priority of threads that perform background operations or access files and data that are not expected to be accessed frequently.
+     * Native name: ThreadMemoryPriority
      * @type {Integer (Int32)}
      */
-    static ThreadMemoryPriority => 0
+    static MemoryPriority => 0
 
     /**
      * CPU priority.
+     * Native name: ThreadAbsoluteCpuPriority
      * @type {Integer (Int32)}
      */
-    static ThreadAbsoluteCpuPriority => 1
+    static AbsoluteCpuPriority => 1
 
     /**
      * Generate dynamic code or modify executable code.
+     * Native name: ThreadDynamicCodePolicy
      * @type {Integer (Int32)}
      */
-    static ThreadDynamicCodePolicy => 2
+    static DynamicCodePolicy => 2
 
     /**
      * Throttle the target process activity for power management.
+     * Native name: ThreadPowerThrottling
      * @type {Integer (Int32)}
      */
-    static ThreadPowerThrottling => 3
+    static PowerThrottling => 3
 
     /**
+     * Native name: ThreadInformationClassMax
      * @type {Integer (Int32)}
      */
-    static ThreadInformationClassMax => 4
+    static Max => 4
 }

@@ -10,28 +10,32 @@ class FsrmExecutionOption extends Win32Enum {
 
     /**
      * The execution option is unknown. Do not use this value.
+     * Native name: FsrmExecutionOption_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmExecutionOption_Unknown => 0
+    static Unknown => 0
 
     /**
      * The rule is applied as a default value to the file if the property is not set on the file (if none of the 
      *       storage modules returns the property).
+     * Native name: FsrmExecutionOption_EvaluateUnset
      * @type {Integer (Int32)}
      */
-    static FsrmExecutionOption_EvaluateUnset => 1
+    static EvaluateUnset => 1
 
     /**
      * The rule is applied to the file considering default and existing values using aggregation rules (for 
      *       aggregation rules, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertydefinitiontype">FsrmPropertyDefinitionType</a>).
+     * Native name: FsrmExecutionOption_ReEvaluate_ConsiderExistingValue
      * @type {Integer (Int32)}
      */
-    static FsrmExecutionOption_ReEvaluate_ConsiderExistingValue => 2
+    static ReEvaluate_ConsiderExistingValue => 2
 
     /**
      * The rule is applied to the file but  default and existing values are ignored.
+     * Native name: FsrmExecutionOption_ReEvaluate_IgnoreExistingValue
      * @type {Integer (Int32)}
      */
-    static FsrmExecutionOption_ReEvaluate_IgnoreExistingValue => 3
+    static ReEvaluate_IgnoreExistingValue => 3
 }

@@ -7,7 +7,8 @@
 class _EXPPS extends Win32Enum {
 
     /**
+     * Native name: EXPPS_FILETYPES
      * @type {Integer (Int32)}
      */
-    static EXPPS_FILETYPES => 1
+    static FILETYPES => 1
 }

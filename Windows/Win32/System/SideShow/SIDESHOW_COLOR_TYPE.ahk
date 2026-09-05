@@ -7,17 +7,20 @@
 class SIDESHOW_COLOR_TYPE extends Win32Enum {
 
     /**
+     * Native name: SIDESHOW_COLOR_TYPE_COLOR
      * @type {Integer (Int32)}
      */
-    static SIDESHOW_COLOR_TYPE_COLOR => 0
+    static COLOR => 0
 
     /**
+     * Native name: SIDESHOW_COLOR_TYPE_GREYSCALE
      * @type {Integer (Int32)}
      */
-    static SIDESHOW_COLOR_TYPE_GREYSCALE => 1
+    static GREYSCALE => 1
 
     /**
+     * Native name: SIDESHOW_COLOR_TYPE_BLACK_AND_WHITE
      * @type {Integer (Int32)}
      */
-    static SIDESHOW_COLOR_TYPE_BLACK_AND_WHITE => 2
+    static BLACK_AND_WHITE => 2
 }

@@ -7,17 +7,20 @@
 class StringAlignment extends Win32Enum {
 
     /**
+     * Native name: StringAlignmentNear
      * @type {Integer (Int32)}
      */
-    static StringAlignmentNear => 0
+    static Near => 0
 
     /**
+     * Native name: StringAlignmentCenter
      * @type {Integer (Int32)}
      */
-    static StringAlignmentCenter => 1
+    static Center => 1
 
     /**
+     * Native name: StringAlignmentFar
      * @type {Integer (Int32)}
      */
-    static StringAlignmentFar => 2
+    static Far => 2
 }

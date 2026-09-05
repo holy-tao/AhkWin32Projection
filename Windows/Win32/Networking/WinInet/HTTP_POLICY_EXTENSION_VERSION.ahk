@@ -7,7 +7,8 @@
 class HTTP_POLICY_EXTENSION_VERSION extends Win32Enum {
 
     /**
+     * Native name: POLICY_EXTENSION_VERSION1
      * @type {Integer (Int32)}
      */
-    static POLICY_EXTENSION_VERSION1 => 1
+    static VERSION1 => 1
 }

@@ -131,7 +131,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {BSTR} 
      */
@@ -142,7 +141,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -152,7 +150,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Link() {
@@ -162,7 +159,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Guid() {
@@ -172,7 +168,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -182,7 +177,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PubDate() {
@@ -191,7 +185,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Comments() {
@@ -201,7 +194,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Author() {
@@ -211,7 +203,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Enclosure() {
@@ -220,7 +211,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsRead() {
@@ -229,7 +219,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isRead 
      * @returns {HRESULT} 
      */
@@ -239,7 +228,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LocalId() {
@@ -248,7 +236,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -257,7 +244,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -266,7 +252,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
@@ -276,7 +261,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastDownloadTime() {
@@ -285,7 +269,6 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Modified() {

@@ -10050,7 +10050,6 @@ class Ndis {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<NDIS_RW_LOCK>} Lock 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10059,7 +10058,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_RW_LOCK>} Lock 
      * @param {BOOLEAN} fWrite 
      * @param {Pointer<LOCK_STATE>} LockState 
@@ -10070,7 +10068,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_RW_LOCK>} Lock 
      * @param {Pointer<LOCK_STATE>} LockState 
      * @returns {String} Nothing - always returns an empty string
@@ -10080,7 +10077,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pCpuUsage 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10091,7 +10087,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pIdleCount 
      * @param {Pointer<Integer>} pKernelAndUser 
      * @param {Pointer<Integer>} pIndex 
@@ -10106,7 +10101,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Void>} ConfigurationHandle 
      * @param {Pointer<UNICODE_STRING>} SubKeyName 
@@ -10122,7 +10116,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Void>} ConfigurationHandle 
      * @param {Integer} Index 
@@ -10139,7 +10132,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Pointer<NDIS_CONFIGURATION_PARAMETER>>} ParameterValue 
      * @param {Pointer<Void>} ConfigurationHandle 
@@ -10156,7 +10148,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Void>} ConfigurationHandle 
      * @param {Pointer<UNICODE_STRING>} Keyword 
@@ -10171,7 +10162,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ConfigurationHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10182,7 +10172,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Pointer<Void>>} NetworkAddress 
      * @param {Pointer<Integer>} NetworkAddressLength 
@@ -10199,7 +10188,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Pointer<MDL>>} _Buffer 
      * @param {Pointer<Void>} PoolHandle 
@@ -10218,7 +10206,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} VirtualAddress 
      * @param {Integer} Length 
      * @param {Integer} Tag 
@@ -10232,7 +10219,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} VirtualAddress 
      * @param {Integer} Length 
      * @param {Integer} MemoryFlags 
@@ -10243,7 +10229,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_EVENT>} Event 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10252,7 +10237,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_EVENT>} Event 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10261,7 +10245,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_EVENT>} Event 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10270,7 +10253,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_EVENT>} Event 
      * @param {Integer} MsToWait 
      * @returns {BOOLEAN} 
@@ -10281,7 +10263,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Pointer<Void>>} FileHandle 
      * @param {Pointer<Integer>} FileLength 
@@ -10298,7 +10279,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} FileHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10309,7 +10289,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Pointer<Void>>} MappedBuffer 
      * @param {Pointer<Void>} FileHandle 
@@ -10324,7 +10303,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} FileHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10335,7 +10313,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static NdisGetSharedDataAlignment() {
@@ -10344,7 +10321,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisAdapterHandle 
      * @param {Integer} ErrorCode 
      * @param {Integer} NumberOfErrorValues 
@@ -10361,7 +10337,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} Destination 
      * @param {Pointer<Integer>} Source 
      * @returns {String} Nothing - always returns an empty string
@@ -10373,7 +10348,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_TIMER>} Timer 
      * @param {Pointer<PNDIS_TIMER_FUNCTION>} TimerFunction 
      * @param {Pointer<Void>} FunctionContext 
@@ -10386,7 +10360,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_TIMER>} Timer 
      * @param {Pointer<BOOLEAN>} TimerCancelled 
      * @returns {String} Nothing - always returns an empty string
@@ -10398,7 +10371,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_TIMER>} Timer 
      * @param {Integer} MillisecondsToDelay 
      * @returns {String} Nothing - always returns an empty string
@@ -10408,7 +10380,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_TIMER>} NdisTimer 
      * @param {Integer} MillisecondsPeriod 
      * @returns {String} Nothing - always returns an empty string
@@ -10418,7 +10389,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_TIMER>} NdisTimer 
      * @param {Integer} MillisecondsToDelay 
      * @param {Pointer<Void>} FunctionContext 
@@ -10431,7 +10401,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static NdisSystemProcessorCount() {
@@ -10440,7 +10409,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} NdisRoutineName 
      * @returns {Pointer<Void>} 
      */
@@ -10450,7 +10418,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static NdisGetVersion() {
@@ -10459,7 +10426,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisProtocolHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10470,7 +10436,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LogHandle 
      * @param {Integer} EventCode 
      * @param {Integer} UniqueEventValue 
@@ -10489,7 +10454,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} pAdapterInstanceName 
      * @param {Pointer<Void>} NdisBindingHandle 
      * @returns {Integer} 
@@ -10502,7 +10466,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} pAdapterInstanceName 
      * @param {Pointer<Void>} BindingContext 
      * @returns {Integer} 
@@ -10515,7 +10478,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<TDI_REGISTER_CALLBACK>} RegisterCallback 
      * @param {Pointer<TDI_PNP_HANDLER>} PnPHandler 
      * @returns {String} Nothing - always returns an empty string
@@ -10525,7 +10487,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdisDeregisterTdiCallBack() {
@@ -10533,7 +10494,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static NdisGeneratePartialCancelId() {
@@ -10542,7 +10502,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} Length 
      * @param {BOOLEAN} Cached 
@@ -10558,7 +10517,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Void>} NdisDmaHandle 
      * @param {Pointer<MDL>} _Buffer 
@@ -10575,7 +10533,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Status 
      * @param {Pointer<Void>} NdisDmaHandle 
      * @param {Pointer<MDL>} _Buffer 
@@ -10592,7 +10549,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} MiniportDmaHandle 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} DmaChannel 
@@ -10610,7 +10566,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportDmaHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10621,7 +10576,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportDmaHandle 
      * @returns {Integer} 
      */
@@ -10633,7 +10587,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisAdapterHandle 
      * @param {Integer} Length 
      * @param {Pointer<Void>} VirtualAddress 
@@ -10648,7 +10601,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DriverHandle 
      * @param {Pointer<Void>} ProtocolHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -10661,7 +10613,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} PortOffset 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} InitialPort 
@@ -10677,7 +10628,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} InitialPort 
      * @param {Integer} NumberOfPorts 
@@ -10692,7 +10642,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} VirtualAddress 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} PhysicalAddress 
@@ -10708,7 +10657,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} VirtualAddress 
      * @param {Integer} Length 
@@ -10721,7 +10669,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_MINIPORT_TIMER>} Timer 
      * @param {Integer} MillisecondPeriod 
      * @returns {String} Nothing - always returns an empty string
@@ -10731,7 +10678,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_MINIPORT_TIMER>} Timer 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Pointer<PNDIS_TIMER_FUNCTION>} TimerFunction 
@@ -10746,7 +10692,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_MINIPORT_TIMER>} Timer 
      * @param {Pointer<BOOLEAN>} TimerCancelled 
      * @returns {String} Nothing - always returns an empty string
@@ -10758,7 +10703,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} MicrosecondsToSleep 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10767,7 +10711,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @returns {Integer} 
      */
@@ -10779,7 +10722,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} Length 
      * @param {BOOLEAN} Cached 
@@ -10796,7 +10738,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} Length 
      * @param {BOOLEAN} Cached 
@@ -10811,7 +10752,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DriverHandle 
      * @param {Pointer<UNICODE_STRING>} DriverInstance 
      * @param {Pointer<Void>} DeviceContext 
@@ -10826,7 +10766,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DriverHandle 
      * @param {Pointer<UNICODE_STRING>} DeviceInstance 
      * @returns {Integer} 
@@ -10839,7 +10778,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisBindingHandle 
      * @returns {Pointer<Void>} 
      */
@@ -10851,7 +10789,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisMiniportHandle 
      * @returns {Integer} 
      */
@@ -10863,7 +10800,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportHandle 
      * @returns {Integer} 
      */
@@ -10875,7 +10811,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} _Size 
      * @param {Pointer<Pointer<Void>>} LogHandle 
@@ -10890,7 +10825,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LogHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10901,7 +10835,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LogHandle 
      * @param {Integer} LogBuffer 
      * @param {Integer} LogBufferSize 
@@ -10915,7 +10848,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LogHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10926,7 +10858,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Pointer<Pointer<DEVICE_OBJECT>>} PhysicalDeviceObject 
      * @param {Pointer<Pointer<DEVICE_OBJECT>>} FunctionalDeviceObject 
@@ -10947,7 +10878,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} pAdapterInstanceName 
      * @param {Pointer<Void>} MiniportHandle 
      * @returns {Integer} 
@@ -10960,7 +10890,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
@@ -10974,7 +10903,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisVcHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -10986,7 +10914,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Pointer<CO_ADDRESS_FAMILY>} AddressFamily 
      * @param {Pointer<NDIS_CALL_MANAGER_CHARACTERISTICS>} CmCharacteristics 
@@ -11002,7 +10929,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Pointer<Void>} NdisAfHandle 
      * @param {Pointer<Void>} MiniportVcContext 
@@ -11020,7 +10946,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @returns {Integer} 
      */
@@ -11032,7 +10957,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {Integer} 
@@ -11046,7 +10970,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @returns {Integer} 
      */
@@ -11058,7 +10981,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<UNICODE_STRING>} BaseInstanceName 
      * @param {Pointer<UNICODE_STRING>} VcInstanceName 
@@ -11072,7 +10994,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisBindingHandle 
      * @param {Pointer<Void>} NdisAfHandle 
      * @param {Pointer<Void>} ProtocolVcContext 
@@ -11090,7 +11011,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @returns {Integer} 
      */
@@ -11102,7 +11022,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<VAR_STRING>} TapiCallId 
      * @returns {Integer} 
@@ -11115,7 +11034,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisAfHandle 
      * @returns {Integer} 
      */
@@ -11127,7 +11045,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisAfHandle 
      * @param {Pointer<Void>} ProtocolSapContext 
      * @param {Pointer<CO_SAP>} Sap 
@@ -11144,7 +11061,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisSapHandle 
      * @returns {Integer} 
      */
@@ -11156,7 +11072,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @param {Pointer<Void>} ProtocolPartyContext 
@@ -11174,7 +11089,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<Void>} NdisPartyHandle 
      * @param {Integer} _Buffer 
@@ -11190,7 +11104,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {Integer} 
@@ -11204,7 +11117,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
@@ -11218,7 +11130,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<Void>} ProtocolPartyContext 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
@@ -11236,7 +11147,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisPartyHandle 
      * @param {Integer} _Buffer 
      * @param {Integer} _Size 
@@ -11250,7 +11160,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {UNICODE_STRING} TapiCallId 
      * @param {Pointer<Pointer<Void>>} ProtocolVcContext 
      * @returns {Integer} 
@@ -11263,7 +11172,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisAfHandle 
      * @param {Pointer<Void>} CallMgrAfContext 
@@ -11277,7 +11185,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisAfHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -11289,7 +11196,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisSapHandle 
      * @param {Pointer<Void>} CallMgrSapContext 
@@ -11303,7 +11209,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisSapHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -11315,7 +11220,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {Integer} 
@@ -11329,7 +11233,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @returns {Integer} 
      */
@@ -11341,7 +11244,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<Void>} NdisPartyHandle 
@@ -11359,7 +11261,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<Void>} NdisPartyHandle 
@@ -11373,7 +11274,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisPartyHandle 
      * @param {Pointer<Void>} CallMgrPartyContext 
@@ -11389,7 +11289,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisPartyHandle 
      * @returns {String} Nothing - always returns an empty string
@@ -11401,7 +11300,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisSapHandle 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
@@ -11417,7 +11315,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11428,7 +11325,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
@@ -11442,7 +11338,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {String} Nothing - always returns an empty string
@@ -11455,7 +11350,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} CloseStatus 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Integer} _Buffer 
@@ -11469,7 +11363,6 @@ class Ndis {
     }
 
     /**
-     * 
      * @param {Integer} DropStatus 
      * @param {Pointer<Void>} NdisPartyHandle 
      * @param {Integer} _Buffer 

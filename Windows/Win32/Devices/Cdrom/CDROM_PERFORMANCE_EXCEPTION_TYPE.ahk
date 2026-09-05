@@ -7,17 +7,20 @@
 class CDROM_PERFORMANCE_EXCEPTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: CdromNominalPerformance
      * @type {Integer (Int32)}
      */
-    static CdromNominalPerformance => 1
+    static NominalPerformance => 1
 
     /**
+     * Native name: CdromEntirePerformanceList
      * @type {Integer (Int32)}
      */
-    static CdromEntirePerformanceList => 2
+    static EntirePerformanceList => 2
 
     /**
+     * Native name: CdromPerformanceExceptionsOnly
      * @type {Integer (Int32)}
      */
-    static CdromPerformanceExceptionsOnly => 3
+    static ExceptionsOnly => 3
 }

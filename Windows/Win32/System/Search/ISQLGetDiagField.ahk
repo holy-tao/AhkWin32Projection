@@ -30,7 +30,6 @@ class ISQLGetDiagField extends IUnknown {
     static VTableNames => ["GetDiagField"]
 
     /**
-     * 
      * @param {Pointer<KAGGETDIAG>} pDiagInfo 
      * @returns {HRESULT} 
      */

@@ -10,24 +10,28 @@ class NET_FW_PROFILE_TYPE2 extends Win32Enum {
 
     /**
      * Profile type is domain.
+     * Native name: NET_FW_PROFILE2_DOMAIN
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE2_DOMAIN => 1
+    static DOMAIN => 1
 
     /**
      * Profile type is private. This profile type is used for home and other private network types.
+     * Native name: NET_FW_PROFILE2_PRIVATE
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE2_PRIVATE => 2
+    static PRIVATE => 2
 
     /**
      * Profile type is public. This profile type is used for public Internet access points.
+     * Native name: NET_FW_PROFILE2_PUBLIC
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE2_PUBLIC => 4
+    static PUBLIC => 4
 
     /**
+     * Native name: NET_FW_PROFILE2_ALL
      * @type {Integer (Int32)}
      */
-    static NET_FW_PROFILE2_ALL => 2147483647
+    static ALL => 2147483647
 }

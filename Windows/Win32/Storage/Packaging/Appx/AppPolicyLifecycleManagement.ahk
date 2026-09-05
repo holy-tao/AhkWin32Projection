@@ -10,13 +10,15 @@ class AppPolicyLifecycleManagement extends Win32Enum {
 
     /**
      * Indicates that the process's lifecycle is not managed.
+     * Native name: AppPolicyLifecycleManagement_Unmanaged
      * @type {Integer (Int32)}
      */
-    static AppPolicyLifecycleManagement_Unmanaged => 0
+    static Unmanaged => 0
 
     /**
      * Indicates that the process's  lifecycle is managed by Process Lifecycle Manager (PLM).
+     * Native name: AppPolicyLifecycleManagement_Managed
      * @type {Integer (Int32)}
      */
-    static AppPolicyLifecycleManagement_Managed => 1
+    static Managed => 1
 }

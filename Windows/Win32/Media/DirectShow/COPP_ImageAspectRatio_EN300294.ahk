@@ -10,54 +10,63 @@ class COPP_ImageAspectRatio_EN300294 extends Win32Enum {
 
     /**
      * Full format 4:3.
+     * Native name: COPP_AspectRatio_EN300294_FullFormat4by3
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_FullFormat4by3 => 0
+    static FullFormat4by3 => 0
 
     /**
      * Box 14:9 center.
+     * Native name: COPP_AspectRatio_EN300294_Box14by9Center
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_Box14by9Center => 1
+    static Box14by9Center => 1
 
     /**
      * Box 14:9 top.
+     * Native name: COPP_AspectRatio_EN300294_Box14by9Top
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_Box14by9Top => 2
+    static Box14by9Top => 2
 
     /**
      * Box 16:9 center.
+     * Native name: COPP_AspectRatio_EN300294_Box16by9Center
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_Box16by9Center => 3
+    static Box16by9Center => 3
 
     /**
      * Box 16:9 top.
+     * Native name: COPP_AspectRatio_EN300294_Box16by9Top
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_Box16by9Top => 4
+    static Box16by9Top => 4
 
     /**
      * Box &gt; 16:9 center.
+     * Native name: COPP_AspectRatio_EN300294_BoxGT16by9Center
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_BoxGT16by9Center => 5
+    static BoxGT16by9Center => 5
 
     /**
      * Full format 4:3 (shoot and protect 14:9 center).
+     * Native name: COPP_AspectRatio_EN300294_FullFormat4by3ProtectedCenter
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_FullFormat4by3ProtectedCenter => 6
+    static FullFormat4by3ProtectedCenter => 6
 
     /**
      * Full format 16:9 (anamorphic)
+     * Native name: COPP_AspectRatio_EN300294_FullFormat16by9Anamorphic
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_EN300294_FullFormat16by9Anamorphic => 7
+    static FullFormat16by9Anamorphic => 7
 
     /**
+     * Native name: COPP_AspectRatio_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static COPP_AspectRatio_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

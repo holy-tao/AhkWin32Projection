@@ -225,7 +225,6 @@ class Dxc {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -236,7 +235,6 @@ class Dxc {
     }
 
     /**
-     * 
      * @param {IMalloc} pMalloc 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 

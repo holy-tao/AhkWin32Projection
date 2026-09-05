@@ -10,13 +10,15 @@ class D2D1_THREADING_MODE extends Win32Enum {
 
     /**
      * Resources may only be invoked serially.  Device context state is not protected from multi-threaded access.
+     * Native name: D2D1_THREADING_MODE_SINGLE_THREADED
      * @type {Integer (Int32)}
      */
-    static D2D1_THREADING_MODE_SINGLE_THREADED => 0
+    static SINGLE_THREADED => 0
 
     /**
      * Resources may be invoked from multiple threads. Resources use interlocked reference counting and their state is protected.
+     * Native name: D2D1_THREADING_MODE_MULTI_THREADED
      * @type {Integer (Int32)}
      */
-    static D2D1_THREADING_MODE_MULTI_THREADED => 1
+    static MULTI_THREADED => 1
 }

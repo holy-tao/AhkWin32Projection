@@ -513,7 +513,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HICON>} param2 
@@ -527,7 +526,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
@@ -542,7 +540,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
@@ -557,7 +554,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HICON>} param1 
      * @returns {String} Nothing - always returns an empty string
@@ -569,7 +565,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
@@ -584,7 +579,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
@@ -600,7 +594,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
@@ -616,7 +609,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param1 
      * @returns {String} Nothing - always returns an empty string
@@ -873,7 +865,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HICON>} param2 
@@ -887,7 +878,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
@@ -902,7 +892,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
@@ -917,7 +906,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HICON>} param1 
      * @returns {String} Nothing - always returns an empty string
@@ -929,7 +917,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
@@ -944,7 +931,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
@@ -960,7 +946,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
@@ -976,7 +961,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Pointer<Pointer<Integer>>>} param1 
      * @returns {String} Nothing - always returns an empty string
@@ -1949,7 +1933,6 @@ class Marshal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMENU>} param2 

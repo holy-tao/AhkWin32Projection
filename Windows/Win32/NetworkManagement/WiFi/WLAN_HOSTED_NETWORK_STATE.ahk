@@ -12,19 +12,22 @@ class WLAN_HOSTED_NETWORK_STATE extends Win32Enum {
 
     /**
      * The wireless Hosted Network is unavailable.
+     * Native name: wlan_hosted_network_unavailable
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_unavailable => 0
+    static unavailable => 0
 
     /**
      * The wireless Hosted Network is idle.
+     * Native name: wlan_hosted_network_idle
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_idle => 1
+    static idle => 1
 
     /**
      * The wireless Hosted Network is active.
+     * Native name: wlan_hosted_network_active
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_active => 2
+    static active => 2
 }

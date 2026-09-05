@@ -30,7 +30,6 @@ class IWebBrowserEventsUrlService extends IUnknown {
     static VTableNames => ["GetUrlForEvents"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUrlForEvents() {

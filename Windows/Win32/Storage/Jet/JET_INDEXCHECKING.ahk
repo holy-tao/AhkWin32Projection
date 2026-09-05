@@ -7,22 +7,26 @@
 class JET_INDEXCHECKING extends Win32Enum {
 
     /**
+     * Native name: JET_IndexCheckingOff
      * @type {Integer (Int32)}
      */
-    static JET_IndexCheckingOff => 0
+    static IndexCheckingOff => 0
 
     /**
+     * Native name: JET_IndexCheckingOn
      * @type {Integer (Int32)}
      */
-    static JET_IndexCheckingOn => 1
+    static IndexCheckingOn => 1
 
     /**
+     * Native name: JET_IndexCheckingDeferToOpenTable
      * @type {Integer (Int32)}
      */
-    static JET_IndexCheckingDeferToOpenTable => 2
+    static IndexCheckingDeferToOpenTable => 2
 
     /**
+     * Native name: JET_IndexCheckingMax
      * @type {Integer (Int32)}
      */
-    static JET_IndexCheckingMax => 3
+    static IndexCheckingMax => 3
 }

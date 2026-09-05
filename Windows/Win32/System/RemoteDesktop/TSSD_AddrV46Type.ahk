@@ -10,19 +10,22 @@ class TSSD_AddrV46Type extends Win32Enum {
 
     /**
      * The IP address is not valid.
+     * Native name: TSSD_ADDR_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static TSSD_ADDR_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * The address is in IPv4 format.
+     * Native name: TSSD_ADDR_IPv4
      * @type {Integer (Int32)}
      */
-    static TSSD_ADDR_IPv4 => 4
+    static IPv4 => 4
 
     /**
      * The address is in IPv6 format.
+     * Native name: TSSD_ADDR_IPv6
      * @type {Integer (Int32)}
      */
-    static TSSD_ADDR_IPv6 => 6
+    static IPv6 => 6
 }

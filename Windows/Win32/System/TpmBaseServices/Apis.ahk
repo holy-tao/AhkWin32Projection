@@ -302,7 +302,6 @@ class TpmBaseServices {
     }
 
     /**
-     * 
      * @param {Pointer<TBS_CONTEXT_PARAMS>} pContextParams 
      * @param {Pointer<Pointer<Void>>} phContext 
      * @returns {Integer} 
@@ -1173,7 +1172,6 @@ class TpmBaseServices {
     }
 
     /**
-     * 
      * @param {Integer} pbWindowsAIK 
      * @param {Integer} cbWindowsAIK 
      * @param {Pointer<Integer>} pcbResult 
@@ -1189,7 +1187,6 @@ class TpmBaseServices {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWindowsAIK 
      * @param {Integer} cchWindowsAIK 
      * @param {Pointer<Integer>} pcchResult 
@@ -1207,7 +1204,6 @@ class TpmBaseServices {
     }
 
     /**
-     * 
      * @param {Integer} keyHandle 
      * @returns {Integer} 
      */
@@ -1500,7 +1496,6 @@ class TpmBaseServices {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static Tbsi_Is_Tpm_Present() {

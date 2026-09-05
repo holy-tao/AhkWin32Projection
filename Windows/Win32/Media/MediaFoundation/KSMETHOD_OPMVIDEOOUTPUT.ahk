@@ -7,17 +7,20 @@
 class KSMETHOD_OPMVIDEOOUTPUT extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_OPMVIDEOOUTPUT_STARTINITIALIZATION
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_OPMVIDEOOUTPUT_STARTINITIALIZATION => 0
+    static STARTINITIALIZATION => 0
 
     /**
+     * Native name: KSMETHOD_OPMVIDEOOUTPUT_FINISHINITIALIZATION
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_OPMVIDEOOUTPUT_FINISHINITIALIZATION => 1
+    static FINISHINITIALIZATION => 1
 
     /**
+     * Native name: KSMETHOD_OPMVIDEOOUTPUT_GETINFORMATION
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_OPMVIDEOOUTPUT_GETINFORMATION => 2
+    static GETINFORMATION => 2
 }

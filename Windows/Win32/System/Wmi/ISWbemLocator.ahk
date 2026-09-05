@@ -45,7 +45,6 @@ class ISWbemLocator extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strServer 
      * @param {BSTR} strNamespace 
      * @param {BSTR} strUser 
@@ -69,7 +68,6 @@ class ISWbemLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {

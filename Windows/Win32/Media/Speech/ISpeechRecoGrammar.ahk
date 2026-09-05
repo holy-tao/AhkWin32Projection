@@ -67,7 +67,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Id() {
@@ -77,7 +76,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoContext} 
      */
     get_RecoContext() {
@@ -86,7 +84,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechGrammarState} State 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechGrammarState} 
      */
     get_State() {
@@ -105,7 +101,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRules} 
      */
     get_Rules() {
@@ -114,7 +109,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} NewLanguage 
      * @returns {HRESULT} 
      */
@@ -124,7 +118,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} FileName 
      * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
@@ -137,7 +130,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ClassId 
      * @param {BSTR} GrammarName 
      * @param {SpeechLoadOption} LoadOption 
@@ -152,7 +144,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} _hModule 
      * @param {VARIANT} ResourceName 
      * @param {VARIANT} _ResourceType 
@@ -166,7 +157,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} GrammarData 
      * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
@@ -177,7 +167,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ProprietaryGuid 
      * @param {BSTR} ProprietaryString 
      * @param {VARIANT} ProprietaryData 
@@ -193,7 +182,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
@@ -206,7 +194,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} RuleId 
      * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
@@ -217,7 +204,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TopicName 
      * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
@@ -230,7 +216,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DictationUnload() {
@@ -239,7 +224,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
      */
@@ -249,7 +233,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Text 
      * @param {Integer} TextLength 
      * @param {ISpeechTextSelectionInformation} Info 
@@ -263,7 +246,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechTextSelectionInformation} Info 
      * @returns {HRESULT} 
      */
@@ -273,7 +255,6 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Word 
      * @returns {SpeechWordPronounceable} 
      */

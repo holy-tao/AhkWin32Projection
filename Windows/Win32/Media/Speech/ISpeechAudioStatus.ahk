@@ -66,7 +66,6 @@ class ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FreeBufferSpace() {
@@ -75,7 +74,6 @@ class ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NonBlockingIO() {
@@ -84,7 +82,6 @@ class ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechAudioState} 
      */
     get_State() {
@@ -93,7 +90,6 @@ class ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CurrentSeekPosition() {
@@ -103,7 +99,6 @@ class ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CurrentDevicePosition() {

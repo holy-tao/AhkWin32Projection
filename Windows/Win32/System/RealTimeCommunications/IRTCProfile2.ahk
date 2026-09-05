@@ -46,7 +46,6 @@ class IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Realm() {
@@ -56,7 +55,6 @@ class IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRealm 
      * @returns {HRESULT} 
      */
@@ -68,7 +66,6 @@ class IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AllowedAuth() {
@@ -77,7 +74,6 @@ class IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @param {Integer} lAllowedAuth 
      * @returns {HRESULT} 
      */

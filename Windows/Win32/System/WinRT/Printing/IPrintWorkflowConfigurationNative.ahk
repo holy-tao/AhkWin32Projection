@@ -52,7 +52,6 @@ class IPrintWorkflowConfigurationNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrinterQueue} 
      */
     get_PrinterQueue() {
@@ -61,7 +60,6 @@ class IPrintWorkflowConfigurationNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_DriverProperties() {
@@ -70,7 +68,6 @@ class IPrintWorkflowConfigurationNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_UserProperties() {

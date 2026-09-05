@@ -80,7 +80,6 @@ class InteractionContext {
     }
 
     /**
-     * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {Pointer<INTERACTION_CONTEXT_OUTPUT_CALLBACK2>} outputCallback 
      * @param {Pointer<Void>} clientData 
@@ -350,7 +349,6 @@ class InteractionContext {
     }
 
     /**
-     * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {TAP_PARAMETER} parameter 
      * @param {Float} value 
@@ -364,7 +362,6 @@ class InteractionContext {
     }
 
     /**
-     * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {TAP_PARAMETER} parameter 
      * @returns {Float} 
@@ -377,7 +374,6 @@ class InteractionContext {
     }
 
     /**
-     * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {HOLD_PARAMETER} parameter 
      * @param {Float} value 
@@ -391,7 +387,6 @@ class InteractionContext {
     }
 
     /**
-     * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {HOLD_PARAMETER} parameter 
      * @returns {Float} 
@@ -404,7 +399,6 @@ class InteractionContext {
     }
 
     /**
-     * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {TRANSLATION_PARAMETER} parameter 
      * @param {Float} value 
@@ -418,7 +412,6 @@ class InteractionContext {
     }
 
     /**
-     * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {TRANSLATION_PARAMETER} parameter 
      * @returns {Float} 

@@ -7,47 +7,56 @@
 class DXVA2_BufferfType extends Win32Enum {
 
     /**
+     * Native name: DXVA2_PictureParametersBufferType
      * @type {Integer (Int32)}
      */
-    static DXVA2_PictureParametersBufferType => 0
+    static PictureParametersBufferType => 0
 
     /**
+     * Native name: DXVA2_MacroBlockControlBufferType
      * @type {Integer (Int32)}
      */
-    static DXVA2_MacroBlockControlBufferType => 1
+    static MacroBlockControlBufferType => 1
 
     /**
+     * Native name: DXVA2_ResidualDifferenceBufferType
      * @type {Integer (Int32)}
      */
-    static DXVA2_ResidualDifferenceBufferType => 2
+    static ResidualDifferenceBufferType => 2
 
     /**
+     * Native name: DXVA2_DeblockingControlBufferType
      * @type {Integer (Int32)}
      */
-    static DXVA2_DeblockingControlBufferType => 3
+    static DeblockingControlBufferType => 3
 
     /**
+     * Native name: DXVA2_InverseQuantizationMatrixBufferType
      * @type {Integer (Int32)}
      */
-    static DXVA2_InverseQuantizationMatrixBufferType => 4
+    static InverseQuantizationMatrixBufferType => 4
 
     /**
+     * Native name: DXVA2_SliceControlBufferType
      * @type {Integer (Int32)}
      */
-    static DXVA2_SliceControlBufferType => 5
+    static SliceControlBufferType => 5
 
     /**
+     * Native name: DXVA2_BitStreamDateBufferType
      * @type {Integer (Int32)}
      */
-    static DXVA2_BitStreamDateBufferType => 6
+    static BitStreamDateBufferType => 6
 
     /**
+     * Native name: DXVA2_MotionVectorBuffer
      * @type {Integer (Int32)}
      */
-    static DXVA2_MotionVectorBuffer => 7
+    static MotionVectorBuffer => 7
 
     /**
+     * Native name: DXVA2_FilmGrainBuffer
      * @type {Integer (Int32)}
      */
-    static DXVA2_FilmGrainBuffer => 8
+    static FilmGrainBuffer => 8
 }

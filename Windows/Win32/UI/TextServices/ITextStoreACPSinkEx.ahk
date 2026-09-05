@@ -29,7 +29,6 @@ class ITextStoreACPSinkEx extends ITextStoreACPSink {
     static VTableNames => ["OnDisconnect"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnDisconnect() {

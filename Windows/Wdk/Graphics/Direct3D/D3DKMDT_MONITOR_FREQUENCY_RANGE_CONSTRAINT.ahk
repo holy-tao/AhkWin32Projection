@@ -7,17 +7,20 @@
 class D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT extends Win32Enum {
 
     /**
+     * Native name: D3DKMDT_MFRC_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MFRC_UNINITIALIZED => 0
+    static MFRC_UNINITIALIZED => 0
 
     /**
+     * Native name: D3DKMDT_MFRC_ACTIVESIZE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MFRC_ACTIVESIZE => 1
+    static MFRC_ACTIVESIZE => 1
 
     /**
+     * Native name: D3DKMDT_MFRC_MAXPIXELRATE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MFRC_MAXPIXELRATE => 2
+    static MFRC_MAXPIXELRATE => 2
 }

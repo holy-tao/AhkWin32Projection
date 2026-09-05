@@ -31,7 +31,6 @@ class ISessionProperties extends IUnknown {
     static VTableNames => ["GetProperties", "SetProperties"]
 
     /**
-     * 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertySets 
@@ -47,7 +46,6 @@ class ISessionProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @returns {HRESULT} 

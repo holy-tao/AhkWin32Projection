@@ -7,147 +7,176 @@
 class JsErrorCode extends Win32Enum {
 
     /**
+     * Native name: JsNoError
      * @type {Integer (UInt32)}
      */
-    static JsNoError => 0
+    static NoError => 0
 
     /**
+     * Native name: JsErrorCategoryUsage
      * @type {Integer (UInt32)}
      */
-    static JsErrorCategoryUsage => 65536
+    static CategoryUsage => 65536
 
     /**
+     * Native name: JsErrorInvalidArgument
      * @type {Integer (UInt32)}
      */
-    static JsErrorInvalidArgument => 65537
+    static InvalidArgument => 65537
 
     /**
+     * Native name: JsErrorNullArgument
      * @type {Integer (UInt32)}
      */
-    static JsErrorNullArgument => 65538
+    static NullArgument => 65538
 
     /**
+     * Native name: JsErrorNoCurrentContext
      * @type {Integer (UInt32)}
      */
-    static JsErrorNoCurrentContext => 65539
+    static NoCurrentContext => 65539
 
     /**
+     * Native name: JsErrorInExceptionState
      * @type {Integer (UInt32)}
      */
-    static JsErrorInExceptionState => 65540
+    static InExceptionState => 65540
 
     /**
+     * Native name: JsErrorNotImplemented
      * @type {Integer (UInt32)}
      */
-    static JsErrorNotImplemented => 65541
+    static NotImplemented => 65541
 
     /**
+     * Native name: JsErrorWrongThread
      * @type {Integer (UInt32)}
      */
-    static JsErrorWrongThread => 65542
+    static WrongThread => 65542
 
     /**
+     * Native name: JsErrorRuntimeInUse
      * @type {Integer (UInt32)}
      */
-    static JsErrorRuntimeInUse => 65543
+    static RuntimeInUse => 65543
 
     /**
+     * Native name: JsErrorBadSerializedScript
      * @type {Integer (UInt32)}
      */
-    static JsErrorBadSerializedScript => 65544
+    static BadSerializedScript => 65544
 
     /**
+     * Native name: JsErrorInDisabledState
      * @type {Integer (UInt32)}
      */
-    static JsErrorInDisabledState => 65545
+    static InDisabledState => 65545
 
     /**
+     * Native name: JsErrorCannotDisableExecution
      * @type {Integer (UInt32)}
      */
-    static JsErrorCannotDisableExecution => 65546
+    static CannotDisableExecution => 65546
 
     /**
+     * Native name: JsErrorHeapEnumInProgress
      * @type {Integer (UInt32)}
      */
-    static JsErrorHeapEnumInProgress => 65547
+    static HeapEnumInProgress => 65547
 
     /**
+     * Native name: JsErrorArgumentNotObject
      * @type {Integer (UInt32)}
      */
-    static JsErrorArgumentNotObject => 65548
+    static ArgumentNotObject => 65548
 
     /**
+     * Native name: JsErrorInProfileCallback
      * @type {Integer (UInt32)}
      */
-    static JsErrorInProfileCallback => 65549
+    static InProfileCallback => 65549
 
     /**
+     * Native name: JsErrorInThreadServiceCallback
      * @type {Integer (UInt32)}
      */
-    static JsErrorInThreadServiceCallback => 65550
+    static InThreadServiceCallback => 65550
 
     /**
+     * Native name: JsErrorCannotSerializeDebugScript
      * @type {Integer (UInt32)}
      */
-    static JsErrorCannotSerializeDebugScript => 65551
+    static CannotSerializeDebugScript => 65551
 
     /**
+     * Native name: JsErrorAlreadyDebuggingContext
      * @type {Integer (UInt32)}
      */
-    static JsErrorAlreadyDebuggingContext => 65552
+    static AlreadyDebuggingContext => 65552
 
     /**
+     * Native name: JsErrorAlreadyProfilingContext
      * @type {Integer (UInt32)}
      */
-    static JsErrorAlreadyProfilingContext => 65553
+    static AlreadyProfilingContext => 65553
 
     /**
+     * Native name: JsErrorIdleNotEnabled
      * @type {Integer (UInt32)}
      */
-    static JsErrorIdleNotEnabled => 65554
+    static IdleNotEnabled => 65554
 
     /**
+     * Native name: JsErrorCategoryEngine
      * @type {Integer (UInt32)}
      */
-    static JsErrorCategoryEngine => 131072
+    static CategoryEngine => 131072
 
     /**
+     * Native name: JsErrorOutOfMemory
      * @type {Integer (UInt32)}
      */
-    static JsErrorOutOfMemory => 131073
+    static OutOfMemory => 131073
 
     /**
+     * Native name: JsErrorCategoryScript
      * @type {Integer (UInt32)}
      */
-    static JsErrorCategoryScript => 196608
+    static CategoryScript => 196608
 
     /**
+     * Native name: JsErrorScriptException
      * @type {Integer (UInt32)}
      */
-    static JsErrorScriptException => 196609
+    static ScriptException => 196609
 
     /**
+     * Native name: JsErrorScriptCompile
      * @type {Integer (UInt32)}
      */
-    static JsErrorScriptCompile => 196610
+    static ScriptCompile => 196610
 
     /**
+     * Native name: JsErrorScriptTerminated
      * @type {Integer (UInt32)}
      */
-    static JsErrorScriptTerminated => 196611
+    static ScriptTerminated => 196611
 
     /**
+     * Native name: JsErrorScriptEvalDisabled
      * @type {Integer (UInt32)}
      */
-    static JsErrorScriptEvalDisabled => 196612
+    static ScriptEvalDisabled => 196612
 
     /**
+     * Native name: JsErrorCategoryFatal
      * @type {Integer (UInt32)}
      */
-    static JsErrorCategoryFatal => 262144
+    static CategoryFatal => 262144
 
     /**
+     * Native name: JsErrorFatal
      * @type {Integer (UInt32)}
      */
-    static JsErrorFatal => 262145
+    static Fatal => 262145
 }

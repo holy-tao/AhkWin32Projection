@@ -10,22 +10,25 @@ class OPC_CERTIFICATE_EMBEDDING_OPTION extends Win32Enum {
 
     /**
      * The certificate is stored in a part specific to the certificate.
+     * Native name: OPC_CERTIFICATE_IN_CERTIFICATE_PART
      * @type {Integer (Int32)}
      */
-    static OPC_CERTIFICATE_IN_CERTIFICATE_PART => 0
+    static IN_CERTIFICATE_PART => 0
 
     /**
      * The certificate is encoded within the signature markup in the Signature part.
+     * Native name: OPC_CERTIFICATE_IN_SIGNATURE_PART
      * @type {Integer (Int32)}
      */
-    static OPC_CERTIFICATE_IN_SIGNATURE_PART => 1
+    static IN_SIGNATURE_PART => 1
 
     /**
      * The certificate is not stored in the package.
      * 
      * <div class="alert"><b>Important</b>  The certificate is contextual and understood between the signer and the verifier.</div>
      * <div> </div>
+     * Native name: OPC_CERTIFICATE_NOT_EMBEDDED
      * @type {Integer (Int32)}
      */
-    static OPC_CERTIFICATE_NOT_EMBEDDED => 2
+    static NOT_EMBEDDED => 2
 }

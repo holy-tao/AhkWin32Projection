@@ -32,7 +32,6 @@ class IDebugApplicationNode100 extends IUnknown {
     static VTableNames => ["SetFilterForEventSink", "GetExcludedDocuments", "QueryIsChildNode"]
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @param {APPLICATION_NODE_EVENT_FILTER} filter 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IDebugApplicationNode100 extends IUnknown {
     }
 
     /**
-     * 
      * @param {APPLICATION_NODE_EVENT_FILTER} filter 
      * @returns {TEXT_DOCUMENT_ARRAY} 
      */
@@ -54,7 +52,6 @@ class IDebugApplicationNode100 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocument} pSearchKey 
      * @returns {HRESULT} 
      */

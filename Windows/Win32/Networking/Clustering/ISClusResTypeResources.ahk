@@ -48,7 +48,6 @@ class ISClusResTypeResources extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -57,7 +56,6 @@ class ISClusResTypeResources extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -66,7 +64,6 @@ class ISClusResTypeResources extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -75,7 +72,6 @@ class ISClusResTypeResources extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusResource} 
      */
@@ -85,7 +81,6 @@ class ISClusResTypeResources extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrResourceName 
      * @param {BSTR} bstrGroupName 
      * @param {CLUSTER_RESOURCE_CREATE_FLAGS} dwFlags 
@@ -100,7 +95,6 @@ class ISClusResTypeResources extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */

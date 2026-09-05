@@ -29,7 +29,6 @@ class IOfflineFilesEvents4 extends IOfflineFilesEvents3 {
     static VTableNames => ["PrefetchCloseHandleBegin", "PrefetchCloseHandleEnd"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PrefetchCloseHandleBegin() {
@@ -38,7 +37,6 @@ class IOfflineFilesEvents4 extends IOfflineFilesEvents3 {
     }
 
     /**
-     * 
      * @param {Integer} dwClosedHandleCount 
      * @param {Integer} dwOpenHandleCount 
      * @param {HRESULT} hrResult 

@@ -12,37 +12,43 @@ class CLUSTER_CHANGE_REGISTRY_V2 extends Win32Enum {
 
     /**
      * Indicates that the registry attributes changed.
+     * Native name: CLUSTER_CHANGE_REGISTRY_ATTRIBUTES_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_REGISTRY_ATTRIBUTES_V2 => 1
+    static ATTRIBUTES_V2 => 1
 
     /**
      * Indicates that the registry key name has changed.
+     * Native name: CLUSTER_CHANGE_REGISTRY_NAME_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_REGISTRY_NAME_V2 => 2
+    static NAME_V2 => 2
 
     /**
      * Indicates that the registry subtree has changed.
+     * Native name: CLUSTER_CHANGE_REGISTRY_SUBTREE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_REGISTRY_SUBTREE_V2 => 4
+    static SUBTREE_V2 => 4
 
     /**
      * Indicates that the registry value has changed.
+     * Native name: CLUSTER_CHANGE_REGISTRY_VALUE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_REGISTRY_VALUE_V2 => 8
+    static VALUE_V2 => 8
 
     /**
      * Indicates that the registry's context handle was closed.
+     * Native name: CLUSTER_CHANGE_REGISTRY_HANDLE_CLOSE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_REGISTRY_HANDLE_CLOSE_V2 => 16
+    static HANDLE_CLOSE_V2 => 16
 
     /**
      * Indicates all V2 registry notifications.
+     * Native name: CLUSTER_CHANGE_REGISTRY_ALL_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_REGISTRY_ALL_V2 => 31
+    static ALL_V2 => 31
 }

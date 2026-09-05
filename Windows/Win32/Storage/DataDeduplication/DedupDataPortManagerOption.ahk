@@ -7,17 +7,20 @@
 class DedupDataPortManagerOption extends Win32Enum {
 
     /**
+     * Native name: DedupDataPortManagerOption_None
      * @type {Integer (Int32)}
      */
-    static DedupDataPortManagerOption_None => 0
+    static None => 0
 
     /**
+     * Native name: DedupDataPortManagerOption_AutoStart
      * @type {Integer (Int32)}
      */
-    static DedupDataPortManagerOption_AutoStart => 1
+    static AutoStart => 1
 
     /**
+     * Native name: DedupDataPortManagerOption_SkipReconciliation
      * @type {Integer (Int32)}
      */
-    static DedupDataPortManagerOption_SkipReconciliation => 2
+    static SkipReconciliation => 2
 }

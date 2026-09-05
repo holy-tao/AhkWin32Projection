@@ -10,13 +10,15 @@ class EC_SUBSCRIPTION_CONTENT_FORMAT extends Win32Enum {
 
     /**
      * When an event is received, the Event Collector service sends an event as the received event to an event log. The service sends the raw event data only, and not any localized event data.
+     * Native name: EcContentFormatEvents
      * @type {Integer (Int32)}
      */
-    static EcContentFormatEvents => 1
+    static Events => 1
 
     /**
      * When an event is received, the Event Collector service sends an event as rendered text to an event log. The service sends raw event data and localized event information.
+     * Native name: EcContentFormatRenderedText
      * @type {Integer (Int32)}
      */
-    static EcContentFormatRenderedText => 2
+    static RenderedText => 2
 }

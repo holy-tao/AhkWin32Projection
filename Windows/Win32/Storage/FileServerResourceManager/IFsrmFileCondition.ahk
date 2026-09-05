@@ -37,7 +37,6 @@ class IFsrmFileCondition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FsrmFileConditionType} 
      */
     get_Type() {
@@ -46,7 +45,6 @@ class IFsrmFileCondition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {

@@ -38,7 +38,6 @@ class IHTMLDOMImplementation extends IDispatch {
     static VTableNames => ["hasFeature"]
 
     /**
-     * 
      * @param {BSTR} bstrfeature 
      * @param {VARIANT} _version 
      * @returns {VARIANT_BOOL} 

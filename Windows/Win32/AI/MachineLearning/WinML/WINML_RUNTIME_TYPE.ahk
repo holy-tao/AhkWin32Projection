@@ -10,7 +10,8 @@ class WINML_RUNTIME_TYPE extends Win32Enum {
 
     /**
      * Runtime type of CNTK.
+     * Native name: WINML_RUNTIME_CNTK
      * @type {Integer (Int32)}
      */
-    static WINML_RUNTIME_CNTK => 0
+    static CNTK => 0
 }

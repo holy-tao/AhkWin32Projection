@@ -15,37 +15,43 @@ class VDS_INTERCONNECT_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_IA_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_IA_UNKNOWN => 0
+    static IA_UNKNOWN => 0
 
     /**
      * The address type is FCFS.
+     * Native name: VDS_IA_FCFS
      * @type {Integer (Int32)}
      */
-    static VDS_IA_FCFS => 1
+    static IA_FCFS => 1
 
     /**
      * The address type is FCPH.
+     * Native name: VDS_IA_FCPH
      * @type {Integer (Int32)}
      */
-    static VDS_IA_FCPH => 2
+    static IA_FCPH => 2
 
     /**
      * The address type is FCPH3.
+     * Native name: VDS_IA_FCPH3
      * @type {Integer (Int32)}
      */
-    static VDS_IA_FCPH3 => 3
+    static IA_FCPH3 => 3
 
     /**
      * The address type is MAC.
+     * Native name: VDS_IA_MAC
      * @type {Integer (Int32)}
      */
-    static VDS_IA_MAC => 4
+    static IA_MAC => 4
 
     /**
      * The address type is SCSI.
+     * Native name: VDS_IA_SCSI
      * @type {Integer (Int32)}
      */
-    static VDS_IA_SCSI => 5
+    static IA_SCSI => 5
 }

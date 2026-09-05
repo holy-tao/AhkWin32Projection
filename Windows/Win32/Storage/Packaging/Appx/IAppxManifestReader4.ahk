@@ -30,7 +30,6 @@ class IAppxManifestReader4 extends IAppxManifestReader3 {
     static VTableNames => ["GetOptionalPackageInfo"]
 
     /**
-     * 
      * @returns {IAppxManifestOptionalPackageInfo} 
      */
     GetOptionalPackageInfo() {

@@ -10,13 +10,15 @@ class WINSAT_BITMAP_SIZE extends Win32Enum {
 
     /**
      * Use a 32 x 24 bitmap (size is in pixels).
+     * Native name: WINSAT_BITMAP_SIZE_SMALL
      * @type {Integer (Int32)}
      */
-    static WINSAT_BITMAP_SIZE_SMALL => 0
+    static SMALL => 0
 
     /**
      * Use an 80 x 80 bitmap (size is in pixels).
+     * Native name: WINSAT_BITMAP_SIZE_NORMAL
      * @type {Integer (Int32)}
      */
-    static WINSAT_BITMAP_SIZE_NORMAL => 1
+    static NORMAL => 1
 }

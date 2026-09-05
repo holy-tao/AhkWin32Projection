@@ -30,7 +30,6 @@ class IPrintCoreHelperUni2 extends IPrintCoreHelperUni {
     static VTableNames => ["GetNamedCommand"]
 
     /**
-     * 
      * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PWSTR} pszCommandName 

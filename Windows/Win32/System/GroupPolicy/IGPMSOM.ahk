@@ -73,7 +73,6 @@ class IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_GPOInheritanceBlocked() {
@@ -82,7 +81,6 @@ class IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */
@@ -92,7 +90,6 @@ class IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -102,7 +99,6 @@ class IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -127,7 +123,6 @@ class IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_Type() {

@@ -58,7 +58,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Id() {
@@ -68,7 +67,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechDataKey} 
      */
     get_DataKey() {
@@ -77,7 +75,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectTokenCategory} 
      */
     get_Category() {
@@ -98,7 +95,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Id 
      * @param {BSTR} CategoryID 
      * @param {VARIANT_BOOL} CreateIfNotExist 
@@ -113,7 +109,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} AttributeName 
      * @returns {BSTR} 
      */
@@ -140,7 +135,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ObjectStorageCLSID 
      * @returns {HRESULT} 
      */
@@ -152,7 +146,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ObjectStorageCLSID 
      * @param {BSTR} KeyName 
      * @param {BSTR} FileName 
@@ -170,7 +163,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ObjectStorageCLSID 
      * @param {BSTR} KeyName 
      * @param {VARIANT_BOOL} DeleteFile 
@@ -185,7 +177,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
      * @param {IUnknown} _Object 
@@ -199,7 +190,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} _hWnd 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 
@@ -216,7 +206,6 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Attributes 
      * @returns {VARIANT_BOOL} 
      */

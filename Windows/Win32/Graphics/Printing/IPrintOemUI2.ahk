@@ -32,7 +32,6 @@ class IPrintOemUI2 extends IPrintOemUI {
     static VTableNames => ["QueryJobAttributes", "HideStandardUI", "DocumentEvent"]
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} dwLevel 
@@ -49,7 +48,6 @@ class IPrintOemUI2 extends IPrintOemUI {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */

@@ -7,12 +7,14 @@
 class IGNOREMIME extends Win32Enum {
 
     /**
+     * Native name: IGNOREMIME_PROMPT
      * @type {Integer (Int32)}
      */
-    static IGNOREMIME_PROMPT => 1
+    static PROMPT => 1
 
     /**
+     * Native name: IGNOREMIME_TEXT
      * @type {Integer (Int32)}
      */
-    static IGNOREMIME_TEXT => 2
+    static TEXT => 2
 }

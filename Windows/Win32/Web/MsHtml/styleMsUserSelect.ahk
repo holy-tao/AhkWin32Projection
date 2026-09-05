@@ -7,32 +7,38 @@
 class styleMsUserSelect extends Win32Enum {
 
     /**
+     * Native name: styleMsUserSelectAuto
      * @type {Integer (Int32)}
      */
-    static styleMsUserSelectAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleMsUserSelectText
      * @type {Integer (Int32)}
      */
-    static styleMsUserSelectText => 1
+    static Text => 1
 
     /**
+     * Native name: styleMsUserSelectElement
      * @type {Integer (Int32)}
      */
-    static styleMsUserSelectElement => 2
+    static Element => 2
 
     /**
+     * Native name: styleMsUserSelectNone
      * @type {Integer (Int32)}
      */
-    static styleMsUserSelectNone => 3
+    static None => 3
 
     /**
+     * Native name: styleMsUserSelectNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsUserSelectNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleMsUserSelect_Max
      * @type {Integer (Int32)}
      */
-    static styleMsUserSelect_Max => 2147483647
+    static Max => 2147483647
 }

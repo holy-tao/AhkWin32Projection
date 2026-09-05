@@ -7,17 +7,20 @@
 class DPAMM_MESSAGE extends Win32Enum {
 
     /**
+     * Native name: DPAMM_MERGE
      * @type {Integer (UInt32)}
      */
-    static DPAMM_MERGE => 1
+    static MERGE => 1
 
     /**
+     * Native name: DPAMM_DELETE
      * @type {Integer (UInt32)}
      */
-    static DPAMM_DELETE => 2
+    static DELETE => 2
 
     /**
+     * Native name: DPAMM_INSERT
      * @type {Integer (UInt32)}
      */
-    static DPAMM_INSERT => 3
+    static INSERT => 3
 }

@@ -40,7 +40,6 @@ class IDataModelManager extends IUnknown {
     static VTableNames => ["Close", "CreateNoValue", "CreateErrorObject", "CreateTypedObject", "CreateTypedObjectReference", "CreateSyntheticObject", "CreateDataModelObject", "CreateIntrinsicObject", "CreateTypedIntrinsicObject", "GetModelForTypeSignature", "GetModelForType", "RegisterModelForTypeSignature", "UnregisterModelForTypeSignature", "RegisterExtensionForTypeSignature", "UnregisterExtensionForTypeSignature", "CreateMetadataStore", "GetRootNamespace", "RegisterNamedModel", "UnregisterNamedModel", "AcquireNamedModel"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -49,7 +48,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     CreateNoValue() {
@@ -58,7 +56,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {PWSTR} pwszMessage 
      * @returns {IModelObject} 
@@ -71,7 +68,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} objectLocation 
      * @param {IDebugHostType} _objectType 
@@ -83,7 +79,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} objectLocation 
      * @param {IDebugHostType} _objectType 
@@ -95,7 +90,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @returns {IModelObject} 
      */
@@ -105,7 +99,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelConcept} dataModel 
      * @returns {IModelObject} 
      */
@@ -115,7 +108,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ModelObjectKind} objectKind 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @returns {IModelObject} 
@@ -126,7 +118,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 
      * @returns {IModelObject} 
@@ -137,7 +128,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {IModelObject} 
      */
@@ -147,7 +137,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostType} type 
      * @param {Pointer<IModelObject>} dataModel 
      * @param {Pointer<IDebugHostTypeSignature>} typeSignature 
@@ -160,7 +149,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @param {IModelObject} dataModel 
      * @returns {HRESULT} 
@@ -171,7 +159,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModel 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {HRESULT} 
@@ -182,7 +169,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @param {IModelObject} dataModel 
      * @returns {HRESULT} 
@@ -193,7 +179,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModel 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {HRESULT} 
@@ -204,7 +189,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IKeyStore} parentStore 
      * @returns {IKeyStore} 
      */
@@ -214,7 +198,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetRootNamespace() {
@@ -223,7 +206,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @param {IModelObject} modeObject 
      * @returns {HRESULT} 
@@ -236,7 +218,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @returns {HRESULT} 
      */
@@ -248,7 +229,6 @@ class IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @returns {IModelObject} 
      */

@@ -7,17 +7,20 @@
 class styleBorderImageSliceFill extends Win32Enum {
 
     /**
+     * Native name: styleBorderImageSliceFillNotSet
      * @type {Integer (Int32)}
      */
-    static styleBorderImageSliceFillNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleBorderImageSliceFillFill
      * @type {Integer (Int32)}
      */
-    static styleBorderImageSliceFillFill => 1
+    static Fill => 1
 
     /**
+     * Native name: styleBorderImageSliceFill_Max
      * @type {Integer (Int32)}
      */
-    static styleBorderImageSliceFill_Max => 2147483647
+    static Max => 2147483647
 }

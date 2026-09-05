@@ -10,25 +10,29 @@ class STGTY extends Win32Enum {
 
     /**
      * Indicates that the storage element is a storage object.
+     * Native name: STGTY_STORAGE
      * @type {Integer (Int32)}
      */
-    static STGTY_STORAGE => 1
+    static STORAGE => 1
 
     /**
      * Indicates that the storage element is a stream object.
+     * Native name: STGTY_STREAM
      * @type {Integer (Int32)}
      */
-    static STGTY_STREAM => 2
+    static STREAM => 2
 
     /**
      * Indicates that the storage element is a byte-array object.
+     * Native name: STGTY_LOCKBYTES
      * @type {Integer (Int32)}
      */
-    static STGTY_LOCKBYTES => 3
+    static LOCKBYTES => 3
 
     /**
      * Indicates that the storage element is a property storage object.
+     * Native name: STGTY_PROPERTY
      * @type {Integer (Int32)}
      */
-    static STGTY_PROPERTY => 4
+    static PROPERTY => 4
 }

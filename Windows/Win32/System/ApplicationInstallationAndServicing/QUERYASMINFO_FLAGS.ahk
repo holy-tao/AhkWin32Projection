@@ -7,7 +7,8 @@
 class QUERYASMINFO_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: QUERYASMINFO_FLAG_VALIDATE
      * @type {Integer (UInt32)}
      */
-    static QUERYASMINFO_FLAG_VALIDATE => 1
+    static FLAG_VALIDATE => 1
 }

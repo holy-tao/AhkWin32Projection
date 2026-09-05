@@ -7,12 +7,14 @@
 class VideoCopyProtectionType extends Win32Enum {
 
     /**
+     * Native name: VideoCopyProtectionMacrovisionBasic
      * @type {Integer (Int32)}
      */
-    static VideoCopyProtectionMacrovisionBasic => 0
+    static MacrovisionBasic => 0
 
     /**
+     * Native name: VideoCopyProtectionMacrovisionCBI
      * @type {Integer (Int32)}
      */
-    static VideoCopyProtectionMacrovisionCBI => 1
+    static MacrovisionCBI => 1
 }

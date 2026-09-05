@@ -203,7 +203,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -213,7 +212,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -223,7 +221,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -232,7 +229,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -242,7 +238,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -252,7 +247,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -262,7 +256,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -271,7 +264,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -281,7 +273,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -290,7 +281,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -302,7 +292,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -312,7 +301,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -324,7 +312,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -334,7 +321,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -346,7 +332,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lowsrc() {
@@ -356,7 +341,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -368,7 +352,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vrml() {
@@ -378,7 +361,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -390,7 +372,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dynsrc() {
@@ -400,7 +381,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -410,7 +390,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_complete() {
@@ -419,7 +398,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -429,7 +407,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_loop() {
@@ -439,7 +416,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -451,7 +427,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -461,7 +436,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -471,7 +445,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -481,7 +454,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -491,7 +463,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -501,7 +472,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -511,7 +481,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -521,7 +490,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -533,7 +501,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -543,7 +510,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -553,7 +519,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -562,7 +527,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -572,7 +536,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -581,7 +544,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -593,7 +555,6 @@ class IHTMLInputImage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_start() {

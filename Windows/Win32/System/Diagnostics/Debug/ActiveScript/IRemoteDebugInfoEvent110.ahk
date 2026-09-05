@@ -32,7 +32,6 @@ class IRemoteDebugInfoEvent110 extends IUnknown {
     static VTableNames => ["GetEventInfo"]
 
     /**
-     * 
      * @param {Pointer<DEBUG_EVENT_INFO_TYPE>} pMessageType 
      * @param {Pointer<BSTR>} pbstrMessage 
      * @param {Pointer<BSTR>} pbstrUrl 

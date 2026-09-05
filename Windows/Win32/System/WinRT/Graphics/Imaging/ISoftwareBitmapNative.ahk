@@ -32,7 +32,6 @@ class ISoftwareBitmapNative extends IInspectable {
     static VTableNames => ["GetData"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

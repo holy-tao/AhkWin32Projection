@@ -30,7 +30,6 @@ class IClipServiceNotificationHelper extends IUnknown {
     static VTableNames => ["ShowToast"]
 
     /**
-     * 
      * @param {BSTR} titleText 
      * @param {BSTR} bodyText 
      * @param {BSTR} packageName 

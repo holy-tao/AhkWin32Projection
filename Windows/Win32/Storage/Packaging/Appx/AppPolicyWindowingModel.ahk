@@ -10,25 +10,29 @@ class AppPolicyWindowingModel extends Win32Enum {
 
     /**
      * Indicates that the process doesn't have a windowing model.
+     * Native name: AppPolicyWindowingModel_None
      * @type {Integer (Int32)}
      */
-    static AppPolicyWindowingModel_None => 0
+    static None => 0
 
     /**
      * Indicates that the process's windowing model is CoreWindow-based.
+     * Native name: AppPolicyWindowingModel_Universal
      * @type {Integer (Int32)}
      */
-    static AppPolicyWindowingModel_Universal => 1
+    static Universal => 1
 
     /**
      * Indicates that the process's windowing model is HWND-based.
+     * Native name: AppPolicyWindowingModel_ClassicDesktop
      * @type {Integer (Int32)}
      */
-    static AppPolicyWindowingModel_ClassicDesktop => 2
+    static ClassicDesktop => 2
 
     /**
      * Indicates that the process's windowing model is Silverlight-based, and does not provide notifications for window state changes.
+     * Native name: AppPolicyWindowingModel_ClassicPhone
      * @type {Integer (Int32)}
      */
-    static AppPolicyWindowingModel_ClassicPhone => 3
+    static ClassicPhone => 3
 }

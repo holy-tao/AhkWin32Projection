@@ -29,7 +29,6 @@ class IActiveScriptError64 extends IActiveScriptError {
     static VTableNames => ["GetSourcePosition64"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwSourceContext 
      * @param {Pointer<Integer>} pulLineNumber 
      * @param {Pointer<Integer>} plCharacterPosition 

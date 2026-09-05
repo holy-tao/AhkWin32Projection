@@ -10,13 +10,15 @@ class DELETE_SNAPSHOT_VHDSET_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
+     * Native name: DELETE_SNAPSHOT_VHDSET_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static DELETE_SNAPSHOT_VHDSET_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * A reference point should be persisted in the VHD Set after the snapshot is deleted.
+     * Native name: DELETE_SNAPSHOT_VHDSET_FLAG_PERSIST_RCT
      * @type {Integer (Int32)}
      */
-    static DELETE_SNAPSHOT_VHDSET_FLAG_PERSIST_RCT => 1
+    static PERSIST_RCT => 1
 }

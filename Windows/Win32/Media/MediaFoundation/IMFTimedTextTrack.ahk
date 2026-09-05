@@ -178,7 +178,6 @@ class IMFTimedTextTrack extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_TRACK_READY_STATE} 
      */
     GetReadyState() {
@@ -187,7 +186,6 @@ class IMFTimedTextTrack extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMFTimedTextCueList} 
      */
     GetCueList() {

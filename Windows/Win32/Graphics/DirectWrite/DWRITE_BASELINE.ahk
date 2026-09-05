@@ -10,55 +10,64 @@ class DWRITE_BASELINE extends Win32Enum {
 
     /**
      * The Roman baseline for horizontal; the Central baseline for vertical.
+     * Native name: DWRITE_BASELINE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The baseline that is used by alphabetic scripts such as Latin, Greek, and Cyrillic.
+     * Native name: DWRITE_BASELINE_ROMAN
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_ROMAN => 1
+    static ROMAN => 1
 
     /**
      * Central baseline, which is generally used for vertical text.
+     * Native name: DWRITE_BASELINE_CENTRAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_CENTRAL => 2
+    static CENTRAL => 2
 
     /**
      * Mathematical baseline, which math characters are centered on.
+     * Native name: DWRITE_BASELINE_MATH
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_MATH => 3
+    static MATH => 3
 
     /**
      * Hanging baseline, which is used in scripts like Devanagari.
+     * Native name: DWRITE_BASELINE_HANGING
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_HANGING => 4
+    static HANGING => 4
 
     /**
      * Ideographic bottom baseline for CJK, left in vertical.
+     * Native name: DWRITE_BASELINE_IDEOGRAPHIC_BOTTOM
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_IDEOGRAPHIC_BOTTOM => 5
+    static IDEOGRAPHIC_BOTTOM => 5
 
     /**
      * Ideographic top baseline for CJK, right in vertical.
+     * Native name: DWRITE_BASELINE_IDEOGRAPHIC_TOP
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_IDEOGRAPHIC_TOP => 6
+    static IDEOGRAPHIC_TOP => 6
 
     /**
      * The bottom-most extent in horizontal, left-most in vertical.
+     * Native name: DWRITE_BASELINE_MINIMUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_MINIMUM => 7
+    static MINIMUM => 7
 
     /**
      * The top-most extent in horizontal, right-most in vertical.
+     * Native name: DWRITE_BASELINE_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_BASELINE_MAXIMUM => 8
+    static MAXIMUM => 8
 }

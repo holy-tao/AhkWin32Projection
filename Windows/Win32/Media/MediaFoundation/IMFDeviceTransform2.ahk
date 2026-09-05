@@ -30,7 +30,6 @@ class IMFDeviceTransform2 extends IMFDeviceTransform {
     static VTableNames => ["GetTransformAttributes"]
 
     /**
-     * 
      * @returns {IMFAttributes} 
      */
     GetTransformAttributes() {

@@ -31,7 +31,6 @@ class ID3D12ApplicationIdentity extends IUnknown {
     static VTableNames => ["SetApplicationIdentity"]
 
     /**
-     * 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pDesc 
      * @param {Pointer<Guid>} AppId 
      * @returns {HRESULT} 

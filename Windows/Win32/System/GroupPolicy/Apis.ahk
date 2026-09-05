@@ -1190,7 +1190,6 @@ class GroupPolicy {
     }
 
     /**
-     * 
      * @param {BOOL} bMachine 
      * @param {PWSTR} lpwszMgmtProduct 
      * @param {Integer} dwMgmtProductOptions 
@@ -1254,7 +1253,6 @@ class GroupPolicy {
     }
 
     /**
-     * 
      * @param {PWSTR} Descriptor 
      * @param {PWSTR} CommandLine 
      * @param {Pointer<Integer>} CommandLineLength 
@@ -1311,7 +1309,6 @@ class GroupPolicy {
     }
 
     /**
-     * 
      * @param {PWSTR} ProductCode 
      * @param {Pointer<PWSTR>} DisplayName 
      * @param {Pointer<PWSTR>} SupportUrl 

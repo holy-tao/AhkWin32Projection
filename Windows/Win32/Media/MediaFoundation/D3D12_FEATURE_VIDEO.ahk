@@ -26,273 +26,323 @@ class D3D12_FEATURE_VIDEO extends Win32Enum {
 
     /**
      * Check if a decode profile, bitstream encryption, resolution, and format are supported.  The result is a <a href="ne-d3d12video-d3d12_video_decode_tier.md">D3D12_VIDEO_DECODE_TIER</a> indicating the level of support.  The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_decode_support.md">D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT</a>.
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_SUPPORT => 0
+    static DECODE_SUPPORT => 0
 
     /**
      * Retrieve the list of decode profiles supported by the adapter.  Call **CheckFeatureSupport** specifying the feature D3D12_FEATURE_VIDEO_DECODE_PROFILE_COUNT to get the number of profiles before calling **CheckFeatureSupport** for the D3D12_FEATURE_VIDEO_DECODE_PROFILES feature.  The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_decode_profiles.md">D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILES</a>.
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_PROFILES
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_PROFILES => 1
+    static DECODE_PROFILES => 1
 
     /**
      * Retrieves the list of supported decode formats for a <a href="ns-d3d12video-d3d12_video_decode_configuration.md">D3D12_VIDEO_DECODE_CONFIGURATION</a>. Call **CheckFeatureSupport** specifying the feature D3D12_FEATURE_VIDEO_DECODE_FORMAT_COUNT to get the number of profiles before calling **CheckFeatureSupport** for the D3D12_FEATURE_VIDEO_DECODE_PROFILES feature.The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_decode_formats.md">D3D12_FEATURE_DATA_VIDEO_DECODE_FORMATS</a>.
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_FORMATS
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_FORMATS => 2
+    static DECODE_FORMATS => 2
 
     /**
      * Check if a colorspace conversion, format conversion, and scale are supported.  The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_decode_conversion_support.md">D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT</a>.
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_CONVERSION_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_CONVERSION_SUPPORT => 3
+    static DECODE_CONVERSION_SUPPORT => 3
 
     /**
      * Retrieves the video processor capabilities.  The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_process_support.md">D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT</a>.
+     * Native name: D3D12_FEATURE_VIDEO_PROCESS_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_PROCESS_SUPPORT => 5
+    static PROCESS_SUPPORT => 5
 
     /**
      * Retrieves the maximum number of streams that can be enabled at the same time.  The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_process_max_input_streams.md">D3D12_FEATURE_DATA_VIDEO_PROCESS_MAX_INPUT_STREAMS</a>.
+     * Native name: D3D12_FEATURE_VIDEO_PROCESS_MAX_INPUT_STREAMS
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_PROCESS_MAX_INPUT_STREAMS => 6
+    static PROCESS_MAX_INPUT_STREAMS => 6
 
     /**
      * Retrieves the number of past and future frames required for a given deinterlace mode, filters, frame rate conversion, and features.  The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_process_reference_info.md">D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO</a>.
+     * Native name: D3D12_FEATURE_VIDEO_PROCESS_REFERENCE_INFO
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_PROCESS_REFERENCE_INFO => 7
+    static PROCESS_REFERENCE_INFO => 7
 
     /**
      * Checks the allocation size of a video decoder heap. The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_decoder_heap_size.md">D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE</a>. For information on residency budgeting for heaps, see [Residency](/windows/win32/direct3d12/residency).
+     * Native name: D3D12_FEATURE_VIDEO_DECODER_HEAP_SIZE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODER_HEAP_SIZE => 8
+    static DECODER_HEAP_SIZE => 8
 
     /**
      * Checks the allocation size of a video processor heap. The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_processor_size.md">D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE</a>. For information on residency budgeting for heaps, see [Residency](/windows/win32/direct3d12/residency).
+     * Native name: D3D12_FEATURE_VIDEO_PROCESSOR_SIZE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_PROCESSOR_SIZE => 9
+    static PROCESSOR_SIZE => 9
 
     /**
      * Retrieves the number of supported decoder profiles. The returned count is used when querying for **D3D12_FEATURE_VIDEO_DECODE_PROFILES**.
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_PROFILE_COUNT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_PROFILE_COUNT => 10
+    static DECODE_PROFILE_COUNT => 10
 
     /**
      * Retrieves the number of supported decoder profiles. The returned count is used when querying for **D3D12_FEATURE_VIDEO_DECODE_FORMATS**.
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_FORMAT_COUNT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_FORMAT_COUNT => 11
+    static DECODE_FORMAT_COUNT => 11
 
     /**
      * Indicates if the video engine is IO coherent with the CPU.
+     * Native name: D3D12_FEATURE_VIDEO_ARCHITECTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ARCHITECTURE => 17
+    static ARCHITECTURE => 17
 
     /**
      * Retrieves the supported components, bin count, and counter bit depth for the a decode histogram with the specified decode profile, resolution, and format. The associated data structure is <a href="ns-d3d12video-d3d12_feature_data_video_decode_histogram.md">D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM</a>.
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_HISTOGRAM
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_HISTOGRAM => 18
+    static DECODE_HISTOGRAM => 18
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_FEATURE_AREA_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_FEATURE_AREA_SUPPORT => 19
+    static FEATURE_AREA_SUPPORT => 19
 
     /**
      * Retrieves the supported resolutions, search block sizes, and precision for motion estimation. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR](ns-d3d12video-d3d12_feature_data_video_motion_estimator.md).
+     * Native name: D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR => 20
+    static MOTION_ESTIMATOR => 20
 
     /**
      * Checks the allocation size of a motion estimator heap. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE](ns-d3d12video-d3d12_feature_data_video_motion_estimator_size.md).
+     * Native name: D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_SIZE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_SIZE => 21
+    static MOTION_ESTIMATOR_SIZE => 21
 
     /**
      * Retrieves the supported number of video extension commands.  The associated data structure is [D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_COUNT](ns-d3d12video-d3d12_feature_data_video_extension_command_count.md).
+     * Native name: D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_COUNT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_COUNT => 22
+    static EXTENSION_COMMAND_COUNT => 22
 
     /**
      * Retrieves a list of [D3D12_VIDEO_EXTENSION_COMMAND_INFO](ns-d3d12video-d3d12_video_extension_command_info.md) structures describing video extension commands. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_COUNT](ns-d3d12video-d3d12_feature_data_video_extension_command_count.md).
+     * Native name: D3D12_FEATURE_VIDEO_EXTENSION_COMMANDS
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_EXTENSION_COMMANDS => 23
+    static EXTENSION_COMMANDS => 23
 
     /**
      * Retrieves the parameter count for the specified parameter stage. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETER_COUNT](ns-d3d12video-d3d12_feature_data_video_extension_command_parameter_count.md).
+     * Native name: D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETER_COUNT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETER_COUNT => 24
+    static EXTENSION_COMMAND_PARAMETER_COUNT => 24
 
     /**
      * Retrieves a list of [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO](ns-d3d12video-d3d12_video_extension_command_parameter_info.md) structures describing video extension command parameters for the specified parameter stage. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETERS](ns-d3d12video-d3d12_feature_data_video_extension_command_parameters.md).
+     * Native name: D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS => 25
+    static EXTENSION_COMMAND_PARAMETERS => 25
 
     /**
      * Queries for command-defined support information. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT](ns-d3d12video-d3d12_feature_data_video_extension_command_support.md).
+     * Native name: D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_SUPPORT => 26
+    static EXTENSION_COMMAND_SUPPORT => 26
 
     /**
      * Checks the allocation size of a video extension command. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE](ns-d3d12video-d3d12_feature_data_video_extension_command_size.md).
+     * Native name: D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_SIZE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_SIZE => 27
+    static EXTENSION_COMMAND_SIZE => 27
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_DECODE_PROTECTED_RESOURCES
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODE_PROTECTED_RESOURCES => 28
+    static DECODE_PROTECTED_RESOURCES => 28
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_PROCESS_PROTECTED_RESOURCES
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_PROCESS_PROTECTED_RESOURCES => 29
+    static PROCESS_PROTECTED_RESOURCES => 29
 
     /**
      * Checks support for motion estimation with protected resources. The associated data structure is [D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES](ns-d3d12video-d3d12_feature_data_video_motion_estimator_protected_resources.md).
+     * Native name: D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES => 30
+    static MOTION_ESTIMATOR_PROTECTED_RESOURCES => 30
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_DECODER_HEAP_SIZE1
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_DECODER_HEAP_SIZE1 => 31
+    static DECODER_HEAP_SIZE1 => 31
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_PROCESSOR_SIZE1
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_PROCESSOR_SIZE1 => 32
+    static PROCESSOR_SIZE1 => 32
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_CODEC
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_CODEC => 33
+    static ENCODER_CODEC => 33
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_PROFILE_LEVEL
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_PROFILE_LEVEL => 34
+    static ENCODER_PROFILE_LEVEL => 34
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT => 35
+    static ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT => 35
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION => 36
+    static ENCODER_OUTPUT_RESOLUTION => 36
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_INPUT_FORMAT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_INPUT_FORMAT => 37
+    static ENCODER_INPUT_FORMAT => 37
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_MODE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_MODE => 38
+    static ENCODER_RATE_CONTROL_MODE => 38
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_INTRA_REFRESH_MODE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_INTRA_REFRESH_MODE => 39
+    static ENCODER_INTRA_REFRESH_MODE => 39
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE => 40
+    static ENCODER_FRAME_SUBREGION_LAYOUT_MODE => 40
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE => 41
+    static ENCODER_HEAP_SIZE => 41
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT => 42
+    static ENCODER_CODEC_CONFIGURATION_SUPPORT => 42
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_SUPPORT => 43
+    static ENCODER_SUPPORT => 43
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT => 44
+    static ENCODER_CODEC_PICTURE_CONTROL_SUPPORT => 44
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS => 45
+    static ENCODER_RESOURCE_REQUIREMENTS => 45
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG => 46
+    static ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG => 46
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_SUPPORT1
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_SUPPORT1 => 47
+    static ENCODER_SUPPORT1 => 47
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 => 48
+    static ENCODER_RESOURCE_REQUIREMENTS1 => 48
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT => 49
+    static ENCODER_RESOLVE_INPUT_PARAM_LAYOUT => 49
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_QPMAP_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_QPMAP_INPUT => 50
+    static ENCODER_QPMAP_INPUT => 50
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_DIRTY_REGIONS
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_DIRTY_REGIONS => 51
+    static ENCODER_DIRTY_REGIONS => 51
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_MOTION_SEARCH
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_MOTION_SEARCH => 52
+    static ENCODER_MOTION_SEARCH => 52
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_SUPPORT2
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_SUPPORT2 => 55
+    static ENCODER_SUPPORT2 => 55
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE1
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE1 => 56
+    static ENCODER_HEAP_SIZE1 => 56
 
     /**
+     * Native name: D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS
      * @type {Integer (Int32)}
      */
-    static D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS => 57
+    static ENCODER_RATE_CONTROL_FRAME_ANALYSIS => 57
 }

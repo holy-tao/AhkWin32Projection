@@ -37,7 +37,6 @@ class IHTMLSelectionObject2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createRangeCollection() {
@@ -46,7 +45,6 @@ class IHTMLSelectionObject2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_typeDetail() {

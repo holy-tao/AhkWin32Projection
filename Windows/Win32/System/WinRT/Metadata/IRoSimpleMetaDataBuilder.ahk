@@ -27,7 +27,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     static VTableNames => ["SetWinRtInterface", "SetDelegate", "SetInterfaceGroupSimpleDefault", "SetInterfaceGroupParameterizedDefault", "SetRuntimeClassSimpleDefault", "SetRuntimeClassParameterizedDefault", "SetStruct", "SetEnum", "SetParameterizedInterface", "SetParameterizedDelegate"]
 
     /**
-     * 
      * @param {Guid} iid 
      * @returns {HRESULT} 
      */
@@ -37,7 +36,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Guid} iid 
      * @returns {HRESULT} 
      */
@@ -47,7 +45,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {PWSTR} defaultInterfaceName 
      * @param {Pointer<Guid>} defaultInterfaceIID 
@@ -62,7 +59,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Integer} elementCount 
      * @param {Pointer<PWSTR>} defaultInterfaceNameElements 
@@ -78,7 +74,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {PWSTR} defaultInterfaceName 
      * @param {Pointer<Guid>} defaultInterfaceIID 
@@ -93,7 +88,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Integer} elementCount 
      * @param {Pointer<PWSTR>} defaultInterfaceNameElements 
@@ -109,7 +103,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Integer} numFields 
      * @param {Pointer<PWSTR>} fieldTypeNames 
@@ -125,7 +118,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {PWSTR} baseType 
      * @returns {HRESULT} 
@@ -139,7 +131,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Guid} piid 
      * @param {Integer} numArgs 
      * @returns {HRESULT} 
@@ -150,7 +141,6 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Guid} piid 
      * @param {Integer} numArgs 
      * @returns {HRESULT} 

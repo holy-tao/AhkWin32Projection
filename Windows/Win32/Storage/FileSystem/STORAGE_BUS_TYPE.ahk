@@ -10,131 +10,154 @@ class STORAGE_BUS_TYPE extends Win32Enum {
 
     /**
      * Unknown bus type.
+     * Native name: BusTypeUnknown
      * @type {Integer (Int32)}
      */
-    static BusTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * SCSI bus.
+     * Native name: BusTypeScsi
      * @type {Integer (Int32)}
      */
-    static BusTypeScsi => 1
+    static Scsi => 1
 
     /**
      * ATAPI bus.
+     * Native name: BusTypeAtapi
      * @type {Integer (Int32)}
      */
-    static BusTypeAtapi => 2
+    static Atapi => 2
 
     /**
      * ATA bus.
+     * Native name: BusTypeAta
      * @type {Integer (Int32)}
      */
-    static BusTypeAta => 3
+    static Ata => 3
 
     /**
      * IEEE-1394 bus.
+     * Native name: BusType1394
      * @type {Integer (Int32)}
      */
-    static BusType1394 => 4
+    static Type1394 => 4
 
     /**
      * SSA bus.
+     * Native name: BusTypeSsa
      * @type {Integer (Int32)}
      */
-    static BusTypeSsa => 5
+    static Ssa => 5
 
     /**
      * Fibre Channel bus.
+     * Native name: BusTypeFibre
      * @type {Integer (Int32)}
      */
-    static BusTypeFibre => 6
+    static Fibre => 6
 
     /**
      * USB bus.
+     * Native name: BusTypeUsb
      * @type {Integer (Int32)}
      */
-    static BusTypeUsb => 7
+    static Usb => 7
 
     /**
      * RAID bus.
+     * Native name: BusTypeRAID
      * @type {Integer (Int32)}
      */
-    static BusTypeRAID => 8
+    static TypeRAID => 8
 
     /**
+     * Native name: BusTypeiScsi
      * @type {Integer (Int32)}
      */
-    static BusTypeiScsi => 9
+    static TypeiScsi => 9
 
     /**
      * Serial Attached SCSI (SAS) bus.
      * 
      * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
+     * Native name: BusTypeSas
      * @type {Integer (Int32)}
      */
-    static BusTypeSas => 10
+    static Sas => 10
 
     /**
      * SATA bus.
      * 
      * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
+     * Native name: BusTypeSata
      * @type {Integer (Int32)}
      */
-    static BusTypeSata => 11
+    static Sata => 11
 
     /**
+     * Native name: BusTypeSd
      * @type {Integer (Int32)}
      */
-    static BusTypeSd => 12
+    static Sd => 12
 
     /**
+     * Native name: BusTypeMmc
      * @type {Integer (Int32)}
      */
-    static BusTypeMmc => 13
+    static Mmc => 13
 
     /**
+     * Native name: BusTypeVirtual
      * @type {Integer (Int32)}
      */
-    static BusTypeVirtual => 14
+    static Virtual => 14
 
     /**
+     * Native name: BusTypeFileBackedVirtual
      * @type {Integer (Int32)}
      */
-    static BusTypeFileBackedVirtual => 15
+    static FileBackedVirtual => 15
 
     /**
+     * Native name: BusTypeSpaces
      * @type {Integer (Int32)}
      */
-    static BusTypeSpaces => 16
+    static Spaces => 16
 
     /**
+     * Native name: BusTypeNvme
      * @type {Integer (Int32)}
      */
-    static BusTypeNvme => 17
+    static Nvme => 17
 
     /**
+     * Native name: BusTypeSCM
      * @type {Integer (Int32)}
      */
-    static BusTypeSCM => 18
+    static TypeSCM => 18
 
     /**
+     * Native name: BusTypeUfs
      * @type {Integer (Int32)}
      */
-    static BusTypeUfs => 19
+    static Ufs => 19
 
     /**
+     * Native name: BusTypeNvmeof
      * @type {Integer (Int32)}
      */
-    static BusTypeNvmeof => 20
+    static Nvmeof => 20
 
     /**
+     * Native name: BusTypeMax
      * @type {Integer (Int32)}
      */
-    static BusTypeMax => 21
+    static Max => 21
 
     /**
+     * Native name: BusTypeMaxReserved
      * @type {Integer (Int32)}
      */
-    static BusTypeMaxReserved => 127
+    static MaxReserved => 127
 }

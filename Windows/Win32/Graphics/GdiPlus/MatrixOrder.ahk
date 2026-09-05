@@ -7,12 +7,14 @@
 class MatrixOrder extends Win32Enum {
 
     /**
+     * Native name: MatrixOrderPrepend
      * @type {Integer (Int32)}
      */
-    static MatrixOrderPrepend => 0
+    static Prepend => 0
 
     /**
+     * Native name: MatrixOrderAppend
      * @type {Integer (Int32)}
      */
-    static MatrixOrderAppend => 1
+    static Append => 1
 }

@@ -412,22 +412,26 @@ class XmlError extends Win32Enum {
     static WR_E_INVALIDSURROGATEPAIR => -1072894196
 
     /**
+     * Native name: XML_E_INVALID_DECIMAL
      * @type {Integer (Int32)}
      */
-    static XML_E_INVALID_DECIMAL => -1072898019
+    static E_INVALID_DECIMAL => -1072898019
 
     /**
+     * Native name: XML_E_INVALID_HEXIDECIMAL
      * @type {Integer (Int32)}
      */
-    static XML_E_INVALID_HEXIDECIMAL => -1072898018
+    static E_INVALID_HEXIDECIMAL => -1072898018
 
     /**
+     * Native name: XML_E_INVALID_UNICODE
      * @type {Integer (Int32)}
      */
-    static XML_E_INVALID_UNICODE => -1072898017
+    static E_INVALID_UNICODE => -1072898017
 
     /**
+     * Native name: XML_E_INVALIDENCODING
      * @type {Integer (Int32)}
      */
-    static XML_E_INVALIDENCODING => -1072897938
+    static E_INVALIDENCODING => -1072897938
 }

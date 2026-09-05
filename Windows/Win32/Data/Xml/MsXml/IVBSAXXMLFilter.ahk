@@ -37,7 +37,6 @@ class IVBSAXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXXMLReader} 
      */
     get_parent() {
@@ -46,7 +45,6 @@ class IVBSAXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXXMLReader} oReader 
      * @returns {HRESULT} 
      */

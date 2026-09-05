@@ -21,13 +21,15 @@ class D3D12_TILE_MAPPING_FLAGS extends Win32BitflagEnum {
 
     /**
      * No tile-mapping flags are specified.
+     * Native name: D3D12_TILE_MAPPING_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_TILE_MAPPING_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Unsupported, do not use.
+     * Native name: D3D12_TILE_MAPPING_FLAG_NO_HAZARD
      * @type {Integer (Int32)}
      */
-    static D3D12_TILE_MAPPING_FLAG_NO_HAZARD => 1
+    static FLAG_NO_HAZARD => 1
 }

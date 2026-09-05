@@ -10,7 +10,8 @@ class CF_SET_IN_SYNC_FLAGS extends Win32BitflagEnum {
 
     /**
      * No in-sync flag.
+     * Native name: CF_SET_IN_SYNC_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_SET_IN_SYNC_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

@@ -210,7 +210,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -220,7 +219,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_cols() {
@@ -229,7 +227,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -239,7 +236,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -249,7 +245,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -261,7 +256,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_frame() {
@@ -271,7 +265,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -283,7 +276,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rules() {
@@ -293,7 +285,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -303,7 +294,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_cellSpacing() {
@@ -313,7 +303,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -323,7 +312,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_cellPadding() {
@@ -333,7 +321,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -345,7 +332,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -355,7 +341,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -365,7 +350,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -375,7 +359,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -385,7 +368,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {
@@ -395,7 +377,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -405,7 +386,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorLight() {
@@ -415,7 +395,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -425,7 +404,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorDark() {
@@ -435,7 +413,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -447,7 +424,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -457,7 +433,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     refresh() {
@@ -466,7 +441,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_rows() {
@@ -475,7 +449,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -485,7 +458,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -495,7 +467,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -505,7 +476,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -515,7 +485,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -525,7 +494,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_dataPageSize() {
@@ -534,7 +502,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     nextPage() {
@@ -543,7 +510,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     previousPage() {
@@ -552,7 +518,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     get_tHead() {
@@ -561,7 +526,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     get_tFoot() {
@@ -570,7 +534,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_tBodies() {
@@ -579,7 +542,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableCaption} 
      */
     get_caption() {
@@ -588,7 +550,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createTHead() {
@@ -597,7 +558,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deleteTHead() {
@@ -606,7 +566,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createTFoot() {
@@ -615,7 +574,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deleteTFoot() {
@@ -624,7 +582,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableCaption} 
      */
     createCaption() {
@@ -633,7 +590,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deleteCaption() {
@@ -642,7 +598,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -652,7 +607,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -662,7 +616,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -672,7 +625,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -682,7 +634,6 @@ class IHTMLTable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {

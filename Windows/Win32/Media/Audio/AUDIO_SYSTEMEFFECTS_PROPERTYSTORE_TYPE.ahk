@@ -12,24 +12,28 @@ class AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE extends Win32Enum {
 
     /**
      * Default property store. Contains custom effects properties and is populated from the INF file. Properties will not be persisted across OS upgrades.
+     * Native name: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * User property store. Contains user settings pertaining to effects properties and will be persisted by the OS across upgrades and migrations.
+     * Native name: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER
      * @type {Integer (Int32)}
      */
-    static AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER => 1
+    static USER => 1
 
     /**
      * The volatile property store. Contains audio effects properties that are lost on device reboot. The store is cleared each time the endpoint transitions to active
+     * Native name: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE
      * @type {Integer (Int32)}
      */
-    static AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE => 2
+    static VOLATILE => 2
 
     /**
+     * Native name: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT
      * @type {Integer (Int32)}
      */
-    static AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT => 3
+    static ENUM_COUNT => 3
 }

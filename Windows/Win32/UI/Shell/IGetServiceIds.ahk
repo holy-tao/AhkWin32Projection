@@ -30,7 +30,6 @@ class IGetServiceIds extends IUnknown {
     static VTableNames => ["GetServiceIds"]
 
     /**
-     * 
      * @param {Pointer<Integer>} serviceIdCount 
      * @param {Pointer<Pointer<Guid>>} serviceIds 
      * @returns {HRESULT} 

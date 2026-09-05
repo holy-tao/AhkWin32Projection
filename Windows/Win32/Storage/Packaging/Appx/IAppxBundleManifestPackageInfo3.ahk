@@ -30,7 +30,6 @@ class IAppxBundleManifestPackageInfo3 extends IUnknown {
     static VTableNames => ["GetTargetDeviceFamilies"]
 
     /**
-     * 
      * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
     GetTargetDeviceFamilies() {

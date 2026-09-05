@@ -602,7 +602,6 @@ class Time {
     }
 
     /**
-     * 
      * @param {Pointer<TIME_ZONE_INFORMATION>} timeZoneInformation 
      * @param {Pointer<FILETIME>} localFileTime 
      * @param {Pointer<SYSTEMTIME>} localSystemTime 
@@ -614,7 +613,6 @@ class Time {
     }
 
     /**
-     * 
      * @param {Pointer<TIME_ZONE_INFORMATION>} timeZoneInformation 
      * @param {Pointer<SYSTEMTIME>} localSystemTime 
      * @param {Pointer<FILETIME>} localFileTime 

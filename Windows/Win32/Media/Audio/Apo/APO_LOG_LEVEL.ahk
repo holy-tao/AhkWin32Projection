@@ -12,37 +12,43 @@ class APO_LOG_LEVEL extends Win32Enum {
 
     /**
      * All events.
+     * Native name: APO_LOG_LEVEL_ALWAYS
      * @type {Integer (Int32)}
      */
-    static APO_LOG_LEVEL_ALWAYS => 0
+    static ALWAYS => 0
 
     /**
      * Abnormal exit or termination events.
+     * Native name: APO_LOG_LEVEL_CRITICAL
      * @type {Integer (Int32)}
      */
-    static APO_LOG_LEVEL_CRITICAL => 1
+    static CRITICAL => 1
 
     /**
      * Severe error events.
+     * Native name: APO_LOG_LEVEL_ERROR
      * @type {Integer (Int32)}
      */
-    static APO_LOG_LEVEL_ERROR => 2
+    static ERROR => 2
 
     /**
      * Warning events such as allocation failures.
+     * Native name: APO_LOG_LEVEL_WARNING
      * @type {Integer (Int32)}
      */
-    static APO_LOG_LEVEL_WARNING => 3
+    static WARNING => 3
 
     /**
      * Non-error events such as entry or exit events.
+     * Native name: APO_LOG_LEVEL_INFO
      * @type {Integer (Int32)}
      */
-    static APO_LOG_LEVEL_INFO => 4
+    static INFO => 4
 
     /**
      * Detailed trace events.
+     * Native name: APO_LOG_LEVEL_VERBOSE
      * @type {Integer (Int32)}
      */
-    static APO_LOG_LEVEL_VERBOSE => 5
+    static VERBOSE => 5
 }

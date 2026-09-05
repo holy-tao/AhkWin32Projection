@@ -35,7 +35,6 @@ class ISpRecoGrammar2 extends IUnknown {
     static VTableNames => ["GetRules", "LoadCmdFromFile2", "LoadCmdFromMemory2", "SetRulePriority", "SetRuleWeight", "SetDictationWeight", "SetGrammarLoader", "SetSMLSecurityManager"]
 
     /**
-     * 
      * @param {Pointer<Pointer<SPRULE>>} ppCoMemRules 
      * @param {Pointer<Integer>} puNumRules 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ class ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {SPLOADOPTIONS} Options 
      * @param {PWSTR} pszSharingUri 
@@ -66,7 +64,6 @@ class ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPBINARYGRAMMAR>} pGrammar 
      * @param {SPLOADOPTIONS} Options 
      * @param {PWSTR} pszSharingUri 
@@ -82,7 +79,6 @@ class ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszRuleName 
      * @param {Integer} ulRuleId 
      * @param {Integer} nRulePriority 
@@ -96,7 +92,6 @@ class ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszRuleName 
      * @param {Integer} ulRuleId 
      * @param {Float} flWeight 
@@ -110,7 +105,6 @@ class ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flWeight 
      * @returns {HRESULT} 
      */
@@ -120,7 +114,6 @@ class ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpeechResourceLoader} pLoader 
      * @returns {HRESULT} 
      */
@@ -130,7 +123,6 @@ class ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInternetSecurityManager} pSMLSecurityManager 
      * @returns {HRESULT} 
      */

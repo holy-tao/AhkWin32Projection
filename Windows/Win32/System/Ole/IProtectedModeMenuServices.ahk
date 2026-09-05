@@ -62,7 +62,6 @@ class IProtectedModeMenuServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszModuleName 
      * @param {Integer} wResourceID 
      * @returns {HMENU} 

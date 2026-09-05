@@ -30,7 +30,6 @@ class IWMValidate extends IUnknown {
     static VTableNames => ["SetIdentifier"]
 
     /**
-     * 
      * @param {Guid} guidValidationID 
      * @returns {HRESULT} 
      */

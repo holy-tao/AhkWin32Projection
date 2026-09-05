@@ -7,32 +7,38 @@
 class COR_PRF_EVENTPIPE_LEVEL extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_LOGALWAYS
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_LOGALWAYS => 0
+    static LOGALWAYS => 0
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_CRITICAL
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_CRITICAL => 1
+    static CRITICAL => 1
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_ERROR
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_ERROR => 2
+    static ERROR => 2
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_WARNING
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_WARNING => 3
+    static WARNING => 3
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_INFORMATIONAL
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_INFORMATIONAL => 4
+    static INFORMATIONAL => 4
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_VERBOSE
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_VERBOSE => 5
+    static VERBOSE => 5
 }

@@ -10,12 +10,14 @@ class MODIFY_VHDSET_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
+     * Native name: MODIFY_VHDSET_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static MODIFY_VHDSET_FLAG_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: MODIFY_VHDSET_FLAG_WRITEABLE_SNAPSHOT
      * @type {Integer (Int32)}
      */
-    static MODIFY_VHDSET_FLAG_WRITEABLE_SNAPSHOT => 1
+    static WRITEABLE_SNAPSHOT => 1
 }

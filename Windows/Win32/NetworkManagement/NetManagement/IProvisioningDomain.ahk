@@ -31,7 +31,6 @@ class IProvisioningDomain extends IUnknown {
     static VTableNames => ["Add", "Query"]
 
     /**
-     * 
      * @param {PWSTR} pszwPathToFolder 
      * @returns {HRESULT} 
      */

@@ -10,25 +10,29 @@ class VMR9DeinterlacePrefs extends Win32Enum {
 
     /**
      * Use the next best mode offered by the driver.
+     * Native name: DeinterlacePref9_NextBest
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref9_NextBest => 1
+    static Pref9_NextBest => 1
 
     /**
      * Use the bob method.
+     * Native name: DeinterlacePref9_BOB
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref9_BOB => 2
+    static Pref9_BOB => 2
 
     /**
      * Use the weave method (that is, no deinterlacing).
+     * Native name: DeinterlacePref9_Weave
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref9_Weave => 4
+    static Pref9_Weave => 4
 
     /**
      * Bitwise OR of the previous flags. This value is used internally by the VMR, and is not a valid flag.
+     * Native name: DeinterlacePref9_Mask
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref9_Mask => 7
+    static Pref9_Mask => 7
 }

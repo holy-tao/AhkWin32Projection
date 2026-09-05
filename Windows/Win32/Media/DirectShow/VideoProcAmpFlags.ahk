@@ -15,13 +15,15 @@ class VideoProcAmpFlags extends Win32Enum {
 
     /**
      * The setting is controlled automatically.
+     * Native name: VideoProcAmp_Flags_Auto
      * @type {Integer (Int32)}
      */
-    static VideoProcAmp_Flags_Auto => 1
+    static Auto => 1
 
     /**
      * The setting is controlled manually.
+     * Native name: VideoProcAmp_Flags_Manual
      * @type {Integer (Int32)}
      */
-    static VideoProcAmp_Flags_Manual => 2
+    static Manual => 2
 }

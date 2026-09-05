@@ -9,32 +9,38 @@
 class ACTIVATIONTYPE extends Win32Enum {
 
     /**
+     * Native name: ACTIVATIONTYPE_UNCATEGORIZED
      * @type {Integer (Int32)}
      */
-    static ACTIVATIONTYPE_UNCATEGORIZED => 0
+    static UNCATEGORIZED => 0
 
     /**
+     * Native name: ACTIVATIONTYPE_FROM_MONIKER
      * @type {Integer (Int32)}
      */
-    static ACTIVATIONTYPE_FROM_MONIKER => 1
+    static FROM_MONIKER => 1
 
     /**
+     * Native name: ACTIVATIONTYPE_FROM_DATA
      * @type {Integer (Int32)}
      */
-    static ACTIVATIONTYPE_FROM_DATA => 2
+    static FROM_DATA => 2
 
     /**
+     * Native name: ACTIVATIONTYPE_FROM_STORAGE
      * @type {Integer (Int32)}
      */
-    static ACTIVATIONTYPE_FROM_STORAGE => 4
+    static FROM_STORAGE => 4
 
     /**
+     * Native name: ACTIVATIONTYPE_FROM_STREAM
      * @type {Integer (Int32)}
      */
-    static ACTIVATIONTYPE_FROM_STREAM => 8
+    static FROM_STREAM => 8
 
     /**
+     * Native name: ACTIVATIONTYPE_FROM_FILE
      * @type {Integer (Int32)}
      */
-    static ACTIVATIONTYPE_FROM_FILE => 16
+    static FROM_FILE => 16
 }

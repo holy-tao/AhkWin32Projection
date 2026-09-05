@@ -40,9 +40,10 @@ class D3D12_TEXTURE_LAYOUT extends Win32Enum {
      * Prefer this choice unless certain functionality is required from another texture layout.
      * 
      * Zero-copy texture upload optimizations exist for UMA architectures; see <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-writetosubresource">ID3D12Resource::WriteToSubresource</a>.
+     * Native name: D3D12_TEXTURE_LAYOUT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_LAYOUT_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Indicates that data for the texture is stored in row-major order (sometimes called "pitch-linear order").
@@ -82,9 +83,10 @@ class D3D12_TEXTURE_LAYOUT extends Win32Enum {
      * <li><a href="https://docs.microsoft.com/windows/win32/direct3d12/user-mode-heap-synchronization">Multi-engine synchronization</a></li>
      * <li><a href="https://docs.microsoft.com/windows/win32/direct3d12/upload-and-readback-of-texture-data">Uploading Texture Data</a></li>
      * </ul>
+     * Native name: D3D12_TEXTURE_LAYOUT_ROW_MAJOR
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_LAYOUT_ROW_MAJOR => 1
+    static ROW_MAJOR => 1
 
     /**
      * Indicates that the layout within 64KB tiles and tail mip packing is up to the driver.
@@ -109,9 +111,10 @@ class D3D12_TEXTURE_LAYOUT extends Win32Enum {
      * <li><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_dimension">D3D12_RESOURCE_DIMENSION</a>_TEXTURE1D is not supported, nor are all formats.</li>
      * <li>The tiled resource tier indicates whether textures with <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_dimension">D3D12_RESOURCE_DIMENSION</a>_TEXTURE3D is supported.</li>
      * </ul>
+     * Native name: D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE => 2
+    static 64KB_UNDEFINED_SWIZZLE => 2
 
     /**
      * Indicates that a default texture uses the standardized swizzle pattern.
@@ -131,7 +134,8 @@ class D3D12_TEXTURE_LAYOUT extends Win32Enum {
      * <li><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_flags">D3D12_RESOURCE_FLAG</a>_ALLOW_DEPTH_STENCIL</li>
      * <li>Formats within the <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>_R32G32B32_TYPELESS group</li>
      * </ul>
+     * Native name: D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE => 3
+    static 64KB_STANDARD_SWIZZLE => 3
 }

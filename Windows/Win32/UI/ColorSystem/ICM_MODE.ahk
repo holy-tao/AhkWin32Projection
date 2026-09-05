@@ -7,22 +7,26 @@
 class ICM_MODE extends Win32Enum {
 
     /**
+     * Native name: ICM_OFF
      * @type {Integer (Int32)}
      */
-    static ICM_OFF => 1
+    static OFF => 1
 
     /**
+     * Native name: ICM_ON
      * @type {Integer (Int32)}
      */
-    static ICM_ON => 2
+    static ON => 2
 
     /**
+     * Native name: ICM_QUERY
      * @type {Integer (Int32)}
      */
-    static ICM_QUERY => 3
+    static QUERY => 3
 
     /**
+     * Native name: ICM_DONE_OUTSIDEDC
      * @type {Integer (Int32)}
      */
-    static ICM_DONE_OUTSIDEDC => 4
+    static DONE_OUTSIDEDC => 4
 }

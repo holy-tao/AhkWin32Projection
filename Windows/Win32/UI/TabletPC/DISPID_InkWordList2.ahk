@@ -7,7 +7,8 @@
 class DISPID_InkWordList2 extends Win32Enum {
 
     /**
+     * Native name: DISPID_InkWordList2_AddWords
      * @type {Integer (Int32)}
      */
-    static DISPID_InkWordList2_AddWords => 3
+    static AddWords => 3
 }

@@ -7,17 +7,20 @@
 class USER_PRIV extends Win32Enum {
 
     /**
+     * Native name: USER_PRIV_GUEST
      * @type {Integer (UInt32)}
      */
-    static USER_PRIV_GUEST => 0
+    static GUEST => 0
 
     /**
+     * Native name: USER_PRIV_USER
      * @type {Integer (UInt32)}
      */
-    static USER_PRIV_USER => 1
+    static USER => 1
 
     /**
+     * Native name: USER_PRIV_ADMIN
      * @type {Integer (UInt32)}
      */
-    static USER_PRIV_ADMIN => 2
+    static ADMIN => 2
 }

@@ -58,7 +58,6 @@ class IAppxContentGroupMapWriter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {

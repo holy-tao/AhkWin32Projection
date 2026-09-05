@@ -35,7 +35,6 @@ class IScopedOperations extends IBindResource {
     static VTableNames => ["Copy", "Move", "Delete", "OpenRowset"]
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<PWSTR>} rgpwszSourceURLs 
      * @param {Pointer<PWSTR>} rgpwszDestURLs 
@@ -58,7 +57,6 @@ class IScopedOperations extends IBindResource {
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<PWSTR>} rgpwszSourceURLs 
      * @param {Pointer<PWSTR>} rgpwszDestURLs 
@@ -81,7 +79,6 @@ class IScopedOperations extends IBindResource {
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<PWSTR>} rgpwszURLs 
      * @param {Integer} dwDeleteFlags 
@@ -95,7 +92,6 @@ class IScopedOperations extends IBindResource {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 

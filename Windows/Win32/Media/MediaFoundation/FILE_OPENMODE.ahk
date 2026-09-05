@@ -7,27 +7,32 @@
 class FILE_OPENMODE extends Win32Enum {
 
     /**
+     * Native name: OPENMODE_FAIL_IF_NOT_EXIST
      * @type {Integer (Int32)}
      */
-    static OPENMODE_FAIL_IF_NOT_EXIST => 0
+    static FAIL_IF_NOT_EXIST => 0
 
     /**
+     * Native name: OPENMODE_FAIL_IF_EXIST
      * @type {Integer (Int32)}
      */
-    static OPENMODE_FAIL_IF_EXIST => 1
+    static FAIL_IF_EXIST => 1
 
     /**
+     * Native name: OPENMODE_RESET_IF_EXIST
      * @type {Integer (Int32)}
      */
-    static OPENMODE_RESET_IF_EXIST => 2
+    static RESET_IF_EXIST => 2
 
     /**
+     * Native name: OPENMODE_APPEND_IF_EXIST
      * @type {Integer (Int32)}
      */
-    static OPENMODE_APPEND_IF_EXIST => 3
+    static APPEND_IF_EXIST => 3
 
     /**
+     * Native name: OPENMODE_DELETE_IF_EXIST
      * @type {Integer (Int32)}
      */
-    static OPENMODE_DELETE_IF_EXIST => 4
+    static DELETE_IF_EXIST => 4
 }

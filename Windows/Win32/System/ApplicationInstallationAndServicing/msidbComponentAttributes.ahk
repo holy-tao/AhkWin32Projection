@@ -7,67 +7,80 @@
 class msidbComponentAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbComponentAttributesLocalOnly
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesLocalOnly => 0
+    static LocalOnly => 0
 
     /**
+     * Native name: msidbComponentAttributesSourceOnly
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesSourceOnly => 1
+    static SourceOnly => 1
 
     /**
+     * Native name: msidbComponentAttributesOptional
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesOptional => 2
+    static Optional => 2
 
     /**
+     * Native name: msidbComponentAttributesRegistryKeyPath
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesRegistryKeyPath => 4
+    static RegistryKeyPath => 4
 
     /**
+     * Native name: msidbComponentAttributesSharedDllRefCount
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesSharedDllRefCount => 8
+    static SharedDllRefCount => 8
 
     /**
+     * Native name: msidbComponentAttributesPermanent
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesPermanent => 16
+    static Permanent => 16
 
     /**
+     * Native name: msidbComponentAttributesODBCDataSource
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesODBCDataSource => 32
+    static AttributesODBCDataSource => 32
 
     /**
+     * Native name: msidbComponentAttributesTransitive
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesTransitive => 64
+    static Transitive => 64
 
     /**
+     * Native name: msidbComponentAttributesNeverOverwrite
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesNeverOverwrite => 128
+    static NeverOverwrite => 128
 
     /**
+     * Native name: msidbComponentAttributes64bit
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributes64bit => 256
+    static Attributes64bit => 256
 
     /**
+     * Native name: msidbComponentAttributesDisableRegistryReflection
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesDisableRegistryReflection => 512
+    static DisableRegistryReflection => 512
 
     /**
+     * Native name: msidbComponentAttributesUninstallOnSupersedence
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesUninstallOnSupersedence => 1024
+    static UninstallOnSupersedence => 1024
 
     /**
+     * Native name: msidbComponentAttributesShared
      * @type {Integer (Int32)}
      */
-    static msidbComponentAttributesShared => 2048
+    static Shared => 2048
 }

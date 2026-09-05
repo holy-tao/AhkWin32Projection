@@ -16,25 +16,29 @@ class CSC_SynchronizationConfig extends Win32Enum {
 
     /**
      * The code is forced to run unsynchronized. This is the default synchronization setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.
+     * Native name: CSC_NoSynchronization
      * @type {Integer (Int32)}
      */
-    static CSC_NoSynchronization => 0
+    static NoSynchronization => 0
 
     /**
      * The code runs in the containing synchronization domain if one exists. This is the default synchronization setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Inherit.
+     * Native name: CSC_IfContainerIsSynchronized
      * @type {Integer (Int32)}
      */
-    static CSC_IfContainerIsSynchronized => 1
+    static IfContainerIsSynchronized => 1
 
     /**
      * Synchronization is always used. The existing synchronization domain is used, or if the enclosed context does not already use synchronization, a new synchronization domain is created.
+     * Native name: CSC_NewSynchronizationIfNecessary
      * @type {Integer (Int32)}
      */
-    static CSC_NewSynchronizationIfNecessary => 2
+    static NewSynchronizationIfNecessary => 2
 
     /**
      * A new synchronization domain is always created.
+     * Native name: CSC_NewSynchronization
      * @type {Integer (Int32)}
      */
-    static CSC_NewSynchronization => 3
+    static NewSynchronization => 3
 }

@@ -7,17 +7,20 @@
 class KSMICARRAY_MICARRAYTYPE extends Win32Enum {
 
     /**
+     * Native name: KSMICARRAY_MICARRAYTYPE_LINEAR
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICARRAYTYPE_LINEAR => 0
+    static LINEAR => 0
 
     /**
+     * Native name: KSMICARRAY_MICARRAYTYPE_PLANAR
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICARRAYTYPE_PLANAR => 1
+    static PLANAR => 1
 
     /**
+     * Native name: KSMICARRAY_MICARRAYTYPE_3D
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICARRAYTYPE_3D => 2
+    static 3D => 2
 }

@@ -45,7 +45,6 @@ class ISVGFitToViewBox extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedRect} 
      */
     get_viewBox() {
@@ -54,7 +53,6 @@ class ISVGFitToViewBox extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedPreserveAspectRatio} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +62,6 @@ class ISVGFitToViewBox extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedPreserveAspectRatio} 
      */
     get_preserveAspectRatio() {

@@ -7,47 +7,56 @@
 class styleWrapFlow extends Win32Enum {
 
     /**
+     * Native name: styleWrapFlowNotSet
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleWrapFlowAuto
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleWrapFlowBoth
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowBoth => 2
+    static Both => 2
 
     /**
+     * Native name: styleWrapFlowStart
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowStart => 3
+    static Start => 3
 
     /**
+     * Native name: styleWrapFlowEnd
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowEnd => 4
+    static End => 4
 
     /**
+     * Native name: styleWrapFlowClear
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowClear => 5
+    static Clear => 5
 
     /**
+     * Native name: styleWrapFlowMinimum
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowMinimum => 6
+    static Minimum => 6
 
     /**
+     * Native name: styleWrapFlowMaximum
      * @type {Integer (Int32)}
      */
-    static styleWrapFlowMaximum => 7
+    static Maximum => 7
 
     /**
+     * Native name: styleWrapFlow_Max
      * @type {Integer (Int32)}
      */
-    static styleWrapFlow_Max => 2147483647
+    static Max => 2147483647
 }

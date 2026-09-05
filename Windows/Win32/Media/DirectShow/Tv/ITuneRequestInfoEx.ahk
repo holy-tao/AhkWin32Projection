@@ -31,7 +31,6 @@ class ITuneRequestInfoEx extends ITuneRequestInfo {
     static VTableNames => ["CreateComponentListEx"]
 
     /**
-     * 
      * @param {ITuneRequest} CurrentRequest 
      * @returns {IUnknown} 
      */

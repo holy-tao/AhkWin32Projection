@@ -7,17 +7,20 @@
 class USBD_ENDPOINT_OFFLOAD_MODE extends Win32Enum {
 
     /**
+     * Native name: UsbdEndpointOffloadModeNotSupported
      * @type {Integer (Int32)}
      */
-    static UsbdEndpointOffloadModeNotSupported => 0
+    static NotSupported => 0
 
     /**
+     * Native name: UsbdEndpointOffloadSoftwareAssisted
      * @type {Integer (Int32)}
      */
-    static UsbdEndpointOffloadSoftwareAssisted => 1
+    static SoftwareAssisted => 1
 
     /**
+     * Native name: UsbdEndpointOffloadHardwareAssisted
      * @type {Integer (Int32)}
      */
-    static UsbdEndpointOffloadHardwareAssisted => 2
+    static HardwareAssisted => 2
 }

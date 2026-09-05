@@ -15,58 +15,66 @@ class FsrmReportType extends Win32Enum {
 
     /**
      * The report type is unknown. Do not use this flag.
+     * Native name: FsrmReportType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_Unknown => 0
+    static Unknown => 0
 
     /**
      * Lists files that are larger than a specified size. Set the filter value to the size, in bytes.
+     * Native name: FsrmReportType_LargeFiles
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_LargeFiles => 1
+    static LargeFiles => 1
 
     /**
      * Lists groups of files. Create a file group and use file name patterns to specify the members of the group. 
      *       Set the filter value to the name of the file group.
+     * Native name: FsrmReportType_FilesByType
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_FilesByType => 2
+    static FilesByType => 2
 
     /**
      * Lists files that have not been accessed in the last <i>n</i> days. Specify the filter 
      *       value in days.
+     * Native name: FsrmReportType_LeastRecentlyAccessed
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_LeastRecentlyAccessed => 3
+    static LeastRecentlyAccessed => 3
 
     /**
      * Lists files that have been accessed in the last <i>n</i> days. Specify the filter value 
      *       in days.
+     * Native name: FsrmReportType_MostRecentlyAccessed
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_MostRecentlyAccessed => 4
+    static MostRecentlyAccessed => 4
 
     /**
      * Lists quotas that exceed the specified threshold. Set the filter value to the threshold.
+     * Native name: FsrmReportType_QuotaUsage
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_QuotaUsage => 5
+    static QuotaUsage => 5
 
     /**
      * Lists files grouped by their owner. Set the filter value to the list of owners whose files you want 
      *       included in the report.
+     * Native name: FsrmReportType_FilesByOwner
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_FilesByOwner => 6
+    static FilesByOwner => 6
 
     /**
      * Lists all files in the scope of the report job; there is no filtering. You can specify the XML or CSV file 
      *        formats only for this report type. This report cannot be sent through email.
      * 
      * For an action report, the scope is based on the quota or file screen event that initiated the report.
+     * Native name: FsrmReportType_ExportReport
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_ExportReport => 7
+    static ExportReport => 7
 
     /**
      * Lists duplicate files. All files with the same file name, file size, and last modify time under the scope 
@@ -74,47 +82,53 @@ class FsrmReportType extends Win32Enum {
      *       D:\ and file file1.txt exists in C:&#92;<i>folder1</i>\, 
      *       C:&#92;<i>folder2</i>\ and D:&#92;<i>folder1</i>\ with 
      *       the same modify time and file size, then the files are considered duplicates.
+     * Native name: FsrmReportType_DuplicateFiles
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_DuplicateFiles => 8
+    static DuplicateFiles => 8
 
     /**
      * Lists file screening events that have occurred.
+     * Native name: FsrmReportType_FileScreenAudit
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_FileScreenAudit => 9
+    static FileScreenAudit => 9
 
     /**
      * Lists files, grouped by property value, that contain the specified property (you can specify only one 
      *        property on which to report).
      * 
      * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
+     * Native name: FsrmReportType_FilesByProperty
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_FilesByProperty => 10
+    static FilesByProperty => 10
 
     /**
      * For internal use only; do not specify.
      * 
      * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
+     * Native name: FsrmReportType_AutomaticClassification
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_AutomaticClassification => 11
+    static AutomaticClassification => 11
 
     /**
      * For internal use only; do not specify.
      * 
      * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
+     * Native name: FsrmReportType_Expiration
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_Expiration => 12
+    static Expiration => 12
 
     /**
      * Lists folders, grouped by property value, that contain the specified property (you can specify only one 
      *        property on which to report).
      * 
      * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This report type is not supported before Windows Server 2012.
+     * Native name: FsrmReportType_FoldersByProperty
      * @type {Integer (Int32)}
      */
-    static FsrmReportType_FoldersByProperty => 13
+    static FoldersByProperty => 13
 }

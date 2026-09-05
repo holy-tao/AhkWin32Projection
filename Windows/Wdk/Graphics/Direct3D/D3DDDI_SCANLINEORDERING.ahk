@@ -7,17 +7,20 @@
 class D3DDDI_SCANLINEORDERING extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_SCANLINEORDERING_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3DDDI_SCANLINEORDERING_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: D3DDDI_SCANLINEORDERING_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_SCANLINEORDERING_PROGRESSIVE => 1
+    static PROGRESSIVE => 1
 
     /**
+     * Native name: D3DDDI_SCANLINEORDERING_INTERLACED
      * @type {Integer (Int32)}
      */
-    static D3DDDI_SCANLINEORDERING_INTERLACED => 2
+    static INTERLACED => 2
 }

@@ -7,7 +7,8 @@
 class WICGainMapProperties extends Win32Enum {
 
     /**
+     * Native name: WICGainMapMetadata
      * @type {Integer (Int32)}
      */
-    static WICGainMapMetadata => 1
+    static Metadata => 1
 }

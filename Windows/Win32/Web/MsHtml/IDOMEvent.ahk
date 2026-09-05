@@ -117,7 +117,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_bubbles() {
@@ -126,7 +125,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cancelable() {
@@ -135,7 +133,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_currentTarget() {
@@ -144,7 +141,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultPrevented() {
@@ -153,7 +149,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_eventPhase() {
@@ -162,7 +157,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_target() {
@@ -171,7 +165,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timeStamp() {
@@ -180,7 +173,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -190,7 +182,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -204,7 +195,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     preventDefault() {
@@ -213,7 +203,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopPropagation() {
@@ -222,7 +211,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopImmediatePropagation() {
@@ -231,7 +219,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isTrusted() {
@@ -240,7 +227,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -250,7 +236,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cancelBubble() {
@@ -259,7 +244,6 @@ class IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_srcElement() {

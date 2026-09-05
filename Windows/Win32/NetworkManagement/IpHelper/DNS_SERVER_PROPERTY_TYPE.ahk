@@ -10,18 +10,21 @@ class DNS_SERVER_PROPERTY_TYPE extends Win32Enum {
 
     /**
      * Specifies that the [DNS_SERVER_PROPERTY::Property](ns-netioapi-dns_server_property.md) member doesn't contain a valid DNS server property.
+     * Native name: DnsServerInvalidProperty
      * @type {Integer (Int32)}
      */
-    static DnsServerInvalidProperty => 0
+    static InvalidProperty => 0
 
     /**
      * Specifies that the *DohSettings* union member contained in the [DNS_SERVER_PROPERTY::Property](ns-netioapi-dns_server_property.md) member points to a valid DNS-over-HTTPS server property.
+     * Native name: DnsServerDohProperty
      * @type {Integer (Int32)}
      */
-    static DnsServerDohProperty => 1
+    static DohProperty => 1
 
     /**
+     * Native name: DnsServerDotProperty
      * @type {Integer (Int32)}
      */
-    static DnsServerDotProperty => 2
+    static DotProperty => 2
 }

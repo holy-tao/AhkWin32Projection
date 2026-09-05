@@ -30,7 +30,6 @@ class IBannerNotificationHandler extends IUnknown {
     static VTableNames => ["OnBannerEvent"]
 
     /**
-     * 
      * @param {Pointer<BANNER_NOTIFICATION>} _notification 
      * @returns {HRESULT} 
      */

@@ -10,31 +10,36 @@ class DIRECTMANIPULATION_HORIZONTALALIGNMENT extends Win32BitflagEnum {
 
     /**
      * No alignment. The object can be positioned anywhere within the viewport.
+     * Native name: DIRECTMANIPULATION_HORIZONTALALIGNMENT_NONE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HORIZONTALALIGNMENT_NONE => 0
+    static NONE => 0
 
     /**
      * Align object along the left side of the viewport.
+     * Native name: DIRECTMANIPULATION_HORIZONTALALIGNMENT_LEFT
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HORIZONTALALIGNMENT_LEFT => 1
+    static LEFT => 1
 
     /**
      * Align object to the center of the viewport.
+     * Native name: DIRECTMANIPULATION_HORIZONTALALIGNMENT_CENTER
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HORIZONTALALIGNMENT_CENTER => 2
+    static CENTER => 2
 
     /**
      * Align object along the right side of the viewport.
+     * Native name: DIRECTMANIPULATION_HORIZONTALALIGNMENT_RIGHT
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HORIZONTALALIGNMENT_RIGHT => 4
+    static RIGHT => 4
 
     /**
      * Content zooms around the center point of the contacts, instead of being locked with the horizontal alignment.
+     * Native name: DIRECTMANIPULATION_HORIZONTALALIGNMENT_UNLOCKCENTER
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_HORIZONTALALIGNMENT_UNLOCKCENTER => 8
+    static UNLOCKCENTER => 8
 }

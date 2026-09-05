@@ -10,19 +10,22 @@ class D3D12_VIDEO_FIELD_TYPE extends Win32Enum {
 
     /**
      * The frame is progressive.
+     * Native name: D3D12_VIDEO_FIELD_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_FIELD_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * The frame is interlaced. The top field of each frame is displayed first.
+     * Native name: D3D12_VIDEO_FIELD_TYPE_INTERLACED_TOP_FIELD_FIRST
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_FIELD_TYPE_INTERLACED_TOP_FIELD_FIRST => 1
+    static INTERLACED_TOP_FIELD_FIRST => 1
 
     /**
      * The frame is interlaced. The bottom field of each frame is displayed first.
+     * Native name: D3D12_VIDEO_FIELD_TYPE_INTERLACED_BOTTOM_FIELD_FIRST
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_FIELD_TYPE_INTERLACED_BOTTOM_FIELD_FIRST => 2
+    static INTERLACED_BOTTOM_FIELD_FIRST => 2
 }

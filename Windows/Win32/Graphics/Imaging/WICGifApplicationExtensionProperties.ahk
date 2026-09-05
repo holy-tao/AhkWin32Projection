@@ -10,13 +10,15 @@ class WICGifApplicationExtensionProperties extends Win32Enum {
 
     /**
      * [VT_UI1 | VT_VECTOR] Indicates a string that identifies the application.
+     * Native name: WICGifApplicationExtensionApplication
      * @type {Integer (Int32)}
      */
-    static WICGifApplicationExtensionApplication => 1
+    static Application => 1
 
     /**
      * [VT_UI1 \| VT_VECTOR] Indicates data that is exposed by the application.
+     * Native name: WICGifApplicationExtensionData
      * @type {Integer (Int32)}
      */
-    static WICGifApplicationExtensionData => 2
+    static Data => 2
 }

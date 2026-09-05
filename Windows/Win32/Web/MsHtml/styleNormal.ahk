@@ -7,12 +7,14 @@
 class styleNormal extends Win32Enum {
 
     /**
+     * Native name: styleNormalNormal
      * @type {Integer (Int32)}
      */
-    static styleNormalNormal => 0
+    static Normal => 0
 
     /**
+     * Native name: styleNormal_Max
      * @type {Integer (Int32)}
      */
-    static styleNormal_Max => 2147483647
+    static Max => 2147483647
 }

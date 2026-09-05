@@ -54,7 +54,6 @@ class IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ class IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shape() {
@@ -76,7 +74,6 @@ class IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -88,7 +85,6 @@ class IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_coords() {
@@ -98,7 +94,6 @@ class IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -110,7 +105,6 @@ class IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {

@@ -23,7 +23,6 @@ class GdiplusAbort extends Win32ComInterface {
     static VTableNames => ["Abort"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {

@@ -7,27 +7,32 @@
 class PROFILER_EVENT_MASK extends Win32BitflagEnum {
 
     /**
+     * Native name: PROFILER_EVENT_MASK_TRACE_SCRIPT_FUNCTION_CALL
      * @type {Integer (Int32)}
      */
-    static PROFILER_EVENT_MASK_TRACE_SCRIPT_FUNCTION_CALL => 1
+    static TRACE_SCRIPT_FUNCTION_CALL => 1
 
     /**
+     * Native name: PROFILER_EVENT_MASK_TRACE_NATIVE_FUNCTION_CALL
      * @type {Integer (Int32)}
      */
-    static PROFILER_EVENT_MASK_TRACE_NATIVE_FUNCTION_CALL => 2
+    static TRACE_NATIVE_FUNCTION_CALL => 2
 
     /**
+     * Native name: PROFILER_EVENT_MASK_TRACE_DOM_FUNCTION_CALL
      * @type {Integer (Int32)}
      */
-    static PROFILER_EVENT_MASK_TRACE_DOM_FUNCTION_CALL => 4
+    static TRACE_DOM_FUNCTION_CALL => 4
 
     /**
+     * Native name: PROFILER_EVENT_MASK_TRACE_ALL
      * @type {Integer (Int32)}
      */
-    static PROFILER_EVENT_MASK_TRACE_ALL => 3
+    static TRACE_ALL => 3
 
     /**
+     * Native name: PROFILER_EVENT_MASK_TRACE_ALL_WITH_DOM
      * @type {Integer (Int32)}
      */
-    static PROFILER_EVENT_MASK_TRACE_ALL_WITH_DOM => 7
+    static TRACE_ALL_WITH_DOM => 7
 }

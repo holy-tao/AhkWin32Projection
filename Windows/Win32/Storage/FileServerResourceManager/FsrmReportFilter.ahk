@@ -18,42 +18,47 @@ class FsrmReportFilter extends Win32Enum {
      * The report will show only files that meet a minimum size.
      * 
      * Applies to the <b>FsrmReportType_LargeFiles</b> report type.
+     * Native name: FsrmReportFilter_MinSize
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_MinSize => 1
+    static MinSize => 1
 
     /**
      * The report will show only files that were accessed more than a minimum number of days ago.
      * 
      * Applies to the <b>FsrmReportType_LeastRecentlyAccessed</b> and 
      *        <b>FsrmReportType_FileScreenAudit</b> report types.
+     * Native name: FsrmReportFilter_MinAgeDays
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_MinAgeDays => 2
+    static MinAgeDays => 2
 
     /**
      * The report will show only files that were accessed prior to a maximum number of days ago.
      * 
      * Applies to the <b>FsrmReportType_MostRecentlyAccessed</b> report type.
+     * Native name: FsrmReportFilter_MaxAgeDays
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_MaxAgeDays => 3
+    static MaxAgeDays => 3
 
     /**
      * The report will show only quotas that meet a certain disk space usage level.
      * 
      * Applies to the <b>FsrmReportType_QuotaUsage</b> report type.
+     * Native name: FsrmReportFilter_MinQuotaUsage
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_MinQuotaUsage => 4
+    static MinQuotaUsage => 4
 
     /**
      * The report will show only files from a specified set of file groups.
      * 
      * Applies to the <b>FsrmReportType_FilesByType</b> report type.
+     * Native name: FsrmReportFilter_FileGroups
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_FileGroups => 5
+    static FileGroups => 5
 
     /**
      * The report will show only files that belong to specified owners. The format of the owner string can be either 
@@ -63,9 +68,10 @@ class FsrmReportFilter extends Win32Enum {
      *        format.
      * 
      * Applies to the <b>FsrmReportType_FilesByOwner</b> report type.
+     * Native name: FsrmReportFilter_Owners
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_Owners => 6
+    static Owners => 6
 
     /**
      * The report will show only files with names that match the specified pattern.
@@ -78,16 +84,18 @@ class FsrmReportFilter extends Win32Enum {
      *        filters could exist. For example, for the <b>FsrmReportType_LargeFiles</b> report type, 
      *        both the <b>FsrmReportFilter_MinSize</b> and 
      *        <b>FsrmReportFilter_NamePattern</b> filters could exist.
+     * Native name: FsrmReportFilter_NamePattern
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_NamePattern => 7
+    static NamePattern => 7
 
     /**
      * The report will show only files that contain the specified property.
      * 
      * Applies to the <b>FsrmReportType_FilesByProperty</b> and 
      *        <b>FsrmReportType_FoldersByProperty</b> report types.
+     * Native name: FsrmReportFilter_Property
      * @type {Integer (Int32)}
      */
-    static FsrmReportFilter_Property => 8
+    static Property => 8
 }

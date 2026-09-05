@@ -10,25 +10,29 @@ class UI_COLLECTIONCHANGE extends Win32Enum {
 
     /**
      * Insert an item into the collection.
+     * Native name: UI_COLLECTIONCHANGE_INSERT
      * @type {Integer (Int32)}
      */
-    static UI_COLLECTIONCHANGE_INSERT => 0
+    static INSERT => 0
 
     /**
      * Delete an item from the collection.
+     * Native name: UI_COLLECTIONCHANGE_REMOVE
      * @type {Integer (Int32)}
      */
-    static UI_COLLECTIONCHANGE_REMOVE => 1
+    static REMOVE => 1
 
     /**
      * Replace an item in the collection.
+     * Native name: UI_COLLECTIONCHANGE_REPLACE
      * @type {Integer (Int32)}
      */
-    static UI_COLLECTIONCHANGE_REPLACE => 2
+    static REPLACE => 2
 
     /**
      * Delete all items from the collection.
+     * Native name: UI_COLLECTIONCHANGE_RESET
      * @type {Integer (Int32)}
      */
-    static UI_COLLECTIONCHANGE_RESET => 3
+    static RESET => 3
 }

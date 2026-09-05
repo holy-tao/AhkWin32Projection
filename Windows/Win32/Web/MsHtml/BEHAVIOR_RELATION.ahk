@@ -7,37 +7,44 @@
 class BEHAVIOR_RELATION extends Win32Enum {
 
     /**
+     * Native name: BEHAVIOR_FIRSTRELATION
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_FIRSTRELATION => 0
+    static FIRSTRELATION => 0
 
     /**
+     * Native name: BEHAVIOR_SAMEELEMENT
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_SAMEELEMENT => 0
+    static SAMEELEMENT => 0
 
     /**
+     * Native name: BEHAVIOR_PARENT
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_PARENT => 1
+    static PARENT => 1
 
     /**
+     * Native name: BEHAVIOR_CHILD
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_CHILD => 2
+    static CHILD => 2
 
     /**
+     * Native name: BEHAVIOR_SIBLING
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_SIBLING => 3
+    static SIBLING => 3
 
     /**
+     * Native name: BEHAVIOR_LASTRELATION
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_LASTRELATION => 3
+    static LASTRELATION => 3
 
     /**
+     * Native name: BEHAVIOR_RELATION_Max
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_RELATION_Max => 2147483647
+    static Max => 2147483647
 }

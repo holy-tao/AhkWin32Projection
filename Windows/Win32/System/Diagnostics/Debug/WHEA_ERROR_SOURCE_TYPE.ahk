@@ -7,102 +7,122 @@
 class WHEA_ERROR_SOURCE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaErrSrcTypeMCE
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeMCE => 0
+    static ErrSrcTypeMCE => 0
 
     /**
+     * Native name: WheaErrSrcTypeCMC
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeCMC => 1
+    static ErrSrcTypeCMC => 1
 
     /**
+     * Native name: WheaErrSrcTypeCPE
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeCPE => 2
+    static ErrSrcTypeCPE => 2
 
     /**
+     * Native name: WheaErrSrcTypeNMI
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeNMI => 3
+    static ErrSrcTypeNMI => 3
 
     /**
+     * Native name: WheaErrSrcTypePCIe
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypePCIe => 4
+    static ErrSrcTypePCIe => 4
 
     /**
+     * Native name: WheaErrSrcTypeGeneric
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeGeneric => 5
+    static ErrSrcTypeGeneric => 5
 
     /**
+     * Native name: WheaErrSrcTypeINIT
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeINIT => 6
+    static ErrSrcTypeINIT => 6
 
     /**
+     * Native name: WheaErrSrcTypeBOOT
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeBOOT => 7
+    static ErrSrcTypeBOOT => 7
 
     /**
+     * Native name: WheaErrSrcTypeSCIGeneric
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeSCIGeneric => 8
+    static ErrSrcTypeSCIGeneric => 8
 
     /**
+     * Native name: WheaErrSrcTypeIPFMCA
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeIPFMCA => 9
+    static ErrSrcTypeIPFMCA => 9
 
     /**
+     * Native name: WheaErrSrcTypeIPFCMC
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeIPFCMC => 10
+    static ErrSrcTypeIPFCMC => 10
 
     /**
+     * Native name: WheaErrSrcTypeIPFCPE
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeIPFCPE => 11
+    static ErrSrcTypeIPFCPE => 11
 
     /**
+     * Native name: WheaErrSrcTypeGenericV2
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeGenericV2 => 12
+    static ErrSrcTypeGenericV2 => 12
 
     /**
+     * Native name: WheaErrSrcTypeSCIGenericV2
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeSCIGenericV2 => 13
+    static ErrSrcTypeSCIGenericV2 => 13
 
     /**
+     * Native name: WheaErrSrcTypeBMC
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeBMC => 14
+    static ErrSrcTypeBMC => 14
 
     /**
+     * Native name: WheaErrSrcTypePMEM
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypePMEM => 15
+    static ErrSrcTypePMEM => 15
 
     /**
+     * Native name: WheaErrSrcTypeDeviceDriver
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeDeviceDriver => 16
+    static ErrSrcTypeDeviceDriver => 16
 
     /**
+     * Native name: WheaErrSrcTypeSea
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeSea => 17
+    static ErrSrcTypeSea => 17
 
     /**
+     * Native name: WheaErrSrcTypeSei
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeSei => 18
+    static ErrSrcTypeSei => 18
 
     /**
+     * Native name: WheaErrSrcTypeMax
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcTypeMax => 19
+    static ErrSrcTypeMax => 19
 }

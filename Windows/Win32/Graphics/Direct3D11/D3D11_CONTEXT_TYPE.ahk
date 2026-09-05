@@ -23,31 +23,36 @@ class D3D11_CONTEXT_TYPE extends Win32Enum {
 
     /**
      * The query can occur in all contexts.
+     * Native name: D3D11_CONTEXT_TYPE_ALL
      * @type {Integer (Int32)}
      */
-    static D3D11_CONTEXT_TYPE_ALL => 0
+    static ALL => 0
 
     /**
      * The query occurs in the context of a 3D command queue.
+     * Native name: D3D11_CONTEXT_TYPE_3D
      * @type {Integer (Int32)}
      */
-    static D3D11_CONTEXT_TYPE_3D => 1
+    static 3D => 1
 
     /**
      * The query occurs in the context of a 3D compute queue.
+     * Native name: D3D11_CONTEXT_TYPE_COMPUTE
      * @type {Integer (Int32)}
      */
-    static D3D11_CONTEXT_TYPE_COMPUTE => 2
+    static COMPUTE => 2
 
     /**
      * The query occurs in the context of a 3D copy queue.
+     * Native name: D3D11_CONTEXT_TYPE_COPY
      * @type {Integer (Int32)}
      */
-    static D3D11_CONTEXT_TYPE_COPY => 3
+    static COPY => 3
 
     /**
      * The query occurs in the context of video.
+     * Native name: D3D11_CONTEXT_TYPE_VIDEO
      * @type {Integer (Int32)}
      */
-    static D3D11_CONTEXT_TYPE_VIDEO => 4
+    static VIDEO => 4
 }

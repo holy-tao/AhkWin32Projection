@@ -12,25 +12,29 @@ class OPM_ACP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * ACP is disabled.
+     * Native name: OPM_ACP_OFF
      * @type {Integer (Int32)}
      */
-    static OPM_ACP_OFF => 0
+    static OFF => 0
 
     /**
      * ACP protection level 1.
+     * Native name: OPM_ACP_LEVEL_ONE
      * @type {Integer (Int32)}
      */
-    static OPM_ACP_LEVEL_ONE => 1
+    static ONE => 1
 
     /**
      * ACP protection level 2.
+     * Native name: OPM_ACP_LEVEL_TWO
      * @type {Integer (Int32)}
      */
-    static OPM_ACP_LEVEL_TWO => 2
+    static TWO => 2
 
     /**
      * ACP protection level 3.
+     * Native name: OPM_ACP_LEVEL_THREE
      * @type {Integer (Int32)}
      */
-    static OPM_ACP_LEVEL_THREE => 3
+    static THREE => 3
 }

@@ -10,13 +10,15 @@ class MBN_CONNECTION_MODE extends Win32Enum {
 
     /**
      * Profile name is used for connection.
+     * Native name: MBN_CONNECTION_MODE_PROFILE
      * @type {Integer (Int32)}
      */
-    static MBN_CONNECTION_MODE_PROFILE => 0
+    static PROFILE => 0
 
     /**
      * A string representing the XML profile is used for connection.
+     * Native name: MBN_CONNECTION_MODE_TMP_PROFILE
      * @type {Integer (Int32)}
      */
-    static MBN_CONNECTION_MODE_TMP_PROFILE => 1
+    static TMP_PROFILE => 1
 }

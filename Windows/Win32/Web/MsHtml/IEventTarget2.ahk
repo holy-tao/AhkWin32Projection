@@ -32,7 +32,6 @@ class IEventTarget2 extends IUnknown {
     static VTableNames => ["GetRegisteredEventTypes", "GetListenersForType", "RegisterForDOMEventListeners", "UnregisterForDOMEventListeners"]
 
     /**
-     * 
      * @returns {Pointer<SAFEARRAY>} 
      */
     GetRegisteredEventTypes() {
@@ -41,7 +40,6 @@ class IEventTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszEventType 
      * @returns {Pointer<SAFEARRAY>} 
      */
@@ -53,7 +51,6 @@ class IEventTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDOMEventRegistrationCallback} pCallback 
      * @returns {HRESULT} 
      */
@@ -63,7 +60,6 @@ class IEventTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDOMEventRegistrationCallback} pCallback 
      * @returns {HRESULT} 
      */

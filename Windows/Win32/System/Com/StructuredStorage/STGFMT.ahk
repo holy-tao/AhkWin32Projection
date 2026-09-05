@@ -7,32 +7,38 @@
 class STGFMT extends Win32Enum {
 
     /**
+     * Native name: STGFMT_STORAGE
      * @type {Integer (UInt32)}
      */
-    static STGFMT_STORAGE => 0
+    static STORAGE => 0
 
     /**
+     * Native name: STGFMT_NATIVE
      * @type {Integer (UInt32)}
      */
-    static STGFMT_NATIVE => 1
+    static NATIVE => 1
 
     /**
+     * Native name: STGFMT_FILE
      * @type {Integer (UInt32)}
      */
-    static STGFMT_FILE => 3
+    static FILE => 3
 
     /**
+     * Native name: STGFMT_ANY
      * @type {Integer (UInt32)}
      */
-    static STGFMT_ANY => 4
+    static ANY => 4
 
     /**
+     * Native name: STGFMT_DOCFILE
      * @type {Integer (UInt32)}
      */
-    static STGFMT_DOCFILE => 5
+    static DOCFILE => 5
 
     /**
+     * Native name: STGFMT_DOCUMENT
      * @type {Integer (UInt32)}
      */
-    static STGFMT_DOCUMENT => 0
+    static DOCUMENT => 0
 }

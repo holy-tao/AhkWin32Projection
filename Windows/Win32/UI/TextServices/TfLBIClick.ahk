@@ -10,13 +10,15 @@ class TfLBIClick extends Win32Enum {
 
     /**
      * The user right-clicked the button.
+     * Native name: TF_LBI_CLK_RIGHT
      * @type {Integer (Int32)}
      */
-    static TF_LBI_CLK_RIGHT => 1
+    static CLK_RIGHT => 1
 
     /**
      * The user left-clicked the button.
+     * Native name: TF_LBI_CLK_LEFT
      * @type {Integer (Int32)}
      */
-    static TF_LBI_CLK_LEFT => 2
+    static CLK_LEFT => 2
 }

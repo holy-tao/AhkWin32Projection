@@ -20,35 +20,41 @@ class DVASPECT extends Win32Enum {
 
     /**
      * Provides a representation of an object so it can be displayed as an embedded object inside of a container. This value is typically specified for compound document objects. The presentation can be provided for the screen or printer.
+     * Native name: DVASPECT_CONTENT
      * @type {Integer (UInt32)}
      */
-    static DVASPECT_CONTENT => 1
+    static CONTENT => 1
 
     /**
      * Provides a thumbnail representation of an object so it can be displayed in a browsing tool. The thumbnail is approximately a 120 by 120 pixel, 16-color (recommended) device-independent bitmap potentially wrapped in a metafile.
+     * Native name: DVASPECT_THUMBNAIL
      * @type {Integer (UInt32)}
      */
-    static DVASPECT_THUMBNAIL => 2
+    static THUMBNAIL => 2
 
     /**
      * Provides an iconic representation of an object.
+     * Native name: DVASPECT_ICON
      * @type {Integer (UInt32)}
      */
-    static DVASPECT_ICON => 4
+    static ICON => 4
 
     /**
      * Provides a representation of the object on the screen as though it were printed to a printer using the <b>Print</b> command from the <b>File</b> menu. The described data may represent a sequence of pages.
+     * Native name: DVASPECT_DOCPRINT
      * @type {Integer (UInt32)}
      */
-    static DVASPECT_DOCPRINT => 8
+    static DOCPRINT => 8
 
     /**
+     * Native name: DVASPECT_OPAQUE
      * @type {Integer (UInt32)}
      */
-    static DVASPECT_OPAQUE => 16
+    static OPAQUE => 16
 
     /**
+     * Native name: DVASPECT_TRANSPARENT
      * @type {Integer (UInt32)}
      */
-    static DVASPECT_TRANSPARENT => 32
+    static TRANSPARENT => 32
 }

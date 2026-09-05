@@ -91,7 +91,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +100,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -111,7 +109,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -121,7 +118,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -131,7 +127,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -143,7 +138,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -153,7 +147,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_firstChild() {
@@ -162,7 +155,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_lastChild() {
@@ -171,7 +163,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_childNodes() {
@@ -180,7 +171,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
@@ -189,7 +179,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
@@ -219,7 +208,6 @@ class IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {

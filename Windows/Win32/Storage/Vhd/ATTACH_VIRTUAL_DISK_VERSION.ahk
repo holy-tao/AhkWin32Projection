@@ -9,17 +9,20 @@
 class ATTACH_VIRTUAL_DISK_VERSION extends Win32Enum {
 
     /**
+     * Native name: ATTACH_VIRTUAL_DISK_VERSION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static ATTACH_VIRTUAL_DISK_VERSION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: ATTACH_VIRTUAL_DISK_VERSION_1
      * @type {Integer (Int32)}
      */
-    static ATTACH_VIRTUAL_DISK_VERSION_1 => 1
+    static 1 => 1
 
     /**
+     * Native name: ATTACH_VIRTUAL_DISK_VERSION_2
      * @type {Integer (Int32)}
      */
-    static ATTACH_VIRTUAL_DISK_VERSION_2 => 2
+    static 2 => 2
 }

@@ -7,9 +7,10 @@
 class LanguageKind extends Win32Enum {
 
     /**
+     * Native name: LanguageUnknown
      * @type {Integer (Int32)}
      */
-    static LanguageUnknown => 0
+    static Unknown => 0
 
     /**
      * @type {Integer (Int32)}
@@ -22,12 +23,14 @@ class LanguageKind extends Win32Enum {
     static LanguageCPP => 2
 
     /**
+     * Native name: LanguageAssembly
      * @type {Integer (Int32)}
      */
-    static LanguageAssembly => 3
+    static Assembly => 3
 
     /**
+     * Native name: LanguageRust
      * @type {Integer (Int32)}
      */
-    static LanguageRust => 4
+    static Rust => 4
 }

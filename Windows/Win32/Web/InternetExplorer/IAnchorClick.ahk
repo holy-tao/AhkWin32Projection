@@ -35,7 +35,6 @@ class IAnchorClick extends IDispatch {
     static VTableNames => ["ProcOnClick"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ProcOnClick() {

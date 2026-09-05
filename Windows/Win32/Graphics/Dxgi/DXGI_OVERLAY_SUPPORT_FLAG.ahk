@@ -10,13 +10,15 @@ class DXGI_OVERLAY_SUPPORT_FLAG extends Win32BitflagEnum {
 
     /**
      * Direct overlay support.
+     * Native name: DXGI_OVERLAY_SUPPORT_FLAG_DIRECT
      * @type {Integer (Int32)}
      */
-    static DXGI_OVERLAY_SUPPORT_FLAG_DIRECT => 1
+    static DIRECT => 1
 
     /**
      * Scaling overlay support.
+     * Native name: DXGI_OVERLAY_SUPPORT_FLAG_SCALING
      * @type {Integer (Int32)}
      */
-    static DXGI_OVERLAY_SUPPORT_FLAG_SCALING => 2
+    static SCALING => 2
 }

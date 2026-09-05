@@ -43,7 +43,6 @@ class ISVGClipPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ISVGClipPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_clipPathUnits() {

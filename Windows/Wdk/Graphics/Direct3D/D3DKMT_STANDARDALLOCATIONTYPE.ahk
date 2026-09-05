@@ -7,17 +7,20 @@
 class D3DKMT_STANDARDALLOCATIONTYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_STANDARDALLOCATIONTYPE_EXISTINGHEAP
      * @type {Integer (Int32)}
      */
-    static D3DKMT_STANDARDALLOCATIONTYPE_EXISTINGHEAP => 1
+    static EXISTINGHEAP => 1
 
     /**
+     * Native name: D3DKMT_STANDARDALLOCATIONTYPE_INTERNALBACKINGSTORE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_STANDARDALLOCATIONTYPE_INTERNALBACKINGSTORE => 2
+    static INTERNALBACKINGSTORE => 2
 
     /**
+     * Native name: D3DKMT_STANDARDALLOCATIONTYPE_MAX
      * @type {Integer (Int32)}
      */
-    static D3DKMT_STANDARDALLOCATIONTYPE_MAX => 3
+    static MAX => 3
 }

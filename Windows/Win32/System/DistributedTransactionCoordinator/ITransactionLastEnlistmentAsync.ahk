@@ -31,7 +31,6 @@ class ITransactionLastEnlistmentAsync extends IUnknown {
     static VTableNames => ["TransactionOutcome"]
 
     /**
-     * 
      * @param {XACTSTAT} _XactStat 
      * @param {Pointer<BOID>} pboidReason 
      * @returns {HRESULT} 

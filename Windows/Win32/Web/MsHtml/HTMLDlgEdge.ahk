@@ -7,17 +7,20 @@
 class HTMLDlgEdge extends Win32Enum {
 
     /**
+     * Native name: HTMLDlgEdgeSunken
      * @type {Integer (Int32)}
      */
-    static HTMLDlgEdgeSunken => 0
+    static Sunken => 0
 
     /**
+     * Native name: HTMLDlgEdgeRaised
      * @type {Integer (Int32)}
      */
-    static HTMLDlgEdgeRaised => 16
+    static Raised => 16
 
     /**
+     * Native name: HTMLDlgEdge_Max
      * @type {Integer (Int32)}
      */
-    static HTMLDlgEdge_Max => 2147483647
+    static Max => 2147483647
 }

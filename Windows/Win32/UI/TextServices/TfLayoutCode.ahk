@@ -12,19 +12,22 @@ class TfLayoutCode extends Win32Enum {
 
     /**
      * The view has just been created.
+     * Native name: TF_LC_CREATE
      * @type {Integer (Int32)}
      */
-    static TF_LC_CREATE => 0
+    static LC_CREATE => 0
 
     /**
      * The view layout has changed.
+     * Native name: TF_LC_CHANGE
      * @type {Integer (Int32)}
      */
-    static TF_LC_CHANGE => 1
+    static LC_CHANGE => 1
 
     /**
      * The view is about to be destroyed.
+     * Native name: TF_LC_DESTROY
      * @type {Integer (Int32)}
      */
-    static TF_LC_DESTROY => 2
+    static LC_DESTROY => 2
 }

@@ -7,52 +7,62 @@
 class htmlEffectAllowed extends Win32Enum {
 
     /**
+     * Native name: htmlEffectAllowedCopy
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedCopy => 0
+    static Copy => 0
 
     /**
+     * Native name: htmlEffectAllowedLink
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedLink => 1
+    static Link => 1
 
     /**
+     * Native name: htmlEffectAllowedMove
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedMove => 2
+    static Move => 2
 
     /**
+     * Native name: htmlEffectAllowedCopyLink
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedCopyLink => 3
+    static CopyLink => 3
 
     /**
+     * Native name: htmlEffectAllowedCopyMove
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedCopyMove => 4
+    static CopyMove => 4
 
     /**
+     * Native name: htmlEffectAllowedLinkMove
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedLinkMove => 5
+    static LinkMove => 5
 
     /**
+     * Native name: htmlEffectAllowedAll
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedAll => 6
+    static All => 6
 
     /**
+     * Native name: htmlEffectAllowedNone
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedNone => 7
+    static None => 7
 
     /**
+     * Native name: htmlEffectAllowedUninitialized
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowedUninitialized => 8
+    static Uninitialized => 8
 
     /**
+     * Native name: htmlEffectAllowed_Max
      * @type {Integer (Int32)}
      */
-    static htmlEffectAllowed_Max => 2147483647
+    static Max => 2147483647
 }

@@ -10,13 +10,15 @@ class D2D1_HUETORGB_INPUT_COLOR_SPACE extends Win32Enum {
 
     /**
      * The effect converts from Hue Saturation Value (HSV) to RGB.
+     * Native name: D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_VALUE
      * @type {Integer (Int32)}
      */
-    static D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_VALUE => 0
+    static HUE_SATURATION_VALUE => 0
 
     /**
      * The effect converts from Hue Saturation Lightness (HSL) to RGB.
+     * Native name: D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS
      * @type {Integer (Int32)}
      */
-    static D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS => 1
+    static HUE_SATURATION_LIGHTNESS => 1
 }

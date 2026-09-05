@@ -9,97 +9,116 @@
 class ASSOCF extends Win32BitflagEnum {
 
     /**
+     * Native name: ASSOCF_NONE
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: ASSOCF_INIT_NOREMAPCLSID
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_INIT_NOREMAPCLSID => 1
+    static INIT_NOREMAPCLSID => 1
 
     /**
+     * Native name: ASSOCF_INIT_BYEXENAME
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_INIT_BYEXENAME => 2
+    static INIT_BYEXENAME => 2
 
     /**
+     * Native name: ASSOCF_OPEN_BYEXENAME
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_OPEN_BYEXENAME => 2
+    static OPEN_BYEXENAME => 2
 
     /**
+     * Native name: ASSOCF_INIT_DEFAULTTOSTAR
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_INIT_DEFAULTTOSTAR => 4
+    static INIT_DEFAULTTOSTAR => 4
 
     /**
+     * Native name: ASSOCF_INIT_DEFAULTTOFOLDER
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_INIT_DEFAULTTOFOLDER => 8
+    static INIT_DEFAULTTOFOLDER => 8
 
     /**
+     * Native name: ASSOCF_NOUSERSETTINGS
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_NOUSERSETTINGS => 16
+    static NOUSERSETTINGS => 16
 
     /**
+     * Native name: ASSOCF_NOTRUNCATE
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_NOTRUNCATE => 32
+    static NOTRUNCATE => 32
 
     /**
+     * Native name: ASSOCF_VERIFY
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_VERIFY => 64
+    static VERIFY => 64
 
     /**
+     * Native name: ASSOCF_REMAPRUNDLL
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_REMAPRUNDLL => 128
+    static REMAPRUNDLL => 128
 
     /**
+     * Native name: ASSOCF_NOFIXUPS
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_NOFIXUPS => 256
+    static NOFIXUPS => 256
 
     /**
+     * Native name: ASSOCF_IGNOREBASECLASS
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_IGNOREBASECLASS => 512
+    static IGNOREBASECLASS => 512
 
     /**
+     * Native name: ASSOCF_INIT_IGNOREUNKNOWN
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_INIT_IGNOREUNKNOWN => 1024
+    static INIT_IGNOREUNKNOWN => 1024
 
     /**
+     * Native name: ASSOCF_INIT_FIXED_PROGID
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_INIT_FIXED_PROGID => 2048
+    static INIT_FIXED_PROGID => 2048
 
     /**
+     * Native name: ASSOCF_IS_PROTOCOL
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_IS_PROTOCOL => 4096
+    static IS_PROTOCOL => 4096
 
     /**
+     * Native name: ASSOCF_INIT_FOR_FILE
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_INIT_FOR_FILE => 8192
+    static INIT_FOR_FILE => 8192
 
     /**
+     * Native name: ASSOCF_IS_FULL_URI
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_IS_FULL_URI => 16384
+    static IS_FULL_URI => 16384
 
     /**
+     * Native name: ASSOCF_PER_MACHINE_ONLY
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_PER_MACHINE_ONLY => 32768
+    static PER_MACHINE_ONLY => 32768
 
     /**
+     * Native name: ASSOCF_APP_TO_APP
      * @type {Integer (UInt32)}
      */
-    static ASSOCF_APP_TO_APP => 65536
+    static APP_TO_APP => 65536
 }

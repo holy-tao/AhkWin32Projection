@@ -11,42 +11,50 @@
 class D3DSTENCILOP extends Win32Enum {
 
     /**
+     * Native name: D3DSTENCILOP_KEEP
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_KEEP => 1
+    static KEEP => 1
 
     /**
+     * Native name: D3DSTENCILOP_ZERO
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_ZERO => 2
+    static ZERO => 2
 
     /**
+     * Native name: D3DSTENCILOP_REPLACE
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_REPLACE => 3
+    static REPLACE => 3
 
     /**
+     * Native name: D3DSTENCILOP_INCRSAT
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_INCRSAT => 4
+    static INCRSAT => 4
 
     /**
+     * Native name: D3DSTENCILOP_DECRSAT
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_DECRSAT => 5
+    static DECRSAT => 5
 
     /**
+     * Native name: D3DSTENCILOP_INVERT
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_INVERT => 6
+    static INVERT => 6
 
     /**
+     * Native name: D3DSTENCILOP_INCR
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_INCR => 7
+    static INCR => 7
 
     /**
+     * Native name: D3DSTENCILOP_DECR
      * @type {Integer (Int32)}
      */
-    static D3DSTENCILOP_DECR => 8
+    static DECR => 8
 }

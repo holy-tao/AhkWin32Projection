@@ -1219,7 +1219,6 @@ class AddressBook {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static MAPIDeinitIdle() {

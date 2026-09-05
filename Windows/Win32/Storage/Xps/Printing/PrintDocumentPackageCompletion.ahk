@@ -10,25 +10,29 @@ class PrintDocumentPackageCompletion extends Win32Enum {
 
     /**
      * The print job is running.
+     * Native name: PrintDocumentPackageCompletion_InProgress
      * @type {Integer (Int32)}
      */
-    static PrintDocumentPackageCompletion_InProgress => 0
+    static InProgress => 0
 
     /**
      * The print operation completed without error.
+     * Native name: PrintDocumentPackageCompletion_Completed
      * @type {Integer (Int32)}
      */
-    static PrintDocumentPackageCompletion_Completed => 1
+    static Completed => 1
 
     /**
      * The print operation was canceled.
+     * Native name: PrintDocumentPackageCompletion_Canceled
      * @type {Integer (Int32)}
      */
-    static PrintDocumentPackageCompletion_Canceled => 2
+    static Canceled => 2
 
     /**
      * The print operation failed.
+     * Native name: PrintDocumentPackageCompletion_Failed
      * @type {Integer (Int32)}
      */
-    static PrintDocumentPackageCompletion_Failed => 3
+    static Failed => 3
 }

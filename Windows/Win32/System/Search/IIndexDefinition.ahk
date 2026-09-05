@@ -32,7 +32,6 @@ class IIndexDefinition extends IUnknown {
     static VTableNames => ["CreateIndex", "DropIndex"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 
      * @param {Pointer} cIndexColumnDescs 
@@ -47,7 +46,6 @@ class IIndexDefinition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 
      * @returns {HRESULT} 

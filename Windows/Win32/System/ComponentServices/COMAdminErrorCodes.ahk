@@ -7,442 +7,530 @@
 class COMAdminErrorCodes extends Win32Enum {
 
     /**
+     * Native name: COMAdminErrObjectErrors
      * @type {Integer (Int32)}
      */
-    static COMAdminErrObjectErrors => -2146368511
+    static ErrObjectErrors => -2146368511
 
     /**
+     * Native name: COMAdminErrObjectInvalid
      * @type {Integer (Int32)}
      */
-    static COMAdminErrObjectInvalid => -2146368510
+    static ErrObjectInvalid => -2146368510
 
     /**
+     * Native name: COMAdminErrKeyMissing
      * @type {Integer (Int32)}
      */
-    static COMAdminErrKeyMissing => -2146368509
+    static ErrKeyMissing => -2146368509
 
     /**
+     * Native name: COMAdminErrAlreadyInstalled
      * @type {Integer (Int32)}
      */
-    static COMAdminErrAlreadyInstalled => -2146368508
+    static ErrAlreadyInstalled => -2146368508
 
     /**
+     * Native name: COMAdminErrAppFileWriteFail
      * @type {Integer (Int32)}
      */
-    static COMAdminErrAppFileWriteFail => -2146368505
+    static ErrAppFileWriteFail => -2146368505
 
     /**
+     * Native name: COMAdminErrAppFileReadFail
      * @type {Integer (Int32)}
      */
-    static COMAdminErrAppFileReadFail => -2146368504
+    static ErrAppFileReadFail => -2146368504
 
     /**
+     * Native name: COMAdminErrAppFileVersion
      * @type {Integer (Int32)}
      */
-    static COMAdminErrAppFileVersion => -2146368503
+    static ErrAppFileVersion => -2146368503
 
     /**
+     * Native name: COMAdminErrBadPath
      * @type {Integer (Int32)}
      */
-    static COMAdminErrBadPath => -2146368502
+    static ErrBadPath => -2146368502
 
     /**
+     * Native name: COMAdminErrApplicationExists
      * @type {Integer (Int32)}
      */
-    static COMAdminErrApplicationExists => -2146368501
+    static ErrApplicationExists => -2146368501
 
     /**
+     * Native name: COMAdminErrRoleExists
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRoleExists => -2146368500
+    static ErrRoleExists => -2146368500
 
     /**
+     * Native name: COMAdminErrCantCopyFile
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCantCopyFile => -2146368499
+    static ErrCantCopyFile => -2146368499
 
     /**
+     * Native name: COMAdminErrNoUser
      * @type {Integer (Int32)}
      */
-    static COMAdminErrNoUser => -2146368497
+    static ErrNoUser => -2146368497
 
     /**
+     * Native name: COMAdminErrInvalidUserids
      * @type {Integer (Int32)}
      */
-    static COMAdminErrInvalidUserids => -2146368496
+    static ErrInvalidUserids => -2146368496
 
     /**
+     * Native name: COMAdminErrNoRegistryCLSID
      * @type {Integer (Int32)}
      */
-    static COMAdminErrNoRegistryCLSID => -2146368495
+    static ErrNoRegistryCLSID => -2146368495
 
     /**
+     * Native name: COMAdminErrBadRegistryProgID
      * @type {Integer (Int32)}
      */
-    static COMAdminErrBadRegistryProgID => -2146368494
+    static ErrBadRegistryProgID => -2146368494
 
     /**
+     * Native name: COMAdminErrAuthenticationLevel
      * @type {Integer (Int32)}
      */
-    static COMAdminErrAuthenticationLevel => -2146368493
+    static ErrAuthenticationLevel => -2146368493
 
     /**
+     * Native name: COMAdminErrUserPasswdNotValid
      * @type {Integer (Int32)}
      */
-    static COMAdminErrUserPasswdNotValid => -2146368492
+    static ErrUserPasswdNotValid => -2146368492
 
     /**
+     * Native name: COMAdminErrCLSIDOrIIDMismatch
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCLSIDOrIIDMismatch => -2146368488
+    static ErrCLSIDOrIIDMismatch => -2146368488
 
     /**
+     * Native name: COMAdminErrRemoteInterface
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRemoteInterface => -2146368487
+    static ErrRemoteInterface => -2146368487
 
     /**
+     * Native name: COMAdminErrDllRegisterServer
      * @type {Integer (Int32)}
      */
-    static COMAdminErrDllRegisterServer => -2146368486
+    static ErrDllRegisterServer => -2146368486
 
     /**
+     * Native name: COMAdminErrNoServerShare
      * @type {Integer (Int32)}
      */
-    static COMAdminErrNoServerShare => -2146368485
+    static ErrNoServerShare => -2146368485
 
     /**
+     * Native name: COMAdminErrDllLoadFailed
      * @type {Integer (Int32)}
      */
-    static COMAdminErrDllLoadFailed => -2146368483
+    static ErrDllLoadFailed => -2146368483
 
     /**
+     * Native name: COMAdminErrBadRegistryLibID
      * @type {Integer (Int32)}
      */
-    static COMAdminErrBadRegistryLibID => -2146368482
+    static ErrBadRegistryLibID => -2146368482
 
     /**
+     * Native name: COMAdminErrAppDirNotFound
      * @type {Integer (Int32)}
      */
-    static COMAdminErrAppDirNotFound => -2146368481
+    static ErrAppDirNotFound => -2146368481
 
     /**
+     * Native name: COMAdminErrRegistrarFailed
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRegistrarFailed => -2146368477
+    static ErrRegistrarFailed => -2146368477
 
     /**
+     * Native name: COMAdminErrCompFileDoesNotExist
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompFileDoesNotExist => -2146368476
+    static ErrCompFileDoesNotExist => -2146368476
 
     /**
+     * Native name: COMAdminErrCompFileLoadDLLFail
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompFileLoadDLLFail => -2146368475
+    static ErrCompFileLoadDLLFail => -2146368475
 
     /**
+     * Native name: COMAdminErrCompFileGetClassObj
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompFileGetClassObj => -2146368474
+    static ErrCompFileGetClassObj => -2146368474
 
     /**
+     * Native name: COMAdminErrCompFileClassNotAvail
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompFileClassNotAvail => -2146368473
+    static ErrCompFileClassNotAvail => -2146368473
 
     /**
+     * Native name: COMAdminErrCompFileBadTLB
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompFileBadTLB => -2146368472
+    static ErrCompFileBadTLB => -2146368472
 
     /**
+     * Native name: COMAdminErrCompFileNotInstallable
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompFileNotInstallable => -2146368471
+    static ErrCompFileNotInstallable => -2146368471
 
     /**
+     * Native name: COMAdminErrNotChangeable
      * @type {Integer (Int32)}
      */
-    static COMAdminErrNotChangeable => -2146368470
+    static ErrNotChangeable => -2146368470
 
     /**
+     * Native name: COMAdminErrNotDeletable
      * @type {Integer (Int32)}
      */
-    static COMAdminErrNotDeletable => -2146368469
+    static ErrNotDeletable => -2146368469
 
     /**
+     * Native name: COMAdminErrSession
      * @type {Integer (Int32)}
      */
-    static COMAdminErrSession => -2146368468
+    static ErrSession => -2146368468
 
     /**
+     * Native name: COMAdminErrCompMoveLocked
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompMoveLocked => -2146368467
+    static ErrCompMoveLocked => -2146368467
 
     /**
+     * Native name: COMAdminErrCompMoveBadDest
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompMoveBadDest => -2146368466
+    static ErrCompMoveBadDest => -2146368466
 
     /**
+     * Native name: COMAdminErrRegisterTLB
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRegisterTLB => -2146368464
+    static ErrRegisterTLB => -2146368464
 
     /**
+     * Native name: COMAdminErrSystemApp
      * @type {Integer (Int32)}
      */
-    static COMAdminErrSystemApp => -2146368461
+    static ErrSystemApp => -2146368461
 
     /**
+     * Native name: COMAdminErrCompFileNoRegistrar
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompFileNoRegistrar => -2146368460
+    static ErrCompFileNoRegistrar => -2146368460
 
     /**
+     * Native name: COMAdminErrCoReqCompInstalled
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCoReqCompInstalled => -2146368459
+    static ErrCoReqCompInstalled => -2146368459
 
     /**
+     * Native name: COMAdminErrServiceNotInstalled
      * @type {Integer (Int32)}
      */
-    static COMAdminErrServiceNotInstalled => -2146368458
+    static ErrServiceNotInstalled => -2146368458
 
     /**
+     * Native name: COMAdminErrPropertySaveFailed
      * @type {Integer (Int32)}
      */
-    static COMAdminErrPropertySaveFailed => -2146368457
+    static ErrPropertySaveFailed => -2146368457
 
     /**
+     * Native name: COMAdminErrObjectExists
      * @type {Integer (Int32)}
      */
-    static COMAdminErrObjectExists => -2146368456
+    static ErrObjectExists => -2146368456
 
     /**
+     * Native name: COMAdminErrComponentExists
      * @type {Integer (Int32)}
      */
-    static COMAdminErrComponentExists => -2146368455
+    static ErrComponentExists => -2146368455
 
     /**
+     * Native name: COMAdminErrRegFileCorrupt
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRegFileCorrupt => -2146368453
+    static ErrRegFileCorrupt => -2146368453
 
     /**
+     * Native name: COMAdminErrPropertyOverflow
      * @type {Integer (Int32)}
      */
-    static COMAdminErrPropertyOverflow => -2146368452
+    static ErrPropertyOverflow => -2146368452
 
     /**
+     * Native name: COMAdminErrNotInRegistry
      * @type {Integer (Int32)}
      */
-    static COMAdminErrNotInRegistry => -2146368450
+    static ErrNotInRegistry => -2146368450
 
     /**
+     * Native name: COMAdminErrObjectNotPoolable
      * @type {Integer (Int32)}
      */
-    static COMAdminErrObjectNotPoolable => -2146368449
+    static ErrObjectNotPoolable => -2146368449
 
     /**
+     * Native name: COMAdminErrApplidMatchesClsid
      * @type {Integer (Int32)}
      */
-    static COMAdminErrApplidMatchesClsid => -2146368442
+    static ErrApplidMatchesClsid => -2146368442
 
     /**
+     * Native name: COMAdminErrRoleDoesNotExist
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRoleDoesNotExist => -2146368441
+    static ErrRoleDoesNotExist => -2146368441
 
     /**
+     * Native name: COMAdminErrStartAppNeedsComponents
      * @type {Integer (Int32)}
      */
-    static COMAdminErrStartAppNeedsComponents => -2146368440
+    static ErrStartAppNeedsComponents => -2146368440
 
     /**
+     * Native name: COMAdminErrRequiresDifferentPlatform
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRequiresDifferentPlatform => -2146368439
+    static ErrRequiresDifferentPlatform => -2146368439
 
     /**
+     * Native name: COMAdminErrQueuingServiceNotAvailable
      * @type {Integer (Int32)}
      */
-    static COMAdminErrQueuingServiceNotAvailable => -2146367998
+    static ErrQueuingServiceNotAvailable => -2146367998
 
     /**
+     * Native name: COMAdminErrObjectParentMissing
      * @type {Integer (Int32)}
      */
-    static COMAdminErrObjectParentMissing => -2146367480
+    static ErrObjectParentMissing => -2146367480
 
     /**
+     * Native name: COMAdminErrObjectDoesNotExist
      * @type {Integer (Int32)}
      */
-    static COMAdminErrObjectDoesNotExist => -2146367479
+    static ErrObjectDoesNotExist => -2146367479
 
     /**
+     * Native name: COMAdminErrCanNotExportAppProxy
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCanNotExportAppProxy => -2146368438
+    static ErrCanNotExportAppProxy => -2146368438
 
     /**
+     * Native name: COMAdminErrCanNotStartApp
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCanNotStartApp => -2146368437
+    static ErrCanNotStartApp => -2146368437
 
     /**
+     * Native name: COMAdminErrCanNotExportSystemApp
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCanNotExportSystemApp => -2146368436
+    static ErrCanNotExportSystemApp => -2146368436
 
     /**
+     * Native name: COMAdminErrCanNotSubscribeToComponent
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCanNotSubscribeToComponent => -2146368435
+    static ErrCanNotSubscribeToComponent => -2146368435
 
     /**
+     * Native name: COMAdminErrAppNotRunning
      * @type {Integer (Int32)}
      */
-    static COMAdminErrAppNotRunning => -2146367478
+    static ErrAppNotRunning => -2146367478
 
     /**
+     * Native name: COMAdminErrEventClassCannotBeSubscriber
      * @type {Integer (Int32)}
      */
-    static COMAdminErrEventClassCannotBeSubscriber => -2146368434
+    static ErrEventClassCannotBeSubscriber => -2146368434
 
     /**
+     * Native name: COMAdminErrLibAppProxyIncompatible
      * @type {Integer (Int32)}
      */
-    static COMAdminErrLibAppProxyIncompatible => -2146368433
+    static ErrLibAppProxyIncompatible => -2146368433
 
     /**
+     * Native name: COMAdminErrBasePartitionOnly
      * @type {Integer (Int32)}
      */
-    static COMAdminErrBasePartitionOnly => -2146368432
+    static ErrBasePartitionOnly => -2146368432
 
     /**
+     * Native name: COMAdminErrDuplicatePartitionName
      * @type {Integer (Int32)}
      */
-    static COMAdminErrDuplicatePartitionName => -2146368425
+    static ErrDuplicatePartitionName => -2146368425
 
     /**
+     * Native name: COMAdminErrPartitionInUse
      * @type {Integer (Int32)}
      */
-    static COMAdminErrPartitionInUse => -2146368423
+    static ErrPartitionInUse => -2146368423
 
     /**
+     * Native name: COMAdminErrImportedComponentsNotAllowed
      * @type {Integer (Int32)}
      */
-    static COMAdminErrImportedComponentsNotAllowed => -2146368421
+    static ErrImportedComponentsNotAllowed => -2146368421
 
     /**
+     * Native name: COMAdminErrRegdbNotInitialized
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRegdbNotInitialized => -2146368398
+    static ErrRegdbNotInitialized => -2146368398
 
     /**
+     * Native name: COMAdminErrRegdbNotOpen
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRegdbNotOpen => -2146368397
+    static ErrRegdbNotOpen => -2146368397
 
     /**
+     * Native name: COMAdminErrRegdbSystemErr
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRegdbSystemErr => -2146368396
+    static ErrRegdbSystemErr => -2146368396
 
     /**
+     * Native name: COMAdminErrRegdbAlreadyRunning
      * @type {Integer (Int32)}
      */
-    static COMAdminErrRegdbAlreadyRunning => -2146368395
+    static ErrRegdbAlreadyRunning => -2146368395
 
     /**
+     * Native name: COMAdminErrMigVersionNotSupported
      * @type {Integer (Int32)}
      */
-    static COMAdminErrMigVersionNotSupported => -2146368384
+    static ErrMigVersionNotSupported => -2146368384
 
     /**
+     * Native name: COMAdminErrMigSchemaNotFound
      * @type {Integer (Int32)}
      */
-    static COMAdminErrMigSchemaNotFound => -2146368383
+    static ErrMigSchemaNotFound => -2146368383
 
     /**
+     * Native name: COMAdminErrCatBitnessMismatch
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCatBitnessMismatch => -2146368382
+    static ErrCatBitnessMismatch => -2146368382
 
     /**
+     * Native name: COMAdminErrCatUnacceptableBitness
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCatUnacceptableBitness => -2146368381
+    static ErrCatUnacceptableBitness => -2146368381
 
     /**
+     * Native name: COMAdminErrCatWrongAppBitnessBitness
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCatWrongAppBitnessBitness => -2146368380
+    static ErrCatWrongAppBitnessBitness => -2146368380
 
     /**
+     * Native name: COMAdminErrCatPauseResumeNotSupported
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCatPauseResumeNotSupported => -2146368379
+    static ErrCatPauseResumeNotSupported => -2146368379
 
     /**
+     * Native name: COMAdminErrCatServerFault
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCatServerFault => -2146368378
+    static ErrCatServerFault => -2146368378
 
     /**
+     * Native name: COMAdminErrCantRecycleLibraryApps
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCantRecycleLibraryApps => -2146367473
+    static ErrCantRecycleLibraryApps => -2146367473
 
     /**
+     * Native name: COMAdminErrCantRecycleServiceApps
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCantRecycleServiceApps => -2146367471
+    static ErrCantRecycleServiceApps => -2146367471
 
     /**
+     * Native name: COMAdminErrProcessAlreadyRecycled
      * @type {Integer (Int32)}
      */
-    static COMAdminErrProcessAlreadyRecycled => -2146367470
+    static ErrProcessAlreadyRecycled => -2146367470
 
     /**
+     * Native name: COMAdminErrPausedProcessMayNotBeRecycled
      * @type {Integer (Int32)}
      */
-    static COMAdminErrPausedProcessMayNotBeRecycled => -2146367469
+    static ErrPausedProcessMayNotBeRecycled => -2146367469
 
     /**
+     * Native name: COMAdminErrInvalidPartition
      * @type {Integer (Int32)}
      */
-    static COMAdminErrInvalidPartition => -2146367477
+    static ErrInvalidPartition => -2146367477
 
     /**
+     * Native name: COMAdminErrPartitionMsiOnly
      * @type {Integer (Int32)}
      */
-    static COMAdminErrPartitionMsiOnly => -2146367463
+    static ErrPartitionMsiOnly => -2146367463
 
     /**
+     * Native name: COMAdminErrStartAppDisabled
      * @type {Integer (Int32)}
      */
-    static COMAdminErrStartAppDisabled => -2146368431
+    static ErrStartAppDisabled => -2146368431
 
     /**
+     * Native name: COMAdminErrCompMoveSource
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompMoveSource => -2146367460
+    static ErrCompMoveSource => -2146367460
 
     /**
+     * Native name: COMAdminErrCompMoveDest
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompMoveDest => -2146367459
+    static ErrCompMoveDest => -2146367459
 
     /**
+     * Native name: COMAdminErrCompMovePrivate
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCompMovePrivate => -2146367458
+    static ErrCompMovePrivate => -2146367458
 
     /**
+     * Native name: COMAdminErrCannotCopyEventClass
      * @type {Integer (Int32)}
      */
-    static COMAdminErrCannotCopyEventClass => -2146367456
+    static ErrCannotCopyEventClass => -2146367456
 }

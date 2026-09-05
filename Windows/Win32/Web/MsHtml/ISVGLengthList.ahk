@@ -44,7 +44,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_numberOfItems() {
@@ -63,7 +61,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -72,7 +69,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGLength} newItem 
      * @returns {ISVGLength} 
      */
@@ -82,7 +78,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGLength} 
      */
@@ -92,7 +87,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGLength} newItem 
      * @param {Integer} index 
      * @returns {ISVGLength} 
@@ -103,7 +97,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGLength} newItem 
      * @param {Integer} index 
      * @returns {ISVGLength} 
@@ -114,7 +107,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGLength} 
      */
@@ -124,7 +116,6 @@ class ISVGLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGLength} newItem 
      * @returns {ISVGLength} 
      */

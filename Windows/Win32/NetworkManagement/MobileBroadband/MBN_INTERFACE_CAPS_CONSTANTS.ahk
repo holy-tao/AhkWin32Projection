@@ -10,25 +10,29 @@ class MBN_INTERFACE_CAPS_CONSTANTS extends Win32Enum {
 
     /**
      * This constant defines the maximum string size of the <b>deviceID</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_interface_caps">MBN_INTERFACE_CAPS</a> structure.
+     * Native name: MBN_DEVICEID_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_DEVICEID_LEN => 18
+    static DEVICEID_LEN => 18
 
     /**
      * This constant defines the maximum string size of the <b>manufacturer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_interface_caps">MBN_INTERFACE_CAPS</a> structure.
+     * Native name: MBN_MANUFACTURER_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_MANUFACTURER_LEN => 32
+    static MANUFACTURER_LEN => 32
 
     /**
      * This constant defines the maximum string size of the <b>model</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_interface_caps">MBN_INTERFACE_CAPS</a> structure.
+     * Native name: MBN_MODEL_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_MODEL_LEN => 32
+    static MODEL_LEN => 32
 
     /**
      * This constant defines the maximum string size of the <b>firmwareInfo</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_interface_caps">MBN_INTERFACE_CAPS</a> structure.
+     * Native name: MBN_FIRMWARE_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_FIRMWARE_LEN => 32
+    static FIRMWARE_LEN => 32
 }

@@ -7,267 +7,320 @@
 class HAL_QUERY_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: HalInstalledBusInformation
      * @type {Integer (Int32)}
      */
-    static HalInstalledBusInformation => 0
+    static InstalledBusInformation => 0
 
     /**
+     * Native name: HalProfileSourceInformation
      * @type {Integer (Int32)}
      */
-    static HalProfileSourceInformation => 1
+    static ProfileSourceInformation => 1
 
     /**
+     * Native name: HalInformationClassUnused1
      * @type {Integer (Int32)}
      */
-    static HalInformationClassUnused1 => 2
+    static Unused1 => 2
 
     /**
+     * Native name: HalPowerInformation
      * @type {Integer (Int32)}
      */
-    static HalPowerInformation => 3
+    static PowerInformation => 3
 
     /**
+     * Native name: HalProcessorSpeedInformation
      * @type {Integer (Int32)}
      */
-    static HalProcessorSpeedInformation => 4
+    static ProcessorSpeedInformation => 4
 
     /**
+     * Native name: HalCallbackInformation
      * @type {Integer (Int32)}
      */
-    static HalCallbackInformation => 5
+    static CallbackInformation => 5
 
     /**
+     * Native name: HalMapRegisterInformation
      * @type {Integer (Int32)}
      */
-    static HalMapRegisterInformation => 6
+    static MapRegisterInformation => 6
 
     /**
+     * Native name: HalMcaLogInformation
      * @type {Integer (Int32)}
      */
-    static HalMcaLogInformation => 7
+    static McaLogInformation => 7
 
     /**
+     * Native name: HalFrameBufferCachingInformation
      * @type {Integer (Int32)}
      */
-    static HalFrameBufferCachingInformation => 8
+    static FrameBufferCachingInformation => 8
 
     /**
+     * Native name: HalDisplayBiosInformation
      * @type {Integer (Int32)}
      */
-    static HalDisplayBiosInformation => 9
+    static DisplayBiosInformation => 9
 
     /**
+     * Native name: HalProcessorFeatureInformation
      * @type {Integer (Int32)}
      */
-    static HalProcessorFeatureInformation => 10
+    static ProcessorFeatureInformation => 10
 
     /**
+     * Native name: HalNumaTopologyInterface
      * @type {Integer (Int32)}
      */
-    static HalNumaTopologyInterface => 11
+    static NumaTopologyInterface => 11
 
     /**
+     * Native name: HalErrorInformation
      * @type {Integer (Int32)}
      */
-    static HalErrorInformation => 12
+    static ErrorInformation => 12
 
     /**
+     * Native name: HalCmcLogInformation
      * @type {Integer (Int32)}
      */
-    static HalCmcLogInformation => 13
+    static CmcLogInformation => 13
 
     /**
+     * Native name: HalCpeLogInformation
      * @type {Integer (Int32)}
      */
-    static HalCpeLogInformation => 14
+    static CpeLogInformation => 14
 
     /**
+     * Native name: HalQueryMcaInterface
      * @type {Integer (Int32)}
      */
-    static HalQueryMcaInterface => 15
+    static McaInterface => 15
 
     /**
+     * Native name: HalQueryAMLIIllegalIOPortAddresses
      * @type {Integer (Int32)}
      */
-    static HalQueryAMLIIllegalIOPortAddresses => 16
+    static QueryAMLIIllegalIOPortAddresses => 16
 
     /**
+     * Native name: HalQueryMaxHotPlugMemoryAddress
      * @type {Integer (Int32)}
      */
-    static HalQueryMaxHotPlugMemoryAddress => 17
+    static MaxHotPlugMemoryAddress => 17
 
     /**
+     * Native name: HalPartitionIpiInterface
      * @type {Integer (Int32)}
      */
-    static HalPartitionIpiInterface => 18
+    static PartitionIpiInterface => 18
 
     /**
+     * Native name: HalPlatformInformation
      * @type {Integer (Int32)}
      */
-    static HalPlatformInformation => 19
+    static PlatformInformation => 19
 
     /**
+     * Native name: HalQueryProfileSourceList
      * @type {Integer (Int32)}
      */
-    static HalQueryProfileSourceList => 20
+    static ProfileSourceList => 20
 
     /**
+     * Native name: HalInitLogInformation
      * @type {Integer (Int32)}
      */
-    static HalInitLogInformation => 21
+    static InitLogInformation => 21
 
     /**
+     * Native name: HalFrequencyInformation
      * @type {Integer (Int32)}
      */
-    static HalFrequencyInformation => 22
+    static FrequencyInformation => 22
 
     /**
+     * Native name: HalProcessorBrandString
      * @type {Integer (Int32)}
      */
-    static HalProcessorBrandString => 23
+    static ProcessorBrandString => 23
 
     /**
+     * Native name: HalHypervisorInformation
      * @type {Integer (Int32)}
      */
-    static HalHypervisorInformation => 24
+    static HypervisorInformation => 24
 
     /**
+     * Native name: HalPlatformTimerInformation
      * @type {Integer (Int32)}
      */
-    static HalPlatformTimerInformation => 25
+    static PlatformTimerInformation => 25
 
     /**
+     * Native name: HalAcpiAuditInformation
      * @type {Integer (Int32)}
      */
-    static HalAcpiAuditInformation => 26
+    static AcpiAuditInformation => 26
 
     /**
+     * Native name: HalIrtInformation
      * @type {Integer (Int32)}
      */
-    static HalIrtInformation => 27
+    static IrtInformation => 27
 
     /**
+     * Native name: HalSecondaryInterruptInformation
      * @type {Integer (Int32)}
      */
-    static HalSecondaryInterruptInformation => 28
+    static SecondaryInterruptInformation => 28
 
     /**
+     * Native name: HalParkingPageInformation
      * @type {Integer (Int32)}
      */
-    static HalParkingPageInformation => 29
+    static ParkingPageInformation => 29
 
     /**
+     * Native name: HalNumaRangeTableInformation
      * @type {Integer (Int32)}
      */
-    static HalNumaRangeTableInformation => 30
+    static NumaRangeTableInformation => 30
 
     /**
+     * Native name: HalChannelTopologyInformation
      * @type {Integer (Int32)}
      */
-    static HalChannelTopologyInformation => 31
+    static ChannelTopologyInformation => 31
 
     /**
+     * Native name: HalExternalCacheInformation
      * @type {Integer (Int32)}
      */
-    static HalExternalCacheInformation => 32
+    static ExternalCacheInformation => 32
 
     /**
+     * Native name: HalQueryDebuggerInformation
      * @type {Integer (Int32)}
      */
-    static HalQueryDebuggerInformation => 33
+    static DebuggerInformation => 33
 
     /**
+     * Native name: HalFwBootPerformanceInformation
      * @type {Integer (Int32)}
      */
-    static HalFwBootPerformanceInformation => 34
+    static FwBootPerformanceInformation => 34
 
     /**
+     * Native name: HalFwS3PerformanceInformation
      * @type {Integer (Int32)}
      */
-    static HalFwS3PerformanceInformation => 35
+    static FwS3PerformanceInformation => 35
 
     /**
+     * Native name: HalGetChannelPowerInformation
      * @type {Integer (Int32)}
      */
-    static HalGetChannelPowerInformation => 36
+    static GetChannelPowerInformation => 36
 
     /**
+     * Native name: HalQueryStateElementInformation
      * @type {Integer (Int32)}
      */
-    static HalQueryStateElementInformation => 37
+    static StateElementInformation => 37
 
     /**
+     * Native name: HalPsciInformation
      * @type {Integer (Int32)}
      */
-    static HalPsciInformation => 38
+    static PsciInformation => 38
 
     /**
+     * Native name: HalInterruptControllerInformation
      * @type {Integer (Int32)}
      */
-    static HalInterruptControllerInformation => 39
+    static InterruptControllerInformation => 39
 
     /**
+     * Native name: HalQueryIommuReservedRegionInformation
      * @type {Integer (Int32)}
      */
-    static HalQueryIommuReservedRegionInformation => 40
+    static IommuReservedRegionInformation => 40
 
     /**
+     * Native name: HalQueryArmErrataInformation
      * @type {Integer (Int32)}
      */
-    static HalQueryArmErrataInformation => 41
+    static ArmErrataInformation => 41
 
     /**
+     * Native name: HalQueryProcessorEfficiencyInformation
      * @type {Integer (Int32)}
      */
-    static HalQueryProcessorEfficiencyInformation => 42
+    static ProcessorEfficiencyInformation => 42
 
     /**
+     * Native name: HalQueryAcpiWakeAlarmSystemPowerStateInformation
      * @type {Integer (Int32)}
      */
-    static HalQueryAcpiWakeAlarmSystemPowerStateInformation => 43
+    static AcpiWakeAlarmSystemPowerStateInformation => 43
 
     /**
+     * Native name: HalQueryProfileNumberOfCounters
      * @type {Integer (Int32)}
      */
-    static HalQueryProfileNumberOfCounters => 44
+    static ProfileNumberOfCounters => 44
 
     /**
+     * Native name: HalQueryHyperlaunchEntrypoint
      * @type {Integer (Int32)}
      */
-    static HalQueryHyperlaunchEntrypoint => 45
+    static HyperlaunchEntrypoint => 45
 
     /**
+     * Native name: HalHardwareWatchdogInformation
      * @type {Integer (Int32)}
      */
-    static HalHardwareWatchdogInformation => 46
+    static HardwareWatchdogInformation => 46
 
     /**
+     * Native name: HalDmaRemappingInformation
      * @type {Integer (Int32)}
      */
-    static HalDmaRemappingInformation => 47
+    static DmaRemappingInformation => 47
 
     /**
+     * Native name: HalQueryUnused0001
      * @type {Integer (Int32)}
      */
-    static HalQueryUnused0001 => 48
+    static Unused0001 => 48
 
     /**
+     * Native name: HalHeterogeneousMemoryAttributesInterface
      * @type {Integer (Int32)}
      */
-    static HalHeterogeneousMemoryAttributesInterface => 49
+    static HeterogeneousMemoryAttributesInterface => 49
 
     /**
+     * Native name: HalQueryPerDeviceMsiLimitInformation
      * @type {Integer (Int32)}
      */
-    static HalQueryPerDeviceMsiLimitInformation => 50
+    static PerDeviceMsiLimitInformation => 50
 
     /**
+     * Native name: HalQueryProfileCorruptionStatus
      * @type {Integer (Int32)}
      */
-    static HalQueryProfileCorruptionStatus => 51
+    static ProfileCorruptionStatus => 51
 
     /**
+     * Native name: HalQueryProfileCounterOwnership
      * @type {Integer (Int32)}
      */
-    static HalQueryProfileCounterOwnership => 52
+    static ProfileCounterOwnership => 52
 }

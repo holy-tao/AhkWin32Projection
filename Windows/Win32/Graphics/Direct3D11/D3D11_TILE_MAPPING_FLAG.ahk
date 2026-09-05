@@ -10,7 +10,8 @@ class D3D11_TILE_MAPPING_FLAG extends Win32Enum {
 
     /**
      * Indicates that no overwriting of tiles occurs in the tile-mapping operation.
+     * Native name: D3D11_TILE_MAPPING_NO_OVERWRITE
      * @type {Integer (Int32)}
      */
-    static D3D11_TILE_MAPPING_NO_OVERWRITE => 1
+    static NO_OVERWRITE => 1
 }

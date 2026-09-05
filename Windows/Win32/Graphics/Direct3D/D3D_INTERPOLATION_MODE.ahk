@@ -10,49 +10,57 @@ class D3D_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * The interpolation mode is undefined.
+     * Native name: D3D_INTERPOLATION_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * Don't interpolate between register values.
+     * Native name: D3D_INTERPOLATION_CONSTANT
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_CONSTANT => 1
+    static CONSTANT => 1
 
     /**
      * Interpolate linearly between register values.
+     * Native name: D3D_INTERPOLATION_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_LINEAR => 2
+    static LINEAR => 2
 
     /**
      * Interpolate linearly between register values but centroid clamped when multisampling.
+     * Native name: D3D_INTERPOLATION_LINEAR_CENTROID
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_LINEAR_CENTROID => 3
+    static LINEAR_CENTROID => 3
 
     /**
      * Interpolate linearly between register values but with no perspective correction.
+     * Native name: D3D_INTERPOLATION_LINEAR_NOPERSPECTIVE
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_LINEAR_NOPERSPECTIVE => 4
+    static LINEAR_NOPERSPECTIVE => 4
 
     /**
      * Interpolate linearly between register values but with no perspective correction and centroid clamped when multisampling.
+     * Native name: D3D_INTERPOLATION_LINEAR_NOPERSPECTIVE_CENTROID
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_LINEAR_NOPERSPECTIVE_CENTROID => 5
+    static LINEAR_NOPERSPECTIVE_CENTROID => 5
 
     /**
      * Interpolate linearly between register values but sample clamped when multisampling.
+     * Native name: D3D_INTERPOLATION_LINEAR_SAMPLE
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_LINEAR_SAMPLE => 6
+    static LINEAR_SAMPLE => 6
 
     /**
      * Interpolate linearly between register values but with no perspective correction and sample clamped when multisampling.
+     * Native name: D3D_INTERPOLATION_LINEAR_NOPERSPECTIVE_SAMPLE
      * @type {Integer (Int32)}
      */
-    static D3D_INTERPOLATION_LINEAR_NOPERSPECTIVE_SAMPLE => 7
+    static LINEAR_NOPERSPECTIVE_SAMPLE => 7
 }

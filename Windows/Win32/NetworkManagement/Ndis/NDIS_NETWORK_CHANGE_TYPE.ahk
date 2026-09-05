@@ -7,22 +7,26 @@
 class NDIS_NETWORK_CHANGE_TYPE extends Win32Enum {
 
     /**
+     * Native name: NdisPossibleNetworkChange
      * @type {Integer (Int32)}
      */
-    static NdisPossibleNetworkChange => 1
+    static PossibleNetworkChange => 1
 
     /**
+     * Native name: NdisDefinitelyNetworkChange
      * @type {Integer (Int32)}
      */
-    static NdisDefinitelyNetworkChange => 2
+    static DefinitelyNetworkChange => 2
 
     /**
+     * Native name: NdisNetworkChangeFromMediaConnect
      * @type {Integer (Int32)}
      */
-    static NdisNetworkChangeFromMediaConnect => 3
+    static FromMediaConnect => 3
 
     /**
+     * Native name: NdisNetworkChangeMax
      * @type {Integer (Int32)}
      */
-    static NdisNetworkChangeMax => 4
+    static Max => 4
 }

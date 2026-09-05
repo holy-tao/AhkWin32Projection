@@ -7,17 +7,20 @@
 class DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE extends Win32Enum {
 
     /**
+     * Native name: DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_NONE
      * @type {Integer (Int32)}
      */
-    static DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_FRAME0
      * @type {Integer (Int32)}
      */
-    static DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_FRAME0 => 1
+    static FRAME0 => 1
 
     /**
+     * Native name: DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_FRAME1
      * @type {Integer (Int32)}
      */
-    static DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_FRAME1 => 2
+    static FRAME1 => 2
 }

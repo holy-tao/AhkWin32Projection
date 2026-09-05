@@ -37,7 +37,6 @@ class IHTMLFramesCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarIndex 
      * @returns {VARIANT} 
      */
@@ -48,7 +47,6 @@ class IHTMLFramesCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {

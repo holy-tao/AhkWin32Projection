@@ -36,7 +36,6 @@ class IMSMQTransactionDispenser extends IDispatch {
     static VTableNames => ["BeginTransaction"]
 
     /**
-     * 
      * @returns {IMSMQTransaction} 
      */
     BeginTransaction() {

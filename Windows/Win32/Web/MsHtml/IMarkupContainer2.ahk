@@ -34,7 +34,6 @@ class IMarkupContainer2 extends IMarkupContainer {
     static VTableNames => ["CreateChangeLog", "RegisterForDirtyRange", "UnRegisterForDirtyRange", "GetAndClearDirtyRange", "GetVersionNumber", "GetMasterElement"]
 
     /**
-     * 
      * @param {IHTMLChangeSink} pChangeSink 
      * @param {BOOL} fForward 
      * @param {BOOL} fBackward 
@@ -46,7 +45,6 @@ class IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @param {IHTMLChangeSink} pChangeSink 
      * @returns {Integer} 
      */
@@ -56,7 +54,6 @@ class IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @param {IMarkupPointer} pIPointerBegin 
      * @param {IMarkupPointer} pIPointerEnd 
@@ -78,7 +74,6 @@ class IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVersionNumber() {
@@ -87,7 +82,6 @@ class IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetMasterElement() {

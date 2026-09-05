@@ -10,13 +10,15 @@ class DML_AXIS_DIRECTION extends Win32Enum {
 
     /**
      * Specifies increasing order (from the low index to the high index).
+     * Native name: DML_AXIS_DIRECTION_INCREASING
      * @type {Integer (Int32)}
      */
-    static DML_AXIS_DIRECTION_INCREASING => 0
+    static INCREASING => 0
 
     /**
      * Specifies decreasing order (from the high index to the low index).
+     * Native name: DML_AXIS_DIRECTION_DECREASING
      * @type {Integer (Int32)}
      */
-    static DML_AXIS_DIRECTION_DECREASING => 1
+    static DECREASING => 1
 }

@@ -7,12 +7,14 @@
 class D3D12_TEXTURE_BARRIER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_TEXTURE_BARRIER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_BARRIER_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: D3D12_TEXTURE_BARRIER_FLAG_DISCARD
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_BARRIER_FLAG_DISCARD => 1
+    static FLAG_DISCARD => 1
 }

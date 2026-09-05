@@ -7,27 +7,32 @@
 class URL_CACHE_LIMIT_TYPE extends Win32Enum {
 
     /**
+     * Native name: UrlCacheLimitTypeIE
      * @type {Integer (Int32)}
      */
-    static UrlCacheLimitTypeIE => 0
+    static TypeIE => 0
 
     /**
+     * Native name: UrlCacheLimitTypeIETotal
      * @type {Integer (Int32)}
      */
-    static UrlCacheLimitTypeIETotal => 1
+    static TypeIETotal => 1
 
     /**
+     * Native name: UrlCacheLimitTypeAppContainer
      * @type {Integer (Int32)}
      */
-    static UrlCacheLimitTypeAppContainer => 2
+    static AppContainer => 2
 
     /**
+     * Native name: UrlCacheLimitTypeAppContainerTotal
      * @type {Integer (Int32)}
      */
-    static UrlCacheLimitTypeAppContainerTotal => 3
+    static AppContainerTotal => 3
 
     /**
+     * Native name: UrlCacheLimitTypeNum
      * @type {Integer (Int32)}
      */
-    static UrlCacheLimitTypeNum => 4
+    static Num => 4
 }

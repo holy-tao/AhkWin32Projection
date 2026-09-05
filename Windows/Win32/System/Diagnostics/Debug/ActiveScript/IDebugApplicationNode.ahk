@@ -30,7 +30,6 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     static VTableNames => ["EnumChildren", "GetParent", "SetDocumentProvider", "Close", "Attach", "Detach"]
 
     /**
-     * 
      * @returns {IEnumDebugApplicationNodes} 
      */
     EnumChildren() {
@@ -51,7 +50,6 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @param {IDebugDocumentProvider} pddp 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -70,7 +67,6 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} pdanParent 
      * @returns {HRESULT} 
      */
@@ -80,7 +76,6 @@ class IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {

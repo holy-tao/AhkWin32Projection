@@ -10,37 +10,43 @@ class OFFLINEFILES_COMPARE extends Win32Enum {
 
     /**
      * Check whether the item value is equal to the filter value.
+     * Native name: OFFLINEFILES_COMPARE_EQ
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_COMPARE_EQ => 0
+    static EQ => 0
 
     /**
      * Check whether the item value is not equal to the filter value.
+     * Native name: OFFLINEFILES_COMPARE_NEQ
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_COMPARE_NEQ => 1
+    static NEQ => 1
 
     /**
      * Check whether the item value is less than the filter value.
+     * Native name: OFFLINEFILES_COMPARE_LT
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_COMPARE_LT => 2
+    static LT => 2
 
     /**
      * Check whether the item value is greater than the filter value.
+     * Native name: OFFLINEFILES_COMPARE_GT
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_COMPARE_GT => 3
+    static GT => 3
 
     /**
      * Check whether the item value is less than or equal to the filter value.
+     * Native name: OFFLINEFILES_COMPARE_LTE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_COMPARE_LTE => 4
+    static LTE => 4
 
     /**
      * Check whether the item value is greater than or equal to the filter value.
+     * Native name: OFFLINEFILES_COMPARE_GTE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_COMPARE_GTE => 5
+    static GTE => 5
 }

@@ -29,7 +29,6 @@ class IDebugDocumentTextEvents extends IUnknown {
     static VTableNames => ["onDestroy", "onInsertText", "onRemoveText", "onReplaceText", "onUpdateTextAttributes", "onUpdateDocumentAttributes"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onDestroy() {
@@ -38,7 +37,6 @@ class IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToInsert 
      * @returns {HRESULT} 
@@ -49,7 +47,6 @@ class IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToRemove 
      * @returns {HRESULT} 
@@ -60,7 +57,6 @@ class IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToReplace 
      * @returns {HRESULT} 
@@ -71,7 +67,6 @@ class IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToUpdate 
      * @returns {HRESULT} 
@@ -82,7 +77,6 @@ class IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} textdocattr 
      * @returns {HRESULT} 
      */

@@ -20,13 +20,15 @@ class AUDCLNT_SHAREMODE extends Win32Enum {
 
     /**
      * The audio stream will run in shared mode. For more information, see Remarks.
+     * Native name: AUDCLNT_SHAREMODE_SHARED
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_SHAREMODE_SHARED => 0
+    static SHARED => 0
 
     /**
      * The audio stream will run in exclusive mode. For more information, see Remarks.
+     * Native name: AUDCLNT_SHAREMODE_EXCLUSIVE
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_SHAREMODE_EXCLUSIVE => 1
+    static EXCLUSIVE => 1
 }

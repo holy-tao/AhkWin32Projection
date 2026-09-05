@@ -10,13 +10,15 @@ class AppPolicyShowDeveloperDiagnostic extends Win32Enum {
 
     /**
      * Indicates that the process does not show developer diagnostics. This value is expected for a UWP app.
+     * Native name: AppPolicyShowDeveloperDiagnostic_None
      * @type {Integer (Int32)}
      */
-    static AppPolicyShowDeveloperDiagnostic_None => 0
+    static None => 0
 
     /**
      * Indicates that the process shows developer diagnostics UI. This value is expected for a desktop application, or for a Desktop Bridge application.
+     * Native name: AppPolicyShowDeveloperDiagnostic_ShowUI
      * @type {Integer (Int32)}
      */
-    static AppPolicyShowDeveloperDiagnostic_ShowUI => 1
+    static ShowUI => 1
 }

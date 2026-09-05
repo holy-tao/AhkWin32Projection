@@ -7,22 +7,26 @@
 class styleMsAnimationPlayState extends Win32Enum {
 
     /**
+     * Native name: styleMsAnimationPlayStateRunning
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationPlayStateRunning => 0
+    static Running => 0
 
     /**
+     * Native name: styleMsAnimationPlayStatePaused
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationPlayStatePaused => 1
+    static Paused => 1
 
     /**
+     * Native name: styleMsAnimationPlayStateNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationPlayStateNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleMsAnimationPlayState_Max
      * @type {Integer (Int32)}
      */
-    static styleMsAnimationPlayState_Max => 2147483647
+    static Max => 2147483647
 }

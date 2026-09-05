@@ -12,19 +12,22 @@ class ETW_PROVIDER_TRAIT_TYPE extends Win32Enum {
 
     /**
      * ETW Provider trait group.
+     * Native name: EtwProviderTraitTypeGroup
      * @type {Integer (Int32)}
      */
-    static EtwProviderTraitTypeGroup => 1
+    static Group => 1
 
     /**
      * ETW Provider trait decode GUID.
+     * Native name: EtwProviderTraitDecodeGuid
      * @type {Integer (Int32)}
      */
-    static EtwProviderTraitDecodeGuid => 2
+    static DecodeGuid => 2
 
     /**
      * ETW Provider trait type maximum.
+     * Native name: EtwProviderTraitTypeMax
      * @type {Integer (Int32)}
      */
-    static EtwProviderTraitTypeMax => 3
+    static Max => 3
 }

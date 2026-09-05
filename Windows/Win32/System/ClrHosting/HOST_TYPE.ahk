@@ -7,17 +7,20 @@
 class HOST_TYPE extends Win32Enum {
 
     /**
+     * Native name: HOST_TYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static HOST_TYPE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: HOST_TYPE_APPLAUNCH
      * @type {Integer (Int32)}
      */
-    static HOST_TYPE_APPLAUNCH => 1
+    static APPLAUNCH => 1
 
     /**
+     * Native name: HOST_TYPE_CORFLAG
      * @type {Integer (Int32)}
      */
-    static HOST_TYPE_CORFLAG => 2
+    static CORFLAG => 2
 }

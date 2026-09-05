@@ -7,37 +7,44 @@
 class ICM_COMMAND extends Win32Enum {
 
     /**
+     * Native name: ICM_ADDPROFILE
      * @type {Integer (UInt32)}
      */
-    static ICM_ADDPROFILE => 1
+    static ADDPROFILE => 1
 
     /**
+     * Native name: ICM_DELETEPROFILE
      * @type {Integer (UInt32)}
      */
-    static ICM_DELETEPROFILE => 2
+    static DELETEPROFILE => 2
 
     /**
+     * Native name: ICM_QUERYPROFILE
      * @type {Integer (UInt32)}
      */
-    static ICM_QUERYPROFILE => 3
+    static QUERYPROFILE => 3
 
     /**
+     * Native name: ICM_SETDEFAULTPROFILE
      * @type {Integer (UInt32)}
      */
-    static ICM_SETDEFAULTPROFILE => 4
+    static SETDEFAULTPROFILE => 4
 
     /**
+     * Native name: ICM_REGISTERICMATCHER
      * @type {Integer (UInt32)}
      */
-    static ICM_REGISTERICMATCHER => 5
+    static REGISTERICMATCHER => 5
 
     /**
+     * Native name: ICM_UNREGISTERICMATCHER
      * @type {Integer (UInt32)}
      */
-    static ICM_UNREGISTERICMATCHER => 6
+    static UNREGISTERICMATCHER => 6
 
     /**
+     * Native name: ICM_QUERYMATCH
      * @type {Integer (UInt32)}
      */
-    static ICM_QUERYMATCH => 7
+    static QUERYMATCH => 7
 }

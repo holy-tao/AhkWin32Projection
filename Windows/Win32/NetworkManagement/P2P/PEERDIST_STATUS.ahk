@@ -10,19 +10,22 @@ class PEERDIST_STATUS extends Win32Enum {
 
     /**
      * The service is disabled by Group Policy or according to configuration parameters.
+     * Native name: PEERDIST_STATUS_DISABLED
      * @type {Integer (Int32)}
      */
-    static PEERDIST_STATUS_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * The service is not ready to process the request.
+     * Native name: PEERDIST_STATUS_UNAVAILABLE
      * @type {Integer (Int32)}
      */
-    static PEERDIST_STATUS_UNAVAILABLE => 1
+    static UNAVAILABLE => 1
 
     /**
      * The Peer Distribution service  is available and ready to process  requests.
+     * Native name: PEERDIST_STATUS_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static PEERDIST_STATUS_AVAILABLE => 2
+    static AVAILABLE => 2
 }

@@ -11,26 +11,30 @@ class VSS_ALTERNATE_WRITER_STATE extends Win32Enum {
     /**
      * No information is available as to the existence of an alternate writer. This value indicates an application 
      *       error. This enumeration value is reserved for future use.
+     * Native name: VSS_AWS_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_AWS_UNDEFINED => 0
+    static AWS_UNDEFINED => 0
 
     /**
      * A given writer does not have an alternate writer.
+     * Native name: VSS_AWS_NO_ALTERNATE_WRITER
      * @type {Integer (Int32)}
      */
-    static VSS_AWS_NO_ALTERNATE_WRITER => 1
+    static AWS_NO_ALTERNATE_WRITER => 1
 
     /**
      * An alternate writer exists. This alternate writer runs when the writer is not available. This enumeration 
      *       value is reserved for future use.
+     * Native name: VSS_AWS_ALTERNATE_WRITER_EXISTS
      * @type {Integer (Int32)}
      */
-    static VSS_AWS_ALTERNATE_WRITER_EXISTS => 2
+    static AWS_ALTERNATE_WRITER_EXISTS => 2
 
     /**
      * The writer in question is an alternate writer. This enumeration value is reserved for future use.
+     * Native name: VSS_AWS_THIS_IS_ALTERNATE_WRITER
      * @type {Integer (Int32)}
      */
-    static VSS_AWS_THIS_IS_ALTERNATE_WRITER => 3
+    static AWS_THIS_IS_ALTERNATE_WRITER => 3
 }

@@ -7,17 +7,20 @@
 class DISPID_InkDivisionUnits extends Win32Enum {
 
     /**
+     * Native name: DISPID_IInkDivisionUnits_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivisionUnits_NewEnum => -4
+    static IInkDivisionUnits_NewEnum => -4
 
     /**
+     * Native name: DISPID_IInkDivisionUnits_Item
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivisionUnits_Item => 0
+    static IInkDivisionUnits_Item => 0
 
     /**
+     * Native name: DISPID_IInkDivisionUnits_Count
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivisionUnits_Count => 1
+    static IInkDivisionUnits_Count => 1
 }

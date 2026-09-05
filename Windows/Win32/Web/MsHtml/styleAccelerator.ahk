@@ -7,17 +7,20 @@
 class styleAccelerator extends Win32Enum {
 
     /**
+     * Native name: styleAcceleratorFalse
      * @type {Integer (Int32)}
      */
-    static styleAcceleratorFalse => 0
+    static False => 0
 
     /**
+     * Native name: styleAcceleratorTrue
      * @type {Integer (Int32)}
      */
-    static styleAcceleratorTrue => 1
+    static True => 1
 
     /**
+     * Native name: styleAccelerator_Max
      * @type {Integer (Int32)}
      */
-    static styleAccelerator_Max => 2147483647
+    static Max => 2147483647
 }

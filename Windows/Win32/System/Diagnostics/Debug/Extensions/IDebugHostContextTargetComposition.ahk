@@ -32,7 +32,6 @@ class IDebugHostContextTargetComposition extends IUnknown {
     static VTableNames => ["GetServiceManager", "GetServiceProcess", "GetServiceThread"]
 
     /**
-     * 
      * @returns {Pointer<IDebugServiceManager>} 
      */
     GetServiceManager() {
@@ -41,7 +40,6 @@ class IDebugHostContextTargetComposition extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ISvcProcess>} 
      */
     GetServiceProcess() {
@@ -50,7 +48,6 @@ class IDebugHostContextTargetComposition extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ISvcThread>} 
      */
     GetServiceThread() {

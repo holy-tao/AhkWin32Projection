@@ -16,97 +16,112 @@ class WLAN_HOSTED_NETWORK_REASON extends Win32Enum {
 
     /**
      * The operation was successful.
+     * Native name: wlan_hosted_network_reason_success
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_success => 0
+    static success => 0
 
     /**
      * Unknown error.
+     * Native name: wlan_hosted_network_reason_unspecified
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_unspecified => 1
+    static unspecified => 1
 
     /**
      * Bad parameters.
      * 
      * For example, this reason code is returned if an application failed to reference the client context from the correct handle (the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function).
+     * Native name: wlan_hosted_network_reason_bad_parameters
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_bad_parameters => 2
+    static bad_parameters => 2
 
     /**
      * Service is shutting down.
+     * Native name: wlan_hosted_network_reason_service_shutting_down
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_service_shutting_down => 3
+    static service_shutting_down => 3
 
     /**
      * Service is out of resources.
+     * Native name: wlan_hosted_network_reason_insufficient_resources
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_insufficient_resources => 4
+    static insufficient_resources => 4
 
     /**
      * This operation requires elevation.
+     * Native name: wlan_hosted_network_reason_elevation_required
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_elevation_required => 5
+    static elevation_required => 5
 
     /**
      * An attempt was made to write read-only data.
+     * Native name: wlan_hosted_network_reason_read_only
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_read_only => 6
+    static read_only => 6
 
     /**
      * Data persistence failed.
+     * Native name: wlan_hosted_network_reason_persistence_failed
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_persistence_failed => 7
+    static persistence_failed => 7
 
     /**
      * A cryptographic error occurred.
+     * Native name: wlan_hosted_network_reason_crypt_error
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_crypt_error => 8
+    static crypt_error => 8
 
     /**
      * User impersonation failed.
+     * Native name: wlan_hosted_network_reason_impersonation
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_impersonation => 9
+    static impersonation => 9
 
     /**
      * An incorrect function call sequence was made.
+     * Native name: wlan_hosted_network_reason_stop_before_start
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_stop_before_start => 10
+    static stop_before_start => 10
 
     /**
      * A wireless interface has become available.
+     * Native name: wlan_hosted_network_reason_interface_available
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_interface_available => 11
+    static interface_available => 11
 
     /**
      * A wireless interface has become unavailable.
      * 
      * This reason code is returned by the wireless Hosted Network functions any time the network state of the wireless Hosted Network is <b>wlan_hosted_network_unavailable</b>. For example if the wireless Hosted Network is disabled by group policy on a domain, then the  network state of the wireless Hosted Network is <b>wlan_hosted_network_unavailable</b>. In this case, any calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkstartusing">WlanHostedNetworkStartUsing</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestart">WlanHostedNetworkForceStart</a> function  would return this reason code.
+     * Native name: wlan_hosted_network_reason_interface_unavailable
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_interface_unavailable => 12
+    static interface_unavailable => 12
 
     /**
      * The wireless miniport driver stopped the Hosted Network.
+     * Native name: wlan_hosted_network_reason_miniport_stopped
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_miniport_stopped => 13
+    static miniport_stopped => 13
 
     /**
      * The wireless miniport driver status changed.
+     * Native name: wlan_hosted_network_reason_miniport_started
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_miniport_started => 14
+    static miniport_started => 14
 
     /**
      * An incompatible connection started.
@@ -120,87 +135,101 @@ class WLAN_HOSTED_NETWORK_REASON extends Win32Enum {
      * 
      * 
      * Windows will stop the wireless Hosted Network on  the software-based wireless access point (AP) adapter when an incompatible connection starts on the primary station adapter. The network state of the wireless Hosted Network state would become <b>wlan_hosted_network_unavailable</b>.
+     * Native name: wlan_hosted_network_reason_incompatible_connection_started
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_incompatible_connection_started => 15
+    static incompatible_connection_started => 15
 
     /**
      * An incompatible connection stopped.
      * 
      * An incompatible connection previously started on the primary station adapter (wlan_hosted_network_reason_incompatible_connection_started), but the incompatible connection has stopped. If the wireless Hosted Network was previously stopped as a result of an incompatible connection being started, Windows will not automatically restart the wireless Hosted Network. Applications can restart the wireless Hosted Network on the AP adapter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkstartusing">WlanHostedNetworkStartUsing</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestart">WlanHostedNetworkForceStart</a> function.
+     * Native name: wlan_hosted_network_reason_incompatible_connection_stopped
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_incompatible_connection_stopped => 16
+    static incompatible_connection_stopped => 16
 
     /**
      * A state change occurred that was caused by explicit user action.
+     * Native name: wlan_hosted_network_reason_user_action
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_user_action => 17
+    static user_action => 17
 
     /**
      * A state change occurred that was caused by client abort.
+     * Native name: wlan_hosted_network_reason_client_abort
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_client_abort => 18
+    static client_abort => 18
 
     /**
      * The driver for the wireless Hosted Network failed to start.
+     * Native name: wlan_hosted_network_reason_ap_start_failed
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_ap_start_failed => 19
+    static ap_start_failed => 19
 
     /**
      * A peer connected to the wireless Hosted Network.
+     * Native name: wlan_hosted_network_reason_peer_arrived
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_peer_arrived => 20
+    static peer_arrived => 20
 
     /**
      * A peer disconnected from the wireless Hosted Network.
+     * Native name: wlan_hosted_network_reason_peer_departed
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_peer_departed => 21
+    static peer_departed => 21
 
     /**
      * A peer timed out.
+     * Native name: wlan_hosted_network_reason_peer_timeout
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_peer_timeout => 22
+    static peer_timeout => 22
 
     /**
      * The operation was denied by group policy.
+     * Native name: wlan_hosted_network_reason_gp_denied
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_gp_denied => 23
+    static gp_denied => 23
 
     /**
      * The Wireless LAN service is not running.
+     * Native name: wlan_hosted_network_reason_service_unavailable
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_service_unavailable => 24
+    static service_unavailable => 24
 
     /**
      * The wireless adapter used by the wireless Hosted Network changed.
+     * Native name: wlan_hosted_network_reason_device_change
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_device_change => 25
+    static device_change => 25
 
     /**
      * The properties of the wireless Hosted Network changed.
+     * Native name: wlan_hosted_network_reason_properties_change
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_properties_change => 26
+    static properties_change => 26
 
     /**
      * A virtual station is active and blocking operation.
+     * Native name: wlan_hosted_network_reason_virtual_station_blocking_use
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_virtual_station_blocking_use => 27
+    static virtual_station_blocking_use => 27
 
     /**
      * An identical service is available on a virtual station.
+     * Native name: wlan_hosted_network_reason_service_available_on_virtual_station
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_reason_service_available_on_virtual_station => 28
+    static service_available_on_virtual_station => 28
 }

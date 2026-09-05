@@ -33,7 +33,6 @@ class IDxcOptimizer extends IUnknown {
     static VTableNames => ["GetAvailablePassCount", "GetAvailablePass", "RunOptimizer"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAvailablePassCount() {
@@ -42,7 +41,6 @@ class IDxcOptimizer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDxcOptimizerPass} 
      */
@@ -52,7 +50,6 @@ class IDxcOptimizer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @param {Pointer<PWSTR>} ppOptions 
      * @param {Integer} optionCount 

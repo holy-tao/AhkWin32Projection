@@ -10,13 +10,15 @@ class D2D1_INK_NIB_SHAPE extends Win32Enum {
 
     /**
      * The pen tip is circular.
+     * Native name: D2D1_INK_NIB_SHAPE_ROUND
      * @type {Integer (Int32)}
      */
-    static D2D1_INK_NIB_SHAPE_ROUND => 0
+    static ROUND => 0
 
     /**
      * The pen tip is square.
+     * Native name: D2D1_INK_NIB_SHAPE_SQUARE
      * @type {Integer (Int32)}
      */
-    static D2D1_INK_NIB_SHAPE_SQUARE => 1
+    static SQUARE => 1
 }

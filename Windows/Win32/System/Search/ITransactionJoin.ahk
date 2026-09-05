@@ -30,7 +30,6 @@ class ITransactionJoin extends IUnknown {
     static VTableNames => ["GetOptionsObject", "JoinTransaction"]
 
     /**
-     * 
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
@@ -39,7 +38,6 @@ class ITransactionJoin extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkTransactionCoord 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 

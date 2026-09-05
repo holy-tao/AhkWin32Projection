@@ -68,9 +68,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      * This indicates an error on the part of the writer.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_RME_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_RME_UNDEFINED => 0
+    static RME_UNDEFINED => 0
 
     /**
      * The requester should restore the files of a selected component or component set only if there are no versions of 
@@ -84,9 +85,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      * If a file's alternate location mapping is defined, and a version of the files is present on disk at the 
      *        original location, files should be written to the alternate location only if no version of the file exists at 
      *        the alternate location.
+     * Native name: VSS_RME_RESTORE_IF_NOT_THERE
      * @type {Integer (Int32)}
      */
-    static VSS_RME_RESTORE_IF_NOT_THERE => 1
+    static RME_RESTORE_IF_NOT_THERE => 1
 
     /**
      * The requester should restore files of a selected component or component set only if the files currently on the disk can be overwritten. 
@@ -97,9 +99,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      *        component or component set should be restored.
      * 
      * If a file's alternate location mapping is defined, files should be written to the alternate location.
+     * Native name: VSS_RME_RESTORE_IF_CAN_REPLACE
      * @type {Integer (Int32)}
      */
-    static VSS_RME_RESTORE_IF_CAN_REPLACE => 2
+    static RME_RESTORE_IF_CAN_REPLACE => 2
 
     /**
      * The requester should perform the restore operation as follows:
@@ -114,9 +117,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      * The service to be stopped is specified the writer beforehand when it calls the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> method. The requester can obtain the name of the service by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getrestoremethod">IVssExamineWriterMetadata::GetRestoreMethod</a> method.
      * 
      * Note that if the writer is hosted in the service that is being stopped, that writer will not receive the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event, because the writer instance ID changes when the service is stopped and restarted.
+     * Native name: VSS_RME_STOP_RESTORE_START
      * @type {Integer (Int32)}
      */
-    static VSS_RME_STOP_RESTORE_START => 3
+    static RME_STOP_RESTORE_START => 3
 
     /**
      * The requester should restore the files of the selected component or component set to the location specified by the 
@@ -127,9 +131,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      *       and <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsswmfiledesc-getalternatelocation">IVssWMFiledesc::GetAlternateLocation</a>.)
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_RME_RESTORE_TO_ALTERNATE_LOCATION
      * @type {Integer (Int32)}
      */
-    static VSS_RME_RESTORE_TO_ALTERNATE_LOCATION => 4
+    static RME_RESTORE_TO_ALTERNATE_LOCATION => 4
 
     /**
      * The requester should restore the files of a selected component or component set after the computer is restarted. 
@@ -139,9 +144,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-movefileexa">MoveFileEx</a> with the 
      *        <b>MOVEFILE_DELAY_UNTIL_REBOOT</b> flag to complete the restoration of these files to their 
      *        proper location after the computer is restarted.
+     * Native name: VSS_RME_RESTORE_AT_REBOOT
      * @type {Integer (Int32)}
      */
-    static VSS_RME_RESTORE_AT_REBOOT => 5
+    static RME_RESTORE_AT_REBOOT => 5
 
     /**
      * If possible, the requester should restore the files of the selected component or component set to their correct 
@@ -156,9 +162,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      *        use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-movefileexa">MoveFileEx</a> with the 
      *        <b>MOVEFILE_DELAY_UNTIL_REBOOT</b> flag to complete the restoration of these files to their 
      *        proper location after the computer is restarted.
+     * Native name: VSS_RME_RESTORE_AT_REBOOT_IF_CANNOT_REPLACE
      * @type {Integer (Int32)}
      */
-    static VSS_RME_RESTORE_AT_REBOOT_IF_CANNOT_REPLACE => 6
+    static RME_RESTORE_AT_REBOOT_IF_CANNOT_REPLACE => 6
 
     /**
      * The requester should use a custom restore method to restore the files that are managed by the selected 
@@ -171,9 +178,10 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      *        information.)
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_RME_CUSTOM
      * @type {Integer (Int32)}
      */
-    static VSS_RME_CUSTOM => 7
+    static RME_CUSTOM => 7
 
     /**
      * The requester should perform the restore operation as follows:
@@ -186,7 +194,8 @@ class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
      * <li>Restart the service.</li>
      * </ol>
      * The service to be stopped is specified by the writer beforehand when it calls the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> method. The requester can obtain the name of the service by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getrestoremethod">IVssExamineWriterMetadata::GetRestoreMethod</a> method.
+     * Native name: VSS_RME_RESTORE_STOP_START
      * @type {Integer (Int32)}
      */
-    static VSS_RME_RESTORE_STOP_START => 8
+    static RME_RESTORE_STOP_START => 8
 }

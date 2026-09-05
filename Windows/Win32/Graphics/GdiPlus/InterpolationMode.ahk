@@ -7,47 +7,56 @@
 class InterpolationMode extends Win32Enum {
 
     /**
+     * Native name: InterpolationModeInvalid
      * @type {Integer (Int32)}
      */
-    static InterpolationModeInvalid => -1
+    static Invalid => -1
 
     /**
+     * Native name: InterpolationModeDefault
      * @type {Integer (Int32)}
      */
-    static InterpolationModeDefault => 0
+    static Default => 0
 
     /**
+     * Native name: InterpolationModeLowQuality
      * @type {Integer (Int32)}
      */
-    static InterpolationModeLowQuality => 1
+    static LowQuality => 1
 
     /**
+     * Native name: InterpolationModeHighQuality
      * @type {Integer (Int32)}
      */
-    static InterpolationModeHighQuality => 2
+    static HighQuality => 2
 
     /**
+     * Native name: InterpolationModeBilinear
      * @type {Integer (Int32)}
      */
-    static InterpolationModeBilinear => 3
+    static Bilinear => 3
 
     /**
+     * Native name: InterpolationModeBicubic
      * @type {Integer (Int32)}
      */
-    static InterpolationModeBicubic => 4
+    static Bicubic => 4
 
     /**
+     * Native name: InterpolationModeNearestNeighbor
      * @type {Integer (Int32)}
      */
-    static InterpolationModeNearestNeighbor => 5
+    static NearestNeighbor => 5
 
     /**
+     * Native name: InterpolationModeHighQualityBilinear
      * @type {Integer (Int32)}
      */
-    static InterpolationModeHighQualityBilinear => 6
+    static HighQualityBilinear => 6
 
     /**
+     * Native name: InterpolationModeHighQualityBicubic
      * @type {Integer (Int32)}
      */
-    static InterpolationModeHighQualityBicubic => 7
+    static HighQualityBicubic => 7
 }

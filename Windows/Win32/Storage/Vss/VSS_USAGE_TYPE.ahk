@@ -22,31 +22,36 @@ class VSS_USAGE_TYPE extends Win32Enum {
      *       
      * 
      * This indicates an error on the part of the writer.
+     * Native name: VSS_UT_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_UT_UNDEFINED => 0
+    static UT_UNDEFINED => 0
 
     /**
      * The data stored by the writer is part of the bootable system state.
+     * Native name: VSS_UT_BOOTABLESYSTEMSTATE
      * @type {Integer (Int32)}
      */
-    static VSS_UT_BOOTABLESYSTEMSTATE => 1
+    static UT_BOOTABLESYSTEMSTATE => 1
 
     /**
      * The writer either stores data used by a system service or is a system service itself.
+     * Native name: VSS_UT_SYSTEMSERVICE
      * @type {Integer (Int32)}
      */
-    static VSS_UT_SYSTEMSERVICE => 2
+    static UT_SYSTEMSERVICE => 2
 
     /**
      * The data is user data.
+     * Native name: VSS_UT_USERDATA
      * @type {Integer (Int32)}
      */
-    static VSS_UT_USERDATA => 3
+    static UT_USERDATA => 3
 
     /**
      * Unclassified data.
+     * Native name: VSS_UT_OTHER
      * @type {Integer (Int32)}
      */
-    static VSS_UT_OTHER => 4
+    static UT_OTHER => 4
 }

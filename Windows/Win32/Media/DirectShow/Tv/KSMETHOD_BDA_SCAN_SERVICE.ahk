@@ -7,32 +7,38 @@
 class KSMETHOD_BDA_SCAN_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_SCAN_CAPABILTIES
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_SCAN_CAPABILTIES => 0
+    static CAPABILTIES => 0
 
     /**
+     * Native name: KSMETHOD_BDA_SCANNING_STATE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_SCANNING_STATE => 1
+    static SCANNING_STATE => 1
 
     /**
+     * Native name: KSMETHOD_BDA_SCAN_FILTER
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_SCAN_FILTER => 2
+    static FILTER => 2
 
     /**
+     * Native name: KSMETHOD_BDA_SCAN_START
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_SCAN_START => 3
+    static START => 3
 
     /**
+     * Native name: KSMETHOD_BDA_SCAN_RESUME
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_SCAN_RESUME => 4
+    static RESUME => 4
 
     /**
+     * Native name: KSMETHOD_BDA_SCAN_STOP
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_SCAN_STOP => 5
+    static STOP => 5
 }

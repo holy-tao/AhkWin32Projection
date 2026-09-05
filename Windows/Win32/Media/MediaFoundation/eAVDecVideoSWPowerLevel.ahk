@@ -10,19 +10,22 @@ class eAVDecVideoSWPowerLevel extends Win32Enum {
 
     /**
      * Optimize for battery life.
+     * Native name: eAVDecVideoSWPowerLevel_BatteryLife
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoSWPowerLevel_BatteryLife => 0
+    static BatteryLife => 0
 
     /**
      * Balanced power-saving profile.
+     * Native name: eAVDecVideoSWPowerLevel_Balanced
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoSWPowerLevel_Balanced => 50
+    static Balanced => 50
 
     /**
      * Optimize for video quality.
+     * Native name: eAVDecVideoSWPowerLevel_VideoQuality
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoSWPowerLevel_VideoQuality => 100
+    static VideoQuality => 100
 }

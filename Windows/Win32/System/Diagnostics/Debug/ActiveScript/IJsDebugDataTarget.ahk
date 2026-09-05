@@ -32,7 +32,6 @@ class IJsDebugDataTarget extends IUnknown {
     static VTableNames => ["ReadMemory", "WriteMemory", "AllocateVirtualMemory", "FreeVirtualMemory", "GetTlsValue", "ReadBSTR", "ReadNullTerminatedString", "CreateStackFrameEnumerator", "GetThreadContext"]
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {JsDebugReadMemoryFlags} flags 
      * @param {Pointer<Integer>} pBuffer 
@@ -49,7 +48,6 @@ class IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Pointer<Integer>} pMemory 
      * @param {Integer} _size 
@@ -63,7 +61,6 @@ class IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Integer} _size 
      * @param {Integer} allocationType 
@@ -76,7 +73,6 @@ class IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Integer} _size 
      * @param {Integer} freeType 
@@ -88,7 +84,6 @@ class IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @param {Integer} tlsIndex 
      * @returns {Integer} 
@@ -99,7 +94,6 @@ class IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @returns {BSTR} 
      */
@@ -110,7 +104,6 @@ class IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Integer} characterSize 
      * @param {Integer} maxCharacters 
@@ -123,7 +116,6 @@ class IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {IEnumJsStackFrames} 
      */

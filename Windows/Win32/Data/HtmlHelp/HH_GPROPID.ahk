@@ -7,27 +7,32 @@
 class HH_GPROPID extends Win32Enum {
 
     /**
+     * Native name: HH_GPROPID_SINGLETHREAD
      * @type {Integer (Int32)}
      */
-    static HH_GPROPID_SINGLETHREAD => 1
+    static SINGLETHREAD => 1
 
     /**
+     * Native name: HH_GPROPID_TOOLBAR_MARGIN
      * @type {Integer (Int32)}
      */
-    static HH_GPROPID_TOOLBAR_MARGIN => 2
+    static TOOLBAR_MARGIN => 2
 
     /**
+     * Native name: HH_GPROPID_UI_LANGUAGE
      * @type {Integer (Int32)}
      */
-    static HH_GPROPID_UI_LANGUAGE => 3
+    static UI_LANGUAGE => 3
 
     /**
+     * Native name: HH_GPROPID_CURRENT_SUBSET
      * @type {Integer (Int32)}
      */
-    static HH_GPROPID_CURRENT_SUBSET => 4
+    static CURRENT_SUBSET => 4
 
     /**
+     * Native name: HH_GPROPID_CONTENT_LANGUAGE
      * @type {Integer (Int32)}
      */
-    static HH_GPROPID_CONTENT_LANGUAGE => 5
+    static CONTENT_LANGUAGE => 5
 }

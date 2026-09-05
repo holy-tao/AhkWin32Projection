@@ -7,7 +7,8 @@
 class KD_OPTION extends Win32Enum {
 
     /**
+     * Native name: KD_OPTION_SET_BLOCK_ENABLE
      * @type {Integer (Int32)}
      */
-    static KD_OPTION_SET_BLOCK_ENABLE => 0
+    static SET_BLOCK_ENABLE => 0
 }

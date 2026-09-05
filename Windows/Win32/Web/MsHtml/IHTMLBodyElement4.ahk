@@ -46,7 +46,6 @@ class IHTMLBodyElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class IHTMLBodyElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmessage() {
@@ -66,7 +64,6 @@ class IHTMLBodyElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -76,7 +73,6 @@ class IHTMLBodyElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstorage() {

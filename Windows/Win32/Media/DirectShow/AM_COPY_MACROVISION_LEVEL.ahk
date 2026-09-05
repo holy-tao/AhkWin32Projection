@@ -12,25 +12,29 @@ class AM_COPY_MACROVISION_LEVEL extends Win32Enum {
 
     /**
      * Disabled.
+     * Native name: AM_MACROVISION_DISABLED
      * @type {Integer (Int32)}
      */
-    static AM_MACROVISION_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * Level 1.
+     * Native name: AM_MACROVISION_LEVEL1
      * @type {Integer (Int32)}
      */
-    static AM_MACROVISION_LEVEL1 => 1
+    static LEVEL1 => 1
 
     /**
      * Level 2.
+     * Native name: AM_MACROVISION_LEVEL2
      * @type {Integer (Int32)}
      */
-    static AM_MACROVISION_LEVEL2 => 2
+    static LEVEL2 => 2
 
     /**
      * Level 3.
+     * Native name: AM_MACROVISION_LEVEL3
      * @type {Integer (Int32)}
      */
-    static AM_MACROVISION_LEVEL3 => 3
+    static LEVEL3 => 3
 }

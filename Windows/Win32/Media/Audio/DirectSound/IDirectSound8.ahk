@@ -29,7 +29,6 @@ class IDirectSound8 extends IDirectSound {
     static VTableNames => ["VerifyCertification"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     VerifyCertification() {

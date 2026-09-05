@@ -14,25 +14,29 @@ class VDS_IPADDRESS_TYPE extends Win32Enum {
     /**
      * The address is a text address that is either a DNS address, an IPv4 dotted address, or an IPv6 hex 
      *       address.
+     * Native name: VDS_IPT_TEXT
      * @type {Integer (Int32)}
      */
-    static VDS_IPT_TEXT => 0
+    static IPT_TEXT => 0
 
     /**
      * The address is an IPv4 address in binary format.
+     * Native name: VDS_IPT_IPV4
      * @type {Integer (Int32)}
      */
-    static VDS_IPT_IPV4 => 1
+    static IPT_IPV4 => 1
 
     /**
      * The address is an IPv6 address in binary format.
+     * Native name: VDS_IPT_IPV6
      * @type {Integer (Int32)}
      */
-    static VDS_IPT_IPV6 => 2
+    static IPT_IPV6 => 2
 
     /**
      * The address is empty.
+     * Native name: VDS_IPT_EMPTY
      * @type {Integer (Int32)}
      */
-    static VDS_IPT_EMPTY => 3
+    static IPT_EMPTY => 3
 }

@@ -10,21 +10,24 @@ class PropertyConditionFlags extends Win32Enum {
 
     /**
      * No flags.
+     * Native name: PropertyConditionFlags_None
      * @type {Integer (Int32)}
      */
-    static PropertyConditionFlags_None => 0
+    static None => 0
 
     /**
      * Comparison of string properties is not case-sensitive.
+     * Native name: PropertyConditionFlags_IgnoreCase
      * @type {Integer (Int32)}
      */
-    static PropertyConditionFlags_IgnoreCase => 1
+    static IgnoreCase => 1
 
     /**
      * [Windows 10 October 2018 Update (version 1809) and newer]
      * 
      * Comparison of substring properties is enabled.
+     * Native name: PropertyConditionFlags_MatchSubstring
      * @type {Integer (Int32)}
      */
-    static PropertyConditionFlags_MatchSubstring => 2
+    static MatchSubstring => 2
 }

@@ -33,7 +33,6 @@ class ISpTokenUI extends IUnknown {
     static VTableNames => ["IsUISupported", "DisplayUI"]
 
     /**
-     * 
      * @param {PWSTR} pszTypeOfUI 
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
@@ -50,7 +49,6 @@ class ISpTokenUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszTypeOfUI 

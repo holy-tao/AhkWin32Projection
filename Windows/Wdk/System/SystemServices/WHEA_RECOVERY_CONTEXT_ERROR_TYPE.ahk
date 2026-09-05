@@ -7,17 +7,20 @@
 class WHEA_RECOVERY_CONTEXT_ERROR_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaRecoveryContextErrorTypeMemory
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryContextErrorTypeMemory => 1
+    static Memory => 1
 
     /**
+     * Native name: WheaRecoveryContextErrorTypePmem
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryContextErrorTypePmem => 2
+    static Pmem => 2
 
     /**
+     * Native name: WheaRecoveryContextErrorTypeMax
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryContextErrorTypeMax => 3
+    static Max => 3
 }

@@ -12,25 +12,29 @@ class DIRECTMANIPULATION_SNAPPOINT_TYPE extends Win32Enum {
 
     /**
      * Content always stops at the snap point closest to where inertia would naturally stop along the direction of inertia.
+     * Native name: DIRECTMANIPULATION_SNAPPOINT_MANDATORY
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_SNAPPOINT_MANDATORY => 0
+    static MANDATORY => 0
 
     /**
      * Content stops at a snap point closest to where inertia would naturally stop along the direction of inertia, depending on how close the snap point is.
+     * Native name: DIRECTMANIPULATION_SNAPPOINT_OPTIONAL
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_SNAPPOINT_OPTIONAL => 1
+    static OPTIONAL => 1
 
     /**
      * Content always stops at the snap point closest to the release point along the direction of inertia.
+     * Native name: DIRECTMANIPULATION_SNAPPOINT_MANDATORY_SINGLE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_SNAPPOINT_MANDATORY_SINGLE => 2
+    static MANDATORY_SINGLE => 2
 
     /**
      * Content stops at the next snap point, if the motion starts far from it.
+     * Native name: DIRECTMANIPULATION_SNAPPOINT_OPTIONAL_SINGLE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_SNAPPOINT_OPTIONAL_SINGLE => 3
+    static OPTIONAL_SINGLE => 3
 }

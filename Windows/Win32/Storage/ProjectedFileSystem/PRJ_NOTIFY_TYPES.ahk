@@ -28,9 +28,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
 
     /**
      * No notification.
+     * Native name: PRJ_NOTIFY_NONE
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_NONE => 0
+    static NONE => 0
 
     /**
      * If specified on virtualization instance start:
@@ -43,9 +44,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * 
      * <div class="alert"><b>Note</b>  If this bit appears in a notification mask, it overrides all other bits in the mask. For example, a valid mask with this bit is treated as containing only PRJ_NOTIFY_SUPPRESS_NOTIFICATIONS.</div>
      * <div> </div>
+     * Native name: PRJ_NOTIFY_SUPPRESS_NOTIFICATIONS
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_SUPPRESS_NOTIFICATIONS => 1
+    static SUPPRESS_NOTIFICATIONS => 1
 
     /**
      * If specified on virtualization instance start:
@@ -55,9 +57,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - This indicates that the provider should be notified if any further handles are created to the file or folder.
+     * Native name: PRJ_NOTIFY_FILE_OPENED
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_FILE_OPENED => 2
+    static FILE_OPENED => 2
 
     /**
      * If specified on virtualization instance start:
@@ -67,9 +70,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - No effect.
+     * Native name: PRJ_NOTIFY_NEW_FILE_CREATED
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_NEW_FILE_CREATED => 4
+    static NEW_FILE_CREATED => 4
 
     /**
      * If specified on virtualization instance start:
@@ -79,9 +83,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - Indicates that the provider should be notified when the file or folder is overwritten or superceded.
+     * Native name: PRJ_NOTIFY_FILE_OVERWRITTEN
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_FILE_OVERWRITTEN => 8
+    static FILE_OVERWRITTEN => 8
 
     /**
      * If specified on virtualization instance start:
@@ -91,9 +96,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - Indicates that the provider should be notified when a file or folder is about to be deleted.
+     * Native name: PRJ_NOTIFY_PRE_DELETE
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_PRE_DELETE => 16
+    static PRE_DELETE => 16
 
     /**
      * If specified on virtualization instance start:
@@ -103,9 +109,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - Indicates that the provider should be notified when a file or folder is about to be renamed.
+     * Native name: PRJ_NOTIFY_PRE_RENAME
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_PRE_RENAME => 32
+    static PRE_RENAME => 32
 
     /**
      * If specified on virtualization instance start:
@@ -115,9 +122,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - Indicates that the provider should be notified when a hard link is about to be created for a file.
+     * Native name: PRJ_NOTIFY_PRE_SET_HARDLINK
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_PRE_SET_HARDLINK => 64
+    static PRE_SET_HARDLINK => 64
 
     /**
      * If specified on virtualization instance start:
@@ -127,9 +135,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - Indicates that the provider should be notified when a file or folder has been renamed.
+     * Native name: PRJ_NOTIFY_FILE_RENAMED
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_FILE_RENAMED => 128
+    static FILE_RENAMED => 128
 
     /**
      * If specified on virtualization instance start:
@@ -139,9 +148,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - Indicates that the provider should be notified that a hard link has been created for the file.
+     * Native name: PRJ_NOTIFY_HARDLINK_CREATED
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_HARDLINK_CREATED => 256
+    static HARDLINK_CREATED => 256
 
     /**
      * If specified on virtualization instance start:
@@ -151,9 +161,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - The provider should be notified when handles are closed for the file/folder and there were no modifications or deletions associated with the closing handle.
+     * Native name: PRJ_NOTIFY_FILE_HANDLE_CLOSED_NO_MODIFICATION
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_FILE_HANDLE_CLOSED_NO_MODIFICATION => 512
+    static FILE_HANDLE_CLOSED_NO_MODIFICATION => 512
 
     /**
      * If specified on virtualization instance start:
@@ -163,9 +174,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - The provider should be notified when a handle is closed on the file/folder and the closing handle was used to modify it.
+     * Native name: PRJ_NOTIFY_FILE_HANDLE_CLOSED_FILE_MODIFIED
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_FILE_HANDLE_CLOSED_FILE_MODIFIED => 1024
+    static FILE_HANDLE_CLOSED_FILE_MODIFIED => 1024
 
     /**
      * If specified on virtualization instance start:
@@ -175,9 +187,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - The provider should be notified when a handle is closed on the file/folder and it is deleted as part of closing the handle.
+     * Native name: PRJ_NOTIFY_FILE_HANDLE_CLOSED_FILE_DELETED
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_FILE_HANDLE_CLOSED_FILE_DELETED => 2048
+    static FILE_HANDLE_CLOSED_FILE_DELETED => 2048
 
     /**
      * If specified on virtualization instance start:
@@ -187,9 +200,10 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * - The provider should be notified when it is about to convert the placeholder to a full file, assuming it is a placeholder and not already a full file.
+     * Native name: PRJ_NOTIFY_FILE_PRE_CONVERT_TO_FULL
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_FILE_PRE_CONVERT_TO_FULL => 4096
+    static FILE_PRE_CONVERT_TO_FULL => 4096
 
     /**
      * If specified on virtualization instance start:
@@ -199,7 +213,8 @@ class PRJ_NOTIFY_TYPES extends Win32BitflagEnum {
      * If specified in response to a notification:
      * 
      * -  Continue to use the existing set of notifications for this file/folder.
+     * Native name: PRJ_NOTIFY_USE_EXISTING_MASK
      * @type {Integer (UInt32)}
      */
-    static PRJ_NOTIFY_USE_EXISTING_MASK => 4294967295
+    static USE_EXISTING_MASK => 4294967295
 }

@@ -7,32 +7,38 @@
 class AMMSF_RENDER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: AMMSF_RENDERTYPEMASK
      * @type {Integer (Int32)}
      */
-    static AMMSF_RENDERTYPEMASK => 3
+    static RENDERTYPEMASK => 3
 
     /**
+     * Native name: AMMSF_RENDERTOEXISTING
      * @type {Integer (Int32)}
      */
-    static AMMSF_RENDERTOEXISTING => 0
+    static RENDERTOEXISTING => 0
 
     /**
+     * Native name: AMMSF_RENDERALLSTREAMS
      * @type {Integer (Int32)}
      */
-    static AMMSF_RENDERALLSTREAMS => 1
+    static RENDERALLSTREAMS => 1
 
     /**
+     * Native name: AMMSF_NORENDER
      * @type {Integer (Int32)}
      */
-    static AMMSF_NORENDER => 2
+    static NORENDER => 2
 
     /**
+     * Native name: AMMSF_NOCLOCK
      * @type {Integer (Int32)}
      */
-    static AMMSF_NOCLOCK => 4
+    static NOCLOCK => 4
 
     /**
+     * Native name: AMMSF_RUN
      * @type {Integer (Int32)}
      */
-    static AMMSF_RUN => 8
+    static RUN => 8
 }

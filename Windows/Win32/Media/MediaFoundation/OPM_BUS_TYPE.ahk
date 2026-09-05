@@ -7,62 +7,74 @@
 class OPM_BUS_TYPE extends Win32Enum {
 
     /**
+     * Native name: OPM_BUS_TYPE_OTHER
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_TYPE_OTHER => 0
+    static OTHER => 0
 
     /**
+     * Native name: OPM_BUS_TYPE_PCI
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_TYPE_PCI => 1
+    static PCI => 1
 
     /**
+     * Native name: OPM_BUS_TYPE_PCIX
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_TYPE_PCIX => 2
+    static PCIX => 2
 
     /**
+     * Native name: OPM_BUS_TYPE_PCIEXPRESS
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_TYPE_PCIEXPRESS => 3
+    static PCIEXPRESS => 3
 
     /**
+     * Native name: OPM_BUS_TYPE_AGP
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_TYPE_AGP => 4
+    static AGP => 4
 
     /**
+     * Native name: OPM_BUS_IMPLEMENTATION_MODIFIER_INSIDE_OF_CHIPSET
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_IMPLEMENTATION_MODIFIER_INSIDE_OF_CHIPSET => 65536
+    static IMPLEMENTATION_MODIFIER_INSIDE_OF_CHIPSET => 65536
 
     /**
+     * Native name: OPM_BUS_IMPLEMENTATION_MODIFIER_TRACKS_ON_MOTHER_BOARD_TO_CHIP
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_IMPLEMENTATION_MODIFIER_TRACKS_ON_MOTHER_BOARD_TO_CHIP => 131072
+    static IMPLEMENTATION_MODIFIER_TRACKS_ON_MOTHER_BOARD_TO_CHIP => 131072
 
     /**
+     * Native name: OPM_BUS_IMPLEMENTATION_MODIFIER_TRACKS_ON_MOTHER_BOARD_TO_SOCKET
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_IMPLEMENTATION_MODIFIER_TRACKS_ON_MOTHER_BOARD_TO_SOCKET => 196608
+    static IMPLEMENTATION_MODIFIER_TRACKS_ON_MOTHER_BOARD_TO_SOCKET => 196608
 
     /**
+     * Native name: OPM_BUS_IMPLEMENTATION_MODIFIER_DAUGHTER_BOARD_CONNECTOR
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_IMPLEMENTATION_MODIFIER_DAUGHTER_BOARD_CONNECTOR => 262144
+    static IMPLEMENTATION_MODIFIER_DAUGHTER_BOARD_CONNECTOR => 262144
 
     /**
+     * Native name: OPM_BUS_IMPLEMENTATION_MODIFIER_DAUGHTER_BOARD_CONNECTOR_INSIDE_OF_NUAE
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_IMPLEMENTATION_MODIFIER_DAUGHTER_BOARD_CONNECTOR_INSIDE_OF_NUAE => 327680
+    static IMPLEMENTATION_MODIFIER_DAUGHTER_BOARD_CONNECTOR_INSIDE_OF_NUAE => 327680
 
     /**
+     * Native name: OPM_BUS_IMPLEMENTATION_MODIFIER_NON_STANDARD
      * @type {Integer (Int32)}
      */
-    static OPM_BUS_IMPLEMENTATION_MODIFIER_NON_STANDARD => -2147483648
+    static IMPLEMENTATION_MODIFIER_NON_STANDARD => -2147483648
 
     /**
+     * Native name: OPM_COPP_COMPATIBLE_BUS_TYPE_INTEGRATED
      * @type {Integer (Int32)}
      */
-    static OPM_COPP_COMPATIBLE_BUS_TYPE_INTEGRATED => -2147483648
+    static COPP_COMPATIBLE_BUS_TYPE_INTEGRATED => -2147483648
 }

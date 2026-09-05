@@ -10,13 +10,15 @@ class D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No primary conversion is performed.
+     * Native name: D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * Low quality primary conversion is performed.
+     * Native name: D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_LOW_QUALITY_PRIMARY_CONVERSION
      * @type {Integer (Int32)}
      */
-    static D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_LOW_QUALITY_PRIMARY_CONVERSION => 1
+    static LOW_QUALITY_PRIMARY_CONVERSION => 1
 }

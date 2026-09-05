@@ -7,27 +7,32 @@
 class UDTKind extends Win32Enum {
 
     /**
+     * Native name: UDTStruct
      * @type {Integer (Int32)}
      */
-    static UDTStruct => 0
+    static Struct => 0
 
     /**
+     * Native name: UDTClass
      * @type {Integer (Int32)}
      */
-    static UDTClass => 1
+    static Class => 1
 
     /**
+     * Native name: UDTUnion
      * @type {Integer (Int32)}
      */
-    static UDTUnion => 2
+    static Union => 2
 
     /**
+     * Native name: UDTInterface
      * @type {Integer (Int32)}
      */
-    static UDTInterface => 3
+    static Interface => 3
 
     /**
+     * Native name: UDTTaggedUnion
      * @type {Integer (Int32)}
      */
-    static UDTTaggedUnion => 4
+    static TaggedUnion => 4
 }

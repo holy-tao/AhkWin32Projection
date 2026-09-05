@@ -7,37 +7,44 @@
 class NVMEOF_AUTH_FAIL_REASON_EXPLANATION extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthFailed
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthFailed => 1
+    static Failed => 1
 
     /**
+     * Native name: NvmeofAuthProtocolNotUsable
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthProtocolNotUsable => 2
+    static ProtocolNotUsable => 2
 
     /**
+     * Native name: NvmeofAuthSecureChannelConcatMismatch
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthSecureChannelConcatMismatch => 3
+    static SecureChannelConcatMismatch => 3
 
     /**
+     * Native name: NvmeofAuthHashFunctionNotUsable
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthHashFunctionNotUsable => 4
+    static HashFunctionNotUsable => 4
 
     /**
+     * Native name: NvmeofAuthDHGroupNotUsable
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHGroupNotUsable => 5
+    static AuthDHGroupNotUsable => 5
 
     /**
+     * Native name: NvmeofAuthIncorrectPayload
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIncorrectPayload => 6
+    static IncorrectPayload => 6
 
     /**
+     * Native name: NvmeofAuthIncorrectProtocolMessage
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthIncorrectProtocolMessage => 7
+    static IncorrectProtocolMessage => 7
 }

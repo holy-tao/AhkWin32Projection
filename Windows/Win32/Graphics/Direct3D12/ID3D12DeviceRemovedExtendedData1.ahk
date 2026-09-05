@@ -31,7 +31,6 @@ class ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemovedExtendedData {
     static VTableNames => ["GetAutoBreadcrumbsOutput1", "GetPageFaultAllocationOutput1"]
 
     /**
-     * 
      * @returns {D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1} 
      */
     GetAutoBreadcrumbsOutput1() {
@@ -41,7 +40,6 @@ class ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemovedExtendedData {
     }
 
     /**
-     * 
      * @returns {D3D12_DRED_PAGE_FAULT_OUTPUT1} 
      */
     GetPageFaultAllocationOutput1() {

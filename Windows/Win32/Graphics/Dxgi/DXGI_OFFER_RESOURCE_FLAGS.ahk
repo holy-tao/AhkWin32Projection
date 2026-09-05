@@ -10,7 +10,8 @@ class DXGI_OFFER_RESOURCE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates the ability to allow memory de-commit by the DirectX Graphics Kernel.
+     * Native name: DXGI_OFFER_RESOURCE_FLAG_ALLOW_DECOMMIT
      * @type {Integer (Int32)}
      */
-    static DXGI_OFFER_RESOURCE_FLAG_ALLOW_DECOMMIT => 1
+    static FLAG_ALLOW_DECOMMIT => 1
 }

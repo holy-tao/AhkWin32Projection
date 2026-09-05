@@ -10,19 +10,22 @@ class D2D1_LAYER_OPTIONS1 extends Win32BitflagEnum {
 
     /**
      * Default layer behavior. A premultiplied layer target is pushed and its contents are cleared to transparent black.
+     * Native name: D2D1_LAYER_OPTIONS1_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_LAYER_OPTIONS1_NONE => 0
+    static NONE => 0
 
     /**
      * The layer is not cleared to transparent black.
+     * Native name: D2D1_LAYER_OPTIONS1_INITIALIZE_FROM_BACKGROUND
      * @type {Integer (Int32)}
      */
-    static D2D1_LAYER_OPTIONS1_INITIALIZE_FROM_BACKGROUND => 1
+    static INITIALIZE_FROM_BACKGROUND => 1
 
     /**
      * The layer is always created as ignore alpha. All content rendered into the layer will be treated as opaque.
+     * Native name: D2D1_LAYER_OPTIONS1_IGNORE_ALPHA
      * @type {Integer (Int32)}
      */
-    static D2D1_LAYER_OPTIONS1_IGNORE_ALPHA => 2
+    static IGNORE_ALPHA => 2
 }

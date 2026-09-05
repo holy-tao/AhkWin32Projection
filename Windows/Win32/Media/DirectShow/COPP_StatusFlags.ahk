@@ -12,9 +12,10 @@ class COPP_StatusFlags extends Win32Enum {
 
     /**
      * Normal status.
+     * Native name: COPP_StatusNormal
      * @type {Integer (Int32)}
      */
-    static COPP_StatusNormal => 0
+    static Normal => 0
 
     /**
      * The integrity of the connection has been compromised. Examples of events that cause the driver to set this flag include:
@@ -24,19 +25,22 @@ class COPP_StatusFlags extends Win32Enum {
      * <li>The driver detected an internal integrity error.</li>
      * <li>The connector between the computer and the display device was unplugged.</li>
      * </ul>
+     * Native name: COPP_LinkLost
      * @type {Integer (Int32)}
      */
-    static COPP_LinkLost => 1
+    static LinkLost => 1
 
     /**
      * The connection configuration has changed. For example, the user has changed the desktop display mode.
+     * Native name: COPP_RenegotiationRequired
      * @type {Integer (Int32)}
      */
-    static COPP_RenegotiationRequired => 2
+    static RenegotiationRequired => 2
 
     /**
      * Reserved. Must be zero.
+     * Native name: COPP_StatusFlagsReserved
      * @type {Integer (Int32)}
      */
-    static COPP_StatusFlagsReserved => -4
+    static Reserved => -4
 }

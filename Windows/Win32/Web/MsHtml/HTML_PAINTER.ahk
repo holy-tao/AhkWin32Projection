@@ -82,7 +82,8 @@ class HTML_PAINTER extends Win32Enum {
     static HTMLPAINTER_NOSCROLLBITS => 131072
 
     /**
+     * Native name: HTML_PAINTER_Max
      * @type {Integer (Int32)}
      */
-    static HTML_PAINTER_Max => 2147483647
+    static Max => 2147483647
 }

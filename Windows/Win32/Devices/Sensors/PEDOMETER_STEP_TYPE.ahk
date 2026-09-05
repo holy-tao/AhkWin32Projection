@@ -7,27 +7,32 @@
 class PEDOMETER_STEP_TYPE extends Win32Enum {
 
     /**
+     * Native name: PedometerStepType_Unknown
      * @type {Integer (Int32)}
      */
-    static PedometerStepType_Unknown => 1
+    static Unknown => 1
 
     /**
+     * Native name: PedometerStepType_Walking
      * @type {Integer (Int32)}
      */
-    static PedometerStepType_Walking => 2
+    static Walking => 2
 
     /**
+     * Native name: PedometerStepType_Running
      * @type {Integer (Int32)}
      */
-    static PedometerStepType_Running => 4
+    static Running => 4
 
     /**
+     * Native name: PedometerStepType_Max
      * @type {Integer (Int32)}
      */
-    static PedometerStepType_Max => 8
+    static Max => 8
 
     /**
+     * Native name: PedometerStepType_Force_Dword
      * @type {Integer (Int32)}
      */
-    static PedometerStepType_Force_Dword => -1
+    static Force_Dword => -1
 }

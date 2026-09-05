@@ -7,32 +7,38 @@
 class MetafileType extends Win32Enum {
 
     /**
+     * Native name: MetafileTypeInvalid
      * @type {Integer (Int32)}
      */
-    static MetafileTypeInvalid => 0
+    static Invalid => 0
 
     /**
+     * Native name: MetafileTypeWmf
      * @type {Integer (Int32)}
      */
-    static MetafileTypeWmf => 1
+    static Wmf => 1
 
     /**
+     * Native name: MetafileTypeWmfPlaceable
      * @type {Integer (Int32)}
      */
-    static MetafileTypeWmfPlaceable => 2
+    static WmfPlaceable => 2
 
     /**
+     * Native name: MetafileTypeEmf
      * @type {Integer (Int32)}
      */
-    static MetafileTypeEmf => 3
+    static Emf => 3
 
     /**
+     * Native name: MetafileTypeEmfPlusOnly
      * @type {Integer (Int32)}
      */
-    static MetafileTypeEmfPlusOnly => 4
+    static EmfPlusOnly => 4
 
     /**
+     * Native name: MetafileTypeEmfPlusDual
      * @type {Integer (Int32)}
      */
-    static MetafileTypeEmfPlusDual => 5
+    static EmfPlusDual => 5
 }

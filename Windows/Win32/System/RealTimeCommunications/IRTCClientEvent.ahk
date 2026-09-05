@@ -45,7 +45,6 @@ class IRTCClientEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_CLIENT_EVENT_TYPE} 
      */
     get_EventType() {
@@ -54,7 +53,6 @@ class IRTCClientEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCClient} 
      */
     get_Client() {

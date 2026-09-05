@@ -39,7 +39,6 @@ class IDataSourceLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_hWnd() {
@@ -68,7 +67,6 @@ class IDataSourceLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     PromptNew() {
@@ -77,7 +75,6 @@ class IDataSourceLocator extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<IDispatch>} ppADOConnection 
      * @returns {VARIANT_BOOL} 
      */

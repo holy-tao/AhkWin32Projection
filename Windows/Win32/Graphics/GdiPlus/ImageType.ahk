@@ -9,17 +9,20 @@
 class ImageType extends Win32Enum {
 
     /**
+     * Native name: ImageTypeUnknown
      * @type {Integer (Int32)}
      */
-    static ImageTypeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: ImageTypeBitmap
      * @type {Integer (Int32)}
      */
-    static ImageTypeBitmap => 1
+    static Bitmap => 1
 
     /**
+     * Native name: ImageTypeMetafile
      * @type {Integer (Int32)}
      */
-    static ImageTypeMetafile => 2
+    static Metafile => 2
 }

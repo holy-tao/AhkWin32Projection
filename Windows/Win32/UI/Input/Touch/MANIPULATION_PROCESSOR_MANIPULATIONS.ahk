@@ -14,37 +14,43 @@ class MANIPULATION_PROCESSOR_MANIPULATIONS extends Win32BitflagEnum {
 
     /**
      * Indicates that no manipulations are performed.
+     * Native name: MANIPULATION_NONE
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates manipulation by moving the target across the horizontal axis.
+     * Native name: MANIPULATION_TRANSLATE_X
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_TRANSLATE_X => 1
+    static TRANSLATE_X => 1
 
     /**
      * Indicates manipulation by moving the target across the vertical axis.
+     * Native name: MANIPULATION_TRANSLATE_Y
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_TRANSLATE_Y => 2
+    static TRANSLATE_Y => 2
 
     /**
      * Indicates manipulation by making the target larger or smaller.
+     * Native name: MANIPULATION_SCALE
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_SCALE => 4
+    static SCALE => 4
 
     /**
      * Indicates manipulation by rotating the target.
+     * Native name: MANIPULATION_ROTATE
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_ROTATE => 8
+    static ROTATE => 8
 
     /**
      * Indicates all manipulations are enabled.
+     * Native name: MANIPULATION_ALL
      * @type {Integer (Int32)}
      */
-    static MANIPULATION_ALL => 15
+    static ALL => 15
 }

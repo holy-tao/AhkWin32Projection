@@ -10,20 +10,23 @@ class D2D1_PATCH_EDGE_MODE extends Win32Enum {
 
     /**
      * Render this patch edge aliased. Use this value for the internal edges of your gradient mesh.
+     * Native name: D2D1_PATCH_EDGE_MODE_ALIASED
      * @type {Integer (Int32)}
      */
-    static D2D1_PATCH_EDGE_MODE_ALIASED => 0
+    static ALIASED => 0
 
     /**
      * Render this patch edge antialiased. Use this value for the external (boundary) edges of your mesh.
+     * Native name: D2D1_PATCH_EDGE_MODE_ANTIALIASED
      * @type {Integer (Int32)}
      */
-    static D2D1_PATCH_EDGE_MODE_ANTIALIASED => 1
+    static ANTIALIASED => 1
 
     /**
      * Render this patch edge aliased and also slightly inflated. Use this for the internal edges of your gradient mesh when there could be t-junctions among patches. 
      *           Inflating the internal edges mitigates seams that can appear along those junctions.
+     * Native name: D2D1_PATCH_EDGE_MODE_ALIASED_INFLATED
      * @type {Integer (Int32)}
      */
-    static D2D1_PATCH_EDGE_MODE_ALIASED_INFLATED => 2
+    static ALIASED_INFLATED => 2
 }

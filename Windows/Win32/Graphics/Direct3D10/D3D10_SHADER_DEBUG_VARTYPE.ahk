@@ -10,13 +10,15 @@ class D3D10_SHADER_DEBUG_VARTYPE extends Win32Enum {
 
     /**
      * Element is a variable.
+     * Native name: D3D10_SHADER_DEBUG_VAR_VARIABLE
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_VAR_VARIABLE => 0
+    static VAR_VARIABLE => 0
 
     /**
      * Element is a function.
+     * Native name: D3D10_SHADER_DEBUG_VAR_FUNCTION
      * @type {Integer (Int32)}
      */
-    static D3D10_SHADER_DEBUG_VAR_FUNCTION => 1
+    static VAR_FUNCTION => 1
 }

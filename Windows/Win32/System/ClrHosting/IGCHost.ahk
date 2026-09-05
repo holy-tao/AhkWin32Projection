@@ -31,7 +31,6 @@ class IGCHost extends IUnknown {
     static VTableNames => ["SetGCStartupLimits", "Collect", "GetStats", "GetThreadStats", "SetVirtualMemLimit"]
 
     /**
-     * 
      * @param {Integer} SegmentSize 
      * @param {Integer} MaxGen0Size 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Generation 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COR_GC_STATS>} pStats 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pFiberCookie 
      * @param {Pointer<COR_GC_THREAD_STATS>} pStats 
      * @returns {HRESULT} 
@@ -75,7 +71,6 @@ class IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} sztMaxVirtualMemMB 
      * @returns {HRESULT} 
      */

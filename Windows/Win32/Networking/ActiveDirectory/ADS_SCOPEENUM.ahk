@@ -14,19 +14,22 @@ class ADS_SCOPEENUM extends Win32Enum {
 
     /**
      * Limits the search to the base object. The result contains, at most, one object.
+     * Native name: ADS_SCOPE_BASE
      * @type {Integer (Int32)}
      */
-    static ADS_SCOPE_BASE => 0
+    static SCOPE_BASE => 0
 
     /**
      * Searches one level of the immediate children, excluding the base object.
+     * Native name: ADS_SCOPE_ONELEVEL
      * @type {Integer (Int32)}
      */
-    static ADS_SCOPE_ONELEVEL => 1
+    static SCOPE_ONELEVEL => 1
 
     /**
      * Searches the whole subtree, including all the children and the base object itself.
+     * Native name: ADS_SCOPE_SUBTREE
      * @type {Integer (Int32)}
      */
-    static ADS_SCOPE_SUBTREE => 2
+    static SCOPE_SUBTREE => 2
 }

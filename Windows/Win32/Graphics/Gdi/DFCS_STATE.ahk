@@ -7,152 +7,182 @@
 class DFCS_STATE extends Win32BitflagEnum {
 
     /**
+     * Native name: DFCS_CAPTIONCLOSE
      * @type {Integer (UInt32)}
      */
-    static DFCS_CAPTIONCLOSE => 0
+    static CAPTIONCLOSE => 0
 
     /**
+     * Native name: DFCS_CAPTIONMIN
      * @type {Integer (UInt32)}
      */
-    static DFCS_CAPTIONMIN => 1
+    static CAPTIONMIN => 1
 
     /**
+     * Native name: DFCS_CAPTIONMAX
      * @type {Integer (UInt32)}
      */
-    static DFCS_CAPTIONMAX => 2
+    static CAPTIONMAX => 2
 
     /**
+     * Native name: DFCS_CAPTIONRESTORE
      * @type {Integer (UInt32)}
      */
-    static DFCS_CAPTIONRESTORE => 3
+    static CAPTIONRESTORE => 3
 
     /**
+     * Native name: DFCS_CAPTIONHELP
      * @type {Integer (UInt32)}
      */
-    static DFCS_CAPTIONHELP => 4
+    static CAPTIONHELP => 4
 
     /**
+     * Native name: DFCS_MENUARROW
      * @type {Integer (UInt32)}
      */
-    static DFCS_MENUARROW => 0
+    static MENUARROW => 0
 
     /**
+     * Native name: DFCS_MENUCHECK
      * @type {Integer (UInt32)}
      */
-    static DFCS_MENUCHECK => 1
+    static MENUCHECK => 1
 
     /**
+     * Native name: DFCS_MENUBULLET
      * @type {Integer (UInt32)}
      */
-    static DFCS_MENUBULLET => 2
+    static MENUBULLET => 2
 
     /**
+     * Native name: DFCS_MENUARROWRIGHT
      * @type {Integer (UInt32)}
      */
-    static DFCS_MENUARROWRIGHT => 4
+    static MENUARROWRIGHT => 4
 
     /**
+     * Native name: DFCS_SCROLLUP
      * @type {Integer (UInt32)}
      */
-    static DFCS_SCROLLUP => 0
+    static SCROLLUP => 0
 
     /**
+     * Native name: DFCS_SCROLLDOWN
      * @type {Integer (UInt32)}
      */
-    static DFCS_SCROLLDOWN => 1
+    static SCROLLDOWN => 1
 
     /**
+     * Native name: DFCS_SCROLLLEFT
      * @type {Integer (UInt32)}
      */
-    static DFCS_SCROLLLEFT => 2
+    static SCROLLLEFT => 2
 
     /**
+     * Native name: DFCS_SCROLLRIGHT
      * @type {Integer (UInt32)}
      */
-    static DFCS_SCROLLRIGHT => 3
+    static SCROLLRIGHT => 3
 
     /**
+     * Native name: DFCS_SCROLLCOMBOBOX
      * @type {Integer (UInt32)}
      */
-    static DFCS_SCROLLCOMBOBOX => 5
+    static SCROLLCOMBOBOX => 5
 
     /**
+     * Native name: DFCS_SCROLLSIZEGRIP
      * @type {Integer (UInt32)}
      */
-    static DFCS_SCROLLSIZEGRIP => 8
+    static SCROLLSIZEGRIP => 8
 
     /**
+     * Native name: DFCS_SCROLLSIZEGRIPRIGHT
      * @type {Integer (UInt32)}
      */
-    static DFCS_SCROLLSIZEGRIPRIGHT => 16
+    static SCROLLSIZEGRIPRIGHT => 16
 
     /**
+     * Native name: DFCS_BUTTONCHECK
      * @type {Integer (UInt32)}
      */
-    static DFCS_BUTTONCHECK => 0
+    static BUTTONCHECK => 0
 
     /**
+     * Native name: DFCS_BUTTONRADIOIMAGE
      * @type {Integer (UInt32)}
      */
-    static DFCS_BUTTONRADIOIMAGE => 1
+    static BUTTONRADIOIMAGE => 1
 
     /**
+     * Native name: DFCS_BUTTONRADIOMASK
      * @type {Integer (UInt32)}
      */
-    static DFCS_BUTTONRADIOMASK => 2
+    static BUTTONRADIOMASK => 2
 
     /**
+     * Native name: DFCS_BUTTONRADIO
      * @type {Integer (UInt32)}
      */
-    static DFCS_BUTTONRADIO => 4
+    static BUTTONRADIO => 4
 
     /**
+     * Native name: DFCS_BUTTON3STATE
      * @type {Integer (UInt32)}
      */
-    static DFCS_BUTTON3STATE => 8
+    static BUTTON3STATE => 8
 
     /**
+     * Native name: DFCS_BUTTONPUSH
      * @type {Integer (UInt32)}
      */
-    static DFCS_BUTTONPUSH => 16
+    static BUTTONPUSH => 16
 
     /**
+     * Native name: DFCS_INACTIVE
      * @type {Integer (UInt32)}
      */
-    static DFCS_INACTIVE => 256
+    static INACTIVE => 256
 
     /**
+     * Native name: DFCS_PUSHED
      * @type {Integer (UInt32)}
      */
-    static DFCS_PUSHED => 512
+    static PUSHED => 512
 
     /**
+     * Native name: DFCS_CHECKED
      * @type {Integer (UInt32)}
      */
-    static DFCS_CHECKED => 1024
+    static CHECKED => 1024
 
     /**
+     * Native name: DFCS_TRANSPARENT
      * @type {Integer (UInt32)}
      */
-    static DFCS_TRANSPARENT => 2048
+    static TRANSPARENT => 2048
 
     /**
+     * Native name: DFCS_HOT
      * @type {Integer (UInt32)}
      */
-    static DFCS_HOT => 4096
+    static HOT => 4096
 
     /**
+     * Native name: DFCS_ADJUSTRECT
      * @type {Integer (UInt32)}
      */
-    static DFCS_ADJUSTRECT => 8192
+    static ADJUSTRECT => 8192
 
     /**
+     * Native name: DFCS_FLAT
      * @type {Integer (UInt32)}
      */
-    static DFCS_FLAT => 16384
+    static FLAT => 16384
 
     /**
+     * Native name: DFCS_MONO
      * @type {Integer (UInt32)}
      */
-    static DFCS_MONO => 32768
+    static MONO => 32768
 }

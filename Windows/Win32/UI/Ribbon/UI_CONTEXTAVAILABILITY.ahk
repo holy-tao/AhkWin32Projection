@@ -12,19 +12,22 @@ class UI_CONTEXTAVAILABILITY extends Win32Enum {
 
     /**
      * A contextual tab is not available for the selected object.
+     * Native name: UI_CONTEXTAVAILABILITY_NOTAVAILABLE
      * @type {Integer (Int32)}
      */
-    static UI_CONTEXTAVAILABILITY_NOTAVAILABLE => 0
+    static NOTAVAILABLE => 0
 
     /**
      * A contextual tab is available for the selected object. The tab is not the active tab.
+     * Native name: UI_CONTEXTAVAILABILITY_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static UI_CONTEXTAVAILABILITY_AVAILABLE => 1
+    static AVAILABLE => 1
 
     /**
      * A contextual tab is available for the selected object. The tab is the active tab.
+     * Native name: UI_CONTEXTAVAILABILITY_ACTIVE
      * @type {Integer (Int32)}
      */
-    static UI_CONTEXTAVAILABILITY_ACTIVE => 2
+    static ACTIVE => 2
 }

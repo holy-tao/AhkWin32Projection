@@ -7,82 +7,98 @@
 class EPcxGeoLocation extends Win32Enum {
 
     /**
+     * Native name: eGeoLocRear
      * @type {Integer (Int32)}
      */
-    static eGeoLocRear => 1
+    static LocRear => 1
 
     /**
+     * Native name: eGeoLocFront
      * @type {Integer (Int32)}
      */
-    static eGeoLocFront => 2
+    static LocFront => 2
 
     /**
+     * Native name: eGeoLocLeft
      * @type {Integer (Int32)}
      */
-    static eGeoLocLeft => 3
+    static LocLeft => 3
 
     /**
+     * Native name: eGeoLocRight
      * @type {Integer (Int32)}
      */
-    static eGeoLocRight => 4
+    static LocRight => 4
 
     /**
+     * Native name: eGeoLocTop
      * @type {Integer (Int32)}
      */
-    static eGeoLocTop => 5
+    static LocTop => 5
 
     /**
+     * Native name: eGeoLocBottom
      * @type {Integer (Int32)}
      */
-    static eGeoLocBottom => 6
+    static LocBottom => 6
 
     /**
+     * Native name: eGeoLocRearPanel
      * @type {Integer (Int32)}
      */
-    static eGeoLocRearPanel => 7
+    static LocRearPanel => 7
 
     /**
+     * Native name: eGeoLocRiser
      * @type {Integer (Int32)}
      */
-    static eGeoLocRiser => 8
+    static LocRiser => 8
 
     /**
+     * Native name: eGeoLocInsideMobileLid
      * @type {Integer (Int32)}
      */
-    static eGeoLocInsideMobileLid => 9
+    static LocInsideMobileLid => 9
 
     /**
+     * Native name: eGeoLocDrivebay
      * @type {Integer (Int32)}
      */
-    static eGeoLocDrivebay => 10
+    static LocDrivebay => 10
 
     /**
+     * Native name: eGeoLocHDMI
      * @type {Integer (Int32)}
      */
-    static eGeoLocHDMI => 11
+    static LocHDMI => 11
 
     /**
+     * Native name: eGeoLocOutsideMobileLid
      * @type {Integer (Int32)}
      */
-    static eGeoLocOutsideMobileLid => 12
+    static LocOutsideMobileLid => 12
 
     /**
+     * Native name: eGeoLocATAPI
      * @type {Integer (Int32)}
      */
-    static eGeoLocATAPI => 13
+    static LocATAPI => 13
 
     /**
+     * Native name: eGeoLocNotApplicable
      * @type {Integer (Int32)}
      */
-    static eGeoLocNotApplicable => 14
+    static LocNotApplicable => 14
 
     /**
+     * Native name: eGeoLocReserved6
      * @type {Integer (Int32)}
      */
-    static eGeoLocReserved6 => 15
+    static LocReserved6 => 15
 
     /**
+     * Native name: EPcxGeoLocation_enum_count
      * @type {Integer (Int32)}
      */
-    static EPcxGeoLocation_enum_count => 16
+    static enum_count => 16
 }

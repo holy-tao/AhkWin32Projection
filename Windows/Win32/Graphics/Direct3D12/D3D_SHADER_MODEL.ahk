@@ -11,79 +11,93 @@
 class D3D_SHADER_MODEL extends Win32Enum {
 
     /**
+     * Native name: D3D_SHADER_MODEL_NONE
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates shader model 5.1.
+     * Native name: D3D_SHADER_MODEL_5_1
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_5_1 => 81
+    static 5_1 => 81
 
     /**
      * Indicates shader model 6.0. Compiling a shader model 6.0 shader requires using the DXC compiler (see [DirectX Shader Compiler](https://github.com/Microsoft/DirectXShaderCompiler)), and is not supported by legacy **FXC**.
+     * Native name: D3D_SHADER_MODEL_6_0
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_0 => 96
+    static 6_0 => 96
 
     /**
      * Indicates shader model 6.1.
+     * Native name: D3D_SHADER_MODEL_6_1
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_1 => 97
+    static 6_1 => 97
 
     /**
+     * Native name: D3D_SHADER_MODEL_6_2
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_2 => 98
+    static 6_2 => 98
 
     /**
+     * Native name: D3D_SHADER_MODEL_6_3
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_3 => 99
+    static 6_3 => 99
 
     /**
      * Shader model 6.4 support was added in Windows 10, Version 1903, and is required for DirectX Raytracing (DXR).
+     * Native name: D3D_SHADER_MODEL_6_4
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_4 => 100
+    static 6_4 => 100
 
     /**
      * Shader model 6.5 support was added in Windows 10, Version 2004, and is required for Direct Machine Learning.
+     * Native name: D3D_SHADER_MODEL_6_5
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_5 => 101
+    static 6_5 => 101
 
     /**
      * Shader model 6.6 support was added in Windows 11 and the DirectX 12 Agility SDK.
+     * Native name: D3D_SHADER_MODEL_6_6
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_6 => 102
+    static 6_6 => 102
 
     /**
      * Shader model 6.7 support was added in the DirectX 12 Agility SDK v1.6. See [Agility SDK 1.606.3: Shader Model 6.7 is now publicly available!](https://devblogs.microsoft.com/directx/shader-model-6-7/) on the DirectX developer blog.
+     * Native name: D3D_SHADER_MODEL_6_7
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_7 => 103
+    static 6_7 => 103
 
     /**
+     * Native name: D3D_SHADER_MODEL_6_8
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_8 => 104
+    static 6_8 => 104
 
     /**
+     * Native name: D3D_SHADER_MODEL_6_9
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_9 => 105
+    static 6_9 => 105
 
     /**
+     * Native name: D3D_SHADER_MODEL_6_10
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_MODEL_6_10 => 106
+    static 6_10 => 106
 
     /**
+     * Native name: D3D_HIGHEST_SHADER_MODEL
      * @type {Integer (Int32)}
      */
-    static D3D_HIGHEST_SHADER_MODEL => 106
+    static HIGHEST_SHADER_MODEL => 106
 }

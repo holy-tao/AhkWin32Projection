@@ -31,7 +31,6 @@ class ID3DShaderCacheComponent extends IUnknown {
     static VTableNames => ["GetComponentName", "GetStateObjectDatabasePath", "GetPrecompiledCachePath", "GetPrecompiledShaderDatabaseCount", "GetPrecompiledShaderDatabases"]
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetComponentName() {
@@ -40,7 +39,6 @@ class ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetStateObjectDatabasePath() {
@@ -49,7 +47,6 @@ class ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAdapterFamily 
      * @param {Pointer<Pointer<Integer>>} pPath 
      * @returns {HRESULT} 
@@ -64,7 +61,6 @@ class ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPrecompiledShaderDatabaseCount() {
@@ -73,7 +69,6 @@ class ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ArraySize 
      * @returns {D3D_SHADER_CACHE_PSDB_PROPERTIES} 
      */

@@ -10,13 +10,15 @@ class D3D11_CONSERVATIVE_RASTERIZATION_MODE extends Win32Enum {
 
     /**
      * Conservative rasterization is off.
+     * Native name: D3D11_CONSERVATIVE_RASTERIZATION_MODE_OFF
      * @type {Integer (Int32)}
      */
-    static D3D11_CONSERVATIVE_RASTERIZATION_MODE_OFF => 0
+    static OFF => 0
 
     /**
      * Conservative rasterization is on.
+     * Native name: D3D11_CONSERVATIVE_RASTERIZATION_MODE_ON
      * @type {Integer (Int32)}
      */
-    static D3D11_CONSERVATIVE_RASTERIZATION_MODE_ON => 1
+    static ON => 1
 }

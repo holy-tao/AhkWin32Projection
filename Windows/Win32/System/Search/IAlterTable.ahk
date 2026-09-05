@@ -32,7 +32,6 @@ class IAlterTable extends IUnknown {
     static VTableNames => ["AlterColumn", "AlterTable"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pColumnId 
      * @param {Integer} dwColumnDescFlags 
@@ -45,7 +44,6 @@ class IAlterTable extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pNewTableId 
      * @param {Integer} cPropertySets 

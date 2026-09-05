@@ -30,7 +30,6 @@ class ISAXAttributes extends IUnknown {
     static VTableNames => ["getLength", "getURI", "getLocalName", "getQName", "getName", "getIndexFromName", "getIndexFromQName", "getType", "getTypeFromName", "getTypeFromQName", "getValue", "getValueFromName", "getValueFromQName"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     getLength() {
@@ -39,7 +38,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchUri 
      * @param {Pointer<Integer>} pcchUri 
@@ -54,7 +52,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchLocalName 
      * @param {Pointer<Integer>} pcchLocalName 
@@ -69,7 +66,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchQName 
      * @param {Pointer<Integer>} pcchQName 
@@ -84,7 +80,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchUri 
      * @param {Pointer<Integer>} pcchUri 
@@ -107,7 +102,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUri 
      * @param {Integer} cchUri 
      * @param {PWSTR} pwchLocalName 
@@ -123,7 +117,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchQName 
      * @param {Integer} cchQName 
      * @returns {Integer} 
@@ -136,7 +129,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchType 
      * @param {Pointer<Integer>} pcchType 
@@ -151,7 +143,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUri 
      * @param {Integer} cchUri 
      * @param {PWSTR} pwchLocalName 
@@ -172,7 +163,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchQName 
      * @param {Integer} cchQName 
      * @param {Pointer<Pointer<Integer>>} ppwchType 
@@ -190,7 +180,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchValue 
      * @param {Pointer<Integer>} pcchValue 
@@ -205,7 +194,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUri 
      * @param {Integer} cchUri 
      * @param {PWSTR} pwchLocalName 
@@ -226,7 +214,6 @@ class ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchQName 
      * @param {Integer} cchQName 
      * @param {Pointer<Pointer<Integer>>} ppwchValue 

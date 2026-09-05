@@ -10,19 +10,22 @@ class AMVP_SELECT_FORMAT_BY extends Win32Enum {
 
     /**
      * Format does not matter.
+     * Native name: AMVP_DO_NOT_CARE
      * @type {Integer (Int32)}
      */
-    static AMVP_DO_NOT_CARE => 0
+    static DO_NOT_CARE => 0
 
     /**
      * Use the largest bandwidth.
+     * Native name: AMVP_BEST_BANDWIDTH
      * @type {Integer (Int32)}
      */
-    static AMVP_BEST_BANDWIDTH => 1
+    static BEST_BANDWIDTH => 1
 
     /**
      * Use the same input format as output format.
+     * Native name: AMVP_INPUT_SAME_AS_OUTPUT
      * @type {Integer (Int32)}
      */
-    static AMVP_INPUT_SAME_AS_OUTPUT => 2
+    static INPUT_SAME_AS_OUTPUT => 2
 }

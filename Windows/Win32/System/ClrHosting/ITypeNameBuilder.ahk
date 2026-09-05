@@ -31,7 +31,6 @@ class ITypeNameBuilder extends IUnknown {
     static VTableNames => ["OpenGenericArguments", "CloseGenericArguments", "OpenGenericArgument", "CloseGenericArgument", "AddName", "AddPointer", "AddByRef", "AddSzArray", "AddArray", "AddAssemblySpec", "ToString", "Clear"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenGenericArguments() {
@@ -40,7 +39,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseGenericArguments() {
@@ -49,7 +47,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenGenericArgument() {
@@ -58,7 +55,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseGenericArgument() {
@@ -67,7 +63,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @returns {HRESULT} 
      */
@@ -79,7 +74,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddPointer() {
@@ -88,7 +82,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddByRef() {
@@ -97,7 +90,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddSzArray() {
@@ -106,7 +98,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rank 
      * @returns {HRESULT} 
      */
@@ -116,7 +107,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szAssemblySpec 
      * @returns {HRESULT} 
      */
@@ -128,7 +118,6 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     ToString() {

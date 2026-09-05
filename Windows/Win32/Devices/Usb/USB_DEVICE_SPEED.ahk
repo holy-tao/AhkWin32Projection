@@ -7,22 +7,26 @@
 class USB_DEVICE_SPEED extends Win32Enum {
 
     /**
+     * Native name: UsbLowSpeed
      * @type {Integer (Int32)}
      */
-    static UsbLowSpeed => 0
+    static LowSpeed => 0
 
     /**
+     * Native name: UsbFullSpeed
      * @type {Integer (Int32)}
      */
-    static UsbFullSpeed => 1
+    static FullSpeed => 1
 
     /**
+     * Native name: UsbHighSpeed
      * @type {Integer (Int32)}
      */
-    static UsbHighSpeed => 2
+    static HighSpeed => 2
 
     /**
+     * Native name: UsbSuperSpeed
      * @type {Integer (Int32)}
      */
-    static UsbSuperSpeed => 3
+    static SuperSpeed => 3
 }

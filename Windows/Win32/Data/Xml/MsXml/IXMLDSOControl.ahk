@@ -60,7 +60,6 @@ class IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocument} 
      */
     get_XMLDocument() {
@@ -69,7 +68,6 @@ class IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument} ppDoc 
      * @returns {HRESULT} 
      */
@@ -79,7 +77,6 @@ class IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_JavaDSOCompatible() {
@@ -88,7 +85,6 @@ class IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} fJavaDSOCompatible 
      * @returns {HRESULT} 
      */
@@ -98,7 +94,6 @@ class IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {

@@ -31,7 +31,6 @@ class IMLangStringBufW extends IUnknown {
     static VTableNames => ["GetStatus", "LockBuf", "UnlockBuf", "Insert", "Delete"]
 
     /**
-     * 
      * @param {Pointer<Integer>} plFlags 
      * @param {Pointer<Integer>} pcchBuf 
      * @returns {HRESULT} 
@@ -45,7 +44,6 @@ class IMLangStringBufW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxLock 
      * @param {Pointer<Pointer<Integer>>} ppszBuf 
@@ -61,7 +59,6 @@ class IMLangStringBufW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszBuf 
      * @param {Integer} cchOffset 
      * @param {Integer} cchWrite 
@@ -75,7 +72,6 @@ class IMLangStringBufW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxInsert 
      * @returns {Integer} 
@@ -86,7 +82,6 @@ class IMLangStringBufW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchDelete 
      * @returns {HRESULT} 

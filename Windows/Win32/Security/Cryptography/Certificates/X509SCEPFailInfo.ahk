@@ -9,37 +9,43 @@
 class X509SCEPFailInfo extends Win32Enum {
 
     /**
+     * Native name: SCEPFailUnknown
      * @type {Integer (Int32)}
      */
-    static SCEPFailUnknown => -1
+    static Unknown => -1
 
     /**
      * Failure due to an unrecognized or unsupported algorithm.
+     * Native name: SCEPFailBadAlgorithm
      * @type {Integer (Int32)}
      */
-    static SCEPFailBadAlgorithm => 0
+    static BadAlgorithm => 0
 
     /**
      * The integrity check failed.
+     * Native name: SCEPFailBadMessageCheck
      * @type {Integer (Int32)}
      */
-    static SCEPFailBadMessageCheck => 1
+    static BadMessageCheck => 1
 
     /**
      * The transaction was not permitted or was not supported.
+     * Native name: SCEPFailBadRequest
      * @type {Integer (Int32)}
      */
-    static SCEPFailBadRequest => 2
+    static BadRequest => 2
 
     /**
      * The signing time attribute from the PKCS7 authenticated attributes was not sufficiently close to the system time.
+     * Native name: SCEPFailBadTime
      * @type {Integer (Int32)}
      */
-    static SCEPFailBadTime => 3
+    static BadTime => 3
 
     /**
      * No certificate could be identified.
+     * Native name: SCEPFailBadCertId
      * @type {Integer (Int32)}
      */
-    static SCEPFailBadCertId => 4
+    static BadCertId => 4
 }

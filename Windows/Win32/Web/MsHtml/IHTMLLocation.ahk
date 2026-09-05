@@ -101,7 +101,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +112,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -123,7 +121,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -135,7 +132,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -145,7 +141,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -157,7 +152,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_host() {
@@ -167,7 +161,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -179,7 +172,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hostname() {
@@ -189,7 +181,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -201,7 +192,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_port() {
@@ -211,7 +201,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -223,7 +212,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pathname() {
@@ -233,7 +221,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -245,7 +232,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_search() {
@@ -255,7 +241,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -267,7 +252,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hash() {
@@ -277,7 +261,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} flag 
      * @returns {HRESULT} 
      */
@@ -287,7 +270,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
@@ -299,7 +281,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
@@ -311,7 +292,6 @@ class IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {

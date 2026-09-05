@@ -31,7 +31,6 @@ class IActiveScriptErrorDebug extends IActiveScriptError {
     static VTableNames => ["GetDocumentContext", "GetStackFrame"]
 
     /**
-     * 
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContext() {
@@ -40,7 +39,6 @@ class IActiveScriptErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {IDebugStackFrame} 
      */
     GetStackFrame() {

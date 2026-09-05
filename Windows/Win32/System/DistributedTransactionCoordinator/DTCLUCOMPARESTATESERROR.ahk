@@ -7,7 +7,8 @@
 class DTCLUCOMPARESTATESERROR extends Win32Enum {
 
     /**
+     * Native name: DTCLUCOMPARESTATESERROR_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATESERROR_PROTOCOL => 1
+    static PROTOCOL => 1
 }

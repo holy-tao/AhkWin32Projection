@@ -375,7 +375,6 @@ class IInkPicture extends IDispatch {
     }
 
     /**
-     * 
      * @param {IInkRenderer} NewInkRenderer 
      * @returns {HRESULT} 
      */
@@ -399,7 +398,6 @@ class IInkPicture extends IDispatch {
     }
 
     /**
-     * 
      * @param {IInkDisp} NewInk 
      * @returns {HRESULT} 
      */
@@ -656,7 +654,6 @@ class IInkPicture extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPictureDisp} MouseIcon 
      * @returns {HRESULT} 
      */
@@ -811,7 +808,6 @@ class IInkPicture extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPictureDisp} pPicture 
      * @returns {HRESULT} 
      */

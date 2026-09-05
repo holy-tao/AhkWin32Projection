@@ -7,17 +7,20 @@
 class IMPORT_OBJECT_TYPE extends Win32Enum {
 
     /**
+     * Native name: IMPORT_OBJECT_CODE
      * @type {Integer (Int32)}
      */
-    static IMPORT_OBJECT_CODE => 0
+    static CODE => 0
 
     /**
+     * Native name: IMPORT_OBJECT_DATA
      * @type {Integer (Int32)}
      */
-    static IMPORT_OBJECT_DATA => 1
+    static DATA => 1
 
     /**
+     * Native name: IMPORT_OBJECT_CONST
      * @type {Integer (Int32)}
      */
-    static IMPORT_OBJECT_CONST => 2
+    static CONST => 2
 }

@@ -30,7 +30,6 @@ class IApoAcousticEchoCancellation2 extends IApoAcousticEchoCancellation {
     static VTableNames => ["GetDesiredReferenceStreamProperties"]
 
     /**
-     * 
      * @returns {APO_REFERENCE_STREAM_PROPERTIES} 
      */
     GetDesiredReferenceStreamProperties() {

@@ -7,22 +7,26 @@
 class NtmsOperationalState extends Win32Enum {
 
     /**
+     * Native name: NTMS_READY
      * @type {Integer (Int32)}
      */
-    static NTMS_READY => 0
+    static READY => 0
 
     /**
+     * Native name: NTMS_INITIALIZING
      * @type {Integer (Int32)}
      */
-    static NTMS_INITIALIZING => 10
+    static INITIALIZING => 10
 
     /**
+     * Native name: NTMS_NEEDS_SERVICE
      * @type {Integer (Int32)}
      */
-    static NTMS_NEEDS_SERVICE => 20
+    static NEEDS_SERVICE => 20
 
     /**
+     * Native name: NTMS_NOT_PRESENT
      * @type {Integer (Int32)}
      */
-    static NTMS_NOT_PRESENT => 21
+    static NOT_PRESENT => 21
 }

@@ -10,7 +10,8 @@ class _MFT_INPUT_STATUS_FLAGS extends Win32Enum {
 
     /**
      * The input stream can receive more data at this time. To deliver more input data, call <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processinput">IMFTransform::ProcessInput</a>.
+     * Native name: MFT_INPUT_STATUS_ACCEPT_DATA
      * @type {Integer (Int32)}
      */
-    static MFT_INPUT_STATUS_ACCEPT_DATA => 1
+    static ACCEPT_DATA => 1
 }

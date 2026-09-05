@@ -7,27 +7,32 @@
 class HTMLBorder extends Win32Enum {
 
     /**
+     * Native name: HTMLBorderNone
      * @type {Integer (Int32)}
      */
-    static HTMLBorderNone => 0
+    static None => 0
 
     /**
+     * Native name: HTMLBorderThick
      * @type {Integer (Int32)}
      */
-    static HTMLBorderThick => 262144
+    static Thick => 262144
 
     /**
+     * Native name: HTMLBorderDialog
      * @type {Integer (Int32)}
      */
-    static HTMLBorderDialog => 4194304
+    static Dialog => 4194304
 
     /**
+     * Native name: HTMLBorderThin
      * @type {Integer (Int32)}
      */
-    static HTMLBorderThin => 8388608
+    static Thin => 8388608
 
     /**
+     * Native name: HTMLBorder_Max
      * @type {Integer (Int32)}
      */
-    static HTMLBorder_Max => 2147483647
+    static Max => 2147483647
 }

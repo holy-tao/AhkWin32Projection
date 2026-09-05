@@ -12,19 +12,22 @@ class MF_MEDIA_ENGINE_PROTECTION_FLAGS extends Win32Enum {
 
     /**
      * Enable playback of protected content. The Media Engine will not play DRM-protected content unless this flag is set. If you set this flag, also set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-media-engine-content-protection-manager">MF_MEDIA_ENGINE_CONTENT_PROTECTION_MANAGER</a> attribute.
+     * Native name: MF_MEDIA_ENGINE_ENABLE_PROTECTED_CONTENT
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_ENABLE_PROTECTED_CONTENT => 1
+    static ENABLE_PROTECTED_CONTENT => 1
 
     /**
      * Use the <a href="https://docs.microsoft.com/windows/desktop/medfound/protected-media-path">Protected Media Path</a> (PMP) for all playback, including clear (non-protected) content.
+     * Native name: MF_MEDIA_ENGINE_USE_PMP_FOR_ALL_CONTENT
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_USE_PMP_FOR_ALL_CONTENT => 2
+    static USE_PMP_FOR_ALL_CONTENT => 2
 
     /**
      * Create the PMP inside an unprotected process. You can use this option to play clear content, but not to play protected content.
+     * Native name: MF_MEDIA_ENGINE_USE_UNPROTECTED_PMP
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_USE_UNPROTECTED_PMP => 4
+    static USE_UNPROTECTED_PMP => 4
 }

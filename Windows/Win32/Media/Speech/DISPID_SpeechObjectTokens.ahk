@@ -7,17 +7,20 @@
 class DISPID_SpeechObjectTokens extends Win32Enum {
 
     /**
+     * Native name: DISPID_SOTsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTsCount => 1
+    static SOTsCount => 1
 
     /**
+     * Native name: DISPID_SOTsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTsItem => 0
+    static SOTsItem => 0
 
     /**
+     * Native name: DISPID_SOTs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTs_NewEnum => -4
+    static SOTs_NewEnum => -4
 }

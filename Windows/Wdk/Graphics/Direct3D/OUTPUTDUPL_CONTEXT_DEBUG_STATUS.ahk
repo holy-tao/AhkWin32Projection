@@ -7,17 +7,20 @@
 class OUTPUTDUPL_CONTEXT_DEBUG_STATUS extends Win32Enum {
 
     /**
+     * Native name: OUTPUTDUPL_CONTEXT_DEBUG_STATUS_INACTIVE
      * @type {Integer (Int32)}
      */
-    static OUTPUTDUPL_CONTEXT_DEBUG_STATUS_INACTIVE => 0
+    static INACTIVE => 0
 
     /**
+     * Native name: OUTPUTDUPL_CONTEXT_DEBUG_STATUS_ACTIVE
      * @type {Integer (Int32)}
      */
-    static OUTPUTDUPL_CONTEXT_DEBUG_STATUS_ACTIVE => 1
+    static ACTIVE => 1
 
     /**
+     * Native name: OUTPUTDUPL_CONTEXT_DEBUG_STATUS_PENDING_DESTROY
      * @type {Integer (Int32)}
      */
-    static OUTPUTDUPL_CONTEXT_DEBUG_STATUS_PENDING_DESTROY => 2
+    static PENDING_DESTROY => 2
 }

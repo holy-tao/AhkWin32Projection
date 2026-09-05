@@ -176,7 +176,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     releaseCapture() {
@@ -185,7 +184,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fForce 
      * @returns {HRESULT} 
      */
@@ -195,7 +193,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @returns {IHTMLDOMNode} 
      */
@@ -207,7 +204,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_documentElement() {
@@ -216,7 +212,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_uniqueID() {
@@ -226,7 +221,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {VARIANT_BOOL} 
@@ -239,7 +233,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {HRESULT} 
@@ -252,7 +245,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -262,7 +254,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowsdelete() {
@@ -272,7 +263,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -282,7 +272,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowsinserted() {
@@ -292,7 +281,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -302,7 +290,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncellchange() {
@@ -312,7 +299,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -322,7 +308,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondatasetchanged() {
@@ -332,7 +317,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -342,7 +326,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondataavailable() {
@@ -352,7 +335,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -362,7 +344,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondatasetcomplete() {
@@ -372,7 +353,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -382,7 +362,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpropertychange() {
@@ -392,7 +371,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -404,7 +382,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dir() {
@@ -414,7 +391,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -424,7 +400,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontextmenu() {
@@ -434,7 +409,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -444,7 +418,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstop() {
@@ -454,7 +427,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     createDocumentFragment() {
@@ -463,7 +435,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     get_parentDocument() {
@@ -472,7 +443,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -482,7 +452,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_enableDownload() {
@@ -491,7 +460,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -503,7 +471,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_baseUrl() {
@@ -513,7 +480,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_childNodes() {
@@ -522,7 +488,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -532,7 +497,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_inheritStyleSheets() {
@@ -541,7 +505,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -551,7 +514,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeeditfocus() {
@@ -561,7 +523,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElementCollection} 
      */
@@ -573,7 +534,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElement} 
      */
@@ -585,7 +545,6 @@ class IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElementCollection} 
      */

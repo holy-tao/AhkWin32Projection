@@ -82,7 +82,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Help() {
@@ -90,7 +89,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Quit() {
@@ -98,7 +96,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Document} 
      */
     get_Document() {
@@ -185,7 +182,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Frame} 
      */
     get_Frame() {
@@ -194,7 +190,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Visible() {
@@ -203,7 +198,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Show() {
@@ -236,7 +230,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_UserControl() {
@@ -245,7 +238,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} UserControl 
      * @returns {HRESULT} 
      */
@@ -255,7 +247,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VersionMajor() {
@@ -264,7 +255,6 @@ class _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VersionMinor() {

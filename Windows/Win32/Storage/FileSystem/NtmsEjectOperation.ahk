@@ -7,32 +7,38 @@
 class NtmsEjectOperation extends Win32Enum {
 
     /**
+     * Native name: NTMS_EJECT_START
      * @type {Integer (Int32)}
      */
-    static NTMS_EJECT_START => 0
+    static START => 0
 
     /**
+     * Native name: NTMS_EJECT_STOP
      * @type {Integer (Int32)}
      */
-    static NTMS_EJECT_STOP => 1
+    static STOP => 1
 
     /**
+     * Native name: NTMS_EJECT_QUEUE
      * @type {Integer (Int32)}
      */
-    static NTMS_EJECT_QUEUE => 2
+    static QUEUE => 2
 
     /**
+     * Native name: NTMS_EJECT_FORCE
      * @type {Integer (Int32)}
      */
-    static NTMS_EJECT_FORCE => 3
+    static FORCE => 3
 
     /**
+     * Native name: NTMS_EJECT_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static NTMS_EJECT_IMMEDIATE => 4
+    static IMMEDIATE => 4
 
     /**
+     * Native name: NTMS_EJECT_ASK_USER
      * @type {Integer (Int32)}
      */
-    static NTMS_EJECT_ASK_USER => 5
+    static ASK_USER => 5
 }

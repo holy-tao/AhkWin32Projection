@@ -7,57 +7,68 @@
 class D3DKMT_BRIGHTNESS_INFO_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_GET_POSSIBLE_LEVELS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_GET_POSSIBLE_LEVELS => 1
+    static GET_POSSIBLE_LEVELS => 1
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_GET
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_GET => 2
+    static GET => 2
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_SET
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_SET => 3
+    static SET => 3
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_GET_CAPS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_GET_CAPS => 4
+    static GET_CAPS => 4
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_SET_STATE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_SET_STATE => 5
+    static SET_STATE => 5
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_SET_OPTIMIZATION
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_SET_OPTIMIZATION => 6
+    static SET_OPTIMIZATION => 6
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_GET_REDUCTION
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_GET_REDUCTION => 7
+    static GET_REDUCTION => 7
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_BEGIN_MANUAL_MODE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_BEGIN_MANUAL_MODE => 8
+    static BEGIN_MANUAL_MODE => 8
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_END_MANUAL_MODE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_END_MANUAL_MODE => 9
+    static END_MANUAL_MODE => 9
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_TOGGLE_LOGGING
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_TOGGLE_LOGGING => 10
+    static TOGGLE_LOGGING => 10
 
     /**
+     * Native name: D3DKMT_BRIGHTNESS_INFO_GET_NIT_RANGES
      * @type {Integer (Int32)}
      */
-    static D3DKMT_BRIGHTNESS_INFO_GET_NIT_RANGES => 11
+    static GET_NIT_RANGES => 11
 }

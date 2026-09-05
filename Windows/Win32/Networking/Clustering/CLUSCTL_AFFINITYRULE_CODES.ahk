@@ -7,27 +7,32 @@
 class CLUSCTL_AFFINITYRULE_CODES extends Win32Enum {
 
     /**
+     * Native name: CLUSCTL_AFFINITYRULE_GET_COMMON_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_AFFINITYRULE_GET_COMMON_PROPERTIES => 150995033
+    static GET_COMMON_PROPERTIES => 150995033
 
     /**
+     * Native name: CLUSCTL_AFFINITYRULE_GET_RO_COMMON_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_AFFINITYRULE_GET_RO_COMMON_PROPERTIES => 150995029
+    static GET_RO_COMMON_PROPERTIES => 150995029
 
     /**
+     * Native name: CLUSCTL_AFFINITYRULE_SET_COMMON_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_AFFINITYRULE_SET_COMMON_PROPERTIES => 155189342
+    static SET_COMMON_PROPERTIES => 155189342
 
     /**
+     * Native name: CLUSCTL_AFFINITYRULE_GET_ID
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_AFFINITYRULE_GET_ID => 150995001
+    static GET_ID => 150995001
 
     /**
+     * Native name: CLUSCTL_AFFINITYRULE_GET_GROUPNAMES
      * @type {Integer (Int32)}
      */
-    static CLUSCTL_AFFINITYRULE_GET_GROUPNAMES => 151006577
+    static GET_GROUPNAMES => 151006577
 }

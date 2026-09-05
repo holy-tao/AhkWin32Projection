@@ -1846,7 +1846,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ContextHandle 
      * @param {Pointer<Pointer<Void>>} Binding 
      * @returns {RPC_STATUS} 
@@ -1860,7 +1859,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Integer>} MaxCalls 
      * @returns {RPC_STATUS} 
@@ -3738,7 +3736,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _SecurityDescriptor 
      * @param {Pointer<Pointer<RPC_BINDING_VECTOR>>} BindingVector 
      * @returns {RPC_STATUS} 
@@ -6503,7 +6500,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static RpcServerYield() {
@@ -8010,7 +8006,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BindingHandle 
      * @returns {RPC_STATUS} 
      */
@@ -12646,7 +12641,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -12656,7 +12650,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -12666,7 +12659,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @param {Pointer<Guid>} ObjectUuid 
      * @returns {RPC_STATUS} 
@@ -12677,7 +12669,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -12687,7 +12678,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -12697,7 +12687,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -12707,7 +12696,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @param {Integer} _Size 
      * @returns {RPC_STATUS} 
@@ -12718,7 +12706,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -12728,7 +12715,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @param {Integer} NewSize 
      * @returns {RPC_STATUS} 
@@ -12739,7 +12725,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} Mutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12750,7 +12735,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Mutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12761,7 +12745,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Mutex 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12772,7 +12755,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Integer} _Size 
      * @returns {Pointer<Void>} 
      */
@@ -12782,7 +12764,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Object 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12793,7 +12774,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Integer} Milliseconds 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12802,7 +12782,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {RPC_STATUS} 
      */
     static I_RpcGetExtendedError() {
@@ -12811,7 +12790,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Integer} ActualType 
      * @param {Integer} IdlType 
@@ -12826,7 +12804,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     static I_RpcGetCurrentCallHandle() {
@@ -12835,7 +12812,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Integer} EntryNameSyntax 
      * @param {Pointer<Integer>} EntryName 
      * @param {Pointer<RPC_SERVER_INTERFACE>} RpcInterfaceInformation 
@@ -12849,7 +12825,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Integer} EntryNameSyntax 
      * @param {Pointer<Integer>} EntryName 
      * @param {Pointer<RPC_SERVER_INTERFACE>} RpcInterfaceInformation 
@@ -12863,7 +12838,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Pointer<Integer>>} StringBinding 
      * @returns {RPC_STATUS} 
@@ -12877,7 +12851,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Pointer<Void>>} SecurityContextHandle 
      * @returns {RPC_STATUS} 
@@ -12891,7 +12864,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Void>} KeyInfo 
      * @returns {RPC_STATUS} 
@@ -12905,7 +12877,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Integer>} WireId 
      * @returns {RPC_STATUS} 
@@ -12919,7 +12890,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Integer>} MarshalledTargetInfoSize 
      * @param {Pointer<PSTR>} MarshalledTargetInfo 
@@ -12996,7 +12966,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Pointer<Void>>} AsyncHandle 
      * @returns {RPC_STATUS} 
@@ -13010,7 +12979,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Integer} EntryNameSyntax 
      * @param {PWSTR} EntryName 
@@ -13026,7 +12994,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Integer} EntryNameSyntax 
      * @param {PSTR} EntryName 
@@ -13042,7 +13009,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {PSTR} NetworkAddress 
      * @param {PSTR} Protseq 
      * @param {Integer} MaxCalls 
@@ -13064,7 +13030,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {PWSTR} NetworkAddress 
      * @param {PWSTR} Protseq 
      * @param {Integer} MaxCalls 
@@ -13086,7 +13051,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {PWSTR} NetworkAddress 
      * @param {PWSTR} Protseq 
      * @param {Integer} MaxCalls 
@@ -13106,7 +13070,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {PSTR} NetworkAddress 
      * @param {PSTR} Protseq 
      * @param {Integer} MaxCalls 
@@ -13126,7 +13089,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {PWSTR} Protseq 
      * @param {PWSTR} Endpoint 
      * @param {Pointer<Void>} IfSpec 
@@ -13143,7 +13105,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<PWSTR>} DynamicEndpoint 
      * @returns {RPC_STATUS} 
@@ -13157,7 +13118,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<PSTR>} DynamicEndpoint 
      * @returns {RPC_STATUS} 
@@ -13171,7 +13131,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @returns {RPC_STATUS} 
      */
@@ -13183,7 +13142,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Integer>} Type 
      * @returns {RPC_STATUS} 
@@ -13197,7 +13155,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RpcIfHandle 
      * @param {Pointer<RPC_TRANSFER_SYNTAX>} TransferSyntaxes 
      * @param {Integer} TransferSyntaxSize 
@@ -13213,7 +13170,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} Uuid 
      * @returns {RPC_STATUS} 
      */
@@ -13223,7 +13179,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SourceBinding 
      * @param {Pointer<Pointer<Void>>} DestinationBinding 
      * @returns {RPC_STATUS} 
@@ -13237,7 +13192,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BindingHandle 
      * @param {Pointer<Integer>} ClientLocalFlag 
      * @returns {RPC_STATUS} 
@@ -13251,7 +13205,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerName 
      * @param {PWSTR} ServiceName 
      * @param {PWSTR} NetworkOptions 
@@ -13270,7 +13223,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcSsDontSerializeContext() {
@@ -13278,7 +13230,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<RPC_FORWARD_FUNCTION>>} pForwardFunction 
      * @returns {RPC_STATUS} 
      */
@@ -13290,7 +13241,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {Pointer<Pointer<RPC_ADDRESS_CHANGE_FN>>} 
      */
     static I_RpcServerInqAddressChangeFn() {
@@ -13299,7 +13249,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<RPC_ADDRESS_CHANGE_FN>>} pAddressChangeFn 
      * @returns {RPC_STATUS} 
      */
@@ -13311,7 +13260,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Integer>} BufferSize 
@@ -13329,7 +13277,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Void>} _Buffer 
      * @param {Pointer<Integer>} BufferSize 
@@ -13347,7 +13294,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcSessionStrictContextHandle() {
@@ -13355,7 +13301,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {RPC_STATUS} 
      */
     static I_RpcTurnOnEEInfoPropagation() {
@@ -13364,7 +13309,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Type 
      * @returns {RPC_STATUS} 
      */
@@ -13376,7 +13320,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {RPC_STATUS} _Status 
      * @returns {Integer} 
      */
@@ -13386,7 +13329,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {RPC_STATUS} RpcStatus 
      * @param {Pointer<RDR_CALLOUT_STATE>} CallOutState 
      * @param {Pointer<Integer>} DllName 
@@ -13399,7 +13341,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {RPC_STATUS} 
      */
     static I_RpcMgmtEnableDedicatedThreadPool() {
@@ -13408,7 +13349,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppSecurityDescriptor 
      * @returns {RPC_STATUS} 
      */
@@ -13420,7 +13360,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<Pointer<Void>>} ClientProcess 
@@ -13435,7 +13374,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Integer>} ServerLocalFlag 
      * @returns {RPC_STATUS} 
@@ -13449,7 +13387,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hBinding 
      * @param {Integer} option 
      * @param {Pointer} optionValue 
@@ -13463,7 +13400,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Void>} hEvent 
      * @returns {RPC_STATUS} 
@@ -13477,7 +13413,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Integer>} AssociationID 
      * @returns {RPC_STATUS} 
@@ -13491,7 +13426,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static I_RpcServerDisableExceptionFilter() {
@@ -13500,7 +13434,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Void>} hEvent 
      * @param {Pointer<Guid>} SubscriptionId 
@@ -13515,7 +13448,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Guid} SubscriptionId 
      * @returns {RPC_STATUS} 
@@ -21645,7 +21577,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @param {Pointer<RPC_ASYNC_STATE>} pAsync 
      * @returns {RPC_STATUS} 
@@ -21656,7 +21587,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_ASYNC_STATE>} pAsync 
      * @param {Integer} ExceptionCode 
      * @returns {RPC_STATUS} 
@@ -21698,7 +21628,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<LUID>} TokenId 
      * @param {Pointer<LUID>} AuthenticationId 
@@ -21713,7 +21642,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -21723,7 +21651,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @param {Pointer<Pointer<Void>>} _Handle 
      * @returns {RPC_STATUS} 
@@ -21736,7 +21663,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @param {RPC_STATUS} _Status 
      * @returns {String} Nothing - always returns an empty string
@@ -21746,7 +21672,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {RPC_STATUS} 
      */
@@ -21756,7 +21681,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer} CContext 
      * @returns {Pointer<Void>} 
      */
@@ -21766,7 +21690,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer} CContext 
      * @param {Pointer<Void>} pBuff 
      * @returns {String} Nothing - always returns an empty string
@@ -21778,7 +21701,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pCContext 
      * @param {Pointer<Void>} hBinding 
      * @param {Pointer<Void>} pBuff 
@@ -21794,7 +21716,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<NDR_SCONTEXT>} CContext 
      * @param {Pointer<Void>} pBuff 
      * @param {Pointer<NDR_RUNDOWN>} userRunDownIn 
@@ -21807,7 +21728,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} DataRepresentation 
      * @returns {Pointer<NDR_SCONTEXT>} 
@@ -21820,7 +21740,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BindingHandle 
      * @param {Pointer<NDR_SCONTEXT>} CContext 
      * @param {Pointer<Void>} pBuff 
@@ -21835,7 +21754,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BindingHandle 
      * @param {Pointer<NDR_SCONTEXT>} CContext 
      * @param {Pointer<Void>} pBuff 
@@ -21853,7 +21771,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BindingHandle 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} DataRepresentation 
@@ -21868,7 +21785,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} BindingHandle 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} DataRepresentation 
@@ -21991,7 +21907,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22006,7 +21921,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22053,7 +21967,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22099,7 +22012,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22114,7 +22026,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22161,7 +22072,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22208,7 +22118,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22223,7 +22132,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22238,7 +22146,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22253,7 +22160,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22332,7 +22238,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer} ContextHandle 
      * @param {Integer} fCheck 
@@ -22343,7 +22248,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<NDR_SCONTEXT>} ContextHandle 
      * @param {Pointer<NDR_RUNDOWN>} RundownRoutine 
@@ -22354,7 +22258,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<NDR_SCONTEXT>} ContextHandle 
      * @param {Pointer<NDR_RUNDOWN>} RundownRoutine 
@@ -22383,7 +22286,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22399,7 +22301,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Void>} pMemory 
      * @param {Integer} CacheSize 
@@ -22413,7 +22314,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22422,7 +22322,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22515,7 +22414,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22531,7 +22429,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22588,7 +22485,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22688,7 +22584,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22704,7 +22599,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22761,7 +22655,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22818,7 +22711,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22834,7 +22726,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22850,7 +22741,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22866,7 +22756,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Integer>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -22956,7 +22845,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer>} pContextHandle 
      * @param {Pointer<Void>} BindHandle 
@@ -22970,7 +22858,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @returns {Pointer<NDR_SCONTEXT>} 
      */
@@ -22995,7 +22882,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Pointer<NDR_SCONTEXT>} 
@@ -23045,7 +22931,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23059,7 +22944,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23089,7 +22973,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23118,7 +23001,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23132,7 +23014,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23178,7 +23059,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23192,7 +23072,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23206,7 +23085,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23220,7 +23098,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23234,7 +23111,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23296,7 +23172,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23309,7 +23184,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23322,7 +23196,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23335,7 +23208,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23348,7 +23220,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23361,7 +23232,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23374,7 +23244,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23387,7 +23256,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23400,7 +23268,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23413,7 +23280,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23426,7 +23292,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23439,7 +23304,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23452,7 +23316,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23465,7 +23328,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23478,7 +23340,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23491,7 +23352,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23504,7 +23364,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
@@ -23533,7 +23392,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23547,7 +23405,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23561,7 +23418,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23575,7 +23431,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23589,7 +23444,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23603,7 +23457,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23617,7 +23470,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23631,7 +23483,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23645,7 +23496,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23659,7 +23509,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23673,7 +23522,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23687,7 +23535,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23701,7 +23548,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -23749,7 +23595,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pFormat 
      * @param {Integer} NumberParams 
@@ -23778,7 +23623,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pFlags 
      * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} FormatChar 
@@ -23793,7 +23637,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -23805,7 +23648,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -23817,7 +23659,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -23829,7 +23670,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -23841,7 +23681,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -23853,7 +23692,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
@@ -23865,7 +23703,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @returns {String} Nothing - always returns an empty string
@@ -23875,7 +23712,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Integer} BufferLength 
      * @param {Pointer<Void>} _Handle 
@@ -23889,7 +23725,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Integer} BufferLength 
      * @param {Pointer<Void>} _Handle 
@@ -23903,7 +23738,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pBufferEnd 
      * @returns {Pointer<Integer>} 
@@ -23916,7 +23750,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pBufferEnd 
      * @param {Pointer<Pointer<Void>>} pAutoHandle 
@@ -23931,7 +23764,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -23940,7 +23772,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<RPC_VERSION>} pVersion 
      * @returns {HRESULT} 
@@ -24025,7 +23856,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {IRpcStubBuffer} pThis 
      * @param {IRpcChannelBuffer} pChannel 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
@@ -24097,7 +23927,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Integer>} pCommStatus 
      * @param {Pointer<Integer>} pFaultStatus 
@@ -24925,7 +24754,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24934,7 +24762,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24943,7 +24770,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24952,7 +24778,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer} _Size 
      * @returns {Pointer<Void>} 
      */
@@ -24962,7 +24787,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NodeToFree 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24973,7 +24797,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer} _Size 
      * @returns {Pointer<Void>} 
      */
@@ -24983,7 +24806,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NodeToFree 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24994,7 +24816,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Integer} NumberOfPointers 
      * @param {XLAT_SIDE} XlatSide 
      * @returns {Pointer<FULL_PTR_XLAT_TABLES>} 
@@ -25005,7 +24826,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<FULL_PTR_XLAT_TABLES>} pXlatTables 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25014,7 +24834,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer} Len 
      * @returns {Pointer<Void>} 
@@ -25129,7 +24948,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {IRpcStubBuffer} pStub 
      * @param {Pointer<RPC_SERVER_INTERFACE>} pServerIf 
      * @returns {RPC_STATUS} 
@@ -25180,7 +24998,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Integer} nProcNum 
      * @param {Pointer<Void>} pReturnValue 
@@ -25198,7 +25015,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25218,7 +25034,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {IRpcStubBuffer} pThis 
      * @param {IRpcChannelBuffer} pChannel 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
@@ -25263,7 +25078,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25272,7 +25086,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Void>} pMemory 
      * @returns {String} Nothing - always returns an empty string
@@ -25284,7 +25097,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Void>>} ppMemory 
      * @returns {String} Nothing - always returns an empty string
@@ -25296,7 +25108,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Void>} pMemory 
      * @returns {String} Nothing - always returns an empty string
@@ -25308,7 +25119,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Pointer<Void>>} ppMemory 
      * @param {Pointer<Integer>} pFormat 
@@ -25970,7 +25780,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @returns {Pointer} 
      */
@@ -25982,7 +25791,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<Void>} pObject 
      * @param {Integer} _Size 
@@ -25996,7 +25804,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Void>} pObject 
@@ -26011,7 +25818,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Integer>} pFormatString 
@@ -26028,7 +25834,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Integer>} pFormatString 
@@ -26044,7 +25849,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Integer>} pFormatString 
@@ -26060,7 +25864,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -26078,7 +25881,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -26095,7 +25897,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -26112,7 +25913,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -26129,7 +25929,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Integer>} pFormatString 
@@ -26168,7 +25967,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -26187,7 +25985,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -26205,7 +26002,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -26223,7 +26019,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -26241,7 +26036,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Integer} nProcNum 
@@ -26261,7 +26055,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Pointer<Void>} pObject 
@@ -26276,7 +26069,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Pointer<Void>} pObject 
@@ -26291,7 +26083,6 @@ class Rpc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Handle 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @returns {Pointer} 

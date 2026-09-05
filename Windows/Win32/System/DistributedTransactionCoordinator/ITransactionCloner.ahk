@@ -29,7 +29,6 @@ class ITransactionCloner extends ITransaction {
     static VTableNames => ["CloneWithCommitDisabled"]
 
     /**
-     * 
      * @returns {ITransaction} 
      */
     CloneWithCommitDisabled() {

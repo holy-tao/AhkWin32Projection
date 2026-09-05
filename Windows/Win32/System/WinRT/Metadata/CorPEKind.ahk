@@ -7,9 +7,10 @@
 class CorPEKind extends Win32Enum {
 
     /**
+     * Native name: peNot
      * @type {Integer (Int32)}
      */
-    static peNot => 0
+    static Not => 0
 
     /**
      * @type {Integer (Int32)}

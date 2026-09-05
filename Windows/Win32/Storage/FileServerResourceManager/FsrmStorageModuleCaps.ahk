@@ -10,21 +10,24 @@ class FsrmStorageModuleCaps extends Win32Enum {
 
     /**
      * The storage module's capabilities are unknown. Do not use this value.
+     * Native name: FsrmStorageModuleCaps_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleCaps_Unknown => 0
+    static Unknown => 0
 
     /**
      * The storage module is allowed to retrieve classification properties.
+     * Native name: FsrmStorageModuleCaps_CanGet
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleCaps_CanGet => 1
+    static CanGet => 1
 
     /**
      * The storage module is allowed to store classification properties.
+     * Native name: FsrmStorageModuleCaps_CanSet
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleCaps_CanSet => 2
+    static CanSet => 2
 
     /**
      * The storage module is allowed to handle folders. Only secure properties 
@@ -34,15 +37,17 @@ class FsrmStorageModuleCaps extends Win32Enum {
      *        specified.
      * 
      * <b>Windows Server 2008 R2:  </b>This storage module capability is not supported before Windows Server 2012.
+     * Native name: FsrmStorageModuleCaps_CanHandleDirectories
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleCaps_CanHandleDirectories => 4
+    static CanHandleDirectories => 4
 
     /**
      * The storage module is allowed to handle files.
      * 
      * <b>Windows Server 2008 R2:  </b>This storage module capability is not supported before Windows Server 2012.
+     * Native name: FsrmStorageModuleCaps_CanHandleFiles
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleCaps_CanHandleFiles => 8
+    static CanHandleFiles => 8
 }

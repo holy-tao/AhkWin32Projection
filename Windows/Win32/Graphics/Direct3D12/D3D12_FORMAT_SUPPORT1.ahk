@@ -12,72 +12,83 @@ class D3D12_FORMAT_SUPPORT1 extends Win32BitflagEnum {
 
     /**
      * No resources are supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_NONE => 0
+    static NONE => 0
 
     /**
      * Buffer resources supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_BUFFER => 1
+    static BUFFER => 1
 
     /**
      * Vertex buffers supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_IA_VERTEX_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_IA_VERTEX_BUFFER => 2
+    static IA_VERTEX_BUFFER => 2
 
     /**
      * Index buffers supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_IA_INDEX_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_IA_INDEX_BUFFER => 4
+    static IA_INDEX_BUFFER => 4
 
     /**
      * Streaming output buffers supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_SO_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_SO_BUFFER => 8
+    static SO_BUFFER => 8
 
     /**
      * 1D texture resources supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_TEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_TEXTURE1D => 16
+    static TEXTURE1D => 16
 
     /**
      * 2D texture resources supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_TEXTURE2D => 32
+    static TEXTURE2D => 32
 
     /**
      * 3D texture resources supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_TEXTURE3D
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_TEXTURE3D => 64
+    static TEXTURE3D => 64
 
     /**
      * Cube texture resources supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_TEXTURECUBE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_TEXTURECUBE => 128
+    static TEXTURECUBE => 128
 
     /**
      * The HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-load">Load</a> function for texture objects is supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_SHADER_LOAD
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_SHADER_LOAD => 256
+    static SHADER_LOAD => 256
 
     /**
      * The HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-sample">Sample</a> function for texture objects is supported.
      * 
      * <div class="alert"><b>Note</b>  If the device supports the format as a resource (1D, 2D, 3D, or cube map) but doesn't support this option, the resource can still use the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-sample">Sample</a> method but must use only the point filtering sampler state to perform the sample.</div>
      * <div> </div>
+     * Native name: D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE => 512
+    static SHADER_SAMPLE => 512
 
     /**
      * The HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmp">SampleCmp</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmplevelzero">SampleCmpLevelZero</a> functions for texture objects are supported.
@@ -85,115 +96,134 @@ class D3D12_FORMAT_SUPPORT1 extends Win32BitflagEnum {
      * <div class="alert"><b>Note</b>  Windows 8 and later might provide limited support for these functions on Direct3D <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> 9_1, 9_2, and 9_3. For more info, see <a href="https://docs.microsoft.com/previous-versions/windows/apps/jj262110(v=win.10)">Implementing shadow buffers for Direct3D feature level 9</a>.
      * </div>
      * <div> </div>
+     * Native name: D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_COMPARISON
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_COMPARISON => 1024
+    static SHADER_SAMPLE_COMPARISON => 1024
 
     /**
      * Reserved.
+     * Native name: D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_MONO_TEXT
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_SHADER_SAMPLE_MONO_TEXT => 2048
+    static SHADER_SAMPLE_MONO_TEXT => 2048
 
     /**
      * Mipmaps are supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_MIP
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_MIP => 4096
+    static MIP => 4096
 
     /**
      * Render targets are supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_RENDER_TARGET
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_RENDER_TARGET => 16384
+    static RENDER_TARGET => 16384
 
     /**
      * Blend operations supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_BLENDABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_BLENDABLE => 32768
+    static BLENDABLE => 32768
 
     /**
      * Depth stencils supported.
+     * Native name: D3D12_FORMAT_SUPPORT1_DEPTH_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_DEPTH_STENCIL => 65536
+    static DEPTH_STENCIL => 65536
 
     /**
      * Multisample antialiasing (MSAA) resolve operations are supported. For more info, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvesubresource">ID3D12GraphicsCommandList::ResolveSubresource</a>.
+     * Native name: D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RESOLVE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RESOLVE => 262144
+    static MULTISAMPLE_RESOLVE => 262144
 
     /**
      * Format can be displayed on screen.
+     * Native name: D3D12_FORMAT_SUPPORT1_DISPLAY
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_DISPLAY => 524288
+    static DISPLAY => 524288
 
     /**
      * Format can't be cast to another format.
+     * Native name: D3D12_FORMAT_SUPPORT1_CAST_WITHIN_BIT_LAYOUT
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_CAST_WITHIN_BIT_LAYOUT => 1048576
+    static CAST_WITHIN_BIT_LAYOUT => 1048576
 
     /**
      * Format can be used as a multi-sampled render target.
+     * Native name: D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RENDERTARGET
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_MULTISAMPLE_RENDERTARGET => 2097152
+    static MULTISAMPLE_RENDERTARGET => 2097152
 
     /**
      * Format can be used as a multi-sampled texture and read into a shader with the HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-load">Load</a> function.
+     * Native name: D3D12_FORMAT_SUPPORT1_MULTISAMPLE_LOAD
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_MULTISAMPLE_LOAD => 4194304
+    static MULTISAMPLE_LOAD => 4194304
 
     /**
      * Format can be used with the HLSL gather function. This value is available in DirectX 10.1 or higher.
+     * Native name: D3D12_FORMAT_SUPPORT1_SHADER_GATHER
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_SHADER_GATHER => 8388608
+    static SHADER_GATHER => 8388608
 
     /**
      * Format supports casting when the resource is a back buffer.
+     * Native name: D3D12_FORMAT_SUPPORT1_BACK_BUFFER_CAST
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_BACK_BUFFER_CAST => 16777216
+    static BACK_BUFFER_CAST => 16777216
 
     /**
      * Format can be used for an unordered access view.
+     * Native name: D3D12_FORMAT_SUPPORT1_TYPED_UNORDERED_ACCESS_VIEW
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_TYPED_UNORDERED_ACCESS_VIEW => 33554432
+    static TYPED_UNORDERED_ACCESS_VIEW => 33554432
 
     /**
      * Format can be used with the HLSL gather with comparison function.
+     * Native name: D3D12_FORMAT_SUPPORT1_SHADER_GATHER_COMPARISON
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_SHADER_GATHER_COMPARISON => 67108864
+    static SHADER_GATHER_COMPARISON => 67108864
 
     /**
      * Format can be used with the decoder output.
+     * Native name: D3D12_FORMAT_SUPPORT1_DECODER_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_DECODER_OUTPUT => 134217728
+    static DECODER_OUTPUT => 134217728
 
     /**
      * Format can be used with the video processor output.
+     * Native name: D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_OUTPUT => 268435456
+    static VIDEO_PROCESSOR_OUTPUT => 268435456
 
     /**
      * Format can be used with the video processor input.
+     * Native name: D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_VIDEO_PROCESSOR_INPUT => 536870912
+    static VIDEO_PROCESSOR_INPUT => 536870912
 
     /**
      * Format can be used with the video encoder.
+     * Native name: D3D12_FORMAT_SUPPORT1_VIDEO_ENCODER
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT1_VIDEO_ENCODER => 1073741824
+    static VIDEO_ENCODER => 1073741824
 }

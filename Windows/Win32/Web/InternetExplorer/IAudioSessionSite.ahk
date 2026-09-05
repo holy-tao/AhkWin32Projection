@@ -31,7 +31,6 @@ class IAudioSessionSite extends IUnknown {
     static VTableNames => ["GetAudioSessionGuid", "OnAudioStreamCreated", "OnAudioStreamDestroyed"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetAudioSessionGuid() {
@@ -41,7 +40,6 @@ class IAudioSessionSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} endpointID 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class IAudioSessionSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} endpointID 
      * @returns {HRESULT} 
      */

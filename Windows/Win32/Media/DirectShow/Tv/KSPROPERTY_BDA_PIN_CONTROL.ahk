@@ -7,12 +7,14 @@
 class KSPROPERTY_BDA_PIN_CONTROL extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_BDA_PIN_ID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_PIN_ID => 0
+    static ID => 0
 
     /**
+     * Native name: KSPROPERTY_BDA_PIN_TYPE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_PIN_TYPE => 1
+    static TYPE => 1
 }

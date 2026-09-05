@@ -16,13 +16,15 @@ class RM_SHUTDOWN_TYPE extends Win32Enum {
 
     /**
      * Forces unresponsive applications and services to shut down after the timeout period. An application that does not respond to a shutdown request by the Restart Manager is forced to shut down after 30 seconds. A service that does not respond to a shutdown request is forced to shut down after 20 seconds. These default times can be changed by modifying the registry keys described in the Remarks section.
+     * Native name: RmForceShutdown
      * @type {Integer (Int32)}
      */
-    static RmForceShutdown => 1
+    static ForceShutdown => 1
 
     /**
      * Shuts down applications if and only if all the applications have been registered for restart  using the <b>RegisterApplicationRestart</b> function. If any processes or services cannot be restarted, then no processes or services are shut down.
+     * Native name: RmShutdownOnlyRegistered
      * @type {Integer (Int32)}
      */
-    static RmShutdownOnlyRegistered => 16
+    static OnlyRegistered => 16
 }

@@ -19,16 +19,18 @@ class VSS_RESTORE_TYPE extends Win32Enum {
      *       This is the default restore type. However, writers should treat this restore type as if it were VSS_RTYPE_BY_COPY.
      * 
      * This indicates an error on the part of the requester.
+     * Native name: VSS_RTYPE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_RTYPE_UNDEFINED => 0
+    static RTYPE_UNDEFINED => 0
 
     /**
      * A requester restores backed-up data to the original volume from a backup 
      *       medium.
+     * Native name: VSS_RTYPE_BY_COPY
      * @type {Integer (Int32)}
      */
-    static VSS_RTYPE_BY_COPY => 1
+    static RTYPE_BY_COPY => 1
 
     /**
      * A requester does not copy data from a backup medium, but imports a transportable shadow copy and uses this 
@@ -36,13 +38,15 @@ class VSS_RESTORE_TYPE extends Win32Enum {
      *       
      * 
      * <b>Windows Server 2003, Standard Edition and Windows Server 2003, Web Edition:  </b>This value is not supported. All editions of Windows Server 2003 with SP1 support this value.
+     * Native name: VSS_RTYPE_IMPORT
      * @type {Integer (Int32)}
      */
-    static VSS_RTYPE_IMPORT => 2
+    static RTYPE_IMPORT => 2
 
     /**
      * A restore type not currently enumerated. This value indicates an application error.
+     * Native name: VSS_RTYPE_OTHER
      * @type {Integer (Int32)}
      */
-    static VSS_RTYPE_OTHER => 3
+    static RTYPE_OTHER => 3
 }

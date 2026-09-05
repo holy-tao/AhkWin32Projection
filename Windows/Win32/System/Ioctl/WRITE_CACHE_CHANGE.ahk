@@ -12,19 +12,22 @@ class WRITE_CACHE_CHANGE extends Win32Enum {
 
     /**
      * The system cannot report the write cache change capability of the device.
+     * Native name: WriteCacheChangeUnknown
      * @type {Integer (Int32)}
      */
-    static WriteCacheChangeUnknown => 0
+    static Unknown => 0
 
     /**
      * Host software cannot change the characteristics of the device's write cache.
+     * Native name: WriteCacheNotChangeable
      * @type {Integer (Int32)}
      */
-    static WriteCacheNotChangeable => 1
+    static NotChangeable => 1
 
     /**
      * Host software can change the characteristics of the device's write cache.
+     * Native name: WriteCacheChangeable
      * @type {Integer (Int32)}
      */
-    static WriteCacheChangeable => 2
+    static Changeable => 2
 }

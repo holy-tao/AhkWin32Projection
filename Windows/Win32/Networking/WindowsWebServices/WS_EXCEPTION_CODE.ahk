@@ -11,14 +11,16 @@ class WS_EXCEPTION_CODE extends Win32Enum {
     /**
      * This exception occurs to indicate that usage of the web services component 
      *                     has violated the API contract.
+     * Native name: WS_EXCEPTION_CODE_USAGE_FAILURE
      * @type {Integer (Int32)}
      */
-    static WS_EXCEPTION_CODE_USAGE_FAILURE => -1069744128
+    static USAGE_FAILURE => -1069744128
 
     /**
      * This exception occurs to indicate that an internal error occurred in the 
      *                     web services component.
+     * Native name: WS_EXCEPTION_CODE_INTERNAL_FAILURE
      * @type {Integer (Int32)}
      */
-    static WS_EXCEPTION_CODE_INTERNAL_FAILURE => -1069744127
+    static INTERNAL_FAILURE => -1069744127
 }

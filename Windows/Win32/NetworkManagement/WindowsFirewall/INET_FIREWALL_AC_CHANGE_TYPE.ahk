@@ -10,25 +10,29 @@ class INET_FIREWALL_AC_CHANGE_TYPE extends Win32Enum {
 
     /**
      * This value is reserved for system use.
+     * Native name: INET_FIREWALL_AC_CHANGE_INVALID
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_CHANGE_INVALID => 0
+    static INVALID => 0
 
     /**
      * An app container was created.
+     * Native name: INET_FIREWALL_AC_CHANGE_CREATE
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_CHANGE_CREATE => 1
+    static CREATE => 1
 
     /**
      * An app container was deleted.
+     * Native name: INET_FIREWALL_AC_CHANGE_DELETE
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_CHANGE_DELETE => 2
+    static DELETE => 2
 
     /**
      * Maximum value for testing purposes.
+     * Native name: INET_FIREWALL_AC_CHANGE_MAX
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_CHANGE_MAX => 3
+    static MAX => 3
 }

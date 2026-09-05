@@ -7,27 +7,32 @@
 class GameInputRumbleMotors extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputRumbleNone
      * @type {Integer (Int32)}
      */
-    static GameInputRumbleNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputRumbleLowFrequency
      * @type {Integer (Int32)}
      */
-    static GameInputRumbleLowFrequency => 1
+    static LowFrequency => 1
 
     /**
+     * Native name: GameInputRumbleHighFrequency
      * @type {Integer (Int32)}
      */
-    static GameInputRumbleHighFrequency => 2
+    static HighFrequency => 2
 
     /**
+     * Native name: GameInputRumbleLeftTrigger
      * @type {Integer (Int32)}
      */
-    static GameInputRumbleLeftTrigger => 4
+    static LeftTrigger => 4
 
     /**
+     * Native name: GameInputRumbleRightTrigger
      * @type {Integer (Int32)}
      */
-    static GameInputRumbleRightTrigger => 8
+    static RightTrigger => 8
 }

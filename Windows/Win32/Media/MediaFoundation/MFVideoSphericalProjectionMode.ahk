@@ -7,12 +7,14 @@
 class MFVideoSphericalProjectionMode extends Win32Enum {
 
     /**
+     * Native name: MFVideoSphericalProjectionMode_Spherical
      * @type {Integer (Int32)}
      */
-    static MFVideoSphericalProjectionMode_Spherical => 0
+    static Spherical => 0
 
     /**
+     * Native name: MFVideoSphericalProjectionMode_Flat
      * @type {Integer (Int32)}
      */
-    static MFVideoSphericalProjectionMode_Flat => 1
+    static Flat => 1
 }

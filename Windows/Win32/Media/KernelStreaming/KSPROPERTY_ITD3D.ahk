@@ -7,7 +7,8 @@
 class KSPROPERTY_ITD3D extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_ITD3D_PARAMS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ITD3D_PARAMS => 0
+    static PARAMS => 0
 }

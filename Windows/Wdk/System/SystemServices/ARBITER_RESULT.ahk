@@ -7,22 +7,26 @@
 class ARBITER_RESULT extends Win32Enum {
 
     /**
+     * Native name: ArbiterResultUndefined
      * @type {Integer (Int32)}
      */
-    static ArbiterResultUndefined => -1
+    static Undefined => -1
 
     /**
+     * Native name: ArbiterResultSuccess
      * @type {Integer (Int32)}
      */
-    static ArbiterResultSuccess => 0
+    static Success => 0
 
     /**
+     * Native name: ArbiterResultExternalConflict
      * @type {Integer (Int32)}
      */
-    static ArbiterResultExternalConflict => 1
+    static ExternalConflict => 1
 
     /**
+     * Native name: ArbiterResultNullRequest
      * @type {Integer (Int32)}
      */
-    static ArbiterResultNullRequest => 2
+    static NullRequest => 2
 }

@@ -7,92 +7,110 @@
 class WHEA_RECOVERY_FAILURE_REASON extends Win32Enum {
 
     /**
+     * Native name: WheaRecoveryFailureReasonKernelCouldNotMarkMemoryBad
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonKernelCouldNotMarkMemoryBad => 1
+    static KernelCouldNotMarkMemoryBad => 1
 
     /**
+     * Native name: WheaRecoveryFailureReasonKernelMarkMemoryBadTimedOut
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonKernelMarkMemoryBadTimedOut => 2
+    static KernelMarkMemoryBadTimedOut => 2
 
     /**
+     * Native name: WheaRecoveryFailureReasonNoRecoveryContext
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonNoRecoveryContext => 3
+    static NoRecoveryContext => 3
 
     /**
+     * Native name: WheaRecoveryFailureReasonNotContinuable
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonNotContinuable => 4
+    static NotContinuable => 4
 
     /**
+     * Native name: WheaRecoveryFailureReasonPcc
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonPcc => 5
+    static Pcc => 5
 
     /**
+     * Native name: WheaRecoveryFailureReasonOverflow
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonOverflow => 6
+    static Overflow => 6
 
     /**
+     * Native name: WheaRecoveryFailureReasonNotSupported
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonNotSupported => 7
+    static NotSupported => 7
 
     /**
+     * Native name: WheaRecoveryFailureReasonMiscOrAddrNotValid
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonMiscOrAddrNotValid => 8
+    static MiscOrAddrNotValid => 8
 
     /**
+     * Native name: WheaRecoveryFailureReasonInvalidAddressMode
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonInvalidAddressMode => 9
+    static InvalidAddressMode => 9
 
     /**
+     * Native name: WheaRecoveryFailureReasonHighIrql
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonHighIrql => 10
+    static HighIrql => 10
 
     /**
+     * Native name: WheaRecoveryFailureReasonInsufficientAltContextWrappers
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonInsufficientAltContextWrappers => 11
+    static InsufficientAltContextWrappers => 11
 
     /**
+     * Native name: WheaRecoveryFailureReasonInterruptsDisabled
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonInterruptsDisabled => 12
+    static InterruptsDisabled => 12
 
     /**
+     * Native name: WheaRecoveryFailureReasonSwapBusy
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonSwapBusy => 13
+    static SwapBusy => 13
 
     /**
+     * Native name: WheaRecoveryFailureReasonStackOverflow
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonStackOverflow => 14
+    static StackOverflow => 14
 
     /**
+     * Native name: WheaRecoveryFailureReasonUnexpectedFailure
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonUnexpectedFailure => 15
+    static UnexpectedFailure => 15
 
     /**
+     * Native name: WheaRecoveryFailureReasonKernelWillPageFaultBCAtCurrentIrql
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonKernelWillPageFaultBCAtCurrentIrql => 16
+    static KernelWillPageFaultBCAtCurrentIrql => 16
 
     /**
+     * Native name: WheaRecoveryFailureReasonFarNotValid
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonFarNotValid => 17
+    static FarNotValid => 17
 
     /**
+     * Native name: WheaRecoveryFailureReasonMax
      * @type {Integer (Int32)}
      */
-    static WheaRecoveryFailureReasonMax => 18
+    static Max => 18
 }

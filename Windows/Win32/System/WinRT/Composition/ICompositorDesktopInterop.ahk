@@ -31,7 +31,6 @@ class ICompositorDesktopInterop extends IUnknown {
     static VTableNames => ["CreateDesktopWindowTarget", "EnsureOnThread"]
 
     /**
-     * 
      * @param {HWND} hwndTarget 
      * @param {BOOL} isTopmost 
      * @returns {Pointer} 
@@ -44,7 +43,6 @@ class ICompositorDesktopInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {HRESULT} 
      */

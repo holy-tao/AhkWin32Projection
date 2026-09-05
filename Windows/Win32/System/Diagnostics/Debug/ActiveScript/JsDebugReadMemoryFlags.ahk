@@ -12,7 +12,8 @@ class JsDebugReadMemoryFlags extends Win32Enum {
     static None => 0
 
     /**
+     * Native name: JsDebugAllowPartialRead
      * @type {Integer (Int32)}
      */
-    static JsDebugAllowPartialRead => 1
+    static AllowPartialRead => 1
 }

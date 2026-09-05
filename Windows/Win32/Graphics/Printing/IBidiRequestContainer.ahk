@@ -37,7 +37,6 @@ class IBidiRequestContainer extends IUnknown {
     static VTableNames => ["AddRequest", "GetEnumObject", "GetRequestCount"]
 
     /**
-     * 
      * @param {IBidiRequest} pRequest 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ class IBidiRequestContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     GetEnumObject() {
@@ -56,7 +54,6 @@ class IBidiRequestContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRequestCount() {

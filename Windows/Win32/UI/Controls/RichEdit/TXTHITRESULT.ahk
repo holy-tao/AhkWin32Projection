@@ -7,22 +7,26 @@
 class TXTHITRESULT extends Win32Enum {
 
     /**
+     * Native name: TXTHITRESULT_NOHIT
      * @type {Integer (Int32)}
      */
-    static TXTHITRESULT_NOHIT => 0
+    static NOHIT => 0
 
     /**
+     * Native name: TXTHITRESULT_TRANSPARENT
      * @type {Integer (Int32)}
      */
-    static TXTHITRESULT_TRANSPARENT => 1
+    static TRANSPARENT => 1
 
     /**
+     * Native name: TXTHITRESULT_CLOSE
      * @type {Integer (Int32)}
      */
-    static TXTHITRESULT_CLOSE => 2
+    static CLOSE => 2
 
     /**
+     * Native name: TXTHITRESULT_HIT
      * @type {Integer (Int32)}
      */
-    static TXTHITRESULT_HIT => 3
+    static HIT => 3
 }

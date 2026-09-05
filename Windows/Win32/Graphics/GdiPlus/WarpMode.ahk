@@ -7,12 +7,14 @@
 class WarpMode extends Win32Enum {
 
     /**
+     * Native name: WarpModePerspective
      * @type {Integer (Int32)}
      */
-    static WarpModePerspective => 0
+    static Perspective => 0
 
     /**
+     * Native name: WarpModeBilinear
      * @type {Integer (Int32)}
      */
-    static WarpModeBilinear => 1
+    static Bilinear => 1
 }

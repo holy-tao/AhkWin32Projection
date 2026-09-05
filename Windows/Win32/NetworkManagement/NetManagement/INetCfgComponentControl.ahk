@@ -69,7 +69,6 @@ class INetCfgComponentControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ApplyRegistryChanges() {
@@ -78,7 +77,6 @@ class INetCfgComponentControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgPnpReconfigCallback} pICallback 
      * @returns {HRESULT} 
      */
@@ -88,7 +86,6 @@ class INetCfgComponentControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelChanges() {

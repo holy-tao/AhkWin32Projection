@@ -7,22 +7,26 @@
 class styleViewportSize extends Win32Enum {
 
     /**
+     * Native name: styleViewportSizeAuto
      * @type {Integer (Int32)}
      */
-    static styleViewportSizeAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleViewportSizeDeviceWidth
      * @type {Integer (Int32)}
      */
-    static styleViewportSizeDeviceWidth => 1
+    static DeviceWidth => 1
 
     /**
+     * Native name: styleViewportSizeDeviceHeight
      * @type {Integer (Int32)}
      */
-    static styleViewportSizeDeviceHeight => 2
+    static DeviceHeight => 2
 
     /**
+     * Native name: styleViewportSize_Max
      * @type {Integer (Int32)}
      */
-    static styleViewportSize_Max => 2147483647
+    static Max => 2147483647
 }

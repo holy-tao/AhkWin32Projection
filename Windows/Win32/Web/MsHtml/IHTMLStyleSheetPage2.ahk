@@ -46,7 +46,6 @@ class IHTMLStyleSheetPage2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ class IHTMLStyleSheetPage2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selectorText() {
@@ -68,7 +66,6 @@ class IHTMLStyleSheetPage2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRuleStyle} 
      */
     get_style() {

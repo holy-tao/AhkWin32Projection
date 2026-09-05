@@ -31,7 +31,6 @@ class IDtcToXaMapper extends IUnknown {
     static VTableNames => ["RequestNewResourceManager", "TranslateTridToXid", "EnlistResourceManager", "ReleaseResourceManager"]
 
     /**
-     * 
      * @param {PSTR} pszDSN 
      * @param {PSTR} pszClientDllName 
      * @param {Pointer<Integer>} pdwRMCookie 
@@ -48,7 +47,6 @@ class IDtcToXaMapper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwITransaction 
      * @param {Integer} dwRMCookie 
      * @param {Pointer<XID>} pXid 
@@ -62,7 +60,6 @@ class IDtcToXaMapper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwRMCookie 
      * @param {Pointer<Integer>} pdwITransaction 
      * @returns {HRESULT} 
@@ -75,7 +72,6 @@ class IDtcToXaMapper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwRMCookie 
      * @returns {HRESULT} 
      */

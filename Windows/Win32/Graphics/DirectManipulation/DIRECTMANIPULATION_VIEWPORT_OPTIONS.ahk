@@ -12,41 +12,47 @@ class DIRECTMANIPULATION_VIEWPORT_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No special behaviors. This is the default value used to set or revert to default behavior.
+     * Native name: DIRECTMANIPULATION_VIEWPORT_OPTIONS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VIEWPORT_OPTIONS_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * At the end of an interaction, the viewport transitions to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_READY</a> and then immediately to <b>DIRECTMANIPULATION_DISABLED</b>. The viewport must be explicitly enabled through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-enable">Enable</a> method before the next interaction can be processed.
+     * Native name: DIRECTMANIPULATION_VIEWPORT_OPTIONS_AUTODISABLE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VIEWPORT_OPTIONS_AUTODISABLE => 1
+    static AUTODISABLE => 1
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-update">Update</a> must be called to redraw the content within the viewport. The content is not updated automatically during an input event.
+     * Native name: DIRECTMANIPULATION_VIEWPORT_OPTIONS_MANUALUPDATE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VIEWPORT_OPTIONS_MANUALUPDATE => 2
+    static MANUALUPDATE => 2
 
     /**
      * All input from a contact associated with the viewport is passed to the UI thread for processing.
+     * Native name: DIRECTMANIPULATION_VIEWPORT_OPTIONS_INPUT
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VIEWPORT_OPTIONS_INPUT => 4
+    static INPUT => 4
 
     /**
      * If set, all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdown">WM_POINTERDOWN</a> messages are passed to the application for hit testing. Otherwise, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/directmanipulation/direct-manipulation-portal">Direct Manipulation</a> will process the messages for hit testing against the existing list of running viewports, and the application will not see the input.
      * 
      * Applies only when viewport state is <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_RUNNING</a> or <b>DIRECTMANIPULATION_INERTIA</b>.
+     * Native name: DIRECTMANIPULATION_VIEWPORT_OPTIONS_EXPLICITHITTEST
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VIEWPORT_OPTIONS_EXPLICITHITTEST => 8
+    static EXPLICITHITTEST => 8
 
     /**
      * Specifies that pixel snapping during a manipulation is disabled.
      * 
      * Anti-aliasing can create irregular edge rendering. Artifacts, commonly seen as blurry, or semi-transparent, edges can occur when the location of an edge falls in the middle of a device pixel rather than between device pixels.
+     * Native name: DIRECTMANIPULATION_VIEWPORT_OPTIONS_DISABLEPIXELSNAPPING
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VIEWPORT_OPTIONS_DISABLEPIXELSNAPPING => 16
+    static DISABLEPIXELSNAPPING => 16
 }

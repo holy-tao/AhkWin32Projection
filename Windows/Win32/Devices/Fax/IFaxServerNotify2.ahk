@@ -55,7 +55,6 @@ class IFaxServerNotify2 extends IDispatch {
     static VTableNames => ["OnIncomingJobAdded", "OnIncomingJobRemoved", "OnIncomingJobChanged", "OnOutgoingJobAdded", "OnOutgoingJobRemoved", "OnOutgoingJobChanged", "OnIncomingMessageAdded", "OnIncomingMessageRemoved", "OnOutgoingMessageAdded", "OnOutgoingMessageRemoved", "OnReceiptOptionsChange", "OnActivityLoggingConfigChange", "OnSecurityConfigChange", "OnEventLoggingConfigChange", "OnOutgoingQueueConfigChange", "OnOutgoingArchiveConfigChange", "OnIncomingArchiveConfigChange", "OnDevicesConfigChange", "OnOutboundRoutingGroupsConfigChange", "OnOutboundRoutingRulesConfigChange", "OnServerActivityChange", "OnQueuesStatusChange", "OnNewCall", "OnServerShutDown", "OnDeviceStatusChange", "OnGeneralServerConfigChanged"]
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrJobId 
      * @returns {HRESULT} 
@@ -68,7 +67,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrJobId 
      * @returns {HRESULT} 
@@ -81,7 +79,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrJobId 
      * @param {IFaxJobStatus} pJobStatus 
@@ -95,7 +92,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrJobId 
      * @returns {HRESULT} 
@@ -108,7 +104,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrJobId 
      * @returns {HRESULT} 
@@ -121,7 +116,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrJobId 
      * @param {IFaxJobStatus} pJobStatus 
@@ -135,7 +129,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrMessageId 
      * @returns {HRESULT} 
@@ -148,7 +141,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrMessageId 
      * @returns {HRESULT} 
@@ -161,7 +153,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrMessageId 
      * @returns {HRESULT} 
@@ -174,7 +165,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {BSTR} bstrMessageId 
      * @returns {HRESULT} 
@@ -187,7 +177,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -197,7 +186,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -207,7 +195,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -217,7 +204,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -227,7 +213,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -237,7 +222,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -247,7 +231,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -257,7 +240,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -267,7 +249,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -277,7 +258,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -287,7 +267,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {Integer} lIncomingMessages 
      * @param {Integer} lRoutingMessages 
@@ -301,7 +280,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {VARIANT_BOOL} bOutgoingQueueBlocked 
      * @param {VARIANT_BOOL} bOutgoingQueuePaused 
@@ -314,7 +292,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {Integer} lCallId 
      * @param {Integer} lDeviceId 
@@ -329,7 +306,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */
@@ -339,7 +315,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @param {Integer} lDeviceId 
      * @param {VARIANT_BOOL} bPoweredOff 
@@ -354,7 +329,6 @@ class IFaxServerNotify2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IFaxServer2} pFaxServer 
      * @returns {HRESULT} 
      */

@@ -47,7 +47,6 @@ class IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} dataMember 
      * @param {Pointer<VARIANT>} hierarchy 
      * @returns {IDispatch} 
@@ -60,7 +59,6 @@ class IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ class IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_classid() {
@@ -82,7 +79,6 @@ class IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -94,7 +90,6 @@ class IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {

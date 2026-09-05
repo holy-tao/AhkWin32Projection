@@ -6706,7 +6706,6 @@ class Services {
     }
 
     /**
-     * 
      * @param {SC_HANDLE} hService 
      * @param {Integer} dwNotify 
      * @param {Integer} dwTimeout 

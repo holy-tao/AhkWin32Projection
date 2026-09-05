@@ -10,18 +10,21 @@ class D3D12_VIDEO_ENCODER_CODEC extends Win32Enum {
 
     /**
      * H.264 video
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_H264
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_H264 => 0
+    static H264 => 0
 
     /**
      * High Efficiency Video Coding (HEVC) video
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_HEVC
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_HEVC => 1
+    static HEVC => 1
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_AV1
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_AV1 => 2
+    static AV1 => 2
 }

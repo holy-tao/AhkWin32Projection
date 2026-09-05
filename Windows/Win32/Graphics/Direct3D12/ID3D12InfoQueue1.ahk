@@ -30,7 +30,6 @@ class ID3D12InfoQueue1 extends ID3D12InfoQueue {
     static VTableNames => ["RegisterMessageCallback", "UnregisterMessageCallback"]
 
     /**
-     * 
      * @param {Pointer<D3D12MessageFunc>} CallbackFunc 
      * @param {D3D12_MESSAGE_CALLBACK_FLAGS} CallbackFilterFlags 
      * @param {Pointer<Void>} pContext 
@@ -46,7 +45,6 @@ class ID3D12InfoQueue1 extends ID3D12InfoQueue {
     }
 
     /**
-     * 
      * @param {Integer} CallbackCookie 
      * @returns {HRESULT} 
      */

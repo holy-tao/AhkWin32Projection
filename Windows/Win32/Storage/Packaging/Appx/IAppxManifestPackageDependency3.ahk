@@ -30,7 +30,6 @@ class IAppxManifestPackageDependency3 extends IUnknown {
     static VTableNames => ["GetIsOptional"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetIsOptional() {

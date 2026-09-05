@@ -29,7 +29,6 @@ class IService extends IUnknown {
     static VTableNames => ["InvokeService"]
 
     /**
-     * 
      * @param {IUnknown} pUnkInner 
      * @returns {HRESULT} 
      */

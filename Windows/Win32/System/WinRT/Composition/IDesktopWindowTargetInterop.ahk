@@ -37,7 +37,6 @@ class IDesktopWindowTargetInterop extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_Hwnd() {

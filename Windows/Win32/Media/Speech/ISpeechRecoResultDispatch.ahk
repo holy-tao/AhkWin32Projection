@@ -69,7 +69,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoContext} 
      */
     get_RecoContext() {
@@ -78,7 +77,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoResultTimes} 
      */
     get_Times() {
@@ -87,7 +85,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechAudioFormat} Format 
      * @returns {HRESULT} 
      */
@@ -97,7 +94,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_AudioFormat() {
@@ -106,7 +102,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseInfo} 
      */
     get_PhraseInfo() {
@@ -115,7 +110,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} RequestCount 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
@@ -139,7 +133,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {SpeechVoiceSpeakFlags} Flags 
@@ -151,7 +144,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     SaveToMemory() {
@@ -161,7 +153,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechDiscardType} ValueTypes 
      * @returns {HRESULT} 
      */
@@ -171,7 +162,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {BSTR} 
      */
@@ -182,7 +172,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} LineNumber 
      * @param {Pointer<BSTR>} ScriptLine 
      * @param {Pointer<BSTR>} Source 
@@ -201,7 +190,6 @@ class ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Feedback 
      * @param {VARIANT_BOOL} WasSuccessful 
      * @returns {HRESULT} 

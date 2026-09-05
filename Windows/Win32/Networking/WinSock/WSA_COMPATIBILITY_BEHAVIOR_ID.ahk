@@ -7,17 +7,20 @@
 class WSA_COMPATIBILITY_BEHAVIOR_ID extends Win32Enum {
 
     /**
+     * Native name: WsaBehaviorAll
      * @type {Integer (Int32)}
      */
-    static WsaBehaviorAll => 0
+    static All => 0
 
     /**
+     * Native name: WsaBehaviorReceiveBuffering
      * @type {Integer (Int32)}
      */
-    static WsaBehaviorReceiveBuffering => 1
+    static ReceiveBuffering => 1
 
     /**
+     * Native name: WsaBehaviorAutoTuning
      * @type {Integer (Int32)}
      */
-    static WsaBehaviorAutoTuning => 2
+    static AutoTuning => 2
 }

@@ -10,33 +10,38 @@ class D3D11_VIDEO_PROCESSOR_DEVICE_CAPS extends Win32Enum {
 
     /**
      * The video processor can blend video content in linear color space. Most video content is gamma corrected, resulting in nonlinear values. This capability flag means that the video processor converts colors to linear space before blending, which produces better results.
+     * Native name: D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_LINEAR_SPACE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_LINEAR_SPACE => 1
+    static LINEAR_SPACE => 1
 
     /**
      * The video processor supports the xvYCC color space for YCbCr data.
+     * Native name: D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_xvYCC
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_xvYCC => 2
+    static xvYCC => 2
 
     /**
      * The video processor can perform range conversion when the input and output are both RGB but use different color ranges (0-255 or 16-235, for 8-bit RGB).
+     * Native name: D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_RGB_RANGE_CONVERSION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_RGB_RANGE_CONVERSION => 4
+    static RGB_RANGE_CONVERSION => 4
 
     /**
      * The video processor can apply a matrix conversion to YCbCr values when the input and output are both YCbCr. For example, the driver can convert colors from BT.601 to BT.709.
+     * Native name: D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_YCbCr_MATRIX_CONVERSION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_YCbCr_MATRIX_CONVERSION => 8
+    static YCbCr_MATRIX_CONVERSION => 8
 
     /**
      * The video processor supports YUV nominal range . 
      * 
      * Supported in Windows 8.1 and later.
+     * Native name: D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_NOMINAL_RANGE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_NOMINAL_RANGE => 16
+    static NOMINAL_RANGE => 16
 }

@@ -66,7 +66,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoContext} 
      */
     get_RecoContext() {
@@ -75,7 +74,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoResultTimes} 
      */
     get_Times() {
@@ -84,7 +82,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechAudioFormat} Format 
      * @returns {HRESULT} 
      */
@@ -94,7 +91,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_AudioFormat() {
@@ -103,7 +99,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseInfo} 
      */
     get_PhraseInfo() {
@@ -112,7 +107,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} RequestCount 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
@@ -136,7 +130,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {SpeechVoiceSpeakFlags} Flags 
@@ -148,7 +141,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     SaveToMemory() {
@@ -158,7 +150,6 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechDiscardType} ValueTypes 
      * @returns {HRESULT} 
      */

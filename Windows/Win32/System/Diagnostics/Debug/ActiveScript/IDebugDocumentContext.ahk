@@ -31,7 +31,6 @@ class IDebugDocumentContext extends IUnknown {
     static VTableNames => ["GetDocument", "EnumCodeContexts"]
 
     /**
-     * 
      * @returns {IDebugDocument} 
      */
     GetDocument() {
@@ -40,7 +39,6 @@ class IDebugDocumentContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugCodeContexts} 
      */
     EnumCodeContexts() {

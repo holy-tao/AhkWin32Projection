@@ -73,7 +73,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Maximize() {
@@ -82,7 +81,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Minimize() {
@@ -101,7 +99,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Top() {
@@ -110,7 +107,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} top 
      * @returns {HRESULT} 
      */
@@ -120,7 +116,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Bottom() {
@@ -129,7 +124,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} bottom 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Left() {
@@ -148,7 +141,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} left 
      * @returns {HRESULT} 
      */
@@ -158,7 +150,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Right() {
@@ -167,7 +158,6 @@ class Frame extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} right 
      * @returns {HRESULT} 
      */

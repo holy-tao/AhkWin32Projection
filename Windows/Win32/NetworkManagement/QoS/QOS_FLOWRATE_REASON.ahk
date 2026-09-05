@@ -10,30 +10,35 @@ class QOS_FLOWRATE_REASON extends Win32Enum {
 
     /**
      * Indicates that there has not been a change in the flow.
+     * Native name: QOSFlowRateNotApplicable
      * @type {Integer (Int32)}
      */
-    static QOSFlowRateNotApplicable => 0
+    static FlowRateNotApplicable => 0
 
     /**
      * Indicates that the content of a flow has changed.
+     * Native name: QOSFlowRateContentChange
      * @type {Integer (Int32)}
      */
-    static QOSFlowRateContentChange => 1
+    static FlowRateContentChange => 1
 
     /**
      * Indicates that the flow has changed due to congestion.
+     * Native name: QOSFlowRateCongestion
      * @type {Integer (Int32)}
      */
-    static QOSFlowRateCongestion => 2
+    static FlowRateCongestion => 2
 
     /**
+     * Native name: QOSFlowRateHigherContentEncoding
      * @type {Integer (Int32)}
      */
-    static QOSFlowRateHigherContentEncoding => 3
+    static FlowRateHigherContentEncoding => 3
 
     /**
      * Indicates that the user has caused the flow to change.
+     * Native name: QOSFlowRateUserCaused
      * @type {Integer (Int32)}
      */
-    static QOSFlowRateUserCaused => 4
+    static FlowRateUserCaused => 4
 }

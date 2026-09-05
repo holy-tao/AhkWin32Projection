@@ -52,7 +52,6 @@ class IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {PRINTER_HANDLE} 
      */
     get_Handle() {
@@ -62,7 +61,6 @@ class IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -72,7 +70,6 @@ class IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrBidiQuery 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ class IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     GetProperties() {

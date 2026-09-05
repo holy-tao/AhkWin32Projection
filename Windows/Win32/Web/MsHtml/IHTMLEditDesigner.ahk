@@ -30,7 +30,6 @@ class IHTMLEditDesigner extends IUnknown {
     static VTableNames => ["PreHandleEvent", "PostHandleEvent", "TranslateAccelerator", "PostEditorEventNotify"]
 
     /**
-     * 
      * @param {Integer} inEvtDispId 
      * @param {IHTMLEventObj} pIEventObj 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IHTMLEditDesigner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inEvtDispId 
      * @param {IHTMLEventObj} pIEventObj 
      * @returns {HRESULT} 
@@ -92,7 +90,6 @@ class IHTMLEditDesigner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inEvtDispId 
      * @param {IHTMLEventObj} pIEventObj 
      * @returns {HRESULT} 

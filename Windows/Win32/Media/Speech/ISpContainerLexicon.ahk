@@ -29,7 +29,6 @@ class ISpContainerLexicon extends ISpLexicon {
     static VTableNames => ["AddLexicon"]
 
     /**
-     * 
      * @param {ISpLexicon} pAddLexicon 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 

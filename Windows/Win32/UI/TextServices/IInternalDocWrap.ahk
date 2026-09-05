@@ -29,7 +29,6 @@ class IInternalDocWrap extends IUnknown {
     static VTableNames => ["NotifyRevoke"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyRevoke() {

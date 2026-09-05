@@ -10,19 +10,22 @@ class SpatialAudioHrtfDirectivityType extends Win32Enum {
 
     /**
      * The sound is emitted in all directions.
+     * Native name: SpatialAudioHrtfDirectivity_OmniDirectional
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfDirectivity_OmniDirectional => 0
+    static OmniDirectional => 0
 
     /**
      * The sound is emitted in a cardioid shape.
+     * Native name: SpatialAudioHrtfDirectivity_Cardioid
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfDirectivity_Cardioid => 1
+    static Cardioid => 1
 
     /**
      * The sound is emitted in a cone shape.
+     * Native name: SpatialAudioHrtfDirectivity_Cone
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfDirectivity_Cone => 2
+    static Cone => 2
 }

@@ -10,19 +10,22 @@ class PEER_NODE_CHANGE_TYPE extends Win32Enum {
 
     /**
      * The peer node has connected to the graph.
+     * Native name: PEER_NODE_CHANGE_CONNECTED
      * @type {Integer (Int32)}
      */
-    static PEER_NODE_CHANGE_CONNECTED => 1
+    static CONNECTED => 1
 
     /**
      * The peer node has disconnected from the graph.
+     * Native name: PEER_NODE_CHANGE_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static PEER_NODE_CHANGE_DISCONNECTED => 2
+    static DISCONNECTED => 2
 
     /**
      * The peer node's status within the graph has changed.
+     * Native name: PEER_NODE_CHANGE_UPDATED
      * @type {Integer (Int32)}
      */
-    static PEER_NODE_CHANGE_UPDATED => 3
+    static UPDATED => 3
 }

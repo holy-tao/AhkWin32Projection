@@ -50,7 +50,6 @@ class IHTCDescBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_urn() {
@@ -60,7 +59,6 @@ class IHTCDescBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {

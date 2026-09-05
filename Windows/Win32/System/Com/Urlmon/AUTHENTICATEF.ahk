@@ -7,17 +7,20 @@
 class AUTHENTICATEF extends Win32Enum {
 
     /**
+     * Native name: AUTHENTICATEF_PROXY
      * @type {Integer (Int32)}
      */
-    static AUTHENTICATEF_PROXY => 1
+    static PROXY => 1
 
     /**
+     * Native name: AUTHENTICATEF_BASIC
      * @type {Integer (Int32)}
      */
-    static AUTHENTICATEF_BASIC => 2
+    static BASIC => 2
 
     /**
+     * Native name: AUTHENTICATEF_HTTP
      * @type {Integer (Int32)}
      */
-    static AUTHENTICATEF_HTTP => 4
+    static HTTP => 4
 }

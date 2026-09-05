@@ -12,13 +12,15 @@ class D3D12_VIDEO_ENCODER_TIER_HEVC extends Win32Enum {
 
     /**
      * Main tier.
+     * Native name: D3D12_VIDEO_ENCODER_TIER_HEVC_MAIN
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_TIER_HEVC_MAIN => 0
+    static MAIN => 0
 
     /**
      * High tier.
+     * Native name: D3D12_VIDEO_ENCODER_TIER_HEVC_HIGH
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_TIER_HEVC_HIGH => 1
+    static HIGH => 1
 }

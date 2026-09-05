@@ -7,7 +7,8 @@
 class XINPUT_DEVTYPE extends Win32Enum {
 
     /**
+     * Native name: XINPUT_DEVTYPE_GAMEPAD
      * @type {Integer (Byte)}
      */
-    static XINPUT_DEVTYPE_GAMEPAD => 0x01
+    static GAMEPAD => 0x01
 }

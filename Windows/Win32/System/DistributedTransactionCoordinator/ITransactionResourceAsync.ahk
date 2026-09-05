@@ -31,7 +31,6 @@ class ITransactionResourceAsync extends IUnknown {
     static VTableNames => ["PrepareRequest", "CommitRequest", "AbortRequest", "TMDown"]
 
     /**
-     * 
      * @param {BOOL} fRetaining 
      * @param {Integer} grfRM 
      * @param {BOOL} fWantMoniker 
@@ -44,7 +43,6 @@ class ITransactionResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfRM 
      * @param {Pointer<BOID>} pNewUOW 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class ITransactionResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pboidReason 
      * @param {BOOL} fRetaining 
      * @param {Pointer<BOID>} pNewUOW 
@@ -67,7 +64,6 @@ class ITransactionResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TMDown() {

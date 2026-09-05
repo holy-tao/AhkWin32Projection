@@ -30,7 +30,6 @@ class IMLOperatorTensor extends IUnknown {
     static VTableNames => ["GetDimensionCount", "GetShape", "GetTensorDataType", "IsCpuData", "IsDataInterface", "GetData", "GetDataInterface"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDimensionCount() {
@@ -39,7 +38,6 @@ class IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 
      */
@@ -49,7 +47,6 @@ class IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MLOperatorTensorDataType} 
      */
     GetTensorDataType() {
@@ -58,7 +55,6 @@ class IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsCpuData() {
@@ -67,7 +63,6 @@ class IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsDataInterface() {
@@ -76,7 +71,6 @@ class IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     GetData() {
@@ -85,7 +79,6 @@ class IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IUnknown>} dataInterface 
      * @returns {String} Nothing - always returns an empty string
      */

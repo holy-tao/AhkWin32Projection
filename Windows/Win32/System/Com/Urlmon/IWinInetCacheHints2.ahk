@@ -30,7 +30,6 @@ class IWinInetCacheHints2 extends IWinInetCacheHints {
     static VTableNames => ["SetCacheExtension2"]
 
     /**
-     * 
      * @param {PWSTR} pwzExt 
      * @param {PWSTR} pwzCacheFile 
      * @param {Pointer<Integer>} pcchCacheFile 

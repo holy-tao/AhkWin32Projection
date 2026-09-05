@@ -7,7 +7,8 @@
 class AM_FILTER_FLAGS extends Win32Enum {
 
     /**
+     * Native name: AM_FILTER_FLAGS_REMOVABLE
      * @type {Integer (Int32)}
      */
-    static AM_FILTER_FLAGS_REMOVABLE => 1
+    static REMOVABLE => 1
 }

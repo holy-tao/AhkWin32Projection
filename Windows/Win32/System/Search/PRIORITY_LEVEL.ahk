@@ -12,25 +12,29 @@ class PRIORITY_LEVEL extends Win32Enum {
 
     /**
      * Indicates that the indexer should process items as fast as the machine allows.
+     * Native name: PRIORITY_LEVEL_FOREGROUND
      * @type {Integer (Int32)}
      */
-    static PRIORITY_LEVEL_FOREGROUND => 0
+    static FOREGROUND => 0
 
     /**
      * Indicates that the indexer should process items in this scope first, and as quickly as possible.
+     * Native name: PRIORITY_LEVEL_HIGH
      * @type {Integer (Int32)}
      */
-    static PRIORITY_LEVEL_HIGH => 1
+    static HIGH => 1
 
     /**
      * Indicates that the indexer should process items in this scope before those at the normal rate, but after any other prioritization requests.
+     * Native name: PRIORITY_LEVEL_LOW
      * @type {Integer (Int32)}
      */
-    static PRIORITY_LEVEL_LOW => 2
+    static LOW => 2
 
     /**
      * Indicates that the indexer should  process items at the normal indexer rate.
+     * Native name: PRIORITY_LEVEL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static PRIORITY_LEVEL_DEFAULT => 3
+    static DEFAULT => 3
 }

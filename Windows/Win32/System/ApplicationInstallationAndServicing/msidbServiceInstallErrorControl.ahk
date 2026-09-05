@@ -7,7 +7,8 @@
 class msidbServiceInstallErrorControl extends Win32Enum {
 
     /**
+     * Native name: msidbServiceInstallErrorControlVital
      * @type {Integer (Int32)}
      */
-    static msidbServiceInstallErrorControlVital => 32768
+    static Vital => 32768
 }

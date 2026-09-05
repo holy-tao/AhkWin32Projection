@@ -10,49 +10,57 @@ class D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS extends Win32Enum {
 
     /**
      * Denoise.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_DENOISE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_DENOISE => 1
+    static DENOISE => 1
 
     /**
      * Deringing.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_DERINGING
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_DERINGING => 2
+    static DERINGING => 2
 
     /**
      * Edge enhancement.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_EDGE_ENHANCEMENT
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_EDGE_ENHANCEMENT => 4
+    static EDGE_ENHANCEMENT => 4
 
     /**
      * Color correction.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_COLOR_CORRECTION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_COLOR_CORRECTION => 8
+    static COLOR_CORRECTION => 8
 
     /**
      * Flesh-tone mapping.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_FLESH_TONE_MAPPING
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_FLESH_TONE_MAPPING => 16
+    static FLESH_TONE_MAPPING => 16
 
     /**
      * Image stabilization.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_IMAGE_STABILIZATION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_IMAGE_STABILIZATION => 32
+    static IMAGE_STABILIZATION => 32
 
     /**
      * Enhanced image resolution.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_SUPER_RESOLUTION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_SUPER_RESOLUTION => 64
+    static SUPER_RESOLUTION => 64
 
     /**
      * Anamorphic scaling.
+     * Native name: D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_ANAMORPHIC_SCALING
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS_ANAMORPHIC_SCALING => 128
+    static ANAMORPHIC_SCALING => 128
 }

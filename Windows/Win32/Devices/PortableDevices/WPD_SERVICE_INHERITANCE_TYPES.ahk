@@ -9,7 +9,8 @@
 class WPD_SERVICE_INHERITANCE_TYPES extends Win32Enum {
 
     /**
+     * Native name: WPD_SERVICE_INHERITANCE_IMPLEMENTATION
      * @type {Integer (Int32)}
      */
-    static WPD_SERVICE_INHERITANCE_IMPLEMENTATION => 0
+    static IMPLEMENTATION => 0
 }

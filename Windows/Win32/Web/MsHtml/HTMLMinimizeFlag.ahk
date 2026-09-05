@@ -7,17 +7,20 @@
 class HTMLMinimizeFlag extends Win32Enum {
 
     /**
+     * Native name: HTMLMinimizeFlagNo
      * @type {Integer (Int32)}
      */
-    static HTMLMinimizeFlagNo => 0
+    static No => 0
 
     /**
+     * Native name: HTMLMinimizeFlagYes
      * @type {Integer (Int32)}
      */
-    static HTMLMinimizeFlagYes => 131072
+    static Yes => 131072
 
     /**
+     * Native name: HTMLMinimizeFlag_Max
      * @type {Integer (Int32)}
      */
-    static HTMLMinimizeFlag_Max => 2147483647
+    static Max => 2147483647
 }

@@ -12,25 +12,29 @@ class ADS_SETTYPE_ENUM extends Win32Enum {
 
     /**
      * Sets the full path, for example, "LDAP://servername/o=internet/…/cn=bar".
+     * Native name: ADS_SETTYPE_FULL
      * @type {Integer (Int32)}
      */
-    static ADS_SETTYPE_FULL => 1
+    static FULL => 1
 
     /**
      * Updates the provider only, for example, "LDAP".
+     * Native name: ADS_SETTYPE_PROVIDER
      * @type {Integer (Int32)}
      */
-    static ADS_SETTYPE_PROVIDER => 2
+    static PROVIDER => 2
 
     /**
      * Updates the server name only, for example, "servername".
+     * Native name: ADS_SETTYPE_SERVER
      * @type {Integer (Int32)}
      */
-    static ADS_SETTYPE_SERVER => 3
+    static SERVER => 3
 
     /**
      * Updates the distinguished name only, for example, "o=internet/…/cn=bar".
+     * Native name: ADS_SETTYPE_DN
      * @type {Integer (Int32)}
      */
-    static ADS_SETTYPE_DN => 4
+    static DN => 4
 }

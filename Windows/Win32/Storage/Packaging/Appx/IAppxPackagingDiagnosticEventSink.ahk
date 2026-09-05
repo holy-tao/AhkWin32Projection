@@ -32,7 +32,6 @@ class IAppxPackagingDiagnosticEventSink extends IUnknown {
     static VTableNames => ["ReportContextChange", "ReportError"]
 
     /**
-     * 
      * @param {APPX_PACKAGING_CONTEXT_CHANGE_TYPE} _changeType 
      * @param {Integer} contextId 
      * @param {PSTR} contextName 
@@ -50,7 +49,6 @@ class IAppxPackagingDiagnosticEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} errorMessage 
      * @returns {HRESULT} 
      */

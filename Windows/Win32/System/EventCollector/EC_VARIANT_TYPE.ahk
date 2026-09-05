@@ -10,37 +10,43 @@ class EC_VARIANT_TYPE extends Win32Enum {
 
     /**
      * Null content that implies that the element that contains the content does not exist.
+     * Native name: EcVarTypeNull
      * @type {Integer (Int32)}
      */
-    static EcVarTypeNull => 0
+    static VarTypeNull => 0
 
     /**
      * A Boolean value.
+     * Native name: EcVarTypeBoolean
      * @type {Integer (Int32)}
      */
-    static EcVarTypeBoolean => 1
+    static VarTypeBoolean => 1
 
     /**
      * An unsigned 32-bit value.
+     * Native name: EcVarTypeUInt32
      * @type {Integer (Int32)}
      */
-    static EcVarTypeUInt32 => 2
+    static VarTypeUInt32 => 2
 
     /**
      * A ULONGLONG value.
+     * Native name: EcVarTypeDateTime
      * @type {Integer (Int32)}
      */
-    static EcVarTypeDateTime => 3
+    static VarTypeDateTime => 3
 
     /**
      * A string value.
+     * Native name: EcVarTypeString
      * @type {Integer (Int32)}
      */
-    static EcVarTypeString => 4
+    static VarTypeString => 4
 
     /**
      * An EC_OBJECT_ARRAY_PROPERTY_HANDLE value.
+     * Native name: EcVarObjectArrayPropertyHandle
      * @type {Integer (Int32)}
      */
-    static EcVarObjectArrayPropertyHandle => 5
+    static VarObjectArrayPropertyHandle => 5
 }

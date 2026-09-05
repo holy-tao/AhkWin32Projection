@@ -7,17 +7,20 @@
 class MMSSF_GET_INFORMATION_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: MMSSF_HASCLOCK
      * @type {Integer (Int32)}
      */
-    static MMSSF_HASCLOCK => 1
+    static HASCLOCK => 1
 
     /**
+     * Native name: MMSSF_SUPPORTSEEK
      * @type {Integer (Int32)}
      */
-    static MMSSF_SUPPORTSEEK => 2
+    static SUPPORTSEEK => 2
 
     /**
+     * Native name: MMSSF_ASYNCHRONOUS
      * @type {Integer (Int32)}
      */
-    static MMSSF_ASYNCHRONOUS => 4
+    static ASYNCHRONOUS => 4
 }

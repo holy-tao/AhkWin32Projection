@@ -12,13 +12,15 @@ class DRT_LEAFSET_KEY_CHANGE_TYPE extends Win32Enum {
 
     /**
      * A node was added to the  DRT leaf set of the local node.
+     * Native name: DRT_LEAFSET_KEY_ADDED
      * @type {Integer (Int32)}
      */
-    static DRT_LEAFSET_KEY_ADDED => 0
+    static ADDED => 0
 
     /**
      * A node was deleted from the  DRT leaf set of the local node.
+     * Native name: DRT_LEAFSET_KEY_DELETED
      * @type {Integer (Int32)}
      */
-    static DRT_LEAFSET_KEY_DELETED => 1
+    static DELETED => 1
 }

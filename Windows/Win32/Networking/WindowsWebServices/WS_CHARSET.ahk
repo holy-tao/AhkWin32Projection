@@ -11,25 +11,29 @@ class WS_CHARSET extends Win32Enum {
     /**
      * Specifies that the charset of a document should be determined automatically by inspecting
      *           the BOM (Byte Order Marks) of the document and the xml declaration if present.
+     * Native name: WS_CHARSET_AUTO
      * @type {Integer (Int32)}
      */
-    static WS_CHARSET_AUTO => 0
+    static AUTO => 0
 
     /**
      * Specifies that the charset of a document is UTF-8.
+     * Native name: WS_CHARSET_UTF8
      * @type {Integer (Int32)}
      */
-    static WS_CHARSET_UTF8 => 1
+    static UTF8 => 1
 
     /**
      * Specifies that the charset of a document is UTF-16LE.
+     * Native name: WS_CHARSET_UTF16LE
      * @type {Integer (Int32)}
      */
-    static WS_CHARSET_UTF16LE => 2
+    static UTF16LE => 2
 
     /**
      * Specifies that the charset of a document is UTF-16BE.
+     * Native name: WS_CHARSET_UTF16BE
      * @type {Integer (Int32)}
      */
-    static WS_CHARSET_UTF16BE => 3
+    static UTF16BE => 3
 }

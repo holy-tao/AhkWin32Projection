@@ -38,7 +38,6 @@ class IDisplayServices extends IUnknown {
     static VTableNames => ["CreateDisplayPointer", "TransformRect", "TransformPoint", "GetCaret", "GetComputedStyle", "ScrollRectIntoView", "HasFlowLayout"]
 
     /**
-     * 
      * @returns {IDisplayPointer} 
      */
     CreateDisplayPointer() {
@@ -47,7 +46,6 @@ class IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pRect 
      * @param {COORD_SYSTEM} eSource 
      * @param {COORD_SYSTEM} eDestination 
@@ -60,7 +58,6 @@ class IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINT>} pPoint 
      * @param {COORD_SYSTEM} eSource 
      * @param {COORD_SYSTEM} eDestination 
@@ -73,7 +70,6 @@ class IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLCaret} 
      */
     GetCaret() {
@@ -82,7 +78,6 @@ class IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointer 
      * @returns {IHTMLComputedStyle} 
      */
@@ -92,7 +87,6 @@ class IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @param {RECT} _rect 
      * @returns {HRESULT} 
@@ -103,7 +97,6 @@ class IDisplayServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @returns {BOOL} 
      */

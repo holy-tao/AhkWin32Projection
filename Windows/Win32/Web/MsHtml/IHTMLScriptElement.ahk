@@ -101,7 +101,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +112,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -123,7 +121,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -135,7 +132,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlFor() {
@@ -145,7 +141,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -157,7 +152,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_event() {
@@ -167,7 +161,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -179,7 +172,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -189,7 +181,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -199,7 +190,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defer() {
@@ -208,7 +198,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -218,7 +207,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -228,7 +216,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -238,7 +225,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -250,7 +236,6 @@ class IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {

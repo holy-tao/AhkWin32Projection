@@ -7,32 +7,38 @@
 class MF_SERVICE_LOOKUP_TYPE extends Win32Enum {
 
     /**
+     * Native name: MF_SERVICE_LOOKUP_UPSTREAM
      * @type {Integer (Int32)}
      */
-    static MF_SERVICE_LOOKUP_UPSTREAM => 0
+    static UPSTREAM => 0
 
     /**
+     * Native name: MF_SERVICE_LOOKUP_UPSTREAM_DIRECT
      * @type {Integer (Int32)}
      */
-    static MF_SERVICE_LOOKUP_UPSTREAM_DIRECT => 1
+    static UPSTREAM_DIRECT => 1
 
     /**
+     * Native name: MF_SERVICE_LOOKUP_DOWNSTREAM
      * @type {Integer (Int32)}
      */
-    static MF_SERVICE_LOOKUP_DOWNSTREAM => 2
+    static DOWNSTREAM => 2
 
     /**
+     * Native name: MF_SERVICE_LOOKUP_DOWNSTREAM_DIRECT
      * @type {Integer (Int32)}
      */
-    static MF_SERVICE_LOOKUP_DOWNSTREAM_DIRECT => 3
+    static DOWNSTREAM_DIRECT => 3
 
     /**
+     * Native name: MF_SERVICE_LOOKUP_ALL
      * @type {Integer (Int32)}
      */
-    static MF_SERVICE_LOOKUP_ALL => 4
+    static ALL => 4
 
     /**
+     * Native name: MF_SERVICE_LOOKUP_GLOBAL
      * @type {Integer (Int32)}
      */
-    static MF_SERVICE_LOOKUP_GLOBAL => 5
+    static GLOBAL => 5
 }

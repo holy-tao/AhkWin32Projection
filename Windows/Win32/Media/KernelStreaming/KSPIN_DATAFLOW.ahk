@@ -7,12 +7,14 @@
 class KSPIN_DATAFLOW extends Win32Enum {
 
     /**
+     * Native name: KSPIN_DATAFLOW_IN
      * @type {Integer (Int32)}
      */
-    static KSPIN_DATAFLOW_IN => 1
+    static IN => 1
 
     /**
+     * Native name: KSPIN_DATAFLOW_OUT
      * @type {Integer (Int32)}
      */
-    static KSPIN_DATAFLOW_OUT => 2
+    static OUT => 2
 }

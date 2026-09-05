@@ -37,7 +37,6 @@ class IHTMLAudioElementFactory extends IDispatch {
     static VTableNames => ["create"]
 
     /**
-     * 
      * @param {VARIANT} src 
      * @returns {IHTMLAudioElement} 
      */

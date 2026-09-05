@@ -44,7 +44,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_numberOfItems() {
@@ -63,7 +61,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -72,7 +69,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSeg} newItem 
      * @returns {ISVGPathSeg} 
      */
@@ -82,7 +78,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGPathSeg} 
      */
@@ -92,7 +87,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSeg} newItem 
      * @param {Integer} index 
      * @returns {ISVGPathSeg} 
@@ -103,7 +97,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSeg} newItem 
      * @param {Integer} index 
      * @returns {ISVGPathSeg} 
@@ -114,7 +107,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGPathSeg} 
      */
@@ -124,7 +116,6 @@ class ISVGPathSegList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSeg} newItem 
      * @returns {ISVGPathSeg} 
      */

@@ -29,7 +29,6 @@ class ITransactionVoterNotifyAsync2 extends ITransactionOutcomeEvents {
     static VTableNames => ["VoteRequest"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     VoteRequest() {

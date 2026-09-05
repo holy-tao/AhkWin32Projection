@@ -66,7 +66,6 @@ class IPropertyUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} fmtid 
      * @param {Integer} pid 
      * @param {PWSTR} pwszText 

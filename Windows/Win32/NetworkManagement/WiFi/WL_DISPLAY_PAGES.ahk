@@ -10,18 +10,21 @@ class WL_DISPLAY_PAGES extends Win32Enum {
 
     /**
      * Displays the <b>Connection</b> tab.
+     * Native name: WLConnectionPage
      * @type {Integer (Int32)}
      */
-    static WLConnectionPage => 0
+    static ConnectionPage => 0
 
     /**
      * Displays the <b>Security</b> tab.
+     * Native name: WLSecurityPage
      * @type {Integer (Int32)}
      */
-    static WLSecurityPage => 1
+    static SecurityPage => 1
 
     /**
+     * Native name: WLAdvPage
      * @type {Integer (Int32)}
      */
-    static WLAdvPage => 2
+    static AdvPage => 2
 }

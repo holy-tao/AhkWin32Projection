@@ -25,7 +25,6 @@ class ISpNotifyCallback extends Win32ComInterface {
     static VTableNames => ["NotifyCallback"]
 
     /**
-     * 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
      * @returns {HRESULT} 

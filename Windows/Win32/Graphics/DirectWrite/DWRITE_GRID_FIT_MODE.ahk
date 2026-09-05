@@ -10,19 +10,22 @@ class DWRITE_GRID_FIT_MODE extends Win32Enum {
 
     /**
      * Choose grid fitting based on the font's table information.
+     * Native name: DWRITE_GRID_FIT_MODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DWRITE_GRID_FIT_MODE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Always disable grid fitting, using the ideal glyph outlines.
+     * Native name: DWRITE_GRID_FIT_MODE_DISABLED
      * @type {Integer (Int32)}
      */
-    static DWRITE_GRID_FIT_MODE_DISABLED => 1
+    static DISABLED => 1
 
     /**
      * Enable grid fitting, adjusting glyph outlines for device pixel display.
+     * Native name: DWRITE_GRID_FIT_MODE_ENABLED
      * @type {Integer (Int32)}
      */
-    static DWRITE_GRID_FIT_MODE_ENABLED => 2
+    static ENABLED => 2
 }

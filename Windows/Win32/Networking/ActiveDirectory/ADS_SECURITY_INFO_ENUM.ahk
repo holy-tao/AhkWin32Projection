@@ -36,25 +36,29 @@ class ADS_SECURITY_INFO_ENUM extends Win32Enum {
 
     /**
      * Reads or sets the owner data.
+     * Native name: ADS_SECURITY_INFO_OWNER
      * @type {Integer (Int32)}
      */
-    static ADS_SECURITY_INFO_OWNER => 1
+    static OWNER => 1
 
     /**
      * Reads or sets the group data.
+     * Native name: ADS_SECURITY_INFO_GROUP
      * @type {Integer (Int32)}
      */
-    static ADS_SECURITY_INFO_GROUP => 2
+    static GROUP => 2
 
     /**
      * Reads or sets the discretionary access-control list data.
+     * Native name: ADS_SECURITY_INFO_DACL
      * @type {Integer (Int32)}
      */
-    static ADS_SECURITY_INFO_DACL => 4
+    static DACL => 4
 
     /**
      * Reads or sets the system access-control list data.
+     * Native name: ADS_SECURITY_INFO_SACL
      * @type {Integer (Int32)}
      */
-    static ADS_SECURITY_INFO_SACL => 8
+    static SACL => 8
 }

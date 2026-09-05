@@ -7,22 +7,26 @@
 class NVME_IDENTIFIER_TYPE_LENGTH extends Win32Enum {
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_EUI64_LENGTH
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_EUI64_LENGTH => 8
+    static EUI64_LENGTH => 8
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_NGUID_LENGTH
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_NGUID_LENGTH => 16
+    static NGUID_LENGTH => 16
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_UUID_LENGTH
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_UUID_LENGTH => 16
+    static UUID_LENGTH => 16
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_CSI_LENGTH
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_CSI_LENGTH => 1
+    static CSI_LENGTH => 1
 }

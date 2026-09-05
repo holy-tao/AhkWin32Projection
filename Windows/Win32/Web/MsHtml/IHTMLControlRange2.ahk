@@ -30,7 +30,6 @@ class IHTMLControlRange2 extends IDispatch {
     static VTableNames => ["addElement"]
 
     /**
-     * 
      * @param {IHTMLElement} item 
      * @returns {HRESULT} 
      */

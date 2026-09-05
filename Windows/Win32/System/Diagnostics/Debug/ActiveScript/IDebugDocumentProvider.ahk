@@ -30,7 +30,6 @@ class IDebugDocumentProvider extends IDebugDocumentInfo {
     static VTableNames => ["GetDocument"]
 
     /**
-     * 
      * @returns {IDebugDocument} 
      */
     GetDocument() {

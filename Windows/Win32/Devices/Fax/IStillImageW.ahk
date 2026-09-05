@@ -72,7 +72,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwType 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} pdwItemsReturned 
@@ -88,7 +87,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @returns {Pointer<Void>} 
      */
@@ -100,7 +98,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {Integer} dwMode 
      * @param {IUnknown} punkOuter 
@@ -114,7 +111,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pValueName 
      * @param {Integer} pData 
@@ -132,7 +128,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pValueName 
      * @param {Integer} Type 
@@ -149,7 +144,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pwszEventName 
      * @returns {Integer} 
@@ -163,7 +157,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAppName 
      * @param {PWSTR} pwszCommandLine 
      * @returns {HRESULT} 
@@ -177,7 +170,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAppName 
      * @returns {HRESULT} 
      */
@@ -189,7 +181,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {BOOL} bNewState 
      * @returns {HRESULT} 
@@ -202,7 +193,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @returns {BOOL} 
      */
@@ -214,7 +204,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @returns {HRESULT} 
      */
@@ -226,7 +215,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pwszAppName 
      * @param {Pointer<STINOTIFY>} pStiNotify 
@@ -241,7 +229,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DEVICE_INFORMATIONW>} param0 
      * @returns {HRESULT} 
      */
@@ -251,7 +238,6 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMessageType 
      * @param {PWSTR} pszMessage 
      * @returns {HRESULT} 

@@ -12,321 +12,374 @@ class WMT_STATUS extends Win32Enum {
 
     /**
      * An error occurred.
+     * Native name: WMT_ERROR
      * @type {Integer (Int32)}
      */
-    static WMT_ERROR => 0
+    static ERROR => 0
 
     /**
      * A file was opened.
+     * Native name: WMT_OPENED
      * @type {Integer (Int32)}
      */
-    static WMT_OPENED => 1
+    static OPENED => 1
 
     /**
      * The reader object is beginning to buffer content.
+     * Native name: WMT_BUFFERING_START
      * @type {Integer (Int32)}
      */
-    static WMT_BUFFERING_START => 2
+    static BUFFERING_START => 2
 
     /**
      * The reader object has finished buffering content.
+     * Native name: WMT_BUFFERING_STOP
      * @type {Integer (Int32)}
      */
-    static WMT_BUFFERING_STOP => 3
+    static BUFFERING_STOP => 3
 
     /**
      * The end of the file has been reached. Both this member and the next one, <b>WMT_END_OF_FILE</b>, have the value 4.
+     * Native name: WMT_EOF
      * @type {Integer (Int32)}
      */
-    static WMT_EOF => 4
+    static EOF => 4
 
     /**
      * The end of the file has been reached. Both this member and the previous one, <b>WMT_EOF</b>, have the value 4.
+     * Native name: WMT_END_OF_FILE
      * @type {Integer (Int32)}
      */
-    static WMT_END_OF_FILE => 4
+    static END_OF_FILE => 4
 
     /**
      * The end of a segment has been encountered.
+     * Native name: WMT_END_OF_SEGMENT
      * @type {Integer (Int32)}
      */
-    static WMT_END_OF_SEGMENT => 5
+    static END_OF_SEGMENT => 5
 
     /**
      * The end of a server-side playlist has been reached.
+     * Native name: WMT_END_OF_STREAMING
      * @type {Integer (Int32)}
      */
-    static WMT_END_OF_STREAMING => 6
+    static END_OF_STREAMING => 6
 
     /**
      * The reader object is locating requested data.
+     * Native name: WMT_LOCATING
      * @type {Integer (Int32)}
      */
-    static WMT_LOCATING => 7
+    static LOCATING => 7
 
     /**
      * A reporting object is connecting to server.
+     * Native name: WMT_CONNECTING
      * @type {Integer (Int32)}
      */
-    static WMT_CONNECTING => 8
+    static CONNECTING => 8
 
     /**
      * There is no <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">license</a> and the content is protected by version 1 digital rights management.
+     * Native name: WMT_NO_RIGHTS
      * @type {Integer (Int32)}
      */
-    static WMT_NO_RIGHTS => 9
+    static NO_RIGHTS => 9
 
     /**
      * The file loaded in the reader object contains compressed data for which no codec could be found. The <i>pValue</i> parameter in <b>OnStatus</b> contains a GUID. The first DWORD of this GUID contains the FOURCC or the format tag of the missing codec. The remaining bytes of the GUID can be ignored.
      * 
      * The <i>hr</i> parameter in <b>OnStatus</b> may equal S_OK, although a missing codec would normally be considered an error. Also, this event may be followed by WMT_STARTED with <i>hr</i> equal to S_OK, even if codecs are missing for every stream in the file. In that case, however, the application will not receive any decoded samples, and should stop the reader object.
+     * Native name: WMT_MISSING_CODEC
      * @type {Integer (Int32)}
      */
-    static WMT_MISSING_CODEC => 10
+    static MISSING_CODEC => 10
 
     /**
      * A reporting object has begun operations.
+     * Native name: WMT_STARTED
      * @type {Integer (Int32)}
      */
-    static WMT_STARTED => 11
+    static STARTED => 11
 
     /**
      * A reporting object has ceased operations.
+     * Native name: WMT_STOPPED
      * @type {Integer (Int32)}
      */
-    static WMT_STOPPED => 12
+    static STOPPED => 12
 
     /**
      * A file was closed.
+     * Native name: WMT_CLOSED
      * @type {Integer (Int32)}
      */
-    static WMT_CLOSED => 13
+    static CLOSED => 13
 
     /**
      * The reader object is playing content at above normal speed, or in reverse.
+     * Native name: WMT_STRIDING
      * @type {Integer (Int32)}
      */
-    static WMT_STRIDING => 14
+    static STRIDING => 14
 
     /**
      * Timer event.
+     * Native name: WMT_TIMER
      * @type {Integer (Int32)}
      */
-    static WMT_TIMER => 15
+    static TIMER => 15
 
     /**
      * Progress update from the indexer object.
+     * Native name: WMT_INDEX_PROGRESS
      * @type {Integer (Int32)}
      */
-    static WMT_INDEX_PROGRESS => 16
+    static INDEX_PROGRESS => 16
 
     /**
      * The reader object has begun saving a file from a server.
+     * Native name: WMT_SAVEAS_START
      * @type {Integer (Int32)}
      */
-    static WMT_SAVEAS_START => 17
+    static SAVEAS_START => 17
 
     /**
      * The reader has stopped saving a file from a server.
+     * Native name: WMT_SAVEAS_STOP
      * @type {Integer (Int32)}
      */
-    static WMT_SAVEAS_STOP => 18
+    static SAVEAS_STOP => 18
 
     /**
      * The current file's header object contains certain attributes that are different from those of the previous file. This event is sent when playing a server-side playlist. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo">IWMHeaderInfo</a> interface to query for any of the following attributes in a new file: <a href="https://docs.microsoft.com/windows/desktop/wmformat/stridable">Stridable</a>, <a href="https://docs.microsoft.com/windows/desktop/wmformat/broadcast">Broadcast</a>, <a href="https://docs.microsoft.com/windows/desktop/wmformat/seekable">Seekable</a>, and <a href="https://docs.microsoft.com/windows/desktop/wmformat/hasimage">HasImage</a>.
+     * Native name: WMT_NEW_SOURCEFLAGS
      * @type {Integer (Int32)}
      */
-    static WMT_NEW_SOURCEFLAGS => 19
+    static NEW_SOURCEFLAGS => 19
 
     /**
      * The current file's header object contains metadata attributes that are different from those of the previous file. This event is sent when playing a server-side playlist. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo">IWMHeaderInfo</a> interface to query for any metadata attribute you are interested in.
+     * Native name: WMT_NEW_METADATA
      * @type {Integer (Int32)}
      */
-    static WMT_NEW_METADATA => 20
+    static NEW_METADATA => 20
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">license</a> backup or restore has started.
+     * Native name: WMT_BACKUPRESTORE_BEGIN
      * @type {Integer (Int32)}
      */
-    static WMT_BACKUPRESTORE_BEGIN => 21
+    static BACKUPRESTORE_BEGIN => 21
 
     /**
      * The next source in the playlist was opened.
+     * Native name: WMT_SOURCE_SWITCH
      * @type {Integer (Int32)}
      */
-    static WMT_SOURCE_SWITCH => 22
+    static SOURCE_SWITCH => 22
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">license acquisition</a> process has completed. The <i>pValue</i> parameter in <b>OnStatus</b> contains a <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-get-license-data">WM_GET_LICENSE_DATA</a> structure. The <b>hr</b> member of this structure indicates whether the license was successfully acquired.
+     * Native name: WMT_ACQUIRE_LICENSE
      * @type {Integer (Int32)}
      */
-    static WMT_ACQUIRE_LICENSE => 23
+    static ACQUIRE_LICENSE => 23
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">Individualization</a> status message.
+     * Native name: WMT_INDIVIDUALIZE
      * @type {Integer (Int32)}
      */
-    static WMT_INDIVIDUALIZE => 24
+    static INDIVIDUALIZE => 24
 
     /**
      * The file loaded in the reader object cannot be played without a security update.
+     * Native name: WMT_NEEDS_INDIVIDUALIZATION
      * @type {Integer (Int32)}
      */
-    static WMT_NEEDS_INDIVIDUALIZATION => 25
+    static NEEDS_INDIVIDUALIZATION => 25
 
     /**
      * There is no <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">license</a> and the content is protected by version 7 digital rights management.
+     * Native name: WMT_NO_RIGHTS_EX
      * @type {Integer (Int32)}
      */
-    static WMT_NO_RIGHTS_EX => 26
+    static NO_RIGHTS_EX => 26
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">license</a> backup or restore has finished.
+     * Native name: WMT_BACKUPRESTORE_END
      * @type {Integer (Int32)}
      */
-    static WMT_BACKUPRESTORE_END => 27
+    static BACKUPRESTORE_END => 27
 
     /**
      * The backup restorer object is connecting to a server.
+     * Native name: WMT_BACKUPRESTORE_CONNECTING
      * @type {Integer (Int32)}
      */
-    static WMT_BACKUPRESTORE_CONNECTING => 28
+    static BACKUPRESTORE_CONNECTING => 28
 
     /**
      * The backup restorer object is disconnecting from a server.
+     * Native name: WMT_BACKUPRESTORE_DISCONNECTING
      * @type {Integer (Int32)}
      */
-    static WMT_BACKUPRESTORE_DISCONNECTING => 29
+    static BACKUPRESTORE_DISCONNECTING => 29
 
     /**
      * Error relating to the URL.
+     * Native name: WMT_ERROR_WITHURL
      * @type {Integer (Int32)}
      */
-    static WMT_ERROR_WITHURL => 30
+    static ERROR_WITHURL => 30
 
     /**
      * The backup restorer object cannot back up one or more <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">licenses</a> because the right has been disallowed by the content owner.
+     * Native name: WMT_RESTRICTED_LICENSE
      * @type {Integer (Int32)}
      */
-    static WMT_RESTRICTED_LICENSE => 31
+    static RESTRICTED_LICENSE => 31
 
     /**
      * Sent when a client (a playing application or server) connects to a writer network sink object. The <i>pValue</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> callback is set to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_client_properties">WM_CLIENT_PROPERTIES</a> structure. New applications should wait for <b>WMT_CLIENT_CONNECT_EX</b> instead.
+     * Native name: WMT_CLIENT_CONNECT
      * @type {Integer (Int32)}
      */
-    static WMT_CLIENT_CONNECT => 32
+    static CLIENT_CONNECT => 32
 
     /**
      * Sent when a client (a playing application or server) disconnects from a writer network sink object. The <i>pValue</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> callback is set to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_client_properties">WM_CLIENT_PROPERTIES</a> structure. The values in this structure are identical to those sent on connection. New applications should wait for <b>WMT_CLIENT_DISCONNECT_EX</b> instead.
+     * Native name: WMT_CLIENT_DISCONNECT
      * @type {Integer (Int32)}
      */
-    static WMT_CLIENT_DISCONNECT => 33
+    static CLIENT_DISCONNECT => 33
 
     /**
      * Change in output properties.
+     * Native name: WMT_NATIVE_OUTPUT_PROPS_CHANGED
      * @type {Integer (Int32)}
      */
-    static WMT_NATIVE_OUTPUT_PROPS_CHANGED => 34
+    static NATIVE_OUTPUT_PROPS_CHANGED => 34
 
     /**
      * Start of automatic reconnection to a server.
+     * Native name: WMT_RECONNECT_START
      * @type {Integer (Int32)}
      */
-    static WMT_RECONNECT_START => 35
+    static RECONNECT_START => 35
 
     /**
      * End of automatic reconnection to a server.
+     * Native name: WMT_RECONNECT_END
      * @type {Integer (Int32)}
      */
-    static WMT_RECONNECT_END => 36
+    static RECONNECT_END => 36
 
     /**
      * Sent when a client (a playing application or server) connects to a writer network sink object. The <i>pValue</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> callback is set to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_client_propertiesex">WM_CLIENT_PROPERTIES_EX</a> structure.
+     * Native name: WMT_CLIENT_CONNECT_EX
      * @type {Integer (Int32)}
      */
-    static WMT_CLIENT_CONNECT_EX => 37
+    static CLIENT_CONNECT_EX => 37
 
     /**
      * Sent when a client (a playing application or server) disconnects from a writer network sink object. The <i>pValue</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> callback is set to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_client_propertiesex">WM_CLIENT_PROPERTIES_EX</a> structure. The client properties are identical to those sent on connection except for the <b>pwszDNSName</b> member, which may have changed.
+     * Native name: WMT_CLIENT_DISCONNECT_EX
      * @type {Integer (Int32)}
      */
-    static WMT_CLIENT_DISCONNECT_EX => 38
+    static CLIENT_DISCONNECT_EX => 38
 
     /**
      * Change to the forward error correction span.
+     * Native name: WMT_SET_FEC_SPAN
      * @type {Integer (Int32)}
      */
-    static WMT_SET_FEC_SPAN => 39
+    static SET_FEC_SPAN => 39
 
     /**
      * The reader is ready to begin buffering content.
+     * Native name: WMT_PREROLL_READY
      * @type {Integer (Int32)}
      */
-    static WMT_PREROLL_READY => 40
+    static PREROLL_READY => 40
 
     /**
      * The reader is finished buffering.
+     * Native name: WMT_PREROLL_COMPLETE
      * @type {Integer (Int32)}
      */
-    static WMT_PREROLL_COMPLETE => 41
+    static PREROLL_COMPLETE => 41
 
     /**
      * Sent by a writer network sink when one or more properties of a connected client changes. The <i>pValue</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> callback is set to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_client_propertiesex">WM_CLIENT_PROPERTIES_EX</a> structure. This usually means that a DNS name is present for a client for which none was available at connection.
+     * Native name: WMT_CLIENT_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WMT_CLIENT_PROPERTIES => 42
+    static CLIENT_PROPERTIES => 42
 
     /**
      * Sent before a <b>WMT_NO_RIGHTS</b> or <b>WMT_NO_RIGHTS_EX</b> status message. The <i>pValue</i> parameter is set to one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_drmla_trust">WMT_DRMLA_TRUST</a> constants indicating whether the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">license acquisition</a> URL is completely trusted.
+     * Native name: WMT_LICENSEURL_SIGNATURE_STATE
      * @type {Integer (Int32)}
      */
-    static WMT_LICENSEURL_SIGNATURE_STATE => 43
+    static LICENSEURL_SIGNATURE_STATE => 43
 
     /**
      * Sent when the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-initplaylistburn">IWMReaderPlaylistBurn::InitPlaylistBurn</a> method returns.
+     * Native name: WMT_INIT_PLAYLIST_BURN
      * @type {Integer (Int32)}
      */
-    static WMT_INIT_PLAYLIST_BURN => 44
+    static INIT_PLAYLIST_BURN => 44
 
     /**
      * Sent when the DRM transcryptor object is initialized with a file.
+     * Native name: WMT_TRANSCRYPTOR_INIT
      * @type {Integer (Int32)}
      */
-    static WMT_TRANSCRYPTOR_INIT => 45
+    static TRANSCRYPTOR_INIT => 45
 
     /**
      * Sent when the DRM transcryptor object seeks to a point in a file.
+     * Native name: WMT_TRANSCRYPTOR_SEEKED
      * @type {Integer (Int32)}
      */
-    static WMT_TRANSCRYPTOR_SEEKED => 46
+    static TRANSCRYPTOR_SEEKED => 46
 
     /**
      * Sent when the DRM transcryptor object delivers Windows Media DRM 10 for Network Devices data from a DRM-protected file.
+     * Native name: WMT_TRANSCRYPTOR_READ
      * @type {Integer (Int32)}
      */
-    static WMT_TRANSCRYPTOR_READ => 47
+    static TRANSCRYPTOR_READ => 47
 
     /**
      * Sent when the DRM transcryptor object is closed. After receiving this message, you can release the interface.
+     * Native name: WMT_TRANSCRYPTOR_CLOSED
      * @type {Integer (Int32)}
      */
-    static WMT_TRANSCRYPTOR_CLOSED => 48
+    static TRANSCRYPTOR_CLOSED => 48
 
     /**
      * Sent when the proximity detection protocol has finished.
+     * Native name: WMT_PROXIMITY_RESULT
      * @type {Integer (Int32)}
      */
-    static WMT_PROXIMITY_RESULT => 49
+    static PROXIMITY_RESULT => 49
 
     /**
      * Sent when proximity detection thread has stopped running. The application must not release the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmproximitydetection">IWMProximityDetection</a> interface until this message is received. Once launched, the thread runs for two minutes; there is no way to terminate the thread before two minutes have elapsed.
+     * Native name: WMT_PROXIMITY_COMPLETED
      * @type {Integer (Int32)}
      */
-    static WMT_PROXIMITY_COMPLETED => 50
+    static PROXIMITY_COMPLETED => 50
 
     /**
      * Sent when a content enabler is required.
+     * Native name: WMT_CONTENT_ENABLER
      * @type {Integer (Int32)}
      */
-    static WMT_CONTENT_ENABLER => 51
+    static CONTENT_ENABLER => 51
 }

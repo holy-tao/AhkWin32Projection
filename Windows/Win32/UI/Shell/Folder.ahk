@@ -78,7 +78,6 @@ class Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -88,7 +87,6 @@ class Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -97,7 +95,6 @@ class Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -106,7 +103,6 @@ class Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Folder} 
      */
     get_ParentFolder() {

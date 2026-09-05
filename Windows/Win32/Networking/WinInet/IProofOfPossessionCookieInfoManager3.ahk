@@ -31,7 +31,6 @@ class IProofOfPossessionCookieInfoManager3 extends IUnknown {
     static VTableNames => ["GetCookieInfoForUriWithOptions"]
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @param {Integer} options 
      * @param {Pointer<Integer>} cookieInfoCount 

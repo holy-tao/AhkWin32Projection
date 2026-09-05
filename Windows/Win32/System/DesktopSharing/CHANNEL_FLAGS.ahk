@@ -10,18 +10,21 @@ class CHANNEL_FLAGS extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: CHANNEL_FLAGS_LEGACY
      * @type {Integer (Int32)}
      */
-    static CHANNEL_FLAGS_LEGACY => 1
+    static LEGACY => 1
 
     /**
      * Data sent on the channel is not compressed. Use this option if the data is already compressed.
+     * Native name: CHANNEL_FLAGS_UNCOMPRESSED
      * @type {Integer (Int32)}
      */
-    static CHANNEL_FLAGS_UNCOMPRESSED => 2
+    static UNCOMPRESSED => 2
 
     /**
+     * Native name: CHANNEL_FLAGS_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static CHANNEL_FLAGS_DYNAMIC => 4
+    static DYNAMIC => 4
 }

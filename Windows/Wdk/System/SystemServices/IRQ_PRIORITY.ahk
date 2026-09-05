@@ -7,22 +7,26 @@
 class IRQ_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: IrqPriorityUndefined
      * @type {Integer (Int32)}
      */
-    static IrqPriorityUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: IrqPriorityLow
      * @type {Integer (Int32)}
      */
-    static IrqPriorityLow => 1
+    static Low => 1
 
     /**
+     * Native name: IrqPriorityNormal
      * @type {Integer (Int32)}
      */
-    static IrqPriorityNormal => 2
+    static Normal => 2
 
     /**
+     * Native name: IrqPriorityHigh
      * @type {Integer (Int32)}
      */
-    static IrqPriorityHigh => 3
+    static High => 3
 }

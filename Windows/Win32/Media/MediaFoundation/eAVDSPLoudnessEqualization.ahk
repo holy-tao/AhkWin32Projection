@@ -12,19 +12,22 @@ class eAVDSPLoudnessEqualization extends Win32Enum {
 
     /**
      * Loudness equalization is disabled.
+     * Native name: eAVDSPLoudnessEqualization_OFF
      * @type {Integer (Int32)}
      */
-    static eAVDSPLoudnessEqualization_OFF => 0
+    static OFF => 0
 
     /**
      * Loudness equalization is enabled.
+     * Native name: eAVDSPLoudnessEqualization_ON
      * @type {Integer (Int32)}
      */
-    static eAVDSPLoudnessEqualization_ON => 1
+    static ON => 1
 
     /**
      * The decoder or DSP automatically selects the equalization mode.
+     * Native name: eAVDSPLoudnessEqualization_AUTO
      * @type {Integer (Int32)}
      */
-    static eAVDSPLoudnessEqualization_AUTO => 2
+    static AUTO => 2
 }

@@ -7,22 +7,26 @@
 class styleUserZoom extends Win32Enum {
 
     /**
+     * Native name: styleUserZoomNotSet
      * @type {Integer (Int32)}
      */
-    static styleUserZoomNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleUserZoomZoom
      * @type {Integer (Int32)}
      */
-    static styleUserZoomZoom => 1
+    static Zoom => 1
 
     /**
+     * Native name: styleUserZoomFixed
      * @type {Integer (Int32)}
      */
-    static styleUserZoomFixed => 2
+    static Fixed => 2
 
     /**
+     * Native name: styleUserZoom_Max
      * @type {Integer (Int32)}
      */
-    static styleUserZoom_Max => 2147483647
+    static Max => 2147483647
 }

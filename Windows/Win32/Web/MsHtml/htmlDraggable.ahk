@@ -7,22 +7,26 @@
 class htmlDraggable extends Win32Enum {
 
     /**
+     * Native name: htmlDraggableAuto
      * @type {Integer (Int32)}
      */
-    static htmlDraggableAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: htmlDraggableTrue
      * @type {Integer (Int32)}
      */
-    static htmlDraggableTrue => 1
+    static True => 1
 
     /**
+     * Native name: htmlDraggableFalse
      * @type {Integer (Int32)}
      */
-    static htmlDraggableFalse => 2
+    static False => 2
 
     /**
+     * Native name: htmlDraggable_Max
      * @type {Integer (Int32)}
      */
-    static htmlDraggable_Max => 2147483647
+    static Max => 2147483647
 }

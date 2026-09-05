@@ -2388,7 +2388,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} AuthzClientContext 
      * @param {Pointer<AUTHZ_ACCESS_REQUEST>} pRequest 
      * @param {Pointer<ACL>} Sacl 
@@ -4062,7 +4061,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<EXPLICIT_ACCESS_A>} pExplicitAccess 
      * @param {PSTR} pTrusteeName 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
@@ -4078,7 +4076,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<EXPLICIT_ACCESS_W>} pExplicitAccess 
      * @param {PWSTR} pTrusteeName 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
@@ -4232,7 +4229,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
      * @param {Pointer<TRUSTEE_A>} pImpersonateTrustee 
      * @returns {String} Nothing - always returns an empty string
@@ -4242,7 +4238,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Pointer<TRUSTEE_W>} pImpersonateTrustee 
      * @returns {String} Nothing - always returns an empty string
@@ -4642,7 +4637,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
      * @returns {MULTIPLE_TRUSTEE_OPERATION} 
      */
@@ -4652,7 +4646,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @returns {MULTIPLE_TRUSTEE_OPERATION} 
      */
@@ -4662,7 +4655,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
      * @returns {Pointer<TRUSTEE_A>} 
      */
@@ -4672,7 +4664,6 @@ class Authorization {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @returns {Pointer<TRUSTEE_W>} 
      */

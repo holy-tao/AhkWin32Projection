@@ -7,12 +7,14 @@
 class GPO_OPEN_FLAGS extends Win32Enum {
 
     /**
+     * Native name: GPO_OPEN_LOAD_REGISTRY
      * @type {Integer (UInt32)}
      */
-    static GPO_OPEN_LOAD_REGISTRY => 1
+    static LOAD_REGISTRY => 1
 
     /**
+     * Native name: GPO_OPEN_READ_ONLY
      * @type {Integer (UInt32)}
      */
-    static GPO_OPEN_READ_ONLY => 2
+    static READ_ONLY => 2
 }

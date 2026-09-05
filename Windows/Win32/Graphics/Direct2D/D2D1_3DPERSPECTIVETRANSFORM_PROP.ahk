@@ -15,9 +15,10 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE.
      * 
      * Default value is D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_LINEAR.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_INTERPOLATION_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_INTERPOLATION_MODE => 0
+    static INTERPOLATION_MODE => 0
 
     /**
      * The mode used to calculate the border of the image, soft or hard. See Border modes for more info.
@@ -26,9 +27,10 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_BORDER_MODE.
      * 
      * Default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_BORDER_MODE => 1
+    static BORDER_MODE => 1
 
     /**
      * The distance from the PerspectiveOrigin to the projection plane. The value specified in DIPs and must be greater than 0.
@@ -37,9 +39,10 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is FLOAT.
      * 
      * Default value is 1000.0f.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_DEPTH
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_DEPTH => 2
+    static DEPTH => 2
 
     /**
      * The X and Y location of the viewer in the 3D scene. This property is a D2D1_VECTOR_2F defined as: (point X, point Y). The units are in DIPs.
@@ -49,9 +52,10 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_VECTOR_2F.
      * 
      * Default value is {0.0f, 0.0f}.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_PERSPECTIVE_ORIGIN
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_PERSPECTIVE_ORIGIN => 3
+    static PERSPECTIVE_ORIGIN => 3
 
     /**
      * A translation the effect performs before it rotates the projection plane. This property is a D2D1_VECTOR_3F defined as: (X, Y, Z). The units are in DIPs.
@@ -60,9 +64,10 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_VECTOR_3F.
      * 
      * Default value is {0.0f, 0.0f, 0.0f}.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_LOCAL_OFFSET
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_LOCAL_OFFSET => 4
+    static LOCAL_OFFSET => 4
 
     /**
      * A translation the effect performs after it rotates the projection plane. This property is a D2D1_VECTOR_3F defined as: (X, Y, Z). The units are in DIPs.
@@ -71,9 +76,10 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_VECTOR_3F.
      * 
      * Default value is {0.0f, 0.0f, 0.0f}.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_GLOBAL_OFFSET
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_GLOBAL_OFFSET => 5
+    static GLOBAL_OFFSET => 5
 
     /**
      * The center point of the rotation the effect performs. This property is a D2D1_VECTOR_3F defined as: (X, Y, Z). The units are in DIPs.
@@ -82,9 +88,10 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_VECTOR_3F.
      * 
      * Default value is {0.0f, 0.0f, 0.0f}.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION_ORIGIN
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION_ORIGIN => 6
+    static ROTATION_ORIGIN => 6
 
     /**
      * The angles of rotation for each axis. This property is a D2D1_VECTOR_3F defined as: (X, Y, Z). The units are in degrees.
@@ -93,7 +100,8 @@ class D2D1_3DPERSPECTIVETRANSFORM_PROP extends Win32Enum {
      * Type is D2D1_VECTOR_3F.
      * 
      * Default value is {0.0f, 0.0f, 0.0f}.
+     * Native name: D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION
      * @type {Integer (Int32)}
      */
-    static D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION => 7
+    static ROTATION => 7
 }

@@ -7,17 +7,20 @@
 class JsRuntimeVersion extends Win32Enum {
 
     /**
+     * Native name: JsRuntimeVersion10
      * @type {Integer (Int32)}
      */
-    static JsRuntimeVersion10 => 0
+    static Version10 => 0
 
     /**
+     * Native name: JsRuntimeVersion11
      * @type {Integer (Int32)}
      */
-    static JsRuntimeVersion11 => 1
+    static Version11 => 1
 
     /**
+     * Native name: JsRuntimeVersionEdge
      * @type {Integer (Int32)}
      */
-    static JsRuntimeVersionEdge => -1
+    static Edge => -1
 }

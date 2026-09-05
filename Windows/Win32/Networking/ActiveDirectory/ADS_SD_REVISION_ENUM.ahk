@@ -14,7 +14,8 @@ class ADS_SD_REVISION_ENUM extends Win32Enum {
 
     /**
      * The revision number of the ACE, or the ACL, for Active Directory.
+     * Native name: ADS_SD_REVISION_DS
      * @type {Integer (Int32)}
      */
-    static ADS_SD_REVISION_DS => 4
+    static DS => 4
 }

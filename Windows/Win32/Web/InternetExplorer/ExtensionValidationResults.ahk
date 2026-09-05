@@ -7,17 +7,20 @@
 class ExtensionValidationResults extends Win32Enum {
 
     /**
+     * Native name: ExtensionValidationResultNone
      * @type {Integer (Int32)}
      */
-    static ExtensionValidationResultNone => 0
+    static ResultNone => 0
 
     /**
+     * Native name: ExtensionValidationResultDoNotInstantiate
      * @type {Integer (Int32)}
      */
-    static ExtensionValidationResultDoNotInstantiate => 1
+    static ResultDoNotInstantiate => 1
 
     /**
+     * Native name: ExtensionValidationResultArrestPageLoad
      * @type {Integer (Int32)}
      */
-    static ExtensionValidationResultArrestPageLoad => 2
+    static ResultArrestPageLoad => 2
 }

@@ -101,7 +101,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_status() {
@@ -110,7 +109,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +118,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchecking() {
@@ -130,7 +127,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -140,7 +136,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -150,7 +145,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +154,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onnoupdate() {
@@ -170,7 +163,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -180,7 +172,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondownloading() {
@@ -190,7 +181,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -200,7 +190,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onprogress() {
@@ -210,7 +199,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -220,7 +208,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onupdateready() {
@@ -230,7 +217,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -240,7 +226,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncached() {
@@ -250,7 +235,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -260,7 +244,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onobsolete() {
@@ -322,7 +305,6 @@ class IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     swapCache() {

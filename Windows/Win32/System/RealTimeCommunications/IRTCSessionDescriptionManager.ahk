@@ -31,7 +31,6 @@ class IRTCSessionDescriptionManager extends IUnknown {
     static VTableNames => ["EvaluateSessionDescription"]
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @param {Pointer<VARIANT_BOOL>} pfApplicationSession 

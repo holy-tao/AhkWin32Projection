@@ -29,7 +29,6 @@ class IHttpSecurity extends IWindowForBindingUI {
     static VTableNames => ["OnSecurityProblem"]
 
     /**
-     * 
      * @param {Integer} dwProblem 
      * @returns {HRESULT} 
      */

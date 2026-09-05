@@ -7,12 +7,14 @@
 class KSPROPERTY_BTAUDIO extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_ONESHOT_RECONNECT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ONESHOT_RECONNECT => 0
+    static ONESHOT_RECONNECT => 0
 
     /**
+     * Native name: KSPROPERTY_ONESHOT_DISCONNECT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ONESHOT_DISCONNECT => 1
+    static ONESHOT_DISCONNECT => 1
 }

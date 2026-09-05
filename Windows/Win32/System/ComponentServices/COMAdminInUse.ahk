@@ -7,32 +7,38 @@
 class COMAdminInUse extends Win32Enum {
 
     /**
+     * Native name: COMAdminNotInUse
      * @type {Integer (Int32)}
      */
-    static COMAdminNotInUse => 0
+    static NotInUse => 0
 
     /**
+     * Native name: COMAdminInUseByCatalog
      * @type {Integer (Int32)}
      */
-    static COMAdminInUseByCatalog => 1
+    static ByCatalog => 1
 
     /**
+     * Native name: COMAdminInUseByRegistryUnknown
      * @type {Integer (Int32)}
      */
-    static COMAdminInUseByRegistryUnknown => 2
+    static ByRegistryUnknown => 2
 
     /**
+     * Native name: COMAdminInUseByRegistryProxyStub
      * @type {Integer (Int32)}
      */
-    static COMAdminInUseByRegistryProxyStub => 3
+    static ByRegistryProxyStub => 3
 
     /**
+     * Native name: COMAdminInUseByRegistryTypeLib
      * @type {Integer (Int32)}
      */
-    static COMAdminInUseByRegistryTypeLib => 4
+    static ByRegistryTypeLib => 4
 
     /**
+     * Native name: COMAdminInUseByRegistryClsid
      * @type {Integer (Int32)}
      */
-    static COMAdminInUseByRegistryClsid => 5
+    static ByRegistryClsid => 5
 }

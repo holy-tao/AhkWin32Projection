@@ -29,7 +29,6 @@ class ITimeAndNoticeControl extends IUnknown {
     static VTableNames => ["SuppressChanges"]
 
     /**
-     * 
      * @param {Integer} res1 
      * @param {Integer} res2 
      * @returns {HRESULT} 

@@ -13,31 +13,36 @@ class WS_SECURITY_TOKEN_REFERENCE_MODE extends Win32Enum {
      * reference mechanism can be used only when the security token is
      * serialized in the same message as the item (such as a signature) that
      * needs to refer to the security token.
+     * Native name: WS_SECURITY_TOKEN_REFERENCE_MODE_LOCAL_ID
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_TOKEN_REFERENCE_MODE_LOCAL_ID => 1
+    static LOCAL_ID => 1
 
     /**
      * An opaque XML buffer that is used as a token reference (for example, as in a custom token).
+     * Native name: WS_SECURITY_TOKEN_REFERENCE_MODE_XML_BUFFER
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_TOKEN_REFERENCE_MODE_XML_BUFFER => 2
+    static XML_BUFFER => 2
 
     /**
      * The thumbprint of a certificate is used to refer to it.
+     * Native name: WS_SECURITY_TOKEN_REFERENCE_MODE_CERT_THUMBPRINT
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_TOKEN_REFERENCE_MODE_CERT_THUMBPRINT => 3
+    static CERT_THUMBPRINT => 3
 
     /**
      * The context-id is used to refer to a security context token.
+     * Native name: WS_SECURITY_TOKEN_REFERENCE_MODE_SECURITY_CONTEXT_ID
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_TOKEN_REFERENCE_MODE_SECURITY_CONTEXT_ID => 4
+    static SECURITY_CONTEXT_ID => 4
 
     /**
      * The SAML assertion ID is used to refer to the SAML token.
+     * Native name: WS_SECURITY_TOKEN_REFERENCE_MODE_SAML_ASSERTION_ID
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_TOKEN_REFERENCE_MODE_SAML_ASSERTION_ID => 5
+    static SAML_ASSERTION_ID => 5
 }

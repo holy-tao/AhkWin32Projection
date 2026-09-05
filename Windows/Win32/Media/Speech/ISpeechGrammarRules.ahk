@@ -56,7 +56,6 @@ class ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -65,7 +64,6 @@ class ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} RuleNameOrId 
      * @returns {ISpeechGrammarRule} 
      */
@@ -91,7 +89,6 @@ class ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -100,7 +97,6 @@ class ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Dynamic() {
@@ -109,7 +105,6 @@ class ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RuleName 
      * @param {SpeechRuleAttributes} Attributes 
      * @param {Integer} RuleId 
@@ -123,7 +118,6 @@ class ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {
@@ -132,7 +126,6 @@ class ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} ErrorText 
      * @param {Pointer<VARIANT>} SaveStream 
      * @returns {HRESULT} 

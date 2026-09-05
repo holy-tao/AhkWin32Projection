@@ -7,22 +7,26 @@
 class SCHEMACONTENTTYPE extends Win32Enum {
 
     /**
+     * Native name: SCHEMACONTENTTYPE_EMPTY
      * @type {Integer (Int32)}
      */
-    static SCHEMACONTENTTYPE_EMPTY => 0
+    static EMPTY => 0
 
     /**
+     * Native name: SCHEMACONTENTTYPE_TEXTONLY
      * @type {Integer (Int32)}
      */
-    static SCHEMACONTENTTYPE_TEXTONLY => 1
+    static TEXTONLY => 1
 
     /**
+     * Native name: SCHEMACONTENTTYPE_ELEMENTONLY
      * @type {Integer (Int32)}
      */
-    static SCHEMACONTENTTYPE_ELEMENTONLY => 2
+    static ELEMENTONLY => 2
 
     /**
+     * Native name: SCHEMACONTENTTYPE_MIXED
      * @type {Integer (Int32)}
      */
-    static SCHEMACONTENTTYPE_MIXED => 3
+    static MIXED => 3
 }

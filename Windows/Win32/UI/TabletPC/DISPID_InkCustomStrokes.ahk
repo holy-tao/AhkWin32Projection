@@ -7,32 +7,38 @@
 class DISPID_InkCustomStrokes extends Win32Enum {
 
     /**
+     * Native name: DISPID_ICSs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSs_NewEnum => -4
+    static ICSs_NewEnum => -4
 
     /**
+     * Native name: DISPID_ICSsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSsItem => 0
+    static ICSsItem => 0
 
     /**
+     * Native name: DISPID_ICSsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSsCount => 1
+    static ICSsCount => 1
 
     /**
+     * Native name: DISPID_ICSsAdd
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSsAdd => 2
+    static ICSsAdd => 2
 
     /**
+     * Native name: DISPID_ICSsRemove
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSsRemove => 3
+    static ICSsRemove => 3
 
     /**
+     * Native name: DISPID_ICSsClear
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSsClear => 4
+    static ICSsClear => 4
 }

@@ -157,7 +157,6 @@ class EnterpriseData {
     }
 
     /**
-     * 
      * @param {Pointer<_SRP_REQUEST>} FileInfo 
      * @returns {NTSTATUS} 
      */
@@ -170,7 +169,6 @@ class EnterpriseData {
     }
 
     /**
-     * 
      * @param {SRPHOSTING_VERSION} _Version 
      * @param {SRPHOSTING_TYPE} Type 
      * @param {Pointer<Void>} pvData 
@@ -185,7 +183,6 @@ class EnterpriseData {
     }
 
     /**
-     * 
      * @param {SRPHOSTING_TYPE} Type 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -210,7 +207,6 @@ class EnterpriseData {
     }
 
     /**
-     * 
      * @param {PWSTR} fileOrFolderPath 
      * @param {Pointer<FILE_UNPROTECT_OPTIONS>} options 
      * @returns {HRESULT} 

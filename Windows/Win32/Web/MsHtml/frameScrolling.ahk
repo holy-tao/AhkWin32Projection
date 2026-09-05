@@ -7,22 +7,26 @@
 class frameScrolling extends Win32Enum {
 
     /**
+     * Native name: frameScrollingyes
      * @type {Integer (Int32)}
      */
-    static frameScrollingyes => 1
+    static Scrollingyes => 1
 
     /**
+     * Native name: frameScrollingno
      * @type {Integer (Int32)}
      */
-    static frameScrollingno => 2
+    static Scrollingno => 2
 
     /**
+     * Native name: frameScrollingauto
      * @type {Integer (Int32)}
      */
-    static frameScrollingauto => 4
+    static Scrollingauto => 4
 
     /**
+     * Native name: frameScrolling_Max
      * @type {Integer (Int32)}
      */
-    static frameScrolling_Max => 2147483647
+    static Max => 2147483647
 }

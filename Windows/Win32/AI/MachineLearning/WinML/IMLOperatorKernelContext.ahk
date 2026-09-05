@@ -30,7 +30,6 @@ class IMLOperatorKernelContext extends IUnknown {
     static VTableNames => ["GetInputTensor", "GetOutputTensor", "GetOutputTensor1", "AllocateTemporaryData", "GetExecutionInterface"]
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {IMLOperatorTensor} 
      */
@@ -40,7 +39,6 @@ class IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @param {Pointer<Integer>} dimensionSizes 
@@ -54,7 +52,6 @@ class IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {IMLOperatorTensor} 
      */
@@ -64,7 +61,6 @@ class IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _size 
      * @returns {IUnknown} 
      */
@@ -74,7 +70,6 @@ class IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IUnknown>} executionObject 
      * @returns {String} Nothing - always returns an empty string
      */

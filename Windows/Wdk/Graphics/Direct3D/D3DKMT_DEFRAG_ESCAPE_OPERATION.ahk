@@ -7,27 +7,32 @@
 class D3DKMT_DEFRAG_ESCAPE_OPERATION extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_DEFRAG_ESCAPE_GET_FRAGMENTATION_STATS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEFRAG_ESCAPE_GET_FRAGMENTATION_STATS => 0
+    static GET_FRAGMENTATION_STATS => 0
 
     /**
+     * Native name: D3DKMT_DEFRAG_ESCAPE_DEFRAG_UPWARD
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEFRAG_ESCAPE_DEFRAG_UPWARD => 1
+    static DEFRAG_UPWARD => 1
 
     /**
+     * Native name: D3DKMT_DEFRAG_ESCAPE_DEFRAG_DOWNWARD
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEFRAG_ESCAPE_DEFRAG_DOWNWARD => 2
+    static DEFRAG_DOWNWARD => 2
 
     /**
+     * Native name: D3DKMT_DEFRAG_ESCAPE_DEFRAG_PASS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEFRAG_ESCAPE_DEFRAG_PASS => 3
+    static DEFRAG_PASS => 3
 
     /**
+     * Native name: D3DKMT_DEFRAG_ESCAPE_VERIFY_TRANSFER
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEFRAG_ESCAPE_VERIFY_TRANSFER => 4
+    static VERIFY_TRANSFER => 4
 }

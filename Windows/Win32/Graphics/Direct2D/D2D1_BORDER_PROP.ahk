@@ -15,9 +15,10 @@ class D2D1_BORDER_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_border_edge_mode">D2D1_BORDER_EDGE_MODE</a>.
      * 
      * The default value is D2D1_BORDER_EDGE_MODE_CLAMP.
+     * Native name: D2D1_BORDER_PROP_EDGE_MODE_X
      * @type {Integer (Int32)}
      */
-    static D2D1_BORDER_PROP_EDGE_MODE_X => 0
+    static EDGE_MODE_X => 0
 
     /**
      * The edge mode in the Y direction for the effect. You can set this to clamp, wrap, or mirror.
@@ -26,7 +27,8 @@ class D2D1_BORDER_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_border_edge_mode">D2D1_BORDER_EDGE_MODE</a>.
      * 
      * The default value is D2D1_BORDER_EDGE_MODE_CLAMP.
+     * Native name: D2D1_BORDER_PROP_EDGE_MODE_Y
      * @type {Integer (Int32)}
      */
-    static D2D1_BORDER_PROP_EDGE_MODE_Y => 1
+    static EDGE_MODE_Y => 1
 }

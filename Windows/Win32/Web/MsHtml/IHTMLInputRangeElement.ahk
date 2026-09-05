@@ -102,7 +102,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -112,7 +111,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -121,7 +119,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -131,7 +128,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -143,7 +139,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -153,7 +148,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -165,7 +159,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -175,7 +168,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -187,7 +179,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -197,7 +188,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -209,7 +199,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_min() {
@@ -219,7 +208,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -231,7 +219,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_max() {
@@ -241,7 +228,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -253,7 +239,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_step() {
@@ -263,7 +248,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -273,7 +257,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_valueAsNumber() {
@@ -282,7 +265,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} n 
      * @returns {HRESULT} 
      */
@@ -292,7 +274,6 @@ class IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} n 
      * @returns {HRESULT} 
      */

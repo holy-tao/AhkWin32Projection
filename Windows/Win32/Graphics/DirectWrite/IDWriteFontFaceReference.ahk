@@ -69,7 +69,6 @@ class IDWriteFontFaceReference extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDWriteFontFaceReference} fontFaceReference 
      * @returns {BOOL} 
      */

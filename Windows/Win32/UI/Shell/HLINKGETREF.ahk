@@ -7,17 +7,20 @@
 class HLINKGETREF extends Win32Enum {
 
     /**
+     * Native name: HLINKGETREF_DEFAULT
      * @type {Integer (Int32)}
      */
-    static HLINKGETREF_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: HLINKGETREF_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static HLINKGETREF_ABSOLUTE => 1
+    static ABSOLUTE => 1
 
     /**
+     * Native name: HLINKGETREF_RELATIVE
      * @type {Integer (Int32)}
      */
-    static HLINKGETREF_RELATIVE => 2
+    static RELATIVE => 2
 }

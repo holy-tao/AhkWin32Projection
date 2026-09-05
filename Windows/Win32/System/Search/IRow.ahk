@@ -32,7 +32,6 @@ class IRow extends IUnknown {
     static VTableNames => ["GetColumns", "GetSourceRowset", "Open"]
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBCOLUMNACCESS>} rgColumns 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<IUnknown>} ppRowset 
      * @param {Pointer<Pointer>} phRow 
@@ -57,7 +55,6 @@ class IRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pColumnID 
      * @param {Pointer<Guid>} rguidColumnType 

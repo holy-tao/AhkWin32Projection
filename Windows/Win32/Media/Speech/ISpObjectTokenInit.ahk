@@ -31,7 +31,6 @@ class ISpObjectTokenInit extends ISpObjectToken {
     static VTableNames => ["InitFromDataKey"]
 
     /**
-     * 
      * @param {PWSTR} pszCategoryId 
      * @param {PWSTR} pszTokenId 
      * @param {ISpDataKey} pDataKey 

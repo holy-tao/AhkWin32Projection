@@ -30,7 +30,6 @@ class IGpnvsCommonBase extends IUnknown {
     static VTableNames => ["GetValueUpdateName"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetValueUpdateName() {

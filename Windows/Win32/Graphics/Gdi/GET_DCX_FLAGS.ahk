@@ -7,57 +7,68 @@
 class GET_DCX_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DCX_WINDOW
      * @type {Integer (UInt32)}
      */
-    static DCX_WINDOW => 1
+    static WINDOW => 1
 
     /**
+     * Native name: DCX_CACHE
      * @type {Integer (UInt32)}
      */
-    static DCX_CACHE => 2
+    static CACHE => 2
 
     /**
+     * Native name: DCX_PARENTCLIP
      * @type {Integer (UInt32)}
      */
-    static DCX_PARENTCLIP => 32
+    static PARENTCLIP => 32
 
     /**
+     * Native name: DCX_CLIPSIBLINGS
      * @type {Integer (UInt32)}
      */
-    static DCX_CLIPSIBLINGS => 16
+    static CLIPSIBLINGS => 16
 
     /**
+     * Native name: DCX_CLIPCHILDREN
      * @type {Integer (UInt32)}
      */
-    static DCX_CLIPCHILDREN => 8
+    static CLIPCHILDREN => 8
 
     /**
+     * Native name: DCX_NORESETATTRS
      * @type {Integer (UInt32)}
      */
-    static DCX_NORESETATTRS => 4
+    static NORESETATTRS => 4
 
     /**
+     * Native name: DCX_LOCKWINDOWUPDATE
      * @type {Integer (UInt32)}
      */
-    static DCX_LOCKWINDOWUPDATE => 1024
+    static LOCKWINDOWUPDATE => 1024
 
     /**
+     * Native name: DCX_EXCLUDERGN
      * @type {Integer (UInt32)}
      */
-    static DCX_EXCLUDERGN => 64
+    static EXCLUDERGN => 64
 
     /**
+     * Native name: DCX_INTERSECTRGN
      * @type {Integer (UInt32)}
      */
-    static DCX_INTERSECTRGN => 128
+    static INTERSECTRGN => 128
 
     /**
+     * Native name: DCX_INTERSECTUPDATE
      * @type {Integer (UInt32)}
      */
-    static DCX_INTERSECTUPDATE => 512
+    static INTERSECTUPDATE => 512
 
     /**
+     * Native name: DCX_VALIDATE
      * @type {Integer (UInt32)}
      */
-    static DCX_VALIDATE => 2097152
+    static VALIDATE => 2097152
 }

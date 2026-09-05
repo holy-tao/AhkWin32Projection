@@ -31,7 +31,6 @@ class IPrintDocumentPackageTarget2 extends IUnknown {
     static VTableNames => ["GetIsTargetIppPrinter", "GetTargetIppPrintDevice"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetIsTargetIppPrinter() {
@@ -40,7 +39,6 @@ class IPrintDocumentPackageTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

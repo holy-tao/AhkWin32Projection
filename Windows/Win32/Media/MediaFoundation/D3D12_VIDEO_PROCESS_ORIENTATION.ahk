@@ -10,49 +10,57 @@ class D3D12_VIDEO_PROCESS_ORIENTATION extends Win32Enum {
 
     /**
      * No change in orientation. 0 degrees.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The image is flipped horizontally.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_FLIP_HORIZONTAL => 1
+    static FLIP_HORIZONTAL => 1
 
     /**
      * The image is rotated 90 degrees clockwise.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_90
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_90 => 2
+    static CLOCKWISE_90 => 2
 
     /**
      * The image is rotated 90 degrees clockwise and then flipped horizontally.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_90_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_90_FLIP_HORIZONTAL => 3
+    static CLOCKWISE_90_FLIP_HORIZONTAL => 3
 
     /**
      * The image is rotated 180 degrees clockwise.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_180
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_180 => 4
+    static CLOCKWISE_180 => 4
 
     /**
      * The image is flipped vertically.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_FLIP_VERTICAL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_FLIP_VERTICAL => 5
+    static FLIP_VERTICAL => 5
 
     /**
      * The image is rotated 270 degrees clockwise.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_270
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_270 => 6
+    static CLOCKWISE_270 => 6
 
     /**
      * The image is rotated 270 degrees clockwise and then flipped horizontally.
+     * Native name: D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_270_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_270_FLIP_HORIZONTAL => 7
+    static CLOCKWISE_270_FLIP_HORIZONTAL => 7
 }

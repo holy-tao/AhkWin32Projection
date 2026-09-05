@@ -21,9 +21,10 @@ class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum {
      * * DXGI_FORMAT_B8G8R8X8_UNORM_SRGB
      * * DXGI_FORMAT_R10G10B10A2_UNORM
      * * DXGI_FORMAT_R16G16B16A16_FLOAT
+     * Native name: D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0
      * @type {Integer (Int32)}
      */
-    static D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0 => 0
+    static 0 => 0
 
     /**
      * Related to [D3D11_SHARED_RESOURCE_TIER::D3D11_SHARED_RESOURCE_TIER_2](/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier).
@@ -43,9 +44,10 @@ class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum {
      * This level support is built into WDDM 2.4.
      * 
      * Also see [Extended support for shared Texture2D resources](/windows/win32/direct3d11/direct3d-11-1-features#extended-support-for-shared-texture2d-resources).
+     * Native name: D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1 => 1
+    static 1 => 1
 
     /**
      * Related to [D3D11_SHARED_RESOURCE_TIER::D3D11_SHARED_RESOURCE_TIER_3](/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier).
@@ -53,7 +55,8 @@ class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum {
      * Specifies that cross-API sharing functionality of **D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1** is supported, plus the following formats.
      * 
      * * DXGI_FORMAT_NV12 (also see [Extended NV12 texture support](/windows/win32/direct3d11/direct3d-11-4-features#extended-nv12-texture-support))
+     * Native name: D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_2 => 2
+    static 2 => 2
 }

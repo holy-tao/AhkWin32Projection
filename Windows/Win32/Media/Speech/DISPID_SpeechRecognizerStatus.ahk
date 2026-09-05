@@ -7,32 +7,38 @@
 class DISPID_SpeechRecognizerStatus extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRSAudioStatus
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSAudioStatus => 1
+    static SRSAudioStatus => 1
 
     /**
+     * Native name: DISPID_SRSCurrentStreamPosition
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSCurrentStreamPosition => 2
+    static SRSCurrentStreamPosition => 2
 
     /**
+     * Native name: DISPID_SRSCurrentStreamNumber
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSCurrentStreamNumber => 3
+    static SRSCurrentStreamNumber => 3
 
     /**
+     * Native name: DISPID_SRSNumberOfActiveRules
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSNumberOfActiveRules => 4
+    static SRSNumberOfActiveRules => 4
 
     /**
+     * Native name: DISPID_SRSClsidEngine
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSClsidEngine => 5
+    static SRSClsidEngine => 5
 
     /**
+     * Native name: DISPID_SRSSupportedLanguages
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSSupportedLanguages => 6
+    static SRSSupportedLanguages => 6
 }

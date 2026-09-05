@@ -7,67 +7,80 @@
 class MSIMODIFY extends Win32Enum {
 
     /**
+     * Native name: MSIMODIFY_SEEK
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_SEEK => -1
+    static SEEK => -1
 
     /**
+     * Native name: MSIMODIFY_REFRESH
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_REFRESH => 0
+    static REFRESH => 0
 
     /**
+     * Native name: MSIMODIFY_INSERT
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_INSERT => 1
+    static INSERT => 1
 
     /**
+     * Native name: MSIMODIFY_UPDATE
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_UPDATE => 2
+    static UPDATE => 2
 
     /**
+     * Native name: MSIMODIFY_ASSIGN
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_ASSIGN => 3
+    static ASSIGN => 3
 
     /**
+     * Native name: MSIMODIFY_REPLACE
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_REPLACE => 4
+    static REPLACE => 4
 
     /**
+     * Native name: MSIMODIFY_MERGE
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_MERGE => 5
+    static MERGE => 5
 
     /**
+     * Native name: MSIMODIFY_DELETE
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_DELETE => 6
+    static DELETE => 6
 
     /**
+     * Native name: MSIMODIFY_INSERT_TEMPORARY
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_INSERT_TEMPORARY => 7
+    static INSERT_TEMPORARY => 7
 
     /**
+     * Native name: MSIMODIFY_VALIDATE
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_VALIDATE => 8
+    static VALIDATE => 8
 
     /**
+     * Native name: MSIMODIFY_VALIDATE_NEW
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_VALIDATE_NEW => 9
+    static VALIDATE_NEW => 9
 
     /**
+     * Native name: MSIMODIFY_VALIDATE_FIELD
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_VALIDATE_FIELD => 10
+    static VALIDATE_FIELD => 10
 
     /**
+     * Native name: MSIMODIFY_VALIDATE_DELETE
      * @type {Integer (Int32)}
      */
-    static MSIMODIFY_VALIDATE_DELETE => 11
+    static VALIDATE_DELETE => 11
 }

@@ -9,17 +9,20 @@
 class CRED_FETCH extends Win32Enum {
 
     /**
+     * Native name: CredFetchDefault
      * @type {Integer (Int32)}
      */
-    static CredFetchDefault => 0
+    static Default => 0
 
     /**
+     * Native name: CredFetchDPAPI
      * @type {Integer (Int32)}
      */
-    static CredFetchDPAPI => 1
+    static FetchDPAPI => 1
 
     /**
+     * Native name: CredFetchForced
      * @type {Integer (Int32)}
      */
-    static CredFetchForced => 2
+    static Forced => 2
 }

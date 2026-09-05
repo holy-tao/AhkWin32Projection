@@ -7,17 +7,20 @@
 class GameInputSystemButtons extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputSystemButtonNone
      * @type {Integer (Int32)}
      */
-    static GameInputSystemButtonNone => 0
+    static ButtonNone => 0
 
     /**
+     * Native name: GameInputSystemButtonGuide
      * @type {Integer (Int32)}
      */
-    static GameInputSystemButtonGuide => 1
+    static ButtonGuide => 1
 
     /**
+     * Native name: GameInputSystemButtonShare
      * @type {Integer (Int32)}
      */
-    static GameInputSystemButtonShare => 2
+    static ButtonShare => 2
 }

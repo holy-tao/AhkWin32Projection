@@ -7,7 +7,8 @@
 class KSPROPERTY_IDS_BDA_TABLE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_BDA_TABLE_SECTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_TABLE_SECTION => 0
+    static SECTION => 0
 }

@@ -136,9 +136,10 @@ class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
      * Syntax: <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>hh</i>:<i>mm</i>:<i>ss</i>.<i>s</i><i>TZD</i>
      * 
      * A value of "2010-03-09T18:45:32.3-08:00" would represent 6:45:32.3 P.M. on March 9, 2010 Pacific Time.
+     * Native name: OPC_SIGNATURE_TIME_FORMAT_MILLISECONDS
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_TIME_FORMAT_MILLISECONDS => 0
+    static MILLISECONDS => 0
 
     /**
      * The format is the complete date with hours, minutes, and seconds.
@@ -146,9 +147,10 @@ class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
      * Syntax: <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>hh</i>:<i>mm</i>:<i>ss</i><i>TZD</i>
      * 
      * A value of "2010-03-09T18:45:32-08:00" would represent 6:45:32 P.M. on March 9, 2010  Pacific Time.
+     * Native name: OPC_SIGNATURE_TIME_FORMAT_SECONDS
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_TIME_FORMAT_SECONDS => 1
+    static SECONDS => 1
 
     /**
      * The format is the complete date with hours and  minutes.
@@ -156,9 +158,10 @@ class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
      * Syntax: <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>hh</i>:<i>mm</i><i>TZD</i>
      * 
      * A value of "2010-03-09T18:45-08:00" would represent 6:45 P.M. on March 9, 2010 Pacific Time.
+     * Native name: OPC_SIGNATURE_TIME_FORMAT_MINUTES
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_TIME_FORMAT_MINUTES => 2
+    static MINUTES => 2
 
     /**
      * The format is the complete date.
@@ -166,9 +169,10 @@ class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
      * Syntax: <i>YYYY</i>-<i>MM</i>-<i>DD</i>
      * 
      * A value of "2010-03-09" would represent March 9, 2010.
+     * Native name: OPC_SIGNATURE_TIME_FORMAT_DAYS
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_TIME_FORMAT_DAYS => 3
+    static DAYS => 3
 
     /**
      * The format is the year and month.
@@ -176,9 +180,10 @@ class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
      * Syntax: <i>YYYY</i>-<i>MM</i>
      * 
      * A value of "2010-03" would represent March, 2010.
+     * Native name: OPC_SIGNATURE_TIME_FORMAT_MONTHS
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_TIME_FORMAT_MONTHS => 4
+    static MONTHS => 4
 
     /**
      * The format is the year.
@@ -186,7 +191,8 @@ class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
      * Syntax:  <i>YYYY</i>
      * 
      * A value of "2010" would represent 2010.
+     * Native name: OPC_SIGNATURE_TIME_FORMAT_YEARS
      * @type {Integer (Int32)}
      */
-    static OPC_SIGNATURE_TIME_FORMAT_YEARS => 5
+    static YEARS => 5
 }

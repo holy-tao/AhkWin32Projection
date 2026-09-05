@@ -30,7 +30,6 @@ class IEnumDebugStackFrames64 extends IEnumDebugStackFrames {
     static VTableNames => ["Next64"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<DebugStackFrameDescriptor64>} prgdsfd 
      * @param {Pointer<Integer>} pceltFetched 

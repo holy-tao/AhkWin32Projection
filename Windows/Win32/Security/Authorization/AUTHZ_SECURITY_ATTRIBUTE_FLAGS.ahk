@@ -7,12 +7,14 @@
 class AUTHZ_SECURITY_ATTRIBUTE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: AUTHZ_SECURITY_ATTRIBUTE_NON_INHERITABLE
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_SECURITY_ATTRIBUTE_NON_INHERITABLE => 1
+    static NON_INHERITABLE => 1
 
     /**
+     * Native name: AUTHZ_SECURITY_ATTRIBUTE_VALUE_CASE_SENSITIVE
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_SECURITY_ATTRIBUTE_VALUE_CASE_SENSITIVE => 2
+    static VALUE_CASE_SENSITIVE => 2
 }

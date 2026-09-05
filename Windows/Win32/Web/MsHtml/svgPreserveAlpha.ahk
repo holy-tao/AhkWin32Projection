@@ -7,17 +7,20 @@
 class svgPreserveAlpha extends Win32Enum {
 
     /**
+     * Native name: SVG_PRESERVEALPHA_FALSE
      * @type {Integer (Int32)}
      */
-    static SVG_PRESERVEALPHA_FALSE => 0
+    static PRESERVEALPHA_FALSE => 0
 
     /**
+     * Native name: SVG_PRESERVEALPHA_TRUE
      * @type {Integer (Int32)}
      */
-    static SVG_PRESERVEALPHA_TRUE => 1
+    static PRESERVEALPHA_TRUE => 1
 
     /**
+     * Native name: svgPreserveAlpha_Max
      * @type {Integer (Int32)}
      */
-    static svgPreserveAlpha_Max => 2147483647
+    static Max => 2147483647
 }

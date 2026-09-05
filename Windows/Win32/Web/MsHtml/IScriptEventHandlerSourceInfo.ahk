@@ -30,7 +30,6 @@ class IScriptEventHandlerSourceInfo extends IUnknown {
     static VTableNames => ["GetSourceInfo"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrFunctionName 
      * @param {Pointer<Integer>} line 
      * @param {Pointer<Integer>} _column 

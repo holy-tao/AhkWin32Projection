@@ -10,13 +10,15 @@ class EVT_CHANNEL_SID_TYPE extends Win32Enum {
 
     /**
      * Do not include with the event the SID of the principal that logged the event.
+     * Native name: EvtChannelSidTypeNone
      * @type {Integer (Int32)}
      */
-    static EvtChannelSidTypeNone => 0
+    static None => 0
 
     /**
      * Include with the event the SID of the principal that logged the event.
+     * Native name: EvtChannelSidTypePublishing
      * @type {Integer (Int32)}
      */
-    static EvtChannelSidTypePublishing => 1
+    static Publishing => 1
 }

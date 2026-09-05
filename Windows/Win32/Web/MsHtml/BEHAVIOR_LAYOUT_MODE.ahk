@@ -32,7 +32,8 @@ class BEHAVIOR_LAYOUT_MODE extends Win32Enum {
     static BEHAVIORLAYOUTMODE_FINAL_PERCENT => 32768
 
     /**
+     * Native name: BEHAVIOR_LAYOUT_MODE_Max
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_LAYOUT_MODE_Max => 2147483647
+    static Max => 2147483647
 }

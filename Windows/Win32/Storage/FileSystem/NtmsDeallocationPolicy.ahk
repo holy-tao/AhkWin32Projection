@@ -7,7 +7,8 @@
 class NtmsDeallocationPolicy extends Win32Enum {
 
     /**
+     * Native name: NTMS_DEALLOCATE_TOSCRATCH
      * @type {Integer (Int32)}
      */
-    static NTMS_DEALLOCATE_TOSCRATCH => 1
+    static DEALLOCATE_TOSCRATCH => 1
 }

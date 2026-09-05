@@ -7,72 +7,86 @@
 class styleTextUnderlineStyle extends Win32Enum {
 
     /**
+     * Native name: styleTextUnderlineStyleUndefined
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: styleTextUnderlineStyleSingle
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleSingle => 1
+    static Single => 1
 
     /**
+     * Native name: styleTextUnderlineStyleDouble
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleDouble => 2
+    static Double => 2
 
     /**
+     * Native name: styleTextUnderlineStyleWords
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleWords => 3
+    static Words => 3
 
     /**
+     * Native name: styleTextUnderlineStyleDotted
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleDotted => 4
+    static Dotted => 4
 
     /**
+     * Native name: styleTextUnderlineStyleThick
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleThick => 5
+    static Thick => 5
 
     /**
+     * Native name: styleTextUnderlineStyleDash
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleDash => 6
+    static Dash => 6
 
     /**
+     * Native name: styleTextUnderlineStyleDotDash
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleDotDash => 7
+    static DotDash => 7
 
     /**
+     * Native name: styleTextUnderlineStyleDotDotDash
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleDotDotDash => 8
+    static DotDotDash => 8
 
     /**
+     * Native name: styleTextUnderlineStyleWave
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleWave => 9
+    static Wave => 9
 
     /**
+     * Native name: styleTextUnderlineStyleSingleAccounting
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleSingleAccounting => 10
+    static SingleAccounting => 10
 
     /**
+     * Native name: styleTextUnderlineStyleDoubleAccounting
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleDoubleAccounting => 11
+    static DoubleAccounting => 11
 
     /**
+     * Native name: styleTextUnderlineStyleThickDash
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyleThickDash => 12
+    static ThickDash => 12
 
     /**
+     * Native name: styleTextUnderlineStyle_Max
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlineStyle_Max => 2147483647
+    static Max => 2147483647
 }

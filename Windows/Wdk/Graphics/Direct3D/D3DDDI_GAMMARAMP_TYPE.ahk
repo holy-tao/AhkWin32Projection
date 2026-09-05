@@ -7,32 +7,38 @@
 class D3DDDI_GAMMARAMP_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_GAMMARAMP_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static D3DDDI_GAMMARAMP_UNINITIALIZED => 0
+    static UNINITIALIZED => 0
 
     /**
+     * Native name: D3DDDI_GAMMARAMP_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3DDDI_GAMMARAMP_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
+     * Native name: D3DDDI_GAMMARAMP_RGB256x3x16
      * @type {Integer (Int32)}
      */
-    static D3DDDI_GAMMARAMP_RGB256x3x16 => 2
+    static RGB256x3x16 => 2
 
     /**
+     * Native name: D3DDDI_GAMMARAMP_DXGI_1
      * @type {Integer (Int32)}
      */
-    static D3DDDI_GAMMARAMP_DXGI_1 => 3
+    static DXGI_1 => 3
 
     /**
+     * Native name: D3DDDI_GAMMARAMP_MATRIX_3x4
      * @type {Integer (Int32)}
      */
-    static D3DDDI_GAMMARAMP_MATRIX_3x4 => 4
+    static MATRIX_3x4 => 4
 
     /**
+     * Native name: D3DDDI_GAMMARAMP_MATRIX_V2
      * @type {Integer (Int32)}
      */
-    static D3DDDI_GAMMARAMP_MATRIX_V2 => 5
+    static MATRIX_V2 => 5
 }

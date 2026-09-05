@@ -7,17 +7,20 @@
 class INTERLOCKED_RESULT extends Win32Enum {
 
     /**
+     * Native name: ResultNegative
      * @type {Integer (Int32)}
      */
-    static ResultNegative => 32768
+    static Negative => 32768
 
     /**
+     * Native name: ResultZero
      * @type {Integer (Int32)}
      */
-    static ResultZero => 16384
+    static Zero => 16384
 
     /**
+     * Native name: ResultPositive
      * @type {Integer (Int32)}
      */
-    static ResultPositive => 0
+    static Positive => 0
 }

@@ -7,7 +7,8 @@
 class DISPID_SpeechRecoResult2 extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRRSetTextFeedback
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRSetTextFeedback => 12
+    static SRRSetTextFeedback => 12
 }

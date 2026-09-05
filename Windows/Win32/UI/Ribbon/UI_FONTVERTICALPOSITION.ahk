@@ -17,25 +17,29 @@ class UI_FONTVERTICALPOSITION extends Win32Enum {
 
     /**
      * Vertical positioning is not enabled.
+     * Native name: UI_FONTVERTICALPOSITION_NOTAVAILABLE
      * @type {Integer (Int32)}
      */
-    static UI_FONTVERTICALPOSITION_NOTAVAILABLE => 0
+    static NOTAVAILABLE => 0
 
     /**
      * Vertical positioning is enabled but not toggled.
+     * Native name: UI_FONTVERTICALPOSITION_NOTSET
      * @type {Integer (Int32)}
      */
-    static UI_FONTVERTICALPOSITION_NOTSET => 1
+    static NOTSET => 1
 
     /**
      * Vertical positioning is enabled and toggled for superscript.
+     * Native name: UI_FONTVERTICALPOSITION_SUPERSCRIPT
      * @type {Integer (Int32)}
      */
-    static UI_FONTVERTICALPOSITION_SUPERSCRIPT => 2
+    static SUPERSCRIPT => 2
 
     /**
      * Vertical positioning is enabled and toggled for subscript.
+     * Native name: UI_FONTVERTICALPOSITION_SUBSCRIPT
      * @type {Integer (Int32)}
      */
-    static UI_FONTVERTICALPOSITION_SUBSCRIPT => 3
+    static SUBSCRIPT => 3
 }

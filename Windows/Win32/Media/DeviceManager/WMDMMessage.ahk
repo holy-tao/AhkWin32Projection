@@ -9,22 +9,26 @@
 class WMDMMessage extends Win32Enum {
 
     /**
+     * Native name: WMDM_MSG_DEVICE_ARRIVAL
      * @type {Integer (Int32)}
      */
-    static WMDM_MSG_DEVICE_ARRIVAL => 0
+    static MSG_DEVICE_ARRIVAL => 0
 
     /**
+     * Native name: WMDM_MSG_DEVICE_REMOVAL
      * @type {Integer (Int32)}
      */
-    static WMDM_MSG_DEVICE_REMOVAL => 1
+    static MSG_DEVICE_REMOVAL => 1
 
     /**
+     * Native name: WMDM_MSG_MEDIA_ARRIVAL
      * @type {Integer (Int32)}
      */
-    static WMDM_MSG_MEDIA_ARRIVAL => 2
+    static MSG_MEDIA_ARRIVAL => 2
 
     /**
+     * Native name: WMDM_MSG_MEDIA_REMOVAL
      * @type {Integer (Int32)}
      */
-    static WMDM_MSG_MEDIA_REMOVAL => 3
+    static MSG_MEDIA_REMOVAL => 3
 }

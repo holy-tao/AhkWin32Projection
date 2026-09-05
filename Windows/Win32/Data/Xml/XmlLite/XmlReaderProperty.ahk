@@ -7,47 +7,56 @@
 class XmlReaderProperty extends Win32Enum {
 
     /**
+     * Native name: XmlReaderProperty_MultiLanguage
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_MultiLanguage => 0
+    static MultiLanguage => 0
 
     /**
+     * Native name: XmlReaderProperty_ConformanceLevel
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_ConformanceLevel => 1
+    static ConformanceLevel => 1
 
     /**
+     * Native name: XmlReaderProperty_RandomAccess
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_RandomAccess => 2
+    static RandomAccess => 2
 
     /**
+     * Native name: XmlReaderProperty_XmlResolver
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_XmlResolver => 3
+    static XmlResolver => 3
 
     /**
+     * Native name: XmlReaderProperty_DtdProcessing
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_DtdProcessing => 4
+    static DtdProcessing => 4
 
     /**
+     * Native name: XmlReaderProperty_ReadState
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_ReadState => 5
+    static ReadState => 5
 
     /**
+     * Native name: XmlReaderProperty_MaxElementDepth
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_MaxElementDepth => 6
+    static MaxElementDepth => 6
 
     /**
+     * Native name: XmlReaderProperty_MaxEntityExpansion
      * @type {Integer (Int32)}
      */
-    static XmlReaderProperty_MaxEntityExpansion => 7
+    static MaxEntityExpansion => 7
 
     /**
+     * Native name: _XmlReaderProperty_Last
      * @type {Integer (Int32)}
      */
-    static _XmlReaderProperty_Last => 7
+    static Last => 7
 }

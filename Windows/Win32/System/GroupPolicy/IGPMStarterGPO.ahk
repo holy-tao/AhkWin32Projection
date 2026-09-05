@@ -130,7 +130,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -140,7 +139,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -152,7 +150,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -162,7 +159,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -174,7 +170,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Author() {
@@ -184,7 +179,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Product() {
@@ -194,7 +188,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_CreationTime() {
@@ -203,7 +196,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -213,7 +205,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ModifiedTime() {
@@ -222,7 +213,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMStarterGPOType} 
      */
     get_Type() {
@@ -231,7 +221,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ComputerVersion() {
@@ -240,7 +229,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UserVersion() {
@@ -249,7 +237,6 @@ class IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StarterGPOVersion() {

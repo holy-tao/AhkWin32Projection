@@ -29,7 +29,6 @@ class IMetaDataValidate extends IUnknown {
     static VTableNames => ["ValidatorInit", "ValidateMetaData"]
 
     /**
-     * 
      * @param {Integer} dwModuleType 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
@@ -40,7 +39,6 @@ class IMetaDataValidate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ValidateMetaData() {

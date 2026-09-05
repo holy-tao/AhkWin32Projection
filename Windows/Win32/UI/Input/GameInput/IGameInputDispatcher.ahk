@@ -30,7 +30,6 @@ class IGameInputDispatcher extends IUnknown {
     static VTableNames => ["Dispatch", "OpenWaitHandle"]
 
     /**
-     * 
      * @param {Integer} quotaInMicroseconds 
      * @returns {Boolean} 
      */
@@ -40,7 +39,6 @@ class IGameInputDispatcher extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     OpenWaitHandle() {

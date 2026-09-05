@@ -52,7 +52,6 @@ class IBlockFormats extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -61,7 +60,6 @@ class IBlockFormats extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {

@@ -41,7 +41,6 @@ class IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -67,7 +65,6 @@ class IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -93,7 +89,6 @@ class IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ class IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {FEEDS_DOWNLOAD_ERROR} _error 
      * @returns {HRESULT} 
@@ -118,7 +112,6 @@ class IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {Integer} itemCountType 
      * @returns {HRESULT} 

@@ -32,7 +32,6 @@ class IWMPEvents4 extends IWMPEvents3 {
     static VTableNames => ["DeviceEstimation"]
 
     /**
-     * 
      * @param {IWMPSyncDevice} pDevice 
      * @param {HRESULT} hrResult 
      * @param {Integer} qwEstimatedUsedSpace 

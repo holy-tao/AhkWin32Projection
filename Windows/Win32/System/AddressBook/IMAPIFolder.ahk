@@ -386,7 +386,6 @@ class IMAPIFolder extends IMAPIContainer {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIFolder::SetMessageStatus** method sets the message status to the value that is stored in its **PR_MSG_STATUS** ([PidTagMessageStatus](pidtagmessagestatus-canonical-property.md)) property.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
@@ -426,7 +425,6 @@ class IMAPIFolder extends IMAPIContainer {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIFolder::SaveContentsSort** method establishes a default sort order for a folder's contents table. That is, when a client calls the folder's [IMAPIContainer::GetContentsTable](imapicontainer-getcontentstable.md) method after the code calls **SaveContentsSort**, the rows in the returned contents table will appear in the order established by **SaveContentsSort**.
      *   

@@ -39,7 +39,6 @@ class IADsPrintQueueOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Status() {

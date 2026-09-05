@@ -29,7 +29,6 @@ class ITextStoreSinkAnchorEx extends ITextStoreAnchorSink {
     static VTableNames => ["OnDisconnect"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnDisconnect() {

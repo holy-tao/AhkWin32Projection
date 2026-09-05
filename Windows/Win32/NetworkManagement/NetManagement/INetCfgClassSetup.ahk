@@ -33,7 +33,6 @@ class INetCfgClassSetup extends IUnknown {
     static VTableNames => ["SelectAndInstall", "Install", "DeInstall"]
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Pointer<OBO_TOKEN>} pOboToken 
      * @returns {INetCfgComponent} 
@@ -71,7 +70,6 @@ class INetCfgClassSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pComponent 
      * @param {Pointer<OBO_TOKEN>} pOboToken 
      * @param {Pointer<PWSTR>} pmszwRefs 

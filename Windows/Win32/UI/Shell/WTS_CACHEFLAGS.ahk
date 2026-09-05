@@ -7,17 +7,20 @@
 class WTS_CACHEFLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: WTS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static WTS_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: WTS_LOWQUALITY
      * @type {Integer (Int32)}
      */
-    static WTS_LOWQUALITY => 1
+    static LOWQUALITY => 1
 
     /**
+     * Native name: WTS_CACHED
      * @type {Integer (Int32)}
      */
-    static WTS_CACHED => 2
+    static CACHED => 2
 }

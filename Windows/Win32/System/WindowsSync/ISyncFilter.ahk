@@ -29,7 +29,6 @@ class ISyncFilter extends IUnknown {
     static VTableNames => ["IsIdentical", "Serialize"]
 
     /**
-     * 
      * @param {ISyncFilter} pSyncFilter 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class ISyncFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbSyncFilter 
      * @param {Pointer<Integer>} pcbSyncFilter 
      * @returns {HRESULT} 

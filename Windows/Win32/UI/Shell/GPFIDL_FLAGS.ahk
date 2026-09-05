@@ -7,17 +7,20 @@
 class GPFIDL_FLAGS extends Win32Enum {
 
     /**
+     * Native name: GPFIDL_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static GPFIDL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: GPFIDL_ALTNAME
      * @type {Integer (UInt32)}
      */
-    static GPFIDL_ALTNAME => 1
+    static ALTNAME => 1
 
     /**
+     * Native name: GPFIDL_UNCPRINTER
      * @type {Integer (UInt32)}
      */
-    static GPFIDL_UNCPRINTER => 2
+    static UNCPRINTER => 2
 }

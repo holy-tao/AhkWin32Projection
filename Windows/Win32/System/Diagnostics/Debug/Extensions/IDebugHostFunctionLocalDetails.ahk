@@ -44,7 +44,6 @@ class IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetType() {
@@ -53,7 +52,6 @@ class IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostFunctionLocalStorageEnumerator} 
      */
     EnumerateStorage() {
@@ -62,7 +60,6 @@ class IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {LocalKind} 
      */
     GetLocalKind() {
@@ -71,7 +68,6 @@ class IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArgumentPosition() {

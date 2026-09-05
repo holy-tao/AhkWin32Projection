@@ -7,37 +7,44 @@
 class eAVScenarioInfo extends Win32Enum {
 
     /**
+     * Native name: eAVScenarioInfo_Unknown
      * @type {Integer (Int32)}
      */
-    static eAVScenarioInfo_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: eAVScenarioInfo_DisplayRemoting
      * @type {Integer (Int32)}
      */
-    static eAVScenarioInfo_DisplayRemoting => 1
+    static DisplayRemoting => 1
 
     /**
+     * Native name: eAVScenarioInfo_VideoConference
      * @type {Integer (Int32)}
      */
-    static eAVScenarioInfo_VideoConference => 2
+    static VideoConference => 2
 
     /**
+     * Native name: eAVScenarioInfo_Archive
      * @type {Integer (Int32)}
      */
-    static eAVScenarioInfo_Archive => 3
+    static Archive => 3
 
     /**
+     * Native name: eAVScenarioInfo_LiveStreaming
      * @type {Integer (Int32)}
      */
-    static eAVScenarioInfo_LiveStreaming => 4
+    static LiveStreaming => 4
 
     /**
+     * Native name: eAVScenarioInfo_CameraRecord
      * @type {Integer (Int32)}
      */
-    static eAVScenarioInfo_CameraRecord => 5
+    static CameraRecord => 5
 
     /**
+     * Native name: eAVScenarioInfo_DisplayRemotingWithFeatureMap
      * @type {Integer (Int32)}
      */
-    static eAVScenarioInfo_DisplayRemotingWithFeatureMap => 6
+    static DisplayRemotingWithFeatureMap => 6
 }

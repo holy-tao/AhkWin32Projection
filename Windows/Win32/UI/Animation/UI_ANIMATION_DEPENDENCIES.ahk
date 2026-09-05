@@ -12,31 +12,36 @@ class UI_ANIMATION_DEPENDENCIES extends Win32BitflagEnum {
 
     /**
      * No aspect depends on the input.
+     * Native name: UI_ANIMATION_DEPENDENCY_NONE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_DEPENDENCY_NONE => 0
+    static DEPENDENCY_NONE => 0
 
     /**
      * The intermediate values depend on the input.
+     * Native name: UI_ANIMATION_DEPENDENCY_INTERMEDIATE_VALUES
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_DEPENDENCY_INTERMEDIATE_VALUES => 1
+    static DEPENDENCY_INTERMEDIATE_VALUES => 1
 
     /**
      * The final value depends on the input.
+     * Native name: UI_ANIMATION_DEPENDENCY_FINAL_VALUE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_DEPENDENCY_FINAL_VALUE => 2
+    static DEPENDENCY_FINAL_VALUE => 2
 
     /**
      * The final velocity depends on the input.
+     * Native name: UI_ANIMATION_DEPENDENCY_FINAL_VELOCITY
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_DEPENDENCY_FINAL_VELOCITY => 4
+    static DEPENDENCY_FINAL_VELOCITY => 4
 
     /**
      * The duration depends on the input.
+     * Native name: UI_ANIMATION_DEPENDENCY_DURATION
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_DEPENDENCY_DURATION => 8
+    static DEPENDENCY_DURATION => 8
 }

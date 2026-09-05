@@ -31,7 +31,6 @@ class IWICBitmapFrameChainReader extends IUnknown {
     static VTableNames => ["GetChainedFrameCount", "GetChainedFrame"]
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @returns {Integer} 
      */
@@ -41,7 +40,6 @@ class IWICBitmapFrameChainReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @param {Integer} index 
      * @returns {IWICBitmapFrameDecode} 

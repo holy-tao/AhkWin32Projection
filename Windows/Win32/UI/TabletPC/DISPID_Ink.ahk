@@ -7,127 +7,152 @@
 class DISPID_Ink extends Win32Enum {
 
     /**
+     * Native name: DISPID_IStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_IStrokes => 1
+    static IStrokes => 1
 
     /**
+     * Native name: DISPID_IExtendedProperties
      * @type {Integer (Int32)}
      */
-    static DISPID_IExtendedProperties => 2
+    static IExtendedProperties => 2
 
     /**
+     * Native name: DISPID_IGetBoundingBox
      * @type {Integer (Int32)}
      */
-    static DISPID_IGetBoundingBox => 3
+    static IGetBoundingBox => 3
 
     /**
+     * Native name: DISPID_IDeleteStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_IDeleteStrokes => 4
+    static IDeleteStrokes => 4
 
     /**
+     * Native name: DISPID_IDeleteStroke
      * @type {Integer (Int32)}
      */
-    static DISPID_IDeleteStroke => 5
+    static IDeleteStroke => 5
 
     /**
+     * Native name: DISPID_IExtractStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_IExtractStrokes => 6
+    static IExtractStrokes => 6
 
     /**
+     * Native name: DISPID_IExtractWithRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_IExtractWithRectangle => 7
+    static IExtractWithRectangle => 7
 
     /**
+     * Native name: DISPID_IDirty
      * @type {Integer (Int32)}
      */
-    static DISPID_IDirty => 8
+    static IDirty => 8
 
     /**
+     * Native name: DISPID_ICustomStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_ICustomStrokes => 9
+    static ICustomStrokes => 9
 
     /**
+     * Native name: DISPID_IClone
      * @type {Integer (Int32)}
      */
-    static DISPID_IClone => 10
+    static IClone => 10
 
     /**
+     * Native name: DISPID_IHitTestCircle
      * @type {Integer (Int32)}
      */
-    static DISPID_IHitTestCircle => 11
+    static IHitTestCircle => 11
 
     /**
+     * Native name: DISPID_IHitTestWithRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_IHitTestWithRectangle => 12
+    static IHitTestWithRectangle => 12
 
     /**
+     * Native name: DISPID_IHitTestWithLasso
      * @type {Integer (Int32)}
      */
-    static DISPID_IHitTestWithLasso => 13
+    static IHitTestWithLasso => 13
 
     /**
+     * Native name: DISPID_INearestPoint
      * @type {Integer (Int32)}
      */
-    static DISPID_INearestPoint => 14
+    static INearestPoint => 14
 
     /**
+     * Native name: DISPID_ICreateStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_ICreateStrokes => 15
+    static ICreateStrokes => 15
 
     /**
+     * Native name: DISPID_ICreateStroke
      * @type {Integer (Int32)}
      */
-    static DISPID_ICreateStroke => 16
+    static ICreateStroke => 16
 
     /**
+     * Native name: DISPID_IAddStrokesAtRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_IAddStrokesAtRectangle => 17
+    static IAddStrokesAtRectangle => 17
 
     /**
+     * Native name: DISPID_IClip
      * @type {Integer (Int32)}
      */
-    static DISPID_IClip => 18
+    static IClip => 18
 
     /**
+     * Native name: DISPID_ISave
      * @type {Integer (Int32)}
      */
-    static DISPID_ISave => 19
+    static ISave => 19
 
     /**
+     * Native name: DISPID_ILoad
      * @type {Integer (Int32)}
      */
-    static DISPID_ILoad => 20
+    static ILoad => 20
 
     /**
+     * Native name: DISPID_ICreateStrokeFromPoints
      * @type {Integer (Int32)}
      */
-    static DISPID_ICreateStrokeFromPoints => 21
+    static ICreateStrokeFromPoints => 21
 
     /**
+     * Native name: DISPID_IClipboardCopyWithRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_IClipboardCopyWithRectangle => 22
+    static IClipboardCopyWithRectangle => 22
 
     /**
+     * Native name: DISPID_IClipboardCopy
      * @type {Integer (Int32)}
      */
-    static DISPID_IClipboardCopy => 23
+    static IClipboardCopy => 23
 
     /**
+     * Native name: DISPID_ICanPaste
      * @type {Integer (Int32)}
      */
-    static DISPID_ICanPaste => 24
+    static ICanPaste => 24
 
     /**
+     * Native name: DISPID_IClipboardPaste
      * @type {Integer (Int32)}
      */
-    static DISPID_IClipboardPaste => 25
+    static IClipboardPaste => 25
 }

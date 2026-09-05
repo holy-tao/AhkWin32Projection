@@ -10,31 +10,36 @@ class CM_MASK extends Win32BitflagEnum {
 
     /**
      * The <b>uWidth</b> member is specified.
+     * Native name: CM_MASK_WIDTH
      * @type {Integer (Int32)}
      */
-    static CM_MASK_WIDTH => 1
+    static WIDTH => 1
 
     /**
      * The <b>uDefaultWidth</b> member is specified.
+     * Native name: CM_MASK_DEFAULTWIDTH
      * @type {Integer (Int32)}
      */
-    static CM_MASK_DEFAULTWIDTH => 2
+    static DEFAULTWIDTH => 2
 
     /**
      * The <b>uIdealWidth</b> member is specified.
+     * Native name: CM_MASK_IDEALWIDTH
      * @type {Integer (Int32)}
      */
-    static CM_MASK_IDEALWIDTH => 4
+    static IDEALWIDTH => 4
 
     /**
      * The <b>wszName</b> member is specified.
+     * Native name: CM_MASK_NAME
      * @type {Integer (Int32)}
      */
-    static CM_MASK_NAME => 8
+    static NAME => 8
 
     /**
      * The <b>dwState</b> member is specified.
+     * Native name: CM_MASK_STATE
      * @type {Integer (Int32)}
      */
-    static CM_MASK_STATE => 16
+    static STATE => 16
 }

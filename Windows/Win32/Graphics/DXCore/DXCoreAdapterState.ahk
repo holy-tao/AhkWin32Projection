@@ -24,52 +24,62 @@ class DXCoreAdapterState extends Win32Enum {
      * When calling [QueryState](/windows/win32/dxcore/dxcore_interface/nf-dxcore_interface-idxcoreadapter-querystate), the <em>AdapterMemoryBudget</em> adapter state has type <a href="https://docs.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudgetnodesegmentgroup">DXCoreAdapterMemoryBudgetNodeSegmentGroup</a> for *inputStateDetails*, and type <a href="https://docs.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudget">DXCoreAdapterMemoryBudget</a> for *outputBuffer*.
      * 
      * <b>Important</b>. This state item is not supported for [SetState](/windows/win32/dxcore/dxcore_interface/nf-dxcore_interface-idxcoreadapter-setstate).
+     * Native name: AdapterMemoryBudget
      * @type {Integer (UInt32)}
      */
-    static AdapterMemoryBudget => 1
+    static MemoryBudget => 1
 
     /**
+     * Native name: AdapterMemoryUsageBytes
      * @type {Integer (UInt32)}
      */
-    static AdapterMemoryUsageBytes => 2
+    static MemoryUsageBytes => 2
 
     /**
+     * Native name: AdapterMemoryUsageByProcessBytes
      * @type {Integer (UInt32)}
      */
-    static AdapterMemoryUsageByProcessBytes => 3
+    static MemoryUsageByProcessBytes => 3
 
     /**
+     * Native name: AdapterEngineRunningTimeMicroseconds
      * @type {Integer (UInt32)}
      */
-    static AdapterEngineRunningTimeMicroseconds => 4
+    static EngineRunningTimeMicroseconds => 4
 
     /**
+     * Native name: AdapterEngineRunningTimeByProcessMicroseconds
      * @type {Integer (UInt32)}
      */
-    static AdapterEngineRunningTimeByProcessMicroseconds => 5
+    static EngineRunningTimeByProcessMicroseconds => 5
 
     /**
+     * Native name: AdapterTemperatureCelsius
      * @type {Integer (UInt32)}
      */
-    static AdapterTemperatureCelsius => 6
+    static TemperatureCelsius => 6
 
     /**
+     * Native name: AdapterInUseProcessCount
      * @type {Integer (UInt32)}
      */
-    static AdapterInUseProcessCount => 7
+    static InUseProcessCount => 7
 
     /**
+     * Native name: AdapterInUseProcessSet
      * @type {Integer (UInt32)}
      */
-    static AdapterInUseProcessSet => 8
+    static InUseProcessSet => 8
 
     /**
+     * Native name: AdapterEngineFrequencyHertz
      * @type {Integer (UInt32)}
      */
-    static AdapterEngineFrequencyHertz => 9
+    static EngineFrequencyHertz => 9
 
     /**
+     * Native name: AdapterMemoryFrequencyHertz
      * @type {Integer (UInt32)}
      */
-    static AdapterMemoryFrequencyHertz => 10
+    static MemoryFrequencyHertz => 10
 }

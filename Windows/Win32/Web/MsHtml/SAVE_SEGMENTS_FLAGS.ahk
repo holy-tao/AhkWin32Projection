@@ -7,12 +7,14 @@
 class SAVE_SEGMENTS_FLAGS extends Win32Enum {
 
     /**
+     * Native name: SAVE_SEGMENTS_NoIE4SelectionCompat
      * @type {Integer (Int32)}
      */
-    static SAVE_SEGMENTS_NoIE4SelectionCompat => 1
+    static NoIE4SelectionCompat => 1
 
     /**
+     * Native name: SAVE_SEGMENTS_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static SAVE_SEGMENTS_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

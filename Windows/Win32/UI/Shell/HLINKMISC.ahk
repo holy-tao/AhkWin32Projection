@@ -7,7 +7,8 @@
 class HLINKMISC extends Win32Enum {
 
     /**
+     * Native name: HLINKMISC_RELATIVE
      * @type {Integer (Int32)}
      */
-    static HLINKMISC_RELATIVE => 1
+    static RELATIVE => 1
 }

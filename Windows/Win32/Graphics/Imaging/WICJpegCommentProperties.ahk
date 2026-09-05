@@ -10,7 +10,8 @@ class WICJpegCommentProperties extends Win32Enum {
 
     /**
      * Indicates the metadata property is comment text.
+     * Native name: WICJpegCommentText
      * @type {Integer (Int32)}
      */
-    static WICJpegCommentText => 1
+    static Text => 1
 }

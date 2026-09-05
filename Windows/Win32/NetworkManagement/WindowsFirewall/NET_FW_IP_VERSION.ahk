@@ -10,25 +10,29 @@ class NET_FW_IP_VERSION extends Win32Enum {
 
     /**
      * The port supports IPv4.
+     * Native name: NET_FW_IP_VERSION_V4
      * @type {Integer (Int32)}
      */
-    static NET_FW_IP_VERSION_V4 => 0
+    static V4 => 0
 
     /**
      * The port supports IPv6.
+     * Native name: NET_FW_IP_VERSION_V6
      * @type {Integer (Int32)}
      */
-    static NET_FW_IP_VERSION_V6 => 1
+    static V6 => 1
 
     /**
      * The port supports either version of IP.
+     * Native name: NET_FW_IP_VERSION_ANY
      * @type {Integer (Int32)}
      */
-    static NET_FW_IP_VERSION_ANY => 2
+    static ANY => 2
 
     /**
      * This value is used for boundary checking only and is not valid for application programming.
+     * Native name: NET_FW_IP_VERSION_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_IP_VERSION_MAX => 3
+    static MAX => 3
 }

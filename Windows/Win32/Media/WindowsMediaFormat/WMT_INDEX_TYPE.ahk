@@ -10,19 +10,22 @@ class WMT_INDEX_TYPE extends Win32Enum {
 
     /**
      * The index will associate indexes with the nearest data unit, or packet, in the Windows Media file.
+     * Native name: WMT_IT_NEAREST_DATA_UNIT
      * @type {Integer (Int32)}
      */
-    static WMT_IT_NEAREST_DATA_UNIT => 1
+    static IT_NEAREST_DATA_UNIT => 1
 
     /**
      * The index will associate indexes with the nearest data object, or compressed sample, in the Windows Media file.
+     * Native name: WMT_IT_NEAREST_OBJECT
      * @type {Integer (Int32)}
      */
-    static WMT_IT_NEAREST_OBJECT => 2
+    static IT_NEAREST_OBJECT => 2
 
     /**
      * The index will associate indexes with the nearest <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">cleanpoint</a>, or video key frame, in the Windows Media file. This is the default index type.
+     * Native name: WMT_IT_NEAREST_CLEAN_POINT
      * @type {Integer (Int32)}
      */
-    static WMT_IT_NEAREST_CLEAN_POINT => 3
+    static IT_NEAREST_CLEAN_POINT => 3
 }

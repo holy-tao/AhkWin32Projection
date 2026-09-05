@@ -7,7 +7,8 @@
 class OPERATION_END_PARAMETERS_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: OPERATION_END_DISCARD
      * @type {Integer (UInt32)}
      */
-    static OPERATION_END_DISCARD => 1
+    static DISCARD => 1
 }

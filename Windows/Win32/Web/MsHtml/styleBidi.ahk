@@ -7,32 +7,38 @@
 class styleBidi extends Win32Enum {
 
     /**
+     * Native name: styleBidiNotSet
      * @type {Integer (Int32)}
      */
-    static styleBidiNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleBidiNormal
      * @type {Integer (Int32)}
      */
-    static styleBidiNormal => 1
+    static Normal => 1
 
     /**
+     * Native name: styleBidiEmbed
      * @type {Integer (Int32)}
      */
-    static styleBidiEmbed => 2
+    static Embed => 2
 
     /**
+     * Native name: styleBidiOverride
      * @type {Integer (Int32)}
      */
-    static styleBidiOverride => 3
+    static Override => 3
 
     /**
+     * Native name: styleBidiInherit
      * @type {Integer (Int32)}
      */
-    static styleBidiInherit => 4
+    static Inherit => 4
 
     /**
+     * Native name: styleBidi_Max
      * @type {Integer (Int32)}
      */
-    static styleBidi_Max => 2147483647
+    static Max => 2147483647
 }

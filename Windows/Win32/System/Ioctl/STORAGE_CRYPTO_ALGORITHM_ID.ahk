@@ -7,34 +7,40 @@
 class STORAGE_CRYPTO_ALGORITHM_ID extends Win32Enum {
 
     /**
+     * Native name: StorageCryptoAlgorithmUnknown
      * @type {Integer (Int32)}
      */
-    static StorageCryptoAlgorithmUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageCryptoAlgorithmXTSAES
      * @type {Integer (Int32)}
      */
-    static StorageCryptoAlgorithmXTSAES => 1
+    static AlgorithmXTSAES => 1
 
     /**
+     * Native name: StorageCryptoAlgorithmBitlockerAESCBC
      * @type {Integer (Int32)}
      */
-    static StorageCryptoAlgorithmBitlockerAESCBC => 2
+    static BitlockerAESCBC => 2
 
     /**
+     * Native name: StorageCryptoAlgorithmAESECB
      * @type {Integer (Int32)}
      */
-    static StorageCryptoAlgorithmAESECB => 3
+    static AlgorithmAESECB => 3
 
     /**
+     * Native name: StorageCryptoAlgorithmESSIVAESCBC
      * @type {Integer (Int32)}
      */
-    static StorageCryptoAlgorithmESSIVAESCBC => 4
+    static AlgorithmESSIVAESCBC => 4
 
     /**
+     * Native name: StorageCryptoAlgorithmMax
      * @type {Integer (Int32)}
      */
-    static StorageCryptoAlgorithmMax => 5
+    static Max => 5
 
     /**
      * @type {Integer (Int32)}

@@ -32,7 +32,6 @@ class IHostTaskManager extends IUnknown {
     static VTableNames => ["GetCurrentTask", "CreateTask", "Sleep", "SwitchToTask", "SetUILocale", "SetLocale", "CallNeedsHostHook", "LeaveRuntime", "EnterRuntime", "ReverseLeaveRuntime", "ReverseEnterRuntime", "BeginDelayAbort", "EndDelayAbort", "BeginThreadAffinity", "EndThreadAffinity", "SetStackGuarantee", "GetStackGuarantee", "SetCLRTaskManager"]
 
     /**
-     * 
      * @returns {IHostTask} 
      */
     GetCurrentTask() {
@@ -41,7 +40,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwStackSize 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} pStartAddress 
      * @param {Pointer<Void>} pParameter 
@@ -94,7 +92,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} option 
      * @returns {HRESULT} 
      */
@@ -104,7 +101,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -114,7 +110,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -124,7 +119,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} target 
      * @returns {BOOL} 
      */
@@ -134,7 +128,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} target 
      * @returns {HRESULT} 
      */
@@ -144,7 +137,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnterRuntime() {
@@ -153,7 +145,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReverseLeaveRuntime() {
@@ -162,7 +153,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReverseEnterRuntime() {
@@ -171,7 +161,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginDelayAbort() {
@@ -180,7 +169,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndDelayAbort() {
@@ -189,7 +177,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginThreadAffinity() {
@@ -198,7 +185,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndThreadAffinity() {
@@ -207,7 +193,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} guarantee 
      * @returns {HRESULT} 
      */
@@ -217,7 +202,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStackGuarantee() {
@@ -226,7 +210,6 @@ class IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRTaskManager} ppManager 
      * @returns {HRESULT} 
      */

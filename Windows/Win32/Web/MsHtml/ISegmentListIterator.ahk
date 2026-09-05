@@ -30,7 +30,6 @@ class ISegmentListIterator extends IUnknown {
     static VTableNames => ["Current", "First", "IsDone", "Advance"]
 
     /**
-     * 
      * @returns {ISegment} 
      */
     Current() {
@@ -39,7 +38,6 @@ class ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     First() {
@@ -48,7 +46,6 @@ class ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsDone() {
@@ -57,7 +54,6 @@ class ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Advance() {

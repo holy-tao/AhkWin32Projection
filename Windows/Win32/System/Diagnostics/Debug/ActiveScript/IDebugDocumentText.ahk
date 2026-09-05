@@ -31,7 +31,6 @@ class IDebugDocumentText extends IDebugDocument {
     static VTableNames => ["GetDocumentAttributes", "GetSize", "GetPositionOfLine", "GetLineOfPosition", "GetText", "GetPositionOfContext", "GetContextOfPosition"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDocumentAttributes() {
@@ -40,7 +39,6 @@ class IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcNumLines 
      * @param {Pointer<Integer>} pcNumChars 
      * @returns {HRESULT} 
@@ -54,7 +52,6 @@ class IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {Integer} cLineNumber 
      * @returns {Integer} 
      */
@@ -64,7 +61,6 @@ class IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Pointer<Integer>} pcLineNumber 
      * @param {Pointer<Integer>} pcCharacterOffsetInLine 
@@ -79,7 +75,6 @@ class IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {PWSTR} pcharText 
      * @param {Pointer<Integer>} pstaTextAttr 
@@ -98,7 +93,6 @@ class IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {IDebugDocumentContext} psc 
      * @param {Pointer<Integer>} pcCharacterPosition 
      * @param {Pointer<Integer>} cNumChars 
@@ -113,7 +107,6 @@ class IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumChars 
      * @returns {IDebugDocumentContext} 

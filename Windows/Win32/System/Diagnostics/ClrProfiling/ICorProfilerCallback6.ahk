@@ -31,7 +31,6 @@ class ICorProfilerCallback6 extends ICorProfilerCallback5 {
     static VTableNames => ["GetAssemblyReferences"]
 
     /**
-     * 
      * @param {PWSTR} wszAssemblyPath 
      * @param {ICorProfilerAssemblyReferenceProvider} pAsmRefProvider 
      * @returns {HRESULT} 

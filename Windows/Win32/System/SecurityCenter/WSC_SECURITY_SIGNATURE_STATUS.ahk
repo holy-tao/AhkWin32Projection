@@ -10,13 +10,15 @@ class WSC_SECURITY_SIGNATURE_STATUS extends Win32Enum {
 
     /**
      * The security software reports that it is not the most recent version.
+     * Native name: WSC_SECURITY_PRODUCT_OUT_OF_DATE
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PRODUCT_OUT_OF_DATE => 0
+    static PRODUCT_OUT_OF_DATE => 0
 
     /**
      * The security software reports that it is the most recent version.
+     * Native name: WSC_SECURITY_PRODUCT_UP_TO_DATE
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PRODUCT_UP_TO_DATE => 1
+    static PRODUCT_UP_TO_DATE => 1
 }

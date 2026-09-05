@@ -7,12 +7,14 @@
 class COR_PRF_GC_REASON extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_GC_INDUCED
      * @type {Integer (Int32)}
      */
-    static COR_PRF_GC_INDUCED => 1
+    static INDUCED => 1
 
     /**
+     * Native name: COR_PRF_GC_OTHER
      * @type {Integer (Int32)}
      */
-    static COR_PRF_GC_OTHER => 0
+    static OTHER => 0
 }

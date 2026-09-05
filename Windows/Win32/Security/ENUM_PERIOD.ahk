@@ -9,42 +9,50 @@
 class ENUM_PERIOD extends Win32Enum {
 
     /**
+     * Native name: ENUM_PERIOD_INVALID
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_INVALID => -1
+    static INVALID => -1
 
     /**
+     * Native name: ENUM_PERIOD_SECONDS
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_SECONDS => 0
+    static SECONDS => 0
 
     /**
+     * Native name: ENUM_PERIOD_MINUTES
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_MINUTES => 1
+    static MINUTES => 1
 
     /**
+     * Native name: ENUM_PERIOD_HOURS
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_HOURS => 2
+    static HOURS => 2
 
     /**
+     * Native name: ENUM_PERIOD_DAYS
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_DAYS => 3
+    static DAYS => 3
 
     /**
+     * Native name: ENUM_PERIOD_WEEKS
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_WEEKS => 4
+    static WEEKS => 4
 
     /**
+     * Native name: ENUM_PERIOD_MONTHS
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_MONTHS => 5
+    static MONTHS => 5
 
     /**
+     * Native name: ENUM_PERIOD_YEARS
      * @type {Integer (Int32)}
      */
-    static ENUM_PERIOD_YEARS => 6
+    static YEARS => 6
 }

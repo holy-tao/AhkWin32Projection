@@ -7,22 +7,26 @@
 class NDIS_PORT_AUTHORIZATION_STATE extends Win32Enum {
 
     /**
+     * Native name: NdisPortAuthorizationUnknown
      * @type {Integer (Int32)}
      */
-    static NdisPortAuthorizationUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: NdisPortAuthorized
      * @type {Integer (Int32)}
      */
-    static NdisPortAuthorized => 1
+    static Authorized => 1
 
     /**
+     * Native name: NdisPortUnauthorized
      * @type {Integer (Int32)}
      */
-    static NdisPortUnauthorized => 2
+    static Unauthorized => 2
 
     /**
+     * Native name: NdisPortReauthorizing
      * @type {Integer (Int32)}
      */
-    static NdisPortReauthorizing => 3
+    static Reauthorizing => 3
 }

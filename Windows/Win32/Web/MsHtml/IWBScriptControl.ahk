@@ -77,7 +77,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} eventData 
      * @returns {HRESULT} 
@@ -90,7 +89,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     bubbleEvent() {
@@ -99,7 +97,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} menuItemPairs 
      * @returns {HRESULT} 
      */
@@ -109,7 +106,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -119,7 +115,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selectableContent() {
@@ -128,7 +123,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frozen() {
@@ -137,7 +131,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -147,7 +140,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_scrollbar() {
@@ -156,7 +148,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -166,7 +157,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_visibility() {
@@ -175,7 +165,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -185,7 +174,6 @@ class IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onvisibilitychange() {

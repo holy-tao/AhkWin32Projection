@@ -7,42 +7,50 @@
 class STORAGE_ZONE_CONDITION extends Win32Enum {
 
     /**
+     * Native name: ZoneConditionConventional
      * @type {Integer (Int32)}
      */
-    static ZoneConditionConventional => 0
+    static Conventional => 0
 
     /**
+     * Native name: ZoneConditionEmpty
      * @type {Integer (Int32)}
      */
-    static ZoneConditionEmpty => 1
+    static Empty => 1
 
     /**
+     * Native name: ZoneConditionImplicitlyOpened
      * @type {Integer (Int32)}
      */
-    static ZoneConditionImplicitlyOpened => 2
+    static ImplicitlyOpened => 2
 
     /**
+     * Native name: ZoneConditionExplicitlyOpened
      * @type {Integer (Int32)}
      */
-    static ZoneConditionExplicitlyOpened => 3
+    static ExplicitlyOpened => 3
 
     /**
+     * Native name: ZoneConditionClosed
      * @type {Integer (Int32)}
      */
-    static ZoneConditionClosed => 4
+    static Closed => 4
 
     /**
+     * Native name: ZoneConditionReadOnly
      * @type {Integer (Int32)}
      */
-    static ZoneConditionReadOnly => 13
+    static ReadOnly => 13
 
     /**
+     * Native name: ZoneConditionFull
      * @type {Integer (Int32)}
      */
-    static ZoneConditionFull => 14
+    static Full => 14
 
     /**
+     * Native name: ZoneConditionOffline
      * @type {Integer (Int32)}
      */
-    static ZoneConditionOffline => 15
+    static Offline => 15
 }

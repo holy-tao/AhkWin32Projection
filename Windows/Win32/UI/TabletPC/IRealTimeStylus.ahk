@@ -350,7 +350,6 @@ class IRealTimeStylus extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRealTimeStylus} piRTS 
      * @returns {HRESULT} 
      */

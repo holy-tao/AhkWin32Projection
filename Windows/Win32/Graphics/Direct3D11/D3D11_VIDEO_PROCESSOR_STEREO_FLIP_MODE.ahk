@@ -10,19 +10,22 @@ class D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE extends Win32Enum {
 
     /**
      * Neither frame is flipped.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_FLIP_NONE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_FLIP_NONE => 0
+    static NONE => 0
 
     /**
      * The data in frame 0 is flipped.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_FLIP_FRAME0
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_FLIP_FRAME0 => 1
+    static FRAME0 => 1
 
     /**
      * The data in frame 1 is flipped.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_FLIP_FRAME1
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_FLIP_FRAME1 => 2
+    static FRAME1 => 2
 }

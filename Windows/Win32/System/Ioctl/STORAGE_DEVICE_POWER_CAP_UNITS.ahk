@@ -10,13 +10,15 @@ class STORAGE_DEVICE_POWER_CAP_UNITS extends Win32Enum {
 
     /**
      * Units in percent.
+     * Native name: StorageDevicePowerCapUnitsPercent
      * @type {Integer (Int32)}
      */
-    static StorageDevicePowerCapUnitsPercent => 0
+    static Percent => 0
 
     /**
      * Units in milliwatts.
+     * Native name: StorageDevicePowerCapUnitsMilliwatts
      * @type {Integer (Int32)}
      */
-    static StorageDevicePowerCapUnitsMilliwatts => 1
+    static Milliwatts => 1
 }

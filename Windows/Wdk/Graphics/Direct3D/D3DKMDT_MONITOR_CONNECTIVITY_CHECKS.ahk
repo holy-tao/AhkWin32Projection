@@ -7,17 +7,20 @@
 class D3DKMDT_MONITOR_CONNECTIVITY_CHECKS extends Win32Enum {
 
     /**
+     * Native name: D3DKMDT_MCC_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MCC_UNINITIALIZED => 0
+    static MCC_UNINITIALIZED => 0
 
     /**
+     * Native name: D3DKMDT_MCC_IGNORE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MCC_IGNORE => 1
+    static MCC_IGNORE => 1
 
     /**
+     * Native name: D3DKMDT_MCC_ENFORCE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MCC_ENFORCE => 2
+    static MCC_ENFORCE => 2
 }

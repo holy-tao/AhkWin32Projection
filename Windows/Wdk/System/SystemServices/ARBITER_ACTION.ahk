@@ -7,52 +7,62 @@
 class ARBITER_ACTION extends Win32Enum {
 
     /**
+     * Native name: ArbiterActionTestAllocation
      * @type {Integer (Int32)}
      */
-    static ArbiterActionTestAllocation => 0
+    static TestAllocation => 0
 
     /**
+     * Native name: ArbiterActionRetestAllocation
      * @type {Integer (Int32)}
      */
-    static ArbiterActionRetestAllocation => 1
+    static RetestAllocation => 1
 
     /**
+     * Native name: ArbiterActionCommitAllocation
      * @type {Integer (Int32)}
      */
-    static ArbiterActionCommitAllocation => 2
+    static CommitAllocation => 2
 
     /**
+     * Native name: ArbiterActionRollbackAllocation
      * @type {Integer (Int32)}
      */
-    static ArbiterActionRollbackAllocation => 3
+    static RollbackAllocation => 3
 
     /**
+     * Native name: ArbiterActionQueryAllocatedResources
      * @type {Integer (Int32)}
      */
-    static ArbiterActionQueryAllocatedResources => 4
+    static QueryAllocatedResources => 4
 
     /**
+     * Native name: ArbiterActionWriteReservedResources
      * @type {Integer (Int32)}
      */
-    static ArbiterActionWriteReservedResources => 5
+    static WriteReservedResources => 5
 
     /**
+     * Native name: ArbiterActionQueryConflict
      * @type {Integer (Int32)}
      */
-    static ArbiterActionQueryConflict => 6
+    static QueryConflict => 6
 
     /**
+     * Native name: ArbiterActionQueryArbitrate
      * @type {Integer (Int32)}
      */
-    static ArbiterActionQueryArbitrate => 7
+    static QueryArbitrate => 7
 
     /**
+     * Native name: ArbiterActionAddReserved
      * @type {Integer (Int32)}
      */
-    static ArbiterActionAddReserved => 8
+    static AddReserved => 8
 
     /**
+     * Native name: ArbiterActionBootAllocation
      * @type {Integer (Int32)}
      */
-    static ArbiterActionBootAllocation => 9
+    static BootAllocation => 9
 }

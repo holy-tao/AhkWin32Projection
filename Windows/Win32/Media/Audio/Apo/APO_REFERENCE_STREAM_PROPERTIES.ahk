@@ -7,12 +7,14 @@
 class APO_REFERENCE_STREAM_PROPERTIES extends Win32BitflagEnum {
 
     /**
+     * Native name: APO_REFERENCE_STREAM_PROPERTIES_NONE
      * @type {Integer (Int32)}
      */
-    static APO_REFERENCE_STREAM_PROPERTIES_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: APO_REFERENCE_STREAM_PROPERTIES_POST_VOLUME_LOOPBACK
      * @type {Integer (Int32)}
      */
-    static APO_REFERENCE_STREAM_PROPERTIES_POST_VOLUME_LOOPBACK => 1
+    static POST_VOLUME_LOOPBACK => 1
 }

@@ -31,7 +31,6 @@ class IInternetProtocolSink extends IUnknown {
     static VTableNames => ["Switch", "ReportProgress", "ReportData", "ReportResult"]
 
     /**
-     * 
      * @param {Pointer<PROTOCOLDATA>} pProtocolData 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IInternetProtocolSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulStatusCode 
      * @param {PWSTR} szStatusText 
      * @returns {HRESULT} 
@@ -54,7 +52,6 @@ class IInternetProtocolSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfBSCF 
      * @param {Integer} ulProgress 
      * @param {Integer} ulProgressMax 
@@ -66,7 +63,6 @@ class IInternetProtocolSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrResult 
      * @param {Integer} dwError 
      * @param {PWSTR} szResult 

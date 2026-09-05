@@ -11,17 +11,20 @@
 class DWRITE_CONTAINER_TYPE extends Win32Enum {
 
     /**
+     * Native name: DWRITE_CONTAINER_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DWRITE_CONTAINER_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: DWRITE_CONTAINER_TYPE_WOFF
      * @type {Integer (Int32)}
      */
-    static DWRITE_CONTAINER_TYPE_WOFF => 1
+    static WOFF => 1
 
     /**
+     * Native name: DWRITE_CONTAINER_TYPE_WOFF2
      * @type {Integer (Int32)}
      */
-    static DWRITE_CONTAINER_TYPE_WOFF2 => 2
+    static WOFF2 => 2
 }

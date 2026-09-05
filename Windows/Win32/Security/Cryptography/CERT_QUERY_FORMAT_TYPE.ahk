@@ -7,17 +7,20 @@
 class CERT_QUERY_FORMAT_TYPE extends Win32Enum {
 
     /**
+     * Native name: CERT_QUERY_FORMAT_BINARY
      * @type {Integer (UInt32)}
      */
-    static CERT_QUERY_FORMAT_BINARY => 1
+    static BINARY => 1
 
     /**
+     * Native name: CERT_QUERY_FORMAT_BASE64_ENCODED
      * @type {Integer (UInt32)}
      */
-    static CERT_QUERY_FORMAT_BASE64_ENCODED => 2
+    static BASE64_ENCODED => 2
 
     /**
+     * Native name: CERT_QUERY_FORMAT_ASN_ASCII_HEX_ENCODED
      * @type {Integer (UInt32)}
      */
-    static CERT_QUERY_FORMAT_ASN_ASCII_HEX_ENCODED => 3
+    static ASN_ASCII_HEX_ENCODED => 3
 }

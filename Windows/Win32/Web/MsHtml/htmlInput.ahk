@@ -7,112 +7,134 @@
 class htmlInput extends Win32Enum {
 
     /**
+     * Native name: htmlInputNotSet
      * @type {Integer (Int32)}
      */
-    static htmlInputNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlInputButton
      * @type {Integer (Int32)}
      */
-    static htmlInputButton => 1
+    static Button => 1
 
     /**
+     * Native name: htmlInputCheckbox
      * @type {Integer (Int32)}
      */
-    static htmlInputCheckbox => 2
+    static Checkbox => 2
 
     /**
+     * Native name: htmlInputFile
      * @type {Integer (Int32)}
      */
-    static htmlInputFile => 3
+    static File => 3
 
     /**
+     * Native name: htmlInputHidden
      * @type {Integer (Int32)}
      */
-    static htmlInputHidden => 4
+    static Hidden => 4
 
     /**
+     * Native name: htmlInputImage
      * @type {Integer (Int32)}
      */
-    static htmlInputImage => 5
+    static Image => 5
 
     /**
+     * Native name: htmlInputPassword
      * @type {Integer (Int32)}
      */
-    static htmlInputPassword => 6
+    static Password => 6
 
     /**
+     * Native name: htmlInputRadio
      * @type {Integer (Int32)}
      */
-    static htmlInputRadio => 7
+    static Radio => 7
 
     /**
+     * Native name: htmlInputReset
      * @type {Integer (Int32)}
      */
-    static htmlInputReset => 8
+    static Reset => 8
 
     /**
+     * Native name: htmlInputSelectOne
      * @type {Integer (Int32)}
      */
-    static htmlInputSelectOne => 9
+    static SelectOne => 9
 
     /**
+     * Native name: htmlInputSelectMultiple
      * @type {Integer (Int32)}
      */
-    static htmlInputSelectMultiple => 10
+    static SelectMultiple => 10
 
     /**
+     * Native name: htmlInputSubmit
      * @type {Integer (Int32)}
      */
-    static htmlInputSubmit => 11
+    static Submit => 11
 
     /**
+     * Native name: htmlInputText
      * @type {Integer (Int32)}
      */
-    static htmlInputText => 12
+    static Text => 12
 
     /**
+     * Native name: htmlInputTextarea
      * @type {Integer (Int32)}
      */
-    static htmlInputTextarea => 13
+    static Textarea => 13
 
     /**
+     * Native name: htmlInputRichtext
      * @type {Integer (Int32)}
      */
-    static htmlInputRichtext => 14
+    static Richtext => 14
 
     /**
+     * Native name: htmlInputRange
      * @type {Integer (Int32)}
      */
-    static htmlInputRange => 15
+    static Range => 15
 
     /**
+     * Native name: htmlInputUrl
      * @type {Integer (Int32)}
      */
-    static htmlInputUrl => 16
+    static Url => 16
 
     /**
+     * Native name: htmlInputEmail
      * @type {Integer (Int32)}
      */
-    static htmlInputEmail => 17
+    static Email => 17
 
     /**
+     * Native name: htmlInputNumber
      * @type {Integer (Int32)}
      */
-    static htmlInputNumber => 18
+    static Number => 18
 
     /**
+     * Native name: htmlInputTel
      * @type {Integer (Int32)}
      */
-    static htmlInputTel => 19
+    static Tel => 19
 
     /**
+     * Native name: htmlInputSearch
      * @type {Integer (Int32)}
      */
-    static htmlInputSearch => 20
+    static Search => 20
 
     /**
+     * Native name: htmlInput_Max
      * @type {Integer (Int32)}
      */
-    static htmlInput_Max => 2147483647
+    static Max => 2147483647
 }

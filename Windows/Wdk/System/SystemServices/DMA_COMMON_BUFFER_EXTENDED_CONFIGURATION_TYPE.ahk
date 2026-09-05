@@ -7,22 +7,26 @@
 class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: CommonBufferConfigTypeLogicalAddressLimits
      * @type {Integer (Int32)}
      */
-    static CommonBufferConfigTypeLogicalAddressLimits => 0
+    static ConfigTypeLogicalAddressLimits => 0
 
     /**
+     * Native name: CommonBufferConfigTypeSubSection
      * @type {Integer (Int32)}
      */
-    static CommonBufferConfigTypeSubSection => 1
+    static ConfigTypeSubSection => 1
 
     /**
+     * Native name: CommonBufferConfigTypeHardwareAccessPermissions
      * @type {Integer (Int32)}
      */
-    static CommonBufferConfigTypeHardwareAccessPermissions => 2
+    static ConfigTypeHardwareAccessPermissions => 2
 
     /**
+     * Native name: CommonBufferConfigTypeMax
      * @type {Integer (Int32)}
      */
-    static CommonBufferConfigTypeMax => 3
+    static ConfigTypeMax => 3
 }

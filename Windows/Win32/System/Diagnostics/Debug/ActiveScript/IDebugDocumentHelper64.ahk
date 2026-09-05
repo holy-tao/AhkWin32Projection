@@ -37,7 +37,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     static VTableNames => ["Init", "Attach", "Detach", "AddUnicodeText", "AddDBCSText", "SetDebugDocumentHost", "AddDeferredText", "DefineScriptBlock", "SetDefaultTextAttr", "SetTextAttributes", "SetLongName", "SetShortName", "SetDocumentAttr", "GetDebugApplicationNode", "GetScriptBlockInfo", "CreateDebugDocumentContext", "BringDocumentToTop", "BringDocumentContextToTop"]
 
     /**
-     * 
      * @param {IDebugApplication64} pda 
      * @param {PWSTR} pszShortName 
      * @param {PWSTR} pszLongName 
@@ -53,7 +52,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentHelper64} pddhParent 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {
@@ -72,7 +69,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszText 
      * @returns {HRESULT} 
      */
@@ -84,7 +80,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pszText 
      * @returns {HRESULT} 
      */
@@ -96,7 +91,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentHost} pddh 
      * @returns {HRESULT} 
      */
@@ -106,7 +100,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cChars 
      * @param {Integer} dwTextStartCookie 
      * @returns {HRESULT} 
@@ -117,7 +110,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCharOffset 
      * @param {Integer} cChars 
      * @param {IActiveScript} pas 
@@ -130,7 +122,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} staTextAttr 
      * @returns {HRESULT} 
      */
@@ -140,7 +131,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCharOffset 
      * @param {Integer} cChars 
      * @param {Pointer<Integer>} pstaTextAttr 
@@ -154,7 +144,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszLongName 
      * @returns {HRESULT} 
      */
@@ -166,7 +155,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszShortName 
      * @returns {HRESULT} 
      */
@@ -178,7 +166,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pszAttributes 
      * @returns {HRESULT} 
      */
@@ -188,7 +175,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     GetDebugApplicationNode() {
@@ -197,7 +183,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceContext 
      * @param {Pointer<IActiveScript>} ppasd 
      * @param {Pointer<Integer>} piCharPos 
@@ -213,7 +198,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iCharPos 
      * @param {Integer} cChars 
      * @returns {IDebugDocumentContext} 
@@ -224,7 +208,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BringDocumentToTop() {
@@ -233,7 +216,6 @@ class IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentContext} pddc 
      * @returns {HRESULT} 
      */

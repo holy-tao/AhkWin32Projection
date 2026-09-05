@@ -7,37 +7,44 @@
 class NVME_SGL_DESC_TYPE extends Win32Enum {
 
     /**
+     * Native name: NvmeSglDescTypeDataBlock
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescTypeDataBlock => 0
+    static DataBlock => 0
 
     /**
+     * Native name: NvmeSglDescTypeBitBucket
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescTypeBitBucket => 1
+    static BitBucket => 1
 
     /**
+     * Native name: NvmeSglDescTypeSegment
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescTypeSegment => 2
+    static Segment => 2
 
     /**
+     * Native name: NvmeSglDescTypeLastSegment
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescTypeLastSegment => 3
+    static LastSegment => 3
 
     /**
+     * Native name: NvmeSglDescTypeKeyedDataBlock
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescTypeKeyedDataBlock => 4
+    static KeyedDataBlock => 4
 
     /**
+     * Native name: NvmeSglDescTypeTransportDataBlock
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescTypeTransportDataBlock => 5
+    static TransportDataBlock => 5
 
     /**
+     * Native name: NvmeSglDescTypeMax
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescTypeMax => 15
+    static Max => 15
 }

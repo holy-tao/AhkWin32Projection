@@ -16,17 +16,20 @@ class READ_DIRECTORY_NOTIFY_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readdirectorychangesexw">ReadDirectoryChangesExW</a> function  should provide  extended information that describes the changes within the specified directory, and return this information in the  output buffer in the form of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_extended_information">FILE_NOTIFY_EXTENDED_INFORMATION</a> structures.
+     * Native name: ReadDirectoryNotifyExtendedInformation
      * @type {Integer (Int32)}
      */
-    static ReadDirectoryNotifyExtendedInformation => 2
+    static ExtendedInformation => 2
 
     /**
+     * Native name: ReadDirectoryNotifyFullInformation
      * @type {Integer (Int32)}
      */
-    static ReadDirectoryNotifyFullInformation => 3
+    static FullInformation => 3
 
     /**
+     * Native name: ReadDirectoryNotifyMaximumInformation
      * @type {Integer (Int32)}
      */
-    static ReadDirectoryNotifyMaximumInformation => 4
+    static MaximumInformation => 4
 }

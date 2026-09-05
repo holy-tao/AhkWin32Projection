@@ -361,7 +361,6 @@ class IDynamicRenderer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInkDrawingAttributes} piDA 
      * @returns {HRESULT} 
      */

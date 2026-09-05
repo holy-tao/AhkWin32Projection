@@ -19,31 +19,36 @@ class FLICKACTION_COMMANDCODE extends Win32Enum {
 
     /**
      * No action is assigned to the pen flick.
+     * Native name: FLICKACTION_COMMANDCODE_NULL
      * @type {Integer (Int32)}
      */
-    static FLICKACTION_COMMANDCODE_NULL => 0
+    static NULL => 0
 
     /**
      * A scrolling command is assigned to the pen flick.
+     * Native name: FLICKACTION_COMMANDCODE_SCROLL
      * @type {Integer (Int32)}
      */
-    static FLICKACTION_COMMANDCODE_SCROLL => 1
+    static SCROLL => 1
 
     /**
      * An application command is assigned to a pen flick.
+     * Native name: FLICKACTION_COMMANDCODE_APPCOMMAND
      * @type {Integer (Int32)}
      */
-    static FLICKACTION_COMMANDCODE_APPCOMMAND => 2
+    static APPCOMMAND => 2
 
     /**
      * A customized key sequence is assigned to the pen flick.
+     * Native name: FLICKACTION_COMMANDCODE_CUSTOMKEY
      * @type {Integer (Int32)}
      */
-    static FLICKACTION_COMMANDCODE_CUSTOMKEY => 3
+    static CUSTOMKEY => 3
 
     /**
      * A key modifier is assigned to the pen flick.
+     * Native name: FLICKACTION_COMMANDCODE_KEYMODIFIER
      * @type {Integer (Int32)}
      */
-    static FLICKACTION_COMMANDCODE_KEYMODIFIER => 4
+    static KEYMODIFIER => 4
 }

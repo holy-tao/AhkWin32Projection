@@ -10,25 +10,29 @@ class CALLFRAME_NULL extends Win32Enum {
 
     /**
      * No values are freed.
+     * Native name: CALLFRAME_NULL_NONE
      * @type {Integer (Int32)}
      */
-    static CALLFRAME_NULL_NONE => 0
+    static NONE => 0
 
     /**
      * The data referenced by [in, out] parameters are freed.
+     * Native name: CALLFRAME_NULL_INOUT
      * @type {Integer (Int32)}
      */
-    static CALLFRAME_NULL_INOUT => 2
+    static INOUT => 2
 
     /**
      * The data referenced by [out] parameters are freed.
+     * Native name: CALLFRAME_NULL_OUT
      * @type {Integer (Int32)}
      */
-    static CALLFRAME_NULL_OUT => 4
+    static OUT => 4
 
     /**
      * All [out] and [in, out] parameters are freed.
+     * Native name: CALLFRAME_NULL_ALL
      * @type {Integer (Int32)}
      */
-    static CALLFRAME_NULL_ALL => 6
+    static ALL => 6
 }

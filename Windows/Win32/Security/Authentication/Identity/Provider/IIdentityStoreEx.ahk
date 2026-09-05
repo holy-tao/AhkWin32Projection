@@ -31,7 +31,6 @@ class IIdentityStoreEx extends IUnknown {
     static VTableNames => ["CreateConnectedIdentity", "DeleteConnectedIdentity"]
 
     /**
-     * 
      * @param {PWSTR} LocalName 
      * @param {PWSTR} ConnectedName 
      * @param {Pointer<Guid>} ProviderGUID 

@@ -33,7 +33,6 @@ class IInternetProtocolEx extends IInternetProtocol {
     static VTableNames => ["StartEx"]
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {IInternetProtocolSink} pOIProtSink 
      * @param {IInternetBindInfo} pOIBindInfo 

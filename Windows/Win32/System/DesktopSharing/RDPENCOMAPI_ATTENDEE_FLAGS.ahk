@@ -10,7 +10,8 @@ class RDPENCOMAPI_ATTENDEE_FLAGS extends Win32Enum {
 
     /**
      * Indicates that the attendee is a local attendee.
+     * Native name: ATTENDEE_FLAGS_LOCAL
      * @type {Integer (Int32)}
      */
-    static ATTENDEE_FLAGS_LOCAL => 1
+    static LOCAL => 1
 }

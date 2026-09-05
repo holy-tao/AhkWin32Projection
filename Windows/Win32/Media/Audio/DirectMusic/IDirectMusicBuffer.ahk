@@ -43,7 +43,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} prtTime 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rt 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannelMessage 
@@ -67,7 +65,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rt 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} cb 
@@ -82,7 +79,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetReadPtr() {
@@ -91,7 +87,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} prt 
      * @param {Pointer<Integer>} pdwChannelGroup 
      * @param {Pointer<Integer>} pdwLength 
@@ -109,7 +104,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppData 
      * @returns {HRESULT} 
      */
@@ -121,7 +115,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} prt 
      * @returns {HRESULT} 
      */
@@ -133,7 +126,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcb 
      * @returns {HRESULT} 
      */
@@ -145,7 +137,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcb 
      * @returns {HRESULT} 
      */
@@ -157,7 +148,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGuidFormat 
      * @returns {HRESULT} 
      */
@@ -167,7 +157,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rt 
      * @returns {HRESULT} 
      */
@@ -177,7 +166,6 @@ class IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cb 
      * @returns {HRESULT} 
      */

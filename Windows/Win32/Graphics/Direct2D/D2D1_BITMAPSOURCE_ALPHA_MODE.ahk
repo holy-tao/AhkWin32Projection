@@ -10,13 +10,15 @@ class D2D1_BITMAPSOURCE_ALPHA_MODE extends Win32Enum {
 
     /**
      * The effect output uses premultiplied alpha.
+     * Native name: D2D1_BITMAPSOURCE_ALPHA_MODE_PREMULTIPLIED
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ALPHA_MODE_PREMULTIPLIED => 1
+    static PREMULTIPLIED => 1
 
     /**
      * The effect output uses straight alpha.
+     * Native name: D2D1_BITMAPSOURCE_ALPHA_MODE_STRAIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_ALPHA_MODE_STRAIGHT => 2
+    static STRAIGHT => 2
 }

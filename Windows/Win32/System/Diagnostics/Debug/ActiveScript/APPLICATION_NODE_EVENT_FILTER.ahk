@@ -7,17 +7,20 @@
 class APPLICATION_NODE_EVENT_FILTER extends Win32Enum {
 
     /**
+     * Native name: FILTER_EXCLUDE_NOTHING
      * @type {Integer (Int32)}
      */
-    static FILTER_EXCLUDE_NOTHING => 0
+    static EXCLUDE_NOTHING => 0
 
     /**
+     * Native name: FILTER_EXCLUDE_ANONYMOUS_CODE
      * @type {Integer (Int32)}
      */
-    static FILTER_EXCLUDE_ANONYMOUS_CODE => 1
+    static EXCLUDE_ANONYMOUS_CODE => 1
 
     /**
+     * Native name: FILTER_EXCLUDE_EVAL_CODE
      * @type {Integer (Int32)}
      */
-    static FILTER_EXCLUDE_EVAL_CODE => 2
+    static EXCLUDE_EVAL_CODE => 2
 }

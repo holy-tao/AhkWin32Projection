@@ -10,13 +10,15 @@ class DHCP_POL_LOGIC_OPER extends Win32Enum {
 
     /**
      * The results of the constituent conditions and sub-expressions must be logically ORed to evaluate the expression.
+     * Native name: DhcpLogicalOr
      * @type {Integer (Int32)}
      */
-    static DhcpLogicalOr => 0
+    static LogicalOr => 0
 
     /**
      * The results of the constituent conditions and sub-expressions must be logically ANDed to evaluate the expression.
+     * Native name: DhcpLogicalAnd
      * @type {Integer (Int32)}
      */
-    static DhcpLogicalAnd => 1
+    static LogicalAnd => 1
 }

@@ -17,9 +17,10 @@ class WINUSB_PIPE_POLICY extends Win32Enum {
     static AUTO_CLEAR_STALL => 2
 
     /**
+     * Native name: PIPE_TRANSFER_TIMEOUT
      * @type {Integer (UInt32)}
      */
-    static PIPE_TRANSFER_TIMEOUT => 3
+    static TRANSFER_TIMEOUT => 3
 
     /**
      * @type {Integer (UInt32)}

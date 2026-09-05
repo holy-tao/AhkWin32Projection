@@ -7,9 +7,10 @@
 class WEBAUTHN_PLUGIN_PERFORM_UV_OPERATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: PerformUserVerification
      * @type {Integer (Int32)}
      */
-    static PerformUserVerification => 1
+    static UserVerification => 1
 
     /**
      * @type {Integer (Int32)}

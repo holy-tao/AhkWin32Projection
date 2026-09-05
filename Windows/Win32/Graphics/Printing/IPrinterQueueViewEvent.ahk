@@ -30,7 +30,6 @@ class IPrinterQueueViewEvent extends IDispatch {
     static VTableNames => ["OnChanged"]
 
     /**
-     * 
      * @param {IPrintJobCollection} pCollection 
      * @param {Integer} ulViewOffset 
      * @param {Integer} ulViewSize 

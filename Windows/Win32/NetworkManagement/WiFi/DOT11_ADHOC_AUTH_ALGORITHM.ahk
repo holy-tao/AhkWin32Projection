@@ -35,19 +35,22 @@ class DOT11_ADHOC_AUTH_ALGORITHM extends Win32Enum {
 
     /**
      * The authentication algorithm specified is invalid.
+     * Native name: DOT11_ADHOC_AUTH_ALGO_INVALID
      * @type {Integer (Int32)}
      */
-    static DOT11_ADHOC_AUTH_ALGO_INVALID => -1
+    static ALGO_INVALID => -1
 
     /**
      * Specifies an IEEE 802.11 Open System authentication algorithm.
+     * Native name: DOT11_ADHOC_AUTH_ALGO_80211_OPEN
      * @type {Integer (Int32)}
      */
-    static DOT11_ADHOC_AUTH_ALGO_80211_OPEN => 1
+    static ALGO_80211_OPEN => 1
 
     /**
      * Specifies an IEEE 802.11i Robust Security Network Association (RSNA) algorithm that uses the pre-shared key (PSK) mode. IEEE 802.1X port authorization is performed by the supplicant and authenticator. Cipher keys are dynamically derived through a pre-shared key that is used on both the supplicant and authenticator.
+     * Native name: DOT11_ADHOC_AUTH_ALGO_RSNA_PSK
      * @type {Integer (Int32)}
      */
-    static DOT11_ADHOC_AUTH_ALGO_RSNA_PSK => 7
+    static ALGO_RSNA_PSK => 7
 }

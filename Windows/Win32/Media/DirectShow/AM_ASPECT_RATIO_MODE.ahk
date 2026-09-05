@@ -12,25 +12,29 @@ class AM_ASPECT_RATIO_MODE extends Win32Enum {
 
     /**
      * No aspect ratio correction.
+     * Native name: AM_ARMODE_STRETCHED
      * @type {Integer (Int32)}
      */
-    static AM_ARMODE_STRETCHED => 0
+    static ARMODE_STRETCHED => 0
 
     /**
      * Put the video in letterbox format. Paint background color in the excess region so the video is not distorted.
+     * Native name: AM_ARMODE_LETTER_BOX
      * @type {Integer (Int32)}
      */
-    static AM_ARMODE_LETTER_BOX => 1
+    static ARMODE_LETTER_BOX => 1
 
     /**
      * Crop the video to the correct aspect ratio.
+     * Native name: AM_ARMODE_CROP
      * @type {Integer (Int32)}
      */
-    static AM_ARMODE_CROP => 2
+    static ARMODE_CROP => 2
 
     /**
      * Use whatever mode is currently set for the primary stream. This value is valid only for secondary streams.
+     * Native name: AM_ARMODE_STRETCHED_AS_PRIMARY
      * @type {Integer (Int32)}
      */
-    static AM_ARMODE_STRETCHED_AS_PRIMARY => 3
+    static ARMODE_STRETCHED_AS_PRIMARY => 3
 }

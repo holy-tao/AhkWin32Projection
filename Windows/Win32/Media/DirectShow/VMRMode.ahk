@@ -12,25 +12,29 @@ class VMRMode extends Win32Enum {
 
     /**
      * Windowed mode.
+     * Native name: VMRMode_Windowed
      * @type {Integer (Int32)}
      */
-    static VMRMode_Windowed => 1
+    static Windowed => 1
 
     /**
      * Windowless mode.
+     * Native name: VMRMode_Windowless
      * @type {Integer (Int32)}
      */
-    static VMRMode_Windowless => 2
+    static Windowless => 2
 
     /**
      * Renderless mode.
+     * Native name: VMRMode_Renderless
      * @type {Integer (Int32)}
      */
-    static VMRMode_Renderless => 4
+    static Renderless => 4
 
     /**
      * Bitwise <b>OR</b> of all above flags; this is not a valid value to pass to <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrfilterconfig-setrenderingmode">SetRenderingMode</a>.
+     * Native name: VMRMode_Mask
      * @type {Integer (Int32)}
      */
-    static VMRMode_Mask => 7
+    static Mask => 7
 }

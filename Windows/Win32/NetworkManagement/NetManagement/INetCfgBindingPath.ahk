@@ -33,7 +33,6 @@ class INetCfgBindingPath extends IUnknown {
     static VTableNames => ["IsSamePathAs", "IsSubPathOf", "IsEnabled", "Enable", "GetPathToken", "GetOwner", "GetDepth", "EnumBindingInterfaces"]
 
     /**
-     * 
      * @param {INetCfgBindingPath} pPath 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgBindingPath} pPath 
      * @returns {HRESULT} 
      */
@@ -118,7 +116,6 @@ class INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetPathToken() {
@@ -127,7 +124,6 @@ class INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INetCfgComponent} 
      */
     GetOwner() {
@@ -136,7 +132,6 @@ class INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDepth() {
@@ -145,7 +140,6 @@ class INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumNetCfgBindingInterface} 
      */
     EnumBindingInterfaces() {

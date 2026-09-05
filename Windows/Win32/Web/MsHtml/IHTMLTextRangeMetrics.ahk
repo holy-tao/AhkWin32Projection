@@ -71,7 +71,6 @@ class IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetTop() {
@@ -80,7 +79,6 @@ class IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetLeft() {
@@ -89,7 +87,6 @@ class IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingTop() {
@@ -98,7 +95,6 @@ class IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingLeft() {
@@ -107,7 +103,6 @@ class IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingWidth() {
@@ -116,7 +111,6 @@ class IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingHeight() {

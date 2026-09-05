@@ -5830,7 +5830,6 @@ class WiFi {
     }
 
     /**
-     * 
      * @param {HANDLE} hClientHandle 
      * @param {Pointer<Guid>} pInterfaceGuid 
      * @param {Integer} dwFlags 
@@ -6084,7 +6083,6 @@ class WiFi {
     }
 
     /**
-     * 
      * @param {HANDLE} hClientHandle 
      * @param {Pointer<Guid>} pInterfaceGuid 
      * @param {Pointer<WLAN_CONNECTION_PARAMETERS_V2>} pConnectionParameters 

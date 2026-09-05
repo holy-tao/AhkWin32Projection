@@ -28,7 +28,6 @@ class IXAudio2Extension extends IUnknown {
     static VTableNames => ["GetProcessingQuantum", "GetProcessor"]
 
     /**
-     * 
      * @param {Pointer<Integer>} quantumNumerator 
      * @param {Pointer<Integer>} quantumDenominator 
      * @returns {String} Nothing - always returns an empty string
@@ -41,7 +40,6 @@ class IXAudio2Extension extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} processor 
      * @returns {String} Nothing - always returns an empty string
      */

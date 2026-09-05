@@ -33,7 +33,6 @@ class IVirtualSurfaceUpdatesCallbackNative extends IUnknown {
     static VTableNames => ["UpdatesNeeded"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdatesNeeded() {

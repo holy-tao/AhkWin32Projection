@@ -7,9 +7,10 @@
 class MLOperatorSchemaEdgeTypeFormat extends Win32Enum {
 
     /**
+     * Native name: EdgeDescription
      * @type {Integer (Int32)}
      */
-    static EdgeDescription => 0
+    static Description => 0
 
     /**
      * @type {Integer (Int32)}

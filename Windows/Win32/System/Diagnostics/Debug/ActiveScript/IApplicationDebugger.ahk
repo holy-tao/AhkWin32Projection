@@ -34,7 +34,6 @@ class IApplicationDebugger extends IUnknown {
     static VTableNames => ["QueryAlive", "CreateInstanceAtDebugger", "onDebugOutput", "onHandleBreakPoint", "onClose", "onDebuggerEvent"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryAlive() {
@@ -43,7 +42,6 @@ class IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
@@ -56,7 +54,6 @@ class IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
@@ -68,7 +65,6 @@ class IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prpt 
      * @param {BREAKREASON} br 
      * @param {IActiveScriptErrorDebug} pError 
@@ -80,7 +76,6 @@ class IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onClose() {
@@ -89,7 +84,6 @@ class IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 

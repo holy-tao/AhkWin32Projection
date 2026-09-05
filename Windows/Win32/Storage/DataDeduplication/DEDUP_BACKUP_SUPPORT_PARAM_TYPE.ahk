@@ -10,13 +10,15 @@ class DEDUP_BACKUP_SUPPORT_PARAM_TYPE extends Win32Enum {
 
     /**
      * Perform an unoptimized restore.
+     * Native name: DEDUP_RECONSTRUCT_UNOPTIMIZED
      * @type {Integer (Int32)}
      */
-    static DEDUP_RECONSTRUCT_UNOPTIMIZED => 1
+    static RECONSTRUCT_UNOPTIMIZED => 1
 
     /**
      * Reserved for future use. Do not use.
+     * Native name: DEDUP_RECONSTRUCT_OPTIMIZED
      * @type {Integer (Int32)}
      */
-    static DEDUP_RECONSTRUCT_OPTIMIZED => 2
+    static RECONSTRUCT_OPTIMIZED => 2
 }

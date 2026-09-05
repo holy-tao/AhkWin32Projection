@@ -15,7 +15,8 @@ class VDS_FILE_SYSTEM_PROP_FLAG extends Win32Enum {
 
     /**
      * If set, the file system supports file compression.
+     * Native name: VDS_FPF_COMPRESSED
      * @type {Integer (Int32)}
      */
-    static VDS_FPF_COMPRESSED => 1
+    static FPF_COMPRESSED => 1
 }

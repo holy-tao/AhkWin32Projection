@@ -10,7 +10,8 @@ class _MFT_INPUT_DATA_BUFFER_FLAGS extends Win32Enum {
 
     /**
      * Reserved. Do not use.
+     * Native name: MFT_INPUT_DATA_BUFFER_PLACEHOLDER
      * @type {Integer (Int32)}
      */
-    static MFT_INPUT_DATA_BUFFER_PLACEHOLDER => -1
+    static PLACEHOLDER => -1
 }

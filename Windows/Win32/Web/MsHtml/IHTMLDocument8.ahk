@@ -168,7 +168,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +177,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmscontentzoom() {
@@ -188,7 +186,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -198,7 +195,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerdown() {
@@ -208,7 +204,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -218,7 +213,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointermove() {
@@ -228,7 +222,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -238,7 +231,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerup() {
@@ -248,7 +240,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -258,7 +249,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerover() {
@@ -268,7 +258,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -278,7 +267,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerout() {
@@ -288,7 +276,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -298,7 +285,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointercancel() {
@@ -308,7 +294,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -318,7 +303,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerhover() {
@@ -328,7 +312,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -338,7 +321,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturestart() {
@@ -348,7 +330,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -358,7 +339,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturechange() {
@@ -368,7 +348,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -378,7 +357,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgestureend() {
@@ -388,7 +366,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -398,7 +375,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturehold() {
@@ -408,7 +384,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -418,7 +393,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturetap() {
@@ -428,7 +402,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -438,7 +411,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturedoubletap() {
@@ -448,7 +420,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -458,7 +429,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsinertiastart() {
@@ -468,7 +438,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {IHTMLDOMChildrenCollection} 
@@ -479,7 +448,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} left 
      * @param {Float} top 
      * @param {Float} width 
@@ -492,7 +460,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -502,7 +469,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsmanipulationstatechanged() {
@@ -512,7 +478,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -522,7 +487,6 @@ class IHTMLDocument8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_msCapsLockWarningOff() {

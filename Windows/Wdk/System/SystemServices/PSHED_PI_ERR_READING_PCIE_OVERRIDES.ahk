@@ -7,37 +7,44 @@
 class PSHED_PI_ERR_READING_PCIE_OVERRIDES extends Win32Enum {
 
     /**
+     * Native name: PshedPiErrReadingPcieOverridesNoErr
      * @type {Integer (Int32)}
      */
-    static PshedPiErrReadingPcieOverridesNoErr => 0
+    static NoErr => 0
 
     /**
+     * Native name: PshedPiErrReadingPcieOverridesNoMemory
      * @type {Integer (Int32)}
      */
-    static PshedPiErrReadingPcieOverridesNoMemory => 1
+    static NoMemory => 1
 
     /**
+     * Native name: PshedPiErrReadingPcieOverridesQueryErr
      * @type {Integer (Int32)}
      */
-    static PshedPiErrReadingPcieOverridesQueryErr => 2
+    static QueryErr => 2
 
     /**
+     * Native name: PshedPiErrReadingPcieOverridesBadSize
      * @type {Integer (Int32)}
      */
-    static PshedPiErrReadingPcieOverridesBadSize => 3
+    static BadSize => 3
 
     /**
+     * Native name: PshedPiErrReadingPcieOverridesBadSignature
      * @type {Integer (Int32)}
      */
-    static PshedPiErrReadingPcieOverridesBadSignature => 4
+    static BadSignature => 4
 
     /**
+     * Native name: PshedPiErrReadingPcieOverridesNoCapOffset
      * @type {Integer (Int32)}
      */
-    static PshedPiErrReadingPcieOverridesNoCapOffset => 5
+    static NoCapOffset => 5
 
     /**
+     * Native name: PshedPiErrReadingPcieOverridesNotBinary
      * @type {Integer (Int32)}
      */
-    static PshedPiErrReadingPcieOverridesNotBinary => 6
+    static NotBinary => 6
 }

@@ -10,19 +10,22 @@ class MF_FILE_ACCESSMODE extends Win32Enum {
 
     /**
      * Read mode.
+     * Native name: MF_ACCESSMODE_READ
      * @type {Integer (Int32)}
      */
-    static MF_ACCESSMODE_READ => 1
+    static READ => 1
 
     /**
      * Write mode.
+     * Native name: MF_ACCESSMODE_WRITE
      * @type {Integer (Int32)}
      */
-    static MF_ACCESSMODE_WRITE => 2
+    static WRITE => 2
 
     /**
      * Read and write mode.
+     * Native name: MF_ACCESSMODE_READWRITE
      * @type {Integer (Int32)}
      */
-    static MF_ACCESSMODE_READWRITE => 3
+    static READWRITE => 3
 }

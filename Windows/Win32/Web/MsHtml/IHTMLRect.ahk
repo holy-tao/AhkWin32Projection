@@ -61,7 +61,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_left() {
@@ -80,7 +78,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_top() {
@@ -99,7 +95,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -109,7 +104,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_right() {
@@ -118,7 +112,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -128,7 +121,6 @@ class IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_bottom() {

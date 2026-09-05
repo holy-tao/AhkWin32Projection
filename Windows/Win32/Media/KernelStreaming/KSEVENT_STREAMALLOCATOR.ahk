@@ -7,12 +7,14 @@
 class KSEVENT_STREAMALLOCATOR extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_STREAMALLOCATOR_INTERNAL_FREEFRAME
      * @type {Integer (Int32)}
      */
-    static KSEVENT_STREAMALLOCATOR_INTERNAL_FREEFRAME => 0
+    static INTERNAL_FREEFRAME => 0
 
     /**
+     * Native name: KSEVENT_STREAMALLOCATOR_FREEFRAME
      * @type {Integer (Int32)}
      */
-    static KSEVENT_STREAMALLOCATOR_FREEFRAME => 1
+    static FREEFRAME => 1
 }

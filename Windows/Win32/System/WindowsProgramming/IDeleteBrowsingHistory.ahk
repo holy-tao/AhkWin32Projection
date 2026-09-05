@@ -29,7 +29,6 @@ class IDeleteBrowsingHistory extends IUnknown {
     static VTableNames => ["DeleteBrowsingHistory"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */

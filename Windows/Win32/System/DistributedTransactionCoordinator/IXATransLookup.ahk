@@ -30,7 +30,6 @@ class IXATransLookup extends IUnknown {
     static VTableNames => ["Lookup"]
 
     /**
-     * 
      * @returns {ITransaction} 
      */
     Lookup() {

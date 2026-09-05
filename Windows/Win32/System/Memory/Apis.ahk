@@ -3948,7 +3948,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} Process 
      * @param {Pointer<Void>} VirtualAddress 
      * @param {Pointer} RegionSize 
@@ -4305,7 +4304,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} Process 
      * @param {Pointer<Void>} _Address 
      * @param {Pointer} _Size 
@@ -4887,7 +4885,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} ObjectHandle 
      * @param {Pointer<Pointer>} NumberOfPages 
      * @param {Pointer<Pointer>} PageArray 
@@ -4906,7 +4903,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} Partition 
      * @param {Integer} DedicatedMemoryTypeId 
      * @param {Integer} DesiredAccess 
@@ -4922,7 +4918,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {HANDLE} Partition 
      * @param {WIN32_MEMORY_PARTITION_INFORMATION_CLASS} PartitionInformationClass 
      * @param {Integer} PartitionInformation 
@@ -4937,7 +4932,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {Integer} TargetNodeNumber 
      * @param {Pointer<Integer>} InitiatorNodeNumber 
      * @returns {BOOL} 
@@ -4950,7 +4944,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {Integer} NodeNumber 
      * @param {Integer} DataType 
      * @param {Pointer<Pointer<WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT>>} PerfInfo 
@@ -4964,7 +4957,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Source1 
      * @param {Pointer<Void>} Source2 
      * @param {Pointer} Length 
@@ -4979,7 +4971,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {Integer} _Buffer 
      * @param {Pointer} _Size 
      * @param {Integer} InitialCrc 
@@ -4991,7 +4982,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {Integer} _Buffer 
      * @param {Pointer} _Size 
      * @param {Integer} InitialCrc 
@@ -5003,7 +4993,6 @@ class Memory {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Buffer 
      * @param {Pointer} Length 
      * @returns {BOOLEAN} 

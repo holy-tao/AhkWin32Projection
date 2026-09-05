@@ -10,31 +10,36 @@ class VMR9ProcAmpControlFlags extends Win32Enum {
 
     /**
      * Brightness adjustment.
+     * Native name: ProcAmpControl9_Brightness
      * @type {Integer (Int32)}
      */
-    static ProcAmpControl9_Brightness => 1
+    static Control9_Brightness => 1
 
     /**
      * Contrast adjustment.
+     * Native name: ProcAmpControl9_Contrast
      * @type {Integer (Int32)}
      */
-    static ProcAmpControl9_Contrast => 2
+    static Control9_Contrast => 2
 
     /**
      * Hue adjustment.
+     * Native name: ProcAmpControl9_Hue
      * @type {Integer (Int32)}
      */
-    static ProcAmpControl9_Hue => 4
+    static Control9_Hue => 4
 
     /**
      * Saturation adjustment.
+     * Native name: ProcAmpControl9_Saturation
      * @type {Integer (Int32)}
      */
-    static ProcAmpControl9_Saturation => 8
+    static Control9_Saturation => 8
 
     /**
      * Bitwise <b>OR</b> of all the previous flags. This value is used internally by the VMR-9, and is not a valid flag.
+     * Native name: ProcAmpControl9_Mask
      * @type {Integer (Int32)}
      */
-    static ProcAmpControl9_Mask => 15
+    static Control9_Mask => 15
 }

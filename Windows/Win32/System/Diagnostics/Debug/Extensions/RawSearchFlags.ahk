@@ -7,12 +7,14 @@
 class RawSearchFlags extends Win32Enum {
 
     /**
+     * Native name: RawSearchNone
      * @type {Integer (Int32)}
      */
-    static RawSearchNone => 0
+    static None => 0
 
     /**
+     * Native name: RawSearchNoBases
      * @type {Integer (Int32)}
      */
-    static RawSearchNoBases => 1
+    static NoBases => 1
 }

@@ -10,13 +10,15 @@ class MF_MT_D3D_RESOURCE_VERSION_ENUM extends Win32Enum {
 
     /**
      * The version is Direct3D 11.
+     * Native name: MF_D3D11_RESOURCE
      * @type {Integer (Int32)}
      */
-    static MF_D3D11_RESOURCE => 0
+    static D3D11_RESOURCE => 0
 
     /**
      * The version is Direct3D 12.
+     * Native name: MF_D3D12_RESOURCE
      * @type {Integer (Int32)}
      */
-    static MF_D3D12_RESOURCE => 1
+    static D3D12_RESOURCE => 1
 }

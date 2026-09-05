@@ -12,35 +12,40 @@ class UI_ANIMATION_SCHEDULING_RESULT extends Win32Enum {
 
     /**
      * Scheduling failed for an unexpected reason.
+     * Native name: UI_ANIMATION_SCHEDULING_UNEXPECTED_FAILURE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_SCHEDULING_UNEXPECTED_FAILURE => 0
+    static UNEXPECTED_FAILURE => 0
 
     /**
      * Scheduling failed because
      *                a scheduling conflict occurred and the currently scheduled storyboard has higher priority.
      *                
      *                For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationprioritycomparison-haspriority">IUIAnimationPriorityComparison::HasPriority</a>.
+     * Native name: UI_ANIMATION_SCHEDULING_INSUFFICIENT_PRIORITY
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_SCHEDULING_INSUFFICIENT_PRIORITY => 1
+    static INSUFFICIENT_PRIORITY => 1
 
     /**
      * Scheduling failed because 
      *                the storyboard is already scheduled.
+     * Native name: UI_ANIMATION_SCHEDULING_ALREADY_SCHEDULED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_SCHEDULING_ALREADY_SCHEDULED => 2
+    static ALREADY_SCHEDULED => 2
 
     /**
      * Scheduling succeeded.
+     * Native name: UI_ANIMATION_SCHEDULING_SUCCEEDED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_SCHEDULING_SUCCEEDED => 3
+    static SUCCEEDED => 3
 
     /**
      * Scheduling is deferred and will be attempted when the current callback completes.
+     * Native name: UI_ANIMATION_SCHEDULING_DEFERRED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_SCHEDULING_DEFERRED => 4
+    static DEFERRED => 4
 }

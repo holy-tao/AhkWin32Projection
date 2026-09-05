@@ -19,112 +19,131 @@ class NL_ROUTE_PROTOCOL extends Win32Enum {
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolOther
      * @type {Integer (Int32)}
      */
-    static RouteProtocolOther => 1
+    static Other => 1
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolLocal
      * @type {Integer (Int32)}
      */
-    static RouteProtocolLocal => 2
+    static Local => 2
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolNetMgmt
      * @type {Integer (Int32)}
      */
-    static RouteProtocolNetMgmt => 3
+    static NetMgmt => 3
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolIcmp
      * @type {Integer (Int32)}
      */
-    static RouteProtocolIcmp => 4
+    static Icmp => 4
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolEgp
      * @type {Integer (Int32)}
      */
-    static RouteProtocolEgp => 5
+    static Egp => 5
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolGgp
      * @type {Integer (Int32)}
      */
-    static RouteProtocolGgp => 6
+    static Ggp => 6
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolHello
      * @type {Integer (Int32)}
      */
-    static RouteProtocolHello => 7
+    static Hello => 7
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolRip
      * @type {Integer (Int32)}
      */
-    static RouteProtocolRip => 8
+    static Rip => 8
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolIsIs
      * @type {Integer (Int32)}
      */
-    static RouteProtocolIsIs => 9
+    static IsIs => 9
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolEsIs
      * @type {Integer (Int32)}
      */
-    static RouteProtocolEsIs => 10
+    static EsIs => 10
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolCisco
      * @type {Integer (Int32)}
      */
-    static RouteProtocolCisco => 11
+    static Cisco => 11
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolBbn
      * @type {Integer (Int32)}
      */
-    static RouteProtocolBbn => 12
+    static Bbn => 12
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolOspf
      * @type {Integer (Int32)}
      */
-    static RouteProtocolOspf => 13
+    static Ospf => 13
 
     /**
      * Reserved for system use. Do not use this value in your driver.
+     * Native name: RouteProtocolBgp
      * @type {Integer (Int32)}
      */
-    static RouteProtocolBgp => 14
+    static Bgp => 14
 
     /**
+     * Native name: RouteProtocolIdpr
      * @type {Integer (Int32)}
      */
-    static RouteProtocolIdpr => 15
+    static Idpr => 15
 
     /**
+     * Native name: RouteProtocolEigrp
      * @type {Integer (Int32)}
      */
-    static RouteProtocolEigrp => 16
+    static Eigrp => 16
 
     /**
+     * Native name: RouteProtocolDvmrp
      * @type {Integer (Int32)}
      */
-    static RouteProtocolDvmrp => 17
+    static Dvmrp => 17
 
     /**
+     * Native name: RouteProtocolRpl
      * @type {Integer (Int32)}
      */
-    static RouteProtocolRpl => 18
+    static Rpl => 18
 
     /**
+     * Native name: RouteProtocolDhcp
      * @type {Integer (Int32)}
      */
-    static RouteProtocolDhcp => 19
+    static Dhcp => 19
 
     /**
      * @type {Integer (Int32)}

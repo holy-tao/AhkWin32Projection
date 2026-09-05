@@ -31,7 +31,6 @@ class IFtpAuthenticationProvider extends IUnknown {
     static VTableNames => ["AuthenticateUser"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 

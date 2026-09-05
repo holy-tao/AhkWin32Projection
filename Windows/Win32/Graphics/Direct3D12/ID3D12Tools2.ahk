@@ -31,7 +31,6 @@ class ID3D12Tools2 extends ID3D12Tools1 {
     static VTableNames => ["SetApplicationSpecificDriverState"]
 
     /**
-     * 
      * @param {IUnknown} pAdapter 
      * @param {ID3DBlob} pBlob 
      * @returns {HRESULT} 

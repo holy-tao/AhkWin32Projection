@@ -7,42 +7,50 @@
 class DISPID_SpeechLexicon extends Win32Enum {
 
     /**
+     * Native name: DISPID_SLGenerationId
      * @type {Integer (Int32)}
      */
-    static DISPID_SLGenerationId => 1
+    static SLGenerationId => 1
 
     /**
+     * Native name: DISPID_SLGetWords
      * @type {Integer (Int32)}
      */
-    static DISPID_SLGetWords => 2
+    static SLGetWords => 2
 
     /**
+     * Native name: DISPID_SLAddPronunciation
      * @type {Integer (Int32)}
      */
-    static DISPID_SLAddPronunciation => 3
+    static SLAddPronunciation => 3
 
     /**
+     * Native name: DISPID_SLAddPronunciationByPhoneIds
      * @type {Integer (Int32)}
      */
-    static DISPID_SLAddPronunciationByPhoneIds => 4
+    static SLAddPronunciationByPhoneIds => 4
 
     /**
+     * Native name: DISPID_SLRemovePronunciation
      * @type {Integer (Int32)}
      */
-    static DISPID_SLRemovePronunciation => 5
+    static SLRemovePronunciation => 5
 
     /**
+     * Native name: DISPID_SLRemovePronunciationByPhoneIds
      * @type {Integer (Int32)}
      */
-    static DISPID_SLRemovePronunciationByPhoneIds => 6
+    static SLRemovePronunciationByPhoneIds => 6
 
     /**
+     * Native name: DISPID_SLGetPronunciations
      * @type {Integer (Int32)}
      */
-    static DISPID_SLGetPronunciations => 7
+    static SLGetPronunciations => 7
 
     /**
+     * Native name: DISPID_SLGetGenerationChange
      * @type {Integer (Int32)}
      */
-    static DISPID_SLGetGenerationChange => 8
+    static SLGetGenerationChange => 8
 }

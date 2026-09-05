@@ -7,17 +7,20 @@
 class TRANSACTION_STATE extends Win32Enum {
 
     /**
+     * Native name: TransactionStateNormal
      * @type {Integer (Int32)}
      */
-    static TransactionStateNormal => 1
+    static Normal => 1
 
     /**
+     * Native name: TransactionStateIndoubt
      * @type {Integer (Int32)}
      */
-    static TransactionStateIndoubt => 2
+    static Indoubt => 2
 
     /**
+     * Native name: TransactionStateCommittedNotify
      * @type {Integer (Int32)}
      */
-    static TransactionStateCommittedNotify => 3
+    static CommittedNotify => 3
 }

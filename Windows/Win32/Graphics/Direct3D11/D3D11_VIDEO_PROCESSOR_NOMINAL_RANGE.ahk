@@ -10,19 +10,22 @@ class D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE extends Win32Enum {
 
     /**
      * Driver defaults are used, which should be Studio luminance range [16-235],
+     * Native name: D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * Studio luminance range [16-235]
+     * Native name: D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE_16_235
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE_16_235 => 1
+    static 16_235 => 1
 
     /**
      * Full luminance range [0-255]
+     * Native name: D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE_0_255
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE_0_255 => 2
+    static 0_255 => 2
 }

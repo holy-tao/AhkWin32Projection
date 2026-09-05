@@ -30,7 +30,6 @@ class IEnumTravelLogEntry extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} cElt 
      * @param {Pointer<ITravelLogEntry>} rgElt 
      * @param {Pointer<Integer>} pcEltFetched 
@@ -44,7 +43,6 @@ class IEnumTravelLogEntry extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cElt 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumTravelLogEntry extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumTravelLogEntry extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumTravelLogEntry} 
      */
     Clone() {

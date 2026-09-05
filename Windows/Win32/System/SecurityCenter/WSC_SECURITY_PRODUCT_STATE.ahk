@@ -10,25 +10,29 @@ class WSC_SECURITY_PRODUCT_STATE extends Win32Enum {
 
     /**
      * The security product software is turned on and protecting the user.
+     * Native name: WSC_SECURITY_PRODUCT_STATE_ON
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PRODUCT_STATE_ON => 0
+    static ON => 0
 
     /**
      * The security product software is turned off and protection is disabled.
+     * Native name: WSC_SECURITY_PRODUCT_STATE_OFF
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PRODUCT_STATE_OFF => 1
+    static OFF => 1
 
     /**
      * The security product software is in the snoozed state, temporarily off,  and not actively protecting the computer.
+     * Native name: WSC_SECURITY_PRODUCT_STATE_SNOOZED
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PRODUCT_STATE_SNOOZED => 2
+    static SNOOZED => 2
 
     /**
      * The security product software has expired and is no longer actively protecting the computer.
+     * Native name: WSC_SECURITY_PRODUCT_STATE_EXPIRED
      * @type {Integer (Int32)}
      */
-    static WSC_SECURITY_PRODUCT_STATE_EXPIRED => 3
+    static EXPIRED => 3
 }

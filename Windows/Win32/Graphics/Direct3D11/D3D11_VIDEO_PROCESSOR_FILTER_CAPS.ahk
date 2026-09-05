@@ -12,49 +12,57 @@ class D3D11_VIDEO_PROCESSOR_FILTER_CAPS extends Win32Enum {
 
     /**
      * The video processor can adjust the brightness level.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_BRIGHTNESS
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_BRIGHTNESS => 1
+    static BRIGHTNESS => 1
 
     /**
      * The video processor can adjust the contrast level.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_CONTRAST
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_CONTRAST => 2
+    static CONTRAST => 2
 
     /**
      * The video processor can adjust hue.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_HUE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_HUE => 4
+    static HUE => 4
 
     /**
      * The video processor can adjust the saturation level.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_SATURATION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_SATURATION => 8
+    static SATURATION => 8
 
     /**
      * The video processor can perform noise reduction.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_NOISE_REDUCTION
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_NOISE_REDUCTION => 16
+    static NOISE_REDUCTION => 16
 
     /**
      * The video processor can perform edge enhancement.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_EDGE_ENHANCEMENT
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_EDGE_ENHANCEMENT => 32
+    static EDGE_ENHANCEMENT => 32
 
     /**
      * The video processor can perform anamorphic scaling. Anamorphic scaling can be used to stretch 4:3 content to a widescreen 16:9 aspect ratio.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_ANAMORPHIC_SCALING
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_ANAMORPHIC_SCALING => 64
+    static ANAMORPHIC_SCALING => 64
 
     /**
      * For stereo 3D video, the video processor can adjust the offset between the left and right views, allowing the user to reduce potential eye strain.
+     * Native name: D3D11_VIDEO_PROCESSOR_FILTER_CAPS_STEREO_ADJUSTMENT
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FILTER_CAPS_STEREO_ADJUSTMENT => 128
+    static STEREO_ADJUSTMENT => 128
 }

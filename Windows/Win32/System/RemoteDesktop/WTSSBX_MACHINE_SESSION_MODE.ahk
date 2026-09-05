@@ -10,19 +10,22 @@ class WTSSBX_MACHINE_SESSION_MODE extends Win32Enum {
 
     /**
      * The session mode of the server is unspecified.
+     * Native name: WTSSBX_MACHINE_SESSION_MODE_UNSPEC
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_SESSION_MODE_UNSPEC => 0
+    static UNSPEC => 0
 
     /**
      * The server is in single session mode. It can only accept one session per user.
+     * Native name: WTSSBX_MACHINE_SESSION_MODE_SINGLE
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_SESSION_MODE_SINGLE => 1
+    static SINGLE => 1
 
     /**
      * The server is in multiple session mode. It can accept multiple sessions per user.
+     * Native name: WTSSBX_MACHINE_SESSION_MODE_MULTIPLE
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_SESSION_MODE_MULTIPLE => 2
+    static MULTIPLE => 2
 }

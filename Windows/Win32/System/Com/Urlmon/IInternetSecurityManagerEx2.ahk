@@ -32,7 +32,6 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
     static VTableNames => ["MapUrlToZoneEx2", "ProcessUrlActionEx2", "GetSecurityIdEx2", "QueryCustomPolicyEx2"]
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Pointer<Integer>} pdwZone 
      * @param {Integer} dwFlags 
@@ -50,7 +49,6 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
@@ -72,7 +70,6 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
@@ -86,7 +83,6 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 

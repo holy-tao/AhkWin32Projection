@@ -62,7 +62,6 @@ class IGPMSitesContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainController() {
@@ -72,7 +71,6 @@ class IGPMSitesContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Domain() {
@@ -82,7 +80,6 @@ class IGPMSitesContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Forest() {

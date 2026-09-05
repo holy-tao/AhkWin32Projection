@@ -7,7 +7,8 @@
 class OB_PREOP_CALLBACK_STATUS extends Win32Enum {
 
     /**
+     * Native name: OB_PREOP_SUCCESS
      * @type {Integer (Int32)}
      */
-    static OB_PREOP_SUCCESS => 0
+    static SUCCESS => 0
 }

@@ -12,25 +12,29 @@ class TASK_ACTION_TYPE extends Win32Enum {
 
     /**
      * This action performs a command-line operation. For example, the action can run a script, launch an executable, or, if the name of a document is provided, find its associated application and launch the application with the document.
+     * Native name: TASK_ACTION_EXEC
      * @type {Integer (Int32)}
      */
-    static TASK_ACTION_EXEC => 0
+    static EXEC => 0
 
     /**
      * This action fires a handler. This action can only be used if the task <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_compatibility">Compatibility</a> property is set to TASK_COMPATIBILITY_V2.
+     * Native name: TASK_ACTION_COM_HANDLER
      * @type {Integer (Int32)}
      */
-    static TASK_ACTION_COM_HANDLER => 5
+    static COM_HANDLER => 5
 
     /**
      * This action sends email message. This action can only be used if the task <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_compatibility">Compatibility</a> property is set to TASK_COMPATIBILITY_V2.
+     * Native name: TASK_ACTION_SEND_EMAIL
      * @type {Integer (Int32)}
      */
-    static TASK_ACTION_SEND_EMAIL => 6
+    static SEND_EMAIL => 6
 
     /**
      * This action shows a message box. This action can only be used if the task <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_compatibility">Compatibility</a> property is set to TASK_COMPATIBILITY_V2.
+     * Native name: TASK_ACTION_SHOW_MESSAGE
      * @type {Integer (Int32)}
      */
-    static TASK_ACTION_SHOW_MESSAGE => 7
+    static SHOW_MESSAGE => 7
 }

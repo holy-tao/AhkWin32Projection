@@ -19,7 +19,6 @@ class WinML {
 
 ;@region Methods
     /**
-     * 
      * @returns {IWinMLRuntime} 
      */
     static WinMLCreateRuntime() {
@@ -28,7 +27,6 @@ class WinML {
     }
 
     /**
-     * 
      * @returns {IMLOperatorRegistry} 
      */
     static MLCreateOperatorRegistry() {

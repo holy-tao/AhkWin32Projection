@@ -31,7 +31,6 @@ class ICastingSourceInfo extends IUnknown {
     static VTableNames => ["GetController", "GetProperties"]
 
     /**
-     * 
      * @returns {ICastingController} 
      */
     GetController() {
@@ -40,7 +39,6 @@ class ICastingSourceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INamedPropertyStore} 
      */
     GetProperties() {

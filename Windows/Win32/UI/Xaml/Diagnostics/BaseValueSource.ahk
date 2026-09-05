@@ -10,34 +10,39 @@ class BaseValueSource extends Win32Enum {
 
     /**
      * The source of the property value is not known.
+     * Native name: BaseValueSourceUnknown
      * @type {Integer (Int32)}
      */
-    static BaseValueSourceUnknown => 0
+    static Unknown => 0
 
     /**
      * The value has not been set locally or by any styles, so it has the
      * default value defined in generic.xaml.
+     * Native name: BaseValueSourceDefault
      * @type {Integer (Int32)}
      */
-    static BaseValueSourceDefault => 1
+    static Default => 1
 
     /**
      * The value was set by a built-in style.
+     * Native name: BaseValueSourceBuiltInStyle
      * @type {Integer (Int32)}
      */
-    static BaseValueSourceBuiltInStyle => 2
+    static BuiltInStyle => 2
 
     /**
      * The value was set by a style.
+     * Native name: BaseValueSourceStyle
      * @type {Integer (Int32)}
      */
-    static BaseValueSourceStyle => 3
+    static Style => 3
 
     /**
      * The value was set locally.
+     * Native name: BaseValueSourceLocal
      * @type {Integer (Int32)}
      */
-    static BaseValueSourceLocal => 4
+    static Local => 4
 
     /**
      * The value was inherited from a parent element.
@@ -95,7 +100,8 @@ class BaseValueSource extends Win32Enum {
 
     /**
      * The value was set by a visual state. (Introduced in Windows 10, version 1607.)
+     * Native name: BaseValueSourceVisualState
      * @type {Integer (Int32)}
      */
-    static BaseValueSourceVisualState => 14
+    static VisualState => 14
 }

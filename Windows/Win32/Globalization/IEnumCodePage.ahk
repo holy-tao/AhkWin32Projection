@@ -30,7 +30,6 @@ class IEnumCodePage extends IUnknown {
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Clone() {
@@ -41,7 +40,6 @@ class IEnumCodePage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<MIMECPINFO>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
@@ -55,7 +53,6 @@ class IEnumCodePage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -64,7 +61,6 @@ class IEnumCodePage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */

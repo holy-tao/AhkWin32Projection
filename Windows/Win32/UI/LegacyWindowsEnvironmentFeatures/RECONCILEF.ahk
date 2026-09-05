@@ -7,39 +7,46 @@
 class RECONCILEF extends Win32Enum {
 
     /**
+     * Native name: RECONCILEF_MAYBOTHERUSER
      * @type {Integer (Int32)}
      */
-    static RECONCILEF_MAYBOTHERUSER => 1
+    static MAYBOTHERUSER => 1
 
     /**
+     * Native name: RECONCILEF_FEEDBACKWINDOWVALID
      * @type {Integer (Int32)}
      */
-    static RECONCILEF_FEEDBACKWINDOWVALID => 2
+    static FEEDBACKWINDOWVALID => 2
 
     /**
+     * Native name: RECONCILEF_NORESIDUESOK
      * @type {Integer (Int32)}
      */
-    static RECONCILEF_NORESIDUESOK => 4
+    static NORESIDUESOK => 4
 
     /**
+     * Native name: RECONCILEF_OMITSELFRESIDUE
      * @type {Integer (Int32)}
      */
-    static RECONCILEF_OMITSELFRESIDUE => 8
+    static OMITSELFRESIDUE => 8
 
     /**
+     * Native name: RECONCILEF_RESUMERECONCILIATION
      * @type {Integer (Int32)}
      */
-    static RECONCILEF_RESUMERECONCILIATION => 16
+    static RESUMERECONCILIATION => 16
 
     /**
+     * Native name: RECONCILEF_YOUMAYDOTHEUPDATES
      * @type {Integer (Int32)}
      */
-    static RECONCILEF_YOUMAYDOTHEUPDATES => 32
+    static YOUMAYDOTHEUPDATES => 32
 
     /**
+     * Native name: RECONCILEF_ONLYYOUWERECHANGED
      * @type {Integer (Int32)}
      */
-    static RECONCILEF_ONLYYOUWERECHANGED => 64
+    static ONLYYOUWERECHANGED => 64
 
     /**
      * @type {Integer (Int32)}

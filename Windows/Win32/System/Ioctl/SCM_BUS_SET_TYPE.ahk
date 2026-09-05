@@ -7,17 +7,20 @@
 class SCM_BUS_SET_TYPE extends Win32Enum {
 
     /**
+     * Native name: ScmBusSet_Descriptor
      * @type {Integer (Int32)}
      */
-    static ScmBusSet_Descriptor => 0
+    static Descriptor => 0
 
     /**
+     * Native name: ScmBusSet_IsSupported
      * @type {Integer (Int32)}
      */
-    static ScmBusSet_IsSupported => 1
+    static IsSupported => 1
 
     /**
+     * Native name: ScmBusSet_Max
      * @type {Integer (Int32)}
      */
-    static ScmBusSet_Max => 2
+    static Max => 2
 }

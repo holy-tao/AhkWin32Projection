@@ -12,13 +12,15 @@ class D3D12_DEPTH_WRITE_MASK extends Win32Enum {
 
     /**
      * Turn off writes to the depth-stencil buffer.
+     * Native name: D3D12_DEPTH_WRITE_MASK_ZERO
      * @type {Integer (Int32)}
      */
-    static D3D12_DEPTH_WRITE_MASK_ZERO => 0
+    static ZERO => 0
 
     /**
      * Turn on writes to the depth-stencil buffer.
+     * Native name: D3D12_DEPTH_WRITE_MASK_ALL
      * @type {Integer (Int32)}
      */
-    static D3D12_DEPTH_WRITE_MASK_ALL => 1
+    static ALL => 1
 }

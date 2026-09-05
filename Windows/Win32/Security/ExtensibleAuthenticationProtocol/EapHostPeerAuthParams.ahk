@@ -10,25 +10,29 @@ class EapHostPeerAuthParams extends Win32Enum {
 
     /**
      * Contains the current status of authentication for the supplicant.
+     * Native name: EapHostPeerAuthStatus
      * @type {Integer (Int32)}
      */
-    static EapHostPeerAuthStatus => 1
+    static Status => 1
 
     /**
      * Contains the user identity of the supplicant.
+     * Native name: EapHostPeerIdentity
      * @type {Integer (Int32)}
      */
-    static EapHostPeerIdentity => 2
+    static Identity => 2
 
     /**
      * Contains extended user identity information for the supplicant from the identity packet.
+     * Native name: EapHostPeerIdentityExtendedInfo
      * @type {Integer (Int32)}
      */
-    static EapHostPeerIdentityExtendedInfo => 3
+    static IdentityExtendedInfo => 3
 
     /**
      * Windows 7 or later: Contains NAP-related information for the supplicant in an [EapHostPeerNapInfo](/windows/win32/eaphost/eaphostpeernapinfo) structure.
+     * Native name: EapHostNapInfo
      * @type {Integer (Int32)}
      */
-    static EapHostNapInfo => 4
+    static NapInfo => 4
 }

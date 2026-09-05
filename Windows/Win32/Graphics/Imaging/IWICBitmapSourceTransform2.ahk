@@ -31,7 +31,6 @@ class IWICBitmapSourceTransform2 extends IWICBitmapSourceTransform {
     static VTableNames => ["GetColorContextsForPixelFormat"]
 
     /**
-     * 
      * @param {Pointer<Guid>} pPixelFormat 
      * @param {Integer} cCount 
      * @param {Pointer<IWICColorContext>} ppIColorContexts 

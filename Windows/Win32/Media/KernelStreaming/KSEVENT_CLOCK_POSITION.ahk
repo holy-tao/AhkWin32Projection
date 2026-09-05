@@ -7,12 +7,14 @@
 class KSEVENT_CLOCK_POSITION extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_CLOCK_INTERVAL_MARK
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CLOCK_INTERVAL_MARK => 0
+    static INTERVAL_MARK => 0
 
     /**
+     * Native name: KSEVENT_CLOCK_POSITION_MARK
      * @type {Integer (Int32)}
      */
-    static KSEVENT_CLOCK_POSITION_MARK => 1
+    static MARK => 1
 }

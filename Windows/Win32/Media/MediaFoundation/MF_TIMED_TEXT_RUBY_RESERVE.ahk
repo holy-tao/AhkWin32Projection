@@ -7,27 +7,32 @@
 class MF_TIMED_TEXT_RUBY_RESERVE extends Win32Enum {
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_RESERVE_NONE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_RESERVE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_RESERVE_BEFORE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_RESERVE_BEFORE => 1
+    static BEFORE => 1
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_RESERVE_AFTER
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_RESERVE_AFTER => 2
+    static AFTER => 2
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_RESERVE_BOTH
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_RESERVE_BOTH => 3
+    static BOTH => 3
 
     /**
+     * Native name: MF_TIMED_TEXT_RUBY_RESERVE_OUTSIDE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_RUBY_RESERVE_OUTSIDE => 4
+    static OUTSIDE => 4
 }

@@ -14,48 +14,56 @@ class SCOPE_LEVEL extends Win32Enum {
 
     /**
      * The scope is interface-level.
+     * Native name: ScopeLevelInterface
      * @type {Integer (Int32)}
      */
-    static ScopeLevelInterface => 1
+    static Interface => 1
 
     /**
      * The scope is link-level.
+     * Native name: ScopeLevelLink
      * @type {Integer (Int32)}
      */
-    static ScopeLevelLink => 2
+    static Link => 2
 
     /**
      * The scope is subnet-level.
+     * Native name: ScopeLevelSubnet
      * @type {Integer (Int32)}
      */
-    static ScopeLevelSubnet => 3
+    static Subnet => 3
 
     /**
      * The scope is admin-level.
+     * Native name: ScopeLevelAdmin
      * @type {Integer (Int32)}
      */
-    static ScopeLevelAdmin => 4
+    static Admin => 4
 
     /**
      * The scope is site-level.
+     * Native name: ScopeLevelSite
      * @type {Integer (Int32)}
      */
-    static ScopeLevelSite => 5
+    static Site => 5
 
     /**
      * The scope is organization-level.
+     * Native name: ScopeLevelOrganization
      * @type {Integer (Int32)}
      */
-    static ScopeLevelOrganization => 8
+    static Organization => 8
 
     /**
      * The scope is global.
+     * Native name: ScopeLevelGlobal
      * @type {Integer (Int32)}
      */
-    static ScopeLevelGlobal => 14
+    static Global => 14
 
     /**
+     * Native name: ScopeLevelCount
      * @type {Integer (Int32)}
      */
-    static ScopeLevelCount => 16
+    static Count => 16
 }

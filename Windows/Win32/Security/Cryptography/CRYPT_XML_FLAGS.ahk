@@ -7,17 +7,20 @@
 class CRYPT_XML_FLAGS extends Win32Enum {
 
     /**
+     * Native name: CRYPT_XML_FLAG_DISABLE_EXTENSIONS
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_FLAG_DISABLE_EXTENSIONS => 268435456
+    static FLAG_DISABLE_EXTENSIONS => 268435456
 
     /**
+     * Native name: CRYPT_XML_FLAG_NO_SERIALIZE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_FLAG_NO_SERIALIZE => 2147483648
+    static FLAG_NO_SERIALIZE => 2147483648
 
     /**
+     * Native name: CRYPT_XML_SIGN_ADD_KEYVALUE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_SIGN_ADD_KEYVALUE => 1
+    static SIGN_ADD_KEYVALUE => 1
 }

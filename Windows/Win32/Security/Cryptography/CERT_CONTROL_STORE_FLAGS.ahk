@@ -7,17 +7,20 @@
 class CERT_CONTROL_STORE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: CERT_STORE_CTRL_COMMIT_FORCE_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_CTRL_COMMIT_FORCE_FLAG => 1
+    static CTRL_COMMIT_FORCE_FLAG => 1
 
     /**
+     * Native name: CERT_STORE_CTRL_COMMIT_CLEAR_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_CTRL_COMMIT_CLEAR_FLAG => 2
+    static CTRL_COMMIT_CLEAR_FLAG => 2
 
     /**
+     * Native name: CERT_STORE_CTRL_INHIBIT_DUPLICATE_HANDLE_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_CTRL_INHIBIT_DUPLICATE_HANDLE_FLAG => 1
+    static CTRL_INHIBIT_DUPLICATE_HANDLE_FLAG => 1
 }

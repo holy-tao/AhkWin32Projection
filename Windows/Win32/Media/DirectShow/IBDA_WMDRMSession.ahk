@@ -30,7 +30,6 @@ class IBDA_WMDRMSession extends IUnknown {
     static VTableNames => ["GetStatus", "SetRevInfo", "SetCrl", "TransactMessage", "GetLicense", "ReissueLicense", "RenewLicense", "GetKeyInfo"]
 
     /**
-     * 
      * @param {Pointer<Integer>} MaxCaptureToken 
      * @param {Pointer<Integer>} MaxStreamingPid 
      * @param {Pointer<Integer>} MaxLicense 
@@ -58,7 +57,6 @@ class IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRevInfoLen 
      * @param {Pointer<Integer>} pbRevInfo 
      * @returns {HRESULT} 
@@ -71,7 +69,6 @@ class IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCrlLen 
      * @param {Pointer<Integer>} pbCrlLen 
      * @returns {HRESULT} 
@@ -84,7 +81,6 @@ class IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulcbRequest 
      * @param {Pointer<Integer>} pbRequest 
      * @param {Pointer<Integer>} pulcbResponse 
@@ -101,7 +97,6 @@ class IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uuidKey 
      * @param {Pointer<Integer>} pulPackageLen 
      * @param {Pointer<Integer>} pbPackage 
@@ -116,7 +111,6 @@ class IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uuidKey 
      * @returns {HRESULT} 
      */
@@ -126,7 +120,6 @@ class IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulInXmrLicenseLen 
      * @param {Pointer<Integer>} pbInXmrLicense 
      * @param {Integer} ulEntitlementTokenLen 
@@ -146,7 +139,6 @@ class IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulKeyInfoLen 
      * @param {Pointer<Integer>} pbKeyInfo 
      * @returns {HRESULT} 

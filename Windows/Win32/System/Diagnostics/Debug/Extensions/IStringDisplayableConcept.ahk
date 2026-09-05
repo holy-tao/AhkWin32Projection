@@ -32,7 +32,6 @@ class IStringDisplayableConcept extends IUnknown {
     static VTableNames => ["ToDisplayString"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {IKeyStore} metadata 
      * @returns {BSTR} 

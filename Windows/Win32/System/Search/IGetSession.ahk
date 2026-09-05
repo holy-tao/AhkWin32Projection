@@ -30,7 +30,6 @@ class IGetSession extends IUnknown {
     static VTableNames => ["GetSession"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

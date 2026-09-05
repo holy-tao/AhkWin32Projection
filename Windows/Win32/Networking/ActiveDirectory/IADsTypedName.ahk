@@ -56,7 +56,6 @@ class IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectName() {
@@ -66,7 +65,6 @@ class IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectName 
      * @returns {HRESULT} 
      */
@@ -78,7 +76,6 @@ class IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Level() {
@@ -87,7 +84,6 @@ class IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnLevel 
      * @returns {HRESULT} 
      */
@@ -97,7 +93,6 @@ class IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Interval() {
@@ -106,7 +101,6 @@ class IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnInterval 
      * @returns {HRESULT} 
      */

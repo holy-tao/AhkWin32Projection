@@ -7,12 +7,14 @@
 class AUDIO_CURVE_TYPE extends Win32Enum {
 
     /**
+     * Native name: AUDIO_CURVE_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static AUDIO_CURVE_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: AUDIO_CURVE_TYPE_WINDOWS_FADE
      * @type {Integer (Int32)}
      */
-    static AUDIO_CURVE_TYPE_WINDOWS_FADE => 1
+    static WINDOWS_FADE => 1
 }

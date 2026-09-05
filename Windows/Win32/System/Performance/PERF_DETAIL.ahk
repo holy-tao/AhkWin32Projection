@@ -7,22 +7,26 @@
 class PERF_DETAIL extends Win32Enum {
 
     /**
+     * Native name: PERF_DETAIL_NOVICE
      * @type {Integer (UInt32)}
      */
-    static PERF_DETAIL_NOVICE => 100
+    static NOVICE => 100
 
     /**
+     * Native name: PERF_DETAIL_ADVANCED
      * @type {Integer (UInt32)}
      */
-    static PERF_DETAIL_ADVANCED => 200
+    static ADVANCED => 200
 
     /**
+     * Native name: PERF_DETAIL_EXPERT
      * @type {Integer (UInt32)}
      */
-    static PERF_DETAIL_EXPERT => 300
+    static EXPERT => 300
 
     /**
+     * Native name: PERF_DETAIL_WIZARD
      * @type {Integer (UInt32)}
      */
-    static PERF_DETAIL_WIZARD => 400
+    static WIZARD => 400
 }

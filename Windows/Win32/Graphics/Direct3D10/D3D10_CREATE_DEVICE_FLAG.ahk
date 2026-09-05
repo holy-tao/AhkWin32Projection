@@ -19,36 +19,41 @@ class D3D10_CREATE_DEVICE_FLAG extends Win32Enum {
      * Use this flag if an application will only be calling D3D10 from a single thread. If this flag is not specified, the default behavior of D3D10 
      *         is to enter a lock during each API call to prevent multiple threads altering internal state. By using this flag no locks will be taken which can 
      *         slightly increase performance, but could result in undefine behavior if D3D10 is called from multiple threads.
+     * Native name: D3D10_CREATE_DEVICE_SINGLETHREADED
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_SINGLETHREADED => 1
+    static SINGLETHREADED => 1
 
     /**
      * Create a device that supports the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">debug layer</a>.
+     * Native name: D3D10_CREATE_DEVICE_DEBUG
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_DEBUG => 2
+    static DEBUG => 2
 
     /**
      * Create both a software (REF) and hardware (HAL) version of the device simultaneously, which allows an application to switch to a 
      *         reference device to enable debugging. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/nn-d3d10sdklayers-id3d10switchtoref">ID3D10SwitchToRef Interface</a> for more information.
+     * Native name: D3D10_CREATE_DEVICE_SWITCH_TO_REF
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_SWITCH_TO_REF => 4
+    static SWITCH_TO_REF => 4
 
     /**
      * Prevents multiple threads from being created. When this flag is used with a WARP device, no additional threads will be created by WARP and all
      *         rasterization will occur on the calling thread. This flag is not recommended for general use. See remarks.
+     * Native name: D3D10_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS => 8
+    static PREVENT_INTERNAL_THREADING_OPTIMIZATIONS => 8
 
     /**
      * Return a <b>NULL</b> pointer instead of triggering an exception on memory exhaustion during invocations to Map.  
      *         Without this flag an exception will be raised on memory exhaustion.  Only valid on Windows 7.
+     * Native name: D3D10_CREATE_DEVICE_ALLOW_NULL_FROM_MAP
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_ALLOW_NULL_FROM_MAP => 16
+    static ALLOW_NULL_FROM_MAP => 16
 
     /**
      * Causes device creation to fail if BGRA support is not available.
@@ -71,9 +76,10 @@ class D3D10_CREATE_DEVICE_FLAG extends Win32Enum {
      *           The flag merely causes device creation to fail if BGRA support isn't available.
      * 
      * D3D10_CREATE_DEVICE_BGRA_SUPPORT is only valid on Windows 7, Windows Server 2008 R2, and updated Windows Vista (KB971644) systems.
+     * Native name: D3D10_CREATE_DEVICE_BGRA_SUPPORT
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_BGRA_SUPPORT => 32
+    static BGRA_SUPPORT => 32
 
     /**
      * Causes the Direct3D runtime to ignore registry settings that turn on the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">debug layer</a>. You can turn on the debug layer by using the <a href="https://docs.microsoft.com/previous-versions/bb219725(v=vs.85)">DirectX Control Panel</a> that was included as part of the DirectX SDK. We shipped the last version of the DirectX SDK in June 2010; you can download it from the <a href="https://www.microsoft.com/download/en/details.aspx?id=6812">Microsoft Download Center</a>. You can set this flag in your app, typically in release builds only, to prevent end users from using the <a href="https://docs.microsoft.com/previous-versions/bb219725(v=vs.85)">DirectX Control Panel</a> to monitor how the app uses Direct3D.
@@ -83,21 +89,24 @@ class D3D10_CREATE_DEVICE_FLAG extends Win32Enum {
      * <b>Windows 8.1:  </b>This flag doesn't prevent Visual Studio 2013 and later running on Windows 8.1 and later from hooking your app. But, this flag still prevents Visual Studio 2013 and later running on Windows 8 and earlier from hooking your app. 
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D10_CREATE_DEVICE_PREVENT_ALTERING_LAYER_SETTINGS_FROM_REGISTRY
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_PREVENT_ALTERING_LAYER_SETTINGS_FROM_REGISTRY => 128
+    static PREVENT_ALTERING_LAYER_SETTINGS_FROM_REGISTRY => 128
 
     /**
      * Reserved. This flag is currently not supported. Do not use.
+     * Native name: D3D10_CREATE_DEVICE_STRICT_VALIDATION
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_STRICT_VALIDATION => 512
+    static STRICT_VALIDATION => 512
 
     /**
      * Causes the device and driver to keep information that you can use for shader debugging.  The exact impact from this flag will vary from driver to driver.  To use this flag, you must have D3D11_1SDKLayers.dll installed; otherwise, device creation fails. The created device supports the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">debug layer</a>. To get D3D11_1SDKLayers.dll, you must install the SDK for Windows 8.
      * 
      * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * Native name: D3D10_CREATE_DEVICE_DEBUGGABLE
      * @type {Integer (Int32)}
      */
-    static D3D10_CREATE_DEVICE_DEBUGGABLE => 1024
+    static DEBUGGABLE => 1024
 }

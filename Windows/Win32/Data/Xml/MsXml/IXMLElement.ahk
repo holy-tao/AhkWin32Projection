@@ -69,7 +69,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagName() {
@@ -79,7 +78,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -91,7 +89,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElement} 
      */
     get_parent() {
@@ -100,7 +97,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @param {VARIANT} _PropertyValue 
      * @returns {HRESULT} 
@@ -113,7 +109,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @returns {VARIANT} 
      */
@@ -126,7 +121,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @returns {HRESULT} 
      */
@@ -138,7 +132,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElementCollection} 
      */
     get_children() {
@@ -147,7 +140,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -156,7 +148,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -166,7 +157,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -178,7 +168,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLElement} pChildElem 
      * @param {Integer} lIndex 
      * @param {Integer} lReserved 
@@ -190,7 +179,6 @@ class IXMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLElement} pChildElem 
      * @returns {HRESULT} 
      */

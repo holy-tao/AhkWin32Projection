@@ -61,7 +61,6 @@ class IActiveIME2 extends IActiveIME {
     }
 
     /**
-     * 
      * @param {BOOL} fDead 
      * @returns {HRESULT} 
      */

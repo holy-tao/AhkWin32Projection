@@ -7,7 +7,8 @@
 class KSEVENT_VPNOTIFY extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_VPNOTIFY_FORMATCHANGE
      * @type {Integer (Int32)}
      */
-    static KSEVENT_VPNOTIFY_FORMATCHANGE => 0
+    static FORMATCHANGE => 0
 }

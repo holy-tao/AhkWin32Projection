@@ -36,7 +36,6 @@ class AsyncIUnknown extends IUnknown {
     static VTableNames => ["Begin_QueryInterface", "Finish_QueryInterface", "Begin_AddRef", "Finish_AddRef", "Begin_Release", "Finish_Release"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     Finish_QueryInterface() {
@@ -55,7 +53,6 @@ class AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_AddRef() {
@@ -64,7 +61,6 @@ class AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_AddRef() {
@@ -73,7 +69,6 @@ class AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_Release() {
@@ -82,7 +77,6 @@ class AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_Release() {

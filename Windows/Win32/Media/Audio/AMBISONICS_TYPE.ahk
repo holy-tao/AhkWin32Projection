@@ -7,7 +7,8 @@
 class AMBISONICS_TYPE extends Win32Enum {
 
     /**
+     * Native name: AMBISONICS_TYPE_FULL3D
      * @type {Integer (Int32)}
      */
-    static AMBISONICS_TYPE_FULL3D => 0
+    static FULL3D => 0
 }

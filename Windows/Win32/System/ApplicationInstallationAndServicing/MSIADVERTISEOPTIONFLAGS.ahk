@@ -7,7 +7,8 @@
 class MSIADVERTISEOPTIONFLAGS extends Win32Enum {
 
     /**
+     * Native name: MSIADVERTISEOPTIONFLAGS_INSTANCE
      * @type {Integer (Int32)}
      */
-    static MSIADVERTISEOPTIONFLAGS_INSTANCE => 1
+    static INSTANCE => 1
 }

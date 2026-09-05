@@ -254,7 +254,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -264,7 +263,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isMap() {
@@ -273,7 +271,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -285,7 +282,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_useMap() {
@@ -295,7 +291,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -305,7 +300,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileSize() {
@@ -315,7 +309,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileCreatedDate() {
@@ -325,7 +318,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
@@ -335,7 +327,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
@@ -345,7 +336,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -355,7 +345,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -365,7 +354,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nameProp() {
@@ -375,7 +363,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -385,7 +372,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -395,7 +381,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -405,7 +390,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -414,7 +398,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -424,7 +407,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -433,7 +415,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -445,7 +426,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -455,7 +435,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -467,7 +446,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -477,7 +455,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -489,7 +466,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lowsrc() {
@@ -499,7 +475,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -511,7 +486,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vrml() {
@@ -521,7 +495,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -533,7 +506,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dynsrc() {
@@ -543,7 +515,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -553,7 +524,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_complete() {
@@ -562,7 +532,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -572,7 +541,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_loop() {
@@ -582,7 +550,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -594,7 +561,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -604,7 +570,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -614,7 +579,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -624,7 +588,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -634,7 +597,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -644,7 +606,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -654,7 +615,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -664,7 +624,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -676,7 +635,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -686,7 +644,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -696,7 +653,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -705,7 +661,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -715,7 +670,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -724,7 +678,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -736,7 +689,6 @@ class IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_start() {

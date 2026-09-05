@@ -33,7 +33,6 @@ class IDCompositionTexture extends IUnknown {
     static VTableNames => ["SetSourceRect", "SetColorSpace", "SetAlphaMode", "GetAvailableFence"]
 
     /**
-     * 
      * @param {Pointer<D2D_RECT_U>} sourceRect 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class IDCompositionTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {DXGI_ALPHA_MODE} alphaMode 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IDCompositionTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} fenceValue 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} availableFence 

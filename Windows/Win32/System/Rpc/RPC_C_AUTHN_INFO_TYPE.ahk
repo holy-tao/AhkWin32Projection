@@ -7,12 +7,14 @@
 class RPC_C_AUTHN_INFO_TYPE extends Win32Enum {
 
     /**
+     * Native name: RPC_C_AUTHN_INFO_NONE
      * @type {Integer (UInt32)}
      */
-    static RPC_C_AUTHN_INFO_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: RPC_C_AUTHN_INFO_TYPE_HTTP
      * @type {Integer (UInt32)}
      */
-    static RPC_C_AUTHN_INFO_TYPE_HTTP => 1
+    static HTTP => 1
 }

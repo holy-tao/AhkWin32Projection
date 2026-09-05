@@ -7,42 +7,50 @@
 class EBindPolicyLevels extends Win32Enum {
 
     /**
+     * Native name: ePolicyLevelNone
      * @type {Integer (Int32)}
      */
-    static ePolicyLevelNone => 0
+    static LevelNone => 0
 
     /**
+     * Native name: ePolicyLevelRetargetable
      * @type {Integer (Int32)}
      */
-    static ePolicyLevelRetargetable => 1
+    static LevelRetargetable => 1
 
     /**
+     * Native name: ePolicyUnifiedToCLR
      * @type {Integer (Int32)}
      */
-    static ePolicyUnifiedToCLR => 2
+    static UnifiedToCLR => 2
 
     /**
+     * Native name: ePolicyLevelApp
      * @type {Integer (Int32)}
      */
-    static ePolicyLevelApp => 4
+    static LevelApp => 4
 
     /**
+     * Native name: ePolicyLevelPublisher
      * @type {Integer (Int32)}
      */
-    static ePolicyLevelPublisher => 8
+    static LevelPublisher => 8
 
     /**
+     * Native name: ePolicyLevelHost
      * @type {Integer (Int32)}
      */
-    static ePolicyLevelHost => 16
+    static LevelHost => 16
 
     /**
+     * Native name: ePolicyLevelAdmin
      * @type {Integer (Int32)}
      */
-    static ePolicyLevelAdmin => 32
+    static LevelAdmin => 32
 
     /**
+     * Native name: ePolicyPortability
      * @type {Integer (Int32)}
      */
-    static ePolicyPortability => 64
+    static Portability => 64
 }

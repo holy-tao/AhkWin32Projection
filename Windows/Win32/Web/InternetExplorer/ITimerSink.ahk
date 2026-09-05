@@ -30,7 +30,6 @@ class ITimerSink extends IUnknown {
     static VTableNames => ["OnTimer"]
 
     /**
-     * 
      * @param {VARIANT} vtimeAdvise 
      * @returns {HRESULT} 
      */

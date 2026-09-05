@@ -10,13 +10,15 @@ class eAVEncDDAtoDConverterType extends Win32Enum {
 
     /**
      * Standard.
+     * Native name: eAVEncDDAtoDConverterType_Standard
      * @type {Integer (Int32)}
      */
-    static eAVEncDDAtoDConverterType_Standard => 0
+    static Standard => 0
 
     /**
      * High Definition Compatible Digital (HDCD).
+     * Native name: eAVEncDDAtoDConverterType_HDCD
      * @type {Integer (Int32)}
      */
-    static eAVEncDDAtoDConverterType_HDCD => 1
+    static HDCD => 1
 }

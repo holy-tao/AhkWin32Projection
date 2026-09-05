@@ -102,7 +102,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} MasterKeyHandle 
      * @param {Integer} Count 
      * @param {Pointer<OBJECT_ATTRIBUTES>} SubordinateObjects 
@@ -157,7 +156,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<KEY_VALUE_ENTRY>} ValueEntries 
      * @param {Integer} EntryCount 
@@ -231,7 +229,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -251,7 +248,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -274,7 +270,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -288,7 +283,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
@@ -302,7 +296,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -315,7 +308,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -329,7 +321,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -345,7 +336,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -362,7 +352,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @returns {NTSTATUS} 
      */
@@ -375,7 +364,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @returns {NTSTATUS} 
@@ -389,7 +377,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
      * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
@@ -409,7 +396,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
      * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
@@ -429,7 +415,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @returns {NTSTATUS} 
      */
@@ -442,7 +427,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
      * @param {Integer} KeyInformation 
@@ -461,7 +445,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
@@ -481,7 +464,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} FileHandle 
      * @returns {NTSTATUS} 
@@ -496,7 +478,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} FileHandle 
      * @param {Integer} Format 
@@ -512,7 +493,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} FileHandle 
      * @param {Integer} Flags 
@@ -528,7 +508,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @param {Integer} TitleIndex 
@@ -546,7 +525,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -559,7 +537,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
@@ -573,7 +550,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -593,7 +569,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -616,7 +591,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -630,7 +604,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -643,7 +616,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
@@ -657,7 +629,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
@@ -671,7 +642,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -684,7 +654,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -698,7 +667,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -714,7 +682,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} KeyHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -731,7 +698,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @returns {NTSTATUS} 
      */
@@ -744,7 +710,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @returns {NTSTATUS} 
@@ -758,7 +723,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
      * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
@@ -778,7 +742,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
      * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
@@ -798,7 +761,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @returns {NTSTATUS} 
      */
@@ -811,7 +773,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
      * @param {Integer} KeyInformation 
@@ -830,7 +791,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
@@ -850,7 +810,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} NewName 
      * @returns {NTSTATUS} 
@@ -864,7 +823,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} FileHandle 
      * @returns {NTSTATUS} 
@@ -879,7 +837,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} FileHandle 
      * @param {Integer} Format 
@@ -895,7 +852,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {HANDLE} FileHandle 
      * @param {Integer} Flags 
@@ -911,7 +867,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {KEY_SET_INFORMATION_CLASS} KeySetInformationClass 
      * @param {Integer} KeySetInformation 
@@ -927,7 +882,6 @@ class Registry {
     }
 
     /**
-     * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @param {Integer} TitleIndex 

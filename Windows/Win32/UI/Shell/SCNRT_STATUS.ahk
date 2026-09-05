@@ -10,13 +10,15 @@ class SCNRT_STATUS extends Win32Enum {
 
     /**
      * Enable Async Register and Deregister for <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shchangenotifyregisterthread">SHChangeNotifyRegisterThread</a>.
+     * Native name: SCNRT_ENABLE
      * @type {Integer (Int32)}
      */
-    static SCNRT_ENABLE => 0
+    static ENABLE => 0
 
     /**
      * Disable Async Register and Deregister for <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shchangenotifyregisterthread">SHChangeNotifyRegisterThread</a>.
+     * Native name: SCNRT_DISABLE
      * @type {Integer (Int32)}
      */
-    static SCNRT_DISABLE => 1
+    static DISABLE => 1
 }

@@ -14,31 +14,36 @@ class D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS extends Win32Bitfla
 
     /**
      * This is the default value.  Indicates no patching of pipeline states should be done during PSO creation.  Instead PSO’s are patched on first use in a command list.  This can help to reduce the up-front cost of PSO creation but may instead slow down command list recording until a steady-state is reached.
+     * Native name: D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Indicates that state-tracking GPU-Based Validation PSO’s should be created along with the original PSO at create time.
+     * Native name: D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_TRACKING_ONLY_SHADERS
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_TRACKING_ONLY_SHADERS => 1
+    static FLAG_FRONT_LOAD_CREATE_TRACKING_ONLY_SHADERS => 1
 
     /**
      * Indicates that unguarded GPU-Based Validation PSO’s should be created along with the original PSO at create time.
+     * Native name: D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_UNGUARDED_VALIDATION_SHADERS
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_UNGUARDED_VALIDATION_SHADERS => 2
+    static FLAG_FRONT_LOAD_CREATE_UNGUARDED_VALIDATION_SHADERS => 2
 
     /**
      * Indicates that guarded GPU-Based Validation PSO’s should be created along with the original PSO at create time.
+     * Native name: D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_GUARDED_VALIDATION_SHADERS
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAG_FRONT_LOAD_CREATE_GUARDED_VALIDATION_SHADERS => 4
+    static FLAG_FRONT_LOAD_CREATE_GUARDED_VALIDATION_SHADERS => 4
 
     /**
      * Internal use only.
+     * Native name: D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS_VALID_MASK
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS_VALID_MASK => 7
+    static VALID_MASK => 7
 }

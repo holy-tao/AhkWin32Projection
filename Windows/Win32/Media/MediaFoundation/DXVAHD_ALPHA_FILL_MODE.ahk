@@ -14,25 +14,29 @@ class DXVAHD_ALPHA_FILL_MODE extends Win32Enum {
 
     /**
      * Alpha values inside the target rectangle are set to opaque.
+     * Native name: DXVAHD_ALPHA_FILL_MODE_OPAQUE
      * @type {Integer (Int32)}
      */
-    static DXVAHD_ALPHA_FILL_MODE_OPAQUE => 0
+    static OPAQUE => 0
 
     /**
      * Alpha values inside the target rectangle are set to the alpha value specified in the background color. See <a href="https://docs.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_background_color_data">DXVAHD_BLT_STATE_BACKGROUND_COLOR</a>.
+     * Native name: DXVAHD_ALPHA_FILL_MODE_BACKGROUND
      * @type {Integer (Int32)}
      */
-    static DXVAHD_ALPHA_FILL_MODE_BACKGROUND => 1
+    static BACKGROUND => 1
 
     /**
      * Existing alpha values remain unchanged in the output surface.
+     * Native name: DXVAHD_ALPHA_FILL_MODE_DESTINATION
      * @type {Integer (Int32)}
      */
-    static DXVAHD_ALPHA_FILL_MODE_DESTINATION => 2
+    static DESTINATION => 2
 
     /**
      * Alpha values from the input stream  are scaled and copied to the corresponding destination rectangle for that stream. If the input stream does not have alpha data, the DXVA-HD device sets the alpha values in the target rectangle to an opaque value. If the input stream is disabled or the source rectangle is empty, the alpha values in the target rectangle are not modified.
+     * Native name: DXVAHD_ALPHA_FILL_MODE_SOURCE_STREAM
      * @type {Integer (Int32)}
      */
-    static DXVAHD_ALPHA_FILL_MODE_SOURCE_STREAM => 3
+    static SOURCE_STREAM => 3
 }

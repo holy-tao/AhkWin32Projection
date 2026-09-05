@@ -7,52 +7,62 @@
 class DISPID_SpeechVoiceEvent extends Win32Enum {
 
     /**
+     * Native name: DISPID_SVEStreamStart
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEStreamStart => 1
+    static SVEStreamStart => 1
 
     /**
+     * Native name: DISPID_SVEStreamEnd
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEStreamEnd => 2
+    static SVEStreamEnd => 2
 
     /**
+     * Native name: DISPID_SVEVoiceChange
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEVoiceChange => 3
+    static SVEVoiceChange => 3
 
     /**
+     * Native name: DISPID_SVEBookmark
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEBookmark => 4
+    static SVEBookmark => 4
 
     /**
+     * Native name: DISPID_SVEWord
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEWord => 5
+    static SVEWord => 5
 
     /**
+     * Native name: DISPID_SVEPhoneme
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEPhoneme => 6
+    static SVEPhoneme => 6
 
     /**
+     * Native name: DISPID_SVESentenceBoundary
      * @type {Integer (Int32)}
      */
-    static DISPID_SVESentenceBoundary => 7
+    static SVESentenceBoundary => 7
 
     /**
+     * Native name: DISPID_SVEViseme
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEViseme => 8
+    static SVEViseme => 8
 
     /**
+     * Native name: DISPID_SVEAudioLevel
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEAudioLevel => 9
+    static SVEAudioLevel => 9
 
     /**
+     * Native name: DISPID_SVEEnginePrivate
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEEnginePrivate => 10
+    static SVEEnginePrivate => 10
 }

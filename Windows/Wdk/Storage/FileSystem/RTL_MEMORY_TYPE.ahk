@@ -7,37 +7,44 @@
 class RTL_MEMORY_TYPE extends Win32Enum {
 
     /**
+     * Native name: MemoryTypePaged
      * @type {Integer (Int32)}
      */
-    static MemoryTypePaged => 0
+    static Paged => 0
 
     /**
+     * Native name: MemoryTypeNonPaged
      * @type {Integer (Int32)}
      */
-    static MemoryTypeNonPaged => 1
+    static NonPaged => 1
 
     /**
+     * Native name: MemoryType64KPage
      * @type {Integer (Int32)}
      */
-    static MemoryType64KPage => 2
+    static Type64KPage => 2
 
     /**
+     * Native name: MemoryTypeLargePage
      * @type {Integer (Int32)}
      */
-    static MemoryTypeLargePage => 3
+    static LargePage => 3
 
     /**
+     * Native name: MemoryTypeHugePage
      * @type {Integer (Int32)}
      */
-    static MemoryTypeHugePage => 4
+    static HugePage => 4
 
     /**
+     * Native name: MemoryTypeCustom
      * @type {Integer (Int32)}
      */
-    static MemoryTypeCustom => 5
+    static Custom => 5
 
     /**
+     * Native name: MemoryTypeMax
      * @type {Integer (Int32)}
      */
-    static MemoryTypeMax => 6
+    static Max => 6
 }

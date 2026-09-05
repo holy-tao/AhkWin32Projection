@@ -10,19 +10,22 @@ class PEER_GRAPH_STATUS_FLAGS extends Win32Enum {
 
     /**
      * Specifies whether or not the node is listening for connections.
+     * Native name: PEER_GRAPH_STATUS_LISTENING
      * @type {Integer (Int32)}
      */
-    static PEER_GRAPH_STATUS_LISTENING => 1
+    static LISTENING => 1
 
     /**
      * Specifies whether or not the node has connections to other nodes.
+     * Native name: PEER_GRAPH_STATUS_HAS_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static PEER_GRAPH_STATUS_HAS_CONNECTIONS => 2
+    static HAS_CONNECTIONS => 2
 
     /**
      * Specifies whether or not the node's database is synchronized.
+     * Native name: PEER_GRAPH_STATUS_SYNCHRONIZED
      * @type {Integer (Int32)}
      */
-    static PEER_GRAPH_STATUS_SYNCHRONIZED => 4
+    static SYNCHRONIZED => 4
 }

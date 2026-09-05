@@ -30,7 +30,6 @@ class ISAXDTDHandler extends IUnknown {
     static VTableNames => ["notationDecl", "unparsedEntityDecl"]
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 
@@ -49,7 +48,6 @@ class ISAXDTDHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 

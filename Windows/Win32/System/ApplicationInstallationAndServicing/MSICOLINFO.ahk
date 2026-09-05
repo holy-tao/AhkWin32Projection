@@ -7,12 +7,14 @@
 class MSICOLINFO extends Win32Enum {
 
     /**
+     * Native name: MSICOLINFO_NAMES
      * @type {Integer (Int32)}
      */
-    static MSICOLINFO_NAMES => 0
+    static NAMES => 0
 
     /**
+     * Native name: MSICOLINFO_TYPES
      * @type {Integer (Int32)}
      */
-    static MSICOLINFO_TYPES => 1
+    static TYPES => 1
 }

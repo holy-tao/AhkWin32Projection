@@ -10,19 +10,22 @@ class ProviderType extends Win32Enum {
 
     /**
      * The provider is window-based.
+     * Native name: ProviderType_BaseHwnd
      * @type {Integer (Int32)}
      */
-    static ProviderType_BaseHwnd => 0
+    static BaseHwnd => 0
 
     /**
      * The provider is one of the Win32 or Windows Forms providers from Microsoft, or a third-party proxy provider.
+     * Native name: ProviderType_Proxy
      * @type {Integer (Int32)}
      */
-    static ProviderType_Proxy => 1
+    static Proxy => 1
 
     /**
      * The provider is a proxy for the window's non-client-area elements.
+     * Native name: ProviderType_NonClientArea
      * @type {Integer (Int32)}
      */
-    static ProviderType_NonClientArea => 2
+    static NonClientArea => 2
 }

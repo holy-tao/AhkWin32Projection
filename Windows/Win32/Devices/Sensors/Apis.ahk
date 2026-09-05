@@ -2512,7 +2512,6 @@ class Sensors {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<Integer>} TimeMs 
      * @returns {NTSTATUS} 
      */
@@ -2525,7 +2524,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Float} fltVal 
      * @param {Pointer<PROPVARIANT>} ppropvar 
      * @returns {HRESULT} 
@@ -2536,7 +2534,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {BOOLEAN} TypeCheck 
@@ -2550,7 +2547,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {BOOLEAN} TypeCheck 
@@ -2564,7 +2560,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<FILETIME>} pRetValue 
@@ -2577,7 +2572,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Guid>} pRetValue 
@@ -2590,7 +2584,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<BOOL>} pRetValue 
@@ -2605,7 +2598,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Integer>} pRetValue 
@@ -2620,7 +2612,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Integer>} pRetValue 
@@ -2635,7 +2626,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Float>} pRetValue 
@@ -2650,7 +2640,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Float>} pRetValue 
@@ -2665,7 +2654,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Integer>} pRetValue 
@@ -2680,7 +2668,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Integer>} pRetValue 
@@ -2695,7 +2682,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
@@ -2711,7 +2697,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
@@ -2727,7 +2712,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
@@ -2743,7 +2727,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_PROPERTY_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @returns {BOOLEAN} 
@@ -2754,7 +2737,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @returns {BOOLEAN} 
@@ -2765,7 +2747,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} ListA 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} ListB 
      * @returns {BOOLEAN} 
@@ -2776,7 +2757,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<PROPVARIANT>} PropVariantValue 
      * @param {Pointer<Integer>} PropVariantOffset 
      * @param {Pointer<Integer>} PropVariantSize 
@@ -2796,7 +2776,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_PROPERTY_LIST>} Target 
      * @param {Pointer<SENSOR_PROPERTY_LIST>} Source 
      * @returns {NTSTATUS} 
@@ -2808,7 +2787,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Integer} BufferSizeBytes 
      * @returns {Integer} 
      */
@@ -2818,7 +2796,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Collection 
      * @returns {Integer} 
      */
@@ -2828,7 +2805,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Target 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Source 
      * @returns {NTSTATUS} 
@@ -2840,7 +2816,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Target 
      * @returns {NTSTATUS} 
      */
@@ -2851,7 +2826,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Collection 
      * @returns {Integer} 
      */
@@ -2861,7 +2835,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Collection 
      * @returns {NTSTATUS} 
      */
@@ -2872,7 +2845,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Integer} SizeInBytes 
      * @param {Pointer<Pointer<Integer>>} pBuffer 
      * @returns {NTSTATUS} 
@@ -2886,7 +2858,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2897,7 +2868,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Collection 
      * @returns {Integer} 
      */
@@ -2907,7 +2877,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} SourceCollection 
      * @param {Integer} TargetBufferSizeInBytes 
      * @param {Integer} TargetBuffer 
@@ -2920,7 +2889,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} SourceCollection 
      * @param {Pointer<Integer>} pTargetBufferSizeInBytes 
      * @param {Pointer<Pointer<Integer>>} pTargetBuffer 
@@ -2936,7 +2904,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Integer} SourceBufferSizeInBytes 
      * @param {Integer} SourceBuffer 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} TargetCollection 
@@ -2949,7 +2916,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pSensorsList 
      * @param {Pointer<PROPERTYKEY>} pKey 
@@ -2963,7 +2929,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Integer} BufferSizeBytes 
      * @returns {Integer} 
      */
@@ -2973,7 +2938,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} newSample 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} oldSample 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} thresholds 
@@ -2985,7 +2949,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} thresholds 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pCollection 
      * @returns {NTSTATUS} 
@@ -2997,7 +2960,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} members 
      * @param {Integer} _size 
      * @param {Pointer<PROPVARIANT>} ppropvar 
@@ -3009,7 +2971,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} subscriptionList 
      * @param {Guid} currentType 
      * @returns {BOOLEAN} 
@@ -3020,7 +2981,6 @@ class Sensors {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guidArray 
      * @param {Integer} arrayLength 
      * @param {Pointer<Guid>} guidElem 

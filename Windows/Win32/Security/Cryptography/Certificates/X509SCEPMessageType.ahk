@@ -7,37 +7,44 @@
 class X509SCEPMessageType extends Win32Enum {
 
     /**
+     * Native name: SCEPMessageUnknown
      * @type {Integer (Int32)}
      */
-    static SCEPMessageUnknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: SCEPMessageCertResponse
      * @type {Integer (Int32)}
      */
-    static SCEPMessageCertResponse => 3
+    static CertResponse => 3
 
     /**
+     * Native name: SCEPMessagePKCSRequest
      * @type {Integer (Int32)}
      */
-    static SCEPMessagePKCSRequest => 19
+    static MessagePKCSRequest => 19
 
     /**
+     * Native name: SCEPMessageGetCertInitial
      * @type {Integer (Int32)}
      */
-    static SCEPMessageGetCertInitial => 20
+    static GetCertInitial => 20
 
     /**
+     * Native name: SCEPMessageGetCert
      * @type {Integer (Int32)}
      */
-    static SCEPMessageGetCert => 21
+    static GetCert => 21
 
     /**
+     * Native name: SCEPMessageGetCRL
      * @type {Integer (Int32)}
      */
-    static SCEPMessageGetCRL => 22
+    static GetCRL => 22
 
     /**
+     * Native name: SCEPMessageClaimChallengeAnswer
      * @type {Integer (Int32)}
      */
-    static SCEPMessageClaimChallengeAnswer => 41
+    static ClaimChallengeAnswer => 41
 }

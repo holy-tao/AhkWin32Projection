@@ -31,7 +31,6 @@ class IModelMethod extends IUnknown {
     static VTableNames => ["Call"]
 
     /**
-     * 
      * @param {IModelObject} pContextObject 
      * @param {Integer} argCount 
      * @param {Pointer<IModelObject>} ppArguments 

@@ -31,7 +31,6 @@ class IWICBitmapToneMapper extends IWICBitmapSource {
     static VTableNames => ["InitializeForHdrTarget", "InitializeForSdrTarget"]
 
     /**
-     * 
      * @param {IWICBitmapSource} pISource 
      * @param {Pointer<Guid>} guidDstFormat 
      * @param {Float} fLuminanceInNits 
@@ -45,7 +44,6 @@ class IWICBitmapToneMapper extends IWICBitmapSource {
     }
 
     /**
-     * 
      * @param {IWICBitmapSource} pISource 
      * @param {Pointer<Guid>} guidDstFormat 
      * @param {WICBitmapToneMappingMode} _mode 

@@ -14,30 +14,35 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.
+     * Native name: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The associated frame will be used as a reference frame in future encode commands. Indicates that the reconstructed picture along with the bitstream should be output for the host to place it in future calls in the reconstructed pictures reference list. 
      * 
      * Note that there might be limitations for some frame types to be marked as references. Check feature support before setting this value.
+     * Native name: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_USED_AS_REFERENCE_PICTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_USED_AS_REFERENCE_PICTURE => 1
+    static FLAG_USED_AS_REFERENCE_PICTURE => 1
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_QUANTIZATION_MATRIX_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_QUANTIZATION_MATRIX_INPUT => 2
+    static FLAG_ENABLE_QUANTIZATION_MATRIX_INPUT => 2
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_DIRTY_REGIONS_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_DIRTY_REGIONS_INPUT => 4
+    static FLAG_ENABLE_DIRTY_REGIONS_INPUT => 4
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_MOTION_VECTORS_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_ENABLE_MOTION_VECTORS_INPUT => 8
+    static FLAG_ENABLE_MOTION_VECTORS_INPUT => 8
 }

@@ -29,7 +29,6 @@ class IViewObjectPrint extends IUnknown {
     static VTableNames => ["GetPrintBitmap"]
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetPrintBitmap() {

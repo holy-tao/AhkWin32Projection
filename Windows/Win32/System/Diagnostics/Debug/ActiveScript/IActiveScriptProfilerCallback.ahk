@@ -79,7 +79,6 @@ class IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} scriptId 
      * @param {PROFILER_SCRIPT_TYPE} type 
      * @param {IUnknown} pIDebugDocumentContext 
@@ -91,7 +90,6 @@ class IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} functionId 
      * @param {Integer} scriptId 
      * @param {PWSTR} pwszFunctionName 
@@ -108,7 +106,6 @@ class IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} scriptId 
      * @param {Integer} functionId 
      * @returns {HRESULT} 
@@ -119,7 +116,6 @@ class IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} scriptId 
      * @param {Integer} functionId 
      * @returns {HRESULT} 

@@ -51,7 +51,6 @@ class IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initColor 
      * @returns {VARIANT} 
      */
@@ -62,7 +61,6 @@ class IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} fontName 
      * @returns {VARIANT} 
      */
@@ -75,7 +73,6 @@ class IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Fonts() {
@@ -84,7 +81,6 @@ class IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_BlockFormats() {

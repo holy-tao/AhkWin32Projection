@@ -628,7 +628,6 @@ class Media {
     }
 
     /**
-     * 
      * @param {Integer} uDelay 
      * @param {Integer} uResolution 
      * @param {Pointer<LPTIMECALLBACK>} fptc 
@@ -642,7 +641,6 @@ class Media {
     }
 
     /**
-     * 
      * @param {Integer} uTimerID 
      * @returns {Integer} 
      */

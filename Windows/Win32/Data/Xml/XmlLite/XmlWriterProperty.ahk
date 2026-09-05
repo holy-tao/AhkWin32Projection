@@ -7,37 +7,44 @@
 class XmlWriterProperty extends Win32Enum {
 
     /**
+     * Native name: XmlWriterProperty_MultiLanguage
      * @type {Integer (Int32)}
      */
-    static XmlWriterProperty_MultiLanguage => 0
+    static MultiLanguage => 0
 
     /**
+     * Native name: XmlWriterProperty_Indent
      * @type {Integer (Int32)}
      */
-    static XmlWriterProperty_Indent => 1
+    static Indent => 1
 
     /**
+     * Native name: XmlWriterProperty_ByteOrderMark
      * @type {Integer (Int32)}
      */
-    static XmlWriterProperty_ByteOrderMark => 2
+    static ByteOrderMark => 2
 
     /**
+     * Native name: XmlWriterProperty_OmitXmlDeclaration
      * @type {Integer (Int32)}
      */
-    static XmlWriterProperty_OmitXmlDeclaration => 3
+    static OmitXmlDeclaration => 3
 
     /**
+     * Native name: XmlWriterProperty_ConformanceLevel
      * @type {Integer (Int32)}
      */
-    static XmlWriterProperty_ConformanceLevel => 4
+    static ConformanceLevel => 4
 
     /**
+     * Native name: XmlWriterProperty_CompactEmptyElement
      * @type {Integer (Int32)}
      */
-    static XmlWriterProperty_CompactEmptyElement => 5
+    static CompactEmptyElement => 5
 
     /**
+     * Native name: _XmlWriterProperty_Last
      * @type {Integer (Int32)}
      */
-    static _XmlWriterProperty_Last => 5
+    static Last => 5
 }

@@ -31,7 +31,6 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread {
     static VTableNames => ["SynchronousCallIntoThread32", "QueryIsCurrentThread", "QueryIsDebuggerThread", "SetDescription", "SetStateString"]
 
     /**
-     * 
      * @param {IDebugThreadCall32} pstcb 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 
@@ -44,7 +43,6 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsCurrentThread() {
@@ -53,7 +51,6 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsDebuggerThread() {
@@ -62,7 +59,6 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrDescription 
      * @returns {HRESULT} 
      */
@@ -74,7 +70,6 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrState 
      * @returns {HRESULT} 
      */

@@ -7,32 +7,38 @@
 class NVME_ZONE_SEND_ACTION extends Win32Enum {
 
     /**
+     * Native name: NVME_ZONE_SEND_CLOSE
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_SEND_CLOSE => 1
+    static CLOSE => 1
 
     /**
+     * Native name: NVME_ZONE_SEND_FINISH
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_SEND_FINISH => 2
+    static FINISH => 2
 
     /**
+     * Native name: NVME_ZONE_SEND_OPEN
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_SEND_OPEN => 3
+    static OPEN => 3
 
     /**
+     * Native name: NVME_ZONE_SEND_RESET
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_SEND_RESET => 4
+    static RESET => 4
 
     /**
+     * Native name: NVME_ZONE_SEND_OFFLINE
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_SEND_OFFLINE => 5
+    static OFFLINE => 5
 
     /**
+     * Native name: NVME_ZONE_SEND_SET_ZONE_DESCRIPTOR
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_SEND_SET_ZONE_DESCRIPTOR => 16
+    static SET_ZONE_DESCRIPTOR => 16
 }

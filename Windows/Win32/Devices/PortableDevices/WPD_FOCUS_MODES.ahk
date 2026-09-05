@@ -11,22 +11,26 @@
 class WPD_FOCUS_MODES extends Win32Enum {
 
     /**
+     * Native name: WPD_FOCUS_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_FOCUS_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: WPD_FOCUS_MANUAL
      * @type {Integer (Int32)}
      */
-    static WPD_FOCUS_MANUAL => 1
+    static MANUAL => 1
 
     /**
+     * Native name: WPD_FOCUS_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static WPD_FOCUS_AUTOMATIC => 2
+    static AUTOMATIC => 2
 
     /**
+     * Native name: WPD_FOCUS_AUTOMATIC_MACRO
      * @type {Integer (Int32)}
      */
-    static WPD_FOCUS_AUTOMATIC_MACRO => 3
+    static AUTOMATIC_MACRO => 3
 }

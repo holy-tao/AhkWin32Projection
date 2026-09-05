@@ -7,32 +7,38 @@
 class styleVisibility extends Win32Enum {
 
     /**
+     * Native name: styleVisibilityNotSet
      * @type {Integer (Int32)}
      */
-    static styleVisibilityNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleVisibilityInherit
      * @type {Integer (Int32)}
      */
-    static styleVisibilityInherit => 1
+    static Inherit => 1
 
     /**
+     * Native name: styleVisibilityVisible
      * @type {Integer (Int32)}
      */
-    static styleVisibilityVisible => 2
+    static Visible => 2
 
     /**
+     * Native name: styleVisibilityHidden
      * @type {Integer (Int32)}
      */
-    static styleVisibilityHidden => 3
+    static Hidden => 3
 
     /**
+     * Native name: styleVisibilityCollapse
      * @type {Integer (Int32)}
      */
-    static styleVisibilityCollapse => 4
+    static Collapse => 4
 
     /**
+     * Native name: styleVisibility_Max
      * @type {Integer (Int32)}
      */
-    static styleVisibility_Max => 2147483647
+    static Max => 2147483647
 }

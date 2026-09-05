@@ -30,7 +30,6 @@ class IWbemAddressResolution extends IUnknown {
     static VTableNames => ["Resolve"]
 
     /**
-     * 
      * @param {PWSTR} wszNamespacePath 
      * @param {PWSTR} wszAddressType 
      * @param {Pointer<Integer>} pdwAddressLength 

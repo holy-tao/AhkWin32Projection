@@ -12,27 +12,31 @@ class D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE extends Win32Enum {
 
     /**
      * No shader patching is to be done.  This will retain the original shader bytecode.  Can lead to errors in some of the GPU-Based Validation state tracking as the unpatched shader may still change resource state (see <a href="https://docs.microsoft.com/windows/desktop/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12">Common state promotion</a>) but the promotion will be untracked without patching the shader.  This can improve performance but no validation will be performed and may also lead to misleading GPU-Based Validation errors. Use this mode very carefully.
+     * Native name: D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_NONE => 0
+    static NONE => 0
 
     /**
      * Shaders can be patched with resource state tracking code but no validation.  This may improve performance but no validation will be performed.
+     * Native name: D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_STATE_TRACKING_ONLY
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_STATE_TRACKING_ONLY => 1
+    static STATE_TRACKING_ONLY => 1
 
     /**
      * The default. Shaders are patched with validation code but erroneous instructions will still be executed.
+     * Native name: D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_UNGUARDED_VALIDATION
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_UNGUARDED_VALIDATION => 2
+    static UNGUARDED_VALIDATION => 2
 
     /**
      * Shaders are patched with validation code and erroneous instructions are skipped in execution.  This can help avoid crashes or device removal.
+     * Native name: D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_GUARDED_VALIDATION
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE_GUARDED_VALIDATION => 3
+    static GUARDED_VALIDATION => 3
 
     /**
      * Unused, simply the count of the number of modes.

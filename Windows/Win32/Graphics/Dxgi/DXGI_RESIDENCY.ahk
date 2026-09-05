@@ -12,19 +12,22 @@ class DXGI_RESIDENCY extends Win32Enum {
 
     /**
      * The resource is located in video memory.
+     * Native name: DXGI_RESIDENCY_FULLY_RESIDENT
      * @type {Integer (Int32)}
      */
-    static DXGI_RESIDENCY_FULLY_RESIDENT => 1
+    static FULLY_RESIDENT => 1
 
     /**
      * At least some of the resource is located in CPU memory.
+     * Native name: DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY
      * @type {Integer (Int32)}
      */
-    static DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY => 2
+    static RESIDENT_IN_SHARED_MEMORY => 2
 
     /**
      * At least some of the resource has been paged out to the hard drive.
+     * Native name: DXGI_RESIDENCY_EVICTED_TO_DISK
      * @type {Integer (Int32)}
      */
-    static DXGI_RESIDENCY_EVICTED_TO_DISK => 3
+    static EVICTED_TO_DISK => 3
 }

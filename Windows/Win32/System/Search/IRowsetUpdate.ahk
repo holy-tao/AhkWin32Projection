@@ -30,7 +30,6 @@ class IRowsetUpdate extends IRowsetChange {
     static VTableNames => ["GetOriginalData", "GetPendingRows", "GetRowStatus", "Undo", "Update"]
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
@@ -43,7 +42,6 @@ class IRowsetUpdate extends IRowsetChange {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Integer} dwRowStatus 
      * @param {Pointer<Pointer>} pcPendingRows 
@@ -61,7 +59,6 @@ class IRowsetUpdate extends IRowsetChange {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 

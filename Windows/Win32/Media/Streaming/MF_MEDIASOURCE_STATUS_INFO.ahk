@@ -10,15 +10,17 @@ class MF_MEDIASOURCE_STATUS_INFO extends Win32Enum {
 
     /**
      * The media source is fully supported.
+     * Native name: MF_MEDIASOURCE_STATUS_INFO_FULLYSUPPORTED
      * @type {Integer (Int32)}
      */
-    static MF_MEDIASOURCE_STATUS_INFO_FULLYSUPPORTED => 0
+    static FULLYSUPPORTED => 0
 
     /**
      * The status is unknown.
      * 
      * >>>>>>> master
+     * Native name: MF_MEDIASOURCE_STATUS_INFO_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MF_MEDIASOURCE_STATUS_INFO_UNKNOWN => 1
+    static UNKNOWN => 1
 }

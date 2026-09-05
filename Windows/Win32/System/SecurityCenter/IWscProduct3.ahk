@@ -36,7 +36,6 @@ class IWscProduct3 extends IWscProduct2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AntivirusDaysUntilExpired() {

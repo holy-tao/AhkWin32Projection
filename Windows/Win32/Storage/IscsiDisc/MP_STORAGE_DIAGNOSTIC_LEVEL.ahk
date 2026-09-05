@@ -7,12 +7,14 @@
 class MP_STORAGE_DIAGNOSTIC_LEVEL extends Win32Enum {
 
     /**
+     * Native name: MpStorageDiagnosticLevelDefault
      * @type {Integer (Int32)}
      */
-    static MpStorageDiagnosticLevelDefault => 0
+    static Default => 0
 
     /**
+     * Native name: MpStorageDiagnosticLevelMax
      * @type {Integer (Int32)}
      */
-    static MpStorageDiagnosticLevelMax => 1
+    static Max => 1
 }

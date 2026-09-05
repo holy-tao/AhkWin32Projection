@@ -7,62 +7,74 @@
 class DBGKD_MAJOR_TYPES extends Win32Enum {
 
     /**
+     * Native name: DBGKD_MAJOR_NT
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_NT => 0
+    static NT => 0
 
     /**
+     * Native name: DBGKD_MAJOR_XBOX
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_XBOX => 1
+    static XBOX => 1
 
     /**
+     * Native name: DBGKD_MAJOR_BIG
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_BIG => 2
+    static BIG => 2
 
     /**
+     * Native name: DBGKD_MAJOR_EXDI
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_EXDI => 3
+    static EXDI => 3
 
     /**
+     * Native name: DBGKD_MAJOR_NTBD
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_NTBD => 4
+    static NTBD => 4
 
     /**
+     * Native name: DBGKD_MAJOR_EFI
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_EFI => 5
+    static EFI => 5
 
     /**
+     * Native name: DBGKD_MAJOR_TNT
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_TNT => 6
+    static TNT => 6
 
     /**
+     * Native name: DBGKD_MAJOR_SINGULARITY
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_SINGULARITY => 7
+    static SINGULARITY => 7
 
     /**
+     * Native name: DBGKD_MAJOR_HYPERVISOR
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_HYPERVISOR => 8
+    static HYPERVISOR => 8
 
     /**
+     * Native name: DBGKD_MAJOR_MIDORI
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_MIDORI => 9
+    static MIDORI => 9
 
     /**
+     * Native name: DBGKD_MAJOR_CE
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_CE => 10
+    static CE => 10
 
     /**
+     * Native name: DBGKD_MAJOR_COUNT
      * @type {Integer (Int32)}
      */
-    static DBGKD_MAJOR_COUNT => 11
+    static COUNT => 11
 }

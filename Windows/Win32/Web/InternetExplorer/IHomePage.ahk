@@ -37,7 +37,6 @@ class IHomePage extends IDispatch {
     static VTableNames => ["navigateHomePage", "setHomePage", "isHomePage"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     navigateHomePage() {
@@ -46,7 +45,6 @@ class IHomePage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrURL 
      * @returns {HRESULT} 
      */
@@ -58,7 +56,6 @@ class IHomePage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrURL 
      * @returns {VARIANT_BOOL} 
      */

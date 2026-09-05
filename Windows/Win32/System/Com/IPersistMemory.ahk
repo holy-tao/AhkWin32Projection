@@ -30,7 +30,6 @@ class IPersistMemory extends IPersist {
     static VTableNames => ["IsDirty", "Load", "Save", "GetSizeMax", "InitNew"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsDirty() {
@@ -118,7 +117,6 @@ class IPersistMemory extends IPersist {
     }
 
     /**
-     * 
      * @param {BOOL} fClearDirty 
      * @param {Integer} cbSize 
      * @returns {Void} 
@@ -129,7 +127,6 @@ class IPersistMemory extends IPersist {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSizeMax() {
@@ -138,7 +135,6 @@ class IPersistMemory extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitNew() {

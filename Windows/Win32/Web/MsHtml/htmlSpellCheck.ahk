@@ -7,27 +7,32 @@
 class htmlSpellCheck extends Win32Enum {
 
     /**
+     * Native name: htmlSpellCheckNotSet
      * @type {Integer (Int32)}
      */
-    static htmlSpellCheckNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlSpellCheckTrue
      * @type {Integer (Int32)}
      */
-    static htmlSpellCheckTrue => 1
+    static True => 1
 
     /**
+     * Native name: htmlSpellCheckFalse
      * @type {Integer (Int32)}
      */
-    static htmlSpellCheckFalse => 2
+    static False => 2
 
     /**
+     * Native name: htmlSpellCheckDefault
      * @type {Integer (Int32)}
      */
-    static htmlSpellCheckDefault => 3
+    static Default => 3
 
     /**
+     * Native name: htmlSpellCheck_Max
      * @type {Integer (Int32)}
      */
-    static htmlSpellCheck_Max => 2147483647
+    static Max => 2147483647
 }

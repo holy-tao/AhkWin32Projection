@@ -7,54 +7,64 @@
 class KEY_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: KeyBasicInformation
      * @type {Integer (Int32)}
      */
-    static KeyBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: KeyNodeInformation
      * @type {Integer (Int32)}
      */
-    static KeyNodeInformation => 1
+    static NodeInformation => 1
 
     /**
+     * Native name: KeyFullInformation
      * @type {Integer (Int32)}
      */
-    static KeyFullInformation => 2
+    static FullInformation => 2
 
     /**
+     * Native name: KeyNameInformation
      * @type {Integer (Int32)}
      */
-    static KeyNameInformation => 3
+    static NameInformation => 3
 
     /**
+     * Native name: KeyCachedInformation
      * @type {Integer (Int32)}
      */
-    static KeyCachedInformation => 4
+    static CachedInformation => 4
 
     /**
+     * Native name: KeyFlagsInformation
      * @type {Integer (Int32)}
      */
-    static KeyFlagsInformation => 5
+    static FlagsInformation => 5
 
     /**
+     * Native name: KeyVirtualizationInformation
      * @type {Integer (Int32)}
      */
-    static KeyVirtualizationInformation => 6
+    static VirtualizationInformation => 6
 
     /**
+     * Native name: KeyHandleTagsInformation
      * @type {Integer (Int32)}
      */
-    static KeyHandleTagsInformation => 7
+    static HandleTagsInformation => 7
 
     /**
+     * Native name: KeyTrustInformation
      * @type {Integer (Int32)}
      */
-    static KeyTrustInformation => 8
+    static TrustInformation => 8
 
     /**
+     * Native name: KeyLayerInformation
      * @type {Integer (Int32)}
      */
-    static KeyLayerInformation => 9
+    static LayerInformation => 9
 
     /**
      * @type {Integer (Int32)}

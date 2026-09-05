@@ -7,12 +7,14 @@
 class LocalKind extends Win32Enum {
 
     /**
+     * Native name: LocalArgument
      * @type {Integer (Int32)}
      */
-    static LocalArgument => 0
+    static Argument => 0
 
     /**
+     * Native name: LocalVariable
      * @type {Integer (Int32)}
      */
-    static LocalVariable => 1
+    static Variable => 1
 }

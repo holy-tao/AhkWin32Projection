@@ -7,42 +7,50 @@
 class FWP_ACTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: FWP_ACTION_BLOCK
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_BLOCK => 4097
+    static BLOCK => 4097
 
     /**
+     * Native name: FWP_ACTION_PERMIT
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_PERMIT => 4098
+    static PERMIT => 4098
 
     /**
+     * Native name: FWP_ACTION_CALLOUT_TERMINATING
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_CALLOUT_TERMINATING => 20483
+    static CALLOUT_TERMINATING => 20483
 
     /**
+     * Native name: FWP_ACTION_CALLOUT_INSPECTION
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_CALLOUT_INSPECTION => 24580
+    static CALLOUT_INSPECTION => 24580
 
     /**
+     * Native name: FWP_ACTION_CALLOUT_UNKNOWN
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_CALLOUT_UNKNOWN => 16389
+    static CALLOUT_UNKNOWN => 16389
 
     /**
+     * Native name: FWP_ACTION_CONTINUE
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_CONTINUE => 8198
+    static CONTINUE => 8198
 
     /**
+     * Native name: FWP_ACTION_NONE
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_NONE => 7
+    static NONE => 7
 
     /**
+     * Native name: FWP_ACTION_NONE_NO_MATCH
      * @type {Integer (UInt32)}
      */
-    static FWP_ACTION_NONE_NO_MATCH => 8
+    static NONE_NO_MATCH => 8
 }

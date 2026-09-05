@@ -14,25 +14,29 @@ class XPS_LINE_CAP extends Win32Enum {
 
     /**
      * Flat line cap.
+     * Native name: XPS_LINE_CAP_FLAT
      * @type {Integer (Int32)}
      */
-    static XPS_LINE_CAP_FLAT => 1
+    static FLAT => 1
 
     /**
      * Round line cap.
+     * Native name: XPS_LINE_CAP_ROUND
      * @type {Integer (Int32)}
      */
-    static XPS_LINE_CAP_ROUND => 2
+    static ROUND => 2
 
     /**
      * Square line cap.
+     * Native name: XPS_LINE_CAP_SQUARE
      * @type {Integer (Int32)}
      */
-    static XPS_LINE_CAP_SQUARE => 3
+    static SQUARE => 3
 
     /**
      * Triangular line cap.
+     * Native name: XPS_LINE_CAP_TRIANGLE
      * @type {Integer (Int32)}
      */
-    static XPS_LINE_CAP_TRIANGLE => 4
+    static TRIANGLE => 4
 }

@@ -50,7 +50,6 @@ class ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumberList} v 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ class ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGNumberList} 
      */
     get_baseVal() {
@@ -69,7 +67,6 @@ class ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumberList} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGNumberList} 
      */
     get_animVal() {

@@ -32,7 +32,6 @@ class ID3D12DeviceFactory extends IUnknown {
     static VTableNames => ["InitializeFromGlobalState", "ApplyToGlobalState", "SetFlags", "GetFlags", "GetConfigurationInterface", "EnableExperimentalFeatures", "CreateDevice"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitializeFromGlobalState() {
@@ -41,7 +40,6 @@ class ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ApplyToGlobalState() {
@@ -142,7 +140,6 @@ class ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D12_DEVICE_FACTORY_FLAGS} 
      */
     GetFlags() {
@@ -151,7 +148,6 @@ class ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} iid 
      * @returns {Pointer<Void>} 
@@ -162,7 +158,6 @@ class ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} NumFeatures 
      * @param {Pointer<Guid>} pIIDs 
      * @param {Pointer<Void>} pConfigurationStructs 
@@ -178,7 +173,6 @@ class ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} _adapter 
      * @param {D3D_FEATURE_LEVEL} FeatureLevel 
      * @param {Pointer<Guid>} riid 

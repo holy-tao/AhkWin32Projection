@@ -7,22 +7,26 @@
 class WINHTTP_ACCESS_TYPE extends Win32Enum {
 
     /**
+     * Native name: WINHTTP_ACCESS_TYPE_NO_PROXY
      * @type {Integer (UInt32)}
      */
-    static WINHTTP_ACCESS_TYPE_NO_PROXY => 1
+    static NO_PROXY => 1
 
     /**
+     * Native name: WINHTTP_ACCESS_TYPE_DEFAULT_PROXY
      * @type {Integer (UInt32)}
      */
-    static WINHTTP_ACCESS_TYPE_DEFAULT_PROXY => 0
+    static DEFAULT_PROXY => 0
 
     /**
+     * Native name: WINHTTP_ACCESS_TYPE_NAMED_PROXY
      * @type {Integer (UInt32)}
      */
-    static WINHTTP_ACCESS_TYPE_NAMED_PROXY => 3
+    static NAMED_PROXY => 3
 
     /**
+     * Native name: WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY
      * @type {Integer (UInt32)}
      */
-    static WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY => 4
+    static AUTOMATIC_PROXY => 4
 }

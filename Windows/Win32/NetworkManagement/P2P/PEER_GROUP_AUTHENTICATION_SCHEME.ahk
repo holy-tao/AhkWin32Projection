@@ -10,13 +10,15 @@ class PEER_GROUP_AUTHENTICATION_SCHEME extends Win32Enum {
 
     /**
      * Authentication is performed using Group Membership Certificates (GMC).
+     * Native name: PEER_GROUP_GMC_AUTHENTICATION
      * @type {Integer (Int32)}
      */
-    static PEER_GROUP_GMC_AUTHENTICATION => 1
+    static GMC_AUTHENTICATION => 1
 
     /**
      * Authentication is performed by validating a provided password.
+     * Native name: PEER_GROUP_PASSWORD_AUTHENTICATION
      * @type {Integer (Int32)}
      */
-    static PEER_GROUP_PASSWORD_AUTHENTICATION => 2
+    static PASSWORD_AUTHENTICATION => 2
 }

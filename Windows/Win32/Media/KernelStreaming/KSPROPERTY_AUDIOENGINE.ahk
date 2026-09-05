@@ -7,52 +7,62 @@
 class KSPROPERTY_AUDIOENGINE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_LFXENABLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_LFXENABLE => 0
+    static LFXENABLE => 0
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_GFXENABLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_GFXENABLE => 1
+    static GFXENABLE => 1
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_MIXFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_MIXFORMAT => 2
+    static MIXFORMAT => 2
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_DEVICEFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_DEVICEFORMAT => 4
+    static DEVICEFORMAT => 4
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_SUPPORTEDDEVICEFORMATS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_SUPPORTEDDEVICEFORMATS => 5
+    static SUPPORTEDDEVICEFORMATS => 5
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_DESCRIPTOR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_DESCRIPTOR => 6
+    static DESCRIPTOR => 6
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_BUFFER_SIZE_RANGE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_BUFFER_SIZE_RANGE => 7
+    static BUFFER_SIZE_RANGE => 7
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_LOOPBACK_PROTECTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_LOOPBACK_PROTECTION => 8
+    static LOOPBACK_PROTECTION => 8
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_VOLUMELEVEL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_VOLUMELEVEL => 9
+    static VOLUMELEVEL => 9
 
     /**
+     * Native name: KSPROPERTY_AUDIOENGINE_DEVICECONTROLS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOENGINE_DEVICECONTROLS => 10
+    static DEVICECONTROLS => 10
 }

@@ -51,7 +51,6 @@ class IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ class IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mediaText() {
@@ -73,7 +71,6 @@ class IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -82,7 +79,6 @@ class IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -93,7 +89,6 @@ class IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMedium 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ class IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMedium 
      * @returns {HRESULT} 
      */

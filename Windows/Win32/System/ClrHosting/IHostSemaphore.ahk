@@ -29,7 +29,6 @@ class IHostSemaphore extends IUnknown {
     static VTableNames => ["Wait", "ReleaseSemaphore"]
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
      * @returns {HRESULT} 

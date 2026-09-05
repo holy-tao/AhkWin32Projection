@@ -39,7 +39,6 @@ class ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_Format() {
@@ -48,7 +47,6 @@ class ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechAudioFormat} AudioFormat 
      * @returns {HRESULT} 
      */
@@ -58,7 +56,6 @@ class ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} _Buffer 
      * @param {Integer} NumberOfBytes 
      * @param {Pointer<Integer>} BytesRead 
@@ -72,7 +69,6 @@ class ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} _Buffer 
      * @returns {Integer} 
      */
@@ -82,7 +78,6 @@ class ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} Position 
      * @param {SpeechStreamSeekPositionType} Origin 
      * @returns {VARIANT} 

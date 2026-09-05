@@ -31,7 +31,6 @@ class IFtpPostprocessProvider extends IUnknown {
     static VTableNames => ["HandlePostprocess"]
 
     /**
-     * 
      * @param {Pointer<POST_PROCESS_PARAMETERS>} pPostProcessParameters 
      * @returns {FTP_PROCESS_STATUS} 
      */

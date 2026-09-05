@@ -37,7 +37,6 @@ class IDirectInput8A extends IUnknown {
     static VTableNames => ["CreateDevice", "EnumDevices", "GetDeviceStatus", "RunControlPanel", "Initialize", "FindDevice", "EnumDevicesBySemantics", "ConfigureDevices"]
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectInputDevice8A} 
@@ -48,7 +47,6 @@ class IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<LPDIENUMDEVICESCALLBACKA>} param1 
      * @param {Pointer<Void>} param2 
@@ -63,7 +61,6 @@ class IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @returns {HRESULT} 
      */
@@ -73,7 +70,6 @@ class IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -123,7 +119,6 @@ class IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PSTR} param1 
      * @param {Pointer<Guid>} param2 
@@ -137,7 +132,6 @@ class IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Pointer<DIACTIONFORMATA>} param1 
      * @param {Pointer<LPDIENUMDEVICESBYSEMANTICSCBA>} param2 
@@ -155,7 +149,6 @@ class IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPDICONFIGUREDEVICESCALLBACK>} param0 
      * @param {Pointer<DICONFIGUREDEVICESPARAMSA>} param1 
      * @param {Integer} param2 

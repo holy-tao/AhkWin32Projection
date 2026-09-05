@@ -14,13 +14,15 @@ class CSC_Binding extends Win32Enum {
 
     /**
      * The work submitted through the activity is not bound to a single STA.
+     * Native name: CSC_NoBinding
      * @type {Integer (Int32)}
      */
-    static CSC_NoBinding => 0
+    static NoBinding => 0
 
     /**
      * The work submitted through the activity is bound to a single STA.
+     * Native name: CSC_BindToPoolThread
      * @type {Integer (Int32)}
      */
-    static CSC_BindToPoolThread => 1
+    static BindToPoolThread => 1
 }

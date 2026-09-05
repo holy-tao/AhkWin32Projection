@@ -34,7 +34,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     static VTableNames => ["ThreadNameChanged", "GarbageCollectionStarted", "SurvivingReferences", "GarbageCollectionFinished", "FinalizeableObjectQueued", "RootReferences2", "HandleCreated", "HandleDestroyed"]
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @param {Integer} cchName 
      * @param {PWSTR} name 
@@ -48,7 +47,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Integer} cGenerations 
      * @param {Pointer<BOOL>} generationCollected 
      * @param {COR_PRF_GC_REASON} reason 
@@ -62,7 +60,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Integer} cSurvivingObjectIDRanges 
      * @param {Pointer<Pointer>} objectIDRangeStart 
      * @param {Pointer<Integer>} cObjectIDRangeLength 
@@ -77,7 +74,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GarbageCollectionFinished() {
@@ -86,7 +82,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Integer} finalizerFlags 
      * @param {Pointer} _objectID 
      * @returns {HRESULT} 
@@ -97,7 +92,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Integer} cRootRefs 
      * @param {Pointer<Pointer>} rootRefIds 
      * @param {Pointer<COR_PRF_GC_ROOT_KIND>} rootKinds 
@@ -116,7 +110,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Pointer} handleId 
      * @param {Pointer} initialObjectId 
      * @returns {HRESULT} 
@@ -127,7 +120,6 @@ class ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Pointer} handleId 
      * @returns {HRESULT} 
      */

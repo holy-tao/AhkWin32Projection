@@ -29,7 +29,6 @@ class IDtcLuRecoveryInitiatedByDtcStatusWork extends IUnknown {
     static VTableNames => ["HandleCheckLuStatus"]
 
     /**
-     * 
      * @param {Integer} lRecoverySeqNum 
      * @returns {HRESULT} 
      */

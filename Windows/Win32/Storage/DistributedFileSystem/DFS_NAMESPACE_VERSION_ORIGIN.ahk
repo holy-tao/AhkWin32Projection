@@ -10,19 +10,22 @@ class DFS_NAMESPACE_VERSION_ORIGIN extends Win32Enum {
 
     /**
      * The version information specifies the maximum version that the server and the Active Directory Domain Service (AD DS) domain can support.
+     * Native name: DFS_NAMESPACE_VERSION_ORIGIN_COMBINED
      * @type {Integer (Int32)}
      */
-    static DFS_NAMESPACE_VERSION_ORIGIN_COMBINED => 0
+    static COMBINED => 0
 
     /**
      * The version information specifies the maximum version that the server can support.
+     * Native name: DFS_NAMESPACE_VERSION_ORIGIN_SERVER
      * @type {Integer (Int32)}
      */
-    static DFS_NAMESPACE_VERSION_ORIGIN_SERVER => 1
+    static SERVER => 1
 
     /**
      * The version information specifies the maximum version that the AD DS domain can support.
+     * Native name: DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN
      * @type {Integer (Int32)}
      */
-    static DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN => 2
+    static DOMAIN => 2
 }

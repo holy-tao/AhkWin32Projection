@@ -12,13 +12,15 @@ class WMT_TRANSPORT_TYPE extends Win32Enum {
 
     /**
      * The transport type is not reliable.
+     * Native name: WMT_Transport_Type_Unreliable
      * @type {Integer (Int32)}
      */
-    static WMT_Transport_Type_Unreliable => 0
+    static Unreliable => 0
 
     /**
      * The transport type is reliable.
+     * Native name: WMT_Transport_Type_Reliable
      * @type {Integer (Int32)}
      */
-    static WMT_Transport_Type_Reliable => 1
+    static Reliable => 1
 }

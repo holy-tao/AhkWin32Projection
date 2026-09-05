@@ -10,7 +10,8 @@ class WICWebpAnimProperties extends Win32Enum {
 
     /**
      * The number of times the animation loops. A value of 0 indicates that the animation will loop infinitely.
+     * Native name: WICWebpAnimLoopCount
      * @type {Integer (Int32)}
      */
-    static WICWebpAnimLoopCount => 1
+    static LoopCount => 1
 }

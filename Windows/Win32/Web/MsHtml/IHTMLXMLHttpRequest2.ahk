@@ -46,7 +46,6 @@ class IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timeout() {
@@ -65,7 +63,6 @@ class IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -75,7 +72,6 @@ class IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ontimeout() {

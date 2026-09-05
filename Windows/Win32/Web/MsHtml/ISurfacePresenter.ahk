@@ -32,7 +32,6 @@ class ISurfacePresenter extends IUnknown {
     static VTableNames => ["Present", "GetBuffer", "IsCurrent"]
 
     /**
-     * 
      * @param {Integer} uBuffer 
      * @param {Pointer<RECT>} pDirty 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class ISurfacePresenter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} backBufferIndex 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -54,7 +52,6 @@ class ISurfacePresenter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsCurrent() {

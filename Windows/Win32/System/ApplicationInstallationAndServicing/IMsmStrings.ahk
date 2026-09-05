@@ -44,7 +44,6 @@ class IMsmStrings extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Item 
      * @param {Pointer<BSTR>} _Return 
      * @returns {HRESULT} 
@@ -55,7 +54,6 @@ class IMsmStrings extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Count 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IMsmStrings extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

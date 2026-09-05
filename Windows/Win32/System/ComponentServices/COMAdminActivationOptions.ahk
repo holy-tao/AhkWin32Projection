@@ -7,12 +7,14 @@
 class COMAdminActivationOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminActivationInproc
      * @type {Integer (Int32)}
      */
-    static COMAdminActivationInproc => 0
+    static Inproc => 0
 
     /**
+     * Native name: COMAdminActivationLocal
      * @type {Integer (Int32)}
      */
-    static COMAdminActivationLocal => 1
+    static Local => 1
 }

@@ -34,7 +34,6 @@ class IBindHost extends IUnknown {
     static VTableNames => ["CreateMoniker", "MonikerBindToStorage", "MonikerBindToObject"]
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {IBindCtx} pBC 
      * @param {Integer} dwReserved 
@@ -48,7 +47,6 @@ class IBindHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pMk 
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSC 
@@ -61,7 +59,6 @@ class IBindHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pMk 
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSC 

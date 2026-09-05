@@ -33,7 +33,6 @@ class IProtectionPolicyManagerInterop3 extends IInspectable {
     static VTableNames => ["RequestAccessWithBehaviorForWindowAsync", "RequestAccessForAppWithBehaviorForWindowAsync", "RequestAccessToFilesForAppForWindowAsync", "RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync", "RequestAccessToFilesForProcessForWindowAsync", "RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync"]
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {HSTRING} sourceIdentity 
      * @param {HSTRING} targetIdentity 
@@ -54,7 +53,6 @@ class IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {HSTRING} sourceIdentity 
      * @param {HSTRING} appPackageFamilyName 
@@ -75,7 +73,6 @@ class IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {HSTRING} appPackageFamilyName 
@@ -92,7 +89,6 @@ class IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {HSTRING} appPackageFamilyName 
@@ -112,7 +108,6 @@ class IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {Integer} processId 
@@ -128,7 +123,6 @@ class IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {Integer} processId 

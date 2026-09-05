@@ -7,87 +7,104 @@
 class R2_MODE extends Win32Enum {
 
     /**
+     * Native name: R2_BLACK
      * @type {Integer (Int32)}
      */
-    static R2_BLACK => 1
+    static BLACK => 1
 
     /**
+     * Native name: R2_NOTMERGEPEN
      * @type {Integer (Int32)}
      */
-    static R2_NOTMERGEPEN => 2
+    static NOTMERGEPEN => 2
 
     /**
+     * Native name: R2_MASKNOTPEN
      * @type {Integer (Int32)}
      */
-    static R2_MASKNOTPEN => 3
+    static MASKNOTPEN => 3
 
     /**
+     * Native name: R2_NOTCOPYPEN
      * @type {Integer (Int32)}
      */
-    static R2_NOTCOPYPEN => 4
+    static NOTCOPYPEN => 4
 
     /**
+     * Native name: R2_MASKPENNOT
      * @type {Integer (Int32)}
      */
-    static R2_MASKPENNOT => 5
+    static MASKPENNOT => 5
 
     /**
+     * Native name: R2_NOT
      * @type {Integer (Int32)}
      */
-    static R2_NOT => 6
+    static NOT => 6
 
     /**
+     * Native name: R2_XORPEN
      * @type {Integer (Int32)}
      */
-    static R2_XORPEN => 7
+    static XORPEN => 7
 
     /**
+     * Native name: R2_NOTMASKPEN
      * @type {Integer (Int32)}
      */
-    static R2_NOTMASKPEN => 8
+    static NOTMASKPEN => 8
 
     /**
+     * Native name: R2_MASKPEN
      * @type {Integer (Int32)}
      */
-    static R2_MASKPEN => 9
+    static MASKPEN => 9
 
     /**
+     * Native name: R2_NOTXORPEN
      * @type {Integer (Int32)}
      */
-    static R2_NOTXORPEN => 10
+    static NOTXORPEN => 10
 
     /**
+     * Native name: R2_NOP
      * @type {Integer (Int32)}
      */
-    static R2_NOP => 11
+    static NOP => 11
 
     /**
+     * Native name: R2_MERGENOTPEN
      * @type {Integer (Int32)}
      */
-    static R2_MERGENOTPEN => 12
+    static MERGENOTPEN => 12
 
     /**
+     * Native name: R2_COPYPEN
      * @type {Integer (Int32)}
      */
-    static R2_COPYPEN => 13
+    static COPYPEN => 13
 
     /**
+     * Native name: R2_MERGEPENNOT
      * @type {Integer (Int32)}
      */
-    static R2_MERGEPENNOT => 14
+    static MERGEPENNOT => 14
 
     /**
+     * Native name: R2_MERGEPEN
      * @type {Integer (Int32)}
      */
-    static R2_MERGEPEN => 15
+    static MERGEPEN => 15
 
     /**
+     * Native name: R2_WHITE
      * @type {Integer (Int32)}
      */
-    static R2_WHITE => 16
+    static WHITE => 16
 
     /**
+     * Native name: R2_LAST
      * @type {Integer (Int32)}
      */
-    static R2_LAST => 16
+    static LAST => 16
 }

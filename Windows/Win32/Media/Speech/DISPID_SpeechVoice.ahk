@@ -7,112 +7,134 @@
 class DISPID_SpeechVoice extends Win32Enum {
 
     /**
+     * Native name: DISPID_SVStatus
      * @type {Integer (Int32)}
      */
-    static DISPID_SVStatus => 1
+    static SVStatus => 1
 
     /**
+     * Native name: DISPID_SVVoice
      * @type {Integer (Int32)}
      */
-    static DISPID_SVVoice => 2
+    static SVVoice => 2
 
     /**
+     * Native name: DISPID_SVAudioOutput
      * @type {Integer (Int32)}
      */
-    static DISPID_SVAudioOutput => 3
+    static SVAudioOutput => 3
 
     /**
+     * Native name: DISPID_SVAudioOutputStream
      * @type {Integer (Int32)}
      */
-    static DISPID_SVAudioOutputStream => 4
+    static SVAudioOutputStream => 4
 
     /**
+     * Native name: DISPID_SVRate
      * @type {Integer (Int32)}
      */
-    static DISPID_SVRate => 5
+    static SVRate => 5
 
     /**
+     * Native name: DISPID_SVVolume
      * @type {Integer (Int32)}
      */
-    static DISPID_SVVolume => 6
+    static SVVolume => 6
 
     /**
+     * Native name: DISPID_SVAllowAudioOuputFormatChangesOnNextSet
      * @type {Integer (Int32)}
      */
-    static DISPID_SVAllowAudioOuputFormatChangesOnNextSet => 7
+    static SVAllowAudioOuputFormatChangesOnNextSet => 7
 
     /**
+     * Native name: DISPID_SVEventInterests
      * @type {Integer (Int32)}
      */
-    static DISPID_SVEventInterests => 8
+    static SVEventInterests => 8
 
     /**
+     * Native name: DISPID_SVPriority
      * @type {Integer (Int32)}
      */
-    static DISPID_SVPriority => 9
+    static SVPriority => 9
 
     /**
+     * Native name: DISPID_SVAlertBoundary
      * @type {Integer (Int32)}
      */
-    static DISPID_SVAlertBoundary => 10
+    static SVAlertBoundary => 10
 
     /**
+     * Native name: DISPID_SVSyncronousSpeakTimeout
      * @type {Integer (Int32)}
      */
-    static DISPID_SVSyncronousSpeakTimeout => 11
+    static SVSyncronousSpeakTimeout => 11
 
     /**
+     * Native name: DISPID_SVSpeak
      * @type {Integer (Int32)}
      */
-    static DISPID_SVSpeak => 12
+    static SVSpeak => 12
 
     /**
+     * Native name: DISPID_SVSpeakStream
      * @type {Integer (Int32)}
      */
-    static DISPID_SVSpeakStream => 13
+    static SVSpeakStream => 13
 
     /**
+     * Native name: DISPID_SVPause
      * @type {Integer (Int32)}
      */
-    static DISPID_SVPause => 14
+    static SVPause => 14
 
     /**
+     * Native name: DISPID_SVResume
      * @type {Integer (Int32)}
      */
-    static DISPID_SVResume => 15
+    static SVResume => 15
 
     /**
+     * Native name: DISPID_SVSkip
      * @type {Integer (Int32)}
      */
-    static DISPID_SVSkip => 16
+    static SVSkip => 16
 
     /**
+     * Native name: DISPID_SVGetVoices
      * @type {Integer (Int32)}
      */
-    static DISPID_SVGetVoices => 17
+    static SVGetVoices => 17
 
     /**
+     * Native name: DISPID_SVGetAudioOutputs
      * @type {Integer (Int32)}
      */
-    static DISPID_SVGetAudioOutputs => 18
+    static SVGetAudioOutputs => 18
 
     /**
+     * Native name: DISPID_SVWaitUntilDone
      * @type {Integer (Int32)}
      */
-    static DISPID_SVWaitUntilDone => 19
+    static SVWaitUntilDone => 19
 
     /**
+     * Native name: DISPID_SVSpeakCompleteEvent
      * @type {Integer (Int32)}
      */
-    static DISPID_SVSpeakCompleteEvent => 20
+    static SVSpeakCompleteEvent => 20
 
     /**
+     * Native name: DISPID_SVIsUISupported
      * @type {Integer (Int32)}
      */
-    static DISPID_SVIsUISupported => 21
+    static SVIsUISupported => 21
 
     /**
+     * Native name: DISPID_SVDisplayUI
      * @type {Integer (Int32)}
      */
-    static DISPID_SVDisplayUI => 22
+    static SVDisplayUI => 22
 }

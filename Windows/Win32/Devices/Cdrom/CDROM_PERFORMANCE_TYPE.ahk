@@ -7,12 +7,14 @@
 class CDROM_PERFORMANCE_TYPE extends Win32Enum {
 
     /**
+     * Native name: CdromReadPerformance
      * @type {Integer (Int32)}
      */
-    static CdromReadPerformance => 1
+    static ReadPerformance => 1
 
     /**
+     * Native name: CdromWritePerformance
      * @type {Integer (Int32)}
      */
-    static CdromWritePerformance => 2
+    static WritePerformance => 2
 }

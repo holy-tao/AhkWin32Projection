@@ -7,67 +7,80 @@
 class DISPID_SpeechPhraseElement extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPEAudioTimeOffset
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEAudioTimeOffset => 1
+    static SPEAudioTimeOffset => 1
 
     /**
+     * Native name: DISPID_SPEAudioSizeTime
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEAudioSizeTime => 2
+    static SPEAudioSizeTime => 2
 
     /**
+     * Native name: DISPID_SPEAudioStreamOffset
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEAudioStreamOffset => 3
+    static SPEAudioStreamOffset => 3
 
     /**
+     * Native name: DISPID_SPEAudioSizeBytes
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEAudioSizeBytes => 4
+    static SPEAudioSizeBytes => 4
 
     /**
+     * Native name: DISPID_SPERetainedStreamOffset
      * @type {Integer (Int32)}
      */
-    static DISPID_SPERetainedStreamOffset => 5
+    static SPERetainedStreamOffset => 5
 
     /**
+     * Native name: DISPID_SPERetainedSizeBytes
      * @type {Integer (Int32)}
      */
-    static DISPID_SPERetainedSizeBytes => 6
+    static SPERetainedSizeBytes => 6
 
     /**
+     * Native name: DISPID_SPEDisplayText
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEDisplayText => 7
+    static SPEDisplayText => 7
 
     /**
+     * Native name: DISPID_SPELexicalForm
      * @type {Integer (Int32)}
      */
-    static DISPID_SPELexicalForm => 8
+    static SPELexicalForm => 8
 
     /**
+     * Native name: DISPID_SPEPronunciation
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEPronunciation => 9
+    static SPEPronunciation => 9
 
     /**
+     * Native name: DISPID_SPEDisplayAttributes
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEDisplayAttributes => 10
+    static SPEDisplayAttributes => 10
 
     /**
+     * Native name: DISPID_SPERequiredConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_SPERequiredConfidence => 11
+    static SPERequiredConfidence => 11
 
     /**
+     * Native name: DISPID_SPEActualConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEActualConfidence => 12
+    static SPEActualConfidence => 12
 
     /**
+     * Native name: DISPID_SPEEngineConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_SPEEngineConfidence => 13
+    static SPEEngineConfidence => 13
 }

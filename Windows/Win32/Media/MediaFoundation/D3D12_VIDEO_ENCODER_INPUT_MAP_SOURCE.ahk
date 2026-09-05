@@ -7,12 +7,14 @@
 class D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE_CPU_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE_CPU_BUFFER => 0
+    static CPU_BUFFER => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE_GPU_TEXTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE_GPU_TEXTURE => 1
+    static GPU_TEXTURE => 1
 }

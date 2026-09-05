@@ -30,7 +30,6 @@ class IDirectSoundFXGargle extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters"]
 
     /**
-     * 
      * @param {Pointer<DSFXGargle>} pcDsFxGargle 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXGargle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXGargle} 
      */
     GetAllParameters() {

@@ -10,31 +10,36 @@ class eAVEncVideoChromaResolution extends Win32Enum {
 
     /**
      * Use the same chroma resolution as the input video. This flag applies to the <b>AVEncVideoOutputChromaResolution</b> property only.
+     * Native name: eAVEncVideoChromaResolution_SameAsSource
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaResolution_SameAsSource => 0
+    static SameAsSource => 0
 
     /**
      * 4:4:4 (no downsampling).
+     * Native name: eAVEncVideoChromaResolution_444
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaResolution_444 => 1
+    static 444 => 1
 
     /**
      * 4:2:2 (2:1 horizontal downsampling, with no vertical downsampling).
+     * Native name: eAVEncVideoChromaResolution_422
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaResolution_422 => 2
+    static 422 => 2
 
     /**
      * 4:2:0 (2:1 horizontal downsampling, with 2:1 vertical downsampling).
+     * Native name: eAVEncVideoChromaResolution_420
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaResolution_420 => 3
+    static 420 => 3
 
     /**
      * 4:1:1 (4:1 horizontal downsampling, with no vertical downsampling).
+     * Native name: eAVEncVideoChromaResolution_411
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaResolution_411 => 4
+    static 411 => 4
 }

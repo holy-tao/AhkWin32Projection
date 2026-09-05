@@ -29,7 +29,6 @@ class IHttpNegotiate3 extends IHttpNegotiate2 {
     static VTableNames => ["GetSerializedClientCertContext"]
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppbCert 
      * @param {Pointer<Integer>} pcbCert 
      * @returns {HRESULT} 

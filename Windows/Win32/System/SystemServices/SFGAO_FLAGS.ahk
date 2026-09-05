@@ -7,182 +7,218 @@
 class SFGAO_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SFGAO_CANCOPY
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CANCOPY => 1
+    static CANCOPY => 1
 
     /**
+     * Native name: SFGAO_CANMOVE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CANMOVE => 2
+    static CANMOVE => 2
 
     /**
+     * Native name: SFGAO_CANLINK
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CANLINK => 4
+    static CANLINK => 4
 
     /**
+     * Native name: SFGAO_STORAGE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_STORAGE => 8
+    static STORAGE => 8
 
     /**
+     * Native name: SFGAO_CANRENAME
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CANRENAME => 16
+    static CANRENAME => 16
 
     /**
+     * Native name: SFGAO_CANDELETE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CANDELETE => 32
+    static CANDELETE => 32
 
     /**
+     * Native name: SFGAO_HASPROPSHEET
      * @type {Integer (UInt32)}
      */
-    static SFGAO_HASPROPSHEET => 64
+    static HASPROPSHEET => 64
 
     /**
+     * Native name: SFGAO_DROPTARGET
      * @type {Integer (UInt32)}
      */
-    static SFGAO_DROPTARGET => 256
+    static DROPTARGET => 256
 
     /**
+     * Native name: SFGAO_CAPABILITYMASK
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CAPABILITYMASK => 375
+    static CAPABILITYMASK => 375
 
     /**
+     * Native name: SFGAO_PLACEHOLDER
      * @type {Integer (UInt32)}
      */
-    static SFGAO_PLACEHOLDER => 2048
+    static PLACEHOLDER => 2048
 
     /**
+     * Native name: SFGAO_SYSTEM
      * @type {Integer (UInt32)}
      */
-    static SFGAO_SYSTEM => 4096
+    static SYSTEM => 4096
 
     /**
+     * Native name: SFGAO_ENCRYPTED
      * @type {Integer (UInt32)}
      */
-    static SFGAO_ENCRYPTED => 8192
+    static ENCRYPTED => 8192
 
     /**
+     * Native name: SFGAO_ISSLOW
      * @type {Integer (UInt32)}
      */
-    static SFGAO_ISSLOW => 16384
+    static ISSLOW => 16384
 
     /**
+     * Native name: SFGAO_GHOSTED
      * @type {Integer (UInt32)}
      */
-    static SFGAO_GHOSTED => 32768
+    static GHOSTED => 32768
 
     /**
+     * Native name: SFGAO_LINK
      * @type {Integer (UInt32)}
      */
-    static SFGAO_LINK => 65536
+    static LINK => 65536
 
     /**
+     * Native name: SFGAO_SHARE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_SHARE => 131072
+    static SHARE => 131072
 
     /**
+     * Native name: SFGAO_READONLY
      * @type {Integer (UInt32)}
      */
-    static SFGAO_READONLY => 262144
+    static READONLY => 262144
 
     /**
+     * Native name: SFGAO_HIDDEN
      * @type {Integer (UInt32)}
      */
-    static SFGAO_HIDDEN => 524288
+    static HIDDEN => 524288
 
     /**
+     * Native name: SFGAO_DISPLAYATTRMASK
      * @type {Integer (UInt32)}
      */
-    static SFGAO_DISPLAYATTRMASK => 1032192
+    static DISPLAYATTRMASK => 1032192
 
     /**
+     * Native name: SFGAO_FILESYSANCESTOR
      * @type {Integer (UInt32)}
      */
-    static SFGAO_FILESYSANCESTOR => 268435456
+    static FILESYSANCESTOR => 268435456
 
     /**
+     * Native name: SFGAO_FOLDER
      * @type {Integer (UInt32)}
      */
-    static SFGAO_FOLDER => 536870912
+    static FOLDER => 536870912
 
     /**
+     * Native name: SFGAO_FILESYSTEM
      * @type {Integer (UInt32)}
      */
-    static SFGAO_FILESYSTEM => 1073741824
+    static FILESYSTEM => 1073741824
 
     /**
+     * Native name: SFGAO_HASSUBFOLDER
      * @type {Integer (UInt32)}
      */
-    static SFGAO_HASSUBFOLDER => 2147483648
+    static HASSUBFOLDER => 2147483648
 
     /**
+     * Native name: SFGAO_CONTENTSMASK
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CONTENTSMASK => 2147483648
+    static CONTENTSMASK => 2147483648
 
     /**
+     * Native name: SFGAO_VALIDATE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_VALIDATE => 16777216
+    static VALIDATE => 16777216
 
     /**
+     * Native name: SFGAO_REMOVABLE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_REMOVABLE => 33554432
+    static REMOVABLE => 33554432
 
     /**
+     * Native name: SFGAO_COMPRESSED
      * @type {Integer (UInt32)}
      */
-    static SFGAO_COMPRESSED => 67108864
+    static COMPRESSED => 67108864
 
     /**
+     * Native name: SFGAO_BROWSABLE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_BROWSABLE => 134217728
+    static BROWSABLE => 134217728
 
     /**
+     * Native name: SFGAO_NONENUMERATED
      * @type {Integer (UInt32)}
      */
-    static SFGAO_NONENUMERATED => 1048576
+    static NONENUMERATED => 1048576
 
     /**
+     * Native name: SFGAO_NEWCONTENT
      * @type {Integer (UInt32)}
      */
-    static SFGAO_NEWCONTENT => 2097152
+    static NEWCONTENT => 2097152
 
     /**
+     * Native name: SFGAO_CANMONIKER
      * @type {Integer (UInt32)}
      */
-    static SFGAO_CANMONIKER => 4194304
+    static CANMONIKER => 4194304
 
     /**
+     * Native name: SFGAO_HASSTORAGE
      * @type {Integer (UInt32)}
      */
-    static SFGAO_HASSTORAGE => 4194304
+    static HASSTORAGE => 4194304
 
     /**
+     * Native name: SFGAO_STREAM
      * @type {Integer (UInt32)}
      */
-    static SFGAO_STREAM => 4194304
+    static STREAM => 4194304
 
     /**
+     * Native name: SFGAO_STORAGEANCESTOR
      * @type {Integer (UInt32)}
      */
-    static SFGAO_STORAGEANCESTOR => 8388608
+    static STORAGEANCESTOR => 8388608
 
     /**
+     * Native name: SFGAO_STORAGECAPMASK
      * @type {Integer (UInt32)}
      */
-    static SFGAO_STORAGECAPMASK => 1891958792
+    static STORAGECAPMASK => 1891958792
 
     /**
+     * Native name: SFGAO_PKEYSFGAOMASK
      * @type {Integer (UInt32)}
      */
-    static SFGAO_PKEYSFGAOMASK => 2164539392
+    static PKEYSFGAOMASK => 2164539392
 }

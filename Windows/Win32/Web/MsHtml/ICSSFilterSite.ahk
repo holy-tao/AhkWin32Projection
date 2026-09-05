@@ -30,7 +30,6 @@ class ICSSFilterSite extends IUnknown {
     static VTableNames => ["GetElement", "FireOnFilterChangeEvent"]
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetElement() {
@@ -39,7 +38,6 @@ class ICSSFilterSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireOnFilterChangeEvent() {

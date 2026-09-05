@@ -31,7 +31,6 @@ class ISpSRAlternates extends IUnknown {
     static VTableNames => ["GetAlternates", "Commit"]
 
     /**
-     * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {Pointer<Pointer<SPPHRASEALT>>} ppAlts 
      * @param {Pointer<Integer>} pcAlts 
@@ -46,7 +45,6 @@ class ISpSRAlternates extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {Pointer<SPPHRASEALT>} pAlt 
      * @param {Pointer<Pointer<Void>>} ppvResultExtra 

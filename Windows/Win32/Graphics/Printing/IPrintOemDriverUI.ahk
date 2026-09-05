@@ -31,7 +31,6 @@ class IPrintOemDriverUI extends IUnknown {
     static VTableNames => ["DrvGetDriverSetting", "DrvUpgradeRegistrySetting", "DrvUpdateUISetting"]
 
     /**
-     * 
      * @param {Pointer<Void>} pci 
      * @param {PSTR} Feature 
      * @param {Pointer<Void>} pOutput 
@@ -53,7 +52,6 @@ class IPrintOemDriverUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinter 
      * @param {PSTR} pFeature 
      * @param {PSTR} pOption 
@@ -69,7 +67,6 @@ class IPrintOemDriverUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pci 
      * @param {Pointer<Void>} pOptItem 
      * @param {Integer} dwPreviousSelection 

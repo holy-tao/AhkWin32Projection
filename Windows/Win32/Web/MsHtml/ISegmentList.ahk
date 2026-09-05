@@ -32,7 +32,6 @@ class ISegmentList extends IUnknown {
     static VTableNames => ["CreateIterator", "GetType", "IsEmpty"]
 
     /**
-     * 
      * @returns {ISegmentListIterator} 
      */
     CreateIterator() {
@@ -41,7 +40,6 @@ class ISegmentList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SELECTION_TYPE} 
      */
     GetType() {
@@ -50,7 +48,6 @@ class ISegmentList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsEmpty() {

@@ -31,7 +31,6 @@ class ISpRecoContext2 extends IUnknown {
     static VTableNames => ["SetGrammarOptions", "GetGrammarOptions", "SetAdaptationData2"]
 
     /**
-     * 
      * @param {Integer} eGrammarOptions 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class ISpRecoContext2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} peGrammarOptions 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class ISpRecoContext2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
      * @param {PWSTR} pTopicName 

@@ -10,31 +10,36 @@ class CF_PLACEHOLDER_CREATE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No placeholder create flags.
+     * Native name: CF_PLACEHOLDER_CREATE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_CREATE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * When the flag is present, the newly created child placeholder directory is considered to have all of its children present locally hence accessing it in the future will not trigger any **FETCH_PLACEHOLDERS** callback on it. When the flag is absent, the newly created placeholder directory is considered partial and future access will trigger **FETCH_PLACEHOLDERS**. This flag is applicable to a child placeholder directory only.
+     * Native name: CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION => 1
+    static FLAG_DISABLE_ON_DEMAND_POPULATION => 1
 
     /**
      * The newly created placeholder is marked as in-sync as part of the **TRANSFER_PLACEHOLDERS** operation. This is applicable to both placeholder files and directories.
+     * Native name: CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC => 2
+    static FLAG_MARK_IN_SYNC => 2
 
     /**
      * The newly created placeholder will supercede/overwrite the an existing placeholder.
+     * Native name: CF_PLACEHOLDER_CREATE_FLAG_SUPERSEDE
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_CREATE_FLAG_SUPERSEDE => 4
+    static FLAG_SUPERSEDE => 4
 
     /**
      * When this flag is present, the newly created placeholder will be marked as always full. Once hydrated, any attempt to dehydrate such a (file) placeholder will fail with error code **ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED**. This flag is enforced on a placeholder file only. It can be set on a placeholder directory, but it has no effect.
+     * Native name: CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL => 8
+    static FLAG_ALWAYS_FULL => 8
 }

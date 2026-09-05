@@ -30,7 +30,6 @@ class IVdsServiceSw extends IUnknown {
     static VTableNames => ["GetDiskObject"]
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceID 
      * @returns {IUnknown} 
      */

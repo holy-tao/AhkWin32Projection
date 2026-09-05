@@ -31,7 +31,6 @@ class IActiveScriptSiteUIControl extends IUnknown {
     static VTableNames => ["GetUIBehavior"]
 
     /**
-     * 
      * @param {SCRIPTUICITEM} UicItem 
      * @returns {SCRIPTUICHANDLING} 
      */

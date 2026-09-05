@@ -7,32 +7,38 @@
 class htmlMediaReadyState extends Win32Enum {
 
     /**
+     * Native name: htmlMediaReadyStateHaveNothing
      * @type {Integer (Int32)}
      */
-    static htmlMediaReadyStateHaveNothing => 0
+    static HaveNothing => 0
 
     /**
+     * Native name: htmlMediaReadyStateHaveMetadata
      * @type {Integer (Int32)}
      */
-    static htmlMediaReadyStateHaveMetadata => 1
+    static HaveMetadata => 1
 
     /**
+     * Native name: htmlMediaReadyStateHaveCurrentData
      * @type {Integer (Int32)}
      */
-    static htmlMediaReadyStateHaveCurrentData => 2
+    static HaveCurrentData => 2
 
     /**
+     * Native name: htmlMediaReadyStateHaveFutureData
      * @type {Integer (Int32)}
      */
-    static htmlMediaReadyStateHaveFutureData => 3
+    static HaveFutureData => 3
 
     /**
+     * Native name: htmlMediaReadyStateHaveEnoughData
      * @type {Integer (Int32)}
      */
-    static htmlMediaReadyStateHaveEnoughData => 4
+    static HaveEnoughData => 4
 
     /**
+     * Native name: htmlMediaReadyState_Max
      * @type {Integer (Int32)}
      */
-    static htmlMediaReadyState_Max => 2147483647
+    static Max => 2147483647
 }

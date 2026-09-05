@@ -31,7 +31,6 @@ class IPrintManagerTemplatePrinter extends IDispatch {
     static VTableNames => ["startPrint", "drawPreviewPage", "setPageCount", "invalidatePreview", "getPrintTaskOptionValue", "endPrint"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startPrint() {
@@ -40,7 +39,6 @@ class IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pElemDisp 
      * @param {Integer} nPage 
      * @returns {HRESULT} 
@@ -51,7 +49,6 @@ class IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nPage 
      * @returns {HRESULT} 
      */
@@ -61,7 +58,6 @@ class IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     invalidatePreview() {
@@ -70,7 +66,6 @@ class IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {VARIANT} 
      */
@@ -83,7 +78,6 @@ class IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endPrint() {

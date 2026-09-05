@@ -46,7 +46,6 @@ class ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ class ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xmllang() {
@@ -68,7 +66,6 @@ class ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ class ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xmlspace() {

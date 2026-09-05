@@ -44,7 +44,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_numberOfItems() {
@@ -63,7 +61,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -72,7 +69,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @returns {BSTR} 
      */
@@ -85,7 +81,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -96,7 +91,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @param {Integer} index 
      * @returns {BSTR} 
@@ -110,7 +104,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @param {Integer} index 
      * @returns {BSTR} 
@@ -124,7 +117,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -135,7 +127,6 @@ class ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @returns {BSTR} 
      */

@@ -7,17 +7,20 @@
 class NtmsAccessMask extends Win32Enum {
 
     /**
+     * Native name: NTMS_USE_ACCESS
      * @type {Integer (Int32)}
      */
-    static NTMS_USE_ACCESS => 1
+    static USE_ACCESS => 1
 
     /**
+     * Native name: NTMS_MODIFY_ACCESS
      * @type {Integer (Int32)}
      */
-    static NTMS_MODIFY_ACCESS => 2
+    static MODIFY_ACCESS => 2
 
     /**
+     * Native name: NTMS_CONTROL_ACCESS
      * @type {Integer (Int32)}
      */
-    static NTMS_CONTROL_ACCESS => 4
+    static CONTROL_ACCESS => 4
 }

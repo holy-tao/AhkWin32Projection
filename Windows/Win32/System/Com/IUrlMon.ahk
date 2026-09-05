@@ -32,7 +32,6 @@ class IUrlMon extends IUnknown {
     static VTableNames => ["AsyncGetClassBits"]
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pszTYPE 
      * @param {PWSTR} pszExt 

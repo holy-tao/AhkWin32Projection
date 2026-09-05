@@ -36,7 +36,6 @@ class AsyncIIdentityAuthentication extends IUnknown {
     static VTableNames => ["Begin_SetIdentityCredential", "Finish_SetIdentityCredential", "Begin_ValidateIdentityCredential", "Finish_ValidateIdentityCredential"]
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ class AsyncIIdentityAuthentication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_SetIdentityCredential() {
@@ -58,7 +56,6 @@ class AsyncIIdentityAuthentication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @param {Pointer<IPropertyStore>} ppIdentityProperties 
@@ -72,7 +69,6 @@ class AsyncIIdentityAuthentication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IPropertyStore>} ppIdentityProperties 
      * @returns {HRESULT} 
      */

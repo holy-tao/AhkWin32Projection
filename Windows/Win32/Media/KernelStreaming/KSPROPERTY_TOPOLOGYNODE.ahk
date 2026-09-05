@@ -7,12 +7,14 @@
 class KSPROPERTY_TOPOLOGYNODE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_TOPOLOGYNODE_ENABLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TOPOLOGYNODE_ENABLE => 1
+    static ENABLE => 1
 
     /**
+     * Native name: KSPROPERTY_TOPOLOGYNODE_RESET
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TOPOLOGYNODE_RESET => 2
+    static RESET => 2
 }

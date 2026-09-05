@@ -50,7 +50,6 @@ class IHTMLDocumentCompatibleInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userAgent() {
@@ -60,7 +59,6 @@ class IHTMLDocumentCompatibleInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {

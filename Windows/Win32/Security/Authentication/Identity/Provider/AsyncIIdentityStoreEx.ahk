@@ -37,7 +37,6 @@ class AsyncIIdentityStoreEx extends IUnknown {
     static VTableNames => ["Begin_CreateConnectedIdentity", "Finish_CreateConnectedIdentity", "Begin_DeleteConnectedIdentity", "Finish_DeleteConnectedIdentity"]
 
     /**
-     * 
      * @param {PWSTR} LocalName 
      * @param {PWSTR} ConnectedName 
      * @param {Pointer<Guid>} ProviderGUID 
@@ -52,7 +51,6 @@ class AsyncIIdentityStoreEx extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_CreateConnectedIdentity() {
@@ -61,7 +59,6 @@ class AsyncIIdentityStoreEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} ConnectedName 
      * @param {Pointer<Guid>} ProviderGUID 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ class AsyncIIdentityStoreEx extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_DeleteConnectedIdentity() {

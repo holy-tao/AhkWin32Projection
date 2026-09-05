@@ -7,17 +7,20 @@
 class FINDFRAME_FLAGS extends Win32Enum {
 
     /**
+     * Native name: FINDFRAME_NONE
      * @type {Integer (Int32)}
      */
-    static FINDFRAME_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: FINDFRAME_JUSTTESTEXISTENCE
      * @type {Integer (Int32)}
      */
-    static FINDFRAME_JUSTTESTEXISTENCE => 1
+    static JUSTTESTEXISTENCE => 1
 
     /**
+     * Native name: FINDFRAME_INTERNAL
      * @type {Integer (Int32)}
      */
-    static FINDFRAME_INTERNAL => -2147483648
+    static INTERNAL => -2147483648
 }

@@ -31,7 +31,6 @@ class IDCompositionDelegatedInkTrail extends IUnknown {
     static VTableNames => ["AddTrailPoints", "AddTrailPointsWithPrediction", "RemoveTrailPoints", "StartNewTrail"]
 
     /**
-     * 
      * @param {Pointer<DCompositionInkTrailPoint>} inkPoints 
      * @param {Integer} inkPointsCount 
      * @returns {Integer} 
@@ -42,7 +41,6 @@ class IDCompositionDelegatedInkTrail extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DCompositionInkTrailPoint>} inkPoints 
      * @param {Integer} inkPointsCount 
      * @param {Pointer<DCompositionInkTrailPoint>} predictedInkPoints 
@@ -55,7 +53,6 @@ class IDCompositionDelegatedInkTrail extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} generationId 
      * @returns {HRESULT} 
      */
@@ -65,7 +62,6 @@ class IDCompositionDelegatedInkTrail extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {HRESULT} 
      */

@@ -7,22 +7,26 @@
 class styleBoxSizing extends Win32Enum {
 
     /**
+     * Native name: styleBoxSizingNotSet
      * @type {Integer (Int32)}
      */
-    static styleBoxSizingNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleBoxSizingContentBox
      * @type {Integer (Int32)}
      */
-    static styleBoxSizingContentBox => 1
+    static ContentBox => 1
 
     /**
+     * Native name: styleBoxSizingBorderBox
      * @type {Integer (Int32)}
      */
-    static styleBoxSizingBorderBox => 2
+    static BorderBox => 2
 
     /**
+     * Native name: styleBoxSizing_Max
      * @type {Integer (Int32)}
      */
-    static styleBoxSizing_Max => 2147483647
+    static Max => 2147483647
 }

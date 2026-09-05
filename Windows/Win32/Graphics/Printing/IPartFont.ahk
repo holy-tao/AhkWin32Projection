@@ -32,7 +32,6 @@ class IPartFont extends IPartBase {
     static VTableNames => ["GetFontProperties", "SetFontContent", "SetFontOptions"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} pContentType 
      * @param {Pointer<EXpsFontOptions>} pFontOptions 
      * @returns {HRESULT} 
@@ -45,7 +44,6 @@ class IPartFont extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} pContentType 
      * @returns {HRESULT} 
      */
@@ -57,7 +55,6 @@ class IPartFont extends IPartBase {
     }
 
     /**
-     * 
      * @param {EXpsFontOptions} options 
      * @returns {HRESULT} 
      */

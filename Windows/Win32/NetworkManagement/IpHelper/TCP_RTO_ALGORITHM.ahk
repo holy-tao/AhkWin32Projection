@@ -7,24 +7,28 @@
 class TCP_RTO_ALGORITHM extends Win32Enum {
 
     /**
+     * Native name: TcpRtoAlgorithmOther
      * @type {Integer (Int32)}
      */
-    static TcpRtoAlgorithmOther => 1
+    static Other => 1
 
     /**
+     * Native name: TcpRtoAlgorithmConstant
      * @type {Integer (Int32)}
      */
-    static TcpRtoAlgorithmConstant => 2
+    static Constant => 2
 
     /**
+     * Native name: TcpRtoAlgorithmRsre
      * @type {Integer (Int32)}
      */
-    static TcpRtoAlgorithmRsre => 3
+    static Rsre => 3
 
     /**
+     * Native name: TcpRtoAlgorithmVanj
      * @type {Integer (Int32)}
      */
-    static TcpRtoAlgorithmVanj => 4
+    static Vanj => 4
 
     /**
      * @type {Integer (Int32)}

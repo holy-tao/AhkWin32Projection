@@ -12,19 +12,22 @@ class WTS_RCM_SERVICE_STATE extends Win32Enum {
 
     /**
      * There has been no change in the state of the service.
+     * Native name: WTS_SERVICE_NONE
      * @type {Integer (Int32)}
      */
-    static WTS_SERVICE_NONE => 0
+    static NONE => 0
 
     /**
      * The RCM service is starting.
+     * Native name: WTS_SERVICE_START
      * @type {Integer (Int32)}
      */
-    static WTS_SERVICE_START => 1
+    static START => 1
 
     /**
      * The RCM service is stopping.
+     * Native name: WTS_SERVICE_STOP
      * @type {Integer (Int32)}
      */
-    static WTS_SERVICE_STOP => 2
+    static STOP => 2
 }

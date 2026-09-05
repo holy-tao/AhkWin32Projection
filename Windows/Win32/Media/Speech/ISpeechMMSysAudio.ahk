@@ -52,7 +52,6 @@ class ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DeviceId() {
@@ -61,7 +60,6 @@ class ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @param {Integer} DeviceId 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ class ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LineId() {
@@ -80,7 +77,6 @@ class ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @param {Integer} LineId 
      * @returns {HRESULT} 
      */
@@ -90,7 +86,6 @@ class ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MMHandle() {

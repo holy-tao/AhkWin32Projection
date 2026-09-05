@@ -7,12 +7,14 @@
 class CustomLineCapType extends Win32Enum {
 
     /**
+     * Native name: CustomLineCapTypeDefault
      * @type {Integer (Int32)}
      */
-    static CustomLineCapTypeDefault => 0
+    static Default => 0
 
     /**
+     * Native name: CustomLineCapTypeAdjustableArrow
      * @type {Integer (Int32)}
      */
-    static CustomLineCapTypeAdjustableArrow => 1
+    static AdjustableArrow => 1
 }

@@ -7,17 +7,20 @@
 class WHEA_CPU_VENDOR extends Win32Enum {
 
     /**
+     * Native name: WheaCpuVendorOther
      * @type {Integer (Int32)}
      */
-    static WheaCpuVendorOther => 0
+    static Other => 0
 
     /**
+     * Native name: WheaCpuVendorIntel
      * @type {Integer (Int32)}
      */
-    static WheaCpuVendorIntel => 1
+    static Intel => 1
 
     /**
+     * Native name: WheaCpuVendorAmd
      * @type {Integer (Int32)}
      */
-    static WheaCpuVendorAmd => 2
+    static Amd => 2
 }

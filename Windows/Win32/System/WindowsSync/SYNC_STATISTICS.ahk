@@ -10,7 +10,8 @@ class SYNC_STATISTICS extends Win32Enum {
 
     /**
      * Indicates that the statistic represents the number of ranges that are contained in an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncknowledge">ISyncKnowledge</a> object.
+     * Native name: SYNC_STATISTICS_RANGE_COUNT
      * @type {Integer (Int32)}
      */
-    static SYNC_STATISTICS_RANGE_COUNT => 0
+    static RANGE_COUNT => 0
 }

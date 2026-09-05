@@ -10,24 +10,28 @@ class CLUSTER_SETUP_PHASE_TYPE extends Win32Enum {
 
     /**
      * Indicates the start of a new setup phase.
+     * Native name: ClusterSetupPhaseStart
      * @type {Integer (Int32)}
      */
-    static ClusterSetupPhaseStart => 1
+    static Start => 1
 
     /**
      * Indicates the continuation of a setup phase.
+     * Native name: ClusterSetupPhaseContinue
      * @type {Integer (Int32)}
      */
-    static ClusterSetupPhaseContinue => 2
+    static Continue => 2
 
     /**
      * Indicates the end of a setup phase. Called once at the end of every setup phase.
+     * Native name: ClusterSetupPhaseEnd
      * @type {Integer (Int32)}
      */
-    static ClusterSetupPhaseEnd => 3
+    static End => 3
 
     /**
+     * Native name: ClusterSetupPhaseReport
      * @type {Integer (Int32)}
      */
-    static ClusterSetupPhaseReport => 4
+    static Report => 4
 }

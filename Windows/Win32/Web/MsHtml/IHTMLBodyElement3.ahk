@@ -63,7 +63,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -85,7 +83,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +92,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ononline() {
@@ -105,7 +101,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -115,7 +110,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onoffline() {
@@ -125,7 +119,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -135,7 +128,6 @@ class IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhashchange() {

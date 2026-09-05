@@ -7,12 +7,14 @@
 class FlushIntention extends Win32Enum {
 
     /**
+     * Native name: FlushIntentionFlush
      * @type {Integer (Int32)}
      */
-    static FlushIntentionFlush => 0
+    static Flush => 0
 
     /**
+     * Native name: FlushIntentionSync
      * @type {Integer (Int32)}
      */
-    static FlushIntentionSync => 1
+    static Sync => 1
 }

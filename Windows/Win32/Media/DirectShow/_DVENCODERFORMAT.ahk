@@ -12,19 +12,22 @@ class _DVENCODERFORMAT extends Win32Enum {
 
     /**
      * Use the 'dvsd' stream handler.
+     * Native name: DVENCODERFORMAT_DVSD
      * @type {Integer (Int32)}
      */
-    static DVENCODERFORMAT_DVSD => 2007
+    static DVSD => 2007
 
     /**
      * Use the 'dvhd' stream handler.
+     * Native name: DVENCODERFORMAT_DVHD
      * @type {Integer (Int32)}
      */
-    static DVENCODERFORMAT_DVHD => 2008
+    static DVHD => 2008
 
     /**
      * Use the 'dvsl' stream handler.
+     * Native name: DVENCODERFORMAT_DVSL
      * @type {Integer (Int32)}
      */
-    static DVENCODERFORMAT_DVSL => 2009
+    static DVSL => 2009
 }

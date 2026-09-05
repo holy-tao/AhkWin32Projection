@@ -45,7 +45,6 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -55,7 +54,6 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -65,7 +63,6 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} value 
      * @returns {HRESULT} 
      */

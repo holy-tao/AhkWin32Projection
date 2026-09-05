@@ -10,13 +10,15 @@ class AdrClientDisplayFlags extends Win32Enum {
 
     /**
      * Indicates whether to send the user an email after an ADR event.
+     * Native name: AdrClientDisplayFlags_AllowEmailRequests
      * @type {Integer (Int32)}
      */
-    static AdrClientDisplayFlags_AllowEmailRequests => 1
+    static AllowEmailRequests => 1
 
     /**
      * Indicates whether to show the user the offending device claims.
+     * Native name: AdrClientDisplayFlags_ShowDeviceTroubleshooting
      * @type {Integer (Int32)}
      */
-    static AdrClientDisplayFlags_ShowDeviceTroubleshooting => 2
+    static ShowDeviceTroubleshooting => 2
 }

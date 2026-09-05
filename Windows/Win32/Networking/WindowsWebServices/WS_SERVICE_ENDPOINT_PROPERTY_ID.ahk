@@ -11,32 +11,36 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>.
      *                     The value is a pointer to WS_SERVICE_PROPERTY_ACCEPT_CALLBACK structure.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_ACCEPT_CHANNEL_CALLBACK
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_ACCEPT_CHANNEL_CALLBACK => 0
+    static ACCEPT_CHANNEL_CALLBACK => 0
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>.
      *                     The value is a pointer to WS_SERVICE_PROPERTY_CLOSE_CALLBACK structure.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_CLOSE_CHANNEL_CALLBACK
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_CLOSE_CHANNEL_CALLBACK => 1
+    static CLOSE_CHANNEL_CALLBACK => 1
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>, this specifies the maximum number of concurrent channels service host will have 
      *                     actively accepting new connections for a given endpoint.                     When not specified this value is set to 1. If an endpoint specifies a default message handler (See <b>WS_SERVICE_ENDPOINT</b>) concurrency 
      *                     has to be 1.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_MAX_ACCEPTING_CHANNELS
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_MAX_ACCEPTING_CHANNELS => 2
+    static MAX_ACCEPTING_CHANNELS => 2
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>, this specifies the maximum number of concurrent calls that would be serviced on a session based channel.
      *                     When not specified this value is set to 1. If an endpoint specifies a default message handler (See <b>WS_SERVICE_ENDPOINT</b> concurrency 
      *                     has to be 1.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_MAX_CONCURRENCY
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_MAX_CONCURRENCY => 3
+    static MAX_CONCURRENCY => 3
 
     /**
      * Maximum <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">heap</a> size for body deserialization.
@@ -47,9 +51,10 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * Default is 65535 bytes.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_BODY_HEAP_MAX_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_BODY_HEAP_MAX_SIZE => 4
+    static BODY_HEAP_MAX_SIZE => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">Heap</a> trim size for body deserialization.
@@ -60,9 +65,10 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * Default is 4096 bytes.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_BODY_HEAP_TRIM_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_BODY_HEAP_TRIM_SIZE => 5
+    static BODY_HEAP_TRIM_SIZE => 5
 
     /**
      * This property allows the user to specify properties of the message
@@ -92,9 +98,10 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_MAX_PROCESSED_HEADERS</a>
      * </li>
      * </ul>
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_MESSAGE_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_MESSAGE_PROPERTIES => 6
+    static MESSAGE_PROPERTIES => 6
 
     /**
      * The maximum number of call servicing objects that would be pooled to service a message object, on a given
@@ -106,9 +113,10 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * Default is 100.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_MAX_CALL_POOL_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_MAX_CALL_POOL_SIZE => 7
+    static MAX_CALL_POOL_SIZE => 7
 
     /**
      * The maximum number of <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-channel">WS_CHANNEL</a> which will be pooled by Service Host on a given
@@ -116,21 +124,24 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * Default is 100.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNEL_POOL_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNEL_POOL_SIZE => 8
+    static MAX_CHANNEL_POOL_SIZE => 8
 
     /**
      * Listener properties.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_LISTENER_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_LISTENER_PROPERTIES => 9
+    static LISTENER_PROPERTIES => 9
 
     /**
      * Enables or disables must understand header verification on an endpoint. This is 'TRUE' by default.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_CHECK_MUST_UNDERSTAND
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_CHECK_MUST_UNDERSTAND => 10
+    static CHECK_MUST_UNDERSTAND => 10
 
     /**
      * This property can be set to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_metadata_exchange_type">WS_METADATA_EXCHANGE_TYPE_MEX</a> to enable 
@@ -147,9 +158,10 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      * 
      * When setting this property to WS_METADATA_EXCHANGE_TYPE_HTTP_GET an application must not specify <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_buffer_property_id">WS_MATCH_URL_EXACT_PATH</a> for the listener 
      *                     properties <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_TRANSPORT_URL_MATCHING_OPTIONS</a> and <b>WS_LISTENER_PROPERTY_TO_HEADER_MATCHING_OPTIONS</b> for the given <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_METADATA_EXCHANGE_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_METADATA_EXCHANGE_TYPE => 11
+    static METADATA_EXCHANGE_TYPE => 11
 
     /**
      * Specifies the WSDL port name, binding name and binding namespace for the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">endpoint</a>. 
@@ -159,9 +171,10 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * See <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_endpoint_metadata">WS_SERVICE_ENDPOINT_METADATA</a> for more details.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_METADATA
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_METADATA => 12
+    static METADATA => 12
 
     /**
      * Specifies the suffix which is concatenated as is to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a> URL to generate a URL for WS-MetadataExchange v1.1 requests servicing. 
@@ -187,21 +200,24 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
      * When setting this property an application must not specify <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_buffer_property_id">WS_MATCH_URL_EXACT_PATH</a> for the listener 
      *                     properties <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_TRANSPORT_URL_MATCHING_OPTIONS</a> and <b>WS_LISTENER_PROPERTY_TO_HEADER_MATCHING_OPTIONS</b> 
      *                     for the given <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_METADATA_EXCHANGE_URL_SUFFIX
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_METADATA_EXCHANGE_URL_SUFFIX => 13
+    static METADATA_EXCHANGE_URL_SUFFIX => 13
 
     /**
      * The maximum number of channels that can be serviced on the endpoint.
      *                 
      * 
      * The default value is 100.
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS => 14
+    static MAX_CHANNELS => 14
 
     /**
+     * Native name: WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS_PER_IP
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_ENDPOINT_PROPERTY_MAX_CHANNELS_PER_IP => 15
+    static MAX_CHANNELS_PER_IP => 15
 }

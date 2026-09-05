@@ -33,7 +33,6 @@ class IDocumentTraversal extends IDispatch {
     static VTableNames => ["createNodeIterator", "createTreeWalker"]
 
     /**
-     * 
      * @param {IDispatch} pRootNode 
      * @param {Integer} ulWhatToShow 
      * @param {Pointer<VARIANT>} pFilter 
@@ -46,7 +45,6 @@ class IDocumentTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pRootNode 
      * @param {Integer} ulWhatToShow 
      * @param {Pointer<VARIANT>} pFilter 

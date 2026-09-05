@@ -31,7 +31,6 @@ class IMLangStringAStr extends IMLangString {
     static VTableNames => ["SetAStr", "SetStrBufA", "GetAStr", "GetStrBufA", "LockAStr", "UnlockAStr", "SetLocale", "GetLocale"]
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} uCodePage 
@@ -52,7 +51,6 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} uCodePage 
@@ -70,7 +68,6 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {Integer} uCodePageIn 
@@ -93,7 +90,6 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcMaxLen 
      * @param {Pointer<Integer>} puDestCodePage 
@@ -110,7 +106,6 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {Integer} lFlags 
@@ -133,7 +128,6 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {PSTR} pszSrc 
      * @param {Integer} cchSrc 
      * @param {Pointer<Integer>} pcchActual 
@@ -151,7 +145,6 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} locale 
@@ -163,7 +156,6 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcMaxLen 
      * @param {Pointer<Integer>} plocale 

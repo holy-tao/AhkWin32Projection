@@ -7,12 +7,14 @@
 class WICJpegXLAnimFrameProperties extends Win32Enum {
 
     /**
+     * Native name: WICJpegXLAnimFrameDurationInTicks
      * @type {Integer (Int32)}
      */
-    static WICJpegXLAnimFrameDurationInTicks => 1
+    static DurationInTicks => 1
 
     /**
+     * Native name: WICJpegXLAnimFrameName
      * @type {Integer (Int32)}
      */
-    static WICJpegXLAnimFrameName => 2
+    static Name => 2
 }

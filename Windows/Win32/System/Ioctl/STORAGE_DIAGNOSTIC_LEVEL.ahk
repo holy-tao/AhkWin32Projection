@@ -7,12 +7,14 @@
 class STORAGE_DIAGNOSTIC_LEVEL extends Win32Enum {
 
     /**
+     * Native name: StorageDiagnosticLevelDefault
      * @type {Integer (Int32)}
      */
-    static StorageDiagnosticLevelDefault => 0
+    static Default => 0
 
     /**
+     * Native name: StorageDiagnosticLevelMax
      * @type {Integer (Int32)}
      */
-    static StorageDiagnosticLevelMax => 1
+    static Max => 1
 }

@@ -29,7 +29,6 @@ class IHTMLChangeSink extends IUnknown {
     static VTableNames => ["Notify"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Notify() {

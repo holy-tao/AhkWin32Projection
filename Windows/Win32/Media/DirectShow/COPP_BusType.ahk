@@ -10,43 +10,50 @@ class COPP_BusType extends Win32Enum {
 
     /**
      * Unknown bus type.
+     * Native name: COPP_BusType_Unknown
      * @type {Integer (Int32)}
      */
-    static COPP_BusType_Unknown => 0
+    static Unknown => 0
 
     /**
      * PCI bus.
+     * Native name: COPP_BusType_PCI
      * @type {Integer (Int32)}
      */
-    static COPP_BusType_PCI => 1
+    static PCI => 1
 
     /**
      * PCI-X bus.
+     * Native name: COPP_BusType_PCIX
      * @type {Integer (Int32)}
      */
-    static COPP_BusType_PCIX => 2
+    static PCIX => 2
 
     /**
      * PCI Express bus.
+     * Native name: COPP_BusType_PCIExpress
      * @type {Integer (Int32)}
      */
-    static COPP_BusType_PCIExpress => 3
+    static PCIExpress => 3
 
     /**
      * AGP bus.
+     * Native name: COPP_BusType_AGP
      * @type {Integer (Int32)}
      */
-    static COPP_BusType_AGP => 4
+    static AGP => 4
 
     /**
      * Integrated bus. This flag can be combined with the other flags. This flag indicates that the command and status signals between the graphics adapter and other subsystems on the computer are not available on an expansion bus that has a public specification and standard connector type, unless it is a memory bus.
+     * Native name: COPP_BusType_Integrated
      * @type {Integer (Int32)}
      */
-    static COPP_BusType_Integrated => -2147483648
+    static Integrated => -2147483648
 
     /**
      * Reserved.
+     * Native name: COPP_BusType_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static COPP_BusType_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

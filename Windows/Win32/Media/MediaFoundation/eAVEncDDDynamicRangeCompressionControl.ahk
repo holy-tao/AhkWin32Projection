@@ -10,37 +10,43 @@ class eAVEncDDDynamicRangeCompressionControl extends Win32Enum {
 
     /**
      * No dynamic range compression.
+     * Native name: eAVEncDDDynamicRangeCompressionControl_None
      * @type {Integer (Int32)}
      */
-    static eAVEncDDDynamicRangeCompressionControl_None => 0
+    static None => 0
 
     /**
      * Film standard profile.
+     * Native name: eAVEncDDDynamicRangeCompressionControl_FilmStandard
      * @type {Integer (Int32)}
      */
-    static eAVEncDDDynamicRangeCompressionControl_FilmStandard => 1
+    static FilmStandard => 1
 
     /**
      * Film light profile.
+     * Native name: eAVEncDDDynamicRangeCompressionControl_FilmLight
      * @type {Integer (Int32)}
      */
-    static eAVEncDDDynamicRangeCompressionControl_FilmLight => 2
+    static FilmLight => 2
 
     /**
      * Music standard profile.
+     * Native name: eAVEncDDDynamicRangeCompressionControl_MusicStandard
      * @type {Integer (Int32)}
      */
-    static eAVEncDDDynamicRangeCompressionControl_MusicStandard => 3
+    static MusicStandard => 3
 
     /**
      * Music light profile.
+     * Native name: eAVEncDDDynamicRangeCompressionControl_MusicLight
      * @type {Integer (Int32)}
      */
-    static eAVEncDDDynamicRangeCompressionControl_MusicLight => 4
+    static MusicLight => 4
 
     /**
      * Speech profile.
+     * Native name: eAVEncDDDynamicRangeCompressionControl_Speech
      * @type {Integer (Int32)}
      */
-    static eAVEncDDDynamicRangeCompressionControl_Speech => 5
+    static Speech => 5
 }

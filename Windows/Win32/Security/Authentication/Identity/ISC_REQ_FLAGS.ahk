@@ -7,137 +7,164 @@
 class ISC_REQ_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: ISC_REQ_DELEGATE
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_DELEGATE => 1
+    static DELEGATE => 1
 
     /**
+     * Native name: ISC_REQ_MUTUAL_AUTH
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_MUTUAL_AUTH => 2
+    static MUTUAL_AUTH => 2
 
     /**
+     * Native name: ISC_REQ_REPLAY_DETECT
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_REPLAY_DETECT => 4
+    static REPLAY_DETECT => 4
 
     /**
+     * Native name: ISC_REQ_SEQUENCE_DETECT
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_SEQUENCE_DETECT => 8
+    static SEQUENCE_DETECT => 8
 
     /**
+     * Native name: ISC_REQ_CONFIDENTIALITY
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_CONFIDENTIALITY => 16
+    static CONFIDENTIALITY => 16
 
     /**
+     * Native name: ISC_REQ_USE_SESSION_KEY
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_USE_SESSION_KEY => 32
+    static USE_SESSION_KEY => 32
 
     /**
+     * Native name: ISC_REQ_PROMPT_FOR_CREDS
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_PROMPT_FOR_CREDS => 64
+    static PROMPT_FOR_CREDS => 64
 
     /**
+     * Native name: ISC_REQ_USE_SUPPLIED_CREDS
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_USE_SUPPLIED_CREDS => 128
+    static USE_SUPPLIED_CREDS => 128
 
     /**
+     * Native name: ISC_REQ_ALLOCATE_MEMORY
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_ALLOCATE_MEMORY => 256
+    static ALLOCATE_MEMORY => 256
 
     /**
+     * Native name: ISC_REQ_USE_DCE_STYLE
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_USE_DCE_STYLE => 512
+    static USE_DCE_STYLE => 512
 
     /**
+     * Native name: ISC_REQ_DATAGRAM
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_DATAGRAM => 1024
+    static DATAGRAM => 1024
 
     /**
+     * Native name: ISC_REQ_CONNECTION
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_CONNECTION => 2048
+    static CONNECTION => 2048
 
     /**
+     * Native name: ISC_REQ_CALL_LEVEL
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_CALL_LEVEL => 4096
+    static CALL_LEVEL => 4096
 
     /**
+     * Native name: ISC_REQ_FRAGMENT_SUPPLIED
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_FRAGMENT_SUPPLIED => 8192
+    static FRAGMENT_SUPPLIED => 8192
 
     /**
+     * Native name: ISC_REQ_EXTENDED_ERROR
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_EXTENDED_ERROR => 16384
+    static EXTENDED_ERROR => 16384
 
     /**
+     * Native name: ISC_REQ_STREAM
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_STREAM => 32768
+    static STREAM => 32768
 
     /**
+     * Native name: ISC_REQ_INTEGRITY
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_INTEGRITY => 65536
+    static INTEGRITY => 65536
 
     /**
+     * Native name: ISC_REQ_IDENTIFY
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_IDENTIFY => 131072
+    static IDENTIFY => 131072
 
     /**
+     * Native name: ISC_REQ_NULL_SESSION
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_NULL_SESSION => 262144
+    static NULL_SESSION => 262144
 
     /**
+     * Native name: ISC_REQ_MANUAL_CRED_VALIDATION
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_MANUAL_CRED_VALIDATION => 524288
+    static MANUAL_CRED_VALIDATION => 524288
 
     /**
+     * Native name: ISC_REQ_RESERVED1
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_RESERVED1 => 1048576
+    static RESERVED1 => 1048576
 
     /**
+     * Native name: ISC_REQ_FRAGMENT_TO_FIT
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_FRAGMENT_TO_FIT => 2097152
+    static FRAGMENT_TO_FIT => 2097152
 
     /**
+     * Native name: ISC_REQ_FORWARD_CREDENTIALS
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_FORWARD_CREDENTIALS => 4194304
+    static FORWARD_CREDENTIALS => 4194304
 
     /**
+     * Native name: ISC_REQ_NO_INTEGRITY
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_NO_INTEGRITY => 8388608
+    static NO_INTEGRITY => 8388608
 
     /**
+     * Native name: ISC_REQ_USE_HTTP_STYLE
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_USE_HTTP_STYLE => 16777216
+    static USE_HTTP_STYLE => 16777216
 
     /**
+     * Native name: ISC_REQ_UNVERIFIED_TARGET_NAME
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_UNVERIFIED_TARGET_NAME => 536870912
+    static UNVERIFIED_TARGET_NAME => 536870912
 
     /**
+     * Native name: ISC_REQ_CONFIDENTIALITY_ONLY
      * @type {Integer (UInt32)}
      */
-    static ISC_REQ_CONFIDENTIALITY_ONLY => 1073741824
+    static CONFIDENTIALITY_ONLY => 1073741824
 }

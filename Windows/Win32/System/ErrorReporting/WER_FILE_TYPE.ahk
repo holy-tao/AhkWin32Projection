@@ -7,57 +7,68 @@
 class WER_FILE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WerFileTypeMicrodump
      * @type {Integer (Int32)}
      */
-    static WerFileTypeMicrodump => 1
+    static Microdump => 1
 
     /**
+     * Native name: WerFileTypeMinidump
      * @type {Integer (Int32)}
      */
-    static WerFileTypeMinidump => 2
+    static Minidump => 2
 
     /**
+     * Native name: WerFileTypeHeapdump
      * @type {Integer (Int32)}
      */
-    static WerFileTypeHeapdump => 3
+    static Heapdump => 3
 
     /**
+     * Native name: WerFileTypeUserDocument
      * @type {Integer (Int32)}
      */
-    static WerFileTypeUserDocument => 4
+    static UserDocument => 4
 
     /**
+     * Native name: WerFileTypeOther
      * @type {Integer (Int32)}
      */
-    static WerFileTypeOther => 5
+    static Other => 5
 
     /**
+     * Native name: WerFileTypeTriagedump
      * @type {Integer (Int32)}
      */
-    static WerFileTypeTriagedump => 6
+    static Triagedump => 6
 
     /**
+     * Native name: WerFileTypeCustomDump
      * @type {Integer (Int32)}
      */
-    static WerFileTypeCustomDump => 7
+    static CustomDump => 7
 
     /**
+     * Native name: WerFileTypeAuxiliaryDump
      * @type {Integer (Int32)}
      */
-    static WerFileTypeAuxiliaryDump => 8
+    static AuxiliaryDump => 8
 
     /**
+     * Native name: WerFileTypeEtlTrace
      * @type {Integer (Int32)}
      */
-    static WerFileTypeEtlTrace => 9
+    static EtlTrace => 9
 
     /**
+     * Native name: WerFileTypeAuxiliaryHeapDump
      * @type {Integer (Int32)}
      */
-    static WerFileTypeAuxiliaryHeapDump => 10
+    static AuxiliaryHeapDump => 10
 
     /**
+     * Native name: WerFileTypeMax
      * @type {Integer (Int32)}
      */
-    static WerFileTypeMax => 11
+    static Max => 11
 }

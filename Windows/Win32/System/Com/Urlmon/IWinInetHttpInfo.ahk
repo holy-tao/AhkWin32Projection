@@ -29,7 +29,6 @@ class IWinInetHttpInfo extends IWinInetInfo {
     static VTableNames => ["QueryInfo"]
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pcbBuf 

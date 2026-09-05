@@ -12,77 +12,92 @@ class HTTP_REQUEST_INFO_TYPE extends Win32Enum {
      * The request information type is authentication.
      * 
      * The <b>pInfo</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_info">HTTP_REQUEST_INFO</a> structure points to a <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_auth_info">HTTP_REQUEST_AUTH_INFO</a> structure.
+     * Native name: HttpRequestInfoTypeAuth
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeAuth => 0
+    static Auth => 0
 
     /**
+     * Native name: HttpRequestInfoTypeChannelBind
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeChannelBind => 1
+    static ChannelBind => 1
 
     /**
+     * Native name: HttpRequestInfoTypeSslProtocol
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeSslProtocol => 2
+    static SslProtocol => 2
 
     /**
+     * Native name: HttpRequestInfoTypeSslTokenBindingDraft
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeSslTokenBindingDraft => 3
+    static SslTokenBindingDraft => 3
 
     /**
+     * Native name: HttpRequestInfoTypeSslTokenBinding
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeSslTokenBinding => 4
+    static SslTokenBinding => 4
 
     /**
+     * Native name: HttpRequestInfoTypeRequestTiming
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeRequestTiming => 5
+    static RequestTiming => 5
 
     /**
+     * Native name: HttpRequestInfoTypeTcpInfoV0
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeTcpInfoV0 => 6
+    static TcpInfoV0 => 6
 
     /**
+     * Native name: HttpRequestInfoTypeRequestSizing
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeRequestSizing => 7
+    static RequestSizing => 7
 
     /**
+     * Native name: HttpRequestInfoTypeQuicStats
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeQuicStats => 8
+    static QuicStats => 8
 
     /**
+     * Native name: HttpRequestInfoTypeTcpInfoV1
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeTcpInfoV1 => 9
+    static TcpInfoV1 => 9
 
     /**
+     * Native name: HttpRequestInfoTypeQuicStatsV2
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeQuicStatsV2 => 10
+    static QuicStatsV2 => 10
 
     /**
+     * Native name: HttpRequestInfoTypeTcpInfoV2
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeTcpInfoV2 => 11
+    static TcpInfoV2 => 11
 
     /**
+     * Native name: HttpRequestInfoTypeTransportIdleConnectionTimeout
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeTransportIdleConnectionTimeout => 12
+    static TransportIdleConnectionTimeout => 12
 
     /**
+     * Native name: HttpRequestInfoTypeDscpTag
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeDscpTag => 13
+    static DscpTag => 13
 
     /**
+     * Native name: HttpRequestInfoTypeInitialPacketTtl
      * @type {Integer (Int32)}
      */
-    static HttpRequestInfoTypeInitialPacketTtl => 14
+    static InitialPacketTtl => 14
 }

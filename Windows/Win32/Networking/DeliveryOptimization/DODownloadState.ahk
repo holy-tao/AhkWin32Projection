@@ -10,37 +10,43 @@ class DODownloadState extends Win32Enum {
 
     /**
      * Download object is created but hasn't been started yet.
+     * Native name: DODownloadState_Created
      * @type {Integer (Int32)}
      */
-    static DODownloadState_Created => 0
+    static Created => 0
 
     /**
      * Download is in progress.
+     * Native name: DODownloadState_Transferring
      * @type {Integer (Int32)}
      */
-    static DODownloadState_Transferring => 1
+    static Transferring => 1
 
     /**
      * Download is transferred and can start again by downloading another portion of the file.
+     * Native name: DODownloadState_Transferred
      * @type {Integer (Int32)}
      */
-    static DODownloadState_Transferred => 2
+    static Transferred => 2
 
     /**
      * Download is finalized and cannot be started again.
+     * Native name: DODownloadState_Finalized
      * @type {Integer (Int32)}
      */
-    static DODownloadState_Finalized => 3
+    static Finalized => 3
 
     /**
      * Download was aborted.
+     * Native name: DODownloadState_Aborted
      * @type {Integer (Int32)}
      */
-    static DODownloadState_Aborted => 4
+    static Aborted => 4
 
     /**
      * Download has been paused on demand or due to transient error.
+     * Native name: DODownloadState_Paused
      * @type {Integer (Int32)}
      */
-    static DODownloadState_Paused => 5
+    static Paused => 5
 }

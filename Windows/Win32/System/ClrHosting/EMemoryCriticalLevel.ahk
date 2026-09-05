@@ -7,17 +7,20 @@
 class EMemoryCriticalLevel extends Win32Enum {
 
     /**
+     * Native name: eTaskCritical
      * @type {Integer (Int32)}
      */
-    static eTaskCritical => 0
+    static TaskCritical => 0
 
     /**
+     * Native name: eAppDomainCritical
      * @type {Integer (Int32)}
      */
-    static eAppDomainCritical => 1
+    static AppDomainCritical => 1
 
     /**
+     * Native name: eProcessCritical
      * @type {Integer (Int32)}
      */
-    static eProcessCritical => 2
+    static ProcessCritical => 2
 }

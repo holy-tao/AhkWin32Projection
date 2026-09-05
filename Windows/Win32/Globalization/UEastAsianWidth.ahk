@@ -7,32 +7,38 @@
 class UEastAsianWidth extends Win32Enum {
 
     /**
+     * Native name: U_EA_NEUTRAL
      * @type {Integer (Int32)}
      */
-    static U_EA_NEUTRAL => 0
+    static EA_NEUTRAL => 0
 
     /**
+     * Native name: U_EA_AMBIGUOUS
      * @type {Integer (Int32)}
      */
-    static U_EA_AMBIGUOUS => 1
+    static EA_AMBIGUOUS => 1
 
     /**
+     * Native name: U_EA_HALFWIDTH
      * @type {Integer (Int32)}
      */
-    static U_EA_HALFWIDTH => 2
+    static EA_HALFWIDTH => 2
 
     /**
+     * Native name: U_EA_FULLWIDTH
      * @type {Integer (Int32)}
      */
-    static U_EA_FULLWIDTH => 3
+    static EA_FULLWIDTH => 3
 
     /**
+     * Native name: U_EA_NARROW
      * @type {Integer (Int32)}
      */
-    static U_EA_NARROW => 4
+    static EA_NARROW => 4
 
     /**
+     * Native name: U_EA_WIDE
      * @type {Integer (Int32)}
      */
-    static U_EA_WIDE => 5
+    static EA_WIDE => 5
 }

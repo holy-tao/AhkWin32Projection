@@ -12,24 +12,28 @@ class D3D12_VIDEO_DECODE_ARGUMENT_TYPE extends Win32Enum {
 
     /**
      * The argument is a picture decoding parameter buffer.
+     * Native name: D3D12_VIDEO_DECODE_ARGUMENT_TYPE_PICTURE_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_ARGUMENT_TYPE_PICTURE_PARAMETERS => 0
+    static PICTURE_PARAMETERS => 0
 
     /**
      * The argument is an inverse quantization matrix buffer.
+     * Native name: D3D12_VIDEO_DECODE_ARGUMENT_TYPE_INVERSE_QUANTIZATION_MATRIX
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_ARGUMENT_TYPE_INVERSE_QUANTIZATION_MATRIX => 1
+    static INVERSE_QUANTIZATION_MATRIX => 1
 
     /**
      * The argument is a slice control buffer.
+     * Native name: D3D12_VIDEO_DECODE_ARGUMENT_TYPE_SLICE_CONTROL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_ARGUMENT_TYPE_SLICE_CONTROL => 2
+    static SLICE_CONTROL => 2
 
     /**
+     * Native name: D3D12_VIDEO_DECODE_ARGUMENT_TYPE_HUFFMAN_TABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_ARGUMENT_TYPE_HUFFMAN_TABLE => 3
+    static HUFFMAN_TABLE => 3
 }

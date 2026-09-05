@@ -7,17 +7,20 @@
 class KE_PROCESSOR_CHANGE_NOTIFY_STATE extends Win32Enum {
 
     /**
+     * Native name: KeProcessorAddStartNotify
      * @type {Integer (Int32)}
      */
-    static KeProcessorAddStartNotify => 0
+    static AddStartNotify => 0
 
     /**
+     * Native name: KeProcessorAddCompleteNotify
      * @type {Integer (Int32)}
      */
-    static KeProcessorAddCompleteNotify => 1
+    static AddCompleteNotify => 1
 
     /**
+     * Native name: KeProcessorAddFailureNotify
      * @type {Integer (Int32)}
      */
-    static KeProcessorAddFailureNotify => 2
+    static AddFailureNotify => 2
 }

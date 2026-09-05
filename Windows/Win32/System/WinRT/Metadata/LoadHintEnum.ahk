@@ -7,22 +7,26 @@
 class LoadHintEnum extends Win32Enum {
 
     /**
+     * Native name: LoadDefault
      * @type {Integer (Int32)}
      */
-    static LoadDefault => 0
+    static Default => 0
 
     /**
+     * Native name: LoadAlways
      * @type {Integer (Int32)}
      */
-    static LoadAlways => 1
+    static Always => 1
 
     /**
+     * Native name: LoadSometimes
      * @type {Integer (Int32)}
      */
-    static LoadSometimes => 2
+    static Sometimes => 2
 
     /**
+     * Native name: LoadNever
      * @type {Integer (Int32)}
      */
-    static LoadNever => 3
+    static Never => 3
 }

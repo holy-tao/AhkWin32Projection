@@ -33,7 +33,6 @@ class IDxcResult extends IDxcOperationResult {
     static VTableNames => ["HasOutput", "GetOutput", "GetNumOutputs", "GetOutputByIndex", "PrimaryOutput"]
 
     /**
-     * 
      * @param {DXC_OUT_KIND} dxcOutKind 
      * @returns {BOOL} 
      */
@@ -43,7 +42,6 @@ class IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @param {DXC_OUT_KIND} dxcOutKind 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvObject 
@@ -58,7 +56,6 @@ class IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumOutputs() {
@@ -67,7 +64,6 @@ class IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {DXC_OUT_KIND} 
      */
@@ -77,7 +73,6 @@ class IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @returns {DXC_OUT_KIND} 
      */
     PrimaryOutput() {

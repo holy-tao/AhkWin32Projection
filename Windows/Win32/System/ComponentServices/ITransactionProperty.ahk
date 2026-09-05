@@ -32,7 +32,6 @@ class ITransactionProperty extends IUnknown {
     static VTableNames => ["Reserved1", "Reserved2", "Reserved3", "Reserved4", "Reserved5", "Reserved6", "Reserved7", "Reserved8", "Reserved9", "GetTransactionResourcePool", "Reserved10", "Reserved11", "Reserved12", "Reserved13", "Reserved14", "Reserved15", "Reserved16", "Reserved17"]
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved1() {
@@ -40,7 +39,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved2() {
@@ -48,7 +46,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved3() {
@@ -56,7 +53,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved4() {
@@ -64,7 +60,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved5() {
@@ -72,7 +67,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved6() {
@@ -80,7 +74,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved7() {
@@ -88,7 +81,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved8() {
@@ -96,7 +88,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved9() {
@@ -114,7 +105,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved10() {
@@ -122,7 +112,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved11() {
@@ -130,7 +119,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved12() {
@@ -138,7 +126,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved13() {
@@ -146,7 +133,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved14() {
@@ -154,7 +140,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved15() {
@@ -162,7 +147,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved16() {
@@ -170,7 +154,6 @@ class ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved17() {

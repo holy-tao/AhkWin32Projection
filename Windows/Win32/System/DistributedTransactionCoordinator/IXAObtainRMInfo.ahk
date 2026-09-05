@@ -30,7 +30,6 @@ class IXAObtainRMInfo extends IUnknown {
     static VTableNames => ["ObtainRMInfo"]
 
     /**
-     * 
      * @param {IRMHelper} pIRMHelper 
      * @returns {HRESULT} 
      */

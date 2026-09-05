@@ -35,7 +35,6 @@ class IDocObjectService extends IUnknown {
     static VTableNames => ["FireBeforeNavigate2", "FireNavigateComplete2", "FireDownloadBegin", "FireDownloadComplete", "FireDocumentComplete", "UpdateDesktopComponent", "GetPendingUrl", "ActiveElementChanged", "GetUrlSearchComponent", "IsErrorUrl"]
 
     /**
-     * 
      * @param {IDispatch} pDispatch 
      * @param {PWSTR} lpszUrl 
      * @param {Integer} dwFlags 
@@ -58,7 +57,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLWindow2} pHTMLWindow2 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -69,7 +67,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadBegin() {
@@ -78,7 +75,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadComplete() {
@@ -87,7 +83,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLWindow2} pHTMLWindow 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -98,7 +93,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLWindow2} pHTMLWindow 
      * @returns {HRESULT} 
      */
@@ -108,7 +102,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetPendingUrl() {
@@ -118,7 +111,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pHTMLElement 
      * @returns {HRESULT} 
      */
@@ -128,7 +120,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUrlSearchComponent() {
@@ -138,7 +129,6 @@ class IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUrl 
      * @returns {BOOL} 
      */

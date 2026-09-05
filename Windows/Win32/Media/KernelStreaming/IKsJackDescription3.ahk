@@ -30,7 +30,6 @@ class IKsJackDescription3 extends IUnknown {
     static VTableNames => ["GetJackCount", "GetJackDescription3"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetJackCount() {
@@ -39,7 +38,6 @@ class IKsJackDescription3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nJack 
      * @returns {KSJACK_DESCRIPTION3} 
      */

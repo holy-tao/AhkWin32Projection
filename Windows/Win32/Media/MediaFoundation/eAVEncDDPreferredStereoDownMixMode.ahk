@@ -10,13 +10,15 @@ class eAVEncDDPreferredStereoDownMixMode extends Win32Enum {
 
     /**
      * Left total/right total (Lt/Rt) downmix.
+     * Native name: eAVEncDDPreferredStereoDownMixMode_LtRt
      * @type {Integer (Int32)}
      */
-    static eAVEncDDPreferredStereoDownMixMode_LtRt => 0
+    static LtRt => 0
 
     /**
      * Left only/right only (Lo/Ro) downmix.
+     * Native name: eAVEncDDPreferredStereoDownMixMode_LoRo
      * @type {Integer (Int32)}
      */
-    static eAVEncDDPreferredStereoDownMixMode_LoRo => 1
+    static LoRo => 1
 }

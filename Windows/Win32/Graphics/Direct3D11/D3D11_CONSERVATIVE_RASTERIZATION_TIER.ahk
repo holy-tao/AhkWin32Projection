@@ -10,25 +10,29 @@ class D3D11_CONSERVATIVE_RASTERIZATION_TIER extends Win32Enum {
 
     /**
      * Conservative rasterization isn't supported.
+     * Native name: D3D11_CONSERVATIVE_RASTERIZATION_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D11_CONSERVATIVE_RASTERIZATION_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * Tier_1 conservative rasterization is supported.
+     * Native name: D3D11_CONSERVATIVE_RASTERIZATION_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D11_CONSERVATIVE_RASTERIZATION_TIER_1 => 1
+    static 1 => 1
 
     /**
      * Tier_2 conservative rasterization is supported.
+     * Native name: D3D11_CONSERVATIVE_RASTERIZATION_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D11_CONSERVATIVE_RASTERIZATION_TIER_2 => 2
+    static 2 => 2
 
     /**
      * Tier_3 conservative rasterization is supported.
+     * Native name: D3D11_CONSERVATIVE_RASTERIZATION_TIER_3
      * @type {Integer (Int32)}
      */
-    static D3D11_CONSERVATIVE_RASTERIZATION_TIER_3 => 3
+    static 3 => 3
 }

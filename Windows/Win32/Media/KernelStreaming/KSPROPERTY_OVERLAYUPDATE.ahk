@@ -7,37 +7,44 @@
 class KSPROPERTY_OVERLAYUPDATE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_OVERLAYUPDATE_INTERESTS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_OVERLAYUPDATE_INTERESTS => 0
+    static INTERESTS => 0
 
     /**
+     * Native name: KSPROPERTY_OVERLAYUPDATE_CLIPLIST
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_OVERLAYUPDATE_CLIPLIST => 1
+    static CLIPLIST => 1
 
     /**
+     * Native name: KSPROPERTY_OVERLAYUPDATE_PALETTE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_OVERLAYUPDATE_PALETTE => 2
+    static PALETTE => 2
 
     /**
+     * Native name: KSPROPERTY_OVERLAYUPDATE_COLORKEY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_OVERLAYUPDATE_COLORKEY => 4
+    static COLORKEY => 4
 
     /**
+     * Native name: KSPROPERTY_OVERLAYUPDATE_VIDEOPOSITION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_OVERLAYUPDATE_VIDEOPOSITION => 8
+    static VIDEOPOSITION => 8
 
     /**
+     * Native name: KSPROPERTY_OVERLAYUPDATE_DISPLAYCHANGE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_OVERLAYUPDATE_DISPLAYCHANGE => 16
+    static DISPLAYCHANGE => 16
 
     /**
+     * Native name: KSPROPERTY_OVERLAYUPDATE_COLORREF
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_OVERLAYUPDATE_COLORREF => 268435456
+    static COLORREF => 268435456
 }

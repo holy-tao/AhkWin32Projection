@@ -1207,7 +1207,6 @@ class HttpServer {
     }
 
     /**
-     * 
      * @param {HANDLE} RequestQueueHandle 
      * @param {Integer} Id 
      * @param {HTTP_REQUEST_PROPERTY} PropertyId 
@@ -4583,7 +4582,6 @@ class HttpServer {
     }
 
     /**
-     * 
      * @param {HTTPAPI_VERSION} _Version 
      * @param {Integer} _Extension 
      * @param {Pointer<Void>} _Buffer 

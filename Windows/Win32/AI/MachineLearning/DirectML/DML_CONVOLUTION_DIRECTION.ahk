@@ -10,13 +10,15 @@ class DML_CONVOLUTION_DIRECTION extends Win32Enum {
 
     /**
      * Indicates a forward convolution.
+     * Native name: DML_CONVOLUTION_DIRECTION_FORWARD
      * @type {Integer (Int32)}
      */
-    static DML_CONVOLUTION_DIRECTION_FORWARD => 0
+    static FORWARD => 0
 
     /**
      * Indicates a backward convolution. Backward convolution is also known as <em>transposed</em> convolution.
+     * Native name: DML_CONVOLUTION_DIRECTION_BACKWARD
      * @type {Integer (Int32)}
      */
-    static DML_CONVOLUTION_DIRECTION_BACKWARD => 1
+    static BACKWARD => 1
 }

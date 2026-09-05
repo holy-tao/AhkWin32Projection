@@ -30,7 +30,6 @@ class ITrackerOwner extends IUnknown {
     static VTableNames => ["CreateTrackerHandle", "DeleteTrackerHandle", "SetTrackerValue", "TryGetSafeTrackerValue"]
 
     /**
-     * 
      * @returns {TrackerHandle} 
      */
     CreateTrackerHandle() {
@@ -39,7 +38,6 @@ class ITrackerOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {TrackerHandle} _handle 
      * @returns {HRESULT} 
      */
@@ -49,7 +47,6 @@ class ITrackerOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {TrackerHandle} _handle 
      * @param {IUnknown} value 
      * @returns {HRESULT} 
@@ -60,7 +57,6 @@ class ITrackerOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {TrackerHandle} _handle 
      * @param {Pointer<IUnknown>} returnValue 
      * @returns {Integer} 

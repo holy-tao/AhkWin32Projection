@@ -31,7 +31,6 @@ class IIterableConcept extends IUnknown {
     static VTableNames => ["GetDefaultIndexDimensionality", "GetIterator"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {Integer} 
      */
@@ -41,7 +40,6 @@ class IIterableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IModelIterator} 
      */

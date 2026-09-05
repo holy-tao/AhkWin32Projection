@@ -7,37 +7,44 @@
 class WICHeifCompressionOption extends Win32Enum {
 
     /**
+     * Native name: WICHeifCompressionDontCare
      * @type {Integer (Int32)}
      */
-    static WICHeifCompressionDontCare => 0
+    static DontCare => 0
 
     /**
+     * Native name: WICHeifCompressionNone
      * @type {Integer (Int32)}
      */
-    static WICHeifCompressionNone => 1
+    static None => 1
 
     /**
+     * Native name: WICHeifCompressionHEVC
      * @type {Integer (Int32)}
      */
-    static WICHeifCompressionHEVC => 2
+    static CompressionHEVC => 2
 
     /**
+     * Native name: WICHeifCompressionAV1
      * @type {Integer (Int32)}
      */
-    static WICHeifCompressionAV1 => 3
+    static CompressionAV1 => 3
 
     /**
+     * Native name: WICHeifCompressionJpegXL
      * @type {Integer (Int32)}
      */
-    static WICHeifCompressionJpegXL => 4
+    static JpegXL => 4
 
     /**
+     * Native name: WICHeifCompressionBrotli
      * @type {Integer (Int32)}
      */
-    static WICHeifCompressionBrotli => 5
+    static Brotli => 5
 
     /**
+     * Native name: WICHeifCompressionDeflate
      * @type {Integer (Int32)}
      */
-    static WICHeifCompressionDeflate => 6
+    static Deflate => 6
 }

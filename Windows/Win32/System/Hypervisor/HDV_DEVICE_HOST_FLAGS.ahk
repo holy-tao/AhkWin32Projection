@@ -7,12 +7,14 @@
 class HDV_DEVICE_HOST_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: HdvDeviceHostFlagNone
      * @type {Integer (Int32)}
      */
-    static HdvDeviceHostFlagNone => 0
+    static FlagNone => 0
 
     /**
+     * Native name: HdvDeviceHostFlagInitializeComSecurity
      * @type {Integer (Int32)}
      */
-    static HdvDeviceHostFlagInitializeComSecurity => 1
+    static FlagInitializeComSecurity => 1
 }

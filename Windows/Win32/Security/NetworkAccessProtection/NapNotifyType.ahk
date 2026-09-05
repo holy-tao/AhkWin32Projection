@@ -10,23 +10,26 @@ class NapNotifyType extends Win32Enum {
 
     /**
      * Not used.
+     * Native name: napNotifyTypeUnknown
      * @type {Integer (Int32)}
      */
-    static napNotifyTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * NapAgent service state change notifications. 
      * 
      * A notification of type <b>napNotifyTypeServiceState</b> is sent whenever the NapAgent service stops or starts.
+     * Native name: napNotifyTypeServiceState
      * @type {Integer (Int32)}
      */
-    static napNotifyTypeServiceState => 1
+    static ServiceState => 1
 
     /**
      * Quarantine state change notifications. 
      * 
      * A notification of type <b>napNotifyTypeQuarState</b>  is sent whenever the isolation state changes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-isolationstate">IsolationState</a>.
+     * Native name: napNotifyTypeQuarState
      * @type {Integer (Int32)}
      */
-    static napNotifyTypeQuarState => 2
+    static QuarState => 2
 }

@@ -7,24 +7,28 @@
 class EClrEvent extends Win32Enum {
 
     /**
+     * Native name: Event_DomainUnload
      * @type {Integer (Int32)}
      */
-    static Event_DomainUnload => 0
+    static DomainUnload => 0
 
     /**
+     * Native name: Event_ClrDisabled
      * @type {Integer (Int32)}
      */
-    static Event_ClrDisabled => 1
+    static ClrDisabled => 1
 
     /**
+     * Native name: Event_MDAFired
      * @type {Integer (Int32)}
      */
-    static Event_MDAFired => 2
+    static MDAFired => 2
 
     /**
+     * Native name: Event_StackOverflow
      * @type {Integer (Int32)}
      */
-    static Event_StackOverflow => 3
+    static StackOverflow => 3
 
     /**
      * @type {Integer (Int32)}

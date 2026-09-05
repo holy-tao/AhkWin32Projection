@@ -29,7 +29,6 @@ class IWinInetFileStream extends IUnknown {
     static VTableNames => ["SetHandleForUnlock", "SetDeleteFile"]
 
     /**
-     * 
      * @param {Pointer} hWinInetLockHandle 
      * @param {Pointer} dwReserved 
      * @returns {HRESULT} 
@@ -40,7 +39,6 @@ class IWinInetFileStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} dwReserved 
      * @returns {HRESULT} 
      */

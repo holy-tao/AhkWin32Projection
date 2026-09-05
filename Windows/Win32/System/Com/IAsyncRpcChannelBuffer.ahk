@@ -31,7 +31,6 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
     static VTableNames => ["Send", "Receive", "GetDestCtxEx"]
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {ISynchronize} pSync 
      * @returns {Integer} 
@@ -42,7 +41,6 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {Integer} 
      */
@@ -52,7 +50,6 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Pointer<Integer>} pdwDestContext 
      * @param {Pointer<Pointer<Void>>} ppvDestContext 

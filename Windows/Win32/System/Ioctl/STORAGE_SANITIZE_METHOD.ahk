@@ -7,17 +7,20 @@
 class STORAGE_SANITIZE_METHOD extends Win32Enum {
 
     /**
+     * Native name: StorageSanitizeMethodDefault
      * @type {Integer (Int32)}
      */
-    static StorageSanitizeMethodDefault => 0
+    static Default => 0
 
     /**
+     * Native name: StorageSanitizeMethodBlockErase
      * @type {Integer (Int32)}
      */
-    static StorageSanitizeMethodBlockErase => 1
+    static BlockErase => 1
 
     /**
+     * Native name: StorageSanitizeMethodCryptoErase
      * @type {Integer (Int32)}
      */
-    static StorageSanitizeMethodCryptoErase => 2
+    static CryptoErase => 2
 }

@@ -31,7 +31,6 @@ class IDebugAsyncOperation extends IUnknown {
     static VTableNames => ["GetSyncDebugOperation", "Start", "Abort", "QueryIsComplete", "GetResult"]
 
     /**
-     * 
      * @returns {IDebugSyncOperation} 
      */
     GetSyncDebugOperation() {
@@ -40,7 +39,6 @@ class IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugAsyncOperationCallBack} padocb 
      * @returns {HRESULT} 
      */
@@ -50,7 +48,6 @@ class IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -59,7 +56,6 @@ class IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsComplete() {
@@ -68,7 +64,6 @@ class IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HRESULT>} phrResult 
      * @param {Pointer<IUnknown>} ppunkResult 
      * @returns {HRESULT} 

@@ -7,12 +7,14 @@
 class D3D12_QUERY_HEAP_FLAGS extends Win32Enum {
 
     /**
+     * Native name: D3D12_QUERY_HEAP_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_QUERY_HEAP_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: D3D12_QUERY_HEAP_FLAG_CPU_RESOLVE
      * @type {Integer (Int32)}
      */
-    static D3D12_QUERY_HEAP_FLAG_CPU_RESOLVE => 1
+    static FLAG_CPU_RESOLVE => 1
 }

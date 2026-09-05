@@ -74,7 +74,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -84,7 +83,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_urn() {
@@ -94,7 +92,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_tagNames() {
@@ -103,7 +100,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_readyState() {
@@ -113,7 +109,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -133,7 +127,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrImplementationUrl 
      * @returns {HRESULT} 
      */
@@ -145,7 +138,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {VARIANT_BOOL} 
@@ -158,7 +150,6 @@ class IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {HRESULT} 

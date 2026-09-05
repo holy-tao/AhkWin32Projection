@@ -7,17 +7,20 @@
 class MF_TIMED_TEXT_BOUTEN_POSITION extends Win32Enum {
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_POSITION_BEFORE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_POSITION_BEFORE => 0
+    static BEFORE => 0
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_POSITION_AFTER
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_POSITION_AFTER => 1
+    static AFTER => 1
 
     /**
+     * Native name: MF_TIMED_TEXT_BOUTEN_POSITION_OUTSIDE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_BOUTEN_POSITION_OUTSIDE => 2
+    static OUTSIDE => 2
 }

@@ -7,12 +7,14 @@
 class D3D12_STATE_OBJECT_DATABASE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_STATE_OBJECT_DATABASE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_OBJECT_DATABASE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: D3D12_STATE_OBJECT_DATABASE_FLAG_READ_ONLY
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_OBJECT_DATABASE_FLAG_READ_ONLY => 1
+    static FLAG_READ_ONLY => 1
 }

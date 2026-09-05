@@ -7,12 +7,14 @@
 class FillMode extends Win32Enum {
 
     /**
+     * Native name: FillModeAlternate
      * @type {Integer (Int32)}
      */
-    static FillModeAlternate => 0
+    static Alternate => 0
 
     /**
+     * Native name: FillModeWinding
      * @type {Integer (Int32)}
      */
-    static FillModeWinding => 1
+    static Winding => 1
 }

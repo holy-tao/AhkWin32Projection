@@ -7,17 +7,20 @@
 class JsMemoryEventType extends Win32Enum {
 
     /**
+     * Native name: JsMemoryAllocate
      * @type {Integer (Int32)}
      */
-    static JsMemoryAllocate => 0
+    static Allocate => 0
 
     /**
+     * Native name: JsMemoryFree
      * @type {Integer (Int32)}
      */
-    static JsMemoryFree => 1
+    static Free => 1
 
     /**
+     * Native name: JsMemoryFailure
      * @type {Integer (Int32)}
      */
-    static JsMemoryFailure => 2
+    static Failure => 2
 }

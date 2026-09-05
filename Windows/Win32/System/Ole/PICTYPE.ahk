@@ -9,32 +9,38 @@
 class PICTYPE extends Win32Enum {
 
     /**
+     * Native name: PICTYPE_UNINITIALIZED
      * @type {Integer (Int16)}
      */
-    static PICTYPE_UNINITIALIZED => -1
+    static UNINITIALIZED => -1
 
     /**
+     * Native name: PICTYPE_NONE
      * @type {Integer (Int16)}
      */
-    static PICTYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: PICTYPE_BITMAP
      * @type {Integer (Int16)}
      */
-    static PICTYPE_BITMAP => 1
+    static BITMAP => 1
 
     /**
+     * Native name: PICTYPE_METAFILE
      * @type {Integer (Int16)}
      */
-    static PICTYPE_METAFILE => 2
+    static METAFILE => 2
 
     /**
+     * Native name: PICTYPE_ICON
      * @type {Integer (Int16)}
      */
-    static PICTYPE_ICON => 3
+    static ICON => 3
 
     /**
+     * Native name: PICTYPE_ENHMETAFILE
      * @type {Integer (Int16)}
      */
-    static PICTYPE_ENHMETAFILE => 4
+    static ENHMETAFILE => 4
 }

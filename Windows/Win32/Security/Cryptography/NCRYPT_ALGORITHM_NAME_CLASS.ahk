@@ -7,17 +7,20 @@
 class NCRYPT_ALGORITHM_NAME_CLASS extends Win32Enum {
 
     /**
+     * Native name: NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE
      * @type {Integer (UInt32)}
      */
-    static NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE => 3
+    static ASYMMETRIC_ENCRYPTION_INTERFACE => 3
 
     /**
+     * Native name: NCRYPT_SECRET_AGREEMENT_INTERFACE
      * @type {Integer (UInt32)}
      */
-    static NCRYPT_SECRET_AGREEMENT_INTERFACE => 4
+    static SECRET_AGREEMENT_INTERFACE => 4
 
     /**
+     * Native name: NCRYPT_SIGNATURE_INTERFACE
      * @type {Integer (UInt32)}
      */
-    static NCRYPT_SIGNATURE_INTERFACE => 5
+    static SIGNATURE_INTERFACE => 5
 }

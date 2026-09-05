@@ -133,7 +133,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -143,7 +142,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_size() {
@@ -152,7 +150,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -162,7 +159,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_multiple() {
@@ -171,7 +167,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -183,7 +178,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -193,7 +187,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_options() {
@@ -202,7 +195,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -212,7 +204,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -222,7 +213,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -232,7 +222,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_selectedIndex() {
@@ -241,7 +230,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -251,7 +239,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -263,7 +250,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -273,7 +259,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -283,7 +268,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -292,7 +276,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -341,7 +324,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -351,7 +333,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -361,7 +342,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -370,7 +350,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -379,7 +358,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
@@ -390,7 +368,6 @@ class IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} tagName 
      * @returns {IDispatch} 
      */

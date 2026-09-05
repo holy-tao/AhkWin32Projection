@@ -33,7 +33,6 @@ class IDirect3DDevice9On12 extends IUnknown {
     static VTableNames => ["GetD3D12Device", "UnwrapUnderlyingResource", "ReturnUnderlyingResource"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppvDevice 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class IDirect3DDevice9On12 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirect3DResource9} pResource 
      * @param {ID3D12CommandQueue} pCommandQueue 
      * @param {Pointer<Guid>} riid 
@@ -61,7 +59,6 @@ class IDirect3DDevice9On12 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirect3DResource9} pResource 
      * @param {Integer} NumSync 
      * @param {Pointer<Integer>} pSignalValues 

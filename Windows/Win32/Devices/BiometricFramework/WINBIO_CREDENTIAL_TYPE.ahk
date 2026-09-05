@@ -9,12 +9,14 @@
 class WINBIO_CREDENTIAL_TYPE extends Win32Enum {
 
     /**
+     * Native name: WINBIO_CREDENTIAL_PASSWORD
      * @type {Integer (Int32)}
      */
-    static WINBIO_CREDENTIAL_PASSWORD => 1
+    static PASSWORD => 1
 
     /**
+     * Native name: WINBIO_CREDENTIAL_ALL
      * @type {Integer (Int32)}
      */
-    static WINBIO_CREDENTIAL_ALL => -1
+    static ALL => -1
 }

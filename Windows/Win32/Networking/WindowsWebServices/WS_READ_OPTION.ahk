@@ -77,9 +77,10 @@ class WS_READ_OPTION extends Win32Enum {
      * If the value is not present in the XML being read,  
      *                     a <b>WS_E_INVALID_FORMAT</b> error will be returned.
      *                 (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
+     * Native name: WS_READ_REQUIRED_VALUE
      * @type {Integer (Int32)}
      */
-    static WS_READ_REQUIRED_VALUE => 1
+    static REQUIRED_VALUE => 1
 
     /**
      * The option specifies that the value must exist in the XML content.
@@ -94,9 +95,10 @@ class WS_READ_OPTION extends Win32Enum {
      * If the value is not present, then an error will be returned.
      *                     <b>NULL</b> will never be returned when this option is used.  If the
      *                     value is optional, use <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTIONAL_POINTER</a>.
+     * Native name: WS_READ_REQUIRED_POINTER
      * @type {Integer (Int32)}
      */
-    static WS_READ_REQUIRED_POINTER => 2
+    static REQUIRED_POINTER => 2
 
     /**
      * The option specifies that the value need not exist in the XML content.
@@ -114,9 +116,10 @@ class WS_READ_OPTION extends Win32Enum {
      * 
      * An application that uses this option should be careful to check for <b>NULL</b> before accessing the value.
      *                     If a <b>NULL</b> value is never expected, use <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_REQUIRED_POINTER</a>.
+     * Native name: WS_READ_OPTIONAL_POINTER
      * @type {Integer (Int32)}
      */
-    static WS_READ_OPTIONAL_POINTER => 3
+    static OPTIONAL_POINTER => 3
 
     /**
      * The option specifies that the value may be nil or missing in the XML content.
@@ -139,9 +142,10 @@ class WS_READ_OPTION extends Win32Enum {
      * 
      * This option is not supported in combination with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type_mapping">WS_TYPE_MAPPING</a> in APIs
      *                 that read XML, including <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadtype">WsReadType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadelement">WsReadElement</a> calls.
+     * Native name: WS_READ_NILLABLE_POINTER
      * @type {Integer (Int32)}
      */
-    static WS_READ_NILLABLE_POINTER => 4
+    static NILLABLE_POINTER => 4
 
     /**
      * The option specifies that the value may be nil or missing in the XML content.
@@ -172,7 +176,8 @@ class WS_READ_OPTION extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_BYTES_TYPE</a>
      * </li>
      * </ul>
+     * Native name: WS_READ_NILLABLE_VALUE
      * @type {Integer (Int32)}
      */
-    static WS_READ_NILLABLE_VALUE => 5
+    static NILLABLE_VALUE => 5
 }

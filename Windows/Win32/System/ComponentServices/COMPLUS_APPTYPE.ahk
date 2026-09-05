@@ -10,25 +10,29 @@ class COMPLUS_APPTYPE extends Win32Enum {
 
     /**
      * This value is not used.
+     * Native name: APPTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static APPTYPE_UNKNOWN => -1
+    static UNKNOWN => -1
 
     /**
      * COM+ server application.
+     * Native name: APPTYPE_SERVER
      * @type {Integer (Int32)}
      */
-    static APPTYPE_SERVER => 1
+    static SERVER => 1
 
     /**
      * COM+ library application.
+     * Native name: APPTYPE_LIBRARY
      * @type {Integer (Int32)}
      */
-    static APPTYPE_LIBRARY => 0
+    static LIBRARY => 0
 
     /**
      * COM+ services without components.
+     * Native name: APPTYPE_SWC
      * @type {Integer (Int32)}
      */
-    static APPTYPE_SWC => 2
+    static SWC => 2
 }

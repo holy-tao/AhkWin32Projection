@@ -7,9 +7,10 @@
 class NDK_RDMA_TECHNOLOGY extends Win32Enum {
 
     /**
+     * Native name: NdkUndefined
      * @type {Integer (Int32)}
      */
-    static NdkUndefined => 0
+    static Undefined => 0
 
     /**
      * @type {Integer (Int32)}
@@ -17,22 +18,26 @@ class NDK_RDMA_TECHNOLOGY extends Win32Enum {
     static NdkiWarp => 1
 
     /**
+     * Native name: NdkInfiniBand
      * @type {Integer (Int32)}
      */
-    static NdkInfiniBand => 2
+    static InfiniBand => 2
 
     /**
+     * Native name: NdkRoCE
      * @type {Integer (Int32)}
      */
-    static NdkRoCE => 3
+    static RoCE => 3
 
     /**
+     * Native name: NdkRoCEv2
      * @type {Integer (Int32)}
      */
-    static NdkRoCEv2 => 4
+    static RoCEv2 => 4
 
     /**
+     * Native name: NdkMaxTechnology
      * @type {Integer (Int32)}
      */
-    static NdkMaxTechnology => 5
+    static MaxTechnology => 5
 }

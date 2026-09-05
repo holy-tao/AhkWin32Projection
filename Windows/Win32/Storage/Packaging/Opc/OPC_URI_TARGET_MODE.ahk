@@ -16,13 +16,15 @@ class OPC_URI_TARGET_MODE extends Win32Enum {
 
     /**
      * The target of the relationship  is a part inside the package.
+     * Native name: OPC_URI_TARGET_MODE_INTERNAL
      * @type {Integer (Int32)}
      */
-    static OPC_URI_TARGET_MODE_INTERNAL => 0
+    static INTERNAL => 0
 
     /**
      * The target of the relationship is a resource outside of the package.
+     * Native name: OPC_URI_TARGET_MODE_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static OPC_URI_TARGET_MODE_EXTERNAL => 1
+    static EXTERNAL => 1
 }

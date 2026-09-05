@@ -10,19 +10,22 @@ class DNS_FREE_TYPE extends Win32Enum {
 
     /**
      * The data freed is a flat structure.
+     * Native name: DnsFreeFlat
      * @type {Integer (Int32)}
      */
-    static DnsFreeFlat => 0
+    static Flat => 0
 
     /**
      * The data freed is a Resource Record list, and includes subfields of the <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure. Resources freed include structures returned by the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsquery_a">DnsQuery</a> and <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsrecordsetcopyex">DnsRecordSetCopyEx</a> functions.
+     * Native name: DnsFreeRecordList
      * @type {Integer (Int32)}
      */
-    static DnsFreeRecordList => 1
+    static RecordList => 1
 
     /**
      * The data freed is a parsed message field.
+     * Native name: DnsFreeParsedMessageFields
      * @type {Integer (Int32)}
      */
-    static DnsFreeParsedMessageFields => 2
+    static ParsedMessageFields => 2
 }

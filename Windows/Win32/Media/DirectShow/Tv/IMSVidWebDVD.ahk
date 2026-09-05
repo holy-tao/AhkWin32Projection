@@ -274,7 +274,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lEvent 
      * @param {Pointer} lParam1 
      * @param {Pointer} lParam2 
@@ -496,7 +495,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @param {VARIANT_BOOL} fFormat 
      * @returns {BSTR} 
@@ -562,7 +560,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ButtonsAvailable() {
@@ -571,7 +568,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentButton() {
@@ -707,7 +703,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} xPos 
      * @param {Integer} yPos 
      * @returns {Integer} 
@@ -718,7 +713,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lTitle 
      * @returns {Integer} 
      */
@@ -728,7 +722,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TotalTitleTime() {
@@ -738,7 +731,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TitlesAvailable() {
@@ -747,7 +739,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VolumesAvailable() {
@@ -756,7 +747,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentVolume() {
@@ -765,7 +755,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentDiscSide() {
@@ -774,7 +763,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentDomain() {
@@ -783,7 +771,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentChapter() {
@@ -792,7 +779,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentTitle() {
@@ -801,7 +787,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CurrentTime() {
@@ -825,7 +810,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DVDDirectory() {
@@ -835,7 +819,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -873,7 +856,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentSubpictureStream() {
@@ -882,7 +864,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -892,7 +873,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @returns {BSTR} 
      */
@@ -903,7 +883,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentAudioStream() {
@@ -912,7 +891,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -922,7 +900,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioStreamsAvailable() {
@@ -931,7 +908,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AnglesAvailable() {
@@ -940,7 +916,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentAngle() {
@@ -949,7 +924,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -959,7 +933,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SubpictureStreamsAvailable() {
@@ -968,7 +941,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SubpictureOn() {
@@ -977,7 +949,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */
@@ -987,7 +958,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DVDUniqueID() {
@@ -1119,7 +1089,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lTitle 
      * @returns {Integer} 
      */
@@ -1129,7 +1098,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PlayerParentalCountry() {
@@ -1138,7 +1106,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PlayerParentalLevel() {
@@ -1170,7 +1137,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {Integer} 
      */
@@ -1180,7 +1146,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {Integer} 
      */
@@ -1190,7 +1155,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @param {Integer} sValue 
      * @returns {HRESULT} 
@@ -1201,7 +1165,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @param {Integer} lStringIndex 
      * @returns {DVDTextStringType} 
@@ -1212,7 +1175,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @param {Integer} lStringIndex 
      * @returns {BSTR} 
@@ -1224,7 +1186,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @returns {Integer} 
      */
@@ -1234,7 +1195,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DVDTextNumberOfLanguages() {
@@ -1243,7 +1203,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @returns {Integer} 
      */
@@ -1265,7 +1224,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DVDAdm() {
@@ -1390,7 +1348,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PreferredSubpictureStream() {
@@ -1399,7 +1356,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultMenuLanguage() {
@@ -1408,7 +1364,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lang 
      * @returns {HRESULT} 
      */
@@ -1418,7 +1373,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultSubpictureLanguage() {
@@ -1427,7 +1381,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultAudioLanguage() {
@@ -1436,7 +1389,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {DVDSPExt} 
      */
     get_DefaultSubpictureLanguageExt() {
@@ -1445,7 +1397,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultAudioLanguageExt() {
@@ -1454,7 +1405,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {BSTR} 
      */
@@ -1465,7 +1415,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_KaraokeAudioPresentationMode() {
@@ -1474,7 +1423,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -1484,7 +1432,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @param {Integer} lChan 
      * @returns {Integer} 
@@ -1495,7 +1442,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @returns {Integer} 
      */
@@ -1505,7 +1451,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestorePreferredSettings() {
@@ -1514,7 +1459,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lButton 
      * @returns {IMSVidRect} 
      */
@@ -1524,7 +1468,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {IMSVidRect} 
      */
     get_DVDScreenInMouseCoordinates() {
@@ -1533,7 +1476,6 @@ class IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {IMSVidRect} pRect 
      * @returns {HRESULT} 
      */

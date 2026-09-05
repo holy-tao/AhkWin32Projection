@@ -30,7 +30,6 @@ class IDXCoreAdapter1 extends IDXCoreAdapter {
     static VTableNames => ["GetPropertyWithInput"]
 
     /**
-     * 
      * @param {DXCoreAdapterProperty} _property 
      * @param {Pointer} inputPropertyDetailsSize 
      * @param {Integer} inputPropertyDetails 

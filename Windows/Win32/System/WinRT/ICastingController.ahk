@@ -65,7 +65,6 @@ class ICastingController extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Connect() {
@@ -86,7 +85,6 @@ class ICastingController extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICastingEventHandler} eventHandler 
      * @returns {Integer} 
      */
@@ -96,7 +94,6 @@ class ICastingController extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cookie 
      * @returns {HRESULT} 
      */

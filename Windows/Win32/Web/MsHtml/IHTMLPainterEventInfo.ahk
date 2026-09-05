@@ -31,7 +31,6 @@ class IHTMLPainterEventInfo extends IUnknown {
     static VTableNames => ["GetEventInfoFlags", "GetEventTarget", "SetCursor", "StringFromPartID"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventInfoFlags() {
@@ -40,7 +39,6 @@ class IHTMLPainterEventInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ class IHTMLPainterEventInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lPartID 
      * @returns {BSTR} 
      */

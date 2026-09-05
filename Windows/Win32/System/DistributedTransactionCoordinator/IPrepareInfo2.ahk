@@ -29,7 +29,6 @@ class IPrepareInfo2 extends IUnknown {
     static VTableNames => ["GetPrepareInfoSize", "GetPrepareInfo"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPrepareInfoSize() {
@@ -38,7 +37,6 @@ class IPrepareInfo2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbPrepareInfo 
      * @returns {Integer} 
      */

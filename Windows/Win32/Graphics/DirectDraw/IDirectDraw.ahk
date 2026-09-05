@@ -39,7 +39,6 @@ class IDirectDraw extends IUnknown {
     static VTableNames => ["Compact", "CreateClipper", "CreatePalette", "CreateSurface", "DuplicateSurface", "EnumDisplayModes", "EnumSurfaces", "FlipToGDISurface", "GetCaps", "GetDisplayMode", "GetFourCCCodes", "GetGDISurface", "GetMonitorFrequency", "GetScanLine", "GetVerticalBlankStatus", "Initialize", "RestoreDisplayMode", "SetCooperativeLevel", "SetDisplayMode", "WaitForVerticalBlank"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Compact() {
@@ -48,7 +47,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawClipper} 
@@ -78,7 +76,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawSurface} 
@@ -89,7 +86,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface} param0 
      * @returns {IDirectDrawSurface} 
      */
@@ -99,7 +95,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC>} param1 
      * @param {Pointer<Void>} param2 
@@ -114,7 +109,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC>} param1 
      * @param {Pointer<Void>} param2 
@@ -129,7 +123,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FlipToGDISurface() {
@@ -138,7 +131,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDCAPS_DX7>} param0 
      * @param {Pointer<DDCAPS_DX7>} param1 
      * @returns {HRESULT} 
@@ -149,7 +141,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC>} param0 
      * @returns {HRESULT} 
      */
@@ -159,7 +150,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {HRESULT} 
@@ -173,7 +163,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDirectDrawSurface} 
      */
     GetGDISurface() {
@@ -182,7 +171,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -194,7 +182,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -206,7 +193,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} param0 
      * @returns {HRESULT} 
      */
@@ -252,7 +238,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestoreDisplayMode() {
@@ -261,7 +246,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -274,7 +258,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -286,7 +269,6 @@ class IDirectDraw extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {HANDLE} param1 
      * @returns {HRESULT} 

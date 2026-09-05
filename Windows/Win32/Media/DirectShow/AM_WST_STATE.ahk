@@ -10,13 +10,15 @@ class AM_WST_STATE extends Win32Enum {
 
     /**
      * Specifies that WST closed captioning is enabled.
+     * Native name: AM_WST_STATE_Off
      * @type {Integer (Int32)}
      */
-    static AM_WST_STATE_Off => 0
+    static Off => 0
 
     /**
      * Specifies that WST closed captioning is disabled.
+     * Native name: AM_WST_STATE_On
      * @type {Integer (Int32)}
      */
-    static AM_WST_STATE_On => 1
+    static On => 1
 }

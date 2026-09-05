@@ -7,17 +7,20 @@
 class svgExternalResourcesRequired extends Win32Enum {
 
     /**
+     * Native name: svgExternalResourcesRequiredFalse
      * @type {Integer (Int32)}
      */
-    static svgExternalResourcesRequiredFalse => 0
+    static False => 0
 
     /**
+     * Native name: svgExternalResourcesRequiredTrue
      * @type {Integer (Int32)}
      */
-    static svgExternalResourcesRequiredTrue => 1
+    static True => 1
 
     /**
+     * Native name: svgExternalResourcesRequired_Max
      * @type {Integer (Int32)}
      */
-    static svgExternalResourcesRequired_Max => 2147483647
+    static Max => 2147483647
 }

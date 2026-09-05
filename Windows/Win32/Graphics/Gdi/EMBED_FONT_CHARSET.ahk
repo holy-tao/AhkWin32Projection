@@ -7,12 +7,14 @@
 class EMBED_FONT_CHARSET extends Win32Enum {
 
     /**
+     * Native name: CHARSET_UNICODE
      * @type {Integer (UInt32)}
      */
-    static CHARSET_UNICODE => 1
+    static UNICODE => 1
 
     /**
+     * Native name: CHARSET_SYMBOL
      * @type {Integer (UInt32)}
      */
-    static CHARSET_SYMBOL => 2
+    static SYMBOL => 2
 }

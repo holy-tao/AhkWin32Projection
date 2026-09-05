@@ -31,7 +31,6 @@ class IExtensionServices extends IUnknown {
     static VTableNames => ["SetAdditionalHeaders", "SetAuthenticateData"]
 
     /**
-     * 
      * @param {PWSTR} pwzAdditionalHeaders 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class IExtensionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} phwnd 
      * @param {PWSTR} pwzUsername 
      * @param {PWSTR} pwzPassword 

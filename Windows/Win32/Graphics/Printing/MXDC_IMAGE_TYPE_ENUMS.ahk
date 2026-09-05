@@ -7,22 +7,26 @@
 class MXDC_IMAGE_TYPE_ENUMS extends Win32Enum {
 
     /**
+     * Native name: MXDC_IMAGETYPE_JPEGHIGH_COMPRESSION
      * @type {Integer (Int32)}
      */
-    static MXDC_IMAGETYPE_JPEGHIGH_COMPRESSION => 1
+    static IMAGETYPE_JPEGHIGH_COMPRESSION => 1
 
     /**
+     * Native name: MXDC_IMAGETYPE_JPEGMEDIUM_COMPRESSION
      * @type {Integer (Int32)}
      */
-    static MXDC_IMAGETYPE_JPEGMEDIUM_COMPRESSION => 2
+    static IMAGETYPE_JPEGMEDIUM_COMPRESSION => 2
 
     /**
+     * Native name: MXDC_IMAGETYPE_JPEGLOW_COMPRESSION
      * @type {Integer (Int32)}
      */
-    static MXDC_IMAGETYPE_JPEGLOW_COMPRESSION => 3
+    static IMAGETYPE_JPEGLOW_COMPRESSION => 3
 
     /**
+     * Native name: MXDC_IMAGETYPE_PNG
      * @type {Integer (Int32)}
      */
-    static MXDC_IMAGETYPE_PNG => 4
+    static IMAGETYPE_PNG => 4
 }

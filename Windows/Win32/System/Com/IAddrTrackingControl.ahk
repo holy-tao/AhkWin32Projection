@@ -29,7 +29,6 @@ class IAddrTrackingControl extends IUnknown {
     static VTableNames => ["EnableCOMDynamicAddrTracking", "DisableCOMDynamicAddrTracking"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnableCOMDynamicAddrTracking() {
@@ -38,7 +37,6 @@ class IAddrTrackingControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisableCOMDynamicAddrTracking() {

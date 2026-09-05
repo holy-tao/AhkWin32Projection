@@ -10,13 +10,15 @@ class RAS_HARDWARE_CONDITION extends Win32Enum {
 
     /**
      * The port is operational.
+     * Native name: RAS_HARDWARE_OPERATIONAL
      * @type {Integer (Int32)}
      */
-    static RAS_HARDWARE_OPERATIONAL => 0
+    static OPERATIONAL => 0
 
     /**
      * The port is not operational, due to a hardware failure.
+     * Native name: RAS_HARDWARE_FAILURE
      * @type {Integer (Int32)}
      */
-    static RAS_HARDWARE_FAILURE => 1
+    static FAILURE => 1
 }

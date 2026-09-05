@@ -15,25 +15,29 @@ class VDS_STORAGE_POOL_STATUS extends Win32Enum {
 
     /**
      * The provider failed to get the storage pool properties or could not access the storage pool.
+     * Native name: VDS_SPS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_SPS_UNKNOWN => 0
+    static SPS_UNKNOWN => 0
 
     /**
      * The storage pool is available.
+     * Native name: VDS_SPS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_SPS_ONLINE => 1
+    static SPS_ONLINE => 1
 
     /**
      * The storage pool is busy.
+     * Native name: VDS_SPS_NOT_READY
      * @type {Integer (Int32)}
      */
-    static VDS_SPS_NOT_READY => 2
+    static SPS_NOT_READY => 2
 
     /**
      * The storage pool is not available.
+     * Native name: VDS_SPS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_SPS_OFFLINE => 4
+    static SPS_OFFLINE => 4
 }

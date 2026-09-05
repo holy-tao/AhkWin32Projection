@@ -30,7 +30,6 @@ class IActiveScriptProfilerControl4 extends IActiveScriptProfilerControl3 {
     static VTableNames => ["SummarizeHeap"]
 
     /**
-     * 
      * @param {Pointer<PROFILER_HEAP_SUMMARY>} heapSummary 
      * @returns {HRESULT} 
      */

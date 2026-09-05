@@ -31,7 +31,6 @@ class ICloneViewHelper extends IUnknown {
     static VTableNames => ["GetConnectedIDs", "GetActiveTopology", "SetActiveTopology", "Commit"]
 
     /**
-     * 
      * @param {PWSTR} wszAdaptorName 
      * @param {Pointer<Integer>} pulCount 
      * @param {Pointer<Integer>} pulID 
@@ -49,7 +48,6 @@ class ICloneViewHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszAdaptorName 
      * @param {Integer} ulSourceID 
      * @param {Pointer<Integer>} pulCount 
@@ -67,7 +65,6 @@ class ICloneViewHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszAdaptorName 
      * @param {Integer} ulSourceID 
      * @param {Integer} ulCount 
@@ -84,7 +81,6 @@ class ICloneViewHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFinalCall 
      * @returns {HRESULT} 
      */

@@ -28,7 +28,6 @@ class ID3D12DeviceTools extends IUnknown {
     static VTableNames => ["SetNextAllocationAddress"]
 
     /**
-     * 
      * @param {Integer} nextAllocationVirtualAddress 
      * @returns {String} Nothing - always returns an empty string
      */

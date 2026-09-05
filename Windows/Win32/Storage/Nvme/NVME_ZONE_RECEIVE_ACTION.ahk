@@ -7,12 +7,14 @@
 class NVME_ZONE_RECEIVE_ACTION extends Win32Enum {
 
     /**
+     * Native name: NVME_ZONE_RECEIVE_REPORT_ZONES
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_RECEIVE_REPORT_ZONES => 0
+    static REPORT_ZONES => 0
 
     /**
+     * Native name: NVME_ZONE_RECEIVE_EXTENDED_REPORT_ZONES
      * @type {Integer (Int32)}
      */
-    static NVME_ZONE_RECEIVE_EXTENDED_REPORT_ZONES => 1
+    static EXTENDED_REPORT_ZONES => 1
 }

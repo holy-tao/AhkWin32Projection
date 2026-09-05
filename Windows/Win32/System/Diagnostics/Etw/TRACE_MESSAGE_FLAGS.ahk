@@ -7,27 +7,32 @@
 class TRACE_MESSAGE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: TRACE_MESSAGE_COMPONENTID
      * @type {Integer (UInt32)}
      */
-    static TRACE_MESSAGE_COMPONENTID => 4
+    static COMPONENTID => 4
 
     /**
+     * Native name: TRACE_MESSAGE_GUID
      * @type {Integer (UInt32)}
      */
-    static TRACE_MESSAGE_GUID => 2
+    static GUID => 2
 
     /**
+     * Native name: TRACE_MESSAGE_SEQUENCE
      * @type {Integer (UInt32)}
      */
-    static TRACE_MESSAGE_SEQUENCE => 1
+    static SEQUENCE => 1
 
     /**
+     * Native name: TRACE_MESSAGE_SYSTEMINFO
      * @type {Integer (UInt32)}
      */
-    static TRACE_MESSAGE_SYSTEMINFO => 32
+    static SYSTEMINFO => 32
 
     /**
+     * Native name: TRACE_MESSAGE_TIMESTAMP
      * @type {Integer (UInt32)}
      */
-    static TRACE_MESSAGE_TIMESTAMP => 8
+    static TIMESTAMP => 8
 }

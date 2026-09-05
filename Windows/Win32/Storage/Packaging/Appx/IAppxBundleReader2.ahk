@@ -31,7 +31,6 @@ class IAppxBundleReader2 extends IUnknown {
     static VTableNames => ["GetPayloadPackageReader"]
 
     /**
-     * 
      * @param {PWSTR} fileName 
      * @returns {IAppxPackageReader} 
      */

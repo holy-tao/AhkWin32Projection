@@ -7,22 +7,26 @@
 class XmlConformanceLevel extends Win32Enum {
 
     /**
+     * Native name: XmlConformanceLevel_Auto
      * @type {Integer (Int32)}
      */
-    static XmlConformanceLevel_Auto => 0
+    static Auto => 0
 
     /**
+     * Native name: XmlConformanceLevel_Fragment
      * @type {Integer (Int32)}
      */
-    static XmlConformanceLevel_Fragment => 1
+    static Fragment => 1
 
     /**
+     * Native name: XmlConformanceLevel_Document
      * @type {Integer (Int32)}
      */
-    static XmlConformanceLevel_Document => 2
+    static Document => 2
 
     /**
+     * Native name: _XmlConformanceLevel_Last
      * @type {Integer (Int32)}
      */
-    static _XmlConformanceLevel_Last => 2
+    static Last => 2
 }

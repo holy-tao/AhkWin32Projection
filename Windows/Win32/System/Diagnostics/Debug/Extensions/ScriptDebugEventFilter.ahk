@@ -7,22 +7,26 @@
 class ScriptDebugEventFilter extends Win32Enum {
 
     /**
+     * Native name: ScriptDebugEventFilterEntry
      * @type {Integer (Int32)}
      */
-    static ScriptDebugEventFilterEntry => 0
+    static Entry => 0
 
     /**
+     * Native name: ScriptDebugEventFilterException
      * @type {Integer (Int32)}
      */
-    static ScriptDebugEventFilterException => 1
+    static Exception => 1
 
     /**
+     * Native name: ScriptDebugEventFilterUnhandledException
      * @type {Integer (Int32)}
      */
-    static ScriptDebugEventFilterUnhandledException => 2
+    static UnhandledException => 2
 
     /**
+     * Native name: ScriptDebugEventFilterAbort
      * @type {Integer (Int32)}
      */
-    static ScriptDebugEventFilterAbort => 3
+    static Abort => 3
 }

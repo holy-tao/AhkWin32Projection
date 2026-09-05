@@ -7,32 +7,38 @@
 class KSCAMERA_EXTENDEDPROP_WBPRESET extends Win32Enum {
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WBPRESET_CLOUDY
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WBPRESET_CLOUDY => 1
+    static CLOUDY => 1
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WBPRESET_DAYLIGHT
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WBPRESET_DAYLIGHT => 2
+    static DAYLIGHT => 2
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WBPRESET_FLASH
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WBPRESET_FLASH => 3
+    static FLASH => 3
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WBPRESET_FLUORESCENT
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WBPRESET_FLUORESCENT => 4
+    static FLUORESCENT => 4
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WBPRESET_TUNGSTEN
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WBPRESET_TUNGSTEN => 5
+    static TUNGSTEN => 5
 
     /**
+     * Native name: KSCAMERA_EXTENDEDPROP_WBPRESET_CANDLELIGHT
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_EXTENDEDPROP_WBPRESET_CANDLELIGHT => 6
+    static CANDLELIGHT => 6
 }

@@ -46,7 +46,6 @@ class IDOMFocusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_relatedTarget() {
@@ -55,7 +54,6 @@ class IDOMFocusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

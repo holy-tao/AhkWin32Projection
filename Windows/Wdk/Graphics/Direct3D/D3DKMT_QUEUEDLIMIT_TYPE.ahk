@@ -7,12 +7,14 @@
 class D3DKMT_QUEUEDLIMIT_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_SET_QUEUEDLIMIT_PRESENT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SET_QUEUEDLIMIT_PRESENT => 1
+    static SET_QUEUEDLIMIT_PRESENT => 1
 
     /**
+     * Native name: D3DKMT_GET_QUEUEDLIMIT_PRESENT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_GET_QUEUEDLIMIT_PRESENT => 2
+    static GET_QUEUEDLIMIT_PRESENT => 2
 }

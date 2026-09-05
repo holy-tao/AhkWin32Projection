@@ -602,7 +602,6 @@ class Sip {
     }
 
     /**
-     * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
      * @param {Pointer<Integer>} pSig 
      * @param {Integer} dwSig 

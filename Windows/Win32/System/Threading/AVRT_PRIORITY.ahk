@@ -7,27 +7,32 @@
 class AVRT_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: AVRT_PRIORITY_VERYLOW
      * @type {Integer (Int32)}
      */
-    static AVRT_PRIORITY_VERYLOW => -2
+    static VERYLOW => -2
 
     /**
+     * Native name: AVRT_PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static AVRT_PRIORITY_LOW => -1
+    static LOW => -1
 
     /**
+     * Native name: AVRT_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static AVRT_PRIORITY_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: AVRT_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static AVRT_PRIORITY_HIGH => 1
+    static HIGH => 1
 
     /**
+     * Native name: AVRT_PRIORITY_CRITICAL
      * @type {Integer (Int32)}
      */
-    static AVRT_PRIORITY_CRITICAL => 2
+    static CRITICAL => 2
 }

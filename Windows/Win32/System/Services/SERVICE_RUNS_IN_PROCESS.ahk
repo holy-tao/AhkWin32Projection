@@ -7,12 +7,14 @@
 class SERVICE_RUNS_IN_PROCESS extends Win32Enum {
 
     /**
+     * Native name: SERVICE_RUNS_IN_NON_SYSTEM_OR_NOT_RUNNING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_RUNS_IN_NON_SYSTEM_OR_NOT_RUNNING => 0
+    static NON_SYSTEM_OR_NOT_RUNNING => 0
 
     /**
+     * Native name: SERVICE_RUNS_IN_SYSTEM_PROCESS
      * @type {Integer (UInt32)}
      */
-    static SERVICE_RUNS_IN_SYSTEM_PROCESS => 1
+    static SYSTEM_PROCESS => 1
 }

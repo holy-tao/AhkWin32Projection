@@ -7,17 +7,20 @@
 class DTCINITIATEDRECOVERYWORK extends Win32Enum {
 
     /**
+     * Native name: DTCINITIATEDRECOVERYWORK_CHECKLUSTATUS
      * @type {Integer (Int32)}
      */
-    static DTCINITIATEDRECOVERYWORK_CHECKLUSTATUS => 1
+    static CHECKLUSTATUS => 1
 
     /**
+     * Native name: DTCINITIATEDRECOVERYWORK_TRANS
      * @type {Integer (Int32)}
      */
-    static DTCINITIATEDRECOVERYWORK_TRANS => 2
+    static TRANS => 2
 
     /**
+     * Native name: DTCINITIATEDRECOVERYWORK_TMDOWN
      * @type {Integer (Int32)}
      */
-    static DTCINITIATEDRECOVERYWORK_TMDOWN => 3
+    static TMDOWN => 3
 }

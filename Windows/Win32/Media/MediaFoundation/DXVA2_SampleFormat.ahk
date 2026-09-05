@@ -54,49 +54,57 @@ class DXVA2_SampleFormat extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: DXVA2_SampleFormatMask
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleFormatMask => 255
+    static Mask => 255
 
     /**
      * Unknown format. Default to DXVA2_SampleProgressiveFrame.
+     * Native name: DXVA2_SampleUnknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleUnknown => 0
+    static Unknown => 0
 
     /**
      * The sample contains a progressive (non-interlaced) frame.
+     * Native name: DXVA2_SampleProgressiveFrame
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleProgressiveFrame => 2
+    static ProgressiveFrame => 2
 
     /**
      * The sample contains two interleaved fields. The even field should be displayed first.
+     * Native name: DXVA2_SampleFieldInterleavedEvenFirst
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleFieldInterleavedEvenFirst => 3
+    static FieldInterleavedEvenFirst => 3
 
     /**
      * The sample contains two interleaved fields. The odd field should be displayed first.
+     * Native name: DXVA2_SampleFieldInterleavedOddFirst
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleFieldInterleavedOddFirst => 4
+    static FieldInterleavedOddFirst => 4
 
     /**
      * The sample contains a single even field.
+     * Native name: DXVA2_SampleFieldSingleEven
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleFieldSingleEven => 5
+    static FieldSingleEven => 5
 
     /**
      * The sample contains a single odd field.
+     * Native name: DXVA2_SampleFieldSingleOdd
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleFieldSingleOdd => 6
+    static FieldSingleOdd => 6
 
     /**
      * The sample contains a video substream frame. Use this value for substream mixing.
+     * Native name: DXVA2_SampleSubStream
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleSubStream => 7
+    static SubStream => 7
 }

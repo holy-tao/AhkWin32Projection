@@ -107,7 +107,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -119,7 +118,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -129,7 +127,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +138,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {
@@ -151,7 +147,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -161,7 +156,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -171,7 +165,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -181,7 +174,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {
@@ -191,7 +183,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -201,7 +192,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorLight() {
@@ -211,7 +201,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -221,7 +210,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorDark() {
@@ -231,7 +219,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_rowIndex() {
@@ -240,7 +227,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_sectionRowIndex() {
@@ -249,7 +235,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_cells() {
@@ -258,7 +243,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -268,7 +252,6 @@ class IHTMLTableRow extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */

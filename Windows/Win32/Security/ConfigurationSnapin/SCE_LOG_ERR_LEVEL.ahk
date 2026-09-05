@@ -7,22 +7,26 @@
 class SCE_LOG_ERR_LEVEL extends Win32Enum {
 
     /**
+     * Native name: SCE_LOG_LEVEL_ALWAYS
      * @type {Integer (Int32)}
      */
-    static SCE_LOG_LEVEL_ALWAYS => 0
+    static ALWAYS => 0
 
     /**
+     * Native name: SCE_LOG_LEVEL_ERROR
      * @type {Integer (Int32)}
      */
-    static SCE_LOG_LEVEL_ERROR => 1
+    static ERROR => 1
 
     /**
+     * Native name: SCE_LOG_LEVEL_DETAIL
      * @type {Integer (Int32)}
      */
-    static SCE_LOG_LEVEL_DETAIL => 2
+    static DETAIL => 2
 
     /**
+     * Native name: SCE_LOG_LEVEL_DEBUG
      * @type {Integer (Int32)}
      */
-    static SCE_LOG_LEVEL_DEBUG => 3
+    static DEBUG => 3
 }

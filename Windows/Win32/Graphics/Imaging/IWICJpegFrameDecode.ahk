@@ -239,7 +239,6 @@ class IWICJpegFrameDecode extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} streamOffset 
      * @param {Integer} cbStreamData 
      * @param {Pointer<Integer>} pbStreamData 

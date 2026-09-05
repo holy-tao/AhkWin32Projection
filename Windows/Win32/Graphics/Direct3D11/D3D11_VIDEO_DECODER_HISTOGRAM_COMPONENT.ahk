@@ -12,43 +12,50 @@ class D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT extends Win32Enum {
 
     /**
      * If the format is a YUV format, indicates a histogram for the Y component.
+     * Native name: D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_Y
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_Y => 0
+    static Y => 0
 
     /**
      * If the format is a YUV format, indicates a histogram for the U component.
+     * Native name: D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_U
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_U => 1
+    static U => 1
 
     /**
      * If the format is a YUV format, indicates a histogram for the V component.
+     * Native name: D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_V
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_V => 2
+    static V => 2
 
     /**
      * If the format is an RGB/BGR format, indicates a histogram for the R component.
+     * Native name: D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_R
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_R => 0
+    static R => 0
 
     /**
      * If the format is an RGB/BGR format, indicates a histogram for the G component.
+     * Native name: D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_G
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_G => 1
+    static G => 1
 
     /**
      * If the format is an RGB/BGR format, indicates a histogram for the B component.
+     * Native name: D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_B
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_B => 2
+    static B => 2
 
     /**
      * If the format has an alpha channel, indicates a histogram for the A component.
+     * Native name: D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_A
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_A => 3
+    static A => 3
 }

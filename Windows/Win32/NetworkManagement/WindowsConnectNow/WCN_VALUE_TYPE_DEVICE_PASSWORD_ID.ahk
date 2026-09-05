@@ -15,9 +15,10 @@ class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum {
      * 
      * 
      * To authenticate with the default password ID, call <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-setpassword">IWCNDevice::SetPassword</a> with the PIN password type defined by <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/ne-wcndevice-wcn_password_type">WCN_PASSWORD_TYPE</a>.
+     * Native name: WCN_VALUE_DP_DEFAULT
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_DEFAULT => 0
+    static DP_DEFAULT => 0
 
     /**
      * The user has overridden the default password with a manually selected value.
@@ -25,9 +26,10 @@ class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Not supported in Windows 7.</div>
      * <div> </div>
+     * Native name: WCN_VALUE_DP_USER_SPECIFIED
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_USER_SPECIFIED => 1
+    static DP_USER_SPECIFIED => 1
 
     /**
      * The default PIN password has been overridden by a strong, machine-generated
@@ -35,9 +37,10 @@ class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Not supported in Windows 7.</div>
      * <div> </div>
+     * Native name: WCN_VALUE_DP_MACHINE_SPECIFIED
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_MACHINE_SPECIFIED => 2
+    static DP_MACHINE_SPECIFIED => 2
 
     /**
      * The 256-bit rekeying password
@@ -45,17 +48,19 @@ class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Not supported in Windows 7.</div>
      * <div> </div>
+     * Native name: WCN_VALUE_DP_REKEY
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_REKEY => 3
+    static DP_REKEY => 3
 
     /**
      * A password entered via a push button interface will be used. 
      * 
      * To authenticate with the default password ID, call <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-setpassword">IWCNDevice::SetPassword</a> with the push button password type defined by <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/ne-wcndevice-wcn_password_type">WCN_PASSWORD_TYPE</a>.
+     * Native name: WCN_VALUE_DP_PUSHBUTTON
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_PUSHBUTTON => 4
+    static DP_PUSHBUTTON => 4
 
     /**
      * A PIN has been obtained from the Registrar via a display or
@@ -63,27 +68,32 @@ class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Not supported in Windows 7.</div>
      * <div> </div>
+     * Native name: WCN_VALUE_DP_REGISTRAR_SPECIFIED
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_REGISTRAR_SPECIFIED => 5
+    static DP_REGISTRAR_SPECIFIED => 5
 
     /**
+     * Native name: WCN_VALUE_DP_NFC_CONNECTION_HANDOVER
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_NFC_CONNECTION_HANDOVER => 7
+    static DP_NFC_CONNECTION_HANDOVER => 7
 
     /**
+     * Native name: WCN_VALUE_DP_WFD_SERVICES
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_WFD_SERVICES => 8
+    static DP_WFD_SERVICES => 8
 
     /**
+     * Native name: WCN_VALUE_DP_OUTOFBAND_MIN
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_OUTOFBAND_MIN => 16
+    static DP_OUTOFBAND_MIN => 16
 
     /**
+     * Native name: WCN_VALUE_DP_OUTOFBAND_MAX
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_DP_OUTOFBAND_MAX => 65535
+    static DP_OUTOFBAND_MAX => 65535
 }

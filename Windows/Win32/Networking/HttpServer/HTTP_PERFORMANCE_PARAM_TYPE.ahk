@@ -7,37 +7,44 @@
 class HTTP_PERFORMANCE_PARAM_TYPE extends Win32Enum {
 
     /**
+     * Native name: PerformanceParamSendBufferingFlags
      * @type {Integer (Int32)}
      */
-    static PerformanceParamSendBufferingFlags => 0
+    static SendBufferingFlags => 0
 
     /**
+     * Native name: PerformanceParamAggressiveICW
      * @type {Integer (Int32)}
      */
-    static PerformanceParamAggressiveICW => 1
+    static AggressiveICW => 1
 
     /**
+     * Native name: PerformanceParamMaxSendBufferSize
      * @type {Integer (Int32)}
      */
-    static PerformanceParamMaxSendBufferSize => 2
+    static MaxSendBufferSize => 2
 
     /**
+     * Native name: PerformanceParamMaxConcurrentClientStreams
      * @type {Integer (Int32)}
      */
-    static PerformanceParamMaxConcurrentClientStreams => 3
+    static MaxConcurrentClientStreams => 3
 
     /**
+     * Native name: PerformanceParamMaxReceiveBufferSize
      * @type {Integer (Int32)}
      */
-    static PerformanceParamMaxReceiveBufferSize => 4
+    static MaxReceiveBufferSize => 4
 
     /**
+     * Native name: PerformanceParamDecryptOnSspiThread
      * @type {Integer (Int32)}
      */
-    static PerformanceParamDecryptOnSspiThread => 5
+    static DecryptOnSspiThread => 5
 
     /**
+     * Native name: PerformanceParamMax
      * @type {Integer (Int32)}
      */
-    static PerformanceParamMax => 6
+    static Max => 6
 }

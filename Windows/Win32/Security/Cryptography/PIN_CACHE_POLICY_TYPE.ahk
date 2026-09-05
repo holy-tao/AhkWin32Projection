@@ -7,22 +7,26 @@
 class PIN_CACHE_POLICY_TYPE extends Win32Enum {
 
     /**
+     * Native name: PinCacheNormal
      * @type {Integer (Int32)}
      */
-    static PinCacheNormal => 0
+    static Normal => 0
 
     /**
+     * Native name: PinCacheTimed
      * @type {Integer (Int32)}
      */
-    static PinCacheTimed => 1
+    static Timed => 1
 
     /**
+     * Native name: PinCacheNone
      * @type {Integer (Int32)}
      */
-    static PinCacheNone => 2
+    static None => 2
 
     /**
+     * Native name: PinCacheAlwaysPrompt
      * @type {Integer (Int32)}
      */
-    static PinCacheAlwaysPrompt => 3
+    static AlwaysPrompt => 3
 }

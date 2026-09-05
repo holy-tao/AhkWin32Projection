@@ -7,12 +7,14 @@
 class DISPID_SpeechMemoryStream extends Win32Enum {
 
     /**
+     * Native name: DISPID_SMSSetData
      * @type {Integer (Int32)}
      */
-    static DISPID_SMSSetData => 100
+    static SMSSetData => 100
 
     /**
+     * Native name: DISPID_SMSGetData
      * @type {Integer (Int32)}
      */
-    static DISPID_SMSGetData => 101
+    static SMSGetData => 101
 }

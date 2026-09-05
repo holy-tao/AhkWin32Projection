@@ -47,7 +47,6 @@ class ISwapChainPanelNative2 extends ISwapChainPanelNative {
     static VTableNames => ["SetSwapChainHandle"]
 
     /**
-     * 
      * @param {HANDLE} swapChainHandle 
      * @returns {HRESULT} 
      */

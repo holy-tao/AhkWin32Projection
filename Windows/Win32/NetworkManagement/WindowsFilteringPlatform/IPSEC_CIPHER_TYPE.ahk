@@ -10,37 +10,43 @@ class IPSEC_CIPHER_TYPE extends Win32Enum {
 
     /**
      * Specifies DES encryption.
+     * Native name: IPSEC_CIPHER_TYPE_DES
      * @type {Integer (Int32)}
      */
-    static IPSEC_CIPHER_TYPE_DES => 1
+    static DES => 1
 
     /**
      * Specifies 3DES encryption.
+     * Native name: IPSEC_CIPHER_TYPE_3DES
      * @type {Integer (Int32)}
      */
-    static IPSEC_CIPHER_TYPE_3DES => 2
+    static 3DES => 2
 
     /**
      * Specifies AES-128 encryption.
+     * Native name: IPSEC_CIPHER_TYPE_AES_128
      * @type {Integer (Int32)}
      */
-    static IPSEC_CIPHER_TYPE_AES_128 => 3
+    static AES_128 => 3
 
     /**
      * Specifies AES-192 encryption.
+     * Native name: IPSEC_CIPHER_TYPE_AES_192
      * @type {Integer (Int32)}
      */
-    static IPSEC_CIPHER_TYPE_AES_192 => 4
+    static AES_192 => 4
 
     /**
      * Specifies AES-256 encryption.
+     * Native name: IPSEC_CIPHER_TYPE_AES_256
      * @type {Integer (Int32)}
      */
-    static IPSEC_CIPHER_TYPE_AES_256 => 5
+    static AES_256 => 5
 
     /**
      * Maximum value for testing only.
+     * Native name: IPSEC_CIPHER_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IPSEC_CIPHER_TYPE_MAX => 6
+    static MAX => 6
 }

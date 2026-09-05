@@ -52,7 +52,6 @@ class IRTCBuddyEvent2 extends IRTCBuddyEvent {
     }
 
     /**
-     * 
      * @returns {RTC_BUDDY_EVENT_TYPE} 
      */
     get_EventType() {
@@ -61,7 +60,6 @@ class IRTCBuddyEvent2 extends IRTCBuddyEvent {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -70,7 +68,6 @@ class IRTCBuddyEvent2 extends IRTCBuddyEvent {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {

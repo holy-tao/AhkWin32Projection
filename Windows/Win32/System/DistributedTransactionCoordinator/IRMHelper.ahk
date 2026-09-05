@@ -33,7 +33,6 @@ class IRMHelper extends IUnknown {
     static VTableNames => ["RMCount", "RMInfo"]
 
     /**
-     * 
      * @param {Integer} dwcTotalNumberOfRMs 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class IRMHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<xa_switch_t>} pXa_Switch 
      * @param {BOOL} fCDeclCallingConv 
      * @param {PSTR} pszOpenString 

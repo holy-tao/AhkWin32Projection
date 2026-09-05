@@ -52,7 +52,6 @@ class IPrintSchemaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_XmlNode() {
@@ -61,7 +60,6 @@ class IPrintSchemaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -71,7 +69,6 @@ class IPrintSchemaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NamespaceUri() {

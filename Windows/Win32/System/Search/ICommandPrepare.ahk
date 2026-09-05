@@ -29,7 +29,6 @@ class ICommandPrepare extends IUnknown {
     static VTableNames => ["Prepare", "Unprepare"]
 
     /**
-     * 
      * @param {Integer} cExpectedRuns 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class ICommandPrepare extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unprepare() {

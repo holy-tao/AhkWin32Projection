@@ -78,7 +78,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +89,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_abbr() {
@@ -100,7 +98,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -112,7 +109,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_axis() {
@@ -122,7 +118,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +129,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ch() {
@@ -144,7 +138,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -156,7 +149,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_chOff() {
@@ -166,7 +158,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +169,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_headers() {
@@ -188,7 +178,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -200,7 +189,6 @@ class IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scope() {

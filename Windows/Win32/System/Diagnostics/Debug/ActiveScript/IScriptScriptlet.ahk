@@ -31,7 +31,6 @@ class IScriptScriptlet extends IScriptEntry {
     static VTableNames => ["GetSubItemName", "SetSubItemName", "GetEventName", "SetEventName", "GetSimpleEventName", "SetSimpleEventName"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSubItemName() {
@@ -41,7 +40,6 @@ class IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetEventName() {
@@ -63,7 +60,6 @@ class IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -75,7 +71,6 @@ class IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSimpleEventName() {
@@ -85,7 +80,6 @@ class IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */

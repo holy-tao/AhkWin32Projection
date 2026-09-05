@@ -29,7 +29,6 @@ class IPrintWriteStream extends IUnknown {
     static VTableNames => ["WriteBytes", "Close"]
 
     /**
-     * 
      * @param {Integer} pvBuffer 
      * @param {Integer} cbBuffer 
      * @returns {Integer} 
@@ -40,7 +39,6 @@ class IPrintWriteStream extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Close() {

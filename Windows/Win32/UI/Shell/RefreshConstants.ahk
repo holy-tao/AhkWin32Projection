@@ -7,17 +7,20 @@
 class RefreshConstants extends Win32Enum {
 
     /**
+     * Native name: REFRESH_NORMAL
      * @type {Integer (Int32)}
      */
-    static REFRESH_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: REFRESH_IFEXPIRED
      * @type {Integer (Int32)}
      */
-    static REFRESH_IFEXPIRED => 1
+    static IFEXPIRED => 1
 
     /**
+     * Native name: REFRESH_COMPLETELY
      * @type {Integer (Int32)}
      */
-    static REFRESH_COMPLETELY => 3
+    static COMPLETELY => 3
 }

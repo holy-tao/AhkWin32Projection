@@ -10,37 +10,43 @@ class CROSS_SLIDE_THRESHOLD extends Win32Enum {
 
     /**
      * Selection start.
+     * Native name: CROSS_SLIDE_THRESHOLD_SELECT_START
      * @type {Integer (Int32)}
      */
-    static CROSS_SLIDE_THRESHOLD_SELECT_START => 0
+    static SELECT_START => 0
 
     /**
      * Speed bump start.
+     * Native name: CROSS_SLIDE_THRESHOLD_SPEED_BUMP_START
      * @type {Integer (Int32)}
      */
-    static CROSS_SLIDE_THRESHOLD_SPEED_BUMP_START => 1
+    static SPEED_BUMP_START => 1
 
     /**
      * Speed bump end.
+     * Native name: CROSS_SLIDE_THRESHOLD_SPEED_BUMP_END
      * @type {Integer (Int32)}
      */
-    static CROSS_SLIDE_THRESHOLD_SPEED_BUMP_END => 2
+    static SPEED_BUMP_END => 2
 
     /**
      * Rearrange (drag and drop) start.
+     * Native name: CROSS_SLIDE_THRESHOLD_REARRANGE_START
      * @type {Integer (Int32)}
      */
-    static CROSS_SLIDE_THRESHOLD_REARRANGE_START => 3
+    static REARRANGE_START => 3
 
     /**
      * The number of thresholds specified.
+     * Native name: CROSS_SLIDE_THRESHOLD_COUNT
      * @type {Integer (Int32)}
      */
-    static CROSS_SLIDE_THRESHOLD_COUNT => 4
+    static COUNT => 4
 
     /**
      * Maximum number of interactions exceeded.
+     * Native name: CROSS_SLIDE_THRESHOLD_MAX
      * @type {Integer (Int32)}
      */
-    static CROSS_SLIDE_THRESHOLD_MAX => -1
+    static MAX => -1
 }

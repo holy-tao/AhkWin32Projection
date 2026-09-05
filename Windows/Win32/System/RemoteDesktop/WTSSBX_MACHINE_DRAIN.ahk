@@ -10,19 +10,22 @@ class WTSSBX_MACHINE_DRAIN extends Win32Enum {
 
     /**
      * The drain state of the server is unspecified.
+     * Native name: WTSSBX_MACHINE_DRAIN_UNSPEC
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_DRAIN_UNSPEC => 0
+    static UNSPEC => 0
 
     /**
      * The server is accepting new user sessions.
+     * Native name: WTSSBX_MACHINE_DRAIN_OFF
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_DRAIN_OFF => 1
+    static OFF => 1
 
     /**
      * The server is not accepting new user sessions.
+     * Native name: WTSSBX_MACHINE_DRAIN_ON
      * @type {Integer (Int32)}
      */
-    static WTSSBX_MACHINE_DRAIN_ON => 2
+    static ON => 2
 }

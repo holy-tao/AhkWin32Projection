@@ -10,25 +10,29 @@ class _DocumentMode extends Win32Enum {
 
     /**
      * The document is opened in Author Mode.
+     * Native name: DocumentMode_Author
      * @type {Integer (Int32)}
      */
-    static DocumentMode_Author => 0
+    static Author => 0
 
     /**
      * The document is opened in Full-Access User Mode.
+     * Native name: DocumentMode_User
      * @type {Integer (Int32)}
      */
-    static DocumentMode_User => 1
+    static User => 1
 
     /**
      * The document is opened in Limited-Access User Mode with multiple windows.
+     * Native name: DocumentMode_User_MDI
      * @type {Integer (Int32)}
      */
-    static DocumentMode_User_MDI => 2
+    static User_MDI => 2
 
     /**
      * The document is opened in Limited-Access User Mode with a single window.
+     * Native name: DocumentMode_User_SDI
      * @type {Integer (Int32)}
      */
-    static DocumentMode_User_SDI => 3
+    static User_SDI => 3
 }

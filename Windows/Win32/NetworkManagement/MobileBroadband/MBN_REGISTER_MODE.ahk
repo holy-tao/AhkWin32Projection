@@ -10,19 +10,22 @@ class MBN_REGISTER_MODE extends Win32Enum {
 
     /**
      * No network selection mode is defined.
+     * Native name: MBN_REGISTER_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_REGISTER_MODE_NONE => 0
+    static NONE => 0
 
     /**
      * The device automatically selects the network to which to register .
+     * Native name: MBN_REGISTER_MODE_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static MBN_REGISTER_MODE_AUTOMATIC => 1
+    static AUTOMATIC => 1
 
     /**
      * The device tries to register to a given network.
+     * Native name: MBN_REGISTER_MODE_MANUAL
      * @type {Integer (Int32)}
      */
-    static MBN_REGISTER_MODE_MANUAL => 2
+    static MANUAL => 2
 }

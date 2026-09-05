@@ -7,22 +7,26 @@
 class TOKEN_MANDATORY_POLICY_ID extends Win32Enum {
 
     /**
+     * Native name: TOKEN_MANDATORY_POLICY_OFF
      * @type {Integer (UInt32)}
      */
-    static TOKEN_MANDATORY_POLICY_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: TOKEN_MANDATORY_POLICY_NO_WRITE_UP
      * @type {Integer (UInt32)}
      */
-    static TOKEN_MANDATORY_POLICY_NO_WRITE_UP => 1
+    static NO_WRITE_UP => 1
 
     /**
+     * Native name: TOKEN_MANDATORY_POLICY_NEW_PROCESS_MIN
      * @type {Integer (UInt32)}
      */
-    static TOKEN_MANDATORY_POLICY_NEW_PROCESS_MIN => 2
+    static NEW_PROCESS_MIN => 2
 
     /**
+     * Native name: TOKEN_MANDATORY_POLICY_VALID_MASK
      * @type {Integer (UInt32)}
      */
-    static TOKEN_MANDATORY_POLICY_VALID_MASK => 3
+    static VALID_MASK => 3
 }

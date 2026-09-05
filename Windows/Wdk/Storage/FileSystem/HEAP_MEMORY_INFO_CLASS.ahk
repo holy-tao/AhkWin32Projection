@@ -7,7 +7,8 @@
 class HEAP_MEMORY_INFO_CLASS extends Win32Enum {
 
     /**
+     * Native name: HeapMemoryBasicInformation
      * @type {Integer (Int32)}
      */
-    static HeapMemoryBasicInformation => 0
+    static BasicInformation => 0
 }

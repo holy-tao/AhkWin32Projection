@@ -7,32 +7,38 @@
 class COMAdminThreadingModels extends Win32Enum {
 
     /**
+     * Native name: COMAdminThreadingModelApartment
      * @type {Integer (Int32)}
      */
-    static COMAdminThreadingModelApartment => 0
+    static ModelApartment => 0
 
     /**
+     * Native name: COMAdminThreadingModelFree
      * @type {Integer (Int32)}
      */
-    static COMAdminThreadingModelFree => 1
+    static ModelFree => 1
 
     /**
+     * Native name: COMAdminThreadingModelMain
      * @type {Integer (Int32)}
      */
-    static COMAdminThreadingModelMain => 2
+    static ModelMain => 2
 
     /**
+     * Native name: COMAdminThreadingModelBoth
      * @type {Integer (Int32)}
      */
-    static COMAdminThreadingModelBoth => 3
+    static ModelBoth => 3
 
     /**
+     * Native name: COMAdminThreadingModelNeutral
      * @type {Integer (Int32)}
      */
-    static COMAdminThreadingModelNeutral => 4
+    static ModelNeutral => 4
 
     /**
+     * Native name: COMAdminThreadingModelNotSpecified
      * @type {Integer (Int32)}
      */
-    static COMAdminThreadingModelNotSpecified => 5
+    static ModelNotSpecified => 5
 }

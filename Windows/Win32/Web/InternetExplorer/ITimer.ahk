@@ -32,7 +32,6 @@ class ITimer extends IUnknown {
     static VTableNames => ["Advise", "Unadvise", "Freeze", "GetTime"]
 
     /**
-     * 
      * @param {VARIANT} vtimeMin 
      * @param {VARIANT} vtimeMax 
      * @param {VARIANT} vtimeInterval 
@@ -46,7 +45,6 @@ class ITimer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -56,7 +54,6 @@ class ITimer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFreeze 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class ITimer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetTime() {

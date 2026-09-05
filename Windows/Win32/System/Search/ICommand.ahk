@@ -31,7 +31,6 @@ class ICommand extends IUnknown {
     static VTableNames => ["Cancel", "Execute", "GetDBSession"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -40,7 +39,6 @@ class ICommand extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<DBPARAMS>} pParams 
@@ -56,7 +54,6 @@ class ICommand extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

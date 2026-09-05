@@ -7,7 +7,8 @@
 class KSEVENT_VOLUMELIMIT extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_VOLUMELIMIT_CHANGED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_VOLUMELIMIT_CHANGED => 0
+    static CHANGED => 0
 }

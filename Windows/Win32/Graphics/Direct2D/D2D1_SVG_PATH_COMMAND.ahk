@@ -10,117 +10,136 @@ class D2D1_SVG_PATH_COMMAND extends Win32Enum {
 
     /**
      * Closes the current subpath. Uses no segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_CLOSE_PATH
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_CLOSE_PATH => 0
+    static CLOSE_PATH => 0
 
     /**
      * Starts a new subpath at the coordinate (x y). Uses 2 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_MOVE_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_MOVE_ABSOLUTE => 1
+    static MOVE_ABSOLUTE => 1
 
     /**
      * Starts a new subpath at the coordinate (x y). Uses 2 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_MOVE_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_MOVE_RELATIVE => 2
+    static MOVE_RELATIVE => 2
 
     /**
      * Draws a line to the coordinate (x y). Uses 2 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_LINE_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_LINE_ABSOLUTE => 3
+    static LINE_ABSOLUTE => 3
 
     /**
      * Draws a line to the coordinate (x y). Uses 2 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_LINE_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_LINE_RELATIVE => 4
+    static LINE_RELATIVE => 4
 
     /**
      * Draws a cubic Bezier curve (x1 y1 x2 y2 x y). The curve ends at (x, y) and is defined by the two control points (x1, y1) and (x2, y2). Uses 6 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_CUBIC_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_CUBIC_ABSOLUTE => 5
+    static CUBIC_ABSOLUTE => 5
 
     /**
      * Draws a cubic Bezier curve (x1 y1 x2 y2 x y). The curve ends at (x, y) and is defined by the two control points (x1, y1) and (x2, y2). Uses 6 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_CUBIC_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_CUBIC_RELATIVE => 6
+    static CUBIC_RELATIVE => 6
 
     /**
      * Draws a quadratic Bezier curve (x1 y1 x y). The curve ends at (x, y) and is defined by the control point (x1 y1). Uses 4 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_QUADRADIC_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_QUADRADIC_ABSOLUTE => 7
+    static QUADRADIC_ABSOLUTE => 7
 
     /**
      * Draws a quadratic Bezier curve (x1 y1 x y). The curve ends at (x, y) and is defined by the control point (x1 y1). Uses 4 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_QUADRADIC_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_QUADRADIC_RELATIVE => 8
+    static QUADRADIC_RELATIVE => 8
 
     /**
      * Draws an elliptical arc (rx ry x-axis-rotation large-arc-flag sweep-flag x y). The curve ends at (x, y) and is defined by the arc parameters. The two flags are
      *           considered set if their values are non-zero. Uses 7 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_ARC_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_ARC_ABSOLUTE => 9
+    static ARC_ABSOLUTE => 9
 
     /**
      * Draws an elliptical arc (rx ry x-axis-rotation large-arc-flag sweep-flag x y). The curve ends at (x, y) and is defined by the arc parameters. The two flags are
      *           considered set if their values are non-zero. Uses 7 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_ARC_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_ARC_RELATIVE => 10
+    static ARC_RELATIVE => 10
 
     /**
      * Draws a horizontal line to the coordinate (x). Uses 1 float of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_HORIZONTAL_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_HORIZONTAL_ABSOLUTE => 11
+    static HORIZONTAL_ABSOLUTE => 11
 
     /**
      * Draws a horizontal line to the coordinate (x). Uses 1 float of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_HORIZONTAL_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_HORIZONTAL_RELATIVE => 12
+    static HORIZONTAL_RELATIVE => 12
 
     /**
      * Draws a vertical line to the coordinate (y). Uses 1 float of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_VERTICAL_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_VERTICAL_ABSOLUTE => 13
+    static VERTICAL_ABSOLUTE => 13
 
     /**
      * Draws a vertical line to the coordinate (y). Uses 1 float of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_VERTICAL_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_VERTICAL_RELATIVE => 14
+    static VERTICAL_RELATIVE => 14
 
     /**
      * Draws a smooth cubic Bezier curve (x2 y2 x y). The curve ends at (x, y) and is defined by the control point (x2, y2). Uses 4 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_ABSOLUTE => 15
+    static CUBIC_SMOOTH_ABSOLUTE => 15
 
     /**
      * Draws a smooth cubic Bezier curve (x2 y2 x y). The curve ends at (x, y) and is defined by the control point (x2, y2). Uses 4 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_RELATIVE => 16
+    static CUBIC_SMOOTH_RELATIVE => 16
 
     /**
      * Draws a smooth quadratic Bezier curve ending at (x, y). Uses 2 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_ABSOLUTE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_ABSOLUTE => 17
+    static QUADRADIC_SMOOTH_ABSOLUTE => 17
 
     /**
      * Draws a smooth quadratic Bezier curve ending at (x, y). Uses 2 floats of segment data.
+     * Native name: D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_RELATIVE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_RELATIVE => 18
+    static QUADRADIC_SMOOTH_RELATIVE => 18
 }

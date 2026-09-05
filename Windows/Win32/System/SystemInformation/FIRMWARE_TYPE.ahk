@@ -10,25 +10,29 @@ class FIRMWARE_TYPE extends Win32Enum {
 
     /**
      * The firmware type is unknown.
+     * Native name: FirmwareTypeUnknown
      * @type {Integer (Int32)}
      */
-    static FirmwareTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * The computer booted in legacy BIOS mode.
+     * Native name: FirmwareTypeBios
      * @type {Integer (Int32)}
      */
-    static FirmwareTypeBios => 1
+    static Bios => 1
 
     /**
      * The computer booted in UEFI mode.
+     * Native name: FirmwareTypeUefi
      * @type {Integer (Int32)}
      */
-    static FirmwareTypeUefi => 2
+    static Uefi => 2
 
     /**
      * Not implemented.
+     * Native name: FirmwareTypeMax
      * @type {Integer (Int32)}
      */
-    static FirmwareTypeMax => 3
+    static Max => 3
 }

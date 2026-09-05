@@ -72,7 +72,6 @@ class ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     get_zoomRectScreen() {
@@ -81,7 +80,6 @@ class ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_previousScale() {
@@ -90,7 +88,6 @@ class ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     get_previousTranslate() {
@@ -99,7 +96,6 @@ class ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_newScale() {
@@ -108,7 +104,6 @@ class ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     get_newTranslate() {

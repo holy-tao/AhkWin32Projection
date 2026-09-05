@@ -30,7 +30,6 @@ class IEnumNetCfgBindingInterface extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<INetCfgBindingInterface>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
@@ -44,7 +43,6 @@ class IEnumNetCfgBindingInterface extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumNetCfgBindingInterface extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumNetCfgBindingInterface extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Clone() {

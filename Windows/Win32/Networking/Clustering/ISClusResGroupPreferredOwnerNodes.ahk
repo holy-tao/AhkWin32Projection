@@ -53,7 +53,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -62,7 +61,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -71,7 +69,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -80,7 +77,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusNode} 
      */
@@ -90,7 +86,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @param {Integer} nPosition 
      * @returns {HRESULT} 
@@ -101,7 +96,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */
@@ -111,7 +105,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Modified() {
@@ -121,7 +114,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SaveChanges() {
@@ -130,7 +122,6 @@ class ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @returns {HRESULT} 
      */

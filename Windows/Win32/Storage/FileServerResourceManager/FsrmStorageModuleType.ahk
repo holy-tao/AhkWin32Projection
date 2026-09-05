@@ -10,35 +10,40 @@ class FsrmStorageModuleType extends Win32Enum {
 
     /**
      * The module type is unknown. Do not use this value.
+     * Native name: FsrmStorageModuleType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The storage module caches classification properties for quick access. This type is reserved for use by FSRM 
      *       and should not be used by any third party providers.
+     * Native name: FsrmStorageModuleType_Cache
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleType_Cache => 1
+    static Cache => 1
 
     /**
      * The storage module stores classification properties within the file itself.
+     * Native name: FsrmStorageModuleType_InFile
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleType_InFile => 2
+    static InFile => 2
 
     /**
      * The storage module stores classification properties in a database.
+     * Native name: FsrmStorageModuleType_Database
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleType_Database => 3
+    static Database => 3
 
     /**
      * The storage module stores classification properties in system data store. This type is reserved for use by 
      *        FSRM and should not be used by any third party providers.
      * 
      * <b>Windows Server 2008 R2:  </b>This storage module type is not supported before Windows Server 2012.
+     * Native name: FsrmStorageModuleType_System
      * @type {Integer (Int32)}
      */
-    static FsrmStorageModuleType_System => 100
+    static System => 100
 }

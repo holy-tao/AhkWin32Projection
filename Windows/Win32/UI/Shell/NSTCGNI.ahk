@@ -7,42 +7,50 @@
 class NSTCGNI extends Win32Enum {
 
     /**
+     * Native name: NSTCGNI_NEXT
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_NEXT => 0
+    static NEXT => 0
 
     /**
+     * Native name: NSTCGNI_NEXTVISIBLE
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_NEXTVISIBLE => 1
+    static NEXTVISIBLE => 1
 
     /**
+     * Native name: NSTCGNI_PREV
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_PREV => 2
+    static PREV => 2
 
     /**
+     * Native name: NSTCGNI_PREVVISIBLE
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_PREVVISIBLE => 3
+    static PREVVISIBLE => 3
 
     /**
+     * Native name: NSTCGNI_PARENT
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_PARENT => 4
+    static PARENT => 4
 
     /**
+     * Native name: NSTCGNI_CHILD
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_CHILD => 5
+    static CHILD => 5
 
     /**
+     * Native name: NSTCGNI_FIRSTVISIBLE
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_FIRSTVISIBLE => 6
+    static FIRSTVISIBLE => 6
 
     /**
+     * Native name: NSTCGNI_LASTVISIBLE
      * @type {Integer (Int32)}
      */
-    static NSTCGNI_LASTVISIBLE => 7
+    static LASTVISIBLE => 7
 }

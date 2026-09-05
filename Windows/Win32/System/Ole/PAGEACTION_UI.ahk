@@ -7,22 +7,26 @@
 class PAGEACTION_UI extends Win32Enum {
 
     /**
+     * Native name: PAGEACTION_UI_DEFAULT
      * @type {Integer (Int32)}
      */
-    static PAGEACTION_UI_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: PAGEACTION_UI_MODAL
      * @type {Integer (Int32)}
      */
-    static PAGEACTION_UI_MODAL => 1
+    static MODAL => 1
 
     /**
+     * Native name: PAGEACTION_UI_MODELESS
      * @type {Integer (Int32)}
      */
-    static PAGEACTION_UI_MODELESS => 2
+    static MODELESS => 2
 
     /**
+     * Native name: PAGEACTION_UI_SILENT
      * @type {Integer (Int32)}
      */
-    static PAGEACTION_UI_SILENT => 3
+    static SILENT => 3
 }

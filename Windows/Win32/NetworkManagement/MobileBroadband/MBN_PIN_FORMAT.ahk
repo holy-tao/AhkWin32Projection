@@ -10,19 +10,22 @@ class MBN_PIN_FORMAT extends Win32Enum {
 
     /**
      * Indicates that the PIN format is not known.
+     * Native name: MBN_PIN_FORMAT_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_FORMAT_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates that the PIN is in numeric format.  The only allowed characters are 0-9.
+     * Native name: MBN_PIN_FORMAT_NUMERIC
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_FORMAT_NUMERIC => 1
+    static NUMERIC => 1
 
     /**
      * Indicates that the PIN is in alphanumeric format.  Allowed characters are a-z, A-Z, 0-9, *, and #.
+     * Native name: MBN_PIN_FORMAT_ALPHANUMERIC
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_FORMAT_ALPHANUMERIC => 2
+    static ALPHANUMERIC => 2
 }

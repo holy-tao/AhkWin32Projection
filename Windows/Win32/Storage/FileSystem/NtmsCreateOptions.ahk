@@ -7,17 +7,20 @@
 class NtmsCreateOptions extends Win32Enum {
 
     /**
+     * Native name: NTMS_OPEN_EXISTING
      * @type {Integer (Int32)}
      */
-    static NTMS_OPEN_EXISTING => 1
+    static OPEN_EXISTING => 1
 
     /**
+     * Native name: NTMS_CREATE_NEW
      * @type {Integer (Int32)}
      */
-    static NTMS_CREATE_NEW => 2
+    static NEW => 2
 
     /**
+     * Native name: NTMS_OPEN_ALWAYS
      * @type {Integer (Int32)}
      */
-    static NTMS_OPEN_ALWAYS => 3
+    static OPEN_ALWAYS => 3
 }

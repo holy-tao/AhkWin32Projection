@@ -44,7 +44,6 @@ class IHTCPropertyBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     fireChange() {
@@ -53,7 +52,6 @@ class IHTCPropertyBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ class IHTCPropertyBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_value() {

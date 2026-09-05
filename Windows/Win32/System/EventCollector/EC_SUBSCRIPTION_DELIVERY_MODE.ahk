@@ -10,13 +10,15 @@ class EC_SUBSCRIPTION_DELIVERY_MODE extends Win32Enum {
 
     /**
      * Events are delivered through the subscription using the pull model.
+     * Native name: EcDeliveryModePull
      * @type {Integer (Int32)}
      */
-    static EcDeliveryModePull => 1
+    static Pull => 1
 
     /**
      * Events are delivered through the subscription using the push model.
+     * Native name: EcDeliveryModePush
      * @type {Integer (Int32)}
      */
-    static EcDeliveryModePush => 2
+    static Push => 2
 }

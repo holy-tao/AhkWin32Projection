@@ -10,31 +10,36 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAGS extends Win32BitflagEnu
 
     /**
      * None.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Forces the encoding of each intra-coded block with residual data only from other intra-coded blocks, i.e. not from inter-coded blocks, in the frame. Check for support in [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAG_CONSTRAINED_INTRAPREDICTION_SUPPORT](ne-d3d12video-d3d12_video_encoder_codec_configuration_support_h264_flags.md). This refers to constrained_intra_pred_flag in the picture parameter set (PPS).
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_USE_CONSTRAINED_INTRAPREDICTION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_USE_CONSTRAINED_INTRAPREDICTION => 1
+    static FLAG_USE_CONSTRAINED_INTRAPREDICTION => 1
 
     /**
      * Enables the usage of adaptive 8x8 transform. Please check for support in [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAG_ADAPTIVE_8x8_TRANSFORM_ENCODING_SUPPORT](ne-d3d12video-d3d12_video_encoder_codec_configuration_support_h264_flags.md).
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_USE_ADAPTIVE_8x8_TRANSFORM
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_USE_ADAPTIVE_8x8_TRANSFORM => 2
+    static FLAG_USE_ADAPTIVE_8x8_TRANSFORM => 2
 
     /**
      * Enables CABAC entropy coding. If turned off, will use CAVLC. Please check for support in [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAG_CABAC_ENCODING_SUPPORT](ne-d3d12video-d3d12_video_encoder_codec_configuration_support_h264_flags.md).
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_ENABLE_CABAC_ENCODING
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_ENABLE_CABAC_ENCODING => 4
+    static FLAG_ENABLE_CABAC_ENCODING => 4
 
     /**
      * Allows the caller to request for each frame with a special flag in the picture control structure that the slices of such frame are coded independently from each other. This mode restricts the motion vector search range to the region box of the current slice, i.e. motion vectors outside the slice boundary can't be used.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_ALLOW_REQUEST_INTRA_CONSTRAINED_SLICES
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAG_ALLOW_REQUEST_INTRA_CONSTRAINED_SLICES => 8
+    static FLAG_ALLOW_REQUEST_INTRA_CONSTRAINED_SLICES => 8
 }

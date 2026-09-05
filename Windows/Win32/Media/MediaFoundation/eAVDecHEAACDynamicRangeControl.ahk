@@ -10,13 +10,15 @@ class eAVDecHEAACDynamicRangeControl extends Win32Enum {
 
     /**
      * The decoder does not apply dynamic range control.
+     * Native name: eAVDecHEAACDynamicRangeControl_OFF
      * @type {Integer (Int32)}
      */
-    static eAVDecHEAACDynamicRangeControl_OFF => 0
+    static OFF => 0
 
     /**
      * The decoder applies dynamic range control to any AAC stream that contains an extension payload of type EXT_DYNAMIC_RANGE, as defined in ISO/IEC 14496-3 (Table 4.105, "Values of the extension_type field").
+     * Native name: eAVDecHEAACDynamicRangeControl_ON
      * @type {Integer (Int32)}
      */
-    static eAVDecHEAACDynamicRangeControl_ON => 1
+    static ON => 1
 }

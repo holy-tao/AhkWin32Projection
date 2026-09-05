@@ -30,7 +30,6 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12 {
     static VTableNames => ["CreateHandle", "DestroyHandle", "GetObjectIDFromHandle"]
 
     /**
-     * 
      * @param {Pointer} _object 
      * @param {COR_PRF_HANDLE_TYPE} type 
      * @returns {Pointer<Pointer<Void>>} 
@@ -41,7 +40,6 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _handle 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _handle 
      * @returns {Pointer} 
      */

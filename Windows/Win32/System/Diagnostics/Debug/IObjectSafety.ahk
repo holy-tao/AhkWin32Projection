@@ -30,7 +30,6 @@ class IObjectSafety extends IUnknown {
     static VTableNames => ["GetInterfaceSafetyOptions", "SetInterfaceSafetyOptions"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pdwSupportedOptions 
      * @param {Pointer<Integer>} pdwEnabledOptions 
@@ -45,7 +44,6 @@ class IObjectSafety extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} dwOptionSetMask 
      * @param {Integer} dwEnabledOptions 

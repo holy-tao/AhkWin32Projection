@@ -7,197 +7,236 @@
 class DISPID_InkCollector extends Win32Enum {
 
     /**
+     * Native name: DISPID_ICEnabled
      * @type {Integer (Int32)}
      */
-    static DISPID_ICEnabled => 1
+    static ICEnabled => 1
 
     /**
+     * Native name: DISPID_ICHwnd
      * @type {Integer (Int32)}
      */
-    static DISPID_ICHwnd => 2
+    static ICHwnd => 2
 
     /**
+     * Native name: DISPID_ICPaint
      * @type {Integer (Int32)}
      */
-    static DISPID_ICPaint => 3
+    static ICPaint => 3
 
     /**
+     * Native name: DISPID_ICText
      * @type {Integer (Int32)}
      */
-    static DISPID_ICText => 4
+    static ICText => 4
 
     /**
+     * Native name: DISPID_ICDefaultDrawingAttributes
      * @type {Integer (Int32)}
      */
-    static DISPID_ICDefaultDrawingAttributes => 5
+    static ICDefaultDrawingAttributes => 5
 
     /**
+     * Native name: DISPID_ICRenderer
      * @type {Integer (Int32)}
      */
-    static DISPID_ICRenderer => 6
+    static ICRenderer => 6
 
     /**
+     * Native name: DISPID_ICInk
      * @type {Integer (Int32)}
      */
-    static DISPID_ICInk => 7
+    static ICInk => 7
 
     /**
+     * Native name: DISPID_ICAutoRedraw
      * @type {Integer (Int32)}
      */
-    static DISPID_ICAutoRedraw => 8
+    static ICAutoRedraw => 8
 
     /**
+     * Native name: DISPID_ICCollectingInk
      * @type {Integer (Int32)}
      */
-    static DISPID_ICCollectingInk => 9
+    static ICCollectingInk => 9
 
     /**
+     * Native name: DISPID_ICSetEventInterest
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSetEventInterest => 10
+    static ICSetEventInterest => 10
 
     /**
+     * Native name: DISPID_ICGetEventInterest
      * @type {Integer (Int32)}
      */
-    static DISPID_ICGetEventInterest => 11
+    static ICGetEventInterest => 11
 
     /**
+     * Native name: DISPID_IOEditingMode
      * @type {Integer (Int32)}
      */
-    static DISPID_IOEditingMode => 12
+    static IOEditingMode => 12
 
     /**
+     * Native name: DISPID_IOSelection
      * @type {Integer (Int32)}
      */
-    static DISPID_IOSelection => 13
+    static IOSelection => 13
 
     /**
+     * Native name: DISPID_IOAttachMode
      * @type {Integer (Int32)}
      */
-    static DISPID_IOAttachMode => 14
+    static IOAttachMode => 14
 
     /**
+     * Native name: DISPID_IOHitTestSelection
      * @type {Integer (Int32)}
      */
-    static DISPID_IOHitTestSelection => 15
+    static IOHitTestSelection => 15
 
     /**
+     * Native name: DISPID_IODraw
      * @type {Integer (Int32)}
      */
-    static DISPID_IODraw => 16
+    static IODraw => 16
 
     /**
+     * Native name: DISPID_IPPicture
      * @type {Integer (Int32)}
      */
-    static DISPID_IPPicture => 17
+    static IPPicture => 17
 
     /**
+     * Native name: DISPID_IPSizeMode
      * @type {Integer (Int32)}
      */
-    static DISPID_IPSizeMode => 18
+    static IPSizeMode => 18
 
     /**
+     * Native name: DISPID_IPBackColor
      * @type {Integer (Int32)}
      */
-    static DISPID_IPBackColor => 19
+    static IPBackColor => 19
 
     /**
+     * Native name: DISPID_ICCursors
      * @type {Integer (Int32)}
      */
-    static DISPID_ICCursors => 20
+    static ICCursors => 20
 
     /**
+     * Native name: DISPID_ICMarginX
      * @type {Integer (Int32)}
      */
-    static DISPID_ICMarginX => 21
+    static ICMarginX => 21
 
     /**
+     * Native name: DISPID_ICMarginY
      * @type {Integer (Int32)}
      */
-    static DISPID_ICMarginY => 22
+    static ICMarginY => 22
 
     /**
+     * Native name: DISPID_ICSetWindowInputRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSetWindowInputRectangle => 23
+    static ICSetWindowInputRectangle => 23
 
     /**
+     * Native name: DISPID_ICGetWindowInputRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_ICGetWindowInputRectangle => 24
+    static ICGetWindowInputRectangle => 24
 
     /**
+     * Native name: DISPID_ICTablet
      * @type {Integer (Int32)}
      */
-    static DISPID_ICTablet => 25
+    static ICTablet => 25
 
     /**
+     * Native name: DISPID_ICSetAllTabletsMode
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSetAllTabletsMode => 26
+    static ICSetAllTabletsMode => 26
 
     /**
+     * Native name: DISPID_ICSetSingleTabletIntegratedMode
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSetSingleTabletIntegratedMode => 27
+    static ICSetSingleTabletIntegratedMode => 27
 
     /**
+     * Native name: DISPID_ICCollectionMode
      * @type {Integer (Int32)}
      */
-    static DISPID_ICCollectionMode => 28
+    static ICCollectionMode => 28
 
     /**
+     * Native name: DISPID_ICSetGestureStatus
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSetGestureStatus => 29
+    static ICSetGestureStatus => 29
 
     /**
+     * Native name: DISPID_ICGetGestureStatus
      * @type {Integer (Int32)}
      */
-    static DISPID_ICGetGestureStatus => 30
+    static ICGetGestureStatus => 30
 
     /**
+     * Native name: DISPID_ICDynamicRendering
      * @type {Integer (Int32)}
      */
-    static DISPID_ICDynamicRendering => 31
+    static ICDynamicRendering => 31
 
     /**
+     * Native name: DISPID_ICDesiredPacketDescription
      * @type {Integer (Int32)}
      */
-    static DISPID_ICDesiredPacketDescription => 32
+    static ICDesiredPacketDescription => 32
 
     /**
+     * Native name: DISPID_IOEraserMode
      * @type {Integer (Int32)}
      */
-    static DISPID_IOEraserMode => 33
+    static IOEraserMode => 33
 
     /**
+     * Native name: DISPID_IOEraserWidth
      * @type {Integer (Int32)}
      */
-    static DISPID_IOEraserWidth => 34
+    static IOEraserWidth => 34
 
     /**
+     * Native name: DISPID_ICMouseIcon
      * @type {Integer (Int32)}
      */
-    static DISPID_ICMouseIcon => 35
+    static ICMouseIcon => 35
 
     /**
+     * Native name: DISPID_ICMousePointer
      * @type {Integer (Int32)}
      */
-    static DISPID_ICMousePointer => 36
+    static ICMousePointer => 36
 
     /**
+     * Native name: DISPID_IPInkEnabled
      * @type {Integer (Int32)}
      */
-    static DISPID_IPInkEnabled => 37
+    static IPInkEnabled => 37
 
     /**
+     * Native name: DISPID_ICSupportHighContrastInk
      * @type {Integer (Int32)}
      */
-    static DISPID_ICSupportHighContrastInk => 38
+    static ICSupportHighContrastInk => 38
 
     /**
+     * Native name: DISPID_IOSupportHighContrastSelectionUI
      * @type {Integer (Int32)}
      */
-    static DISPID_IOSupportHighContrastSelectionUI => 39
+    static IOSupportHighContrastSelectionUI => 39
 }

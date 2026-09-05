@@ -7,19 +7,22 @@
 class DVBSystemType extends Win32Enum {
 
     /**
+     * Native name: DVB_Cable
      * @type {Integer (Int32)}
      */
-    static DVB_Cable => 0
+    static Cable => 0
 
     /**
+     * Native name: DVB_Terrestrial
      * @type {Integer (Int32)}
      */
-    static DVB_Terrestrial => 1
+    static Terrestrial => 1
 
     /**
+     * Native name: DVB_Satellite
      * @type {Integer (Int32)}
      */
-    static DVB_Satellite => 2
+    static Satellite => 2
 
     /**
      * @type {Integer (Int32)}
