@@ -20,20 +20,24 @@ if (-not $Files -or $Files.Count -eq 0) {
     exit 0
 }
 
+Import-Module -Name "$PSScriptRoot\Modules\Ahk-Validation.psm1"
+
 Write-Output "Validating $($Files.Count) changed files..."
 
-# Thread-safe hashtable
+# Workers return diagnostic objects rather than printing. A problem in a file that others
+# #include is reported once per includer, so the results are deduplicated here - on a single
+# thread, which also keeps error blocks from interleaving.
+$diagnostics = @($Files | ForEach-Object -Parallel {
+    Import-Module -Name "$using:PSScriptRoot\Modules\Ahk-Validation.psm1"
+    Invoke-AhkValidation -File $_ -ExePath $using:AhkExePath
+} -ThrottleLimit 5 | Get-UniqueAhkDiagnostic)
 
-$failures = $Files | ForEach-Object -Parallel {
-    Import-Module -name "$using:PSScriptRoot\Modules\Ahk-Validation.psm1"
-    $failuresForFile = Invoke-AhkValidation -File $_ -ExePath $using:AhkExePath
+$diagnostics | Format-AhkDiagnostic
 
-    # Return so the ForEach-Object can collect failures
-    return $failuresForFile
-} -ThrottleLimit 5 | Measure-Object -Sum | Select-Object -ExpandProperty Sum
+$fileCount = @($diagnostics | Where-Object File | Select-Object -ExpandProperty File -Unique).Count
+Write-Output "Done. $($diagnostics.Count) distinct problems in $fileCount files"
 
-Write-Output "Done. $failures files had errors or warnings"
-if($failures -gt 0){
+if ($diagnostics.Count -gt 0) {
     exit 1
 }
 exit 0

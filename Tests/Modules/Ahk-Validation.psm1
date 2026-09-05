@@ -11,91 +11,183 @@ function Get-AutoHotkeyProcStartInfo {
     return $psi
 }
 
-# Output needs to be one line for a problem matcher to pick it up
-# https://github.com/actions/toolkit/issues/1540
-function FlattenErrorBlocks {
-    param([string]$text)
+# Matches the first line of an AutoHotkey diagnostic block, e.g.
+#   C:\path\Foo.ahk (12) : ==> Warning: This variable appears to never be assigned a value.
+$script:AhkDiagnosticHeader = '^(?<file>.+\.ahk) \((?<lineno>\d+)\) : ==> (?<msg>.*)$'
 
-    if ([string]::IsNullOrWhiteSpace($text)) { return "" }
+# Paths are compared case-insensitively and resolved where possible, since AutoHotkey may
+# report an included file by a different (but equivalent) path than the one we walked.
+function Resolve-AhkPath {
+    param([string]$Path)
 
-    $lines = $text -split "`r?`n"
-
-    $blocks = @()
-    $currentBlock = @()
-
-    # Regex to detect the start of an error/warning block
-    $blockStartRegex = ".*\.ahk \(\d+\) : ==> (Warning:|[^W].*)"
-
-    foreach ($line in $lines) {
-        if ($line -match $blockStartRegex) {
-            if ($currentBlock.Count -gt 0) {
-                # Join previous block into one line
-                $blocks += ($currentBlock -join " ").Trim()
-                $currentBlock = @()
-            }
-        }
-        $currentBlock += $line.Trim()
-    }
-
-    # Add the last block
-    if ($currentBlock.Count -gt 0) {
-        $blocks += ($currentBlock -join " ").Trim()
-    }
-
-    return $blocks -join "`n"
+    $resolved = Resolve-Path -LiteralPath $Path -ErrorAction SilentlyContinue
+    if ($resolved) { return $resolved.Path }
+    return $Path
 }
 
-# Print error context from a problem line. Does not print the actual problem line, the
-# caller should still do that
-function PrintErrorContext {
-    param([string]$errorText)
+# Parses raw AutoHotkey output into one object per diagnostic. Continuation lines (the
+# "Specifically:" line and friends) are attached to the diagnostic they belong to.
+#
+# Any text that doesn't parse is still emitted, as a diagnostic with no File/Line, so that
+# unexpected output is never silently swallowed by the dedup pass.
+function ConvertTo-AhkDiagnostic {
+    param(
+        [string]$Text,
 
-    $blocks = @()  # Collect multiple blocks for thread safety
-    $currentBlock = New-Object System.Text.StringBuilder
+        # Severity for blocks that don't announce themselves as warnings. AutoHotkey writes
+        # errors to stderr and #Warn output to stdout, so the caller supplies the default.
+        [ValidateSet('Error', 'Warning')]
+        [string]$DefaultSeverity = 'Error',
 
-    foreach ($line in $errorText -split "`n") {
-        $currentBlock.AppendLine($line) | Out-Null
+        # File the validator was invoked on, recorded on each diagnostic
+        [string]$SourceFile
+    )
 
-        if ($line -match '^(?<file>.+\.ahk) \((?<lineno>\d+)\) : ==> (?<msg>.*)$') {
-            $filePath = $matches['file']
-            $lineNum = [int]$matches['lineno']
+    if ([string]::IsNullOrWhiteSpace($Text)) { return }
 
-            if (Test-Path $filePath) {
-                $fileLines = Get-Content -Path $filePath -ErrorAction SilentlyContinue
-                $start = [Math]::Max(0, $lineNum - 3)
-                $end = [Math]::Min($fileLines.Count - 1, $lineNum + 1)
+    $current = $null
+    $preamble = @()
 
-                $currentBlock.AppendLine("-" * 80) | Out-Null
-                for ($i = $start; $i -le $end; $i++) {
-                    $prefix = if ($i -eq ($lineNum - 1)) { '>>' } else { '  ' }
-                    $currentBlock.AppendLine(
-                        ("{0,5} {1} {2}" -f ($i + 1), $prefix, $fileLines[$i])
-                    ) | Out-Null
-                }
-                $currentBlock.AppendLine("-" * 80) | Out-Null
+    function New-Diagnostic($state) {
+        [PSCustomObject]@{
+            File       = $state.File
+            Line       = $state.Line
+            Severity   = $state.Severity
+            Message    = $state.Message
+            Detail     = @($state.Detail)
+            SourceFile = $state.SourceFile
+        }
+    }
+
+    foreach ($line in ($Text -split "`r?`n")) {
+        if ($line -match $script:AhkDiagnosticHeader) {
+            if ($current) { New-Diagnostic $current }
+
+            $message = $matches['msg'].Trim()
+            $current = @{
+                File       = Resolve-AhkPath $matches['file']
+                Line       = [int]$matches['lineno']
+                Severity   = if ($message -like 'Warning:*') { 'Warning' } else { $DefaultSeverity }
+                Message    = $message
+                Detail     = @($preamble)
+                SourceFile = $SourceFile
             }
+            $preamble = @()
         }
-
-        # Flush finished block
-        if ($line -match '^(?<file>.+\.ahk) \(\d+\) : ==>') {
-            $blocks += $currentBlock.ToString()
-            $currentBlock.Clear() | Out-Null
+        elseif (-not [string]::IsNullOrWhiteSpace($line)) {
+            if ($current) { $current.Detail += $line.Trim() }
+            else { $preamble += $line.Trim() }
         }
     }
 
-    # Flush any remaining text
-    if ($currentBlock.Length -gt 0) {
-        $blocks += $currentBlock.ToString()
-    }
+    if ($current) { New-Diagnostic $current }
 
-    # Write each block atomically to the host
-    foreach ($b in $blocks) {
-        Write-Host $b
+    # Output that never produced a header line - keep it rather than dropping it
+    if ($preamble.Count -gt 0) {
+        [PSCustomObject]@{
+            File       = $null
+            Line       = 0
+            Severity   = $DefaultSeverity
+            Message    = ($preamble -join ' ').Trim()
+            Detail     = @()
+            SourceFile = $SourceFile
+        }
     }
 }
 
+# Stable key for deduplication. The same underlying problem is reported once per file that
+# transitively #includes the offending file, and every one of those reports is identical
+# apart from which file we happened to be validating - which is exactly what's excluded here.
+function Get-AhkDiagnosticKey {
+    param([PSCustomObject]$Diagnostic)
+
+    $parts = @(
+        $Diagnostic.File
+        $Diagnostic.Line
+        $Diagnostic.Severity
+        $Diagnostic.Message
+        ($Diagnostic.Detail -join '~')
+    )
+    return ($parts -join '|').ToLowerInvariant()
+}
+
+# Collapses duplicate diagnostics and orders them by file, then line
+function Get-UniqueAhkDiagnostic {
+    param([Parameter(ValueFromPipeline = $true)][PSCustomObject]$Diagnostic)
+
+    begin {
+        $seen = [System.Collections.Generic.HashSet[string]]::new()
+        $unique = [System.Collections.Generic.List[PSCustomObject]]::new()
+    }
+    process {
+        if ($null -eq $Diagnostic) { return }
+        if ($seen.Add((Get-AhkDiagnosticKey $Diagnostic))) { $unique.Add($Diagnostic) }
+    }
+    end {
+        $unique | Sort-Object File, Line, Message
+    }
+}
+
+$script:SourceLineCache = @{}
+
+# Renders a diagnostic as a single line (so a problem matcher can pick it up - see
+# https://github.com/actions/toolkit/issues/1540) followed by its surrounding source lines.
+#
+# Writes to the success stream, not the host, so that CI can Tee-Object the output into a log
+# for AhkValidationMarkdownReport.ps1 to parse.
+function Format-AhkDiagnostic {
+    param(
+        [Parameter(ValueFromPipeline = $true)][PSCustomObject]$Diagnostic,
+
+        # Source lines to show either side of the offending line. 0 disables the context block.
+        [int]$ContextLines = 2
+    )
+
+    process {
+        $header = if ($Diagnostic.File) {
+            "$($Diagnostic.File) ($($Diagnostic.Line)) : ==> $($Diagnostic.Message)"
+        } else {
+            $Diagnostic.Message
+        }
+
+        Write-Output ((@($header) + $Diagnostic.Detail) -join ' ').Trim()
+
+        if ($ContextLines -le 0 -or -not $Diagnostic.File) { return }
+
+        if (-not $script:SourceLineCache.ContainsKey($Diagnostic.File)) {
+            $script:SourceLineCache[$Diagnostic.File] =
+                @(Get-Content -LiteralPath $Diagnostic.File -ErrorAction SilentlyContinue)
+        }
+        $fileLines = $script:SourceLineCache[$Diagnostic.File]
+        if ($fileLines.Count -eq 0) { return }
+
+        $start = [Math]::Max(0, $Diagnostic.Line - 1 - $ContextLines)
+        $end = [Math]::Min($fileLines.Count - 1, $Diagnostic.Line - 1 + $ContextLines)
+
+        $block = New-Object System.Text.StringBuilder
+        $block.AppendLine("-" * 80) | Out-Null
+        for ($i = $start; $i -le $end; $i++) {
+            $prefix = if ($i -eq ($Diagnostic.Line - 1)) { '>>' } else { '  ' }
+            $block.AppendLine(("{0,5} {1} {2}" -f ($i + 1), $prefix, $fileLines[$i])) | Out-Null
+        }
+        $block.Append("-" * 80) | Out-Null
+
+        Write-Output $block.ToString()
+    }
+}
+
+# Runs AutoHotkey's validator over a single file and returns its diagnostics as objects.
+# Nothing is printed here: callers collect the results, deduplicate them, and format them
+# on a single thread, which keeps blocks from interleaving when run in parallel.
 function Invoke-AhkValidation {
-    param([string]$File, [string]$ExePath)
+    param(
+        [string]$File,
+        [string]$ExePath,
+
+        # Drop diagnostics that belong to #included files rather than to $File itself. Only
+        # safe when every file is validated in its own right, i.e. when walking a whole tree.
+        [switch]$OwnFileOnly
+    )
 
     if (-not (Test-Path $File)) { return }
 
@@ -124,20 +216,16 @@ function Invoke-AhkValidation {
     $stderr = $proc.StandardError.ReadToEnd()
     $proc.WaitForExit()
 
-    $fails = 0
+    $resolvedFile = Resolve-AhkPath $File
 
-    if (-not [string]::IsNullOrWhiteSpace($stdout)) {
-        $stdout = FlattenErrorBlocks $stdout
-        PrintErrorContext $stdout
+    $diagnostics = @(
+        ConvertTo-AhkDiagnostic -Text $stdout -DefaultSeverity Warning -SourceFile $resolvedFile
+        ConvertTo-AhkDiagnostic -Text $stderr -DefaultSeverity Error -SourceFile $resolvedFile
+    )
 
-        $fails += 1
-    }
-    if (-not [string]::IsNullOrWhiteSpace($stderr)) {
-        $stderr = FlattenErrorBlocks $stderr
-        PrintErrorContext $stderr
-
-        $fails += 1
+    if ($OwnFileOnly) {
+        $diagnostics = @($diagnostics | Where-Object { $_.File -eq $resolvedFile })
     }
 
-    return $fails
+    return $diagnostics
 }

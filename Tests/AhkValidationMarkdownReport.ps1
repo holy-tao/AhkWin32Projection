@@ -35,7 +35,7 @@ $report += ""
 if ($errors.Count -gt 0) {
     $report += "## Errors"
     foreach ($e in $errors) {
-        $report += "- `${$($e.file)}:${($e.line)} — $($e.msg)"
+        $report += "- ``$($e.file):$($e.line)`` — $($e.msg)"
     }
     $report += ""
 }
@@ -43,7 +43,7 @@ if ($errors.Count -gt 0) {
 if ($warnings.Count -gt 0) {
     $report += "## Warnings"
     foreach ($w in $warnings) {
-        $report += "- `${$($w.file)}:${($w.line)} — $($w.msg)"
+        $report += "- ``$($w.file):$($w.line)`` — $($w.msg)"
     }
 }
 
