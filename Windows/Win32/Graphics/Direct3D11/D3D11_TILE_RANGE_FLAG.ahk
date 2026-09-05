@@ -10,19 +10,22 @@ class D3D11_TILE_RANGE_FLAG extends Win32Enum {
 
     /**
      * The tile range is <b>NULL</b>.
+     * Native name: D3D11_TILE_RANGE_NULL
      * @type {Integer (Int32)}
      */
-    static D3D11_TILE_RANGE_NULL => 1
+    static NULL => 1
 
     /**
      * Skip the tile range.
+     * Native name: D3D11_TILE_RANGE_SKIP
      * @type {Integer (Int32)}
      */
-    static D3D11_TILE_RANGE_SKIP => 2
+    static SKIP => 2
 
     /**
      * Reuse a single tile in the tile range.
+     * Native name: D3D11_TILE_RANGE_REUSE_SINGLE_TILE
      * @type {Integer (Int32)}
      */
-    static D3D11_TILE_RANGE_REUSE_SINGLE_TILE => 4
+    static REUSE_SINGLE_TILE => 4
 }

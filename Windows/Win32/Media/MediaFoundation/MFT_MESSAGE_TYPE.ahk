@@ -15,18 +15,20 @@ class MFT_MESSAGE_TYPE extends Win32Enum {
      * Should only be called after streaming has started using the MFT_MESSAGE_NOTIFY_BEGIN_STREAMING message.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-flush">MFT_MESSAGE_COMMAND_FLUSH</a>.
+     * Native name: MFT_MESSAGE_COMMAND_FLUSH
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_COMMAND_FLUSH => 0
+    static COMMAND_FLUSH => 0
 
     /**
      * Requests the MFT to drain any stored data.
      * Should only be called after streaming has started using the MFT_MESSAGE_NOTIFY_BEGIN_STREAMING message.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-drain">MFT_MESSAGE_COMMAND_DRAIN</a>.
+     * Native name: MFT_MESSAGE_COMMAND_DRAIN
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_COMMAND_DRAIN => 1
+    static COMMAND_DRAIN => 1
 
     /**
      * Sets or clears the <a href="https://docs.microsoft.com/windows/desktop/medfound/direct3d-device-manager">Direct3D Device Manager</a> for DirectX Video Acceleration (DXVA).
@@ -35,21 +37,24 @@ class MFT_MESSAGE_TYPE extends Win32Enum {
      *           
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-set-d3d-manager">MFT_MESSAGE_SET_D3D_MANAGER</a>.
+     * Native name: MFT_MESSAGE_SET_D3D_MANAGER
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_SET_D3D_MANAGER => 2
+    static SET_D3D_MANAGER => 2
 
     /**
      * <b>Note</b> Requires Windows 7.
+     * Native name: MFT_MESSAGE_DROP_SAMPLES
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_DROP_SAMPLES => 3
+    static DROP_SAMPLES => 3
 
     /**
      * <b>Note</b> Requires Windows 8.
+     * Native name: MFT_MESSAGE_COMMAND_TICK
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_COMMAND_TICK => 4
+    static COMMAND_TICK => 4
 
     /**
      * Notifies the MFT that streaming is about to begin.
@@ -57,9 +62,10 @@ class MFT_MESSAGE_TYPE extends Win32Enum {
      *           
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-begin-streaming">MFT_MESSAGE_NOTIFY_BEGIN_STREAMING</a>.
+     * Native name: MFT_MESSAGE_NOTIFY_BEGIN_STREAMING
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_NOTIFY_BEGIN_STREAMING => 268435456
+    static NOTIFY_BEGIN_STREAMING => 268435456
 
     /**
      * Notifies the MFT that streaming is about to end.
@@ -67,9 +73,10 @@ class MFT_MESSAGE_TYPE extends Win32Enum {
      *           
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-end-streaming">MFT_MESSAGE_NOTIFY_END_STREAMING</a>.
+     * Native name: MFT_MESSAGE_NOTIFY_END_STREAMING
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_NOTIFY_END_STREAMING => 268435457
+    static NOTIFY_END_STREAMING => 268435457
 
     /**
      * Notifies the MFT that an input stream has ended.
@@ -77,9 +84,10 @@ class MFT_MESSAGE_TYPE extends Win32Enum {
      *           
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-end-of-stream">MFT_MESSAGE_NOTIFY_END_OF_STREAM</a>.
+     * Native name: MFT_MESSAGE_NOTIFY_END_OF_STREAM
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_NOTIFY_END_OF_STREAM => 268435458
+    static NOTIFY_END_OF_STREAM => 268435458
 
     /**
      * Notifies the MFT that the first sample is about to be processed. 
@@ -88,34 +96,40 @@ class MFT_MESSAGE_TYPE extends Win32Enum {
      * See
      *             
      *            <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-start-of-stream">MFT_MESSAGE_NOTIFY_START_OF_STREAM</a>.
+     * Native name: MFT_MESSAGE_NOTIFY_START_OF_STREAM
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_NOTIFY_START_OF_STREAM => 268435459
+    static NOTIFY_START_OF_STREAM => 268435459
 
     /**
+     * Native name: MFT_MESSAGE_NOTIFY_RELEASE_RESOURCES
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_NOTIFY_RELEASE_RESOURCES => 268435460
+    static NOTIFY_RELEASE_RESOURCES => 268435460
 
     /**
+     * Native name: MFT_MESSAGE_NOTIFY_REACQUIRE_RESOURCES
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_NOTIFY_REACQUIRE_RESOURCES => 268435461
+    static NOTIFY_REACQUIRE_RESOURCES => 268435461
 
     /**
+     * Native name: MFT_MESSAGE_NOTIFY_EVENT
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_NOTIFY_EVENT => 268435462
+    static NOTIFY_EVENT => 268435462
 
     /**
+     * Native name: MFT_MESSAGE_COMMAND_SET_OUTPUT_STREAM_STATE
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_COMMAND_SET_OUTPUT_STREAM_STATE => 268435463
+    static COMMAND_SET_OUTPUT_STREAM_STATE => 268435463
 
     /**
+     * Native name: MFT_MESSAGE_COMMAND_FLUSH_OUTPUT_STREAM
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_COMMAND_FLUSH_OUTPUT_STREAM => 268435464
+    static COMMAND_FLUSH_OUTPUT_STREAM => 268435464
 
     /**
      * Marks a point in the stream. This message applies only to asynchronous MFTs. 
@@ -124,7 +138,8 @@ class MFT_MESSAGE_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7</div>
      * <div> </div>
+     * Native name: MFT_MESSAGE_COMMAND_MARKER
      * @type {Integer (Int32)}
      */
-    static MFT_MESSAGE_COMMAND_MARKER => 536870912
+    static COMMAND_MARKER => 536870912
 }

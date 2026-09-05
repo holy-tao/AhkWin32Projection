@@ -10,31 +10,36 @@ class FWPM_SYSTEM_PORT_TYPE extends Win32Enum {
 
     /**
      * Specifies a system port used by an RPC endpoint mapper.
+     * Native name: FWPM_SYSTEM_PORT_RPC_EPMAP
      * @type {Integer (Int32)}
      */
-    static FWPM_SYSTEM_PORT_RPC_EPMAP => 0
+    static RPC_EPMAP => 0
 
     /**
      * Specifies a system port used by the Teredo service.
+     * Native name: FWPM_SYSTEM_PORT_TEREDO
      * @type {Integer (Int32)}
      */
-    static FWPM_SYSTEM_PORT_TEREDO => 1
+    static TEREDO => 1
 
     /**
      * Specifies an inbound system port used by the IP in conjunction with HTTPS implementation.
+     * Native name: FWPM_SYSTEM_PORT_IPHTTPS_IN
      * @type {Integer (Int32)}
      */
-    static FWPM_SYSTEM_PORT_IPHTTPS_IN => 2
+    static IPHTTPS_IN => 2
 
     /**
      * Specifies an outbound system port used by the IP in conjunction with HTTPS implementation.
+     * Native name: FWPM_SYSTEM_PORT_IPHTTPS_OUT
      * @type {Integer (Int32)}
      */
-    static FWPM_SYSTEM_PORT_IPHTTPS_OUT => 3
+    static IPHTTPS_OUT => 3
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWPM_SYSTEM_PORT_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static FWPM_SYSTEM_PORT_TYPE_MAX => 4
+    static MAX => 4
 }

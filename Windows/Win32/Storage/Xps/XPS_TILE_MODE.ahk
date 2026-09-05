@@ -14,31 +14,36 @@ class XPS_TILE_MODE extends Win32Enum {
 
     /**
      * Only the base tile is drawn.
+     * Native name: XPS_TILE_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static XPS_TILE_MODE_NONE => 1
+    static NONE => 1
 
     /**
      * First, the base tile is drawn. Next, the remaining area is filled by repeating the base tile such that the right edge of one tile is adjacent to the left edge of the next, and similarly for bottom and top.
+     * Native name: XPS_TILE_MODE_TILE
      * @type {Integer (Int32)}
      */
-    static XPS_TILE_MODE_TILE => 2
+    static TILE => 2
 
     /**
      * The same as <b>XPS_TILE_MODE_TILE</b>, but alternate columns of tiles are flipped horizontally.
+     * Native name: XPS_TILE_MODE_FLIPX
      * @type {Integer (Int32)}
      */
-    static XPS_TILE_MODE_FLIPX => 3
+    static FLIPX => 3
 
     /**
      * The same as <b>XPS_TILE_MODE_TILE</b>, but alternate rows of tiles are flipped vertically.
+     * Native name: XPS_TILE_MODE_FLIPY
      * @type {Integer (Int32)}
      */
-    static XPS_TILE_MODE_FLIPY => 4
+    static FLIPY => 4
 
     /**
      * The combination of the effects produced by <b>XPS_TILE_MODE_FLIPX</b> and <b>XPS_TILE_MODE_FLIPY</b>.
+     * Native name: XPS_TILE_MODE_FLIPXY
      * @type {Integer (Int32)}
      */
-    static XPS_TILE_MODE_FLIPXY => 5
+    static FLIPXY => 5
 }

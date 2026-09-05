@@ -124,7 +124,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -136,7 +135,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_action() {
@@ -146,7 +144,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -158,7 +155,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dir() {
@@ -168,7 +164,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -180,7 +175,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_encoding() {
@@ -190,7 +184,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -202,7 +195,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_method() {
@@ -212,7 +204,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_elements() {
@@ -221,7 +212,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -233,7 +223,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -243,7 +232,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -255,7 +243,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -265,7 +252,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -275,7 +261,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsubmit() {
@@ -285,7 +270,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -295,7 +279,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreset() {
@@ -305,7 +288,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     submit() {
@@ -314,7 +296,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -323,7 +304,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -333,7 +313,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -342,7 +321,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -351,7 +329,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
@@ -362,7 +339,6 @@ class IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} tagName 
      * @returns {IDispatch} 
      */

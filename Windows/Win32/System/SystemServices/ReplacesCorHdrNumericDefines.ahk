@@ -42,29 +42,34 @@ class ReplacesCorHdrNumericDefines extends Win32Enum {
     static COMIMAGE_FLAGS_32BITPREFERRED => 131072
 
     /**
+     * Native name: COR_VERSION_MAJOR_V2
      * @type {Integer (Int32)}
      */
-    static COR_VERSION_MAJOR_V2 => 2
+    static VERSION_MAJOR_V2 => 2
 
     /**
+     * Native name: COR_VERSION_MAJOR
      * @type {Integer (Int32)}
      */
-    static COR_VERSION_MAJOR => 2
+    static VERSION_MAJOR => 2
 
     /**
+     * Native name: COR_VERSION_MINOR
      * @type {Integer (Int32)}
      */
-    static COR_VERSION_MINOR => 5
+    static VERSION_MINOR => 5
 
     /**
+     * Native name: COR_DELETED_NAME_LENGTH
      * @type {Integer (Int32)}
      */
-    static COR_DELETED_NAME_LENGTH => 8
+    static DELETED_NAME_LENGTH => 8
 
     /**
+     * Native name: COR_VTABLEGAP_NAME_LENGTH
      * @type {Integer (Int32)}
      */
-    static COR_VTABLEGAP_NAME_LENGTH => 8
+    static VTABLEGAP_NAME_LENGTH => 8
 
     /**
      * @type {Integer (Int32)}
@@ -72,9 +77,10 @@ class ReplacesCorHdrNumericDefines extends Win32Enum {
     static NATIVE_TYPE_MAX_CB => 1
 
     /**
+     * Native name: COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE
      * @type {Integer (Int32)}
      */
-    static COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE => 255
+    static ILMETHOD_SECT_SMALL_MAX_DATASIZE => 255
 
     /**
      * @type {Integer (Int32)}
@@ -92,29 +98,34 @@ class ReplacesCorHdrNumericDefines extends Win32Enum {
     static IMAGE_COR_MIH_BASICBLOCK => 8
 
     /**
+     * Native name: COR_VTABLE_32BIT
      * @type {Integer (Int32)}
      */
-    static COR_VTABLE_32BIT => 1
+    static VTABLE_32BIT => 1
 
     /**
+     * Native name: COR_VTABLE_64BIT
      * @type {Integer (Int32)}
      */
-    static COR_VTABLE_64BIT => 2
+    static VTABLE_64BIT => 2
 
     /**
+     * Native name: COR_VTABLE_FROM_UNMANAGED
      * @type {Integer (Int32)}
      */
-    static COR_VTABLE_FROM_UNMANAGED => 4
+    static VTABLE_FROM_UNMANAGED => 4
 
     /**
+     * Native name: COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN
      * @type {Integer (Int32)}
      */
-    static COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN => 8
+    static VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN => 8
 
     /**
+     * Native name: COR_VTABLE_CALL_MOST_DERIVED
      * @type {Integer (Int32)}
      */
-    static COR_VTABLE_CALL_MOST_DERIVED => 16
+    static VTABLE_CALL_MOST_DERIVED => 16
 
     /**
      * @type {Integer (Int32)}

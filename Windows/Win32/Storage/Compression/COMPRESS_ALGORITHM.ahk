@@ -7,22 +7,26 @@
 class COMPRESS_ALGORITHM extends Win32Enum {
 
     /**
+     * Native name: COMPRESS_ALGORITHM_MSZIP
      * @type {Integer (UInt32)}
      */
-    static COMPRESS_ALGORITHM_MSZIP => 2
+    static MSZIP => 2
 
     /**
+     * Native name: COMPRESS_ALGORITHM_XPRESS
      * @type {Integer (UInt32)}
      */
-    static COMPRESS_ALGORITHM_XPRESS => 3
+    static XPRESS => 3
 
     /**
+     * Native name: COMPRESS_ALGORITHM_XPRESS_HUFF
      * @type {Integer (UInt32)}
      */
-    static COMPRESS_ALGORITHM_XPRESS_HUFF => 4
+    static XPRESS_HUFF => 4
 
     /**
+     * Native name: COMPRESS_ALGORITHM_LZMS
      * @type {Integer (UInt32)}
      */
-    static COMPRESS_ALGORITHM_LZMS => 5
+    static LZMS => 5
 }

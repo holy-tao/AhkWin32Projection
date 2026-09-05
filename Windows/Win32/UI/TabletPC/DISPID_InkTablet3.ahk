@@ -7,12 +7,14 @@
 class DISPID_InkTablet3 extends Win32Enum {
 
     /**
+     * Native name: DISPID_IT3IsMultiTouch
      * @type {Integer (Int32)}
      */
-    static DISPID_IT3IsMultiTouch => 0
+    static IT3IsMultiTouch => 0
 
     /**
+     * Native name: DISPID_IT3MaximumCursors
      * @type {Integer (Int32)}
      */
-    static DISPID_IT3MaximumCursors => 1
+    static IT3MaximumCursors => 1
 }

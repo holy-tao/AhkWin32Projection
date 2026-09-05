@@ -31,7 +31,6 @@ class IDebugHostSymbol3 extends IDebugHostSymbol2 {
     static VTableNames => ["GetCompilerInformation"]
 
     /**
-     * 
      * @param {Pointer<KnownCompiler>} pCompilerId 
      * @param {Pointer<BSTR>} pCompilerString 
      * @returns {HRESULT} 

@@ -7,22 +7,26 @@
 class DXVA2_VPDev extends Win32Enum {
 
     /**
+     * Native name: DXVA2_VPDev_HardwareDevice
      * @type {Integer (Int32)}
      */
-    static DXVA2_VPDev_HardwareDevice => 1
+    static HardwareDevice => 1
 
     /**
+     * Native name: DXVA2_VPDev_EmulatedDXVA1
      * @type {Integer (Int32)}
      */
-    static DXVA2_VPDev_EmulatedDXVA1 => 2
+    static EmulatedDXVA1 => 2
 
     /**
+     * Native name: DXVA2_VPDev_SoftwareDevice
      * @type {Integer (Int32)}
      */
-    static DXVA2_VPDev_SoftwareDevice => 4
+    static SoftwareDevice => 4
 
     /**
+     * Native name: DXVA2_VPDev_Mask
      * @type {Integer (Int32)}
      */
-    static DXVA2_VPDev_Mask => 7
+    static Mask => 7
 }

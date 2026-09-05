@@ -10,25 +10,29 @@ class RM_FILTER_TRIGGER extends Win32Enum {
 
     /**
      * An invalid filter trigger.
+     * Native name: RmFilterTriggerInvalid
      * @type {Integer (Int32)}
      */
-    static RmFilterTriggerInvalid => 0
+    static Invalid => 0
 
     /**
      * Modifies the shutdown or restart actions for an application identified by its   executable filename.
+     * Native name: RmFilterTriggerFile
      * @type {Integer (Int32)}
      */
-    static RmFilterTriggerFile => 1
+    static File => 1
 
     /**
      * Modifies the shutdown or restart actions for an application identified by a <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structure.
+     * Native name: RmFilterTriggerProcess
      * @type {Integer (Int32)}
      */
-    static RmFilterTriggerProcess => 2
+    static Process => 2
 
     /**
      * Modifies the shutdown or restart actions for a service identified by a service short name.
+     * Native name: RmFilterTriggerService
      * @type {Integer (Int32)}
      */
-    static RmFilterTriggerService => 3
+    static Service => 3
 }

@@ -943,7 +943,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -955,7 +954,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollChaining() {
@@ -965,7 +963,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -977,7 +974,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZooming() {
@@ -987,7 +983,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -999,7 +994,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomSnapType() {
@@ -1009,7 +1003,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1021,7 +1014,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollRails() {
@@ -1031,7 +1023,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1043,7 +1034,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomChaining() {
@@ -1053,7 +1043,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1065,7 +1054,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapType() {
@@ -1075,7 +1063,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1087,7 +1074,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomLimit() {
@@ -1097,7 +1083,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1109,7 +1094,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomSnap() {
@@ -1119,7 +1103,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1131,7 +1114,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomSnapPoints() {
@@ -1141,7 +1123,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1151,7 +1132,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msContentZoomLimitMin() {
@@ -1161,7 +1141,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1171,7 +1150,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msContentZoomLimitMax() {
@@ -1181,7 +1159,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1193,7 +1170,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapX() {
@@ -1203,7 +1179,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1215,7 +1190,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapY() {
@@ -1225,7 +1199,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1237,7 +1210,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapPointsX() {
@@ -1247,7 +1219,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1259,7 +1230,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapPointsY() {
@@ -1269,7 +1239,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1279,7 +1248,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridColumn() {
@@ -1289,7 +1257,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1301,7 +1268,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridColumnAlign() {
@@ -1311,7 +1277,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1323,7 +1288,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridColumns() {
@@ -1333,7 +1297,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1343,7 +1306,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridColumnSpan() {
@@ -1353,7 +1315,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1363,7 +1324,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridRow() {
@@ -1373,7 +1333,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1385,7 +1344,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridRowAlign() {
@@ -1395,7 +1353,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1407,7 +1364,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridRows() {
@@ -1417,7 +1373,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1427,7 +1382,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridRowSpan() {
@@ -1437,7 +1391,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1449,7 +1402,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msWrapThrough() {
@@ -1459,7 +1411,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1469,7 +1420,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msWrapMargin() {
@@ -1479,7 +1429,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1491,7 +1440,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msWrapFlow() {
@@ -1501,7 +1449,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1513,7 +1460,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationName() {
@@ -1523,7 +1469,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1535,7 +1480,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationDuration() {
@@ -1545,7 +1489,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1557,7 +1500,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationTimingFunction() {
@@ -1567,7 +1509,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1579,7 +1520,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationDelay() {
@@ -1589,7 +1529,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1601,7 +1540,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationDirection() {
@@ -1611,7 +1549,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1623,7 +1560,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationPlayState() {
@@ -1633,7 +1569,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1645,7 +1580,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationIterationCount() {
@@ -1655,7 +1589,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1667,7 +1600,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimation() {
@@ -1677,7 +1609,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1689,7 +1620,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationFillMode() {
@@ -1699,7 +1629,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1711,7 +1640,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_colorInterpolationFilters() {
@@ -1721,7 +1649,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1731,7 +1658,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnCount() {
@@ -1741,7 +1667,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1751,7 +1676,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnWidth() {
@@ -1761,7 +1685,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1771,7 +1694,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnGap() {
@@ -1781,7 +1703,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1793,7 +1714,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnFill() {
@@ -1803,7 +1723,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1815,7 +1734,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnSpan() {
@@ -1825,7 +1743,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1837,7 +1754,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columns() {
@@ -1847,7 +1763,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1859,7 +1774,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnRule() {
@@ -1869,7 +1783,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1879,7 +1792,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnRuleColor() {
@@ -1889,7 +1801,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1901,7 +1812,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnRuleStyle() {
@@ -1911,7 +1821,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1921,7 +1830,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnRuleWidth() {
@@ -1931,7 +1839,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1943,7 +1850,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_breakBefore() {
@@ -1953,7 +1859,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1965,7 +1870,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_breakAfter() {
@@ -1975,7 +1879,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1987,7 +1890,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_breakInside() {
@@ -1997,7 +1899,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2007,7 +1908,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_floodColor() {
@@ -2017,7 +1917,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2027,7 +1926,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_floodOpacity() {
@@ -2037,7 +1935,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2047,7 +1944,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_lightingColor() {
@@ -2057,7 +1953,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2067,7 +1962,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitXMin() {
@@ -2077,7 +1971,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2087,7 +1980,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitYMin() {
@@ -2097,7 +1989,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2107,7 +1998,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitXMax() {
@@ -2117,7 +2007,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2127,7 +2016,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitYMax() {
@@ -2137,7 +2025,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2149,7 +2036,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollLimit() {
@@ -2159,7 +2045,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2171,7 +2056,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textShadow() {
@@ -2181,7 +2065,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2193,7 +2076,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlowFrom() {
@@ -2203,7 +2085,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2215,7 +2096,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlowInto() {
@@ -2225,7 +2105,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2237,7 +2116,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msHyphens() {
@@ -2247,7 +2125,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2257,7 +2134,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msHyphenateLimitZone() {
@@ -2267,7 +2143,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2279,7 +2154,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msHyphenateLimitChars() {
@@ -2289,7 +2163,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2299,7 +2172,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msHyphenateLimitLines() {
@@ -2309,7 +2181,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2321,7 +2192,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msHighContrastAdjust() {
@@ -2331,7 +2201,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2343,7 +2212,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_enableBackground() {
@@ -2353,7 +2221,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2365,7 +2232,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFontFeatureSettings() {
@@ -2375,7 +2241,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2387,7 +2252,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msUserSelect() {
@@ -2397,7 +2261,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2409,7 +2272,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msOverflowStyle() {
@@ -2419,7 +2281,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2431,7 +2292,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransformStyle() {
@@ -2441,7 +2301,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2453,7 +2312,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msBackfaceVisibility() {
@@ -2463,7 +2321,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2473,7 +2330,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msPerspective() {
@@ -2483,7 +2339,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2495,7 +2350,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msPerspectiveOrigin() {
@@ -2505,7 +2359,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2517,7 +2370,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionProperty() {
@@ -2527,7 +2379,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2539,7 +2390,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionDuration() {
@@ -2549,7 +2399,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2561,7 +2410,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionTimingFunction() {
@@ -2571,7 +2419,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2583,7 +2430,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionDelay() {
@@ -2593,7 +2439,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2605,7 +2450,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransition() {
@@ -2615,7 +2459,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2627,7 +2470,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTouchAction() {
@@ -2637,7 +2479,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2649,7 +2490,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollTranslation() {
@@ -2659,7 +2499,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2671,7 +2510,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlex() {
@@ -2681,7 +2519,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2691,7 +2528,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexPositive() {
@@ -2701,7 +2537,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2711,7 +2546,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexNegative() {
@@ -2721,7 +2555,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2731,7 +2564,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexPreferredSize() {
@@ -2741,7 +2573,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2753,7 +2584,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexFlow() {
@@ -2763,7 +2593,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2775,7 +2604,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexDirection() {
@@ -2785,7 +2613,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2797,7 +2624,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexWrap() {
@@ -2807,7 +2633,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2819,7 +2644,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexAlign() {
@@ -2829,7 +2653,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2841,7 +2664,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexItemAlign() {
@@ -2851,7 +2673,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2863,7 +2684,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexPack() {
@@ -2873,7 +2693,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2885,7 +2704,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexLinePack() {
@@ -2895,7 +2713,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2905,7 +2722,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexOrder() {
@@ -2915,7 +2731,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2927,7 +2742,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTouchSelect() {
@@ -2937,7 +2751,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2949,7 +2762,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transform() {
@@ -2959,7 +2771,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2971,7 +2782,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transformOrigin() {
@@ -2981,7 +2791,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2993,7 +2802,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transformStyle() {
@@ -3003,7 +2811,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3015,7 +2822,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backfaceVisibility() {
@@ -3025,7 +2831,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -3035,7 +2840,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_perspective() {
@@ -3045,7 +2849,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3057,7 +2860,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_perspectiveOrigin() {
@@ -3067,7 +2869,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3079,7 +2880,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionProperty() {
@@ -3089,7 +2889,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3101,7 +2900,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionDuration() {
@@ -3111,7 +2909,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3123,7 +2920,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionTimingFunction() {
@@ -3133,7 +2929,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3145,7 +2940,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionDelay() {
@@ -3155,7 +2949,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3167,7 +2960,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transition() {
@@ -3177,7 +2969,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3189,7 +2980,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontFeatureSettings() {
@@ -3199,7 +2989,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3211,7 +3000,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationName() {
@@ -3221,7 +3009,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3233,7 +3020,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationDuration() {
@@ -3243,7 +3029,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3255,7 +3040,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationTimingFunction() {
@@ -3265,7 +3049,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3277,7 +3060,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationDelay() {
@@ -3287,7 +3069,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3299,7 +3080,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationDirection() {
@@ -3309,7 +3089,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3321,7 +3100,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationPlayState() {
@@ -3331,7 +3109,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3343,7 +3120,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationIterationCount() {
@@ -3353,7 +3129,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3365,7 +3140,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animation() {
@@ -3375,7 +3149,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3387,7 +3160,6 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationFillMode() {

@@ -12,13 +12,15 @@ class TOC_POS_TYPE extends Win32Enum {
 
     /**
      * Specifies that the table of contents is stored in the header of the media file.
+     * Native name: TOC_POS_INHEADER
      * @type {Integer (Int32)}
      */
-    static TOC_POS_INHEADER => 0
+    static INHEADER => 0
 
     /**
      * Specifies that the table of contents is stored in the body of the media file as a top level object.
+     * Native name: TOC_POS_TOPLEVELOBJECT
      * @type {Integer (Int32)}
      */
-    static TOC_POS_TOPLEVELOBJECT => 1
+    static TOPLEVELOBJECT => 1
 }

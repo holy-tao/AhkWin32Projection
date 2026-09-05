@@ -7,22 +7,26 @@
 class USB4_CONFIG_SPACE_TYPE extends Win32Enum {
 
     /**
+     * Native name: USB4PathConfigurationSpace
      * @type {Integer (Int32)}
      */
-    static USB4PathConfigurationSpace => 0
+    static PathConfigurationSpace => 0
 
     /**
+     * Native name: USB4AdapterConfigurationSpace
      * @type {Integer (Int32)}
      */
-    static USB4AdapterConfigurationSpace => 1
+    static AdapterConfigurationSpace => 1
 
     /**
+     * Native name: USB4RouterConfigurationSpace
      * @type {Integer (Int32)}
      */
-    static USB4RouterConfigurationSpace => 2
+    static RouterConfigurationSpace => 2
 
     /**
+     * Native name: USB4CounterConfigurationSpace
      * @type {Integer (Int32)}
      */
-    static USB4CounterConfigurationSpace => 3
+    static CounterConfigurationSpace => 3
 }

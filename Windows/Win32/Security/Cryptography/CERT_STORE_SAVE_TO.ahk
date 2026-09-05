@@ -7,27 +7,32 @@
 class CERT_STORE_SAVE_TO extends Win32Enum {
 
     /**
+     * Native name: CERT_STORE_SAVE_TO_FILE
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_SAVE_TO_FILE => 1
+    static FILE => 1
 
     /**
+     * Native name: CERT_STORE_SAVE_TO_FILENAME
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_SAVE_TO_FILENAME => 4
+    static FILENAME => 4
 
     /**
+     * Native name: CERT_STORE_SAVE_TO_FILENAME_A
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_SAVE_TO_FILENAME_A => 3
+    static FILENAME_A => 3
 
     /**
+     * Native name: CERT_STORE_SAVE_TO_FILENAME_W
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_SAVE_TO_FILENAME_W => 4
+    static FILENAME_W => 4
 
     /**
+     * Native name: CERT_STORE_SAVE_TO_MEMORY
      * @type {Integer (UInt32)}
      */
-    static CERT_STORE_SAVE_TO_MEMORY => 2
+    static MEMORY => 2
 }

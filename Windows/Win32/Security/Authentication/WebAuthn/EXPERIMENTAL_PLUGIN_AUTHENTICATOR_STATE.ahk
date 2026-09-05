@@ -7,17 +7,20 @@
 class EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE extends Win32Enum {
 
     /**
+     * Native name: PluginAuthenticatorState_Unknown
      * @type {Integer (Int32)}
      */
-    static PluginAuthenticatorState_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: PluginAuthenticatorState_Disabled
      * @type {Integer (Int32)}
      */
-    static PluginAuthenticatorState_Disabled => 1
+    static Disabled => 1
 
     /**
+     * Native name: PluginAuthenticatorState_Enabled
      * @type {Integer (Int32)}
      */
-    static PluginAuthenticatorState_Enabled => 2
+    static Enabled => 2
 }

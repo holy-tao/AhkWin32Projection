@@ -14,12 +14,14 @@
 class MF_CUSTOM_DECODE_UNIT_TYPE extends Win32Enum {
 
     /**
+     * Native name: MF_DECODE_UNIT_NAL
      * @type {Integer (Int32)}
      */
-    static MF_DECODE_UNIT_NAL => 0
+    static NAL => 0
 
     /**
+     * Native name: MF_DECODE_UNIT_SEI
      * @type {Integer (Int32)}
      */
-    static MF_DECODE_UNIT_SEI => 1
+    static SEI => 1
 }

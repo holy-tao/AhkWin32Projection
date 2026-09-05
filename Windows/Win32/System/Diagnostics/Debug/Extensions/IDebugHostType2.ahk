@@ -30,7 +30,6 @@ class IDebugHostType2 extends IDebugHostType {
     static VTableNames => ["IsTypedef", "GetTypedefBaseType", "GetTypedefFinalBaseType", "GetFunctionVarArgsKind", "GetFunctionInstancePointerType"]
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsTypedef() {
@@ -39,7 +38,6 @@ class IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {IDebugHostType2} 
      */
     GetTypedefBaseType() {
@@ -48,7 +46,6 @@ class IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {IDebugHostType2} 
      */
     GetTypedefFinalBaseType() {
@@ -57,7 +54,6 @@ class IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {VarArgsKind} 
      */
     GetFunctionVarArgsKind() {
@@ -66,7 +62,6 @@ class IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {IDebugHostType2} 
      */
     GetFunctionInstancePointerType() {

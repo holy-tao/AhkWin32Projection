@@ -12,19 +12,22 @@ class DRT_EVENT_TYPE extends Win32Enum {
 
     /**
      * The status of the local DRT instance has changed.
+     * Native name: DRT_EVENT_STATUS_CHANGED
      * @type {Integer (Int32)}
      */
-    static DRT_EVENT_STATUS_CHANGED => 0
+    static STATUS_CHANGED => 0
 
     /**
      * A key or node was changed from the DRT leaf set of the local node.
+     * Native name: DRT_EVENT_LEAFSET_KEY_CHANGED
      * @type {Integer (Int32)}
      */
-    static DRT_EVENT_LEAFSET_KEY_CHANGED => 1
+    static LEAFSET_KEY_CHANGED => 1
 
     /**
      * A locally published key is no longer resolvable by other nodes.
+     * Native name: DRT_EVENT_REGISTRATION_STATE_CHANGED
      * @type {Integer (Int32)}
      */
-    static DRT_EVENT_REGISTRATION_STATE_CHANGED => 2
+    static REGISTRATION_STATE_CHANGED => 2
 }

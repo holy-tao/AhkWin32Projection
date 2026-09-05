@@ -30,7 +30,6 @@ class ICodeInstall extends IWindowForBindingUI {
     static VTableNames => ["OnCodeInstallProblem"]
 
     /**
-     * 
      * @param {Integer} ulStatusCode 
      * @param {PWSTR} szDestination 
      * @param {PWSTR} szSource 

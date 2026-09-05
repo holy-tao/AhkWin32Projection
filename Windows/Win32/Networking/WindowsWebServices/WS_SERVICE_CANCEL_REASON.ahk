@@ -10,13 +10,15 @@ class WS_SERVICE_CANCEL_REASON extends Win32Enum {
 
     /**
      * A service host is going through an abort.
+     * Native name: WS_SERVICE_HOST_ABORT
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_HOST_ABORT => 0
+    static HOST_ABORT => 0
 
     /**
      * The underlying channel faulted.
+     * Native name: WS_SERVICE_CHANNEL_FAULTED
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_CHANNEL_FAULTED => 1
+    static CHANNEL_FAULTED => 1
 }

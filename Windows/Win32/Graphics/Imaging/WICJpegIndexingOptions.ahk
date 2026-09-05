@@ -10,13 +10,15 @@ class WICJpegIndexingOptions extends Win32Enum {
 
     /**
      * Index generation is deferred until <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">IWICBitmapSource::CopyPixels</a> is called on the image.
+     * Native name: WICJpegIndexingOptionsGenerateOnDemand
      * @type {Integer (Int32)}
      */
-    static WICJpegIndexingOptionsGenerateOnDemand => 0
+    static GenerateOnDemand => 0
 
     /**
      * Index generation is performed when the when the image is initially loaded.
+     * Native name: WICJpegIndexingOptionsGenerateOnLoad
      * @type {Integer (Int32)}
      */
-    static WICJpegIndexingOptionsGenerateOnLoad => 1
+    static GenerateOnLoad => 1
 }

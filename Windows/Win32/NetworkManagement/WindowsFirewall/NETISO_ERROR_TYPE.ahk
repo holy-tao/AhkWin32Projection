@@ -10,31 +10,36 @@ class NETISO_ERROR_TYPE extends Win32Enum {
 
     /**
      * No error.
+     * Native name: NETISO_ERROR_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static NETISO_ERROR_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * The failure was caused because the privateNetworkClientServer capability is missing.
+     * Native name: NETISO_ERROR_TYPE_PRIVATE_NETWORK
      * @type {Integer (Int32)}
      */
-    static NETISO_ERROR_TYPE_PRIVATE_NETWORK => 1
+    static PRIVATE_NETWORK => 1
 
     /**
      * The failure was caused because the internetClient capability is missing.
+     * Native name: NETISO_ERROR_TYPE_INTERNET_CLIENT
      * @type {Integer (Int32)}
      */
-    static NETISO_ERROR_TYPE_INTERNET_CLIENT => 2
+    static INTERNET_CLIENT => 2
 
     /**
      * The failure was caused because the internetClientServer capability is missing.
+     * Native name: NETISO_ERROR_TYPE_INTERNET_CLIENT_SERVER
      * @type {Integer (Int32)}
      */
-    static NETISO_ERROR_TYPE_INTERNET_CLIENT_SERVER => 3
+    static INTERNET_CLIENT_SERVER => 3
 
     /**
      * Maximum value for testing purposes.
+     * Native name: NETISO_ERROR_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static NETISO_ERROR_TYPE_MAX => 4
+    static MAX => 4
 }

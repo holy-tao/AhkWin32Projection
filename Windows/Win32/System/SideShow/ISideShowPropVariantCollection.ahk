@@ -36,7 +36,6 @@ class ISideShowPropVariantCollection extends IUnknown {
     static VTableNames => ["Add", "Clear", "GetAt", "GetCount", "RemoveAt"]
 
     /**
-     * 
      * @param {Pointer<PROPVARIANT>} pValue 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ class ISideShowPropVariantCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<PROPVARIANT>} pValue 
      * @returns {HRESULT} 
@@ -85,7 +83,6 @@ class ISideShowPropVariantCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcElems 
      * @returns {HRESULT} 
      */
@@ -97,7 +94,6 @@ class ISideShowPropVariantCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {HRESULT} 
      */

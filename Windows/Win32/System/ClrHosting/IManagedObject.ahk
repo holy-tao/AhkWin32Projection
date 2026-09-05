@@ -30,7 +30,6 @@ class IManagedObject extends IUnknown {
     static VTableNames => ["GetSerializedBuffer", "GetObjectIdentity"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSerializedBuffer() {
@@ -40,7 +39,6 @@ class IManagedObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBSTRGUID 
      * @param {Pointer<Integer>} AppDomainID 
      * @param {Pointer<Integer>} pCCW 

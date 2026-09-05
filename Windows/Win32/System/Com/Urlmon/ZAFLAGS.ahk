@@ -7,62 +7,74 @@
 class ZAFLAGS extends Win32Enum {
 
     /**
+     * Native name: ZAFLAGS_CUSTOM_EDIT
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_CUSTOM_EDIT => 1
+    static CUSTOM_EDIT => 1
 
     /**
+     * Native name: ZAFLAGS_ADD_SITES
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_ADD_SITES => 2
+    static ADD_SITES => 2
 
     /**
+     * Native name: ZAFLAGS_REQUIRE_VERIFICATION
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_REQUIRE_VERIFICATION => 4
+    static REQUIRE_VERIFICATION => 4
 
     /**
+     * Native name: ZAFLAGS_INCLUDE_PROXY_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_INCLUDE_PROXY_OVERRIDE => 8
+    static INCLUDE_PROXY_OVERRIDE => 8
 
     /**
+     * Native name: ZAFLAGS_INCLUDE_INTRANET_SITES
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_INCLUDE_INTRANET_SITES => 16
+    static INCLUDE_INTRANET_SITES => 16
 
     /**
+     * Native name: ZAFLAGS_NO_UI
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_NO_UI => 32
+    static NO_UI => 32
 
     /**
+     * Native name: ZAFLAGS_SUPPORTS_VERIFICATION
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_SUPPORTS_VERIFICATION => 64
+    static SUPPORTS_VERIFICATION => 64
 
     /**
+     * Native name: ZAFLAGS_UNC_AS_INTRANET
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_UNC_AS_INTRANET => 128
+    static UNC_AS_INTRANET => 128
 
     /**
+     * Native name: ZAFLAGS_DETECT_INTRANET
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_DETECT_INTRANET => 256
+    static DETECT_INTRANET => 256
 
     /**
+     * Native name: ZAFLAGS_USE_LOCKED_ZONES
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_USE_LOCKED_ZONES => 65536
+    static USE_LOCKED_ZONES => 65536
 
     /**
+     * Native name: ZAFLAGS_VERIFY_TEMPLATE_SETTINGS
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_VERIFY_TEMPLATE_SETTINGS => 131072
+    static VERIFY_TEMPLATE_SETTINGS => 131072
 
     /**
+     * Native name: ZAFLAGS_NO_CACHE
      * @type {Integer (Int32)}
      */
-    static ZAFLAGS_NO_CACHE => 262144
+    static NO_CACHE => 262144
 }

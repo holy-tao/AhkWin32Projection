@@ -7,77 +7,92 @@
 class DISPID_InkRenderer extends Win32Enum {
 
     /**
+     * Native name: DISPID_IRGetViewTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGetViewTransform => 1
+    static IRGetViewTransform => 1
 
     /**
+     * Native name: DISPID_IRSetViewTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_IRSetViewTransform => 2
+    static IRSetViewTransform => 2
 
     /**
+     * Native name: DISPID_IRGetObjectTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGetObjectTransform => 3
+    static IRGetObjectTransform => 3
 
     /**
+     * Native name: DISPID_IRSetObjectTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_IRSetObjectTransform => 4
+    static IRSetObjectTransform => 4
 
     /**
+     * Native name: DISPID_IRDraw
      * @type {Integer (Int32)}
      */
-    static DISPID_IRDraw => 5
+    static IRDraw => 5
 
     /**
+     * Native name: DISPID_IRDrawStroke
      * @type {Integer (Int32)}
      */
-    static DISPID_IRDrawStroke => 6
+    static IRDrawStroke => 6
 
     /**
+     * Native name: DISPID_IRPixelToInkSpace
      * @type {Integer (Int32)}
      */
-    static DISPID_IRPixelToInkSpace => 7
+    static IRPixelToInkSpace => 7
 
     /**
+     * Native name: DISPID_IRInkSpaceToPixel
      * @type {Integer (Int32)}
      */
-    static DISPID_IRInkSpaceToPixel => 8
+    static IRInkSpaceToPixel => 8
 
     /**
+     * Native name: DISPID_IRPixelToInkSpaceFromPoints
      * @type {Integer (Int32)}
      */
-    static DISPID_IRPixelToInkSpaceFromPoints => 9
+    static IRPixelToInkSpaceFromPoints => 9
 
     /**
+     * Native name: DISPID_IRInkSpaceToPixelFromPoints
      * @type {Integer (Int32)}
      */
-    static DISPID_IRInkSpaceToPixelFromPoints => 10
+    static IRInkSpaceToPixelFromPoints => 10
 
     /**
+     * Native name: DISPID_IRMeasure
      * @type {Integer (Int32)}
      */
-    static DISPID_IRMeasure => 11
+    static IRMeasure => 11
 
     /**
+     * Native name: DISPID_IRMeasureStroke
      * @type {Integer (Int32)}
      */
-    static DISPID_IRMeasureStroke => 12
+    static IRMeasureStroke => 12
 
     /**
+     * Native name: DISPID_IRMove
      * @type {Integer (Int32)}
      */
-    static DISPID_IRMove => 13
+    static IRMove => 13
 
     /**
+     * Native name: DISPID_IRRotate
      * @type {Integer (Int32)}
      */
-    static DISPID_IRRotate => 14
+    static IRRotate => 14
 
     /**
+     * Native name: DISPID_IRScale
      * @type {Integer (Int32)}
      */
-    static DISPID_IRScale => 15
+    static IRScale => 15
 }

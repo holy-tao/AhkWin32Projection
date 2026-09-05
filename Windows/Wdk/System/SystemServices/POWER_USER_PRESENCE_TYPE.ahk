@@ -7,17 +7,20 @@
 class POWER_USER_PRESENCE_TYPE extends Win32Enum {
 
     /**
+     * Native name: UserNotPresent
      * @type {Integer (Int32)}
      */
-    static UserNotPresent => 0
+    static NotPresent => 0
 
     /**
+     * Native name: UserPresent
      * @type {Integer (Int32)}
      */
-    static UserPresent => 1
+    static Present => 1
 
     /**
+     * Native name: UserUnknown
      * @type {Integer (Int32)}
      */
-    static UserUnknown => 255
+    static Unknown => 255
 }

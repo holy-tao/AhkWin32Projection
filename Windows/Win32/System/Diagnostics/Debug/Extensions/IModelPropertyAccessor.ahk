@@ -31,7 +31,6 @@ class IModelPropertyAccessor extends IUnknown {
     static VTableNames => ["GetValue", "SetValue"]
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
      * @returns {IModelObject} 
@@ -44,7 +43,6 @@ class IModelPropertyAccessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} value 

@@ -7,12 +7,14 @@
 class RECORDER_TYPES extends Win32Enum {
 
     /**
+     * Native name: RECORDER_CDR
      * @type {Integer (Int32)}
      */
-    static RECORDER_CDR => 1
+    static CDR => 1
 
     /**
+     * Native name: RECORDER_CDRW
      * @type {Integer (Int32)}
      */
-    static RECORDER_CDRW => 2
+    static CDRW => 2
 }

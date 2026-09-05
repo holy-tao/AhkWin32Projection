@@ -16,7 +16,8 @@ class MULTIPLE_TRUSTEE_OPERATION extends Win32Enum {
 
     /**
      * The trustee is an impersonation trustee. The <b>pMultipleTrustee</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure points to a trustee for a server that can impersonate the client trustee.
+     * Native name: TRUSTEE_IS_IMPERSONATE
      * @type {Integer (Int32)}
      */
-    static TRUSTEE_IS_IMPERSONATE => 1
+    static IS_IMPERSONATE => 1
 }

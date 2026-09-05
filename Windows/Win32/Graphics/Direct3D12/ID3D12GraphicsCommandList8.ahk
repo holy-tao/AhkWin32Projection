@@ -28,7 +28,6 @@ class ID3D12GraphicsCommandList8 extends ID3D12GraphicsCommandList7 {
     static VTableNames => ["OMSetFrontAndBackStencilRef"]
 
     /**
-     * 
      * @param {Integer} FrontStencilRef 
      * @param {Integer} BackStencilRef 
      * @returns {String} Nothing - always returns an empty string

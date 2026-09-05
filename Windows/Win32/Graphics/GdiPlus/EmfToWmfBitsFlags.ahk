@@ -7,22 +7,26 @@
 class EmfToWmfBitsFlags extends Win32Enum {
 
     /**
+     * Native name: EmfToWmfBitsFlagsDefault
      * @type {Integer (Int32)}
      */
-    static EmfToWmfBitsFlagsDefault => 0
+    static Default => 0
 
     /**
+     * Native name: EmfToWmfBitsFlagsEmbedEmf
      * @type {Integer (Int32)}
      */
-    static EmfToWmfBitsFlagsEmbedEmf => 1
+    static EmbedEmf => 1
 
     /**
+     * Native name: EmfToWmfBitsFlagsIncludePlaceable
      * @type {Integer (Int32)}
      */
-    static EmfToWmfBitsFlagsIncludePlaceable => 2
+    static IncludePlaceable => 2
 
     /**
+     * Native name: EmfToWmfBitsFlagsNoXORClip
      * @type {Integer (Int32)}
      */
-    static EmfToWmfBitsFlagsNoXORClip => 4
+    static NoXORClip => 4
 }

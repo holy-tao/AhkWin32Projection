@@ -30,7 +30,6 @@ class IHTMLSubmitData extends IDispatch {
     static VTableNames => ["appendNameValuePair", "appendNameFilePair", "appendItemSeparator"]
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} value 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IHTMLSubmitData extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} filename 
      * @returns {HRESULT} 
@@ -58,7 +56,6 @@ class IHTMLSubmitData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     appendItemSeparator() {

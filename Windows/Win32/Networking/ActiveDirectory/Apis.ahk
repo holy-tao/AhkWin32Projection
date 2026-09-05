@@ -4208,7 +4208,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {PWSTR} szSrcData 
      * @param {Pointer<Pointer<Integer>>} ppbDestData 
      * @param {Pointer<Integer>} pdwDestLen 
@@ -4225,7 +4224,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pVariant 
      * @param {Integer} dwNumVariant 
      * @param {Pointer<Pointer<ADSVALUE>>} ppAdsValues 
@@ -4241,7 +4239,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {Pointer<ADSVALUE>} pAdsValues 
      * @param {Integer} dwNumValues 
      * @param {Pointer<VARIANT>} pVariant 
@@ -4253,7 +4250,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {Pointer<ADSVALUE>} pAdsValues 
      * @param {Integer} dwNumValues 
      * @returns {String} Nothing - always returns an empty string
@@ -5216,7 +5212,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {PSTR} pszSpn 
      * @param {Integer} cSpn 
      * @param {Pointer<Integer>} pcServiceClass 
@@ -5244,7 +5239,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSpn 
      * @param {Integer} cSpn 
      * @param {Pointer<Integer>} pcServiceClass 
@@ -5272,7 +5266,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSpn 
      * @param {Integer} cSpn 
      * @param {Pointer<Integer>} pcHostName 
@@ -5304,7 +5297,6 @@ class ActiveDirectory {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSpn 
      * @param {Integer} cSpn 
      * @param {Pointer<Integer>} pcHostName 

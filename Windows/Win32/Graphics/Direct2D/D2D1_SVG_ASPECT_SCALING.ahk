@@ -10,14 +10,16 @@ class D2D1_SVG_ASPECT_SCALING extends Win32Enum {
 
     /**
      * Scale the viewBox up as much as possible such that the entire viewBox is visible within the viewport.
+     * Native name: D2D1_SVG_ASPECT_SCALING_MEET
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_ASPECT_SCALING_MEET => 0
+    static MEET => 0
 
     /**
      * Scale the viewBox down as much as possible such that the entire viewport is
      *           covered by the viewBox.
+     * Native name: D2D1_SVG_ASPECT_SCALING_SLICE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_ASPECT_SCALING_SLICE => 1
+    static SLICE => 1
 }

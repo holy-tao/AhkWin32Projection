@@ -7,17 +7,20 @@
 class DIRECTSOUNDDEVICE_TYPE extends Win32Enum {
 
     /**
+     * Native name: DIRECTSOUNDDEVICE_TYPE_EMULATED
      * @type {Integer (Int32)}
      */
-    static DIRECTSOUNDDEVICE_TYPE_EMULATED => 0
+    static EMULATED => 0
 
     /**
+     * Native name: DIRECTSOUNDDEVICE_TYPE_VXD
      * @type {Integer (Int32)}
      */
-    static DIRECTSOUNDDEVICE_TYPE_VXD => 1
+    static VXD => 1
 
     /**
+     * Native name: DIRECTSOUNDDEVICE_TYPE_WDM
      * @type {Integer (Int32)}
      */
-    static DIRECTSOUNDDEVICE_TYPE_WDM => 2
+    static WDM => 2
 }

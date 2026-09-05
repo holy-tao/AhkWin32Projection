@@ -10,13 +10,15 @@ class AUDIOCLIENT_ACTIVATION_TYPE extends Win32Enum {
 
     /**
      * Default activation.
+     * Native name: AUDIOCLIENT_ACTIVATION_TYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static AUDIOCLIENT_ACTIVATION_TYPE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Process loopback activation, allowing for the inclusion or exclusion of audio rendered by the specified process and its child processes. For sample code that demonstrates the process loopback capture scenario, see the [Application Loopback API Capture Sample](https://docs.microsoft.com/en-us/samples/microsoft/windows-classic-samples/applicationloopbackaudio-sample/).
+     * Native name: AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK
      * @type {Integer (Int32)}
      */
-    static AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK => 1
+    static PROCESS_LOOPBACK => 1
 }

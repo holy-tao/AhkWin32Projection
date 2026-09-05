@@ -10,25 +10,29 @@ class eAVEncVideoOutputScanType extends Win32Enum {
 
     /**
      * Output frames are progressive.
+     * Native name: eAVEncVideoOutputScan_Progressive
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoOutputScan_Progressive => 0
+    static Progressive => 0
 
     /**
      * Output frames are interlaced.
+     * Native name: eAVEncVideoOutputScan_Interlaced
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoOutputScan_Interlaced => 1
+    static Interlaced => 1
 
     /**
      * The interlacing on the output frames matches the input frames.
+     * Native name: eAVEncVideoOutputScan_SameAsInput
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoOutputScan_SameAsInput => 2
+    static SameAsInput => 2
 
     /**
      * Use the media type on the encoder's input pin to determine whether the frames are progressive or interlaced.
+     * Native name: eAVEncVideoOutputScan_Automatic
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoOutputScan_Automatic => 3
+    static Automatic => 3
 }

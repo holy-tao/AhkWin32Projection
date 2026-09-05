@@ -7,27 +7,32 @@
 class HCS_RESOURCE_TYPE extends Win32Enum {
 
     /**
+     * Native name: HcsResourceTypeNone
      * @type {Integer (Int32)}
      */
-    static HcsResourceTypeNone => 0
+    static None => 0
 
     /**
+     * Native name: HcsResourceTypeFile
      * @type {Integer (Int32)}
      */
-    static HcsResourceTypeFile => 1
+    static File => 1
 
     /**
+     * Native name: HcsResourceTypeJob
      * @type {Integer (Int32)}
      */
-    static HcsResourceTypeJob => 2
+    static Job => 2
 
     /**
+     * Native name: HcsResourceTypeComObject
      * @type {Integer (Int32)}
      */
-    static HcsResourceTypeComObject => 3
+    static ComObject => 3
 
     /**
+     * Native name: HcsResourceTypeSocket
      * @type {Integer (Int32)}
      */
-    static HcsResourceTypeSocket => 4
+    static Socket => 4
 }

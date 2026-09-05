@@ -33,7 +33,6 @@ class IScriptNode extends IUnknown {
     static VTableNames => ["Alive", "Delete", "GetParent", "GetIndexInParent", "GetCookie", "GetNumberOfChildren", "GetChild", "GetLanguage", "CreateChildEntry", "CreateChildHandler"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Alive() {
@@ -42,7 +41,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -63,7 +61,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIndexInParent() {
@@ -72,7 +69,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCookie() {
@@ -81,7 +77,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfChildren() {
@@ -90,7 +85,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} isn 
      * @returns {IScriptNode} 
      */
@@ -100,7 +94,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetLanguage() {
@@ -110,7 +103,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} isn 
      * @param {Integer} dwCookie 
      * @param {PWSTR} pszDelimiter 
@@ -124,7 +116,6 @@ class IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDefaultName 
      * @param {Pointer<PWSTR>} prgpszNames 
      * @param {Integer} cpszNames 

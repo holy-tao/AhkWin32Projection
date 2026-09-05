@@ -29,7 +29,6 @@ class IKsPinFactory extends IUnknown {
     static VTableNames => ["KsPinFactory"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsPinFactory() {

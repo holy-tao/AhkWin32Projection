@@ -7,27 +7,32 @@
 class DEV_QUERY_FLAGS extends Win32Enum {
 
     /**
+     * Native name: DevQueryFlagNone
      * @type {Integer (Int32)}
      */
-    static DevQueryFlagNone => 0
+    static FlagNone => 0
 
     /**
+     * Native name: DevQueryFlagUpdateResults
      * @type {Integer (Int32)}
      */
-    static DevQueryFlagUpdateResults => 1
+    static FlagUpdateResults => 1
 
     /**
+     * Native name: DevQueryFlagAllProperties
      * @type {Integer (Int32)}
      */
-    static DevQueryFlagAllProperties => 2
+    static FlagAllProperties => 2
 
     /**
+     * Native name: DevQueryFlagLocalize
      * @type {Integer (Int32)}
      */
-    static DevQueryFlagLocalize => 4
+    static FlagLocalize => 4
 
     /**
+     * Native name: DevQueryFlagAsyncClose
      * @type {Integer (Int32)}
      */
-    static DevQueryFlagAsyncClose => 8
+    static FlagAsyncClose => 8
 }

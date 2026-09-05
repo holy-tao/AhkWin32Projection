@@ -44,7 +44,6 @@ class IHTMLDOMChildrenCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -53,7 +52,6 @@ class IHTMLDOMChildrenCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -62,7 +60,6 @@ class IHTMLDOMChildrenCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */

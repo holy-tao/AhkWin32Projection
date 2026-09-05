@@ -10,13 +10,15 @@ class MF_VIDEO_PROCESSOR_ROTATION extends Win32Enum {
 
     /**
      * Do not rotate the image.
+     * Native name: ROTATION_NONE
      * @type {Integer (Int32)}
      */
-    static ROTATION_NONE => 0
+    static NONE => 0
 
     /**
      * Rotate the image to the correct viewing orientation.
+     * Native name: ROTATION_NORMAL
      * @type {Integer (Int32)}
      */
-    static ROTATION_NORMAL => 1
+    static NORMAL => 1
 }

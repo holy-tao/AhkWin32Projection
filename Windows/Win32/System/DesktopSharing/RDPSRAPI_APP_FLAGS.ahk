@@ -10,7 +10,8 @@ class RDPSRAPI_APP_FLAGS extends Win32Enum {
 
     /**
      * This flag indicates that the application cannot be shared. The application runs at a higher level than the process that is using the Windows Desktop Sharing API. An application can use this flag to prevent the user from sharing it by either disabling the entry for the application in the user interface or by not showing the entry.
+     * Native name: APP_FLAG_PRIVILEGED
      * @type {Integer (Int32)}
      */
-    static APP_FLAG_PRIVILEGED => 1
+    static FLAG_PRIVILEGED => 1
 }

@@ -30,7 +30,6 @@ class IDebugHostContextControl extends IUnknown {
     static VTableNames => ["SwitchTo", "GetContextAlternator"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SwitchTo() {
@@ -39,7 +38,6 @@ class IDebugHostContextControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContextAlternator} 
      */
     GetContextAlternator() {

@@ -9,17 +9,20 @@
 class WINBIO_COMPONENT extends Win32Enum {
 
     /**
+     * Native name: WINBIO_COMPONENT_SENSOR
      * @type {Integer (UInt32)}
      */
-    static WINBIO_COMPONENT_SENSOR => 1
+    static SENSOR => 1
 
     /**
+     * Native name: WINBIO_COMPONENT_ENGINE
      * @type {Integer (UInt32)}
      */
-    static WINBIO_COMPONENT_ENGINE => 2
+    static ENGINE => 2
 
     /**
+     * Native name: WINBIO_COMPONENT_STORAGE
      * @type {Integer (UInt32)}
      */
-    static WINBIO_COMPONENT_STORAGE => 3
+    static STORAGE => 3
 }

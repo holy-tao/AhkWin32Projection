@@ -13,13 +13,15 @@ class SERVICE_DIRECTORY_TYPE extends Win32Enum {
 
     /**
      * Mutable, persistent service state. This state is both readable and writable by the service, and is inaccessible outside of the service. This state persists across reboots and and OS updates.
+     * Native name: ServiceDirectoryPersistentState
      * @type {Integer (Int32)}
      */
-    static ServiceDirectoryPersistentState => 0
+    static PersistentState => 0
 
     /**
      * Reserved. Represents the maximum value of the enumeration.
+     * Native name: ServiceDirectoryTypeMax
      * @type {Integer (Int32)}
      */
-    static ServiceDirectoryTypeMax => 1
+    static Max => 1
 }

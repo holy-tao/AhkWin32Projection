@@ -243,7 +243,6 @@ class ISyncMgrSyncCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
      */

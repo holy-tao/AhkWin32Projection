@@ -10,25 +10,29 @@ class EVT_RPC_LOGIN_FLAGS extends Win32Enum {
 
     /**
      * Use the default authentication method during RPC login. The default authentication method is Negotiate.
+     * Native name: EvtRpcLoginAuthDefault
      * @type {Integer (UInt32)}
      */
-    static EvtRpcLoginAuthDefault => 0
+    static AuthDefault => 0
 
     /**
      * Use the Negotiate authentication method during RPC login. The client and server negotiate whether to use NTLM or Kerberos.
+     * Native name: EvtRpcLoginAuthNegotiate
      * @type {Integer (UInt32)}
      */
-    static EvtRpcLoginAuthNegotiate => 1
+    static AuthNegotiate => 1
 
     /**
      * Use Kerberos authentication during RPC login.
+     * Native name: EvtRpcLoginAuthKerberos
      * @type {Integer (UInt32)}
      */
-    static EvtRpcLoginAuthKerberos => 2
+    static AuthKerberos => 2
 
     /**
      * Use NTLM authentication during RPC login.
+     * Native name: EvtRpcLoginAuthNTLM
      * @type {Integer (UInt32)}
      */
-    static EvtRpcLoginAuthNTLM => 3
+    static AuthNTLM => 3
 }

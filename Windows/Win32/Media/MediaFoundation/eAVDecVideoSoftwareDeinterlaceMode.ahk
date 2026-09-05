@@ -10,25 +10,29 @@ class eAVDecVideoSoftwareDeinterlaceMode extends Win32Enum {
 
     /**
      * No software deinterlacing.
+     * Native name: eAVDecVideoSoftwareDeinterlaceMode_NoDeinterlacing
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoSoftwareDeinterlaceMode_NoDeinterlacing => 0
+    static NoDeinterlacing => 0
 
     /**
      * Progressive deinterlacing.
+     * Native name: eAVDecVideoSoftwareDeinterlaceMode_ProgressiveDeinterlacing
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoSoftwareDeinterlaceMode_ProgressiveDeinterlacing => 1
+    static ProgressiveDeinterlacing => 1
 
     /**
      * Bob deinterlacing.
+     * Native name: eAVDecVideoSoftwareDeinterlaceMode_BOBDeinterlacing
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoSoftwareDeinterlaceMode_BOBDeinterlacing => 2
+    static BOBDeinterlacing => 2
 
     /**
      * "Smart" bob deinterlacing.
+     * Native name: eAVDecVideoSoftwareDeinterlaceMode_SmartBOBDeinterlacing
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoSoftwareDeinterlaceMode_SmartBOBDeinterlacing => 3
+    static SmartBOBDeinterlacing => 3
 }

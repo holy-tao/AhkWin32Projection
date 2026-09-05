@@ -10,13 +10,15 @@ class D2D1_EMBOSS_PROP extends Win32Enum {
 
     /**
      * The D2D1_EMBOSS_PROP_HEIGHT property is a float value controlling the strength of the embossing effect.  The allowed range is 0.0 to 10.0.  The default value is 1.0.
+     * Native name: D2D1_EMBOSS_PROP_HEIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_EMBOSS_PROP_HEIGHT => 0
+    static HEIGHT => 0
 
     /**
      * The D2D1_EMBOSS_PROP_DIRECTION property is a float value specifying the light direction used to create the effect. The allowed range is 0.0 to 360.0.  The default value is 0.0.
+     * Native name: D2D1_EMBOSS_PROP_DIRECTION
      * @type {Integer (Int32)}
      */
-    static D2D1_EMBOSS_PROP_DIRECTION => 1
+    static DIRECTION => 1
 }

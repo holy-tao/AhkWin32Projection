@@ -10,13 +10,15 @@ class MI_SubscriptionDeliveryType extends Win32Enum {
 
     /**
      * Pull delivery is required for subscriptions. Pulling the indications from the server is more firewall friendly. However, it can also be slower than the push delivery type.
+     * Native name: MI_SubscriptionDeliveryType_Pull
      * @type {Integer (Int32)}
      */
-    static MI_SubscriptionDeliveryType_Pull => 1
+    static Pull => 1
 
     /**
      * Push delivery is required for subscriptions. Push indicates that the server will connect to the client to deliver the event when one is available. This requires the firewall on the correct ports to work and security contexts need to managed carefully.
+     * Native name: MI_SubscriptionDeliveryType_Push
      * @type {Integer (Int32)}
      */
-    static MI_SubscriptionDeliveryType_Push => 2
+    static Push => 2
 }

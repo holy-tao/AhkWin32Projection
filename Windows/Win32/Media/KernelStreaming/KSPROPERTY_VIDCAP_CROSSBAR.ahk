@@ -7,27 +7,32 @@
 class KSPROPERTY_VIDCAP_CROSSBAR extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CROSSBAR_CAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CROSSBAR_CAPS => 0
+    static CAPS => 0
 
     /**
+     * Native name: KSPROPERTY_CROSSBAR_PININFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CROSSBAR_PININFO => 1
+    static PININFO => 1
 
     /**
+     * Native name: KSPROPERTY_CROSSBAR_CAN_ROUTE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CROSSBAR_CAN_ROUTE => 2
+    static CAN_ROUTE => 2
 
     /**
+     * Native name: KSPROPERTY_CROSSBAR_ROUTE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CROSSBAR_ROUTE => 3
+    static ROUTE => 3
 
     /**
+     * Native name: KSPROPERTY_CROSSBAR_INPUT_ACTIVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CROSSBAR_INPUT_ACTIVE => 4
+    static INPUT_ACTIVE => 4
 }

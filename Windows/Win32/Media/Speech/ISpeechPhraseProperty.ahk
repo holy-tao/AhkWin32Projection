@@ -96,7 +96,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -106,7 +105,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Id() {
@@ -115,7 +113,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -125,7 +122,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FirstElement() {
@@ -134,7 +130,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfElements() {
@@ -143,7 +138,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_EngineConfidence() {
@@ -152,7 +146,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechEngineConfidence} 
      */
     get_Confidence() {
@@ -161,7 +154,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseProperty} 
      */
     get_Parent() {
@@ -170,7 +162,6 @@ class ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseProperties} 
      */
     get_Children() {

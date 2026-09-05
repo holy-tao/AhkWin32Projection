@@ -7,97 +7,116 @@
 class OPM_CONNECTOR_TYPE extends Win32Enum {
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_OTHER
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_OTHER => -1
+    static OTHER => -1
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_VGA
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_VGA => 0
+    static VGA => 0
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_SVIDEO
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_SVIDEO => 1
+    static SVIDEO => 1
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_COMPOSITE_VIDEO
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_COMPOSITE_VIDEO => 2
+    static COMPOSITE_VIDEO => 2
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_COMPONENT_VIDEO
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_COMPONENT_VIDEO => 3
+    static COMPONENT_VIDEO => 3
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_DVI
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_DVI => 4
+    static DVI => 4
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_HDMI
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_HDMI => 5
+    static HDMI => 5
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_LVDS
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_LVDS => 6
+    static LVDS => 6
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_D_JPN
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_D_JPN => 8
+    static D_JPN => 8
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_SDI
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_SDI => 9
+    static SDI => 9
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_DISPLAYPORT_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_DISPLAYPORT_EXTERNAL => 10
+    static DISPLAYPORT_EXTERNAL => 10
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_DISPLAYPORT_EMBEDDED
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_DISPLAYPORT_EMBEDDED => 11
+    static DISPLAYPORT_EMBEDDED => 11
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_UDI_EXTERNAL
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_UDI_EXTERNAL => 12
+    static UDI_EXTERNAL => 12
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_UDI_EMBEDDED
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_UDI_EMBEDDED => 13
+    static UDI_EMBEDDED => 13
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_RESERVED
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_RESERVED => 14
+    static RESERVED => 14
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_MIRACAST
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_MIRACAST => 15
+    static MIRACAST => 15
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_TRANSPORT_AGNOSTIC_DIGITAL_MODE_A
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_TRANSPORT_AGNOSTIC_DIGITAL_MODE_A => 16
+    static TRANSPORT_AGNOSTIC_DIGITAL_MODE_A => 16
 
     /**
+     * Native name: OPM_CONNECTOR_TYPE_TRANSPORT_AGNOSTIC_DIGITAL_MODE_B
      * @type {Integer (Int32)}
      */
-    static OPM_CONNECTOR_TYPE_TRANSPORT_AGNOSTIC_DIGITAL_MODE_B => 17
+    static TRANSPORT_AGNOSTIC_DIGITAL_MODE_B => 17
 
     /**
+     * Native name: OPM_COPP_COMPATIBLE_CONNECTOR_TYPE_INTERNAL
      * @type {Integer (Int32)}
      */
-    static OPM_COPP_COMPATIBLE_CONNECTOR_TYPE_INTERNAL => -2147483648
+    static COPP_COMPATIBLE_CONNECTOR_TYPE_INTERNAL => -2147483648
 }

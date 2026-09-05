@@ -7,17 +7,20 @@
 class GNSS_NI_USER_RESPONSE extends Win32Enum {
 
     /**
+     * Native name: GNSS_Ni_UserResponseAccept
      * @type {Integer (Int32)}
      */
-    static GNSS_Ni_UserResponseAccept => 1
+    static Accept => 1
 
     /**
+     * Native name: GNSS_Ni_UserResponseDeny
      * @type {Integer (Int32)}
      */
-    static GNSS_Ni_UserResponseDeny => 2
+    static Deny => 2
 
     /**
+     * Native name: GNSS_Ni_UserResponseTimeout
      * @type {Integer (Int32)}
      */
-    static GNSS_Ni_UserResponseTimeout => 3
+    static Timeout => 3
 }

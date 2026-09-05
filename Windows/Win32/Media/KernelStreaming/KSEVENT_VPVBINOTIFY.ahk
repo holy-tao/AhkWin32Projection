@@ -7,7 +7,8 @@
 class KSEVENT_VPVBINOTIFY extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_VPVBINOTIFY_FORMATCHANGE
      * @type {Integer (Int32)}
      */
-    static KSEVENT_VPVBINOTIFY_FORMATCHANGE => 0
+    static FORMATCHANGE => 0
 }

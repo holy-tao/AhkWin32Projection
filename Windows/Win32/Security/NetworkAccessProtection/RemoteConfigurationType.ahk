@@ -10,13 +10,15 @@ class RemoteConfigurationType extends Win32Enum {
 
     /**
      * The component allows  remote configuration directly on the machine.
+     * Native name: remoteConfigTypeMachine
      * @type {Integer (Int32)}
      */
-    static remoteConfigTypeMachine => 1
+    static ConfigTypeMachine => 1
 
     /**
      * The component allows remote configuration via a binary large object (BLOB) loaded in memory.
+     * Native name: remoteConfigTypeConfigBlob
      * @type {Integer (Int32)}
      */
-    static remoteConfigTypeConfigBlob => 2
+    static ConfigTypeConfigBlob => 2
 }

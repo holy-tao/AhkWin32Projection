@@ -10,7 +10,8 @@ class PEER_GROUP_ISSUE_CREDENTIAL_FLAGS extends Win32Enum {
 
     /**
      * When the <b>PEER_GROUP_STORE_CREDENTIALS</b> flag is set, the user  credentials are stored within a group database to be retrieved when the user connects. If the flag is not set, any new credentials are returned in string form and must be passed to the user out-of-band.
+     * Native name: PEER_GROUP_STORE_CREDENTIALS
      * @type {Integer (Int32)}
      */
-    static PEER_GROUP_STORE_CREDENTIALS => 1
+    static STORE_CREDENTIALS => 1
 }

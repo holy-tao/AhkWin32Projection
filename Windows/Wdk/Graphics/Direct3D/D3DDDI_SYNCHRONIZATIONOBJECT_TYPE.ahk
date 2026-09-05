@@ -7,37 +7,44 @@
 class D3DDDI_SYNCHRONIZATIONOBJECT_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_SYNCHRONIZATION_MUTEX
      * @type {Integer (Int32)}
      */
-    static D3DDDI_SYNCHRONIZATION_MUTEX => 1
+    static SYNCHRONIZATION_MUTEX => 1
 
     /**
+     * Native name: D3DDDI_SEMAPHORE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_SEMAPHORE => 2
+    static SEMAPHORE => 2
 
     /**
+     * Native name: D3DDDI_FENCE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_FENCE => 3
+    static FENCE => 3
 
     /**
+     * Native name: D3DDDI_CPU_NOTIFICATION
      * @type {Integer (Int32)}
      */
-    static D3DDDI_CPU_NOTIFICATION => 4
+    static CPU_NOTIFICATION => 4
 
     /**
+     * Native name: D3DDDI_MONITORED_FENCE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_MONITORED_FENCE => 5
+    static MONITORED_FENCE => 5
 
     /**
+     * Native name: D3DDDI_PERIODIC_MONITORED_FENCE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_PERIODIC_MONITORED_FENCE => 6
+    static PERIODIC_MONITORED_FENCE => 6
 
     /**
+     * Native name: D3DDDI_SYNCHRONIZATION_TYPE_LIMIT
      * @type {Integer (Int32)}
      */
-    static D3DDDI_SYNCHRONIZATION_TYPE_LIMIT => 7
+    static SYNCHRONIZATION_TYPE_LIMIT => 7
 }

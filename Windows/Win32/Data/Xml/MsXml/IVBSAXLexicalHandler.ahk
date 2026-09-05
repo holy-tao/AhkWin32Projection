@@ -30,7 +30,6 @@ class IVBSAXLexicalHandler extends IDispatch {
     static VTableNames => ["startDTD", "endDTD", "startEntity", "endEntity", "startCDATA", "endCDATA", "comment"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
@@ -42,7 +41,6 @@ class IVBSAXLexicalHandler extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endDTD() {
@@ -51,7 +49,6 @@ class IVBSAXLexicalHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @returns {HRESULT} 
      */
@@ -61,7 +58,6 @@ class IVBSAXLexicalHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @returns {HRESULT} 
      */
@@ -71,7 +67,6 @@ class IVBSAXLexicalHandler extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startCDATA() {
@@ -80,7 +75,6 @@ class IVBSAXLexicalHandler extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endCDATA() {
@@ -89,7 +83,6 @@ class IVBSAXLexicalHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strChars 
      * @returns {HRESULT} 
      */

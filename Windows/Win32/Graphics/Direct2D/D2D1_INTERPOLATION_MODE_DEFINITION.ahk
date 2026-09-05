@@ -7,42 +7,50 @@
 class D2D1_INTERPOLATION_MODE_DEFINITION extends Win32Enum {
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_NEAREST_NEIGHBOR
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_NEAREST_NEIGHBOR => 0
+    static NEAREST_NEIGHBOR => 0
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_LINEAR => 1
+    static LINEAR => 1
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_CUBIC
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_CUBIC => 2
+    static CUBIC => 2
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_MULTI_SAMPLE_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_MULTI_SAMPLE_LINEAR => 3
+    static MULTI_SAMPLE_LINEAR => 3
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_ANISOTROPIC
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_ANISOTROPIC => 4
+    static ANISOTROPIC => 4
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_HIGH_QUALITY_CUBIC
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_HIGH_QUALITY_CUBIC => 5
+    static HIGH_QUALITY_CUBIC => 5
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_FANT
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_FANT => 6
+    static FANT => 6
 
     /**
+     * Native name: D2D1_INTERPOLATION_MODE_DEFINITION_MIPMAP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_INTERPOLATION_MODE_DEFINITION_MIPMAP_LINEAR => 7
+    static MIPMAP_LINEAR => 7
 }

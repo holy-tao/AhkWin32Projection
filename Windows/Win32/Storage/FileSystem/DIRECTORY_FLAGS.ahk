@@ -7,12 +7,14 @@
 class DIRECTORY_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DIRECTORY_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static DIRECTORY_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: DIRECTORY_FLAGS_DISALLOW_PATH_REDIRECTS
      * @type {Integer (Int32)}
      */
-    static DIRECTORY_FLAGS_DISALLOW_PATH_REDIRECTS => 1
+    static DISALLOW_PATH_REDIRECTS => 1
 }

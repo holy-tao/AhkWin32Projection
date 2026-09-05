@@ -10,25 +10,29 @@ class WORDREP_BREAK_TYPE extends Win32Enum {
 
     /**
      * A word break is placed between this word and the previous word that was placed in the <b>WordSink</b>. This break is the default used by the <a href="https://docs.microsoft.com/windows/desktop/search/iwordsink-putword">PutWord</a> method.
+     * Native name: WORDREP_BREAK_EOW
      * @type {Integer (Int32)}
      */
-    static WORDREP_BREAK_EOW => 0
+    static EOW => 0
 
     /**
      * A sentence break is placed between this word and the previous word.
+     * Native name: WORDREP_BREAK_EOS
      * @type {Integer (Int32)}
      */
-    static WORDREP_BREAK_EOS => 1
+    static EOS => 1
 
     /**
      * A paragraph break is placed between this word and the previous word.
+     * Native name: WORDREP_BREAK_EOP
      * @type {Integer (Int32)}
      */
-    static WORDREP_BREAK_EOP => 2
+    static EOP => 2
 
     /**
      * A chapter break is placed between this word and the previous word.
+     * Native name: WORDREP_BREAK_EOC
      * @type {Integer (Int32)}
      */
-    static WORDREP_BREAK_EOC => 3
+    static EOC => 3
 }

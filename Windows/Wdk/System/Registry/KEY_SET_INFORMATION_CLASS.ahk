@@ -7,39 +7,46 @@
 class KEY_SET_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: KeyWriteTimeInformation
      * @type {Integer (Int32)}
      */
-    static KeyWriteTimeInformation => 0
+    static WriteTimeInformation => 0
 
     /**
+     * Native name: KeyWow64FlagsInformation
      * @type {Integer (Int32)}
      */
-    static KeyWow64FlagsInformation => 1
+    static Wow64FlagsInformation => 1
 
     /**
+     * Native name: KeyControlFlagsInformation
      * @type {Integer (Int32)}
      */
-    static KeyControlFlagsInformation => 2
+    static ControlFlagsInformation => 2
 
     /**
+     * Native name: KeySetVirtualizationInformation
      * @type {Integer (Int32)}
      */
-    static KeySetVirtualizationInformation => 3
+    static VirtualizationInformation => 3
 
     /**
+     * Native name: KeySetDebugInformation
      * @type {Integer (Int32)}
      */
-    static KeySetDebugInformation => 4
+    static DebugInformation => 4
 
     /**
+     * Native name: KeySetHandleTagsInformation
      * @type {Integer (Int32)}
      */
-    static KeySetHandleTagsInformation => 5
+    static HandleTagsInformation => 5
 
     /**
+     * Native name: KeySetLayerInformation
      * @type {Integer (Int32)}
      */
-    static KeySetLayerInformation => 6
+    static LayerInformation => 6
 
     /**
      * @type {Integer (Int32)}

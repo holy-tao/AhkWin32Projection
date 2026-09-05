@@ -30,18 +30,20 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      *       the user name and password are <b>NULL</b>, ADSI binds to the object using the security 
      *       context of the calling thread, which is either the security context of the user account under which the 
      *       application is running or of the client user account that the calling thread represents.
+     * Native name: ADS_SECURE_AUTHENTICATION
      * @type {Integer (UInt32)}
      */
-    static ADS_SECURE_AUTHENTICATION => 1
+    static SECURE_AUTHENTICATION => 1
 
     /**
      * Requires ADSI to use encryption for data exchange over the network.
      * 
      * <div class="alert"><b>Note</b>  This option is not supported by the WinNT provider.</div>
      * <div> </div>
+     * Native name: ADS_USE_ENCRYPTION
      * @type {Integer (UInt32)}
      */
-    static ADS_USE_ENCRYPTION => 2
+    static USE_ENCRYPTION => 2
 
     /**
      * The channel is encrypted using Secure Sockets Layer (SSL). Active Directory requires that the Certificate 
@@ -54,9 +56,10 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This option is not supported by the WinNT provider.</div>
      * <div> </div>
+     * Native name: ADS_USE_SSL
      * @type {Integer (UInt32)}
      */
-    static ADS_USE_SSL => 2
+    static USE_SSL => 2
 
     /**
      * A writable domain controller is not required. If your application only reads or queries data from Active 
@@ -70,24 +73,27 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      * 
      * For more information about programming for RODC compatibility, see the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc755190(v=ws.10)">Read-Only Domain Controllers Application Compatibility Guide</a>.
+     * Native name: ADS_READONLY_SERVER
      * @type {Integer (UInt32)}
      */
-    static ADS_READONLY_SERVER => 4
+    static READONLY_SERVER => 4
 
     /**
      * This flag is not supported.
+     * Native name: ADS_PROMPT_CREDENTIALS
      * @type {Integer (UInt32)}
      */
-    static ADS_PROMPT_CREDENTIALS => 8
+    static PROMPT_CREDENTIALS => 8
 
     /**
      * Request no authentication. The providers may attempt to bind the client, as an anonymous user, to the 
      *       target object. The WinNT provider does not support this flag. Active Directory establishes a connection between 
      *       the client and the targeted object, but will not perform authentication. Setting this flag amounts to requesting 
      *       an anonymous binding, which indicates all users as the security context.
+     * Native name: ADS_NO_AUTHENTICATION
      * @type {Integer (UInt32)}
      */
-    static ADS_NO_AUTHENTICATION => 16
+    static NO_AUTHENTICATION => 16
 
     /**
      * When this flag is set, ADSI will not attempt to query the <b>objectClass</b> 
@@ -99,9 +105,10 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      * 
      * This option is also useful for binding to non-Active Directory directory services, for example Exchange 5.5, 
      *        where the <b>objectClass</b> query would fail.
+     * Native name: ADS_FAST_BIND
      * @type {Integer (UInt32)}
      */
-    static ADS_FAST_BIND => 32
+    static FAST_BIND => 32
 
     /**
      * Verifies data integrity. The <b>ADS_SECURE_AUTHENTICATION</b> flag must also be set also 
@@ -109,9 +116,10 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This option is not supported by the WinNT provider.</div>
      * <div> </div>
+     * Native name: ADS_USE_SIGNING
      * @type {Integer (UInt32)}
      */
-    static ADS_USE_SIGNING => 64
+    static USE_SIGNING => 64
 
     /**
      * Encrypts data using Kerberos. The <b>ADS_SECURE_AUTHENTICATION</b> flag must also be set 
@@ -119,15 +127,17 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This option is not supported by the WinNT provider.</div>
      * <div> </div>
+     * Native name: ADS_USE_SEALING
      * @type {Integer (UInt32)}
      */
-    static ADS_USE_SEALING => 128
+    static USE_SEALING => 128
 
     /**
      * Enables ADSI to delegate the user security context, which is necessary for moving objects across domains.
+     * Native name: ADS_USE_DELEGATION
      * @type {Integer (UInt32)}
      */
-    static ADS_USE_DELEGATION => 256
+    static USE_DELEGATION => 256
 
     /**
      * If an Active Directory DNS server name is passed in the LDAP path, this forces an A-record lookup and 
@@ -135,9 +145,10 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This option is not supported by the WinNT provider.</div>
      * <div> </div>
+     * Native name: ADS_SERVER_BIND
      * @type {Integer (UInt32)}
      */
-    static ADS_SERVER_BIND => 512
+    static SERVER_BIND => 512
 
     /**
      * Specify this flag to turn referral chasing off for the life of the connection. However, even when this flag 
@@ -151,13 +162,15 @@ class ADS_AUTHENTICATION_ENUM extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This option is not supported by the WinNT provider.</div>
      * <div> </div>
+     * Native name: ADS_NO_REFERRAL_CHASING
      * @type {Integer (UInt32)}
      */
-    static ADS_NO_REFERRAL_CHASING => 1024
+    static NO_REFERRAL_CHASING => 1024
 
     /**
      * Reserved.
+     * Native name: ADS_AUTH_RESERVED
      * @type {Integer (UInt32)}
      */
-    static ADS_AUTH_RESERVED => 2147483648
+    static AUTH_RESERVED => 2147483648
 }

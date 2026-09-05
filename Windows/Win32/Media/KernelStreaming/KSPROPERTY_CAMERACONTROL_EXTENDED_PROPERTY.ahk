@@ -7,247 +7,296 @@
 class KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMODE => 0
+    static PHOTOMODE => 0
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOFRAMERATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOFRAMERATE => 1
+    static PHOTOFRAMERATE => 1
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMAXFRAMERATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMAXFRAMERATE => 2
+    static PHOTOMAXFRAMERATE => 2
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTRIGGERTIME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTRIGGERTIME => 3
+    static PHOTOTRIGGERTIME => 3
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_WARMSTART
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_WARMSTART => 4
+    static WARMSTART => 4
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_MAXVIDFPS_PHOTORES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_MAXVIDFPS_PHOTORES => 5
+    static MAXVIDFPS_PHOTORES => 5
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTHUMBNAIL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTHUMBNAIL => 6
+    static PHOTOTHUMBNAIL => 6
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_SCENEMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_SCENEMODE => 7
+    static SCENEMODE => 7
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_TORCHMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_TORCHMODE => 8
+    static TORCHMODE => 8
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FLASHMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FLASHMODE => 9
+    static FLASHMODE => 9
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_OPTIMIZATIONHINT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_OPTIMIZATIONHINT => 10
+    static OPTIMIZATIONHINT => 10
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_WHITEBALANCEMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_WHITEBALANCEMODE => 11
+    static WHITEBALANCEMODE => 11
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_EXPOSUREMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_EXPOSUREMODE => 12
+    static EXPOSUREMODE => 12
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSMODE => 13
+    static FOCUSMODE => 13
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_ISO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_ISO => 14
+    static ISO => 14
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW => 15
+    static FIELDOFVIEW => 15
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_EVCOMPENSATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_EVCOMPENSATION => 16
+    static EVCOMPENSATION => 16
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_CAMERAANGLEOFFSET
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_CAMERAANGLEOFFSET => 17
+    static CAMERAANGLEOFFSET => 17
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_METADATA
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_METADATA => 18
+    static METADATA => 18
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSPRIORITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSPRIORITY => 19
+    static FOCUSPRIORITY => 19
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSSTATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSSTATE => 20
+    static FOCUSSTATE => 20
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_CONFIGCAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_CONFIGCAPS => 21
+    static ROI_CONFIGCAPS => 21
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_ISPCONTROL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_ISPCONTROL => 22
+    static ROI_ISPCONTROL => 22
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOCONFIRMATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOCONFIRMATION => 23
+    static PHOTOCONFIRMATION => 23
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_ZOOM
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_ZOOM => 24
+    static ZOOM => 24
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_MCC
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_MCC => 25
+    static MCC => 25
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_ISO_ADVANCED
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_ISO_ADVANCED => 26
+    static ISO_ADVANCED => 26
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOSTABILIZATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOSTABILIZATION => 27
+    static VIDEOSTABILIZATION => 27
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_VFR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_VFR => 28
+    static VFR => 28
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FACEDETECTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FACEDETECTION => 29
+    static FACEDETECTION => 29
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOHDR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOHDR => 30
+    static VIDEOHDR => 30
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_HISTOGRAM
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_HISTOGRAM => 31
+    static HISTOGRAM => 31
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_OIS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_OIS => 32
+    static OIS => 32
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_ADVANCEDPHOTO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_ADVANCEDPHOTO => 33
+    static ADVANCEDPHOTO => 33
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_PROFILE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_PROFILE => 34
+    static PROFILE => 34
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FACEAUTH_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FACEAUTH_MODE => 35
+    static FACEAUTH_MODE => 35
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_SECURE_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_SECURE_MODE => 36
+    static SECURE_MODE => 36
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOTEMPORALDENOISING
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOTEMPORALDENOISING => 37
+    static VIDEOTEMPORALDENOISING => 37
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_IRTORCHMODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_IRTORCHMODE => 38
+    static IRTORCHMODE => 38
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_RELATIVEPANELOPTIMIZATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_RELATIVEPANELOPTIMIZATION => 39
+    static RELATIVEPANELOPTIMIZATION => 39
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_EYEGAZECORRECTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_EYEGAZECORRECTION => 40
+    static EYEGAZECORRECTION => 40
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_BACKGROUNDSEGMENTATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_BACKGROUNDSEGMENTATION => 41
+    static BACKGROUNDSEGMENTATION => 41
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW_CONFIGCAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW_CONFIGCAPS => 42
+    static DIGITALWINDOW_CONFIGCAPS => 42
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW => 43
+    static DIGITALWINDOW => 43
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FRAMERATE_THROTTLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FRAMERATE_THROTTLE => 44
+    static FRAMERATE_THROTTLE => 44
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW2_CONFIGCAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW2_CONFIGCAPS => 45
+    static FIELDOFVIEW2_CONFIGCAPS => 45
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW2
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW2 => 46
+    static FIELDOFVIEW2 => 46
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_END
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_END => 47
+    static END => 47
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_EXTENDED_END2
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_END2 => 47
+    static END2 => 47
 }

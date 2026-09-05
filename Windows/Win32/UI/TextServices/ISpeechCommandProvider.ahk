@@ -31,7 +31,6 @@ class ISpeechCommandProvider extends IUnknown {
     static VTableNames => ["EnumSpeechCommands", "ProcessCommand"]
 
     /**
-     * 
      * @param {Integer} langid 
      * @returns {IEnumSpeechCommands} 
      */
@@ -41,7 +40,6 @@ class ISpeechCommandProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCommand 
      * @param {Integer} cch 
      * @param {Integer} langid 

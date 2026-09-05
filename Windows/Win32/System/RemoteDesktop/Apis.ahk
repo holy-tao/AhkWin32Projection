@@ -3829,7 +3829,6 @@ class RemoteDesktop {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} activityId 
      * @returns {WTS_CLOUD_AUTH_HANDLE} 
      */
@@ -3840,7 +3839,6 @@ class RemoteDesktop {
     }
 
     /**
-     * 
      * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3851,7 +3849,6 @@ class RemoteDesktop {
     }
 
     /**
-     * 
      * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
      * @param {Pointer<PWSTR>} serverNonce 
      * @returns {BOOL} 
@@ -3866,7 +3863,6 @@ class RemoteDesktop {
     }
 
     /**
-     * 
      * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
      * @param {Integer} assertion 
      * @param {Integer} assertionLength 
@@ -3885,7 +3881,6 @@ class RemoteDesktop {
     }
 
     /**
-     * 
      * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
      * @param {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} userCredential 
      * @param {Pointer<HANDLE>} token 
@@ -3899,7 +3894,6 @@ class RemoteDesktop {
     }
 
     /**
-     * 
      * @param {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} userCredential 
      * @param {Pointer<Pointer<WTS_SERIALIZED_USER_CREDENTIAL>>} duplicatedUserCredential 
      * @returns {BOOL} 
@@ -3958,7 +3952,6 @@ class RemoteDesktop {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbActiveSessionExists 
      * @returns {BOOL} 
      */

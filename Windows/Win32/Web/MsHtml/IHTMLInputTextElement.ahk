@@ -134,7 +134,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -144,7 +143,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -156,7 +154,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -166,7 +163,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +174,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -188,7 +183,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -198,7 +192,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_status() {
@@ -208,7 +201,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -218,7 +210,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -227,7 +218,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -236,7 +226,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -248,7 +237,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -258,7 +246,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -268,7 +255,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_size() {
@@ -277,7 +263,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -287,7 +272,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_maxLength() {
@@ -490,7 +474,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -500,7 +483,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -510,7 +492,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -520,7 +501,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -530,7 +510,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -540,7 +519,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
@@ -549,7 +527,6 @@ class IHTMLInputTextElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {

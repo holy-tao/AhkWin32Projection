@@ -12,19 +12,22 @@ class RPC_NOTIFICATIONS extends Win32Enum {
      * Do not send a notification.
      * 
      * <b>Windows Vista:  </b>Currently, this value is not supported for <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserversubscribefornotification">RpcServerSubscribeForNotification</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverunsubscribefornotification">RpcServerUnsubscribeForNotification</a>.
+     * Native name: RpcNotificationCallNone
      * @type {Integer (Int32)}
      */
-    static RpcNotificationCallNone => 0
+    static NotificationCallNone => 0
 
     /**
      * The client has disconnected.
+     * Native name: RpcNotificationClientDisconnect
      * @type {Integer (Int32)}
      */
-    static RpcNotificationClientDisconnect => 1
+    static NotificationClientDisconnect => 1
 
     /**
      * The RPC call has been canceled.
+     * Native name: RpcNotificationCallCancel
      * @type {Integer (Int32)}
      */
-    static RpcNotificationCallCancel => 2
+    static NotificationCallCancel => 2
 }

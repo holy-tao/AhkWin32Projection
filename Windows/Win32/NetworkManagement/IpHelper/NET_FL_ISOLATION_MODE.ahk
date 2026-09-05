@@ -7,17 +7,20 @@
 class NET_FL_ISOLATION_MODE extends Win32Enum {
 
     /**
+     * Native name: NetFlIsolationModeNone
      * @type {Integer (Int32)}
      */
-    static NetFlIsolationModeNone => 0
+    static None => 0
 
     /**
+     * Native name: NetFlIsolationModeVlan
      * @type {Integer (Int32)}
      */
-    static NetFlIsolationModeVlan => 1
+    static Vlan => 1
 
     /**
+     * Native name: NetFlIsolationModeVsid
      * @type {Integer (Int32)}
      */
-    static NetFlIsolationModeVsid => 2
+    static Vsid => 2
 }

@@ -7,17 +7,20 @@
 class GNSS_GEOFENCE_STATE extends Win32Enum {
 
     /**
+     * Native name: GNSS_GeofenceState_Unknown
      * @type {Integer (Int32)}
      */
-    static GNSS_GeofenceState_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: GNSS_GeofenceState_Entered
      * @type {Integer (Int32)}
      */
-    static GNSS_GeofenceState_Entered => 1
+    static Entered => 1
 
     /**
+     * Native name: GNSS_GeofenceState_Exited
      * @type {Integer (Int32)}
      */
-    static GNSS_GeofenceState_Exited => 2
+    static Exited => 2
 }

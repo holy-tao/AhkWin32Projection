@@ -1395,7 +1395,6 @@ class ErrorReporting {
     }
 
     /**
-     * 
      * @param {HREPORTSTORE} _hReportStore 
      * @param {PWSTR} pszReportKey 
      * @param {Pointer<WER_REPORT_METADATA_V3>} pReportMetadata 
@@ -1423,7 +1422,6 @@ class ErrorReporting {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static WerStorePurge() {
@@ -1432,7 +1430,6 @@ class ErrorReporting {
     }
 
     /**
-     * 
      * @param {HREPORTSTORE} _hReportStore 
      * @returns {Integer} 
      */
@@ -1444,7 +1441,6 @@ class ErrorReporting {
     }
 
     /**
-     * 
      * @param {HREPORTSTORE} _hReportStore 
      * @returns {Integer} 
      */
@@ -1456,7 +1452,6 @@ class ErrorReporting {
     }
 
     /**
-     * 
      * @param {HREPORTSTORE} _hReportStore 
      * @param {PWSTR} pszReportKey 
      * @param {Pointer<WER_REPORT_METADATA_V1>} pReportMetadata 
@@ -1471,7 +1466,6 @@ class ErrorReporting {
     }
 
     /**
-     * 
      * @param {HREPORTSTORE} _hReportStore 
      * @param {PWSTR} pszReportKey 
      * @param {Integer} dwFlags 

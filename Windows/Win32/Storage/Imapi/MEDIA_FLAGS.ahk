@@ -7,22 +7,26 @@
 class MEDIA_FLAGS extends Win32Enum {
 
     /**
+     * Native name: MEDIA_BLANK
      * @type {Integer (Int32)}
      */
-    static MEDIA_BLANK => 1
+    static BLANK => 1
 
     /**
+     * Native name: MEDIA_RW
      * @type {Integer (Int32)}
      */
-    static MEDIA_RW => 2
+    static RW => 2
 
     /**
+     * Native name: MEDIA_WRITABLE
      * @type {Integer (Int32)}
      */
-    static MEDIA_WRITABLE => 4
+    static WRITABLE => 4
 
     /**
+     * Native name: MEDIA_FORMAT_UNUSABLE_BY_IMAPI
      * @type {Integer (Int32)}
      */
-    static MEDIA_FORMAT_UNUSABLE_BY_IMAPI => 8
+    static FORMAT_UNUSABLE_BY_IMAPI => 8
 }

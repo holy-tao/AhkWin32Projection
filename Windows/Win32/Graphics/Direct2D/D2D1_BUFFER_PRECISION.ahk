@@ -14,37 +14,43 @@ class D2D1_BUFFER_PRECISION extends Win32Enum {
 
     /**
      * The buffer precision is not specified.
+     * Native name: D2D1_BUFFER_PRECISION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D2D1_BUFFER_PRECISION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Use 8-bit normalized integer per channel.
+     * Native name: D2D1_BUFFER_PRECISION_8BPC_UNORM
      * @type {Integer (Int32)}
      */
-    static D2D1_BUFFER_PRECISION_8BPC_UNORM => 1
+    static 8BPC_UNORM => 1
 
     /**
      * Use 8-bit normalized integer standard RGB data per channel.
+     * Native name: D2D1_BUFFER_PRECISION_8BPC_UNORM_SRGB
      * @type {Integer (Int32)}
      */
-    static D2D1_BUFFER_PRECISION_8BPC_UNORM_SRGB => 2
+    static 8BPC_UNORM_SRGB => 2
 
     /**
      * Use 16-bit normalized integer per channel.
+     * Native name: D2D1_BUFFER_PRECISION_16BPC_UNORM
      * @type {Integer (Int32)}
      */
-    static D2D1_BUFFER_PRECISION_16BPC_UNORM => 3
+    static 16BPC_UNORM => 3
 
     /**
      * Use 16-bit floats per channel.
+     * Native name: D2D1_BUFFER_PRECISION_16BPC_FLOAT
      * @type {Integer (Int32)}
      */
-    static D2D1_BUFFER_PRECISION_16BPC_FLOAT => 4
+    static 16BPC_FLOAT => 4
 
     /**
      * Use 32-bit floats per channel.
+     * Native name: D2D1_BUFFER_PRECISION_32BPC_FLOAT
      * @type {Integer (Int32)}
      */
-    static D2D1_BUFFER_PRECISION_32BPC_FLOAT => 5
+    static 32BPC_FLOAT => 5
 }

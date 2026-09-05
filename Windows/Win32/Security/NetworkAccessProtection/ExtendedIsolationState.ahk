@@ -10,25 +10,29 @@ class ExtendedIsolationState extends Win32Enum {
 
     /**
      * No data is available on the connection isolation state.
+     * Native name: extendedIsolationStateNoData
      * @type {Integer (Int32)}
      */
-    static extendedIsolationStateNoData => 0
+    static NoData => 0
 
     /**
      * The connection isolation state is "transition".
+     * Native name: extendedIsolationStateTransition
      * @type {Integer (Int32)}
      */
-    static extendedIsolationStateTransition => 1
+    static Transition => 1
 
     /**
      * The connection isolation state is "infected".
+     * Native name: extendedIsolationStateInfected
      * @type {Integer (Int32)}
      */
-    static extendedIsolationStateInfected => 2
+    static Infected => 2
 
     /**
      * The connection isolation state is unknown.
+     * Native name: extendedIsolationStateUnknown
      * @type {Integer (Int32)}
      */
-    static extendedIsolationStateUnknown => 3
+    static Unknown => 3
 }

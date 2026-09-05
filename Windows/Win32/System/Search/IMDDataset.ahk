@@ -33,7 +33,6 @@ class IMDDataset extends IUnknown {
     static VTableNames => ["FreeAxisInfo", "GetAxisInfo", "GetAxisRowset", "GetCellData", "GetSpecification"]
 
     /**
-     * 
      * @param {Pointer} cAxes 
      * @param {Pointer<MDAXISINFO>} rgAxisInfo 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcAxes 
      * @returns {Pointer<MDAXISINFO>} 
      */
@@ -56,7 +54,6 @@ class IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} iAxis 
      * @param {Pointer<Guid>} riid 
@@ -70,7 +67,6 @@ class IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} ulStartCell 
      * @param {Pointer} ulEndCell 
@@ -84,7 +80,6 @@ class IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

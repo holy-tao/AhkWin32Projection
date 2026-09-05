@@ -31,7 +31,6 @@ class ISideShowBulkCapabilities extends ISideShowCapabilities {
     static VTableNames => ["GetCapabilities"]
 
     /**
-     * 
      * @param {ISideShowKeyCollection} in_keyCollection 
      * @param {Pointer<ISideShowPropVariantCollection>} inout_pValues 
      * @returns {HRESULT} 

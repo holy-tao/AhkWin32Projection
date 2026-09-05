@@ -7,22 +7,26 @@
 class NDIS_INTERRUPT_MODERATION extends Win32Enum {
 
     /**
+     * Native name: NdisInterruptModerationUnknown
      * @type {Integer (Int32)}
      */
-    static NdisInterruptModerationUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: NdisInterruptModerationNotSupported
      * @type {Integer (Int32)}
      */
-    static NdisInterruptModerationNotSupported => 1
+    static NotSupported => 1
 
     /**
+     * Native name: NdisInterruptModerationEnabled
      * @type {Integer (Int32)}
      */
-    static NdisInterruptModerationEnabled => 2
+    static Enabled => 2
 
     /**
+     * Native name: NdisInterruptModerationDisabled
      * @type {Integer (Int32)}
      */
-    static NdisInterruptModerationDisabled => 3
+    static Disabled => 3
 }

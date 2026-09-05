@@ -10,13 +10,15 @@ class D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA extends Win32Enum {
 
     /**
      * Indicates the input image is in linear gamma space.
+     * Native name: D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_LINEAR => 0
+    static LINEAR => 0
 
     /**
      * Indicates the input image is sRGB gamma space.
+     * Native name: D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_SRGB
      * @type {Integer (Int32)}
      */
-    static D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_SRGB => 1
+    static SRGB => 1
 }

@@ -32,7 +32,6 @@ class IFindReferenceTargetsCallback extends IUnknown {
     static VTableNames => ["FoundTrackerTarget"]
 
     /**
-     * 
      * @param {IReferenceTrackerTarget} target 
      * @returns {HRESULT} 
      */

@@ -10,101 +10,118 @@ class MBN_DATA_CLASS extends Win32Enum {
 
     /**
      * No data class.
+     * Native name: MBN_DATA_CLASS_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_NONE => 0
+    static NONE => 0
 
     /**
      * The GPRS data class implemented by GSM providers.
+     * Native name: MBN_DATA_CLASS_GPRS
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_GPRS => 1
+    static GPRS => 1
 
     /**
      * The EDGE data class implemented by GSM providers.
+     * Native name: MBN_DATA_CLASS_EDGE
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_EDGE => 2
+    static EDGE => 2
 
     /**
      * The UMTS data class implemented by mobile radio providers.
+     * Native name: MBN_DATA_CLASS_UMTS
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_UMTS => 4
+    static UMTS => 4
 
     /**
      * The HSDPA data class implemented by mobile radio providers.
+     * Native name: MBN_DATA_CLASS_HSDPA
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_HSDPA => 8
+    static HSDPA => 8
 
     /**
      * The HSUPA (High Speed Uplink Packet Access) data class.
+     * Native name: MBN_DATA_CLASS_HSUPA
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_HSUPA => 16
+    static HSUPA => 16
 
     /**
      * The LTE data class implemented by mobile radio providers.
+     * Native name: MBN_DATA_CLASS_LTE
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_LTE => 32
+    static LTE => 32
 
     /**
+     * Native name: MBN_DATA_CLASS_5G_NSA
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_5G_NSA => 64
+    static 5G_NSA => 64
 
     /**
+     * Native name: MBN_DATA_CLASS_5G_SA
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_5G_SA => 128
+    static 5G_SA => 128
 
     /**
      * The 1xRTT data class implemented by CDMA providers.
+     * Native name: MBN_DATA_CLASS_1XRTT
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_1XRTT => 65536
+    static 1XRTT => 65536
 
     /**
      * The IxEV-DO data class implemented by CDMA providers.
+     * Native name: MBN_DATA_CLASS_1XEVDO
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_1XEVDO => 131072
+    static 1XEVDO => 131072
 
     /**
      * The IxEV-DO RevA data class implemented by CDMA providers.
+     * Native name: MBN_DATA_CLASS_1XEVDO_REVA
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_1XEVDO_REVA => 262144
+    static 1XEVDO_REVA => 262144
 
     /**
      * The 1xXEV-DV data class.
+     * Native name: MBN_DATA_CLASS_1XEVDV
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_1XEVDV => 524288
+    static 1XEVDV => 524288
 
     /**
      * The 3xRTT data class.
+     * Native name: MBN_DATA_CLASS_3XRTT
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_3XRTT => 1048576
+    static 3XRTT => 1048576
 
     /**
      * The 1xEV-DO RevB data class, which is defined for future use.
+     * Native name: MBN_DATA_CLASS_1XEVDO_REVB
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_1XEVDO_REVB => 2097152
+    static 1XEVDO_REVB => 2097152
 
     /**
      * The UMB data class.
+     * Native name: MBN_DATA_CLASS_UMB
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_UMB => 4194304
+    static UMB => 4194304
 
     /**
      * The custom data class.
+     * Native name: MBN_DATA_CLASS_CUSTOM
      * @type {Integer (Int32)}
      */
-    static MBN_DATA_CLASS_CUSTOM => -2147483648
+    static CUSTOM => -2147483648
 }

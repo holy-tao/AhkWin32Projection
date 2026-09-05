@@ -30,7 +30,6 @@ class IIsolatedEnvironmentInterop extends IUnknown {
     static VTableNames => ["GetHostHwndInterop"]
 
     /**
-     * 
      * @param {HWND} containerHwnd 
      * @returns {HWND} 
      */

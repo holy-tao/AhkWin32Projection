@@ -7,27 +7,32 @@
 class OPM_STATUS extends Win32Enum {
 
     /**
+     * Native name: OPM_STATUS_NORMAL
      * @type {Integer (Int32)}
      */
-    static OPM_STATUS_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: OPM_STATUS_LINK_LOST
      * @type {Integer (Int32)}
      */
-    static OPM_STATUS_LINK_LOST => 1
+    static LINK_LOST => 1
 
     /**
+     * Native name: OPM_STATUS_RENEGOTIATION_REQUIRED
      * @type {Integer (Int32)}
      */
-    static OPM_STATUS_RENEGOTIATION_REQUIRED => 2
+    static RENEGOTIATION_REQUIRED => 2
 
     /**
+     * Native name: OPM_STATUS_TAMPERING_DETECTED
      * @type {Integer (Int32)}
      */
-    static OPM_STATUS_TAMPERING_DETECTED => 4
+    static TAMPERING_DETECTED => 4
 
     /**
+     * Native name: OPM_STATUS_REVOKED_HDCP_DEVICE_ATTACHED
      * @type {Integer (Int32)}
      */
-    static OPM_STATUS_REVOKED_HDCP_DEVICE_ATTACHED => 8
+    static REVOKED_HDCP_DEVICE_ATTACHED => 8
 }

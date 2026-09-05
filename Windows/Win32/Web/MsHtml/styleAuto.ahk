@@ -7,12 +7,14 @@
 class styleAuto extends Win32Enum {
 
     /**
+     * Native name: styleAutoAuto
      * @type {Integer (Int32)}
      */
-    static styleAutoAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleAuto_Max
      * @type {Integer (Int32)}
      */
-    static styleAuto_Max => 2147483647
+    static Max => 2147483647
 }

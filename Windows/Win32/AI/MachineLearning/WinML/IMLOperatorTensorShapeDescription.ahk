@@ -29,7 +29,6 @@ class IMLOperatorTensorShapeDescription extends IUnknown {
     static VTableNames => ["GetInputTensorDimensionCount", "GetInputTensorShape", "HasOutputShapeDescription", "GetOutputTensorDimensionCount", "GetOutputTensorShape"]
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Integer} 
      */
@@ -39,7 +38,6 @@ class IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 
@@ -50,7 +48,6 @@ class IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     HasOutputShapeDescription() {
@@ -59,7 +56,6 @@ class IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Integer} 
      */
@@ -69,7 +65,6 @@ class IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 

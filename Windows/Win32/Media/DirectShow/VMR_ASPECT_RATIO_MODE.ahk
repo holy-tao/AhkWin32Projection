@@ -10,13 +10,15 @@ class VMR_ASPECT_RATIO_MODE extends Win32Enum {
 
     /**
      * Indicates that the VMR will not try to maintain the aspect ratio of the source video.
+     * Native name: VMR_ARMODE_NONE
      * @type {Integer (Int32)}
      */
-    static VMR_ARMODE_NONE => 0
+    static ARMODE_NONE => 0
 
     /**
      * Indicates that the VMR will maintain the aspect ratio of the source video by letterboxing within the output rectangle.
+     * Native name: VMR_ARMODE_LETTER_BOX
      * @type {Integer (Int32)}
      */
-    static VMR_ARMODE_LETTER_BOX => 1
+    static ARMODE_LETTER_BOX => 1
 }

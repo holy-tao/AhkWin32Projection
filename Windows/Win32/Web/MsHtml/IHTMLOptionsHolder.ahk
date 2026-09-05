@@ -129,7 +129,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     get_document() {
@@ -138,7 +137,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFontNamesCollection} 
      */
     get_fonts() {
@@ -147,7 +145,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -157,7 +154,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_execArg() {
@@ -167,7 +163,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -177,7 +172,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorLine() {
@@ -186,7 +180,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -196,7 +189,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorCharacter() {
@@ -205,7 +197,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -215,7 +206,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorCode() {
@@ -224,7 +214,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -236,7 +225,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_errorMessage() {
@@ -246,7 +234,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -256,7 +243,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_errorDebug() {
@@ -265,7 +251,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_unsecuredWindowOfDocument() {
@@ -274,7 +259,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -286,7 +270,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_findText() {
@@ -296,7 +279,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -306,7 +288,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_anythingAfterFrameset() {
@@ -315,7 +296,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} fontName 
      * @returns {IHTMLFontSizesCollection} 
      */
@@ -327,7 +307,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initFile 
      * @param {VARIANT} initDir 
      * @param {VARIANT} filter 
@@ -341,7 +320,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initFile 
      * @param {VARIANT} initDir 
      * @param {VARIANT} filter 
@@ -355,7 +333,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initColor 
      * @returns {Integer} 
      */
@@ -365,7 +342,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     showSecurityInfo() {
@@ -374,7 +350,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLObjectElement} _object 
      * @returns {VARIANT_BOOL} 
      */
@@ -384,7 +359,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} fontName 
      * @returns {Integer} 
      */
@@ -396,7 +370,6 @@ class IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_secureConnectionInfo() {

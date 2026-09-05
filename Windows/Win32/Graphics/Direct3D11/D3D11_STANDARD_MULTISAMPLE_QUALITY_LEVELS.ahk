@@ -20,13 +20,15 @@ class D3D11_STANDARD_MULTISAMPLE_QUALITY_LEVELS extends Win32Enum {
 
     /**
      * Pre-defined multi-sample patterns required for Direct3D 11 and Direct3D 10.1 hardware.
+     * Native name: D3D11_STANDARD_MULTISAMPLE_PATTERN
      * @type {Integer (Int32)}
      */
-    static D3D11_STANDARD_MULTISAMPLE_PATTERN => -1
+    static PATTERN => -1
 
     /**
      * Pattern where all of the samples are located at the pixel center.
+     * Native name: D3D11_CENTER_MULTISAMPLE_PATTERN
      * @type {Integer (Int32)}
      */
-    static D3D11_CENTER_MULTISAMPLE_PATTERN => -2
+    static CENTER_MULTISAMPLE_PATTERN => -2
 }

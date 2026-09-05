@@ -12,31 +12,36 @@ class WMT_OFFSET_FORMAT extends Win32Enum {
 
     /**
      * An offset into a file is specified by presentation time in 100-nanosecond units.
+     * Native name: WMT_OFFSET_FORMAT_100NS
      * @type {Integer (Int32)}
      */
-    static WMT_OFFSET_FORMAT_100NS => 0
+    static 100NS => 0
 
     /**
      * An offset into a file is specified by frame number.
+     * Native name: WMT_OFFSET_FORMAT_FRAME_NUMBERS
      * @type {Integer (Int32)}
      */
-    static WMT_OFFSET_FORMAT_FRAME_NUMBERS => 1
+    static FRAME_NUMBERS => 1
 
     /**
      * An offset of playlist entries.
+     * Native name: WMT_OFFSET_FORMAT_PLAYLIST_OFFSET
      * @type {Integer (Int32)}
      */
-    static WMT_OFFSET_FORMAT_PLAYLIST_OFFSET => 2
+    static PLAYLIST_OFFSET => 2
 
     /**
      * An offset into a file is specified by presentation time as identified by SMTPE time codes.
+     * Native name: WMT_OFFSET_FORMAT_TIMECODE
      * @type {Integer (Int32)}
      */
-    static WMT_OFFSET_FORMAT_TIMECODE => 3
+    static TIMECODE => 3
 
     /**
      * Used to specify approximate seeking. This type of offset seeks to the closest key frame prior to the time specified.
+     * Native name: WMT_OFFSET_FORMAT_100NS_APPROXIMATE
      * @type {Integer (Int32)}
      */
-    static WMT_OFFSET_FORMAT_100NS_APPROXIMATE => 4
+    static 100NS_APPROXIMATE => 4
 }

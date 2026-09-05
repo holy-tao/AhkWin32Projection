@@ -30,7 +30,6 @@ class ID3D12Resource1 extends ID3D12Resource {
     static VTableNames => ["GetProtectedResourceSession"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

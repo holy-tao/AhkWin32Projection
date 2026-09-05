@@ -31,7 +31,6 @@ class IDebugApplication11032 extends IRemoteDebugApplication110 {
     static VTableNames => ["SynchronousCallInMainThread", "AsynchronousCallInMainThread", "CallableWaitForHandles"]
 
     /**
-     * 
      * @param {IDebugThreadCall32} pptc 
      * @param {Pointer} dwParam1 
      * @param {Pointer} dwParam2 
@@ -44,7 +43,6 @@ class IDebugApplication11032 extends IRemoteDebugApplication110 {
     }
 
     /**
-     * 
      * @param {IDebugThreadCall32} pptc 
      * @param {Pointer} dwParam1 
      * @param {Pointer} dwParam2 
@@ -57,7 +55,6 @@ class IDebugApplication11032 extends IRemoteDebugApplication110 {
     }
 
     /**
-     * 
      * @param {Integer} handleCount 
      * @param {Pointer<HANDLE>} pHandles 
      * @returns {Integer} 

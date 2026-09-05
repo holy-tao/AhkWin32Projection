@@ -36,7 +36,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     static VTableNames => ["GetLogNameSizes", "GetOurXln", "HandleConfirmationFromOurXln", "HandleTheirXlnResponse", "HandleErrorFromOurXln", "CheckForCompareStates", "GetOurTransIdSize", "GetOurCompareStates", "HandleTheirCompareStatesResponse", "HandleErrorFromOurCompareStates", "ConversationLost", "GetRecoverySeqNum", "ObsoleteRecoverySeqNum"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbOurLogName 
      * @param {Pointer<Integer>} pcbRemoteLogName 
      * @returns {HRESULT} 
@@ -50,7 +49,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DTCLUXLN>} pXln 
      * @param {Pointer<Integer>} pOurLogName 
      * @param {Pointer<Integer>} pRemoteLogName 
@@ -68,7 +66,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUXLNCONFIRMATION} Confirmation 
      * @returns {HRESULT} 
      */
@@ -78,7 +75,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUXLN} Xln 
      * @param {Pointer<Integer>} pRemoteLogName 
      * @param {Integer} cbRemoteLogName 
@@ -95,7 +91,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUXLNERROR} _Error 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} fCompareStates 
      * @returns {HRESULT} 
      */
@@ -117,7 +111,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbOurTransId 
      * @returns {HRESULT} 
      */
@@ -129,7 +122,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pOurTransId 
      * @param {Pointer<DTCLUCOMPARESTATE>} pCompareState 
      * @returns {HRESULT} 
@@ -143,7 +135,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUCOMPARESTATE} CompareState 
      * @param {Pointer<DTCLUCOMPARESTATESCONFIRMATION>} pConfirmation 
      * @returns {HRESULT} 
@@ -156,7 +147,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUCOMPARESTATESERROR} _Error 
      * @returns {HRESULT} 
      */
@@ -166,7 +156,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConversationLost() {
@@ -175,7 +164,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plRecoverySeqNum 
      * @returns {HRESULT} 
      */
@@ -187,7 +175,6 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lNewRecoverySeqNum 
      * @returns {HRESULT} 
      */

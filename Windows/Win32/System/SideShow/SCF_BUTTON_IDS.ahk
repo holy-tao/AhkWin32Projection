@@ -7,62 +7,74 @@
 class SCF_BUTTON_IDS extends Win32Enum {
 
     /**
+     * Native name: SCF_BUTTON_MENU
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_MENU => 1
+    static MENU => 1
 
     /**
+     * Native name: SCF_BUTTON_SELECT
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_SELECT => 2
+    static SELECT => 2
 
     /**
+     * Native name: SCF_BUTTON_UP
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_UP => 3
+    static UP => 3
 
     /**
+     * Native name: SCF_BUTTON_DOWN
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_DOWN => 4
+    static DOWN => 4
 
     /**
+     * Native name: SCF_BUTTON_LEFT
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_LEFT => 5
+    static LEFT => 5
 
     /**
+     * Native name: SCF_BUTTON_RIGHT
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_RIGHT => 6
+    static RIGHT => 6
 
     /**
+     * Native name: SCF_BUTTON_PLAY
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_PLAY => 7
+    static PLAY => 7
 
     /**
+     * Native name: SCF_BUTTON_PAUSE
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_PAUSE => 8
+    static PAUSE => 8
 
     /**
+     * Native name: SCF_BUTTON_FASTFORWARD
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_FASTFORWARD => 9
+    static FASTFORWARD => 9
 
     /**
+     * Native name: SCF_BUTTON_REWIND
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_REWIND => 10
+    static REWIND => 10
 
     /**
+     * Native name: SCF_BUTTON_STOP
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_STOP => 11
+    static STOP => 11
 
     /**
+     * Native name: SCF_BUTTON_BACK
      * @type {Integer (Int32)}
      */
-    static SCF_BUTTON_BACK => 65280
+    static BACK => 65280
 }

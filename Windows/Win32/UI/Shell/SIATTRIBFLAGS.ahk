@@ -7,27 +7,32 @@
 class SIATTRIBFLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SIATTRIBFLAGS_AND
      * @type {Integer (Int32)}
      */
-    static SIATTRIBFLAGS_AND => 1
+    static AND => 1
 
     /**
+     * Native name: SIATTRIBFLAGS_OR
      * @type {Integer (Int32)}
      */
-    static SIATTRIBFLAGS_OR => 2
+    static OR => 2
 
     /**
+     * Native name: SIATTRIBFLAGS_APPCOMPAT
      * @type {Integer (Int32)}
      */
-    static SIATTRIBFLAGS_APPCOMPAT => 3
+    static APPCOMPAT => 3
 
     /**
+     * Native name: SIATTRIBFLAGS_MASK
      * @type {Integer (Int32)}
      */
-    static SIATTRIBFLAGS_MASK => 3
+    static MASK => 3
 
     /**
+     * Native name: SIATTRIBFLAGS_ALLITEMS
      * @type {Integer (Int32)}
      */
-    static SIATTRIBFLAGS_ALLITEMS => 16384
+    static ALLITEMS => 16384
 }

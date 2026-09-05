@@ -31,7 +31,6 @@ class IHostAssemblyManager extends IUnknown {
     static VTableNames => ["GetNonHostStoreAssemblies", "GetAssemblyStore"]
 
     /**
-     * 
      * @returns {ICLRAssemblyReferenceList} 
      */
     GetNonHostStoreAssemblies() {
@@ -40,7 +39,6 @@ class IHostAssemblyManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHostAssemblyStore} 
      */
     GetAssemblyStore() {

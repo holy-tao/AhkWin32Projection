@@ -12,19 +12,22 @@ class WTS_CERT_TYPE extends Win32Enum {
 
     /**
      * The certificate is not valid.
+     * Native name: WTS_CERT_TYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static WTS_CERT_TYPE_INVALID => 0
+    static INVALID => 0
 
     /**
      * The certificate is a custom type.
+     * Native name: WTS_CERT_TYPE_PROPRIETORY
      * @type {Integer (Int32)}
      */
-    static WTS_CERT_TYPE_PROPRIETORY => 1
+    static PROPRIETORY => 1
 
     /**
      * The certificate adheres to the X.509 standard.
+     * Native name: WTS_CERT_TYPE_X509
      * @type {Integer (Int32)}
      */
-    static WTS_CERT_TYPE_X509 => 2
+    static X509 => 2
 }

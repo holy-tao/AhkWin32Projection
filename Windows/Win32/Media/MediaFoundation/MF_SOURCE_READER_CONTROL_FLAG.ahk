@@ -10,7 +10,8 @@ class MF_SOURCE_READER_CONTROL_FLAG extends Win32BitflagEnum {
 
     /**
      * Retrieve any pending samples, but do not request any more samples from the media source. To get all of the pending samples, call <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample">ReadSample</a> with this flag until the method returns a <b>NULL</b> media sample pointer.
+     * Native name: MF_SOURCE_READER_CONTROLF_DRAIN
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_CONTROLF_DRAIN => 1
+    static CONTROLF_DRAIN => 1
 }

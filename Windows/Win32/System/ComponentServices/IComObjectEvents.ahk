@@ -94,7 +94,6 @@ class IComObjectEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} CtxtID 
      * @returns {HRESULT} 

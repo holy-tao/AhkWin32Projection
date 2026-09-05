@@ -71,7 +71,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenLeft() {
@@ -80,7 +79,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenTop() {
@@ -89,7 +87,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {VARIANT_BOOL} 
@@ -102,7 +99,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {HRESULT} 
@@ -115,7 +111,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -127,7 +122,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -139,7 +133,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     print() {
@@ -148,7 +141,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -158,7 +150,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeprint() {
@@ -168,7 +159,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +168,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onafterprint() {
@@ -188,7 +177,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDataTransfer} 
      */
     get_clipboardData() {
@@ -197,7 +185,6 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} url 
      * @param {Pointer<VARIANT>} varArgIn 
      * @param {Pointer<VARIANT>} options 

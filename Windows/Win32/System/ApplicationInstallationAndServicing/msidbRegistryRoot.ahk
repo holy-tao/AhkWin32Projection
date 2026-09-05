@@ -7,22 +7,26 @@
 class msidbRegistryRoot extends Win32Enum {
 
     /**
+     * Native name: msidbRegistryRootClassesRoot
      * @type {Integer (Int32)}
      */
-    static msidbRegistryRootClassesRoot => 0
+    static ClassesRoot => 0
 
     /**
+     * Native name: msidbRegistryRootCurrentUser
      * @type {Integer (Int32)}
      */
-    static msidbRegistryRootCurrentUser => 1
+    static CurrentUser => 1
 
     /**
+     * Native name: msidbRegistryRootLocalMachine
      * @type {Integer (Int32)}
      */
-    static msidbRegistryRootLocalMachine => 2
+    static LocalMachine => 2
 
     /**
+     * Native name: msidbRegistryRootUsers
      * @type {Integer (Int32)}
      */
-    static msidbRegistryRootUsers => 3
+    static Users => 3
 }

@@ -40,7 +40,6 @@ class IUpdateSearcher3 extends IUpdateSearcher2 {
     }
 
     /**
-     * 
      * @returns {SearchScope} 
      */
     get_SearchScope() {
@@ -49,7 +48,6 @@ class IUpdateSearcher3 extends IUpdateSearcher2 {
     }
 
     /**
-     * 
      * @param {SearchScope} value 
      * @returns {HRESULT} 
      */

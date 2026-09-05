@@ -9,17 +9,20 @@
 class MSVidSinkStreams extends Win32Enum {
 
     /**
+     * Native name: MSVidSink_Video
      * @type {Integer (Int32)}
      */
-    static MSVidSink_Video => 1
+    static Video => 1
 
     /**
+     * Native name: MSVidSink_Audio
      * @type {Integer (Int32)}
      */
-    static MSVidSink_Audio => 2
+    static Audio => 2
 
     /**
+     * Native name: MSVidSink_Other
      * @type {Integer (Int32)}
      */
-    static MSVidSink_Other => 4
+    static Other => 4
 }

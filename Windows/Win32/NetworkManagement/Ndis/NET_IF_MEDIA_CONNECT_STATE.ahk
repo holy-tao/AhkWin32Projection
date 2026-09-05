@@ -18,19 +18,22 @@ class NET_IF_MEDIA_CONNECT_STATE extends Win32Enum {
 
     /**
      * The connection state of the interface is unknown.
+     * Native name: MediaConnectStateUnknown
      * @type {Integer (Int32)}
      */
-    static MediaConnectStateUnknown => 0
+    static Unknown => 0
 
     /**
      * The interface is connected to the network.
+     * Native name: MediaConnectStateConnected
      * @type {Integer (Int32)}
      */
-    static MediaConnectStateConnected => 1
+    static Connected => 1
 
     /**
      * The interface is not connected to the network.
+     * Native name: MediaConnectStateDisconnected
      * @type {Integer (Int32)}
      */
-    static MediaConnectStateDisconnected => 2
+    static Disconnected => 2
 }

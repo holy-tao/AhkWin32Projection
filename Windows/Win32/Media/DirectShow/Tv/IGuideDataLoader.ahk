@@ -30,7 +30,6 @@ class IGuideDataLoader extends IUnknown {
     static VTableNames => ["Init", "Terminate"]
 
     /**
-     * 
      * @param {IGuideData} pGuideStore 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IGuideDataLoader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Terminate() {

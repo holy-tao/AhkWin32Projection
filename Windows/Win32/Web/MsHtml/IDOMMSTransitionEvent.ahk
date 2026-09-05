@@ -51,7 +51,6 @@ class IDOMMSTransitionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_propertyName() {
@@ -61,7 +60,6 @@ class IDOMMSTransitionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_elapsedTime() {
@@ -70,7 +68,6 @@ class IDOMMSTransitionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

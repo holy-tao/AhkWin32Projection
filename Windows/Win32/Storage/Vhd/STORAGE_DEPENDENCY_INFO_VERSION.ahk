@@ -10,19 +10,22 @@ class STORAGE_DEPENDENCY_INFO_VERSION extends Win32Enum {
 
     /**
      * The version is not specified.
+     * Native name: STORAGE_DEPENDENCY_INFO_VERSION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static STORAGE_DEPENDENCY_INFO_VERSION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * Specifies <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-storage_dependency_info_type_1">STORAGE_DEPENDENCY_INFO_TYPE_1</a>.
+     * Native name: STORAGE_DEPENDENCY_INFO_VERSION_1
      * @type {Integer (Int32)}
      */
-    static STORAGE_DEPENDENCY_INFO_VERSION_1 => 1
+    static 1 => 1
 
     /**
      * Specifies <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-storage_dependency_info_type_2">STORAGE_DEPENDENCY_INFO_TYPE_2</a>.
+     * Native name: STORAGE_DEPENDENCY_INFO_VERSION_2
      * @type {Integer (Int32)}
      */
-    static STORAGE_DEPENDENCY_INFO_VERSION_2 => 2
+    static 2 => 2
 }

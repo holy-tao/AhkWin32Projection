@@ -7,97 +7,116 @@
 class THREAD_ACCESS_RIGHTS extends Win32BitflagEnum {
 
     /**
+     * Native name: THREAD_TERMINATE
      * @type {Integer (UInt32)}
      */
-    static THREAD_TERMINATE => 1
+    static TERMINATE => 1
 
     /**
+     * Native name: THREAD_SUSPEND_RESUME
      * @type {Integer (UInt32)}
      */
-    static THREAD_SUSPEND_RESUME => 2
+    static SUSPEND_RESUME => 2
 
     /**
+     * Native name: THREAD_GET_CONTEXT
      * @type {Integer (UInt32)}
      */
-    static THREAD_GET_CONTEXT => 8
+    static GET_CONTEXT => 8
 
     /**
+     * Native name: THREAD_SET_CONTEXT
      * @type {Integer (UInt32)}
      */
-    static THREAD_SET_CONTEXT => 16
+    static SET_CONTEXT => 16
 
     /**
+     * Native name: THREAD_SET_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static THREAD_SET_INFORMATION => 32
+    static SET_INFORMATION => 32
 
     /**
+     * Native name: THREAD_QUERY_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static THREAD_QUERY_INFORMATION => 64
+    static QUERY_INFORMATION => 64
 
     /**
+     * Native name: THREAD_SET_THREAD_TOKEN
      * @type {Integer (UInt32)}
      */
-    static THREAD_SET_THREAD_TOKEN => 128
+    static SET_THREAD_TOKEN => 128
 
     /**
+     * Native name: THREAD_IMPERSONATE
      * @type {Integer (UInt32)}
      */
-    static THREAD_IMPERSONATE => 256
+    static IMPERSONATE => 256
 
     /**
+     * Native name: THREAD_DIRECT_IMPERSONATION
      * @type {Integer (UInt32)}
      */
-    static THREAD_DIRECT_IMPERSONATION => 512
+    static DIRECT_IMPERSONATION => 512
 
     /**
+     * Native name: THREAD_SET_LIMITED_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static THREAD_SET_LIMITED_INFORMATION => 1024
+    static SET_LIMITED_INFORMATION => 1024
 
     /**
+     * Native name: THREAD_QUERY_LIMITED_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static THREAD_QUERY_LIMITED_INFORMATION => 2048
+    static QUERY_LIMITED_INFORMATION => 2048
 
     /**
+     * Native name: THREAD_RESUME
      * @type {Integer (UInt32)}
      */
-    static THREAD_RESUME => 4096
+    static RESUME => 4096
 
     /**
+     * Native name: THREAD_ALL_ACCESS
      * @type {Integer (UInt32)}
      */
-    static THREAD_ALL_ACCESS => 2097151
+    static ALL_ACCESS => 2097151
 
     /**
+     * Native name: THREAD_DELETE
      * @type {Integer (UInt32)}
      */
-    static THREAD_DELETE => 65536
+    static DELETE => 65536
 
     /**
+     * Native name: THREAD_READ_CONTROL
      * @type {Integer (UInt32)}
      */
-    static THREAD_READ_CONTROL => 131072
+    static READ_CONTROL => 131072
 
     /**
+     * Native name: THREAD_WRITE_DAC
      * @type {Integer (UInt32)}
      */
-    static THREAD_WRITE_DAC => 262144
+    static WRITE_DAC => 262144
 
     /**
+     * Native name: THREAD_WRITE_OWNER
      * @type {Integer (UInt32)}
      */
-    static THREAD_WRITE_OWNER => 524288
+    static WRITE_OWNER => 524288
 
     /**
+     * Native name: THREAD_SYNCHRONIZE
      * @type {Integer (UInt32)}
      */
-    static THREAD_SYNCHRONIZE => 1048576
+    static SYNCHRONIZE => 1048576
 
     /**
+     * Native name: THREAD_STANDARD_RIGHTS_REQUIRED
      * @type {Integer (UInt32)}
      */
-    static THREAD_STANDARD_RIGHTS_REQUIRED => 983040
+    static STANDARD_RIGHTS_REQUIRED => 983040
 }

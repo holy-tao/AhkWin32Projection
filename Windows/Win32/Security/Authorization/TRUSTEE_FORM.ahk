@@ -10,33 +10,38 @@ class TRUSTEE_FORM extends Win32Enum {
 
     /**
      * The <b>ptstrName</b> member is a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that identifies the trustee.
+     * Native name: TRUSTEE_IS_SID
      * @type {Integer (Int32)}
      */
-    static TRUSTEE_IS_SID => 0
+    static IS_SID => 0
 
     /**
      * The <b>ptstrName</b> member is a pointer to a null-terminated string that identifies the trustee.
+     * Native name: TRUSTEE_IS_NAME
      * @type {Integer (Int32)}
      */
-    static TRUSTEE_IS_NAME => 1
+    static IS_NAME => 1
 
     /**
      * Indicates a trustee form that is not valid.
+     * Native name: TRUSTEE_BAD_FORM
      * @type {Integer (Int32)}
      */
-    static TRUSTEE_BAD_FORM => 2
+    static BAD_FORM => 2
 
     /**
      * The <b>ptstrName</b> member is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_sid">OBJECTS_AND_SID</a> structure that contains the SID of the trustee and the GUIDs of the object types in an object-specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE).
+     * Native name: TRUSTEE_IS_OBJECTS_AND_SID
      * @type {Integer (Int32)}
      */
-    static TRUSTEE_IS_OBJECTS_AND_SID => 3
+    static IS_OBJECTS_AND_SID => 3
 
     /**
      * The <b>ptstrName</b> member is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains the name of the trustee and the names of the object types in an object-specific ACE.
+     * Native name: TRUSTEE_IS_OBJECTS_AND_NAME
      * @type {Integer (Int32)}
      */
-    static TRUSTEE_IS_OBJECTS_AND_NAME => 4
+    static IS_OBJECTS_AND_NAME => 4
 }

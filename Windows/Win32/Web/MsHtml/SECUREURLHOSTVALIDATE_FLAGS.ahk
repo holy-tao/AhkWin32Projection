@@ -22,7 +22,8 @@ class SECUREURLHOSTVALIDATE_FLAGS extends Win32Enum {
     static SUHV_UNSECURESOURCE => 4
 
     /**
+     * Native name: SECUREURLHOSTVALIDATE_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static SECUREURLHOSTVALIDATE_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

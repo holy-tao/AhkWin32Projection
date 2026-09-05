@@ -149,7 +149,6 @@ class IImageDecodeFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
      */

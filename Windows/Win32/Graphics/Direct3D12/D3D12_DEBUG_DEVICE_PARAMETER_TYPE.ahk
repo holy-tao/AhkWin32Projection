@@ -10,24 +10,28 @@ class D3D12_DEBUG_DEVICE_PARAMETER_TYPE extends Win32Enum {
 
     /**
      * Indicates <i>pData</i> points to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_feature">D3D12_DEBUG_FEATURE</a> value.
+     * Native name: D3D12_DEBUG_DEVICE_PARAMETER_FEATURE_FLAGS
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_PARAMETER_FEATURE_FLAGS => 0
+    static FEATURE_FLAGS => 0
 
     /**
      * Indicates <i>pData</i> points to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_debug_device_gpu_based_validation_settings">D3D12_DEBUG_DEVICE_GPU_BASED_VALIDATION_SETTINGS</a> structure.
+     * Native name: D3D12_DEBUG_DEVICE_PARAMETER_GPU_BASED_VALIDATION_SETTINGS
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_PARAMETER_GPU_BASED_VALIDATION_SETTINGS => 1
+    static GPU_BASED_VALIDATION_SETTINGS => 1
 
     /**
      * Indicates <i>pData</i> points to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_debug_device_gpu_slowdown_performance_factor">D3D12_DEBUG_DEVICE_GPU_SLOWDOWN_PERFORMANCE_FACTOR</a> structure.
+     * Native name: D3D12_DEBUG_DEVICE_PARAMETER_GPU_SLOWDOWN_PERFORMANCE_FACTOR
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_PARAMETER_GPU_SLOWDOWN_PERFORMANCE_FACTOR => 2
+    static GPU_SLOWDOWN_PERFORMANCE_FACTOR => 2
 
     /**
+     * Native name: D3D12_DEBUG_DEVICE_PARAMETER_BYTECODE_VALIDATION_MODE
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_PARAMETER_BYTECODE_VALIDATION_MODE => 3
+    static BYTECODE_VALIDATION_MODE => 3
 }

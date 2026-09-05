@@ -36,7 +36,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     static VTableNames => ["HandleTheirXln", "GetOurLogNameSize", "GetOurXln", "HandleConfirmationOfOurXln", "HandleTheirCompareStates", "HandleConfirmationOfOurCompareStates", "HandleErrorFromOurCompareStates", "ConversationLost"]
 
     /**
-     * 
      * @param {Integer} lRecoverySeqNum 
      * @param {DTCLUXLN} Xln 
      * @param {Pointer<Integer>} pRemoteLogName 
@@ -57,7 +56,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbOurLogName 
      * @returns {HRESULT} 
      */
@@ -69,7 +67,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DTCLUXLN>} pXln 
      * @param {Pointer<Integer>} pOurLogName 
      * @param {Pointer<Integer>} pdwProtocol 
@@ -85,7 +82,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUXLNCONFIRMATION} Confirmation 
      * @returns {HRESULT} 
      */
@@ -95,7 +91,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pRemoteTransId 
      * @param {Integer} cbRemoteTransId 
      * @param {DTCLUCOMPARESTATE} CompareState 
@@ -113,7 +108,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUCOMPARESTATESCONFIRMATION} Confirmation 
      * @returns {HRESULT} 
      */
@@ -123,7 +117,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUCOMPARESTATESERROR} _Error 
      * @returns {HRESULT} 
      */
@@ -133,7 +126,6 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConversationLost() {

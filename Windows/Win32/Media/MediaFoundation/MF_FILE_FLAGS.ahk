@@ -10,15 +10,17 @@ class MF_FILE_FLAGS extends Win32Enum {
 
     /**
      * Use the default behavior.
+     * Native name: MF_FILEFLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static MF_FILEFLAGS_NONE => 0
+    static FILEFLAGS_NONE => 0
 
     /**
      * Open the file with no system caching.
+     * Native name: MF_FILEFLAGS_NOBUFFERING
      * @type {Integer (Int32)}
      */
-    static MF_FILEFLAGS_NOBUFFERING => 1
+    static FILEFLAGS_NOBUFFERING => 1
 
     /**
      * Subsequent open operations can have write access to the file.
@@ -27,7 +29,8 @@ class MF_FILE_FLAGS extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MF_FILEFLAGS_ALLOW_WRITE_SHARING
      * @type {Integer (Int32)}
      */
-    static MF_FILEFLAGS_ALLOW_WRITE_SHARING => 2
+    static FILEFLAGS_ALLOW_WRITE_SHARING => 2
 }

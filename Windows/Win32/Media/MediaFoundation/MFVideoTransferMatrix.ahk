@@ -14,82 +14,97 @@ class MFVideoTransferMatrix extends Win32Enum {
 
     /**
      * Unknown transfer matrix. Treat as MFVideoTransferMatrix_BT709.
+     * Native name: MFVideoTransferMatrix_Unknown
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_Unknown => 0
+    static Unknown => 0
 
     /**
      * ITU-R BT.709 transfer matrix.
+     * Native name: MFVideoTransferMatrix_BT709
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_BT709 => 1
+    static BT709 => 1
 
     /**
      * ITU-R BT.601 transfer matrix. Also used for SMPTE 170 and ITU-R BT.470-2 System B,G.
+     * Native name: MFVideoTransferMatrix_BT601
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_BT601 => 2
+    static BT601 => 2
 
     /**
      * SMPTE 240M transfer matrix.
+     * Native name: MFVideoTransferMatrix_SMPTE240M
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_SMPTE240M => 3
+    static SMPTE240M => 3
 
     /**
+     * Native name: MFVideoTransferMatrix_BT2020_10
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_BT2020_10 => 4
+    static BT2020_10 => 4
 
     /**
+     * Native name: MFVideoTransferMatrix_BT2020_12
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_BT2020_12 => 5
+    static BT2020_12 => 5
 
     /**
+     * Native name: MFVideoTransferMatrix_Identity
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_Identity => 6
+    static Identity => 6
 
     /**
+     * Native name: MFVideoTransferMatrix_FCC47
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_FCC47 => 7
+    static FCC47 => 7
 
     /**
+     * Native name: MFVideoTransferMatrix_YCgCo
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_YCgCo => 8
+    static YCgCo => 8
 
     /**
+     * Native name: MFVideoTransferMatrix_SMPTE2085
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_SMPTE2085 => 9
+    static SMPTE2085 => 9
 
     /**
+     * Native name: MFVideoTransferMatrix_Chroma
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_Chroma => 10
+    static Chroma => 10
 
     /**
+     * Native name: MFVideoTransferMatrix_Chroma_const
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_Chroma_const => 11
+    static Chroma_const => 11
 
     /**
+     * Native name: MFVideoTransferMatrix_ICtCp
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_ICtCp => 12
+    static ICtCp => 12
 
     /**
      * Reserved.
+     * Native name: MFVideoTransferMatrix_Last
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_Last => 13
+    static Last => 13
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.
+     * Native name: MFVideoTransferMatrix_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

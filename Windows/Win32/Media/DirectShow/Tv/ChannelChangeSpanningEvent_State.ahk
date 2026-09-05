@@ -7,12 +7,14 @@
 class ChannelChangeSpanningEvent_State extends Win32Enum {
 
     /**
+     * Native name: ChannelChangeSpanningEvent_Start
      * @type {Integer (Int32)}
      */
-    static ChannelChangeSpanningEvent_Start => 0
+    static Start => 0
 
     /**
+     * Native name: ChannelChangeSpanningEvent_End
      * @type {Integer (Int32)}
      */
-    static ChannelChangeSpanningEvent_End => 2
+    static End => 2
 }

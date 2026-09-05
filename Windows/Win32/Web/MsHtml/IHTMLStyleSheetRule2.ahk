@@ -38,7 +38,6 @@ class IHTMLStyleSheetRule2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class IHTMLStyleSheetRule2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selectorText() {

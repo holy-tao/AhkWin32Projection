@@ -30,7 +30,6 @@ class ITensorNative extends IUnknown {
     static VTableNames => ["GetBuffer", "GetD3D12Resource"]
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} value 
      * @param {Pointer<Integer>} capacity 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class ITensorNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ID3D12Resource} 
      */
     GetD3D12Resource() {

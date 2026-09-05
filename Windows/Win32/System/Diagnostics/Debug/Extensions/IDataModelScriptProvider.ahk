@@ -44,7 +44,6 @@ class IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetExtension() {
@@ -54,7 +53,6 @@ class IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScript} 
      */
     CreateScript() {
@@ -63,7 +61,6 @@ class IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptTemplate} 
      */
     GetDefaultTemplateContent() {
@@ -72,7 +69,6 @@ class IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptTemplateEnumerator} 
      */
     EnumerateTemplates() {

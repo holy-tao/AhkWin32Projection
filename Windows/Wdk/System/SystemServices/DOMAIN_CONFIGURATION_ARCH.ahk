@@ -7,17 +7,20 @@
 class DOMAIN_CONFIGURATION_ARCH extends Win32Enum {
 
     /**
+     * Native name: DomainConfigurationArm64
      * @type {Integer (Int32)}
      */
-    static DomainConfigurationArm64 => 0
+    static Arm64 => 0
 
     /**
+     * Native name: DomainConfigurationX64
      * @type {Integer (Int32)}
      */
-    static DomainConfigurationX64 => 1
+    static ConfigurationX64 => 1
 
     /**
+     * Native name: DomainConfigurationInvalid
      * @type {Integer (Int32)}
      */
-    static DomainConfigurationInvalid => 2
+    static Invalid => 2
 }

@@ -10,25 +10,29 @@ class IMAPI_FORMAT2_RAW_CD_WRITE_ACTION extends Win32Enum {
 
     /**
      * Indicates an unknown state.
+     * Native name: IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Preparing to write the session.
+     * Native name: IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_PREPARING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_PREPARING => 1
+    static PREPARING => 1
 
     /**
      * Writing session data.
+     * Native name: IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_WRITING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_WRITING => 2
+    static WRITING => 2
 
     /**
      * Synchronizing the drive's cache with the end of the data written to disc.
+     * Native name: IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_FINISHING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_RAW_CD_WRITE_ACTION_FINISHING => 3
+    static FINISHING => 3
 }

@@ -7,22 +7,26 @@
 class WPA_AKM_SUITE extends Win32Enum {
 
     /**
+     * Native name: wpa_akm_none
      * @type {Integer (Int32)}
      */
-    static wpa_akm_none => 15880192
+    static none => 15880192
 
     /**
+     * Native name: wpa_akm_1x
      * @type {Integer (Int32)}
      */
-    static wpa_akm_1x => 32657408
+    static 1x => 32657408
 
     /**
+     * Native name: wpa_akm_psk
      * @type {Integer (Int32)}
      */
-    static wpa_akm_psk => 49434624
+    static psk => 49434624
 
     /**
+     * Native name: wpa_akm_max
      * @type {Integer (Int32)}
      */
-    static wpa_akm_max => 49434624
+    static max => 49434624
 }

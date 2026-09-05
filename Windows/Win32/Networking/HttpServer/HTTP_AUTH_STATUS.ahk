@@ -10,9 +10,10 @@ class HTTP_AUTH_STATUS extends Win32Enum {
 
     /**
      * The request was successfully authenticated for the authentication type indicated in the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_auth_info">HTTP_REQUEST_AUTH_INFO</a> structure.
+     * Native name: HttpAuthStatusSuccess
      * @type {Integer (Int32)}
      */
-    static HttpAuthStatusSuccess => 0
+    static Success => 0
 
     /**
      * Authentication was configured on the URL group for this request, however, the HTTP Server API did not handle the authentication. This could be because of one of the following reasons:
@@ -23,9 +24,10 @@ class HTTP_AUTH_STATUS extends Win32Enum {
      * <li>The authorization header is not present, however, authentication is enabled on the URL Group.</li>
      * </ul>
      * The application should either proceed with its own authentication or respond with the initial 401 challenge containing the desired set of authentication schemes.
+     * Native name: HttpAuthStatusNotAuthenticated
      * @type {Integer (Int32)}
      */
-    static HttpAuthStatusNotAuthenticated => 1
+    static NotAuthenticated => 1
 
     /**
      * Authentication for the authentication type listed in the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_auth_info">HTTP_REQUEST_AUTH_INFO</a>   structure failed, possibly due to one of the following reasons:<ul>
@@ -33,7 +35,8 @@ class HTTP_AUTH_STATUS extends Win32Enum {
      * <li>The finalized client context is for a Null NTLM session. Null sessions are treated as authentication failures.</li>
      * <li>The call to  <b>LogonUser</b> failed for the Basic authentication.</li>
      * </ul>
+     * Native name: HttpAuthStatusFailure
      * @type {Integer (Int32)}
      */
-    static HttpAuthStatusFailure => 2
+    static Failure => 2
 }

@@ -10,43 +10,50 @@ class TextUnit extends Win32Enum {
 
     /**
      * Character.
+     * Native name: TextUnit_Character
      * @type {Integer (Int32)}
      */
-    static TextUnit_Character => 0
+    static Character => 0
 
     /**
      * Format.
+     * Native name: TextUnit_Format
      * @type {Integer (Int32)}
      */
-    static TextUnit_Format => 1
+    static Format => 1
 
     /**
      * Word.
+     * Native name: TextUnit_Word
      * @type {Integer (Int32)}
      */
-    static TextUnit_Word => 2
+    static Word => 2
 
     /**
      * Line.
+     * Native name: TextUnit_Line
      * @type {Integer (Int32)}
      */
-    static TextUnit_Line => 3
+    static Line => 3
 
     /**
      * Paragraph.
+     * Native name: TextUnit_Paragraph
      * @type {Integer (Int32)}
      */
-    static TextUnit_Paragraph => 4
+    static Paragraph => 4
 
     /**
      * Page.
+     * Native name: TextUnit_Page
      * @type {Integer (Int32)}
      */
-    static TextUnit_Page => 5
+    static Page => 5
 
     /**
      * Document.
+     * Native name: TextUnit_Document
      * @type {Integer (Int32)}
      */
-    static TextUnit_Document => 6
+    static Document => 6
 }

@@ -7,12 +7,14 @@
 class SHGFP_TYPE extends Win32Enum {
 
     /**
+     * Native name: SHGFP_TYPE_CURRENT
      * @type {Integer (Int32)}
      */
-    static SHGFP_TYPE_CURRENT => 0
+    static CURRENT => 0
 
     /**
+     * Native name: SHGFP_TYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SHGFP_TYPE_DEFAULT => 1
+    static DEFAULT => 1
 }

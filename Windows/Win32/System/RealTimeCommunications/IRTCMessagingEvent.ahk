@@ -76,7 +76,6 @@ class IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession} 
      */
     get_Session() {
@@ -85,7 +84,6 @@ class IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -94,7 +92,6 @@ class IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MESSAGING_EVENT_TYPE} 
      */
     get_EventType() {
@@ -103,7 +100,6 @@ class IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Message() {
@@ -113,7 +109,6 @@ class IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_MessageHeader() {
@@ -123,7 +118,6 @@ class IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MESSAGING_USER_STATUS} 
      */
     get_UserStatus() {

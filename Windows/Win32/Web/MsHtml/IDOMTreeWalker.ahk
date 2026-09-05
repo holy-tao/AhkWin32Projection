@@ -65,7 +65,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_root() {
@@ -74,7 +73,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_whatToShow() {
@@ -83,7 +81,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_filter() {
@@ -92,7 +89,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_expandEntityReferences() {
@@ -101,7 +97,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} v 
      * @returns {HRESULT} 
      */
@@ -111,7 +106,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_currentNode() {
@@ -120,7 +114,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     parentNode() {
@@ -129,7 +122,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     firstChild() {
@@ -138,7 +130,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     lastChild() {
@@ -147,7 +138,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     previousSibling() {
@@ -156,7 +146,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     nextSibling() {
@@ -165,7 +154,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     previousNode() {
@@ -174,7 +162,6 @@ class IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     nextNode() {

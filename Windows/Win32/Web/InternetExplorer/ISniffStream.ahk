@@ -30,7 +30,6 @@ class ISniffStream extends IUnknown {
     static VTableNames => ["Init", "Peek"]
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ISniffStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pBuffer 
      * @param {Integer} nBytes 
      * @param {Pointer<Integer>} pnBytesRead 

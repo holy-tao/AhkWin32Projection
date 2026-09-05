@@ -31,7 +31,6 @@ class IRouterProtocolConfig extends IUnknown {
     static VTableNames => ["AddProtocol", "RemoveProtocol"]
 
     /**
-     * 
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 
@@ -50,7 +49,6 @@ class IRouterProtocolConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 

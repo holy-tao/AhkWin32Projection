@@ -7,67 +7,80 @@
 class WCT_OBJECT_TYPE extends Win32Enum {
 
     /**
+     * Native name: WctCriticalSectionType
      * @type {Integer (Int32)}
      */
-    static WctCriticalSectionType => 1
+    static CriticalSectionType => 1
 
     /**
+     * Native name: WctSendMessageType
      * @type {Integer (Int32)}
      */
-    static WctSendMessageType => 2
+    static SendMessageType => 2
 
     /**
+     * Native name: WctMutexType
      * @type {Integer (Int32)}
      */
-    static WctMutexType => 3
+    static MutexType => 3
 
     /**
+     * Native name: WctAlpcType
      * @type {Integer (Int32)}
      */
-    static WctAlpcType => 4
+    static AlpcType => 4
 
     /**
+     * Native name: WctComType
      * @type {Integer (Int32)}
      */
-    static WctComType => 5
+    static ComType => 5
 
     /**
+     * Native name: WctThreadWaitType
      * @type {Integer (Int32)}
      */
-    static WctThreadWaitType => 6
+    static ThreadWaitType => 6
 
     /**
+     * Native name: WctProcessWaitType
      * @type {Integer (Int32)}
      */
-    static WctProcessWaitType => 7
+    static ProcessWaitType => 7
 
     /**
+     * Native name: WctThreadType
      * @type {Integer (Int32)}
      */
-    static WctThreadType => 8
+    static ThreadType => 8
 
     /**
+     * Native name: WctComActivationType
      * @type {Integer (Int32)}
      */
-    static WctComActivationType => 9
+    static ComActivationType => 9
 
     /**
+     * Native name: WctUnknownType
      * @type {Integer (Int32)}
      */
-    static WctUnknownType => 10
+    static UnknownType => 10
 
     /**
+     * Native name: WctSocketIoType
      * @type {Integer (Int32)}
      */
-    static WctSocketIoType => 11
+    static SocketIoType => 11
 
     /**
+     * Native name: WctSmbIoType
      * @type {Integer (Int32)}
      */
-    static WctSmbIoType => 12
+    static SmbIoType => 12
 
     /**
+     * Native name: WctMaxType
      * @type {Integer (Int32)}
      */
-    static WctMaxType => 13
+    static MaxType => 13
 }

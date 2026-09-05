@@ -84,121 +84,141 @@ class MFVideoFlags extends Win32Enum {
 
     /**
      * Use this value to mask out the next three flags, which describe the effective aspect ratio of the image. This value by itself is not a valid flag.
+     * Native name: MFVideoFlag_PAD_TO_Mask
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_PAD_TO_Mask => 3
+    static Flag_PAD_TO_Mask => 3
 
     /**
      * Do not modify the picture aspect ratio.
+     * Native name: MFVideoFlag_PAD_TO_None
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_PAD_TO_None => 0
+    static Flag_PAD_TO_None => 0
 
     /**
      * Display the image in a 4 x 3 area. If this flag is set, the geometrical aperture of the picture should be expanded to a 4 x 3 area by letterboxing or pillarboxing. The geometrical aperture is the portion of the image that is intended to be viewed, without any overscan region.
+     * Native name: MFVideoFlag_PAD_TO_4x3
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_PAD_TO_4x3 => 1
+    static Flag_PAD_TO_4x3 => 1
 
     /**
      * Display the image in a 16 x 9 area. If this flag is set, the geometrical aperture of the picture should be expanded to a 16 x 9 area by letterboxing or pillarboxing.
+     * Native name: MFVideoFlag_PAD_TO_16x9
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_PAD_TO_16x9 => 2
+    static Flag_PAD_TO_16x9 => 2
 
     /**
      * Use this value to mask out the next three flags, which describe the source content. This value by itself is not a valid flag.
+     * Native name: MFVideoFlag_SrcContentHintMask
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_SrcContentHintMask => 28
+    static Flag_SrcContentHintMask => 28
 
     /**
      * There is no additional information about the source content .
+     * Native name: MFVideoFlag_SrcContentHintNone
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_SrcContentHintNone => 0
+    static Flag_SrcContentHintNone => 0
 
     /**
      * The source is a 16 x 9 image encoded within a 4 x 3 area.
+     * Native name: MFVideoFlag_SrcContentHint16x9
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_SrcContentHint16x9 => 4
+    static Flag_SrcContentHint16x9 => 4
 
     /**
      * The source is a 2.35:1 image encoded within a 16 x 9 or 4 x 3 area.
+     * Native name: MFVideoFlag_SrcContentHint235_1
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_SrcContentHint235_1 => 8
+    static Flag_SrcContentHint235_1 => 8
 
     /**
      * Analog copy protection should be applied.
+     * Native name: MFVideoFlag_AnalogProtected
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_AnalogProtected => 32
+    static Flag_AnalogProtected => 32
 
     /**
      * Digital copy protection should be applied.
+     * Native name: MFVideoFlag_DigitallyProtected
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_DigitallyProtected => 64
+    static Flag_DigitallyProtected => 64
 
     /**
      * The video source is progressive content encoded as interlaced video, possibly using 3:2 pulldown. This flag is obsolete. See Remarks.
+     * Native name: MFVideoFlag_ProgressiveContent
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_ProgressiveContent => 128
+    static Flag_ProgressiveContent => 128
 
     /**
      * Used to extract the field repeat count. This flag is obsolete. See Remarks.
+     * Native name: MFVideoFlag_FieldRepeatCountMask
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_FieldRepeatCountMask => 1792
+    static Flag_FieldRepeatCountMask => 1792
 
     /**
      * Used to extract the field repeat count. This flag is obsolete. See Remarks.
+     * Native name: MFVideoFlag_FieldRepeatCountShift
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_FieldRepeatCountShift => 8
+    static Flag_FieldRepeatCountShift => 8
 
     /**
      * The progressive sequence was disrupted and the sequence is interlaced at the break. This flag is obsolete. See Remarks.
+     * Native name: MFVideoFlag_ProgressiveSeqReset
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_ProgressiveSeqReset => 2048
+    static Flag_ProgressiveSeqReset => 2048
 
     /**
      * Apply the pan and scan rectangle on the output.
+     * Native name: MFVideoFlag_PanScanEnabled
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_PanScanEnabled => 131072
+    static Flag_PanScanEnabled => 131072
 
     /**
      * The sample contains the lower field. This flag applies only if the interlace mode is single fields (MFVideoInterlace_FieldSingleUpperFirst or MFVideoInterlace_FieldSingleLowerFirst). This flag is obsolete. See Remarks.
+     * Native name: MFVideoFlag_LowerFieldFirst
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_LowerFieldFirst => 262144
+    static Flag_LowerFieldFirst => 262144
 
     /**
      * The image is represented bottom-up in memory. This flag should be used only with RGB formats.
+     * Native name: MFVideoFlag_BottomUpLinearRep
      * @type {Integer (Int32)}
      */
-    static MFVideoFlag_BottomUpLinearRep => 524288
+    static Flag_BottomUpLinearRep => 524288
 
     /**
      * Reserved. Do not use.
+     * Native name: MFVideoFlags_DXVASurface
      * @type {Integer (Int32)}
      */
-    static MFVideoFlags_DXVASurface => 1048576
+    static DXVASurface => 1048576
 
     /**
      * Reserved. Do not use.
+     * Native name: MFVideoFlags_RenderTargetSurface
      * @type {Integer (Int32)}
      */
-    static MFVideoFlags_RenderTargetSurface => 4194304
+    static RenderTargetSurface => 4194304
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>QWORD</b> value.
+     * Native name: MFVideoFlags_ForceQWORD
      * @type {Integer (Int32)}
      */
-    static MFVideoFlags_ForceQWORD => 2147483647
+    static ForceQWORD => 2147483647
 }

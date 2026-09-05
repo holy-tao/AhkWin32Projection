@@ -7,7 +7,8 @@
 class PROFILER_HEAP_SUMMARY_VERSION extends Win32Enum {
 
     /**
+     * Native name: PROFILER_HEAP_SUMMARY_VERSION_1
      * @type {Integer (Int32)}
      */
-    static PROFILER_HEAP_SUMMARY_VERSION_1 => 1
+    static 1 => 1
 }

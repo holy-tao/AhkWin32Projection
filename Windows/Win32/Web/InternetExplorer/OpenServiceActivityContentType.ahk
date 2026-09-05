@@ -7,27 +7,32 @@
 class OpenServiceActivityContentType extends Win32Enum {
 
     /**
+     * Native name: ActivityContentNone
      * @type {Integer (Int32)}
      */
-    static ActivityContentNone => -1
+    static None => -1
 
     /**
+     * Native name: ActivityContentDocument
      * @type {Integer (Int32)}
      */
-    static ActivityContentDocument => 0
+    static Document => 0
 
     /**
+     * Native name: ActivityContentSelection
      * @type {Integer (Int32)}
      */
-    static ActivityContentSelection => 1
+    static Selection => 1
 
     /**
+     * Native name: ActivityContentLink
      * @type {Integer (Int32)}
      */
-    static ActivityContentLink => 2
+    static Link => 2
 
     /**
+     * Native name: ActivityContentCount
      * @type {Integer (Int32)}
      */
-    static ActivityContentCount => 3
+    static Count => 3
 }

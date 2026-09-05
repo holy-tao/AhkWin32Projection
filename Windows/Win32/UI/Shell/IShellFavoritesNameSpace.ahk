@@ -38,7 +38,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveSelectionUp() {
@@ -47,7 +46,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveSelectionDown() {
@@ -56,7 +54,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetSort() {
@@ -65,7 +62,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NewFolder() {
@@ -74,7 +70,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Synchronize() {
@@ -83,7 +78,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Import() {
@@ -92,7 +86,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Export() {
@@ -101,7 +94,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strCommand 
      * @returns {HRESULT} 
      */
@@ -113,7 +105,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveSelectionTo() {
@@ -122,7 +113,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SubscriptionsEnabled() {
@@ -131,7 +121,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     CreateSubscriptionForSelection() {
@@ -140,7 +129,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     DeleteSubscriptionForSelection() {
@@ -149,7 +137,6 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFullPath 
      * @returns {HRESULT} 
      */

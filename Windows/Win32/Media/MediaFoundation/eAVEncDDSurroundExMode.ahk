@@ -10,19 +10,22 @@ class eAVEncDDSurroundExMode extends Win32Enum {
 
     /**
      * The Surround EX mode is not indicated.
+     * Native name: eAVEncDDSurroundExMode_NotIndicated
      * @type {Integer (Int32)}
      */
-    static eAVEncDDSurroundExMode_NotIndicated => 0
+    static NotIndicated => 0
 
     /**
      * The audio is not encoded in Surround EX.
+     * Native name: eAVEncDDSurroundExMode_No
      * @type {Integer (Int32)}
      */
-    static eAVEncDDSurroundExMode_No => 1
+    static No => 1
 
     /**
      * The audio is encoded in Surround EX.
+     * Native name: eAVEncDDSurroundExMode_Yes
      * @type {Integer (Int32)}
      */
-    static eAVEncDDSurroundExMode_Yes => 2
+    static Yes => 2
 }

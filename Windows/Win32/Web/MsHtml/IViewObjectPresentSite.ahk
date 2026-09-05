@@ -34,7 +34,6 @@ class IViewObjectPresentSite extends IUnknown {
     static VTableNames => ["CreateSurfacePresenter", "IsHardwareComposition", "SetCompositionMode"]
 
     /**
-     * 
      * @param {IUnknown} pDevice 
      * @param {Integer} width 
      * @param {Integer} height 
@@ -49,7 +48,6 @@ class IViewObjectPresentSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsHardwareComposition() {
@@ -58,7 +56,6 @@ class IViewObjectPresentSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {VIEW_OBJECT_COMPOSITION_MODE} _mode 
      * @returns {HRESULT} 
      */

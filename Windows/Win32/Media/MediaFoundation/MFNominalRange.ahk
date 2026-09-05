@@ -15,56 +15,65 @@ class MFNominalRange extends Win32Enum {
 
     /**
      * Unknown nominal range.
+     * Native name: MFNominalRange_Unknown
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_Unknown => 0
+    static Unknown => 0
 
     /**
      * Equivalent to MFNominalRange_0_255.
+     * Native name: MFNominalRange_Normal
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_Normal => 1
+    static Normal => 1
 
     /**
      * Equivalent to MFNominalRange_16_235.
+     * Native name: MFNominalRange_Wide
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_Wide => 2
+    static Wide => 2
 
     /**
      * The normalized range [0...1] maps to [0...255] for 8-bit samples or [0...1023] for 10-bit samples.
+     * Native name: MFNominalRange_0_255
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_0_255 => 1
+    static 0_255 => 1
 
     /**
      * The normalized range [0...1] maps to [16...235] for 8-bit samples or [64...940] for 10-bit samples.
+     * Native name: MFNominalRange_16_235
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_16_235 => 2
+    static 16_235 => 2
 
     /**
      * The normalized range [0..1] maps to [48...208] for 8-bit samples or [64...940] for 10-bit samples.
+     * Native name: MFNominalRange_48_208
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_48_208 => 3
+    static 48_208 => 3
 
     /**
      * The normalized range [0..1] maps to [64...127] for 8-bit samples or [256...508] for 10-bit samples. This range is used in the xRGB color space.
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
+     * Native name: MFNominalRange_64_127
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_64_127 => 4
+    static 64_127 => 4
 
     /**
+     * Native name: MFNominalRange_Last
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_Last => 5
+    static Last => 5
 
     /**
+     * Native name: MFNominalRange_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static MFNominalRange_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

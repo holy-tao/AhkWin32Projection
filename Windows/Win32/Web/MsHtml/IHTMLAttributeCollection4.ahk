@@ -39,7 +39,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
@@ -52,7 +51,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pNodeIn 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -62,7 +60,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
@@ -75,7 +72,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -87,7 +83,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pNodeIn 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -97,7 +92,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -109,7 +103,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -119,7 +112,6 @@ class IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {

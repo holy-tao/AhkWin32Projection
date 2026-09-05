@@ -30,7 +30,6 @@ class IEAPProviderConfig3 extends IEAPProviderConfig2 {
     static VTableNames => ["ServerInvokeCertificateConfigUI"]
 
     /**
-     * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer} uConnectionParam 
      * @param {HWND} _hWnd 

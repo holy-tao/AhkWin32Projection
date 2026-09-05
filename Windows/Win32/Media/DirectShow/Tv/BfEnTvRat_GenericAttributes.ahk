@@ -7,52 +7,62 @@
 class BfEnTvRat_GenericAttributes extends Win32Enum {
 
     /**
+     * Native name: BfAttrNone
      * @type {Integer (Int32)}
      */
-    static BfAttrNone => 0
+    static AttrNone => 0
 
     /**
+     * Native name: BfIsBlocked
      * @type {Integer (Int32)}
      */
-    static BfIsBlocked => 1
+    static IsBlocked => 1
 
     /**
+     * Native name: BfIsAttr_1
      * @type {Integer (Int32)}
      */
-    static BfIsAttr_1 => 2
+    static IsAttr_1 => 2
 
     /**
+     * Native name: BfIsAttr_2
      * @type {Integer (Int32)}
      */
-    static BfIsAttr_2 => 4
+    static IsAttr_2 => 4
 
     /**
+     * Native name: BfIsAttr_3
      * @type {Integer (Int32)}
      */
-    static BfIsAttr_3 => 8
+    static IsAttr_3 => 8
 
     /**
+     * Native name: BfIsAttr_4
      * @type {Integer (Int32)}
      */
-    static BfIsAttr_4 => 16
+    static IsAttr_4 => 16
 
     /**
+     * Native name: BfIsAttr_5
      * @type {Integer (Int32)}
      */
-    static BfIsAttr_5 => 32
+    static IsAttr_5 => 32
 
     /**
+     * Native name: BfIsAttr_6
      * @type {Integer (Int32)}
      */
-    static BfIsAttr_6 => 64
+    static IsAttr_6 => 64
 
     /**
+     * Native name: BfIsAttr_7
      * @type {Integer (Int32)}
      */
-    static BfIsAttr_7 => 128
+    static IsAttr_7 => 128
 
     /**
+     * Native name: BfValidAttrSubmask
      * @type {Integer (Int32)}
      */
-    static BfValidAttrSubmask => 255
+    static ValidAttrSubmask => 255
 }

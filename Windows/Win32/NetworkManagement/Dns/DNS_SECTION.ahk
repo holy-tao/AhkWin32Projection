@@ -10,25 +10,29 @@ class DNS_SECTION extends Win32Enum {
 
     /**
      * The DNS section specified is a DNS question.
+     * Native name: DnsSectionQuestion
      * @type {Integer (Int32)}
      */
-    static DnsSectionQuestion => 0
+    static Question => 0
 
     /**
      * The DNS section specified is a DNS answer.
+     * Native name: DnsSectionAnswer
      * @type {Integer (Int32)}
      */
-    static DnsSectionAnswer => 1
+    static Answer => 1
 
     /**
      * The DNS section specified indicates a DNS authority.
+     * Native name: DnsSectionAuthority
      * @type {Integer (Int32)}
      */
-    static DnsSectionAuthority => 2
+    static Authority => 2
 
     /**
      * The DNS section specified is additional DNS information.
+     * Native name: DnsSectionAddtional
      * @type {Integer (Int32)}
      */
-    static DnsSectionAddtional => 3
+    static Addtional => 3
 }

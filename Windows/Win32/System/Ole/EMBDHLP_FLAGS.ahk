@@ -7,22 +7,26 @@
 class EMBDHLP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: EMBDHLP_INPROC_HANDLER
      * @type {Integer (UInt32)}
      */
-    static EMBDHLP_INPROC_HANDLER => 0
+    static INPROC_HANDLER => 0
 
     /**
+     * Native name: EMBDHLP_INPROC_SERVER
      * @type {Integer (UInt32)}
      */
-    static EMBDHLP_INPROC_SERVER => 1
+    static INPROC_SERVER => 1
 
     /**
+     * Native name: EMBDHLP_CREATENOW
      * @type {Integer (UInt32)}
      */
-    static EMBDHLP_CREATENOW => 0
+    static CREATENOW => 0
 
     /**
+     * Native name: EMBDHLP_DELAYCREATE
      * @type {Integer (UInt32)}
      */
-    static EMBDHLP_DELAYCREATE => 65536
+    static DELAYCREATE => 65536
 }

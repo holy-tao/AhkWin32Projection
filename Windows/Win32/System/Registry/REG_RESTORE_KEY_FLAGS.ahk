@@ -7,12 +7,14 @@
 class REG_RESTORE_KEY_FLAGS extends Win32Enum {
 
     /**
+     * Native name: REG_FORCE_RESTORE
      * @type {Integer (Int32)}
      */
-    static REG_FORCE_RESTORE => 8
+    static FORCE_RESTORE => 8
 
     /**
+     * Native name: REG_WHOLE_HIVE_VOLATILE
      * @type {Integer (Int32)}
      */
-    static REG_WHOLE_HIVE_VOLATILE => 1
+    static WHOLE_HIVE_VOLATILE => 1
 }

@@ -29,7 +29,6 @@ class IRowsetBookmark extends IUnknown {
     static VTableNames => ["PositionOnBookmark"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
      * @param {Integer} pBookmark 

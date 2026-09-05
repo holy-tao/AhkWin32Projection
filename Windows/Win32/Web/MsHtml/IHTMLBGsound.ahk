@@ -69,7 +69,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -81,7 +80,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -91,7 +89,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_loop() {
@@ -111,7 +107,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -121,7 +116,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_volume() {
@@ -131,7 +125,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +134,6 @@ class IHTMLBGsound extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_balance() {

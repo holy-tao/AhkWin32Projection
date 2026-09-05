@@ -7,12 +7,14 @@
 class SIGNER_SIGNATURE_ATTRIBUTE_CHOICE extends Win32Enum {
 
     /**
+     * Native name: SIGNER_NO_ATTR
      * @type {Integer (UInt32)}
      */
-    static SIGNER_NO_ATTR => 0
+    static NO_ATTR => 0
 
     /**
+     * Native name: SIGNER_AUTHCODE_ATTR
      * @type {Integer (UInt32)}
      */
-    static SIGNER_AUTHCODE_ATTR => 1
+    static AUTHCODE_ATTR => 1
 }

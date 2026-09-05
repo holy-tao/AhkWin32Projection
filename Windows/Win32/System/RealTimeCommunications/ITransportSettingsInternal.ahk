@@ -30,7 +30,6 @@ class ITransportSettingsInternal extends IUnknown {
     static VTableNames => ["ApplySetting", "QuerySetting"]
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING>} Setting 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ITransportSettingsInternal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING>} Setting 
      * @returns {HRESULT} 
      */

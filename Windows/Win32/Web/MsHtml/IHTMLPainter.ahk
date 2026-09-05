@@ -35,7 +35,6 @@ class IHTMLPainter extends IUnknown {
     static VTableNames => ["Draw", "OnResize", "GetPainterInfo", "HitTestPoint"]
 
     /**
-     * 
      * @param {RECT} rcBounds 
      * @param {RECT} rcUpdate 
      * @param {Integer} lDrawFlags 
@@ -53,7 +52,6 @@ class IHTMLPainter extends IUnknown {
     }
 
     /**
-     * 
      * @param {SIZE} _size 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ class IHTMLPainter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HTML_PAINTER_INFO} 
      */
     GetPainterInfo() {
@@ -73,7 +70,6 @@ class IHTMLPainter extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} pt 
      * @param {Pointer<BOOL>} pbHit 
      * @param {Pointer<Integer>} plPartID 

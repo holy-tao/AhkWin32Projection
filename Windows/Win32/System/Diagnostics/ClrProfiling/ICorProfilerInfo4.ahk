@@ -33,7 +33,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     static VTableNames => ["EnumThreads", "InitializeCurrentThread", "RequestReJIT", "RequestRevert", "GetCodeInfo3", "GetFunctionFromIP2", "GetReJITIDs", "GetILToNativeMapping2", "EnumJITedFunctions2", "GetObjectSize2"]
 
     /**
-     * 
      * @returns {ICorProfilerThreadEnum} 
      */
     EnumThreads() {
@@ -42,7 +41,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitializeCurrentThread() {
@@ -51,7 +49,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Integer} cFunctions 
      * @param {Pointer<Pointer>} moduleIds 
      * @param {Pointer<Integer>} methodIds 
@@ -66,7 +63,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Integer} cFunctions 
      * @param {Pointer<Pointer>} moduleIds 
      * @param {Pointer<Integer>} methodIds 
@@ -81,7 +77,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Pointer} functionID 
      * @param {Pointer} reJitId 
      * @param {Integer} cCodeInfos 
@@ -97,7 +92,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ip 
      * @param {Pointer<Pointer>} pFunctionId 
      * @param {Pointer<Pointer>} pReJitId 
@@ -113,7 +107,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Integer} cReJitIds 
      * @param {Pointer<Integer>} pcReJitIds 
@@ -129,7 +122,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} reJitId 
      * @param {Integer} cMap 
@@ -145,7 +137,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @returns {ICorProfilerFunctionEnum} 
      */
     EnumJITedFunctions2() {
@@ -154,7 +145,6 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @returns {Pointer} 
      */

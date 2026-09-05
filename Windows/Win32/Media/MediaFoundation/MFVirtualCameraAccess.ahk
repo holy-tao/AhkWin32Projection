@@ -12,13 +12,15 @@ class MFVirtualCameraAccess extends Win32Enum {
 
     /**
      * The virtual camera can only be accessed by the current user.
+     * Native name: MFVirtualCameraAccess_CurrentUser
      * @type {Integer (Int32)}
      */
-    static MFVirtualCameraAccess_CurrentUser => 0
+    static CurrentUser => 0
 
     /**
      * The virtual camera can be accessed by all users.
+     * Native name: MFVirtualCameraAccess_AllUsers
      * @type {Integer (Int32)}
      */
-    static MFVirtualCameraAccess_AllUsers => 1
+    static AllUsers => 1
 }

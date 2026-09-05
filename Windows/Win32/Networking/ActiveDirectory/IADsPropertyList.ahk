@@ -40,7 +40,6 @@ class IADsPropertyList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PropertyCount() {

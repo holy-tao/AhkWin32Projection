@@ -10,7 +10,8 @@ class AM_WST_LEVEL extends Win32Enum {
 
     /**
      * Not implemented.
+     * Native name: AM_WST_LEVEL_1_5
      * @type {Integer (Int32)}
      */
-    static AM_WST_LEVEL_1_5 => 0
+    static 1_5 => 0
 }

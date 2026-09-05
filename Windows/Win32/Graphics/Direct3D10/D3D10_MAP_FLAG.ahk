@@ -16,7 +16,8 @@ class D3D10_MAP_FLAG extends Win32Enum {
 
     /**
      * Specifies that Map should return <b>DXGI_ERROR_WAS_STILL_DRAWING</b> when the GPU blocks the CPU from accessing a resource.
+     * Native name: D3D10_MAP_FLAG_DO_NOT_WAIT
      * @type {Integer (Int32)}
      */
-    static D3D10_MAP_FLAG_DO_NOT_WAIT => 1048576
+    static DO_NOT_WAIT => 1048576
 }

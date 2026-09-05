@@ -7,22 +7,26 @@
 class QualityMode extends Win32Enum {
 
     /**
+     * Native name: QualityModeInvalid
      * @type {Integer (Int32)}
      */
-    static QualityModeInvalid => -1
+    static Invalid => -1
 
     /**
+     * Native name: QualityModeDefault
      * @type {Integer (Int32)}
      */
-    static QualityModeDefault => 0
+    static Default => 0
 
     /**
+     * Native name: QualityModeLow
      * @type {Integer (Int32)}
      */
-    static QualityModeLow => 1
+    static Low => 1
 
     /**
+     * Native name: QualityModeHigh
      * @type {Integer (Int32)}
      */
-    static QualityModeHigh => 2
+    static High => 2
 }

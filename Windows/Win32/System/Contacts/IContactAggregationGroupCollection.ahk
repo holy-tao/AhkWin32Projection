@@ -38,7 +38,6 @@ class IContactAggregationGroupCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationGroup} 
      */
     FindFirst() {
@@ -47,7 +46,6 @@ class IContactAggregationGroupCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGlobalObjectId 
      * @returns {IContactAggregationGroup} 
      */
@@ -57,7 +55,6 @@ class IContactAggregationGroupCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationGroup} 
      */
     FindNext() {
@@ -66,7 +63,6 @@ class IContactAggregationGroupCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {

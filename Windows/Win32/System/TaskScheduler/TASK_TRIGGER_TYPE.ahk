@@ -19,9 +19,10 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * 
      * When this value is specified, the <b>Type</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure is ignored.
+     * Native name: TASK_TIME_TRIGGER_ONCE
      * @type {Integer (Int32)}
      */
-    static TASK_TIME_TRIGGER_ONCE => 0
+    static TIME_TRIGGER_ONCE => 0
 
     /**
      * Trigger is set to run the task on a daily interval. 
@@ -32,9 +33,10 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * When this value is specified, the 
      * <b>DAILY</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> structure is used.
+     * Native name: TASK_TIME_TRIGGER_DAILY
      * @type {Integer (Int32)}
      */
-    static TASK_TIME_TRIGGER_DAILY => 1
+    static TIME_TRIGGER_DAILY => 1
 
     /**
      * Trigger is set to run the work item on specific days of a specific week of a specific month. 
@@ -45,9 +47,10 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * When this value is specified, the 
      * <b>WEEKLY</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> structure is used.
+     * Native name: TASK_TIME_TRIGGER_WEEKLY
      * @type {Integer (Int32)}
      */
-    static TASK_TIME_TRIGGER_WEEKLY => 2
+    static TIME_TRIGGER_WEEKLY => 2
 
     /**
      * Trigger is set to run the task on a specific day(s) of the month. 
@@ -58,9 +61,10 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * When this value is specified, the 
      * <b>MONTHLYDATE</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> structure is used.
+     * Native name: TASK_TIME_TRIGGER_MONTHLYDATE
      * @type {Integer (Int32)}
      */
-    static TASK_TIME_TRIGGER_MONTHLYDATE => 3
+    static TIME_TRIGGER_MONTHLYDATE => 3
 
     /**
      * Trigger is set to run the task on specific days, weeks, and months. 
@@ -71,9 +75,10 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * When this value is specified, the 
      * <b>MONTHLYDOW</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> structure is used.
+     * Native name: TASK_TIME_TRIGGER_MONTHLYDOW
      * @type {Integer (Int32)}
      */
-    static TASK_TIME_TRIGGER_MONTHLYDOW => 4
+    static TIME_TRIGGER_MONTHLYDOW => 4
 
     /**
      * Trigger is set to run the task if the system remains idle for the amount of time specified by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/i">idle wait time</a> of the task. 
@@ -83,9 +88,10 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * 
      * When this value is specified, the <b>wStartHour</b>, <b>wStartMinute</b>, and <b>Type</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure are ignored.
+     * Native name: TASK_EVENT_TRIGGER_ON_IDLE
      * @type {Integer (Int32)}
      */
-    static TASK_EVENT_TRIGGER_ON_IDLE => 5
+    static EVENT_TRIGGER_ON_IDLE => 5
 
     /**
      * Trigger is set to run the task at system startup. 
@@ -95,9 +101,10 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * 
      * When this value is specified, the <b>Type</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure is ignored.
+     * Native name: TASK_EVENT_TRIGGER_AT_SYSTEMSTART
      * @type {Integer (Int32)}
      */
-    static TASK_EVENT_TRIGGER_AT_SYSTEMSTART => 6
+    static EVENT_TRIGGER_AT_SYSTEMSTART => 6
 
     /**
      * Trigger is set to run the task when a user logs on. 
@@ -107,7 +114,8 @@ class TASK_TRIGGER_TYPE extends Win32Enum {
      * 
      * When this value is specified, the <b>Type</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure is ignored.
+     * Native name: TASK_EVENT_TRIGGER_AT_LOGON
      * @type {Integer (Int32)}
      */
-    static TASK_EVENT_TRIGGER_AT_LOGON => 7
+    static EVENT_TRIGGER_AT_LOGON => 7
 }

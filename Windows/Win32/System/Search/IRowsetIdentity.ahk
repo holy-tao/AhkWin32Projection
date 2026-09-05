@@ -29,7 +29,6 @@ class IRowsetIdentity extends IUnknown {
     static VTableNames => ["IsSameRow"]
 
     /**
-     * 
      * @param {Pointer} hThisRow 
      * @param {Pointer} hThatRow 
      * @returns {HRESULT} 

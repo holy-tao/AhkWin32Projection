@@ -7,17 +7,20 @@
 class DOT11_MANUFACTURING_SELF_TEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE
      * @type {Integer (Int32)}
      */
-    static DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE => 1
+    static INTERFACE => 1
 
     /**
+     * Native name: DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE
      * @type {Integer (Int32)}
      */
-    static DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE => 2
+    static RF_INTERFACE => 2
 
     /**
+     * Native name: DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE
      * @type {Integer (Int32)}
      */
-    static DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE => 3
+    static BT_COEXISTENCE => 3
 }

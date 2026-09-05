@@ -10,19 +10,22 @@ class NET_FW_RULE_DIRECTION extends Win32Enum {
 
     /**
      * The rule applies to inbound traffic.
+     * Native name: NET_FW_RULE_DIR_IN
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_DIR_IN => 1
+    static DIR_IN => 1
 
     /**
      * The rule applies to outbound traffic.
+     * Native name: NET_FW_RULE_DIR_OUT
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_DIR_OUT => 2
+    static DIR_OUT => 2
 
     /**
      * This value is used for boundary checking only and is not valid for application programming.
+     * Native name: NET_FW_RULE_DIR_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_RULE_DIR_MAX => 3
+    static DIR_MAX => 3
 }

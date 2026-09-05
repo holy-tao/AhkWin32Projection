@@ -10,13 +10,15 @@ class D2D1_WHITELEVELADJUSTMENT_PROP extends Win32Enum {
 
     /**
      * Identifies the `InputWhiteLevel` property of the effect. The property is of type FLOAT, and is specified in nits.
+     * Native name: D2D1_WHITELEVELADJUSTMENT_PROP_INPUT_WHITE_LEVEL
      * @type {Integer (Int32)}
      */
-    static D2D1_WHITELEVELADJUSTMENT_PROP_INPUT_WHITE_LEVEL => 0
+    static INPUT_WHITE_LEVEL => 0
 
     /**
      * Identifies the `OutputWhiteLevel` property of the effect. The property is of type FLOAT, and is specified in nits.
+     * Native name: D2D1_WHITELEVELADJUSTMENT_PROP_OUTPUT_WHITE_LEVEL
      * @type {Integer (Int32)}
      */
-    static D2D1_WHITELEVELADJUSTMENT_PROP_OUTPUT_WHITE_LEVEL => 1
+    static OUTPUT_WHITE_LEVEL => 1
 }

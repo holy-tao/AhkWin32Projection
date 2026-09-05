@@ -11,7 +11,8 @@ class D3DX11_FFT_CREATE_FLAG extends Win32Enum {
     /**
      * Do not AddRef or Release temp and precompute buffers, caller is responsible for holding 
      *           references to these buffers.
+     * Native name: D3DX11_FFT_CREATE_FLAG_NO_PRECOMPUTE_BUFFERS
      * @type {Integer (Int32)}
      */
-    static D3DX11_FFT_CREATE_FLAG_NO_PRECOMPUTE_BUFFERS => 1
+    static NO_PRECOMPUTE_BUFFERS => 1
 }

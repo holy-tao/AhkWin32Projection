@@ -151,7 +151,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -163,7 +162,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutFlow() {
@@ -173,7 +171,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -183,7 +180,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_zoom() {
@@ -193,7 +189,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -205,7 +200,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wordWrap() {
@@ -215,7 +209,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -227,7 +220,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textUnderlinePosition() {
@@ -237,7 +229,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -247,7 +238,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarBaseColor() {
@@ -257,7 +247,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -267,7 +256,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarFaceColor() {
@@ -277,7 +265,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -287,7 +274,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbar3dLightColor() {
@@ -297,7 +283,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -307,7 +292,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarShadowColor() {
@@ -317,7 +301,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -327,7 +310,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarHighlightColor() {
@@ -337,7 +319,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -347,7 +328,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarDarkShadowColor() {
@@ -357,7 +337,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -367,7 +346,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarArrowColor() {
@@ -377,7 +355,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -387,7 +364,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarTrackColor() {
@@ -397,7 +373,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -409,7 +384,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_writingMode() {
@@ -419,7 +393,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -431,7 +404,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAlignLast() {
@@ -441,7 +413,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -451,7 +422,6 @@ class IHTMLStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textKashidaSpace() {

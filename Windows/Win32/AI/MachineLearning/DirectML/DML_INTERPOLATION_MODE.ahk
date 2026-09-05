@@ -10,13 +10,15 @@ class DML_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * Specifies the nearest-neighbor mode.
+     * Native name: DML_INTERPOLATION_MODE_NEAREST_NEIGHBOR
      * @type {Integer (Int32)}
      */
-    static DML_INTERPOLATION_MODE_NEAREST_NEIGHBOR => 0
+    static NEAREST_NEIGHBOR => 0
 
     /**
      * Specifies a linear (including bilinear, trilinear, etc.) mode.
+     * Native name: DML_INTERPOLATION_MODE_LINEAR
      * @type {Integer (Int32)}
      */
-    static DML_INTERPOLATION_MODE_LINEAR => 1
+    static LINEAR => 1
 }

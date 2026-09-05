@@ -7,32 +7,38 @@
 class DashStyle extends Win32Enum {
 
     /**
+     * Native name: DashStyleSolid
      * @type {Integer (Int32)}
      */
-    static DashStyleSolid => 0
+    static Solid => 0
 
     /**
+     * Native name: DashStyleDash
      * @type {Integer (Int32)}
      */
-    static DashStyleDash => 1
+    static Dash => 1
 
     /**
+     * Native name: DashStyleDot
      * @type {Integer (Int32)}
      */
-    static DashStyleDot => 2
+    static Dot => 2
 
     /**
+     * Native name: DashStyleDashDot
      * @type {Integer (Int32)}
      */
-    static DashStyleDashDot => 3
+    static DashDot => 3
 
     /**
+     * Native name: DashStyleDashDotDot
      * @type {Integer (Int32)}
      */
-    static DashStyleDashDotDot => 4
+    static DashDotDot => 4
 
     /**
+     * Native name: DashStyleCustom
      * @type {Integer (Int32)}
      */
-    static DashStyleCustom => 5
+    static Custom => 5
 }

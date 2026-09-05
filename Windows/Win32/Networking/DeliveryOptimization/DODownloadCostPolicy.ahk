@@ -10,37 +10,43 @@ class DODownloadCostPolicy extends Win32Enum {
 
     /**
      * Download runs regardless of the cost.
+     * Native name: DODownloadCostPolicy_Always
      * @type {Integer (Int32)}
      */
-    static DODownloadCostPolicy_Always => 0
+    static Always => 0
 
     /**
      * Download runs unless imposes costs or traffic limits.
+     * Native name: DODownloadCostPolicy_Unrestricted
      * @type {Integer (Int32)}
      */
-    static DODownloadCostPolicy_Unrestricted => 1
+    static Unrestricted => 1
 
     /**
      * Download runs unless neither subject to a surcharge nor near exhaustion.
+     * Native name: DODownloadCostPolicy_Standard
      * @type {Integer (Int32)}
      */
-    static DODownloadCostPolicy_Standard => 2
+    static Standard => 2
 
     /**
      * Download runs unless that connectivity is subject to roaming surcharges.
+     * Native name: DODownloadCostPolicy_NoRoaming
      * @type {Integer (Int32)}
      */
-    static DODownloadCostPolicy_NoRoaming => 3
+    static NoRoaming => 3
 
     /**
      * Download runs unless subject to a surcharge.
+     * Native name: DODownloadCostPolicy_NoSurcharge
      * @type {Integer (Int32)}
      */
-    static DODownloadCostPolicy_NoSurcharge => 4
+    static NoSurcharge => 4
 
     /**
      * Download runs unless network is on cellular.
+     * Native name: DODownloadCostPolicy_NoCellular
      * @type {Integer (Int32)}
      */
-    static DODownloadCostPolicy_NoCellular => 5
+    static NoCellular => 5
 }

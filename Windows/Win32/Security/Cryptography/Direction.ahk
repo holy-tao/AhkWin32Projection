@@ -7,12 +7,14 @@
 class Direction extends Win32Enum {
 
     /**
+     * Native name: DirectionEncrypt
      * @type {Integer (Int32)}
      */
-    static DirectionEncrypt => 1
+    static Encrypt => 1
 
     /**
+     * Native name: DirectionDecrypt
      * @type {Integer (Int32)}
      */
-    static DirectionDecrypt => 2
+    static Decrypt => 2
 }

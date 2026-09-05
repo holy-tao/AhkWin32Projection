@@ -41,7 +41,6 @@ class INetCfgBindingInterface extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INetCfgComponent} 
      */
     GetUpperComponent() {
@@ -50,7 +49,6 @@ class INetCfgBindingInterface extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INetCfgComponent} 
      */
     GetLowerComponent() {

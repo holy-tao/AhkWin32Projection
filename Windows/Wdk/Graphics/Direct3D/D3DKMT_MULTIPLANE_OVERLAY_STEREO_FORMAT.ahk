@@ -12,14 +12,16 @@ class D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT extends Win32Enum {
     static DXGKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT_MONO => 0
 
     /**
+     * Native name: D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT_HORIZONTAL => 1
+    static HORIZONTAL => 1
 
     /**
+     * Native name: D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT_VERTICAL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT_VERTICAL => 2
+    static VERTICAL => 2
 
     /**
      * @type {Integer (Int32)}

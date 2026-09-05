@@ -7,22 +7,26 @@
 class DXGKMDT_OPM_ACP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_ACP_OFF
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_ACP_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: DXGKMDT_OPM_ACP_LEVEL_ONE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_ACP_LEVEL_ONE => 1
+    static ONE => 1
 
     /**
+     * Native name: DXGKMDT_OPM_ACP_LEVEL_TWO
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_ACP_LEVEL_TWO => 2
+    static TWO => 2
 
     /**
+     * Native name: DXGKMDT_OPM_ACP_LEVEL_THREE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_ACP_LEVEL_THREE => 3
+    static THREE => 3
 }

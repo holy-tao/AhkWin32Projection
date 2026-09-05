@@ -44,7 +44,6 @@ class IXMLAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -54,7 +53,6 @@ class IXMLAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {

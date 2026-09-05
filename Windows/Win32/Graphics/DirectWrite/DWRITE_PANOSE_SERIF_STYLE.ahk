@@ -10,115 +10,134 @@ class DWRITE_PANOSE_SERIF_STYLE extends Win32Enum {
 
     /**
      * Any appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_ANY => 0
+    static ANY => 0
 
     /**
      * No fit appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Cove appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_COVE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_COVE => 2
+    static COVE => 2
 
     /**
      * Obtuse cove appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_OBTUSE_COVE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_OBTUSE_COVE => 3
+    static OBTUSE_COVE => 3
 
     /**
      * Square cove appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_SQUARE_COVE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_SQUARE_COVE => 4
+    static SQUARE_COVE => 4
 
     /**
      * Obtuse square cove appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_OBTUSE_SQUARE_COVE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_OBTUSE_SQUARE_COVE => 5
+    static OBTUSE_SQUARE_COVE => 5
 
     /**
      * Square appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_SQUARE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_SQUARE => 6
+    static SQUARE => 6
 
     /**
      * Thin appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_THIN
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_THIN => 7
+    static THIN => 7
 
     /**
      * Oval appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_OVAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_OVAL => 8
+    static OVAL => 8
 
     /**
      * Exaggerated appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_EXAGGERATED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_EXAGGERATED => 9
+    static EXAGGERATED => 9
 
     /**
      * Triangle appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_TRIANGLE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_TRIANGLE => 10
+    static TRIANGLE => 10
 
     /**
      * Normal sans appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_NORMAL_SANS
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_NORMAL_SANS => 11
+    static NORMAL_SANS => 11
 
     /**
      * Obtuse sans appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_OBTUSE_SANS
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_OBTUSE_SANS => 12
+    static OBTUSE_SANS => 12
 
     /**
      * Perpendicular sans appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_PERPENDICULAR_SANS
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_PERPENDICULAR_SANS => 13
+    static PERPENDICULAR_SANS => 13
 
     /**
      * Flared appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_FLARED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_FLARED => 14
+    static FLARED => 14
 
     /**
      * Rounded appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_ROUNDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_ROUNDED => 15
+    static ROUNDED => 15
 
     /**
      * Script appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_SCRIPT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_SCRIPT => 16
+    static SCRIPT => 16
 
     /**
      * Perpendicular sans appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_PERP_SANS
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_PERP_SANS => 13
+    static PERP_SANS => 13
 
     /**
      * Oval appearance of the serif text.
+     * Native name: DWRITE_PANOSE_SERIF_STYLE_BONE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SERIF_STYLE_BONE => 8
+    static BONE => 8
 }

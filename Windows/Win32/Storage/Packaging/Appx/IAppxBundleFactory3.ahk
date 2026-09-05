@@ -31,7 +31,6 @@ class IAppxBundleFactory3 extends IUnknown {
     static VTableNames => ["CreateBundleReaderFromSourceUri"]
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @param {PWSTR} expectedDigest 
      * @returns {IAppxBundleReader} 

@@ -7,17 +7,20 @@
 class HCS_OPERATION_OPTIONS extends Win32BitflagEnum {
 
     /**
+     * Native name: HcsOperationOptionNone
      * @type {Integer (Int32)}
      */
-    static HcsOperationOptionNone => 0
+    static OptionNone => 0
 
     /**
+     * Native name: HcsOperationOptionProgressUpdate
      * @type {Integer (Int32)}
      */
-    static HcsOperationOptionProgressUpdate => 1
+    static OptionProgressUpdate => 1
 
     /**
+     * Native name: HcsOperationOptionReserved1
      * @type {Integer (Int32)}
      */
-    static HcsOperationOptionReserved1 => 2
+    static OptionReserved1 => 2
 }

@@ -10,37 +10,43 @@ class SYNCMGR_RESOLUTION_ABILITIES extends Win32Enum {
 
     /**
      * The resolution handler supports merging items and will produce a merged file to keep.
+     * Native name: SYNCMGR_RA_KEEPOTHER
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RA_KEEPOTHER => 1
+    static RA_KEEPOTHER => 1
 
     /**
      * Enables methods <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keeprecent">ISyncMgrResolutionHandler::KeepRecent</a> and <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepother">ISyncMgrResolutionHandler::KeepOther</a> to be called.
+     * Native name: SYNCMGR_RA_KEEPRECENT
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RA_KEEPRECENT => 2
+    static RA_KEEPRECENT => 2
 
     /**
      * Enables method <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-removefromsyncset">ISyncMgrResolutionHandler::RemoveFromSyncSet</a> to be called.
+     * Native name: SYNCMGR_RA_REMOVEFROMSYNCSET
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RA_REMOVEFROMSYNCSET => 4
+    static RA_REMOVEFROMSYNCSET => 4
 
     /**
      * Not used.
+     * Native name: SYNCMGR_RA_KEEP_SINGLE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RA_KEEP_SINGLE => 8
+    static RA_KEEP_SINGLE => 8
 
     /**
      * Enables method <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepitems">ISyncMgrResolutionHandler::KeepItems</a> to be called with more than one item in <i>pArray</i>.
+     * Native name: SYNCMGR_RA_KEEP_MULTIPLE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RA_KEEP_MULTIPLE => 16
+    static RA_KEEP_MULTIPLE => 16
 
     /**
      * A mask for valid <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_resolution_abilities">SYNCMGR_RESOLUTION_ABILITIES</a> values.
+     * Native name: SYNCMGR_RA_VALID
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_RA_VALID => 31
+    static RA_VALID => 31
 }

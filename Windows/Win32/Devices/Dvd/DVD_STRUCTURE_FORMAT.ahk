@@ -7,19 +7,22 @@
 class DVD_STRUCTURE_FORMAT extends Win32Enum {
 
     /**
+     * Native name: DvdPhysicalDescriptor
      * @type {Integer (Int32)}
      */
-    static DvdPhysicalDescriptor => 0
+    static PhysicalDescriptor => 0
 
     /**
+     * Native name: DvdCopyrightDescriptor
      * @type {Integer (Int32)}
      */
-    static DvdCopyrightDescriptor => 1
+    static CopyrightDescriptor => 1
 
     /**
+     * Native name: DvdDiskKeyDescriptor
      * @type {Integer (Int32)}
      */
-    static DvdDiskKeyDescriptor => 2
+    static DiskKeyDescriptor => 2
 
     /**
      * @type {Integer (Int32)}
@@ -27,12 +30,14 @@ class DVD_STRUCTURE_FORMAT extends Win32Enum {
     static DvdBCADescriptor => 3
 
     /**
+     * Native name: DvdManufacturerDescriptor
      * @type {Integer (Int32)}
      */
-    static DvdManufacturerDescriptor => 4
+    static ManufacturerDescriptor => 4
 
     /**
+     * Native name: DvdMaxDescriptor
      * @type {Integer (Int32)}
      */
-    static DvdMaxDescriptor => 5
+    static MaxDescriptor => 5
 }

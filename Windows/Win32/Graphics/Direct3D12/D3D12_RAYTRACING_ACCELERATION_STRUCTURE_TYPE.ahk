@@ -12,18 +12,21 @@ class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE extends Win32Enum {
 
     /**
      * Top-level acceleration structure.
+     * Native name: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL => 0
+    static TOP_LEVEL => 0
 
     /**
      * Bottom-level acceleration structure.
+     * Native name: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL => 1
+    static BOTTOM_LEVEL => 1
 
     /**
+     * Native name: D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_OPACITY_MICROMAP_ARRAY
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_OPACITY_MICROMAP_ARRAY => 2
+    static OPACITY_MICROMAP_ARRAY => 2
 }

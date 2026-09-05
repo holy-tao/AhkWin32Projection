@@ -18,25 +18,29 @@ class BG_JOB_PRIORITY extends Win32Enum {
 
     /**
      * Transfers the job in the foreground. Foreground transfers compete for network bandwidth with other applications, which can impede the user's network experience. This is the highest priority level.
+     * Native name: BG_JOB_PRIORITY_FOREGROUND
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PRIORITY_FOREGROUND => 0
+    static FOREGROUND => 0
 
     /**
      * Transfers the job in the background with a high priority. Background transfers use idle network bandwidth of the client to transfer files. This is the highest background priority level.
+     * Native name: BG_JOB_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PRIORITY_HIGH => 1
+    static HIGH => 1
 
     /**
      * Transfers the job in the background with a normal priority. Background transfers use idle network bandwidth of the client to transfer files. This is the default priority level.
+     * Native name: BG_JOB_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PRIORITY_NORMAL => 2
+    static NORMAL => 2
 
     /**
      * Transfers the job in the background with a low priority. Background transfers use idle network bandwidth of the client to transfer files. This is the lowest background priority level.
+     * Native name: BG_JOB_PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PRIORITY_LOW => 3
+    static LOW => 3
 }

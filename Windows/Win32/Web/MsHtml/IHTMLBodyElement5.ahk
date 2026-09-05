@@ -38,7 +38,6 @@ class IHTMLBodyElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IHTMLBodyElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpopstate() {

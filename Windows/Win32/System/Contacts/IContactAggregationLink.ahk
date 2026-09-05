@@ -95,7 +95,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -104,7 +103,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -113,7 +111,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AccountId() {
@@ -122,7 +119,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAccountId 
      * @returns {HRESULT} 
      */
@@ -134,7 +130,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -143,7 +138,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsLinkResolved() {
@@ -152,7 +146,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} isLinkResolved 
      * @returns {HRESULT} 
      */
@@ -162,7 +155,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_NetworkSourceIdString() {
@@ -171,7 +163,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pNetworkSourceId 
      * @returns {HRESULT} 
      */
@@ -183,7 +174,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_RemoteObjectId() {
@@ -192,7 +182,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteObjectId 
      * @returns {HRESULT} 
      */
@@ -202,7 +191,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_ServerPerson() {
@@ -211,7 +199,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pServerPersonId 
      * @returns {HRESULT} 
      */
@@ -223,7 +210,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_ServerPersonBaseline() {
@@ -232,7 +218,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pServerPersonId 
      * @returns {HRESULT} 
      */
@@ -244,7 +229,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_SyncIdentityHash() {
@@ -253,7 +237,6 @@ class IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pSyncIdentityHash 
      * @returns {HRESULT} 
      */

@@ -7,34 +7,40 @@
 class STORAGE_CRYPTO_KEY_SIZE extends Win32Enum {
 
     /**
+     * Native name: StorageCryptoKeySizeUnknown
      * @type {Integer (Int32)}
      */
-    static StorageCryptoKeySizeUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageCryptoKeySize128Bits
      * @type {Integer (Int32)}
      */
-    static StorageCryptoKeySize128Bits => 1
+    static Size128Bits => 1
 
     /**
+     * Native name: StorageCryptoKeySize192Bits
      * @type {Integer (Int32)}
      */
-    static StorageCryptoKeySize192Bits => 2
+    static Size192Bits => 2
 
     /**
+     * Native name: StorageCryptoKeySize256Bits
      * @type {Integer (Int32)}
      */
-    static StorageCryptoKeySize256Bits => 3
+    static Size256Bits => 3
 
     /**
+     * Native name: StorageCryptoKeySize512Bits
      * @type {Integer (Int32)}
      */
-    static StorageCryptoKeySize512Bits => 4
+    static Size512Bits => 4
 
     /**
+     * Native name: StorageCryptoKeySizeMax
      * @type {Integer (Int32)}
      */
-    static StorageCryptoKeySizeMax => 5
+    static Max => 5
 
     /**
      * @type {Integer (Int32)}

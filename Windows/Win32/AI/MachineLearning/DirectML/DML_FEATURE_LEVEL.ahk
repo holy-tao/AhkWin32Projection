@@ -14,84 +14,99 @@ class DML_FEATURE_LEVEL extends Win32Enum {
 
     /**
      * Specifies feature level 1_0.
+     * Native name: DML_FEATURE_LEVEL_1_0
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_1_0 => 4096
+    static 1_0 => 4096
 
     /**
      * Specifies feature level 2_0.
+     * Native name: DML_FEATURE_LEVEL_2_0
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_2_0 => 8192
+    static 2_0 => 8192
 
     /**
      * Specifies feature level 2_1.
+     * Native name: DML_FEATURE_LEVEL_2_1
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_2_1 => 8448
+    static 2_1 => 8448
 
     /**
      * Specifies feature level 3_0.
+     * Native name: DML_FEATURE_LEVEL_3_0
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_3_0 => 12288
+    static 3_0 => 12288
 
     /**
      * Specifies feature level 3_1.
+     * Native name: DML_FEATURE_LEVEL_3_1
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_3_1 => 12544
+    static 3_1 => 12544
 
     /**
      * Specifies feature level 4_0.
+     * Native name: DML_FEATURE_LEVEL_4_0
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_4_0 => 16384
+    static 4_0 => 16384
 
     /**
      * Specifies feature level 4_1.
+     * Native name: DML_FEATURE_LEVEL_4_1
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_4_1 => 16640
+    static 4_1 => 16640
 
     /**
      * Specifies feature level 5_0.
+     * Native name: DML_FEATURE_LEVEL_5_0
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_5_0 => 20480
+    static 5_0 => 20480
 
     /**
+     * Native name: DML_FEATURE_LEVEL_5_1
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_5_1 => 20736
+    static 5_1 => 20736
 
     /**
+     * Native name: DML_FEATURE_LEVEL_5_2
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_5_2 => 20992
+    static 5_2 => 20992
 
     /**
+     * Native name: DML_FEATURE_LEVEL_6_0
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_6_0 => 24576
+    static 6_0 => 24576
 
     /**
+     * Native name: DML_FEATURE_LEVEL_6_1
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_6_1 => 24832
+    static 6_1 => 24832
 
     /**
+     * Native name: DML_FEATURE_LEVEL_6_2
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_6_2 => 25088
+    static 6_2 => 25088
 
     /**
+     * Native name: DML_FEATURE_LEVEL_6_3
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_6_3 => 25344
+    static 6_3 => 25344
 
     /**
+     * Native name: DML_FEATURE_LEVEL_6_4
      * @type {Integer (Int32)}
      */
-    static DML_FEATURE_LEVEL_6_4 => 25600
+    static 6_4 => 25600
 }

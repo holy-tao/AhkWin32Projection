@@ -36,7 +36,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     static VTableNames => ["GetExePath", "GetDesc", "RegisterComponent", "RemoveComponent", "GetComponentCount", "GetComponent", "GetPrecompileTargetCount", "GetPrecompileTargets", "GetInstallerName"]
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetExePath() {
@@ -45,7 +44,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D_SHADER_CACHE_APPLICATION_DESC} 
      */
     GetDesc() {
@@ -55,7 +53,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {PWSTR} pStateObjectDBPath 
      * @param {Integer} NumPSDB 
@@ -72,7 +69,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3DShaderCacheComponent} pComponent 
      * @returns {HRESULT} 
      */
@@ -82,7 +78,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetComponentCount() {
@@ -91,7 +86,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -102,7 +96,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {D3D_SHADER_CACHE_TARGET_FLAGS} flags 
      * @returns {Integer} 
      */
@@ -112,7 +105,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ArraySize 
      * @param {Pointer<D3D_SHADER_CACHE_COMPILER_PROPERTIES>} pArray 
      * @param {D3D_SHADER_CACHE_TARGET_FLAGS} flags 
@@ -124,7 +116,6 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetInstallerName() {

@@ -7,12 +7,14 @@
 class KSPROPERTY_QUALITY extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_QUALITY_REPORT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_QUALITY_REPORT => 0
+    static REPORT => 0
 
     /**
+     * Native name: KSPROPERTY_QUALITY_ERROR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_QUALITY_ERROR => 1
+    static ERROR => 1
 }

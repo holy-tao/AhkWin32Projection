@@ -7,27 +7,32 @@
 class IMAGEHLP_SF_TYPE extends Win32Enum {
 
     /**
+     * Native name: sfImage
      * @type {Integer (Int32)}
      */
-    static sfImage => 0
+    static Image => 0
 
     /**
+     * Native name: sfDbg
      * @type {Integer (Int32)}
      */
-    static sfDbg => 1
+    static Dbg => 1
 
     /**
+     * Native name: sfPdb
      * @type {Integer (Int32)}
      */
-    static sfPdb => 2
+    static Pdb => 2
 
     /**
+     * Native name: sfMpd
      * @type {Integer (Int32)}
      */
-    static sfMpd => 3
+    static Mpd => 3
 
     /**
+     * Native name: sfMax
      * @type {Integer (Int32)}
      */
-    static sfMax => 4
+    static Max => 4
 }

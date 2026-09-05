@@ -10,25 +10,29 @@ class MBN_MSG_STATUS extends Win32Enum {
 
     /**
      * The received message is newly arrived or unread.
+     * Native name: MBN_MSG_STATUS_NEW
      * @type {Integer (Int32)}
      */
-    static MBN_MSG_STATUS_NEW => 0
+    static NEW => 0
 
     /**
      * The received message is old and read.
+     * Native name: MBN_MSG_STATUS_OLD
      * @type {Integer (Int32)}
      */
-    static MBN_MSG_STATUS_OLD => 1
+    static OLD => 1
 
     /**
      * The outgoing message is unsent and stored in the device.
+     * Native name: MBN_MSG_STATUS_DRAFT
      * @type {Integer (Int32)}
      */
-    static MBN_MSG_STATUS_DRAFT => 2
+    static DRAFT => 2
 
     /**
      * The outgoing message is already sent.
+     * Native name: MBN_MSG_STATUS_SENT
      * @type {Integer (Int32)}
      */
-    static MBN_MSG_STATUS_SENT => 3
+    static SENT => 3
 }

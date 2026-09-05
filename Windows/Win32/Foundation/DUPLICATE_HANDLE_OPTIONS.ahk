@@ -7,12 +7,14 @@
 class DUPLICATE_HANDLE_OPTIONS extends Win32BitflagEnum {
 
     /**
+     * Native name: DUPLICATE_CLOSE_SOURCE
      * @type {Integer (UInt32)}
      */
-    static DUPLICATE_CLOSE_SOURCE => 1
+    static CLOSE_SOURCE => 1
 
     /**
+     * Native name: DUPLICATE_SAME_ACCESS
      * @type {Integer (UInt32)}
      */
-    static DUPLICATE_SAME_ACCESS => 2
+    static SAME_ACCESS => 2
 }

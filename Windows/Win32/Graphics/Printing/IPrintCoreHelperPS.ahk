@@ -30,7 +30,6 @@ class IPrintCoreHelperPS extends IPrintCoreHelper {
     static VTableNames => ["GetGlobalAttribute", "GetFeatureAttribute", "GetOptionAttribute"]
 
     /**
-     * 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
      * @param {Pointer<Pointer<Integer>>} ppbData 
@@ -49,7 +48,6 @@ class IPrintCoreHelperPS extends IPrintCoreHelper {
     }
 
     /**
-     * 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
@@ -70,7 +68,6 @@ class IPrintCoreHelperPS extends IPrintCoreHelper {
     }
 
     /**
-     * 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 
      * @param {PSTR} pszAttribute 

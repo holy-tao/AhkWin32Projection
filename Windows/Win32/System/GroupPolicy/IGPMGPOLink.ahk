@@ -84,7 +84,6 @@ class IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPOID() {
@@ -94,7 +93,6 @@ class IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPODomain() {
@@ -104,7 +102,6 @@ class IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Enabled() {
@@ -168,7 +165,6 @@ class IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Enforced() {
@@ -177,7 +173,6 @@ class IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */
@@ -187,7 +182,6 @@ class IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SOMLinkOrder() {
@@ -196,7 +190,6 @@ class IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IGPMSOM} 
      */
     get_SOM() {

@@ -90,7 +90,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechGrammarRuleStateTransitionType} 
      */
     get_Type() {
@@ -99,7 +98,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Text() {
@@ -109,7 +107,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRule} 
      */
     get_Rule() {
@@ -118,7 +115,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Weight() {
@@ -128,7 +124,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PropertyName() {
@@ -138,7 +133,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PropertyId() {
@@ -147,7 +141,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PropertyValue() {
@@ -157,7 +150,6 @@ class ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleState} 
      */
     get_NextState() {

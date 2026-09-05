@@ -31,7 +31,6 @@ class IXATransLookup2 extends IUnknown {
     static VTableNames => ["Lookup"]
 
     /**
-     * 
      * @param {Pointer<XID>} pXID 
      * @returns {ITransaction} 
      */

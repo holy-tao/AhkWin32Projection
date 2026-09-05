@@ -29,7 +29,6 @@ class IInternetPriority extends IUnknown {
     static VTableNames => ["SetPriority", "GetPriority"]
 
     /**
-     * 
      * @param {Integer} nPriority 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IInternetPriority extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {

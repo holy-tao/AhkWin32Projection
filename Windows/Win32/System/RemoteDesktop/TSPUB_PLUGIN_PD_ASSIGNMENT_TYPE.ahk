@@ -10,13 +10,15 @@ class TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE extends Win32Enum {
 
     /**
      * A new personal desktop was created for the user.
+     * Native name: TSPUB_PLUGIN_PD_ASSIGNMENT_NEW
      * @type {Integer (Int32)}
      */
-    static TSPUB_PLUGIN_PD_ASSIGNMENT_NEW => 0
+    static NEW => 0
 
     /**
      * An existing personal desktop was used for the user.
+     * Native name: TSPUB_PLUGIN_PD_ASSIGNMENT_EXISTING
      * @type {Integer (Int32)}
      */
-    static TSPUB_PLUGIN_PD_ASSIGNMENT_EXISTING => 1
+    static EXISTING => 1
 }

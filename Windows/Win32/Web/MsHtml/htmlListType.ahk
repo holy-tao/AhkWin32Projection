@@ -7,52 +7,62 @@
 class htmlListType extends Win32Enum {
 
     /**
+     * Native name: htmlListTypeNotSet
      * @type {Integer (Int32)}
      */
-    static htmlListTypeNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlListTypeLargeAlpha
      * @type {Integer (Int32)}
      */
-    static htmlListTypeLargeAlpha => 1
+    static LargeAlpha => 1
 
     /**
+     * Native name: htmlListTypeSmallAlpha
      * @type {Integer (Int32)}
      */
-    static htmlListTypeSmallAlpha => 2
+    static SmallAlpha => 2
 
     /**
+     * Native name: htmlListTypeLargeRoman
      * @type {Integer (Int32)}
      */
-    static htmlListTypeLargeRoman => 3
+    static LargeRoman => 3
 
     /**
+     * Native name: htmlListTypeSmallRoman
      * @type {Integer (Int32)}
      */
-    static htmlListTypeSmallRoman => 4
+    static SmallRoman => 4
 
     /**
+     * Native name: htmlListTypeNumbers
      * @type {Integer (Int32)}
      */
-    static htmlListTypeNumbers => 5
+    static Numbers => 5
 
     /**
+     * Native name: htmlListTypeDisc
      * @type {Integer (Int32)}
      */
-    static htmlListTypeDisc => 6
+    static Disc => 6
 
     /**
+     * Native name: htmlListTypeCircle
      * @type {Integer (Int32)}
      */
-    static htmlListTypeCircle => 7
+    static Circle => 7
 
     /**
+     * Native name: htmlListTypeSquare
      * @type {Integer (Int32)}
      */
-    static htmlListTypeSquare => 8
+    static Square => 8
 
     /**
+     * Native name: htmlListType_Max
      * @type {Integer (Int32)}
      */
-    static htmlListType_Max => 2147483647
+    static Max => 2147483647
 }

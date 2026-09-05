@@ -48,7 +48,6 @@ class IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectName() {
@@ -58,7 +57,6 @@ class IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectName 
      * @returns {HRESULT} 
      */
@@ -70,7 +68,6 @@ class IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Amount() {
@@ -79,7 +76,6 @@ class IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAmount 
      * @returns {HRESULT} 
      */

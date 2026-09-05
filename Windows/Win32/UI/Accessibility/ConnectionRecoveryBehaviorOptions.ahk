@@ -10,13 +10,15 @@ class ConnectionRecoveryBehaviorOptions extends Win32Enum {
 
     /**
      * Connection recovery is disabled.
+     * Native name: ConnectionRecoveryBehaviorOptions_Disabled
      * @type {Integer (Int32)}
      */
-    static ConnectionRecoveryBehaviorOptions_Disabled => 0
+    static Disabled => 0
 
     /**
      * Connection recovery is enabled.
+     * Native name: ConnectionRecoveryBehaviorOptions_Enabled
      * @type {Integer (Int32)}
      */
-    static ConnectionRecoveryBehaviorOptions_Enabled => 1
+    static Enabled => 1
 }

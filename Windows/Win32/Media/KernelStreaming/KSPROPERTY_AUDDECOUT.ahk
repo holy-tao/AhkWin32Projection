@@ -7,12 +7,14 @@
 class KSPROPERTY_AUDDECOUT extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_AUDDECOUT_MODES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDDECOUT_MODES => 0
+    static MODES => 0
 
     /**
+     * Native name: KSPROPERTY_AUDDECOUT_CUR_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDDECOUT_CUR_MODE => 1
+    static CUR_MODE => 1
 }

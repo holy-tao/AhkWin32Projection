@@ -109,7 +109,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -119,7 +118,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTileID 
      * @returns {HRESULT} 
      */
@@ -129,7 +127,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_NextSchedule() {
@@ -139,7 +136,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {FILETIME} ftNextSchedule 
      * @returns {HRESULT} 
      */
@@ -149,7 +145,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_StartSchedule() {
@@ -159,7 +154,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {FILETIME} ftStartSchedule 
      * @returns {HRESULT} 
      */
@@ -169,7 +163,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IntervalDuration() {
@@ -178,7 +171,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulIntervalDuration 
      * @returns {HRESULT} 
      */
@@ -188,7 +180,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_RunForever() {
@@ -197,7 +188,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fRunForever 
      * @returns {HRESULT} 
      */
@@ -207,7 +197,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxRunCount() {
@@ -216,7 +205,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulMaxRunCount 
      * @returns {HRESULT} 
      */
@@ -226,7 +214,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RunCount() {
@@ -235,7 +222,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRunCount 
      * @returns {HRESULT} 
      */
@@ -245,7 +231,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RecurrenceType() {
@@ -254,7 +239,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRecurrenceType 
      * @returns {HRESULT} 
      */
@@ -264,7 +248,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} pTileXml 
      * @param {Pointer<Integer>} pcbTileXml 
      * @returns {HRESULT} 
@@ -278,7 +261,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pTileXml 
      * @param {Integer} cbTileXml 
      * @returns {HRESULT} 
@@ -291,7 +273,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} pUrlXML 
      * @param {Pointer<Integer>} pcbUrlXML 
      * @returns {HRESULT} 
@@ -305,7 +286,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pUrlXML 
      * @param {Integer} cbUrlXML 
      * @returns {HRESULT} 
@@ -318,7 +298,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AttemptCount() {
@@ -327,7 +306,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulAttemptCount 
      * @returns {HRESULT} 
      */
@@ -337,7 +315,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DownloadState() {
@@ -346,7 +323,6 @@ class IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulDownloadState 
      * @returns {HRESULT} 
      */

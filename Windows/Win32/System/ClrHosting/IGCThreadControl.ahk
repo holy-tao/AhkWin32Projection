@@ -29,7 +29,6 @@ class IGCThreadControl extends IUnknown {
     static VTableNames => ["ThreadIsBlockingForSuspension", "SuspensionStarting", "SuspensionEnding"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ThreadIsBlockingForSuspension() {
@@ -38,7 +37,6 @@ class IGCThreadControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SuspensionStarting() {
@@ -47,7 +45,6 @@ class IGCThreadControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Generation 
      * @returns {HRESULT} 
      */

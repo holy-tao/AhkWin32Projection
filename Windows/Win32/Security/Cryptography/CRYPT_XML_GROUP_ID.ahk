@@ -7,12 +7,14 @@
 class CRYPT_XML_GROUP_ID extends Win32Enum {
 
     /**
+     * Native name: CRYPT_XML_GROUP_ID_HASH
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_GROUP_ID_HASH => 1
+    static HASH => 1
 
     /**
+     * Native name: CRYPT_XML_GROUP_ID_SIGN
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_GROUP_ID_SIGN => 2
+    static SIGN => 2
 }

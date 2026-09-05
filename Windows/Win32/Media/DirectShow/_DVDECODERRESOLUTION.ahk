@@ -7,22 +7,26 @@
 class _DVDECODERRESOLUTION extends Win32Enum {
 
     /**
+     * Native name: DVDECODERRESOLUTION_720x480
      * @type {Integer (Int32)}
      */
-    static DVDECODERRESOLUTION_720x480 => 1000
+    static 720x480 => 1000
 
     /**
+     * Native name: DVDECODERRESOLUTION_360x240
      * @type {Integer (Int32)}
      */
-    static DVDECODERRESOLUTION_360x240 => 1001
+    static 360x240 => 1001
 
     /**
+     * Native name: DVDECODERRESOLUTION_180x120
      * @type {Integer (Int32)}
      */
-    static DVDECODERRESOLUTION_180x120 => 1002
+    static 180x120 => 1002
 
     /**
+     * Native name: DVDECODERRESOLUTION_88x60
      * @type {Integer (Int32)}
      */
-    static DVDECODERRESOLUTION_88x60 => 1003
+    static 88x60 => 1003
 }

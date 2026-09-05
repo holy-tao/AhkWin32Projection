@@ -35,7 +35,6 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     static VTableNames => ["EventPipeStartSession", "EventPipeAddProviderToSession", "EventPipeStopSession", "EventPipeCreateProvider", "EventPipeGetProviderInfo", "EventPipeDefineEvent", "EventPipeWriteEvent"]
 
     /**
-     * 
      * @param {Integer} cProviderConfigs 
      * @param {Pointer<COR_PRF_EVENTPIPE_PROVIDER_CONFIG>} pProviderConfigs 
      * @param {BOOL} requestRundown 
@@ -47,7 +46,6 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Integer} session 
      * @param {COR_PRF_EVENTPIPE_PROVIDER_CONFIG} providerConfig 
      * @returns {HRESULT} 
@@ -58,7 +56,6 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Integer} session 
      * @returns {HRESULT} 
      */
@@ -68,7 +65,6 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {PWSTR} providerName 
      * @returns {Pointer} 
      */
@@ -80,7 +76,6 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Pointer} provider 
      * @param {Integer} cchName 
      * @param {PWSTR} providerName 
@@ -94,7 +89,6 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Pointer} provider 
      * @param {PWSTR} eventName 
      * @param {Integer} eventID 
@@ -115,7 +109,6 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Pointer} event 
      * @param {Integer} cData 
      * @param {Pointer<COR_PRF_EVENT_DATA>} data 

@@ -153,7 +153,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_QueueGuid() {
@@ -163,7 +162,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServiceTypeGuid() {
@@ -173,7 +171,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGuidServiceType 
      * @returns {HRESULT} 
      */
@@ -185,7 +182,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Label() {
@@ -195,7 +191,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLabel 
      * @returns {HRESULT} 
      */
@@ -207,7 +202,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PathName() {
@@ -217,7 +211,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPathName 
      * @returns {HRESULT} 
      */
@@ -229,7 +222,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FormatName() {
@@ -239,7 +231,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFormatName 
      * @returns {HRESULT} 
      */
@@ -251,7 +242,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsTransactional() {
@@ -260,7 +250,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PrivLevel() {
@@ -269,7 +258,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lPrivLevel 
      * @returns {HRESULT} 
      */
@@ -279,7 +267,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Journal() {
@@ -288,7 +275,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lJournal 
      * @returns {HRESULT} 
      */
@@ -298,7 +284,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Quota() {
@@ -307,7 +292,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lQuota 
      * @returns {HRESULT} 
      */
@@ -317,7 +301,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BasePriority() {
@@ -326,7 +309,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lBasePriority 
      * @returns {HRESULT} 
      */
@@ -336,7 +318,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CreateTime() {
@@ -346,7 +327,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ModifyTime() {
@@ -356,7 +336,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Authenticate() {
@@ -365,7 +344,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAuthenticate 
      * @returns {HRESULT} 
      */
@@ -375,7 +353,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JournalQuota() {
@@ -384,7 +361,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lJournalQuota 
      * @returns {HRESULT} 
      */
@@ -394,7 +370,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsWorldReadable() {
@@ -415,7 +390,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -424,7 +398,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Access 
      * @param {Integer} ShareMode 
      * @returns {IMSMQQueue} 
@@ -435,7 +408,6 @@ class IMSMQQueueInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {

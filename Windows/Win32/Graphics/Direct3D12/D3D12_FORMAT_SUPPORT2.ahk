@@ -12,83 +12,97 @@ class D3D12_FORMAT_SUPPORT2 extends Win32BitflagEnum {
 
     /**
      * No unordered resource options are supported.
+     * Native name: D3D12_FORMAT_SUPPORT2_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_NONE => 0
+    static NONE => 0
 
     /**
      * Format supports atomic add.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_ADD
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_ADD => 1
+    static UAV_ATOMIC_ADD => 1
 
     /**
      * Format supports atomic bitwise operations.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_BITWISE_OPS => 2
+    static UAV_ATOMIC_BITWISE_OPS => 2
 
     /**
      * Format supports atomic compare with store or exchange.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE => 4
+    static UAV_ATOMIC_COMPARE_STORE_OR_COMPARE_EXCHANGE => 4
 
     /**
      * Format supports atomic exchange.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_EXCHANGE => 8
+    static UAV_ATOMIC_EXCHANGE => 8
 
     /**
      * Format supports atomic min and max.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_SIGNED_MIN_OR_MAX => 16
+    static UAV_ATOMIC_SIGNED_MIN_OR_MAX => 16
 
     /**
      * Format supports atomic unsigned min and max.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_ATOMIC_UNSIGNED_MIN_OR_MAX => 32
+    static UAV_ATOMIC_UNSIGNED_MIN_OR_MAX => 32
 
     /**
      * Format supports a typed load.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_TYPED_LOAD
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_TYPED_LOAD => 64
+    static UAV_TYPED_LOAD => 64
 
     /**
      * Format supports a typed store.
+     * Native name: D3D12_FORMAT_SUPPORT2_UAV_TYPED_STORE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_UAV_TYPED_STORE => 128
+    static UAV_TYPED_STORE => 128
 
     /**
      * Format supports logic operations in blend state.
+     * Native name: D3D12_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP => 256
+    static OUTPUT_MERGER_LOGIC_OP => 256
 
     /**
      * Format supports tiled resources. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/volume-tiled-resources">Volume Tiled Resources</a>.
+     * Native name: D3D12_FORMAT_SUPPORT2_TILED
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_TILED => 512
+    static TILED => 512
 
     /**
      * Format supports multi-plane overlays.
+     * Native name: D3D12_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_MULTIPLANE_OVERLAY => 16384
+    static MULTIPLANE_OVERLAY => 16384
 
     /**
+     * Native name: D3D12_FORMAT_SUPPORT2_SAMPLER_FEEDBACK
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_SAMPLER_FEEDBACK => 32768
+    static SAMPLER_FEEDBACK => 32768
 
     /**
+     * Native name: D3D12_FORMAT_SUPPORT2_DISPLAYABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_FORMAT_SUPPORT2_DISPLAYABLE => 65536
+    static DISPLAYABLE => 65536
 }

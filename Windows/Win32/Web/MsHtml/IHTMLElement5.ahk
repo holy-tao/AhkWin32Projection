@@ -265,7 +265,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrname 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -277,7 +276,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pattr 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -287,7 +285,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pattr 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -297,7 +294,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -309,7 +305,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -321,7 +316,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_role() {
@@ -331,7 +325,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -343,7 +336,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaBusy() {
@@ -353,7 +345,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -365,7 +356,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaChecked() {
@@ -375,7 +365,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -387,7 +376,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaDisabled() {
@@ -397,7 +385,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -409,7 +396,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaExpanded() {
@@ -419,7 +405,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -431,7 +416,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaHaspopup() {
@@ -441,7 +425,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -453,7 +436,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaHidden() {
@@ -463,7 +445,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -475,7 +456,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaInvalid() {
@@ -485,7 +465,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -497,7 +476,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaMultiselectable() {
@@ -507,7 +485,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -519,7 +496,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaPressed() {
@@ -529,7 +505,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -541,7 +516,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaReadonly() {
@@ -551,7 +525,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -563,7 +536,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaRequired() {
@@ -573,7 +545,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -585,7 +556,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaSecret() {
@@ -595,7 +565,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -607,7 +576,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaSelected() {
@@ -617,7 +585,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @returns {VARIANT} 
      */
@@ -630,7 +597,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 
      * @returns {HRESULT} 
@@ -643,7 +609,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @returns {VARIANT_BOOL} 
      */
@@ -655,7 +620,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLAttributeCollection3} 
      */
     get_attributes() {
@@ -664,7 +628,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -676,7 +639,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaValuenow() {
@@ -686,7 +648,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -696,7 +657,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ariaPosinset() {
@@ -705,7 +665,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -715,7 +674,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ariaSetsize() {
@@ -724,7 +682,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -734,7 +691,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ariaLevel() {
@@ -743,7 +699,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -755,7 +710,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaValuemin() {
@@ -765,7 +719,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -777,7 +730,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaValuemax() {
@@ -787,7 +739,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -799,7 +750,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaControls() {
@@ -809,7 +759,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -821,7 +770,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaDescribedby() {
@@ -831,7 +779,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -843,7 +790,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaFlowto() {
@@ -853,7 +799,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -865,7 +810,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaLabelledby() {
@@ -875,7 +819,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -887,7 +830,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaActivedescendant() {
@@ -897,7 +839,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -909,7 +850,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaOwns() {
@@ -919,7 +859,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
@@ -928,7 +867,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -940,7 +878,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaLive() {
@@ -950,7 +887,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -962,7 +898,6 @@ class IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaRelevant() {

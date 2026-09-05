@@ -400,7 +400,6 @@ class MobileDeviceManagementRegistration {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static IsMdmUxWithoutAadAllowed() {
@@ -475,7 +474,6 @@ class MobileDeviceManagementRegistration {
     }
 
     /**
-     * 
      * @param {PWSTR} MDMApplicationID 
      * @returns {HRESULT} 
      */
@@ -626,7 +624,6 @@ class MobileDeviceManagementRegistration {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static RegisterDeviceWithLocalManagement() {
@@ -635,7 +632,6 @@ class MobileDeviceManagementRegistration {
     }
 
     /**
-     * 
      * @param {PWSTR} syncMLRequest 
      * @returns {PWSTR} 
      */
@@ -647,7 +643,6 @@ class MobileDeviceManagementRegistration {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static UnregisterDeviceWithLocalManagement() {

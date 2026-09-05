@@ -192,7 +192,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_City() {
@@ -202,7 +201,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCity 
      * @returns {HRESULT} 
      */
@@ -238,7 +236,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Country() {
@@ -248,7 +245,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCountry 
      * @returns {HRESULT} 
      */
@@ -452,7 +448,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_State() {
@@ -462,7 +457,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrState 
      * @returns {HRESULT} 
      */
@@ -526,7 +520,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ZipCode() {
@@ -536,7 +529,6 @@ class IFaxSender extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrZipCode 
      * @returns {HRESULT} 
      */

@@ -7,52 +7,62 @@
 class SERVICE_CONFIG extends Win32Enum {
 
     /**
+     * Native name: SERVICE_CONFIG_DELAYED_AUTO_START_INFO
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_DELAYED_AUTO_START_INFO => 3
+    static DELAYED_AUTO_START_INFO => 3
 
     /**
+     * Native name: SERVICE_CONFIG_DESCRIPTION
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_DESCRIPTION => 1
+    static DESCRIPTION => 1
 
     /**
+     * Native name: SERVICE_CONFIG_FAILURE_ACTIONS
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_FAILURE_ACTIONS => 2
+    static FAILURE_ACTIONS => 2
 
     /**
+     * Native name: SERVICE_CONFIG_FAILURE_ACTIONS_FLAG
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_FAILURE_ACTIONS_FLAG => 4
+    static FAILURE_ACTIONS_FLAG => 4
 
     /**
+     * Native name: SERVICE_CONFIG_PREFERRED_NODE
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_PREFERRED_NODE => 9
+    static PREFERRED_NODE => 9
 
     /**
+     * Native name: SERVICE_CONFIG_PRESHUTDOWN_INFO
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_PRESHUTDOWN_INFO => 7
+    static PRESHUTDOWN_INFO => 7
 
     /**
+     * Native name: SERVICE_CONFIG_REQUIRED_PRIVILEGES_INFO
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_REQUIRED_PRIVILEGES_INFO => 6
+    static REQUIRED_PRIVILEGES_INFO => 6
 
     /**
+     * Native name: SERVICE_CONFIG_SERVICE_SID_INFO
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_SERVICE_SID_INFO => 5
+    static SERVICE_SID_INFO => 5
 
     /**
+     * Native name: SERVICE_CONFIG_TRIGGER_INFO
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_TRIGGER_INFO => 8
+    static TRIGGER_INFO => 8
 
     /**
+     * Native name: SERVICE_CONFIG_LAUNCH_PROTECTED
      * @type {Integer (UInt32)}
      */
-    static SERVICE_CONFIG_LAUNCH_PROTECTED => 12
+    static LAUNCH_PROTECTED => 12
 }

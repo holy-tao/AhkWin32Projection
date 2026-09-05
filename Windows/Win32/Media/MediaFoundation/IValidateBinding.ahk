@@ -30,7 +30,6 @@ class IValidateBinding extends IUnknown {
     static VTableNames => ["GetIdentifier"]
 
     /**
-     * 
      * @param {Guid} guidLicensorID 
      * @param {Pointer<Integer>} pbEphemeron 
      * @param {Integer} cbEphemeron 

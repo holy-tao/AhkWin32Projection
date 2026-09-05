@@ -17128,7 +17128,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} dwShareMode 
@@ -17145,7 +17144,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSTR} lpPathName 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} dwShareMode 
@@ -17162,7 +17160,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} lpPathName 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} dwShareMode 
@@ -17179,7 +17176,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSTR} lpPathName 
      * @param {DIRECTORY_FLAGS} DirectoryFlags 
      * @returns {BOOL} 
@@ -17192,7 +17188,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} lpPathName 
      * @param {DIRECTORY_FLAGS} DirectoryFlags 
      * @returns {BOOL} 
@@ -17205,7 +17200,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PSTR} lpFileName 
      * @param {Integer} Flags 
      * @returns {BOOL} 
@@ -17218,7 +17212,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @param {Integer} Flags 
      * @returns {BOOL} 
@@ -19573,7 +19566,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn1 
      * @param {Pointer<CLS_LSN>} plsn2 
      * @returns {BOOLEAN} 
@@ -19584,7 +19576,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn1 
      * @param {Pointer<CLS_LSN>} plsn2 
      * @returns {BOOLEAN} 
@@ -19595,7 +19586,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn1 
      * @param {Pointer<CLS_LSN>} plsn2 
      * @returns {BOOLEAN} 
@@ -19606,7 +19596,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {BOOLEAN} 
      */
@@ -19668,7 +19657,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {BOOLEAN} 
      */
@@ -19678,7 +19666,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<CLS_LSN>} plsn 
      * @returns {CLS_LSN} 
      */
@@ -20689,7 +20676,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMarshal 
      * @param {Pointer<Integer>} pcbRecordNumber 
      * @param {Pointer<Integer>} pcbUserReservation 
@@ -22221,7 +22207,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<ENCRYPTION_CERTIFICATE>} pEncryptionCertificate 
      * @param {Integer} dwCapabilities 
      * @param {Integer} dwFlags 
@@ -22522,7 +22507,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @param {Pointer<Integer>} pcbMetadata 
      * @param {Pointer<Pointer<Integer>>} ppbMetadata 
@@ -22539,7 +22523,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @param {Pointer<Integer>} pbOldMetadata 
      * @param {Pointer<Integer>} pbNewMetadata 
@@ -22559,7 +22542,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbMetadata 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22570,7 +22552,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static LZStart() {
@@ -22579,7 +22560,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static LZDone() {
@@ -22587,7 +22567,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} hfSource 
      * @param {Integer} hfDest 
      * @returns {Integer} 
@@ -24234,7 +24213,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<TXF_ID>} TxfFileId 
      * @param {Pointer<CLS_LSN>} LastLsn 
@@ -24252,7 +24230,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Integer} RecordBuffer 
      * @param {Integer} RecordBufferLengthInBytes 
      * @param {Integer} NameBuffer 
@@ -24268,7 +24245,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RecordBuffer 
      * @param {Integer} RecordBufferLengthInBytes 
      * @param {Pointer<Integer>} GenericType 
@@ -25795,7 +25771,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -26141,7 +26116,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} netname 
      * @returns {Integer} 
@@ -26364,7 +26338,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf 
@@ -26380,7 +26353,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf 
@@ -26396,7 +26368,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -27382,7 +27353,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HIORING} ioRing 
      * @param {IORING_HANDLE_REF} fileRef 
      * @param {IORING_BUFFER_REF} bufferRef 
@@ -27401,7 +27371,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HIORING} ioRing 
      * @param {IORING_HANDLE_REF} fileRef 
      * @param {FILE_FLUSH_MODE} flushMode 
@@ -27417,7 +27386,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HIORING} ioRing 
      * @param {IORING_HANDLE_REF} fileRef 
      * @param {Integer} segmentCount 
@@ -27436,7 +27404,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {HIORING} ioRing 
      * @param {IORING_HANDLE_REF} fileRef 
      * @param {Integer} segmentCount 
@@ -27456,7 +27423,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} virtualPath 
      * @param {PWSTR} backingPath 
      * @param {CREATE_BIND_LINK_FLAGS} createBindLinkFlags 
@@ -27475,7 +27441,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} virtualPath 
      * @returns {HRESULT} 
      */
@@ -44170,7 +44135,6 @@ class FileSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {FILE_INFO_BY_NAME_CLASS} FileInformationClass 
      * @param {Integer} FileInfoBuffer 

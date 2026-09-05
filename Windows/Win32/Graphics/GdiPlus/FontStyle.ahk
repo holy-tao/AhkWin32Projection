@@ -7,32 +7,38 @@
 class FontStyle extends Win32Enum {
 
     /**
+     * Native name: FontStyleRegular
      * @type {Integer (Int32)}
      */
-    static FontStyleRegular => 0
+    static Regular => 0
 
     /**
+     * Native name: FontStyleBold
      * @type {Integer (Int32)}
      */
-    static FontStyleBold => 1
+    static Bold => 1
 
     /**
+     * Native name: FontStyleItalic
      * @type {Integer (Int32)}
      */
-    static FontStyleItalic => 2
+    static Italic => 2
 
     /**
+     * Native name: FontStyleBoldItalic
      * @type {Integer (Int32)}
      */
-    static FontStyleBoldItalic => 3
+    static BoldItalic => 3
 
     /**
+     * Native name: FontStyleUnderline
      * @type {Integer (Int32)}
      */
-    static FontStyleUnderline => 4
+    static Underline => 4
 
     /**
+     * Native name: FontStyleStrikeout
      * @type {Integer (Int32)}
      */
-    static FontStyleStrikeout => 8
+    static Strikeout => 8
 }

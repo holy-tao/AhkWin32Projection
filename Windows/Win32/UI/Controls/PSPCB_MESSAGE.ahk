@@ -7,22 +7,26 @@
 class PSPCB_MESSAGE extends Win32Enum {
 
     /**
+     * Native name: PSPCB_ADDREF
      * @type {Integer (UInt32)}
      */
-    static PSPCB_ADDREF => 0
+    static ADDREF => 0
 
     /**
+     * Native name: PSPCB_CREATE
      * @type {Integer (UInt32)}
      */
-    static PSPCB_CREATE => 2
+    static CREATE => 2
 
     /**
+     * Native name: PSPCB_RELEASE
      * @type {Integer (UInt32)}
      */
-    static PSPCB_RELEASE => 1
+    static RELEASE => 1
 
     /**
+     * Native name: PSPCB_SI_INITDIALOG
      * @type {Integer (UInt32)}
      */
-    static PSPCB_SI_INITDIALOG => 1025
+    static SI_INITDIALOG => 1025
 }

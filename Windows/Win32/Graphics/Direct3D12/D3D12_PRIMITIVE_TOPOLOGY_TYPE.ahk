@@ -12,31 +12,36 @@ class D3D12_PRIMITIVE_TOPOLOGY_TYPE extends Win32Enum {
 
     /**
      * The shader has not been initialized with an input primitive type.
+     * Native name: D3D12_PRIMITIVE_TOPOLOGY_TYPE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D12_PRIMITIVE_TOPOLOGY_TYPE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * Interpret the input primitive as a point.
+     * Native name: D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT
      * @type {Integer (Int32)}
      */
-    static D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT => 1
+    static POINT => 1
 
     /**
      * Interpret the input primitive as a line.
+     * Native name: D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE
      * @type {Integer (Int32)}
      */
-    static D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE => 2
+    static LINE => 2
 
     /**
      * Interpret the input primitive as a triangle.
+     * Native name: D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
      * @type {Integer (Int32)}
      */
-    static D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE => 3
+    static TRIANGLE => 3
 
     /**
      * Interpret the input primitive as a control point patch.
+     * Native name: D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH
      * @type {Integer (Int32)}
      */
-    static D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH => 4
+    static PATCH => 4
 }

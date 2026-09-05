@@ -9,22 +9,26 @@
 class NS_REQS extends Win32Enum {
 
     /**
+     * Native name: NS_REQ_ZERO
      * @type {Integer (Int32)}
      */
-    static NS_REQ_ZERO => 0
+    static REQ_ZERO => 0
 
     /**
+     * Native name: NS_REQ_PRESENT
      * @type {Integer (Int32)}
      */
-    static NS_REQ_PRESENT => 1
+    static REQ_PRESENT => 1
 
     /**
+     * Native name: NS_REQ_ALLOW_MULTIPLE
      * @type {Integer (Int32)}
      */
-    static NS_REQ_ALLOW_MULTIPLE => 2
+    static REQ_ALLOW_MULTIPLE => 2
 
     /**
+     * Native name: NS_REQ_ONE_OR_MORE
      * @type {Integer (Int32)}
      */
-    static NS_REQ_ONE_OR_MORE => 3
+    static REQ_ONE_OR_MORE => 3
 }

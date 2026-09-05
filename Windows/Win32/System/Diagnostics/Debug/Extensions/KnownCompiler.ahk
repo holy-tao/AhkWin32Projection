@@ -7,9 +7,10 @@
 class KnownCompiler extends Win32Enum {
 
     /**
+     * Native name: CompilerUnknown
      * @type {Integer (Int32)}
      */
-    static CompilerUnknown => 0
+    static Unknown => 0
 
     /**
      * @type {Integer (Int32)}
@@ -22,12 +23,14 @@ class KnownCompiler extends Win32Enum {
     static CompilerGCC => 2
 
     /**
+     * Native name: CompilerClang
      * @type {Integer (Int32)}
      */
-    static CompilerClang => 3
+    static Clang => 3
 
     /**
+     * Native name: CompilerRustC
      * @type {Integer (Int32)}
      */
-    static CompilerRustC => 4
+    static RustC => 4
 }

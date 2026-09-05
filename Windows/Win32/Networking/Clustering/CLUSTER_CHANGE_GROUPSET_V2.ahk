@@ -10,60 +10,70 @@ class CLUSTER_CHANGE_GROUPSET_V2 extends Win32Enum {
 
     /**
      * Indicates that a groupset was deleted.
+     * Native name: CLUSTER_CHANGE_GROUPSET_DELETED_v2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_DELETED_v2 => 1
+    static DELETED_v2 => 1
 
     /**
      * Indicates that a common property of the groupset has changed.
+     * Native name: CLUSTER_CHANGE_GROUPSET_COMMON_PROPERTY_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_COMMON_PROPERTY_V2 => 2
+    static COMMON_PROPERTY_V2 => 2
 
     /**
      * Indicates that a private property of the groupset has changed.
+     * Native name: CLUSTER_CHANGE_GROUPSET_PRIVATE_PROPERTY_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_PRIVATE_PROPERTY_V2 => 4
+    static PRIVATE_PROPERTY_V2 => 4
 
     /**
      * Indicates that the group's state changed.
+     * Native name: CLUSTER_CHANGE_GROUPSET_STATE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_STATE_V2 => 8
+    static STATE_V2 => 8
 
     /**
      * Indicates that a group has been added to the groupset.
+     * Native name: CLUSTER_CHANGE_GROUPSET_GROUP_ADDED
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_GROUP_ADDED => 16
+    static GROUP_ADDED => 16
 
     /**
      * Indicates that a group has been removed from the groupset.
+     * Native name: CLUSTER_CHANGE_GROUPSET_GROUP_REMOVED
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_GROUP_REMOVED => 32
+    static GROUP_REMOVED => 32
 
     /**
      * Indicates that the groupset's dependencies have changed.
+     * Native name: CLUSTER_CHANGE_GROUPSET_DEPENDENCIES_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_DEPENDENCIES_V2 => 64
+    static DEPENDENCIES_V2 => 64
 
     /**
      * Indicates that the groupset's dependents have changed.
+     * Native name: CLUSTER_CHANGE_GROUPSET_DEPENDENTS_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_DEPENDENTS_V2 => 128
+    static DEPENDENTS_V2 => 128
 
     /**
      * Indicates that the group's context handle was closed.
+     * Native name: CLUSTER_CHANGE_GROUPSET_HANDLE_CLOSE_v2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_HANDLE_CLOSE_v2 => 256
+    static HANDLE_CLOSE_v2 => 256
 
     /**
+     * Native name: CLUSTER_CHANGE_GROUPSET_ALL_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUPSET_ALL_V2 => 511
+    static ALL_V2 => 511
 }

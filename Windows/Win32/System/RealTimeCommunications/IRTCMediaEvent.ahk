@@ -52,7 +52,6 @@ class IRTCMediaEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MediaType() {
@@ -61,7 +60,6 @@ class IRTCMediaEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MEDIA_EVENT_TYPE} 
      */
     get_EventType() {
@@ -70,7 +68,6 @@ class IRTCMediaEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MEDIA_EVENT_REASON} 
      */
     get_EventReason() {

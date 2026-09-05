@@ -38,7 +38,6 @@ class IHTMLAreasCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -47,7 +46,6 @@ class IHTMLAreasCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLElement2} 
      */
@@ -57,7 +55,6 @@ class IHTMLAreasCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IHTMLElement2} 
      */

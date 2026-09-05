@@ -12,13 +12,15 @@ class D3D10_FILL_MODE extends Win32Enum {
 
     /**
      * Draw lines connecting the vertices. <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-primitive-topologies">Adjacent vertices</a> are not drawn.
+     * Native name: D3D10_FILL_WIREFRAME
      * @type {Integer (Int32)}
      */
-    static D3D10_FILL_WIREFRAME => 2
+    static WIREFRAME => 2
 
     /**
      * Fill the triangles formed by the vertices. Adjacent vertices are not drawn.
+     * Native name: D3D10_FILL_SOLID
      * @type {Integer (Int32)}
      */
-    static D3D10_FILL_SOLID => 3
+    static SOLID => 3
 }

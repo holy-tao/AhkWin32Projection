@@ -7,27 +7,32 @@
 class KS_MPEG2Profile extends Win32Enum {
 
     /**
+     * Native name: KS_MPEG2Profile_Simple
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Profile_Simple => 0
+    static Simple => 0
 
     /**
+     * Native name: KS_MPEG2Profile_Main
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Profile_Main => 1
+    static Main => 1
 
     /**
+     * Native name: KS_MPEG2Profile_SNRScalable
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Profile_SNRScalable => 2
+    static SNRScalable => 2
 
     /**
+     * Native name: KS_MPEG2Profile_SpatiallyScalable
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Profile_SpatiallyScalable => 3
+    static SpatiallyScalable => 3
 
     /**
+     * Native name: KS_MPEG2Profile_High
      * @type {Integer (Int32)}
      */
-    static KS_MPEG2Profile_High => 4
+    static High => 4
 }

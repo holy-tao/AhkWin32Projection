@@ -31,7 +31,6 @@ class IXpsRasterizer extends IUnknown {
     static VTableNames => ["RasterizeRect", "SetMinimalLineWidth"]
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
@@ -45,7 +44,6 @@ class IXpsRasterizer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} width 
      * @returns {HRESULT} 
      */

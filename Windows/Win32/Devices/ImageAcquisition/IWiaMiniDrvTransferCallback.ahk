@@ -32,7 +32,6 @@ class IWiaMiniDrvTransferCallback extends IUnknown {
     static VTableNames => ["GetNextStream", "SendMessage"]
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @param {BSTR} bstrItemName 
      * @param {BSTR} bstrFullItemName 

@@ -7,17 +7,20 @@
 class ExtensionValidationContexts extends Win32Enum {
 
     /**
+     * Native name: ExtensionValidationContextNone
      * @type {Integer (Int32)}
      */
-    static ExtensionValidationContextNone => 0
+    static ContextNone => 0
 
     /**
+     * Native name: ExtensionValidationContextDynamic
      * @type {Integer (Int32)}
      */
-    static ExtensionValidationContextDynamic => 1
+    static ContextDynamic => 1
 
     /**
+     * Native name: ExtensionValidationContextParsed
      * @type {Integer (Int32)}
      */
-    static ExtensionValidationContextParsed => 2
+    static ContextParsed => 2
 }

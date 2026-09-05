@@ -30,7 +30,6 @@ class IEnumInputContext extends IUnknown {
     static VTableNames => ["Clone", "Next", "Reset", "Skip"]
 
     /**
-     * 
      * @returns {IEnumInputContext} 
      */
     Clone() {
@@ -39,7 +38,6 @@ class IEnumInputContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<HIMC>} rgInputContext 
      * @param {Pointer<Integer>} pcFetched 
@@ -53,7 +51,6 @@ class IEnumInputContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -62,7 +59,6 @@ class IEnumInputContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @returns {HRESULT} 
      */

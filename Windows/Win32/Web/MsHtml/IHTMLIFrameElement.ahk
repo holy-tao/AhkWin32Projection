@@ -54,7 +54,6 @@ class IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -73,7 +71,6 @@ class IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -83,7 +80,6 @@ class IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -92,7 +88,6 @@ class IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +99,6 @@ class IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {

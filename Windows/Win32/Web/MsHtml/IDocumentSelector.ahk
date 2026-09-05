@@ -32,7 +32,6 @@ class IDocumentSelector extends IDispatch {
     static VTableNames => ["querySelector", "querySelectorAll"]
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElement} 
      */
@@ -44,7 +43,6 @@ class IDocumentSelector extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLDOMChildrenCollection} 
      */

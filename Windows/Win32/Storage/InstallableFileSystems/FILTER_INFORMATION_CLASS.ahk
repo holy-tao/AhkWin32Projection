@@ -7,17 +7,20 @@
 class FILTER_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: FilterFullInformation
      * @type {Integer (Int32)}
      */
-    static FilterFullInformation => 0
+    static FullInformation => 0
 
     /**
+     * Native name: FilterAggregateBasicInformation
      * @type {Integer (Int32)}
      */
-    static FilterAggregateBasicInformation => 1
+    static AggregateBasicInformation => 1
 
     /**
+     * Native name: FilterAggregateStandardInformation
      * @type {Integer (Int32)}
      */
-    static FilterAggregateStandardInformation => 2
+    static AggregateStandardInformation => 2
 }

@@ -30,7 +30,6 @@ class IPhotoProgressActionCB extends IUnknown {
     static VTableNames => ["DoAction"]
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @returns {HRESULT} 
      */

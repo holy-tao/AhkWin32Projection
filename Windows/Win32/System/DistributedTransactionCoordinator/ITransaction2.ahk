@@ -30,7 +30,6 @@ class ITransaction2 extends ITransactionCloner {
     static VTableNames => ["GetTransactionInfo2"]
 
     /**
-     * 
      * @returns {XACTTRANSINFO} 
      */
     GetTransactionInfo2() {

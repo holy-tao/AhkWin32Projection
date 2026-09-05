@@ -7,17 +7,20 @@
 class msidbServiceConfigEvent extends Win32Enum {
 
     /**
+     * Native name: msidbServiceConfigEventInstall
      * @type {Integer (Int32)}
      */
-    static msidbServiceConfigEventInstall => 1
+    static Install => 1
 
     /**
+     * Native name: msidbServiceConfigEventUninstall
      * @type {Integer (Int32)}
      */
-    static msidbServiceConfigEventUninstall => 2
+    static Uninstall => 2
 
     /**
+     * Native name: msidbServiceConfigEventReinstall
      * @type {Integer (Int32)}
      */
-    static msidbServiceConfigEventReinstall => 4
+    static Reinstall => 4
 }

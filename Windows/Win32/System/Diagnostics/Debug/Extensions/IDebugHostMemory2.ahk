@@ -31,7 +31,6 @@ class IDebugHostMemory2 extends IDebugHostMemory {
     static VTableNames => ["LinearizeLocation"]
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @returns {Location} 

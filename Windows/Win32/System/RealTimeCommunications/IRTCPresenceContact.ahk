@@ -63,7 +63,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PresentityURI() {
@@ -73,7 +72,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @returns {HRESULT} 
      */
@@ -85,7 +83,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -95,7 +92,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
      */
@@ -107,7 +103,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Data() {
@@ -117,7 +112,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrData 
      * @returns {HRESULT} 
      */
@@ -129,7 +123,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Persistent() {
@@ -138,7 +131,6 @@ class IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fPersistent 
      * @returns {HRESULT} 
      */

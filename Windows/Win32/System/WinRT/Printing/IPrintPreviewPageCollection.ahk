@@ -30,7 +30,6 @@ class IPrintPreviewPageCollection extends IUnknown {
     static VTableNames => ["Paginate", "MakePage"]
 
     /**
-     * 
      * @param {Integer} currentJobPage 
      * @param {IInspectable} printTaskOptions 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IPrintPreviewPageCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} desiredJobPage 
      * @param {Float} width 
      * @param {Float} height 

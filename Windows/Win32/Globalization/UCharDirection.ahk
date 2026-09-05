@@ -7,117 +7,140 @@
 class UCharDirection extends Win32Enum {
 
     /**
+     * Native name: U_LEFT_TO_RIGHT
      * @type {Integer (Int32)}
      */
-    static U_LEFT_TO_RIGHT => 0
+    static LEFT_TO_RIGHT => 0
 
     /**
+     * Native name: U_RIGHT_TO_LEFT
      * @type {Integer (Int32)}
      */
-    static U_RIGHT_TO_LEFT => 1
+    static RIGHT_TO_LEFT => 1
 
     /**
+     * Native name: U_EUROPEAN_NUMBER
      * @type {Integer (Int32)}
      */
-    static U_EUROPEAN_NUMBER => 2
+    static EUROPEAN_NUMBER => 2
 
     /**
+     * Native name: U_EUROPEAN_NUMBER_SEPARATOR
      * @type {Integer (Int32)}
      */
-    static U_EUROPEAN_NUMBER_SEPARATOR => 3
+    static EUROPEAN_NUMBER_SEPARATOR => 3
 
     /**
+     * Native name: U_EUROPEAN_NUMBER_TERMINATOR
      * @type {Integer (Int32)}
      */
-    static U_EUROPEAN_NUMBER_TERMINATOR => 4
+    static EUROPEAN_NUMBER_TERMINATOR => 4
 
     /**
+     * Native name: U_ARABIC_NUMBER
      * @type {Integer (Int32)}
      */
-    static U_ARABIC_NUMBER => 5
+    static ARABIC_NUMBER => 5
 
     /**
+     * Native name: U_COMMON_NUMBER_SEPARATOR
      * @type {Integer (Int32)}
      */
-    static U_COMMON_NUMBER_SEPARATOR => 6
+    static COMMON_NUMBER_SEPARATOR => 6
 
     /**
+     * Native name: U_BLOCK_SEPARATOR
      * @type {Integer (Int32)}
      */
-    static U_BLOCK_SEPARATOR => 7
+    static BLOCK_SEPARATOR => 7
 
     /**
+     * Native name: U_SEGMENT_SEPARATOR
      * @type {Integer (Int32)}
      */
-    static U_SEGMENT_SEPARATOR => 8
+    static SEGMENT_SEPARATOR => 8
 
     /**
+     * Native name: U_WHITE_SPACE_NEUTRAL
      * @type {Integer (Int32)}
      */
-    static U_WHITE_SPACE_NEUTRAL => 9
+    static WHITE_SPACE_NEUTRAL => 9
 
     /**
+     * Native name: U_OTHER_NEUTRAL
      * @type {Integer (Int32)}
      */
-    static U_OTHER_NEUTRAL => 10
+    static OTHER_NEUTRAL => 10
 
     /**
+     * Native name: U_LEFT_TO_RIGHT_EMBEDDING
      * @type {Integer (Int32)}
      */
-    static U_LEFT_TO_RIGHT_EMBEDDING => 11
+    static LEFT_TO_RIGHT_EMBEDDING => 11
 
     /**
+     * Native name: U_LEFT_TO_RIGHT_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static U_LEFT_TO_RIGHT_OVERRIDE => 12
+    static LEFT_TO_RIGHT_OVERRIDE => 12
 
     /**
+     * Native name: U_RIGHT_TO_LEFT_ARABIC
      * @type {Integer (Int32)}
      */
-    static U_RIGHT_TO_LEFT_ARABIC => 13
+    static RIGHT_TO_LEFT_ARABIC => 13
 
     /**
+     * Native name: U_RIGHT_TO_LEFT_EMBEDDING
      * @type {Integer (Int32)}
      */
-    static U_RIGHT_TO_LEFT_EMBEDDING => 14
+    static RIGHT_TO_LEFT_EMBEDDING => 14
 
     /**
+     * Native name: U_RIGHT_TO_LEFT_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static U_RIGHT_TO_LEFT_OVERRIDE => 15
+    static RIGHT_TO_LEFT_OVERRIDE => 15
 
     /**
+     * Native name: U_POP_DIRECTIONAL_FORMAT
      * @type {Integer (Int32)}
      */
-    static U_POP_DIRECTIONAL_FORMAT => 16
+    static POP_DIRECTIONAL_FORMAT => 16
 
     /**
+     * Native name: U_DIR_NON_SPACING_MARK
      * @type {Integer (Int32)}
      */
-    static U_DIR_NON_SPACING_MARK => 17
+    static DIR_NON_SPACING_MARK => 17
 
     /**
+     * Native name: U_BOUNDARY_NEUTRAL
      * @type {Integer (Int32)}
      */
-    static U_BOUNDARY_NEUTRAL => 18
+    static BOUNDARY_NEUTRAL => 18
 
     /**
+     * Native name: U_FIRST_STRONG_ISOLATE
      * @type {Integer (Int32)}
      */
-    static U_FIRST_STRONG_ISOLATE => 19
+    static FIRST_STRONG_ISOLATE => 19
 
     /**
+     * Native name: U_LEFT_TO_RIGHT_ISOLATE
      * @type {Integer (Int32)}
      */
-    static U_LEFT_TO_RIGHT_ISOLATE => 20
+    static LEFT_TO_RIGHT_ISOLATE => 20
 
     /**
+     * Native name: U_RIGHT_TO_LEFT_ISOLATE
      * @type {Integer (Int32)}
      */
-    static U_RIGHT_TO_LEFT_ISOLATE => 21
+    static RIGHT_TO_LEFT_ISOLATE => 21
 
     /**
+     * Native name: U_POP_DIRECTIONAL_ISOLATE
      * @type {Integer (Int32)}
      */
-    static U_POP_DIRECTIONAL_ISOLATE => 22
+    static POP_DIRECTIONAL_ISOLATE => 22
 }

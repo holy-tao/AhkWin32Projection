@@ -59,7 +59,6 @@ class ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoResult} 
      */
     get_RecoResult() {
@@ -68,7 +67,6 @@ class ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StartElementInResult() {
@@ -77,7 +75,6 @@ class ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfElementsInResult() {
@@ -86,7 +83,6 @@ class ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseInfo} 
      */
     get_PhraseInfo() {
@@ -95,7 +91,6 @@ class ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {

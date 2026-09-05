@@ -10,19 +10,22 @@ class WICRawRenderMode extends Win32Enum {
 
     /**
      * Use speed priority mode.
+     * Native name: WICRawRenderModeDraft
      * @type {Integer (Int32)}
      */
-    static WICRawRenderModeDraft => 1
+    static Draft => 1
 
     /**
      * Use normal priority mode. Balance of speed and quality.
+     * Native name: WICRawRenderModeNormal
      * @type {Integer (Int32)}
      */
-    static WICRawRenderModeNormal => 2
+    static Normal => 2
 
     /**
      * Use best quality mode.
+     * Native name: WICRawRenderModeBestQuality
      * @type {Integer (Int32)}
      */
-    static WICRawRenderModeBestQuality => 3
+    static BestQuality => 3
 }

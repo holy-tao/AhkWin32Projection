@@ -7,22 +7,26 @@
 class styleWebkitBoxDirection extends Win32Enum {
 
     /**
+     * Native name: styleWebkitBoxDirectionNormal
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxDirectionNormal => 0
+    static Normal => 0
 
     /**
+     * Native name: styleWebkitBoxDirectionReverse
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxDirectionReverse => 1
+    static Reverse => 1
 
     /**
+     * Native name: styleWebkitBoxDirectionNotSet
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxDirectionNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleWebkitBoxDirection_Max
      * @type {Integer (Int32)}
      */
-    static styleWebkitBoxDirection_Max => 2147483647
+    static Max => 2147483647
 }

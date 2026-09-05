@@ -10,25 +10,29 @@ class FsrmPropertyBagFlags extends Win32Enum {
 
     /**
      * The properties in the property bag were updated by a classifier.
+     * Native name: FsrmPropertyBagFlags_UpdatedByClassifier
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyBagFlags_UpdatedByClassifier => 1
+    static UpdatedByClassifier => 1
 
     /**
      * The properties in the property bag may only be partially classified because a failure occurred while loading properties from storage.
+     * Native name: FsrmPropertyBagFlags_FailedLoadingProperties
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyBagFlags_FailedLoadingProperties => 2
+    static FailedLoadingProperties => 2
 
     /**
      * The properties in the property bag failed to be saved by the storage module with the highest precedence.
+     * Native name: FsrmPropertyBagFlags_FailedSavingProperties
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyBagFlags_FailedSavingProperties => 4
+    static FailedSavingProperties => 4
 
     /**
      * The properties in the property bag may only be partially classified because a failure occurred while classifying properties.
+     * Native name: FsrmPropertyBagFlags_FailedClassifyingProperties
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyBagFlags_FailedClassifyingProperties => 8
+    static FailedClassifyingProperties => 8
 }

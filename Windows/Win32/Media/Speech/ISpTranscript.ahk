@@ -30,7 +30,6 @@ class ISpTranscript extends IUnknown {
     static VTableNames => ["GetTranscript", "AppendTranscript"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetTranscript() {
@@ -39,7 +38,6 @@ class ISpTranscript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTranscript 
      * @returns {HRESULT} 
      */

@@ -10,19 +10,22 @@ class IKEEXT_SA_ROLE extends Win32Enum {
 
     /**
      * SA is the initiator.
+     * Native name: IKEEXT_SA_ROLE_INITIATOR
      * @type {Integer (Int32)}
      */
-    static IKEEXT_SA_ROLE_INITIATOR => 0
+    static INITIATOR => 0
 
     /**
      * SA is the responder.
+     * Native name: IKEEXT_SA_ROLE_RESPONDER
      * @type {Integer (Int32)}
      */
-    static IKEEXT_SA_ROLE_RESPONDER => 1
+    static RESPONDER => 1
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_SA_ROLE_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_SA_ROLE_MAX => 2
+    static MAX => 2
 }

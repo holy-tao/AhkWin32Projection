@@ -30,7 +30,6 @@ class ICompositionTextureInterop extends IUnknown {
     static VTableNames => ["GetAvailableFence"]
 
     /**
-     * 
      * @param {Pointer<Integer>} fenceValue 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} availableFence 

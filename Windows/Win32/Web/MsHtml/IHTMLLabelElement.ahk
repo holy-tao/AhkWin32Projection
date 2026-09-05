@@ -52,7 +52,6 @@ class IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlFor() {
@@ -74,7 +72,6 @@ class IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -86,7 +83,6 @@ class IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accessKey() {

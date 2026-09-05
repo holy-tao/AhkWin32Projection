@@ -7,12 +7,14 @@
 class KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_CLEAR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_CLEAR => 0
+    static CLEAR => 0
 
     /**
+     * Native name: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_SET
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_SET => 1
+    static SET => 1
 }

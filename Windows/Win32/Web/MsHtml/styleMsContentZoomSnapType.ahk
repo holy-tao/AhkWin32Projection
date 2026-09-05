@@ -7,27 +7,32 @@
 class styleMsContentZoomSnapType extends Win32Enum {
 
     /**
+     * Native name: styleMsContentZoomSnapTypeNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomSnapTypeNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleMsContentZoomSnapTypeNone
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomSnapTypeNone => 1
+    static None => 1
 
     /**
+     * Native name: styleMsContentZoomSnapTypeMandatory
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomSnapTypeMandatory => 2
+    static Mandatory => 2
 
     /**
+     * Native name: styleMsContentZoomSnapTypeProximity
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomSnapTypeProximity => 3
+    static Proximity => 3
 
     /**
+     * Native name: styleMsContentZoomSnapType_Max
      * @type {Integer (Int32)}
      */
-    static styleMsContentZoomSnapType_Max => 2147483647
+    static Max => 2147483647
 }

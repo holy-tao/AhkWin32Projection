@@ -14,15 +14,17 @@ class FH_PROTECTED_ITEM_CATEGORY extends Win32Enum {
 
     /**
      * The inclusion or exclusion list is a list of folders.
+     * Native name: FH_FOLDER
      * @type {Integer (Int32)}
      */
-    static FH_FOLDER => 0
+    static FOLDER => 0
 
     /**
      * The inclusion or exclusion list is a list of libraries.
+     * Native name: FH_LIBRARY
      * @type {Integer (Int32)}
      */
-    static FH_LIBRARY => 1
+    static LIBRARY => 1
 
     /**
      * The maximum enumeration value for this enumeration. This value and all values greater than it are reserved for system use.

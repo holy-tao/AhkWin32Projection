@@ -33,7 +33,6 @@ class IRadioInstance extends IUnknown {
     static VTableNames => ["GetRadioManagerSignature", "GetInstanceSignature", "GetFriendlyName", "GetRadioState", "SetRadioState", "IsMultiComm", "IsAssociatingDevice"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetRadioManagerSignature() {
@@ -43,7 +42,6 @@ class IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetInstanceSignature() {
@@ -53,7 +51,6 @@ class IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {BSTR} 
      */
@@ -64,7 +61,6 @@ class IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEVICE_RADIO_STATE} 
      */
     GetRadioState() {
@@ -73,7 +69,6 @@ class IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEVICE_RADIO_STATE} radioState 
      * @param {Integer} uTimeoutSec 
      * @returns {HRESULT} 
@@ -84,7 +79,6 @@ class IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsMultiComm() {
@@ -93,7 +87,6 @@ class IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAssociatingDevice() {

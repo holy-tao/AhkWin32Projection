@@ -31,7 +31,6 @@ class IDebugExtendedProperty extends IDebugProperty {
     static VTableNames => ["GetExtendedPropertyInfo", "EnumExtendedMembers"]
 
     /**
-     * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @returns {ExtendedDebugPropertyInfo} 
@@ -43,7 +42,6 @@ class IDebugExtendedProperty extends IDebugProperty {
     }
 
     /**
-     * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @returns {IEnumDebugExtendedPropertyInfo} 

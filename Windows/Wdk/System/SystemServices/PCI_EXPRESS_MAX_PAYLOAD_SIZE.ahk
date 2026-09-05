@@ -7,32 +7,38 @@
 class PCI_EXPRESS_MAX_PAYLOAD_SIZE extends Win32Enum {
 
     /**
+     * Native name: MaxPayload128Bytes
      * @type {Integer (Int32)}
      */
-    static MaxPayload128Bytes => 0
+    static Payload128Bytes => 0
 
     /**
+     * Native name: MaxPayload256Bytes
      * @type {Integer (Int32)}
      */
-    static MaxPayload256Bytes => 1
+    static Payload256Bytes => 1
 
     /**
+     * Native name: MaxPayload512Bytes
      * @type {Integer (Int32)}
      */
-    static MaxPayload512Bytes => 2
+    static Payload512Bytes => 2
 
     /**
+     * Native name: MaxPayload1024Bytes
      * @type {Integer (Int32)}
      */
-    static MaxPayload1024Bytes => 3
+    static Payload1024Bytes => 3
 
     /**
+     * Native name: MaxPayload2048Bytes
      * @type {Integer (Int32)}
      */
-    static MaxPayload2048Bytes => 4
+    static Payload2048Bytes => 4
 
     /**
+     * Native name: MaxPayload4096Bytes
      * @type {Integer (Int32)}
      */
-    static MaxPayload4096Bytes => 5
+    static Payload4096Bytes => 5
 }

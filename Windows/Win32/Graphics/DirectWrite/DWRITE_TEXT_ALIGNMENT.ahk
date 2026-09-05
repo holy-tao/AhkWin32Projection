@@ -10,25 +10,29 @@ class DWRITE_TEXT_ALIGNMENT extends Win32Enum {
 
     /**
      * The leading edge of the paragraph text is aligned to the leading edge of the layout box.
+     * Native name: DWRITE_TEXT_ALIGNMENT_LEADING
      * @type {Integer (Int32)}
      */
-    static DWRITE_TEXT_ALIGNMENT_LEADING => 0
+    static LEADING => 0
 
     /**
      * The trailing edge of the paragraph text is aligned to the  trailing edge of the layout box.
+     * Native name: DWRITE_TEXT_ALIGNMENT_TRAILING
      * @type {Integer (Int32)}
      */
-    static DWRITE_TEXT_ALIGNMENT_TRAILING => 1
+    static TRAILING => 1
 
     /**
      * The center of the paragraph text is aligned to the center of the layout box.
+     * Native name: DWRITE_TEXT_ALIGNMENT_CENTER
      * @type {Integer (Int32)}
      */
-    static DWRITE_TEXT_ALIGNMENT_CENTER => 2
+    static CENTER => 2
 
     /**
      * Align text to the leading side, and also justify text to fill the lines.
+     * Native name: DWRITE_TEXT_ALIGNMENT_JUSTIFIED
      * @type {Integer (Int32)}
      */
-    static DWRITE_TEXT_ALIGNMENT_JUSTIFIED => 3
+    static JUSTIFIED => 3
 }

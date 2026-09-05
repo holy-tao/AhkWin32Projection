@@ -10,14 +10,16 @@ class UI_SWATCHCOLORMODE extends Win32Enum {
 
     /**
      * The swatch is normal mode.
+     * Native name: UI_SWATCHCOLORMODE_NORMAL
      * @type {Integer (Int32)}
      */
-    static UI_SWATCHCOLORMODE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The swatch is monochrome. The swatch's RGB color value will be interpreted as a 1 bit-per-pixel
      *  pattern.
+     * Native name: UI_SWATCHCOLORMODE_MONOCHROME
      * @type {Integer (Int32)}
      */
-    static UI_SWATCHCOLORMODE_MONOCHROME => 1
+    static MONOCHROME => 1
 }

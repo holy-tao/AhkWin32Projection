@@ -7,47 +7,56 @@
 class WSManEnumFlags extends Win32Enum {
 
     /**
+     * Native name: WSManFlagNonXmlText
      * @type {Integer (Int32)}
      */
-    static WSManFlagNonXmlText => 1
+    static FlagNonXmlText => 1
 
     /**
+     * Native name: WSManFlagReturnObject
      * @type {Integer (Int32)}
      */
-    static WSManFlagReturnObject => 0
+    static FlagReturnObject => 0
 
     /**
+     * Native name: WSManFlagReturnEPR
      * @type {Integer (Int32)}
      */
-    static WSManFlagReturnEPR => 2
+    static FlagReturnEPR => 2
 
     /**
+     * Native name: WSManFlagReturnObjectAndEPR
      * @type {Integer (Int32)}
      */
-    static WSManFlagReturnObjectAndEPR => 4
+    static FlagReturnObjectAndEPR => 4
 
     /**
+     * Native name: WSManFlagHierarchyDeep
      * @type {Integer (Int32)}
      */
-    static WSManFlagHierarchyDeep => 0
+    static FlagHierarchyDeep => 0
 
     /**
+     * Native name: WSManFlagHierarchyShallow
      * @type {Integer (Int32)}
      */
-    static WSManFlagHierarchyShallow => 32
+    static FlagHierarchyShallow => 32
 
     /**
+     * Native name: WSManFlagHierarchyDeepBasePropsOnly
      * @type {Integer (Int32)}
      */
-    static WSManFlagHierarchyDeepBasePropsOnly => 64
+    static FlagHierarchyDeepBasePropsOnly => 64
 
     /**
+     * Native name: WSManFlagAssociatedInstance
      * @type {Integer (Int32)}
      */
-    static WSManFlagAssociatedInstance => 0
+    static FlagAssociatedInstance => 0
 
     /**
+     * Native name: WSManFlagAssociationInstance
      * @type {Integer (Int32)}
      */
-    static WSManFlagAssociationInstance => 128
+    static FlagAssociationInstance => 128
 }

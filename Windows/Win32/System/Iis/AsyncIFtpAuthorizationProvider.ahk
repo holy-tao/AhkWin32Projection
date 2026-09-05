@@ -37,7 +37,6 @@ class AsyncIFtpAuthorizationProvider extends IUnknown {
     static VTableNames => ["Begin_GetUserAccessPermission", "Finish_GetUserAccessPermission"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszVirtualPath 
@@ -55,7 +54,6 @@ class AsyncIFtpAuthorizationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FTP_ACCESS} 
      */
     Finish_GetUserAccessPermission() {

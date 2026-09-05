@@ -7,12 +7,14 @@
 class SYMBOLIC_LINK_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SYMBOLIC_LINK_FLAG_DIRECTORY
      * @type {Integer (UInt32)}
      */
-    static SYMBOLIC_LINK_FLAG_DIRECTORY => 1
+    static FLAG_DIRECTORY => 1
 
     /**
+     * Native name: SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
      * @type {Integer (UInt32)}
      */
-    static SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE => 2
+    static FLAG_ALLOW_UNPRIVILEGED_CREATE => 2
 }

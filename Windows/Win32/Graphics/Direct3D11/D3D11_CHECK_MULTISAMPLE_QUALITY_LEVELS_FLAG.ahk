@@ -10,7 +10,8 @@ class D3D11_CHECK_MULTISAMPLE_QUALITY_LEVELS_FLAG extends Win32Enum {
 
     /**
      * Indicates to check the multisample quality levels of a tiled resource.
+     * Native name: D3D11_CHECK_MULTISAMPLE_QUALITY_LEVELS_TILED_RESOURCE
      * @type {Integer (Int32)}
      */
-    static D3D11_CHECK_MULTISAMPLE_QUALITY_LEVELS_TILED_RESOURCE => 1
+    static TILED_RESOURCE => 1
 }

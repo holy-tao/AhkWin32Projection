@@ -62,7 +62,6 @@ class IGPMDomain extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainController() {
@@ -72,7 +71,6 @@ class IGPMDomain extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Domain() {

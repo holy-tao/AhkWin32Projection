@@ -7,12 +7,14 @@
 class styleNone extends Win32Enum {
 
     /**
+     * Native name: styleNoneNone
      * @type {Integer (Int32)}
      */
-    static styleNoneNone => 0
+    static None => 0
 
     /**
+     * Native name: styleNone_Max
      * @type {Integer (Int32)}
      */
-    static styleNone_Max => 2147483647
+    static Max => 2147483647
 }

@@ -30,7 +30,6 @@ class ITransactionVoterBallotAsync2 extends IUnknown {
     static VTableNames => ["VoteRequestDone"]
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @param {Pointer<BOID>} pboidReason 
      * @returns {HRESULT} 

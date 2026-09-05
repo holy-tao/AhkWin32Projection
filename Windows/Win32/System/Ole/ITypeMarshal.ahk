@@ -45,7 +45,6 @@ class ITypeMarshal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvType 
      * @param {Integer} dwDestContext 
      * @param {Pointer<Void>} pvDestContext 
@@ -62,7 +61,6 @@ class ITypeMarshal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvType 
      * @param {Integer} dwFlags 
      * @param {Integer} cbBufferLength 
@@ -80,7 +78,6 @@ class ITypeMarshal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvType 
      * @returns {HRESULT} 
      */

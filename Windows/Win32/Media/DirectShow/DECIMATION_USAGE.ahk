@@ -16,27 +16,31 @@ class DECIMATION_USAGE extends Win32Enum {
      * <li>If the Overlay Mixer is connected through a video port, try to use the scaler on the video port.</li>
      * <li>Crop the video image.</li>
      * </ol>
+     * Native name: DECIMATION_LEGACY
      * @type {Integer (Int32)}
      */
-    static DECIMATION_LEGACY => 0
+    static LEGACY => 0
 
     /**
      * Decimate using the scaler on the video decoder. If that fails, crop the video image.
+     * Native name: DECIMATION_USE_DECODER_ONLY
      * @type {Integer (Int32)}
      */
-    static DECIMATION_USE_DECODER_ONLY => 1
+    static USE_DECODER_ONLY => 1
 
     /**
      * Decimate using the scaler on the video port. If that fails, crop the video image.
+     * Native name: DECIMATION_USE_VIDEOPORT_ONLY
      * @type {Integer (Int32)}
      */
-    static DECIMATION_USE_VIDEOPORT_ONLY => 2
+    static USE_VIDEOPORT_ONLY => 2
 
     /**
      * Decimate using the overlay scaler on the VGA chip. If that fails, crop the video image.
+     * Native name: DECIMATION_USE_OVERLAY_ONLY
      * @type {Integer (Int32)}
      */
-    static DECIMATION_USE_OVERLAY_ONLY => 3
+    static USE_OVERLAY_ONLY => 3
 
     /**
      * Decimate the video by taking the following steps, in the order listed, until one of them succeeds.
@@ -48,7 +52,8 @@ class DECIMATION_USAGE extends Win32Enum {
      * <li>Crop the video image.</li>
      * </ol>
      * This mode is the default decimation strategy.
+     * Native name: DECIMATION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DECIMATION_DEFAULT => 4
+    static DEFAULT => 4
 }

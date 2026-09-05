@@ -7,27 +7,32 @@
 class CRYPT_XML_KEYINFO_TYPE extends Win32Enum {
 
     /**
+     * Native name: CRYPT_XML_KEYINFO_TYPE_KEYNAME
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEYINFO_TYPE_KEYNAME => 1
+    static KEYNAME => 1
 
     /**
+     * Native name: CRYPT_XML_KEYINFO_TYPE_KEYVALUE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEYINFO_TYPE_KEYVALUE => 2
+    static KEYVALUE => 2
 
     /**
+     * Native name: CRYPT_XML_KEYINFO_TYPE_RETRIEVAL
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEYINFO_TYPE_RETRIEVAL => 3
+    static RETRIEVAL => 3
 
     /**
+     * Native name: CRYPT_XML_KEYINFO_TYPE_X509DATA
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEYINFO_TYPE_X509DATA => 4
+    static X509DATA => 4
 
     /**
+     * Native name: CRYPT_XML_KEYINFO_TYPE_CUSTOM
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_KEYINFO_TYPE_CUSTOM => 5
+    static CUSTOM => 5
 }

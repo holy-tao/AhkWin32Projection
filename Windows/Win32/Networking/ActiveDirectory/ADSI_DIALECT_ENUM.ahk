@@ -15,13 +15,15 @@ class ADSI_DIALECT_ENUM extends Win32Enum {
 
     /**
      * ADSI queries are based on the LDAP dialect.
+     * Native name: ADSI_DIALECT_LDAP
      * @type {Integer (Int32)}
      */
-    static ADSI_DIALECT_LDAP => 0
+    static LDAP => 0
 
     /**
      * ADSI queries are based on the SQL dialect.
+     * Native name: ADSI_DIALECT_SQL
      * @type {Integer (Int32)}
      */
-    static ADSI_DIALECT_SQL => 1
+    static SQL => 1
 }

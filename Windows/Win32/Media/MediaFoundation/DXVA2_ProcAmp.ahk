@@ -7,32 +7,38 @@
 class DXVA2_ProcAmp extends Win32Enum {
 
     /**
+     * Native name: DXVA2_ProcAmp_None
      * @type {Integer (Int32)}
      */
-    static DXVA2_ProcAmp_None => 0
+    static None => 0
 
     /**
+     * Native name: DXVA2_ProcAmp_Brightness
      * @type {Integer (Int32)}
      */
-    static DXVA2_ProcAmp_Brightness => 1
+    static Brightness => 1
 
     /**
+     * Native name: DXVA2_ProcAmp_Contrast
      * @type {Integer (Int32)}
      */
-    static DXVA2_ProcAmp_Contrast => 2
+    static Contrast => 2
 
     /**
+     * Native name: DXVA2_ProcAmp_Hue
      * @type {Integer (Int32)}
      */
-    static DXVA2_ProcAmp_Hue => 4
+    static Hue => 4
 
     /**
+     * Native name: DXVA2_ProcAmp_Saturation
      * @type {Integer (Int32)}
      */
-    static DXVA2_ProcAmp_Saturation => 8
+    static Saturation => 8
 
     /**
+     * Native name: DXVA2_ProcAmp_Mask
      * @type {Integer (Int32)}
      */
-    static DXVA2_ProcAmp_Mask => 15
+    static Mask => 15
 }

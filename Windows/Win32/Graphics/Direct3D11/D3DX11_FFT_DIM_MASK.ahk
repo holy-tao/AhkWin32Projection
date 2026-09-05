@@ -10,19 +10,22 @@ class D3DX11_FFT_DIM_MASK extends Win32Enum {
 
     /**
      * One dimension.
+     * Native name: D3DX11_FFT_DIM_MASK_1D
      * @type {Integer (Int32)}
      */
-    static D3DX11_FFT_DIM_MASK_1D => 1
+    static 1D => 1
 
     /**
      * Two dimensions.
+     * Native name: D3DX11_FFT_DIM_MASK_2D
      * @type {Integer (Int32)}
      */
-    static D3DX11_FFT_DIM_MASK_2D => 3
+    static 2D => 3
 
     /**
      * Three dimensions.
+     * Native name: D3DX11_FFT_DIM_MASK_3D
      * @type {Integer (Int32)}
      */
-    static D3DX11_FFT_DIM_MASK_3D => 7
+    static 3D => 7
 }

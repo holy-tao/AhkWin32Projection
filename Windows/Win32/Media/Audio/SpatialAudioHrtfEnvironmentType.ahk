@@ -10,31 +10,36 @@ class SpatialAudioHrtfEnvironmentType extends Win32Enum {
 
     /**
      * A small room.
+     * Native name: SpatialAudioHrtfEnvironment_Small
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfEnvironment_Small => 0
+    static Small => 0
 
     /**
      * A medium-sized room.
+     * Native name: SpatialAudioHrtfEnvironment_Medium
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfEnvironment_Medium => 1
+    static Medium => 1
 
     /**
      * A large room.
+     * Native name: SpatialAudioHrtfEnvironment_Large
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfEnvironment_Large => 2
+    static Large => 2
 
     /**
      * An outdoor space.
+     * Native name: SpatialAudioHrtfEnvironment_Outdoors
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfEnvironment_Outdoors => 3
+    static Outdoors => 3
 
     /**
      * Reserved for Microsoft use. Apps should not use this value.
+     * Native name: SpatialAudioHrtfEnvironment_Average
      * @type {Integer (Int32)}
      */
-    static SpatialAudioHrtfEnvironment_Average => 4
+    static Average => 4
 }

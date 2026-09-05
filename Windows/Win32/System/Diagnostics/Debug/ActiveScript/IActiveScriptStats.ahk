@@ -30,7 +30,6 @@ class IActiveScriptStats extends IUnknown {
     static VTableNames => ["GetStat", "GetStatEx", "ResetStats"]
 
     /**
-     * 
      * @param {Integer} stid 
      * @param {Pointer<Integer>} pluHi 
      * @param {Pointer<Integer>} pluLo 
@@ -45,7 +44,6 @@ class IActiveScriptStats extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guid 
      * @param {Pointer<Integer>} pluHi 
      * @param {Pointer<Integer>} pluLo 
@@ -60,7 +58,6 @@ class IActiveScriptStats extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetStats() {

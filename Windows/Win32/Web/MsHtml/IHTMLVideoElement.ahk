@@ -74,7 +74,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -84,7 +83,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -93,7 +91,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -103,7 +100,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -112,7 +108,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_videoWidth() {
@@ -121,7 +116,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_videoHeight() {
@@ -130,7 +124,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -142,7 +135,6 @@ class IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_poster() {

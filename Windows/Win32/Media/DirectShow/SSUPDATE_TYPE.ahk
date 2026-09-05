@@ -7,12 +7,14 @@
 class SSUPDATE_TYPE extends Win32Enum {
 
     /**
+     * Native name: SSUPDATE_ASYNC
      * @type {Integer (Int32)}
      */
-    static SSUPDATE_ASYNC => 1
+    static ASYNC => 1
 
     /**
+     * Native name: SSUPDATE_CONTINUOUS
      * @type {Integer (Int32)}
      */
-    static SSUPDATE_CONTINUOUS => 2
+    static CONTINUOUS => 2
 }

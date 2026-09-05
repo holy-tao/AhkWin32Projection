@@ -7,12 +7,14 @@
 class NCRP_FLAGS extends Win32Enum {
 
     /**
+     * Native name: NCRP_QUERY_PROPERTY_UI
      * @type {Integer (Int32)}
      */
-    static NCRP_QUERY_PROPERTY_UI => 1
+    static QUERY_PROPERTY_UI => 1
 
     /**
+     * Native name: NCRP_SHOW_PROPERTY_UI
      * @type {Integer (Int32)}
      */
-    static NCRP_SHOW_PROPERTY_UI => 2
+    static SHOW_PROPERTY_UI => 2
 }

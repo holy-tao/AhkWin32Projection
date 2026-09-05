@@ -47,7 +47,6 @@ class ISClusPropertyValues extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -56,7 +55,6 @@ class ISClusPropertyValues extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -65,7 +63,6 @@ class ISClusPropertyValues extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusPropertyValue} 
      */
@@ -75,7 +72,6 @@ class ISClusPropertyValues extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {VARIANT} varValue 
      * @returns {ISClusPropertyValue} 
@@ -88,7 +84,6 @@ class ISClusPropertyValues extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */

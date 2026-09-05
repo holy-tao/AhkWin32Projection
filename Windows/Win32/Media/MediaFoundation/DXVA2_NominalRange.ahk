@@ -113,45 +113,52 @@ class DXVA2_NominalRange extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: DXVA2_NominalRangeMask
      * @type {Integer (Int32)}
      */
-    static DXVA2_NominalRangeMask => 7
+    static Mask => 7
 
     /**
      * Unknown or unspecified nominal range.
      * 
      * If this value is used in the <b>DestFormat</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videoprocessbltparams">DXVA2_VideoProcessBltParams</a> structure, the driver will determine the optimal nominal range based on the destination color space. For example, the destination surface is usually sRGB, which has a nominal range of 0-255 per channel. However, a driver might use a technique such as automatic gain control to maximize the dynamic range while preserving values above reference white.
+     * Native name: DXVA2_NominalRange_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_NominalRange_Unknown => 0
+    static Unknown => 0
 
     /**
      * Equivalent to DXVA2_NominalRange_0_255.
+     * Native name: DXVA2_NominalRange_Normal
      * @type {Integer (Int32)}
      */
-    static DXVA2_NominalRange_Normal => 1
+    static Normal => 1
 
     /**
      * Equivalent to DXVA2_NominalRange_16_235.
+     * Native name: DXVA2_NominalRange_Wide
      * @type {Integer (Int32)}
      */
-    static DXVA2_NominalRange_Wide => 2
+    static Wide => 2
 
     /**
      * The normalized range [0...1] maps to [0...255] for 8-bit samples or [0...1023] for 10-bit samples.
+     * Native name: DXVA2_NominalRange_0_255
      * @type {Integer (Int32)}
      */
-    static DXVA2_NominalRange_0_255 => 1
+    static 0_255 => 1
 
     /**
      * The normalized range [0...1] maps to [16...235] for 8-bit samples or [64...940] for 10-bit samples.
+     * Native name: DXVA2_NominalRange_16_235
      * @type {Integer (Int32)}
      */
-    static DXVA2_NominalRange_16_235 => 2
+    static 16_235 => 2
 
     /**
      * The normalized range [0..1] maps to [48...208] for 8-bit samples or [192...832] for 10-bit samples.
+     * Native name: DXVA2_NominalRange_48_208
      * @type {Integer (Int32)}
      */
-    static DXVA2_NominalRange_48_208 => 3
+    static 48_208 => 3
 }

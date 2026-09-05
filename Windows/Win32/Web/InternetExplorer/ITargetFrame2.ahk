@@ -31,7 +31,6 @@ class ITargetFrame2 extends IUnknown {
     static VTableNames => ["SetFrameName", "GetFrameName", "GetParentFrame", "SetFrameSrc", "GetFrameSrc", "GetFramesContainer", "SetFrameOptions", "GetFrameOptions", "SetFrameMargins", "GetFrameMargins", "FindFrame", "GetTargetAlias"]
 
     /**
-     * 
      * @param {PWSTR} pszFrameName 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameName() {
@@ -52,7 +50,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetParentFrame() {
@@ -61,7 +58,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFrameSrc 
      * @returns {HRESULT} 
      */
@@ -73,7 +69,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameSrc() {
@@ -82,7 +77,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {
@@ -91,7 +85,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -101,7 +94,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameOptions() {
@@ -110,7 +102,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWidth 
      * @param {Integer} dwHeight 
      * @returns {HRESULT} 
@@ -121,7 +112,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwWidth 
      * @param {Pointer<Integer>} pdwHeight 
      * @returns {HRESULT} 
@@ -135,7 +125,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {Integer} dwFlags 
      * @returns {IUnknown} 
@@ -148,7 +137,6 @@ class ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @returns {PWSTR} 
      */

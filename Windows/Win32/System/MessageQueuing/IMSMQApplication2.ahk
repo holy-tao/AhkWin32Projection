@@ -68,7 +68,6 @@ class IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Flags 
      * @param {Pointer<VARIANT>} ExternalCertificate 
      * @returns {HRESULT} 
@@ -79,7 +78,6 @@ class IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGuid 
      * @returns {BSTR} 
      */
@@ -92,7 +90,6 @@ class IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MSMQVersionMajor() {
@@ -101,7 +98,6 @@ class IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MSMQVersionMinor() {
@@ -110,7 +106,6 @@ class IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MSMQVersionBuild() {
@@ -119,7 +114,6 @@ class IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsDsEnabled() {
@@ -128,7 +122,6 @@ class IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {

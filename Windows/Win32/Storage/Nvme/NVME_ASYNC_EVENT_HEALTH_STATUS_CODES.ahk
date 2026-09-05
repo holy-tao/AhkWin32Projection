@@ -12,19 +12,22 @@ class NVME_ASYNC_EVENT_HEALTH_STATUS_CODES extends Win32Enum {
 
     /**
      * NVM subsystem reliability has been compromised. This may be due to significant media errors, an internal error, the media being placed in read only mode, or a volatile memory backup device failing.
+     * Native name: NVME_ASYNC_HEALTH_NVM_SUBSYSTEM_RELIABILITY
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_HEALTH_NVM_SUBSYSTEM_RELIABILITY => 0
+    static NVM_SUBSYSTEM_RELIABILITY => 0
 
     /**
      * A temperature is above an over-temperature threshold or below an under-temperature threshold.
+     * Native name: NVME_ASYNC_HEALTH_TEMPERATURE_THRESHOLD
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_HEALTH_TEMPERATURE_THRESHOLD => 1
+    static TEMPERATURE_THRESHOLD => 1
 
     /**
      * The available spare space has fallen below the threshold.
+     * Native name: NVME_ASYNC_HEALTH_SPARE_BELOW_THRESHOLD
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_HEALTH_SPARE_BELOW_THRESHOLD => 2
+    static SPARE_BELOW_THRESHOLD => 2
 }

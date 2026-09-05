@@ -7,22 +7,26 @@
 class PPP_LCP extends Win32Enum {
 
     /**
+     * Native name: PPP_LCP_PAP
      * @type {Integer (UInt32)}
      */
-    static PPP_LCP_PAP => 49187
+    static PAP => 49187
 
     /**
+     * Native name: PPP_LCP_CHAP
      * @type {Integer (UInt32)}
      */
-    static PPP_LCP_CHAP => 49699
+    static CHAP => 49699
 
     /**
+     * Native name: PPP_LCP_EAP
      * @type {Integer (UInt32)}
      */
-    static PPP_LCP_EAP => 49703
+    static EAP => 49703
 
     /**
+     * Native name: PPP_LCP_SPAP
      * @type {Integer (UInt32)}
      */
-    static PPP_LCP_SPAP => 49191
+    static SPAP => 49191
 }

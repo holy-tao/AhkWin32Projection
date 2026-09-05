@@ -34,7 +34,6 @@ class IMSAdminBaseW extends IUnknown {
     static VTableNames => ["AddKey", "DeleteKey", "DeleteChildKeys", "EnumKeys", "CopyKey", "RenameKey", "SetData", "GetData", "DeleteData", "EnumData", "GetAllData", "DeleteAllData", "CopyData", "GetDataPaths", "OpenKey", "CloseKey", "ChangePermissions", "SaveData", "GetHandleInfo", "GetSystemChangeNumber", "GetDataSetNumber", "SetLastChangeTime", "GetLastChangeTime", "KeyExchangePhase1", "KeyExchangePhase2", "Backup", "Restore", "EnumBackups", "DeleteBackup", "UnmarshalInterface", "GetServerGuid"]
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {HRESULT} 
@@ -60,7 +58,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {HRESULT} 
@@ -73,7 +70,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {PWSTR} pszMDName 
@@ -89,7 +85,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDSourceHandle 
      * @param {PWSTR} pszMDSourcePath 
      * @param {Integer} hMDDestHandle 
@@ -107,7 +102,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {PWSTR} pszMDNewName 
@@ -122,7 +116,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<METADATA_RECORD>} pmdrMDData 
@@ -136,7 +129,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<METADATA_RECORD>} pmdrMDData 
@@ -153,7 +145,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDIdentifier 
@@ -168,7 +159,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<METADATA_RECORD>} pmdrMDData 
@@ -186,7 +176,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDAttributes 
@@ -212,7 +201,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDUserType 
@@ -227,7 +215,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDSourceHandle 
      * @param {PWSTR} pszMDSourcePath 
      * @param {Integer} hMDDestHandle 
@@ -247,7 +234,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDIdentifier 
@@ -265,7 +251,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDAccessRequested 
@@ -280,7 +265,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @returns {HRESULT} 
      */
@@ -290,7 +274,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {Integer} dwMDTimeOut 
      * @param {Integer} dwMDAccessRequested 
@@ -302,7 +285,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SaveData() {
@@ -311,7 +293,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @returns {METADATA_HANDLE_INFO} 
      */
@@ -322,7 +303,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSystemChangeNumber() {
@@ -331,7 +311,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {Integer} 
@@ -344,7 +323,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<FILETIME>} pftMDLastChangeTime 
@@ -359,7 +337,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {BOOL} bLocalTime 
@@ -374,7 +351,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KeyExchangePhase1() {
@@ -383,7 +359,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KeyExchangePhase2() {
@@ -422,7 +397,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Pointer<Integer>} pdwMDVersion 
      * @param {Pointer<FILETIME>} pftMDBackupTime 
@@ -439,7 +413,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @returns {HRESULT} 
@@ -452,7 +425,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMSAdminBaseW} 
      */
     UnmarshalInterface() {
@@ -461,7 +433,6 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetServerGuid() {

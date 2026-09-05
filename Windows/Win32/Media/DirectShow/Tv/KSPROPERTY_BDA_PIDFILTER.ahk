@@ -7,17 +7,20 @@
 class KSPROPERTY_BDA_PIDFILTER extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_BDA_PIDFILTER_MAP_PIDS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_PIDFILTER_MAP_PIDS => 0
+    static MAP_PIDS => 0
 
     /**
+     * Native name: KSPROPERTY_BDA_PIDFILTER_UNMAP_PIDS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_PIDFILTER_UNMAP_PIDS => 1
+    static UNMAP_PIDS => 1
 
     /**
+     * Native name: KSPROPERTY_BDA_PIDFILTER_LIST_PIDS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_PIDFILTER_LIST_PIDS => 2
+    static LIST_PIDS => 2
 }

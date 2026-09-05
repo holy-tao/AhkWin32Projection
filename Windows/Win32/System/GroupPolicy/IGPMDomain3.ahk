@@ -48,7 +48,6 @@ class IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @param {GPMReportType} _gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
@@ -60,7 +59,6 @@ class IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InfrastructureDC() {
@@ -70,7 +68,6 @@ class IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -82,7 +79,6 @@ class IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */

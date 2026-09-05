@@ -32,7 +32,6 @@ class IAppxManifestReader7 extends IUnknown {
     static VTableNames => ["GetDriverDependencies", "GetOSPackageDependencies", "GetHostRuntimeDependencies"]
 
     /**
-     * 
      * @returns {IAppxManifestDriverDependenciesEnumerator} 
      */
     GetDriverDependencies() {
@@ -41,7 +40,6 @@ class IAppxManifestReader7 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IAppxManifestOSPackageDependenciesEnumerator} 
      */
     GetOSPackageDependencies() {
@@ -50,7 +48,6 @@ class IAppxManifestReader7 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IAppxManifestHostRuntimeDependenciesEnumerator} 
      */
     GetHostRuntimeDependencies() {

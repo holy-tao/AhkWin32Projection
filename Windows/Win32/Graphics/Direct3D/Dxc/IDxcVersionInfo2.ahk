@@ -29,7 +29,6 @@ class IDxcVersionInfo2 extends IDxcVersionInfo {
     static VTableNames => ["GetCommitInfo"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pCommitCount 
      * @param {Pointer<Pointer<Integer>>} pCommitHash 
      * @returns {HRESULT} 

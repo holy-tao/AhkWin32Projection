@@ -31,7 +31,6 @@ class INetConnectionConnectUi extends IUnknown {
     static VTableNames => ["SetConnection", "Connect", "Disconnect"]
 
     /**
-     * 
      * @param {INetConnection} pCon 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class INetConnectionConnectUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 

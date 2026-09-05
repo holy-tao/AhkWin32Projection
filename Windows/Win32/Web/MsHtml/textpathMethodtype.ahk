@@ -7,22 +7,26 @@
 class textpathMethodtype extends Win32Enum {
 
     /**
+     * Native name: TEXTPATH_METHODTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static TEXTPATH_METHODTYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: TEXTPATH_METHODTYPE_ALIGN
      * @type {Integer (Int32)}
      */
-    static TEXTPATH_METHODTYPE_ALIGN => 1
+    static ALIGN => 1
 
     /**
+     * Native name: TEXTPATH_METHODTYPE_STRETCH
      * @type {Integer (Int32)}
      */
-    static TEXTPATH_METHODTYPE_STRETCH => 2
+    static STRETCH => 2
 
     /**
+     * Native name: textpathMethodtype_Max
      * @type {Integer (Int32)}
      */
-    static textpathMethodtype_Max => 2147483647
+    static Max => 2147483647
 }

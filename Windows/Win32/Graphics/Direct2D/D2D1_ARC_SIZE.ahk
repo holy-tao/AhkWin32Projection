@@ -10,13 +10,15 @@ class D2D1_ARC_SIZE extends Win32Enum {
 
     /**
      * An arc's sweep should be 180 degrees or less.
+     * Native name: D2D1_ARC_SIZE_SMALL
      * @type {Integer (Int32)}
      */
-    static D2D1_ARC_SIZE_SMALL => 0
+    static SMALL => 0
 
     /**
      * An arc's sweep should be 180 degrees or greater.
+     * Native name: D2D1_ARC_SIZE_LARGE
      * @type {Integer (Int32)}
      */
-    static D2D1_ARC_SIZE_LARGE => 1
+    static LARGE => 1
 }

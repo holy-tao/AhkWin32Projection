@@ -29,19 +29,22 @@ class D2D1_STROKE_TRANSFORM_TYPE extends Win32Enum {
 
     /**
      * The stroke respects the currently set world transform, the dpi, and the stroke width.
+     * Native name: D2D1_STROKE_TRANSFORM_TYPE_NORMAL
      * @type {Integer (Int32)}
      */
-    static D2D1_STROKE_TRANSFORM_TYPE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The stroke does not respect the world transform but it does respect the dpi and stroke width.
+     * Native name: D2D1_STROKE_TRANSFORM_TYPE_FIXED
      * @type {Integer (Int32)}
      */
-    static D2D1_STROKE_TRANSFORM_TYPE_FIXED => 1
+    static FIXED => 1
 
     /**
      * The stroke is forced to 1 pixel wide (in device space) and does not respect the world transform, the dpi, or the stroke width.
+     * Native name: D2D1_STROKE_TRANSFORM_TYPE_HAIRLINE
      * @type {Integer (Int32)}
      */
-    static D2D1_STROKE_TRANSFORM_TYPE_HAIRLINE => 2
+    static HAIRLINE => 2
 }

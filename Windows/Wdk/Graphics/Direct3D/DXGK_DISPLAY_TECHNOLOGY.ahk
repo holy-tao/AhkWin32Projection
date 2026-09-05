@@ -7,32 +7,38 @@
 class DXGK_DISPLAY_TECHNOLOGY extends Win32Enum {
 
     /**
+     * Native name: DXGK_DT_INVALID
      * @type {Integer (Byte)}
      */
-    static DXGK_DT_INVALID => 0x00
+    static DT_INVALID => 0x00
 
     /**
+     * Native name: DXGK_DT_OTHER
      * @type {Integer (Byte)}
      */
-    static DXGK_DT_OTHER => 0x01
+    static DT_OTHER => 0x01
 
     /**
+     * Native name: DXGK_DT_LCD
      * @type {Integer (Byte)}
      */
-    static DXGK_DT_LCD => 0x02
+    static DT_LCD => 0x02
 
     /**
+     * Native name: DXGK_DT_OLED
      * @type {Integer (Byte)}
      */
-    static DXGK_DT_OLED => 0x03
+    static DT_OLED => 0x03
 
     /**
+     * Native name: DXGK_DT_PROJECTOR
      * @type {Integer (Byte)}
      */
-    static DXGK_DT_PROJECTOR => 0x04
+    static DT_PROJECTOR => 0x04
 
     /**
+     * Native name: DXGK_DT_MAX
      * @type {Integer (Byte)}
      */
-    static DXGK_DT_MAX => 0x05
+    static DT_MAX => 0x05
 }

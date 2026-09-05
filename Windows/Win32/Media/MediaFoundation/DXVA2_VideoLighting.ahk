@@ -14,37 +14,43 @@ class DXVA2_VideoLighting extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: DXVA2_VideoLightingMask
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoLightingMask => 15
+    static Mask => 15
 
     /**
      * Unknown. Treat as DXVA2_VideoLighting_dim.
+     * Native name: DXVA2_VideoLighting_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoLighting_Unknown => 0
+    static Unknown => 0
 
     /**
      * Outdoor lighting.
+     * Native name: DXVA2_VideoLighting_bright
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoLighting_bright => 1
+    static bright => 1
 
     /**
      * Medium brightness; for example, an office.
+     * Native name: DXVA2_VideoLighting_office
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoLighting_office => 2
+    static office => 2
 
     /**
      * Dim; for example, a living room with a television and some additional low lighting.
+     * Native name: DXVA2_VideoLighting_dim
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoLighting_dim => 3
+    static dim => 3
 
     /**
      * Dark; for example, a movie theater.
+     * Native name: DXVA2_VideoLighting_dark
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoLighting_dark => 4
+    static dark => 4
 }

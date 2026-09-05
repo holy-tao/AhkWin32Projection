@@ -14,7 +14,8 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION extends Win32Enum {
 
     /**
      * The vector precision is quarter-pixel motion.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_QUARTER_PEL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_QUARTER_PEL => 0
+    static QUARTER_PEL => 0
 }

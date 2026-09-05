@@ -7,12 +7,14 @@
 class X509SCEPProcessMessageFlags extends Win32Enum {
 
     /**
+     * Native name: SCEPProcessDefault
      * @type {Integer (Int32)}
      */
-    static SCEPProcessDefault => 0
+    static Default => 0
 
     /**
+     * Native name: SCEPProcessSkipCertInstall
      * @type {Integer (Int32)}
      */
-    static SCEPProcessSkipCertInstall => 1
+    static SkipCertInstall => 1
 }

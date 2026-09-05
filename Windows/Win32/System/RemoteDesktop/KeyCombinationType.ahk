@@ -7,32 +7,38 @@
 class KeyCombinationType extends Win32Enum {
 
     /**
+     * Native name: KeyCombinationHome
      * @type {Integer (Int32)}
      */
-    static KeyCombinationHome => 0
+    static Home => 0
 
     /**
+     * Native name: KeyCombinationLeft
      * @type {Integer (Int32)}
      */
-    static KeyCombinationLeft => 1
+    static Left => 1
 
     /**
+     * Native name: KeyCombinationUp
      * @type {Integer (Int32)}
      */
-    static KeyCombinationUp => 2
+    static Up => 2
 
     /**
+     * Native name: KeyCombinationRight
      * @type {Integer (Int32)}
      */
-    static KeyCombinationRight => 3
+    static Right => 3
 
     /**
+     * Native name: KeyCombinationDown
      * @type {Integer (Int32)}
      */
-    static KeyCombinationDown => 4
+    static Down => 4
 
     /**
+     * Native name: KeyCombinationScroll
      * @type {Integer (Int32)}
      */
-    static KeyCombinationScroll => 5
+    static Scroll => 5
 }

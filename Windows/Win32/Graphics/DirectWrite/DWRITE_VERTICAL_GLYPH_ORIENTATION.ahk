@@ -15,13 +15,15 @@ class DWRITE_VERTICAL_GLYPH_ORIENTATION extends Win32Enum {
 
     /**
      * The default glyph orientation. In vertical layout, naturally horizontal scripts (Latin, Thai, Arabic, Devanagari) rotate 90 degrees clockwise, while ideographic scripts (Chinese, Japanese, Korean) remain upright, 0 degrees.
+     * Native name: DWRITE_VERTICAL_GLYPH_ORIENTATION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DWRITE_VERTICAL_GLYPH_ORIENTATION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Stacked glyph orientation. Ideographic scripts and scripts that permit stacking (Latin, Hebrew) are stacked in vertical reading layout. Connected scripts (Arabic, Syriac, 'Phags-pa, Ogham), which would otherwise look broken if glyphs were kept at 0 degrees, remain connected and rotate.
+     * Native name: DWRITE_VERTICAL_GLYPH_ORIENTATION_STACKED
      * @type {Integer (Int32)}
      */
-    static DWRITE_VERTICAL_GLYPH_ORIENTATION_STACKED => 1
+    static STACKED => 1
 }

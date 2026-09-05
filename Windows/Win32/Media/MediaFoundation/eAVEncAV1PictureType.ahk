@@ -7,22 +7,26 @@
 class eAVEncAV1PictureType extends Win32Enum {
 
     /**
+     * Native name: eAVEncAV1PictureType_Key
      * @type {Integer (Int32)}
      */
-    static eAVEncAV1PictureType_Key => 0
+    static Key => 0
 
     /**
+     * Native name: eAVEncAV1PictureType_Intra_Only
      * @type {Integer (Int32)}
      */
-    static eAVEncAV1PictureType_Intra_Only => 1
+    static Intra_Only => 1
 
     /**
+     * Native name: eAVEncAV1PictureType_Inter
      * @type {Integer (Int32)}
      */
-    static eAVEncAV1PictureType_Inter => 2
+    static Inter => 2
 
     /**
+     * Native name: eAVEncAV1PictureType_Switch
      * @type {Integer (Int32)}
      */
-    static eAVEncAV1PictureType_Switch => 3
+    static Switch => 3
 }

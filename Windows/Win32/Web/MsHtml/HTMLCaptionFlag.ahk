@@ -7,17 +7,20 @@
 class HTMLCaptionFlag extends Win32Enum {
 
     /**
+     * Native name: HTMLCaptionFlagNo
      * @type {Integer (Int32)}
      */
-    static HTMLCaptionFlagNo => 0
+    static No => 0
 
     /**
+     * Native name: HTMLCaptionFlagYes
      * @type {Integer (Int32)}
      */
-    static HTMLCaptionFlagYes => 12582912
+    static Yes => 12582912
 
     /**
+     * Native name: HTMLCaptionFlag_Max
      * @type {Integer (Int32)}
      */
-    static HTMLCaptionFlag_Max => 2147483647
+    static Max => 2147483647
 }

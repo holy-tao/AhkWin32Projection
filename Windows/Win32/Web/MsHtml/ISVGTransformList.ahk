@@ -45,7 +45,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_numberOfItems() {
@@ -64,7 +62,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -73,7 +70,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGTransform} newItem 
      * @returns {ISVGTransform} 
      */
@@ -83,7 +79,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGTransform} 
      */
@@ -93,7 +88,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGTransform} newItem 
      * @param {Integer} index 
      * @returns {ISVGTransform} 
@@ -104,7 +98,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGTransform} newItem 
      * @param {Integer} index 
      * @returns {ISVGTransform} 
@@ -115,7 +108,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISVGTransform} 
      */
@@ -125,7 +117,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGTransform} newItem 
      * @returns {ISVGTransform} 
      */
@@ -135,7 +126,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} newItem 
      * @returns {ISVGTransform} 
      */
@@ -145,7 +135,6 @@ class ISVGTransformList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGTransform} 
      */
     consolidate() {

@@ -38,7 +38,6 @@ class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEve
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -47,7 +46,6 @@ class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEve
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrContentType 
      * @param {Pointer<BSTR>} pbstrSessionDescription 
      * @returns {HRESULT} 

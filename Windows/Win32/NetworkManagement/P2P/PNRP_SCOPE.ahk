@@ -7,22 +7,26 @@
 class PNRP_SCOPE extends Win32Enum {
 
     /**
+     * Native name: PNRP_SCOPE_ANY
      * @type {Integer (Int32)}
      */
-    static PNRP_SCOPE_ANY => 0
+    static ANY => 0
 
     /**
+     * Native name: PNRP_GLOBAL_SCOPE
      * @type {Integer (Int32)}
      */
-    static PNRP_GLOBAL_SCOPE => 1
+    static GLOBAL_SCOPE => 1
 
     /**
+     * Native name: PNRP_SITE_LOCAL_SCOPE
      * @type {Integer (Int32)}
      */
-    static PNRP_SITE_LOCAL_SCOPE => 2
+    static SITE_LOCAL_SCOPE => 2
 
     /**
+     * Native name: PNRP_LINK_LOCAL_SCOPE
      * @type {Integer (Int32)}
      */
-    static PNRP_LINK_LOCAL_SCOPE => 3
+    static LINK_LOCAL_SCOPE => 3
 }

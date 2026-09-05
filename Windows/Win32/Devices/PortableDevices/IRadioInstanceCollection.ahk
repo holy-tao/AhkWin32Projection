@@ -30,7 +30,6 @@ class IRadioInstanceCollection extends IUnknown {
     static VTableNames => ["GetCount", "GetAt"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -39,7 +38,6 @@ class IRadioInstanceCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {IRadioInstance} 
      */

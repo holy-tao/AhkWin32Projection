@@ -44,7 +44,6 @@ class ISVGScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class ISVGScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {

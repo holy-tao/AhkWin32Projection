@@ -44,7 +44,6 @@ class IAppxPackageEditor extends IUnknown {
     static VTableNames => ["SetWorkingDirectory", "CreateDeltaPackage", "CreateDeltaPackageUsingBaselineBlockMap", "UpdatePackage", "UpdateEncryptedPackage", "UpdatePackageManifest"]
 
     /**
-     * 
      * @param {PWSTR} workingDirectory 
      * @returns {HRESULT} 
      */

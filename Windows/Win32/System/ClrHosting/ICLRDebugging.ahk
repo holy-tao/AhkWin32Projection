@@ -34,7 +34,6 @@ class ICLRDebugging extends IUnknown {
     static VTableNames => ["OpenVirtualProcess", "CanUnloadNow"]
 
     /**
-     * 
      * @param {Integer} moduleBaseAddress 
      * @param {IUnknown} pDataTarget 
      * @param {ICLRDebuggingLibraryProvider} pLibraryProvider 
@@ -53,7 +52,6 @@ class ICLRDebugging extends IUnknown {
     }
 
     /**
-     * 
      * @param {HMODULE} _hModule 
      * @returns {HRESULT} 
      */

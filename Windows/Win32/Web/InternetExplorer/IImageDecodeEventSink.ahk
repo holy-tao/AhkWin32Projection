@@ -32,7 +32,6 @@ class IImageDecodeEventSink extends IUnknown {
     static VTableNames => ["GetSurface", "OnBeginDecode", "OnBitsComplete", "OnDecodeComplete", "OnPalette", "OnProgress"]
 
     /**
-     * 
      * @param {Integer} nWidth 
      * @param {Integer} nHeight 
      * @param {Pointer<Guid>} bfid 
@@ -46,7 +45,6 @@ class IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwEvents 
      * @param {Pointer<Integer>} pnFormats 
      * @param {Pointer<Pointer<Guid>>} ppFormats 
@@ -62,7 +60,6 @@ class IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnBitsComplete() {
@@ -71,7 +68,6 @@ class IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
      */
@@ -81,7 +77,6 @@ class IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnPalette() {
@@ -90,7 +85,6 @@ class IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pBounds 
      * @param {BOOL} bComplete 
      * @returns {HRESULT} 

@@ -10,97 +10,113 @@ class WS_XML_TEXT_TYPE extends Win32Enum {
 
     /**
      * Characters encoded as UTF-8 bytes.
+     * Native name: WS_XML_TEXT_TYPE_UTF8
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_UTF8 => 1
+    static UTF8 => 1
 
     /**
      * Characters encoded as UTF-16 bytes.
+     * Native name: WS_XML_TEXT_TYPE_UTF16
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_UTF16 => 2
+    static UTF16 => 2
 
     /**
      * Bytes that represent base64 encoded text.
+     * Native name: WS_XML_TEXT_TYPE_BASE64
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_BASE64 => 3
+    static BASE64 => 3
 
     /**
      * A Boolean value that represents the text "true" or "false"
+     * Native name: WS_XML_TEXT_TYPE_BOOL
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_BOOL => 4
+    static BOOL => 4
 
     /**
      * A signed 32 bit integer value that represents the text of the value as base 10 characters.
+     * Native name: WS_XML_TEXT_TYPE_INT32
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_INT32 => 5
+    static INT32 => 5
 
     /**
      * A signed 64 bit integer value that represents the text of the value as base 10 characters.
+     * Native name: WS_XML_TEXT_TYPE_INT64
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_INT64 => 6
+    static INT64 => 6
 
     /**
      * An unsigned 64 bit integer value that represents the text of the value as base 10 characters.
+     * Native name: WS_XML_TEXT_TYPE_UINT64
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_UINT64 => 7
+    static UINT64 => 7
 
     /**
      * An 4 byte floating point value that represents the text of the value as base 10 characters.
+     * Native name: WS_XML_TEXT_TYPE_FLOAT
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_FLOAT => 8
+    static FLOAT => 8
 
     /**
      * An 8 byte floating point value that represents the text of the value as base 10 characters.
+     * Native name: WS_XML_TEXT_TYPE_DOUBLE
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_DOUBLE => 9
+    static DOUBLE => 9
 
     /**
      * A 12 byte fixed point value that represents the text of the value as base 10 characters.
+     * Native name: WS_XML_TEXT_TYPE_DECIMAL
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_DECIMAL => 10
+    static DECIMAL => 10
 
     /**
      * A GUID that represents the text "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx".
+     * Native name: WS_XML_TEXT_TYPE_GUID
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_GUID => 11
+    static GUID => 11
 
     /**
      * A GUID that represents the text "urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx".
+     * Native name: WS_XML_TEXT_TYPE_UNIQUE_ID
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_UNIQUE_ID => 12
+    static UNIQUE_ID => 12
 
     /**
      * A datetime.
+     * Native name: WS_XML_TEXT_TYPE_DATETIME
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_DATETIME => 13
+    static DATETIME => 13
 
     /**
      * A timespan.
+     * Native name: WS_XML_TEXT_TYPE_TIMESPAN
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_TIMESPAN => 14
+    static TIMESPAN => 14
 
     /**
      * A qualified name.
+     * Native name: WS_XML_TEXT_TYPE_QNAME
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_QNAME => 15
+    static QNAME => 15
 
     /**
      * A list of values that represent their text forms separated by a single whitespace character.
+     * Native name: WS_XML_TEXT_TYPE_LIST
      * @type {Integer (Int32)}
      */
-    static WS_XML_TEXT_TYPE_LIST => 16
+    static LIST => 16
 }

@@ -10,13 +10,15 @@ class PEER_GRAPH_PROPERTY_FLAGS extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: PEER_GRAPH_PROPERTY_HEARTBEATS
      * @type {Integer (Int32)}
      */
-    static PEER_GRAPH_PROPERTY_HEARTBEATS => 1
+    static HEARTBEATS => 1
 
     /**
      * Graph records are not expired until the peer  connects with a graph.
+     * Native name: PEER_GRAPH_PROPERTY_DEFER_EXPIRATION
      * @type {Integer (Int32)}
      */
-    static PEER_GRAPH_PROPERTY_DEFER_EXPIRATION => 2
+    static DEFER_EXPIRATION => 2
 }

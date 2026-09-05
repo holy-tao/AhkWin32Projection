@@ -7,22 +7,26 @@
 class svgPreserveAspectMeetOrSliceType extends Win32Enum {
 
     /**
+     * Native name: SVG_MEETORSLICE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_MEETORSLICE_UNKNOWN => 0
+    static MEETORSLICE_UNKNOWN => 0
 
     /**
+     * Native name: SVG_MEETORSLICE_MEET
      * @type {Integer (Int32)}
      */
-    static SVG_MEETORSLICE_MEET => 1
+    static MEETORSLICE_MEET => 1
 
     /**
+     * Native name: SVG_MEETORSLICE_SLICE
      * @type {Integer (Int32)}
      */
-    static SVG_MEETORSLICE_SLICE => 2
+    static MEETORSLICE_SLICE => 2
 
     /**
+     * Native name: svgPreserveAspectMeetOrSliceType_Max
      * @type {Integer (Int32)}
      */
-    static svgPreserveAspectMeetOrSliceType_Max => 2147483647
+    static Max => 2147483647
 }

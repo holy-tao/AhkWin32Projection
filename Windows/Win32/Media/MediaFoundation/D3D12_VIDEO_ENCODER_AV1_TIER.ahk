@@ -7,12 +7,14 @@
 class D3D12_VIDEO_ENCODER_AV1_TIER extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_TIER_MAIN
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_TIER_MAIN => 0
+    static MAIN => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_TIER_HIGH
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_TIER_HIGH => 1
+    static HIGH => 1
 }

@@ -30,7 +30,6 @@ class IAudioStateMonitor extends IUnknown {
     static VTableNames => ["RegisterCallback", "UnregisterCallback", "GetSoundLevel"]
 
     /**
-     * 
      * @param {Pointer<PAudioStateMonitorCallback>} callback 
      * @param {Pointer<Void>} _context 
      * @returns {Integer} 
@@ -43,7 +42,6 @@ class IAudioStateMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} registration 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -52,7 +50,6 @@ class IAudioStateMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {AudioStateMonitorSoundLevel} 
      */
     GetSoundLevel() {

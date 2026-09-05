@@ -30,7 +30,6 @@ class IGetSourceRow extends IUnknown {
     static VTableNames => ["GetSourceRow"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

@@ -7,12 +7,14 @@
 class MLD_MAX_RESP_CODE_TYPE extends Win32Enum {
 
     /**
+     * Native name: MLD_MAX_RESP_CODE_TYPE_NORMAL
      * @type {Integer (Int32)}
      */
-    static MLD_MAX_RESP_CODE_TYPE_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: MLD_MAX_RESP_CODE_TYPE_FLOAT
      * @type {Integer (Int32)}
      */
-    static MLD_MAX_RESP_CODE_TYPE_FLOAT => 1
+    static FLOAT => 1
 }

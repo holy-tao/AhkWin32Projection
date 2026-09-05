@@ -7,7 +7,8 @@
 class _AM_RENSDEREXFLAGS extends Win32Enum {
 
     /**
+     * Native name: AM_RENDEREX_RENDERTOEXISTINGRENDERERS
      * @type {Integer (Int32)}
      */
-    static AM_RENDEREX_RENDERTOEXISTINGRENDERERS => 1
+    static RENDEREX_RENDERTOEXISTINGRENDERERS => 1
 }

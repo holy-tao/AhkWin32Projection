@@ -7,22 +7,26 @@
 class htmlWrap extends Win32Enum {
 
     /**
+     * Native name: htmlWrapOff
      * @type {Integer (Int32)}
      */
-    static htmlWrapOff => 1
+    static Off => 1
 
     /**
+     * Native name: htmlWrapSoft
      * @type {Integer (Int32)}
      */
-    static htmlWrapSoft => 2
+    static Soft => 2
 
     /**
+     * Native name: htmlWrapHard
      * @type {Integer (Int32)}
      */
-    static htmlWrapHard => 3
+    static Hard => 3
 
     /**
+     * Native name: htmlWrap_Max
      * @type {Integer (Int32)}
      */
-    static htmlWrap_Max => 2147483647
+    static Max => 2147483647
 }

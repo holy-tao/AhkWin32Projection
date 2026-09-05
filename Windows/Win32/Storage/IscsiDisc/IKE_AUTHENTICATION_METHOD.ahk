@@ -12,7 +12,8 @@ class IKE_AUTHENTICATION_METHOD extends Win32Enum {
 
     /**
      * The authentication method was preshared.
+     * Native name: IKE_AUTHENTICATION_PRESHARED_KEY_METHOD
      * @type {Integer (Int32)}
      */
-    static IKE_AUTHENTICATION_PRESHARED_KEY_METHOD => 1
+    static PRESHARED_KEY_METHOD => 1
 }

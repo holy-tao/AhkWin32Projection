@@ -31,7 +31,6 @@ class IDataModelScriptClient extends IUnknown {
     static VTableNames => ["ReportError"]
 
     /**
-     * 
      * @param {ErrorClass} errClass 
      * @param {HRESULT} hrFail 
      * @param {PWSTR} message 

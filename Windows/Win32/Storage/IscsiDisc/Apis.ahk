@@ -2962,7 +2962,6 @@ class IscsiDisc {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} BufferSize 
      * @param {Pointer<Integer>} SessionCountPtr 
      * @param {Pointer<ISCSI_SESSION_INFO_EX>} SessionInfo 
@@ -3019,7 +3018,6 @@ class IscsiDisc {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static SetupPersistentIScsiVolumes() {

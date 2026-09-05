@@ -33,7 +33,6 @@ class IDebugExpressionContext extends IUnknown {
     static VTableNames => ["ParseLanguageText", "GetLanguageInfo"]
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} nRadix 
      * @param {PWSTR} pstrDelimiter 
@@ -49,7 +48,6 @@ class IDebugExpressionContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrLanguageName 
      * @param {Pointer<Guid>} pLanguageID 
      * @returns {HRESULT} 

@@ -10,31 +10,36 @@ class AUTHZ_SID_OPERATION extends Win32Enum {
 
     /**
      * Do not modify anything.
+     * Native name: AUTHZ_SID_OPERATION_NONE
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SID_OPERATION_NONE => 0
+    static NONE => 0
 
     /**
      * Deletes all existing SIDs and replaces them with the specified SIDs. If the replacement SIDs are not specified, all existing SIDs are deleted. This operation can be specified only once and must be the only operation specified.
+     * Native name: AUTHZ_SID_OPERATION_REPLACE_ALL
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SID_OPERATION_REPLACE_ALL => 1
+    static REPLACE_ALL => 1
 
     /**
      * Adds a new SID. If the SID already exists, the call fails.
+     * Native name: AUTHZ_SID_OPERATION_ADD
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SID_OPERATION_ADD => 2
+    static ADD => 2
 
     /**
      * Deletes the specified SID. If no matching SID is found, no modifications are done and the call fails.
+     * Native name: AUTHZ_SID_OPERATION_DELETE
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SID_OPERATION_DELETE => 3
+    static DELETE => 3
 
     /**
      * Replaces the existing SID with the specified SID. If the SID does not already exist, then adds the SID.
+     * Native name: AUTHZ_SID_OPERATION_REPLACE
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SID_OPERATION_REPLACE => 4
+    static REPLACE => 4
 }

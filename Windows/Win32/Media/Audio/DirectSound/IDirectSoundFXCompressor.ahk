@@ -30,7 +30,6 @@ class IDirectSoundFXCompressor extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters"]
 
     /**
-     * 
      * @param {Pointer<DSFXCompressor>} pcDsFxCompressor 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXCompressor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXCompressor} 
      */
     GetAllParameters() {

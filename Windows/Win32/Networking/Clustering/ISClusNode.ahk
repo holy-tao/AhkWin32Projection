@@ -112,7 +112,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -121,7 +120,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -130,7 +128,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -139,7 +136,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -148,7 +144,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -158,7 +153,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -167,7 +161,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NodeID() {
@@ -177,7 +170,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_NODE_STATE} 
      */
     get_State() {
@@ -208,7 +200,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Evict() {
@@ -217,7 +208,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroups} 
      */
     get_ResourceGroups() {
@@ -226,7 +216,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -235,7 +224,6 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNodeNetInterfaces} 
      */
     get_NetInterfaces() {

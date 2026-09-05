@@ -29,7 +29,6 @@ class ICatalogServices extends IUnknown {
     static VTableNames => ["Autodone", "NotAutodone"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Autodone() {
@@ -38,7 +37,6 @@ class ICatalogServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotAutodone() {

@@ -30,7 +30,6 @@ class IWMPDownloadManager extends IDispatch {
     static VTableNames => ["getDownloadCollection", "createDownloadCollection"]
 
     /**
-     * 
      * @param {Integer} lCollectionId 
      * @returns {IWMPDownloadCollection} 
      */
@@ -40,7 +39,6 @@ class IWMPDownloadManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IWMPDownloadCollection} 
      */
     createDownloadCollection() {

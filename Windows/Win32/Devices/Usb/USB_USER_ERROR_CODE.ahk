@@ -10,67 +10,78 @@ class USB_USER_ERROR_CODE extends Win32Enum {
 
     /**
      * The user request succeeded.
+     * Native name: UsbUserSuccess
      * @type {Integer (Int32)}
      */
-    static UsbUserSuccess => 0
+    static Success => 0
 
     /**
      * The user request was not supported.
+     * Native name: UsbUserNotSupported
      * @type {Integer (Int32)}
      */
-    static UsbUserNotSupported => 1
+    static NotSupported => 1
 
     /**
      * The user request code was invalid.
+     * Native name: UsbUserInvalidRequestCode
      * @type {Integer (Int32)}
      */
-    static UsbUserInvalidRequestCode => 2
+    static InvalidRequestCode => 2
 
     /**
      * The feature that was specified by user request is disabled.
+     * Native name: UsbUserFeatureDisabled
      * @type {Integer (Int32)}
      */
-    static UsbUserFeatureDisabled => 3
+    static FeatureDisabled => 3
 
     /**
      * The user request contains an invalid header parameter.
+     * Native name: UsbUserInvalidHeaderParameter
      * @type {Integer (Int32)}
      */
-    static UsbUserInvalidHeaderParameter => 4
+    static InvalidHeaderParameter => 4
 
     /**
      * The user request contains an invalid parameter.
+     * Native name: UsbUserInvalidParameter
      * @type {Integer (Int32)}
      */
-    static UsbUserInvalidParameter => 5
+    static InvalidParameter => 5
 
     /**
      * The user request failed because of a miniport driver error.
+     * Native name: UsbUserMiniportError
      * @type {Integer (Int32)}
      */
-    static UsbUserMiniportError => 6
+    static MiniportError => 6
 
     /**
      * The user request failed because the data buffer was too small.
+     * Native name: UsbUserBufferTooSmall
      * @type {Integer (Int32)}
      */
-    static UsbUserBufferTooSmall => 7
+    static BufferTooSmall => 7
 
     /**
      * The USB stack could not map the error to one of the errors that are listed in this enumeration.
+     * Native name: UsbUserErrorNotMapped
      * @type {Integer (Int32)}
      */
-    static UsbUserErrorNotMapped => 8
+    static NotMapped => 8
 
     /**
      * The device was not started.
+     * Native name: UsbUserDeviceNotStarted
      * @type {Integer (Int32)}
      */
-    static UsbUserDeviceNotStarted => 9
+    static DeviceNotStarted => 9
 
     /**
      * The device was not connected.
+     * Native name: UsbUserNoDeviceConnected
      * @type {Integer (Int32)}
      */
-    static UsbUserNoDeviceConnected => 10
+    static NoDeviceConnected => 10
 }

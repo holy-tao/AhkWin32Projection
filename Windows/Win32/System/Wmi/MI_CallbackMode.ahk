@@ -10,18 +10,21 @@ class MI_CallbackMode extends Win32Enum {
 
     /**
      * Report the details to the client, but the provider will receive a preconfigured response.  The provider does not wait for the client to receive the request before continuing.
+     * Native name: MI_CALLBACKMODE_REPORT
      * @type {Integer (Int32)}
      */
-    static MI_CALLBACKMODE_REPORT => 0
+    static CALLBACKMODE_REPORT => 0
 
     /**
      * Query the  client to determine whether  the provider should continue.
+     * Native name: MI_CALLBACKMODE_INQUIRE
      * @type {Integer (Int32)}
      */
-    static MI_CALLBACKMODE_INQUIRE => 1
+    static CALLBACKMODE_INQUIRE => 1
 
     /**
+     * Native name: MI_CALLBACKMODE_IGNORE
      * @type {Integer (Int32)}
      */
-    static MI_CALLBACKMODE_IGNORE => 2
+    static CALLBACKMODE_IGNORE => 2
 }

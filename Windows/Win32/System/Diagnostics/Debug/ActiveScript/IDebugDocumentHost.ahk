@@ -32,7 +32,6 @@ class IDebugDocumentHost extends IUnknown {
     static VTableNames => ["GetDeferredText", "GetScriptTextAttributes", "OnCreateDocumentContext", "GetPathName", "GetFileName", "NotifyChanged"]
 
     /**
-     * 
      * @param {Integer} dwTextStartCookie 
      * @param {PWSTR} pcharText 
      * @param {Pointer<Integer>} pstaTextAttr 
@@ -51,7 +50,6 @@ class IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} uNumCodeChars 
      * @param {PWSTR} pstrDelimiter 
@@ -70,7 +68,6 @@ class IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     OnCreateDocumentContext() {
@@ -79,7 +76,6 @@ class IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrLongName 
      * @param {Pointer<BOOL>} pfIsOriginalFile 
      * @returns {HRESULT} 
@@ -92,7 +88,6 @@ class IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFileName() {
@@ -102,7 +97,6 @@ class IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyChanged() {

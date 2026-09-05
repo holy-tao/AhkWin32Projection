@@ -29,7 +29,6 @@ class IHostManualEvent extends IUnknown {
     static VTableNames => ["Wait", "Reset", "Set"]
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
      * @returns {HRESULT} 
@@ -40,7 +39,6 @@ class IHostManualEvent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -49,7 +47,6 @@ class IHostManualEvent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Set() {

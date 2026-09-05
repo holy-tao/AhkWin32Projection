@@ -10,13 +10,15 @@ class D3D12_VIEW_INSTANCING_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates a default view instancing configuration.
+     * Native name: D3D12_VIEW_INSTANCING_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIEW_INSTANCING_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Enables view instance masking.
+     * Native name: D3D12_VIEW_INSTANCING_FLAG_ENABLE_VIEW_INSTANCE_MASKING
      * @type {Integer (Int32)}
      */
-    static D3D12_VIEW_INSTANCING_FLAG_ENABLE_VIEW_INSTANCE_MASKING => 1
+    static FLAG_ENABLE_VIEW_INSTANCE_MASKING => 1
 }

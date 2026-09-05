@@ -7,22 +7,26 @@
 class DISPID_InkDivider extends Win32Enum {
 
     /**
+     * Native name: DISPID_IInkDivider_Strokes
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivider_Strokes => 1
+    static IInkDivider_Strokes => 1
 
     /**
+     * Native name: DISPID_IInkDivider_RecognizerContext
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivider_RecognizerContext => 2
+    static IInkDivider_RecognizerContext => 2
 
     /**
+     * Native name: DISPID_IInkDivider_LineHeight
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivider_LineHeight => 3
+    static IInkDivider_LineHeight => 3
 
     /**
+     * Native name: DISPID_IInkDivider_Divide
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivider_Divide => 4
+    static IInkDivider_Divide => 4
 }

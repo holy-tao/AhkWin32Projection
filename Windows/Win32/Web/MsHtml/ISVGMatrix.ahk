@@ -83,7 +83,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -93,7 +92,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_a() {
@@ -102,7 +100,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -112,7 +109,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_b() {
@@ -121,7 +117,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -131,7 +126,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_c() {
@@ -140,7 +134,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -150,7 +143,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_d() {
@@ -159,7 +151,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -169,7 +160,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_e() {
@@ -178,7 +168,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -188,7 +177,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_f() {
@@ -197,7 +185,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} secondMatrix 
      * @returns {ISVGMatrix} 
      */
@@ -207,7 +194,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     inverse() {
@@ -216,7 +202,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGMatrix} 
@@ -227,7 +212,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} scaleFactor 
      * @returns {ISVGMatrix} 
      */
@@ -237,7 +221,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} scaleFactorX 
      * @param {Float} scaleFactorY 
      * @returns {ISVGMatrix} 
@@ -248,7 +231,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {ISVGMatrix} 
      */
@@ -258,7 +240,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGMatrix} 
@@ -269,7 +250,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     flipX() {
@@ -278,7 +258,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     flipY() {
@@ -287,7 +266,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {ISVGMatrix} 
      */
@@ -297,7 +275,6 @@ class ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {ISVGMatrix} 
      */

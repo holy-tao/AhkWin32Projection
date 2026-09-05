@@ -10,37 +10,43 @@ class WPC_ARGS_FILEDOWNLOADEVENT extends Win32Enum {
 
     /**
      * The URL or web address of the downloaded file.
+     * Native name: WPC_ARGS_FILEDOWNLOADEVENT_URL
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_FILEDOWNLOADEVENT_URL => 0
+    static URL => 0
 
     /**
      * The name of the application used to download the file.
+     * Native name: WPC_ARGS_FILEDOWNLOADEVENT_APPNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_FILEDOWNLOADEVENT_APPNAME => 1
+    static APPNAME => 1
 
     /**
      * The version of the application used to download the file.
+     * Native name: WPC_ARGS_FILEDOWNLOADEVENT_VERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_FILEDOWNLOADEVENT_VERSION => 2
+    static VERSION => 2
 
     /**
      * The file download was blocked.
+     * Native name: WPC_ARGS_FILEDOWNLOADEVENT_BLOCKED
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_FILEDOWNLOADEVENT_BLOCKED => 3
+    static BLOCKED => 3
 
     /**
      * The path location of the downloaded file.
+     * Native name: WPC_ARGS_FILEDOWNLOADEVENT_PATH
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_FILEDOWNLOADEVENT_PATH => 4
+    static PATH => 4
 
     /**
      * The arguments for the file download.
+     * Native name: WPC_ARGS_FILEDOWNLOADEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_FILEDOWNLOADEVENT_CARGS => 5
+    static CARGS => 5
 }

@@ -52,7 +52,6 @@ class IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -74,7 +72,6 @@ class IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ class IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_atomic() {

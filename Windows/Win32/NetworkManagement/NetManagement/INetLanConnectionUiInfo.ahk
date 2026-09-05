@@ -30,7 +30,6 @@ class INetLanConnectionUiInfo extends IUnknown {
     static VTableNames => ["GetDeviceGuid"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetDeviceGuid() {

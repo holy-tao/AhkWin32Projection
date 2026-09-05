@@ -9,43 +9,51 @@
 class SHV_COMBINATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: SHV_COMBINATION_TYPE_ALL_PASS
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_ALL_PASS => 0
+    static ALL_PASS => 0
 
     /**
+     * Native name: SHV_COMBINATION_TYPE_ALL_FAIL
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_ALL_FAIL => 1
+    static ALL_FAIL => 1
 
     /**
+     * Native name: SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS => 2
+    static ONE_OR_MORE_PASS => 2
 
     /**
+     * Native name: SHV_COMBINATION_TYPE_ONE_OR_MORE_FAIL
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_ONE_OR_MORE_FAIL => 3
+    static ONE_OR_MORE_FAIL => 3
 
     /**
+     * Native name: SHV_COMBINATION_TYPE_ONE_OR_MORE_INFECTED
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_ONE_OR_MORE_INFECTED => 4
+    static ONE_OR_MORE_INFECTED => 4
 
     /**
+     * Native name: SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL => 5
+    static ONE_OR_MORE_TRANSITIONAL => 5
 
     /**
+     * Native name: SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN => 6
+    static ONE_OR_MORE_UNKNOWN => 6
 
     /**
      * Use this constant to test whether the value is in range.
+     * Native name: SHV_COMBINATION_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static SHV_COMBINATION_TYPE_MAX => 7
+    static MAX => 7
 }

@@ -53,7 +53,6 @@ class IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ class IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_media() {
@@ -73,7 +71,6 @@ class IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
@@ -82,7 +79,6 @@ class IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRule 
      * @param {Integer} lIndex 
      * @returns {Integer} 
@@ -95,7 +91,6 @@ class IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */

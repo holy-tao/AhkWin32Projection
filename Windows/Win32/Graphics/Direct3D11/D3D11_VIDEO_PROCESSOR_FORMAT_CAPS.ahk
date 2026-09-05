@@ -17,25 +17,29 @@ class D3D11_VIDEO_PROCESSOR_FORMAT_CAPS extends Win32Enum {
 
     /**
      * The video processor can deinterlace an input stream that contains interlaced RGB video.
+     * Native name: D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_RGB_INTERLACED
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_RGB_INTERLACED => 1
+    static RGB_INTERLACED => 1
 
     /**
      * The video processor can perform color adjustment on RGB video.
+     * Native name: D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_RGB_PROCAMP
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_RGB_PROCAMP => 2
+    static RGB_PROCAMP => 2
 
     /**
      * The video processor can perform luma keying on RGB video.
+     * Native name: D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_RGB_LUMA_KEY
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_RGB_LUMA_KEY => 4
+    static RGB_LUMA_KEY => 4
 
     /**
      * The video processor can deinterlace input streams with palettized color formats.
+     * Native name: D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_PALETTE_INTERLACED
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_PALETTE_INTERLACED => 8
+    static PALETTE_INTERLACED => 8
 }

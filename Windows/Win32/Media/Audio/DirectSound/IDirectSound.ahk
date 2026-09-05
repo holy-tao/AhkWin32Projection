@@ -34,7 +34,6 @@ class IDirectSound extends IUnknown {
     static VTableNames => ["CreateSoundBuffer", "GetCaps", "DuplicateSoundBuffer", "SetCooperativeLevel", "Compact", "GetSpeakerConfig", "SetSpeakerConfig", "Initialize"]
 
     /**
-     * 
      * @param {Pointer<DSBUFFERDESC>} pcDSBufferDesc 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSoundBuffer} 
@@ -45,7 +44,6 @@ class IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSCAPS} 
      */
     GetCaps() {
@@ -55,7 +53,6 @@ class IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectSoundBuffer} pDSBufferOriginal 
      * @returns {IDirectSoundBuffer} 
      */
@@ -65,7 +62,6 @@ class IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Integer} dwLevel 
      * @returns {HRESULT} 
@@ -78,7 +74,6 @@ class IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Compact() {
@@ -87,7 +82,6 @@ class IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSpeakerConfig() {
@@ -96,7 +90,6 @@ class IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpeakerConfig 
      * @returns {HRESULT} 
      */

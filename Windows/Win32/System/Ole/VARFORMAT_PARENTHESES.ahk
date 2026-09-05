@@ -7,17 +7,20 @@
 class VARFORMAT_PARENTHESES extends Win32Enum {
 
     /**
+     * Native name: VARFORMAT_PARENTHESES_SYSTEMDEFAULT
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_PARENTHESES_SYSTEMDEFAULT => -2
+    static SYSTEMDEFAULT => -2
 
     /**
+     * Native name: VARFORMAT_PARENTHESES_USED
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_PARENTHESES_USED => -1
+    static USED => -1
 
     /**
+     * Native name: VARFORMAT_PARENTHESES_NOTUSED
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_PARENTHESES_NOTUSED => 0
+    static NOTUSED => 0
 }

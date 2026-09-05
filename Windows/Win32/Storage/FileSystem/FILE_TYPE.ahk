@@ -7,27 +7,32 @@
 class FILE_TYPE extends Win32Enum {
 
     /**
+     * Native name: FILE_TYPE_UNKNOWN
      * @type {Integer (UInt32)}
      */
-    static FILE_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: FILE_TYPE_DISK
      * @type {Integer (UInt32)}
      */
-    static FILE_TYPE_DISK => 1
+    static DISK => 1
 
     /**
+     * Native name: FILE_TYPE_CHAR
      * @type {Integer (UInt32)}
      */
-    static FILE_TYPE_CHAR => 2
+    static CHAR => 2
 
     /**
+     * Native name: FILE_TYPE_PIPE
      * @type {Integer (UInt32)}
      */
-    static FILE_TYPE_PIPE => 3
+    static PIPE => 3
 
     /**
+     * Native name: FILE_TYPE_REMOTE
      * @type {Integer (UInt32)}
      */
-    static FILE_TYPE_REMOTE => 32768
+    static REMOTE => 32768
 }

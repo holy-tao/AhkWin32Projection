@@ -519,7 +519,6 @@ class IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IMEDP>} pdp 
      * @returns {HRESULT} 
      */
@@ -614,7 +613,6 @@ class IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMEREG} reg 
      * @param {Pointer<IMEDP>} pdp 
      * @returns {HRESULT} 
@@ -625,7 +623,6 @@ class IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchKakariReading 
      * @param {PWSTR} pwchKakariDisplay 
      * @param {Integer} ulKakariPos 
@@ -653,7 +650,6 @@ class IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pchBuffer 
      * @param {Integer} cbBuffer 
      * @param {Pointer<Integer>} pcDp 
@@ -668,7 +664,6 @@ class IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pchDic 
      * @param {Pointer<PFNLOG>} _pfnLog 
      * @param {IMEREG} reg 
@@ -682,7 +677,6 @@ class IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConvertFromUserToSys() {

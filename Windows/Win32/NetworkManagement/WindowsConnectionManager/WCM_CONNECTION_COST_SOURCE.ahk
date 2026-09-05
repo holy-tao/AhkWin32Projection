@@ -10,25 +10,29 @@ class WCM_CONNECTION_COST_SOURCE extends Win32Enum {
 
     /**
      * Default source.
+     * Native name: WCM_CONNECTION_COST_SOURCE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static WCM_CONNECTION_COST_SOURCE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The source for the connection cost  is Group Policy.
+     * Native name: WCM_CONNECTION_COST_SOURCE_GP
      * @type {Integer (Int32)}
      */
-    static WCM_CONNECTION_COST_SOURCE_GP => 1
+    static GP => 1
 
     /**
      * The source for the connection cost is the user.
+     * Native name: WCM_CONNECTION_COST_SOURCE_USER
      * @type {Integer (Int32)}
      */
-    static WCM_CONNECTION_COST_SOURCE_USER => 2
+    static USER => 2
 
     /**
      * The source for the connection cost  is the operator.
+     * Native name: WCM_CONNECTION_COST_SOURCE_OPERATOR
      * @type {Integer (Int32)}
      */
-    static WCM_CONNECTION_COST_SOURCE_OPERATOR => 3
+    static OPERATOR => 3
 }

@@ -10,18 +10,21 @@ class KERB_PROFILE_BUFFER_TYPE extends Win32Enum {
 
     /**
      * The buffer contains information about an interactive <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>.
+     * Native name: KerbInteractiveProfile
      * @type {Integer (Int32)}
      */
-    static KerbInteractiveProfile => 2
+    static InteractiveProfile => 2
 
     /**
+     * Native name: KerbSmartCardProfile
      * @type {Integer (Int32)}
      */
-    static KerbSmartCardProfile => 4
+    static SmartCardProfile => 4
 
     /**
      * The buffer contains information about a Kerberos logon session.
+     * Native name: KerbTicketProfile
      * @type {Integer (Int32)}
      */
-    static KerbTicketProfile => 6
+    static TicketProfile => 6
 }

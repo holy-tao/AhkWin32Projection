@@ -12,22 +12,25 @@ class MFTOPOLOGY_HARDWARE_MODE extends Win32Enum {
 
     /**
      * Use only software  MFTs. Do not use hardware-based MFTs. This mode is the default, for backward compatibility with existing applications.
+     * Native name: MFTOPOLOGY_HWMODE_SOFTWARE_ONLY
      * @type {Integer (Int32)}
      */
-    static MFTOPOLOGY_HWMODE_SOFTWARE_ONLY => 0
+    static HWMODE_SOFTWARE_ONLY => 0
 
     /**
      * Use hardware-based MFTs when possible, and software MFTs otherwise. This mode is the recommended one.
+     * Native name: MFTOPOLOGY_HWMODE_USE_HARDWARE
      * @type {Integer (Int32)}
      */
-    static MFTOPOLOGY_HWMODE_USE_HARDWARE => 1
+    static HWMODE_USE_HARDWARE => 1
 
     /**
      * If hardware-based MFTs are available, the topoloader will insert
      *     them.  If not, the connection will fail.
      * 
      * Supported in Windows 8.1 and later.
+     * Native name: MFTOPOLOGY_HWMODE_USE_ONLY_HARDWARE
      * @type {Integer (Int32)}
      */
-    static MFTOPOLOGY_HWMODE_USE_ONLY_HARDWARE => 2
+    static HWMODE_USE_ONLY_HARDWARE => 2
 }

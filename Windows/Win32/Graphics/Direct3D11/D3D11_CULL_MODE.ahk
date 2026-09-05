@@ -12,19 +12,22 @@ class D3D11_CULL_MODE extends Win32Enum {
 
     /**
      * Always draw all triangles.
+     * Native name: D3D11_CULL_NONE
      * @type {Integer (Int32)}
      */
-    static D3D11_CULL_NONE => 1
+    static NONE => 1
 
     /**
      * Do not draw triangles that are front-facing.
+     * Native name: D3D11_CULL_FRONT
      * @type {Integer (Int32)}
      */
-    static D3D11_CULL_FRONT => 2
+    static FRONT => 2
 
     /**
      * Do not draw triangles that are back-facing.
+     * Native name: D3D11_CULL_BACK
      * @type {Integer (Int32)}
      */
-    static D3D11_CULL_BACK => 3
+    static BACK => 3
 }

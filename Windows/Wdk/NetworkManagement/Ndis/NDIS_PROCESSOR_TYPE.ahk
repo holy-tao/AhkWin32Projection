@@ -7,42 +7,50 @@
 class NDIS_PROCESSOR_TYPE extends Win32Enum {
 
     /**
+     * Native name: NdisProcessorX86
      * @type {Integer (Int32)}
      */
-    static NdisProcessorX86 => 0
+    static ProcessorX86 => 0
 
     /**
+     * Native name: NdisProcessorMips
      * @type {Integer (Int32)}
      */
-    static NdisProcessorMips => 1
+    static Mips => 1
 
     /**
+     * Native name: NdisProcessorAlpha
      * @type {Integer (Int32)}
      */
-    static NdisProcessorAlpha => 2
+    static Alpha => 2
 
     /**
+     * Native name: NdisProcessorPpc
      * @type {Integer (Int32)}
      */
-    static NdisProcessorPpc => 3
+    static Ppc => 3
 
     /**
+     * Native name: NdisProcessorAmd64
      * @type {Integer (Int32)}
      */
-    static NdisProcessorAmd64 => 4
+    static Amd64 => 4
 
     /**
+     * Native name: NdisProcessorIA64
      * @type {Integer (Int32)}
      */
-    static NdisProcessorIA64 => 5
+    static ProcessorIA64 => 5
 
     /**
+     * Native name: NdisProcessorArm
      * @type {Integer (Int32)}
      */
-    static NdisProcessorArm => 6
+    static Arm => 6
 
     /**
+     * Native name: NdisProcessorArm64
      * @type {Integer (Int32)}
      */
-    static NdisProcessorArm64 => 7
+    static Arm64 => 7
 }

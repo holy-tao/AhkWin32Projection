@@ -7,17 +7,20 @@
 class SCM_BUS_QUERY_TYPE extends Win32Enum {
 
     /**
+     * Native name: ScmBusQuery_Descriptor
      * @type {Integer (Int32)}
      */
-    static ScmBusQuery_Descriptor => 0
+    static Descriptor => 0
 
     /**
+     * Native name: ScmBusQuery_IsSupported
      * @type {Integer (Int32)}
      */
-    static ScmBusQuery_IsSupported => 1
+    static IsSupported => 1
 
     /**
+     * Native name: ScmBusQuery_Max
      * @type {Integer (Int32)}
      */
-    static ScmBusQuery_Max => 2
+    static Max => 2
 }

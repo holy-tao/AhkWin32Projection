@@ -30,7 +30,6 @@ class IEnumACString extends IEnumString {
     static VTableNames => ["NextItem", "SetEnumOptions", "GetEnumOptions"]
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @param {Integer} cchMax 
      * @returns {Integer} 
@@ -43,7 +42,6 @@ class IEnumACString extends IEnumString {
     }
 
     /**
-     * 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class IEnumACString extends IEnumString {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEnumOptions() {

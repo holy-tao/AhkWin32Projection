@@ -10,19 +10,22 @@ class PFXExportOptions extends Win32Enum {
 
     /**
      * Includes only the end entity certificate.
+     * Native name: PFXExportEEOnly
      * @type {Integer (Int32)}
      */
-    static PFXExportEEOnly => 0
+    static ExportEEOnly => 0
 
     /**
      * Includes the certificate chain without the root <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> certificate.
+     * Native name: PFXExportChainNoRoot
      * @type {Integer (Int32)}
      */
-    static PFXExportChainNoRoot => 1
+    static ChainNoRoot => 1
 
     /**
      * Includes the entire certificate chain, including the root certification authority certificate.
+     * Native name: PFXExportChainWithRoot
      * @type {Integer (Int32)}
      */
-    static PFXExportChainWithRoot => 2
+    static ChainWithRoot => 2
 }

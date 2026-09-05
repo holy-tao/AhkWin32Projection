@@ -25,7 +25,6 @@ class IPrintAsyncNewChannelCookie extends IPrintAsyncCookie {
     static VTableNames => ["FinishAsyncCallWithData"]
 
     /**
-     * 
      * @param {Pointer<IPrintAsyncNotifyChannel>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 

@@ -17,91 +17,106 @@ class ADS_ACETYPE_ENUM extends Win32Enum {
 
     /**
      * The ACE is of the standard ACCESS ALLOWED type, where the <b>ObjectType</b> and <b>InheritedObjectType</b> fields are <b>NULL</b>.
+     * Native name: ADS_ACETYPE_ACCESS_ALLOWED
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_ALLOWED => 0
+    static ACCESS_ALLOWED => 0
 
     /**
      * The ACE is of the standard system-audit type, where the <b>ObjectType</b> and <b>InheritedObjectType</b> fields are <b>NULL</b>.
+     * Native name: ADS_ACETYPE_ACCESS_DENIED
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_DENIED => 1
+    static ACCESS_DENIED => 1
 
     /**
      * The ACE is of the standard system type, where the <b>ObjectType</b> and <b>InheritedObjectType</b> fields are <b>NULL</b>.
+     * Native name: ADS_ACETYPE_SYSTEM_AUDIT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_SYSTEM_AUDIT => 2
+    static SYSTEM_AUDIT => 2
 
     /**
      * The ACE grants access to an object or a subobject of the object, such as a property set or property. <b>ObjectType</b> or <b>InheritedObjectType</b> or both contain a GUID that identifies a property set, property, extended right, or type of child object.
+     * Native name: ADS_ACETYPE_ACCESS_ALLOWED_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_ALLOWED_OBJECT => 5
+    static ACCESS_ALLOWED_OBJECT => 5
 
     /**
      * The ACE denies access to an object or a subobject of the object, such as a property set or property. <b>ObjectType</b> or <b>InheritedObjectType</b> or both contain a GUID that identifies a property set, property, extended right, or type of child object.
+     * Native name: ADS_ACETYPE_ACCESS_DENIED_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_DENIED_OBJECT => 6
+    static ACCESS_DENIED_OBJECT => 6
 
     /**
      * The ACE audits access to an object or a subobject of the object, such as a property set or property. <b>ObjectType</b> or <b>InheritedObjectType</b> or both contain a GUID that identifies a property set, property, extended right, or type of child object.
+     * Native name: ADS_ACETYPE_SYSTEM_AUDIT_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_SYSTEM_AUDIT_OBJECT => 7
+    static SYSTEM_AUDIT_OBJECT => 7
 
     /**
      * Not used.
+     * Native name: ADS_ACETYPE_SYSTEM_ALARM_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_SYSTEM_ALARM_OBJECT => 8
+    static SYSTEM_ALARM_OBJECT => 8
 
     /**
      * Same functionality as <b>ADS_ACETYPE_ACCESS_ALLOWED</b>, but used with applications that use Authz to verify ACEs.
+     * Native name: ADS_ACETYPE_ACCESS_ALLOWED_CALLBACK
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_ALLOWED_CALLBACK => 9
+    static ACCESS_ALLOWED_CALLBACK => 9
 
     /**
      * Same functionality as <b>ADS_ACETYPE_ACCESS_DENIED</b>, but used with applications that use Authz to verify ACEs.
+     * Native name: ADS_ACETYPE_ACCESS_DENIED_CALLBACK
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_DENIED_CALLBACK => 10
+    static ACCESS_DENIED_CALLBACK => 10
 
     /**
      * Same functionality as <b>ADS_ACETYPE_ACCESS_ALLOWED_OBJECT</b>, but used with applications that use Authz to verify ACEs.
+     * Native name: ADS_ACETYPE_ACCESS_ALLOWED_CALLBACK_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_ALLOWED_CALLBACK_OBJECT => 11
+    static ACCESS_ALLOWED_CALLBACK_OBJECT => 11
 
     /**
      * Same functionality as <b>ADS_ACETYPE_ACCESS_DENIED_OBJECT</b>, but used with applications that use Authz to check ACEs.
+     * Native name: ADS_ACETYPE_ACCESS_DENIED_CALLBACK_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_ACCESS_DENIED_CALLBACK_OBJECT => 12
+    static ACCESS_DENIED_CALLBACK_OBJECT => 12
 
     /**
      * Same functionality as <b>ADS_ACETYPE_SYSTEM_AUDIT</b>, but used with applications that use Authz to check ACEs.
+     * Native name: ADS_ACETYPE_SYSTEM_AUDIT_CALLBACK
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_SYSTEM_AUDIT_CALLBACK => 13
+    static SYSTEM_AUDIT_CALLBACK => 13
 
     /**
      * Not used.
+     * Native name: ADS_ACETYPE_SYSTEM_ALARM_CALLBACK
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_SYSTEM_ALARM_CALLBACK => 14
+    static SYSTEM_ALARM_CALLBACK => 14
 
     /**
      * Same functionality as <b>ADS_ACETYPE_SYSTEM_AUDIT_OBJECT</b>, but used with applications that use Authz to verify ACEs.
+     * Native name: ADS_ACETYPE_SYSTEM_AUDIT_CALLBACK_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_SYSTEM_AUDIT_CALLBACK_OBJECT => 15
+    static SYSTEM_AUDIT_CALLBACK_OBJECT => 15
 
     /**
      * Not used.
+     * Native name: ADS_ACETYPE_SYSTEM_ALARM_CALLBACK_OBJECT
      * @type {Integer (Int32)}
      */
-    static ADS_ACETYPE_SYSTEM_ALARM_CALLBACK_OBJECT => 16
+    static SYSTEM_ALARM_CALLBACK_OBJECT => 16
 }

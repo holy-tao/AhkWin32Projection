@@ -14,19 +14,22 @@ class ROWSETEVENT_ITEMSTATE extends Win32Enum {
 
     /**
      * The item is definitely not in the rowset.
+     * Native name: ROWSETEVENT_ITEMSTATE_NOTINROWSET
      * @type {Integer (Int32)}
      */
-    static ROWSETEVENT_ITEMSTATE_NOTINROWSET => 0
+    static NOTINROWSET => 0
 
     /**
      * The item is definitely contained within the rowset.
+     * Native name: ROWSETEVENT_ITEMSTATE_INROWSET
      * @type {Integer (Int32)}
      */
-    static ROWSETEVENT_ITEMSTATE_INROWSET => 1
+    static INROWSET => 1
 
     /**
      * The item may be in the rowset.
+     * Native name: ROWSETEVENT_ITEMSTATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static ROWSETEVENT_ITEMSTATE_UNKNOWN => 2
+    static UNKNOWN => 2
 }

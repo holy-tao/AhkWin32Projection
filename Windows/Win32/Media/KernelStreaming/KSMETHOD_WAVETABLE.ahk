@@ -7,22 +7,26 @@
 class KSMETHOD_WAVETABLE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_WAVETABLE_WAVE_ALLOC
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_WAVETABLE_WAVE_ALLOC => 0
+    static WAVE_ALLOC => 0
 
     /**
+     * Native name: KSMETHOD_WAVETABLE_WAVE_FREE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_WAVETABLE_WAVE_FREE => 1
+    static WAVE_FREE => 1
 
     /**
+     * Native name: KSMETHOD_WAVETABLE_WAVE_FIND
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_WAVETABLE_WAVE_FIND => 2
+    static WAVE_FIND => 2
 
     /**
+     * Native name: KSMETHOD_WAVETABLE_WAVE_WRITE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_WAVETABLE_WAVE_WRITE => 3
+    static WAVE_WRITE => 3
 }

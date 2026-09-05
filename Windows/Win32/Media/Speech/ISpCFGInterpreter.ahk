@@ -32,7 +32,6 @@ class ISpCFGInterpreter extends IUnknown {
     static VTableNames => ["InitGrammar", "Interpret"]
 
     /**
-     * 
      * @param {PWSTR} pszGrammarName 
      * @param {Pointer<Pointer<Void>>} pvGrammarData 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class ISpCFGInterpreter extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpPhraseBuilder} pPhrase 
      * @param {Integer} ulFirstElement 
      * @param {Integer} ulCountOfElements 

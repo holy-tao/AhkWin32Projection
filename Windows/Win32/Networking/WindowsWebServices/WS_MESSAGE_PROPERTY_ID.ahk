@@ -15,9 +15,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_property">WS_MESSAGE_PROPERTY</a> structure is the current <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE</a> of the message.
      * 
      * This property is available in all message states.
+     * Native name: WS_MESSAGE_PROPERTY_STATE
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_STATE => 0
+    static STATE => 0
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -38,9 +39,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>. 
      *                     Using the heap of an empty message will result in undefined behavior.
+     * Native name: WS_MESSAGE_PROPERTY_HEAP
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_HEAP => 1
+    static HEAP => 1
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -59,9 +61,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * This property is available in all message states except <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_ENVELOPE_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_ENVELOPE_VERSION => 2
+    static ENVELOPE_VERSION => 2
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -80,9 +83,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * This property is available in all message states except <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_ADDRESSING_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_ADDRESSING_VERSION => 3
+    static ADDRESSING_VERSION => 3
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -96,9 +100,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * This property is available in all message states except <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_HEADER_BUFFER
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_HEADER_BUFFER => 4
+    static HEADER_BUFFER => 4
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -128,9 +133,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The header position is valid until the message is reset or freed.
+     * Native name: WS_MESSAGE_PROPERTY_HEADER_POSITION
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_HEADER_POSITION => 5
+    static HEADER_POSITION => 5
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -146,9 +152,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is only available when the message is 
      *                     in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_READING</a> state.
+     * Native name: WS_MESSAGE_PROPERTY_BODY_READER
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_BODY_READER => 6
+    static BODY_READER => 6
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -164,9 +171,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * The writer is owned by the message object, and is valid only
      *                     until either <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreemessage">WsFreeMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetmessage">WsResetMessage</a> are called.
+     * Native name: WS_MESSAGE_PROPERTY_BODY_WRITER
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_BODY_WRITER => 7
+    static BODY_WRITER => 7
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
@@ -189,9 +197,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsaddressmessage">WsAddressMessage</a> for more information.
+     * Native name: WS_MESSAGE_PROPERTY_IS_ADDRESSED
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_IS_ADDRESSED => 8
+    static IS_ADDRESSED => 8
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemessage">WsCreateMessage</a> to specify the properties
@@ -215,9 +224,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_heap_property_id">WS_HEAP_PROPERTY_TRIM_SIZE</a>
      * </li>
      * </ul>
+     * Native name: WS_MESSAGE_PROPERTY_HEAP_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_HEAP_PROPERTIES => 9
+    static HEAP_PROPERTIES => 9
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemessage">WsCreateMessage</a> to specify properties 
@@ -267,9 +277,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_reader_property_id">WS_XML_READER_PROPERTY_MAX_NAMESPACES</a>
      * </li>
      * </ul>
+     * Native name: WS_MESSAGE_PROPERTY_XML_READER_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_XML_READER_PROPERTIES => 10
+    static XML_READER_PROPERTIES => 10
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemessage">WsCreateMessage</a> to specify the properties
@@ -310,9 +321,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_MAX_NAMESPACES</a>
      * </li>
      * </ul>
+     * Native name: WS_MESSAGE_PROPERTY_XML_WRITER_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_XML_WRITER_PROPERTIES => 11
+    static XML_WRITER_PROPERTIES => 11
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetmessageproperty">WsSetMessageProperty</a> to indicate whether a message contains a fault.
@@ -339,9 +351,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * This property is available in all message states except <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_IS_FAULT
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_IS_FAULT => 12
+    static IS_FAULT => 12
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemessage">WsCreateMessage</a> to specify the maximum number of headers
@@ -361,9 +374,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 64.
+     * Native name: WS_MESSAGE_PROPERTY_MAX_PROCESSED_HEADERS
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_MAX_PROCESSED_HEADERS => 13
+    static MAX_PROCESSED_HEADERS => 13
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the sender's
@@ -383,9 +397,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except 
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_USERNAME
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_USERNAME => 14
+    static USERNAME => 14
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the sender's
@@ -406,9 +421,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_ENCODED_CERT
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_ENCODED_CERT => 15
+    static ENCODED_CERT => 15
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the Windows
@@ -440,9 +456,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_TRANSPORT_SECURITY_WINDOWS_TOKEN
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_TRANSPORT_SECURITY_WINDOWS_TOKEN => 16
+    static TRANSPORT_SECURITY_WINDOWS_TOKEN => 16
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the Windows
@@ -463,9 +480,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_HTTP_HEADER_AUTH_WINDOWS_TOKEN
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_HTTP_HEADER_AUTH_WINDOWS_TOKEN => 17
+    static HTTP_HEADER_AUTH_WINDOWS_TOKEN => 17
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the Windows
@@ -486,9 +504,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_MESSAGE_SECURITY_WINDOWS_TOKEN
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_MESSAGE_SECURITY_WINDOWS_TOKEN => 18
+    static MESSAGE_SECURITY_WINDOWS_TOKEN => 18
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the SAML assertion
@@ -509,9 +528,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_SAML_ASSERTION
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_SAML_ASSERTION => 19
+    static SAML_ASSERTION => 19
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the secure conversation handle if the
@@ -521,9 +541,10 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_property">WS_MESSAGE_PROPERTY</a> structure is a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-security-context">WS_SECURITY_CONTEXT</a>.
      * 
      * The returned value is good until the message is freed or reset.
+     * Native name: WS_MESSAGE_PROPERTY_SECURITY_CONTEXT
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_SECURITY_CONTEXT => 20
+    static SECURITY_CONTEXT => 20
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> to retrieve the message's security protection level.
@@ -544,7 +565,8 @@ class WS_MESSAGE_PROPERTY_ID extends Win32Enum {
      * 
      * This property is available in all message states except
      *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
+     * Native name: WS_MESSAGE_PROPERTY_PROTECTION_LEVEL
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_PROPERTY_PROTECTION_LEVEL => 21
+    static PROTECTION_LEVEL => 21
 }

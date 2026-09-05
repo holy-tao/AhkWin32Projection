@@ -15,97 +15,113 @@ class VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG extends Win32Enum {
 
     /**
      * Supports RAID level 2.
+     * Native name: VDS_SF_SUPPORTS_RAID2_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID2_LUNS => 1
+    static SF_SUPPORTS_RAID2_LUNS => 1
 
     /**
      * Supports RAID level 3.
+     * Native name: VDS_SF_SUPPORTS_RAID3_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID3_LUNS => 2
+    static SF_SUPPORTS_RAID3_LUNS => 2
 
     /**
      * Supports RAID level 4.
+     * Native name: VDS_SF_SUPPORTS_RAID4_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID4_LUNS => 4
+    static SF_SUPPORTS_RAID4_LUNS => 4
 
     /**
      * Supports RAID level 5.
+     * Native name: VDS_SF_SUPPORTS_RAID5_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID5_LUNS => 8
+    static SF_SUPPORTS_RAID5_LUNS => 8
 
     /**
      * Supports RAID level 6.
+     * Native name: VDS_SF_SUPPORTS_RAID6_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID6_LUNS => 16
+    static SF_SUPPORTS_RAID6_LUNS => 16
 
     /**
      * Supports RAID level 0+1.
+     * Native name: VDS_SF_SUPPORTS_RAID01_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID01_LUNS => 32
+    static SF_SUPPORTS_RAID01_LUNS => 32
 
     /**
      * Supports RAID level 0+3.
+     * Native name: VDS_SF_SUPPORTS_RAID03_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID03_LUNS => 64
+    static SF_SUPPORTS_RAID03_LUNS => 64
 
     /**
      * Supports RAID level 0+5.
+     * Native name: VDS_SF_SUPPORTS_RAID05_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID05_LUNS => 128
+    static SF_SUPPORTS_RAID05_LUNS => 128
 
     /**
      * Supports RAID level 1+0.
+     * Native name: VDS_SF_SUPPORTS_RAID10_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID10_LUNS => 256
+    static SF_SUPPORTS_RAID10_LUNS => 256
 
     /**
      * Supports RAID level 1+5.
+     * Native name: VDS_SF_SUPPORTS_RAID15_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID15_LUNS => 512
+    static SF_SUPPORTS_RAID15_LUNS => 512
 
     /**
      * Supports RAID level 3+0.
+     * Native name: VDS_SF_SUPPORTS_RAID30_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID30_LUNS => 1024
+    static SF_SUPPORTS_RAID30_LUNS => 1024
 
     /**
      * Supports RAID level 5+0.
+     * Native name: VDS_SF_SUPPORTS_RAID50_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID50_LUNS => 2048
+    static SF_SUPPORTS_RAID50_LUNS => 2048
 
     /**
      * Supports RAID level 5+1.
+     * Native name: VDS_SF_SUPPORTS_RAID51_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID51_LUNS => 4096
+    static SF_SUPPORTS_RAID51_LUNS => 4096
 
     /**
      * Supports RAID level 5+3.
+     * Native name: VDS_SF_SUPPORTS_RAID53_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID53_LUNS => 8192
+    static SF_SUPPORTS_RAID53_LUNS => 8192
 
     /**
      * Supports RAID level 6+0.
+     * Native name: VDS_SF_SUPPORTS_RAID60_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID60_LUNS => 16384
+    static SF_SUPPORTS_RAID60_LUNS => 16384
 
     /**
      * Supports RAID level 6+1.
+     * Native name: VDS_SF_SUPPORTS_RAID61_LUNS
      * @type {Integer (Int32)}
      */
-    static VDS_SF_SUPPORTS_RAID61_LUNS => 32768
+    static SF_SUPPORTS_RAID61_LUNS => 32768
 }

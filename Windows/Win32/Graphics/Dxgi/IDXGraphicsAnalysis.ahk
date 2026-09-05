@@ -28,7 +28,6 @@ class IDXGraphicsAnalysis extends IUnknown {
     static VTableNames => ["BeginCapture", "EndCapture"]
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     BeginCapture() {
@@ -36,7 +35,6 @@ class IDXGraphicsAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     EndCapture() {

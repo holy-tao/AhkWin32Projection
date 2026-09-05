@@ -7,37 +7,44 @@
 class DXVA2_NoiseFilterTech extends Win32Enum {
 
     /**
+     * Native name: DXVA2_NoiseFilterTech_Unsupported
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterTech_Unsupported => 0
+    static Unsupported => 0
 
     /**
+     * Native name: DXVA2_NoiseFilterTech_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterTech_Unknown => 1
+    static Unknown => 1
 
     /**
+     * Native name: DXVA2_NoiseFilterTech_Median
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterTech_Median => 2
+    static Median => 2
 
     /**
+     * Native name: DXVA2_NoiseFilterTech_Temporal
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterTech_Temporal => 4
+    static Temporal => 4
 
     /**
+     * Native name: DXVA2_NoiseFilterTech_BlockNoise
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterTech_BlockNoise => 8
+    static BlockNoise => 8
 
     /**
+     * Native name: DXVA2_NoiseFilterTech_MosquitoNoise
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterTech_MosquitoNoise => 16
+    static MosquitoNoise => 16
 
     /**
+     * Native name: DXVA2_NoiseFilterTech_Mask
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterTech_Mask => 31
+    static Mask => 31
 }

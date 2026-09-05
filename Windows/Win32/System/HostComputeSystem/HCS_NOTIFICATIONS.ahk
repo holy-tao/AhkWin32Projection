@@ -7,112 +7,134 @@
 class HCS_NOTIFICATIONS extends Win32Enum {
 
     /**
+     * Native name: HcsNotificationInvalid
      * @type {Integer (Int32)}
      */
-    static HcsNotificationInvalid => 0
+    static NotificationInvalid => 0
 
     /**
+     * Native name: HcsNotificationSystemExited
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemExited => 1
+    static NotificationSystemExited => 1
 
     /**
+     * Native name: HcsNotificationSystemCreateCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemCreateCompleted => 2
+    static NotificationSystemCreateCompleted => 2
 
     /**
+     * Native name: HcsNotificationSystemStartCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemStartCompleted => 3
+    static NotificationSystemStartCompleted => 3
 
     /**
+     * Native name: HcsNotificationSystemPauseCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemPauseCompleted => 4
+    static NotificationSystemPauseCompleted => 4
 
     /**
+     * Native name: HcsNotificationSystemResumeCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemResumeCompleted => 5
+    static NotificationSystemResumeCompleted => 5
 
     /**
+     * Native name: HcsNotificationSystemCrashReport
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemCrashReport => 6
+    static NotificationSystemCrashReport => 6
 
     /**
+     * Native name: HcsNotificationSystemSiloJobCreated
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemSiloJobCreated => 7
+    static NotificationSystemSiloJobCreated => 7
 
     /**
+     * Native name: HcsNotificationSystemSaveCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemSaveCompleted => 8
+    static NotificationSystemSaveCompleted => 8
 
     /**
+     * Native name: HcsNotificationSystemRdpEnhancedModeStateChanged
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemRdpEnhancedModeStateChanged => 9
+    static NotificationSystemRdpEnhancedModeStateChanged => 9
 
     /**
+     * Native name: HcsNotificationSystemShutdownFailed
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemShutdownFailed => 10
+    static NotificationSystemShutdownFailed => 10
 
     /**
+     * Native name: HcsNotificationSystemShutdownCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemShutdownCompleted => 10
+    static NotificationSystemShutdownCompleted => 10
 
     /**
+     * Native name: HcsNotificationSystemGetPropertiesCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemGetPropertiesCompleted => 11
+    static NotificationSystemGetPropertiesCompleted => 11
 
     /**
+     * Native name: HcsNotificationSystemModifyCompleted
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemModifyCompleted => 12
+    static NotificationSystemModifyCompleted => 12
 
     /**
+     * Native name: HcsNotificationSystemCrashInitiated
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemCrashInitiated => 13
+    static NotificationSystemCrashInitiated => 13
 
     /**
+     * Native name: HcsNotificationSystemGuestConnectionClosed
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemGuestConnectionClosed => 14
+    static NotificationSystemGuestConnectionClosed => 14
 
     /**
+     * Native name: HcsNotificationSystemOperationCompletion
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemOperationCompletion => 15
+    static NotificationSystemOperationCompletion => 15
 
     /**
+     * Native name: HcsNotificationSystemPassThru
      * @type {Integer (Int32)}
      */
-    static HcsNotificationSystemPassThru => 16
+    static NotificationSystemPassThru => 16
 
     /**
+     * Native name: HcsNotificationOperationProgressUpdate
      * @type {Integer (Int32)}
      */
-    static HcsNotificationOperationProgressUpdate => 256
+    static NotificationOperationProgressUpdate => 256
 
     /**
+     * Native name: HcsNotificationProcessExited
      * @type {Integer (Int32)}
      */
-    static HcsNotificationProcessExited => 65536
+    static NotificationProcessExited => 65536
 
     /**
+     * Native name: HcsNotificationServiceDisconnect
      * @type {Integer (Int32)}
      */
-    static HcsNotificationServiceDisconnect => 16777216
+    static NotificationServiceDisconnect => 16777216
 
     /**
+     * Native name: HcsNotificationFlagsReserved
      * @type {Integer (Int32)}
      */
-    static HcsNotificationFlagsReserved => -268435456
+    static NotificationFlagsReserved => -268435456
 }

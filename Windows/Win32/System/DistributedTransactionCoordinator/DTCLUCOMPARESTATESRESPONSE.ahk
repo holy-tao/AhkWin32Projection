@@ -7,12 +7,14 @@
 class DTCLUCOMPARESTATESRESPONSE extends Win32Enum {
 
     /**
+     * Native name: DTCLUCOMPARESTATESRESPONSE_OK
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATESRESPONSE_OK => 1
+    static OK => 1
 
     /**
+     * Native name: DTCLUCOMPARESTATESRESPONSE_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static DTCLUCOMPARESTATESRESPONSE_PROTOCOL => 2
+    static PROTOCOL => 2
 }

@@ -10,25 +10,29 @@ class VMRDeinterlacePrefs extends Win32Enum {
 
     /**
      * Use the next best mode offered by the driver.
+     * Native name: DeinterlacePref_NextBest
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref_NextBest => 1
+    static Pref_NextBest => 1
 
     /**
      * Use the bob method.
+     * Native name: DeinterlacePref_BOB
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref_BOB => 2
+    static Pref_BOB => 2
 
     /**
      * Use the weave method (that is, no deinterlacing).
+     * Native name: DeinterlacePref_Weave
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref_Weave => 4
+    static Pref_Weave => 4
 
     /**
      * Bitwise <b>OR</b> of the previous flags. This value is not a valid flag.
+     * Native name: DeinterlacePref_Mask
      * @type {Integer (Int32)}
      */
-    static DeinterlacePref_Mask => 7
+    static Pref_Mask => 7
 }

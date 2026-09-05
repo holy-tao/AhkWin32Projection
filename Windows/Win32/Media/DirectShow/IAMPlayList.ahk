@@ -31,7 +31,6 @@ class IAMPlayList extends IUnknown {
     static VTableNames => ["GetFlags", "GetItemCount", "GetItem", "GetNamedEvent", "GetRepeatInfo"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -40,7 +39,6 @@ class IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetItemCount() {
@@ -49,7 +47,6 @@ class IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwItemIndex 
      * @returns {IAMPlayListItem} 
      */
@@ -59,7 +56,6 @@ class IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszEventName 
      * @param {Integer} dwItemIndex 
      * @param {Pointer<IAMPlayListItem>} ppItem 
@@ -76,7 +72,6 @@ class IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwRepeatCount 
      * @param {Pointer<Integer>} pdwRepeatStart 
      * @param {Pointer<Integer>} pdwRepeatEnd 

@@ -37,7 +37,6 @@ class DataSource extends IUnknown {
     static VTableNames => ["getDataMember", "getDataMemberName", "getDataMemberCount", "addDataSourceListener", "removeDataSourceListener"]
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -50,7 +49,6 @@ class DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {Pointer<Integer>} 
      */
@@ -60,7 +58,6 @@ class DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getDataMemberCount() {
@@ -69,7 +66,6 @@ class DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {DataSourceListener} pDSL 
      * @returns {HRESULT} 
      */
@@ -79,7 +75,6 @@ class DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {DataSourceListener} pDSL 
      * @returns {HRESULT} 
      */

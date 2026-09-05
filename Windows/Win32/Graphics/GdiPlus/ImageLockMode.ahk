@@ -7,17 +7,20 @@
 class ImageLockMode extends Win32Enum {
 
     /**
+     * Native name: ImageLockModeRead
      * @type {Integer (Int32)}
      */
-    static ImageLockModeRead => 1
+    static Read => 1
 
     /**
+     * Native name: ImageLockModeWrite
      * @type {Integer (Int32)}
      */
-    static ImageLockModeWrite => 2
+    static Write => 2
 
     /**
+     * Native name: ImageLockModeUserInputBuf
      * @type {Integer (Int32)}
      */
-    static ImageLockModeUserInputBuf => 4
+    static UserInputBuf => 4
 }

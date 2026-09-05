@@ -7,22 +7,26 @@
 class MSICOSTTREE extends Win32Enum {
 
     /**
+     * Native name: MSICOSTTREE_SELFONLY
      * @type {Integer (Int32)}
      */
-    static MSICOSTTREE_SELFONLY => 0
+    static SELFONLY => 0
 
     /**
+     * Native name: MSICOSTTREE_CHILDREN
      * @type {Integer (Int32)}
      */
-    static MSICOSTTREE_CHILDREN => 1
+    static CHILDREN => 1
 
     /**
+     * Native name: MSICOSTTREE_PARENTS
      * @type {Integer (Int32)}
      */
-    static MSICOSTTREE_PARENTS => 2
+    static PARENTS => 2
 
     /**
+     * Native name: MSICOSTTREE_RESERVED
      * @type {Integer (Int32)}
      */
-    static MSICOSTTREE_RESERVED => 3
+    static RESERVED => 3
 }

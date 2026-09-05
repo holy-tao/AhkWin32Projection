@@ -7,22 +7,26 @@
 class styleTableLayout extends Win32Enum {
 
     /**
+     * Native name: styleTableLayoutNotSet
      * @type {Integer (Int32)}
      */
-    static styleTableLayoutNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTableLayoutAuto
      * @type {Integer (Int32)}
      */
-    static styleTableLayoutAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleTableLayoutFixed
      * @type {Integer (Int32)}
      */
-    static styleTableLayoutFixed => 2
+    static Fixed => 2
 
     /**
+     * Native name: styleTableLayout_Max
      * @type {Integer (Int32)}
      */
-    static styleTableLayout_Max => 2147483647
+    static Max => 2147483647
 }

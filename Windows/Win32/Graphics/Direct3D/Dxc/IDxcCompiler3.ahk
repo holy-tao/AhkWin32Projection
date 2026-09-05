@@ -33,7 +33,6 @@ class IDxcCompiler3 extends IUnknown {
     static VTableNames => ["Compile", "Disassemble"]
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pSource 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
@@ -49,7 +48,6 @@ class IDxcCompiler3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pObject 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

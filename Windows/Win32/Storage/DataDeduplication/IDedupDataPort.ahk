@@ -44,7 +44,6 @@ class IDedupDataPort extends IUnknown {
     static VTableNames => ["GetStatus", "LookupChunks", "InsertChunks", "InsertChunksWithStream", "CommitStreams", "CommitStreamsWithStream", "GetStreams", "GetStreamsResults", "GetChunks", "GetChunksResults", "GetRequestStatus", "GetRequestResults"]
 
     /**
-     * 
      * @param {Pointer<DedupDataPortVolumeStatus>} pStatus 
      * @param {Pointer<Integer>} pDataHeadroomMb 
      * @returns {HRESULT} 
@@ -58,7 +57,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DedupHash>} pHashes 
      * @returns {Guid} 
@@ -70,7 +68,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ChunkCount 
      * @param {Pointer<DedupChunk>} pChunkMetadata 
      * @param {Integer} DataByteCount 
@@ -86,7 +83,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ChunkCount 
      * @param {Pointer<DedupChunk>} pChunkMetadata 
      * @param {Integer} DataByteCount 
@@ -100,7 +96,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StreamCount 
      * @param {Pointer<DedupStream>} pStreams 
      * @param {Integer} EntryCount 
@@ -114,7 +109,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StreamCount 
      * @param {Pointer<DedupStream>} pStreams 
      * @param {Integer} EntryCount 
@@ -128,7 +122,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StreamCount 
      * @param {Pointer<BSTR>} pStreamPaths 
      * @returns {Guid} 
@@ -140,7 +133,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @param {Integer} MaxWaitMs 
      * @param {Integer} StreamEntryIndex 
@@ -165,7 +157,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DedupHash>} pHashes 
      * @returns {Guid} 
@@ -177,7 +168,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @param {Integer} MaxWaitMs 
      * @param {Integer} ChunkIndex 
@@ -202,7 +192,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @returns {DedupDataPortRequestStatus} 
      */
@@ -212,7 +201,6 @@ class IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @param {Integer} MaxWaitMs 
      * @param {Pointer<HRESULT>} pBatchResult 

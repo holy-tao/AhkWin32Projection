@@ -9,17 +9,20 @@
 class MrmPackagingMode extends Win32Enum {
 
     /**
+     * Native name: MrmPackagingModeStandaloneFile
      * @type {Integer (Int32)}
      */
-    static MrmPackagingModeStandaloneFile => 0
+    static StandaloneFile => 0
 
     /**
+     * Native name: MrmPackagingModeAutoSplit
      * @type {Integer (Int32)}
      */
-    static MrmPackagingModeAutoSplit => 1
+    static AutoSplit => 1
 
     /**
+     * Native name: MrmPackagingModeResourcePack
      * @type {Integer (Int32)}
      */
-    static MrmPackagingModeResourcePack => 2
+    static ResourcePack => 2
 }

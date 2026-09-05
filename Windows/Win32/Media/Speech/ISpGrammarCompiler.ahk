@@ -37,7 +37,6 @@ class ISpGrammarCompiler extends IUnknown {
     static VTableNames => ["CompileStream"]
 
     /**
-     * 
      * @param {IStream} pSource 
      * @param {IStream} pDest 
      * @param {IStream} pHeader 

@@ -7,37 +7,44 @@
 class URL_PART extends Win32Enum {
 
     /**
+     * Native name: URL_PART_NONE
      * @type {Integer (Int32)}
      */
-    static URL_PART_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: URL_PART_SCHEME
      * @type {Integer (Int32)}
      */
-    static URL_PART_SCHEME => 1
+    static SCHEME => 1
 
     /**
+     * Native name: URL_PART_HOSTNAME
      * @type {Integer (Int32)}
      */
-    static URL_PART_HOSTNAME => 2
+    static HOSTNAME => 2
 
     /**
+     * Native name: URL_PART_USERNAME
      * @type {Integer (Int32)}
      */
-    static URL_PART_USERNAME => 3
+    static USERNAME => 3
 
     /**
+     * Native name: URL_PART_PASSWORD
      * @type {Integer (Int32)}
      */
-    static URL_PART_PASSWORD => 4
+    static PASSWORD => 4
 
     /**
+     * Native name: URL_PART_PORT
      * @type {Integer (Int32)}
      */
-    static URL_PART_PORT => 5
+    static PORT => 5
 
     /**
+     * Native name: URL_PART_QUERY
      * @type {Integer (Int32)}
      */
-    static URL_PART_QUERY => 6
+    static QUERY => 6
 }

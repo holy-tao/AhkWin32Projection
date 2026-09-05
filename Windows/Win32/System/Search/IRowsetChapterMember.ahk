@@ -29,7 +29,6 @@ class IRowsetChapterMember extends IUnknown {
     static VTableNames => ["IsRowInChapter"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} hRow 
      * @returns {HRESULT} 

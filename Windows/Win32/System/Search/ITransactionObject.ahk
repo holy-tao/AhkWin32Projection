@@ -30,7 +30,6 @@ class ITransactionObject extends IUnknown {
     static VTableNames => ["GetTransactionObject"]
 
     /**
-     * 
      * @param {Integer} ulTransactionLevel 
      * @returns {ITransaction} 
      */

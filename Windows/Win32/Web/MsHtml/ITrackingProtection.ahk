@@ -31,7 +31,6 @@ class ITrackingProtection extends IUnknown {
     static VTableNames => ["EvaluateUrl", "GetEnabled"]
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {BOOL} 
      */
@@ -43,7 +42,6 @@ class ITrackingProtection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetEnabled() {

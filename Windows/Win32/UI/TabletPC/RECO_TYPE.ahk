@@ -7,12 +7,14 @@
 class RECO_TYPE extends Win32Enum {
 
     /**
+     * Native name: RECO_TYPE_WSTRING
      * @type {Integer (Int32)}
      */
-    static RECO_TYPE_WSTRING => 0
+    static WSTRING => 0
 
     /**
+     * Native name: RECO_TYPE_WCHAR
      * @type {Integer (Int32)}
      */
-    static RECO_TYPE_WCHAR => 1
+    static WCHAR => 1
 }

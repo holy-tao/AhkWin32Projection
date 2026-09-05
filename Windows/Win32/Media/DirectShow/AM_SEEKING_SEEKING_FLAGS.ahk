@@ -7,47 +7,56 @@
 class AM_SEEKING_SEEKING_FLAGS extends Win32Enum {
 
     /**
+     * Native name: AM_SEEKING_NoPositioning
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_NoPositioning => 0
+    static NoPositioning => 0
 
     /**
+     * Native name: AM_SEEKING_AbsolutePositioning
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_AbsolutePositioning => 1
+    static AbsolutePositioning => 1
 
     /**
+     * Native name: AM_SEEKING_RelativePositioning
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_RelativePositioning => 2
+    static RelativePositioning => 2
 
     /**
+     * Native name: AM_SEEKING_IncrementalPositioning
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_IncrementalPositioning => 3
+    static IncrementalPositioning => 3
 
     /**
+     * Native name: AM_SEEKING_PositioningBitsMask
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_PositioningBitsMask => 3
+    static PositioningBitsMask => 3
 
     /**
+     * Native name: AM_SEEKING_SeekToKeyFrame
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_SeekToKeyFrame => 4
+    static SeekToKeyFrame => 4
 
     /**
+     * Native name: AM_SEEKING_ReturnTime
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_ReturnTime => 8
+    static ReturnTime => 8
 
     /**
+     * Native name: AM_SEEKING_Segment
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_Segment => 16
+    static Segment => 16
 
     /**
+     * Native name: AM_SEEKING_NoFlush
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_NoFlush => 32
+    static NoFlush => 32
 }

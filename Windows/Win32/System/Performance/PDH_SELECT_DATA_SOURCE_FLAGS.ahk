@@ -7,12 +7,14 @@
 class PDH_SELECT_DATA_SOURCE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PDH_FLAGS_FILE_BROWSER_ONLY
      * @type {Integer (UInt32)}
      */
-    static PDH_FLAGS_FILE_BROWSER_ONLY => 1
+    static FILE_BROWSER_ONLY => 1
 
     /**
+     * Native name: PDH_FLAGS_NONE
      * @type {Integer (UInt32)}
      */
-    static PDH_FLAGS_NONE => 0
+    static NONE => 0
 }

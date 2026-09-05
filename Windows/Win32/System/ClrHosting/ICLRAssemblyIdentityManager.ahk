@@ -35,7 +35,6 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     static VTableNames => ["GetCLRAssemblyReferenceList", "GetBindingIdentityFromFile", "GetBindingIdentityFromStream", "GetReferencedAssembliesFromFile", "GetReferencedAssembliesFromStream", "GetProbingAssembliesFromReference", "IsStronglyNamed"]
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwzAssemblyReferences 
      * @param {Integer} dwNumOfReferences 
      * @returns {ICLRAssemblyReferenceList} 
@@ -48,7 +47,6 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzBuffer 
@@ -66,7 +64,6 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzBuffer 
@@ -83,7 +80,6 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwFlags 
      * @param {ICLRAssemblyReferenceList} pExcludeAssembliesList 
@@ -97,7 +93,6 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
      * @param {ICLRAssemblyReferenceList} pExcludeAssembliesList 
@@ -109,7 +104,6 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMachineType 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzReferenceIdentity 
@@ -123,7 +117,6 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAssemblyIdentity 
      * @returns {BOOL} 
      */

@@ -10,19 +10,22 @@ class UI_SWATCHCOLORTYPE extends Win32Enum {
 
     /**
      * The swatch is transparent.
+     * Native name: UI_SWATCHCOLORTYPE_NOCOLOR
      * @type {Integer (Int32)}
      */
-    static UI_SWATCHCOLORTYPE_NOCOLOR => 0
+    static NOCOLOR => 0
 
     /**
      * The swatch is filled with a solid RGB color bound to <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-getsyscolor">GetSysColor(COLOR_WINDOWTEXT)</a>.
+     * Native name: UI_SWATCHCOLORTYPE_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static UI_SWATCHCOLORTYPE_AUTOMATIC => 1
+    static AUTOMATIC => 1
 
     /**
      * The swatch is filled with a solid RGB color.
+     * Native name: UI_SWATCHCOLORTYPE_RGB
      * @type {Integer (Int32)}
      */
-    static UI_SWATCHCOLORTYPE_RGB => 2
+    static RGB => 2
 }

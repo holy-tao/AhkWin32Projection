@@ -133,7 +133,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoBack() {
@@ -142,7 +141,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoForward() {
@@ -151,7 +149,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoHome() {
@@ -160,7 +157,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoSearch() {
@@ -186,7 +182,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -195,7 +190,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Level 
      * @returns {HRESULT} 
      */
@@ -205,7 +199,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -214,7 +207,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -223,7 +215,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -232,7 +223,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Container() {
@@ -241,7 +231,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Document() {
@@ -250,7 +239,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_TopLevelContainer() {
@@ -259,7 +247,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {
@@ -269,7 +256,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Left() {
@@ -278,7 +264,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Left 
      * @returns {HRESULT} 
      */
@@ -288,7 +273,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Top() {
@@ -297,7 +281,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Top 
      * @returns {HRESULT} 
      */
@@ -307,7 +290,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -316,7 +298,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Width 
      * @returns {HRESULT} 
      */
@@ -326,7 +307,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Height() {
@@ -335,7 +315,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Height 
      * @returns {HRESULT} 
      */
@@ -345,7 +324,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocationName() {
@@ -355,7 +333,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocationURL() {
@@ -365,7 +342,6 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Busy() {

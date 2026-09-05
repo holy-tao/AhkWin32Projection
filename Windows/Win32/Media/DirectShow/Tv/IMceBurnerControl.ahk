@@ -29,7 +29,6 @@ class IMceBurnerControl extends IUnknown {
     static VTableNames => ["GetBurnerNoDecryption"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetBurnerNoDecryption() {

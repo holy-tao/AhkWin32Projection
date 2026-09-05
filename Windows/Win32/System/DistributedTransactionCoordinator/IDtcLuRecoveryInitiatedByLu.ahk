@@ -30,7 +30,6 @@ class IDtcLuRecoveryInitiatedByLu extends IUnknown {
     static VTableNames => ["GetObjectToHandleWorkFromLu"]
 
     /**
-     * 
      * @returns {IDtcLuRecoveryInitiatedByLuWork} 
      */
     GetObjectToHandleWorkFromLu() {

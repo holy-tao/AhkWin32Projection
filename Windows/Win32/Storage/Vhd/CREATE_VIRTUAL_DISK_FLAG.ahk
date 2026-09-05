@@ -12,15 +12,17 @@ class CREATE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No special creation conditions; system defaults are used.
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * Pre-allocate all physical space necessary for the size of the virtual disk.
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION => 1
+    static FULL_PHYSICAL_ALLOCATION => 1
 
     /**
      * Take ownership of the source disk during create from source disk, to insure the source disk does not change 
@@ -32,9 +34,10 @@ class CREATE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This flag is not supported for opening ISO virtual disks until Windows 8 and 
      *         Windows Server 2012.
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_PREVENT_WRITES_TO_SOURCE_DISK
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_PREVENT_WRITES_TO_SOURCE_DISK => 2
+    static PREVENT_WRITES_TO_SOURCE_DISK => 2
 
     /**
      * Do not copy initial virtual disk metadata or block states from the parent VHD; this is useful if the parent 
@@ -42,47 +45,56 @@ class CREATE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This flag is not supported for opening ISO virtual disks until Windows 8 and 
      *         Windows Server 2012.
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_DO_NOT_COPY_METADATA_FROM_PARENT
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_DO_NOT_COPY_METADATA_FROM_PARENT => 4
+    static DO_NOT_COPY_METADATA_FROM_PARENT => 4
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_CREATE_BACKING_STORAGE
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_CREATE_BACKING_STORAGE => 8
+    static CREATE_BACKING_STORAGE => 8
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_USE_CHANGE_TRACKING_SOURCE_LIMIT
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_USE_CHANGE_TRACKING_SOURCE_LIMIT => 16
+    static USE_CHANGE_TRACKING_SOURCE_LIMIT => 16
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_PRESERVE_PARENT_CHANGE_TRACKING_STATE
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_PRESERVE_PARENT_CHANGE_TRACKING_STATE => 32
+    static PRESERVE_PARENT_CHANGE_TRACKING_STATE => 32
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_VHD_SET_USE_ORIGINAL_BACKING_STORAGE
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_VHD_SET_USE_ORIGINAL_BACKING_STORAGE => 64
+    static VHD_SET_USE_ORIGINAL_BACKING_STORAGE => 64
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_SPARSE_FILE
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_SPARSE_FILE => 128
+    static SPARSE_FILE => 128
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_PMEM_COMPATIBLE
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_PMEM_COMPATIBLE => 256
+    static PMEM_COMPATIBLE => 256
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES => 512
+    static SUPPORT_COMPRESSED_VOLUMES => 512
 
     /**
+     * Native name: CREATE_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS
      * @type {Integer (Int32)}
      */
-    static CREATE_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS => 1024
+    static SUPPORT_SPARSE_FILES_ANY_FS => 1024
 }

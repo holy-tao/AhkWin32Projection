@@ -7,22 +7,26 @@
 class DXGKMDT_CERTIFICATE_TYPE extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_CERTIFICATE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_CERTIFICATE => 0
+    static OPM_CERTIFICATE => 0
 
     /**
+     * Native name: DXGKMDT_COPP_CERTIFICATE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_COPP_CERTIFICATE => 1
+    static COPP_CERTIFICATE => 1
 
     /**
+     * Native name: DXGKMDT_UAB_CERTIFICATE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_UAB_CERTIFICATE => 2
+    static UAB_CERTIFICATE => 2
 
     /**
+     * Native name: DXGKMDT_INDIRECT_DISPLAY_CERTIFICATE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_INDIRECT_DISPLAY_CERTIFICATE => 3
+    static INDIRECT_DISPLAY_CERTIFICATE => 3
 }

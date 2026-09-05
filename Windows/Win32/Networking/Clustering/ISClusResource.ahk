@@ -195,7 +195,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -204,7 +203,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -213,7 +211,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -222,7 +219,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -231,7 +227,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -240,7 +235,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -250,7 +244,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrResourceName 
      * @returns {HRESULT} 
      */
@@ -262,7 +255,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_RESOURCE_STATE} 
      */
     get_State() {
@@ -271,7 +263,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUS_FLAGS} 
      */
     get_CoreFlag() {
@@ -280,7 +271,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDevicePath 
      * @param {Integer} lMaxLogSize 
      * @returns {HRESULT} 
@@ -293,7 +283,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -302,7 +291,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Fail() {
@@ -311,7 +299,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
      */
@@ -322,7 +309,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
      */
@@ -333,7 +319,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusResGroup} pResourceGroup 
      * @returns {HRESULT} 
      */
@@ -343,7 +328,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @returns {HRESULT} 
      */
@@ -353,7 +337,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @returns {HRESULT} 
      */
@@ -385,7 +368,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResPossibleOwnerNodes} 
      */
     get_PossibleOwnerNodes() {
@@ -394,7 +376,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResDependencies} 
      */
     get_Dependencies() {
@@ -403,7 +384,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResDependents} 
      */
     get_Dependents() {
@@ -412,7 +392,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroup} 
      */
     get_Group() {
@@ -421,7 +400,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNode} 
      */
     get_OwnerNode() {
@@ -430,7 +408,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -439,7 +416,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_RESOURCE_CLASS} 
      */
     get_ClassInfo() {
@@ -448,7 +424,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusDisk} 
      */
     get_Disk() {
@@ -457,7 +432,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusRegistryKeys} 
      */
     get_RegistryKeys() {
@@ -466,7 +440,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusCryptoKeys} 
      */
     get_CryptoKeys() {
@@ -475,7 +448,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TypeName() {
@@ -485,7 +457,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResType} 
      */
     get_Type() {
@@ -494,7 +465,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_MaintenanceMode() {
@@ -503,7 +473,6 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} bMaintenanceMode 
      * @returns {HRESULT} 
      */

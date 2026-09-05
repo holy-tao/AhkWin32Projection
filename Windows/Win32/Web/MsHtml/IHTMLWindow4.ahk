@@ -38,7 +38,6 @@ class IHTMLWindow4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varArgIn 
      * @returns {IDispatch} 
      */
@@ -48,7 +47,6 @@ class IHTMLWindow4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFrameBase} 
      */
     get_frameElement() {

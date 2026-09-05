@@ -156,7 +156,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrimaryInterface() {
@@ -166,7 +165,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CLSID() {
@@ -176,7 +174,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCLSID 
      * @returns {HRESULT} 
      */
@@ -188,7 +185,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OID() {
@@ -198,7 +194,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOID 
      * @returns {HRESULT} 
      */
@@ -210,7 +205,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Abstract() {
@@ -219,7 +213,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fAbstract 
      * @returns {HRESULT} 
      */
@@ -229,7 +222,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Auxiliary() {
@@ -238,7 +230,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fAuxiliary 
      * @returns {HRESULT} 
      */
@@ -248,7 +239,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_MandatoryProperties() {
@@ -258,7 +248,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vMandatoryProperties 
      * @returns {HRESULT} 
      */
@@ -268,7 +257,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OptionalProperties() {
@@ -278,7 +266,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vOptionalProperties 
      * @returns {HRESULT} 
      */
@@ -288,7 +275,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NamingProperties() {
@@ -298,7 +284,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vNamingProperties 
      * @returns {HRESULT} 
      */
@@ -308,7 +293,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_DerivedFrom() {
@@ -318,7 +302,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vDerivedFrom 
      * @returns {HRESULT} 
      */
@@ -328,7 +311,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_AuxDerivedFrom() {
@@ -338,7 +320,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vAuxDerivedFrom 
      * @returns {HRESULT} 
      */
@@ -348,7 +329,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PossibleSuperiors() {
@@ -358,7 +338,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPossibleSuperiors 
      * @returns {HRESULT} 
      */
@@ -368,7 +347,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Containment() {
@@ -378,7 +356,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vContainment 
      * @returns {HRESULT} 
      */
@@ -388,7 +365,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Container() {
@@ -397,7 +373,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fContainer 
      * @returns {HRESULT} 
      */
@@ -407,7 +382,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HelpFileName() {
@@ -417,7 +391,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHelpFileName 
      * @returns {HRESULT} 
      */
@@ -429,7 +402,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HelpFileContext() {
@@ -438,7 +410,6 @@ class IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnHelpFileContext 
      * @returns {HRESULT} 
      */

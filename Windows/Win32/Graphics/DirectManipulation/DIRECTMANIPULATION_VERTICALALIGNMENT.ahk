@@ -10,31 +10,36 @@ class DIRECTMANIPULATION_VERTICALALIGNMENT extends Win32BitflagEnum {
 
     /**
      * No alignment. The object can be positioned anywhere within the viewport.
+     * Native name: DIRECTMANIPULATION_VERTICALALIGNMENT_NONE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VERTICALALIGNMENT_NONE => 0
+    static NONE => 0
 
     /**
      * Align object along the top of the viewport.
+     * Native name: DIRECTMANIPULATION_VERTICALALIGNMENT_TOP
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VERTICALALIGNMENT_TOP => 1
+    static TOP => 1
 
     /**
      * Align object to the center of the viewport.
+     * Native name: DIRECTMANIPULATION_VERTICALALIGNMENT_CENTER
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VERTICALALIGNMENT_CENTER => 2
+    static CENTER => 2
 
     /**
      * Align object along the bottom of the viewport.
+     * Native name: DIRECTMANIPULATION_VERTICALALIGNMENT_BOTTOM
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VERTICALALIGNMENT_BOTTOM => 4
+    static BOTTOM => 4
 
     /**
      * Content zooms around the center point of the contacts, instead of being locked with the vertical alignment.
+     * Native name: DIRECTMANIPULATION_VERTICALALIGNMENT_UNLOCKCENTER
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_VERTICALALIGNMENT_UNLOCKCENTER => 8
+    static UNLOCKCENTER => 8
 }

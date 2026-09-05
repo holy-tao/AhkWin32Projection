@@ -7,7 +7,8 @@
 class WBEM_PROVIDER_FLAGS extends Win32Enum {
 
     /**
+     * Native name: WBEM_FLAG_OWNER_UPDATE
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_OWNER_UPDATE => 65536
+    static FLAG_OWNER_UPDATE => 65536
 }

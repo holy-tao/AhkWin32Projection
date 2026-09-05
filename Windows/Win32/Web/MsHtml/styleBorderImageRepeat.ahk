@@ -7,32 +7,38 @@
 class styleBorderImageRepeat extends Win32Enum {
 
     /**
+     * Native name: styleBorderImageRepeatStretch
      * @type {Integer (Int32)}
      */
-    static styleBorderImageRepeatStretch => 0
+    static Stretch => 0
 
     /**
+     * Native name: styleBorderImageRepeatRepeat
      * @type {Integer (Int32)}
      */
-    static styleBorderImageRepeatRepeat => 1
+    static Repeat => 1
 
     /**
+     * Native name: styleBorderImageRepeatRound
      * @type {Integer (Int32)}
      */
-    static styleBorderImageRepeatRound => 2
+    static Round => 2
 
     /**
+     * Native name: styleBorderImageRepeatSpace
      * @type {Integer (Int32)}
      */
-    static styleBorderImageRepeatSpace => 3
+    static Space => 3
 
     /**
+     * Native name: styleBorderImageRepeatNotSet
      * @type {Integer (Int32)}
      */
-    static styleBorderImageRepeatNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleBorderImageRepeat_Max
      * @type {Integer (Int32)}
      */
-    static styleBorderImageRepeat_Max => 2147483647
+    static Max => 2147483647
 }

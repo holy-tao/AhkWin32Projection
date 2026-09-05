@@ -30,7 +30,6 @@ class IDirectSoundCaptureFXAec extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters", "GetStatus", "Reset"]
 
     /**
-     * 
      * @param {Pointer<DSCFXAec>} pDscFxAec 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundCaptureFXAec extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSCFXAec} 
      */
     GetAllParameters() {
@@ -50,7 +48,6 @@ class IDirectSoundCaptureFXAec extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStatus() {
@@ -59,7 +56,6 @@ class IDirectSoundCaptureFXAec extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

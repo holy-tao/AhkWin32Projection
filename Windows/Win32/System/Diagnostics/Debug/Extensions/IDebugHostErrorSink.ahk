@@ -31,7 +31,6 @@ class IDebugHostErrorSink extends IUnknown {
     static VTableNames => ["ReportError"]
 
     /**
-     * 
      * @param {ErrorClass} errClass 
      * @param {HRESULT} hrError 
      * @param {PWSTR} message 

@@ -7,67 +7,80 @@
 class styleWritingMode extends Win32Enum {
 
     /**
+     * Native name: styleWritingModeLrtb
      * @type {Integer (Int32)}
      */
-    static styleWritingModeLrtb => 0
+    static Lrtb => 0
 
     /**
+     * Native name: styleWritingModeTbrl
      * @type {Integer (Int32)}
      */
-    static styleWritingModeTbrl => 1
+    static Tbrl => 1
 
     /**
+     * Native name: styleWritingModeRltb
      * @type {Integer (Int32)}
      */
-    static styleWritingModeRltb => 2
+    static Rltb => 2
 
     /**
+     * Native name: styleWritingModeBtrl
      * @type {Integer (Int32)}
      */
-    static styleWritingModeBtrl => 3
+    static Btrl => 3
 
     /**
+     * Native name: styleWritingModeNotSet
      * @type {Integer (Int32)}
      */
-    static styleWritingModeNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleWritingModeTblr
      * @type {Integer (Int32)}
      */
-    static styleWritingModeTblr => 5
+    static Tblr => 5
 
     /**
+     * Native name: styleWritingModeBtlr
      * @type {Integer (Int32)}
      */
-    static styleWritingModeBtlr => 6
+    static Btlr => 6
 
     /**
+     * Native name: styleWritingModeLrbt
      * @type {Integer (Int32)}
      */
-    static styleWritingModeLrbt => 7
+    static Lrbt => 7
 
     /**
+     * Native name: styleWritingModeRlbt
      * @type {Integer (Int32)}
      */
-    static styleWritingModeRlbt => 8
+    static Rlbt => 8
 
     /**
+     * Native name: styleWritingModeLr
      * @type {Integer (Int32)}
      */
-    static styleWritingModeLr => 9
+    static Lr => 9
 
     /**
+     * Native name: styleWritingModeRl
      * @type {Integer (Int32)}
      */
-    static styleWritingModeRl => 10
+    static Rl => 10
 
     /**
+     * Native name: styleWritingModeTb
      * @type {Integer (Int32)}
      */
-    static styleWritingModeTb => 11
+    static Tb => 11
 
     /**
+     * Native name: styleWritingMode_Max
      * @type {Integer (Int32)}
      */
-    static styleWritingMode_Max => 2147483647
+    static Max => 2147483647
 }

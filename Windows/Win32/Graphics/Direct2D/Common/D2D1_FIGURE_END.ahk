@@ -10,13 +10,15 @@ class D2D1_FIGURE_END extends Win32Enum {
 
     /**
      * The figure is open.
+     * Native name: D2D1_FIGURE_END_OPEN
      * @type {Integer (Int32)}
      */
-    static D2D1_FIGURE_END_OPEN => 0
+    static OPEN => 0
 
     /**
      * The figure is closed.
+     * Native name: D2D1_FIGURE_END_CLOSED
      * @type {Integer (Int32)}
      */
-    static D2D1_FIGURE_END_CLOSED => 1
+    static CLOSED => 1
 }

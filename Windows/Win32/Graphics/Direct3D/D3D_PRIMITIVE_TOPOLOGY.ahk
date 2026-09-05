@@ -16,260 +16,303 @@ class D3D_PRIMITIVE_TOPOLOGY extends Win32Enum {
 
     /**
      * The IA stage has not been initialized with a primitive topology. The IA stage will not function properly unless a primitive topology is defined.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * Interpret the vertex data as a list of points.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_POINTLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_POINTLIST => 1
+    static POINTLIST => 1
 
     /**
      * Interpret the vertex data as a list of lines.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_LINELIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_LINELIST => 2
+    static LINELIST => 2
 
     /**
      * Interpret the vertex data as a line strip.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_LINESTRIP
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_LINESTRIP => 3
+    static LINESTRIP => 3
 
     /**
      * Interpret the vertex data as a list of triangles.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST => 4
+    static TRIANGLELIST => 4
 
     /**
      * Interpret the vertex data as a triangle strip.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP => 5
+    static TRIANGLESTRIP => 5
 
     /**
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_TRIANGLEFAN
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_TRIANGLEFAN => 6
+    static TRIANGLEFAN => 6
 
     /**
      * Interpret the vertex data as a list of lines with adjacency data.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_LINELIST_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_LINELIST_ADJ => 10
+    static LINELIST_ADJ => 10
 
     /**
      * Interpret the vertex data as a line strip with adjacency data.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_LINESTRIP_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_LINESTRIP_ADJ => 11
+    static LINESTRIP_ADJ => 11
 
     /**
      * Interpret the vertex data as a list of triangles with adjacency data.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST_ADJ => 12
+    static TRIANGLELIST_ADJ => 12
 
     /**
      * Interpret the vertex data as a triangle strip with adjacency data.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP_ADJ => 13
+    static TRIANGLESTRIP_ADJ => 13
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_1_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_1_CONTROL_POINT_PATCHLIST => 33
+    static 1_CONTROL_POINT_PATCHLIST => 33
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_2_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_2_CONTROL_POINT_PATCHLIST => 34
+    static 2_CONTROL_POINT_PATCHLIST => 34
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST => 35
+    static 3_CONTROL_POINT_PATCHLIST => 35
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_4_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_4_CONTROL_POINT_PATCHLIST => 36
+    static 4_CONTROL_POINT_PATCHLIST => 36
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_5_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_5_CONTROL_POINT_PATCHLIST => 37
+    static 5_CONTROL_POINT_PATCHLIST => 37
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_6_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_6_CONTROL_POINT_PATCHLIST => 38
+    static 6_CONTROL_POINT_PATCHLIST => 38
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_7_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_7_CONTROL_POINT_PATCHLIST => 39
+    static 7_CONTROL_POINT_PATCHLIST => 39
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_8_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_8_CONTROL_POINT_PATCHLIST => 40
+    static 8_CONTROL_POINT_PATCHLIST => 40
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_9_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_9_CONTROL_POINT_PATCHLIST => 41
+    static 9_CONTROL_POINT_PATCHLIST => 41
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_10_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_10_CONTROL_POINT_PATCHLIST => 42
+    static 10_CONTROL_POINT_PATCHLIST => 42
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_11_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_11_CONTROL_POINT_PATCHLIST => 43
+    static 11_CONTROL_POINT_PATCHLIST => 43
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_12_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_12_CONTROL_POINT_PATCHLIST => 44
+    static 12_CONTROL_POINT_PATCHLIST => 44
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_13_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_13_CONTROL_POINT_PATCHLIST => 45
+    static 13_CONTROL_POINT_PATCHLIST => 45
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_14_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_14_CONTROL_POINT_PATCHLIST => 46
+    static 14_CONTROL_POINT_PATCHLIST => 46
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_15_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_15_CONTROL_POINT_PATCHLIST => 47
+    static 15_CONTROL_POINT_PATCHLIST => 47
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_16_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_16_CONTROL_POINT_PATCHLIST => 48
+    static 16_CONTROL_POINT_PATCHLIST => 48
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_17_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_17_CONTROL_POINT_PATCHLIST => 49
+    static 17_CONTROL_POINT_PATCHLIST => 49
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_18_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_18_CONTROL_POINT_PATCHLIST => 50
+    static 18_CONTROL_POINT_PATCHLIST => 50
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_19_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_19_CONTROL_POINT_PATCHLIST => 51
+    static 19_CONTROL_POINT_PATCHLIST => 51
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_20_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_20_CONTROL_POINT_PATCHLIST => 52
+    static 20_CONTROL_POINT_PATCHLIST => 52
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_21_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_21_CONTROL_POINT_PATCHLIST => 53
+    static 21_CONTROL_POINT_PATCHLIST => 53
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_22_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_22_CONTROL_POINT_PATCHLIST => 54
+    static 22_CONTROL_POINT_PATCHLIST => 54
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_23_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_23_CONTROL_POINT_PATCHLIST => 55
+    static 23_CONTROL_POINT_PATCHLIST => 55
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_24_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_24_CONTROL_POINT_PATCHLIST => 56
+    static 24_CONTROL_POINT_PATCHLIST => 56
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_25_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_25_CONTROL_POINT_PATCHLIST => 57
+    static 25_CONTROL_POINT_PATCHLIST => 57
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_26_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_26_CONTROL_POINT_PATCHLIST => 58
+    static 26_CONTROL_POINT_PATCHLIST => 58
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_27_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_27_CONTROL_POINT_PATCHLIST => 59
+    static 27_CONTROL_POINT_PATCHLIST => 59
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_28_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_28_CONTROL_POINT_PATCHLIST => 60
+    static 28_CONTROL_POINT_PATCHLIST => 60
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_29_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_29_CONTROL_POINT_PATCHLIST => 61
+    static 29_CONTROL_POINT_PATCHLIST => 61
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST => 62
+    static 30_CONTROL_POINT_PATCHLIST => 62
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_31_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_31_CONTROL_POINT_PATCHLIST => 63
+    static 31_CONTROL_POINT_PATCHLIST => 63
 
     /**
      * Interpret the vertex data as a patch list.
+     * Native name: D3D_PRIMITIVE_TOPOLOGY_32_CONTROL_POINT_PATCHLIST
      * @type {Integer (Int32)}
      */
-    static D3D_PRIMITIVE_TOPOLOGY_32_CONTROL_POINT_PATCHLIST => 64
+    static 32_CONTROL_POINT_PATCHLIST => 64
 
     /**
      * The IA stage has not been initialized with a primitive topology. The IA stage will not function properly unless a primitive topology is defined.

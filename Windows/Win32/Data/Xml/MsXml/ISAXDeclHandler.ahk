@@ -30,7 +30,6 @@ class ISAXDeclHandler extends IUnknown {
     static VTableNames => ["elementDecl", "attributeDecl", "internalEntityDecl", "externalEntityDecl"]
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchModel 
@@ -46,7 +45,6 @@ class ISAXDeclHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchElementName 
      * @param {Integer} cchElementName 
      * @param {PWSTR} pwchAttributeName 
@@ -71,7 +69,6 @@ class ISAXDeclHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchValue 
@@ -87,7 +84,6 @@ class ISAXDeclHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 

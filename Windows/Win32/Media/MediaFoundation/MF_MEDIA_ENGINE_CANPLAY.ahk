@@ -10,19 +10,22 @@ class MF_MEDIA_ENGINE_CANPLAY extends Win32Enum {
 
     /**
      * The Media Engine cannot play the resource.
+     * Native name: MF_MEDIA_ENGINE_CANPLAY_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_CANPLAY_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * The Media Engine might be able to play the resource.
+     * Native name: MF_MEDIA_ENGINE_CANPLAY_MAYBE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_CANPLAY_MAYBE => 1
+    static MAYBE => 1
 
     /**
      * The Media Engine can probably play the resource.
+     * Native name: MF_MEDIA_ENGINE_CANPLAY_PROBABLY
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_CANPLAY_PROBABLY => 2
+    static PROBABLY => 2
 }

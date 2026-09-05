@@ -7,17 +7,20 @@
 class D3DDDI_RECLAIM_RESULT extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_RECLAIM_RESULT_OK
      * @type {Integer (Int32)}
      */
-    static D3DDDI_RECLAIM_RESULT_OK => 0
+    static OK => 0
 
     /**
+     * Native name: D3DDDI_RECLAIM_RESULT_DISCARDED
      * @type {Integer (Int32)}
      */
-    static D3DDDI_RECLAIM_RESULT_DISCARDED => 1
+    static DISCARDED => 1
 
     /**
+     * Native name: D3DDDI_RECLAIM_RESULT_NOT_COMMITTED
      * @type {Integer (Int32)}
      */
-    static D3DDDI_RECLAIM_RESULT_NOT_COMMITTED => 2
+    static NOT_COMMITTED => 2
 }

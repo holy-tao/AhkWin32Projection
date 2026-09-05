@@ -30,7 +30,6 @@ class IDocHostUIHandler2 extends IDocHostUIHandler {
     static VTableNames => ["GetOverrideKeyPath"]
 
     /**
-     * 
      * @param {Integer} dw 
      * @returns {PWSTR} 
      */

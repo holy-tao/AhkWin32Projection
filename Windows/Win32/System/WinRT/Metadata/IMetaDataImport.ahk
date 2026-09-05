@@ -685,7 +685,6 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pvSigBlob 
@@ -704,7 +703,6 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pvSigBlob 
@@ -723,7 +721,6 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pvSigBlob 
@@ -892,7 +889,6 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ev 
      * @param {Pointer<Integer>} pClass 
      * @param {PWSTR} szEvent 
@@ -976,7 +972,6 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {Pointer<Integer>} pdwPackSize 
      * @param {Pointer<COR_FIELD_OFFSET>} rFieldOffset 
@@ -1485,7 +1480,6 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} prop 
      * @param {Pointer<Integer>} pClass 
      * @param {PWSTR} szProperty 

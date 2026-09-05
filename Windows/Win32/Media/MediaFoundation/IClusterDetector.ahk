@@ -65,7 +65,6 @@ class IClusterDetector extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMaxNumClusters 
      * @param {Float} fMinClusterDuration 
      * @param {Float} fMaxClusterDuration 

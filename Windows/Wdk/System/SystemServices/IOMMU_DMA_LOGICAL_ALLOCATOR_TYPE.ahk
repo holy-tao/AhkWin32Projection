@@ -7,17 +7,20 @@
 class IOMMU_DMA_LOGICAL_ALLOCATOR_TYPE extends Win32Enum {
 
     /**
+     * Native name: IommuDmaLogicalAllocatorNone
      * @type {Integer (Int32)}
      */
-    static IommuDmaLogicalAllocatorNone => 0
+    static None => 0
 
     /**
+     * Native name: IommuDmaLogicalAllocatorBuddy
      * @type {Integer (Int32)}
      */
-    static IommuDmaLogicalAllocatorBuddy => 1
+    static Buddy => 1
 
     /**
+     * Native name: IommuDmaLogicalAllocatorMax
      * @type {Integer (Int32)}
      */
-    static IommuDmaLogicalAllocatorMax => 2
+    static Max => 2
 }

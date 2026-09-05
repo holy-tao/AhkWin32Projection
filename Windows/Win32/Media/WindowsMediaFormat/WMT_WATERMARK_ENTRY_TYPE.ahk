@@ -10,13 +10,15 @@ class WMT_WATERMARK_ENTRY_TYPE extends Win32Enum {
 
     /**
      * Identifies a watermarking DMO for audio.
+     * Native name: WMT_WMETYPE_AUDIO
      * @type {Integer (Int32)}
      */
-    static WMT_WMETYPE_AUDIO => 1
+    static WMETYPE_AUDIO => 1
 
     /**
      * Identifies a watermarking DMO for video.
+     * Native name: WMT_WMETYPE_VIDEO
      * @type {Integer (Int32)}
      */
-    static WMT_WMETYPE_VIDEO => 2
+    static WMETYPE_VIDEO => 2
 }

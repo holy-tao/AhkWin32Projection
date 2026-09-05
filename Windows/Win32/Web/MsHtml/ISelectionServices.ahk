@@ -36,7 +36,6 @@ class ISelectionServices extends IUnknown {
     static VTableNames => ["SetSelectionType", "GetMarkupContainer", "AddSegment", "AddElementSegment", "RemoveSegment", "GetSelectionServicesListener"]
 
     /**
-     * 
      * @param {SELECTION_TYPE} eType 
      * @param {ISelectionServicesListener} pIListener 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMarkupContainer} 
      */
     GetMarkupContainer() {
@@ -56,7 +54,6 @@ class ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIStart 
      * @param {IMarkupPointer} pIEnd 
      * @returns {ISegment} 
@@ -67,7 +64,6 @@ class ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @returns {IElementSegment} 
      */
@@ -77,7 +73,6 @@ class ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISegment} pISegment 
      * @returns {HRESULT} 
      */
@@ -87,7 +82,6 @@ class ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISelectionServicesListener} 
      */
     GetSelectionServicesListener() {

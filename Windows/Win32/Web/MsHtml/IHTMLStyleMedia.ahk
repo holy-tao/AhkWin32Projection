@@ -44,7 +44,6 @@ class IHTMLStyleMedia extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -54,7 +53,6 @@ class IHTMLStyleMedia extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} mediaQuery 
      * @returns {VARIANT_BOOL} 
      */

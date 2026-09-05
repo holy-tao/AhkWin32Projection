@@ -7,22 +7,26 @@
 class NLA_CONNECTIVITY_TYPE extends Win32Enum {
 
     /**
+     * Native name: NLA_NETWORK_AD_HOC
      * @type {Integer (Int32)}
      */
-    static NLA_NETWORK_AD_HOC => 0
+    static NETWORK_AD_HOC => 0
 
     /**
+     * Native name: NLA_NETWORK_MANAGED
      * @type {Integer (Int32)}
      */
-    static NLA_NETWORK_MANAGED => 1
+    static NETWORK_MANAGED => 1
 
     /**
+     * Native name: NLA_NETWORK_UNMANAGED
      * @type {Integer (Int32)}
      */
-    static NLA_NETWORK_UNMANAGED => 2
+    static NETWORK_UNMANAGED => 2
 
     /**
+     * Native name: NLA_NETWORK_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NLA_NETWORK_UNKNOWN => 3
+    static NETWORK_UNKNOWN => 3
 }

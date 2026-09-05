@@ -10,25 +10,29 @@ class MI_OperationCallback_ResponseType extends Win32Enum {
 
     /**
      * No to this request only.
+     * Native name: MI_OperationCallback_ResponseType_No
      * @type {Integer (Int32)}
      */
-    static MI_OperationCallback_ResponseType_No => 0
+    static No => 0
 
     /**
      * Yes to this request only.
+     * Native name: MI_OperationCallback_ResponseType_Yes
      * @type {Integer (Int32)}
      */
-    static MI_OperationCallback_ResponseType_Yes => 1
+    static Yes => 1
 
     /**
      * No to this request and all future requests from this operation.
+     * Native name: MI_OperationCallback_ResponseType_NoToAll
      * @type {Integer (Int32)}
      */
-    static MI_OperationCallback_ResponseType_NoToAll => 2
+    static NoToAll => 2
 
     /**
      * Yes to this request and all future requests from this operation.
+     * Native name: MI_OperationCallback_ResponseType_YesToAll
      * @type {Integer (Int32)}
      */
-    static MI_OperationCallback_ResponseType_YesToAll => 3
+    static YesToAll => 3
 }

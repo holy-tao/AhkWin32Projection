@@ -7,22 +7,26 @@
 class FA_EXTENSION_PLUGIN_PHASE extends Win32Enum {
 
     /**
+     * Native name: FA_PLUGIN_INITIALIZATION
      * @type {Integer (Int32)}
      */
-    static FA_PLUGIN_INITIALIZATION => 1
+    static INITIALIZATION => 1
 
     /**
+     * Native name: FA_PLUGIN_STACK_ANALYSIS
      * @type {Integer (Int32)}
      */
-    static FA_PLUGIN_STACK_ANALYSIS => 2
+    static STACK_ANALYSIS => 2
 
     /**
+     * Native name: FA_PLUGIN_PRE_BUCKETING
      * @type {Integer (Int32)}
      */
-    static FA_PLUGIN_PRE_BUCKETING => 4
+    static PRE_BUCKETING => 4
 
     /**
+     * Native name: FA_PLUGIN_POST_BUCKETING
      * @type {Integer (Int32)}
      */
-    static FA_PLUGIN_POST_BUCKETING => 8
+    static POST_BUCKETING => 8
 }

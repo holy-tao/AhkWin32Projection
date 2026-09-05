@@ -32,7 +32,6 @@ class IKeyEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -41,7 +40,6 @@ class IKeyEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} key 
      * @param {Pointer<IModelObject>} value 
      * @param {Pointer<IKeyStore>} metadata 

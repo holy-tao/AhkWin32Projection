@@ -10,13 +10,15 @@ class KSJACK_SINK_CONNECTIONTYPE extends Win32Enum {
 
     /**
      * High-Definition Multimedia Interface (HDMI) connection.
+     * Native name: KSJACK_SINK_CONNECTIONTYPE_HDMI
      * @type {Integer (Int32)}
      */
-    static KSJACK_SINK_CONNECTIONTYPE_HDMI => 0
+    static HDMI => 0
 
     /**
      * Display port.
+     * Native name: KSJACK_SINK_CONNECTIONTYPE_DISPLAYPORT
      * @type {Integer (Int32)}
      */
-    static KSJACK_SINK_CONNECTIONTYPE_DISPLAYPORT => 1
+    static DISPLAYPORT => 1
 }

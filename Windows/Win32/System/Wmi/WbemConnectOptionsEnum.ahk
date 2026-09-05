@@ -10,7 +10,8 @@ class WbemConnectOptionsEnum extends Win32Enum {
 
     /**
      * Shortens the timeout for the <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemlocator-connectserver">SWbemLocator.ConnectServer</a> method call to two minutes.
+     * Native name: wbemConnectFlagUseMaxWait
      * @type {Integer (Int32)}
      */
-    static wbemConnectFlagUseMaxWait => 128
+    static FlagUseMaxWait => 128
 }

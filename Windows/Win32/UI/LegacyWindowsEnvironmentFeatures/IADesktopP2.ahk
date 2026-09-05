@@ -34,7 +34,6 @@ class IADesktopP2 extends IUnknown {
     static VTableNames => ["ReReadWallpaper", "GetADObjectFlags", "UpdateAllDesktopSubscriptions", "MakeDynamicChanges"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReReadWallpaper() {
@@ -43,7 +42,6 @@ class IADesktopP2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMask 
      * @returns {Integer} 
      */
@@ -65,7 +63,6 @@ class IADesktopP2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOleObject} pOleObj 
      * @returns {HRESULT} 
      */

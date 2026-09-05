@@ -7,27 +7,32 @@
 class DXC_CP extends Win32Enum {
 
     /**
+     * Native name: DXC_CP_ACP
      * @type {Integer (UInt32)}
      */
-    static DXC_CP_ACP => 0
+    static ACP => 0
 
     /**
+     * Native name: DXC_CP_UTF16
      * @type {Integer (UInt32)}
      */
-    static DXC_CP_UTF16 => 1200
+    static UTF16 => 1200
 
     /**
+     * Native name: DXC_CP_UTF8
      * @type {Integer (UInt32)}
      */
-    static DXC_CP_UTF8 => 65001
+    static UTF8 => 65001
 
     /**
+     * Native name: DXC_CP_UTF32
      * @type {Integer (UInt32)}
      */
-    static DXC_CP_UTF32 => 12000
+    static UTF32 => 12000
 
     /**
+     * Native name: DXC_CP_WIDE
      * @type {Integer (UInt32)}
      */
-    static DXC_CP_WIDE => 1200
+    static WIDE => 1200
 }

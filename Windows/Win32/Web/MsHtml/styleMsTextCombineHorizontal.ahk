@@ -7,27 +7,32 @@
 class styleMsTextCombineHorizontal extends Win32Enum {
 
     /**
+     * Native name: styleMsTextCombineHorizontalNone
      * @type {Integer (Int32)}
      */
-    static styleMsTextCombineHorizontalNone => 0
+    static None => 0
 
     /**
+     * Native name: styleMsTextCombineHorizontalAll
      * @type {Integer (Int32)}
      */
-    static styleMsTextCombineHorizontalAll => 1
+    static All => 1
 
     /**
+     * Native name: styleMsTextCombineHorizontalDigits
      * @type {Integer (Int32)}
      */
-    static styleMsTextCombineHorizontalDigits => 2
+    static Digits => 2
 
     /**
+     * Native name: styleMsTextCombineHorizontalNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsTextCombineHorizontalNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleMsTextCombineHorizontal_Max
      * @type {Integer (Int32)}
      */
-    static styleMsTextCombineHorizontal_Max => 2147483647
+    static Max => 2147483647
 }

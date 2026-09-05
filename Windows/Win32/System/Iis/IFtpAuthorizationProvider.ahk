@@ -31,7 +31,6 @@ class IFtpAuthorizationProvider extends IUnknown {
     static VTableNames => ["GetUserAccessPermission"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszVirtualPath 

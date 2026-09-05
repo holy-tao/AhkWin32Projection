@@ -106,7 +106,6 @@ class IMAPIStatus extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIStatus::SettingsDialog** method displays a configuration property sheet. All service providers should support the **SettingsDialog** method, but it is not required. Service providers can implement their own property sheets or use the implementation supplied in the support object's [IMAPISupport::DoConfigPropsheet](imapisupport-doconfigpropsheet.md) method. **DoConfigPropsheet** builds a read/write property sheet.
      * @param {Pointer} ulUIParam > [in] A handle to the parent window of the configuration property sheet.
@@ -130,7 +129,6 @@ class IMAPIStatus extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Not all status objects support the **IMAPIStatus::ChangePassword** method. It is supported only by service providers that require clients to enter a password. None of the status objects that MAPI implements support the password change operation. 
      *   
@@ -164,7 +162,6 @@ class IMAPIStatus extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIStatus::FlushQueues** method requests that the MAPI spooler or a transport provider immediately send all messages in the outgoing queue or receive all messages from the incoming queue. **FlushQueues** is implemented only by the MAPI spooler status object and by status objects that transport providers supply. 
      *   

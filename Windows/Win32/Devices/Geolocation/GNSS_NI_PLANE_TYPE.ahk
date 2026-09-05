@@ -7,17 +7,20 @@
 class GNSS_NI_PLANE_TYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_NI_SUPL
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_SUPL => 1
+    static SUPL => 1
 
     /**
+     * Native name: GNSS_NI_CP
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_CP => 2
+    static CP => 2
 
     /**
+     * Native name: GNSS_NI_V2UPL
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_V2UPL => 3
+    static V2UPL => 3
 }

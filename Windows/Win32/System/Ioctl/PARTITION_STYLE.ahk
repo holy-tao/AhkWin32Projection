@@ -10,19 +10,22 @@ class PARTITION_STYLE extends Win32Enum {
 
     /**
      * Master boot record (MBR) format. This corresponds to standard *AT-style* MBR partitions.
+     * Native name: PARTITION_STYLE_MBR
      * @type {Integer (Int32)}
      */
-    static PARTITION_STYLE_MBR => 0
+    static MBR => 0
 
     /**
      * GUID Partition Table (GPT) format.
+     * Native name: PARTITION_STYLE_GPT
      * @type {Integer (Int32)}
      */
-    static PARTITION_STYLE_GPT => 1
+    static GPT => 1
 
     /**
      * Partition not formatted in either of the recognized formats—MBR or GPT.
+     * Native name: PARTITION_STYLE_RAW
      * @type {Integer (Int32)}
      */
-    static PARTITION_STYLE_RAW => 2
+    static RAW => 2
 }

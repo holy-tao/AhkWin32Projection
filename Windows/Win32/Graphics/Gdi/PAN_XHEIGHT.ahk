@@ -7,47 +7,56 @@
 class PAN_XHEIGHT extends Win32Enum {
 
     /**
+     * Native name: PAN_XHEIGHT_ANY
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_ANY => 0x00
+    static ANY => 0x00
 
     /**
+     * Native name: PAN_XHEIGHT_NO_FIT
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_NO_FIT => 0x01
+    static NO_FIT => 0x01
 
     /**
+     * Native name: PAN_XHEIGHT_INDEX
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_INDEX => 0x09
+    static INDEX => 0x09
 
     /**
+     * Native name: PAN_XHEIGHT_CONSTANT_SMALL
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_CONSTANT_SMALL => 0x02
+    static CONSTANT_SMALL => 0x02
 
     /**
+     * Native name: PAN_XHEIGHT_CONSTANT_STD
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_CONSTANT_STD => 0x03
+    static CONSTANT_STD => 0x03
 
     /**
+     * Native name: PAN_XHEIGHT_CONSTANT_LARGE
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_CONSTANT_LARGE => 0x04
+    static CONSTANT_LARGE => 0x04
 
     /**
+     * Native name: PAN_XHEIGHT_DUCKING_SMALL
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_DUCKING_SMALL => 0x05
+    static DUCKING_SMALL => 0x05
 
     /**
+     * Native name: PAN_XHEIGHT_DUCKING_STD
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_DUCKING_STD => 0x06
+    static DUCKING_STD => 0x06
 
     /**
+     * Native name: PAN_XHEIGHT_DUCKING_LARGE
      * @type {Integer (Byte)}
      */
-    static PAN_XHEIGHT_DUCKING_LARGE => 0x07
+    static DUCKING_LARGE => 0x07
 }

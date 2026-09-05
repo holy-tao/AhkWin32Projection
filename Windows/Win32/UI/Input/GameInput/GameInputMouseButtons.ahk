@@ -7,42 +7,50 @@
 class GameInputMouseButtons extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputMouseNone
      * @type {Integer (Int32)}
      */
-    static GameInputMouseNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputMouseLeftButton
      * @type {Integer (Int32)}
      */
-    static GameInputMouseLeftButton => 1
+    static LeftButton => 1
 
     /**
+     * Native name: GameInputMouseRightButton
      * @type {Integer (Int32)}
      */
-    static GameInputMouseRightButton => 2
+    static RightButton => 2
 
     /**
+     * Native name: GameInputMouseMiddleButton
      * @type {Integer (Int32)}
      */
-    static GameInputMouseMiddleButton => 4
+    static MiddleButton => 4
 
     /**
+     * Native name: GameInputMouseButton4
      * @type {Integer (Int32)}
      */
-    static GameInputMouseButton4 => 8
+    static Button4 => 8
 
     /**
+     * Native name: GameInputMouseButton5
      * @type {Integer (Int32)}
      */
-    static GameInputMouseButton5 => 16
+    static Button5 => 16
 
     /**
+     * Native name: GameInputMouseWheelTiltLeft
      * @type {Integer (Int32)}
      */
-    static GameInputMouseWheelTiltLeft => 32
+    static WheelTiltLeft => 32
 
     /**
+     * Native name: GameInputMouseWheelTiltRight
      * @type {Integer (Int32)}
      */
-    static GameInputMouseWheelTiltRight => 64
+    static WheelTiltRight => 64
 }

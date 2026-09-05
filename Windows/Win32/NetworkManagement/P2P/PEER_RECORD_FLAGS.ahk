@@ -10,13 +10,15 @@ class PEER_RECORD_FLAGS extends Win32Enum {
 
     /**
      * The peer record must be automatically refreshed any time an event for the record is raised.
+     * Native name: PEER_RECORD_FLAG_AUTOREFRESH
      * @type {Integer (Int32)}
      */
-    static PEER_RECORD_FLAG_AUTOREFRESH => 1
+    static FLAG_AUTOREFRESH => 1
 
     /**
      * The peer record is marked for deletion but has not yet been physically removed from the local computer.
+     * Native name: PEER_RECORD_FLAG_DELETED
      * @type {Integer (Int32)}
      */
-    static PEER_RECORD_FLAG_DELETED => 2
+    static FLAG_DELETED => 2
 }

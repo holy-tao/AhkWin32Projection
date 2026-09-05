@@ -32,7 +32,6 @@ class IPropData extends IMAPIProp {
     static VTableNames => ["HrSetObjAccess", "HrSetPropAccess", "HrGetPropAccess", "HrAddObjProps"]
 
     /**
-     * 
      * @remarks
      * The **IPropData::HrSetObjAccess** method sets the access level for an entire object, rather than for individual properties. **HrSetObjAccess** can be used to change the access level established when the object was created.
      * @param {Integer} ulAccess > [in] A bitmask of flags that specifies the object's access level. One of the following flags can be set:
@@ -110,7 +109,6 @@ class IPropData extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IPropData::HrAddObjProps** method adds one or more properties of type PT_OBJECT to the object. **HrAddObjProps** provides an alternative to the [IMAPIProp::SetProps](imapiprop-setprops.md) method for object properties, because object properties cannot be created by calling **SetProps**. Adding an object property results in the property tag being included in the list of property tags that the [IMAPIProp::GetPropList](imapiprop-getproplist.md) method returns.
      * @param {Pointer<SPropTagArray>} lppPropTagArray 

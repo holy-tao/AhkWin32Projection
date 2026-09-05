@@ -12,43 +12,50 @@ class ADS_ACEFLAG_ENUM extends Win32Enum {
 
     /**
      * Child objects will inherit this access-control entry (ACE). The inherited ACE is inheritable unless the ADS_ACEFLAG_NO_PROPAGATE_INHERIT_ACE flag is set.
+     * Native name: ADS_ACEFLAG_INHERIT_ACE
      * @type {Integer (Int32)}
      */
-    static ADS_ACEFLAG_INHERIT_ACE => 2
+    static INHERIT_ACE => 2
 
     /**
      * The system will clear the ADS_ACEFLAG_INHERIT_ACE flag for the inherited ACEs of child objects. This prevents the ACE from being inherited by subsequent generations of objects.
+     * Native name: ADS_ACEFLAG_NO_PROPAGATE_INHERIT_ACE
      * @type {Integer (Int32)}
      */
-    static ADS_ACEFLAG_NO_PROPAGATE_INHERIT_ACE => 4
+    static NO_PROPAGATE_INHERIT_ACE => 4
 
     /**
      * Indicates that an inherit-only ACE that does not exercise access control on the object to which it is attached. If this flag is not set, the ACE is an effective ACE that exerts access control on the object to which it is attached.
+     * Native name: ADS_ACEFLAG_INHERIT_ONLY_ACE
      * @type {Integer (Int32)}
      */
-    static ADS_ACEFLAG_INHERIT_ONLY_ACE => 8
+    static INHERIT_ONLY_ACE => 8
 
     /**
      * Indicates whether or not the ACE was inherited. The system sets this bit.
+     * Native name: ADS_ACEFLAG_INHERITED_ACE
      * @type {Integer (Int32)}
      */
-    static ADS_ACEFLAG_INHERITED_ACE => 16
+    static INHERITED_ACE => 16
 
     /**
      * Indicates whether the inherit flags are valid. The system sets this bit.
+     * Native name: ADS_ACEFLAG_VALID_INHERIT_FLAGS
      * @type {Integer (Int32)}
      */
-    static ADS_ACEFLAG_VALID_INHERIT_FLAGS => 31
+    static VALID_INHERIT_FLAGS => 31
 
     /**
      * Generates audit messages for successful access attempts, used with ACEs that audit the system in a system access-control list (SACL).
+     * Native name: ADS_ACEFLAG_SUCCESSFUL_ACCESS
      * @type {Integer (Int32)}
      */
-    static ADS_ACEFLAG_SUCCESSFUL_ACCESS => 64
+    static SUCCESSFUL_ACCESS => 64
 
     /**
      * Generates audit messages for failed access attempts, used with ACEs that audit the system in a SACL.
+     * Native name: ADS_ACEFLAG_FAILED_ACCESS
      * @type {Integer (Int32)}
      */
-    static ADS_ACEFLAG_FAILED_ACCESS => 128
+    static FAILED_ACCESS => 128
 }

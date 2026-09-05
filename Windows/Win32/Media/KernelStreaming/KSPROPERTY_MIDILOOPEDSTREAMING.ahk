@@ -7,17 +7,20 @@
 class KSPROPERTY_MIDILOOPEDSTREAMING extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_MIDILOOPEDSTREAMING_BUFFER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MIDILOOPEDSTREAMING_BUFFER => 0
+    static BUFFER => 0
 
     /**
+     * Native name: KSPROPERTY_MIDILOOPEDSTREAMING_REGISTERS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MIDILOOPEDSTREAMING_REGISTERS => 1
+    static REGISTERS => 1
 
     /**
+     * Native name: KSPROPERTY_MIDILOOPEDSTREAMING_NOTIFICATION_EVENT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MIDILOOPEDSTREAMING_NOTIFICATION_EVENT => 2
+    static NOTIFICATION_EVENT => 2
 }

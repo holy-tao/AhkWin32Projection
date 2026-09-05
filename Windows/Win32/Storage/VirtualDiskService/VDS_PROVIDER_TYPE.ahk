@@ -18,35 +18,40 @@ class VDS_PROVIDER_TYPE extends Win32Enum {
 
     /**
      * The provider type is unknown.
+     * Native name: VDS_PT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_PT_UNKNOWN => 0
+    static PT_UNKNOWN => 0
 
     /**
      * The provider is a software provider.
+     * Native name: VDS_PT_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static VDS_PT_SOFTWARE => 1
+    static PT_SOFTWARE => 1
 
     /**
      * The provider is a hardware provider.
+     * Native name: VDS_PT_HARDWARE
      * @type {Integer (Int32)}
      */
-    static VDS_PT_HARDWARE => 2
+    static PT_HARDWARE => 2
 
     /**
      * The provider is a virtual disk provider.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDS_PT_VIRTUALDISK
      * @type {Integer (Int32)}
      */
-    static VDS_PT_VIRTUALDISK => 3
+    static PT_VIRTUALDISK => 3
 
     /**
      * This value is reserved for system use.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDS_PT_MAX
      * @type {Integer (Int32)}
      */
-    static VDS_PT_MAX => 4
+    static PT_MAX => 4
 }

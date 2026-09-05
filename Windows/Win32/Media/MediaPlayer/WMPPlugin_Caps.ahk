@@ -12,7 +12,8 @@ class WMPPlugin_Caps extends Win32Enum {
 
     /**
      * The plug-in requires that the input format and output format be the same.
+     * Native name: WMPPlugin_Caps_CannotConvertFormats
      * @type {Integer (Int32)}
      */
-    static WMPPlugin_Caps_CannotConvertFormats => 1
+    static CannotConvertFormats => 1
 }

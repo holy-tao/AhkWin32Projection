@@ -37,7 +37,6 @@ class ITableData extends IUnknown {
     static VTableNames => ["HrGetView", "HrModifyRow", "HrDeleteRow", "HrQueryRow", "HrEnumRow", "HrNotify", "HrInsertRow", "HrModifyRows", "HrDeleteRows"]
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrGetView** method creates a read-only view of the data in the table, sorted in the order pointed to by the  _lpSSortOrderSet_ parameter. The cursor is placed at the beginning of the first row in the view. An **IMAPITable** interface implementation for accessing the view is returned. 
      *   
@@ -58,7 +57,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrModifyRow** method inserts the row described by the **SRow** structure pointed to by the  _lpSRow_ parameter. If a row that has the same value for its index column as the row that  _lpSRow_ points to already exists in the table, the existing row is replaced. If no row exists that matches the one included in the **SRow** structure, **HrModifyRow** adds the row to the end of the table. 
      *   
@@ -83,7 +81,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrDeleteRow** method removes the table row that contains the column that matches the property pointed to by the  _lpSPropValue_ parameter. The data for the row is deleted and the row is removed from all open views. 
      *   
@@ -106,7 +103,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrQueryRow** method retrieves all of the properties for the row that has an index column that matches the value of the index column included in the property structure pointed to by  _lpSPropValue_. **HrQueryRow** also returns the row number, if the caller requests it, that identifies the row's position in the table. 
      *   
@@ -132,7 +128,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrEnumRow** method retrieves a row based on a sequential number. This number represents the order of insertion (0 indicates the first row, and the number of rows minus 1 indicates the last row). MAPI maintains this chronological order of row insertion for the lifetime of the table data object. 
      *   
@@ -156,7 +151,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrNotify** method sends a TABLE_ROW_MODIFIED notification for the row that matches the row described by the properties pointed to by the  _lpSPropValue_ parameter. **HrNotify** sends the notification regardless of whether changes have occurred to the row. All clients and service providers that have views of the table and have called [IMAPITable::Advise](imapitable-advise.md) to register for notifications on their views receive this notification.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
@@ -173,7 +167,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrInsertRow** method inserts a row into a table at a particular position. The new row is inserted after the row that is in the position specified by the  _uliRow_ parameter. 
      *   
@@ -201,7 +194,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrModifyRows** method inserts the rows described by the [SRowSet](srowset.md) structure pointed to by the  _lpSRowSet_ parameter. If the index column value of a row in the row set matches the value for an existing row in the table, the existing row is replaced. If no row exists that matches the one included in the **SRowSet** structure, **HrModifyRows** adds the row to the end of the table. 
      *   
@@ -227,7 +219,6 @@ class ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrDeleteRows** method locates and removes the table rows that contain the columns that match the property pointed to by the **lpProps** member of each **aRow** entry in the row set. An index column is used to identify each row; this column must have the same property tag as the property tag passed in the _ulPropTagIndexColumn_ parameter in the call to the [CreateTable](createtable.md) function. 
      *   

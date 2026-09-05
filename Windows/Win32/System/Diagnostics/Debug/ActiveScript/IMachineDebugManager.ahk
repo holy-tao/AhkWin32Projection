@@ -31,7 +31,6 @@ class IMachineDebugManager extends IUnknown {
     static VTableNames => ["AddApplication", "RemoveApplication", "EnumApplications"]
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @returns {Integer} 
      */
@@ -41,7 +40,6 @@ class IMachineDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IMachineDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRemoteDebugApplications} 
      */
     EnumApplications() {

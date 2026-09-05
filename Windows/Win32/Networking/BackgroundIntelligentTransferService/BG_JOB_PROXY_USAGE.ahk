@@ -10,27 +10,31 @@ class BG_JOB_PROXY_USAGE extends Win32Enum {
 
     /**
      * Use the proxy and proxy bypass list settings defined by each user to transfer files. Settings are user-defined from Control Panel, Internet Options, Connections, Local Area Network (LAN) settings (or Dial-up settings, depending on the network connection).
+     * Native name: BG_JOB_PROXY_USAGE_PRECONFIG
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PROXY_USAGE_PRECONFIG => 0
+    static PRECONFIG => 0
 
     /**
      * Do not use a proxy to transfer files. Use this option when you transfer files within a LAN.
+     * Native name: BG_JOB_PROXY_USAGE_NO_PROXY
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PROXY_USAGE_NO_PROXY => 1
+    static NO_PROXY => 1
 
     /**
      * Use the application's proxy and proxy bypass list to transfer files. Use this option when you can't trust that the system settings are correct. Also use this option when you want to transfer files using a special account, such as LocalSystem, to which the system settings do not apply.
+     * Native name: BG_JOB_PROXY_USAGE_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PROXY_USAGE_OVERRIDE => 2
+    static OVERRIDE => 2
 
     /**
      * Automatically detect proxy settings. BITS detects proxy settings for each file in the job.
      * 
      * **BITS 1.5 and earlier:** **BG_JOB_PROXY_USAGE_AUTODETECT** is not available.
+     * Native name: BG_JOB_PROXY_USAGE_AUTODETECT
      * @type {Integer (Int32)}
      */
-    static BG_JOB_PROXY_USAGE_AUTODETECT => 3
+    static AUTODETECT => 3
 }

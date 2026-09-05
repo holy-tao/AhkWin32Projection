@@ -20,25 +20,29 @@ class CorrectionMode extends Win32Enum {
 
     /**
      * The Input Panel and the correction comb are not visible.
+     * Native name: CorrectionMode_NotVisible
      * @type {Integer (Int32)}
      */
-    static CorrectionMode_NotVisible => 0
+    static NotVisible => 0
 
     /**
      * The correction comb is shown in pre-insertion mode.
+     * Native name: CorrectionMode_PreInsertion
      * @type {Integer (Int32)}
      */
-    static CorrectionMode_PreInsertion => 1
+    static PreInsertion => 1
 
     /**
      * The correction comb is shown in post-insertion collapsed mode.
+     * Native name: CorrectionMode_PostInsertionCollapsed
      * @type {Integer (Int32)}
      */
-    static CorrectionMode_PostInsertionCollapsed => 2
+    static PostInsertionCollapsed => 2
 
     /**
      * The correction comb is shown in post-insertion expanded mode.
+     * Native name: CorrectionMode_PostInsertionExpanded
      * @type {Integer (Int32)}
      */
-    static CorrectionMode_PostInsertionExpanded => 3
+    static PostInsertionExpanded => 3
 }

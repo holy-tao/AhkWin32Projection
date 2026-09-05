@@ -12,13 +12,15 @@ class MF3DVideoOutputType extends Win32Enum {
 
     /**
      * Output the base view only. Discard the other view.
+     * Native name: MF3DVideoOutputType_BaseView
      * @type {Integer (Int32)}
      */
-    static MF3DVideoOutputType_BaseView => 0
+    static BaseView => 0
 
     /**
      * Output a stereo view (two buffers).
+     * Native name: MF3DVideoOutputType_Stereo
      * @type {Integer (Int32)}
      */
-    static MF3DVideoOutputType_Stereo => 1
+    static Stereo => 1
 }

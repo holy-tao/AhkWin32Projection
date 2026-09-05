@@ -10,19 +10,22 @@ class TRANSACTION_OUTCOME extends Win32Enum {
 
     /**
      * The transaction has not yet been committed or rolled back.
+     * Native name: TransactionOutcomeUndetermined
      * @type {Integer (Int32)}
      */
-    static TransactionOutcomeUndetermined => 1
+    static Undetermined => 1
 
     /**
      * The transaction has been committed.
+     * Native name: TransactionOutcomeCommitted
      * @type {Integer (Int32)}
      */
-    static TransactionOutcomeCommitted => 2
+    static Committed => 2
 
     /**
      * The transaction has been rolled back.
+     * Native name: TransactionOutcomeAborted
      * @type {Integer (Int32)}
      */
-    static TransactionOutcomeAborted => 3
+    static Aborted => 3
 }

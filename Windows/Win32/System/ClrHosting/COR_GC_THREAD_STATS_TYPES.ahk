@@ -7,7 +7,8 @@
 class COR_GC_THREAD_STATS_TYPES extends Win32Enum {
 
     /**
+     * Native name: COR_GC_THREAD_HAS_PROMOTED_BYTES
      * @type {Integer (Int32)}
      */
-    static COR_GC_THREAD_HAS_PROMOTED_BYTES => 1
+    static HAS_PROMOTED_BYTES => 1
 }

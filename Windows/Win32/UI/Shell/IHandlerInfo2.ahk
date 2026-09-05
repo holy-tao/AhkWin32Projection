@@ -30,7 +30,6 @@ class IHandlerInfo2 extends IHandlerInfo {
     static VTableNames => ["GetApplicationId"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetApplicationId() {

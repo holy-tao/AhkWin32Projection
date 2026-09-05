@@ -7,42 +7,50 @@
 class ENUM_DATE_FORMATS_FLAGS extends Win32Enum {
 
     /**
+     * Native name: DATE_SHORTDATE
      * @type {Integer (UInt32)}
      */
-    static DATE_SHORTDATE => 1
+    static SHORTDATE => 1
 
     /**
+     * Native name: DATE_LONGDATE
      * @type {Integer (UInt32)}
      */
-    static DATE_LONGDATE => 2
+    static LONGDATE => 2
 
     /**
+     * Native name: DATE_YEARMONTH
      * @type {Integer (UInt32)}
      */
-    static DATE_YEARMONTH => 8
+    static YEARMONTH => 8
 
     /**
+     * Native name: DATE_MONTHDAY
      * @type {Integer (UInt32)}
      */
-    static DATE_MONTHDAY => 128
+    static MONTHDAY => 128
 
     /**
+     * Native name: DATE_AUTOLAYOUT
      * @type {Integer (UInt32)}
      */
-    static DATE_AUTOLAYOUT => 64
+    static AUTOLAYOUT => 64
 
     /**
+     * Native name: DATE_LTRREADING
      * @type {Integer (UInt32)}
      */
-    static DATE_LTRREADING => 16
+    static LTRREADING => 16
 
     /**
+     * Native name: DATE_RTLREADING
      * @type {Integer (UInt32)}
      */
-    static DATE_RTLREADING => 32
+    static RTLREADING => 32
 
     /**
+     * Native name: DATE_USE_ALT_CALENDAR
      * @type {Integer (UInt32)}
      */
-    static DATE_USE_ALT_CALENDAR => 4
+    static USE_ALT_CALENDAR => 4
 }

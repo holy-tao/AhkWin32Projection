@@ -44,7 +44,6 @@ class IHTMLDListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class IHTMLDListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_compact() {

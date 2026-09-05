@@ -10,13 +10,15 @@ class TfIntegratableCandidateListSelectionStyle extends Win32Enum {
 
     /**
      * The selection can be changed with the arrow keys.
+     * Native name: STYLE_ACTIVE_SELECTION
      * @type {Integer (Int32)}
      */
-    static STYLE_ACTIVE_SELECTION => 0
+    static ACTIVE_SELECTION => 0
 
     /**
      * The default selection key will choose the selection.
+     * Native name: STYLE_IMPLIED_SELECTION
      * @type {Integer (Int32)}
      */
-    static STYLE_IMPLIED_SELECTION => 1
+    static IMPLIED_SELECTION => 1
 }

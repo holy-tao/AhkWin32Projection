@@ -10,19 +10,22 @@ class DRT_MATCH_TYPE extends Win32Enum {
 
     /**
      * The node  found is publishing the target key or is publishing a key within the specified range.
+     * Native name: DRT_MATCH_EXACT
      * @type {Integer (Int32)}
      */
-    static DRT_MATCH_EXACT => 0
+    static EXACT => 0
 
     /**
      * The node found is publishing the numerically closest key to the specified target key.
+     * Native name: DRT_MATCH_NEAR
      * @type {Integer (Int32)}
      */
-    static DRT_MATCH_NEAR => 1
+    static NEAR => 1
 
     /**
      * The node returned is  an intermediate node. An application will  receive this node match type if <b>fIterative</b> is set to <b>TRUE</b>.
+     * Native name: DRT_MATCH_INTERMEDIATE
      * @type {Integer (Int32)}
      */
-    static DRT_MATCH_INTERMEDIATE => 2
+    static INTERMEDIATE => 2
 }

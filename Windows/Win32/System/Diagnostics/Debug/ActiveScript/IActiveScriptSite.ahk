@@ -36,7 +36,6 @@ class IActiveScriptSite extends IUnknown {
     static VTableNames => ["GetLCID", "GetItemInfo", "GetDocVersionString", "OnScriptTerminate", "OnStateChange", "OnScriptError", "OnEnterScript", "OnLeaveScript"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLCID() {
@@ -45,7 +44,6 @@ class IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @param {Integer} dwReturnMask 
      * @param {Pointer<IUnknown>} ppiunkItem 
@@ -60,7 +58,6 @@ class IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDocVersionString() {
@@ -70,7 +67,6 @@ class IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarResult 
      * @param {Pointer<EXCEPINFO>} pexcepinfo 
      * @returns {HRESULT} 
@@ -81,7 +77,6 @@ class IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPTSTATE} ssScriptState 
      * @returns {HRESULT} 
      */
@@ -91,7 +86,6 @@ class IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptError} pscripterror 
      * @returns {HRESULT} 
      */
@@ -101,7 +95,6 @@ class IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnEnterScript() {
@@ -110,7 +103,6 @@ class IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnLeaveScript() {

@@ -289,7 +289,6 @@ class ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -309,7 +308,6 @@ class ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -350,7 +348,6 @@ class ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} events 
      * @returns {HRESULT} 
      */
@@ -526,7 +523,6 @@ class ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -687,7 +683,6 @@ class ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -707,7 +702,6 @@ class ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {HRESULT} 
      */
@@ -751,7 +745,6 @@ class ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} tid 
      * @returns {HRESULT} 
      */

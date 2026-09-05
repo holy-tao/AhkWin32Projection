@@ -7,37 +7,44 @@
 class PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR_TYPE extends Win32Enum {
 
     /**
+     * Native name: ResourceTypeSingle
      * @type {Integer (Int32)}
      */
-    static ResourceTypeSingle => 0
+    static Single => 0
 
     /**
+     * Native name: ResourceTypeRange
      * @type {Integer (Int32)}
      */
-    static ResourceTypeRange => 1
+    static Range => 1
 
     /**
+     * Native name: ResourceTypeExtendedCounterConfiguration
      * @type {Integer (Int32)}
      */
-    static ResourceTypeExtendedCounterConfiguration => 2
+    static ExtendedCounterConfiguration => 2
 
     /**
+     * Native name: ResourceTypeOverflow
      * @type {Integer (Int32)}
      */
-    static ResourceTypeOverflow => 3
+    static Overflow => 3
 
     /**
+     * Native name: ResourceTypeEventBuffer
      * @type {Integer (Int32)}
      */
-    static ResourceTypeEventBuffer => 4
+    static EventBuffer => 4
 
     /**
+     * Native name: ResourceTypeIdenitificationTag
      * @type {Integer (Int32)}
      */
-    static ResourceTypeIdenitificationTag => 5
+    static IdenitificationTag => 5
 
     /**
+     * Native name: ResourceTypeMax
      * @type {Integer (Int32)}
      */
-    static ResourceTypeMax => 6
+    static Max => 6
 }

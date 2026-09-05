@@ -88,7 +88,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +97,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_refX() {
@@ -107,7 +105,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -117,7 +114,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_refY() {
@@ -126,7 +122,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -136,7 +131,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_markerUnits() {
@@ -145,7 +139,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -155,7 +148,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_markerWidth() {
@@ -164,7 +156,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -174,7 +165,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_markerHeight() {
@@ -183,7 +173,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -193,7 +182,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_orientType() {
@@ -202,7 +190,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedAngle} v 
      * @returns {HRESULT} 
      */
@@ -212,7 +199,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedAngle} 
      */
     get_orientAngle() {
@@ -221,7 +207,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     setOrientToAuto() {
@@ -230,7 +215,6 @@ class ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAngle} pSVGAngle 
      * @returns {HRESULT} 
      */

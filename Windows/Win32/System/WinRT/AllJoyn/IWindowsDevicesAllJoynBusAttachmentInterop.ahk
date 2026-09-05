@@ -38,7 +38,6 @@ class IWindowsDevicesAllJoynBusAttachmentInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Win32Handle() {

@@ -13,17 +13,19 @@ class D2D1_IMAGE_SOURCE_LOADING_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No options are used.
+     * Native name: D2D1_IMAGE_SOURCE_LOADING_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_IMAGE_SOURCE_LOADING_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates the image source should release its reference to the WIC bitmap source after it has initialized. 
      *         By default, the image source retains a reference to the WIC bitmap source for the lifetime of the object to enable quality and speed optimizations for printing. 
      *         This option disables that optimization.
+     * Native name: D2D1_IMAGE_SOURCE_LOADING_OPTIONS_RELEASE_SOURCE
      * @type {Integer (Int32)}
      */
-    static D2D1_IMAGE_SOURCE_LOADING_OPTIONS_RELEASE_SOURCE => 1
+    static RELEASE_SOURCE => 1
 
     /**
      * Indicates the image source should only populate subregions of the image cache on-demand. You can control this behavior using 
@@ -31,7 +33,8 @@ class D2D1_IMAGE_SOURCE_LOADING_OPTIONS extends Win32BitflagEnum {
      *           and <a href="https://docs.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-trimcache(constd2d1_rect_u)">TrimCache</a> methods. 
      *         This options provides the ability to improve memory usage by only keeping needed portions of the image in memory. 
      *         This option requires that the image source has a reference to the WIC bitmap source, and is incompatible with D2D1_IMAGE_SOURCE_LOADING_OPTIONS_RELEASE_SOURCE.
+     * Native name: D2D1_IMAGE_SOURCE_LOADING_OPTIONS_CACHE_ON_DEMAND
      * @type {Integer (Int32)}
      */
-    static D2D1_IMAGE_SOURCE_LOADING_OPTIONS_CACHE_ON_DEMAND => 2
+    static CACHE_ON_DEMAND => 2
 }

@@ -20,87 +20,104 @@
 class D3DBLEND extends Win32Enum {
 
     /**
+     * Native name: D3DBLEND_ZERO
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_ZERO => 1
+    static ZERO => 1
 
     /**
+     * Native name: D3DBLEND_ONE
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_ONE => 2
+    static ONE => 2
 
     /**
+     * Native name: D3DBLEND_SRCCOLOR
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_SRCCOLOR => 3
+    static SRCCOLOR => 3
 
     /**
+     * Native name: D3DBLEND_INVSRCCOLOR
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_INVSRCCOLOR => 4
+    static INVSRCCOLOR => 4
 
     /**
+     * Native name: D3DBLEND_SRCALPHA
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_SRCALPHA => 5
+    static SRCALPHA => 5
 
     /**
+     * Native name: D3DBLEND_INVSRCALPHA
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_INVSRCALPHA => 6
+    static INVSRCALPHA => 6
 
     /**
+     * Native name: D3DBLEND_DESTALPHA
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_DESTALPHA => 7
+    static DESTALPHA => 7
 
     /**
+     * Native name: D3DBLEND_INVDESTALPHA
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_INVDESTALPHA => 8
+    static INVDESTALPHA => 8
 
     /**
+     * Native name: D3DBLEND_DESTCOLOR
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_DESTCOLOR => 9
+    static DESTCOLOR => 9
 
     /**
+     * Native name: D3DBLEND_INVDESTCOLOR
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_INVDESTCOLOR => 10
+    static INVDESTCOLOR => 10
 
     /**
+     * Native name: D3DBLEND_SRCALPHASAT
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_SRCALPHASAT => 11
+    static SRCALPHASAT => 11
 
     /**
+     * Native name: D3DBLEND_BOTHSRCALPHA
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_BOTHSRCALPHA => 12
+    static BOTHSRCALPHA => 12
 
     /**
+     * Native name: D3DBLEND_BOTHINVSRCALPHA
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_BOTHINVSRCALPHA => 13
+    static BOTHINVSRCALPHA => 13
 
     /**
+     * Native name: D3DBLEND_BLENDFACTOR
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_BLENDFACTOR => 14
+    static BLENDFACTOR => 14
 
     /**
+     * Native name: D3DBLEND_INVBLENDFACTOR
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_INVBLENDFACTOR => 15
+    static INVBLENDFACTOR => 15
 
     /**
+     * Native name: D3DBLEND_SRCCOLOR2
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_SRCCOLOR2 => 16
+    static SRCCOLOR2 => 16
 
     /**
+     * Native name: D3DBLEND_INVSRCCOLOR2
      * @type {Integer (Int32)}
      */
-    static D3DBLEND_INVSRCCOLOR2 => 17
+    static INVSRCCOLOR2 => 17
 }

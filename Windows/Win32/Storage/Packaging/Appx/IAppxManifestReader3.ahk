@@ -32,7 +32,6 @@ class IAppxManifestReader3 extends IAppxManifestReader2 {
     static VTableNames => ["GetCapabilitiesByCapabilityClass", "GetTargetDeviceFamilies"]
 
     /**
-     * 
      * @param {APPX_CAPABILITY_CLASS_TYPE} capabilityClass 
      * @returns {IAppxManifestCapabilitiesEnumerator} 
      */
@@ -42,7 +41,6 @@ class IAppxManifestReader3 extends IAppxManifestReader2 {
     }
 
     /**
-     * 
      * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
     GetTargetDeviceFamilies() {

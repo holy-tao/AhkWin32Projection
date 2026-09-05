@@ -58,7 +58,6 @@ class ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ class ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_gradientUnits() {
@@ -77,7 +75,6 @@ class ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedTransformList} v 
      * @returns {HRESULT} 
      */
@@ -87,7 +84,6 @@ class ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedTransformList} 
      */
     get_gradientTransform() {
@@ -96,7 +92,6 @@ class ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +101,6 @@ class ISVGGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_spreadMethod() {

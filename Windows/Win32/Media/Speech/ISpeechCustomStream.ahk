@@ -37,7 +37,6 @@ class ISpeechCustomStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_BaseStream() {
@@ -46,7 +45,6 @@ class ISpeechCustomStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkStream 
      * @returns {HRESULT} 
      */

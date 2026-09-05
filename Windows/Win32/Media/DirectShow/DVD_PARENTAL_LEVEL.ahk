@@ -44,49 +44,57 @@ class DVD_PARENTAL_LEVEL extends Win32Enum {
 
     /**
      * Parental level 8.
+     * Native name: DVD_PARENTAL_LEVEL_8
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_8 => 32768
+    static 8 => 32768
 
     /**
      * Parental level 7.
+     * Native name: DVD_PARENTAL_LEVEL_7
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_7 => 16384
+    static 7 => 16384
 
     /**
      * Parental level 6.
+     * Native name: DVD_PARENTAL_LEVEL_6
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_6 => 8192
+    static 6 => 8192
 
     /**
      * Parental level 5.
+     * Native name: DVD_PARENTAL_LEVEL_5
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_5 => 4096
+    static 5 => 4096
 
     /**
      * Parental level 4.
+     * Native name: DVD_PARENTAL_LEVEL_4
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_4 => 2048
+    static 4 => 2048
 
     /**
      * Parental level 3.
+     * Native name: DVD_PARENTAL_LEVEL_3
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_3 => 1024
+    static 3 => 1024
 
     /**
      * Parental level 2.
+     * Native name: DVD_PARENTAL_LEVEL_2
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_2 => 512
+    static 2 => 512
 
     /**
      * Parental level 1.
+     * Native name: DVD_PARENTAL_LEVEL_1
      * @type {Integer (Int32)}
      */
-    static DVD_PARENTAL_LEVEL_1 => 256
+    static 1 => 256
 }

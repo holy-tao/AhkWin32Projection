@@ -31,7 +31,6 @@ class IDispError extends IUnknown {
     static VTableNames => ["QueryErrorInfo", "GetNext", "GetHresult", "GetSource", "GetHelpInfo", "GetDescription"]
 
     /**
-     * 
      * @param {Guid} guidErrorType 
      * @returns {IDispError} 
      */
@@ -41,7 +40,6 @@ class IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDispError} 
      */
     GetNext() {
@@ -50,7 +48,6 @@ class IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetHresult() {
@@ -59,7 +56,6 @@ class IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSource() {
@@ -69,7 +65,6 @@ class IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrFileName 
      * @param {Pointer<Integer>} pdwContext 
      * @returns {HRESULT} 

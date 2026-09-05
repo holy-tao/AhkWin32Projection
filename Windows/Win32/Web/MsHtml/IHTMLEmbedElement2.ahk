@@ -45,7 +45,6 @@ class IHTMLEmbedElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ class IHTMLEmbedElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -67,7 +65,6 @@ class IHTMLEmbedElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pluginspage() {

@@ -7,22 +7,26 @@
 class TRUSTED_DOMAIN_TRUST_DIRECTION extends Win32Enum {
 
     /**
+     * Native name: TRUST_DIRECTION_DISABLED
      * @type {Integer (UInt32)}
      */
-    static TRUST_DIRECTION_DISABLED => 0
+    static DISABLED => 0
 
     /**
+     * Native name: TRUST_DIRECTION_INBOUND
      * @type {Integer (UInt32)}
      */
-    static TRUST_DIRECTION_INBOUND => 1
+    static INBOUND => 1
 
     /**
+     * Native name: TRUST_DIRECTION_OUTBOUND
      * @type {Integer (UInt32)}
      */
-    static TRUST_DIRECTION_OUTBOUND => 2
+    static OUTBOUND => 2
 
     /**
+     * Native name: TRUST_DIRECTION_BIDIRECTIONAL
      * @type {Integer (UInt32)}
      */
-    static TRUST_DIRECTION_BIDIRECTIONAL => 3
+    static BIDIRECTIONAL => 3
 }

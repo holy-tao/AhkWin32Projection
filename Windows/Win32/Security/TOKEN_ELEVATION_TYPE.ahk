@@ -10,19 +10,22 @@ class TOKEN_ELEVATION_TYPE extends Win32Enum {
 
     /**
      * The token does not have a linked token.
+     * Native name: TokenElevationTypeDefault
      * @type {Integer (Int32)}
      */
-    static TokenElevationTypeDefault => 1
+    static Default => 1
 
     /**
      * The token is an elevated token.
+     * Native name: TokenElevationTypeFull
      * @type {Integer (Int32)}
      */
-    static TokenElevationTypeFull => 2
+    static Full => 2
 
     /**
      * The token is a limited token.
+     * Native name: TokenElevationTypeLimited
      * @type {Integer (Int32)}
      */
-    static TokenElevationTypeLimited => 3
+    static Limited => 3
 }

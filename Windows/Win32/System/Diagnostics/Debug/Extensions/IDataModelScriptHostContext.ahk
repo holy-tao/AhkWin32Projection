@@ -32,7 +32,6 @@ class IDataModelScriptHostContext extends IUnknown {
     static VTableNames => ["NotifyScriptChange", "GetNamespaceObject"]
 
     /**
-     * 
      * @param {IDataModelScript} script 
      * @param {ScriptChangeKind} _changeKind 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IDataModelScriptHostContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetNamespaceObject() {

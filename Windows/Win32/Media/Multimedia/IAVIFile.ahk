@@ -176,7 +176,6 @@ class IAVIFile extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fccType 
      * @param {Integer} _lParam 
      * @returns {HRESULT} 

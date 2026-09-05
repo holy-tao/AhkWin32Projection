@@ -10,19 +10,22 @@ class D3DX11_SCAN_DATA_TYPE extends Win32Enum {
 
     /**
      * FLOAT data.
+     * Native name: D3DX11_SCAN_DATA_TYPE_FLOAT
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_DATA_TYPE_FLOAT => 1
+    static FLOAT => 1
 
     /**
      * INT data.
+     * Native name: D3DX11_SCAN_DATA_TYPE_INT
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_DATA_TYPE_INT => 2
+    static INT => 2
 
     /**
      * UINT data.
+     * Native name: D3DX11_SCAN_DATA_TYPE_UINT
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_DATA_TYPE_UINT => 3
+    static UINT => 3
 }

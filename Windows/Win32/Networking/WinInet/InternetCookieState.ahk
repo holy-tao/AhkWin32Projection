@@ -13,43 +13,50 @@ class InternetCookieState extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: COOKIE_STATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static COOKIE_STATE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The cookies are accepted.
+     * Native name: COOKIE_STATE_ACCEPT
      * @type {Integer (Int32)}
      */
-    static COOKIE_STATE_ACCEPT => 1
+    static ACCEPT => 1
 
     /**
      * The user is prompted to accept or deny the cookie.
+     * Native name: COOKIE_STATE_PROMPT
      * @type {Integer (Int32)}
      */
-    static COOKIE_STATE_PROMPT => 2
+    static PROMPT => 2
 
     /**
      * Cookies are accepted only in the first-party context.
+     * Native name: COOKIE_STATE_LEASH
      * @type {Integer (Int32)}
      */
-    static COOKIE_STATE_LEASH => 3
+    static LEASH => 3
 
     /**
      * Cookies are accepted and become session cookies.
+     * Native name: COOKIE_STATE_DOWNGRADE
      * @type {Integer (Int32)}
      */
-    static COOKIE_STATE_DOWNGRADE => 4
+    static DOWNGRADE => 4
 
     /**
      * The cookies are rejected.
+     * Native name: COOKIE_STATE_REJECT
      * @type {Integer (Int32)}
      */
-    static COOKIE_STATE_REJECT => 5
+    static REJECT => 5
 
     /**
      * Same as <b>COOKIE_STATE_REJECT</b>.
+     * Native name: COOKIE_STATE_MAX
      * @type {Integer (Int32)}
      */
-    static COOKIE_STATE_MAX => 5
+    static MAX => 5
 }

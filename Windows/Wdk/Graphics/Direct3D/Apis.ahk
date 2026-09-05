@@ -2854,7 +2854,6 @@ class Direct3D {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEALLOCATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2865,7 +2864,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEALLOCATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2876,7 +2874,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYRESOURCEINFO>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2887,7 +2884,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2898,7 +2894,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Integer} cObjects 
      * @param {Pointer<Integer>} hObjects 
      * @param {Pointer<OBJECT_ATTRIBUTES>} pObjectAttributes 
@@ -2915,7 +2910,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENNTHANDLEFROMNAME>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2926,7 +2920,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENRESOURCEFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2937,7 +2930,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENSYNCOBJECTFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2948,7 +2940,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENRESOURCE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2959,7 +2950,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENRESOURCE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2970,7 +2960,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYALLOCATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2981,7 +2970,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYALLOCATION2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -2992,7 +2980,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETALLOCATIONPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3003,7 +2990,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYALLOCATIONRESIDENCY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3014,7 +3000,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEDEVICE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3025,7 +3010,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYDEVICE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3036,7 +3020,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATECONTEXT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3047,7 +3030,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYCONTEXT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3058,7 +3040,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATESYNCHRONIZATIONOBJECT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3069,7 +3050,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATESYNCHRONIZATIONOBJECT2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3080,7 +3060,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENSYNCHRONIZATIONOBJECT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3091,7 +3070,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYSYNCHRONIZATIONOBJECT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3102,7 +3080,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORSYNCHRONIZATIONOBJECT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3113,7 +3090,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3124,7 +3100,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SIGNALSYNCHRONIZATIONOBJECT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3135,7 +3110,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3146,7 +3120,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_LOCK>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3157,7 +3130,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UNLOCK>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3168,7 +3140,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETDISPLAYMODELIST>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3179,7 +3150,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETDISPLAYMODE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3190,7 +3160,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETMULTISAMPLEMETHODLIST>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3201,7 +3170,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_PRESENT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3212,7 +3180,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_RENDER>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3223,7 +3190,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETRUNTIMEDATA>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3234,7 +3200,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYADAPTERINFO>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3245,7 +3210,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENADAPTERFROMHDC>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3256,7 +3220,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3267,7 +3230,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENADAPTERFROMDEVICENAME>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3278,7 +3240,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CLOSEADAPTER>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3289,7 +3250,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETSHAREDPRIMARYHANDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3300,7 +3260,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ESCAPE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3311,7 +3270,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYSTATISTICS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3322,7 +3280,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETVIDPNSOURCEOWNER>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3333,7 +3290,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETPRESENTHISTORY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3344,7 +3300,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Integer} hAdapter 
      * @param {Pointer<HANDLE>} param1 
      * @returns {NTSTATUS} 
@@ -3356,7 +3311,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3367,7 +3321,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UPDATEOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3378,7 +3331,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_FLIPOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3389,7 +3341,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3400,7 +3351,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORVERTICALBLANKEVENT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3411,7 +3361,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETGAMMARAMP>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3422,7 +3371,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETDEVICESTATE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3433,7 +3381,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEDCFROMMEMORY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3444,7 +3391,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYDCFROMMEMORY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3455,7 +3401,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETCONTEXTSCHEDULINGPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3466,7 +3411,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETCONTEXTSCHEDULINGPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3477,7 +3421,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {D3DKMT_SCHEDULINGPRIORITYCLASS} param1 
      * @returns {NTSTATUS} 
@@ -3491,7 +3434,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Pointer<D3DKMT_SCHEDULINGPRIORITYCLASS>} param1 
      * @returns {NTSTATUS} 
@@ -3507,7 +3449,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {NTSTATUS} 
      */
@@ -3520,7 +3461,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETSCANLINE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3531,7 +3471,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHANGESURFACEPOINTER>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3542,7 +3481,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETQUEUEDLIMIT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3553,7 +3491,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_POLLDISPLAYCHILDREN>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3564,7 +3501,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_INVALIDATEACTIVEVIDPN>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3575,7 +3511,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKOCCLUSION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3586,7 +3521,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORIDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3597,7 +3531,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKMONITORPOWERSTATE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3608,7 +3541,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static D3DKMTCheckExclusiveOwnership() {
@@ -3617,7 +3549,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKVIDPNEXCLUSIVEOWNERSHIP>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3628,7 +3559,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETDISPLAYPRIVATEDRIVERFORMAT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3639,7 +3569,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SHAREDPRIMARYLOCKNOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3650,7 +3579,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SHAREDPRIMARYUNLOCKNOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3661,7 +3589,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEKEYEDMUTEX>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3672,7 +3599,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENKEYEDMUTEX>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3683,7 +3609,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYKEYEDMUTEX>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3694,7 +3619,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ACQUIREKEYEDMUTEX>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3705,7 +3629,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_RELEASEKEYEDMUTEX>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3716,7 +3639,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEKEYEDMUTEX2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3727,7 +3649,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENKEYEDMUTEX2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3738,7 +3659,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ACQUIREKEYEDMUTEX2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3749,7 +3669,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_RELEASEKEYEDMUTEX2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3760,7 +3679,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CONFIGURESHAREDRESOURCE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3771,7 +3689,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETOVERLAYSTATE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3782,7 +3699,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKSHAREDRESOURCEACCESS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3793,7 +3709,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OFFERALLOCATIONS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3804,7 +3719,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_RECLAIMALLOCATIONS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3815,7 +3729,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATE_OUTPUTDUPL>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3826,7 +3739,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROY_OUTPUTDUPL>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3837,7 +3749,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPL_GET_FRAMEINFO>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3848,7 +3759,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPL_METADATA>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3859,7 +3769,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPL_GET_POINTER_SHAPE_DATA>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3870,7 +3779,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPL_RELEASE_FRAME>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3881,7 +3789,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPLPRESENT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3892,7 +3799,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ENUMADAPTERS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3903,7 +3809,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ENUMADAPTERS2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3914,7 +3819,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENADAPTERFROMLUID>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3925,7 +3829,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3936,7 +3839,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETVIDPNSOURCEOWNER1>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3947,7 +3849,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORVERTICALBLANKEVENT2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3958,7 +3859,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETSYNCREFRESHCOUNTWAITTARGET>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3969,7 +3869,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETVERTICALBLANKEVENT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3980,7 +3879,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_PRESENT_MULTIPLANE_OVERLAY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -3991,7 +3889,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETSHAREDRESOURCEADAPTERLUID>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4002,7 +3899,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4013,7 +3909,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETCONTEXTINPROCESSSCHEDULINGPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4024,7 +3919,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETCONTEXTINPROCESSSCHEDULINGPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4035,7 +3929,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_MAKERESIDENT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4046,7 +3939,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_EVICT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4057,7 +3949,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMCPU>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4068,7 +3959,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMCPU>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4079,7 +3969,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMGPU>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4090,7 +3979,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4101,7 +3989,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4112,7 +3999,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEPAGINGQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4123,7 +4009,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_DESTROYPAGINGQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4134,7 +4019,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_LOCK2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4145,7 +4029,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UNLOCK2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4156,7 +4039,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_INVALIDATECACHE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4167,7 +4049,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_MAPGPUVIRTUALADDRESS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4178,7 +4059,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_RESERVEGPUVIRTUALADDRESS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4189,7 +4069,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_FREEGPUVIRTUALADDRESS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4200,7 +4079,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UPDATEGPUVIRTUALADDRESS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4211,7 +4089,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_GETRESOURCEPRESENTPRIVATEDRIVERDATA>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4222,7 +4099,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATECONTEXTVIRTUAL>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4233,7 +4109,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITCOMMAND>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4244,7 +4119,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4255,7 +4129,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENSYNCOBJECTNTHANDLEFROMNAME>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4266,7 +4139,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYVIDEOMEMORYINFO>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4277,7 +4149,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHANGEVIDEOMEMORYRESERVATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4288,7 +4159,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_REGISTERTRIMNOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4299,7 +4169,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UNREGISTERTRIMNOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4310,7 +4179,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4321,7 +4189,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_PRESENT_MULTIPLANE_OVERLAY2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4332,7 +4199,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_RECLAIMALLOCATIONS2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4343,7 +4209,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETSTABLEPOWERSTATE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4354,7 +4219,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYCLOCKCALIBRATION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4365,7 +4229,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4376,7 +4239,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ADJUSTFULLSCREENGAMMA>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4387,7 +4249,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETVIDPNSOURCEHWPROTECTION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4398,7 +4259,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_MARKDEVICEASERROR>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4409,7 +4269,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_FLUSHHEAPTRANSITIONS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4420,7 +4279,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETHWPROTECTIONTEARDOWNRECOVERY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4431,7 +4289,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYPROCESSOFFERINFO>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4442,7 +4299,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_TRIMPROCESSCOMMITMENT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4453,7 +4309,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_UPDATEALLOCPROPERTY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4464,7 +4319,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4475,7 +4329,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_PRESENT_MULTIPLANE_OVERLAY3>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4486,7 +4339,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETFSEBLOCK>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4497,7 +4349,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYFSEBLOCK>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4508,7 +4359,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEHWCONTEXT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4519,7 +4369,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYHWCONTEXT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4530,7 +4379,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4541,7 +4389,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4552,7 +4399,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITCOMMANDTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4563,7 +4409,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITWAITFORSYNCOBJECTSTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4574,7 +4419,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITSIGNALSYNCOBJECTSTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4585,7 +4429,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETALLOCATIONPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4596,7 +4439,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GET_MULTIPLANE_OVERLAY_CAPS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4607,7 +4449,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GET_POST_COMPOSITION_CAPS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4618,7 +4459,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_PRESENT_REDIRECTED>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4629,7 +4469,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETVIDPNSOURCEOWNER2>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4640,7 +4479,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SET_COLORSPACE_TRANSFORM>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4651,7 +4489,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEPROTECTEDSESSION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4662,7 +4499,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYPROTECTEDSESSION>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4673,7 +4509,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYPROTECTEDSESSIONSTATUS>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4684,7 +4519,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYPROTECTEDSESSIONINFOFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4695,7 +4529,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENPROTECTEDSESSIONFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4706,7 +4539,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETPROCESSDEVICEREMOVALSUPPORT>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4717,7 +4549,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENKEYEDMUTEXFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4728,7 +4559,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4739,7 +4569,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITPRESENTBLTTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4750,7 +4579,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITPRESENTTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4761,7 +4589,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4772,7 +4599,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ENUMADAPTERS3>} param0 
      * @returns {NTSTATUS} 
      */
@@ -4783,7 +4609,6 @@ class Direct3D {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CANCEL_PRESENTS>} param0 
      * @returns {NTSTATUS} 
      */

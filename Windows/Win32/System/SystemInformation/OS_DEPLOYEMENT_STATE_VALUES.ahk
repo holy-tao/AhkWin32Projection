@@ -7,12 +7,14 @@
 class OS_DEPLOYEMENT_STATE_VALUES extends Win32Enum {
 
     /**
+     * Native name: OS_DEPLOYMENT_STANDARD
      * @type {Integer (Int32)}
      */
-    static OS_DEPLOYMENT_STANDARD => 1
+    static DEPLOYMENT_STANDARD => 1
 
     /**
+     * Native name: OS_DEPLOYMENT_COMPACT
      * @type {Integer (Int32)}
      */
-    static OS_DEPLOYMENT_COMPACT => 2
+    static DEPLOYMENT_COMPACT => 2
 }

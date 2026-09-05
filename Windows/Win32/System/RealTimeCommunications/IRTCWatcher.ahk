@@ -38,7 +38,6 @@ class IRTCWatcher extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @returns {RTC_WATCHER_STATE} 
      */
     get_State() {
@@ -47,7 +46,6 @@ class IRTCWatcher extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @param {RTC_WATCHER_STATE} enState 
      * @returns {HRESULT} 
      */

@@ -44,7 +44,6 @@ class IXMLDOMNotation extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_publicId() {
@@ -54,7 +53,6 @@ class IXMLDOMNotation extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_systemId() {

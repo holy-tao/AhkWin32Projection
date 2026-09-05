@@ -267,7 +267,6 @@ class Com {
 
 ;@region Methods
     /**
-     * 
      * @returns {Integer} 
      */
     static CoBuildVersion() {
@@ -688,7 +687,6 @@ class Com {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvReserved 
      * @param {Pointer<Integer>} pulReserved 
      * @param {HRESULT} appsHR 
@@ -1579,7 +1577,6 @@ class Com {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {IBindStatusCallback} pIbscCaller 
@@ -3951,7 +3948,6 @@ class Com {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzURI 
      * @param {URI_CREATE_FLAGS} dwFlags 
      * @returns {IUri} 
@@ -3966,7 +3962,6 @@ class Com {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzURI 
      * @param {PWSTR} pwzFragment 
      * @param {Integer} dwFlags 
@@ -3983,7 +3978,6 @@ class Com {
     }
 
     /**
-     * 
      * @param {PSTR} pszANSIInputUri 
      * @param {Integer} dwEncodingFlags 
      * @param {Integer} dwCodePage 
@@ -4000,7 +3994,6 @@ class Com {
     }
 
     /**
-     * 
      * @param {IUri} pIUri 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 

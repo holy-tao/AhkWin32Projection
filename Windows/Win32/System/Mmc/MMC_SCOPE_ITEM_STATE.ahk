@@ -10,19 +10,22 @@ class MMC_SCOPE_ITEM_STATE extends Win32Enum {
 
     /**
      * Not currently used.
+     * Native name: MMC_SCOPE_ITEM_STATE_NORMAL
      * @type {Integer (Int32)}
      */
-    static MMC_SCOPE_ITEM_STATE_NORMAL => 1
+    static NORMAL => 1
 
     /**
      * Not currently used.
+     * Native name: MMC_SCOPE_ITEM_STATE_BOLD
      * @type {Integer (Int32)}
      */
-    static MMC_SCOPE_ITEM_STATE_BOLD => 2
+    static BOLD => 2
 
     /**
      * Set if the item has been expanded at least once or 0 (zero) if the item has not been expanded.
+     * Native name: MMC_SCOPE_ITEM_STATE_EXPANDEDONCE
      * @type {Integer (Int32)}
      */
-    static MMC_SCOPE_ITEM_STATE_EXPANDEDONCE => 3
+    static EXPANDEDONCE => 3
 }

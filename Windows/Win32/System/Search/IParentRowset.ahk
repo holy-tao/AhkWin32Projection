@@ -30,7 +30,6 @@ class IParentRowset extends IUnknown {
     static VTableNames => ["GetChildRowset"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} iOrdinal 
      * @param {Pointer<Guid>} riid 

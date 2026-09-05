@@ -7,17 +7,20 @@
 class KS_TUNER_TUNING_FLAGS extends Win32Enum {
 
     /**
+     * Native name: KS_TUNER_TUNING_EXACT
      * @type {Integer (Int32)}
      */
-    static KS_TUNER_TUNING_EXACT => 1
+    static EXACT => 1
 
     /**
+     * Native name: KS_TUNER_TUNING_FINE
      * @type {Integer (Int32)}
      */
-    static KS_TUNER_TUNING_FINE => 2
+    static FINE => 2
 
     /**
+     * Native name: KS_TUNER_TUNING_COARSE
      * @type {Integer (Int32)}
      */
-    static KS_TUNER_TUNING_COARSE => 3
+    static COARSE => 3
 }

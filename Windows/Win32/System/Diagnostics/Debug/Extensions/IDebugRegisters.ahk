@@ -32,7 +32,6 @@ class IDebugRegisters extends IUnknown {
     static VTableNames => ["GetNumberRegisters", "GetDescription", "GetIndexByName", "GetValue", "SetValue", "GetValues", "SetValues", "OutputRegisters", "GetInstructionOffset", "GetStackOffset", "GetFrameOffset"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberRegisters() {
@@ -60,7 +59,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {Integer} 
      */
@@ -72,7 +70,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @returns {DEBUG_VALUE} 
      */
@@ -83,7 +80,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {Pointer<DEBUG_VALUE>} Value 
      * @returns {HRESULT} 
@@ -94,7 +90,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
      * @param {Integer} Start 
@@ -109,7 +104,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
      * @param {Integer} Start 
@@ -124,7 +118,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -135,7 +128,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInstructionOffset() {
@@ -144,7 +136,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStackOffset() {
@@ -153,7 +144,6 @@ class IDebugRegisters extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameOffset() {

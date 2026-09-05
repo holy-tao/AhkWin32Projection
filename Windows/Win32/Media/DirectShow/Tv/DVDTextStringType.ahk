@@ -16,193 +16,225 @@ class DVDTextStringType extends Win32Enum {
 
     /**
      * Indicates the top level of the logical hierarchy. Refers to the entire contents of a one-sided disc or one side of a two-sided disc.
+     * Native name: dvdStruct_Volume
      * @type {Integer (Int32)}
      */
-    static dvdStruct_Volume => 1
+    static Struct_Volume => 1
 
     /**
      * Indicates that all content strings, until the next dvd_Struct_Title, belong to one title.
+     * Native name: dvdStruct_Title
      * @type {Integer (Int32)}
      */
-    static dvdStruct_Title => 2
+    static Struct_Title => 2
 
     /**
      * Indicates the parental ID of the following strings.
+     * Native name: dvdStruct_ParentalID
      * @type {Integer (Int32)}
      */
-    static dvdStruct_ParentalID => 3
+    static Struct_ParentalID => 3
 
     /**
      * Indicates that all content strings, until the next dvd_Struct_PartOfTitle, belong to one chapter.
+     * Native name: dvdStruct_PartOfTitle
      * @type {Integer (Int32)}
      */
-    static dvdStruct_PartOfTitle => 4
+    static Struct_PartOfTitle => 4
 
     /**
      * Indicates that all content strings, until the next dvd_Struct_Cell, belong to one cell, which can be a scene from a chapter.
+     * Native name: dvdStruct_Cell
      * @type {Integer (Int32)}
      */
-    static dvdStruct_Cell => 5
+    static Struct_Cell => 5
 
     /**
      * Indicates that the following content strings refer to the audio stream.
+     * Native name: dvdStream_Audio
      * @type {Integer (Int32)}
      */
-    static dvdStream_Audio => 16
+    static Stream_Audio => 16
 
     /**
      * Indicates that the following content strings refer to the subpicture stream.
+     * Native name: dvdStream_Subpicture
      * @type {Integer (Int32)}
      */
-    static dvdStream_Subpicture => 17
+    static Stream_Subpicture => 17
 
     /**
      * Indicates that the following content strings refer to the angle.
+     * Native name: dvdStream_Angle
      * @type {Integer (Int32)}
      */
-    static dvdStream_Angle => 18
+    static Stream_Angle => 18
 
     /**
      * Indicates that the following content strings refer to the audio channel.
+     * Native name: dvdChannel_Audio
      * @type {Integer (Int32)}
      */
-    static dvdChannel_Audio => 32
+    static Channel_Audio => 32
 
     /**
      * Indicates the most important content string. Strings of this type contain the name of the volume, title, chapter, and so on, and can follow any structure identifiers.
+     * Native name: dvdGeneral_Name
      * @type {Integer (Int32)}
      */
-    static dvdGeneral_Name => 48
+    static General_Name => 48
 
     /**
      * Identifies a content string with additional information about the title, chapter, and so on, described by the dvd_General_Name string. The exact nature or structure of these comments is not defined.
+     * Native name: dvdGeneral_Comments
      * @type {Integer (Int32)}
      */
-    static dvdGeneral_Comments => 49
+    static General_Comments => 49
 
     /**
      * Identifies a content string containing the name of a series to which the title belongs.
+     * Native name: dvdTitle_Series
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Series => 56
+    static Title_Series => 56
 
     /**
      * Identifies a content string with the main movie title.
+     * Native name: dvdTitle_Movie
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Movie => 57
+    static Title_Movie => 57
 
     /**
      * Identifies a content string containing the name of the video title.
+     * Native name: dvdTitle_Video
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Video => 58
+    static Title_Video => 58
 
     /**
      * Identifies a content string containing the name of the album title.
+     * Native name: dvdTitle_Album
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Album => 59
+    static Title_Album => 59
 
     /**
      * Identifies a content string containing the name of the song title.
+     * Native name: dvdTitle_Song
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Song => 60
+    static Title_Song => 60
 
     /**
      * Identifies a content string containing the name of the title of some other genre.
+     * Native name: dvdTitle_Other
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Other => 63
+    static Title_Other => 63
 
     /**
      * Identifies a content string with the name of the series localized to a particular country/region.
+     * Native name: dvdTitle_Sub_Series
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Sub_Series => 64
+    static Title_Sub_Series => 64
 
     /**
      * Identifies a content string with the movie title localized to a particular country/region.
+     * Native name: dvdTitle_Sub_Movie
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Sub_Movie => 65
+    static Title_Sub_Movie => 65
 
     /**
      * Identifies a content string with the video title localized to a particular country/region.
+     * Native name: dvdTitle_Sub_Video
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Sub_Video => 66
+    static Title_Sub_Video => 66
 
     /**
      * Identifies a content string with the album title localized to a particular country/region.
+     * Native name: dvdTitle_Sub_Album
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Sub_Album => 67
+    static Title_Sub_Album => 67
 
     /**
      * Identifies a content string with the song title localized to a particular country/region.
+     * Native name: dvdTitle_Sub_Song
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Sub_Song => 68
+    static Title_Sub_Song => 68
 
     /**
      * Identifies a content string with the title of some other genre localized to a particular country/region.
+     * Native name: dvdTitle_Sub_Other
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Sub_Other => 71
+    static Title_Sub_Other => 71
 
     /**
      * Identifies a content string with the original name of the series.
+     * Native name: dvdTitle_Orig_Series
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Orig_Series => 72
+    static Title_Orig_Series => 72
 
     /**
      * Identifies a content string with the original name of the movie.
+     * Native name: dvdTitle_Orig_Movie
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Orig_Movie => 73
+    static Title_Orig_Movie => 73
 
     /**
      * Identifies a content string with the original name of the video.
+     * Native name: dvdTitle_Orig_Video
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Orig_Video => 74
+    static Title_Orig_Video => 74
 
     /**
      * Identifies a content string with the original name of the album.
+     * Native name: dvdTitle_Orig_Album
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Orig_Album => 75
+    static Title_Orig_Album => 75
 
     /**
      * Identifies a content string with the original name of the song.
+     * Native name: dvdTitle_Orig_Song
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Orig_Song => 76
+    static Title_Orig_Song => 76
 
     /**
      * Identifies a content string with the original name of the content.
+     * Native name: dvdTitle_Orig_Other
      * @type {Integer (Int32)}
      */
-    static dvdTitle_Orig_Other => 79
+    static Title_Orig_Other => 79
 
     /**
      * Identifies a content string pertaining to a particular scene in a movie or video.
+     * Native name: dvdOther_Scene
      * @type {Integer (Int32)}
      */
-    static dvdOther_Scene => 80
+    static Other_Scene => 80
 
     /**
      * Identifies a content string pertaining to a particular cut in a movie or video.
+     * Native name: dvdOther_Cut
      * @type {Integer (Int32)}
      */
-    static dvdOther_Cut => 81
+    static Other_Cut => 81
 
     /**
      * Identifies a content string pertaining to a particular take in a movie or video.
+     * Native name: dvdOther_Take
      * @type {Integer (Int32)}
      */
-    static dvdOther_Take => 82
+    static Other_Take => 82
 }

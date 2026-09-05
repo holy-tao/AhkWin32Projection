@@ -170,7 +170,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrinterPath() {
@@ -180,7 +179,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrinterPath 
      * @returns {HRESULT} 
      */
@@ -192,7 +190,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Model() {
@@ -202,7 +199,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrModel 
      * @returns {HRESULT} 
      */
@@ -214,7 +210,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Datatype() {
@@ -224,7 +219,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDatatype 
      * @returns {HRESULT} 
      */
@@ -236,7 +230,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrintProcessor() {
@@ -246,7 +239,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrintProcessor 
      * @returns {HRESULT} 
      */
@@ -258,7 +250,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -268,7 +259,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -280,7 +270,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Location() {
@@ -290,7 +279,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLocation 
      * @returns {HRESULT} 
      */
@@ -302,7 +290,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_StartTime() {
@@ -311,7 +298,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daStartTime 
      * @returns {HRESULT} 
      */
@@ -321,7 +307,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UntilTime() {
@@ -330,7 +315,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daUntilTime 
      * @returns {HRESULT} 
      */
@@ -340,7 +324,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultJobPriority() {
@@ -349,7 +332,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnDefaultJobPriority 
      * @returns {HRESULT} 
      */
@@ -359,7 +341,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Priority() {
@@ -368,7 +349,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPriority 
      * @returns {HRESULT} 
      */
@@ -378,7 +358,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BannerPage() {
@@ -388,7 +367,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrBannerPage 
      * @returns {HRESULT} 
      */
@@ -400,7 +378,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PrintDevices() {
@@ -410,7 +387,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPrintDevices 
      * @returns {HRESULT} 
      */
@@ -420,7 +396,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NetAddresses() {
@@ -430,7 +405,6 @@ class IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vNetAddresses 
      * @returns {HRESULT} 
      */

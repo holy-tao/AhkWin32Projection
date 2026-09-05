@@ -10,25 +10,29 @@ class MODIFY_VHDSET_VERSION extends Win32Enum {
 
     /**
      * Not Supported.
+     * Native name: MODIFY_VHDSET_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static MODIFY_VHDSET_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * The <b>SnapshotPath</b> member structure will be used.
+     * Native name: MODIFY_VHDSET_SNAPSHOT_PATH
      * @type {Integer (Int32)}
      */
-    static MODIFY_VHDSET_SNAPSHOT_PATH => 1
+    static SNAPSHOT_PATH => 1
 
     /**
      * The <b>SnapshotId</b> member structure will be used.
+     * Native name: MODIFY_VHDSET_REMOVE_SNAPSHOT
      * @type {Integer (Int32)}
      */
-    static MODIFY_VHDSET_REMOVE_SNAPSHOT => 2
+    static REMOVE_SNAPSHOT => 2
 
     /**
      * The <b>DefaultFilePath</b> member structure will be used
+     * Native name: MODIFY_VHDSET_DEFAULT_SNAPSHOT_PATH
      * @type {Integer (Int32)}
      */
-    static MODIFY_VHDSET_DEFAULT_SNAPSHOT_PATH => 3
+    static DEFAULT_SNAPSHOT_PATH => 3
 }

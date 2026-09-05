@@ -100,7 +100,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -110,7 +109,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_tabIndex() {
@@ -119,7 +117,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -128,7 +125,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -140,7 +136,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accessKey() {
@@ -150,7 +145,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +154,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -170,7 +163,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -180,7 +172,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -190,7 +181,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -200,7 +190,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresize() {
@@ -210,7 +199,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {
@@ -219,7 +207,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -229,7 +216,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -239,7 +225,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientHeight() {
@@ -248,7 +233,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientWidth() {
@@ -257,7 +241,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientTop() {
@@ -266,7 +249,6 @@ class IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientLeft() {

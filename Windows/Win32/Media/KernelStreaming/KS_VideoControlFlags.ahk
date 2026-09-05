@@ -7,52 +7,62 @@
 class KS_VideoControlFlags extends Win32Enum {
 
     /**
+     * Native name: KS_VideoControlFlag_FlipHorizontal
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_FlipHorizontal => 1
+    static Flag_FlipHorizontal => 1
 
     /**
+     * Native name: KS_VideoControlFlag_FlipVertical
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_FlipVertical => 2
+    static Flag_FlipVertical => 2
 
     /**
+     * Native name: KS_Obsolete_VideoControlFlag_ExternalTriggerEnable
      * @type {Integer (Int32)}
      */
-    static KS_Obsolete_VideoControlFlag_ExternalTriggerEnable => 16
+    static Obsolete_VideoControlFlag_ExternalTriggerEnable => 16
 
     /**
+     * Native name: KS_Obsolete_VideoControlFlag_Trigger
      * @type {Integer (Int32)}
      */
-    static KS_Obsolete_VideoControlFlag_Trigger => 32
+    static Obsolete_VideoControlFlag_Trigger => 32
 
     /**
+     * Native name: KS_VideoControlFlag_ExternalTriggerEnable
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_ExternalTriggerEnable => 4
+    static Flag_ExternalTriggerEnable => 4
 
     /**
+     * Native name: KS_VideoControlFlag_Trigger
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_Trigger => 8
+    static Flag_Trigger => 8
 
     /**
+     * Native name: KS_VideoControlFlag_IndependentImagePin
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_IndependentImagePin => 64
+    static Flag_IndependentImagePin => 64
 
     /**
+     * Native name: KS_VideoControlFlag_StillCapturePreviewFrame
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_StillCapturePreviewFrame => 128
+    static Flag_StillCapturePreviewFrame => 128
 
     /**
+     * Native name: KS_VideoControlFlag_StartPhotoSequenceCapture
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_StartPhotoSequenceCapture => 256
+    static Flag_StartPhotoSequenceCapture => 256
 
     /**
+     * Native name: KS_VideoControlFlag_StopPhotoSequenceCapture
      * @type {Integer (Int32)}
      */
-    static KS_VideoControlFlag_StopPhotoSequenceCapture => 512
+    static Flag_StopPhotoSequenceCapture => 512
 }

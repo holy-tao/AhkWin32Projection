@@ -10,19 +10,22 @@ class D3D12_TRI_STATE extends Win32Enum {
 
     /**
      * Specifies TBD.
+     * Native name: D3D12_TRI_STATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D12_TRI_STATE_UNKNOWN => -1
+    static UNKNOWN => -1
 
     /**
      * Specifies TBD.
+     * Native name: D3D12_TRI_STATE_FALSE
      * @type {Integer (Int32)}
      */
-    static D3D12_TRI_STATE_FALSE => 0
+    static FALSE => 0
 
     /**
      * Specifies TBD.
+     * Native name: D3D12_TRI_STATE_TRUE
      * @type {Integer (Int32)}
      */
-    static D3D12_TRI_STATE_TRUE => 1
+    static TRUE => 1
 }

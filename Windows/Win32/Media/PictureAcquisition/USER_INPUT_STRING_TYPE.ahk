@@ -10,13 +10,15 @@ class USER_INPUT_STRING_TYPE extends Win32Enum {
 
     /**
      * Indicates that any string is allowed.
+     * Native name: USER_INPUT_DEFAULT
      * @type {Integer (Int32)}
      */
-    static USER_INPUT_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Indicates that the string will not accept characters that are illegal in file or directory names (such as * or /).
+     * Native name: USER_INPUT_PATH_ELEMENT
      * @type {Integer (Int32)}
      */
-    static USER_INPUT_PATH_ELEMENT => 1
+    static PATH_ELEMENT => 1
 }

@@ -7,7 +7,8 @@
 class NtmsDriveType extends Win32Enum {
 
     /**
+     * Native name: NTMS_UNKNOWN_DRIVE
      * @type {Integer (Int32)}
      */
-    static NTMS_UNKNOWN_DRIVE => 0
+    static UNKNOWN_DRIVE => 0
 }

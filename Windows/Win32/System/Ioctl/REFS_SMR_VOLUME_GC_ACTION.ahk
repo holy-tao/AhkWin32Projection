@@ -7,22 +7,26 @@
 class REFS_SMR_VOLUME_GC_ACTION extends Win32Enum {
 
     /**
+     * Native name: SmrGcActionStart
      * @type {Integer (Int32)}
      */
-    static SmrGcActionStart => 1
+    static Start => 1
 
     /**
+     * Native name: SmrGcActionStartFullSpeed
      * @type {Integer (Int32)}
      */
-    static SmrGcActionStartFullSpeed => 2
+    static StartFullSpeed => 2
 
     /**
+     * Native name: SmrGcActionPause
      * @type {Integer (Int32)}
      */
-    static SmrGcActionPause => 3
+    static Pause => 3
 
     /**
+     * Native name: SmrGcActionStop
      * @type {Integer (Int32)}
      */
-    static SmrGcActionStop => 4
+    static Stop => 4
 }

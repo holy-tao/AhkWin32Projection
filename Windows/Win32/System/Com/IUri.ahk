@@ -32,7 +32,6 @@ class IUri extends IUnknown {
     static VTableNames => ["GetPropertyBSTR", "GetPropertyLength", "GetPropertyDWORD", "HasProperty", "GetAbsoluteUri", "GetAuthority", "GetDisplayUri", "GetDomain", "GetExtension", "GetFragment", "GetHost", "GetPassword", "GetPath", "GetPathAndQuery", "GetQuery", "GetRawUri", "GetSchemeName", "GetUserInfo", "GetUserName", "GetHostType", "GetPort", "GetScheme", "GetZone", "GetProperties", "IsEqual"]
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @param {Integer} dwFlags 
      * @returns {BSTR} 
@@ -44,7 +43,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -55,7 +53,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -66,7 +63,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @returns {BOOL} 
      */
@@ -76,7 +72,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAbsoluteUri() {
@@ -86,7 +81,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAuthority() {
@@ -96,7 +90,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDisplayUri() {
@@ -106,7 +99,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDomain() {
@@ -116,7 +108,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetExtension() {
@@ -126,7 +117,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFragment() {
@@ -136,7 +126,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetHost() {
@@ -146,7 +135,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetPassword() {
@@ -173,7 +161,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetPathAndQuery() {
@@ -183,7 +170,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetQuery() {
@@ -193,7 +179,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetRawUri() {
@@ -203,7 +188,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSchemeName() {
@@ -213,7 +197,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUserInfo() {
@@ -239,7 +222,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHostType() {
@@ -248,7 +230,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPort() {
@@ -257,7 +238,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetScheme() {
@@ -266,7 +246,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetZone() {
@@ -275,7 +254,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProperties() {
@@ -284,7 +262,6 @@ class IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @returns {BOOL} 
      */

@@ -37,7 +37,6 @@ class IEditionUpgradeBroker extends IUnknown {
     static VTableNames => ["InitializeParentWindow", "UpdateOperatingSystem", "ShowProductKeyUI", "CanUpgrade"]
 
     /**
-     * 
      * @param {OLE_HANDLE} parentHandle 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ class IEditionUpgradeBroker extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} parameter 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ class IEditionUpgradeBroker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShowProductKeyUI() {
@@ -70,7 +67,6 @@ class IEditionUpgradeBroker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CanUpgrade() {

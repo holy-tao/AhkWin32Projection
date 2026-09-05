@@ -12,33 +12,38 @@ class ADS_GROUP_TYPE_ENUM extends Win32Enum {
 
     /**
      * Specifies a group that can contain accounts from the same domain and other global groups from the same domain. This type of group can be exported to a different domain.
+     * Native name: ADS_GROUP_TYPE_GLOBAL_GROUP
      * @type {Integer (Int32)}
      */
-    static ADS_GROUP_TYPE_GLOBAL_GROUP => 2
+    static GLOBAL_GROUP => 2
 
     /**
      * Specifies a group that can contain accounts from any domain, other domain local groups from the same domain, global groups from any domain, and universal groups. This type of group should not be included in access-control lists of resources in other domains.
      * 
      * This type of group is intended for use with the LDAP provider.
+     * Native name: ADS_GROUP_TYPE_DOMAIN_LOCAL_GROUP
      * @type {Integer (Int32)}
      */
-    static ADS_GROUP_TYPE_DOMAIN_LOCAL_GROUP => 4
+    static DOMAIN_LOCAL_GROUP => 4
 
     /**
      * Specifies a group that is identical to the <b>ADS_GROUP_TYPE_DOMAIN_LOCAL_GROUP</b> group, but is intended for use with the WinNT  provider.
+     * Native name: ADS_GROUP_TYPE_LOCAL_GROUP
      * @type {Integer (Int32)}
      */
-    static ADS_GROUP_TYPE_LOCAL_GROUP => 4
+    static LOCAL_GROUP => 4
 
     /**
      * Specifies a group that can contain accounts from any domain, global groups from any domain,  and other universal groups. This type of group cannot contain domain local groups.
+     * Native name: ADS_GROUP_TYPE_UNIVERSAL_GROUP
      * @type {Integer (Int32)}
      */
-    static ADS_GROUP_TYPE_UNIVERSAL_GROUP => 8
+    static UNIVERSAL_GROUP => 8
 
     /**
      * Specifies a group that is security enabled. This group can be used to apply an access-control list on an ADSI object or a file system.
+     * Native name: ADS_GROUP_TYPE_SECURITY_ENABLED
      * @type {Integer (Int32)}
      */
-    static ADS_GROUP_TYPE_SECURITY_ENABLED => -2147483648
+    static SECURITY_ENABLED => -2147483648
 }

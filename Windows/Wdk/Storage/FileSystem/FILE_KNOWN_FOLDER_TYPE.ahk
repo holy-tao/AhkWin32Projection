@@ -7,47 +7,56 @@
 class FILE_KNOWN_FOLDER_TYPE extends Win32Enum {
 
     /**
+     * Native name: KnownFolderNone
      * @type {Integer (Int32)}
      */
-    static KnownFolderNone => 0
+    static None => 0
 
     /**
+     * Native name: KnownFolderDesktop
      * @type {Integer (Int32)}
      */
-    static KnownFolderDesktop => 1
+    static Desktop => 1
 
     /**
+     * Native name: KnownFolderDocuments
      * @type {Integer (Int32)}
      */
-    static KnownFolderDocuments => 2
+    static Documents => 2
 
     /**
+     * Native name: KnownFolderDownloads
      * @type {Integer (Int32)}
      */
-    static KnownFolderDownloads => 3
+    static Downloads => 3
 
     /**
+     * Native name: KnownFolderMusic
      * @type {Integer (Int32)}
      */
-    static KnownFolderMusic => 4
+    static Music => 4
 
     /**
+     * Native name: KnownFolderPictures
      * @type {Integer (Int32)}
      */
-    static KnownFolderPictures => 5
+    static Pictures => 5
 
     /**
+     * Native name: KnownFolderVideos
      * @type {Integer (Int32)}
      */
-    static KnownFolderVideos => 6
+    static Videos => 6
 
     /**
+     * Native name: KnownFolderOther
      * @type {Integer (Int32)}
      */
-    static KnownFolderOther => 7
+    static Other => 7
 
     /**
+     * Native name: KnownFolderMax
      * @type {Integer (Int32)}
      */
-    static KnownFolderMax => 7
+    static Max => 7
 }

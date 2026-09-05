@@ -10,19 +10,22 @@ class eAvrfResourceTypes extends Win32Enum {
 
     /**
      * Indicates heap-allocation information is being obtained.
+     * Native name: AvrfResourceHeapAllocation
      * @type {Integer (Int32)}
      */
-    static AvrfResourceHeapAllocation => 0
+    static HeapAllocation => 0
 
     /**
      * Indicates handle trace information is being obtained.
+     * Native name: AvrfResourceHandleTrace
      * @type {Integer (Int32)}
      */
-    static AvrfResourceHandleTrace => 1
+    static HandleTrace => 1
 
     /**
      * Indicates the upper boundary of the current implementation's resource type.
+     * Native name: AvrfResourceMax
      * @type {Integer (Int32)}
      */
-    static AvrfResourceMax => 2
+    static Max => 2
 }

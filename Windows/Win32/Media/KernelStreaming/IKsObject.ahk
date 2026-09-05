@@ -29,7 +29,6 @@ class IKsObject extends IUnknown {
     static VTableNames => ["KsGetObjectHandle"]
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     KsGetObjectHandle() {

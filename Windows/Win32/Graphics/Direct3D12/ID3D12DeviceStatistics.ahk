@@ -30,7 +30,6 @@ class ID3D12DeviceStatistics extends IUnknown {
     static VTableNames => ["GetStateObjectStatistics"]
 
     /**
-     * 
      * @returns {D3D12_STATE_OBJECT_STATISTICS} 
      */
     GetStateObjectStatistics() {

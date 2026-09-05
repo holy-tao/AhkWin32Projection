@@ -10,31 +10,36 @@ class NET_FW_SERVICE_TYPE extends Win32Enum {
 
     /**
      * Service type is File and Print Sharing.
+     * Native name: NET_FW_SERVICE_FILE_AND_PRINT
      * @type {Integer (Int32)}
      */
-    static NET_FW_SERVICE_FILE_AND_PRINT => 0
+    static FILE_AND_PRINT => 0
 
     /**
      * Service type is UPnP Framework.
+     * Native name: NET_FW_SERVICE_UPNP
      * @type {Integer (Int32)}
      */
-    static NET_FW_SERVICE_UPNP => 1
+    static UPNP => 1
 
     /**
      * Service type is Remote Desktop.
+     * Native name: NET_FW_SERVICE_REMOTE_DESKTOP
      * @type {Integer (Int32)}
      */
-    static NET_FW_SERVICE_REMOTE_DESKTOP => 2
+    static REMOTE_DESKTOP => 2
 
     /**
      * Not a valid service type. This is used to indicate that a port is not part of a service.
+     * Native name: NET_FW_SERVICE_NONE
      * @type {Integer (Int32)}
      */
-    static NET_FW_SERVICE_NONE => 3
+    static NONE => 3
 
     /**
      * Used for boundary checking only. Not valid for application programming.
+     * Native name: NET_FW_SERVICE_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_SERVICE_TYPE_MAX => 4
+    static MAX => 4
 }

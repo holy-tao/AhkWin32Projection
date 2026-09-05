@@ -29,7 +29,6 @@ class IDirectMusicInstrument extends IUnknown {
     static VTableNames => ["GetPatch", "SetPatch"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwPatch 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IDirectMusicInstrument extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwPatch 
      * @returns {HRESULT} 
      */

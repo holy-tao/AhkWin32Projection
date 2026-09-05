@@ -16,25 +16,29 @@ class VSS_ROLLFORWARD_TYPE extends Win32Enum {
      *       
      * 
      * This indicates an error on the part of the requester.
+     * Native name: VSS_RF_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_RF_UNDEFINED => 0
+    static RF_UNDEFINED => 0
 
     /**
      * The roll-forward operation should not roll forward through logs.
+     * Native name: VSS_RF_NONE
      * @type {Integer (Int32)}
      */
-    static VSS_RF_NONE => 1
+    static RF_NONE => 1
 
     /**
      * The roll-forward operation should roll forward through all logs.
+     * Native name: VSS_RF_ALL
      * @type {Integer (Int32)}
      */
-    static VSS_RF_ALL => 2
+    static RF_ALL => 2
 
     /**
      * The roll-forward operation should roll forward through logs up to a specified restore point.
+     * Native name: VSS_RF_PARTIAL
      * @type {Integer (Int32)}
      */
-    static VSS_RF_PARTIAL => 3
+    static RF_PARTIAL => 3
 }

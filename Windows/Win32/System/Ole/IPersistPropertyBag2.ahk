@@ -32,7 +32,6 @@ class IPersistPropertyBag2 extends IPersist {
     static VTableNames => ["InitNew", "Load", "Save", "IsDirty"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitNew() {
@@ -118,7 +117,6 @@ class IPersistPropertyBag2 extends IPersist {
     }
 
     /**
-     * 
      * @param {IPropertyBag2} pPropBag 
      * @param {BOOL} fClearDirty 
      * @param {BOOL} fSaveAllProperties 
@@ -130,7 +128,6 @@ class IPersistPropertyBag2 extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsDirty() {

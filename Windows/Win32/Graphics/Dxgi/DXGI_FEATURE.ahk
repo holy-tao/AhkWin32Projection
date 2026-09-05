@@ -12,7 +12,8 @@ class DXGI_FEATURE extends Win32Enum {
 
     /**
      * The display supports tearing, a requirement of variable refresh rate displays.
+     * Native name: DXGI_FEATURE_PRESENT_ALLOW_TEARING
      * @type {Integer (Int32)}
      */
-    static DXGI_FEATURE_PRESENT_ALLOW_TEARING => 0
+    static PRESENT_ALLOW_TEARING => 0
 }

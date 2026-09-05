@@ -12,25 +12,29 @@ class ISOLATION_STATE extends Win32Enum {
 
     /**
      * The client's access to the network is unknown.
+     * Native name: ISOLATION_STATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static ISOLATION_STATE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The client has unrestricted full access to the network.
+     * Native name: ISOLATION_STATE_NOT_RESTRICTED
      * @type {Integer (Int32)}
      */
-    static ISOLATION_STATE_NOT_RESTRICTED => 1
+    static NOT_RESTRICTED => 1
 
     /**
      * The client has probationary access to the network for a limited amount of time during which time they must fix their system.
+     * Native name: ISOLATION_STATE_IN_PROBATION
      * @type {Integer (Int32)}
      */
-    static ISOLATION_STATE_IN_PROBATION => 2
+    static IN_PROBATION => 2
 
     /**
      * The client has restricted access to the network; the client is allowed access to some servers only from which they can obtain necessary information and patches to update themselves to become healthy.
+     * Native name: ISOLATION_STATE_RESTRICTED_ACCESS
      * @type {Integer (Int32)}
      */
-    static ISOLATION_STATE_RESTRICTED_ACCESS => 3
+    static RESTRICTED_ACCESS => 3
 }

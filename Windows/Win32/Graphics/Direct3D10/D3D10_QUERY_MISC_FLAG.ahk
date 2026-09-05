@@ -12,7 +12,8 @@ class D3D10_QUERY_MISC_FLAG extends Win32Enum {
 
     /**
      * Tell the hardware that if it is not yet sure if something is hidden or not to draw it anyway. This is only used with an occlusion predicate. Predication data cannot be returned to your application via <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-getdata">ID3D10Asynchronous::GetData</a> when using this flag.
+     * Native name: D3D10_QUERY_MISC_PREDICATEHINT
      * @type {Integer (Int32)}
      */
-    static D3D10_QUERY_MISC_PREDICATEHINT => 1
+    static PREDICATEHINT => 1
 }

@@ -28,31 +28,36 @@ class D3D10_MAP extends Win32Enum {
 
     /**
      * Resource is mapped for reading. The resource must have been created with read access (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_READ</a>).
+     * Native name: D3D10_MAP_READ
      * @type {Integer (Int32)}
      */
-    static D3D10_MAP_READ => 1
+    static READ => 1
 
     /**
      * Resource is mapped for writing. The resource must have been created with write access (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_WRITE</a>).
+     * Native name: D3D10_MAP_WRITE
      * @type {Integer (Int32)}
      */
-    static D3D10_MAP_WRITE => 2
+    static WRITE => 2
 
     /**
      * Resource is mapped for reading and writing. The resource must have been created with read and write access (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_READ and D3D10_CPU_ACCESS_WRITE</a>).
+     * Native name: D3D10_MAP_READ_WRITE
      * @type {Integer (Int32)}
      */
-    static D3D10_MAP_READ_WRITE => 3
+    static READ_WRITE => 3
 
     /**
      * Resource is mapped for writing; the previous contents of the resource will be undefined. The resource must have been created with write access (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_WRITE</a>).
+     * Native name: D3D10_MAP_WRITE_DISCARD
      * @type {Integer (Int32)}
      */
-    static D3D10_MAP_WRITE_DISCARD => 4
+    static WRITE_DISCARD => 4
 
     /**
      * Resource is mapped for writing; the existing contents of the resource cannot be overwritten (see Remarks). This flag is only valid on vertex and index buffers. The resource must have been created with write access (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_WRITE</a>). Cannot be used on a resource created with the <a href="https://docs.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_CONSTANT_BUFFER</a> flag.
+     * Native name: D3D10_MAP_WRITE_NO_OVERWRITE
      * @type {Integer (Int32)}
      */
-    static D3D10_MAP_WRITE_NO_OVERWRITE => 5
+    static WRITE_NO_OVERWRITE => 5
 }

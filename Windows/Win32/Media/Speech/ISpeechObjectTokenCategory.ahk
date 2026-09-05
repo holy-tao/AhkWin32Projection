@@ -49,7 +49,6 @@ class ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Id() {
@@ -59,7 +58,6 @@ class ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TokenId 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ class ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Default() {
@@ -81,7 +78,6 @@ class ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Id 
      * @param {VARIANT_BOOL} CreateIfNotExist 
      * @returns {HRESULT} 
@@ -94,7 +90,6 @@ class ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechDataKeyLocation} _Location 
      * @returns {ISpeechDataKey} 
      */
@@ -104,7 +99,6 @@ class ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 

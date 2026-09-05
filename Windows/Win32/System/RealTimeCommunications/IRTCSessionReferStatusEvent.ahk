@@ -60,7 +60,6 @@ class IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -69,7 +68,6 @@ class IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_SESSION_REFER_STATUS} 
      */
     get_ReferStatus() {
@@ -78,7 +76,6 @@ class IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -87,7 +84,6 @@ class IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {

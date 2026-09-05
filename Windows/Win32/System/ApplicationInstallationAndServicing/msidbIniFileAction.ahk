@@ -7,27 +7,32 @@
 class msidbIniFileAction extends Win32Enum {
 
     /**
+     * Native name: msidbIniFileActionAddLine
      * @type {Integer (Int32)}
      */
-    static msidbIniFileActionAddLine => 0
+    static AddLine => 0
 
     /**
+     * Native name: msidbIniFileActionCreateLine
      * @type {Integer (Int32)}
      */
-    static msidbIniFileActionCreateLine => 1
+    static CreateLine => 1
 
     /**
+     * Native name: msidbIniFileActionRemoveLine
      * @type {Integer (Int32)}
      */
-    static msidbIniFileActionRemoveLine => 2
+    static RemoveLine => 2
 
     /**
+     * Native name: msidbIniFileActionAddTag
      * @type {Integer (Int32)}
      */
-    static msidbIniFileActionAddTag => 3
+    static AddTag => 3
 
     /**
+     * Native name: msidbIniFileActionRemoveTag
      * @type {Integer (Int32)}
      */
-    static msidbIniFileActionRemoveTag => 4
+    static RemoveTag => 4
 }

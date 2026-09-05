@@ -31,7 +31,6 @@ class IMessage extends IMAPIProp {
     static VTableNames => ["GetAttachmentTable", "OpenAttach", "CreateAttach", "DeleteAttach", "GetRecipientTable", "ModifyRecipients", "SubmitMessage", "SetReadFlag"]
 
     /**
-     * 
      * @remarks
      * The **IMessage::GetAttachmentTable** method returns a pointer to the message's attachment table, which includes information about all of the attachments in the message. Clients can get access to an attachment only through the attachment table. By retrieving an attachment's number its **PR_ATTACH_NUM** ([PidTagAttachNumber](pidtagattachnumber-canonical-property.md)) property a client can use several of the **IMessage** methods to work with the attachment. 
      *   
@@ -97,7 +96,6 @@ class IMessage extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMessage::CreateAttach** method creates a new attachment on a message. The new attachment and any properties that are set for it, are not available until a client has called both the attachment's [IMAPIProp::SaveChanges](imapiprop-savechanges.md) method and the message's **IMAPIProp::SaveChanges** method. 
      *   
@@ -147,7 +145,6 @@ class IMessage extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMessage::GetRecipientTable** method returns a pointer to the message's recipient table, which includes information about all of the recipients for the message. There is one row for every recipient. 
      *   
@@ -182,7 +179,6 @@ class IMessage extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMessage::ModifyRecipients** method changes the message's recipient list. It is from this list, held in an [ADRLIST](adrlist.md) structure, that the recipient table is built. 
      *   

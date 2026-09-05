@@ -45,7 +45,6 @@ class IWMIExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_WMIObjectPath() {
@@ -55,7 +54,6 @@ class IWMIExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     GetWMIObject() {
@@ -64,7 +62,6 @@ class IWMIExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemServices} 
      */
     GetWMIServices() {

@@ -7,12 +7,14 @@
 class OBJECT_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: ObjectBasicInformation
      * @type {Integer (Int32)}
      */
-    static ObjectBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: ObjectTypeInformation
      * @type {Integer (Int32)}
      */
-    static ObjectTypeInformation => 2
+    static TypeInformation => 2
 }

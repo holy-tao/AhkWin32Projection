@@ -7,92 +7,110 @@
 class SHUTDOWN_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SHUTDOWN_FORCE_OTHERS
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_FORCE_OTHERS => 1
+    static FORCE_OTHERS => 1
 
     /**
+     * Native name: SHUTDOWN_FORCE_SELF
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_FORCE_SELF => 2
+    static FORCE_SELF => 2
 
     /**
+     * Native name: SHUTDOWN_RESTART
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_RESTART => 4
+    static RESTART => 4
 
     /**
+     * Native name: SHUTDOWN_POWEROFF
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_POWEROFF => 8
+    static POWEROFF => 8
 
     /**
+     * Native name: SHUTDOWN_NOREBOOT
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_NOREBOOT => 16
+    static NOREBOOT => 16
 
     /**
+     * Native name: SHUTDOWN_GRACE_OVERRIDE
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_GRACE_OVERRIDE => 32
+    static GRACE_OVERRIDE => 32
 
     /**
+     * Native name: SHUTDOWN_INSTALL_UPDATES
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_INSTALL_UPDATES => 64
+    static INSTALL_UPDATES => 64
 
     /**
+     * Native name: SHUTDOWN_RESTARTAPPS
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_RESTARTAPPS => 128
+    static RESTARTAPPS => 128
 
     /**
+     * Native name: SHUTDOWN_SKIP_SVC_PRESHUTDOWN
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_SKIP_SVC_PRESHUTDOWN => 256
+    static SKIP_SVC_PRESHUTDOWN => 256
 
     /**
+     * Native name: SHUTDOWN_HYBRID
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_HYBRID => 512
+    static HYBRID => 512
 
     /**
+     * Native name: SHUTDOWN_RESTART_BOOTOPTIONS
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_RESTART_BOOTOPTIONS => 1024
+    static RESTART_BOOTOPTIONS => 1024
 
     /**
+     * Native name: SHUTDOWN_SOFT_REBOOT
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_SOFT_REBOOT => 2048
+    static SOFT_REBOOT => 2048
 
     /**
+     * Native name: SHUTDOWN_MOBILE_UI
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_MOBILE_UI => 4096
+    static MOBILE_UI => 4096
 
     /**
+     * Native name: SHUTDOWN_ARSO
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_ARSO => 8192
+    static ARSO => 8192
 
     /**
+     * Native name: SHUTDOWN_CHECK_SAFE_FOR_SERVER
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_CHECK_SAFE_FOR_SERVER => 16384
+    static CHECK_SAFE_FOR_SERVER => 16384
 
     /**
+     * Native name: SHUTDOWN_VAIL_CONTAINER
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_VAIL_CONTAINER => 32768
+    static VAIL_CONTAINER => 32768
 
     /**
+     * Native name: SHUTDOWN_SYSTEM_INITIATED
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_SYSTEM_INITIATED => 65536
+    static SYSTEM_INITIATED => 65536
 
     /**
+     * Native name: SHUTDOWN_UPDATE_POWEROFF
      * @type {Integer (UInt32)}
      */
-    static SHUTDOWN_UPDATE_POWEROFF => 131072
+    static UPDATE_POWEROFF => 131072
 }

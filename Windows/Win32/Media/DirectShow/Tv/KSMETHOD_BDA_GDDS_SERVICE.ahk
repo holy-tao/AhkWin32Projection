@@ -7,32 +7,38 @@
 class KSMETHOD_BDA_GDDS_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_GDDS_DATATYPE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GDDS_DATATYPE => 0
+    static DATATYPE => 0
 
     /**
+     * Native name: KSMETHOD_BDA_GDDS_DATA
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GDDS_DATA => 1
+    static DATA => 1
 
     /**
+     * Native name: KSMETHOD_BDA_GDDS_TUNEXMLFROMIDX
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GDDS_TUNEXMLFROMIDX => 2
+    static TUNEXMLFROMIDX => 2
 
     /**
+     * Native name: KSMETHOD_BDA_GDDS_GETSERVICES
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GDDS_GETSERVICES => 3
+    static GETSERVICES => 3
 
     /**
+     * Native name: KSMETHOD_BDA_GDDS_SERVICEFROMTUNEXML
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GDDS_SERVICEFROMTUNEXML => 4
+    static SERVICEFROMTUNEXML => 4
 
     /**
+     * Native name: KSMETHOD_BDA_GDDS_DATAUPDATE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GDDS_DATAUPDATE => 5
+    static DATAUPDATE => 5
 }

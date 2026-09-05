@@ -7,7 +7,8 @@
 class QUERY_CHANGES_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 }

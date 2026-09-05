@@ -16,13 +16,15 @@ class D3D12_PREDICATION_OP extends Win32Enum {
 
     /**
      * Enables predication if all 64-bits are zero.
+     * Native name: D3D12_PREDICATION_OP_EQUAL_ZERO
      * @type {Integer (Int32)}
      */
-    static D3D12_PREDICATION_OP_EQUAL_ZERO => 0
+    static EQUAL_ZERO => 0
 
     /**
      * Enables predication if at least one of the 64-bits are not zero.
+     * Native name: D3D12_PREDICATION_OP_NOT_EQUAL_ZERO
      * @type {Integer (Int32)}
      */
-    static D3D12_PREDICATION_OP_NOT_EQUAL_ZERO => 1
+    static NOT_EQUAL_ZERO => 1
 }

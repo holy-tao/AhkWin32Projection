@@ -10,19 +10,22 @@ class CLUSTER_RESOURCE_APPLICATION_STATE extends Win32Enum {
 
     /**
      * Application state is unknown.
+     * Native name: ClusterResourceApplicationStateUnknown
      * @type {Integer (Int32)}
      */
-    static ClusterResourceApplicationStateUnknown => 1
+    static Unknown => 1
 
     /**
      * Application OSHeartBeat is detected.
+     * Native name: ClusterResourceApplicationOSHeartBeat
      * @type {Integer (Int32)}
      */
-    static ClusterResourceApplicationOSHeartBeat => 2
+    static ApplicationOSHeartBeat => 2
 
     /**
      * Application is ready.
+     * Native name: ClusterResourceApplicationReady
      * @type {Integer (Int32)}
      */
-    static ClusterResourceApplicationReady => 3
+    static Ready => 3
 }

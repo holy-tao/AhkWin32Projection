@@ -10,19 +10,22 @@ class USERCLASSTYPE extends Win32Enum {
 
     /**
      * The full type name of the class.
+     * Native name: USERCLASSTYPE_FULL
      * @type {Integer (Int32)}
      */
-    static USERCLASSTYPE_FULL => 1
+    static FULL => 1
 
     /**
      * A short name (maximum of 15 characters) that is used for popup menus and the <b>Links</b> dialog box.
+     * Native name: USERCLASSTYPE_SHORT
      * @type {Integer (Int32)}
      */
-    static USERCLASSTYPE_SHORT => 2
+    static SHORT => 2
 
     /**
      * The name of the application servicing the class and is used in the result text in dialog boxes.
+     * Native name: USERCLASSTYPE_APPNAME
      * @type {Integer (Int32)}
      */
-    static USERCLASSTYPE_APPNAME => 3
+    static APPNAME => 3
 }

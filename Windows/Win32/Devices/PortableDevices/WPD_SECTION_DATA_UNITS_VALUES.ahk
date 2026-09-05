@@ -9,12 +9,14 @@
 class WPD_SECTION_DATA_UNITS_VALUES extends Win32Enum {
 
     /**
+     * Native name: WPD_SECTION_DATA_UNITS_BYTES
      * @type {Integer (Int32)}
      */
-    static WPD_SECTION_DATA_UNITS_BYTES => 0
+    static BYTES => 0
 
     /**
+     * Native name: WPD_SECTION_DATA_UNITS_MILLISECONDS
      * @type {Integer (Int32)}
      */
-    static WPD_SECTION_DATA_UNITS_MILLISECONDS => 1
+    static MILLISECONDS => 1
 }

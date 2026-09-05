@@ -1843,7 +1843,6 @@ class Environment {
     }
 
     /**
-     * 
      * @param {Integer} DataToEncrypt 
      * @param {Integer} DataToEncryptSize 
      * @param {Pointer<TRUSTLET_BINDING_DATA>} TrustletBindingData 
@@ -1872,7 +1871,6 @@ class Environment {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     static EnclaveUsesAttestedKeys() {
@@ -1881,7 +1879,6 @@ class Environment {
     }
 
     /**
-     * 
      * @param {BOOL} RestrictAccess 
      * @returns {BOOL} 
      */
@@ -1891,7 +1888,6 @@ class Environment {
     }
 
     /**
-     * 
      * @param {Integer} EnclaveAddress 
      * @param {Integer} UnsecureAddress 
      * @param {Pointer} NumberOfBytes 
@@ -1903,7 +1899,6 @@ class Environment {
     }
 
     /**
-     * 
      * @param {Integer} UnsecureAddress 
      * @param {Integer} EnclaveAddress 
      * @param {Pointer} NumberOfBytes 

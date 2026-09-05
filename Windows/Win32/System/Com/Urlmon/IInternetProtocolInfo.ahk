@@ -32,7 +32,6 @@ class IInternetProtocolInfo extends IUnknown {
     static VTableNames => ["ParseUrl", "CombineUrl", "CompareUrl", "QueryInfo"]
 
     /**
-     * 
      * @param {PWSTR} pwzUrl 
      * @param {PARSEACTION} _ParseAction 
      * @param {Integer} dwParseFlags 
@@ -50,7 +49,6 @@ class IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzBaseUrl 
      * @param {PWSTR} pwzRelativeUrl 
      * @param {Integer} dwCombineFlags 
@@ -69,7 +67,6 @@ class IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl1 
      * @param {PWSTR} pwzUrl2 
      * @param {Integer} dwCompareFlags 
@@ -84,7 +81,6 @@ class IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl 
      * @param {QUERYOPTION} OueryOption 
      * @param {Integer} dwQueryFlags 

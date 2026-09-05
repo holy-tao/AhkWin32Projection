@@ -12,61 +12,71 @@ class D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAGS extends Win32BitflagEnum {
 
     /**
      * No automatic processing features are supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_NONE
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Denoise is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_DENOISE
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_DENOISE => 1
+    static FLAG_DENOISE => 1
 
     /**
      * Deringing is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_DERINGING
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_DERINGING => 2
+    static FLAG_DERINGING => 2
 
     /**
      * Edge enhancement is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_EDGE_ENHANCEMENT
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_EDGE_ENHANCEMENT => 4
+    static FLAG_EDGE_ENHANCEMENT => 4
 
     /**
      * Color correction is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_COLOR_CORRECTION
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_COLOR_CORRECTION => 8
+    static FLAG_COLOR_CORRECTION => 8
 
     /**
      * Flesh tone mapping is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_FLESH_TONE_MAPPING
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_FLESH_TONE_MAPPING => 16
+    static FLAG_FLESH_TONE_MAPPING => 16
 
     /**
      * Image stabilization is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_IMAGE_STABILIZATION
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_IMAGE_STABILIZATION => 32
+    static FLAG_IMAGE_STABILIZATION => 32
 
     /**
      * Enhanced image resolution is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_SUPER_RESOLUTION
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_SUPER_RESOLUTION => 64
+    static FLAG_SUPER_RESOLUTION => 64
 
     /**
      * Anamorphic scaling is supported.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_ANAMORPHIC_SCALING
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_ANAMORPHIC_SCALING => 128
+    static FLAG_ANAMORPHIC_SCALING => 128
 
     /**
      * Additional processing features, not described by the other flags, are available.
+     * Native name: D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_CUSTOM
      * @type {Integer (UInt32)}
      */
-    static D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAG_CUSTOM => 2147483648
+    static FLAG_CUSTOM => 2147483648
 }

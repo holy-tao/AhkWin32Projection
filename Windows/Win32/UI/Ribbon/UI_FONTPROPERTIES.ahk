@@ -10,19 +10,22 @@ class UI_FONTPROPERTIES extends Win32Enum {
 
     /**
      * The property is not available.
+     * Native name: UI_FONTPROPERTIES_NOTAVAILABLE
      * @type {Integer (Int32)}
      */
-    static UI_FONTPROPERTIES_NOTAVAILABLE => 0
+    static NOTAVAILABLE => 0
 
     /**
      * The property is not set.
+     * Native name: UI_FONTPROPERTIES_NOTSET
      * @type {Integer (Int32)}
      */
-    static UI_FONTPROPERTIES_NOTSET => 1
+    static NOTSET => 1
 
     /**
      * The property is set.
+     * Native name: UI_FONTPROPERTIES_SET
      * @type {Integer (Int32)}
      */
-    static UI_FONTPROPERTIES_SET => 2
+    static SET => 2
 }

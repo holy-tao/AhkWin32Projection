@@ -33,7 +33,6 @@ class IDXCoreAdapterFactory1 extends IDXCoreAdapterFactory {
     static VTableNames => ["CreateAdapterListByWorkload"]
 
     /**
-     * 
      * @param {DXCoreWorkload} workload 
      * @param {DXCoreRuntimeFilterFlags} runtimeFilter 
      * @param {DXCoreHardwareTypeFilterFlags} hardwareTypeFilter 

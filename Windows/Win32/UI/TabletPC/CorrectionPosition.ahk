@@ -10,19 +10,22 @@ class CorrectionPosition extends Win32Enum {
 
     /**
      * The system decides on the position of the correction comb.
+     * Native name: CorrectionPosition_Auto
      * @type {Integer (Int32)}
      */
-    static CorrectionPosition_Auto => 0
+    static Auto => 0
 
     /**
      * The correction comb is shown below the input area.
+     * Native name: CorrectionPosition_Bottom
      * @type {Integer (Int32)}
      */
-    static CorrectionPosition_Bottom => 1
+    static Bottom => 1
 
     /**
      * The correction comb is shown above the input area.
+     * Native name: CorrectionPosition_Top
      * @type {Integer (Int32)}
      */
-    static CorrectionPosition_Top => 2
+    static Top => 2
 }

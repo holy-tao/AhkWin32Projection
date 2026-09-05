@@ -10,19 +10,22 @@ class D3D11_VIDEO_PROCESSOR_OUTPUT_RATE extends Win32Enum {
 
     /**
      * The output is the normal frame rate.
+     * Native name: D3D11_VIDEO_PROCESSOR_OUTPUT_RATE_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_OUTPUT_RATE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The output is half the frame rate.
+     * Native name: D3D11_VIDEO_PROCESSOR_OUTPUT_RATE_HALF
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_OUTPUT_RATE_HALF => 1
+    static HALF => 1
 
     /**
      * The output is a custom frame rate.
+     * Native name: D3D11_VIDEO_PROCESSOR_OUTPUT_RATE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_OUTPUT_RATE_CUSTOM => 2
+    static CUSTOM => 2
 }

@@ -32,7 +32,6 @@ class ISpEnginePronunciation extends IUnknown {
     static VTableNames => ["Normalize", "GetPronunciations"]
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {PWSTR} pszLeftContext 
      * @param {PWSTR} pszRightContext 
@@ -50,7 +49,6 @@ class ISpEnginePronunciation extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {PWSTR} pszLeftContext 
      * @param {PWSTR} pszRightContext 

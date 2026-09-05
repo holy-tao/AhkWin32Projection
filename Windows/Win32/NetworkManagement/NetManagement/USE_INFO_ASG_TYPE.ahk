@@ -7,22 +7,26 @@
 class USE_INFO_ASG_TYPE extends Win32Enum {
 
     /**
+     * Native name: USE_WILDCARD
      * @type {Integer (UInt32)}
      */
-    static USE_WILDCARD => 4294967295
+    static WILDCARD => 4294967295
 
     /**
+     * Native name: USE_DISKDEV
      * @type {Integer (UInt32)}
      */
-    static USE_DISKDEV => 0
+    static DISKDEV => 0
 
     /**
+     * Native name: USE_SPOOLDEV
      * @type {Integer (UInt32)}
      */
-    static USE_SPOOLDEV => 1
+    static SPOOLDEV => 1
 
     /**
+     * Native name: USE_IPC
      * @type {Integer (UInt32)}
      */
-    static USE_IPC => 3
+    static IPC => 3
 }

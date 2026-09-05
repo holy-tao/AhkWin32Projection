@@ -7,42 +7,50 @@
 class GameInputLocation extends Win32Enum {
 
     /**
+     * Native name: GameInputLocationUnknown
      * @type {Integer (Int32)}
      */
-    static GameInputLocationUnknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: GameInputLocationChassis
      * @type {Integer (Int32)}
      */
-    static GameInputLocationChassis => 0
+    static Chassis => 0
 
     /**
+     * Native name: GameInputLocationDisplay
      * @type {Integer (Int32)}
      */
-    static GameInputLocationDisplay => 1
+    static Display => 1
 
     /**
+     * Native name: GameInputLocationAxis
      * @type {Integer (Int32)}
      */
-    static GameInputLocationAxis => 2
+    static Axis => 2
 
     /**
+     * Native name: GameInputLocationButton
      * @type {Integer (Int32)}
      */
-    static GameInputLocationButton => 3
+    static Button => 3
 
     /**
+     * Native name: GameInputLocationSwitch
      * @type {Integer (Int32)}
      */
-    static GameInputLocationSwitch => 4
+    static Switch => 4
 
     /**
+     * Native name: GameInputLocationKey
      * @type {Integer (Int32)}
      */
-    static GameInputLocationKey => 5
+    static Key => 5
 
     /**
+     * Native name: GameInputLocationTouchPad
      * @type {Integer (Int32)}
      */
-    static GameInputLocationTouchPad => 6
+    static TouchPad => 6
 }

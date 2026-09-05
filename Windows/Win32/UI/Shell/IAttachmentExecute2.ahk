@@ -30,7 +30,6 @@ class IAttachmentExecute2 extends IAttachmentExecute {
     static VTableNames => ["SaveNoVirusCheck", "SaveWithUINoVirusCheck"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SaveNoVirusCheck() {
@@ -39,7 +38,6 @@ class IAttachmentExecute2 extends IAttachmentExecute {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */

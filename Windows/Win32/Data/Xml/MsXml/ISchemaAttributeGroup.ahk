@@ -45,7 +45,6 @@ class ISchemaAttributeGroup extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaAny} 
      */
     get_anyAttribute() {
@@ -54,7 +53,6 @@ class ISchemaAttributeGroup extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {

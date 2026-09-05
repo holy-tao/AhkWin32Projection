@@ -15,7 +15,8 @@ class D2D1_COMPOSITE_PROP extends Win32Enum {
      * Type is D2D1_COMPOSITE_MODE.
      * 
      * Default value is D2D1_COMPOSITE_MODE_SOURCE_OVER
+     * Native name: D2D1_COMPOSITE_PROP_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPOSITE_PROP_MODE => 0
+    static MODE => 0
 }

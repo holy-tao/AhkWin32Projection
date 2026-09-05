@@ -69,7 +69,6 @@ class IMLangString extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -78,7 +77,6 @@ class IMLangString extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {IUnknown} pSrcMLStr 
@@ -92,7 +90,6 @@ class IMLangString extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {IUnknown} pUnkOuter 

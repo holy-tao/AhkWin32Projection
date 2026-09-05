@@ -33,7 +33,6 @@ class IGameStatisticsMgr extends IUnknown {
     static VTableNames => ["GetGameStatistics", "RemoveGameStatistics"]
 
     /**
-     * 
      * @param {PWSTR} GDFBinaryPath 
      * @param {GAMESTATS_OPEN_TYPE} openType 
      * @param {Pointer<GAMESTATS_OPEN_RESULT>} pOpenResult 
@@ -50,7 +49,6 @@ class IGameStatisticsMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} GDFBinaryPath 
      * @returns {HRESULT} 
      */

@@ -43,7 +43,6 @@ class IHTMLStyleSheetRulesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -52,7 +51,6 @@ class IHTMLStyleSheetRulesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLStyleSheetRule} 
      */

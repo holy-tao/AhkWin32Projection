@@ -7,47 +7,56 @@
 class CRYPTCAT_OPEN_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRYPTCAT_OPEN_ALWAYS
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_ALWAYS => 2
+    static ALWAYS => 2
 
     /**
+     * Native name: CRYPTCAT_OPEN_CREATENEW
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_CREATENEW => 1
+    static CREATENEW => 1
 
     /**
+     * Native name: CRYPTCAT_OPEN_EXISTING
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_EXISTING => 4
+    static EXISTING => 4
 
     /**
+     * Native name: CRYPTCAT_OPEN_EXCLUDE_PAGE_HASHES
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_EXCLUDE_PAGE_HASHES => 65536
+    static EXCLUDE_PAGE_HASHES => 65536
 
     /**
+     * Native name: CRYPTCAT_OPEN_INCLUDE_PAGE_HASHES
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_INCLUDE_PAGE_HASHES => 131072
+    static INCLUDE_PAGE_HASHES => 131072
 
     /**
+     * Native name: CRYPTCAT_OPEN_VERIFYSIGHASH
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_VERIFYSIGHASH => 268435456
+    static VERIFYSIGHASH => 268435456
 
     /**
+     * Native name: CRYPTCAT_OPEN_NO_CONTENT_HCRYPTMSG
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_NO_CONTENT_HCRYPTMSG => 536870912
+    static NO_CONTENT_HCRYPTMSG => 536870912
 
     /**
+     * Native name: CRYPTCAT_OPEN_SORTED
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_SORTED => 1073741824
+    static SORTED => 1073741824
 
     /**
+     * Native name: CRYPTCAT_OPEN_FLAGS_MASK
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_OPEN_FLAGS_MASK => 4294901760
+    static MASK => 4294901760
 }

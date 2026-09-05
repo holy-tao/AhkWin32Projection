@@ -31,7 +31,6 @@ class IPrintClassObjectFactory extends IUnknown {
     static VTableNames => ["GetPrintClassObject"]
 
     /**
-     * 
      * @param {PWSTR} pszPrinterName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

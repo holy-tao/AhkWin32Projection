@@ -30,7 +30,6 @@ class IGetDataSource extends IUnknown {
     static VTableNames => ["GetDataSource"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

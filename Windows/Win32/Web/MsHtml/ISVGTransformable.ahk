@@ -37,7 +37,6 @@ class ISVGTransformable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedTransformList} 
      */
     get_transform() {

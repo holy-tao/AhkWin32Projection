@@ -30,7 +30,6 @@ class IRowset extends IUnknown {
     static VTableNames => ["AddRefRows", "GetData", "GetNextRows", "ReleaseRows", "RestartPosition"]
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Integer>} rgRefCounts 
@@ -47,7 +46,6 @@ class IRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
@@ -60,7 +58,6 @@ class IRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} lRowsOffset 
      * @param {Pointer} cRows 
@@ -77,7 +74,6 @@ class IRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Integer>} rgRowOptions 
@@ -96,7 +92,6 @@ class IRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @returns {HRESULT} 
      */

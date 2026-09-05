@@ -31,7 +31,6 @@ class IDebugHostSymbols2 extends IDebugHostSymbols {
     static VTableNames => ["DemangleSymbolName"]
 
     /**
-     * 
      * @param {IDebugHostSymbol} pSymbol 
      * @param {Integer} flags 
      * @returns {BSTR} 

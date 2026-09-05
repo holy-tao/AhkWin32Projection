@@ -7,97 +7,116 @@
 class RTL_SYSTEM_GLOBAL_DATA_ID extends Win32Enum {
 
     /**
+     * Native name: GlobalDataIdUnknown
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: GlobalDataIdRngSeedVersion
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdRngSeedVersion => 1
+    static RngSeedVersion => 1
 
     /**
+     * Native name: GlobalDataIdInterruptTime
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdInterruptTime => 2
+    static InterruptTime => 2
 
     /**
+     * Native name: GlobalDataIdTimeZoneBias
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdTimeZoneBias => 3
+    static TimeZoneBias => 3
 
     /**
+     * Native name: GlobalDataIdImageNumberLow
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdImageNumberLow => 4
+    static ImageNumberLow => 4
 
     /**
+     * Native name: GlobalDataIdImageNumberHigh
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdImageNumberHigh => 5
+    static ImageNumberHigh => 5
 
     /**
+     * Native name: GlobalDataIdTimeZoneId
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdTimeZoneId => 6
+    static TimeZoneId => 6
 
     /**
+     * Native name: GlobalDataIdNtMajorVersion
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdNtMajorVersion => 7
+    static NtMajorVersion => 7
 
     /**
+     * Native name: GlobalDataIdNtMinorVersion
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdNtMinorVersion => 8
+    static NtMinorVersion => 8
 
     /**
+     * Native name: GlobalDataIdSystemExpirationDate
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdSystemExpirationDate => 9
+    static SystemExpirationDate => 9
 
     /**
+     * Native name: GlobalDataIdKdDebuggerEnabled
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdKdDebuggerEnabled => 10
+    static KdDebuggerEnabled => 10
 
     /**
+     * Native name: GlobalDataIdCyclesPerYield
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdCyclesPerYield => 11
+    static CyclesPerYield => 11
 
     /**
+     * Native name: GlobalDataIdSafeBootMode
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdSafeBootMode => 12
+    static SafeBootMode => 12
 
     /**
+     * Native name: GlobalDataIdLastSystemRITEventTickCount
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdLastSystemRITEventTickCount => 13
+    static LastSystemRITEventTickCount => 13
 
     /**
+     * Native name: GlobalDataIdConsoleSharedDataFlags
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdConsoleSharedDataFlags => 14
+    static ConsoleSharedDataFlags => 14
 
     /**
+     * Native name: GlobalDataIdNtSystemRootDrive
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdNtSystemRootDrive => 15
+    static NtSystemRootDrive => 15
 
     /**
+     * Native name: GlobalDataIdQpcBypassEnabled
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdQpcBypassEnabled => 16
+    static QpcBypassEnabled => 16
 
     /**
+     * Native name: GlobalDataIdQpcData
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdQpcData => 17
+    static QpcData => 17
 
     /**
+     * Native name: GlobalDataIdQpcBias
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdQpcBias => 18
+    static QpcBias => 18
 }

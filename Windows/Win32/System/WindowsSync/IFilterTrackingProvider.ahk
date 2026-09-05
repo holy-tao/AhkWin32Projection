@@ -31,7 +31,6 @@ class IFilterTrackingProvider extends IUnknown {
     static VTableNames => ["SpecifyTrackedFilters", "AddTrackedFilter"]
 
     /**
-     * 
      * @param {IFilterTrackingRequestCallback} pCallback 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IFilterTrackingProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncFilter} pFilter 
      * @returns {HRESULT} 
      */

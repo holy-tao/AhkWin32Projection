@@ -7,7 +7,8 @@
 class _DMO_QUALITY_STATUS_FLAGS extends Win32Enum {
 
     /**
+     * Native name: DMO_QUALITY_STATUS_ENABLED
      * @type {Integer (Int32)}
      */
-    static DMO_QUALITY_STATUS_ENABLED => 1
+    static ENABLED => 1
 }

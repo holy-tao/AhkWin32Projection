@@ -10,13 +10,15 @@ class D3D11_COPY_FLAGS extends Win32Enum {
 
     /**
      * The existing contents of the resource cannot be overwritten.
+     * Native name: D3D11_COPY_NO_OVERWRITE
      * @type {Integer (Int32)}
      */
-    static D3D11_COPY_NO_OVERWRITE => 1
+    static NO_OVERWRITE => 1
 
     /**
      * The existing contents of the resource are undefined and can be discarded.
+     * Native name: D3D11_COPY_DISCARD
      * @type {Integer (Int32)}
      */
-    static D3D11_COPY_DISCARD => 2
+    static DISCARD => 2
 }

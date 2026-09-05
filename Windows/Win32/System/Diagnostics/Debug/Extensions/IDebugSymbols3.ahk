@@ -39,7 +39,6 @@ class IDebugSymbols3 extends IUnknown {
     static VTableNames => ["GetSymbolOptions", "AddSymbolOptions", "RemoveSymbolOptions", "SetSymbolOptions", "GetNameByOffset", "GetOffsetByName", "GetNearNameByOffset", "GetLineByOffset", "GetOffsetByLine", "GetNumberModules", "GetModuleByIndex", "GetModuleByModuleName", "GetModuleByOffset", "GetModuleNames", "GetModuleParameters", "GetSymbolModule", "GetTypeName", "GetTypeId", "GetTypeSize", "GetFieldOffset", "GetSymbolTypeId", "GetOffsetTypeId", "ReadTypedDataVirtual", "WriteTypedDataVirtual", "OutputTypedDataVirtual", "ReadTypedDataPhysical", "WriteTypedDataPhysical", "OutputTypedDataPhysical", "GetScope", "SetScope", "ResetScope", "GetScopeSymbolGroup", "CreateSymbolGroup", "StartSymbolMatch", "GetNextSymbolMatch", "EndSymbolMatch", "Reload", "GetSymbolPath", "SetSymbolPath", "AppendSymbolPath", "GetImagePath", "SetImagePath", "AppendImagePath", "GetSourcePath", "GetSourcePathElement", "SetSourcePath", "AppendSourcePath", "FindSourceFile", "GetSourceFileLineOffsets", "GetModuleVersionInformation", "GetModuleNameString", "GetConstantName", "GetFieldName", "GetTypeOptions", "AddTypeOptions", "RemoveTypeOptions", "SetTypeOptions", "GetNameByOffsetWide", "GetOffsetByNameWide", "GetNearNameByOffsetWide", "GetLineByOffsetWide", "GetOffsetByLineWide", "GetModuleByModuleNameWide", "GetSymbolModuleWide", "GetTypeNameWide", "GetTypeIdWide", "GetFieldOffsetWide", "GetSymbolTypeIdWide", "GetScopeSymbolGroup2", "CreateSymbolGroup2", "StartSymbolMatchWide", "GetNextSymbolMatchWide", "ReloadWide", "GetSymbolPathWide", "SetSymbolPathWide", "AppendSymbolPathWide", "GetImagePathWide", "SetImagePathWide", "AppendImagePathWide", "GetSourcePathWide", "GetSourcePathElementWide", "SetSourcePathWide", "AppendSourcePathWide", "FindSourceFileWide", "GetSourceFileLineOffsetsWide", "GetModuleVersionInformationWide", "GetModuleNameStringWide", "GetConstantNameWide", "GetFieldNameWide", "IsManagedModule", "GetModuleByModuleName2", "GetModuleByModuleName2Wide", "GetModuleByOffset2", "AddSyntheticModule", "AddSyntheticModuleWide", "RemoveSyntheticModule", "GetCurrentScopeFrameIndex", "SetScopeFrameByIndex", "SetScopeFromJitDebugInfo", "SetScopeFromStoredEvent", "OutputSymbolByOffset", "GetFunctionEntryByOffset", "GetFieldTypeAndOffset", "GetFieldTypeAndOffsetWide", "AddSyntheticSymbol", "AddSyntheticSymbolWide", "RemoveSyntheticSymbol", "GetSymbolEntriesByOffset", "GetSymbolEntriesByName", "GetSymbolEntriesByNameWide", "GetSymbolEntryByToken", "GetSymbolEntryInformation", "GetSymbolEntryString", "GetSymbolEntryStringWide", "GetSymbolEntryOffsetRegions", "GetSymbolEntryBySymbolEntry", "GetSourceEntriesByOffset", "GetSourceEntriesByLine", "GetSourceEntriesByLineWide", "GetSourceEntryString", "GetSourceEntryStringWide", "GetSourceEntryOffsetRegions", "GetSourceEntryBySourceEntry"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSymbolOptions() {
@@ -48,7 +47,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -58,7 +56,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -68,7 +65,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -78,7 +74,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {PSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -97,7 +92,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @returns {Integer} 
      */
@@ -109,7 +103,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Delta 
      * @param {PSTR} NameBuffer 
@@ -129,7 +122,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Line 
      * @param {PSTR} FileBuffer 
@@ -150,7 +142,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PSTR} _File 
      * @returns {Integer} 
@@ -163,7 +154,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Loaded 
      * @param {Pointer<Integer>} Unloaded 
      * @returns {HRESULT} 
@@ -177,7 +167,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {Integer} 
      */
@@ -187,7 +176,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -205,7 +193,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -221,7 +208,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PSTR} ImageNameBuffer 
@@ -249,7 +235,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Bases 
      * @param {Integer} Start 
@@ -264,7 +249,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @returns {Integer} 
      */
@@ -276,7 +260,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PSTR} NameBuffer 
@@ -291,7 +274,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {PSTR} Name 
      * @returns {Integer} 
@@ -304,7 +286,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @returns {Integer} 
@@ -315,7 +296,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PSTR} Field 
@@ -329,7 +309,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
@@ -346,7 +325,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
@@ -361,7 +339,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -375,7 +352,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -389,7 +365,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Module 
@@ -403,7 +378,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -417,7 +391,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -431,7 +404,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Module 
@@ -445,7 +417,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
      * @param {Integer} ScopeContext 
@@ -460,7 +431,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
      * @param {Integer} ScopeContext 
@@ -473,7 +443,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetScope() {
@@ -482,7 +451,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {IDebugSymbolGroup} Update 
      * @returns {IDebugSymbolGroup} 
@@ -493,7 +461,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugSymbolGroup} 
      */
     CreateSymbolGroup() {
@@ -502,7 +469,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Pattern 
      * @returns {Integer} 
      */
@@ -514,7 +480,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -533,7 +498,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -543,7 +507,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Module 
      * @returns {HRESULT} 
      */
@@ -555,7 +518,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -568,7 +530,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -580,7 +541,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -592,7 +552,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -605,7 +564,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -617,7 +575,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -629,7 +586,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -642,7 +598,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -656,7 +611,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -668,7 +622,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -680,7 +633,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {PSTR} _File 
      * @param {Integer} Flags 
@@ -702,7 +654,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _File 
      * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} BufferLines 
@@ -720,7 +671,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PSTR} Item 
@@ -736,7 +686,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Index 
      * @param {Integer} Base 
@@ -752,7 +701,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} Value 
@@ -768,7 +716,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} FieldIndex 
@@ -784,7 +731,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTypeOptions() {
@@ -793,7 +739,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -803,7 +748,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -813,7 +757,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -823,7 +766,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {PWSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -842,7 +784,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @returns {Integer} 
      */
@@ -854,7 +795,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Delta 
      * @param {PWSTR} NameBuffer 
@@ -874,7 +814,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Line 
      * @param {PWSTR} FileBuffer 
@@ -895,7 +834,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PWSTR} _File 
      * @returns {Integer} 
@@ -908,7 +846,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -926,7 +863,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @returns {Integer} 
      */
@@ -938,7 +874,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PWSTR} NameBuffer 
@@ -953,7 +888,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {PWSTR} Name 
      * @returns {Integer} 
@@ -966,7 +900,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PWSTR} Field 
@@ -980,7 +913,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
@@ -997,7 +929,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {IDebugSymbolGroup2} Update 
      * @returns {IDebugSymbolGroup2} 
@@ -1008,7 +939,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugSymbolGroup2} 
      */
     CreateSymbolGroup2() {
@@ -1017,7 +947,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Pattern 
      * @returns {Integer} 
      */
@@ -1029,7 +958,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1048,7 +976,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Module 
      * @returns {HRESULT} 
      */
@@ -1060,7 +987,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1073,7 +999,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -1085,7 +1010,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -1097,7 +1021,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1110,7 +1033,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -1122,7 +1044,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -1134,7 +1055,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1147,7 +1067,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1161,7 +1080,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -1173,7 +1091,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -1185,7 +1102,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {PWSTR} _File 
      * @param {Integer} Flags 
@@ -1207,7 +1123,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _File 
      * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} BufferLines 
@@ -1225,7 +1140,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PWSTR} Item 
@@ -1241,7 +1155,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Index 
      * @param {Integer} Base 
@@ -1257,7 +1170,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} Value 
@@ -1273,7 +1185,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} FieldIndex 
@@ -1289,7 +1200,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @returns {HRESULT} 
@@ -1300,7 +1210,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Integer} Flags 
@@ -1319,7 +1228,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Integer} Flags 
@@ -1338,7 +1246,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} StartIndex 
      * @param {Integer} Flags 
@@ -1355,7 +1262,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Base 
      * @param {Integer} _Size 
      * @param {PSTR} ImagePath 
@@ -1372,7 +1278,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Base 
      * @param {Integer} _Size 
      * @param {PWSTR} ImagePath 
@@ -1389,7 +1294,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Base 
      * @returns {HRESULT} 
      */
@@ -1399,7 +1303,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentScopeFrameIndex() {
@@ -1408,7 +1311,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -1418,7 +1320,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} InfoOffset 
      * @returns {HRESULT} 
@@ -1429,7 +1330,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetScopeFromStoredEvent() {
@@ -1438,7 +1338,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @param {Integer} Offset 
@@ -1450,7 +1349,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {Integer} _Buffer 
@@ -1463,7 +1361,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} ContainerTypeId 
      * @param {PSTR} Field 
@@ -1482,7 +1379,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} ContainerTypeId 
      * @param {PWSTR} Field 
@@ -1501,7 +1397,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Size 
      * @param {PSTR} Name 
@@ -1517,7 +1412,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Size 
      * @param {PWSTR} Name 
@@ -1533,7 +1427,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @returns {HRESULT} 
      */
@@ -1543,7 +1436,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Ids 
@@ -1561,7 +1453,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Ids 
@@ -1579,7 +1470,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Ids 
@@ -1597,7 +1487,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ModuleBase 
      * @param {Integer} Token 
      * @returns {DEBUG_MODULE_AND_ID} 
@@ -1609,7 +1498,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @returns {DEBUG_SYMBOL_ENTRY} 
      */
@@ -1620,7 +1508,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Which 
      * @param {PSTR} _Buffer 
@@ -1635,7 +1522,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Which 
      * @param {PWSTR} _Buffer 
@@ -1650,7 +1536,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_OFFSET_REGION>} Regions 
@@ -1666,7 +1551,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} FromId 
      * @param {Integer} Flags 
      * @returns {DEBUG_MODULE_AND_ID} 
@@ -1678,7 +1562,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entries 
@@ -1694,7 +1577,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PSTR} _File 
      * @param {Integer} Flags 
@@ -1713,7 +1595,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PWSTR} _File 
      * @param {Integer} Flags 
@@ -1732,7 +1613,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Which 
      * @param {PSTR} _Buffer 
@@ -1747,7 +1627,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Which 
      * @param {PWSTR} _Buffer 
@@ -1762,7 +1641,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_OFFSET_REGION>} Regions 
@@ -1778,7 +1656,6 @@ class IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} FromEntry 
      * @param {Integer} Flags 
      * @returns {DEBUG_SYMBOL_SOURCE_ENTRY} 

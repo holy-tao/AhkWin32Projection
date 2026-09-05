@@ -7,22 +7,26 @@
 class AF_OP extends Win32BitflagEnum {
 
     /**
+     * Native name: AF_OP_PRINT
      * @type {Integer (UInt32)}
      */
-    static AF_OP_PRINT => 1
+    static PRINT => 1
 
     /**
+     * Native name: AF_OP_COMM
      * @type {Integer (UInt32)}
      */
-    static AF_OP_COMM => 2
+    static COMM => 2
 
     /**
+     * Native name: AF_OP_SERVER
      * @type {Integer (UInt32)}
      */
-    static AF_OP_SERVER => 4
+    static SERVER => 4
 
     /**
+     * Native name: AF_OP_ACCOUNTS
      * @type {Integer (UInt32)}
      */
-    static AF_OP_ACCOUNTS => 8
+    static ACCOUNTS => 8
 }

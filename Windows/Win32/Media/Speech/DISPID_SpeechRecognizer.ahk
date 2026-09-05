@@ -7,102 +7,122 @@
 class DISPID_SpeechRecognizer extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRRecognizer
      * @type {Integer (Int32)}
      */
-    static DISPID_SRRecognizer => 1
+    static SRRecognizer => 1
 
     /**
+     * Native name: DISPID_SRAllowAudioInputFormatChangesOnNextSet
      * @type {Integer (Int32)}
      */
-    static DISPID_SRAllowAudioInputFormatChangesOnNextSet => 2
+    static SRAllowAudioInputFormatChangesOnNextSet => 2
 
     /**
+     * Native name: DISPID_SRAudioInput
      * @type {Integer (Int32)}
      */
-    static DISPID_SRAudioInput => 3
+    static SRAudioInput => 3
 
     /**
+     * Native name: DISPID_SRAudioInputStream
      * @type {Integer (Int32)}
      */
-    static DISPID_SRAudioInputStream => 4
+    static SRAudioInputStream => 4
 
     /**
+     * Native name: DISPID_SRIsShared
      * @type {Integer (Int32)}
      */
-    static DISPID_SRIsShared => 5
+    static SRIsShared => 5
 
     /**
+     * Native name: DISPID_SRState
      * @type {Integer (Int32)}
      */
-    static DISPID_SRState => 6
+    static SRState => 6
 
     /**
+     * Native name: DISPID_SRStatus
      * @type {Integer (Int32)}
      */
-    static DISPID_SRStatus => 7
+    static SRStatus => 7
 
     /**
+     * Native name: DISPID_SRProfile
      * @type {Integer (Int32)}
      */
-    static DISPID_SRProfile => 8
+    static SRProfile => 8
 
     /**
+     * Native name: DISPID_SREmulateRecognition
      * @type {Integer (Int32)}
      */
-    static DISPID_SREmulateRecognition => 9
+    static SREmulateRecognition => 9
 
     /**
+     * Native name: DISPID_SRCreateRecoContext
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCreateRecoContext => 10
+    static SRCreateRecoContext => 10
 
     /**
+     * Native name: DISPID_SRGetFormat
      * @type {Integer (Int32)}
      */
-    static DISPID_SRGetFormat => 11
+    static SRGetFormat => 11
 
     /**
+     * Native name: DISPID_SRSetPropertyNumber
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSetPropertyNumber => 12
+    static SRSetPropertyNumber => 12
 
     /**
+     * Native name: DISPID_SRGetPropertyNumber
      * @type {Integer (Int32)}
      */
-    static DISPID_SRGetPropertyNumber => 13
+    static SRGetPropertyNumber => 13
 
     /**
+     * Native name: DISPID_SRSetPropertyString
      * @type {Integer (Int32)}
      */
-    static DISPID_SRSetPropertyString => 14
+    static SRSetPropertyString => 14
 
     /**
+     * Native name: DISPID_SRGetPropertyString
      * @type {Integer (Int32)}
      */
-    static DISPID_SRGetPropertyString => 15
+    static SRGetPropertyString => 15
 
     /**
+     * Native name: DISPID_SRIsUISupported
      * @type {Integer (Int32)}
      */
-    static DISPID_SRIsUISupported => 16
+    static SRIsUISupported => 16
 
     /**
+     * Native name: DISPID_SRDisplayUI
      * @type {Integer (Int32)}
      */
-    static DISPID_SRDisplayUI => 17
+    static SRDisplayUI => 17
 
     /**
+     * Native name: DISPID_SRGetRecognizers
      * @type {Integer (Int32)}
      */
-    static DISPID_SRGetRecognizers => 18
+    static SRGetRecognizers => 18
 
     /**
+     * Native name: DISPID_SVGetAudioInputs
      * @type {Integer (Int32)}
      */
-    static DISPID_SVGetAudioInputs => 19
+    static SVGetAudioInputs => 19
 
     /**
+     * Native name: DISPID_SVGetProfiles
      * @type {Integer (Int32)}
      */
-    static DISPID_SVGetProfiles => 20
+    static SVGetProfiles => 20
 }

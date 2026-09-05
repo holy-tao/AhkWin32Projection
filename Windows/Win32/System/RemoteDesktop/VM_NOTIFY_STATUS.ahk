@@ -7,27 +7,32 @@
 class VM_NOTIFY_STATUS extends Win32Enum {
 
     /**
+     * Native name: VM_NOTIFY_STATUS_PENDING
      * @type {Integer (Int32)}
      */
-    static VM_NOTIFY_STATUS_PENDING => 0
+    static PENDING => 0
 
     /**
+     * Native name: VM_NOTIFY_STATUS_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static VM_NOTIFY_STATUS_IN_PROGRESS => 1
+    static IN_PROGRESS => 1
 
     /**
+     * Native name: VM_NOTIFY_STATUS_COMPLETE
      * @type {Integer (Int32)}
      */
-    static VM_NOTIFY_STATUS_COMPLETE => 2
+    static COMPLETE => 2
 
     /**
+     * Native name: VM_NOTIFY_STATUS_FAILED
      * @type {Integer (Int32)}
      */
-    static VM_NOTIFY_STATUS_FAILED => 3
+    static FAILED => 3
 
     /**
+     * Native name: VM_NOTIFY_STATUS_CANCELED
      * @type {Integer (Int32)}
      */
-    static VM_NOTIFY_STATUS_CANCELED => 4
+    static CANCELED => 4
 }

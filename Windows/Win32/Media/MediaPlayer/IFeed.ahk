@@ -241,7 +241,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {FEEDS_XML_SORT_PROPERTY} sortProperty 
      * @param {FEEDS_XML_SORT_ORDER} sortOrder 
@@ -256,7 +255,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -266,7 +264,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
      */
@@ -278,7 +275,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Url() {
@@ -288,7 +284,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedUrl 
      * @returns {HRESULT} 
      */
@@ -300,7 +295,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalId() {
@@ -310,7 +304,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -320,7 +313,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newParentPath 
      * @returns {HRESULT} 
      */
@@ -332,7 +324,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -341,7 +332,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastWriteTime() {
@@ -350,7 +340,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -359,7 +348,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Download() {
@@ -368,7 +356,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -377,7 +364,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -386,7 +372,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_SYNC_SETTING} 
      */
     get_SyncSetting() {
@@ -395,7 +380,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_SYNC_SETTING} syncSetting 
      * @returns {HRESULT} 
      */
@@ -405,7 +389,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Interval() {
@@ -414,7 +397,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} minutes 
      * @returns {HRESULT} 
      */
@@ -424,7 +406,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastDownloadTime() {
@@ -433,7 +414,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalEnclosurePath() {
@@ -443,7 +423,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Items() {
@@ -452,7 +431,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} itemId 
      * @returns {IDispatch} 
      */
@@ -462,7 +440,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -472,7 +449,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -482,7 +458,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Link() {
@@ -492,7 +467,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Image() {
@@ -502,7 +476,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastBuildDate() {
@@ -511,7 +484,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PubDate() {
@@ -520,7 +492,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Ttl() {
@@ -529,7 +500,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Language() {
@@ -539,7 +509,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Copyright() {
@@ -549,7 +518,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxItemCount() {
@@ -558,7 +526,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @returns {HRESULT} 
      */
@@ -568,7 +535,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_DownloadEnclosuresAutomatically() {
@@ -577,7 +543,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} downloadEnclosuresAutomatically 
      * @returns {HRESULT} 
      */
@@ -587,7 +552,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_STATUS} 
      */
     get_DownloadStatus() {
@@ -596,7 +560,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     get_LastDownloadError() {
@@ -605,7 +568,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedXml 
      * @param {BSTR} feedUrl 
      * @returns {HRESULT} 
@@ -619,7 +581,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
@@ -629,7 +590,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsList() {
@@ -638,7 +598,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MarkAllItemsRead() {
@@ -647,7 +606,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_EVENTS_SCOPE} scope 
      * @param {FEEDS_EVENTS_MASK} mask 
      * @returns {IDispatch} 
@@ -658,7 +616,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UnreadItemCount() {
@@ -667,7 +624,6 @@ class IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ItemCount() {

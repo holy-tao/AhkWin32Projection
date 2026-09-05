@@ -147,29 +147,34 @@ class ScanModulationTypes extends Win32Enum {
     static BDA_SCAN_MOD_RF => 134217728
 
     /**
+     * Native name: ScanModulationTypesMask_MCE_DigitalCable
      * @type {Integer (Int32)}
      */
-    static ScanModulationTypesMask_MCE_DigitalCable => 11
+    static Mask_MCE_DigitalCable => 11
 
     /**
+     * Native name: ScanModulationTypesMask_MCE_TerrestrialATSC
      * @type {Integer (Int32)}
      */
-    static ScanModulationTypesMask_MCE_TerrestrialATSC => 23
+    static Mask_MCE_TerrestrialATSC => 23
 
     /**
+     * Native name: ScanModulationTypesMask_MCE_AnalogTv
      * @type {Integer (Int32)}
      */
-    static ScanModulationTypesMask_MCE_AnalogTv => 28
+    static Mask_MCE_AnalogTv => 28
 
     /**
+     * Native name: ScanModulationTypesMask_MCE_All_TV
      * @type {Integer (Int32)}
      */
-    static ScanModulationTypesMask_MCE_All_TV => -1
+    static Mask_MCE_All_TV => -1
 
     /**
+     * Native name: ScanModulationTypesMask_DVBC
      * @type {Integer (Int32)}
      */
-    static ScanModulationTypesMask_DVBC => 75
+    static Mask_DVBC => 75
 
     /**
      * @type {Integer (Int32)}

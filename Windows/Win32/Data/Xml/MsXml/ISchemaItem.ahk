@@ -77,7 +77,6 @@ class ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -87,7 +86,6 @@ class ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_namespaceURI() {
@@ -97,7 +95,6 @@ class ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISchema} 
      */
     get_schema() {
@@ -106,7 +103,6 @@ class ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_id() {
@@ -116,7 +112,6 @@ class ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SOMITEMTYPE} 
      */
     get_itemType() {
@@ -125,7 +120,6 @@ class ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXAttributes} 
      */
     get_unhandledAttributes() {
@@ -134,7 +128,6 @@ class ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} annotationSink 
      * @returns {VARIANT_BOOL} 
      */

@@ -7,52 +7,62 @@
 class POWER_LIMIT_TYPES extends Win32Enum {
 
     /**
+     * Native name: PowerLimitContinuous
      * @type {Integer (Int32)}
      */
-    static PowerLimitContinuous => 0
+    static Continuous => 0
 
     /**
+     * Native name: PowerLimitType1
      * @type {Integer (Int32)}
      */
-    static PowerLimitType1 => 0
+    static Type1 => 0
 
     /**
+     * Native name: PowerLimitBurst
      * @type {Integer (Int32)}
      */
-    static PowerLimitBurst => 1
+    static Burst => 1
 
     /**
+     * Native name: PowerLimitType2
      * @type {Integer (Int32)}
      */
-    static PowerLimitType2 => 1
+    static Type2 => 1
 
     /**
+     * Native name: PowerLimitRapid
      * @type {Integer (Int32)}
      */
-    static PowerLimitRapid => 2
+    static Rapid => 2
 
     /**
+     * Native name: PowerLimitType3
      * @type {Integer (Int32)}
      */
-    static PowerLimitType3 => 2
+    static Type3 => 2
 
     /**
+     * Native name: PowerLimitPreemptive
      * @type {Integer (Int32)}
      */
-    static PowerLimitPreemptive => 3
+    static Preemptive => 3
 
     /**
+     * Native name: PowerLimitType4
      * @type {Integer (Int32)}
      */
-    static PowerLimitType4 => 3
+    static Type4 => 3
 
     /**
+     * Native name: PowerLimitPreemptiveOffset
      * @type {Integer (Int32)}
      */
-    static PowerLimitPreemptiveOffset => 4
+    static PreemptiveOffset => 4
 
     /**
+     * Native name: PowerLimitTypeMax
      * @type {Integer (Int32)}
      */
-    static PowerLimitTypeMax => 5
+    static TypeMax => 5
 }

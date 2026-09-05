@@ -32,7 +32,6 @@ class IIsolatedProcessLauncher extends IUnknown {
     static VTableNames => ["LaunchProcess", "ShareDirectory", "GetContainerGuid", "AllowSetForegroundAccess", "IsContainerRunning"]
 
     /**
-     * 
      * @param {PWSTR} process 
      * @param {PWSTR} arguments 
      * @param {PWSTR} workingDirectory 
@@ -48,7 +47,6 @@ class IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} hostPath 
      * @param {PWSTR} containerPath 
      * @param {BOOL} readOnly 
@@ -63,7 +61,6 @@ class IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetContainerGuid() {
@@ -73,7 +70,6 @@ class IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pid 
      * @returns {HRESULT} 
      */
@@ -83,7 +79,6 @@ class IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsContainerRunning() {

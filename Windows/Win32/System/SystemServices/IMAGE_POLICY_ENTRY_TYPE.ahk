@@ -7,72 +7,86 @@
 class IMAGE_POLICY_ENTRY_TYPE extends Win32Enum {
 
     /**
+     * Native name: ImagePolicyEntryTypeNone
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeNone => 0
+    static None => 0
 
     /**
+     * Native name: ImagePolicyEntryTypeBool
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeBool => 1
+    static Bool => 1
 
     /**
+     * Native name: ImagePolicyEntryTypeInt8
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeInt8 => 2
+    static Int8 => 2
 
     /**
+     * Native name: ImagePolicyEntryTypeUInt8
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeUInt8 => 3
+    static TypeUInt8 => 3
 
     /**
+     * Native name: ImagePolicyEntryTypeInt16
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeInt16 => 4
+    static Int16 => 4
 
     /**
+     * Native name: ImagePolicyEntryTypeUInt16
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeUInt16 => 5
+    static TypeUInt16 => 5
 
     /**
+     * Native name: ImagePolicyEntryTypeInt32
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeInt32 => 6
+    static Int32 => 6
 
     /**
+     * Native name: ImagePolicyEntryTypeUInt32
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeUInt32 => 7
+    static TypeUInt32 => 7
 
     /**
+     * Native name: ImagePolicyEntryTypeInt64
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeInt64 => 8
+    static Int64 => 8
 
     /**
+     * Native name: ImagePolicyEntryTypeUInt64
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeUInt64 => 9
+    static TypeUInt64 => 9
 
     /**
+     * Native name: ImagePolicyEntryTypeAnsiString
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeAnsiString => 10
+    static AnsiString => 10
 
     /**
+     * Native name: ImagePolicyEntryTypeUnicodeString
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeUnicodeString => 11
+    static UnicodeString => 11
 
     /**
+     * Native name: ImagePolicyEntryTypeOverride
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeOverride => 12
+    static Override => 12
 
     /**
+     * Native name: ImagePolicyEntryTypeMaximum
      * @type {Integer (Int32)}
      */
-    static ImagePolicyEntryTypeMaximum => 13
+    static Maximum => 13
 }

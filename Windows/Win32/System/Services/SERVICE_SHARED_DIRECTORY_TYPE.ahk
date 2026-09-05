@@ -13,7 +13,8 @@ class SERVICE_SHARED_DIRECTORY_TYPE extends Win32Enum {
 
     /**
      * Mutable, persistent service state. This state is both readable and writeable by the service and by local administrators. This state persists across reboots and OS updates.
+     * Native name: ServiceSharedDirectoryPersistentState
      * @type {Integer (Int32)}
      */
-    static ServiceSharedDirectoryPersistentState => 0
+    static PersistentState => 0
 }

@@ -30,7 +30,6 @@ class IEnumJsStackFrames extends IUnknown {
     static VTableNames => ["Next", "Reset"]
 
     /**
-     * 
      * @param {Integer} cFrameCount 
      * @param {Pointer<JS_NATIVE_FRAME>} pFrames 
      * @param {Pointer<Integer>} pcFetched 
@@ -44,7 +43,6 @@ class IEnumJsStackFrames extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

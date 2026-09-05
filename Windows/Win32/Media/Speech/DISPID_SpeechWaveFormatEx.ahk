@@ -7,37 +7,44 @@
 class DISPID_SpeechWaveFormatEx extends Win32Enum {
 
     /**
+     * Native name: DISPID_SWFEFormatTag
      * @type {Integer (Int32)}
      */
-    static DISPID_SWFEFormatTag => 1
+    static SWFEFormatTag => 1
 
     /**
+     * Native name: DISPID_SWFEChannels
      * @type {Integer (Int32)}
      */
-    static DISPID_SWFEChannels => 2
+    static SWFEChannels => 2
 
     /**
+     * Native name: DISPID_SWFESamplesPerSec
      * @type {Integer (Int32)}
      */
-    static DISPID_SWFESamplesPerSec => 3
+    static SWFESamplesPerSec => 3
 
     /**
+     * Native name: DISPID_SWFEAvgBytesPerSec
      * @type {Integer (Int32)}
      */
-    static DISPID_SWFEAvgBytesPerSec => 4
+    static SWFEAvgBytesPerSec => 4
 
     /**
+     * Native name: DISPID_SWFEBlockAlign
      * @type {Integer (Int32)}
      */
-    static DISPID_SWFEBlockAlign => 5
+    static SWFEBlockAlign => 5
 
     /**
+     * Native name: DISPID_SWFEBitsPerSample
      * @type {Integer (Int32)}
      */
-    static DISPID_SWFEBitsPerSample => 6
+    static SWFEBitsPerSample => 6
 
     /**
+     * Native name: DISPID_SWFEExtraData
      * @type {Integer (Int32)}
      */
-    static DISPID_SWFEExtraData => 7
+    static SWFEExtraData => 7
 }

@@ -7,27 +7,32 @@
 class XmlReadState extends Win32Enum {
 
     /**
+     * Native name: XmlReadState_Initial
      * @type {Integer (Int32)}
      */
-    static XmlReadState_Initial => 0
+    static Initial => 0
 
     /**
+     * Native name: XmlReadState_Interactive
      * @type {Integer (Int32)}
      */
-    static XmlReadState_Interactive => 1
+    static Interactive => 1
 
     /**
+     * Native name: XmlReadState_Error
      * @type {Integer (Int32)}
      */
-    static XmlReadState_Error => 2
+    static Error => 2
 
     /**
+     * Native name: XmlReadState_EndOfFile
      * @type {Integer (Int32)}
      */
-    static XmlReadState_EndOfFile => 3
+    static EndOfFile => 3
 
     /**
+     * Native name: XmlReadState_Closed
      * @type {Integer (Int32)}
      */
-    static XmlReadState_Closed => 4
+    static Closed => 4
 }

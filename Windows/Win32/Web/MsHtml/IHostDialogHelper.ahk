@@ -33,7 +33,6 @@ class IHostDialogHelper extends IUnknown {
     static VTableNames => ["ShowHTMLDialog"]
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {IMoniker} pMk 
      * @param {Pointer<VARIANT>} pvarArgIn 

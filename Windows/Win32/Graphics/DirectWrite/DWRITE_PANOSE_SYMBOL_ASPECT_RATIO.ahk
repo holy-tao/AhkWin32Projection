@@ -10,61 +10,71 @@ class DWRITE_PANOSE_SYMBOL_ASPECT_RATIO extends Win32Enum {
 
     /**
      * Any aspect ratio of symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_ANY => 0
+    static ANY => 0
 
     /**
      * No fit for aspect ratio of symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * No width aspect ratio of symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NO_WIDTH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NO_WIDTH => 2
+    static NO_WIDTH => 2
 
     /**
      * Exceptionally wide symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_EXCEPTIONALLY_WIDE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_EXCEPTIONALLY_WIDE => 3
+    static EXCEPTIONALLY_WIDE => 3
 
     /**
      * Super wide symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_SUPER_WIDE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_SUPER_WIDE => 4
+    static SUPER_WIDE => 4
 
     /**
      * Very wide symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_VERY_WIDE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_VERY_WIDE => 5
+    static VERY_WIDE => 5
 
     /**
      * Wide symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_WIDE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_WIDE => 6
+    static WIDE => 6
 
     /**
      * Normal aspect ratio of symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NORMAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NORMAL => 7
+    static NORMAL => 7
 
     /**
      * Narrow symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NARROW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_NARROW => 8
+    static NARROW => 8
 
     /**
      * Very narrow symbolic characters.
+     * Native name: DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_VERY_NARROW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SYMBOL_ASPECT_RATIO_VERY_NARROW => 9
+    static VERY_NARROW => 9
 }

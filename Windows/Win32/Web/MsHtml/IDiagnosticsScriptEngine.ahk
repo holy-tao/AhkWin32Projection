@@ -30,7 +30,6 @@ class IDiagnosticsScriptEngine extends IUnknown {
     static VTableNames => ["EvaluateScript", "FireScriptMessageEvent", "Detach"]
 
     /**
-     * 
      * @param {PWSTR} pszScript 
      * @param {PWSTR} pszScriptName 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IDiagnosticsScriptEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} pszNames 
      * @param {Pointer<PWSTR>} pszValues 
      * @param {Integer} ulPropertyCount 
@@ -59,7 +57,6 @@ class IDiagnosticsScriptEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {

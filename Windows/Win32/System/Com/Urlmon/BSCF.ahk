@@ -7,37 +7,44 @@
 class BSCF extends Win32Enum {
 
     /**
+     * Native name: BSCF_FIRSTDATANOTIFICATION
      * @type {Integer (Int32)}
      */
-    static BSCF_FIRSTDATANOTIFICATION => 1
+    static FIRSTDATANOTIFICATION => 1
 
     /**
+     * Native name: BSCF_INTERMEDIATEDATANOTIFICATION
      * @type {Integer (Int32)}
      */
-    static BSCF_INTERMEDIATEDATANOTIFICATION => 2
+    static INTERMEDIATEDATANOTIFICATION => 2
 
     /**
+     * Native name: BSCF_LASTDATANOTIFICATION
      * @type {Integer (Int32)}
      */
-    static BSCF_LASTDATANOTIFICATION => 4
+    static LASTDATANOTIFICATION => 4
 
     /**
+     * Native name: BSCF_DATAFULLYAVAILABLE
      * @type {Integer (Int32)}
      */
-    static BSCF_DATAFULLYAVAILABLE => 8
+    static DATAFULLYAVAILABLE => 8
 
     /**
+     * Native name: BSCF_AVAILABLEDATASIZEUNKNOWN
      * @type {Integer (Int32)}
      */
-    static BSCF_AVAILABLEDATASIZEUNKNOWN => 16
+    static AVAILABLEDATASIZEUNKNOWN => 16
 
     /**
+     * Native name: BSCF_SKIPDRAINDATAFORFILEURLS
      * @type {Integer (Int32)}
      */
-    static BSCF_SKIPDRAINDATAFORFILEURLS => 32
+    static SKIPDRAINDATAFORFILEURLS => 32
 
     /**
+     * Native name: BSCF_64BITLENGTHDOWNLOAD
      * @type {Integer (Int32)}
      */
-    static BSCF_64BITLENGTHDOWNLOAD => 64
+    static 64BITLENGTHDOWNLOAD => 64
 }

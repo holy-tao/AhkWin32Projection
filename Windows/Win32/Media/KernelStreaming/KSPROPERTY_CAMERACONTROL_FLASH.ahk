@@ -7,7 +7,8 @@
 class KSPROPERTY_CAMERACONTROL_FLASH extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_FLASH_PROPERTY_ID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_FLASH_PROPERTY_ID => 0
+    static PROPERTY_ID => 0
 }

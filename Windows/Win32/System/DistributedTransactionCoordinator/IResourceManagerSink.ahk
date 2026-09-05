@@ -29,7 +29,6 @@ class IResourceManagerSink extends IUnknown {
     static VTableNames => ["TMDown"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TMDown() {

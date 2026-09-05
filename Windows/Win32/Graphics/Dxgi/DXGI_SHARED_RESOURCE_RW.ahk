@@ -9,12 +9,14 @@
 class DXGI_SHARED_RESOURCE_RW extends Win32BitflagEnum {
 
     /**
+     * Native name: DXGI_SHARED_RESOURCE_READ
      * @type {Integer (UInt32)}
      */
-    static DXGI_SHARED_RESOURCE_READ => 2147483648
+    static READ => 2147483648
 
     /**
+     * Native name: DXGI_SHARED_RESOURCE_WRITE
      * @type {Integer (UInt32)}
      */
-    static DXGI_SHARED_RESOURCE_WRITE => 1
+    static WRITE => 1
 }

@@ -7,17 +7,20 @@
 class KSPROPERTY_TIMECODE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_TIMECODE_READER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TIMECODE_READER => 0
+    static READER => 0
 
     /**
+     * Native name: KSPROPERTY_ATN_READER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ATN_READER => 1
+    static ATN_READER => 1
 
     /**
+     * Native name: KSPROPERTY_RTC_READER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTC_READER => 2
+    static RTC_READER => 2
 }

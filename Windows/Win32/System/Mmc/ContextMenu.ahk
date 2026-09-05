@@ -61,7 +61,6 @@ class ContextMenu extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -70,7 +69,6 @@ class ContextMenu extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} IndexOrPath 
      * @returns {MenuItem} 
      */
@@ -80,7 +78,6 @@ class ContextMenu extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {

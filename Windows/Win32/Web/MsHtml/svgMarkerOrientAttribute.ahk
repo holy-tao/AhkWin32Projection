@@ -7,12 +7,14 @@
 class svgMarkerOrientAttribute extends Win32Enum {
 
     /**
+     * Native name: svgMarkerOrientAttributeAuto
      * @type {Integer (Int32)}
      */
-    static svgMarkerOrientAttributeAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: svgMarkerOrientAttribute_Max
      * @type {Integer (Int32)}
      */
-    static svgMarkerOrientAttribute_Max => 2147483647
+    static Max => 2147483647
 }

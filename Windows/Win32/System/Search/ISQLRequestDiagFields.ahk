@@ -30,7 +30,6 @@ class ISQLRequestDiagFields extends IUnknown {
     static VTableNames => ["RequestDiagFields"]
 
     /**
-     * 
      * @param {Integer} cDiagFields 
      * @param {Pointer<KAGREQDIAG>} rgDiagFields 
      * @returns {HRESULT} 

@@ -32,7 +32,6 @@ class ISdoMachine2 extends ISdoMachine {
     static VTableNames => ["GetTemplatesSDO", "EnableTemplates", "SyncConfigAgainstTemplates", "ImportRemoteTemplates", "Reload"]
 
     /**
-     * 
      * @param {BSTR} bstrServiceName 
      * @returns {IUnknown} 
      */
@@ -44,7 +43,6 @@ class ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnableTemplates() {
@@ -53,7 +51,6 @@ class ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServiceName 
      * @param {Pointer<IUnknown>} ppConfigRoot 
      * @param {Pointer<IUnknown>} ppTemplatesRoot 
@@ -68,7 +65,6 @@ class ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @param {IUnknown} pLocalTemplatesRoot 
      * @param {BSTR} bstrRemoteMachineName 
      * @returns {HRESULT} 
@@ -81,7 +77,6 @@ class ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reload() {

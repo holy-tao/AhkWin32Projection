@@ -12,121 +12,141 @@ class D3D12_VIDEO_ENCODER_LEVELS_H264 extends Win32Enum {
 
     /**
      * Level 1.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_1
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_1 => 0
+    static 1 => 0
 
     /**
      * Level 1b.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_1b
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_1b => 1
+    static 1b => 1
 
     /**
      * Level 1.1.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_11
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_11 => 2
+    static 11 => 2
 
     /**
      * Level 1.2.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_12
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_12 => 3
+    static 12 => 3
 
     /**
      * Level 1.3.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_13
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_13 => 4
+    static 13 => 4
 
     /**
      * Level 2.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_2
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_2 => 5
+    static 2 => 5
 
     /**
      * Level 2.1.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_21
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_21 => 6
+    static 21 => 6
 
     /**
      * Level 2.2.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_22
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_22 => 7
+    static 22 => 7
 
     /**
      * Level 3.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_3
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_3 => 8
+    static 3 => 8
 
     /**
      * Level 3.1.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_31
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_31 => 9
+    static 31 => 9
 
     /**
      * Level 3.2.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_32
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_32 => 10
+    static 32 => 10
 
     /**
      * Level 4.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_4
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_4 => 11
+    static 4 => 11
 
     /**
      * Level 4.1.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_41
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_41 => 12
+    static 41 => 12
 
     /**
      * Level 4.2.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_42
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_42 => 13
+    static 42 => 13
 
     /**
      * Level 5.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_5
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_5 => 14
+    static 5 => 14
 
     /**
      * Level 5.1.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_51
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_51 => 15
+    static 51 => 15
 
     /**
      * Level 5.2.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_52
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_52 => 16
+    static 52 => 16
 
     /**
      * Level 6.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_6
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_6 => 17
+    static 6 => 17
 
     /**
      * Level 6.1.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_61
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_61 => 18
+    static 61 => 18
 
     /**
      * Level 6.2.
+     * Native name: D3D12_VIDEO_ENCODER_LEVELS_H264_62
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_LEVELS_H264_62 => 19
+    static 62 => 19
 }

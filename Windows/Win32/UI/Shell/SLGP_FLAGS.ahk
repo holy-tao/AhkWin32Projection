@@ -7,22 +7,26 @@
 class SLGP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SLGP_SHORTPATH
      * @type {Integer (Int32)}
      */
-    static SLGP_SHORTPATH => 1
+    static SHORTPATH => 1
 
     /**
+     * Native name: SLGP_UNCPRIORITY
      * @type {Integer (Int32)}
      */
-    static SLGP_UNCPRIORITY => 2
+    static UNCPRIORITY => 2
 
     /**
+     * Native name: SLGP_RAWPATH
      * @type {Integer (Int32)}
      */
-    static SLGP_RAWPATH => 4
+    static RAWPATH => 4
 
     /**
+     * Native name: SLGP_RELATIVEPRIORITY
      * @type {Integer (Int32)}
      */
-    static SLGP_RELATIVEPRIORITY => 8
+    static RELATIVEPRIORITY => 8
 }

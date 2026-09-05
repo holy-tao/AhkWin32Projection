@@ -10,37 +10,43 @@ class FsrmReportFormat extends Win32Enum {
 
     /**
      * The report format is unknown. Do not use this flag.
+     * Native name: FsrmReportFormat_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmReportFormat_Unknown => 0
+    static Unknown => 0
 
     /**
      * The report is rendered in Dynamic HTML (DHTML).
+     * Native name: FsrmReportFormat_DHtml
      * @type {Integer (Int32)}
      */
-    static FsrmReportFormat_DHtml => 1
+    static DHtml => 1
 
     /**
      * The report is rendered in HTML.
+     * Native name: FsrmReportFormat_Html
      * @type {Integer (Int32)}
      */
-    static FsrmReportFormat_Html => 2
+    static Html => 2
 
     /**
      * The report is rendered as a text file.
+     * Native name: FsrmReportFormat_Txt
      * @type {Integer (Int32)}
      */
-    static FsrmReportFormat_Txt => 3
+    static Txt => 3
 
     /**
      * The report is rendered as a comma-separated value file.
+     * Native name: FsrmReportFormat_Csv
      * @type {Integer (Int32)}
      */
-    static FsrmReportFormat_Csv => 4
+    static Csv => 4
 
     /**
      * The report is rendered in XML.
+     * Native name: FsrmReportFormat_Xml
      * @type {Integer (Int32)}
      */
-    static FsrmReportFormat_Xml => 5
+    static Xml => 5
 }

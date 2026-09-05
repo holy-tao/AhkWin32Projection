@@ -36,7 +36,6 @@ class _EventConnector extends IDispatch {
     static VTableNames => ["ConnectTo", "Disconnect"]
 
     /**
-     * 
      * @param {_Application} _Application 
      * @returns {HRESULT} 
      */

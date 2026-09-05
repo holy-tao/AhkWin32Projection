@@ -7,12 +7,14 @@
 class AUDIOLOOPBACK_TAPPOINT_TYPE extends Win32Enum {
 
     /**
+     * Native name: AUDIOLOOPBACK_TAPPOINT_PREVOLUMEMUTE
      * @type {Integer (Int32)}
      */
-    static AUDIOLOOPBACK_TAPPOINT_PREVOLUMEMUTE => 0
+    static PREVOLUMEMUTE => 0
 
     /**
+     * Native name: AUDIOLOOPBACK_TAPPOINT_POSTVOLUMEMUTE
      * @type {Integer (Int32)}
      */
-    static AUDIOLOOPBACK_TAPPOINT_POSTVOLUMEMUTE => 1
+    static POSTVOLUMEMUTE => 1
 }

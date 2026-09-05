@@ -10,25 +10,29 @@ class WTSSBX_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
      * RD Connection Broker received a Removed notification. This indicates that a user has logged off an RD Session Host server or that an RD Session Host server left a farm in RD Connection Broker.
+     * Native name: WTSSBX_NOTIFICATION_REMOVED
      * @type {Integer (Int32)}
      */
-    static WTSSBX_NOTIFICATION_REMOVED => 1
+    static REMOVED => 1
 
     /**
      * RD Connection Broker received a Changed notification. This indicates that the session state of the RD Session Host server changed or that an RD Session Host server setting, such as the IP address or the maximum session limit, changed.
+     * Native name: WTSSBX_NOTIFICATION_CHANGED
      * @type {Integer (Int32)}
      */
-    static WTSSBX_NOTIFICATION_CHANGED => 2
+    static CHANGED => 2
 
     /**
      * RD Connection Broker received  an Added notification. This indicates that a user logged into an RD Session Host server or that an RD Session Host server joined a  farm in RD Connection Broker.
+     * Native name: WTSSBX_NOTIFICATION_ADDED
      * @type {Integer (Int32)}
      */
-    static WTSSBX_NOTIFICATION_ADDED => 4
+    static ADDED => 4
 
     /**
      * RD Connection Broker received a Resync notification. This indicates that an RD Session Host server joined a  farm in RD Connection Broker and the new RD Session Host server is now synchronizing its session information with the RD Connection Broker server.
+     * Native name: WTSSBX_NOTIFICATION_RESYNC
      * @type {Integer (Int32)}
      */
-    static WTSSBX_NOTIFICATION_RESYNC => 8
+    static RESYNC => 8
 }

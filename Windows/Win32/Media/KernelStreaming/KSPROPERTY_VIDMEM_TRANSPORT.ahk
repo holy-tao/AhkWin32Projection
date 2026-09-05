@@ -7,22 +7,26 @@
 class KSPROPERTY_VIDMEM_TRANSPORT extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_DISPLAY_ADAPTER_GUID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_DISPLAY_ADAPTER_GUID => 1
+    static DISPLAY_ADAPTER_GUID => 1
 
     /**
+     * Native name: KSPROPERTY_PREFERRED_CAPTURE_SURFACE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_PREFERRED_CAPTURE_SURFACE => 2
+    static PREFERRED_CAPTURE_SURFACE => 2
 
     /**
+     * Native name: KSPROPERTY_CURRENT_CAPTURE_SURFACE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CURRENT_CAPTURE_SURFACE => 3
+    static CURRENT_CAPTURE_SURFACE => 3
 
     /**
+     * Native name: KSPROPERTY_MAP_CAPTURE_HANDLE_TO_VRAM_ADDRESS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_MAP_CAPTURE_HANDLE_TO_VRAM_ADDRESS => 4
+    static MAP_CAPTURE_HANDLE_TO_VRAM_ADDRESS => 4
 }

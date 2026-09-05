@@ -15,9 +15,10 @@ class CRYPT_XML_PROPERTY_ID extends Win32Enum {
      * Specifies the maximum heap size, in bytes, that the  XML layer can use.
      *       This property is applied to intermediate buffers used to parse or construct XML parts. 
      *       By default, the limit is equal to <b>CRYPT_XML_BLOB_MAX</b>.
+     * Native name: CRYPT_XML_PROPERTY_MAX_HEAP_SIZE
      * @type {Integer (Int32)}
      */
-    static CRYPT_XML_PROPERTY_MAX_HEAP_SIZE => 1
+    static MAX_HEAP_SIZE => 1
 
     /**
      * Specifies the location in the XML document where the signature is to be created.
@@ -40,29 +41,33 @@ class CRYPT_XML_PROPERTY_ID extends Win32Enum {
      * 
      * </dd>
      * </dl>
+     * Native name: CRYPT_XML_PROPERTY_SIGNATURE_LOCATION
      * @type {Integer (Int32)}
      */
-    static CRYPT_XML_PROPERTY_SIGNATURE_LOCATION => 2
+    static SIGNATURE_LOCATION => 2
 
     /**
      * Specifies the maximum number of <b>Signature</b> elements when parsing an XML document. 
      *      This property overrides the default <b>CRYPT_XML_SIGNATURES_MAX</b> value.
+     * Native name: CRYPT_XML_PROPERTY_MAX_SIGNATURES
      * @type {Integer (Int32)}
      */
-    static CRYPT_XML_PROPERTY_MAX_SIGNATURES => 3
+    static MAX_SIGNATURES => 3
 
     /**
      * Specifies whether to write an XML document declaration. This property is used with the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlencode">CryptXmlEncode</a> function. The default property is <b>TRUE</b>.
+     * Native name: CRYPT_XML_PROPERTY_DOC_DECLARATION
      * @type {Integer (Int32)}
      */
-    static CRYPT_XML_PROPERTY_DOC_DECLARATION => 4
+    static DOC_DECLARATION => 4
 
     /**
      * Specifies an encoding character set of XML fragments for custom elements. This property is used with the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlopentodecode">CryptXmlOpenToDecode</a> function. 
      *      The default character set is inherited from the opened document.
+     * Native name: CRYPT_XML_PROPERTY_XML_OUTPUT_CHARSET
      * @type {Integer (Int32)}
      */
-    static CRYPT_XML_PROPERTY_XML_OUTPUT_CHARSET => 5
+    static XML_OUTPUT_CHARSET => 5
 }

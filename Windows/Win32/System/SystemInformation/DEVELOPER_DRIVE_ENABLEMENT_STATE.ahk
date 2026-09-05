@@ -7,22 +7,26 @@
 class DEVELOPER_DRIVE_ENABLEMENT_STATE extends Win32Enum {
 
     /**
+     * Native name: DeveloperDriveEnablementStateError
      * @type {Integer (Int32)}
      */
-    static DeveloperDriveEnablementStateError => 0
+    static Error => 0
 
     /**
+     * Native name: DeveloperDriveEnabled
      * @type {Integer (Int32)}
      */
-    static DeveloperDriveEnabled => 1
+    static Enabled => 1
 
     /**
+     * Native name: DeveloperDriveDisabledBySystemPolicy
      * @type {Integer (Int32)}
      */
-    static DeveloperDriveDisabledBySystemPolicy => 2
+    static DisabledBySystemPolicy => 2
 
     /**
+     * Native name: DeveloperDriveDisabledByGroupPolicy
      * @type {Integer (Int32)}
      */
-    static DeveloperDriveDisabledByGroupPolicy => 3
+    static DisabledByGroupPolicy => 3
 }

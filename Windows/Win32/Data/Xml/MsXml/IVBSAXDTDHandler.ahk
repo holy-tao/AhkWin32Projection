@@ -30,7 +30,6 @@ class IVBSAXDTDHandler extends IDispatch {
     static VTableNames => ["notationDecl", "unparsedEntityDecl"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
@@ -42,7 +41,6 @@ class IVBSAXDTDHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 

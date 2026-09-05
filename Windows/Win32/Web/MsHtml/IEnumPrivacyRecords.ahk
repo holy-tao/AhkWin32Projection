@@ -31,7 +31,6 @@ class IEnumPrivacyRecords extends IUnknown {
     static VTableNames => ["Reset", "GetSize", "GetPrivacyImpacted", "Next"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -40,7 +39,6 @@ class IEnumPrivacyRecords extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSize() {
@@ -49,7 +47,6 @@ class IEnumPrivacyRecords extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetPrivacyImpacted() {
@@ -58,7 +55,6 @@ class IEnumPrivacyRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrUrl 
      * @param {Pointer<BSTR>} pbstrPolicyRef 
      * @param {Pointer<Integer>} pdwReserved 

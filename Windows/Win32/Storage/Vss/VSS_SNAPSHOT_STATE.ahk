@@ -35,141 +35,158 @@ class VSS_SNAPSHOT_STATE extends Win32Enum {
      *       
      * 
      * Unknown shadow copy state.
+     * Native name: VSS_SS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VSS_SS_UNKNOWN => 0
+    static SS_UNKNOWN => 0
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Shadow copy is being prepared.
+     * Native name: VSS_SS_PREPARING
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PREPARING => 1
+    static SS_PREPARING => 1
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Processing of the shadow copy preparation is in progress.
+     * Native name: VSS_SS_PROCESSING_PREPARE
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PROCESSING_PREPARE => 2
+    static SS_PROCESSING_PREPARE => 2
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Shadow copy has been prepared.
+     * Native name: VSS_SS_PREPARED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PREPARED => 3
+    static SS_PREPARED => 3
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Processing of the shadow copy precommit is in process.
+     * Native name: VSS_SS_PROCESSING_PRECOMMIT
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PROCESSING_PRECOMMIT => 4
+    static SS_PROCESSING_PRECOMMIT => 4
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Shadow copy is precommitted.
+     * Native name: VSS_SS_PRECOMMITTED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PRECOMMITTED => 5
+    static SS_PRECOMMITTED => 5
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Processing of the shadow copy commit is in process.
+     * Native name: VSS_SS_PROCESSING_COMMIT
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PROCESSING_COMMIT => 6
+    static SS_PROCESSING_COMMIT => 6
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Shadow copy is committed.
+     * Native name: VSS_SS_COMMITTED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_COMMITTED => 7
+    static SS_COMMITTED => 7
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Processing of the shadow copy postcommit is in process.
+     * Native name: VSS_SS_PROCESSING_POSTCOMMIT
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PROCESSING_POSTCOMMIT => 8
+    static SS_PROCESSING_POSTCOMMIT => 8
 
     /**
      * Reserved for system use.
      *       
      * 
      * Processing of the shadow copy file commit operation is underway.
+     * Native name: VSS_SS_PROCESSING_PREFINALCOMMIT
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PROCESSING_PREFINALCOMMIT => 9
+    static SS_PROCESSING_PREFINALCOMMIT => 9
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Processing of the shadow copy file commit operation is done.
+     * Native name: VSS_SS_PREFINALCOMMITTED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PREFINALCOMMITTED => 10
+    static SS_PREFINALCOMMITTED => 10
 
     /**
      * Reserved for system use.
      *       
      * 
      * Processing of the shadow copy following the final commit and prior to shadow copy create is underway.
+     * Native name: VSS_SS_PROCESSING_POSTFINALCOMMIT
      * @type {Integer (Int32)}
      */
-    static VSS_SS_PROCESSING_POSTFINALCOMMIT => 11
+    static SS_PROCESSING_POSTFINALCOMMIT => 11
 
     /**
      * Shadow copy is created.
+     * Native name: VSS_SS_CREATED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_CREATED => 12
+    static SS_CREATED => 12
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Shadow copy creation is aborted.
+     * Native name: VSS_SS_ABORTED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_ABORTED => 13
+    static SS_ABORTED => 13
 
     /**
      * Reserved for system use. 
      *       
      * 
      * Shadow copy has been deleted.
+     * Native name: VSS_SS_DELETED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_DELETED => 14
+    static SS_DELETED => 14
 
     /**
+     * Native name: VSS_SS_POSTCOMMITTED
      * @type {Integer (Int32)}
      */
-    static VSS_SS_POSTCOMMITTED => 15
+    static SS_POSTCOMMITTED => 15
 
     /**
      * Reserved value.
+     * Native name: VSS_SS_COUNT
      * @type {Integer (Int32)}
      */
-    static VSS_SS_COUNT => 16
+    static SS_COUNT => 16
 }

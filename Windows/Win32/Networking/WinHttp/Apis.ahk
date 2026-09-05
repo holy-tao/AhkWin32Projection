@@ -7284,7 +7284,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hResolver 
      * @param {PWSTR} pcwszUrl 
      * @param {Pointer<WINHTTP_AUTOPROXY_OPTIONS>} pAutoProxyOptions 
@@ -7347,7 +7346,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hResolver 
      * @param {Pointer<WINHTTP_PROXY_RESULT_EX>} pProxyResultEx 
      * @returns {Integer} 
@@ -7373,7 +7371,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<WINHTTP_PROXY_RESULT_EX>} pProxyResultEx 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7609,7 +7606,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hSession 
      * @param {BOOL} fForceUpdate 
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
@@ -7623,7 +7619,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hSession 
      * @param {PWSTR} pcwszConnectionName 
      * @param {BOOL} fFallBackToDefaultSettings 
@@ -7645,7 +7640,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7654,7 +7648,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hSession 
      * @param {Pointer<Integer>} pdwProxySettingsVersion 
      * @returns {Integer} 
@@ -7668,7 +7661,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {BOOL} fProxySettingsPerUser 
      * @returns {Integer} 
      */
@@ -8060,7 +8052,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hRequest 
      * @param {Pointer} dwContext 
      * @returns {Pointer<Void>} 
@@ -8073,7 +8064,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolHandle 
      * @param {Integer} Flags 
      * @param {Pointer<Void>} pvBuffer 
@@ -8089,7 +8079,6 @@ class WinHttp {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolHandle 
      * @param {Integer} Flags 
      * @param {Integer} pvBuffer 

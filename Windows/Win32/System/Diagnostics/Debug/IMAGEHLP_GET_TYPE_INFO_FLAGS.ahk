@@ -7,12 +7,14 @@
 class IMAGEHLP_GET_TYPE_INFO_FLAGS extends Win32Enum {
 
     /**
+     * Native name: IMAGEHLP_GET_TYPE_INFO_CHILDREN
      * @type {Integer (UInt32)}
      */
-    static IMAGEHLP_GET_TYPE_INFO_CHILDREN => 2
+    static CHILDREN => 2
 
     /**
+     * Native name: IMAGEHLP_GET_TYPE_INFO_UNCACHED
      * @type {Integer (UInt32)}
      */
-    static IMAGEHLP_GET_TYPE_INFO_UNCACHED => 1
+    static UNCACHED => 1
 }

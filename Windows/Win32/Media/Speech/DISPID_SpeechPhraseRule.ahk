@@ -7,42 +7,50 @@
 class DISPID_SpeechPhraseRule extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPRuleName
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleName => 1
+    static SPRuleName => 1
 
     /**
+     * Native name: DISPID_SPRuleId
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleId => 2
+    static SPRuleId => 2
 
     /**
+     * Native name: DISPID_SPRuleFirstElement
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleFirstElement => 3
+    static SPRuleFirstElement => 3
 
     /**
+     * Native name: DISPID_SPRuleNumberOfElements
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleNumberOfElements => 4
+    static SPRuleNumberOfElements => 4
 
     /**
+     * Native name: DISPID_SPRuleParent
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleParent => 5
+    static SPRuleParent => 5
 
     /**
+     * Native name: DISPID_SPRuleChildren
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleChildren => 6
+    static SPRuleChildren => 6
 
     /**
+     * Native name: DISPID_SPRuleConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleConfidence => 7
+    static SPRuleConfidence => 7
 
     /**
+     * Native name: DISPID_SPRuleEngineConfidence
      * @type {Integer (Int32)}
      */
-    static DISPID_SPRuleEngineConfidence => 8
+    static SPRuleEngineConfidence => 8
 }

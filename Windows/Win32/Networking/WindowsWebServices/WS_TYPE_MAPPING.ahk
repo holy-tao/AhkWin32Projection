@@ -38,9 +38,10 @@ class WS_TYPE_MAPPING extends Win32Enum {
      * WsReadToStartElement(...)?
      * WsReadType(..., WS_ELEMENT_TYPE_MAPPING, ...)
      * ```
+     * Native name: WS_ELEMENT_TYPE_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ELEMENT_TYPE_MAPPING => 1
+    static ELEMENT_TYPE_MAPPING => 1
 
     /**
      * This is used when reading or writing the value of a single attribute.  The definition
@@ -69,9 +70,10 @@ class WS_TYPE_MAPPING extends Win32Enum {
      * WsReadType(..., WS_ATTRIBUTE_TYPE_MAPPING, ...)
      * WsReadEndAttribute(...)
      * ```
+     * Native name: WS_ATTRIBUTE_TYPE_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ATTRIBUTE_TYPE_MAPPING => 2
+    static ATTRIBUTE_TYPE_MAPPING => 2
 
     /**
      * This is used when when the type corresponds to all or part of the 
@@ -110,9 +112,10 @@ class WS_TYPE_MAPPING extends Win32Enum {
      * // Read other element content, if any
      * WsReadEndElement(...)
      * ```
+     * Native name: WS_ELEMENT_CONTENT_TYPE_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ELEMENT_CONTENT_TYPE_MAPPING => 3
+    static ELEMENT_CONTENT_TYPE_MAPPING => 3
 
     /**
      * This is used when when the type corresponds to the complete
@@ -141,7 +144,8 @@ class WS_TYPE_MAPPING extends Win32Enum {
      * WsReadToStartElement(...)?
      * WsReadType(..., WS_ANY_ELEMENT_TYPE_MAPPING, ...)
      * ```
+     * Native name: WS_ANY_ELEMENT_TYPE_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_ANY_ELEMENT_TYPE_MAPPING => 4
+    static ANY_ELEMENT_TYPE_MAPPING => 4
 }

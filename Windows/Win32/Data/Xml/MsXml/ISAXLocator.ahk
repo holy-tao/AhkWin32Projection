@@ -29,7 +29,6 @@ class ISAXLocator extends IUnknown {
     static VTableNames => ["getColumnNumber", "getLineNumber", "getPublicId", "getSystemId"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     getColumnNumber() {
@@ -38,7 +37,6 @@ class ISAXLocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getLineNumber() {
@@ -47,7 +45,6 @@ class ISAXLocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getPublicId() {
@@ -56,7 +53,6 @@ class ISAXLocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getSystemId() {

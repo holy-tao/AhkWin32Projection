@@ -7,7 +7,8 @@
 class OCSPRequestFlag extends Win32Enum {
 
     /**
+     * Native name: OCSP_RF_REJECT_SIGNED_REQUESTS
      * @type {Integer (Int32)}
      */
-    static OCSP_RF_REJECT_SIGNED_REQUESTS => 1
+    static RF_REJECT_SIGNED_REQUESTS => 1
 }

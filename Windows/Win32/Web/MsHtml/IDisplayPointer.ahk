@@ -38,7 +38,6 @@ class IDisplayPointer extends IUnknown {
     static VTableNames => ["MoveToPoint", "MoveUnit", "PositionMarkupPointer", "MoveToPointer", "SetPointerGravity", "GetPointerGravity", "SetDisplayGravity", "GetDisplayGravity", "IsPositioned", "Unposition", "IsEqualTo", "IsLeftOf", "IsRightOf", "IsAtBOL", "MoveToMarkupPointer", "ScrollIntoView", "GetLineInfo", "GetFlowElement", "QueryBreaks"]
 
     /**
-     * 
      * @param {POINT} ptPoint 
      * @param {COORD_SYSTEM} eCoordSystem 
      * @param {IHTMLElement} pElementContext 
@@ -51,7 +50,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {DISPLAY_MOVEUNIT} eMoveUnit 
      * @param {Integer} lXPos 
      * @returns {HRESULT} 
@@ -62,7 +60,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pMarkupPointer 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {HRESULT} 
      */
@@ -82,7 +78,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINTER_GRAVITY} eGravity 
      * @returns {HRESULT} 
      */
@@ -92,7 +87,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {POINTER_GRAVITY} 
      */
     GetPointerGravity() {
@@ -101,7 +95,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {DISPLAY_GRAVITY} eGravity 
      * @returns {HRESULT} 
      */
@@ -111,7 +104,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DISPLAY_GRAVITY} 
      */
     GetDisplayGravity() {
@@ -120,7 +112,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsPositioned() {
@@ -129,7 +120,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unposition() {
@@ -138,7 +128,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {BOOL} 
      */
@@ -148,7 +137,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {BOOL} 
      */
@@ -158,7 +146,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {BOOL} 
      */
@@ -168,7 +155,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAtBOL() {
@@ -177,7 +163,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointer 
      * @param {IDisplayPointer} pDispLineContext 
      * @returns {HRESULT} 
@@ -188,7 +173,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ScrollIntoView() {
@@ -197,7 +181,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ILineInfo} 
      */
     GetLineInfo() {
@@ -206,7 +189,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetFlowElement() {
@@ -215,7 +197,6 @@ class IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     QueryBreaks() {

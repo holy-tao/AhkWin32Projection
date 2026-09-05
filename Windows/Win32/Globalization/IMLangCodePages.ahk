@@ -30,7 +30,6 @@ class IMLangCodePages extends IUnknown {
     static VTableNames => ["GetCharCodePages", "GetStrCodePages", "CodePageToCodePages", "CodePagesToCodePage"]
 
     /**
-     * 
      * @param {Integer} chSrc 
      * @returns {Integer} 
      */
@@ -40,7 +39,6 @@ class IMLangCodePages extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSrc 
      * @param {Integer} cchSrc 
      * @param {Integer} dwPriorityCodePages 
@@ -59,7 +57,6 @@ class IMLangCodePages extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uCodePage 
      * @returns {Integer} 
      */
@@ -69,7 +66,6 @@ class IMLangCodePages extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCodePages 
      * @param {Integer} uDefaultCodePage 
      * @returns {Integer} 

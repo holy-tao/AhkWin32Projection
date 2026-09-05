@@ -30,7 +30,6 @@ class ISegment extends IUnknown {
     static VTableNames => ["GetPointers"]
 
     /**
-     * 
      * @param {IMarkupPointer} pIStart 
      * @param {IMarkupPointer} pIEnd 
      * @returns {HRESULT} 

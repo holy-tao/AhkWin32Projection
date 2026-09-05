@@ -10,115 +10,134 @@ class TextDecorationLineStyle extends Win32Enum {
 
     /**
      * No line style.
+     * Native name: TextDecorationLineStyle_None
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_None => 0
+    static None => 0
 
     /**
      * A single solid line.
+     * Native name: TextDecorationLineStyle_Single
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_Single => 1
+    static Single => 1
 
     /**
      * Only words (not spaces) are underlined.
+     * Native name: TextDecorationLineStyle_WordsOnly
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_WordsOnly => 2
+    static WordsOnly => 2
 
     /**
      * A double line.
+     * Native name: TextDecorationLineStyle_Double
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_Double => 3
+    static Double => 3
 
     /**
      * A dotted line.
+     * Native name: TextDecorationLineStyle_Dot
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_Dot => 4
+    static Dot => 4
 
     /**
      * A dashed line.
+     * Native name: TextDecorationLineStyle_Dash
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_Dash => 5
+    static Dash => 5
 
     /**
      * Alternating dashes and dots.
+     * Native name: TextDecorationLineStyle_DashDot
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_DashDot => 6
+    static DashDot => 6
 
     /**
      * A dash followed by two dots.
+     * Native name: TextDecorationLineStyle_DashDotDot
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_DashDotDot => 7
+    static DashDotDot => 7
 
     /**
      * A wavy line.
+     * Native name: TextDecorationLineStyle_Wavy
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_Wavy => 8
+    static Wavy => 8
 
     /**
      * A thick single line.
+     * Native name: TextDecorationLineStyle_ThickSingle
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_ThickSingle => 9
+    static ThickSingle => 9
 
     /**
      * A double wavy line.
+     * Native name: TextDecorationLineStyle_DoubleWavy
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_DoubleWavy => 11
+    static DoubleWavy => 11
 
     /**
      * A thick wavy line.
+     * Native name: TextDecorationLineStyle_ThickWavy
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_ThickWavy => 12
+    static ThickWavy => 12
 
     /**
      * Long dashes.
+     * Native name: TextDecorationLineStyle_LongDash
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_LongDash => 13
+    static LongDash => 13
 
     /**
      * A thick dashed line.
+     * Native name: TextDecorationLineStyle_ThickDash
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_ThickDash => 14
+    static ThickDash => 14
 
     /**
      * Thick dashes alternating with thick dots.
+     * Native name: TextDecorationLineStyle_ThickDashDot
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_ThickDashDot => 15
+    static ThickDashDot => 15
 
     /**
      * A thick dash followed by two thick dots.
+     * Native name: TextDecorationLineStyle_ThickDashDotDot
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_ThickDashDotDot => 16
+    static ThickDashDotDot => 16
 
     /**
      * A thick dotted line.
+     * Native name: TextDecorationLineStyle_ThickDot
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_ThickDot => 17
+    static ThickDot => 17
 
     /**
      * Thick long dashes.
+     * Native name: TextDecorationLineStyle_ThickLongDash
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_ThickLongDash => 18
+    static ThickLongDash => 18
 
     /**
      * A line style not represented by another value.
+     * Native name: TextDecorationLineStyle_Other
      * @type {Integer (Int32)}
      */
-    static TextDecorationLineStyle_Other => -1
+    static Other => -1
 }

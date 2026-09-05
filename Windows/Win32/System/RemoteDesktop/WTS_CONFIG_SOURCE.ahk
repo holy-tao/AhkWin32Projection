@@ -10,7 +10,8 @@ class WTS_CONFIG_SOURCE extends Win32Enum {
 
     /**
      * The configuration information came from the Security Accounts Manager (SAM) database.
+     * Native name: WTSUserConfigSourceSAM
      * @type {Integer (Int32)}
      */
-    static WTSUserConfigSourceSAM => 0
+    static UserConfigSourceSAM => 0
 }

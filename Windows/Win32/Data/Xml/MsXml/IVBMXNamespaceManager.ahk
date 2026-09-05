@@ -42,7 +42,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fOverride 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_allowOverride() {
@@ -61,7 +59,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -70,7 +67,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     pushContext() {
@@ -79,7 +75,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} contextNode 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {HRESULT} 
@@ -90,7 +85,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     popContext() {
@@ -99,7 +93,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} prefix 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -113,7 +106,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMXNamespacePrefixes} 
      */
     getDeclaredPrefixes() {
@@ -122,7 +114,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {IMXNamespacePrefixes} 
      */
@@ -134,7 +125,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} prefix 
      * @returns {VARIANT} 
      */
@@ -147,7 +137,6 @@ class IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPrefix 
      * @param {IXMLDOMNode} contextNode 
      * @returns {VARIANT} 

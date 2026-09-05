@@ -10,19 +10,22 @@ class MBN_VOICE_CALL_STATE extends Win32Enum {
 
     /**
      * Voice call state is unknown.
+     * Native name: MBN_VOICE_CALL_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_VOICE_CALL_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * An active voice call is in progress.
+     * Native name: MBN_VOICE_CALL_STATE_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static MBN_VOICE_CALL_STATE_IN_PROGRESS => 1
+    static IN_PROGRESS => 1
 
     /**
      * No voice call is in progress.
+     * Native name: MBN_VOICE_CALL_STATE_HANGUP
      * @type {Integer (Int32)}
      */
-    static MBN_VOICE_CALL_STATE_HANGUP => 2
+    static HANGUP => 2
 }

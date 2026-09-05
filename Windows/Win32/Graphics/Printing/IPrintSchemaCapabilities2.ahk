@@ -31,7 +31,6 @@ class IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities {
     static VTableNames => ["GetParameterDefinition"]
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaParameterDefinition} 

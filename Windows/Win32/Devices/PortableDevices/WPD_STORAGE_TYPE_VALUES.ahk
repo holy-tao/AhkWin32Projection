@@ -11,27 +11,32 @@
 class WPD_STORAGE_TYPE_VALUES extends Win32Enum {
 
     /**
+     * Native name: WPD_STORAGE_TYPE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_STORAGE_TYPE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: WPD_STORAGE_TYPE_FIXED_ROM
      * @type {Integer (Int32)}
      */
-    static WPD_STORAGE_TYPE_FIXED_ROM => 1
+    static FIXED_ROM => 1
 
     /**
+     * Native name: WPD_STORAGE_TYPE_REMOVABLE_ROM
      * @type {Integer (Int32)}
      */
-    static WPD_STORAGE_TYPE_REMOVABLE_ROM => 2
+    static REMOVABLE_ROM => 2
 
     /**
+     * Native name: WPD_STORAGE_TYPE_FIXED_RAM
      * @type {Integer (Int32)}
      */
-    static WPD_STORAGE_TYPE_FIXED_RAM => 3
+    static FIXED_RAM => 3
 
     /**
+     * Native name: WPD_STORAGE_TYPE_REMOVABLE_RAM
      * @type {Integer (Int32)}
      */
-    static WPD_STORAGE_TYPE_REMOVABLE_RAM => 4
+    static REMOVABLE_RAM => 4
 }

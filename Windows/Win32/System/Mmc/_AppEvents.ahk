@@ -43,7 +43,6 @@ class _AppEvents extends IDispatch {
     static VTableNames => ["OnQuit", "OnDocumentOpen", "OnDocumentClose", "OnSnapInAdded", "OnSnapInRemoved", "OnNewView", "OnViewClose", "OnViewChange", "OnSelectionChange", "OnContextMenuExecuted", "OnToolbarButtonClicked", "OnListUpdated"]
 
     /**
-     * 
      * @param {_Application} _Application 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @param {BOOL} New 
      * @returns {HRESULT} 
@@ -64,7 +62,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @returns {HRESULT} 
      */
@@ -74,7 +71,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} 
@@ -85,7 +81,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} 
@@ -96,7 +91,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {HRESULT} 
      */
@@ -106,7 +100,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {HRESULT} 
      */
@@ -116,7 +109,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @param {Node} NewOwnerNode 
      * @returns {HRESULT} 
@@ -127,7 +119,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @param {Nodes} NewNodes 
      * @returns {HRESULT} 
@@ -138,7 +129,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {MenuItem} _MenuItem 
      * @returns {HRESULT} 
      */
@@ -148,7 +138,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnToolbarButtonClicked() {
@@ -157,7 +146,6 @@ class _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {HRESULT} 
      */

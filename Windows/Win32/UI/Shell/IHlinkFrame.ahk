@@ -35,7 +35,6 @@ class IHlinkFrame extends IUnknown {
     static VTableNames => ["SetBrowseContext", "GetBrowseContext", "Navigate", "OnNavigate", "UpdateHlink"]
 
     /**
-     * 
      * @param {IHlinkBrowseContext} pihlbc 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class IHlinkFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHlinkBrowseContext} 
      */
     GetBrowseContext() {
@@ -68,7 +66,6 @@ class IHlinkFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -85,7 +82,6 @@ class IHlinkFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 

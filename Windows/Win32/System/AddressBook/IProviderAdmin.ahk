@@ -34,7 +34,6 @@ class IProviderAdmin extends IUnknown {
     static VTableNames => ["GetLastError", "GetProviderTable", "CreateProvider", "DeleteProvider", "OpenProfileSection"]
 
     /**
-     * 
      * @remarks
      * The **IProviderAdmin::GetLastError** method supplies information about a prior method call that failed. Callers can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box.
      * @param {HRESULT} _hResult > [in] An HRESULT data type that contains the error value generated in the previous method call.
@@ -81,7 +80,6 @@ class IProviderAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IProviderAdmin::CreateProvider** method adds a service provider to the message service. The  _lpszProvider_ parameter must point to the name of a provider that belongs to the message service. **CreateProvider** does not verify whether the name matches the name of a provider in the service; if the passed name does not match a service name, the call succeeds, but the results are unpredictable. Most message services do not allow providers to be added or deleted while the profile is in use. 
      *   
@@ -107,7 +105,6 @@ class IProviderAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IProviderAdmin::DeleteProvider** method deletes a service provider from the message service. **DeleteProvider** determines the service provider to delete by matching the **MAPIUID** structure pointed to by  _lpUID_ with the set of identifiers registered by the active service providers. 
      *   

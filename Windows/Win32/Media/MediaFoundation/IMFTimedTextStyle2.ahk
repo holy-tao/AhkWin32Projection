@@ -32,7 +32,6 @@ class IMFTimedTextStyle2 extends IUnknown {
     static VTableNames => ["GetRuby", "GetBouten", "IsTextCombined", "GetFontAngleInDegrees"]
 
     /**
-     * 
      * @returns {IMFTimedTextRuby} 
      */
     GetRuby() {
@@ -41,7 +40,6 @@ class IMFTimedTextStyle2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMFTimedTextBouten} 
      */
     GetBouten() {
@@ -50,7 +48,6 @@ class IMFTimedTextStyle2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsTextCombined() {
@@ -59,7 +56,6 @@ class IMFTimedTextStyle2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetFontAngleInDegrees() {

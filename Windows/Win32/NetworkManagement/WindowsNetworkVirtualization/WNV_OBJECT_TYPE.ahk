@@ -10,18 +10,21 @@ class WNV_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The notification is about a change in a property of a provider address object.
+     * Native name: WnvProviderAddressType
      * @type {Integer (Int32)}
      */
-    static WnvProviderAddressType => 0
+    static ProviderAddressType => 0
 
     /**
+     * Native name: WnvCustomerAddressType
      * @type {Integer (Int32)}
      */
-    static WnvCustomerAddressType => 1
+    static CustomerAddressType => 1
 
     /**
      * The maximum possible value for this enumeration type. This is not a legal value.
+     * Native name: WnvObjectTypeMax
      * @type {Integer (Int32)}
      */
-    static WnvObjectTypeMax => 2
+    static Max => 2
 }

@@ -31,7 +31,6 @@ class INetCfgComponentUpperEdge extends IUnknown {
     static VTableNames => ["GetInterfaceIdsForAdapter", "AddInterfacesToAdapter", "RemoveInterfacesFromAdapter"]
 
     /**
-     * 
      * @param {INetCfgComponent} pAdapter 
      * @param {Pointer<Integer>} pdwNumInterfaces 
      * @param {Pointer<Pointer<Guid>>} ppguidInterfaceIds 
@@ -46,7 +45,6 @@ class INetCfgComponentUpperEdge extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pAdapter 
      * @param {Integer} dwNumInterfaces 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class INetCfgComponentUpperEdge extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pAdapter 
      * @param {Integer} dwNumInterfaces 
      * @param {Pointer<Guid>} pguidInterfaceIds 

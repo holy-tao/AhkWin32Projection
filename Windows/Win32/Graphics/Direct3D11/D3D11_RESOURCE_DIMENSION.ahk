@@ -12,31 +12,36 @@ class D3D11_RESOURCE_DIMENSION extends Win32Enum {
 
     /**
      * Resource is of unknown type.
+     * Native name: D3D11_RESOURCE_DIMENSION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_DIMENSION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Resource is a buffer.
+     * Native name: D3D11_RESOURCE_DIMENSION_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_DIMENSION_BUFFER => 1
+    static BUFFER => 1
 
     /**
      * Resource is a 1D texture.
+     * Native name: D3D11_RESOURCE_DIMENSION_TEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_DIMENSION_TEXTURE1D => 2
+    static TEXTURE1D => 2
 
     /**
      * Resource is a 2D texture.
+     * Native name: D3D11_RESOURCE_DIMENSION_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_DIMENSION_TEXTURE2D => 3
+    static TEXTURE2D => 3
 
     /**
      * Resource is a 3D texture.
+     * Native name: D3D11_RESOURCE_DIMENSION_TEXTURE3D
      * @type {Integer (Int32)}
      */
-    static D3D11_RESOURCE_DIMENSION_TEXTURE3D => 4
+    static TEXTURE3D => 4
 }

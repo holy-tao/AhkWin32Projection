@@ -36,7 +36,6 @@ class IPrinterExtensionManager extends IUnknown {
     static VTableNames => ["EnableEvents", "DisableEvents"]
 
     /**
-     * 
      * @param {Guid} printerDriverId 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class IPrinterExtensionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisableEvents() {

@@ -74,7 +74,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPinID 
      * @returns {IDispatch} 
      */
@@ -86,7 +85,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -96,7 +94,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VendorInfo() {
@@ -106,7 +103,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_Filter() {
@@ -115,7 +111,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Pins() {
@@ -124,7 +119,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsFileSource() {
@@ -133,7 +127,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Filename() {
@@ -143,7 +136,6 @@ class IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strFilename 
      * @returns {HRESULT} 
      */

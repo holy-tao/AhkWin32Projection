@@ -7,7 +7,8 @@
 class D2D1_CROSSFADE_PROP extends Win32Enum {
 
     /**
+     * Native name: D2D1_CROSSFADE_PROP_WEIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_CROSSFADE_PROP_WEIGHT => 0
+    static WEIGHT => 0
 }

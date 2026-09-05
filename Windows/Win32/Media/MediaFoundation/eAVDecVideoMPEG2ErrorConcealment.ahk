@@ -7,12 +7,14 @@
 class eAVDecVideoMPEG2ErrorConcealment extends Win32Enum {
 
     /**
+     * Native name: eErrorConcealmentOff
      * @type {Integer (Int32)}
      */
-    static eErrorConcealmentOff => 0
+    static Off => 0
 
     /**
+     * Native name: eErrorConcealmentOn
      * @type {Integer (Int32)}
      */
-    static eErrorConcealmentOn => 1
+    static On => 1
 }

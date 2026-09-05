@@ -77,39 +77,45 @@ class VDS_TRANSITION_STATE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_TS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_TS_UNKNOWN => 0
+    static TS_UNKNOWN => 0
 
     /**
      * The object is stable. No configuration activity is currently in progress.
+     * Native name: VDS_TS_STABLE
      * @type {Integer (Int32)}
      */
-    static VDS_TS_STABLE => 1
+    static TS_STABLE => 1
 
     /**
      * The object is being extended.
+     * Native name: VDS_TS_EXTENDING
      * @type {Integer (Int32)}
      */
-    static VDS_TS_EXTENDING => 2
+    static TS_EXTENDING => 2
 
     /**
      * The object is being shrunk.
+     * Native name: VDS_TS_SHRINKING
      * @type {Integer (Int32)}
      */
-    static VDS_TS_SHRINKING => 3
+    static TS_SHRINKING => 3
 
     /**
      * The object is being automagically reconfigured.
+     * Native name: VDS_TS_RECONFIGING
      * @type {Integer (Int32)}
      */
-    static VDS_TS_RECONFIGING => 4
+    static TS_RECONFIGING => 4
 
     /**
      * The object is being restriped.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_TS_RESTRIPING
      * @type {Integer (Int32)}
      */
-    static VDS_TS_RESTRIPING => 5
+    static TS_RESTRIPING => 5
 }

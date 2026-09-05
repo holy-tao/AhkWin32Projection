@@ -7,22 +7,26 @@
 class FILE_DEVICE_TYPE extends Win32Enum {
 
     /**
+     * Native name: FILE_DEVICE_CD_ROM
      * @type {Integer (UInt32)}
      */
-    static FILE_DEVICE_CD_ROM => 2
+    static CD_ROM => 2
 
     /**
+     * Native name: FILE_DEVICE_DISK
      * @type {Integer (UInt32)}
      */
-    static FILE_DEVICE_DISK => 7
+    static DISK => 7
 
     /**
+     * Native name: FILE_DEVICE_TAPE
      * @type {Integer (UInt32)}
      */
-    static FILE_DEVICE_TAPE => 31
+    static TAPE => 31
 
     /**
+     * Native name: FILE_DEVICE_DVD
      * @type {Integer (UInt32)}
      */
-    static FILE_DEVICE_DVD => 51
+    static DVD => 51
 }

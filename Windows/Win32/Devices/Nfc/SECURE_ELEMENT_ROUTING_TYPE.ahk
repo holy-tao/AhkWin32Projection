@@ -7,17 +7,20 @@
 class SECURE_ELEMENT_ROUTING_TYPE extends Win32Enum {
 
     /**
+     * Native name: RoutingTypeTech
      * @type {Integer (Int32)}
      */
-    static RoutingTypeTech => 0
+    static Tech => 0
 
     /**
+     * Native name: RoutingTypeProtocol
      * @type {Integer (Int32)}
      */
-    static RoutingTypeProtocol => 1
+    static Protocol => 1
 
     /**
+     * Native name: RoutingTypeAid
      * @type {Integer (Int32)}
      */
-    static RoutingTypeAid => 2
+    static Aid => 2
 }

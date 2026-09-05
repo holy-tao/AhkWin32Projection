@@ -30,7 +30,6 @@ class IElementNamespace extends IUnknown {
     static VTableNames => ["AddTag"]
 
     /**
-     * 
      * @param {BSTR} bstrTagName 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 

@@ -7,22 +7,26 @@
 class KSMETHOD_BDA_GPNV_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_GPNV_GETVALUE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GPNV_GETVALUE => 0
+    static GETVALUE => 0
 
     /**
+     * Native name: KSMETHOD_BDA_GPNV_SETVALUE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GPNV_SETVALUE => 1
+    static SETVALUE => 1
 
     /**
+     * Native name: KSMETHOD_BDA_GPNV_NAMEFROMINDEX
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GPNV_NAMEFROMINDEX => 2
+    static NAMEFROMINDEX => 2
 
     /**
+     * Native name: KSMETHOD_BDA_GPNV_GETVALUEUPDATENAME
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_GPNV_GETVALUEUPDATENAME => 3
+    static GETVALUEUPDATENAME => 3
 }

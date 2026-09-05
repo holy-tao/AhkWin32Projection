@@ -29,7 +29,6 @@ class IViewSort extends IUnknown {
     static VTableNames => ["GetSortOrder", "SetSortOrder"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcValues 
      * @param {Pointer<Pointer<Pointer>>} prgColumns 
      * @param {Pointer<Pointer<Integer>>} prgOrders 
@@ -45,7 +44,6 @@ class IViewSort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cValues 
      * @param {Pointer<Pointer>} rgColumns 
      * @param {Pointer<Integer>} rgOrders 

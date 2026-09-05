@@ -30,7 +30,6 @@ class IAsyncManager extends IUnknown {
     static VTableNames => ["CompleteCall", "GetCallContext", "GetState"]
 
     /**
-     * 
      * @param {HRESULT} Result 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IAsyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -50,7 +48,6 @@ class IAsyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetState() {

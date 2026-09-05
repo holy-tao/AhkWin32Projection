@@ -31,7 +31,6 @@ class IPartImage extends IPartBase {
     static VTableNames => ["GetImageProperties", "SetImageContent"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetImageProperties() {
@@ -41,7 +40,6 @@ class IPartImage extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} pContentType 
      * @returns {HRESULT} 
      */

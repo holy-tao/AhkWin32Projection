@@ -12,31 +12,36 @@ class AM_PROPERTY_DVD_RATE_CHANGE extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: AM_RATE_ChangeRate
      * @type {Integer (Int32)}
      */
-    static AM_RATE_ChangeRate => 1
+    static Rate => 1
 
     /**
      * Reserved.
+     * Native name: AM_RATE_FullDataRateMax
      * @type {Integer (Int32)}
      */
-    static AM_RATE_FullDataRateMax => 2
+    static FullDataRateMax => 2
 
     /**
      * Reserved.
+     * Native name: AM_RATE_ReverseDecode
      * @type {Integer (Int32)}
      */
-    static AM_RATE_ReverseDecode => 3
+    static ReverseDecode => 3
 
     /**
      * Reserved.
+     * Native name: AM_RATE_DecoderPosition
      * @type {Integer (Int32)}
      */
-    static AM_RATE_DecoderPosition => 4
+    static DecoderPosition => 4
 
     /**
      * Reserved.
+     * Native name: AM_RATE_DecoderVersion
      * @type {Integer (Int32)}
      */
-    static AM_RATE_DecoderVersion => 5
+    static DecoderVersion => 5
 }

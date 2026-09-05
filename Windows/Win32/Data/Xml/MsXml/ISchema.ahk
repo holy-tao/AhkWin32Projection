@@ -95,7 +95,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_targetNamespace() {
@@ -105,7 +104,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -115,7 +113,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_types() {
@@ -124,7 +121,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_elements() {
@@ -133,7 +129,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
@@ -142,7 +137,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributeGroups() {
@@ -151,7 +145,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_modelGroups() {
@@ -160,7 +153,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_notations() {
@@ -169,7 +161,6 @@ class ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_schemaLocations() {

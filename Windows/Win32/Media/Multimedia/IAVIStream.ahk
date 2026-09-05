@@ -322,7 +322,6 @@ class IAVIStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpInfo 
      * @param {Integer} cbInfo 
      * @returns {HRESULT} 

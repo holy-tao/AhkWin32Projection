@@ -7,22 +7,26 @@
 class FILE_FLUSH_MODE extends Win32Enum {
 
     /**
+     * Native name: FILE_FLUSH_DEFAULT
      * @type {Integer (Int32)}
      */
-    static FILE_FLUSH_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: FILE_FLUSH_DATA
      * @type {Integer (Int32)}
      */
-    static FILE_FLUSH_DATA => 1
+    static DATA => 1
 
     /**
+     * Native name: FILE_FLUSH_MIN_METADATA
      * @type {Integer (Int32)}
      */
-    static FILE_FLUSH_MIN_METADATA => 2
+    static MIN_METADATA => 2
 
     /**
+     * Native name: FILE_FLUSH_NO_SYNC
      * @type {Integer (Int32)}
      */
-    static FILE_FLUSH_NO_SYNC => 3
+    static NO_SYNC => 3
 }

@@ -10,13 +10,15 @@ class D3D12_MESH_SHADER_TIER extends Win32Enum {
 
     /**
      * Specifies that mesh and amplification shaders are not supported.
+     * Native name: D3D12_MESH_SHADER_TIER_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_MESH_SHADER_TIER_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * Specifies that mesh and amplification shaders are supported.
+     * Native name: D3D12_MESH_SHADER_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D12_MESH_SHADER_TIER_1 => 10
+    static 1 => 10
 }

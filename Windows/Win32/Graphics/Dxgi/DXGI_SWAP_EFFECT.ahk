@@ -44,9 +44,10 @@ class DXGI_SWAP_EFFECT extends Win32Enum {
      * The recommended approach is to manually convert DX11 Discard swap chains to use flip models within UWP,  using <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b> instead of <b>DXGI_SWAP_EFFECT_DISCARD</b> where possible.
      *  Refer to the Example below, and see <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model">this article</a> for more information.</div>
      * <div> </div>
+     * Native name: DXGI_SWAP_EFFECT_DISCARD
      * @type {Integer (Int32)}
      */
-    static DXGI_SWAP_EFFECT_DISCARD => 0
+    static DISCARD => 0
 
     /**
      * Use this flag to specify the bitblt model and to specify that DXGI persist the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.
@@ -58,18 +59,20 @@ class DXGI_SWAP_EFFECT extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  For best performance, use <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> instead of <b>DXGI_SWAP_EFFECT_SEQUENTIAL</b>. See <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model">this article</a> for more information.</div>
      * <div> </div>
+     * Native name: DXGI_SWAP_EFFECT_SEQUENTIAL
      * @type {Integer (Int32)}
      */
-    static DXGI_SWAP_EFFECT_SEQUENTIAL => 1
+    static SEQUENTIAL => 1
 
     /**
      * Use this flag to specify the flip presentation model and to specify that DXGI persist the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>. This flag cannot be used with multisampling.
      *             
      * 
      * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 8.
+     * Native name: DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL
      * @type {Integer (Int32)}
      */
-    static DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL => 3
+    static FLIP_SEQUENTIAL => 3
 
     /**
      * Use this flag to specify the flip presentation model and to specify that DXGI discard the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.
@@ -84,7 +87,8 @@ class DXGI_SWAP_EFFECT extends Win32Enum {
      * <div class="alert"><b>Note</b>  Windows Store apps must use <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> or <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b>.
      *             </div>
      * <div> </div>
+     * Native name: DXGI_SWAP_EFFECT_FLIP_DISCARD
      * @type {Integer (Int32)}
      */
-    static DXGI_SWAP_EFFECT_FLIP_DISCARD => 4
+    static FLIP_DISCARD => 4
 }

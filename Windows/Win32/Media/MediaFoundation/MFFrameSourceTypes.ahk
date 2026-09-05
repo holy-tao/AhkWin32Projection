@@ -12,33 +12,38 @@ class MFFrameSourceTypes extends Win32Enum {
 
     /**
      * The frame source provides color data.
+     * Native name: MFFrameSourceTypes_Color
      * @type {Integer (Int32)}
      */
-    static MFFrameSourceTypes_Color => 1
+    static Color => 1
 
     /**
      * The frame source provides infrared data.
+     * Native name: MFFrameSourceTypes_Infrared
      * @type {Integer (Int32)}
      */
-    static MFFrameSourceTypes_Infrared => 2
+    static Infrared => 2
 
     /**
      * The frame source provides depth data.
+     * Native name: MFFrameSourceTypes_Depth
      * @type {Integer (Int32)}
      */
-    static MFFrameSourceTypes_Depth => 4
+    static Depth => 4
 
     /**
      * The frame source provides image data.
      * 
      * <b>Note</b>  This value was added in Windows 10, version 1803.
+     * Native name: MFFrameSourceTypes_Image
      * @type {Integer (Int32)}
      */
-    static MFFrameSourceTypes_Image => 8
+    static Image => 8
 
     /**
      * The frame source provides custom data.
+     * Native name: MFFrameSourceTypes_Custom
      * @type {Integer (Int32)}
      */
-    static MFFrameSourceTypes_Custom => 128
+    static Custom => 128
 }

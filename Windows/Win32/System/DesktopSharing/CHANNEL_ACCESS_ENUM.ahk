@@ -10,13 +10,15 @@ class CHANNEL_ACCESS_ENUM extends Win32Enum {
 
     /**
      * No access. The attendee cannot send or receive data on the channel.
+     * Native name: CHANNEL_ACCESS_ENUM_NONE
      * @type {Integer (Int32)}
      */
-    static CHANNEL_ACCESS_ENUM_NONE => 0
+    static NONE => 0
 
     /**
      * The attendee can send or receive data on the channel.
+     * Native name: CHANNEL_ACCESS_ENUM_SENDRECEIVE
      * @type {Integer (Int32)}
      */
-    static CHANNEL_ACCESS_ENUM_SENDRECEIVE => 1
+    static SENDRECEIVE => 1
 }

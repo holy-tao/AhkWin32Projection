@@ -10,13 +10,15 @@ class MBN_PIN_CONSTANTS extends Win32Enum {
 
     /**
      * Indicates that there is no available information available on the number of attempts remaining to enter a valid PIN.
+     * Native name: MBN_ATTEMPTS_REMAINING_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MBN_ATTEMPTS_REMAINING_UNKNOWN => -1
+    static ATTEMPTS_REMAINING_UNKNOWN => -1
 
     /**
      * Indicates that there is no available information on the length of the PIN.
+     * Native name: MBN_PIN_LENGTH_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_LENGTH_UNKNOWN => -1
+    static LENGTH_UNKNOWN => -1
 }

@@ -31,7 +31,6 @@ class INetCfgPnpReconfigCallback extends IUnknown {
     static VTableNames => ["SendPnpReconfig"]
 
     /**
-     * 
      * @param {NCPNP_RECONFIG_LAYER} Layer 
      * @param {PWSTR} pszwUpper 
      * @param {PWSTR} pszwLower 

@@ -31,7 +31,6 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     static VTableNames => ["GetNetworkInboundAccess", "GetNetworkOutboundAccess", "SetNetworkInboundAccess", "SetNetworkOutboundAccess", "GetAuthenticationLevel", "SetAuthenticationLevel"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkInboundAccess() {
@@ -40,7 +39,6 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkOutboundAccess() {
@@ -49,7 +47,6 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @param {BOOL} bInbound 
      * @returns {HRESULT} 
      */
@@ -59,7 +56,6 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @param {BOOL} bOutbound 
      * @returns {HRESULT} 
      */
@@ -69,7 +65,6 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @returns {AUTHENTICATION_LEVEL} 
      */
     GetAuthenticationLevel() {
@@ -78,7 +73,6 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @param {AUTHENTICATION_LEVEL} AuthLevel 
      * @returns {HRESULT} 
      */

@@ -30,7 +30,6 @@ class INetRasConnectionIpUiInfo extends IUnknown {
     static VTableNames => ["GetUiInfo"]
 
     /**
-     * 
      * @returns {RASCON_IPUI} 
      */
     GetUiInfo() {

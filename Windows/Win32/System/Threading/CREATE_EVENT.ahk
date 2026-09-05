@@ -7,12 +7,14 @@
 class CREATE_EVENT extends Win32BitflagEnum {
 
     /**
+     * Native name: CREATE_EVENT_INITIAL_SET
      * @type {Integer (UInt32)}
      */
-    static CREATE_EVENT_INITIAL_SET => 2
+    static INITIAL_SET => 2
 
     /**
+     * Native name: CREATE_EVENT_MANUAL_RESET
      * @type {Integer (UInt32)}
      */
-    static CREATE_EVENT_MANUAL_RESET => 1
+    static MANUAL_RESET => 1
 }

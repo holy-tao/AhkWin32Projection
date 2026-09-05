@@ -12,13 +12,15 @@ class D2D1_VERTEX_USAGE extends Win32Enum {
 
     /**
      * The created vertex buffer is updated infrequently.
+     * Native name: D2D1_VERTEX_USAGE_STATIC
      * @type {Integer (Int32)}
      */
-    static D2D1_VERTEX_USAGE_STATIC => 0
+    static STATIC => 0
 
     /**
      * The created vertex buffer is changed frequently.
+     * Native name: D2D1_VERTEX_USAGE_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static D2D1_VERTEX_USAGE_DYNAMIC => 1
+    static DYNAMIC => 1
 }

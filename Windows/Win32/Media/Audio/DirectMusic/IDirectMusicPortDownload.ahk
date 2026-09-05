@@ -30,7 +30,6 @@ class IDirectMusicPortDownload extends IUnknown {
     static VTableNames => ["GetBuffer", "AllocateBuffer", "GetDLId", "GetAppend", "Download", "Unload"]
 
     /**
-     * 
      * @param {Integer} dwDLId 
      * @returns {IDirectMusicDownload} 
      */
@@ -40,7 +39,6 @@ class IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSize 
      * @returns {IDirectMusicDownload} 
      */
@@ -50,7 +48,6 @@ class IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwStartDLId 
      * @param {Integer} dwCount 
      * @returns {HRESULT} 
@@ -63,7 +60,6 @@ class IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwAppend 
      * @returns {HRESULT} 
      */
@@ -75,7 +71,6 @@ class IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicDownload} pIDMDownload 
      * @returns {HRESULT} 
      */
@@ -85,7 +80,6 @@ class IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicDownload} pIDMDownload 
      * @returns {HRESULT} 
      */

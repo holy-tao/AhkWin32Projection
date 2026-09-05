@@ -7,17 +7,20 @@
 class HTMLMaximizeFlag extends Win32Enum {
 
     /**
+     * Native name: HTMLMaximizeFlagNo
      * @type {Integer (Int32)}
      */
-    static HTMLMaximizeFlagNo => 0
+    static No => 0
 
     /**
+     * Native name: HTMLMaximizeFlagYes
      * @type {Integer (Int32)}
      */
-    static HTMLMaximizeFlagYes => 65536
+    static Yes => 65536
 
     /**
+     * Native name: HTMLMaximizeFlag_Max
      * @type {Integer (Int32)}
      */
-    static HTMLMaximizeFlag_Max => 2147483647
+    static Max => 2147483647
 }

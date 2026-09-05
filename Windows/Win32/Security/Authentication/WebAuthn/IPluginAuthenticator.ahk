@@ -33,7 +33,6 @@ class IPluginAuthenticator extends IUnknown {
     static VTableNames => ["MakeCredential", "GetAssertion", "CancelOperation", "GetLockStatus"]
 
     /**
-     * 
      * @param {Pointer<WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {WEBAUTHN_PLUGIN_OPERATION_RESPONSE} 
      */
@@ -44,7 +43,6 @@ class IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {WEBAUTHN_PLUGIN_OPERATION_RESPONSE} 
      */
@@ -55,7 +53,6 @@ class IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST>} request 
      * @returns {HRESULT} 
      */

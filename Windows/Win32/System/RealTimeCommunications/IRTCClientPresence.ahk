@@ -71,7 +71,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fUseStorage 
      * @param {VARIANT} varStorage 
      * @returns {HRESULT} 
@@ -82,7 +81,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} varStorage 
      * @returns {HRESULT} 
      */
@@ -92,7 +90,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} varStorage 
      * @param {VARIANT_BOOL} fReplaceAll 
      * @returns {HRESULT} 
@@ -103,7 +100,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumBuddies} 
      */
     EnumerateBuddies() {
@@ -112,7 +108,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Buddies() {
@@ -121,7 +116,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @returns {IRTCBuddy} 
      */
@@ -133,7 +127,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
@@ -152,7 +145,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCBuddy} pBuddy 
      * @returns {HRESULT} 
      */
@@ -162,7 +154,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumWatchers} 
      */
     EnumerateWatchers() {
@@ -171,7 +162,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Watchers() {
@@ -180,7 +170,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @returns {IRTCWatcher} 
      */
@@ -192,7 +181,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
@@ -210,7 +198,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCWatcher} pWatcher 
      * @returns {HRESULT} 
      */
@@ -220,7 +207,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_STATUS} enStatus 
      * @param {BSTR} bstrNotes 
      * @returns {HRESULT} 
@@ -233,7 +219,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_OFFER_WATCHER_MODE} 
      */
     get_OfferWatcherMode() {
@@ -242,7 +227,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_OFFER_WATCHER_MODE} enMode 
      * @returns {HRESULT} 
      */
@@ -252,7 +236,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_PRIVACY_MODE} 
      */
     get_PrivacyMode() {
@@ -261,7 +244,6 @@ class IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PRIVACY_MODE} enMode 
      * @returns {HRESULT} 
      */

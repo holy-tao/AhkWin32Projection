@@ -7,32 +7,38 @@
 class RAS_FLAGS extends Win32Enum {
 
     /**
+     * Native name: RAS_FLAGS_PPP_CONNECTION
      * @type {Integer (UInt32)}
      */
-    static RAS_FLAGS_PPP_CONNECTION => 1
+    static PPP_CONNECTION => 1
 
     /**
+     * Native name: RAS_FLAGS_MESSENGER_PRESENT
      * @type {Integer (UInt32)}
      */
-    static RAS_FLAGS_MESSENGER_PRESENT => 2
+    static MESSENGER_PRESENT => 2
 
     /**
+     * Native name: RAS_FLAGS_QUARANTINE_PRESENT
      * @type {Integer (UInt32)}
      */
-    static RAS_FLAGS_QUARANTINE_PRESENT => 8
+    static QUARANTINE_PRESENT => 8
 
     /**
+     * Native name: RAS_FLAGS_ARAP_CONNECTION
      * @type {Integer (UInt32)}
      */
-    static RAS_FLAGS_ARAP_CONNECTION => 16
+    static ARAP_CONNECTION => 16
 
     /**
+     * Native name: RAS_FLAGS_IKEV2_CONNECTION
      * @type {Integer (UInt32)}
      */
-    static RAS_FLAGS_IKEV2_CONNECTION => 16
+    static IKEV2_CONNECTION => 16
 
     /**
+     * Native name: RAS_FLAGS_DORMANT
      * @type {Integer (UInt32)}
      */
-    static RAS_FLAGS_DORMANT => 32
+    static DORMANT => 32
 }

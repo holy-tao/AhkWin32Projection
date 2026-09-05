@@ -10,13 +10,15 @@ class AppPolicyCreateFileAccess extends Win32Enum {
 
     /**
      * Indicates that the process has full access to the IO devices. This value is expected for a desktop application, or for a Desktop Bridge application.
+     * Native name: AppPolicyCreateFileAccess_Full
      * @type {Integer (Int32)}
      */
-    static AppPolicyCreateFileAccess_Full => 0
+    static Full => 0
 
     /**
      * Indicates that the process has limited access to the IO devices. This value is expected for a UWP app.
+     * Native name: AppPolicyCreateFileAccess_Limited
      * @type {Integer (Int32)}
      */
-    static AppPolicyCreateFileAccess_Limited => 1
+    static Limited => 1
 }

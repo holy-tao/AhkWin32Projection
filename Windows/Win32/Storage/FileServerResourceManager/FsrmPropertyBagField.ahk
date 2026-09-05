@@ -11,14 +11,16 @@ class FsrmPropertyBagField extends Win32Enum {
     /**
      * Indicates if the property bag should include the name of the volume being accessed, which may be a 
      *       snapshot.
+     * Native name: FsrmPropertyBagField_AccessVolume
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyBagField_AccessVolume => 0
+    static AccessVolume => 0
 
     /**
      * Indicates if the property bag should include the volume <b>GUID</b> name of the 
      *       original volume.
+     * Native name: FsrmPropertyBagField_VolumeGuidName
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyBagField_VolumeGuidName => 1
+    static VolumeGuidName => 1
 }

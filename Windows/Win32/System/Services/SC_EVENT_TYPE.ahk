@@ -9,17 +9,20 @@
 class SC_EVENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: SC_EVENT_DATABASE_CHANGE
      * @type {Integer (Int32)}
      */
-    static SC_EVENT_DATABASE_CHANGE => 0
+    static DATABASE_CHANGE => 0
 
     /**
+     * Native name: SC_EVENT_PROPERTY_CHANGE
      * @type {Integer (Int32)}
      */
-    static SC_EVENT_PROPERTY_CHANGE => 1
+    static PROPERTY_CHANGE => 1
 
     /**
+     * Native name: SC_EVENT_STATUS_CHANGE
      * @type {Integer (Int32)}
      */
-    static SC_EVENT_STATUS_CHANGE => 2
+    static STATUS_CHANGE => 2
 }

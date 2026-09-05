@@ -10,7 +10,8 @@ class CF_OPERATION_ACK_RENAME_FLAGS extends Win32BitflagEnum {
 
     /**
      * No acknowledgment of placeholder renaming.
+     * Native name: CF_OPERATION_ACK_RENAME_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_ACK_RENAME_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

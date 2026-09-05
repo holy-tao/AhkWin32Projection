@@ -7,67 +7,80 @@
 class NDIS_FDDI_ATTACHMENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: NdisFddiTypeIsolated
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeIsolated => 1
+    static Isolated => 1
 
     /**
+     * Native name: NdisFddiTypeLocalA
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeLocalA => 2
+    static LocalA => 2
 
     /**
+     * Native name: NdisFddiTypeLocalB
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeLocalB => 3
+    static LocalB => 3
 
     /**
+     * Native name: NdisFddiTypeLocalAB
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeLocalAB => 4
+    static LocalAB => 4
 
     /**
+     * Native name: NdisFddiTypeLocalS
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeLocalS => 5
+    static LocalS => 5
 
     /**
+     * Native name: NdisFddiTypeWrapA
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeWrapA => 6
+    static WrapA => 6
 
     /**
+     * Native name: NdisFddiTypeWrapB
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeWrapB => 7
+    static WrapB => 7
 
     /**
+     * Native name: NdisFddiTypeWrapAB
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeWrapAB => 8
+    static WrapAB => 8
 
     /**
+     * Native name: NdisFddiTypeWrapS
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeWrapS => 9
+    static WrapS => 9
 
     /**
+     * Native name: NdisFddiTypeCWrapA
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeCWrapA => 10
+    static TypeCWrapA => 10
 
     /**
+     * Native name: NdisFddiTypeCWrapB
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeCWrapB => 11
+    static TypeCWrapB => 11
 
     /**
+     * Native name: NdisFddiTypeCWrapS
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeCWrapS => 12
+    static TypeCWrapS => 12
 
     /**
+     * Native name: NdisFddiTypeThrough
      * @type {Integer (Int32)}
      */
-    static NdisFddiTypeThrough => 13
+    static Through => 13
 }

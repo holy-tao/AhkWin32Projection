@@ -46,7 +46,6 @@ class ISpVoice extends ISpEventSource {
     static VTableNames => ["SetOutput", "GetOutputObjectToken", "GetOutputStream", "Pause", "Resume", "SetVoice", "GetVoice", "Speak", "SpeakStream", "GetStatus", "Skip", "SetPriority", "GetPriority", "SetAlertBoundary", "GetAlertBoundary", "SetRate", "GetRate", "SetVolume", "GetVolume", "WaitUntilDone", "SetSyncSpeakTimeout", "GetSyncSpeakTimeout", "SpeakCompleteEvent", "IsUISupported", "DisplayUI"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOutput 
      * @param {BOOL} fAllowFormatChanges 
      * @returns {HRESULT} 
@@ -57,7 +56,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetOutputObjectToken() {
@@ -66,7 +64,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpStreamFormat} 
      */
     GetOutputStream() {
@@ -97,7 +94,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pToken 
      * @returns {HRESULT} 
      */
@@ -107,7 +103,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetVoice() {
@@ -116,7 +111,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcs 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -129,7 +123,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -140,7 +133,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPVOICESTATUS>} pStatus 
      * @returns {PWSTR} 
      */
@@ -150,7 +142,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemType 
      * @param {Integer} lNumItems 
      * @param {Pointer<Integer>} pulNumSkipped 
@@ -166,7 +157,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {SPVPRIORITY} ePriority 
      * @returns {HRESULT} 
      */
@@ -176,7 +166,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPVPRIORITY>} pePriority 
      * @returns {HRESULT} 
      */
@@ -188,7 +177,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {SPEVENTENUM} eBoundary 
      * @returns {HRESULT} 
      */
@@ -198,7 +186,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENTENUM>} peBoundary 
      * @returns {HRESULT} 
      */
@@ -210,7 +197,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} RateAdjust 
      * @returns {HRESULT} 
      */
@@ -220,7 +206,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pRateAdjust 
      * @returns {HRESULT} 
      */
@@ -232,7 +217,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} usVolume 
      * @returns {HRESULT} 
      */
@@ -242,7 +226,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pusVolume 
      * @returns {HRESULT} 
      */
@@ -254,7 +237,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {HRESULT} 
      */
@@ -264,7 +246,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {HRESULT} 
      */
@@ -274,7 +255,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pmsTimeout 
      * @returns {HRESULT} 
      */
@@ -286,7 +266,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     SpeakCompleteEvent() {
@@ -296,7 +275,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTypeOfUI 
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
@@ -314,7 +292,6 @@ class ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszTypeOfUI 

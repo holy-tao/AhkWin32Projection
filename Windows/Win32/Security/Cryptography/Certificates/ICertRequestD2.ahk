@@ -31,7 +31,6 @@ class ICertRequestD2 extends ICertRequestD {
     static VTableNames => ["Request2", "GetCAProperty", "GetCAPropertyInfo", "Ping2"]
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszSerialNumber 
@@ -57,7 +56,6 @@ class ICertRequestD2 extends ICertRequestD {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @param {Integer} PropId 
      * @param {Integer} PropIndex 
@@ -73,7 +71,6 @@ class ICertRequestD2 extends ICertRequestD {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @param {Pointer<Integer>} pcProperty 
      * @param {Pointer<CERTTRANSBLOB>} pctbPropInfo 
@@ -89,7 +86,6 @@ class ICertRequestD2 extends ICertRequestD {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @returns {HRESULT} 
      */

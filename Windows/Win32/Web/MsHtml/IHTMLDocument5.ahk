@@ -111,7 +111,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -121,7 +120,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousewheel() {
@@ -131,7 +129,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_doctype() {
@@ -140,7 +137,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMImplementation} 
      */
     get_implementation() {
@@ -149,7 +145,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrattrName 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -161,7 +156,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrdata 
      * @returns {IHTMLDOMNode} 
      */
@@ -173,7 +167,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -183,7 +176,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusin() {
@@ -193,7 +185,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -203,7 +194,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusout() {
@@ -213,7 +203,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -223,7 +212,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onactivate() {
@@ -233,7 +221,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -243,7 +230,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondeactivate() {
@@ -253,7 +239,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -263,7 +248,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeactivate() {
@@ -273,7 +257,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -283,7 +266,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforedeactivate() {
@@ -293,7 +275,6 @@ class IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_compatMode() {

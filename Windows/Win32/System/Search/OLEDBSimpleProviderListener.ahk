@@ -36,7 +36,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     static VTableNames => ["aboutToChangeCell", "cellChanged", "aboutToDeleteRows", "deletedRows", "aboutToInsertRows", "insertedRows", "rowsAvailable", "transferComplete"]
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
@@ -58,7 +56,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -69,7 +66,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -80,7 +76,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -91,7 +86,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -102,7 +96,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -113,7 +106,6 @@ class OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {OSPXFER} xfer 
      * @returns {HRESULT} 
      */

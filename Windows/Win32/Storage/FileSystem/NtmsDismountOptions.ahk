@@ -7,12 +7,14 @@
 class NtmsDismountOptions extends Win32Enum {
 
     /**
+     * Native name: NTMS_DISMOUNT_DEFERRED
      * @type {Integer (Int32)}
      */
-    static NTMS_DISMOUNT_DEFERRED => 1
+    static DEFERRED => 1
 
     /**
+     * Native name: NTMS_DISMOUNT_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static NTMS_DISMOUNT_IMMEDIATE => 2
+    static IMMEDIATE => 2
 }

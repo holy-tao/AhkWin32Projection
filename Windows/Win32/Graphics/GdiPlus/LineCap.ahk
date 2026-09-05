@@ -7,57 +7,68 @@
 class LineCap extends Win32Enum {
 
     /**
+     * Native name: LineCapFlat
      * @type {Integer (Int32)}
      */
-    static LineCapFlat => 0
+    static Flat => 0
 
     /**
+     * Native name: LineCapSquare
      * @type {Integer (Int32)}
      */
-    static LineCapSquare => 1
+    static Square => 1
 
     /**
+     * Native name: LineCapRound
      * @type {Integer (Int32)}
      */
-    static LineCapRound => 2
+    static Round => 2
 
     /**
+     * Native name: LineCapTriangle
      * @type {Integer (Int32)}
      */
-    static LineCapTriangle => 3
+    static Triangle => 3
 
     /**
+     * Native name: LineCapNoAnchor
      * @type {Integer (Int32)}
      */
-    static LineCapNoAnchor => 16
+    static NoAnchor => 16
 
     /**
+     * Native name: LineCapSquareAnchor
      * @type {Integer (Int32)}
      */
-    static LineCapSquareAnchor => 17
+    static SquareAnchor => 17
 
     /**
+     * Native name: LineCapRoundAnchor
      * @type {Integer (Int32)}
      */
-    static LineCapRoundAnchor => 18
+    static RoundAnchor => 18
 
     /**
+     * Native name: LineCapDiamondAnchor
      * @type {Integer (Int32)}
      */
-    static LineCapDiamondAnchor => 19
+    static DiamondAnchor => 19
 
     /**
+     * Native name: LineCapArrowAnchor
      * @type {Integer (Int32)}
      */
-    static LineCapArrowAnchor => 20
+    static ArrowAnchor => 20
 
     /**
+     * Native name: LineCapCustom
      * @type {Integer (Int32)}
      */
-    static LineCapCustom => 255
+    static Custom => 255
 
     /**
+     * Native name: LineCapAnchorMask
      * @type {Integer (Int32)}
      */
-    static LineCapAnchorMask => 240
+    static AnchorMask => 240
 }

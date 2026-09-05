@@ -38,7 +38,6 @@ class IXSLTemplate extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} stylesheet 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IXSLTemplate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_stylesheet() {
@@ -57,7 +55,6 @@ class IXSLTemplate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXSLProcessor} 
      */
     createProcessor() {

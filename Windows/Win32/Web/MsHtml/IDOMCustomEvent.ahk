@@ -45,7 +45,6 @@ class IDOMCustomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_detail() {
@@ -55,7 +54,6 @@ class IDOMCustomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

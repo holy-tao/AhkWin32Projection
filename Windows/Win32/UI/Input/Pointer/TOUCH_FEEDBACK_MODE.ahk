@@ -7,17 +7,20 @@
 class TOUCH_FEEDBACK_MODE extends Win32Enum {
 
     /**
+     * Native name: TOUCH_FEEDBACK_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static TOUCH_FEEDBACK_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
+     * Native name: TOUCH_FEEDBACK_INDIRECT
      * @type {Integer (UInt32)}
      */
-    static TOUCH_FEEDBACK_INDIRECT => 2
+    static INDIRECT => 2
 
     /**
+     * Native name: TOUCH_FEEDBACK_NONE
      * @type {Integer (UInt32)}
      */
-    static TOUCH_FEEDBACK_NONE => 3
+    static NONE => 3
 }

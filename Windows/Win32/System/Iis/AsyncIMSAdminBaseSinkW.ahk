@@ -36,7 +36,6 @@ class AsyncIMSAdminBaseSinkW extends IUnknown {
     static VTableNames => ["Begin_SinkNotify", "Finish_SinkNotify", "Begin_ShutdownNotify", "Finish_ShutdownNotify"]
 
     /**
-     * 
      * @param {Integer} dwMDNumElements 
      * @param {Pointer<MD_CHANGE_OBJECT_W>} pcoChangeList 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class AsyncIMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_SinkNotify() {
@@ -56,7 +54,6 @@ class AsyncIMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_ShutdownNotify() {
@@ -65,7 +62,6 @@ class AsyncIMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_ShutdownNotify() {

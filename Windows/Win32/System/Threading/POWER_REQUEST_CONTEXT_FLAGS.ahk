@@ -7,12 +7,14 @@
 class POWER_REQUEST_CONTEXT_FLAGS extends Win32Enum {
 
     /**
+     * Native name: POWER_REQUEST_CONTEXT_DETAILED_STRING
      * @type {Integer (UInt32)}
      */
-    static POWER_REQUEST_CONTEXT_DETAILED_STRING => 2
+    static DETAILED_STRING => 2
 
     /**
+     * Native name: POWER_REQUEST_CONTEXT_SIMPLE_STRING
      * @type {Integer (UInt32)}
      */
-    static POWER_REQUEST_CONTEXT_SIMPLE_STRING => 1
+    static SIMPLE_STRING => 1
 }

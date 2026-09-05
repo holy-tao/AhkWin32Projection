@@ -301,7 +301,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -313,7 +312,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -323,7 +321,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -335,7 +332,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -345,7 +341,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -357,7 +352,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -367,7 +361,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -377,7 +370,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_status() {
@@ -386,7 +378,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -396,7 +387,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -405,7 +395,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -414,7 +403,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -424,7 +412,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_size() {
@@ -433,7 +420,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -443,7 +429,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_maxLength() {
@@ -646,7 +631,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -656,7 +640,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -666,7 +649,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -676,7 +658,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -686,7 +667,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -698,7 +678,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -708,7 +687,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -718,7 +696,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
@@ -727,7 +704,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {
@@ -736,7 +712,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -746,7 +721,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_indeterminate() {
@@ -755,7 +729,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -765,7 +738,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultChecked() {
@@ -774,7 +746,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -784,7 +755,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_checked() {
@@ -793,7 +763,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -803,7 +772,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -813,7 +781,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -823,7 +790,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -832,7 +798,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -842,7 +807,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -851,7 +815,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -863,7 +826,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -873,7 +835,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -885,7 +846,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -895,7 +855,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -907,7 +866,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lowsrc() {
@@ -917,7 +875,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -929,7 +886,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vrml() {
@@ -939,7 +895,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -951,7 +906,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dynsrc() {
@@ -961,7 +915,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -971,7 +924,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_complete() {
@@ -980,7 +932,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -990,7 +941,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_loop() {
@@ -1000,7 +950,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1012,7 +961,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -1022,7 +970,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1032,7 +979,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -1042,7 +988,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1052,7 +997,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -1062,7 +1006,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1072,7 +1015,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -1082,7 +1024,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -1092,7 +1033,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -1101,7 +1041,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -1111,7 +1050,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -1120,7 +1058,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1132,7 +1069,6 @@ class IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_start() {

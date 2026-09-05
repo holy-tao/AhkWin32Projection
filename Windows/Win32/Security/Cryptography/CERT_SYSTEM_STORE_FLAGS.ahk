@@ -7,12 +7,14 @@
 class CERT_SYSTEM_STORE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: CERT_SYSTEM_STORE_LOCATION_MASK
      * @type {Integer (UInt32)}
      */
-    static CERT_SYSTEM_STORE_LOCATION_MASK => 16711680
+    static LOCATION_MASK => 16711680
 
     /**
+     * Native name: CERT_SYSTEM_STORE_RELOCATE_FLAG
      * @type {Integer (UInt32)}
      */
-    static CERT_SYSTEM_STORE_RELOCATE_FLAG => 2147483648
+    static RELOCATE_FLAG => 2147483648
 }

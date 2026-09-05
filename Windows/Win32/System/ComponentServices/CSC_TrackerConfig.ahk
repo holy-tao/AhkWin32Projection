@@ -14,13 +14,15 @@ class CSC_TrackerConfig extends Win32Enum {
 
     /**
      * The tracker property is not added to the context in which the enclosed code runs.
+     * Native name: CSC_DontUseTracker
      * @type {Integer (Int32)}
      */
-    static CSC_DontUseTracker => 0
+    static DontUseTracker => 0
 
     /**
      * The tracker property is added to the context in which the enclosed code runs.
+     * Native name: CSC_UseTracker
      * @type {Integer (Int32)}
      */
-    static CSC_UseTracker => 1
+    static UseTracker => 1
 }

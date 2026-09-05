@@ -31,7 +31,6 @@ class ITimerService extends IUnknown {
     static VTableNames => ["CreateTimer", "GetNamedTimer", "SetNamedTimerReference"]
 
     /**
-     * 
      * @param {ITimer} pReferenceTimer 
      * @returns {ITimer} 
      */
@@ -41,7 +40,6 @@ class ITimerService extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidName 
      * @returns {ITimer} 
      */
@@ -51,7 +49,6 @@ class ITimerService extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidName 
      * @param {ITimer} pReferenceTimer 
      * @returns {HRESULT} 

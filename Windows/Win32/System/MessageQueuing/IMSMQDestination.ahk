@@ -89,7 +89,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Open() {
@@ -98,7 +97,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -107,7 +105,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsOpen() {
@@ -116,7 +113,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_IADs() {
@@ -125,7 +121,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pIADs 
      * @returns {HRESULT} 
      */
@@ -135,7 +130,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ADsPath() {
@@ -145,7 +139,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrADsPath 
      * @returns {HRESULT} 
      */
@@ -157,7 +150,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PathName() {
@@ -167,7 +159,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPathName 
      * @returns {HRESULT} 
      */
@@ -179,7 +170,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FormatName() {
@@ -189,7 +179,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFormatName 
      * @returns {HRESULT} 
      */
@@ -201,7 +190,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Destinations() {
@@ -210,7 +198,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pDestinations 
      * @returns {HRESULT} 
      */
@@ -220,7 +207,6 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {

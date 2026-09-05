@@ -10,19 +10,22 @@ class DSREG_JOIN_TYPE extends Win32Enum {
 
     /**
      * The type of join is not known.
+     * Native name: DSREG_UNKNOWN_JOIN
      * @type {Integer (Int32)}
      */
-    static DSREG_UNKNOWN_JOIN => 0
+    static UNKNOWN_JOIN => 0
 
     /**
      * The device is joined to Azure Active Directory (Azure AD).
+     * Native name: DSREG_DEVICE_JOIN
      * @type {Integer (Int32)}
      */
-    static DSREG_DEVICE_JOIN => 1
+    static DEVICE_JOIN => 1
 
     /**
      * The device is registered to Azure Active Directory (Azure AD), meaning an Azure AD work account is added on the device.
+     * Native name: DSREG_WORKPLACE_JOIN
      * @type {Integer (Int32)}
      */
-    static DSREG_WORKPLACE_JOIN => 2
+    static WORKPLACE_JOIN => 2
 }

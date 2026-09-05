@@ -12,19 +12,22 @@ class WRITE_THROUGH extends Win32Enum {
 
     /**
      * Indicates that no information is available about the write-through capabilities of the device.
+     * Native name: WriteThroughUnknown
      * @type {Integer (Int32)}
      */
-    static WriteThroughUnknown => 0
+    static Unknown => 0
 
     /**
      * Indicates that the device does not support write-through caching.
+     * Native name: WriteThroughNotSupported
      * @type {Integer (Int32)}
      */
-    static WriteThroughNotSupported => 1
+    static NotSupported => 1
 
     /**
      * Indicates that the device supports write-through caching.
+     * Native name: WriteThroughSupported
      * @type {Integer (Int32)}
      */
-    static WriteThroughSupported => 2
+    static Supported => 2
 }

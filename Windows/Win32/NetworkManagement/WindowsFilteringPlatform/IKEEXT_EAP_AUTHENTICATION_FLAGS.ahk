@@ -7,12 +7,14 @@
 class IKEEXT_EAP_AUTHENTICATION_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: IKEEXT_EAP_FLAG_LOCAL_AUTH_ONLY
      * @type {Integer (UInt32)}
      */
-    static IKEEXT_EAP_FLAG_LOCAL_AUTH_ONLY => 1
+    static FLAG_LOCAL_AUTH_ONLY => 1
 
     /**
+     * Native name: IKEEXT_EAP_FLAG_REMOTE_AUTH_ONLY
      * @type {Integer (UInt32)}
      */
-    static IKEEXT_EAP_FLAG_REMOTE_AUTH_ONLY => 2
+    static FLAG_REMOTE_AUTH_ONLY => 2
 }

@@ -10,19 +10,22 @@ class XHR_AUTH extends Win32Enum {
 
     /**
      * Allow authentication to both proxy and server.
+     * Native name: XHR_AUTH_ALL
      * @type {Integer (Int32)}
      */
-    static XHR_AUTH_ALL => 0
+    static ALL => 0
 
     /**
      * Disable authentication to both the proxy and server.
+     * Native name: XHR_AUTH_NONE
      * @type {Integer (Int32)}
      */
-    static XHR_AUTH_NONE => 1
+    static NONE => 1
 
     /**
      * Enable authentication to the proxy and disable auth to the server.
+     * Native name: XHR_AUTH_PROXY
      * @type {Integer (Int32)}
      */
-    static XHR_AUTH_PROXY => 2
+    static PROXY => 2
 }

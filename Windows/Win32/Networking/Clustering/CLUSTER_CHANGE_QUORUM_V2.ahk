@@ -12,13 +12,15 @@ class CLUSTER_CHANGE_QUORUM_V2 extends Win32Enum {
 
     /**
      * Indicates that the quorum configuration of the cluster has changed.
+     * Native name: CLUSTER_CHANGE_QUORUM_STATE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_QUORUM_STATE_V2 => 1
+    static STATE_V2 => 1
 
     /**
      * Indicates all V2 quorum notifications.
+     * Native name: CLUSTER_CHANGE_QUORUM_ALL_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_QUORUM_ALL_V2 => 1
+    static ALL_V2 => 1
 }

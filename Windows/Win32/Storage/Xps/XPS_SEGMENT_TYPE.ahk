@@ -57,43 +57,50 @@ class XPS_SEGMENT_TYPE extends Win32Enum {
 
     /**
      * The line segment is an arc that covers more than 180 degrees and is drawn in a clockwise direction from the start point to the end point.
+     * Native name: XPS_SEGMENT_TYPE_ARC_LARGE_CLOCKWISE
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_TYPE_ARC_LARGE_CLOCKWISE => 1
+    static ARC_LARGE_CLOCKWISE => 1
 
     /**
      * The line segment is an arc that covers more than 180 degrees and is drawn in a counterclockwise direction from the start point to the end point.
+     * Native name: XPS_SEGMENT_TYPE_ARC_LARGE_COUNTERCLOCKWISE
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_TYPE_ARC_LARGE_COUNTERCLOCKWISE => 2
+    static ARC_LARGE_COUNTERCLOCKWISE => 2
 
     /**
      * The line segment is an arc that covers at most 180 degrees and is drawn in a clockwise direction from the start point to the end point.
+     * Native name: XPS_SEGMENT_TYPE_ARC_SMALL_CLOCKWISE
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_TYPE_ARC_SMALL_CLOCKWISE => 3
+    static ARC_SMALL_CLOCKWISE => 3
 
     /**
      * The line segment is an arc that covers at most 180 degrees and is drawn in a counterclockwise direction from the start point to the end point.
+     * Native name: XPS_SEGMENT_TYPE_ARC_SMALL_COUNTERCLOCKWISE
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_TYPE_ARC_SMALL_COUNTERCLOCKWISE => 4
+    static ARC_SMALL_COUNTERCLOCKWISE => 4
 
     /**
      * The line segment is a cubic Bezier curve that is drawn between two points.
+     * Native name: XPS_SEGMENT_TYPE_BEZIER
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_TYPE_BEZIER => 5
+    static BEZIER => 5
 
     /**
      * The line segment is a straight line that is drawn between two points.
+     * Native name: XPS_SEGMENT_TYPE_LINE
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_TYPE_LINE => 6
+    static LINE => 6
 
     /**
      * The line segment is a quadratic Bezier curve that is drawn between two points.
+     * Native name: XPS_SEGMENT_TYPE_QUADRATIC_BEZIER
      * @type {Integer (Int32)}
      */
-    static XPS_SEGMENT_TYPE_QUADRATIC_BEZIER => 7
+    static QUADRATIC_BEZIER => 7
 }

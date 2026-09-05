@@ -37,7 +37,6 @@ class ISVGStylable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedString} 
      */
     get_className() {

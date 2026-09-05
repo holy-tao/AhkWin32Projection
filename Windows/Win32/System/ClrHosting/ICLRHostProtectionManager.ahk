@@ -30,7 +30,6 @@ class ICLRHostProtectionManager extends IUnknown {
     static VTableNames => ["SetProtectedCategories", "SetEagerSerializeGrantSets"]
 
     /**
-     * 
      * @param {EApiCategories} categories 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ICLRHostProtectionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetEagerSerializeGrantSets() {

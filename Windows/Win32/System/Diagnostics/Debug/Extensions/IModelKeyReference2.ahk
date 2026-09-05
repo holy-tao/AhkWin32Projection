@@ -30,7 +30,6 @@ class IModelKeyReference2 extends IModelKeyReference {
     static VTableNames => ["OverrideContextObject"]
 
     /**
-     * 
      * @param {IModelObject} newContextObject 
      * @returns {HRESULT} 
      */

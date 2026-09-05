@@ -10,19 +10,22 @@ class D2D1_BORDER_EDGE_MODE extends Win32Enum {
 
     /**
      * Repeats the pixels from the edges of the image.
+     * Native name: D2D1_BORDER_EDGE_MODE_CLAMP
      * @type {Integer (Int32)}
      */
-    static D2D1_BORDER_EDGE_MODE_CLAMP => 0
+    static CLAMP => 0
 
     /**
      * Uses pixels from the opposite end edge of the image.
+     * Native name: D2D1_BORDER_EDGE_MODE_WRAP
      * @type {Integer (Int32)}
      */
-    static D2D1_BORDER_EDGE_MODE_WRAP => 1
+    static WRAP => 1
 
     /**
      * Reflects pixels about the edge of the image.
+     * Native name: D2D1_BORDER_EDGE_MODE_MIRROR
      * @type {Integer (Int32)}
      */
-    static D2D1_BORDER_EDGE_MODE_MIRROR => 2
+    static MIRROR => 2
 }

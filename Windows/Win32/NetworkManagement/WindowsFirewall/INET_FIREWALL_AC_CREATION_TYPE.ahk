@@ -10,25 +10,29 @@ class INET_FIREWALL_AC_CREATION_TYPE extends Win32Enum {
 
     /**
      * This value is reserved for system use.
+     * Native name: INET_FIREWALL_AC_NONE
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_NONE => 0
+    static NONE => 0
 
     /**
      * Notifications will be delivered when an app container is created with a package identifier.
+     * Native name: INET_FIREWALL_AC_PACKAGE_ID_ONLY
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_PACKAGE_ID_ONLY => 1
+    static PACKAGE_ID_ONLY => 1
 
     /**
      * Notifications will be delivered when an app container is created with a binary path.
+     * Native name: INET_FIREWALL_AC_BINARY
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_BINARY => 2
+    static BINARY => 2
 
     /**
      * Maximum value for testing purposes.
+     * Native name: INET_FIREWALL_AC_MAX
      * @type {Integer (Int32)}
      */
-    static INET_FIREWALL_AC_MAX => 4
+    static MAX => 4
 }

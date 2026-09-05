@@ -75,7 +75,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Request 
      * @param {Integer} InBuffer 
      * @param {Integer} InBufferSize 
@@ -89,7 +88,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {PSTR} _SourceFile 
      * @param {Integer} Arg64 
@@ -106,7 +104,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} ModAddr 
      * @param {PSTR} _File 
@@ -131,7 +128,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
@@ -154,7 +150,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
@@ -168,7 +163,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {PWSTR} _SourceFile 
      * @param {Integer} Arg64 
@@ -185,7 +179,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} ModAddr 
      * @param {PWSTR} _File 
@@ -210,7 +203,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
@@ -233,7 +225,6 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 

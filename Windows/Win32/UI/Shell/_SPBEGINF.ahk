@@ -10,31 +10,36 @@ class _SPBEGINF extends Win32Enum {
 
     /**
      * Indicates default progress behavior.
+     * Native name: SPBEGINF_NORMAL
      * @type {Integer (Int32)}
      */
-    static SPBEGINF_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * Indicates that the progress UI should automatically update a text field with the amount of time remaining until the action completes.
+     * Native name: SPBEGINF_AUTOTIME
      * @type {Integer (Int32)}
      */
-    static SPBEGINF_AUTOTIME => 2
+    static AUTOTIME => 2
 
     /**
      * Indicates that the UI should not display a progress bar.
+     * Native name: SPBEGINF_NOPROGRESSBAR
      * @type {Integer (Int32)}
      */
-    static SPBEGINF_NOPROGRESSBAR => 16
+    static NOPROGRESSBAR => 16
 
     /**
      * Indicates that the UI should use a marquee-style progress bar.
+     * Native name: SPBEGINF_MARQUEEPROGRESS
      * @type {Integer (Int32)}
      */
-    static SPBEGINF_MARQUEEPROGRESS => 32
+    static MARQUEEPROGRESS => 32
 
     /**
      * Indicates that the UI should not include a <b>Cancel</b> button.
+     * Native name: SPBEGINF_NOCANCELBUTTON
      * @type {Integer (Int32)}
      */
-    static SPBEGINF_NOCANCELBUTTON => 64
+    static NOCANCELBUTTON => 64
 }

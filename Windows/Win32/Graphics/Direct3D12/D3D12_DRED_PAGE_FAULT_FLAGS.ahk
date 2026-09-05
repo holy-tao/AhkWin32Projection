@@ -7,7 +7,8 @@
 class D3D12_DRED_PAGE_FAULT_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_DRED_PAGE_FAULT_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_PAGE_FAULT_FLAGS_NONE => 0
+    static NONE => 0
 }

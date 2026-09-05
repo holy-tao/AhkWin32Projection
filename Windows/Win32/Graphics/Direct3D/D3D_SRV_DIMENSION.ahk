@@ -12,75 +12,87 @@ class D3D_SRV_DIMENSION extends Win32Enum {
 
     /**
      * The type is unknown.
+     * Native name: D3D_SRV_DIMENSION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The resource is a buffer.
+     * Native name: D3D_SRV_DIMENSION_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_BUFFER => 1
+    static BUFFER => 1
 
     /**
      * The resource is a 1D texture.
+     * Native name: D3D_SRV_DIMENSION_TEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURE1D => 2
+    static TEXTURE1D => 2
 
     /**
      * The resource is an array of 1D textures.
+     * Native name: D3D_SRV_DIMENSION_TEXTURE1DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURE1DARRAY => 3
+    static TEXTURE1DARRAY => 3
 
     /**
      * The resource is a 2D texture.
+     * Native name: D3D_SRV_DIMENSION_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURE2D => 4
+    static TEXTURE2D => 4
 
     /**
      * The resource is an array of 2D textures.
+     * Native name: D3D_SRV_DIMENSION_TEXTURE2DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURE2DARRAY => 5
+    static TEXTURE2DARRAY => 5
 
     /**
      * The resource is a multisampling 2D texture.
+     * Native name: D3D_SRV_DIMENSION_TEXTURE2DMS
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURE2DMS => 6
+    static TEXTURE2DMS => 6
 
     /**
      * The resource is an array of multisampling 2D textures.
+     * Native name: D3D_SRV_DIMENSION_TEXTURE2DMSARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURE2DMSARRAY => 7
+    static TEXTURE2DMSARRAY => 7
 
     /**
      * The resource is a 3D texture.
+     * Native name: D3D_SRV_DIMENSION_TEXTURE3D
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURE3D => 8
+    static TEXTURE3D => 8
 
     /**
      * The resource is a cube texture.
+     * Native name: D3D_SRV_DIMENSION_TEXTURECUBE
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURECUBE => 9
+    static TEXTURECUBE => 9
 
     /**
      * The resource is an array of cube textures.
+     * Native name: D3D_SRV_DIMENSION_TEXTURECUBEARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_TEXTURECUBEARRAY => 10
+    static TEXTURECUBEARRAY => 10
 
     /**
      * The resource is a raw buffer. For more info about raw viewing of buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-intro">Raw Views of Buffers</a>.
+     * Native name: D3D_SRV_DIMENSION_BUFFEREX
      * @type {Integer (Int32)}
      */
-    static D3D_SRV_DIMENSION_BUFFEREX => 11
+    static BUFFEREX => 11
 
     /**
      * The type is unknown.

@@ -33,7 +33,6 @@ class IWICBitmapFrameChainWriter extends IUnknown {
     static VTableNames => ["AppendFrameToChain", "DoesSupportChainType"]
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @param {Pointer<IPropertyBag2>} ppIEncoderOptions 
      * @returns {IWICBitmapFrameEncode} 
@@ -44,7 +43,6 @@ class IWICBitmapFrameChainWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @returns {BOOL} 
      */

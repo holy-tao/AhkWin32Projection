@@ -29,7 +29,6 @@ class IDebuggerThreadControl extends IUnknown {
     static VTableNames => ["ThreadIsBlockingForDebugger", "ReleaseAllRuntimeThreads", "StartBlockingForDebugger"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ThreadIsBlockingForDebugger() {
@@ -38,7 +37,6 @@ class IDebuggerThreadControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReleaseAllRuntimeThreads() {
@@ -47,7 +45,6 @@ class IDebuggerThreadControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwUnused 
      * @returns {HRESULT} 
      */

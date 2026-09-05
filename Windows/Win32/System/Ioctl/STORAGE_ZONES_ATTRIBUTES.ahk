@@ -7,22 +7,26 @@
 class STORAGE_ZONES_ATTRIBUTES extends Win32Enum {
 
     /**
+     * Native name: ZonesAttributeTypeAndLengthMayDifferent
      * @type {Integer (Int32)}
      */
-    static ZonesAttributeTypeAndLengthMayDifferent => 0
+    static AttributeTypeAndLengthMayDifferent => 0
 
     /**
+     * Native name: ZonesAttributeTypeSameLengthSame
      * @type {Integer (Int32)}
      */
-    static ZonesAttributeTypeSameLengthSame => 1
+    static AttributeTypeSameLengthSame => 1
 
     /**
+     * Native name: ZonesAttributeTypeSameLastZoneLengthDifferent
      * @type {Integer (Int32)}
      */
-    static ZonesAttributeTypeSameLastZoneLengthDifferent => 2
+    static AttributeTypeSameLastZoneLengthDifferent => 2
 
     /**
+     * Native name: ZonesAttributeTypeMayDifferentLengthSame
      * @type {Integer (Int32)}
      */
-    static ZonesAttributeTypeMayDifferentLengthSame => 3
+    static AttributeTypeMayDifferentLengthSame => 3
 }

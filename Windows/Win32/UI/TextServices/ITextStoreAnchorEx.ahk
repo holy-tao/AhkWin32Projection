@@ -31,7 +31,6 @@ class ITextStoreAnchorEx extends IUnknown {
     static VTableNames => ["ScrollToRect"]
 
     /**
-     * 
      * @param {IAnchor} pStart 
      * @param {IAnchor} pEnd 
      * @param {RECT} rc 

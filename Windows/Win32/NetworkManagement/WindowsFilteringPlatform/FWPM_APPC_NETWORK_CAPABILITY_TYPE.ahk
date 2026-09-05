@@ -10,19 +10,22 @@ class FWPM_APPC_NETWORK_CAPABILITY_TYPE extends Win32Enum {
 
     /**
      * Allows the app container to make network requests to servers on the Internet. It acts as a client.
+     * Native name: FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT
      * @type {Integer (Int32)}
      */
-    static FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT => 0
+    static INTERNET_CLIENT => 0
 
     /**
      * Allows the app container to make requests and to receive requests to and from the Internet. It acts as a client and also as a server.
+     * Native name: FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT_SERVER
      * @type {Integer (Int32)}
      */
-    static FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT_SERVER => 1
+    static INTERNET_CLIENT_SERVER => 1
 
     /**
      * Allows the app container to make requests and to receive requests to and from private networks (such as a home network, work network, or the corporate domain network of the computer). It acts as a client and also as a server.
+     * Native name: FWPM_APPC_NETWORK_CAPABILITY_INTERNET_PRIVATE_NETWORK
      * @type {Integer (Int32)}
      */
-    static FWPM_APPC_NETWORK_CAPABILITY_INTERNET_PRIVATE_NETWORK => 2
+    static INTERNET_PRIVATE_NETWORK => 2
 }

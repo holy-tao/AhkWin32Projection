@@ -7,12 +7,14 @@
 class SF_PROPERTY_IIS extends Win32Enum {
 
     /**
+     * Native name: SF_PROPERTY_SSL_CTXT
      * @type {Integer (Int32)}
      */
-    static SF_PROPERTY_SSL_CTXT => 0
+    static SSL_CTXT => 0
 
     /**
+     * Native name: SF_PROPERTY_INSTANCE_NUM_ID
      * @type {Integer (Int32)}
      */
-    static SF_PROPERTY_INSTANCE_NUM_ID => 1
+    static INSTANCE_NUM_ID => 1
 }

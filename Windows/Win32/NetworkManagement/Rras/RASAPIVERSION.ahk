@@ -7,22 +7,26 @@
 class RASAPIVERSION extends Win32Enum {
 
     /**
+     * Native name: RASAPIVERSION_500
      * @type {Integer (Int32)}
      */
-    static RASAPIVERSION_500 => 1
+    static 500 => 1
 
     /**
+     * Native name: RASAPIVERSION_501
      * @type {Integer (Int32)}
      */
-    static RASAPIVERSION_501 => 2
+    static 501 => 2
 
     /**
+     * Native name: RASAPIVERSION_600
      * @type {Integer (Int32)}
      */
-    static RASAPIVERSION_600 => 3
+    static 600 => 3
 
     /**
+     * Native name: RASAPIVERSION_601
      * @type {Integer (Int32)}
      */
-    static RASAPIVERSION_601 => 4
+    static 601 => 4
 }

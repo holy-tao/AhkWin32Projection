@@ -17,9 +17,10 @@ class VSS_PROTECTION_LEVEL extends Win32Enum {
      * <li>A write to the original volume occurs.</li>
      * <li>The integrity of the shadow copy cannot be maintained for some reason, such as a failure to write to the shadow copy storage area or a failure to allocate sufficient memory.</li>
      * </ul>
+     * Native name: VSS_PROTECTION_LEVEL_ORIGINAL_VOLUME
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_LEVEL_ORIGINAL_VOLUME => 0
+    static ORIGINAL_VOLUME => 0
 
     /**
      * Specifies that shadow copies must be maintained at the expense of I/O to the original volume. This protection level is called "shadow copy protection mode." All I/O to the original volume will fail if both of the following conditions occur:
@@ -28,7 +29,8 @@ class VSS_PROTECTION_LEVEL extends Win32Enum {
      * <li>A write to the original volume occurs.</li>
      * <li>The corresponding write to the shadow copy storage area cannot be completed for some reason, such as a failure to write to the shadow copy storage area or a failure to allocate sufficient memory.</li>
      * </ul>
+     * Native name: VSS_PROTECTION_LEVEL_SNAPSHOT
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_LEVEL_SNAPSHOT => 1
+    static SNAPSHOT => 1
 }

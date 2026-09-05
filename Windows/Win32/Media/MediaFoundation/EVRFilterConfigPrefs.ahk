@@ -10,13 +10,15 @@ class EVRFilterConfigPrefs extends Win32Enum {
 
     /**
      * Enables dynamic adjustments to video quality during playback.
+     * Native name: EVRFilterConfigPrefs_EnableQoS
      * @type {Integer (Int32)}
      */
-    static EVRFilterConfigPrefs_EnableQoS => 1
+    static EnableQoS => 1
 
     /**
      * The bitmask of valid flag values. This constant is not itself a valid flag.
+     * Native name: EVRFilterConfigPrefs_Mask
      * @type {Integer (Int32)}
      */
-    static EVRFilterConfigPrefs_Mask => 1
+    static Mask => 1
 }

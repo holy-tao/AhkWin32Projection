@@ -32,7 +32,6 @@ class ID3D12StateObjectDatabaseFactory extends IUnknown {
     static VTableNames => ["CreateStateObjectDatabaseFromFile"]
 
     /**
-     * 
      * @param {PWSTR} pDatabaseFile 
      * @param {D3D12_STATE_OBJECT_DATABASE_FLAGS} flags 
      * @param {Pointer<Guid>} riid 

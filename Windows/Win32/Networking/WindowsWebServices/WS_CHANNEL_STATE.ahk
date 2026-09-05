@@ -25,37 +25,44 @@
 class WS_CHANNEL_STATE extends Win32Enum {
 
     /**
+     * Native name: WS_CHANNEL_STATE_CREATED
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_STATE_CREATED => 0
+    static CREATED => 0
 
     /**
+     * Native name: WS_CHANNEL_STATE_OPENING
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_STATE_OPENING => 1
+    static OPENING => 1
 
     /**
+     * Native name: WS_CHANNEL_STATE_ACCEPTING
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_STATE_ACCEPTING => 2
+    static ACCEPTING => 2
 
     /**
+     * Native name: WS_CHANNEL_STATE_OPEN
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_STATE_OPEN => 3
+    static OPEN => 3
 
     /**
+     * Native name: WS_CHANNEL_STATE_FAULTED
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_STATE_FAULTED => 4
+    static FAULTED => 4
 
     /**
+     * Native name: WS_CHANNEL_STATE_CLOSING
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_STATE_CLOSING => 5
+    static CLOSING => 5
 
     /**
+     * Native name: WS_CHANNEL_STATE_CLOSED
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_STATE_CLOSED => 6
+    static CLOSED => 6
 }

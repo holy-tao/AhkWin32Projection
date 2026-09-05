@@ -29,7 +29,6 @@ class ISpSerializeState extends IUnknown {
     static VTableNames => ["GetSerializedState", "SetSerializedState"]
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppbData 
      * @param {Pointer<Integer>} pulSize 
      * @param {Integer} dwReserved 
@@ -44,7 +43,6 @@ class ISpSerializeState extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbData 
      * @param {Integer} ulSize 
      * @param {Integer} dwReserved 

@@ -114,7 +114,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -124,7 +123,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Length() {
@@ -133,7 +131,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ValueCount() {
@@ -142,7 +139,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusPropertyValues} 
      */
     get_Values() {
@@ -151,7 +147,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -161,7 +156,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
      */
@@ -171,7 +165,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_TYPE} 
      */
     get_Type() {
@@ -180,7 +173,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_TYPE} Type 
      * @returns {HRESULT} 
      */
@@ -190,7 +182,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_FORMAT} 
      */
     get_Format() {
@@ -199,7 +190,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_FORMAT} Format 
      * @returns {HRESULT} 
      */
@@ -209,7 +199,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ReadOnly() {
@@ -219,7 +208,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Private() {
@@ -229,7 +217,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Common() {
@@ -239,7 +226,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Modified() {
@@ -249,7 +235,6 @@ class ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UseDefaultValue() {

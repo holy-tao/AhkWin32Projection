@@ -7,34 +7,40 @@
 class QITIPF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: QITIPF_DEFAULT
      * @type {Integer (Int32)}
      */
-    static QITIPF_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: QITIPF_USENAME
      * @type {Integer (Int32)}
      */
-    static QITIPF_USENAME => 1
+    static USENAME => 1
 
     /**
+     * Native name: QITIPF_LINKNOTARGET
      * @type {Integer (Int32)}
      */
-    static QITIPF_LINKNOTARGET => 2
+    static LINKNOTARGET => 2
 
     /**
+     * Native name: QITIPF_LINKUSETARGET
      * @type {Integer (Int32)}
      */
-    static QITIPF_LINKUSETARGET => 4
+    static LINKUSETARGET => 4
 
     /**
+     * Native name: QITIPF_USESLOWTIP
      * @type {Integer (Int32)}
      */
-    static QITIPF_USESLOWTIP => 8
+    static USESLOWTIP => 8
 
     /**
+     * Native name: QITIPF_SINGLELINE
      * @type {Integer (Int32)}
      */
-    static QITIPF_SINGLELINE => 16
+    static SINGLELINE => 16
 
     /**
      * @type {Integer (Int32)}

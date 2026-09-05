@@ -7,12 +7,14 @@
 class OLECREATE extends Win32Enum {
 
     /**
+     * Native name: OLECREATE_ZERO
      * @type {Integer (UInt32)}
      */
-    static OLECREATE_ZERO => 0
+    static ZERO => 0
 
     /**
+     * Native name: OLECREATE_LEAVERUNNING
      * @type {Integer (UInt32)}
      */
-    static OLECREATE_LEAVERUNNING => 1
+    static LEAVERUNNING => 1
 }

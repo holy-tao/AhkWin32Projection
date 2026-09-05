@@ -10,17 +10,19 @@ class AUDCLNT_STREAMOPTIONS extends Win32BitflagEnum {
 
     /**
      * No stream options.
+     * Native name: AUDCLNT_STREAMOPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_STREAMOPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * The audio stream is a 'raw' stream that bypasses
      *  all signal processing except for endpoint specific,
      *                                   always-on processing in the Audio Processing Object (APO), driver, and hardware.
+     * Native name: AUDCLNT_STREAMOPTIONS_RAW
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_STREAMOPTIONS_RAW => 1
+    static RAW => 1
 
     /**
      * The audio client is requesting that the audio engine match the format proposed by the client. The audio engine
@@ -29,17 +31,20 @@ class AUDCLNT_STREAMOPTIONS extends Win32BitflagEnum {
      * 
      * 
      * Supported in Windows 10 and later.
+     * Native name: AUDCLNT_STREAMOPTIONS_MATCH_FORMAT
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_STREAMOPTIONS_MATCH_FORMAT => 2
+    static MATCH_FORMAT => 2
 
     /**
+     * Native name: AUDCLNT_STREAMOPTIONS_AMBISONICS
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_STREAMOPTIONS_AMBISONICS => 4
+    static AMBISONICS => 4
 
     /**
+     * Native name: AUDCLNT_STREAMOPTIONS_POST_VOLUME_LOOPBACK
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_STREAMOPTIONS_POST_VOLUME_LOOPBACK => 8
+    static POST_VOLUME_LOOPBACK => 8
 }

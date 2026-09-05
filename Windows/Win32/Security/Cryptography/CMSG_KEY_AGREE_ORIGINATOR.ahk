@@ -7,12 +7,14 @@
 class CMSG_KEY_AGREE_ORIGINATOR extends Win32Enum {
 
     /**
+     * Native name: CMSG_KEY_AGREE_ORIGINATOR_CERT
      * @type {Integer (UInt32)}
      */
-    static CMSG_KEY_AGREE_ORIGINATOR_CERT => 1
+    static CERT => 1
 
     /**
+     * Native name: CMSG_KEY_AGREE_ORIGINATOR_PUBLIC_KEY
      * @type {Integer (UInt32)}
      */
-    static CMSG_KEY_AGREE_ORIGINATOR_PUBLIC_KEY => 2
+    static PUBLIC_KEY => 2
 }

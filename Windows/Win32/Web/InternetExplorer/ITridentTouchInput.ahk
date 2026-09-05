@@ -32,7 +32,6 @@ class ITridentTouchInput extends IUnknown {
     static VTableNames => ["OnPointerMessage"]
 
     /**
-     * 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 

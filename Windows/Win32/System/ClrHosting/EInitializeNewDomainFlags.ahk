@@ -7,12 +7,14 @@
 class EInitializeNewDomainFlags extends Win32Enum {
 
     /**
+     * Native name: eInitializeNewDomainFlags_None
      * @type {Integer (Int32)}
      */
-    static eInitializeNewDomainFlags_None => 0
+    static None => 0
 
     /**
+     * Native name: eInitializeNewDomainFlags_NoSecurityChanges
      * @type {Integer (Int32)}
      */
-    static eInitializeNewDomainFlags_NoSecurityChanges => 2
+    static NoSecurityChanges => 2
 }

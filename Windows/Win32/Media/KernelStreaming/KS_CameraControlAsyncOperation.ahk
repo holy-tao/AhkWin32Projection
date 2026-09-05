@@ -7,17 +7,20 @@
 class KS_CameraControlAsyncOperation extends Win32Enum {
 
     /**
+     * Native name: KS_CAMERACONTROL_ASYNC_START
      * @type {Integer (Int32)}
      */
-    static KS_CAMERACONTROL_ASYNC_START => 1
+    static CAMERACONTROL_ASYNC_START => 1
 
     /**
+     * Native name: KS_CAMERACONTROL_ASYNC_STOP
      * @type {Integer (Int32)}
      */
-    static KS_CAMERACONTROL_ASYNC_STOP => 2
+    static CAMERACONTROL_ASYNC_STOP => 2
 
     /**
+     * Native name: KS_CAMERACONTROL_ASYNC_RESET
      * @type {Integer (Int32)}
      */
-    static KS_CAMERACONTROL_ASYNC_RESET => 3
+    static CAMERACONTROL_ASYNC_RESET => 3
 }

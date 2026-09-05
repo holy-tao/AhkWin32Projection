@@ -7,77 +7,92 @@
 class DISPID_InkTransform extends Win32Enum {
 
     /**
+     * Native name: DISPID_ITReset
      * @type {Integer (Int32)}
      */
-    static DISPID_ITReset => 1
+    static ITReset => 1
 
     /**
+     * Native name: DISPID_ITTranslate
      * @type {Integer (Int32)}
      */
-    static DISPID_ITTranslate => 2
+    static ITTranslate => 2
 
     /**
+     * Native name: DISPID_ITRotate
      * @type {Integer (Int32)}
      */
-    static DISPID_ITRotate => 3
+    static ITRotate => 3
 
     /**
+     * Native name: DISPID_ITReflect
      * @type {Integer (Int32)}
      */
-    static DISPID_ITReflect => 4
+    static ITReflect => 4
 
     /**
+     * Native name: DISPID_ITShear
      * @type {Integer (Int32)}
      */
-    static DISPID_ITShear => 5
+    static ITShear => 5
 
     /**
+     * Native name: DISPID_ITScale
      * @type {Integer (Int32)}
      */
-    static DISPID_ITScale => 6
+    static ITScale => 6
 
     /**
+     * Native name: DISPID_ITeM11
      * @type {Integer (Int32)}
      */
-    static DISPID_ITeM11 => 7
+    static ITeM11 => 7
 
     /**
+     * Native name: DISPID_ITeM12
      * @type {Integer (Int32)}
      */
-    static DISPID_ITeM12 => 8
+    static ITeM12 => 8
 
     /**
+     * Native name: DISPID_ITeM21
      * @type {Integer (Int32)}
      */
-    static DISPID_ITeM21 => 9
+    static ITeM21 => 9
 
     /**
+     * Native name: DISPID_ITeM22
      * @type {Integer (Int32)}
      */
-    static DISPID_ITeM22 => 10
+    static ITeM22 => 10
 
     /**
+     * Native name: DISPID_ITeDx
      * @type {Integer (Int32)}
      */
-    static DISPID_ITeDx => 11
+    static ITeDx => 11
 
     /**
+     * Native name: DISPID_ITeDy
      * @type {Integer (Int32)}
      */
-    static DISPID_ITeDy => 12
+    static ITeDy => 12
 
     /**
+     * Native name: DISPID_ITGetTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_ITGetTransform => 13
+    static ITGetTransform => 13
 
     /**
+     * Native name: DISPID_ITSetTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_ITSetTransform => 14
+    static ITSetTransform => 14
 
     /**
+     * Native name: DISPID_ITData
      * @type {Integer (Int32)}
      */
-    static DISPID_ITData => 15
+    static ITData => 15
 }

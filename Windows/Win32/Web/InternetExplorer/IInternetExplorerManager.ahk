@@ -31,7 +31,6 @@ class IInternetExplorerManager extends IUnknown {
     static VTableNames => ["CreateObject"]
 
     /**
-     * 
      * @param {Integer} dwConfig 
      * @param {PWSTR} pszURL 
      * @param {Pointer<Guid>} riid 

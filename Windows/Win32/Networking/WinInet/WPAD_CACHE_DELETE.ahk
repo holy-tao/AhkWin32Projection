@@ -7,12 +7,14 @@
 class WPAD_CACHE_DELETE extends Win32Enum {
 
     /**
+     * Native name: WPAD_CACHE_DELETE_CURRENT
      * @type {Integer (Int32)}
      */
-    static WPAD_CACHE_DELETE_CURRENT => 0
+    static CURRENT => 0
 
     /**
+     * Native name: WPAD_CACHE_DELETE_ALL
      * @type {Integer (Int32)}
      */
-    static WPAD_CACHE_DELETE_ALL => 1
+    static ALL => 1
 }

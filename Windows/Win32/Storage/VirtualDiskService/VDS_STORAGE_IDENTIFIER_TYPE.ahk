@@ -16,52 +16,61 @@ class VDS_STORAGE_IDENTIFIER_TYPE extends Win32Enum {
 
     /**
      * The storage identifier type is vendor specific.
+     * Native name: VDSStorageIdTypeVendorSpecific
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeVendorSpecific => 0
+    static IdTypeVendorSpecific => 0
 
     /**
      * The storage identifier is the same as the vendor identifier.
+     * Native name: VDSStorageIdTypeVendorId
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeVendorId => 1
+    static IdTypeVendorId => 1
 
     /**
      * The storage identifier type follows the IEEE 64-bit Extended Unique Identifier (EUI-64) standard.
+     * Native name: VDSStorageIdTypeEUI64
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeEUI64 => 2
+    static IdTypeEUI64 => 2
 
     /**
      * The storage identifier type follows the Fibre Channel Physical and Signaling Interface (FC-PH) naming 
      *       convention.
+     * Native name: VDSStorageIdTypeFCPHName
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeFCPHName => 3
+    static IdTypeFCPHName => 3
 
     /**
      * <b>VDS 1.1:  </b>The storage identifier type is dependent on the port.
+     * Native name: VDSStorageIdTypePortRelative
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypePortRelative => 4
+    static IdTypePortRelative => 4
 
     /**
+     * Native name: VDSStorageIdTypeTargetPortGroup
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeTargetPortGroup => 5
+    static IdTypeTargetPortGroup => 5
 
     /**
+     * Native name: VDSStorageIdTypeLogicalUnitGroup
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeLogicalUnitGroup => 6
+    static IdTypeLogicalUnitGroup => 6
 
     /**
+     * Native name: VDSStorageIdTypeMD5LogicalUnitIdentifier
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeMD5LogicalUnitIdentifier => 7
+    static IdTypeMD5LogicalUnitIdentifier => 7
 
     /**
+     * Native name: VDSStorageIdTypeScsiNameString
      * @type {Integer (Int32)}
      */
-    static VDSStorageIdTypeScsiNameString => 8
+    static IdTypeScsiNameString => 8
 }

@@ -32,7 +32,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     static VTableNames => ["GetBool", "SetBool", "GetInt32", "SetInt32", "GetString", "SetString", "GetBytes", "SetBytes", "GetReadStream", "GetWriteStream"]
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {BOOL} 
      */
@@ -44,7 +43,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BOOL} bValue 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {Integer} 
      */
@@ -69,7 +66,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Integer} nValue 
      * @returns {HRESULT} 
@@ -82,7 +78,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {BSTR} 
      */
@@ -95,7 +90,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -109,7 +103,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IDispatch} 
      */
@@ -121,7 +114,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {IDispatch} pArray 
      * @returns {HRESULT} 
@@ -134,7 +126,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IPrinterScriptableStream} 
      */
@@ -146,7 +137,6 @@ class IPrinterScriptablePropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IPrinterScriptableStream} 
      */

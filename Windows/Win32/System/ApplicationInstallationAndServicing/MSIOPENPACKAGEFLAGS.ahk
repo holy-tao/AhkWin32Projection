@@ -7,7 +7,8 @@
 class MSIOPENPACKAGEFLAGS extends Win32Enum {
 
     /**
+     * Native name: MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE
      * @type {Integer (Int32)}
      */
-    static MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE => 1
+    static IGNOREMACHINESTATE => 1
 }

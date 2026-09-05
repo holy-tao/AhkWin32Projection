@@ -10,13 +10,15 @@ class MFWaveFormatExConvertFlags extends Win32Enum {
 
     /**
      * Convert the media type to a <b>WAVEFORMATEX</b> structure if possible, or a <b>WAVEFORMATEXTENSIBLE</b> structure otherwise.
+     * Native name: MFWaveFormatExConvertFlag_Normal
      * @type {Integer (Int32)}
      */
-    static MFWaveFormatExConvertFlag_Normal => 0
+    static Flag_Normal => 0
 
     /**
      * Convert the media type to a <b>WAVEFORMATEXTENSIBLE</b> structure.
+     * Native name: MFWaveFormatExConvertFlag_ForceExtensible
      * @type {Integer (Int32)}
      */
-    static MFWaveFormatExConvertFlag_ForceExtensible => 1
+    static Flag_ForceExtensible => 1
 }

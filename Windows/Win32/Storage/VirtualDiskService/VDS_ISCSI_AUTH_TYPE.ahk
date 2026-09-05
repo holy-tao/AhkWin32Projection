@@ -13,21 +13,24 @@ class VDS_ISCSI_AUTH_TYPE extends Win32Enum {
 
     /**
      * No authentication is performed.
+     * Native name: VDS_IAT_NONE
      * @type {Integer (Int32)}
      */
-    static VDS_IAT_NONE => 0
+    static IAT_NONE => 0
 
     /**
      * One-way CHAP authentication is performed (target authenticates initiator). The target CHAP secret must be 
      *      specified during login.
+     * Native name: VDS_IAT_CHAP
      * @type {Integer (Int32)}
      */
-    static VDS_IAT_CHAP => 1
+    static IAT_CHAP => 1
 
     /**
      * Mutual CHAP authentication is performed (target authenticates initiator and initiator authenticates 
      *      target). The target CHAP secret must be specified and the initiator CHAP secret must also have been set.
+     * Native name: VDS_IAT_MUTUAL_CHAP
      * @type {Integer (Int32)}
      */
-    static VDS_IAT_MUTUAL_CHAP => 2
+    static IAT_MUTUAL_CHAP => 2
 }

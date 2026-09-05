@@ -51,7 +51,6 @@ class IHTMLAttributeCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -60,7 +59,6 @@ class IHTMLAttributeCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -69,7 +67,6 @@ class IHTMLAttributeCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} name 
      * @returns {IDispatch} 
      */

@@ -21,28 +21,32 @@ class VSS_SOURCE_TYPE extends Win32Enum {
      *       
      * 
      * This indicates a writer error, and the requester should report it.
+     * Native name: VSS_ST_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_ST_UNDEFINED => 0
+    static ST_UNDEFINED => 0
 
     /**
      * The source of the data is a database that supports transactions, such as Microsoft SQL Server.
+     * Native name: VSS_ST_TRANSACTEDDB
      * @type {Integer (Int32)}
      */
-    static VSS_ST_TRANSACTEDDB => 1
+    static ST_TRANSACTEDDB => 1
 
     /**
      * The source of the data is a database that does not support transactions.
+     * Native name: VSS_ST_NONTRANSACTEDDB
      * @type {Integer (Int32)}
      */
-    static VSS_ST_NONTRANSACTEDDB => 2
+    static ST_NONTRANSACTEDDB => 2
 
     /**
      * Unclassified source type—data will be in a file group. 
      *       
      * 
      * This is the default source type.
+     * Native name: VSS_ST_OTHER
      * @type {Integer (Int32)}
      */
-    static VSS_ST_OTHER => 3
+    static ST_OTHER => 3
 }

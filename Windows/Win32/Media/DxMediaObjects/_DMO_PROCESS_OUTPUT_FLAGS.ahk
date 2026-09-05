@@ -10,7 +10,8 @@ class _DMO_PROCESS_OUTPUT_FLAGS extends Win32Enum {
 
     /**
      * Discard the output when the pointer to the output buffer is <b>NULL</b>.
+     * Native name: DMO_PROCESS_OUTPUT_DISCARD_WHEN_NO_BUFFER
      * @type {Integer (Int32)}
      */
-    static DMO_PROCESS_OUTPUT_DISCARD_WHEN_NO_BUFFER => 1
+    static DISCARD_WHEN_NO_BUFFER => 1
 }

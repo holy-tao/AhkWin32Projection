@@ -7,97 +7,116 @@
 class SPSVCINST_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SPSVCINST_TAGTOFRONT
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_TAGTOFRONT => 1
+    static TAGTOFRONT => 1
 
     /**
+     * Native name: SPSVCINST_ASSOCSERVICE
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_ASSOCSERVICE => 2
+    static ASSOCSERVICE => 2
 
     /**
+     * Native name: SPSVCINST_DELETEEVENTLOGENTRY
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_DELETEEVENTLOGENTRY => 4
+    static DELETEEVENTLOGENTRY => 4
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_DISPLAYNAME
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_DISPLAYNAME => 8
+    static NOCLOBBER_DISPLAYNAME => 8
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_STARTTYPE
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_STARTTYPE => 16
+    static NOCLOBBER_STARTTYPE => 16
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_ERRORCONTROL
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_ERRORCONTROL => 32
+    static NOCLOBBER_ERRORCONTROL => 32
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_LOADORDERGROUP
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_LOADORDERGROUP => 64
+    static NOCLOBBER_LOADORDERGROUP => 64
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_DEPENDENCIES
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_DEPENDENCIES => 128
+    static NOCLOBBER_DEPENDENCIES => 128
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_DESCRIPTION
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_DESCRIPTION => 256
+    static NOCLOBBER_DESCRIPTION => 256
 
     /**
+     * Native name: SPSVCINST_STOPSERVICE
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_STOPSERVICE => 512
+    static STOPSERVICE => 512
 
     /**
+     * Native name: SPSVCINST_CLOBBER_SECURITY
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_CLOBBER_SECURITY => 1024
+    static CLOBBER_SECURITY => 1024
 
     /**
+     * Native name: SPSVCINST_STARTSERVICE
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_STARTSERVICE => 2048
+    static STARTSERVICE => 2048
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_REQUIREDPRIVILEGES
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_REQUIREDPRIVILEGES => 4096
+    static NOCLOBBER_REQUIREDPRIVILEGES => 4096
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_TRIGGERS
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_TRIGGERS => 8192
+    static NOCLOBBER_TRIGGERS => 8192
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_SERVICESIDTYPE
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_SERVICESIDTYPE => 16384
+    static NOCLOBBER_SERVICESIDTYPE => 16384
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_DELAYEDAUTOSTART
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_DELAYEDAUTOSTART => 32768
+    static NOCLOBBER_DELAYEDAUTOSTART => 32768
 
     /**
+     * Native name: SPSVCINST_UNIQUE_NAME
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_UNIQUE_NAME => 65536
+    static UNIQUE_NAME => 65536
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_FAILUREACTIONS
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_FAILUREACTIONS => 131072
+    static NOCLOBBER_FAILUREACTIONS => 131072
 
     /**
+     * Native name: SPSVCINST_NOCLOBBER_BOOTFLAGS
      * @type {Integer (UInt32)}
      */
-    static SPSVCINST_NOCLOBBER_BOOTFLAGS => 262144
+    static NOCLOBBER_BOOTFLAGS => 262144
 }

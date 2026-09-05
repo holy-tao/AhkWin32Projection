@@ -37,7 +37,6 @@ class ISpITNProcessor extends IUnknown {
     static VTableNames => ["LoadITNGrammar", "ITNPhrase"]
 
     /**
-     * 
      * @param {PWSTR} pszCLSID 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ class ISpITNProcessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpPhraseBuilder} pPhrase 
      * @returns {HRESULT} 
      */

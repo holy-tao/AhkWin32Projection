@@ -10,9 +10,10 @@ class CLUSTER_RESOURCE_RESTART_ACTION extends Win32Enum {
 
     /**
      * Do not restart the resource after a failure.
+     * Native name: ClusterResourceDontRestart
      * @type {Integer (Int32)}
      */
-    static ClusterResourceDontRestart => 0
+    static DontRestart => 0
 
     /**
      * Restart the resource after a failure. If the resource exceeds its restart threshold within its restart 
@@ -20,22 +21,25 @@ class CLUSTER_RESOURCE_RESTART_ACTION extends Win32Enum {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> to another 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * Native name: ClusterResourceRestartNoNotify
      * @type {Integer (Int32)}
      */
-    static ClusterResourceRestartNoNotify => 1
+    static NoNotify => 1
 
     /**
      * Restart the resource after a failure. If the resource exceeds its restart threshold within its restart 
      *        period, attempt to fail over the group to another node in the cluster. This is the default setting.
+     * Native name: ClusterResourceRestartNotify
      * @type {Integer (Int32)}
      */
-    static ClusterResourceRestartNotify => 2
+    static Notify => 2
 
     /**
      * Defines the maximum value of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_restart_action">CLUSTER_RESOURCE_RESTART_ACTION</a> enumeration.  It is not a valid value for the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-restartaction">RestartAction</a> property.
+     * Native name: ClusterResourceRestartActionCount
      * @type {Integer (Int32)}
      */
-    static ClusterResourceRestartActionCount => 3
+    static Count => 3
 }

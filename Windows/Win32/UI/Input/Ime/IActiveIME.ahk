@@ -40,7 +40,6 @@ class IActiveIME extends IUnknown {
     static VTableNames => ["Inquire", "ConversionList", "Configure", "Destroy", "Escape", "SetActiveContext", "ProcessKey", "Notify", "Select", "SetCompositionString", "ToAsciiEx", "RegisterWord", "UnregisterWord", "GetRegisterWordStyle", "EnumRegisterWord", "GetCodePageA", "GetLangId"]
 
     /**
-     * 
      * @param {Integer} dwSystemInfoFlags 
      * @param {Pointer<IMEINFO>} pIMEInfo 
      * @param {PWSTR} szWndClass 
@@ -57,7 +56,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {PWSTR} szSource 
      * @param {Integer} uFlag 
@@ -104,7 +102,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uReserved 
      * @returns {HRESULT} 
      */
@@ -169,7 +166,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {BOOL} fFlag 
      * @returns {HRESULT} 
@@ -182,7 +178,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} uVirKey 
      * @param {Integer} _lParam 
@@ -199,7 +194,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
@@ -228,7 +222,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -326,7 +319,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
      * @param {PWSTR} szString 
@@ -341,7 +333,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
      * @param {PWSTR} szString 
@@ -356,7 +347,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFW>} pStyleBuf 
      * @param {Pointer<Integer>} puBufSize 
@@ -370,7 +360,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
      * @param {PWSTR} szRegister 
@@ -388,7 +377,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCodePageA() {
@@ -397,7 +385,6 @@ class IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLangId() {

@@ -33,7 +33,6 @@ class IErrorRecords extends IUnknown {
     static VTableNames => ["AddErrorRecord", "GetBasicErrorInfo", "GetCustomErrorObject", "GetErrorInfo", "GetErrorParameters", "GetRecordCount"]
 
     /**
-     * 
      * @param {Pointer<ERRORINFO>} pErrorInfo 
      * @param {Integer} dwLookupID 
      * @param {Pointer<DISPPARAMS>} pdispparams 
@@ -47,7 +46,6 @@ class IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRecordNum 
      * @returns {ERRORINFO} 
      */
@@ -58,7 +56,6 @@ class IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRecordNum 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -85,7 +82,6 @@ class IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRecordNum 
      * @returns {DISPPARAMS} 
      */
@@ -96,7 +92,6 @@ class IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRecordCount() {

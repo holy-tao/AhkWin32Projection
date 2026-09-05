@@ -93,7 +93,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -105,7 +104,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hidden() {
@@ -115,7 +113,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_palette() {
@@ -125,7 +122,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pluginspage() {
@@ -135,7 +131,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -147,7 +142,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -157,7 +151,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -169,7 +162,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_units() {
@@ -179,7 +171,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -191,7 +182,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -201,7 +191,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -211,7 +200,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -221,7 +209,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -231,7 +218,6 @@ class IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {

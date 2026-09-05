@@ -36,7 +36,6 @@ class IActiveScript extends IUnknown {
     static VTableNames => ["SetScriptSite", "GetScriptSite", "SetScriptState", "GetScriptState", "Close", "AddNamedItem", "AddTypeLib", "GetScriptDispatch", "GetCurrentScriptThreadID", "GetScriptThreadID", "GetScriptThreadState", "InterruptScriptThread", "Clone"]
 
     /**
-     * 
      * @param {IActiveScriptSite} pass 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -56,7 +54,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPTSTATE} ss 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SCRIPTSTATE} 
      */
     GetScriptState() {
@@ -75,7 +71,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -84,7 +79,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -97,7 +91,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidTypeLib 
      * @param {Integer} dwMajor 
      * @param {Integer} dwMinor 
@@ -110,7 +103,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrItemName 
      * @returns {IDispatch} 
      */
@@ -122,7 +114,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentScriptThreadID() {
@@ -131,7 +122,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWin32ThreadId 
      * @returns {Integer} 
      */
@@ -141,7 +131,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stidThread 
      * @returns {SCRIPTTHREADSTATE} 
      */
@@ -151,7 +140,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stidThread 
      * @param {Pointer<EXCEPINFO>} pexcepinfo 
      * @param {Integer} dwFlags 
@@ -163,7 +151,6 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IActiveScript} 
      */
     Clone() {

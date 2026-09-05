@@ -7,27 +7,32 @@
 class styleColorInterpolationFilters extends Win32Enum {
 
     /**
+     * Native name: styleColorInterpolationFiltersAuto
      * @type {Integer (Int32)}
      */
-    static styleColorInterpolationFiltersAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleColorInterpolationFiltersSRgb
      * @type {Integer (Int32)}
      */
-    static styleColorInterpolationFiltersSRgb => 1
+    static FiltersSRgb => 1
 
     /**
+     * Native name: styleColorInterpolationFiltersLinearRgb
      * @type {Integer (Int32)}
      */
-    static styleColorInterpolationFiltersLinearRgb => 2
+    static LinearRgb => 2
 
     /**
+     * Native name: styleColorInterpolationFiltersNotSet
      * @type {Integer (Int32)}
      */
-    static styleColorInterpolationFiltersNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleColorInterpolationFilters_Max
      * @type {Integer (Int32)}
      */
-    static styleColorInterpolationFilters_Max => 2147483647
+    static Max => 2147483647
 }

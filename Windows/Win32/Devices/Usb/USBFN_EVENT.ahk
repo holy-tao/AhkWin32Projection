@@ -7,67 +7,80 @@
 class USBFN_EVENT extends Win32Enum {
 
     /**
+     * Native name: UsbfnEventMinimum
      * @type {Integer (Int32)}
      */
-    static UsbfnEventMinimum => 0
+    static Minimum => 0
 
     /**
+     * Native name: UsbfnEventAttach
      * @type {Integer (Int32)}
      */
-    static UsbfnEventAttach => 1
+    static Attach => 1
 
     /**
+     * Native name: UsbfnEventReset
      * @type {Integer (Int32)}
      */
-    static UsbfnEventReset => 2
+    static Reset => 2
 
     /**
+     * Native name: UsbfnEventDetach
      * @type {Integer (Int32)}
      */
-    static UsbfnEventDetach => 3
+    static Detach => 3
 
     /**
+     * Native name: UsbfnEventSuspend
      * @type {Integer (Int32)}
      */
-    static UsbfnEventSuspend => 4
+    static Suspend => 4
 
     /**
+     * Native name: UsbfnEventResume
      * @type {Integer (Int32)}
      */
-    static UsbfnEventResume => 5
+    static Resume => 5
 
     /**
+     * Native name: UsbfnEventSetupPacket
      * @type {Integer (Int32)}
      */
-    static UsbfnEventSetupPacket => 6
+    static SetupPacket => 6
 
     /**
+     * Native name: UsbfnEventConfigured
      * @type {Integer (Int32)}
      */
-    static UsbfnEventConfigured => 7
+    static Configured => 7
 
     /**
+     * Native name: UsbfnEventUnConfigured
      * @type {Integer (Int32)}
      */
-    static UsbfnEventUnConfigured => 8
+    static UnConfigured => 8
 
     /**
+     * Native name: UsbfnEventPortType
      * @type {Integer (Int32)}
      */
-    static UsbfnEventPortType => 9
+    static PortType => 9
 
     /**
+     * Native name: UsbfnEventBusTearDown
      * @type {Integer (Int32)}
      */
-    static UsbfnEventBusTearDown => 10
+    static BusTearDown => 10
 
     /**
+     * Native name: UsbfnEventSetInterface
      * @type {Integer (Int32)}
      */
-    static UsbfnEventSetInterface => 11
+    static SetInterface => 11
 
     /**
+     * Native name: UsbfnEventMaximum
      * @type {Integer (Int32)}
      */
-    static UsbfnEventMaximum => 12
+    static Maximum => 12
 }

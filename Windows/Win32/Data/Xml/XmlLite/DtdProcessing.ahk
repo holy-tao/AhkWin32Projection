@@ -7,17 +7,20 @@
 class DtdProcessing extends Win32Enum {
 
     /**
+     * Native name: DtdProcessing_Prohibit
      * @type {Integer (Int32)}
      */
-    static DtdProcessing_Prohibit => 0
+    static Prohibit => 0
 
     /**
+     * Native name: DtdProcessing_Parse
      * @type {Integer (Int32)}
      */
-    static DtdProcessing_Parse => 1
+    static Parse => 1
 
     /**
+     * Native name: _DtdProcessing_Last
      * @type {Integer (Int32)}
      */
-    static _DtdProcessing_Last => 1
+    static Last => 1
 }

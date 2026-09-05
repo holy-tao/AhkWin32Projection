@@ -30,7 +30,6 @@ class IDirectSoundFXWavesReverb extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters"]
 
     /**
-     * 
      * @param {Pointer<DSFXWavesReverb>} pcDsFxWavesReverb 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXWavesReverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXWavesReverb} 
      */
     GetAllParameters() {

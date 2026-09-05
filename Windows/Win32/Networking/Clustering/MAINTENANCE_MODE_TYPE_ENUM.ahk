@@ -10,19 +10,22 @@ class MAINTENANCE_MODE_TYPE_ENUM extends Win32Enum {
 
     /**
      * Indicates that the server is ignoring the result of the resource's health check.
+     * Native name: MaintenanceModeTypeDisableIsAliveCheck
      * @type {Integer (Int32)}
      */
-    static MaintenanceModeTypeDisableIsAliveCheck => 1
+    static DisableIsAliveCheck => 1
 
     /**
      * Indicates that the server has internally performed the operations to bring the storage resource to the ClusterResourceOffline state without changing the client visible state of the resource.
+     * Native name: MaintenanceModeTypeOfflineResource
      * @type {Integer (Int32)}
      */
-    static MaintenanceModeTypeOfflineResource => 2
+    static OfflineResource => 2
 
     /**
      * Indicates the server has released ownership of the storage resource.
+     * Native name: MaintenanceModeTypeUnclusterResource
      * @type {Integer (Int32)}
      */
-    static MaintenanceModeTypeUnclusterResource => 3
+    static UnclusterResource => 3
 }

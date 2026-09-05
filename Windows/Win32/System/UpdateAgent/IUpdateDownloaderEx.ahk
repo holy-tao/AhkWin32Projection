@@ -34,7 +34,6 @@ class IUpdateDownloaderEx extends IUpdateDownloader {
     static VTableNames => ["BeginDownload2", "Download2"]
 
     /**
-     * 
      * @param {DownloadType} _downloadType 
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
@@ -47,7 +46,6 @@ class IUpdateDownloaderEx extends IUpdateDownloader {
     }
 
     /**
-     * 
      * @param {DownloadType} _downloadType 
      * @returns {IDownloadResult} 
      */

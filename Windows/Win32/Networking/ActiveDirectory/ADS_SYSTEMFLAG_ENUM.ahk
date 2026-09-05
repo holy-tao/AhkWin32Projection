@@ -15,61 +15,71 @@ class ADS_SYSTEMFLAG_ENUM extends Win32Enum {
 
     /**
      * Identifies an object that cannot be deleted.
+     * Native name: ADS_SYSTEMFLAG_DISALLOW_DELETE
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_DISALLOW_DELETE => -2147483648
+    static DISALLOW_DELETE => -2147483648
 
     /**
      * For objects in the configuration partition, if this flag is set, the object can be renamed; otherwise, the object cannot be renamed. By default, this flag is not set on new objects created under the configuration partition, and you can set this flag only during object creation.
+     * Native name: ADS_SYSTEMFLAG_CONFIG_ALLOW_RENAME
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_CONFIG_ALLOW_RENAME => 1073741824
+    static CONFIG_ALLOW_RENAME => 1073741824
 
     /**
      * For objects in the configuration partition, if this flag is set, the object can be moved; otherwise, the object cannot be moved. By default, this flag is not set on new objects created under the configuration partition, and you can set this flag only during object creation.
+     * Native name: ADS_SYSTEMFLAG_CONFIG_ALLOW_MOVE
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_CONFIG_ALLOW_MOVE => 536870912
+    static CONFIG_ALLOW_MOVE => 536870912
 
     /**
      * For objects in the configuration partition, if this flag is set, the object can be moved with restrictions; otherwise, the object cannot be moved. By default, this flag is not set on new objects created under the configuration partition, and you can set this flag only during object creation.
+     * Native name: ADS_SYSTEMFLAG_CONFIG_ALLOW_LIMITED_MOVE
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_CONFIG_ALLOW_LIMITED_MOVE => 268435456
+    static CONFIG_ALLOW_LIMITED_MOVE => 268435456
 
     /**
      * Identifies a domain object that cannot be renamed.
+     * Native name: ADS_SYSTEMFLAG_DOMAIN_DISALLOW_RENAME
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_DOMAIN_DISALLOW_RENAME => 134217728
+    static DOMAIN_DISALLOW_RENAME => 134217728
 
     /**
      * Identifies a domain object that cannot be moved.
+     * Native name: ADS_SYSTEMFLAG_DOMAIN_DISALLOW_MOVE
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_DOMAIN_DISALLOW_MOVE => 67108864
+    static DOMAIN_DISALLOW_MOVE => 67108864
 
     /**
      * Naming context is in NTDS.
+     * Native name: ADS_SYSTEMFLAG_CR_NTDS_NC
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_CR_NTDS_NC => 1
+    static CR_NTDS_NC => 1
 
     /**
      * Naming context is a domain.
+     * Native name: ADS_SYSTEMFLAG_CR_NTDS_DOMAIN
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_CR_NTDS_DOMAIN => 2
+    static CR_NTDS_DOMAIN => 2
 
     /**
      * If this flag is set in the <b>systemFlags</b> attribute of an <b>attributeSchema</b> object, the attribute is not to be replicated.
+     * Native name: ADS_SYSTEMFLAG_ATTR_NOT_REPLICATED
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_ATTR_NOT_REPLICATED => 1
+    static ATTR_NOT_REPLICATED => 1
 
     /**
      * If this flag is set in the <b>systemFlags</b> attribute of an <b>attributeSchema</b> object, the attribute is a constructed property.
+     * Native name: ADS_SYSTEMFLAG_ATTR_IS_CONSTRUCTED
      * @type {Integer (Int32)}
      */
-    static ADS_SYSTEMFLAG_ATTR_IS_CONSTRUCTED => 4
+    static ATTR_IS_CONSTRUCTED => 4
 }

@@ -10,19 +10,22 @@ class OrientationType extends Win32Enum {
 
     /**
      * The control has no orientation.
+     * Native name: OrientationType_None
      * @type {Integer (Int32)}
      */
-    static OrientationType_None => 0
+    static None => 0
 
     /**
      * The control has horizontal orientation.
+     * Native name: OrientationType_Horizontal
      * @type {Integer (Int32)}
      */
-    static OrientationType_Horizontal => 1
+    static Horizontal => 1
 
     /**
      * The control has vertical orientation.
+     * Native name: OrientationType_Vertical
      * @type {Integer (Int32)}
      */
-    static OrientationType_Vertical => 2
+    static Vertical => 2
 }

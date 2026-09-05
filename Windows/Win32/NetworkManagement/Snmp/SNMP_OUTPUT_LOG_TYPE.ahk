@@ -7,17 +7,20 @@
 class SNMP_OUTPUT_LOG_TYPE extends Win32Enum {
 
     /**
+     * Native name: SNMP_OUTPUT_TO_CONSOLE
      * @type {Integer (UInt32)}
      */
-    static SNMP_OUTPUT_TO_CONSOLE => 1
+    static TO_CONSOLE => 1
 
     /**
+     * Native name: SNMP_OUTPUT_TO_LOGFILE
      * @type {Integer (UInt32)}
      */
-    static SNMP_OUTPUT_TO_LOGFILE => 2
+    static TO_LOGFILE => 2
 
     /**
+     * Native name: SNMP_OUTPUT_TO_DEBUGGER
      * @type {Integer (UInt32)}
      */
-    static SNMP_OUTPUT_TO_DEBUGGER => 8
+    static TO_DEBUGGER => 8
 }

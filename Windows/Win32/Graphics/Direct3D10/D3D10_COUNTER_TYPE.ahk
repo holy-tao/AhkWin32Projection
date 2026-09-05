@@ -12,25 +12,29 @@ class D3D10_COUNTER_TYPE extends Win32Enum {
 
     /**
      * 32-bit floating point.
+     * Native name: D3D10_COUNTER_TYPE_FLOAT32
      * @type {Integer (Int32)}
      */
-    static D3D10_COUNTER_TYPE_FLOAT32 => 0
+    static FLOAT32 => 0
 
     /**
      * 16-bit unsigned integer.
+     * Native name: D3D10_COUNTER_TYPE_UINT16
      * @type {Integer (Int32)}
      */
-    static D3D10_COUNTER_TYPE_UINT16 => 1
+    static UINT16 => 1
 
     /**
      * 32-bit unsigned integer.
+     * Native name: D3D10_COUNTER_TYPE_UINT32
      * @type {Integer (Int32)}
      */
-    static D3D10_COUNTER_TYPE_UINT32 => 2
+    static UINT32 => 2
 
     /**
      * 64-bit unsigned integer.
+     * Native name: D3D10_COUNTER_TYPE_UINT64
      * @type {Integer (Int32)}
      */
-    static D3D10_COUNTER_TYPE_UINT64 => 3
+    static UINT64 => 3
 }

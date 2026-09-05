@@ -10,13 +10,15 @@ class ISCSI_DIGEST_TYPES extends Win32Enum {
 
     /**
      * No digest is in use for guaranteeing data integrity.
+     * Native name: ISCSI_DIGEST_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static ISCSI_DIGEST_TYPE_NONE => 0
+    static TYPE_NONE => 0
 
     /**
      * The digest for guaranteeing data integrity uses a 32-bit cyclic redundancy check.
+     * Native name: ISCSI_DIGEST_TYPE_CRC32C
      * @type {Integer (Int32)}
      */
-    static ISCSI_DIGEST_TYPE_CRC32C => 1
+    static TYPE_CRC32C => 1
 }

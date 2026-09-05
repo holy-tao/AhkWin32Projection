@@ -29,7 +29,6 @@ class IDxcBlobUtf8 extends IDxcBlobEncoding {
     static VTableNames => ["GetStringPointer", "GetStringLength"]
 
     /**
-     * 
      * @returns {PSTR} 
      */
     GetStringPointer() {
@@ -38,7 +37,6 @@ class IDxcBlobUtf8 extends IDxcBlobEncoding {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetStringLength() {

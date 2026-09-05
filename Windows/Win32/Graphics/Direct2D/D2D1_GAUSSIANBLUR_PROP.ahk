@@ -16,9 +16,10 @@ class D2D1_GAUSSIANBLUR_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 3.0f.
+     * Native name: D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION
      * @type {Integer (Int32)}
      */
-    static D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION => 0
+    static STANDARD_DEVIATION => 0
 
     /**
      * The optimization mode.
@@ -27,9 +28,10 @@ class D2D1_GAUSSIANBLUR_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_gaussianblur_optimization">D2D1_GAUSSIANBLUR_OPTIMIZATION</a>.
      * 
      * The default value is D2D1_GAUSSIANBLUR_OPTIMIZATION_BALANCED.
+     * Native name: D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION
      * @type {Integer (Int32)}
      */
-    static D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION => 1
+    static OPTIMIZATION => 1
 
     /**
      * The mode used to calculate the border of the image, soft or hard.
@@ -38,7 +40,8 @@ class D2D1_GAUSSIANBLUR_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_gaussianblur_optimization">D2D1_GAUSSIANBLUR_OPTIMIZATION</a>.
      * 
      * The default value is D2D1_BORDER_MODE_SOFT.
+     * Native name: D2D1_GAUSSIANBLUR_PROP_BORDER_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_GAUSSIANBLUR_PROP_BORDER_MODE => 2
+    static BORDER_MODE => 2
 }

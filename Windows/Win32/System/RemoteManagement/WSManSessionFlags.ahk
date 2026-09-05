@@ -7,87 +7,104 @@
 class WSManSessionFlags extends Win32Enum {
 
     /**
+     * Native name: WSManFlagUTF8
      * @type {Integer (Int32)}
      */
-    static WSManFlagUTF8 => 1
+    static FlagUTF8 => 1
 
     /**
+     * Native name: WSManFlagCredUsernamePassword
      * @type {Integer (Int32)}
      */
-    static WSManFlagCredUsernamePassword => 4096
+    static FlagCredUsernamePassword => 4096
 
     /**
+     * Native name: WSManFlagSkipCACheck
      * @type {Integer (Int32)}
      */
-    static WSManFlagSkipCACheck => 8192
+    static FlagSkipCACheck => 8192
 
     /**
+     * Native name: WSManFlagSkipCNCheck
      * @type {Integer (Int32)}
      */
-    static WSManFlagSkipCNCheck => 16384
+    static FlagSkipCNCheck => 16384
 
     /**
+     * Native name: WSManFlagUseNoAuthentication
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseNoAuthentication => 32768
+    static FlagUseNoAuthentication => 32768
 
     /**
+     * Native name: WSManFlagUseDigest
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseDigest => 65536
+    static FlagUseDigest => 65536
 
     /**
+     * Native name: WSManFlagUseNegotiate
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseNegotiate => 131072
+    static FlagUseNegotiate => 131072
 
     /**
+     * Native name: WSManFlagUseBasic
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseBasic => 262144
+    static FlagUseBasic => 262144
 
     /**
+     * Native name: WSManFlagUseKerberos
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseKerberos => 524288
+    static FlagUseKerberos => 524288
 
     /**
+     * Native name: WSManFlagNoEncryption
      * @type {Integer (Int32)}
      */
-    static WSManFlagNoEncryption => 1048576
+    static FlagNoEncryption => 1048576
 
     /**
+     * Native name: WSManFlagUseClientCertificate
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseClientCertificate => 2097152
+    static FlagUseClientCertificate => 2097152
 
     /**
+     * Native name: WSManFlagEnableSPNServerPort
      * @type {Integer (Int32)}
      */
-    static WSManFlagEnableSPNServerPort => 4194304
+    static FlagEnableSPNServerPort => 4194304
 
     /**
+     * Native name: WSManFlagUTF16
      * @type {Integer (Int32)}
      */
-    static WSManFlagUTF16 => 8388608
+    static FlagUTF16 => 8388608
 
     /**
+     * Native name: WSManFlagUseCredSsp
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseCredSsp => 16777216
+    static FlagUseCredSsp => 16777216
 
     /**
+     * Native name: WSManFlagSkipRevocationCheck
      * @type {Integer (Int32)}
      */
-    static WSManFlagSkipRevocationCheck => 33554432
+    static FlagSkipRevocationCheck => 33554432
 
     /**
+     * Native name: WSManFlagAllowNegotiateImplicitCredentials
      * @type {Integer (Int32)}
      */
-    static WSManFlagAllowNegotiateImplicitCredentials => 67108864
+    static FlagAllowNegotiateImplicitCredentials => 67108864
 
     /**
+     * Native name: WSManFlagUseSsl
      * @type {Integer (Int32)}
      */
-    static WSManFlagUseSsl => 134217728
+    static FlagUseSsl => 134217728
 }

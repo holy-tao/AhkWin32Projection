@@ -10,57 +10,66 @@ class MBN_CTRL_CAPS extends Win32Enum {
 
     /**
      * Device control capabilities are unavailable.
+     * Native name: MBN_CTRL_CAPS_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_NONE => 0
+    static NONE => 0
 
     /**
      * Manual selection is allowed for the interface.  This field will not be set for CDMA type interfaces.
+     * Native name: MBN_CTRL_CAPS_REG_MANUAL
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_REG_MANUAL => 1
+    static REG_MANUAL => 1
 
     /**
      * Hardware radio switch functionality is supported.
+     * Native name: MBN_CTRL_CAPS_HW_RADIO_SWITCH
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_HW_RADIO_SWITCH => 2
+    static HW_RADIO_SWITCH => 2
 
     /**
      * The Mobile Broadband device is configured for Mobile IP support.  This field is applicable only to CDMA devices.
+     * Native name: MBN_CTRL_CAPS_CDMA_MOBILE_IP
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_CDMA_MOBILE_IP => 4
+    static CDMA_MOBILE_IP => 4
 
     /**
      * The Mobile Broadband device is configured for Simple IP support.  This field is applicable only to CDMA devices.
      * 
      * If this field is set in conjunction with <b>MBN_CTRL_CAPS_MOBILE_IP</b>, then this indicates that the device is configured for Mobile IP with Simple IP as a fallback option.
+     * Native name: MBN_CTRL_CAPS_CDMA_SIMPLE_IP
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_CDMA_SIMPLE_IP => 8
+    static CDMA_SIMPLE_IP => 8
 
     /**
      * In some countries or regions, showing the International Mobile Subscriber Identity (IMSI) to the user is not allowed. When this flag is set, the application should not display the IMSI to users.
+     * Native name: MBN_CTRL_CAPS_PROTECT_UNIQUEID
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_PROTECT_UNIQUEID => 16
+    static PROTECT_UNIQUEID => 16
 
     /**
      * Windows 8 or later: The Mobile Broadband device supports multi-carrier functionality and is not restricted by a Network Service Provider (NSP).
+     * Native name: MBN_CTRL_CAPS_MODEL_MULTI_CARRIER
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_MODEL_MULTI_CARRIER => 32
+    static MODEL_MULTI_CARRIER => 32
 
     /**
      * Windows 8 or later: The Mobile Broadband device supports the USSD protocol. This flag applies only to GSM-based devices.
+     * Native name: MBN_CTRL_CAPS_USSD
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_USSD => 64
+    static USSD => 64
 
     /**
      * Windows 8 or later: The Mobile Broadband device supports multiple cellular classes.
+     * Native name: MBN_CTRL_CAPS_MULTI_MODE
      * @type {Integer (Int32)}
      */
-    static MBN_CTRL_CAPS_MULTI_MODE => 128
+    static MULTI_MODE => 128
 }

@@ -10,51 +10,59 @@ class VSS_PROTECTION_FAULT extends Win32Enum {
 
     /**
      * No shadow copy protection fault has occurred.
+     * Native name: VSS_PROTECTION_FAULT_NONE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_NONE => 0
+    static NONE => 0
 
     /**
      * The volume that contains the shadow copy storage area could not be found. Usually this fault means that the volume has not yet arrived in the system.
+     * Native name: VSS_PROTECTION_FAULT_DIFF_AREA_MISSING
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_DIFF_AREA_MISSING => 1
+    static DIFF_AREA_MISSING => 1
 
     /**
      * The volume that contains the shadow copy storage area could not be brought online because an I/O  failure occurred.
+     * Native name: VSS_PROTECTION_FAULT_IO_FAILURE_DURING_ONLINE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_IO_FAILURE_DURING_ONLINE => 2
+    static IO_FAILURE_DURING_ONLINE => 2
 
     /**
      * The shadow copy metadata for the shadow copy storage area has been corrupted.
+     * Native name: VSS_PROTECTION_FAULT_META_DATA_CORRUPTION
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_META_DATA_CORRUPTION => 3
+    static META_DATA_CORRUPTION => 3
 
     /**
      * A memory allocation failure occurred. This could be caused by a temporary low-memory condition that does  not happen again after you clear the fault and restart the shadow copy operation.
+     * Native name: VSS_PROTECTION_FAULT_MEMORY_ALLOCATION_FAILURE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_MEMORY_ALLOCATION_FAILURE => 4
+    static MEMORY_ALLOCATION_FAILURE => 4
 
     /**
      * A memory mapping failure occurred. This fault could mean that the  page file is too small, or it could be caused by a low-memory condition.
+     * Native name: VSS_PROTECTION_FAULT_MAPPED_MEMORY_FAILURE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_MAPPED_MEMORY_FAILURE => 5
+    static MAPPED_MEMORY_FAILURE => 5
 
     /**
      * A read failure occurred during the copy-on-write operation when data was being copied from the live volume to the shadow copy storage area volume.
+     * Native name: VSS_PROTECTION_FAULT_COW_READ_FAILURE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_COW_READ_FAILURE => 6
+    static COW_READ_FAILURE => 6
 
     /**
      * A read or write failure occurred during the copy-on-write operation when data was being copied from the live volume to the shadow copy storage area volume. One possible reason is that the shadow copy storage area volume has been removed from the system.
+     * Native name: VSS_PROTECTION_FAULT_COW_WRITE_FAILURE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_COW_WRITE_FAILURE => 7
+    static COW_WRITE_FAILURE => 7
 
     /**
      * This failure means that either the shadow copy storage area is full or the shadow copy storage area volume is full. After clearing the protection fault, you can do one of the following:
@@ -63,54 +71,63 @@ class VSS_PROTECTION_FAULT extends Win32Enum {
      * <li>Delete unused shadow copy storage areas by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-deleteunuseddiffareas">IVssDifferentialSoftwareSnapshotMgmt3::DeleteUnusedDiffAreas</a> method.</li>
      * <li>Increase the shadow copy storage area maximum size for the volume by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-changediffareamaximumsize">IVssDifferentialSoftwareSnapshotMgmt::ChangeDiffAreaMaximumSize</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-changediffareamaximumsizeex">IVssDifferentialSoftwareSnapshotMgmt2::ChangeDiffAreaMaximumSizeEx</a> method.</li>
      * </ul>
+     * Native name: VSS_PROTECTION_FAULT_DIFF_AREA_FULL
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_DIFF_AREA_FULL => 8
+    static DIFF_AREA_FULL => 8
 
     /**
      * The size of the shadow copy storage area could not be increased because there was no longer enough space on the shadow copy storage area volume.
+     * Native name: VSS_PROTECTION_FAULT_GROW_TOO_SLOW
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_GROW_TOO_SLOW => 9
+    static GROW_TOO_SLOW => 9
 
     /**
      * The size of the shadow copy storage area could not be increased.
+     * Native name: VSS_PROTECTION_FAULT_GROW_FAILED
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_GROW_FAILED => 10
+    static GROW_FAILED => 10
 
     /**
      * An unexpected error occurred.
+     * Native name: VSS_PROTECTION_FAULT_DESTROY_ALL_SNAPSHOTS
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_DESTROY_ALL_SNAPSHOTS => 11
+    static DESTROY_ALL_SNAPSHOTS => 11
 
     /**
      * Either the shadow copy storage area files could not be opened or the shadow copy storage area volume could not be mounted because of a file system operation failure.
+     * Native name: VSS_PROTECTION_FAULT_FILE_SYSTEM_FAILURE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_FILE_SYSTEM_FAILURE => 12
+    static FILE_SYSTEM_FAILURE => 12
 
     /**
      * A read or write failure occurred on the shadow copy storage area volume.
+     * Native name: VSS_PROTECTION_FAULT_IO_FAILURE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_IO_FAILURE => 13
+    static IO_FAILURE => 13
 
     /**
      * The shadow copy storage area volume was removed from the system or could not be accessed for some other reason.
+     * Native name: VSS_PROTECTION_FAULT_DIFF_AREA_REMOVED
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_DIFF_AREA_REMOVED => 14
+    static DIFF_AREA_REMOVED => 14
 
     /**
      * Another application attempted to write  to the shadow copy storage area.
+     * Native name: VSS_PROTECTION_FAULT_EXTERNAL_WRITER_TO_DIFF_AREA
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_EXTERNAL_WRITER_TO_DIFF_AREA => 15
+    static EXTERNAL_WRITER_TO_DIFF_AREA => 15
 
     /**
+     * Native name: VSS_PROTECTION_FAULT_MOUNT_DURING_CLUSTER_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VSS_PROTECTION_FAULT_MOUNT_DURING_CLUSTER_OFFLINE => 16
+    static MOUNT_DURING_CLUSTER_OFFLINE => 16
 }

@@ -10,19 +10,22 @@ class D2D1_CHANNEL_DEPTH extends Win32Enum {
 
     /**
      * The channel depth is the default. It is inherited from the inputs.
+     * Native name: D2D1_CHANNEL_DEPTH_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANNEL_DEPTH_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The channel depth is 1.
+     * Native name: D2D1_CHANNEL_DEPTH_1
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANNEL_DEPTH_1 => 1
+    static 1 => 1
 
     /**
      * The channel depth is 4.
+     * Native name: D2D1_CHANNEL_DEPTH_4
      * @type {Integer (Int32)}
      */
-    static D2D1_CHANNEL_DEPTH_4 => 4
+    static 4 => 4
 }

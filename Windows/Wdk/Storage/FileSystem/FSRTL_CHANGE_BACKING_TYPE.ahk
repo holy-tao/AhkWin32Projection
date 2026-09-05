@@ -7,17 +7,20 @@
 class FSRTL_CHANGE_BACKING_TYPE extends Win32Enum {
 
     /**
+     * Native name: ChangeDataControlArea
      * @type {Integer (Int32)}
      */
-    static ChangeDataControlArea => 0
+    static DataControlArea => 0
 
     /**
+     * Native name: ChangeImageControlArea
      * @type {Integer (Int32)}
      */
-    static ChangeImageControlArea => 1
+    static ImageControlArea => 1
 
     /**
+     * Native name: ChangeSharedCacheMap
      * @type {Integer (Int32)}
      */
-    static ChangeSharedCacheMap => 2
+    static SharedCacheMap => 2
 }

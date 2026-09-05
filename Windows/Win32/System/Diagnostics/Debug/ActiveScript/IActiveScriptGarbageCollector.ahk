@@ -30,7 +30,6 @@ class IActiveScriptGarbageCollector extends IUnknown {
     static VTableNames => ["CollectGarbage"]
 
     /**
-     * 
      * @param {SCRIPTGCTYPE} _scriptgctype 
      * @returns {HRESULT} 
      */

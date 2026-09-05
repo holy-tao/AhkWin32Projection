@@ -58,7 +58,6 @@ class ITableDefinition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ class ITableDefinition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBCOLUMNDESC>} pColumnDesc 
      * @returns {Pointer<DBID>} 
@@ -79,7 +77,6 @@ class ITableDefinition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pColumnID 
      * @returns {HRESULT} 

@@ -35,7 +35,6 @@ class IBindStatusCallback extends IUnknown {
     static VTableNames => ["OnStartBinding", "GetPriority", "OnLowResource", "OnProgress", "OnStopBinding", "GetBindInfo", "OnDataAvailable", "OnObjectAvailable"]
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @param {IBinding} pib 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {
@@ -55,7 +53,6 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reserved 
      * @returns {HRESULT} 
      */
@@ -65,7 +62,6 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulProgress 
      * @param {Integer} ulProgressMax 
      * @param {Integer} ulStatusCode 
@@ -80,7 +76,6 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} _hresult 
      * @param {PWSTR} szError 
      * @returns {HRESULT} 
@@ -93,7 +88,6 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BINDINFO>} pbindinfo 
      * @returns {Integer} 
      */
@@ -103,7 +97,6 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfBSCF 
      * @param {Integer} dwSize 
      * @param {Pointer<FORMATETC>} pformatetc 
@@ -116,7 +109,6 @@ class IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 

@@ -10,19 +10,22 @@ class WMT_ATTR_IMAGETYPE extends Win32Enum {
 
     /**
      * The image is a device-independent bitmap.
+     * Native name: WMT_IMAGETYPE_BITMAP
      * @type {Integer (Int32)}
      */
-    static WMT_IMAGETYPE_BITMAP => 1
+    static BITMAP => 1
 
     /**
      * The image is in JPEG format.
+     * Native name: WMT_IMAGETYPE_JPEG
      * @type {Integer (Int32)}
      */
-    static WMT_IMAGETYPE_JPEG => 2
+    static JPEG => 2
 
     /**
      * The image is in GIF format.
+     * Native name: WMT_IMAGETYPE_GIF
      * @type {Integer (Int32)}
      */
-    static WMT_IMAGETYPE_GIF => 3
+    static GIF => 3
 }

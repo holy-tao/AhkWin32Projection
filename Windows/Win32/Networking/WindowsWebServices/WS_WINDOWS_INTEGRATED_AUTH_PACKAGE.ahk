@@ -10,19 +10,22 @@ class WS_WINDOWS_INTEGRATED_AUTH_PACKAGE extends Win32Enum {
 
     /**
      * The Kerberos package.
+     * Native name: WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_KERBEROS
      * @type {Integer (Int32)}
      */
-    static WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_KERBEROS => 1
+    static KERBEROS => 1
 
     /**
      * The NTLM package.
+     * Native name: WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_NTLM
      * @type {Integer (Int32)}
      */
-    static WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_NTLM => 2
+    static NTLM => 2
 
     /**
      * The SPNEGO package.
+     * Native name: WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_SPNEGO
      * @type {Integer (Int32)}
      */
-    static WS_WINDOWS_INTEGRATED_AUTH_PACKAGE_SPNEGO => 3
+    static SPNEGO => 3
 }

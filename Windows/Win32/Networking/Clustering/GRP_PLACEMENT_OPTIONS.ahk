@@ -7,22 +7,26 @@
 class GRP_PLACEMENT_OPTIONS extends Win32Enum {
 
     /**
+     * Native name: GRP_PLACEMENT_OPTIONS_MIN_VALUE
      * @type {Integer (Int32)}
      */
-    static GRP_PLACEMENT_OPTIONS_MIN_VALUE => 0
+    static MIN_VALUE => 0
 
     /**
+     * Native name: GRP_PLACEMENT_OPTIONS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static GRP_PLACEMENT_OPTIONS_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: GRP_PLACEMENT_OPTIONS_DISABLE_AUTOBALANCING
      * @type {Integer (Int32)}
      */
-    static GRP_PLACEMENT_OPTIONS_DISABLE_AUTOBALANCING => 1
+    static DISABLE_AUTOBALANCING => 1
 
     /**
+     * Native name: GRP_PLACEMENT_OPTIONS_ALL
      * @type {Integer (Int32)}
      */
-    static GRP_PLACEMENT_OPTIONS_ALL => 1
+    static ALL => 1
 }

@@ -36,7 +36,6 @@ class ICanvasGradient extends IDispatch {
     static VTableNames => ["addColorStop"]
 
     /**
-     * 
      * @param {Float} offset 
      * @param {BSTR} _color 
      * @returns {HRESULT} 

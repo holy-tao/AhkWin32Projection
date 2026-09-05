@@ -85,31 +85,36 @@ class CF_PIN_STATE extends Win32Enum {
 
     /**
      * The platform can decide freely when the placeholder’s content needs to present or absent locally on the disk.
+     * Native name: CF_PIN_STATE_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static CF_PIN_STATE_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * The sync provider will be notified to fetch the placeholder’s content asynchronously after the pin request is received by the platform. There is no guarantee that the placeholders to be pinned will be fully available locally after a [CfSetPinState](nf-cfapi-cfsetpinstate.md) call completes successfully. However, the platform will fail any dehydration request on pinned placeholders.
+     * Native name: CF_PIN_STATE_PINNED
      * @type {Integer (Int32)}
      */
-    static CF_PIN_STATE_PINNED => 1
+    static PINNED => 1
 
     /**
      * The sync provider will be notified to dehydrate/invalidate the placeholder’s content on-disk asynchronously after the unpin request is received by the platform. There is no guarantee that the placeholders to be unpinned will be fully dehydrated after the API call completes successfully.
+     * Native name: CF_PIN_STATE_UNPINNED
      * @type {Integer (Int32)}
      */
-    static CF_PIN_STATE_UNPINNED => 2
+    static UNPINNED => 2
 
     /**
      * the placeholder will never be synced to the cloud by the sync provider. This state can only be set by the sync provider.
+     * Native name: CF_PIN_STATE_EXCLUDED
      * @type {Integer (Int32)}
      */
-    static CF_PIN_STATE_EXCLUDED => 3
+    static EXCLUDED => 3
 
     /**
      * The platform treats it as if the caller performs a move operation on the placeholder and hence re-evaluates the placeholder’s pin state based on its parent’s pin state. See the [Remarks](#-remarks) section for an inheritance table.
+     * Native name: CF_PIN_STATE_INHERIT
      * @type {Integer (Int32)}
      */
-    static CF_PIN_STATE_INHERIT => 4
+    static INHERIT => 4
 }

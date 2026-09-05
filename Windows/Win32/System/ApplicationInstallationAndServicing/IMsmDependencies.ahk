@@ -44,7 +44,6 @@ class IMsmDependencies extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Item 
      * @returns {IMsmDependency} 
      */
@@ -54,7 +53,6 @@ class IMsmDependencies extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Count 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IMsmDependencies extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

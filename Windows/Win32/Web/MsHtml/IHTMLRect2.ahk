@@ -43,7 +43,6 @@ class IHTMLRect2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_width() {
@@ -52,7 +51,6 @@ class IHTMLRect2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_height() {

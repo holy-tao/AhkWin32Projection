@@ -30,7 +30,6 @@ class IDCInfo extends IUnknown {
     static VTableNames => ["GetInfo", "SetInfo"]
 
     /**
-     * 
      * @param {Integer} cInfo 
      * @param {Pointer<Integer>} rgeInfoType 
      * @returns {Pointer<DCINFO>} 
@@ -43,7 +42,6 @@ class IDCInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cInfo 
      * @param {Pointer<DCINFO>} rgInfo 
      * @returns {HRESULT} 

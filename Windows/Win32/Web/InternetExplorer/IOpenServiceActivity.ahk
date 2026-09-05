@@ -35,7 +35,6 @@ class IOpenServiceActivity extends IOpenService {
     static VTableNames => ["Execute", "CanExecute", "CanExecuteType", "Preview", "CanPreview", "CanPreviewType", "GetStatusText", "GetHomepageUrl", "GetDisplayName", "GetDescription", "GetCategoryName", "GetIconPath", "GetIcon", "GetDescriptionFilePath", "GetDownloadUrl", "GetInstallUrl", "IsEnabled", "SetEnabled"]
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {BOOL} 
@@ -57,7 +55,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {OpenServiceActivityContentType} type 
      * @returns {BOOL} 
      */
@@ -67,7 +64,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {HRESULT} 
@@ -78,7 +74,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {BOOL} 
@@ -89,7 +84,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {OpenServiceActivityContentType} type 
      * @returns {BOOL} 
      */
@@ -99,7 +93,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @returns {BSTR} 
      */
@@ -110,7 +103,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetHomepageUrl() {
@@ -120,7 +112,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDisplayName() {
@@ -141,7 +132,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCategoryName() {
@@ -151,7 +141,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetIconPath() {
@@ -161,7 +150,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {BOOL} fSmallIcon 
      * @returns {HICON} 
      */
@@ -172,7 +160,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDescriptionFilePath() {
@@ -182,7 +169,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDownloadUrl() {
@@ -192,7 +178,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetInstallUrl() {
@@ -240,7 +225,6 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */

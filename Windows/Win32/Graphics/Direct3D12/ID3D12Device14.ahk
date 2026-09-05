@@ -31,7 +31,6 @@ class ID3D12Device14 extends ID3D12Device13 {
     static VTableNames => ["CreateRootSignatureFromSubobjectInLibrary"]
 
     /**
-     * 
      * @param {Integer} nodeMask 
      * @param {Pointer<Void>} pLibraryBlob 
      * @param {Pointer} blobLengthInBytes 

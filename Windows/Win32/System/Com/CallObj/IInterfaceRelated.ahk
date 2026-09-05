@@ -30,7 +30,6 @@ class IInterfaceRelated extends IUnknown {
     static VTableNames => ["SetIID", "GetIID"]
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IInterfaceRelated extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetIID() {

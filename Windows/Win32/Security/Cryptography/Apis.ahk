@@ -27066,7 +27066,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} pbSecretKey 
      * @param {Integer} cbSecretKey 
@@ -27089,7 +27088,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} pbCipherText 
      * @param {Integer} cbCipherText 
@@ -29434,7 +29432,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} pbSecretKey 
      * @param {Integer} cbSecretKey 
@@ -29456,7 +29453,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} pbCipherText 
      * @param {Integer} cbCipherText 
@@ -47107,7 +47103,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} pCertChains 
      * @param {Pointer<Integer>} pcbCertChains 
      * @param {Integer} pbEncodedIssuerName 
@@ -47888,7 +47883,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<PFN_CRYPT_CANCEL_RETRIEVAL>} pfnCancel 
      * @param {Pointer<Void>} pvArg 
      * @param {Integer} dwFlags 
@@ -47904,7 +47898,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {BOOL} 
      */
@@ -50115,7 +50108,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} dwHashUseType 
      * @param {PWSTR} pwszCNGHashAlgid 
      * @param {Integer} dwChainFlags 
@@ -51945,7 +51937,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} dwFindByType 
      * @param {Pointer<Void>} pvFindBy 
      * @param {Integer} dwGroupId 
@@ -51960,7 +51951,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} dwGroupId 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvArg 
@@ -51975,7 +51965,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} cPolicyChain 
      * @param {Pointer<POLICY_ELEMENT>} pPolicyChain 
      * @param {Pointer<Pointer<GENERIC_XML_TOKEN>>} securityToken 
@@ -51991,7 +51980,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static ManageCardSpace() {
@@ -52000,7 +51988,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} fileName 
      * @returns {HRESULT} 
      */
@@ -52058,7 +52045,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbHash 
      * @param {Integer} pHash 
@@ -52074,7 +52060,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbHash 
      * @param {Integer} pHash 
@@ -52091,7 +52076,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hSymmetricCrypto 
      * @param {Integer} _mode 
      * @param {PaddingMode} padding 
@@ -52107,7 +52091,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hSymmetricCrypto 
      * @returns {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} 
      */
@@ -52117,7 +52100,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
      * @param {Integer} pInData 
@@ -52130,7 +52112,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
      * @param {Integer} pInData 
@@ -52143,7 +52124,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
      * @param {Integer} pInData 
@@ -52155,7 +52135,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
      * @param {Integer} pInData 
@@ -52168,7 +52147,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<GENERIC_XML_TOKEN>} pAllocMemory 
      * @returns {BOOL} 
      */
@@ -52178,7 +52156,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @returns {HRESULT} 
      */
@@ -52188,7 +52165,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbLabel 
      * @param {Integer} pLabel 
@@ -52208,7 +52184,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} dwParamType 
      * @param {Pointer<Void>} pParam 
      * @param {Integer} ppToken 
@@ -52222,7 +52197,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {PWSTR} pszAlgId 
      * @param {Pointer<Pointer<BCRYPT_CIPHER_FUNCTION_TABLE>>} ppFunctionTable 
@@ -52241,7 +52215,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {PWSTR} pszAlgId 
      * @param {Pointer<Pointer<BCRYPT_HASH_FUNCTION_TABLE>>} ppFunctionTable 
@@ -52260,7 +52233,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {PWSTR} pszAlgId 
      * @param {Pointer<Pointer<BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE>>} ppFunctionTable 
@@ -52279,7 +52251,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {PWSTR} pszAlgId 
      * @param {Pointer<Pointer<BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE>>} ppFunctionTable 
@@ -52298,7 +52269,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {PWSTR} pszAlgId 
      * @param {Pointer<Pointer<BCRYPT_SIGNATURE_FUNCTION_TABLE>>} ppFunctionTable 
@@ -52317,7 +52287,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {Pointer<Pointer<BCRYPT_RNG_FUNCTION_TABLE>>} ppFunctionTable 
      * @param {Integer} dwFlags 
@@ -52334,7 +52303,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {PWSTR} pszAlgId 
      * @param {Pointer<Pointer<BCRYPT_KEY_DERIVATION_FUNCTION_TABLE>>} ppFunctionTable 
@@ -52353,7 +52321,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProvider 
      * @param {Integer} dwFlags 
      * @param {Pointer<CRYPT_PROVIDER_REG>} pReg 
@@ -52368,7 +52335,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProvider 
      * @returns {NTSTATUS} 
      */
@@ -52381,7 +52347,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} dwTable 
      * @param {PWSTR} pszContext 
      * @param {Integer} dwInterface 
@@ -52401,7 +52366,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {Integer} dwTable 
      * @param {PWSTR} pszContext 
      * @param {Integer} dwInterface 
@@ -52682,7 +52646,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {Pointer<Pointer<Void>>} ppEnumState 
@@ -52700,7 +52663,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {Pointer<Integer>} pEccCurveCount 
      * @param {Pointer<Pointer<NCRYPT_SSL_ECC_CURVE>>} ppEccCurve 
@@ -53275,7 +53237,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_HASH_HANDLE} hHandshakeHash 
      * @param {Integer} dwProtocol 
@@ -53293,7 +53254,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPublicKey 
      * @param {Pointer<NCRYPT_KEY_HANDLE>} phPreMasterKey 
@@ -53351,7 +53311,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPreSharedKey 
      * @param {Integer} dwProtocol 
@@ -53370,7 +53329,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {NCRYPT_KEY_HANDLE} hPublicKey 
@@ -53391,7 +53349,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hHandshakeKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -53408,7 +53365,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hBaseKey 
      * @param {NCRYPT_HASH_HANDLE} hHashValue 
@@ -53428,7 +53384,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hBaseTrafficKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -53445,7 +53400,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hBaseKey 
      * @param {NCRYPT_HASH_HANDLE} hHashValue 
@@ -53464,7 +53418,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hMasterKey 
      * @param {NCRYPT_HASH_HANDLE} hHashValue 
@@ -53483,7 +53436,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_HASH_HANDLE} hTranscriptHash 
      * @param {Integer} dwFlags 
@@ -53499,7 +53451,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hEarlyKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -53516,7 +53467,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hResumptionMasterKey 
      * @param {Integer} pbTicketNonce 
@@ -53535,7 +53485,6 @@ class Cryptography {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {Pointer<Pointer<NCRYPT_SSL_FUNCTION_TABLE>>} ppFunctionTable 
      * @param {Integer} dwFlags 

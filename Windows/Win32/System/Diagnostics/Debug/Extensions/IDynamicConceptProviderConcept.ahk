@@ -32,7 +32,6 @@ class IDynamicConceptProviderConcept extends IUnknown {
     static VTableNames => ["GetConcept", "SetConcept", "NotifyParent", "NotifyParentChange", "NotifyDestruct"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Pointer<Guid>} conceptId 
      * @param {Pointer<IUnknown>} conceptInterface 
@@ -48,7 +47,6 @@ class IDynamicConceptProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Pointer<Guid>} conceptId 
      * @param {IUnknown} conceptInterface 
@@ -61,7 +59,6 @@ class IDynamicConceptProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} parentModel 
      * @returns {HRESULT} 
      */
@@ -71,7 +68,6 @@ class IDynamicConceptProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} parentModel 
      * @returns {HRESULT} 
      */
@@ -81,7 +77,6 @@ class IDynamicConceptProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyDestruct() {

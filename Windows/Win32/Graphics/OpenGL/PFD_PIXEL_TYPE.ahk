@@ -7,12 +7,14 @@
 class PFD_PIXEL_TYPE extends Win32Enum {
 
     /**
+     * Native name: PFD_TYPE_RGBA
      * @type {Integer (Byte)}
      */
-    static PFD_TYPE_RGBA => 0x00
+    static RGBA => 0x00
 
     /**
+     * Native name: PFD_TYPE_COLORINDEX
      * @type {Integer (Byte)}
      */
-    static PFD_TYPE_COLORINDEX => 0x01
+    static COLORINDEX => 0x01
 }

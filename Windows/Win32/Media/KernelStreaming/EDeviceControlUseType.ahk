@@ -7,17 +7,20 @@
 class EDeviceControlUseType extends Win32Enum {
 
     /**
+     * Native name: eDeviceControlUseMissing
      * @type {Integer (Int32)}
      */
-    static eDeviceControlUseMissing => 0
+    static Missing => 0
 
     /**
+     * Native name: eDeviceControlUsePrimary
      * @type {Integer (Int32)}
      */
-    static eDeviceControlUsePrimary => 1
+    static Primary => 1
 
     /**
+     * Native name: eDeviceControlUseSecondary
      * @type {Integer (Int32)}
      */
-    static eDeviceControlUseSecondary => 2
+    static Secondary => 2
 }

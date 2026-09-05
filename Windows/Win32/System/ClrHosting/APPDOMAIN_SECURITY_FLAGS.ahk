@@ -7,22 +7,26 @@
 class APPDOMAIN_SECURITY_FLAGS extends Win32Enum {
 
     /**
+     * Native name: APPDOMAIN_SECURITY_DEFAULT
      * @type {Integer (Int32)}
      */
-    static APPDOMAIN_SECURITY_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: APPDOMAIN_SECURITY_SANDBOXED
      * @type {Integer (Int32)}
      */
-    static APPDOMAIN_SECURITY_SANDBOXED => 1
+    static SANDBOXED => 1
 
     /**
+     * Native name: APPDOMAIN_SECURITY_FORBID_CROSSAD_REVERSE_PINVOKE
      * @type {Integer (Int32)}
      */
-    static APPDOMAIN_SECURITY_FORBID_CROSSAD_REVERSE_PINVOKE => 2
+    static FORBID_CROSSAD_REVERSE_PINVOKE => 2
 
     /**
+     * Native name: APPDOMAIN_FORCE_TRIVIAL_WAIT_OPERATIONS
      * @type {Integer (Int32)}
      */
-    static APPDOMAIN_FORCE_TRIVIAL_WAIT_OPERATIONS => 8
+    static FORCE_TRIVIAL_WAIT_OPERATIONS => 8
 }

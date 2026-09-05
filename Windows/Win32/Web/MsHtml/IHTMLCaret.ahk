@@ -35,7 +35,6 @@ class IHTMLCaret extends IUnknown {
     static VTableNames => ["MoveCaretToPointer", "MoveCaretToPointerEx", "MoveMarkupPointerToCaret", "MoveDisplayPointerToCaret", "IsVisible", "Show", "Hide", "InsertText", "ScrollIntoView", "GetLocation", "GetCaretDirection", "SetCaretDirection"]
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @param {BOOL} fScrollIntoView 
      * @param {CARET_DIRECTION} eDir 
@@ -47,7 +46,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @param {BOOL} fVisible 
      * @param {BOOL} fScrollIntoView 
@@ -60,7 +58,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIMarkupPointer 
      * @returns {HRESULT} 
      */
@@ -70,7 +67,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {HRESULT} 
      */
@@ -80,7 +76,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsVisible() {
@@ -89,7 +84,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fScrollIntoView 
      * @returns {HRESULT} 
      */
@@ -123,7 +117,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pText 
      * @param {Integer} lLen 
      * @returns {HRESULT} 
@@ -136,7 +129,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ScrollIntoView() {
@@ -145,7 +137,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fTranslate 
      * @returns {POINT} 
      */
@@ -156,7 +147,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @returns {CARET_DIRECTION} 
      */
     GetCaretDirection() {
@@ -165,7 +155,6 @@ class IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {CARET_DIRECTION} eDir 
      * @returns {HRESULT} 
      */

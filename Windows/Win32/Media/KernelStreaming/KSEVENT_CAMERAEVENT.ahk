@@ -7,7 +7,8 @@
 class KSEVENT_CAMERAEVENT extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_PHOTO_SAMPLE_SCANNED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_PHOTO_SAMPLE_SCANNED => 0
+    static PHOTO_SAMPLE_SCANNED => 0
 }

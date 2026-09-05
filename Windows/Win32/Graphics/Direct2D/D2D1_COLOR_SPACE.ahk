@@ -10,19 +10,22 @@ class D2D1_COLOR_SPACE extends Win32Enum {
 
     /**
      * The color space is otherwise described, such as with a color profile.
+     * Native name: D2D1_COLOR_SPACE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_SPACE_CUSTOM => 0
+    static CUSTOM => 0
 
     /**
      * The color space is sRGB.
+     * Native name: D2D1_COLOR_SPACE_SRGB
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_SPACE_SRGB => 1
+    static SRGB => 1
 
     /**
      * The color space is scRGB.
+     * Native name: D2D1_COLOR_SPACE_SCRGB
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_SPACE_SCRGB => 2
+    static SCRGB => 2
 }

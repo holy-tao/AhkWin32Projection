@@ -7,52 +7,62 @@
 class DXVA_VideoProcessCaps extends Win32Enum {
 
     /**
+     * Native name: DXVA_VideoProcess_None
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_None => 0
+    static None => 0
 
     /**
+     * Native name: DXVA_VideoProcess_YUV2RGB
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_YUV2RGB => 1
+    static YUV2RGB => 1
 
     /**
+     * Native name: DXVA_VideoProcess_StretchX
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_StretchX => 2
+    static StretchX => 2
 
     /**
+     * Native name: DXVA_VideoProcess_StretchY
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_StretchY => 4
+    static StretchY => 4
 
     /**
+     * Native name: DXVA_VideoProcess_AlphaBlend
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_AlphaBlend => 8
+    static AlphaBlend => 8
 
     /**
+     * Native name: DXVA_VideoProcess_SubRects
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_SubRects => 16
+    static SubRects => 16
 
     /**
+     * Native name: DXVA_VideoProcess_SubStreams
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_SubStreams => 32
+    static SubStreams => 32
 
     /**
+     * Native name: DXVA_VideoProcess_SubStreamsExtended
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_SubStreamsExtended => 64
+    static SubStreamsExtended => 64
 
     /**
+     * Native name: DXVA_VideoProcess_YUV2RGBExtended
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_YUV2RGBExtended => 128
+    static YUV2RGBExtended => 128
 
     /**
+     * Native name: DXVA_VideoProcess_AlphaBlendExtended
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoProcess_AlphaBlendExtended => 256
+    static AlphaBlendExtended => 256
 }

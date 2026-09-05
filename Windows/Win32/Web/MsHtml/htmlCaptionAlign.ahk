@@ -7,42 +7,50 @@
 class htmlCaptionAlign extends Win32Enum {
 
     /**
+     * Native name: htmlCaptionAlignNotSet
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlignNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlCaptionAlignLeft
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlignLeft => 1
+    static Left => 1
 
     /**
+     * Native name: htmlCaptionAlignCenter
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlignCenter => 2
+    static Center => 2
 
     /**
+     * Native name: htmlCaptionAlignRight
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlignRight => 3
+    static Right => 3
 
     /**
+     * Native name: htmlCaptionAlignJustify
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlignJustify => 4
+    static Justify => 4
 
     /**
+     * Native name: htmlCaptionAlignTop
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlignTop => 5
+    static Top => 5
 
     /**
+     * Native name: htmlCaptionAlignBottom
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlignBottom => 6
+    static Bottom => 6
 
     /**
+     * Native name: htmlCaptionAlign_Max
      * @type {Integer (Int32)}
      */
-    static htmlCaptionAlign_Max => 2147483647
+    static Max => 2147483647
 }

@@ -30,7 +30,6 @@ class IInternetProtocolSinkStackable extends IUnknown {
     static VTableNames => ["SwitchSink", "CommitSwitch", "RollbackSwitch"]
 
     /**
-     * 
      * @param {IInternetProtocolSink} pOIProtSink 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IInternetProtocolSinkStackable extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CommitSwitch() {
@@ -49,7 +47,6 @@ class IInternetProtocolSinkStackable extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RollbackSwitch() {

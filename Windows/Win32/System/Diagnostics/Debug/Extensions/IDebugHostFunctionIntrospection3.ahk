@@ -29,7 +29,6 @@ class IDebugHostFunctionIntrospection3 extends IDebugHostFunctionIntrospection2 
     static VTableNames => ["IsNoReturnFunction"]
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsNoReturnFunction() {

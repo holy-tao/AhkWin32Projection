@@ -7,27 +7,32 @@
 class CLUSTER_NODE_FAILBACK_STATUS extends Win32Enum {
 
     /**
+     * Native name: NodeFailbackStatusNotInitiated
      * @type {Integer (Int32)}
      */
-    static NodeFailbackStatusNotInitiated => 0
+    static NotInitiated => 0
 
     /**
+     * Native name: NodeFailbackStatusInProgress
      * @type {Integer (Int32)}
      */
-    static NodeFailbackStatusInProgress => 1
+    static InProgress => 1
 
     /**
+     * Native name: NodeFailbackStatusCompleted
      * @type {Integer (Int32)}
      */
-    static NodeFailbackStatusCompleted => 2
+    static Completed => 2
 
     /**
+     * Native name: NodeFailbackStatusFailed
      * @type {Integer (Int32)}
      */
-    static NodeFailbackStatusFailed => 3
+    static Failed => 3
 
     /**
+     * Native name: ClusterNodeFailbackStatusCount
      * @type {Integer (Int32)}
      */
-    static ClusterNodeFailbackStatusCount => 4
+    static Count => 4
 }

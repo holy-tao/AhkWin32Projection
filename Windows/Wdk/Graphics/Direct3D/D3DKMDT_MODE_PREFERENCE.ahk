@@ -7,17 +7,20 @@
 class D3DKMDT_MODE_PREFERENCE extends Win32Enum {
 
     /**
+     * Native name: D3DKMDT_MP_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MP_UNINITIALIZED => 0
+    static MP_UNINITIALIZED => 0
 
     /**
+     * Native name: D3DKMDT_MP_PREFERRED
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MP_PREFERRED => 1
+    static MP_PREFERRED => 1
 
     /**
+     * Native name: D3DKMDT_MP_NOTPREFERRED
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_MP_NOTPREFERRED => 2
+    static MP_NOTPREFERRED => 2
 }

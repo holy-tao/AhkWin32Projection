@@ -30,7 +30,6 @@ class IDTFilterLicenseRenewal extends IUnknown {
     static VTableNames => ["GetLicenseRenewalData"]
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszFileName 
      * @param {Pointer<PWSTR>} ppwszExpiredKid 
      * @param {Pointer<PWSTR>} ppwszTunerId 

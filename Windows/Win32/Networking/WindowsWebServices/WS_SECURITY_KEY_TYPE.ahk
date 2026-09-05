@@ -11,19 +11,22 @@ class WS_SECURITY_KEY_TYPE extends Win32Enum {
     /**
      * Has no key -- it may be a bearer token such as a username/password
      * pair.
+     * Native name: WS_SECURITY_KEY_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_KEY_TYPE_NONE => 1
+    static NONE => 1
 
     /**
      * Has a symmetric key.
+     * Native name: WS_SECURITY_KEY_TYPE_SYMMETRIC
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_KEY_TYPE_SYMMETRIC => 2
+    static SYMMETRIC => 2
 
     /**
      * Has an asymmetric key.
+     * Native name: WS_SECURITY_KEY_TYPE_ASYMMETRIC
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_KEY_TYPE_ASYMMETRIC => 3
+    static ASYMMETRIC => 3
 }

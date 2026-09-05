@@ -32,7 +32,6 @@ class IMFMediaEngineClassFactory3 extends IUnknown {
     static VTableNames => ["CreateMediaKeySystemAccess"]
 
     /**
-     * 
      * @param {BSTR} keySystem 
      * @param {Pointer<IPropertyStore>} ppSupportedConfigurationsArray 
      * @param {Integer} uSize 

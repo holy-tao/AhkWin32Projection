@@ -32,7 +32,6 @@ class ISpThreadControl extends ISpNotifySink {
     static VTableNames => ["StartThread", "WaitForThreadDone", "TerminateThread", "ThreadHandle", "ThreadId", "NotifyEvent", "WindowHandle", "ThreadCompleteEvent", "ExitThreadEvent"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HWND} 
      */
@@ -43,7 +42,6 @@ class ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @param {BOOL} fForceStop 
      * @param {Integer} msTimeOut 
      * @returns {HRESULT} 
@@ -92,7 +90,6 @@ class ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     ThreadHandle() {
@@ -102,7 +99,6 @@ class ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     ThreadId() {
@@ -111,7 +107,6 @@ class ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     NotifyEvent() {
@@ -121,7 +116,6 @@ class ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     WindowHandle() {
@@ -131,7 +125,6 @@ class ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     ThreadCompleteEvent() {
@@ -141,7 +134,6 @@ class ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     ExitThreadEvent() {

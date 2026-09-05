@@ -31,7 +31,6 @@ class IDvbLogicalChannelDescriptor2 extends IDvbLogicalChannelDescriptor {
     static VTableNames => ["GetRecordLogicalChannelAndVisibility"]
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {Integer} 
      */

@@ -10,19 +10,22 @@ class MF_OBJECT_TYPE extends Win32Enum {
 
     /**
      * Media source. You can query the object for the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> interface.
+     * Native name: MF_OBJECT_MEDIASOURCE
      * @type {Integer (Int32)}
      */
-    static MF_OBJECT_MEDIASOURCE => 0
+    static MEDIASOURCE => 0
 
     /**
      * Byte stream. You can query the object for the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface.
+     * Native name: MF_OBJECT_BYTESTREAM
      * @type {Integer (Int32)}
      */
-    static MF_OBJECT_BYTESTREAM => 1
+    static BYTESTREAM => 1
 
     /**
      * Invalid type.
+     * Native name: MF_OBJECT_INVALID
      * @type {Integer (Int32)}
      */
-    static MF_OBJECT_INVALID => 2
+    static INVALID => 2
 }

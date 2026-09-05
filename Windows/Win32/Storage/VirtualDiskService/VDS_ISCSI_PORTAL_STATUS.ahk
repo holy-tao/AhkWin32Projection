@@ -13,31 +13,36 @@ class VDS_ISCSI_PORTAL_STATUS extends Win32Enum {
 
     /**
      * The status is unknown.
+     * Native name: VDS_IPS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_IPS_UNKNOWN => 0
+    static IPS_UNKNOWN => 0
 
     /**
      * The portal is available.
+     * Native name: VDS_IPS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_IPS_ONLINE => 1
+    static IPS_ONLINE => 1
 
     /**
      * The portal is busy.
+     * Native name: VDS_IPS_NOT_READY
      * @type {Integer (Int32)}
      */
-    static VDS_IPS_NOT_READY => 2
+    static IPS_NOT_READY => 2
 
     /**
      * The portal is unavailable.
+     * Native name: VDS_IPS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_IPS_OFFLINE => 4
+    static IPS_OFFLINE => 4
 
     /**
      * The portal has failed.
+     * Native name: VDS_IPS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_IPS_FAILED => 5
+    static IPS_FAILED => 5
 }

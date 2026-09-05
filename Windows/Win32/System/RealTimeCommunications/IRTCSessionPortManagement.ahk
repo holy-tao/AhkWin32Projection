@@ -30,7 +30,6 @@ class IRTCSessionPortManagement extends IUnknown {
     static VTableNames => ["SetPortManager"]
 
     /**
-     * 
      * @param {IRTCPortManager} pPortManager 
      * @returns {HRESULT} 
      */

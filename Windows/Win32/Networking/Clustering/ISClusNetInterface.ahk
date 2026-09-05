@@ -89,7 +89,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -98,7 +97,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -107,7 +105,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -116,7 +113,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -125,7 +121,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -135,7 +130,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -144,7 +138,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_NETINTERFACE_STATE} 
      */
     get_State() {
@@ -153,7 +146,6 @@ class ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {

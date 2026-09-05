@@ -27,9 +27,10 @@ class DMA_WIDTH extends Win32Enum {
     static Width64Bits => 3
 
     /**
+     * Native name: WidthNoWrap
      * @type {Integer (Int32)}
      */
-    static WidthNoWrap => 4
+    static NoWrap => 4
 
     /**
      * @type {Integer (Int32)}

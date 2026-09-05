@@ -18,9 +18,10 @@ class WS_COOKIE_MODE extends Win32Enum {
      *                 
      * 
      * An application can use the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_header_mapping">WS_HTTP_HEADER_MAPPING</a> feature to handle cookies manually, if desired.
+     * Native name: WS_MANUAL_COOKIE_MODE
      * @type {Integer (Int32)}
      */
-    static WS_MANUAL_COOKIE_MODE => 1
+    static MANUAL_COOKIE_MODE => 1
 
     /**
      * In this mode, cookies are automatically tracked by
@@ -30,7 +31,8 @@ class WS_COOKIE_MODE extends Win32Enum {
      * If a server sends a cookie to the client,
      *                     the channel will automatically track the cookie and
      *                     will include the cookie in subsequent requests.
+     * Native name: WS_AUTO_COOKIE_MODE
      * @type {Integer (Int32)}
      */
-    static WS_AUTO_COOKIE_MODE => 2
+    static AUTO_COOKIE_MODE => 2
 }

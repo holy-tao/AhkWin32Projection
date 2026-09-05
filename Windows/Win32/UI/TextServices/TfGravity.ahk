@@ -12,13 +12,15 @@ class TfGravity extends Win32Enum {
 
     /**
      * The anchor has backward gravity.
+     * Native name: TF_GRAVITY_BACKWARD
      * @type {Integer (Int32)}
      */
-    static TF_GRAVITY_BACKWARD => 0
+    static BACKWARD => 0
 
     /**
      * The anchor has forward gravity.
+     * Native name: TF_GRAVITY_FORWARD
      * @type {Integer (Int32)}
      */
-    static TF_GRAVITY_FORWARD => 1
+    static FORWARD => 1
 }

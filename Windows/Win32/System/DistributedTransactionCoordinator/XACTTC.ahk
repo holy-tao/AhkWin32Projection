@@ -7,32 +7,38 @@
 class XACTTC extends Win32Enum {
 
     /**
+     * Native name: XACTTC_NONE
      * @type {Integer (Int32)}
      */
-    static XACTTC_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: XACTTC_SYNC_PHASEONE
      * @type {Integer (Int32)}
      */
-    static XACTTC_SYNC_PHASEONE => 1
+    static SYNC_PHASEONE => 1
 
     /**
+     * Native name: XACTTC_SYNC_PHASETWO
      * @type {Integer (Int32)}
      */
-    static XACTTC_SYNC_PHASETWO => 2
+    static SYNC_PHASETWO => 2
 
     /**
+     * Native name: XACTTC_SYNC
      * @type {Integer (Int32)}
      */
-    static XACTTC_SYNC => 2
+    static SYNC => 2
 
     /**
+     * Native name: XACTTC_ASYNC_PHASEONE
      * @type {Integer (Int32)}
      */
-    static XACTTC_ASYNC_PHASEONE => 4
+    static ASYNC_PHASEONE => 4
 
     /**
+     * Native name: XACTTC_ASYNC
      * @type {Integer (Int32)}
      */
-    static XACTTC_ASYNC => 4
+    static ASYNC => 4
 }

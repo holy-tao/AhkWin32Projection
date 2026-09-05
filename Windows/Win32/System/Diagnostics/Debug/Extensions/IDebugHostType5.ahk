@@ -30,7 +30,6 @@ class IDebugHostType5 extends IDebugHostType4 {
     static VTableNames => ["IsBaseTypeOf"]
 
     /**
-     * 
      * @param {IDebugHostType} pOtherType 
      * @returns {Boolean} 
      */

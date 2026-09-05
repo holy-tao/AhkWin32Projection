@@ -7,12 +7,14 @@
 class WLAN_NOTIFICATION_SECURITY extends Win32Enum {
 
     /**
+     * Native name: wlan_notification_security_start
      * @type {Integer (Int32)}
      */
-    static wlan_notification_security_start => 0
+    static start => 0
 
     /**
+     * Native name: wlan_notification_security_end
      * @type {Integer (Int32)}
      */
-    static wlan_notification_security_end => 1
+    static end => 1
 }

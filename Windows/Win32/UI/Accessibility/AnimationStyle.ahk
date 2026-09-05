@@ -10,49 +10,57 @@ class AnimationStyle extends Win32Enum {
 
     /**
      * None.
+     * Native name: AnimationStyle_None
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_None => 0
+    static None => 0
 
     /**
      * The bounding rectangle displays a border of alternating icons of different colors.
+     * Native name: AnimationStyle_LasVegasLights
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_LasVegasLights => 1
+    static LasVegasLights => 1
 
     /**
      * The font and background alternate between assigned colors and contrasting colors.
+     * Native name: AnimationStyle_BlinkingBackground
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_BlinkingBackground => 2
+    static BlinkingBackground => 2
 
     /**
      * The background displays flashing, multicolored icons.
+     * Native name: AnimationStyle_SparkleText
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_SparkleText => 3
+    static SparkleText => 3
 
     /**
      * The bounding rectangle displays moving black dashes.
+     * Native name: AnimationStyle_MarchingBlackAnts
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_MarchingBlackAnts => 4
+    static MarchingBlackAnts => 4
 
     /**
      * The bounding rectangle displays moving red dashes.
+     * Native name: AnimationStyle_MarchingRedAnts
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_MarchingRedAnts => 5
+    static MarchingRedAnts => 5
 
     /**
      * The font alternates between solid and blurred.
+     * Native name: AnimationStyle_Shimmer
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_Shimmer => 6
+    static Shimmer => 6
 
     /**
      * Other.
+     * Native name: AnimationStyle_Other
      * @type {Integer (Int32)}
      */
-    static AnimationStyle_Other => -1
+    static Other => -1
 }

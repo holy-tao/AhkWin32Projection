@@ -79,61 +79,71 @@ class DXVA2_VideoPrimaries extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: DXVA2_VideoPrimariesMask
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimariesMask => 31
+    static Mask => 31
 
     /**
      * Unknown. Treat as <b>DXVA2_VideoPrimaries_BT709</b>.
+     * Native name: DXVA2_VideoPrimaries_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_Unknown => 0
+    static Unknown => 0
 
     /**
      * Reserved. Do not use.
+     * Native name: DXVA2_VideoPrimaries_reserved
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_reserved => 1
+    static reserved => 1
 
     /**
      * ITU-R BT.709. Also used for sRGB and scRGB.
+     * Native name: DXVA2_VideoPrimaries_BT709
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_BT709 => 2
+    static BT709 => 2
 
     /**
      * ITU-R BT.470-4 System M (NTSC).
+     * Native name: DXVA2_VideoPrimaries_BT470_2_SysM
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_BT470_2_SysM => 3
+    static BT470_2_SysM => 3
 
     /**
      * ITU-R BT.470-4 System B,G (PAL).
+     * Native name: DXVA2_VideoPrimaries_BT470_2_SysBG
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_BT470_2_SysBG => 4
+    static BT470_2_SysBG => 4
 
     /**
      * SMPTE 170M.
+     * Native name: DXVA2_VideoPrimaries_SMPTE170M
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_SMPTE170M => 5
+    static SMPTE170M => 5
 
     /**
      * SMPTE 240M.
+     * Native name: DXVA2_VideoPrimaries_SMPTE240M
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_SMPTE240M => 6
+    static SMPTE240M => 6
 
     /**
      * EBU Tech. 3213.
+     * Native name: DXVA2_VideoPrimaries_EBU3213
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_EBU3213 => 7
+    static EBU3213 => 7
 
     /**
      * SMPTE C (SMPTE RP 145).
+     * Native name: DXVA2_VideoPrimaries_SMPTE_C
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoPrimaries_SMPTE_C => 8
+    static SMPTE_C => 8
 }

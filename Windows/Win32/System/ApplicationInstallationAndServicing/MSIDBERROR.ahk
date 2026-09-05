@@ -7,167 +7,200 @@
 class MSIDBERROR extends Win32Enum {
 
     /**
+     * Native name: MSIDBERROR_INVALIDARG
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_INVALIDARG => -3
+    static INVALIDARG => -3
 
     /**
+     * Native name: MSIDBERROR_MOREDATA
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_MOREDATA => -2
+    static MOREDATA => -2
 
     /**
+     * Native name: MSIDBERROR_FUNCTIONERROR
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_FUNCTIONERROR => -1
+    static FUNCTIONERROR => -1
 
     /**
+     * Native name: MSIDBERROR_NOERROR
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_NOERROR => 0
+    static NOERROR => 0
 
     /**
+     * Native name: MSIDBERROR_DUPLICATEKEY
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_DUPLICATEKEY => 1
+    static DUPLICATEKEY => 1
 
     /**
+     * Native name: MSIDBERROR_REQUIRED
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_REQUIRED => 2
+    static REQUIRED => 2
 
     /**
+     * Native name: MSIDBERROR_BADLINK
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADLINK => 3
+    static BADLINK => 3
 
     /**
+     * Native name: MSIDBERROR_OVERFLOW
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_OVERFLOW => 4
+    static OVERFLOW => 4
 
     /**
+     * Native name: MSIDBERROR_UNDERFLOW
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_UNDERFLOW => 5
+    static UNDERFLOW => 5
 
     /**
+     * Native name: MSIDBERROR_NOTINSET
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_NOTINSET => 6
+    static NOTINSET => 6
 
     /**
+     * Native name: MSIDBERROR_BADVERSION
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADVERSION => 7
+    static BADVERSION => 7
 
     /**
+     * Native name: MSIDBERROR_BADCASE
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADCASE => 8
+    static BADCASE => 8
 
     /**
+     * Native name: MSIDBERROR_BADGUID
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADGUID => 9
+    static BADGUID => 9
 
     /**
+     * Native name: MSIDBERROR_BADWILDCARD
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADWILDCARD => 10
+    static BADWILDCARD => 10
 
     /**
+     * Native name: MSIDBERROR_BADIDENTIFIER
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADIDENTIFIER => 11
+    static BADIDENTIFIER => 11
 
     /**
+     * Native name: MSIDBERROR_BADLANGUAGE
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADLANGUAGE => 12
+    static BADLANGUAGE => 12
 
     /**
+     * Native name: MSIDBERROR_BADFILENAME
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADFILENAME => 13
+    static BADFILENAME => 13
 
     /**
+     * Native name: MSIDBERROR_BADPATH
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADPATH => 14
+    static BADPATH => 14
 
     /**
+     * Native name: MSIDBERROR_BADCONDITION
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADCONDITION => 15
+    static BADCONDITION => 15
 
     /**
+     * Native name: MSIDBERROR_BADFORMATTED
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADFORMATTED => 16
+    static BADFORMATTED => 16
 
     /**
+     * Native name: MSIDBERROR_BADTEMPLATE
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADTEMPLATE => 17
+    static BADTEMPLATE => 17
 
     /**
+     * Native name: MSIDBERROR_BADDEFAULTDIR
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADDEFAULTDIR => 18
+    static BADDEFAULTDIR => 18
 
     /**
+     * Native name: MSIDBERROR_BADREGPATH
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADREGPATH => 19
+    static BADREGPATH => 19
 
     /**
+     * Native name: MSIDBERROR_BADCUSTOMSOURCE
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADCUSTOMSOURCE => 20
+    static BADCUSTOMSOURCE => 20
 
     /**
+     * Native name: MSIDBERROR_BADPROPERTY
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADPROPERTY => 21
+    static BADPROPERTY => 21
 
     /**
+     * Native name: MSIDBERROR_MISSINGDATA
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_MISSINGDATA => 22
+    static MISSINGDATA => 22
 
     /**
+     * Native name: MSIDBERROR_BADCATEGORY
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADCATEGORY => 23
+    static BADCATEGORY => 23
 
     /**
+     * Native name: MSIDBERROR_BADKEYTABLE
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADKEYTABLE => 24
+    static BADKEYTABLE => 24
 
     /**
+     * Native name: MSIDBERROR_BADMAXMINVALUES
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADMAXMINVALUES => 25
+    static BADMAXMINVALUES => 25
 
     /**
+     * Native name: MSIDBERROR_BADCABINET
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADCABINET => 26
+    static BADCABINET => 26
 
     /**
+     * Native name: MSIDBERROR_BADSHORTCUT
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADSHORTCUT => 27
+    static BADSHORTCUT => 27
 
     /**
+     * Native name: MSIDBERROR_STRINGOVERFLOW
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_STRINGOVERFLOW => 28
+    static STRINGOVERFLOW => 28
 
     /**
+     * Native name: MSIDBERROR_BADLOCALIZEATTRIB
      * @type {Integer (Int32)}
      */
-    static MSIDBERROR_BADLOCALIZEATTRIB => 29
+    static BADLOCALIZEATTRIB => 29
 }

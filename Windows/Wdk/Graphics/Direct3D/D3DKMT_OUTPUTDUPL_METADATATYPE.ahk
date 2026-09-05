@@ -7,12 +7,14 @@
 class D3DKMT_OUTPUTDUPL_METADATATYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_OUTPUTDUPL_METADATATYPE_DIRTY_RECTS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_OUTPUTDUPL_METADATATYPE_DIRTY_RECTS => 0
+    static DIRTY_RECTS => 0
 
     /**
+     * Native name: D3DKMT_OUTPUTDUPL_METADATATYPE_MOVE_RECTS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_OUTPUTDUPL_METADATATYPE_MOVE_RECTS => 1
+    static MOVE_RECTS => 1
 }

@@ -10,19 +10,22 @@ class ATTACHMENT_ACTION extends Win32Enum {
 
     /**
      * Cancel
+     * Native name: ATTACHMENT_ACTION_CANCEL
      * @type {Integer (Int32)}
      */
-    static ATTACHMENT_ACTION_CANCEL => 0
+    static CANCEL => 0
 
     /**
      * Save
+     * Native name: ATTACHMENT_ACTION_SAVE
      * @type {Integer (Int32)}
      */
-    static ATTACHMENT_ACTION_SAVE => 1
+    static SAVE => 1
 
     /**
      * Execute
+     * Native name: ATTACHMENT_ACTION_EXEC
      * @type {Integer (Int32)}
      */
-    static ATTACHMENT_ACTION_EXEC => 2
+    static EXEC => 2
 }

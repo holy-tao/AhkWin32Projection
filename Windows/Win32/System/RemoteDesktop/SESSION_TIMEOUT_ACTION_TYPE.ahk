@@ -7,12 +7,14 @@
 class SESSION_TIMEOUT_ACTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: SESSION_TIMEOUT_ACTION_DISCONNECT
      * @type {Integer (Int32)}
      */
-    static SESSION_TIMEOUT_ACTION_DISCONNECT => 0
+    static DISCONNECT => 0
 
     /**
+     * Native name: SESSION_TIMEOUT_ACTION_SILENT_REAUTH
      * @type {Integer (Int32)}
      */
-    static SESSION_TIMEOUT_ACTION_SILENT_REAUTH => 1
+    static SILENT_REAUTH => 1
 }

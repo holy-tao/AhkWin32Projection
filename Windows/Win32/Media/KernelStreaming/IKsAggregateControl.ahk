@@ -30,7 +30,6 @@ class IKsAggregateControl extends IUnknown {
     static VTableNames => ["KsAddAggregate", "KsRemoveAggregate"]
 
     /**
-     * 
      * @param {Pointer<Guid>} AggregateClass 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IKsAggregateControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} AggregateClass 
      * @returns {HRESULT} 
      */

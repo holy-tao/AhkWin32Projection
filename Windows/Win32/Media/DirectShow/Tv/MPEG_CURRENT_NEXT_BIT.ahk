@@ -10,13 +10,15 @@ class MPEG_CURRENT_NEXT_BIT extends Win32Enum {
 
     /**
      * Indicates that the table is current applicable.
+     * Native name: MPEG_SECTION_IS_NEXT
      * @type {Integer (Int32)}
      */
-    static MPEG_SECTION_IS_NEXT => 0
+    static SECTION_IS_NEXT => 0
 
     /**
      * Indicates that the table is not yet applicable, and will be the next valid table.
+     * Native name: MPEG_SECTION_IS_CURRENT
      * @type {Integer (Int32)}
      */
-    static MPEG_SECTION_IS_CURRENT => 1
+    static SECTION_IS_CURRENT => 1
 }

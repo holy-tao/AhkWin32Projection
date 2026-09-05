@@ -9,22 +9,26 @@
 class WINBIO_SETTING_SOURCE extends Win32Enum {
 
     /**
+     * Native name: WINBIO_SETTING_SOURCE_INVALID
      * @type {Integer (UInt32)}
      */
-    static WINBIO_SETTING_SOURCE_INVALID => 0
+    static INVALID => 0
 
     /**
+     * Native name: WINBIO_SETTING_SOURCE_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static WINBIO_SETTING_SOURCE_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
+     * Native name: WINBIO_SETTING_SOURCE_LOCAL
      * @type {Integer (UInt32)}
      */
-    static WINBIO_SETTING_SOURCE_LOCAL => 3
+    static LOCAL => 3
 
     /**
+     * Native name: WINBIO_SETTING_SOURCE_POLICY
      * @type {Integer (UInt32)}
      */
-    static WINBIO_SETTING_SOURCE_POLICY => 2
+    static POLICY => 2
 }

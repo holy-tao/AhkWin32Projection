@@ -35,7 +35,6 @@ class IPrintCoreHelper extends IUnknown {
     static VTableNames => ["GetOption", "SetOptions", "EnumConstrainedOptions", "WhyConstrained", "EnumFeatures", "EnumOptions", "GetFontSubstitution", "SetFontSubstitution", "CreateInstanceOfMSXMLObject"]
 
     /**
-     * 
      * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureRequested 
@@ -49,7 +48,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} cbSize 
      * @param {BOOL} bResolveConflicts 
@@ -68,7 +66,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureKeyword 
@@ -87,7 +84,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureKeyword 
@@ -108,7 +104,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Pointer<PSTR>>>} pFeatureList 
      * @param {Pointer<Integer>} pdwNumFeatures 
      * @returns {HRESULT} 
@@ -122,7 +117,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pszFeatureKeyword 
      * @param {Pointer<Pointer<Pointer<PSTR>>>} pOptionList 
      * @param {Pointer<Integer>} pdwNumOptions 
@@ -139,7 +133,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTrueTypeFontName 
      * @param {Pointer<PWSTR>} ppszDevFontName 
      * @returns {HRESULT} 
@@ -154,7 +147,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTrueTypeFontName 
      * @param {PWSTR} pszDevFontName 
      * @returns {HRESULT} 
@@ -168,7 +160,6 @@ class IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 

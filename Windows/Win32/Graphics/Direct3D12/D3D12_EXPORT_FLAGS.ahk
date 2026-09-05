@@ -12,7 +12,8 @@ class D3D12_EXPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * No export flags.
+     * Native name: D3D12_EXPORT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_EXPORT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

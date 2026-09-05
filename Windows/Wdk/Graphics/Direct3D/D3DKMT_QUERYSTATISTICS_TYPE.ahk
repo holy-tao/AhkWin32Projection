@@ -7,102 +7,122 @@
 class D3DKMT_QUERYSTATISTICS_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_ADAPTER
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_ADAPTER => 0
+    static ADAPTER => 0
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS => 1
+    static PROCESS => 1
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER => 2
+    static PROCESS_ADAPTER => 2
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_SEGMENT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_SEGMENT => 3
+    static SEGMENT => 3
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT => 4
+    static PROCESS_SEGMENT => 4
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_NODE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_NODE => 5
+    static NODE => 5
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_NODE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_NODE => 6
+    static PROCESS_NODE => 6
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_VIDPNSOURCE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_VIDPNSOURCE => 7
+    static VIDPNSOURCE => 7
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_VIDPNSOURCE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_VIDPNSOURCE => 8
+    static PROCESS_VIDPNSOURCE => 8
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_GROUP
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_GROUP => 9
+    static PROCESS_SEGMENT_GROUP => 9
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PHYSICAL_ADAPTER
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PHYSICAL_ADAPTER => 10
+    static PHYSICAL_ADAPTER => 10
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_ADAPTER2
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_ADAPTER2 => 11
+    static ADAPTER2 => 11
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_SEGMENT2
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_SEGMENT2 => 12
+    static SEGMENT2 => 12
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER2
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER2 => 13
+    static PROCESS_ADAPTER2 => 13
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT2
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT2 => 14
+    static PROCESS_SEGMENT2 => 14
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_GROUP2
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_GROUP2 => 15
+    static PROCESS_SEGMENT_GROUP2 => 15
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_SEGMENT_USAGE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_SEGMENT_USAGE => 16
+    static SEGMENT_USAGE => 16
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_SEGMENT_GROUP_USAGE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_SEGMENT_GROUP_USAGE => 17
+    static SEGMENT_GROUP_USAGE => 17
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_NODE2
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_NODE2 => 18
+    static NODE2 => 18
 
     /**
+     * Native name: D3DKMT_QUERYSTATISTICS_PROCESS_NODE2
      * @type {Integer (Int32)}
      */
-    static D3DKMT_QUERYSTATISTICS_PROCESS_NODE2 => 19
+    static PROCESS_NODE2 => 19
 }

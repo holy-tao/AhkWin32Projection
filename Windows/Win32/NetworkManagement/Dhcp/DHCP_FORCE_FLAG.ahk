@@ -10,19 +10,22 @@ class DHCP_FORCE_FLAG extends Win32Enum {
 
     /**
      * The operation deletes all client records affected by the element, and then deletes the element.
+     * Native name: DhcpFullForce
      * @type {Integer (Int32)}
      */
-    static DhcpFullForce => 0
+    static FullForce => 0
 
     /**
      * The operation only deletes the subnet element, leaving intact any client records impacted by the change.
+     * Native name: DhcpNoForce
      * @type {Integer (Int32)}
      */
-    static DhcpNoForce => 1
+    static NoForce => 1
 
     /**
      * The operation deletes all client records affected by the element, and then deletes the element from the DHCP server. But it does not delete any registered DNS records associated with the deleted client records from the DNS server. This flag is only valid when passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpdeletesubnet">DhcpDeleteSubnet</a>. Note that the minimum server OS requirement for this value is Windows Server 2012 R2 with KB 3100473 installed.
+     * Native name: DhcpFailoverForce
      * @type {Integer (Int32)}
      */
-    static DhcpFailoverForce => 2
+    static FailoverForce => 2
 }

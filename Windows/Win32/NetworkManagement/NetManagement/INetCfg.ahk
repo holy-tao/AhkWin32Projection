@@ -68,7 +68,6 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Uninitialize() {
@@ -77,7 +76,6 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Apply() {
@@ -86,7 +84,6 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -95,7 +92,6 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidClass 
      * @returns {IEnumNetCfgComponent} 
      */
@@ -105,7 +101,6 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwInfId 
      * @returns {INetCfgComponent} 
      */
@@ -117,7 +112,6 @@ class INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidClass 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

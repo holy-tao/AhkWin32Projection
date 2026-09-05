@@ -10,19 +10,22 @@ class MF_CAPTURE_ENGINE_SINK_TYPE extends Win32Enum {
 
     /**
      * A recording sink, for capturing audio and video to a file.
+     * Native name: MF_CAPTURE_ENGINE_SINK_TYPE_RECORD
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_SINK_TYPE_RECORD => 0
+    static RECORD => 0
 
     /**
      * A preview sink, for previewing live audio or video.
+     * Native name: MF_CAPTURE_ENGINE_SINK_TYPE_PREVIEW
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_SINK_TYPE_PREVIEW => 1
+    static PREVIEW => 1
 
     /**
      * A photo sink, for capturing still images.
+     * Native name: MF_CAPTURE_ENGINE_SINK_TYPE_PHOTO
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_SINK_TYPE_PHOTO => 2
+    static PHOTO => 2
 }

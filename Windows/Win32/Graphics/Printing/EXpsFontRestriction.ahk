@@ -7,22 +7,26 @@
 class EXpsFontRestriction extends Win32Enum {
 
     /**
+     * Native name: Xps_Restricted_Font_Installable
      * @type {Integer (Int32)}
      */
-    static Xps_Restricted_Font_Installable => 0
+    static Restricted_Font_Installable => 0
 
     /**
+     * Native name: Xps_Restricted_Font_NoEmbedding
      * @type {Integer (Int32)}
      */
-    static Xps_Restricted_Font_NoEmbedding => 2
+    static Restricted_Font_NoEmbedding => 2
 
     /**
+     * Native name: Xps_Restricted_Font_PreviewPrint
      * @type {Integer (Int32)}
      */
-    static Xps_Restricted_Font_PreviewPrint => 4
+    static Restricted_Font_PreviewPrint => 4
 
     /**
+     * Native name: Xps_Restricted_Font_Editable
      * @type {Integer (Int32)}
      */
-    static Xps_Restricted_Font_Editable => 8
+    static Restricted_Font_Editable => 8
 }

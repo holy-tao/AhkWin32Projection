@@ -12,19 +12,22 @@ class D3D11_VPOV_DIMENSION extends Win32Enum {
 
     /**
      * Not a valid value.
+     * Native name: D3D11_VPOV_DIMENSION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D11_VPOV_DIMENSION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The resource will be accessed as a 2D texture.
+     * Native name: D3D11_VPOV_DIMENSION_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D11_VPOV_DIMENSION_TEXTURE2D => 1
+    static TEXTURE2D => 1
 
     /**
      * The resource will be accessed as an array of 2D textures.
+     * Native name: D3D11_VPOV_DIMENSION_TEXTURE2DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D11_VPOV_DIMENSION_TEXTURE2DARRAY => 2
+    static TEXTURE2DARRAY => 2
 }

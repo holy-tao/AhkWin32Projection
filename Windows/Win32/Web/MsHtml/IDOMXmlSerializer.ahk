@@ -31,7 +31,6 @@ class IDOMXmlSerializer extends IDispatch {
     static VTableNames => ["serializeToString"]
 
     /**
-     * 
      * @param {IHTMLDOMNode} pNode 
      * @returns {BSTR} 
      */

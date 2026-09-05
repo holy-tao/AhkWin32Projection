@@ -30,7 +30,6 @@ class IEnumManagerFrames extends IUnknown {
     static VTableNames => ["Next", "Count", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Pointer<HWND>>} ppWindows 
      * @param {Pointer<Integer>} pceltFetched 
@@ -61,7 +60,6 @@ class IEnumManagerFrames extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ class IEnumManagerFrames extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -80,7 +77,6 @@ class IEnumManagerFrames extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumManagerFrames} 
      */
     Clone() {

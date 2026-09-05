@@ -22,19 +22,22 @@ class ROWSETEVENT_TYPE extends Win32Enum {
 
     /**
      * Indicates that data backing the rowset has expired, and that a new rowset should be requested.
+     * Native name: ROWSETEVENT_TYPE_DATAEXPIRED
      * @type {Integer (Int32)}
      */
-    static ROWSETEVENT_TYPE_DATAEXPIRED => 0
+    static DATAEXPIRED => 0
 
     /**
      * Indicates that an item that did have foreground priority in the prioritization stack has been demoted, because someone else prioritized themselves ahead of this query.
+     * Native name: ROWSETEVENT_TYPE_FOREGROUNDLOST
      * @type {Integer (Int32)}
      */
-    static ROWSETEVENT_TYPE_FOREGROUNDLOST => 1
+    static FOREGROUNDLOST => 1
 
     /**
      * Indicates that the scope statistics are to be obtained.
+     * Native name: ROWSETEVENT_TYPE_SCOPESTATISTICS
      * @type {Integer (Int32)}
      */
-    static ROWSETEVENT_TYPE_SCOPESTATISTICS => 2
+    static SCOPESTATISTICS => 2
 }

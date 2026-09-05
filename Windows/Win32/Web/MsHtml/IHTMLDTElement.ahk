@@ -44,7 +44,6 @@ class IHTMLDTElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class IHTMLDTElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {

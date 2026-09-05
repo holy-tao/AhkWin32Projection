@@ -7,62 +7,74 @@
 class styleOutlineStyle extends Win32Enum {
 
     /**
+     * Native name: styleOutlineStyleNotSet
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleOutlineStyleDotted
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleDotted => 1
+    static Dotted => 1
 
     /**
+     * Native name: styleOutlineStyleDashed
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleDashed => 2
+    static Dashed => 2
 
     /**
+     * Native name: styleOutlineStyleSolid
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleSolid => 3
+    static Solid => 3
 
     /**
+     * Native name: styleOutlineStyleDouble
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleDouble => 4
+    static Double => 4
 
     /**
+     * Native name: styleOutlineStyleGroove
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleGroove => 5
+    static Groove => 5
 
     /**
+     * Native name: styleOutlineStyleRidge
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleRidge => 6
+    static Ridge => 6
 
     /**
+     * Native name: styleOutlineStyleInset
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleInset => 7
+    static Inset => 7
 
     /**
+     * Native name: styleOutlineStyleOutset
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleOutset => 8
+    static Outset => 8
 
     /**
+     * Native name: styleOutlineStyleWindowInset
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleWindowInset => 9
+    static WindowInset => 9
 
     /**
+     * Native name: styleOutlineStyleNone
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyleNone => 10
+    static None => 10
 
     /**
+     * Native name: styleOutlineStyle_Max
      * @type {Integer (Int32)}
      */
-    static styleOutlineStyle_Max => 2147483647
+    static Max => 2147483647
 }

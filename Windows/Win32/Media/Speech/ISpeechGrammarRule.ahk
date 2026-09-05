@@ -60,7 +60,6 @@ class ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRuleAttributes} 
      */
     get_Attributes() {
@@ -69,7 +68,6 @@ class ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleState} 
      */
     get_InitialState() {
@@ -78,7 +76,6 @@ class ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -88,7 +85,6 @@ class ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Id() {
@@ -125,7 +121,6 @@ class ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ResourceName 
      * @param {BSTR} ResourceValue 
      * @returns {HRESULT} 
@@ -139,7 +134,6 @@ class ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleState} 
      */
     AddState() {

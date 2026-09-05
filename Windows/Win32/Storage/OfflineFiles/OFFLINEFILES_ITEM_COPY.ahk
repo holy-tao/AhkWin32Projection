@@ -10,19 +10,22 @@ class OFFLINEFILES_ITEM_COPY extends Win32Enum {
 
     /**
      * Retrieve the attributes, time values, or size  of the local copy of the item.  If the item is currently offline, this may be different than the attributes associated with the original copy.
+     * Native name: OFFLINEFILES_ITEM_COPY_LOCAL
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_COPY_LOCAL => 0
+    static LOCAL => 0
 
     /**
      * This enumeration value is reserved for future use.
+     * Native name: OFFLINEFILES_ITEM_COPY_REMOTE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_COPY_REMOTE => 1
+    static REMOTE => 1
 
     /**
      * Retrieve the attributes, time values, or size of the original copy of the item.  The original copy represents the state of the item following the last successful sync of that item, which is the most recent time when the server copy and local copy were identical.
+     * Native name: OFFLINEFILES_ITEM_COPY_ORIGINAL
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_ITEM_COPY_ORIGINAL => 2
+    static ORIGINAL => 2
 }

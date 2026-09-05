@@ -30,7 +30,6 @@ class IMLOperatorTypeInferrer extends IUnknown {
     static VTableNames => ["InferOutputTypes"]
 
     /**
-     * 
      * @param {IMLOperatorTypeInferenceContext} _context 
      * @returns {HRESULT} 
      */

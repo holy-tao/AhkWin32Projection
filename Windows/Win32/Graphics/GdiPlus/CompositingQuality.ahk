@@ -7,32 +7,38 @@
 class CompositingQuality extends Win32Enum {
 
     /**
+     * Native name: CompositingQualityInvalid
      * @type {Integer (Int32)}
      */
-    static CompositingQualityInvalid => -1
+    static Invalid => -1
 
     /**
+     * Native name: CompositingQualityDefault
      * @type {Integer (Int32)}
      */
-    static CompositingQualityDefault => 0
+    static Default => 0
 
     /**
+     * Native name: CompositingQualityHighSpeed
      * @type {Integer (Int32)}
      */
-    static CompositingQualityHighSpeed => 1
+    static HighSpeed => 1
 
     /**
+     * Native name: CompositingQualityHighQuality
      * @type {Integer (Int32)}
      */
-    static CompositingQualityHighQuality => 2
+    static HighQuality => 2
 
     /**
+     * Native name: CompositingQualityGammaCorrected
      * @type {Integer (Int32)}
      */
-    static CompositingQualityGammaCorrected => 3
+    static GammaCorrected => 3
 
     /**
+     * Native name: CompositingQualityAssumeLinear
      * @type {Integer (Int32)}
      */
-    static CompositingQualityAssumeLinear => 4
+    static AssumeLinear => 4
 }

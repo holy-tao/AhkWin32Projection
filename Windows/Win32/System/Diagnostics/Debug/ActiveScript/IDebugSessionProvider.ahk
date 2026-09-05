@@ -30,7 +30,6 @@ class IDebugSessionProvider extends IUnknown {
     static VTableNames => ["StartDebugSession"]
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @returns {HRESULT} 
      */

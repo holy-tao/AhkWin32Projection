@@ -7,17 +7,20 @@
 class KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CAPABILITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CAPABILITY => 0
+    static CAPABILITY => 0
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_SET
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_SET => 1
+    static SET => 1
 
     /**
+     * Native name: KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CLEAR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CLEAR => 2
+    static CLEAR => 2
 }

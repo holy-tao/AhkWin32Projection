@@ -12,31 +12,36 @@ class CHUNK_BREAKTYPE extends Win32Enum {
 
     /**
      * No break is placed between the current chunk and the previous chunk. The chunks are glued together.
+     * Native name: CHUNK_NO_BREAK
      * @type {Integer (Int32)}
      */
-    static CHUNK_NO_BREAK => 0
+    static NO_BREAK => 0
 
     /**
      * A word break is placed between this chunk and the previous chunk that had the same attribute. Use of CHUNK_EOW should be minimized because the choice of word breaks is language-dependent, so determining word breaks is best left to the search engine.
+     * Native name: CHUNK_EOW
      * @type {Integer (Int32)}
      */
-    static CHUNK_EOW => 1
+    static EOW => 1
 
     /**
      * A sentence break is placed between this chunk and the previous chunk that had the same attribute.
+     * Native name: CHUNK_EOS
      * @type {Integer (Int32)}
      */
-    static CHUNK_EOS => 2
+    static EOS => 2
 
     /**
      * A paragraph break is placed between this chunk and the previous chunk that had the same attribute.
+     * Native name: CHUNK_EOP
      * @type {Integer (Int32)}
      */
-    static CHUNK_EOP => 3
+    static EOP => 3
 
     /**
      * A chapter break is placed between this chunk and the previous chunk that had the same attribute.
+     * Native name: CHUNK_EOC
      * @type {Integer (Int32)}
      */
-    static CHUNK_EOC => 4
+    static EOC => 4
 }

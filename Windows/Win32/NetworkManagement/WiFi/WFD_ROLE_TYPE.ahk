@@ -7,27 +7,32 @@
 class WFD_ROLE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WFD_ROLE_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static WFD_ROLE_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: WFD_ROLE_TYPE_DEVICE
      * @type {Integer (Int32)}
      */
-    static WFD_ROLE_TYPE_DEVICE => 1
+    static DEVICE => 1
 
     /**
+     * Native name: WFD_ROLE_TYPE_GROUP_OWNER
      * @type {Integer (Int32)}
      */
-    static WFD_ROLE_TYPE_GROUP_OWNER => 2
+    static GROUP_OWNER => 2
 
     /**
+     * Native name: WFD_ROLE_TYPE_CLIENT
      * @type {Integer (Int32)}
      */
-    static WFD_ROLE_TYPE_CLIENT => 4
+    static CLIENT => 4
 
     /**
+     * Native name: WFD_ROLE_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static WFD_ROLE_TYPE_MAX => 5
+    static MAX => 5
 }

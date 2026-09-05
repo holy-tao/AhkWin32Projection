@@ -47,7 +47,6 @@ class IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @returns {IXMLDOMSchemaCollection} 
      */
     get_namespaces() {
@@ -56,7 +55,6 @@ class IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_schemas() {
@@ -66,7 +64,6 @@ class IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} otherCollection 
      * @returns {HRESULT} 
      */
@@ -76,7 +73,6 @@ class IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @returns {IXMLDOMParseError} 
      */
     validate() {
@@ -85,7 +81,6 @@ class IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -98,7 +93,6 @@ class IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */

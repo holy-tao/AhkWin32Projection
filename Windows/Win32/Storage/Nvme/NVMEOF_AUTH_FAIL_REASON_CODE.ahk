@@ -7,7 +7,8 @@
 class NVMEOF_AUTH_FAIL_REASON_CODE extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthFailureReasonFailed
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthFailureReasonFailed => 1
+    static FailureReasonFailed => 1
 }

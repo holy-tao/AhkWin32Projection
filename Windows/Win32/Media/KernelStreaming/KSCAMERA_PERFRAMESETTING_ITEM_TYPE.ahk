@@ -7,37 +7,44 @@
 class KSCAMERA_PERFRAMESETTING_ITEM_TYPE extends Win32Enum {
 
     /**
+     * Native name: KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_TIME
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_TIME => 1
+    static EXPOSURE_TIME => 1
 
     /**
+     * Native name: KSCAMERA_PERFRAMESETTING_ITEM_FLASH
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_PERFRAMESETTING_ITEM_FLASH => 2
+    static FLASH => 2
 
     /**
+     * Native name: KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_COMPENSATION
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_COMPENSATION => 3
+    static EXPOSURE_COMPENSATION => 3
 
     /**
+     * Native name: KSCAMERA_PERFRAMESETTING_ITEM_ISO
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_PERFRAMESETTING_ITEM_ISO => 4
+    static ISO => 4
 
     /**
+     * Native name: KSCAMERA_PERFRAMESETTING_ITEM_FOCUS
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_PERFRAMESETTING_ITEM_FOCUS => 5
+    static FOCUS => 5
 
     /**
+     * Native name: KSCAMERA_PERFRAMESETTING_ITEM_PHOTOCONFIRMATION
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_PERFRAMESETTING_ITEM_PHOTOCONFIRMATION => 6
+    static PHOTOCONFIRMATION => 6
 
     /**
+     * Native name: KSCAMERA_PERFRAMESETTING_ITEM_CUSTOM
      * @type {Integer (Int32)}
      */
-    static KSCAMERA_PERFRAMESETTING_ITEM_CUSTOM => 7
+    static CUSTOM => 7
 }

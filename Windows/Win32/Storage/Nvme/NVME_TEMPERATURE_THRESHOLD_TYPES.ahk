@@ -12,13 +12,15 @@ class NVME_TEMPERATURE_THRESHOLD_TYPES extends Win32Enum {
 
     /**
      * Over Temperature Threshold
+     * Native name: NVME_TEMPERATURE_OVER_THRESHOLD
      * @type {Integer (Int32)}
      */
-    static NVME_TEMPERATURE_OVER_THRESHOLD => 0
+    static OVER_THRESHOLD => 0
 
     /**
      * Under Temperature Threshold
+     * Native name: NVME_TEMPERATURE_UNDER_THRESHOLD
      * @type {Integer (Int32)}
      */
-    static NVME_TEMPERATURE_UNDER_THRESHOLD => 1
+    static UNDER_THRESHOLD => 1
 }

@@ -9,22 +9,26 @@
 class ACTCTX_COMPATIBILITY_ELEMENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS
      * @type {Integer (Int32)}
      */
-    static ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS => 1
+    static OS => 1
 
     /**
+     * Native name: ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MITIGATION
      * @type {Integer (Int32)}
      */
-    static ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MITIGATION => 2
+    static MITIGATION => 2
 
     /**
+     * Native name: ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MAXVERSIONTESTED
      * @type {Integer (Int32)}
      */
-    static ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MAXVERSIONTESTED => 3
+    static MAXVERSIONTESTED => 3
 }

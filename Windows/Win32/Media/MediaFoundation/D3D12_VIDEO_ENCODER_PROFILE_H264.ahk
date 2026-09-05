@@ -12,19 +12,22 @@ class D3D12_VIDEO_ENCODER_PROFILE_H264 extends Win32Enum {
 
     /**
      * Main profile.
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_H264_MAIN
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_H264_MAIN => 0
+    static MAIN => 0
 
     /**
      * High profile.
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_H264_HIGH
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_H264_HIGH => 1
+    static HIGH => 1
 
     /**
      * High 10 profile.
+     * Native name: D3D12_VIDEO_ENCODER_PROFILE_H264_HIGH_10
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_PROFILE_H264_HIGH_10 => 2
+    static HIGH_10 => 2
 }

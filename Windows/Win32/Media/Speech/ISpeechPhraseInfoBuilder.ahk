@@ -31,7 +31,6 @@ class ISpeechPhraseInfoBuilder extends IDispatch {
     static VTableNames => ["RestorePhraseFromMemory"]
 
     /**
-     * 
      * @param {Pointer<VARIANT>} PhraseInMemory 
      * @returns {ISpeechPhraseInfo} 
      */

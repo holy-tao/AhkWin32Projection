@@ -40,9 +40,10 @@ class PrintAsyncNotifyError extends Win32Enum {
 
     /**
      * There was a problem sending this notification. None of the listeners on this channel are configured to receive this notification type or there was a problem allocating the resources necessary to complete this call.
+     * Native name: ASYNC_NOTIFICATION_FAILURE
      * @type {Integer (Int32)}
      */
-    static ASYNC_NOTIFICATION_FAILURE => 6
+    static NOTIFICATION_FAILURE => 6
 
     /**
      * Indicates that there are no registered listening applications.
@@ -76,9 +77,10 @@ class PrintAsyncNotifyError extends Win32Enum {
 
     /**
      * A notification cannot be sent because the recipient has not consumed the previous notification.
+     * Native name: ASYNC_CALL_ALREADY_PARKED
      * @type {Integer (Int32)}
      */
-    static ASYNC_CALL_ALREADY_PARKED => 12
+    static CALL_ALREADY_PARKED => 12
 
     /**
      * The listening application is not registered for notifications of the specified type from the specified queue or print server.
@@ -106,9 +108,10 @@ class PrintAsyncNotifyError extends Win32Enum {
 
     /**
      * The channel is busy with another notification or response.
+     * Native name: ASYNC_CALL_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static ASYNC_CALL_IN_PROGRESS => 17
+    static CALL_IN_PROGRESS => 17
 
     /**
      * The maximum size of the notification data has been exceeded. By default, the maximum data size allowed is 10 Megabytes.

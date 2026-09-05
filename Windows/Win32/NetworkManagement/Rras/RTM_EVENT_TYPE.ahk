@@ -10,25 +10,29 @@ class RTM_EVENT_TYPE extends Win32Enum {
 
     /**
      * A client has just registered with the routing table manager.
+     * Native name: RTM_ENTITY_REGISTERED
      * @type {Integer (Int32)}
      */
-    static RTM_ENTITY_REGISTERED => 0
+    static ENTITY_REGISTERED => 0
 
     /**
      * A client has just unregistered.
+     * Native name: RTM_ENTITY_DEREGISTERED
      * @type {Integer (Int32)}
      */
-    static RTM_ENTITY_DEREGISTERED => 1
+    static ENTITY_DEREGISTERED => 1
 
     /**
      * A route has timed out.
+     * Native name: RTM_ROUTE_EXPIRED
      * @type {Integer (Int32)}
      */
-    static RTM_ROUTE_EXPIRED => 2
+    static ROUTE_EXPIRED => 2
 
     /**
      * A change notification has been made.
+     * Native name: RTM_CHANGE_NOTIFICATION
      * @type {Integer (Int32)}
      */
-    static RTM_CHANGE_NOTIFICATION => 3
+    static CHANGE_NOTIFICATION => 3
 }

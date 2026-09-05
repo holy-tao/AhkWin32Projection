@@ -30,7 +30,6 @@ class ISpEventSink extends IUnknown {
     static VTableNames => ["AddEvents", "GetEventInterest"]
 
     /**
-     * 
      * @param {Pointer<SPEVENT>} pEventArray 
      * @param {Integer} ulCount 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class ISpEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pullEventInterest 
      * @returns {HRESULT} 
      */

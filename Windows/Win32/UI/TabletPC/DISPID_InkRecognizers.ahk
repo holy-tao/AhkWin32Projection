@@ -7,22 +7,26 @@
 class DISPID_InkRecognizers extends Win32Enum {
 
     /**
+     * Native name: DISPID_IRecos_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_IRecos_NewEnum => -4
+    static IRecos_NewEnum => -4
 
     /**
+     * Native name: DISPID_IRecosItem
      * @type {Integer (Int32)}
      */
-    static DISPID_IRecosItem => 0
+    static IRecosItem => 0
 
     /**
+     * Native name: DISPID_IRecosCount
      * @type {Integer (Int32)}
      */
-    static DISPID_IRecosCount => 1
+    static IRecosCount => 1
 
     /**
+     * Native name: DISPID_IRecosGetDefaultRecognizer
      * @type {Integer (Int32)}
      */
-    static DISPID_IRecosGetDefaultRecognizer => 2
+    static IRecosGetDefaultRecognizer => 2
 }

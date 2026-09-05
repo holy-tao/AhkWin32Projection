@@ -9,22 +9,26 @@
 class RDPSRAPI_KBD_SYNC_FLAG extends Win32Enum {
 
     /**
+     * Native name: RDPSRAPI_KBD_SYNC_FLAG_SCROLL_LOCK
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_KBD_SYNC_FLAG_SCROLL_LOCK => 1
+    static SCROLL_LOCK => 1
 
     /**
+     * Native name: RDPSRAPI_KBD_SYNC_FLAG_NUM_LOCK
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_KBD_SYNC_FLAG_NUM_LOCK => 2
+    static NUM_LOCK => 2
 
     /**
+     * Native name: RDPSRAPI_KBD_SYNC_FLAG_CAPS_LOCK
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_KBD_SYNC_FLAG_CAPS_LOCK => 4
+    static CAPS_LOCK => 4
 
     /**
+     * Native name: RDPSRAPI_KBD_SYNC_FLAG_KANA_LOCK
      * @type {Integer (Int32)}
      */
-    static RDPSRAPI_KBD_SYNC_FLAG_KANA_LOCK => 8
+    static KANA_LOCK => 8
 }

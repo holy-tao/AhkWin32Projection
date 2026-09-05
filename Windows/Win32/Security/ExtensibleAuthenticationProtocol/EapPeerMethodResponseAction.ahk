@@ -10,37 +10,43 @@ class EapPeerMethodResponseAction extends Win32Enum {
 
     /**
      * The supplicant should discard the request as it is not usable by EAP.
+     * Native name: EapPeerMethodResponseActionDiscard
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResponseActionDiscard => 0
+    static Discard => 0
 
     /**
      * The supplicant should send the indicated packet to the authenticator.
+     * Native name: EapPeerMethodResponseActionSend
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResponseActionSend => 1
+    static Send => 1
 
     /**
      * The supplicant should act on EAP attributes returned by the EAP authenticator.
+     * Native name: EapPeerMethodResponseActionResult
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResponseActionResult => 2
+    static Result => 2
 
     /**
      * The EAP peer method should invoke a user interface dialog on the client.
+     * Native name: EapPeerMethodResponseActionInvokeUI
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResponseActionInvokeUI => 3
+    static InvokeUI => 3
 
     /**
      * The supplicant should generate a  context-specific response to the EAP authenticator request.
+     * Native name: EapPeerMethodResponseActionRespond
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResponseActionRespond => 4
+    static Respond => 4
 
     /**
      * The supplicant should generate no  response to the EAP authenticator request.
+     * Native name: EapPeerMethodResponseActionNone
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResponseActionNone => 5
+    static None => 5
 }

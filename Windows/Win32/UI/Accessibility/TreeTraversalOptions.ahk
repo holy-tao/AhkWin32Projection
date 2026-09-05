@@ -24,19 +24,22 @@ class TreeTraversalOptions extends Win32Enum {
     /**
      * Pre-order,
      *     visit children from first to last.
+     * Native name: TreeTraversalOptions_Default
      * @type {Integer (Int32)}
      */
-    static TreeTraversalOptions_Default => 0
+    static Default => 0
 
     /**
      * Post-order, see Remarks for more info.
+     * Native name: TreeTraversalOptions_PostOrder
      * @type {Integer (Int32)}
      */
-    static TreeTraversalOptions_PostOrder => 1
+    static PostOrder => 1
 
     /**
      * Visit children from last to first.
+     * Native name: TreeTraversalOptions_LastToFirstOrder
      * @type {Integer (Int32)}
      */
-    static TreeTraversalOptions_LastToFirstOrder => 2
+    static LastToFirstOrder => 2
 }

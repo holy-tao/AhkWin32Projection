@@ -10,13 +10,15 @@ class D2D1_SVG_UNIT_TYPE extends Win32Enum {
 
     /**
      * The property is set to SVG's 'userSpaceOnUse' value.
+     * Native name: D2D1_SVG_UNIT_TYPE_USER_SPACE_ON_USE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_UNIT_TYPE_USER_SPACE_ON_USE => 0
+    static USER_SPACE_ON_USE => 0
 
     /**
      * The property is set to SVG's 'objectBoundingBox' value.
+     * Native name: D2D1_SVG_UNIT_TYPE_OBJECT_BOUNDING_BOX
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_UNIT_TYPE_OBJECT_BOUNDING_BOX => 1
+    static OBJECT_BOUNDING_BOX => 1
 }

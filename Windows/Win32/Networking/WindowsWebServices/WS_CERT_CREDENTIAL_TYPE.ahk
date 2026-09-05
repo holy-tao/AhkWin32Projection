@@ -10,19 +10,22 @@ class WS_CERT_CREDENTIAL_TYPE extends Win32Enum {
 
     /**
      * Type id for the certificate credential <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_subject_name_cert_credential">WS_SUBJECT_NAME_CERT_CREDENTIAL</a>.
+     * Native name: WS_SUBJECT_NAME_CERT_CREDENTIAL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_SUBJECT_NAME_CERT_CREDENTIAL_TYPE => 1
+    static SUBJECT_NAME_CERT_CREDENTIAL_TYPE => 1
 
     /**
      * Type id for the certificate credential <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_thumbprint_cert_credential">WS_THUMBPRINT_CERT_CREDENTIAL</a>.
+     * Native name: WS_THUMBPRINT_CERT_CREDENTIAL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_THUMBPRINT_CERT_CREDENTIAL_TYPE => 2
+    static THUMBPRINT_CERT_CREDENTIAL_TYPE => 2
 
     /**
      * Type id for the certificate credential <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_custom_cert_credential">WS_CUSTOM_CERT_CREDENTIAL</a>.
+     * Native name: WS_CUSTOM_CERT_CREDENTIAL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_CUSTOM_CERT_CREDENTIAL_TYPE => 3
+    static CUSTOM_CERT_CREDENTIAL_TYPE => 3
 }

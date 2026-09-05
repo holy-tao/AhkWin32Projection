@@ -7,17 +7,20 @@
 class CRYPT_FIND_FLAGS extends Win32Enum {
 
     /**
+     * Native name: CRYPT_FIND_USER_KEYSET_FLAG
      * @type {Integer (UInt32)}
      */
-    static CRYPT_FIND_USER_KEYSET_FLAG => 1
+    static USER_KEYSET_FLAG => 1
 
     /**
+     * Native name: CRYPT_FIND_MACHINE_KEYSET_FLAG
      * @type {Integer (UInt32)}
      */
-    static CRYPT_FIND_MACHINE_KEYSET_FLAG => 2
+    static MACHINE_KEYSET_FLAG => 2
 
     /**
+     * Native name: CRYPT_FIND_SILENT_KEYSET_FLAG
      * @type {Integer (UInt32)}
      */
-    static CRYPT_FIND_SILENT_KEYSET_FLAG => 64
+    static SILENT_KEYSET_FLAG => 64
 }

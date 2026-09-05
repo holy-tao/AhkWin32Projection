@@ -7,52 +7,62 @@
 class ModelObjectKind extends Win32Enum {
 
     /**
+     * Native name: ObjectPropertyAccessor
      * @type {Integer (Int32)}
      */
-    static ObjectPropertyAccessor => 0
+    static PropertyAccessor => 0
 
     /**
+     * Native name: ObjectContext
      * @type {Integer (Int32)}
      */
-    static ObjectContext => 1
+    static Context => 1
 
     /**
+     * Native name: ObjectTargetObject
      * @type {Integer (Int32)}
      */
-    static ObjectTargetObject => 2
+    static TargetObject => 2
 
     /**
+     * Native name: ObjectTargetObjectReference
      * @type {Integer (Int32)}
      */
-    static ObjectTargetObjectReference => 3
+    static TargetObjectReference => 3
 
     /**
+     * Native name: ObjectSynthetic
      * @type {Integer (Int32)}
      */
-    static ObjectSynthetic => 4
+    static Synthetic => 4
 
     /**
+     * Native name: ObjectNoValue
      * @type {Integer (Int32)}
      */
-    static ObjectNoValue => 5
+    static NoValue => 5
 
     /**
+     * Native name: ObjectError
      * @type {Integer (Int32)}
      */
-    static ObjectError => 6
+    static Error => 6
 
     /**
+     * Native name: ObjectIntrinsic
      * @type {Integer (Int32)}
      */
-    static ObjectIntrinsic => 7
+    static Intrinsic => 7
 
     /**
+     * Native name: ObjectMethod
      * @type {Integer (Int32)}
      */
-    static ObjectMethod => 8
+    static Method => 8
 
     /**
+     * Native name: ObjectKeyReference
      * @type {Integer (Int32)}
      */
-    static ObjectKeyReference => 9
+    static KeyReference => 9
 }

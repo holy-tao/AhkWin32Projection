@@ -33060,7 +33060,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PSTR} pszFileName 
      * @param {PSTR} pszError 
      * @param {Integer} dwErrSize 
@@ -33075,7 +33074,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PSTR} OldFileName 
      * @param {PSTR} NewFileName 
      * @param {PSTR} PatchFileName 
@@ -33093,7 +33091,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PWSTR} OldFileName 
      * @param {PWSTR} NewFileName 
      * @param {PWSTR} PatchFileName 
@@ -33111,7 +33108,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {HANDLE} OldFileHandle 
      * @param {HANDLE} NewFileHandle 
      * @param {HANDLE} PatchFileHandle 
@@ -33175,7 +33171,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} OldFileCount 
      * @param {Pointer<PATCH_OLD_FILE_INFO_H>} OldFileInfoArray 
      * @param {HANDLE} NewFileHandle 
@@ -33227,7 +33222,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {HANDLE} PatchFileHandle 
      * @param {HANDLE} PatchHeaderFileHandle 
      * @returns {BOOL} 
@@ -33241,7 +33235,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PSTR} PatchFileName 
      * @param {PSTR} OldFileName 
      * @param {Integer} ApplyOptionFlags 
@@ -33256,7 +33249,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PWSTR} PatchFileName 
      * @param {PWSTR} OldFileName 
      * @param {Integer} ApplyOptionFlags 
@@ -33271,7 +33263,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {HANDLE} PatchFileHandle 
      * @param {HANDLE} OldFileHandle 
      * @param {Integer} ApplyOptionFlags 
@@ -33286,7 +33277,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} PatchFileBuffer 
      * @param {Integer} PatchFileSize 
      * @param {Integer} OldFileBuffer 
@@ -33303,7 +33293,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PSTR} PatchFileName 
      * @param {PSTR} OldFileName 
      * @param {PSTR} NewFileName 
@@ -33320,7 +33309,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PWSTR} PatchFileName 
      * @param {PWSTR} OldFileName 
      * @param {PWSTR} NewFileName 
@@ -33337,7 +33325,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {HANDLE} PatchFileHandle 
      * @param {HANDLE} OldFileHandle 
      * @param {HANDLE} NewFileHandle 
@@ -33354,7 +33341,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PSTR} PatchFileName 
      * @param {PSTR} OldFileName 
      * @param {PSTR} NewFileName 
@@ -33375,7 +33361,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PWSTR} PatchFileName 
      * @param {PWSTR} OldFileName 
      * @param {PWSTR} NewFileName 
@@ -33396,7 +33381,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {HANDLE} PatchFileHandle 
      * @param {HANDLE} OldFileHandle 
      * @param {HANDLE} NewFileHandle 
@@ -33417,7 +33401,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} PatchFileMapped 
      * @param {Integer} PatchFileSize 
      * @param {Integer} OldFileMapped 
@@ -33440,7 +33423,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PSTR} FileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<Void>} OptionData 
@@ -33462,7 +33444,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<Void>} OptionData 
@@ -33484,7 +33465,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Integer} OptionFlags 
      * @param {Pointer<Void>} OptionData 
@@ -33506,7 +33486,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} FileBufferWritable 
      * @param {Integer} FileSize 
      * @param {Integer} OptionFlags 
@@ -33527,7 +33506,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} FileBuffer 
      * @param {Integer} FileSize 
      * @param {Integer} OptionFlags 
@@ -33546,7 +33524,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {DELTA_INPUT} Delta 
      * @param {Pointer<DELTA_HEADER_INFO>} lpHeaderInfo 
      * @returns {BOOL} 
@@ -33557,7 +33534,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PSTR} lpDeltaName 
      * @param {Pointer<DELTA_HEADER_INFO>} lpHeaderInfo 
      * @returns {BOOL} 
@@ -33570,7 +33546,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpDeltaName 
      * @param {Pointer<DELTA_HEADER_INFO>} lpHeaderInfo 
      * @returns {BOOL} 
@@ -33583,7 +33558,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} ApplyFlags 
      * @param {DELTA_INPUT} Source 
      * @param {DELTA_INPUT} Delta 
@@ -33612,7 +33586,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} ApplyFlags 
      * @param {DELTA_INPUT} Source 
      * @param {DELTA_INPUT} Delta 
@@ -33626,7 +33599,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} ApplyFlags 
      * @param {PSTR} lpSourceName 
      * @param {PSTR} lpDeltaName 
@@ -33685,7 +33657,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} FileTypeSet 
      * @param {Integer} SetFlags 
      * @param {Integer} ResetFlags 
@@ -33741,7 +33712,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} FileTypeSet 
      * @param {ALG_ID} HashAlgId 
      * @param {DELTA_INPUT} Source 
@@ -33754,7 +33724,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} FileTypeSet 
      * @param {ALG_ID} HashAlgId 
      * @param {PSTR} lpSourceName 
@@ -33769,7 +33738,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} FileTypeSet 
      * @param {ALG_ID} HashAlgId 
      * @param {PWSTR} lpSourceName 
@@ -33784,7 +33752,6 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * 
      * @param {Integer} FileTypeSet 
      * @param {Integer} NormalizeFlags 
      * @param {DELTA_INPUT} NormalizeOptions 

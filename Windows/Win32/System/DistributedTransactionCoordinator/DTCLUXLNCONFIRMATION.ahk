@@ -7,22 +7,26 @@
 class DTCLUXLNCONFIRMATION extends Win32Enum {
 
     /**
+     * Native name: DTCLUXLNCONFIRMATION_CONFIRM
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNCONFIRMATION_CONFIRM => 1
+    static CONFIRM => 1
 
     /**
+     * Native name: DTCLUXLNCONFIRMATION_LOGNAMEMISMATCH
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNCONFIRMATION_LOGNAMEMISMATCH => 2
+    static LOGNAMEMISMATCH => 2
 
     /**
+     * Native name: DTCLUXLNCONFIRMATION_COLDWARMMISMATCH
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNCONFIRMATION_COLDWARMMISMATCH => 3
+    static COLDWARMMISMATCH => 3
 
     /**
+     * Native name: DTCLUXLNCONFIRMATION_OBSOLETE
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNCONFIRMATION_OBSOLETE => 4
+    static OBSOLETE => 4
 }

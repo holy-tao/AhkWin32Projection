@@ -32,7 +32,6 @@ class IScriptEntry extends IScriptNode {
     static VTableNames => ["GetText", "SetText", "GetBody", "SetBody", "GetName", "SetName", "GetItemName", "SetItemName", "GetSignature", "SetSignature", "GetRange"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetText() {
@@ -42,7 +41,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetBody() {
@@ -64,7 +61,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -87,7 +83,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -99,7 +94,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetItemName() {
@@ -109,7 +103,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -121,7 +114,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {Pointer<ITypeInfo>} ppti 
      * @param {Pointer<Integer>} piMethod 
      * @returns {HRESULT} 
@@ -134,7 +126,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {ITypeInfo} pti 
      * @param {Integer} iMethod 
      * @returns {HRESULT} 
@@ -145,7 +136,6 @@ class IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pichMin 
      * @param {Pointer<Integer>} pcch 
      * @returns {HRESULT} 

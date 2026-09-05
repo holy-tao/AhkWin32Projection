@@ -10,13 +10,15 @@ class TsGravity extends Win32Enum {
 
     /**
      * The anchor has backward gravity. For more information about anchor gravity, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ranges">Ranges</a>.
+     * Native name: TS_GR_BACKWARD
      * @type {Integer (Int32)}
      */
-    static TS_GR_BACKWARD => 0
+    static GR_BACKWARD => 0
 
     /**
      * The anchor has forward gravity. For more information about anchor gravity, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ranges">Ranges</a>.
+     * Native name: TS_GR_FORWARD
      * @type {Integer (Int32)}
      */
-    static TS_GR_FORWARD => 1
+    static GR_FORWARD => 1
 }

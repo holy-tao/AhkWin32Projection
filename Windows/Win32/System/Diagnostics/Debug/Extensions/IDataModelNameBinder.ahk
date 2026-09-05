@@ -33,7 +33,6 @@ class IDataModelNameBinder extends IUnknown {
     static VTableNames => ["BindValue", "BindReference", "EnumerateValues", "EnumerateReferences"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} name 
      * @param {Pointer<IModelObject>} value 
@@ -48,7 +47,6 @@ class IDataModelNameBinder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} name 
      * @param {Pointer<IModelObject>} _reference 
@@ -63,7 +61,6 @@ class IDataModelNameBinder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IKeyEnumerator} 
      */
@@ -73,7 +70,6 @@ class IDataModelNameBinder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IKeyEnumerator} 
      */

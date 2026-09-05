@@ -42,37 +42,44 @@ class MIDI_WAVE_OPEN_TYPE extends Win32BitflagEnum {
     static CALLBACK_EVENT => 327680
 
     /**
+     * Native name: WAVE_FORMAT_QUERY
      * @type {Integer (UInt32)}
      */
-    static WAVE_FORMAT_QUERY => 1
+    static FORMAT_QUERY => 1
 
     /**
+     * Native name: WAVE_ALLOWSYNC
      * @type {Integer (UInt32)}
      */
-    static WAVE_ALLOWSYNC => 2
+    static ALLOWSYNC => 2
 
     /**
+     * Native name: WAVE_MAPPED
      * @type {Integer (UInt32)}
      */
-    static WAVE_MAPPED => 4
+    static MAPPED => 4
 
     /**
+     * Native name: WAVE_FORMAT_DIRECT
      * @type {Integer (UInt32)}
      */
-    static WAVE_FORMAT_DIRECT => 8
+    static FORMAT_DIRECT => 8
 
     /**
+     * Native name: WAVE_FORMAT_DIRECT_QUERY
      * @type {Integer (UInt32)}
      */
-    static WAVE_FORMAT_DIRECT_QUERY => 9
+    static FORMAT_DIRECT_QUERY => 9
 
     /**
+     * Native name: WAVE_MAPPED_DEFAULT_COMMUNICATION_DEVICE
      * @type {Integer (UInt32)}
      */
-    static WAVE_MAPPED_DEFAULT_COMMUNICATION_DEVICE => 16
+    static MAPPED_DEFAULT_COMMUNICATION_DEVICE => 16
 
     /**
+     * Native name: MIDI_IO_STATUS
      * @type {Integer (UInt32)}
      */
-    static MIDI_IO_STATUS => 32
+    static IO_STATUS => 32
 }

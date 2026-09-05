@@ -12,19 +12,22 @@ class D2D1_RENDER_TARGET_TYPE extends Win32Enum {
 
     /**
      * The render target uses hardware rendering, if available; otherwise, it uses software rendering.
+     * Native name: D2D1_RENDER_TARGET_TYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_RENDER_TARGET_TYPE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The render target uses software rendering only.
+     * Native name: D2D1_RENDER_TARGET_TYPE_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static D2D1_RENDER_TARGET_TYPE_SOFTWARE => 1
+    static SOFTWARE => 1
 
     /**
      * The render target uses hardware rendering only.
+     * Native name: D2D1_RENDER_TARGET_TYPE_HARDWARE
      * @type {Integer (Int32)}
      */
-    static D2D1_RENDER_TARGET_TYPE_HARDWARE => 2
+    static HARDWARE => 2
 }

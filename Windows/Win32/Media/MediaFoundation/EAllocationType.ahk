@@ -7,22 +7,26 @@
 class EAllocationType extends Win32Enum {
 
     /**
+     * Native name: eAllocationTypeDynamic
      * @type {Integer (Int32)}
      */
-    static eAllocationTypeDynamic => 0
+    static Dynamic => 0
 
     /**
+     * Native name: eAllocationTypeRT
      * @type {Integer (Int32)}
      */
-    static eAllocationTypeRT => 1
+    static TypeRT => 1
 
     /**
+     * Native name: eAllocationTypePageable
      * @type {Integer (Int32)}
      */
-    static eAllocationTypePageable => 2
+    static Pageable => 2
 
     /**
+     * Native name: eAllocationTypeIgnore
      * @type {Integer (Int32)}
      */
-    static eAllocationTypeIgnore => 3
+    static Ignore => 3
 }

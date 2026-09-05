@@ -30,7 +30,6 @@ class IElementBehaviorSite extends IUnknown {
     static VTableNames => ["GetElement", "RegisterNotification"]
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetElement() {
@@ -39,7 +38,6 @@ class IElementBehaviorSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lEvent 
      * @returns {HRESULT} 
      */

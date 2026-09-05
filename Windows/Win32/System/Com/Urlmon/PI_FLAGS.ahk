@@ -7,69 +7,82 @@
 class PI_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PI_PARSE_URL
      * @type {Integer (Int32)}
      */
-    static PI_PARSE_URL => 1
+    static PARSE_URL => 1
 
     /**
+     * Native name: PI_FILTER_MODE
      * @type {Integer (Int32)}
      */
-    static PI_FILTER_MODE => 2
+    static FILTER_MODE => 2
 
     /**
+     * Native name: PI_FORCE_ASYNC
      * @type {Integer (Int32)}
      */
-    static PI_FORCE_ASYNC => 4
+    static FORCE_ASYNC => 4
 
     /**
+     * Native name: PI_USE_WORKERTHREAD
      * @type {Integer (Int32)}
      */
-    static PI_USE_WORKERTHREAD => 8
+    static USE_WORKERTHREAD => 8
 
     /**
+     * Native name: PI_MIMEVERIFICATION
      * @type {Integer (Int32)}
      */
-    static PI_MIMEVERIFICATION => 16
+    static MIMEVERIFICATION => 16
 
     /**
+     * Native name: PI_CLSIDLOOKUP
      * @type {Integer (Int32)}
      */
-    static PI_CLSIDLOOKUP => 32
+    static CLSIDLOOKUP => 32
 
     /**
+     * Native name: PI_DATAPROGRESS
      * @type {Integer (Int32)}
      */
-    static PI_DATAPROGRESS => 64
+    static DATAPROGRESS => 64
 
     /**
+     * Native name: PI_SYNCHRONOUS
      * @type {Integer (Int32)}
      */
-    static PI_SYNCHRONOUS => 128
+    static SYNCHRONOUS => 128
 
     /**
+     * Native name: PI_APARTMENTTHREADED
      * @type {Integer (Int32)}
      */
-    static PI_APARTMENTTHREADED => 256
+    static APARTMENTTHREADED => 256
 
     /**
+     * Native name: PI_CLASSINSTALL
      * @type {Integer (Int32)}
      */
-    static PI_CLASSINSTALL => 512
+    static CLASSINSTALL => 512
 
     /**
+     * Native name: PI_PASSONBINDCTX
      * @type {Integer (Int32)}
      */
-    static PI_PASSONBINDCTX => 8192
+    static PASSONBINDCTX => 8192
 
     /**
+     * Native name: PI_NOMIMEHANDLER
      * @type {Integer (Int32)}
      */
-    static PI_NOMIMEHANDLER => 32768
+    static NOMIMEHANDLER => 32768
 
     /**
+     * Native name: PI_LOADAPPDIRECT
      * @type {Integer (Int32)}
      */
-    static PI_LOADAPPDIRECT => 16384
+    static LOADAPPDIRECT => 16384
 
     /**
      * @type {Integer (Int32)}
@@ -77,7 +90,8 @@ class PI_FLAGS extends Win32Enum {
     static PD_FORCE_SWITCH => 65536
 
     /**
+     * Native name: PI_PREFERDEFAULTHANDLER
      * @type {Integer (Int32)}
      */
-    static PI_PREFERDEFAULTHANDLER => 131072
+    static PREFERDEFAULTHANDLER => 131072
 }

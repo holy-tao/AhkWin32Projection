@@ -38,7 +38,6 @@ class IContactAggregationServerPersonCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPerson} 
      */
     FindFirst() {
@@ -47,7 +46,6 @@ class IContactAggregationServerPersonCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pServerId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -59,7 +57,6 @@ class IContactAggregationServerPersonCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -71,7 +68,6 @@ class IContactAggregationServerPersonCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -83,7 +79,6 @@ class IContactAggregationServerPersonCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPerson} 
      */
     FindNext() {
@@ -92,7 +87,6 @@ class IContactAggregationServerPersonCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {

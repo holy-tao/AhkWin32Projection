@@ -10,31 +10,36 @@ class ZoomUnit extends Win32Enum {
 
     /**
      * No increase or decrease in zoom.
+     * Native name: ZoomUnit_NoAmount
      * @type {Integer (Int32)}
      */
-    static ZoomUnit_NoAmount => 0
+    static NoAmount => 0
 
     /**
      * Decrease zoom by a large decrement.
+     * Native name: ZoomUnit_LargeDecrement
      * @type {Integer (Int32)}
      */
-    static ZoomUnit_LargeDecrement => 1
+    static LargeDecrement => 1
 
     /**
      * Decrease zoom by a small decrement.
+     * Native name: ZoomUnit_SmallDecrement
      * @type {Integer (Int32)}
      */
-    static ZoomUnit_SmallDecrement => 2
+    static SmallDecrement => 2
 
     /**
      * Increase zoom by a large increment.
+     * Native name: ZoomUnit_LargeIncrement
      * @type {Integer (Int32)}
      */
-    static ZoomUnit_LargeIncrement => 3
+    static LargeIncrement => 3
 
     /**
      * Increase zoom by a small increment.
+     * Native name: ZoomUnit_SmallIncrement
      * @type {Integer (Int32)}
      */
-    static ZoomUnit_SmallIncrement => 4
+    static SmallIncrement => 4
 }

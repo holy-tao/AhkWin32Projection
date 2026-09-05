@@ -7,27 +7,32 @@
 class INTERNET_STATE extends Win32Enum {
 
     /**
+     * Native name: INTERNET_STATE_CONNECTED
      * @type {Integer (UInt32)}
      */
-    static INTERNET_STATE_CONNECTED => 1
+    static CONNECTED => 1
 
     /**
+     * Native name: INTERNET_STATE_DISCONNECTED
      * @type {Integer (UInt32)}
      */
-    static INTERNET_STATE_DISCONNECTED => 2
+    static DISCONNECTED => 2
 
     /**
+     * Native name: INTERNET_STATE_DISCONNECTED_BY_USER
      * @type {Integer (UInt32)}
      */
-    static INTERNET_STATE_DISCONNECTED_BY_USER => 16
+    static DISCONNECTED_BY_USER => 16
 
     /**
+     * Native name: INTERNET_STATE_IDLE
      * @type {Integer (UInt32)}
      */
-    static INTERNET_STATE_IDLE => 256
+    static IDLE => 256
 
     /**
+     * Native name: INTERNET_STATE_BUSY
      * @type {Integer (UInt32)}
      */
-    static INTERNET_STATE_BUSY => 512
+    static BUSY => 512
 }

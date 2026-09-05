@@ -12,13 +12,15 @@ class D3D12_VIDEO_DECODE_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * The video decoding operation isn't supported.
+     * Native name: D3D12_VIDEO_DECODE_SUPPORT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_SUPPORT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The video decoding operation is supported.
+     * Native name: D3D12_VIDEO_DECODE_SUPPORT_FLAG_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_SUPPORT_FLAG_SUPPORTED => 1
+    static FLAG_SUPPORTED => 1
 }

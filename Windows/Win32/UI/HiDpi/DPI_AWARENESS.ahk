@@ -16,25 +16,29 @@ class DPI_AWARENESS extends Win32Enum {
 
     /**
      * Invalid DPI awareness. This is an invalid DPI awareness value.
+     * Native name: DPI_AWARENESS_INVALID
      * @type {Integer (Int32)}
      */
-    static DPI_AWARENESS_INVALID => -1
+    static INVALID => -1
 
     /**
      * DPI unaware. This process does not scale for DPI changes and is always assumed to have a scale factor of 100% (96 DPI). It will be automatically scaled by the system on any other DPI setting.
+     * Native name: DPI_AWARENESS_UNAWARE
      * @type {Integer (Int32)}
      */
-    static DPI_AWARENESS_UNAWARE => 0
+    static UNAWARE => 0
 
     /**
      * System DPI aware. This process does not scale for DPI changes. It will query for the DPI once and use that value for the lifetime of the process. If the DPI changes, the process will not adjust to the new DPI value. It will be automatically scaled up or down by the system when the DPI changes from the system value.
+     * Native name: DPI_AWARENESS_SYSTEM_AWARE
      * @type {Integer (Int32)}
      */
-    static DPI_AWARENESS_SYSTEM_AWARE => 1
+    static SYSTEM_AWARE => 1
 
     /**
      * Per monitor DPI aware. This process checks for the DPI when it is created and adjusts the scale factor whenever the DPI changes. These processes are not automatically scaled by the system.
+     * Native name: DPI_AWARENESS_PER_MONITOR_AWARE
      * @type {Integer (Int32)}
      */
-    static DPI_AWARENESS_PER_MONITOR_AWARE => 2
+    static PER_MONITOR_AWARE => 2
 }

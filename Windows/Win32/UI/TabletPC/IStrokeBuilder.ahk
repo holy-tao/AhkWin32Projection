@@ -151,7 +151,6 @@ class IStrokeBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInkDisp} piInkObj 
      * @returns {HRESULT} 
      */

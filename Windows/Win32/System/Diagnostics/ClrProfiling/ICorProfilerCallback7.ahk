@@ -29,7 +29,6 @@ class ICorProfilerCallback7 extends ICorProfilerCallback6 {
     static VTableNames => ["ModuleInMemorySymbolsUpdated"]
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */

@@ -7,42 +7,50 @@
 class DISPID_SpeechGrammarRuleStateTransition extends Win32Enum {
 
     /**
+     * Native name: DISPID_SGRSTType
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTType => 1
+    static SGRSTType => 1
 
     /**
+     * Native name: DISPID_SGRSTText
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTText => 2
+    static SGRSTText => 2
 
     /**
+     * Native name: DISPID_SGRSTRule
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTRule => 3
+    static SGRSTRule => 3
 
     /**
+     * Native name: DISPID_SGRSTWeight
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTWeight => 4
+    static SGRSTWeight => 4
 
     /**
+     * Native name: DISPID_SGRSTPropertyName
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTPropertyName => 5
+    static SGRSTPropertyName => 5
 
     /**
+     * Native name: DISPID_SGRSTPropertyId
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTPropertyId => 6
+    static SGRSTPropertyId => 6
 
     /**
+     * Native name: DISPID_SGRSTPropertyValue
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTPropertyValue => 7
+    static SGRSTPropertyValue => 7
 
     /**
+     * Native name: DISPID_SGRSTNextState
      * @type {Integer (Int32)}
      */
-    static DISPID_SGRSTNextState => 8
+    static SGRSTNextState => 8
 }

@@ -10,19 +10,22 @@ class CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No dehydration completion flag.
+     * Native name: CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * A flag set if the dehydration request is initiated by a system background service.
+     * Native name: CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_BACKGROUND
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_BACKGROUND => 1
+    static FLAG_BACKGROUND => 1
 
     /**
      * A flag set if the placeholder was hydrated prior to the dehydration request.
+     * Native name: CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_DEHYDRATED
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_DEHYDRATED => 2
+    static FLAG_DEHYDRATED => 2
 }

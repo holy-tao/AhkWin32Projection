@@ -7,12 +7,14 @@
 class MIB_IPSTATS_FORWARDING extends Win32Enum {
 
     /**
+     * Native name: MIB_IP_FORWARDING
      * @type {Integer (Int32)}
      */
-    static MIB_IP_FORWARDING => 1
+    static IP_FORWARDING => 1
 
     /**
+     * Native name: MIB_IP_NOT_FORWARDING
      * @type {Integer (Int32)}
      */
-    static MIB_IP_NOT_FORWARDING => 2
+    static IP_NOT_FORWARDING => 2
 }

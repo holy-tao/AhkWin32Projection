@@ -229,7 +229,6 @@ class DirectComposition {
     }
 
     /**
-     * 
      * @param {Integer} frameId 
      * @param {Pointer<COMPOSITION_TARGET_ID>} targetId 
      * @param {Pointer<COMPOSITION_TARGET_STATS>} targetStats 

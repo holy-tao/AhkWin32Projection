@@ -7,22 +7,26 @@
 class STORAGE_IDENTIFIER_CODE_SET extends Win32Enum {
 
     /**
+     * Native name: StorageIdCodeSetReserved
      * @type {Integer (Int32)}
      */
-    static StorageIdCodeSetReserved => 0
+    static IdCodeSetReserved => 0
 
     /**
+     * Native name: StorageIdCodeSetBinary
      * @type {Integer (Int32)}
      */
-    static StorageIdCodeSetBinary => 1
+    static IdCodeSetBinary => 1
 
     /**
+     * Native name: StorageIdCodeSetAscii
      * @type {Integer (Int32)}
      */
-    static StorageIdCodeSetAscii => 2
+    static IdCodeSetAscii => 2
 
     /**
+     * Native name: StorageIdCodeSetUtf8
      * @type {Integer (Int32)}
      */
-    static StorageIdCodeSetUtf8 => 3
+    static IdCodeSetUtf8 => 3
 }

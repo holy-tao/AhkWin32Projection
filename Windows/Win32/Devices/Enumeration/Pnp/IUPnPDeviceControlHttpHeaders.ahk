@@ -30,7 +30,6 @@ class IUPnPDeviceControlHttpHeaders extends IUnknown {
     static VTableNames => ["GetAdditionalResponseHeaders"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAdditionalResponseHeaders() {

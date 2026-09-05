@@ -7,27 +7,32 @@
 class BATTERY_TYPE extends Win32Enum {
 
     /**
+     * Native name: BATTERY_TYPE_DISCONNECTED
      * @type {Integer (Byte)}
      */
-    static BATTERY_TYPE_DISCONNECTED => 0x00
+    static DISCONNECTED => 0x00
 
     /**
+     * Native name: BATTERY_TYPE_WIRED
      * @type {Integer (Byte)}
      */
-    static BATTERY_TYPE_WIRED => 0x01
+    static WIRED => 0x01
 
     /**
+     * Native name: BATTERY_TYPE_ALKALINE
      * @type {Integer (Byte)}
      */
-    static BATTERY_TYPE_ALKALINE => 0x02
+    static ALKALINE => 0x02
 
     /**
+     * Native name: BATTERY_TYPE_NIMH
      * @type {Integer (Byte)}
      */
-    static BATTERY_TYPE_NIMH => 0x03
+    static NIMH => 0x03
 
     /**
+     * Native name: BATTERY_TYPE_UNKNOWN
      * @type {Integer (Byte)}
      */
-    static BATTERY_TYPE_UNKNOWN => 0xFF
+    static UNKNOWN => 0xFF
 }

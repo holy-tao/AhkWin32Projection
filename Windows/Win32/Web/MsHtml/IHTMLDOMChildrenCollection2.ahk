@@ -29,7 +29,6 @@ class IHTMLDOMChildrenCollection2 extends IDispatch {
     static VTableNames => ["item"]
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */

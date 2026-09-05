@@ -10,31 +10,36 @@ class CLUSTER_NODE_DRAIN_STATUS extends Win32Enum {
 
     /**
      * Indicates that node draining has not started.
+     * Native name: NodeDrainStatusNotInitiated
      * @type {Integer (Int32)}
      */
-    static NodeDrainStatusNotInitiated => 0
+    static NotInitiated => 0
 
     /**
      * Indicates that node draining is in progress.
+     * Native name: NodeDrainStatusInProgress
      * @type {Integer (Int32)}
      */
-    static NodeDrainStatusInProgress => 1
+    static InProgress => 1
 
     /**
      * Indicates that node draining has been completed.
+     * Native name: NodeDrainStatusCompleted
      * @type {Integer (Int32)}
      */
-    static NodeDrainStatusCompleted => 2
+    static Completed => 2
 
     /**
      * Indicates that node draining has failed.
+     * Native name: NodeDrainStatusFailed
      * @type {Integer (Int32)}
      */
-    static NodeDrainStatusFailed => 3
+    static Failed => 3
 
     /**
      * Defines the maximum number of drain statuses.
+     * Native name: ClusterNodeDrainStatusCount
      * @type {Integer (Int32)}
      */
-    static ClusterNodeDrainStatusCount => 4
+    static Count => 4
 }

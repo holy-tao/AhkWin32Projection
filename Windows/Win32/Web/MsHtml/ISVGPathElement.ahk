@@ -64,7 +64,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedNumber} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedNumber} 
      */
     get_pathLength() {
@@ -83,7 +81,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     getTotalLength() {
@@ -92,7 +89,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} fltdistance 
      * @returns {ISVGPoint} 
      */
@@ -102,7 +98,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} fltdistance 
      * @returns {Integer} 
      */
@@ -112,7 +107,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegClosePath} 
      */
     createSVGPathSegClosePath() {
@@ -121,7 +115,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegMovetoAbs} 
@@ -132,7 +125,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegMovetoRel} 
@@ -143,7 +135,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoAbs} 
@@ -154,7 +145,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoRel} 
@@ -165,7 +155,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -180,7 +169,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -195,7 +183,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -208,7 +195,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -221,7 +207,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} r1 
@@ -237,7 +222,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} r1 
@@ -253,7 +237,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @returns {ISVGPathSegLinetoHorizontalAbs} 
      */
@@ -263,7 +246,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @returns {ISVGPathSegLinetoHorizontalRel} 
      */
@@ -273,7 +255,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoVerticalAbs} 
      */
@@ -283,7 +264,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoVerticalRel} 
      */
@@ -293,7 +273,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x2 
@@ -306,7 +285,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x2 
@@ -319,7 +297,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegCurvetoQuadraticSmoothAbs} 
@@ -330,7 +307,6 @@ class ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegCurvetoQuadraticSmoothRel} 

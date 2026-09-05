@@ -7,37 +7,44 @@
 class DedupDataPortVolumeStatus extends Win32Enum {
 
     /**
+     * Native name: DedupDataPortVolumeStatus_Unknown
      * @type {Integer (Int32)}
      */
-    static DedupDataPortVolumeStatus_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DedupDataPortVolumeStatus_NotEnabled
      * @type {Integer (Int32)}
      */
-    static DedupDataPortVolumeStatus_NotEnabled => 1
+    static NotEnabled => 1
 
     /**
+     * Native name: DedupDataPortVolumeStatus_NotAvailable
      * @type {Integer (Int32)}
      */
-    static DedupDataPortVolumeStatus_NotAvailable => 2
+    static NotAvailable => 2
 
     /**
+     * Native name: DedupDataPortVolumeStatus_Initializing
      * @type {Integer (Int32)}
      */
-    static DedupDataPortVolumeStatus_Initializing => 3
+    static Initializing => 3
 
     /**
+     * Native name: DedupDataPortVolumeStatus_Ready
      * @type {Integer (Int32)}
      */
-    static DedupDataPortVolumeStatus_Ready => 4
+    static Ready => 4
 
     /**
+     * Native name: DedupDataPortVolumeStatus_Maintenance
      * @type {Integer (Int32)}
      */
-    static DedupDataPortVolumeStatus_Maintenance => 5
+    static Maintenance => 5
 
     /**
+     * Native name: DedupDataPortVolumeStatus_Shutdown
      * @type {Integer (Int32)}
      */
-    static DedupDataPortVolumeStatus_Shutdown => 6
+    static Shutdown => 6
 }

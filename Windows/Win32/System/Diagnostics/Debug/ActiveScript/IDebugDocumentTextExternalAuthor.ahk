@@ -31,7 +31,6 @@ class IDebugDocumentTextExternalAuthor extends IUnknown {
     static VTableNames => ["GetPathName", "GetFileName", "NotifyChanged"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrLongName 
      * @param {Pointer<BOOL>} pfIsOriginalFile 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IDebugDocumentTextExternalAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFileName() {
@@ -54,7 +52,6 @@ class IDebugDocumentTextExternalAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyChanged() {

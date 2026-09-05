@@ -117,7 +117,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -126,7 +125,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Filename 
      * @returns {HRESULT} 
      */
@@ -138,7 +136,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} SaveChanges 
      * @returns {HRESULT} 
      */
@@ -148,7 +145,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Views} 
      */
     get_Views() {
@@ -157,7 +153,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SnapIns} 
      */
     get_SnapIns() {
@@ -166,7 +161,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {View} 
      */
     get_ActiveView() {
@@ -175,7 +169,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -185,7 +178,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @returns {HRESULT} 
      */
@@ -197,7 +189,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Location() {
@@ -207,7 +198,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsSaved() {
@@ -216,7 +206,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {_DocumentMode} 
      */
     get_Mode() {
@@ -225,7 +214,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {_DocumentMode} _Mode 
      * @returns {HRESULT} 
      */
@@ -235,7 +223,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Node} 
      */
     get_RootNode() {
@@ -244,7 +231,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ScopeNamespace} 
      */
     get_ScopeNamespace() {
@@ -253,7 +239,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Properties} 
      */
     CreateProperties() {
@@ -262,7 +247,6 @@ class Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {_Application} 
      */
     get_Application() {

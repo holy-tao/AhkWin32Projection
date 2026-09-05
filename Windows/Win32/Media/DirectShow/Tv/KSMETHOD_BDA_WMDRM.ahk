@@ -7,42 +7,50 @@
 class KSMETHOD_BDA_WMDRM extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_STATUS
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_STATUS => 0
+    static STATUS => 0
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_REVINFO
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_REVINFO => 1
+    static REVINFO => 1
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_CRL
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_CRL => 2
+    static CRL => 2
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_MESSAGE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_MESSAGE => 3
+    static MESSAGE => 3
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_REISSUELICENSE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_REISSUELICENSE => 4
+    static REISSUELICENSE => 4
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_RENEWLICENSE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_RENEWLICENSE => 5
+    static RENEWLICENSE => 5
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_LICENSE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_LICENSE => 6
+    static LICENSE => 6
 
     /**
+     * Native name: KSMETHOD_BDA_WMDRM_KEYINFO
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_WMDRM_KEYINFO => 7
+    static KEYINFO => 7
 }

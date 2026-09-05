@@ -56,7 +56,6 @@ class IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Type() {
@@ -65,7 +64,6 @@ class IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnType 
      * @returns {HRESULT} 
      */
@@ -75,7 +73,6 @@ class IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VolumeName() {
@@ -85,7 +82,6 @@ class IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVolumeName 
      * @returns {HRESULT} 
      */
@@ -97,7 +93,6 @@ class IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -107,7 +102,6 @@ class IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPath 
      * @returns {HRESULT} 
      */

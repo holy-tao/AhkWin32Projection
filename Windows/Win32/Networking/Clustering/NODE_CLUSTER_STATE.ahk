@@ -49,25 +49,29 @@ class NODE_CLUSTER_STATE extends Win32Enum {
 
     /**
      * The Cluster service is not installed on the node.
+     * Native name: ClusterStateNotInstalled
      * @type {Integer (Int32)}
      */
-    static ClusterStateNotInstalled => 0
+    static NotInstalled => 0
 
     /**
      * The Cluster service is installed on the node but has not yet been configured.
+     * Native name: ClusterStateNotConfigured
      * @type {Integer (Int32)}
      */
-    static ClusterStateNotConfigured => 1
+    static NotConfigured => 1
 
     /**
      * The Cluster service is installed and configured on the node but is not currently running.
+     * Native name: ClusterStateNotRunning
      * @type {Integer (Int32)}
      */
-    static ClusterStateNotRunning => 3
+    static NotRunning => 3
 
     /**
      * The Cluster service is installed, configured, and running on the node.
+     * Native name: ClusterStateRunning
      * @type {Integer (Int32)}
      */
-    static ClusterStateRunning => 19
+    static Running => 19
 }

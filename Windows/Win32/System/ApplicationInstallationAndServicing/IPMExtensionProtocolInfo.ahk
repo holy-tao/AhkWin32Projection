@@ -36,7 +36,6 @@ class IPMExtensionProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pProtocol 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class IPMExtensionProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 

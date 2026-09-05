@@ -10,22 +10,25 @@ class QOS_SET_FLOW extends Win32Enum {
 
     /**
      * Indicates that the traffic type of the flow will change.
+     * Native name: QOSSetTrafficType
      * @type {Integer (Int32)}
      */
-    static QOSSetTrafficType => 0
+    static TrafficType => 0
 
     /**
      * Indicates that the flow rate will change.
+     * Native name: QOSSetOutgoingRate
      * @type {Integer (Int32)}
      */
-    static QOSSetOutgoingRate => 1
+    static OutgoingRate => 1
 
     /**
      * Windows 7, Windows Server 2008 R2, and later: Indicates that the outgoing DSCP value will change.
      * 
      * <div class="alert"><b>Note</b>  This setting requires the calling application be a member of the Administrators or the  Network Configuration Operators group.</div>
      * <div> </div>
+     * Native name: QOSSetOutgoingDSCPValue
      * @type {Integer (Int32)}
      */
-    static QOSSetOutgoingDSCPValue => 2
+    static OutgoingDSCPValue => 2
 }

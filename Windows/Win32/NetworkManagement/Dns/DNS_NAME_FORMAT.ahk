@@ -10,43 +10,50 @@ class DNS_NAME_FORMAT extends Win32Enum {
 
     /**
      * The name format is a DNS domain.
+     * Native name: DnsNameDomain
      * @type {Integer (Int32)}
      */
-    static DnsNameDomain => 0
+    static Domain => 0
 
     /**
      * The name format is a DNS domain label.
+     * Native name: DnsNameDomainLabel
      * @type {Integer (Int32)}
      */
-    static DnsNameDomainLabel => 1
+    static DomainLabel => 1
 
     /**
      * The name format is a full DNS host name.
+     * Native name: DnsNameHostnameFull
      * @type {Integer (Int32)}
      */
-    static DnsNameHostnameFull => 2
+    static HostnameFull => 2
 
     /**
      * The name format is a  DNS host label.
+     * Native name: DnsNameHostnameLabel
      * @type {Integer (Int32)}
      */
-    static DnsNameHostnameLabel => 3
+    static HostnameLabel => 3
 
     /**
      * The name format is a  DNS wildcard.
+     * Native name: DnsNameWildcard
      * @type {Integer (Int32)}
      */
-    static DnsNameWildcard => 4
+    static Wildcard => 4
 
     /**
      * The name format is a  DNS SRV record.
+     * Native name: DnsNameSrvRecord
      * @type {Integer (Int32)}
      */
-    static DnsNameSrvRecord => 5
+    static SrvRecord => 5
 
     /**
      * Windows 7 or later: The name format is a DNS domain or a full DNS host name.
+     * Native name: DnsNameValidateTld
      * @type {Integer (Int32)}
      */
-    static DnsNameValidateTld => 6
+    static ValidateTld => 6
 }

@@ -10,31 +10,36 @@ class DISPLAYCONFIG_SCANLINE_ORDERING extends Win32Enum {
 
     /**
      * Indicates that scan-line ordering of the output is unspecified. The caller can only set the <b>scanLineOrdering</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_path_target_info">DISPLAYCONFIG_PATH_TARGET_INFO</a> structure in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdisplayconfig">SetDisplayConfig</a> function to DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED if the caller also set the refresh rate denominator and numerator of the <b>refreshRate</b> member both to zero. In this case, <b>SetDisplayConfig</b> uses the best refresh rate it can find.
+     * Native name: DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * Indicates that the output is a progressive image.
+     * Native name: DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE => 1
+    static PROGRESSIVE => 1
 
     /**
      * Indicates that the output is an interlaced image that is created beginning with the upper field.
+     * Native name: DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED => 2
+    static INTERLACED => 2
 
     /**
      * Indicates that the output is an interlaced image that is created beginning with the upper field.
+     * Native name: DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_UPPERFIELDFIRST
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_UPPERFIELDFIRST => 2
+    static INTERLACED_UPPERFIELDFIRST => 2
 
     /**
      * Indicates that the output is an interlaced image that is created beginning with the lower field.
+     * Native name: DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST => 3
+    static INTERLACED_LOWERFIELDFIRST => 3
 }

@@ -12,19 +12,22 @@ class D3D11_SHADER_CACHE_SUPPORT_FLAGS extends Win32Enum {
 
     /**
      * Indicates that the driver does not support shader caching.
+     * Native name: D3D11_SHADER_CACHE_SUPPORT_NONE
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_CACHE_SUPPORT_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates that the driver supports an OS-managed shader cache that stores compiled shaders in memory during the current run of the application.
+     * Native name: D3D11_SHADER_CACHE_SUPPORT_AUTOMATIC_INPROC_CACHE
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_CACHE_SUPPORT_AUTOMATIC_INPROC_CACHE => 1
+    static AUTOMATIC_INPROC_CACHE => 1
 
     /**
      * Indicates that the driver supports an OS-managed shader cache that stores compiled shaders on disk to accelerate future runs of the application.
+     * Native name: D3D11_SHADER_CACHE_SUPPORT_AUTOMATIC_DISK_CACHE
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_CACHE_SUPPORT_AUTOMATIC_DISK_CACHE => 2
+    static AUTOMATIC_DISK_CACHE => 2
 }

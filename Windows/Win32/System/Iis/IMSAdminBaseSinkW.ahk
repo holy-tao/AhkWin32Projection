@@ -30,7 +30,6 @@ class IMSAdminBaseSinkW extends IUnknown {
     static VTableNames => ["SinkNotify", "ShutdownNotify"]
 
     /**
-     * 
      * @param {Integer} dwMDNumElements 
      * @param {Pointer<MD_CHANGE_OBJECT_W>} pcoChangeList 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShutdownNotify() {

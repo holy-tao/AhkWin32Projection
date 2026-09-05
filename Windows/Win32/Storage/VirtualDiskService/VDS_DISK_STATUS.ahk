@@ -15,45 +15,52 @@ class VDS_DISK_STATUS extends Win32Enum {
 
     /**
      * The provider failed to get the disk properties from the driver (unknown status, unknown health), or the provider cannot access the disk (unknown status, healthy).
+     * Native name: VDS_DS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_DS_UNKNOWN => 0
+    static DS_UNKNOWN => 0
 
     /**
      * The disk is available. The disk status value can be VDS_DS_ONLINE, even if the status of the containing pack is VDS_PS_OFFLINE.
+     * Native name: VDS_DS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_DS_ONLINE => 1
+    static DS_ONLINE => 1
 
     /**
      * The disk is currently not ready to use. For example, if you use ACPI Power Management to request that a disk hibernate (spin down), the disk becomes temporarily unavailable.
+     * Native name: VDS_DS_NOT_READY
      * @type {Integer (Int32)}
      */
-    static VDS_DS_NOT_READY => 2
+    static DS_NOT_READY => 2
 
     /**
      * The disk is removable media, such as a CD-ROM drive, or contains no media.
+     * Native name: VDS_DS_NO_MEDIA
      * @type {Integer (Int32)}
      */
-    static VDS_DS_NO_MEDIA => 3
+    static DS_NO_MEDIA => 3
 
     /**
      * The disk is unavailable and cannot be used.
+     * Native name: VDS_DS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_DS_FAILED => 5
+    static DS_FAILED => 5
 
     /**
      * No physical device is present for the disk object, even though the pack configuration information lists the disk. This status value applies to dynamic disks only.
+     * Native name: VDS_DS_MISSING
      * @type {Integer (Int32)}
      */
-    static VDS_DS_MISSING => 6
+    static DS_MISSING => 6
 
     /**
      * The disk is offline.
      * 
      * <b>Windows Vista and Windows Server 2003:  </b>This flag is not supported.
+     * Native name: VDS_DS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_DS_OFFLINE => 4
+    static DS_OFFLINE => 4
 }

@@ -28,7 +28,6 @@ class ISpThreadTask extends Win32ComInterface {
     static VTableNames => ["InitThread", "ThreadProc", "WindowMessage"]
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class ISpThreadTask extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hExitThreadEvent 
      * @param {HANDLE} hNotifyEvent 
@@ -64,7 +62,6 @@ class ISpThreadTask extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HWND} _hWnd 
      * @param {Integer} _Msg 

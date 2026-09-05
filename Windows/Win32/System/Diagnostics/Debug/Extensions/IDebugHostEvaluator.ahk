@@ -33,7 +33,6 @@ class IDebugHostEvaluator extends IUnknown {
     static VTableNames => ["EvaluateExpression", "EvaluateExtendedExpression"]
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 
@@ -49,7 +48,6 @@ class IDebugHostEvaluator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 

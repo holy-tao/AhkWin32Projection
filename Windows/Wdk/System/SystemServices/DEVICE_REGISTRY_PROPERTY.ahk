@@ -7,117 +7,140 @@
 class DEVICE_REGISTRY_PROPERTY extends Win32Enum {
 
     /**
+     * Native name: DevicePropertyDeviceDescription
      * @type {Integer (Int32)}
      */
-    static DevicePropertyDeviceDescription => 4096
+    static DeviceDescription => 4096
 
     /**
+     * Native name: DevicePropertyHardwareID
      * @type {Integer (Int32)}
      */
-    static DevicePropertyHardwareID => 16385
+    static HardwareID => 16385
 
     /**
+     * Native name: DevicePropertyCompatibleIDs
      * @type {Integer (Int32)}
      */
-    static DevicePropertyCompatibleIDs => 16386
+    static CompatibleIDs => 16386
 
     /**
+     * Native name: DevicePropertyBootConfiguration
      * @type {Integer (Int32)}
      */
-    static DevicePropertyBootConfiguration => 3
+    static BootConfiguration => 3
 
     /**
+     * Native name: DevicePropertyBootConfigurationTranslated
      * @type {Integer (Int32)}
      */
-    static DevicePropertyBootConfigurationTranslated => 4
+    static BootConfigurationTranslated => 4
 
     /**
+     * Native name: DevicePropertyClassName
      * @type {Integer (Int32)}
      */
-    static DevicePropertyClassName => 4101
+    static ClassName => 4101
 
     /**
+     * Native name: DevicePropertyClassGuid
      * @type {Integer (Int32)}
      */
-    static DevicePropertyClassGuid => 4102
+    static ClassGuid => 4102
 
     /**
+     * Native name: DevicePropertyDriverKeyName
      * @type {Integer (Int32)}
      */
-    static DevicePropertyDriverKeyName => 4103
+    static DriverKeyName => 4103
 
     /**
+     * Native name: DevicePropertyManufacturer
      * @type {Integer (Int32)}
      */
-    static DevicePropertyManufacturer => 4104
+    static Manufacturer => 4104
 
     /**
+     * Native name: DevicePropertyFriendlyName
      * @type {Integer (Int32)}
      */
-    static DevicePropertyFriendlyName => 4105
+    static FriendlyName => 4105
 
     /**
+     * Native name: DevicePropertyLocationInformation
      * @type {Integer (Int32)}
      */
-    static DevicePropertyLocationInformation => 4106
+    static LocationInformation => 4106
 
     /**
+     * Native name: DevicePropertyPhysicalDeviceObjectName
      * @type {Integer (Int32)}
      */
-    static DevicePropertyPhysicalDeviceObjectName => 4107
+    static PhysicalDeviceObjectName => 4107
 
     /**
+     * Native name: DevicePropertyBusTypeGuid
      * @type {Integer (Int32)}
      */
-    static DevicePropertyBusTypeGuid => 8204
+    static BusTypeGuid => 8204
 
     /**
+     * Native name: DevicePropertyLegacyBusType
      * @type {Integer (Int32)}
      */
-    static DevicePropertyLegacyBusType => 13
+    static LegacyBusType => 13
 
     /**
+     * Native name: DevicePropertyBusNumber
      * @type {Integer (Int32)}
      */
-    static DevicePropertyBusNumber => 14
+    static BusNumber => 14
 
     /**
+     * Native name: DevicePropertyEnumeratorName
      * @type {Integer (Int32)}
      */
-    static DevicePropertyEnumeratorName => 4111
+    static EnumeratorName => 4111
 
     /**
+     * Native name: DevicePropertyAddress
      * @type {Integer (Int32)}
      */
-    static DevicePropertyAddress => 16
+    static Address => 16
 
     /**
+     * Native name: DevicePropertyUINumber
      * @type {Integer (Int32)}
      */
-    static DevicePropertyUINumber => 17
+    static PropertyUINumber => 17
 
     /**
+     * Native name: DevicePropertyInstallState
      * @type {Integer (Int32)}
      */
-    static DevicePropertyInstallState => 18
+    static InstallState => 18
 
     /**
+     * Native name: DevicePropertyRemovalPolicy
      * @type {Integer (Int32)}
      */
-    static DevicePropertyRemovalPolicy => 19
+    static RemovalPolicy => 19
 
     /**
+     * Native name: DevicePropertyResourceRequirements
      * @type {Integer (Int32)}
      */
-    static DevicePropertyResourceRequirements => 20
+    static ResourceRequirements => 20
 
     /**
+     * Native name: DevicePropertyAllocatedResources
      * @type {Integer (Int32)}
      */
-    static DevicePropertyAllocatedResources => 21
+    static AllocatedResources => 21
 
     /**
+     * Native name: DevicePropertyContainerID
      * @type {Integer (Int32)}
      */
-    static DevicePropertyContainerID => 4118
+    static ContainerID => 4118
 }

@@ -52,7 +52,6 @@ class ISWbemMethodSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -80,7 +79,6 @@ class ISWbemMethodSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {

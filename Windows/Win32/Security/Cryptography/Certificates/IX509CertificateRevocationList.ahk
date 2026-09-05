@@ -171,7 +171,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -184,7 +183,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Encode() {
@@ -193,7 +191,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetForEncode() {
@@ -202,7 +199,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX509PublicKey} pPublicKey 
      * @returns {HRESULT} 
      */
@@ -212,7 +208,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CheckSignature() {
@@ -221,7 +216,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX500DistinguishedName} 
      */
     get_Issuer() {
@@ -230,7 +224,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX500DistinguishedName} pValue 
      * @returns {HRESULT} 
      */
@@ -240,7 +233,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ThisUpdate() {
@@ -249,7 +241,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} Value 
      * @returns {HRESULT} 
      */
@@ -259,7 +250,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_NextUpdate() {
@@ -268,7 +258,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} Value 
      * @returns {HRESULT} 
      */
@@ -278,7 +267,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509CertificateRevocationListEntries} 
      */
     get_X509CRLEntries() {
@@ -287,7 +275,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509Extensions} 
      */
     get_X509Extensions() {
@@ -296,7 +283,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IObjectIds} 
      */
     get_CriticalExtensions() {
@@ -305,7 +291,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISignerCertificate} 
      */
     get_SignerCertificate() {
@@ -314,7 +299,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISignerCertificate} pValue 
      * @returns {HRESULT} 
      */
@@ -324,7 +308,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -335,7 +318,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -348,7 +330,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CAVersion() {
@@ -357,7 +338,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} pValue 
      * @returns {HRESULT} 
      */
@@ -367,7 +347,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_BaseCRL() {
@@ -376,7 +355,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_NullSigned() {
@@ -385,7 +363,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IObjectId} 
      */
     get_HashAlgorithm() {
@@ -394,7 +371,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {IObjectId} pValue 
      * @returns {HRESULT} 
      */
@@ -404,7 +380,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AlternateSignatureAlgorithm() {
@@ -413,7 +388,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -423,7 +397,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509SignatureInformation} 
      */
     get_SignatureInformation() {
@@ -432,7 +405,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -443,7 +415,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -454,7 +425,6 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */

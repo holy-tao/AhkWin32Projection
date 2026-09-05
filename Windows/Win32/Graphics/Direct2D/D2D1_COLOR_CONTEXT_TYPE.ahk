@@ -9,17 +9,20 @@
 class D2D1_COLOR_CONTEXT_TYPE extends Win32Enum {
 
     /**
+     * Native name: D2D1_COLOR_CONTEXT_TYPE_ICC
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_CONTEXT_TYPE_ICC => 0
+    static ICC => 0
 
     /**
+     * Native name: D2D1_COLOR_CONTEXT_TYPE_SIMPLE
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_CONTEXT_TYPE_SIMPLE => 1
+    static SIMPLE => 1
 
     /**
+     * Native name: D2D1_COLOR_CONTEXT_TYPE_DXGI
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_CONTEXT_TYPE_DXGI => 2
+    static DXGI => 2
 }

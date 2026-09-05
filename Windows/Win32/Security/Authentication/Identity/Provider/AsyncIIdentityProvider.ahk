@@ -42,7 +42,6 @@ class AsyncIIdentityProvider extends IUnknown {
     static VTableNames => ["Begin_GetIdentityEnum", "Finish_GetIdentityEnum", "Begin_Create", "Finish_Create", "Begin_Import", "Finish_Import", "Begin_Delete", "Finish_Delete", "Begin_FindByUniqueID", "Finish_FindByUniqueID", "Begin_GetProviderPropertyStore", "Finish_GetProviderPropertyStore", "Begin_Advise", "Finish_Advise", "Begin_UnAdvise", "Finish_UnAdvise"]
 
     /**
-     * 
      * @param {IDENTITY_TYPE} eIdentityType 
      * @param {Pointer<PROPERTYKEY>} pFilterkey 
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue 
@@ -54,7 +53,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     Finish_GetIdentityEnum() {
@@ -63,7 +61,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUserName 
      * @param {Pointer<PROPVARIANT>} pKeywordsToAdd 
      * @returns {HRESULT} 
@@ -76,7 +73,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_Create() {
@@ -85,7 +81,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPropertyStore} pPropertyStore 
      * @returns {HRESULT} 
      */
@@ -95,7 +90,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Import() {
@@ -104,7 +98,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<PROPVARIANT>} pKeywordsToDelete 
      * @returns {HRESULT} 
@@ -117,7 +110,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Delete() {
@@ -126,7 +118,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
      */
@@ -138,7 +129,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_FindByUniqueID() {
@@ -147,7 +137,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_GetProviderPropertyStore() {
@@ -156,7 +145,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_GetProviderPropertyStore() {
@@ -165,7 +153,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IIdentityAdvise} pIdentityAdvise 
      * @param {Integer} dwIdentityUpdateEvents 
      * @returns {HRESULT} 
@@ -176,7 +163,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_Advise() {
@@ -185,7 +171,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -195,7 +180,6 @@ class AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_UnAdvise() {

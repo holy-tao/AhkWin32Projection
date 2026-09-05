@@ -29,7 +29,6 @@ class IActiveScriptProfilerControl2 extends IActiveScriptProfilerControl {
     static VTableNames => ["CompleteProfilerStart", "PrepareProfilerStop"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CompleteProfilerStart() {
@@ -38,7 +37,6 @@ class IActiveScriptProfilerControl2 extends IActiveScriptProfilerControl {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PrepareProfilerStop() {

@@ -12,25 +12,29 @@ class D2D1_DEBUG_LEVEL extends Win32Enum {
 
     /**
      * Direct2D does not produce any debugging output.
+     * Native name: D2D1_DEBUG_LEVEL_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_DEBUG_LEVEL_NONE => 0
+    static NONE => 0
 
     /**
      * Direct2D sends error messages to the debug layer.
+     * Native name: D2D1_DEBUG_LEVEL_ERROR
      * @type {Integer (Int32)}
      */
-    static D2D1_DEBUG_LEVEL_ERROR => 1
+    static ERROR => 1
 
     /**
      * Direct2D sends error messages and warnings to the debug layer.
+     * Native name: D2D1_DEBUG_LEVEL_WARNING
      * @type {Integer (Int32)}
      */
-    static D2D1_DEBUG_LEVEL_WARNING => 2
+    static WARNING => 2
 
     /**
      * Direct2D sends error messages, warnings, and additional diagnostic information that can help improve performance to the debug layer.
+     * Native name: D2D1_DEBUG_LEVEL_INFORMATION
      * @type {Integer (Int32)}
      */
-    static D2D1_DEBUG_LEVEL_INFORMATION => 3
+    static INFORMATION => 3
 }

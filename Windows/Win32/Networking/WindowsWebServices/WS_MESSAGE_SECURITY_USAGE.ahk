@@ -13,7 +13,8 @@ class WS_MESSAGE_SECURITY_USAGE extends Win32Enum {
      * authentication, but not message protection.  Message protection should
      * be provided by a transport security binding or a message security
      * binding with symmetric or asymmetric usage.
+     * Native name: WS_SUPPORTING_MESSAGE_SECURITY_USAGE
      * @type {Integer (Int32)}
      */
-    static WS_SUPPORTING_MESSAGE_SECURITY_USAGE => 1
+    static SUPPORTING_MESSAGE_SECURITY_USAGE => 1
 }

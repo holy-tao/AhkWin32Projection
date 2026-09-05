@@ -36,7 +36,6 @@ class IDOMParserFactory extends IDispatch {
     static VTableNames => ["create"]
 
     /**
-     * 
      * @returns {IDOMParser} 
      */
     create() {

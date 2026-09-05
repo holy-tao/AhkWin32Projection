@@ -105,7 +105,6 @@ class ClrHosting {
 
 ;@region Methods
     /**
-     * 
      * @param {PWSTR} pbuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
@@ -121,7 +120,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pbBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
@@ -137,7 +135,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} szFilename 
      * @param {PWSTR} szBuffer 
      * @param {Integer} cchBuffer 
@@ -155,7 +152,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pbuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
@@ -171,7 +167,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pExe 
      * @param {PWSTR} pwszVersion 
      * @param {PWSTR} pConfigurationFile 
@@ -200,7 +195,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pExe 
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
@@ -215,7 +209,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszVersion 
      * @param {PWSTR} pwszBuildFlavor 
      * @param {PWSTR} pwszHostConfigFile 
@@ -239,7 +232,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszVersion 
      * @param {PWSTR} pwszBuildFlavor 
      * @param {Integer} startupFlags 
@@ -259,7 +251,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {IStream} pCfgStream 
      * @param {Integer} reserved 
      * @param {Integer} startupFlags 
@@ -276,7 +267,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszVersion 
      * @param {PWSTR} pwszBuildFlavor 
      * @param {Pointer<Guid>} rclsid 
@@ -295,7 +285,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFileName 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
@@ -312,7 +301,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} pTypeName 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppObject 
@@ -328,7 +316,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static CorMarkThreadInThreadPool() {
@@ -336,7 +323,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} hinst 
      * @param {PWSTR} lpszCmdLine 
@@ -376,7 +362,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PWSTR} szDllName 
      * @param {PSTR} szFunctionName 
      * @param {Pointer<Void>} lpvArgument1 
@@ -399,7 +384,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {PSTR} pwszProcName 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
@@ -414,7 +398,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Integer} exitCode 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -423,7 +406,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Integer} iResouceID 
      * @param {PWSTR} szBuffer 
      * @param {Integer} iMax 
@@ -438,7 +420,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @param {Integer} iResouceID 
      * @param {PWSTR} szBuffer 
@@ -457,7 +438,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Pointer<FLockClrVersionCallback>} hostCallback 
      * @param {Pointer<Pointer<FLockClrVersionCallback>>} pBeginHostSetup 
      * @param {Pointer<Pointer<FLockClrVersionCallback>>} pEndHostSetup 
@@ -472,7 +452,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Integer} iDebuggerVersion 
      * @param {PWSTR} szDebuggeeVersion 
      * @returns {IUnknown} 
@@ -485,7 +464,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
@@ -500,7 +478,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {HOST_TYPE} dwClickOnceHost 
      * @param {PWSTR} pwzAppFullName 
      * @param {Integer} dwManifestPaths 
@@ -521,7 +498,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
@@ -536,7 +512,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -546,7 +521,6 @@ class ClrHosting {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

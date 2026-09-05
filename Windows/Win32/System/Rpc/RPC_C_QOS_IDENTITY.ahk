@@ -7,12 +7,14 @@
 class RPC_C_QOS_IDENTITY extends Win32Enum {
 
     /**
+     * Native name: RPC_C_QOS_IDENTITY_STATIC
      * @type {Integer (UInt32)}
      */
-    static RPC_C_QOS_IDENTITY_STATIC => 0
+    static STATIC => 0
 
     /**
+     * Native name: RPC_C_QOS_IDENTITY_DYNAMIC
      * @type {Integer (UInt32)}
      */
-    static RPC_C_QOS_IDENTITY_DYNAMIC => 1
+    static DYNAMIC => 1
 }

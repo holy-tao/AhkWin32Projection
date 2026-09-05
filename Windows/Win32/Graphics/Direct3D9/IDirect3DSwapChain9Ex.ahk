@@ -60,7 +60,6 @@ class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
     }
 
     /**
-     * 
      * @param {Pointer<D3DPRESENTSTATS>} pPresentationStatistics 
      * @returns {HRESULT} 
      */

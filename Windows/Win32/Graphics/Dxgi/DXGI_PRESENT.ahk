@@ -30,47 +30,56 @@
 class DXGI_PRESENT extends Win32BitflagEnum {
 
     /**
+     * Native name: DXGI_PRESENT_TEST
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_TEST => 1
+    static TEST => 1
 
     /**
+     * Native name: DXGI_PRESENT_DO_NOT_SEQUENCE
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_DO_NOT_SEQUENCE => 2
+    static DO_NOT_SEQUENCE => 2
 
     /**
+     * Native name: DXGI_PRESENT_RESTART
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_RESTART => 4
+    static RESTART => 4
 
     /**
+     * Native name: DXGI_PRESENT_DO_NOT_WAIT
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_DO_NOT_WAIT => 8
+    static DO_NOT_WAIT => 8
 
     /**
+     * Native name: DXGI_PRESENT_STEREO_PREFER_RIGHT
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_STEREO_PREFER_RIGHT => 16
+    static STEREO_PREFER_RIGHT => 16
 
     /**
+     * Native name: DXGI_PRESENT_STEREO_TEMPORARY_MONO
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_STEREO_TEMPORARY_MONO => 32
+    static STEREO_TEMPORARY_MONO => 32
 
     /**
+     * Native name: DXGI_PRESENT_RESTRICT_TO_OUTPUT
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_RESTRICT_TO_OUTPUT => 64
+    static RESTRICT_TO_OUTPUT => 64
 
     /**
+     * Native name: DXGI_PRESENT_USE_DURATION
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_USE_DURATION => 256
+    static USE_DURATION => 256
 
     /**
+     * Native name: DXGI_PRESENT_ALLOW_TEARING
      * @type {Integer (UInt32)}
      */
-    static DXGI_PRESENT_ALLOW_TEARING => 512
+    static ALLOW_TEARING => 512
 }

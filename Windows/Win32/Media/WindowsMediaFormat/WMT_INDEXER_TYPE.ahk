@@ -10,19 +10,22 @@ class WMT_INDEXER_TYPE extends Win32Enum {
 
     /**
      * The indexer will construct an index using presentation times as indexes.
+     * Native name: WMT_IT_PRESENTATION_TIME
      * @type {Integer (Int32)}
      */
-    static WMT_IT_PRESENTATION_TIME => 0
+    static IT_PRESENTATION_TIME => 0
 
     /**
      * The indexer will construct an index using frame numbers as indexes.
+     * Native name: WMT_IT_FRAME_NUMBERS
      * @type {Integer (Int32)}
      */
-    static WMT_IT_FRAME_NUMBERS => 1
+    static IT_FRAME_NUMBERS => 1
 
     /**
      * The indexer will construct an index using SMPTE time codes as indexes.
+     * Native name: WMT_IT_TIMECODE
      * @type {Integer (Int32)}
      */
-    static WMT_IT_TIMECODE => 2
+    static IT_TIMECODE => 2
 }

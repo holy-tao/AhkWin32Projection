@@ -7,22 +7,26 @@
 class SCHEMATYPEVARIETY extends Win32Enum {
 
     /**
+     * Native name: SCHEMATYPEVARIETY_NONE
      * @type {Integer (Int32)}
      */
-    static SCHEMATYPEVARIETY_NONE => -1
+    static NONE => -1
 
     /**
+     * Native name: SCHEMATYPEVARIETY_ATOMIC
      * @type {Integer (Int32)}
      */
-    static SCHEMATYPEVARIETY_ATOMIC => 0
+    static ATOMIC => 0
 
     /**
+     * Native name: SCHEMATYPEVARIETY_LIST
      * @type {Integer (Int32)}
      */
-    static SCHEMATYPEVARIETY_LIST => 1
+    static LIST => 1
 
     /**
+     * Native name: SCHEMATYPEVARIETY_UNION
      * @type {Integer (Int32)}
      */
-    static SCHEMATYPEVARIETY_UNION => 2
+    static UNION => 2
 }

@@ -44,7 +44,6 @@ class ISchemaParticle extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minOccurs() {
@@ -54,7 +53,6 @@ class ISchemaParticle extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxOccurs() {

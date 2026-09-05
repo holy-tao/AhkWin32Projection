@@ -10,25 +10,29 @@ class MSVidCtlStateList extends Win32Enum {
 
     /**
      * Indicates that there is no filter graph.
+     * Native name: STATE_UNBUILT
      * @type {Integer (Int32)}
      */
-    static STATE_UNBUILT => -1
+    static UNBUILT => -1
 
     /**
      * Indicates that the Video Control is stopped.
+     * Native name: STATE_STOP
      * @type {Integer (Int32)}
      */
-    static STATE_STOP => 0
+    static STOP => 0
 
     /**
      * Indicates that the Video Control is paused.
+     * Native name: STATE_PAUSE
      * @type {Integer (Int32)}
      */
-    static STATE_PAUSE => 1
+    static PAUSE => 1
 
     /**
      * Indicates that the Video Control is playing.
+     * Native name: STATE_PLAY
      * @type {Integer (Int32)}
      */
-    static STATE_PLAY => 2
+    static PLAY => 2
 }

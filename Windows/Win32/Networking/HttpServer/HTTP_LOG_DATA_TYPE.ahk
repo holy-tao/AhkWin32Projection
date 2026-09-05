@@ -10,7 +10,8 @@ class HTTP_LOG_DATA_TYPE extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_log_fields_data">HTTP_LOG_FIELDS_DATA</a> structure is used for logging a request. This structure is passed to an <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> or <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> call.
+     * Native name: HttpLogDataTypeFields
      * @type {Integer (Int32)}
      */
-    static HttpLogDataTypeFields => 0
+    static Fields => 0
 }

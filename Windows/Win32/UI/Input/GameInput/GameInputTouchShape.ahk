@@ -7,42 +7,50 @@
 class GameInputTouchShape extends Win32Enum {
 
     /**
+     * Native name: GameInputTouchShapeUnknown
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShapeUnknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: GameInputTouchShapePoint
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShapePoint => 0
+    static Point => 0
 
     /**
+     * Native name: GameInputTouchShape1DLinear
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShape1DLinear => 1
+    static Shape1DLinear => 1
 
     /**
+     * Native name: GameInputTouchShape1DRadial
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShape1DRadial => 2
+    static Shape1DRadial => 2
 
     /**
+     * Native name: GameInputTouchShape1DIrregular
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShape1DIrregular => 3
+    static Shape1DIrregular => 3
 
     /**
+     * Native name: GameInputTouchShape2DRectangular
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShape2DRectangular => 4
+    static Shape2DRectangular => 4
 
     /**
+     * Native name: GameInputTouchShape2DElliptical
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShape2DElliptical => 5
+    static Shape2DElliptical => 5
 
     /**
+     * Native name: GameInputTouchShape2DIrregular
      * @type {Integer (Int32)}
      */
-    static GameInputTouchShape2DIrregular => 6
+    static Shape2DIrregular => 6
 }

@@ -54,7 +54,6 @@ class ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -82,7 +81,6 @@ class ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -91,7 +89,6 @@ class ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} varVal 
      * @param {VARIANT_BOOL} bPropagatesToSubclass 
@@ -108,7 +105,6 @@ class ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 

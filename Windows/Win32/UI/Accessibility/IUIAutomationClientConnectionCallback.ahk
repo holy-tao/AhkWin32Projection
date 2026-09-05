@@ -30,7 +30,6 @@ class IUIAutomationClientConnectionCallback extends IUnknown {
     static VTableNames => ["OnConnected", "OnDisconnected"]
 
     /**
-     * 
      * @param {IUIAutomationClientInfo} clientInfo 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IUIAutomationClientConnectionCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUIAutomationClientInfo} clientInfo 
      * @returns {HRESULT} 
      */

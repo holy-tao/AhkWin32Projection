@@ -7,27 +7,32 @@
 class SCM_PD_HEALTH_STATUS extends Win32Enum {
 
     /**
+     * Native name: ScmPhysicalDeviceHealth_Unknown
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceHealth_Unknown => 0
+    static PhysicalDeviceHealth_Unknown => 0
 
     /**
+     * Native name: ScmPhysicalDeviceHealth_Unhealthy
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceHealth_Unhealthy => 1
+    static PhysicalDeviceHealth_Unhealthy => 1
 
     /**
+     * Native name: ScmPhysicalDeviceHealth_Warning
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceHealth_Warning => 2
+    static PhysicalDeviceHealth_Warning => 2
 
     /**
+     * Native name: ScmPhysicalDeviceHealth_Healthy
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceHealth_Healthy => 3
+    static PhysicalDeviceHealth_Healthy => 3
 
     /**
+     * Native name: ScmPhysicalDeviceHealth_Max
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceHealth_Max => 4
+    static PhysicalDeviceHealth_Max => 4
 }

@@ -7,37 +7,44 @@
 class DISPID_InkRectangle extends Win32Enum {
 
     /**
+     * Native name: DISPID_IRTop
      * @type {Integer (Int32)}
      */
-    static DISPID_IRTop => 1
+    static IRTop => 1
 
     /**
+     * Native name: DISPID_IRLeft
      * @type {Integer (Int32)}
      */
-    static DISPID_IRLeft => 2
+    static IRLeft => 2
 
     /**
+     * Native name: DISPID_IRBottom
      * @type {Integer (Int32)}
      */
-    static DISPID_IRBottom => 3
+    static IRBottom => 3
 
     /**
+     * Native name: DISPID_IRRight
      * @type {Integer (Int32)}
      */
-    static DISPID_IRRight => 4
+    static IRRight => 4
 
     /**
+     * Native name: DISPID_IRGetRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_IRGetRectangle => 5
+    static IRGetRectangle => 5
 
     /**
+     * Native name: DISPID_IRSetRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_IRSetRectangle => 6
+    static IRSetRectangle => 6
 
     /**
+     * Native name: DISPID_IRData
      * @type {Integer (Int32)}
      */
-    static DISPID_IRData => 7
+    static IRData => 7
 }

@@ -37,7 +37,6 @@ class ISVGDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGSVGElement} 
      */
     get_rootElement() {

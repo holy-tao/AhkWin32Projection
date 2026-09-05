@@ -124,7 +124,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioTimeOffset() {
@@ -133,7 +132,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeTime() {
@@ -142,7 +140,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioStreamOffset() {
@@ -151,7 +148,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeBytes() {
@@ -160,7 +156,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RetainedStreamOffset() {
@@ -169,7 +164,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RetainedSizeBytes() {
@@ -178,7 +172,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayText() {
@@ -188,7 +181,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LexicalForm() {
@@ -198,7 +190,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Pronunciation() {
@@ -208,7 +199,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechDisplayAttributes} 
      */
     get_DisplayAttributes() {
@@ -217,7 +207,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechEngineConfidence} 
      */
     get_RequiredConfidence() {
@@ -226,7 +215,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechEngineConfidence} 
      */
     get_ActualConfidence() {
@@ -235,7 +223,6 @@ class ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_EngineConfidence() {

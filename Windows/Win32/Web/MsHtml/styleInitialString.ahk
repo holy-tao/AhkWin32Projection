@@ -7,27 +7,32 @@
 class styleInitialString extends Win32Enum {
 
     /**
+     * Native name: styleInitialStringNoInitial
      * @type {Integer (Int32)}
      */
-    static styleInitialStringNoInitial => 0
+    static NoInitial => 0
 
     /**
+     * Native name: styleInitialStringNone
      * @type {Integer (Int32)}
      */
-    static styleInitialStringNone => 1
+    static None => 1
 
     /**
+     * Native name: styleInitialStringAuto
      * @type {Integer (Int32)}
      */
-    static styleInitialStringAuto => 2
+    static Auto => 2
 
     /**
+     * Native name: styleInitialStringNormal
      * @type {Integer (Int32)}
      */
-    static styleInitialStringNormal => 3
+    static Normal => 3
 
     /**
+     * Native name: styleInitialString_Max
      * @type {Integer (Int32)}
      */
-    static styleInitialString_Max => 2147483647
+    static Max => 2147483647
 }

@@ -10,19 +10,22 @@ class MFSensorStreamType extends Win32Enum {
 
     /**
      * The sensor stream type is unknown.
+     * Native name: MFSensorStreamType_Unknown
      * @type {Integer (Int32)}
      */
-    static MFSensorStreamType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The sensor stream is an input stream.
+     * Native name: MFSensorStreamType_Input
      * @type {Integer (Int32)}
      */
-    static MFSensorStreamType_Input => 1
+    static Input => 1
 
     /**
      * The sensor stream is an output stream.
+     * Native name: MFSensorStreamType_Output
      * @type {Integer (Int32)}
      */
-    static MFSensorStreamType_Output => 2
+    static Output => 2
 }

@@ -54,7 +54,6 @@ class OfflineRegistry {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<ORHKEY>} HORKey 
      * @returns {WIN32_ERROR} 
@@ -629,7 +628,6 @@ class OfflineRegistry {
     }
 
     /**
-     * 
      * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpNewName 
      * @returns {WIN32_ERROR} 
@@ -643,7 +641,6 @@ class OfflineRegistry {
     }
 
     /**
-     * 
      * @returns {WIN32_ERROR} 
      */
     static ORStart() {
@@ -652,7 +649,6 @@ class OfflineRegistry {
     }
 
     /**
-     * 
      * @returns {WIN32_ERROR} 
      */
     static ORShutdown() {
@@ -661,7 +657,6 @@ class OfflineRegistry {
     }
 
     /**
-     * 
      * @param {Pointer<ORHKEY>} HiveHandles 
      * @param {Integer} HiveCount 
      * @param {Pointer<ORHKEY>} phkResult 

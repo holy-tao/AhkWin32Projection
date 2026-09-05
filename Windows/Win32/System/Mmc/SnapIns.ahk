@@ -53,7 +53,6 @@ class SnapIns extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -78,7 +77,6 @@ class SnapIns extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -87,7 +85,6 @@ class SnapIns extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} SnapinNameOrCLSID 
      * @param {VARIANT} ParentSnapin 
      * @param {VARIANT} _Properties 
@@ -101,7 +98,6 @@ class SnapIns extends IDispatch {
     }
 
     /**
-     * 
      * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} 
      */

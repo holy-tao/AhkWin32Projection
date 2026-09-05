@@ -15,13 +15,15 @@ class OPC_STREAM_IO_MODE extends Win32Enum {
 
     /**
      * Creates a read-only stream for loading an existing package.
+     * Native name: OPC_STREAM_IO_READ
      * @type {Integer (Int32)}
      */
-    static OPC_STREAM_IO_READ => 1
+    static READ => 1
 
     /**
      * Creates a write-only stream for saving a new package.
+     * Native name: OPC_STREAM_IO_WRITE
      * @type {Integer (Int32)}
      */
-    static OPC_STREAM_IO_WRITE => 2
+    static WRITE => 2
 }

@@ -24,31 +24,36 @@ class D3D12_DESCRIPTOR_HEAP_TYPE extends Win32Enum {
 
     /**
      * The descriptor heap for the combination of constant-buffer, shader-resource, and unordered-access views.
+     * Native name: D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV => 0
+    static CBV_SRV_UAV => 0
 
     /**
      * The descriptor heap for the sampler.
+     * Native name: D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER => 1
+    static SAMPLER => 1
 
     /**
      * The descriptor heap for the render-target view.
+     * Native name: D3D12_DESCRIPTOR_HEAP_TYPE_RTV
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_HEAP_TYPE_RTV => 2
+    static RTV => 2
 
     /**
      * The descriptor heap for the depth-stencil view.
+     * Native name: D3D12_DESCRIPTOR_HEAP_TYPE_DSV
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_HEAP_TYPE_DSV => 3
+    static DSV => 3
 
     /**
      * The number of types of descriptor heaps.
+     * Native name: D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES => 4
+    static NUM_TYPES => 4
 }

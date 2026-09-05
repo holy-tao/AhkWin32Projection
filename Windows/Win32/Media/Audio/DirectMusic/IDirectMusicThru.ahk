@@ -30,7 +30,6 @@ class IDirectMusicThru extends IUnknown {
     static VTableNames => ["ThruChannel"]
 
     /**
-     * 
      * @param {Integer} dwSourceChannelGroup 
      * @param {Integer} dwSourceChannel 
      * @param {Integer} dwDestinationChannelGroup 

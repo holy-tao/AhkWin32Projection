@@ -59,7 +59,6 @@ class IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -69,7 +68,6 @@ class IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_origin() {
@@ -79,7 +77,6 @@ class IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_source() {
@@ -88,7 +85,6 @@ class IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

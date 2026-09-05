@@ -31,7 +31,6 @@ class ISAXEntityResolver extends IUnknown {
     static VTableNames => ["resolveEntity"]
 
     /**
-     * 
      * @param {PWSTR} pwchPublicId 
      * @param {PWSTR} pwchSystemId 
      * @returns {VARIANT} 

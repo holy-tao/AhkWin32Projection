@@ -7,22 +7,26 @@
 class EXCEPTION_DISPOSITION extends Win32Enum {
 
     /**
+     * Native name: ExceptionContinueExecution
      * @type {Integer (Int32)}
      */
-    static ExceptionContinueExecution => 0
+    static ContinueExecution => 0
 
     /**
+     * Native name: ExceptionContinueSearch
      * @type {Integer (Int32)}
      */
-    static ExceptionContinueSearch => 1
+    static ContinueSearch => 1
 
     /**
+     * Native name: ExceptionNestedException
      * @type {Integer (Int32)}
      */
-    static ExceptionNestedException => 2
+    static NestedException => 2
 
     /**
+     * Native name: ExceptionCollidedUnwind
      * @type {Integer (Int32)}
      */
-    static ExceptionCollidedUnwind => 3
+    static CollidedUnwind => 3
 }

@@ -66,32 +66,37 @@ class D2D1_PRIMITIVE_BLEND extends Win32Enum {
 
     /**
      * The standard source-over-destination blend mode.
+     * Native name: D2D1_PRIMITIVE_BLEND_SOURCE_OVER
      * @type {Integer (Int32)}
      */
-    static D2D1_PRIMITIVE_BLEND_SOURCE_OVER => 0
+    static SOURCE_OVER => 0
 
     /**
      * The source is copied to the destination; the destination pixels are ignored.
+     * Native name: D2D1_PRIMITIVE_BLEND_COPY
      * @type {Integer (Int32)}
      */
-    static D2D1_PRIMITIVE_BLEND_COPY => 1
+    static COPY => 1
 
     /**
      * The resulting pixel values use the minimum of the source and destination pixel values. Available in Windows 8 and later.
+     * Native name: D2D1_PRIMITIVE_BLEND_MIN
      * @type {Integer (Int32)}
      */
-    static D2D1_PRIMITIVE_BLEND_MIN => 2
+    static MIN => 2
 
     /**
      * The resulting pixel values are the sum of the source and destination pixel values. Available in Windows 8 and later.
+     * Native name: D2D1_PRIMITIVE_BLEND_ADD
      * @type {Integer (Int32)}
      */
-    static D2D1_PRIMITIVE_BLEND_ADD => 3
+    static ADD => 3
 
     /**
      * The resulting pixel values use the maximum of the source and destination pixel values. 
      *           Available in Windows 10 and later (set using <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1commandsink4-setprimitiveblend2">ID21CommandSink4::SetPrimitiveBlend2</a>).
+     * Native name: D2D1_PRIMITIVE_BLEND_MAX
      * @type {Integer (Int32)}
      */
-    static D2D1_PRIMITIVE_BLEND_MAX => 4
+    static MAX => 4
 }

@@ -7,32 +7,38 @@
 class CRYPTUI_WIZ_EXPORT_FORMAT extends Win32Enum {
 
     /**
+     * Native name: CRYPTUI_WIZ_EXPORT_FORMAT_DER
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_EXPORT_FORMAT_DER => 1
+    static DER => 1
 
     /**
+     * Native name: CRYPTUI_WIZ_EXPORT_FORMAT_PFX
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_EXPORT_FORMAT_PFX => 2
+    static PFX => 2
 
     /**
+     * Native name: CRYPTUI_WIZ_EXPORT_FORMAT_PKCS7
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_EXPORT_FORMAT_PKCS7 => 3
+    static PKCS7 => 3
 
     /**
+     * Native name: CRYPTUI_WIZ_EXPORT_FORMAT_BASE64
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_EXPORT_FORMAT_BASE64 => 4
+    static BASE64 => 4
 
     /**
+     * Native name: CRYPTUI_WIZ_EXPORT_FORMAT_CRL
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_EXPORT_FORMAT_CRL => 6
+    static CRL => 6
 
     /**
+     * Native name: CRYPTUI_WIZ_EXPORT_FORMAT_CTL
      * @type {Integer (UInt32)}
      */
-    static CRYPTUI_WIZ_EXPORT_FORMAT_CTL => 7
+    static CTL => 7
 }

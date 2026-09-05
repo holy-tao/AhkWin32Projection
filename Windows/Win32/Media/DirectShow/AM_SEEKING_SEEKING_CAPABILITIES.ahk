@@ -12,55 +12,64 @@ class AM_SEEKING_SEEKING_CAPABILITIES extends Win32Enum {
 
     /**
      * The stream can seek to an absolute position.
+     * Native name: AM_SEEKING_CanSeekAbsolute
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanSeekAbsolute => 1
+    static CanSeekAbsolute => 1
 
     /**
      * The stream can seek forward.
+     * Native name: AM_SEEKING_CanSeekForwards
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanSeekForwards => 2
+    static CanSeekForwards => 2
 
     /**
      * The stream can seek backward.
+     * Native name: AM_SEEKING_CanSeekBackwards
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanSeekBackwards => 4
+    static CanSeekBackwards => 4
 
     /**
      * The stream can report its current position. See Remarks.
+     * Native name: AM_SEEKING_CanGetCurrentPos
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanGetCurrentPos => 8
+    static CanGetCurrentPos => 8
 
     /**
      * The stream can report its stop position.
+     * Native name: AM_SEEKING_CanGetStopPos
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanGetStopPos => 16
+    static CanGetStopPos => 16
 
     /**
      * The stream can report its duration.
+     * Native name: AM_SEEKING_CanGetDuration
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanGetDuration => 32
+    static CanGetDuration => 32
 
     /**
      * The stream can play backward.
+     * Native name: AM_SEEKING_CanPlayBackwards
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanPlayBackwards => 64
+    static CanPlayBackwards => 64
 
     /**
      * The stream can do seamless looping (see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediaseeking-setpositions">IMediaSeeking::SetPositions</a>).
+     * Native name: AM_SEEKING_CanDoSegments
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_CanDoSegments => 128
+    static CanDoSegments => 128
 
     /**
      * Reserved.
+     * Native name: AM_SEEKING_Source
      * @type {Integer (Int32)}
      */
-    static AM_SEEKING_Source => 256
+    static Source => 256
 }

@@ -10,19 +10,22 @@ class MF_CROSS_ORIGIN_POLICY extends Win32Enum {
 
     /**
      * No CORS state.
+     * Native name: MF_CROSS_ORIGIN_POLICY_NONE
      * @type {Integer (Int32)}
      */
-    static MF_CROSS_ORIGIN_POLICY_NONE => 0
+    static NONE => 0
 
     /**
      * Requests for the element will have their mode set to "cors" and their credentials mode set to "same-origin".
+     * Native name: MF_CROSS_ORIGIN_POLICY_ANONYMOUS
      * @type {Integer (Int32)}
      */
-    static MF_CROSS_ORIGIN_POLICY_ANONYMOUS => 1
+    static ANONYMOUS => 1
 
     /**
      * Requests for the element will have their mode set to "cors" and their credentials mode set to "include".
+     * Native name: MF_CROSS_ORIGIN_POLICY_USE_CREDENTIALS
      * @type {Integer (Int32)}
      */
-    static MF_CROSS_ORIGIN_POLICY_USE_CREDENTIALS => 2
+    static USE_CREDENTIALS => 2
 }

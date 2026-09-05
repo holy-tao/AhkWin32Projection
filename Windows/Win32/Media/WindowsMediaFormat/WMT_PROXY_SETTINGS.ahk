@@ -14,30 +14,35 @@ class WMT_PROXY_SETTINGS extends Win32Enum {
 
     /**
      * No proxy settings will be used.
+     * Native name: WMT_PROXY_SETTING_NONE
      * @type {Integer (Int32)}
      */
-    static WMT_PROXY_SETTING_NONE => 0
+    static SETTING_NONE => 0
 
     /**
      * Proxy settings will be explicitly set.
+     * Native name: WMT_PROXY_SETTING_MANUAL
      * @type {Integer (Int32)}
      */
-    static WMT_PROXY_SETTING_MANUAL => 1
+    static SETTING_MANUAL => 1
 
     /**
      * Proxy settings will be automatically negotiated.
+     * Native name: WMT_PROXY_SETTING_AUTO
      * @type {Integer (Int32)}
      */
-    static WMT_PROXY_SETTING_AUTO => 2
+    static SETTING_AUTO => 2
 
     /**
      * The browser will negotiate the proxy settings. This applies only when using HTTP.
+     * Native name: WMT_PROXY_SETTING_BROWSER
      * @type {Integer (Int32)}
      */
-    static WMT_PROXY_SETTING_BROWSER => 3
+    static SETTING_BROWSER => 3
 
     /**
+     * Native name: WMT_PROXY_SETTING_MAX
      * @type {Integer (Int32)}
      */
-    static WMT_PROXY_SETTING_MAX => 4
+    static SETTING_MAX => 4
 }

@@ -7,7 +7,8 @@
 class KSPROPERTY_VBICAP extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_VBICAP_PROPERTIES_PROTECTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VBICAP_PROPERTIES_PROTECTION => 1
+    static PROPERTIES_PROTECTION => 1
 }

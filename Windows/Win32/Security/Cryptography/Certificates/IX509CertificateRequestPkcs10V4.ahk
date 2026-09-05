@@ -47,7 +47,6 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3 {
     }
 
     /**
-     * 
      * @returns {KeyAttestationClaimType} 
      */
     get_ClaimType() {
@@ -56,7 +55,6 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3 {
     }
 
     /**
-     * 
      * @param {KeyAttestationClaimType} Value 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AttestPrivateKeyPreferred() {
@@ -75,7 +72,6 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */

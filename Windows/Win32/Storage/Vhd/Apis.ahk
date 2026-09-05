@@ -450,7 +450,6 @@ class Vhd {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} PathsBufferSizeInBytes 
      * @param {Integer} PathsBuffer 
      * @returns {WIN32_ERROR} 
@@ -1128,7 +1127,6 @@ class Vhd {
     }
 
     /**
-     * 
      * @param {HANDLE} VirtualDiskHandle 
      * @param {FORK_VIRTUAL_DISK_FLAG} Flags 
      * @param {Pointer<FORK_VIRTUAL_DISK_PARAMETERS>} Parameters 
@@ -1143,7 +1141,6 @@ class Vhd {
     }
 
     /**
-     * 
      * @param {HANDLE} VirtualDiskHandle 
      * @returns {WIN32_ERROR} 
      */

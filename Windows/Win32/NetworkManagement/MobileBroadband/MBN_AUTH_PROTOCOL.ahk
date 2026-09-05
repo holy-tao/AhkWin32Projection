@@ -10,25 +10,29 @@ class MBN_AUTH_PROTOCOL extends Win32Enum {
 
     /**
      * No authentication protocol is used.
+     * Native name: MBN_AUTH_PROTOCOL_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_AUTH_PROTOCOL_NONE => 0
+    static NONE => 0
 
     /**
      * Password Authentication Protocol (PAP) is used for authentication. PAP authentication is unencrypted.
+     * Native name: MBN_AUTH_PROTOCOL_PAP
      * @type {Integer (Int32)}
      */
-    static MBN_AUTH_PROTOCOL_PAP => 1
+    static PAP => 1
 
     /**
      * Challenge Handshake Authentication Protocol (CHAP) is used for authentication.
+     * Native name: MBN_AUTH_PROTOCOL_CHAP
      * @type {Integer (Int32)}
      */
-    static MBN_AUTH_PROTOCOL_CHAP => 2
+    static CHAP => 2
 
     /**
      * Microsoft Challenge-Handshake Authentication Protocol version 2.0 (MS-CHAP v2) is used for authentication.
+     * Native name: MBN_AUTH_PROTOCOL_MSCHAPV2
      * @type {Integer (Int32)}
      */
-    static MBN_AUTH_PROTOCOL_MSCHAPV2 => 3
+    static MSCHAPV2 => 3
 }

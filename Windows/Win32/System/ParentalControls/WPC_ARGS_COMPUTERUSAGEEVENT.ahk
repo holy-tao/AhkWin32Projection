@@ -7,17 +7,20 @@
 class WPC_ARGS_COMPUTERUSAGEEVENT extends Win32Enum {
 
     /**
+     * Native name: WPC_ARGS_COMPUTERUSAGEEVENT_ID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_COMPUTERUSAGEEVENT_ID => 0
+    static ID => 0
 
     /**
+     * Native name: WPC_ARGS_COMPUTERUSAGEEVENT_TIMEUSED
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_COMPUTERUSAGEEVENT_TIMEUSED => 1
+    static TIMEUSED => 1
 
     /**
+     * Native name: WPC_ARGS_COMPUTERUSAGEEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_COMPUTERUSAGEEVENT_CARGS => 2
+    static CARGS => 2
 }

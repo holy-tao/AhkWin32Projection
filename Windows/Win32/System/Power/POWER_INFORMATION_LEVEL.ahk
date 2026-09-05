@@ -142,9 +142,10 @@ class POWER_INFORMATION_LEVEL extends Win32Enum {
     static NotifyUserPowerSetting => 26
 
     /**
+     * Native name: PowerInformationLevelUnused0
      * @type {Integer (Int32)}
      */
-    static PowerInformationLevelUnused0 => 27
+    static Unused0 => 27
 
     /**
      * @type {Integer (Int32)}
@@ -202,9 +203,10 @@ class POWER_INFORMATION_LEVEL extends Win32Enum {
     static ProcessorLoad => 38
 
     /**
+     * Native name: PowerShutdownNotification
      * @type {Integer (Int32)}
      */
-    static PowerShutdownNotification => 39
+    static ShutdownNotification => 39
 
     /**
      * @type {Integer (Int32)}
@@ -222,14 +224,16 @@ class POWER_INFORMATION_LEVEL extends Win32Enum {
     static SessionDisplayState => 42
 
     /**
+     * Native name: PowerRequestCreate
      * @type {Integer (Int32)}
      */
-    static PowerRequestCreate => 43
+    static RequestCreate => 43
 
     /**
+     * Native name: PowerRequestAction
      * @type {Integer (Int32)}
      */
-    static PowerRequestAction => 44
+    static RequestAction => 44
 
     /**
      * @type {Integer (Int32)}
@@ -297,9 +301,10 @@ class POWER_INFORMATION_LEVEL extends Win32Enum {
     static UserPresence => 57
 
     /**
+     * Native name: PowerSettingNotificationName
      * @type {Integer (Int32)}
      */
-    static PowerSettingNotificationName => 58
+    static SettingNotificationName => 58
 
     /**
      * @type {Integer (Int32)}
@@ -432,9 +437,10 @@ class POWER_INFORMATION_LEVEL extends Win32Enum {
     static ThermalEvent => 84
 
     /**
+     * Native name: PowerRequestActionInternal
      * @type {Integer (Int32)}
      */
-    static PowerRequestActionInternal => 85
+    static RequestActionInternal => 85
 
     /**
      * @type {Integer (Int32)}
@@ -442,9 +448,10 @@ class POWER_INFORMATION_LEVEL extends Win32Enum {
     static BatteryDeviceState => 86
 
     /**
+     * Native name: PowerInformationInternal
      * @type {Integer (Int32)}
      */
-    static PowerInformationInternal => 87
+    static Internal => 87
 
     /**
      * @type {Integer (Int32)}
@@ -502,7 +509,8 @@ class POWER_INFORMATION_LEVEL extends Win32Enum {
     static SystemPowerSourceState => 98
 
     /**
+     * Native name: PowerInformationLevelMaximum
      * @type {Integer (Int32)}
      */
-    static PowerInformationLevelMaximum => 99
+    static Maximum => 99
 }

@@ -12,43 +12,50 @@ class SHARE_ROLE extends Win32Enum {
 
     /**
      * The folder is not shared.
+     * Native name: SHARE_ROLE_INVALID
      * @type {Integer (Int32)}
      */
-    static SHARE_ROLE_INVALID => -1
+    static INVALID => -1
 
     /**
      * The contents of the folder can be read, but not altered or added to.
+     * Native name: SHARE_ROLE_READER
      * @type {Integer (Int32)}
      */
-    static SHARE_ROLE_READER => 0
+    static READER => 0
 
     /**
      * The contents of the folder can be read and altered. New items can be added, however items can be deleted only by the user that contributed them.
+     * Native name: SHARE_ROLE_CONTRIBUTOR
      * @type {Integer (Int32)}
      */
-    static SHARE_ROLE_CONTRIBUTOR => 1
+    static CONTRIBUTOR => 1
 
     /**
      * The contents of the folder can be read, changed, or added to.
+     * Native name: SHARE_ROLE_CO_OWNER
      * @type {Integer (Int32)}
      */
-    static SHARE_ROLE_CO_OWNER => 2
+    static CO_OWNER => 2
 
     /**
      * Not normally used in the context of this interface.
+     * Native name: SHARE_ROLE_OWNER
      * @type {Integer (Int32)}
      */
-    static SHARE_ROLE_OWNER => 3
+    static OWNER => 3
 
     /**
      * The folder is shared, but the share role is neither SHARE_ROLE_READER, SHARE_ROLE_CONTRIBUTOR, or SHARE_ROLE_CO_OWNER.
+     * Native name: SHARE_ROLE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static SHARE_ROLE_CUSTOM => 4
+    static CUSTOM => 4
 
     /**
      * Not used in the context of this interface.
+     * Native name: SHARE_ROLE_MIXED
      * @type {Integer (Int32)}
      */
-    static SHARE_ROLE_MIXED => 5
+    static MIXED => 5
 }

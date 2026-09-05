@@ -29,7 +29,6 @@ class IHostGCManager extends IUnknown {
     static VTableNames => ["ThreadIsBlockingForSuspension", "SuspensionStarting", "SuspensionEnding"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ThreadIsBlockingForSuspension() {
@@ -38,7 +37,6 @@ class IHostGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SuspensionStarting() {
@@ -47,7 +45,6 @@ class IHostGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Generation 
      * @returns {HRESULT} 
      */

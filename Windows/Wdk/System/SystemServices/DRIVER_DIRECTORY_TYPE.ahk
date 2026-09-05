@@ -7,17 +7,20 @@
 class DRIVER_DIRECTORY_TYPE extends Win32Enum {
 
     /**
+     * Native name: DriverDirectoryImage
      * @type {Integer (Int32)}
      */
-    static DriverDirectoryImage => 0
+    static Image => 0
 
     /**
+     * Native name: DriverDirectoryData
      * @type {Integer (Int32)}
      */
-    static DriverDirectoryData => 1
+    static Data => 1
 
     /**
+     * Native name: DriverDirectorySharedData
      * @type {Integer (Int32)}
      */
-    static DriverDirectorySharedData => 2
+    static SharedData => 2
 }

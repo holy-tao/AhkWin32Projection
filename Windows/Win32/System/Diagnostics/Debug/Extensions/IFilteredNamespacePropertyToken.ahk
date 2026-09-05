@@ -30,7 +30,6 @@ class IFilteredNamespacePropertyToken extends IUnknown {
     static VTableNames => ["RemoveFilter", "GetFilter", "TrySetFilter"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveFilter() {
@@ -39,7 +38,6 @@ class IFilteredNamespacePropertyToken extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelMethod} 
      */
     GetFilter() {
@@ -48,7 +46,6 @@ class IFilteredNamespacePropertyToken extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelMethod} pFilter 
      * @returns {HRESULT} 
      */

@@ -7,17 +7,20 @@
 class BREAKPOINT_STATE extends Win32Enum {
 
     /**
+     * Native name: BREAKPOINT_DELETED
      * @type {Integer (Int32)}
      */
-    static BREAKPOINT_DELETED => 0
+    static DELETED => 0
 
     /**
+     * Native name: BREAKPOINT_DISABLED
      * @type {Integer (Int32)}
      */
-    static BREAKPOINT_DISABLED => 1
+    static DISABLED => 1
 
     /**
+     * Native name: BREAKPOINT_ENABLED
      * @type {Integer (Int32)}
      */
-    static BREAKPOINT_ENABLED => 2
+    static ENABLED => 2
 }

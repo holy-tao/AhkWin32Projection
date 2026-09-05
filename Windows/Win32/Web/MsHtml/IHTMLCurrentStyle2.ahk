@@ -158,7 +158,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutFlow() {
@@ -168,7 +167,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wordWrap() {
@@ -178,7 +176,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textUnderlinePosition() {
@@ -188,7 +185,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_hasLayout() {
@@ -197,7 +193,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarBaseColor() {
@@ -207,7 +202,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarFaceColor() {
@@ -217,7 +211,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbar3dLightColor() {
@@ -227,7 +220,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarShadowColor() {
@@ -237,7 +229,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarHighlightColor() {
@@ -247,7 +238,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarDarkShadowColor() {
@@ -257,7 +247,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarArrowColor() {
@@ -267,7 +256,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarTrackColor() {
@@ -277,7 +265,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_writingMode() {
@@ -287,7 +274,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_zoom() {
@@ -297,7 +283,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_filter() {
@@ -307,7 +292,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAlignLast() {
@@ -317,7 +301,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textKashidaSpace() {
@@ -327,7 +310,6 @@ class IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isBlock() {

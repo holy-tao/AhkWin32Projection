@@ -30,7 +30,6 @@ class IWebBrowserEventsService extends IUnknown {
     static VTableNames => ["FireBeforeNavigate2Event", "FireNavigateComplete2Event", "FireDownloadBeginEvent", "FireDownloadCompleteEvent", "FireDocumentCompleteEvent"]
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     FireBeforeNavigate2Event() {
@@ -39,7 +38,6 @@ class IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireNavigateComplete2Event() {
@@ -48,7 +46,6 @@ class IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadBeginEvent() {
@@ -57,7 +54,6 @@ class IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadCompleteEvent() {
@@ -66,7 +62,6 @@ class IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDocumentCompleteEvent() {

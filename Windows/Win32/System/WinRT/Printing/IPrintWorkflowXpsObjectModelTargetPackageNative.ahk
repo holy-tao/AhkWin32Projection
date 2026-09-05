@@ -37,7 +37,6 @@ class IPrintWorkflowXpsObjectModelTargetPackageNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IXpsDocumentPackageTarget} 
      */
     get_DocumentPackageTarget() {

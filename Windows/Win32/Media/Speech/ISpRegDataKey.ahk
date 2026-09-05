@@ -31,7 +31,6 @@ class ISpRegDataKey extends ISpDataKey {
     static VTableNames => ["SetKey"]
 
     /**
-     * 
      * @param {HKEY} _hkey 
      * @param {BOOL} fReadOnly 
      * @returns {HRESULT} 

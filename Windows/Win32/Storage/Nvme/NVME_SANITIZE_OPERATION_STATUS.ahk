@@ -7,27 +7,32 @@
 class NVME_SANITIZE_OPERATION_STATUS extends Win32Enum {
 
     /**
+     * Native name: NVME_SANITIZE_OPERATION_NONE
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_OPERATION_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: NVME_SANITIZE_OPERATION_SUCCEEDED
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_OPERATION_SUCCEEDED => 1
+    static SUCCEEDED => 1
 
     /**
+     * Native name: NVME_SANITIZE_OPERATION_IN_PROGRESS
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_OPERATION_IN_PROGRESS => 2
+    static IN_PROGRESS => 2
 
     /**
+     * Native name: NVME_SANITIZE_OPERATION_FAILED
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_OPERATION_FAILED => 3
+    static FAILED => 3
 
     /**
+     * Native name: NVME_SANITIZE_OPERATION_SUCCEEDED_WITH_FORCED_DEALLOCATION
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_OPERATION_SUCCEEDED_WITH_FORCED_DEALLOCATION => 4
+    static SUCCEEDED_WITH_FORCED_DEALLOCATION => 4
 }

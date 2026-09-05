@@ -61,7 +61,6 @@ class IMTSActivity extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved1() {

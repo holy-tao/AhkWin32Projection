@@ -38,7 +38,6 @@ class ISideShowSession extends IUnknown {
     static VTableNames => ["RegisterContent", "RegisterNotifications"]
 
     /**
-     * 
      * @param {Pointer<Guid>} in_applicationId 
      * @param {Pointer<Guid>} in_endpointId 
      * @returns {ISideShowContentManager} 
@@ -49,7 +48,6 @@ class ISideShowSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} in_applicationId 
      * @returns {ISideShowNotificationManager} 
      */

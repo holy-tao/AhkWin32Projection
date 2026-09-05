@@ -30,7 +30,6 @@ class ID3D12GraphicsCommandList10 extends ID3D12GraphicsCommandList9 {
     static VTableNames => ["SetProgram", "DispatchGraph"]
 
     /**
-     * 
      * @param {Pointer<D3D12_SET_PROGRAM_DESC>} pDesc 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -39,7 +38,6 @@ class ID3D12GraphicsCommandList10 extends ID3D12GraphicsCommandList9 {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_DISPATCH_GRAPH_DESC>} pDesc 
      * @returns {String} Nothing - always returns an empty string
      */

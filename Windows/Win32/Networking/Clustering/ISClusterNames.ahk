@@ -53,7 +53,6 @@ class ISClusterNames extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -62,7 +61,6 @@ class ISClusterNames extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -71,7 +69,6 @@ class ISClusterNames extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -80,7 +77,6 @@ class ISClusterNames extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {BSTR} 
      */
@@ -91,7 +87,6 @@ class ISClusterNames extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainName() {

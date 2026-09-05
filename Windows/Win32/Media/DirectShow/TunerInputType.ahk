@@ -10,13 +10,15 @@ class TunerInputType extends Win32Enum {
 
     /**
      * Indicates cable frequency.
+     * Native name: TunerInputCable
      * @type {Integer (Int32)}
      */
-    static TunerInputCable => 0
+    static Cable => 0
 
     /**
      * Indicates broadcast antenna frequency.
+     * Native name: TunerInputAntenna
      * @type {Integer (Int32)}
      */
-    static TunerInputAntenna => 1
+    static Antenna => 1
 }

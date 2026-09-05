@@ -44,7 +44,6 @@ class IDOMBeforeUnloadEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class IDOMBeforeUnloadEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_returnValue() {

@@ -16,21 +16,24 @@ class FH_TARGET_PROPERTY_TYPE extends Win32Enum {
 
     /**
      * The property is a string that contains the backup target’s friendly name.  The friendly name is set during target provisioning by calling the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-provisionandsetnewtarget">IFhConfigMgr::ProvisionAndSetNewTarget</a> method.
+     * Native name: FH_TARGET_NAME
      * @type {Integer (Int32)}
      */
-    static FH_TARGET_NAME => 0
+    static NAME => 0
 
     /**
      * The property is a string that contains a path to the backup target.
+     * Native name: FH_TARGET_URL
      * @type {Integer (Int32)}
      */
-    static FH_TARGET_URL => 1
+    static URL => 1
 
     /**
      * The property is a numeric property that specifies the target type of the backup target. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_target_drive_types">FH_TARGET_DRIVE_TYPES</a> enumeration for the list of possible backup target types.
+     * Native name: FH_TARGET_DRIVE_TYPE
      * @type {Integer (Int32)}
      */
-    static FH_TARGET_DRIVE_TYPE => 2
+    static DRIVE_TYPE => 2
 
     /**
      * The maximum enumeration value for this enumeration. This value and all values greater than it are reserved for system use.

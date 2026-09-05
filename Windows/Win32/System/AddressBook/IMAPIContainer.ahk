@@ -103,7 +103,6 @@ class IMAPIContainer extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIContainer::OpenEntry** method opens an object throughout a container and returns a pointer to an interface implementation to use for further access.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.

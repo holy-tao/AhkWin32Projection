@@ -7,17 +7,20 @@
 class COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION extends Win32Enum {
 
     /**
+     * Native name: COLORSPACE_TRANSFORM_VERSION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static COLORSPACE_TRANSFORM_VERSION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: COLORSPACE_TRANSFORM_VERSION_1
      * @type {Integer (Int32)}
      */
-    static COLORSPACE_TRANSFORM_VERSION_1 => 1
+    static 1 => 1
 
     /**
+     * Native name: COLORSPACE_TRANSFORM_VERSION_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static COLORSPACE_TRANSFORM_VERSION_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 }

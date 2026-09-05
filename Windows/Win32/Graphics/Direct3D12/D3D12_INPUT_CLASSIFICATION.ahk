@@ -12,13 +12,15 @@ class D3D12_INPUT_CLASSIFICATION extends Win32Enum {
 
     /**
      * Input data is per-vertex data.
+     * Native name: D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA
      * @type {Integer (Int32)}
      */
-    static D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA => 0
+    static PER_VERTEX_DATA => 0
 
     /**
      * Input data is per-instance data.
+     * Native name: D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA
      * @type {Integer (Int32)}
      */
-    static D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA => 1
+    static PER_INSTANCE_DATA => 1
 }

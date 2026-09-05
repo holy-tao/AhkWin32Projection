@@ -30,7 +30,6 @@ class ICSSFilter extends IUnknown {
     static VTableNames => ["SetSite", "OnAmbientPropertyChange"]
 
     /**
-     * 
      * @param {ICSSFilterSite} pSink 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ICSSFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @returns {HRESULT} 
      */

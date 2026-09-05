@@ -7,17 +7,20 @@
 class KSPROPERTY_VIDCAP_TVAUDIO extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_TVAUDIO_CAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TVAUDIO_CAPS => 0
+    static CAPS => 0
 
     /**
+     * Native name: KSPROPERTY_TVAUDIO_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TVAUDIO_MODE => 1
+    static MODE => 1
 
     /**
+     * Native name: KSPROPERTY_TVAUDIO_CURRENTLY_AVAILABLE_MODES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TVAUDIO_CURRENTLY_AVAILABLE_MODES => 2
+    static CURRENTLY_AVAILABLE_MODES => 2
 }

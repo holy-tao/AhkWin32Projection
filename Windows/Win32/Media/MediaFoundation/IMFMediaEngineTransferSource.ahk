@@ -30,7 +30,6 @@ class IMFMediaEngineTransferSource extends IUnknown {
     static VTableNames => ["TransferSourceToMediaEngine"]
 
     /**
-     * 
      * @param {IMFMediaEngine} destination 
      * @returns {HRESULT} 
      */

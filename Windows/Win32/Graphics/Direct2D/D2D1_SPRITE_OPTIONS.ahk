@@ -10,16 +10,18 @@ class D2D1_SPRITE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * Default value. No special drawing configuration. This option yields the best drawing performance.
+     * Native name: D2D1_SPRITE_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_SPRITE_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * Interpolation of bitmap pixels will be clamped to the sprite’s source rectangle. 
      *           If the sub-images in your source bitmap have no pixels separating them, then you may see color bleeding when drawing them with D2D1_SPRITE_OPTIONS_NONE. 
      *           In that case, consider adding borders between them with your sprite-packing tool, or use this option.
      *           Note that drawing sprites with this option enabled is slower than using D2D1_SPRITE_OPTIONS_NONE.
+     * Native name: D2D1_SPRITE_OPTIONS_CLAMP_TO_SOURCE_RECTANGLE
      * @type {Integer (Int32)}
      */
-    static D2D1_SPRITE_OPTIONS_CLAMP_TO_SOURCE_RECTANGLE => 1
+    static CLAMP_TO_SOURCE_RECTANGLE => 1
 }

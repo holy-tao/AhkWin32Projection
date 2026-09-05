@@ -36,7 +36,6 @@ class IOpenServiceActivityCategory extends IUnknown {
     static VTableNames => ["HasDefaultActivity", "GetDefaultActivity", "SetDefaultActivity", "GetName", "GetActivityEnumerator"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     HasDefaultActivity() {
@@ -45,7 +44,6 @@ class IOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOpenServiceActivity} 
      */
     GetDefaultActivity() {
@@ -54,7 +52,6 @@ class IOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivity} pActivity 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -78,7 +75,6 @@ class IOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {IEnumOpenServiceActivity} 

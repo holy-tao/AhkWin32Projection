@@ -7,27 +7,32 @@
 class NtmsPoolType extends Win32Enum {
 
     /**
+     * Native name: NTMS_POOLTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_POOLTYPE_UNKNOWN => 0
+    static POOLTYPE_UNKNOWN => 0
 
     /**
+     * Native name: NTMS_POOLTYPE_SCRATCH
      * @type {Integer (Int32)}
      */
-    static NTMS_POOLTYPE_SCRATCH => 1
+    static POOLTYPE_SCRATCH => 1
 
     /**
+     * Native name: NTMS_POOLTYPE_FOREIGN
      * @type {Integer (Int32)}
      */
-    static NTMS_POOLTYPE_FOREIGN => 2
+    static POOLTYPE_FOREIGN => 2
 
     /**
+     * Native name: NTMS_POOLTYPE_IMPORT
      * @type {Integer (Int32)}
      */
-    static NTMS_POOLTYPE_IMPORT => 3
+    static POOLTYPE_IMPORT => 3
 
     /**
+     * Native name: NTMS_POOLTYPE_APPLICATION
      * @type {Integer (Int32)}
      */
-    static NTMS_POOLTYPE_APPLICATION => 1000
+    static POOLTYPE_APPLICATION => 1000
 }

@@ -7,12 +7,14 @@
 class KSMETHOD_BDA_MUX_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_MUX_GETPIDLIST
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_MUX_GETPIDLIST => 0
+    static GETPIDLIST => 0
 
     /**
+     * Native name: KSMETHOD_BDA_MUX_SETPIDLIST
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_MUX_SETPIDLIST => 1
+    static SETPIDLIST => 1
 }

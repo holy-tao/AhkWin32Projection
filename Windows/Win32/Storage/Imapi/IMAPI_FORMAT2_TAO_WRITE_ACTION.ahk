@@ -10,30 +10,35 @@ class IMAPI_FORMAT2_TAO_WRITE_ACTION extends Win32Enum {
 
     /**
      * Indicates an unknown state.
+     * Native name: IMAPI_FORMAT2_TAO_WRITE_ACTION_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_TAO_WRITE_ACTION_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Preparing to write the track.
+     * Native name: IMAPI_FORMAT2_TAO_WRITE_ACTION_PREPARING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_TAO_WRITE_ACTION_PREPARING => 1
+    static PREPARING => 1
 
     /**
      * Writing the track.
+     * Native name: IMAPI_FORMAT2_TAO_WRITE_ACTION_WRITING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_TAO_WRITE_ACTION_WRITING => 2
+    static WRITING => 2
 
     /**
      * Closing the track or closing the session.
+     * Native name: IMAPI_FORMAT2_TAO_WRITE_ACTION_FINISHING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_TAO_WRITE_ACTION_FINISHING => 3
+    static FINISHING => 3
 
     /**
+     * Native name: IMAPI_FORMAT2_TAO_WRITE_ACTION_VERIFYING
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_TAO_WRITE_ACTION_VERIFYING => 4
+    static VERIFYING => 4
 }

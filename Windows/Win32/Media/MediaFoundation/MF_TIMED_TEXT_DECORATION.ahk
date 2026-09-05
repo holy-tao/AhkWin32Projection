@@ -10,25 +10,29 @@ class MF_TIMED_TEXT_DECORATION extends Win32Enum {
 
     /**
      * Text isn't decorated.
+     * Native name: MF_TIMED_TEXT_DECORATION_NONE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_DECORATION_NONE => 0
+    static NONE => 0
 
     /**
      * Text is underlined.
+     * Native name: MF_TIMED_TEXT_DECORATION_UNDERLINE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_DECORATION_UNDERLINE => 1
+    static UNDERLINE => 1
 
     /**
      * Text has a line through it.
+     * Native name: MF_TIMED_TEXT_DECORATION_LINE_THROUGH
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_DECORATION_LINE_THROUGH => 2
+    static LINE_THROUGH => 2
 
     /**
      * Text has a line over it.
+     * Native name: MF_TIMED_TEXT_DECORATION_OVERLINE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_DECORATION_OVERLINE => 4
+    static OVERLINE => 4
 }

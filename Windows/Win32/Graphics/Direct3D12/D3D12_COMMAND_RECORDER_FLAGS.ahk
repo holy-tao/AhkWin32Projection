@@ -7,7 +7,8 @@
 class D3D12_COMMAND_RECORDER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_COMMAND_RECORDER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_RECORDER_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

@@ -7,82 +7,98 @@
 class DISPID_SpeechPhraseInfo extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPILanguageId
      * @type {Integer (Int32)}
      */
-    static DISPID_SPILanguageId => 1
+    static SPILanguageId => 1
 
     /**
+     * Native name: DISPID_SPIGrammarId
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIGrammarId => 2
+    static SPIGrammarId => 2
 
     /**
+     * Native name: DISPID_SPIStartTime
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIStartTime => 3
+    static SPIStartTime => 3
 
     /**
+     * Native name: DISPID_SPIAudioStreamPosition
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIAudioStreamPosition => 4
+    static SPIAudioStreamPosition => 4
 
     /**
+     * Native name: DISPID_SPIAudioSizeBytes
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIAudioSizeBytes => 5
+    static SPIAudioSizeBytes => 5
 
     /**
+     * Native name: DISPID_SPIRetainedSizeBytes
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIRetainedSizeBytes => 6
+    static SPIRetainedSizeBytes => 6
 
     /**
+     * Native name: DISPID_SPIAudioSizeTime
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIAudioSizeTime => 7
+    static SPIAudioSizeTime => 7
 
     /**
+     * Native name: DISPID_SPIRule
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIRule => 8
+    static SPIRule => 8
 
     /**
+     * Native name: DISPID_SPIProperties
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIProperties => 9
+    static SPIProperties => 9
 
     /**
+     * Native name: DISPID_SPIElements
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIElements => 10
+    static SPIElements => 10
 
     /**
+     * Native name: DISPID_SPIReplacements
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIReplacements => 11
+    static SPIReplacements => 11
 
     /**
+     * Native name: DISPID_SPIEngineId
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIEngineId => 12
+    static SPIEngineId => 12
 
     /**
+     * Native name: DISPID_SPIEnginePrivateData
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIEnginePrivateData => 13
+    static SPIEnginePrivateData => 13
 
     /**
+     * Native name: DISPID_SPISaveToMemory
      * @type {Integer (Int32)}
      */
-    static DISPID_SPISaveToMemory => 14
+    static SPISaveToMemory => 14
 
     /**
+     * Native name: DISPID_SPIGetText
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIGetText => 15
+    static SPIGetText => 15
 
     /**
+     * Native name: DISPID_SPIGetDisplayAttributes
      * @type {Integer (Int32)}
      */
-    static DISPID_SPIGetDisplayAttributes => 16
+    static SPIGetDisplayAttributes => 16
 }

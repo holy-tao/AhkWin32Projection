@@ -12,19 +12,22 @@ class NVME_DIRECTIVE_RECEIVE_STREAMS_OPERATIONS extends Win32Enum {
 
     /**
      * A directive to receive return parameters from a Streams operation.
+     * Native name: NVME_DIRECTIVE_RECEIVE_STREAMS_OPERATION_RETURN_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_RECEIVE_STREAMS_OPERATION_RETURN_PARAMETERS => 1
+    static OPERATION_RETURN_PARAMETERS => 1
 
     /**
      * A directive to get status from a Streams operation.
+     * Native name: NVME_DIRECTIVE_RECEIVE_STREAMS_OPERATION_GET_STATUS
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_RECEIVE_STREAMS_OPERATION_GET_STATUS => 2
+    static OPERATION_GET_STATUS => 2
 
     /**
      * A directive to allocate resources for a Streams operation.
+     * Native name: NVME_DIRECTIVE_RECEIVE_STREAMS_OPERATION_ALLOCATE_RESOURCES
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_RECEIVE_STREAMS_OPERATION_ALLOCATE_RESOURCES => 3
+    static OPERATION_ALLOCATE_RESOURCES => 3
 }

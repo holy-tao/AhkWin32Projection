@@ -7,17 +7,20 @@
 class KSMETHOD_BDA_USERACTIVITY_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_USERACTIVITY_USEREASON
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_USERACTIVITY_USEREASON => 0
+    static USEREASON => 0
 
     /**
+     * Native name: KSMETHOD_BDA_USERACTIVITY_INTERVAL
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_USERACTIVITY_INTERVAL => 1
+    static INTERVAL => 1
 
     /**
+     * Native name: KSMETHOD_BDA_USERACTIVITY_DETECTED
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_USERACTIVITY_DETECTED => 2
+    static DETECTED => 2
 }

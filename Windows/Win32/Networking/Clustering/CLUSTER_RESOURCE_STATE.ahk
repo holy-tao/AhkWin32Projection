@@ -11,56 +11,65 @@ class CLUSTER_RESOURCE_STATE extends Win32Enum {
     /**
      * The operation was not successful. For more information about the error, call the function 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * Native name: ClusterResourceStateUnknown
      * @type {Integer (Int32)}
      */
-    static ClusterResourceStateUnknown => -1
+    static Unknown => -1
 
     /**
      * The resource has been inherited.
+     * Native name: ClusterResourceInherited
      * @type {Integer (Int32)}
      */
-    static ClusterResourceInherited => 0
+    static Inherited => 0
 
     /**
      * The resource is performing initialization.
+     * Native name: ClusterResourceInitializing
      * @type {Integer (Int32)}
      */
-    static ClusterResourceInitializing => 1
+    static Initializing => 1
 
     /**
      * The resource is operational and functioning normally.
+     * Native name: ClusterResourceOnline
      * @type {Integer (Int32)}
      */
-    static ClusterResourceOnline => 2
+    static Online => 2
 
     /**
      * The resource is not operational.
+     * Native name: ClusterResourceOffline
      * @type {Integer (Int32)}
      */
-    static ClusterResourceOffline => 3
+    static Offline => 3
 
     /**
      * The resource has <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/f-gly">failed</a>.
+     * Native name: ClusterResourceFailed
      * @type {Integer (Int32)}
      */
-    static ClusterResourceFailed => 4
+    static Failed => 4
 
     /**
      * The resource is in the process of coming online or going 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">offline</a>.
+     * Native name: ClusterResourcePending
      * @type {Integer (Int32)}
      */
-    static ClusterResourcePending => 128
+    static Pending => 128
 
     /**
      * The resource is in the process of coming online.
+     * Native name: ClusterResourceOnlinePending
      * @type {Integer (Int32)}
      */
-    static ClusterResourceOnlinePending => 129
+    static OnlinePending => 129
 
     /**
      * The resource is in the process of going offline.
+     * Native name: ClusterResourceOfflinePending
      * @type {Integer (Int32)}
      */
-    static ClusterResourceOfflinePending => 130
+    static OfflinePending => 130
 }

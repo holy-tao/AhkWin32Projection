@@ -29,7 +29,6 @@ class IShellUIHelper9 extends IShellUIHelper8 {
     static VTableNames => ["GetOSSku"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOSSku() {

@@ -7,12 +7,14 @@
 class EClrUnhandledException extends Win32Enum {
 
     /**
+     * Native name: eRuntimeDeterminedPolicy
      * @type {Integer (Int32)}
      */
-    static eRuntimeDeterminedPolicy => 0
+    static RuntimeDeterminedPolicy => 0
 
     /**
+     * Native name: eHostDeterminedPolicy
      * @type {Integer (Int32)}
      */
-    static eHostDeterminedPolicy => 1
+    static HostDeterminedPolicy => 1
 }

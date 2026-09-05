@@ -7,47 +7,56 @@
 class STORAGE_DISK_OPERATIONAL_STATUS extends Win32Enum {
 
     /**
+     * Native name: DiskOpStatusNone
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusNone => 0
+    static OpStatusNone => 0
 
     /**
+     * Native name: DiskOpStatusUnknown
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusUnknown => 1
+    static OpStatusUnknown => 1
 
     /**
+     * Native name: DiskOpStatusOk
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusOk => 2
+    static OpStatusOk => 2
 
     /**
+     * Native name: DiskOpStatusPredictingFailure
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusPredictingFailure => 3
+    static OpStatusPredictingFailure => 3
 
     /**
+     * Native name: DiskOpStatusInService
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusInService => 4
+    static OpStatusInService => 4
 
     /**
+     * Native name: DiskOpStatusHardwareError
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusHardwareError => 5
+    static OpStatusHardwareError => 5
 
     /**
+     * Native name: DiskOpStatusNotUsable
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusNotUsable => 6
+    static OpStatusNotUsable => 6
 
     /**
+     * Native name: DiskOpStatusTransientError
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusTransientError => 7
+    static OpStatusTransientError => 7
 
     /**
+     * Native name: DiskOpStatusMissing
      * @type {Integer (Int32)}
      */
-    static DiskOpStatusMissing => 8
+    static OpStatusMissing => 8
 }

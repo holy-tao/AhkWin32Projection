@@ -10,13 +10,15 @@ class RESIZE_VIRTUAL_DISK_VERSION extends Win32Enum {
 
     /**
      * The version is not valid.
+     * Native name: RESIZE_VIRTUAL_DISK_VERSION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static RESIZE_VIRTUAL_DISK_VERSION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * Version one of the parameters is used. This is the only supported value.
+     * Native name: RESIZE_VIRTUAL_DISK_VERSION_1
      * @type {Integer (Int32)}
      */
-    static RESIZE_VIRTUAL_DISK_VERSION_1 => 1
+    static 1 => 1
 }

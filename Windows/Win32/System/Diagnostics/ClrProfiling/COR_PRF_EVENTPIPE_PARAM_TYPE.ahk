@@ -7,92 +7,110 @@
 class COR_PRF_EVENTPIPE_PARAM_TYPE extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_OBJECT
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_OBJECT => 1
+    static OBJECT => 1
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_BOOLEAN
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_BOOLEAN => 3
+    static BOOLEAN => 3
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_CHAR
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_CHAR => 4
+    static CHAR => 4
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_SBYTE
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_SBYTE => 5
+    static SBYTE => 5
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_BYTE
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_BYTE => 6
+    static BYTE => 6
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_INT16
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_INT16 => 7
+    static INT16 => 7
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_UINT16
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_UINT16 => 8
+    static UINT16 => 8
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_INT32
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_INT32 => 9
+    static INT32 => 9
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_UINT32
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_UINT32 => 10
+    static UINT32 => 10
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_INT64
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_INT64 => 11
+    static INT64 => 11
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_UINT64
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_UINT64 => 12
+    static UINT64 => 12
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_SINGLE
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_SINGLE => 13
+    static SINGLE => 13
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_DOUBLE
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_DOUBLE => 14
+    static DOUBLE => 14
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_DECIMAL
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_DECIMAL => 15
+    static DECIMAL => 15
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_DATETIME
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_DATETIME => 16
+    static DATETIME => 16
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_GUID
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_GUID => 17
+    static GUID => 17
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_STRING
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_STRING => 18
+    static STRING => 18
 
     /**
+     * Native name: COR_PRF_EVENTPIPE_ARRAY
      * @type {Integer (Int32)}
      */
-    static COR_PRF_EVENTPIPE_ARRAY => 19
+    static ARRAY => 19
 }

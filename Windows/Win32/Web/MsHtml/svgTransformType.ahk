@@ -7,42 +7,50 @@
 class svgTransformType extends Win32Enum {
 
     /**
+     * Native name: SVG_TRANSFORM_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_TRANSFORM_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: SVG_TRANSFORM_MATRIX
      * @type {Integer (Int32)}
      */
-    static SVG_TRANSFORM_MATRIX => 1
+    static MATRIX => 1
 
     /**
+     * Native name: SVG_TRANSFORM_TRANSLATE
      * @type {Integer (Int32)}
      */
-    static SVG_TRANSFORM_TRANSLATE => 2
+    static TRANSLATE => 2
 
     /**
+     * Native name: SVG_TRANSFORM_SCALE
      * @type {Integer (Int32)}
      */
-    static SVG_TRANSFORM_SCALE => 3
+    static SCALE => 3
 
     /**
+     * Native name: SVG_TRANSFORM_ROTATE
      * @type {Integer (Int32)}
      */
-    static SVG_TRANSFORM_ROTATE => 4
+    static ROTATE => 4
 
     /**
+     * Native name: SVG_TRANSFORM_SKEWX
      * @type {Integer (Int32)}
      */
-    static SVG_TRANSFORM_SKEWX => 5
+    static SKEWX => 5
 
     /**
+     * Native name: SVG_TRANSFORM_SKEWY
      * @type {Integer (Int32)}
      */
-    static SVG_TRANSFORM_SKEWY => 6
+    static SKEWY => 6
 
     /**
+     * Native name: svgTransformType_Max
      * @type {Integer (Int32)}
      */
-    static svgTransformType_Max => 2147483647
+    static Max => 2147483647
 }

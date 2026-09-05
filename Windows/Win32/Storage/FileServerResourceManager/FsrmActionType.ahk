@@ -10,31 +10,36 @@ class FsrmActionType extends Win32Enum {
 
     /**
      * The action is of an unknown type. Do not use this value to specify an action type.
+     * Native name: FsrmActionType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmActionType_Unknown => 0
+    static Unknown => 0
 
     /**
      * Log an event to the Application event log.
+     * Native name: FsrmActionType_EventLog
      * @type {Integer (Int32)}
      */
-    static FsrmActionType_EventLog => 1
+    static EventLog => 1
 
     /**
      * Send an email message.
+     * Native name: FsrmActionType_Email
      * @type {Integer (Int32)}
      */
-    static FsrmActionType_Email => 2
+    static Email => 2
 
     /**
      * Execute a command or script.
+     * Native name: FsrmActionType_Command
      * @type {Integer (Int32)}
      */
-    static FsrmActionType_Command => 3
+    static Command => 3
 
     /**
      * Generate a report.
+     * Native name: FsrmActionType_Report
      * @type {Integer (Int32)}
      */
-    static FsrmActionType_Report => 4
+    static Report => 4
 }

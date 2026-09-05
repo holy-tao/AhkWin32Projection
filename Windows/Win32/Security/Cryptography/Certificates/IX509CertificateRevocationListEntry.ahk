@@ -101,7 +101,6 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -112,7 +111,6 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_RevocationDate() {
@@ -121,7 +119,6 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CRLRevocationReason} 
      */
     get_RevocationReason() {
@@ -130,7 +127,6 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {CRLRevocationReason} Value 
      * @returns {HRESULT} 
      */
@@ -140,7 +136,6 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509Extensions} 
      */
     get_X509Extensions() {
@@ -149,7 +144,6 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IObjectIds} 
      */
     get_CriticalExtensions() {

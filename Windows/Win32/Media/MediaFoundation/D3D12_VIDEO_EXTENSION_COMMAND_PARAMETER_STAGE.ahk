@@ -12,43 +12,50 @@ class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE extends Win32Enum {
 
     /**
      * The parameter stage is in video extension command creation.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CREATION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CREATION => 0
+    static CREATION => 0
 
     /**
      * The parameter stage is in video extension command initialization.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_INITIALIZATION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_INITIALIZATION => 1
+    static INITIALIZATION => 1
 
     /**
      * The parameter stage is in video extension command execution.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_EXECUTION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_EXECUTION => 2
+    static EXECUTION => 2
 
     /**
      * The parameter stage is input parameters passed to capabilities queries.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CAPS_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CAPS_INPUT => 3
+    static CAPS_INPUT => 3
 
     /**
      * The parameter stage is output parameters passed to capabilities queries.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CAPS_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CAPS_OUTPUT => 4
+    static CAPS_OUTPUT => 4
 
     /**
      * The parameter stage is device execution input.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_DEVICE_EXECUTE_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_DEVICE_EXECUTE_INPUT => 5
+    static DEVICE_EXECUTE_INPUT => 5
 
     /**
      * The parameter stage is device execution output.
+     * Native name: D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_DEVICE_EXECUTE_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_DEVICE_EXECUTE_OUTPUT => 6
+    static DEVICE_EXECUTE_OUTPUT => 6
 }

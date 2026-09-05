@@ -4908,7 +4908,6 @@ class Etw {
     }
 
     /**
-     * 
      * @param {Integer} TraceId 
      * @param {TRACE_LBR_CONFIGURATION} LbrConfiguration 
      * @param {Pointer<CLASSIC_EVENT_ID>} Events 

@@ -12,55 +12,64 @@ class D3D12_VIDEO_PROCESS_FILTER_FLAGS extends Win32BitflagEnum {
 
     /**
      * The video processor doesn't support any filters.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The video processor can adjust the brightness level.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_BRIGHTNESS
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_BRIGHTNESS => 1
+    static FLAG_BRIGHTNESS => 1
 
     /**
      * The video processor can adjust the contrast level.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_CONTRAST
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_CONTRAST => 2
+    static FLAG_CONTRAST => 2
 
     /**
      * The video processor can adjust hue.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_HUE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_HUE => 4
+    static FLAG_HUE => 4
 
     /**
      * The video processor can adjust the saturation level.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_SATURATION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_SATURATION => 8
+    static FLAG_SATURATION => 8
 
     /**
      * The video processor can perform noise reduction.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_NOISE_REDUCTION
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_NOISE_REDUCTION => 16
+    static FLAG_NOISE_REDUCTION => 16
 
     /**
      * The video processor can perform edge enhancement.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_EDGE_ENHANCEMENT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_EDGE_ENHANCEMENT => 32
+    static FLAG_EDGE_ENHANCEMENT => 32
 
     /**
      * The video processor can perform anamorphic scaling. Anamorphic scaling can be used to stretch 4:3 content to a widescreen 16:9 aspect ratio.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_ANAMORPHIC_SCALING
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_ANAMORPHIC_SCALING => 64
+    static FLAG_ANAMORPHIC_SCALING => 64
 
     /**
      * For stereo 3D video, the video processor can adjust the offset between the left and right views, allowing the user to reduce potential eye strain.
+     * Native name: D3D12_VIDEO_PROCESS_FILTER_FLAG_STEREO_ADJUSTMENT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROCESS_FILTER_FLAG_STEREO_ADJUSTMENT => 128
+    static FLAG_STEREO_ADJUSTMENT => 128
 }

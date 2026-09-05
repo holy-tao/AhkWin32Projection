@@ -7,12 +7,14 @@
 class AUTHENTICATOR_STATE extends Win32Enum {
 
     /**
+     * Native name: AuthenticatorState_Disabled
      * @type {Integer (Int32)}
      */
-    static AuthenticatorState_Disabled => 0
+    static Disabled => 0
 
     /**
+     * Native name: AuthenticatorState_Enabled
      * @type {Integer (Int32)}
      */
-    static AuthenticatorState_Enabled => 1
+    static Enabled => 1
 }

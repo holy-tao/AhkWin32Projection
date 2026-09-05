@@ -94,7 +94,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ExternalIPAddress() {
@@ -104,7 +103,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RemoteHost() {
@@ -114,7 +112,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExternalPort() {
@@ -123,7 +120,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Protocol() {
@@ -133,7 +129,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InternalPort() {
@@ -142,7 +137,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InternalClient() {
@@ -152,7 +146,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Enabled() {
@@ -161,7 +154,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -171,7 +163,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LeaseDuration() {
@@ -180,7 +171,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lLeaseDurationDesired 
      * @returns {Integer} 
      */
@@ -190,7 +180,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInternalClient 
      * @returns {HRESULT} 
      */
@@ -219,7 +208,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -231,7 +219,6 @@ class IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lInternalPort 
      * @returns {HRESULT} 
      */

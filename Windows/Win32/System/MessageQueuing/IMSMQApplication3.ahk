@@ -75,7 +75,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ActiveQueues() {
@@ -85,7 +84,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PrivateQueues() {
@@ -95,7 +93,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DirectoryServiceServer() {
@@ -105,7 +102,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsConnected() {
@@ -114,7 +110,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_BytesInAllQueues() {
@@ -124,7 +119,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMachine 
      * @returns {HRESULT} 
      */
@@ -136,7 +130,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Machine() {
@@ -146,7 +139,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Connect() {
@@ -167,7 +159,6 @@ class IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Tidy() {

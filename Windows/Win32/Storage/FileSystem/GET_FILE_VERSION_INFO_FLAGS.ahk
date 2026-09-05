@@ -7,17 +7,20 @@
 class GET_FILE_VERSION_INFO_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: FILE_VER_GET_LOCALISED
      * @type {Integer (UInt32)}
      */
-    static FILE_VER_GET_LOCALISED => 1
+    static VER_GET_LOCALISED => 1
 
     /**
+     * Native name: FILE_VER_GET_NEUTRAL
      * @type {Integer (UInt32)}
      */
-    static FILE_VER_GET_NEUTRAL => 2
+    static VER_GET_NEUTRAL => 2
 
     /**
+     * Native name: FILE_VER_GET_PREFETCHED
      * @type {Integer (UInt32)}
      */
-    static FILE_VER_GET_PREFETCHED => 4
+    static VER_GET_PREFETCHED => 4
 }

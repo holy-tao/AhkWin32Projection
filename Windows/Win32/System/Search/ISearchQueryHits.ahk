@@ -31,7 +31,6 @@ class ISearchQueryHits extends IUnknown {
     static VTableNames => ["Init", "NextHitMoniker", "NextHitOffset"]
 
     /**
-     * 
      * @param {IFilter} pflt 
      * @param {Integer} ulFlags 
      * @returns {Integer} 
@@ -42,7 +41,6 @@ class ISearchQueryHits extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcMnk 
      * @param {Pointer<Pointer<IMoniker>>} papMnk 
      * @returns {Integer} 
@@ -56,7 +54,6 @@ class ISearchQueryHits extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcRegion 
      * @param {Pointer<Pointer<FILTERREGION>>} paRegion 
      * @returns {Integer} 

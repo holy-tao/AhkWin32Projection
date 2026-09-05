@@ -51,7 +51,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @param {VARIANT} varStorage 
      * @param {Integer} lFlags 
@@ -63,7 +62,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisablePresence() {
@@ -72,7 +70,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @param {BSTR} bstrData 
      * @param {IRTCProfile} pProfile 
@@ -88,7 +85,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {IRTCBuddyGroup} pGroup 
      * @returns {HRESULT} 
      */
@@ -98,7 +94,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @returns {IRTCEnumGroups} 
      */
     EnumerateGroups() {
@@ -107,7 +102,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Groups() {
@@ -116,7 +110,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @returns {IRTCBuddyGroup} 
      */
@@ -128,7 +121,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
@@ -149,7 +141,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {RTC_WATCHER_MATCH_MODE} enMode 
      * @param {BSTR} bstrPresentityURI 
      * @returns {IRTCWatcher2} 
@@ -162,7 +153,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @param {BSTR} bstrProperty 
      * @returns {HRESULT} 
@@ -175,7 +165,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
@@ -186,7 +175,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrData 
      * @returns {HRESULT} 
@@ -200,7 +188,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrNamespace 
      * @param {Pointer<BSTR>} pbstrData 
      * @returns {HRESULT} 
@@ -211,7 +198,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {Pointer<RTC_PRESENCE_STATUS>} penStatus 
      * @param {Pointer<BSTR>} pbstrNotes 
      * @returns {HRESULT} 
@@ -224,7 +210,6 @@ class IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 

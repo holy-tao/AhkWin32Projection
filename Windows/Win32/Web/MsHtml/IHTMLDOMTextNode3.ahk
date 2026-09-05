@@ -39,7 +39,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {BSTR} 
@@ -51,7 +50,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
@@ -64,7 +62,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -75,7 +72,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @param {BSTR} bstrstring 
@@ -89,7 +85,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @returns {IHTMLDOMNode} 
      */
@@ -99,7 +94,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wholeText() {
@@ -109,7 +103,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrText 
      * @returns {IHTMLDOMNode} 
      */
@@ -121,7 +114,6 @@ class IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {

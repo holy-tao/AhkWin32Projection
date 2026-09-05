@@ -32,7 +32,6 @@ class ISpXMLRecoResult extends ISpRecoResult {
     static VTableNames => ["GetXMLResult", "GetXMLErrorInfo"]
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {PWSTR} 
      */
@@ -42,7 +41,6 @@ class ISpXMLRecoResult extends ISpRecoResult {
     }
 
     /**
-     * 
      * @param {Pointer<SPSEMANTICERRORINFO>} pSemanticErrorInfo 
      * @returns {HRESULT} 
      */

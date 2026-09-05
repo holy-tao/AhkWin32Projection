@@ -30,7 +30,6 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     static VTableNames => ["SeekEx", "ZeroAdjustTimestamps", "GetSeekStartTime", "GetDuration"]
 
     /**
-     * 
      * @param {Integer} cnsStartTime 
      * @param {Integer} cnsDuration 
      * @param {Float} flRate 
@@ -43,7 +42,6 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSeekStartTime() {
@@ -62,7 +59,6 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDuration() {

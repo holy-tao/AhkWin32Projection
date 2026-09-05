@@ -43,7 +43,6 @@ class IDocHostUIHandler extends IUnknown {
     static VTableNames => ["ShowContextMenu", "GetHostInfo", "ShowUI", "HideUI", "UpdateUI", "EnableModeless", "OnDocWindowActivate", "OnFrameWindowActivate", "ResizeBorder", "TranslateAccelerator", "GetOptionKeyPath", "GetDropTarget", "GetExternal", "TranslateUrl", "FilterDataObject"]
 
     /**
-     * 
      * @param {Integer} dwID 
      * @param {Pointer<POINT>} ppt 
      * @param {IUnknown} pcmdtReserved 
@@ -56,7 +55,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DOCHOSTUIINFO>} pInfo 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwID 
      * @param {IOleInPlaceActiveObject} pActiveObject 
      * @param {IOleCommandTarget} pCommandTarget 
@@ -80,7 +77,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     HideUI() {
@@ -89,7 +85,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateUI() {
@@ -98,7 +93,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -108,7 +102,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fActivate 
      * @returns {HRESULT} 
      */
@@ -118,7 +111,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fActivate 
      * @returns {HRESULT} 
      */
@@ -128,7 +120,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} prcBorder 
      * @param {IOleInPlaceUIWindow} pUIWindow 
      * @param {BOOL} fRameWindow 
@@ -183,7 +174,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dw 
      * @returns {PWSTR} 
      */
@@ -193,7 +183,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDropTarget} pDropTarget 
      * @returns {IDropTarget} 
      */
@@ -203,7 +192,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     GetExternal() {
@@ -212,7 +200,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwTranslate 
      * @param {PWSTR} pchURLIn 
      * @returns {PWSTR} 
@@ -225,7 +212,6 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataObject} pDO 
      * @returns {IDataObject} 
      */

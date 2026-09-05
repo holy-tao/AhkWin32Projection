@@ -10,25 +10,29 @@ class IMAPI_MODE_PAGE_REQUEST_TYPE extends Win32Enum {
 
     /**
      * Requests current settings of the mode page.  This is the most common request type, and the most commonly supported type of this command.
+     * Native name: IMAPI_MODE_PAGE_REQUEST_TYPE_CURRENT_VALUES
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_REQUEST_TYPE_CURRENT_VALUES => 0
+    static CURRENT_VALUES => 0
 
     /**
      * Requests a mask that indicates settings that are write enabled. A write-enabled setting has a corresponding bit that is set to one in the mask. A read-only setting has a corresponding bit that is set to zero in the mask .
+     * Native name: IMAPI_MODE_PAGE_REQUEST_TYPE_CHANGEABLE_VALUES
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_REQUEST_TYPE_CHANGEABLE_VALUES => 1
+    static CHANGEABLE_VALUES => 1
 
     /**
      * Requests the power-on settings of the drive.
+     * Native name: IMAPI_MODE_PAGE_REQUEST_TYPE_DEFAULT_VALUES
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_REQUEST_TYPE_DEFAULT_VALUES => 2
+    static DEFAULT_VALUES => 2
 
     /**
      * Requests a saved configuration for a drive. This functionality might not be supported on all devices.
+     * Native name: IMAPI_MODE_PAGE_REQUEST_TYPE_SAVED_VALUES
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_REQUEST_TYPE_SAVED_VALUES => 3
+    static SAVED_VALUES => 3
 }

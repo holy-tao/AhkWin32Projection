@@ -12,19 +12,22 @@ class SEARCH_TERM_EXPANSION extends Win32Enum {
 
     /**
      * No expansion is applied to search terms.
+     * Native name: SEARCH_TERM_NO_EXPANSION
      * @type {Integer (Int32)}
      */
-    static SEARCH_TERM_NO_EXPANSION => 0
+    static NO_EXPANSION => 0
 
     /**
      * All search terms are expanded.
+     * Native name: SEARCH_TERM_PREFIX_ALL
      * @type {Integer (Int32)}
      */
-    static SEARCH_TERM_PREFIX_ALL => 1
+    static PREFIX_ALL => 1
 
     /**
      * Stem expansion is applied to all terms.
+     * Native name: SEARCH_TERM_STEM_ALL
      * @type {Integer (Int32)}
      */
-    static SEARCH_TERM_STEM_ALL => 2
+    static STEM_ALL => 2
 }

@@ -7,32 +7,38 @@
 class DISPID_InkTablet extends Win32Enum {
 
     /**
+     * Native name: DISPID_ITName
      * @type {Integer (Int32)}
      */
-    static DISPID_ITName => 0
+    static ITName => 0
 
     /**
+     * Native name: DISPID_ITPlugAndPlayId
      * @type {Integer (Int32)}
      */
-    static DISPID_ITPlugAndPlayId => 1
+    static ITPlugAndPlayId => 1
 
     /**
+     * Native name: DISPID_ITPropertyMetrics
      * @type {Integer (Int32)}
      */
-    static DISPID_ITPropertyMetrics => 2
+    static ITPropertyMetrics => 2
 
     /**
+     * Native name: DISPID_ITIsPacketPropertySupported
      * @type {Integer (Int32)}
      */
-    static DISPID_ITIsPacketPropertySupported => 3
+    static ITIsPacketPropertySupported => 3
 
     /**
+     * Native name: DISPID_ITMaximumInputRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_ITMaximumInputRectangle => 4
+    static ITMaximumInputRectangle => 4
 
     /**
+     * Native name: DISPID_ITHardwareCapabilities
      * @type {Integer (Int32)}
      */
-    static DISPID_ITHardwareCapabilities => 5
+    static ITHardwareCapabilities => 5
 }

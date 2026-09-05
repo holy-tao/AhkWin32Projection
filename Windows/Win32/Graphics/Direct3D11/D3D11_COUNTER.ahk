@@ -14,7 +14,8 @@ class D3D11_COUNTER extends Win32Enum {
 
     /**
      * Define a performance counter that is dependent on the hardware device.
+     * Native name: D3D11_COUNTER_DEVICE_DEPENDENT_0
      * @type {Integer (Int32)}
      */
-    static D3D11_COUNTER_DEVICE_DEPENDENT_0 => 1073741824
+    static DEVICE_DEPENDENT_0 => 1073741824
 }

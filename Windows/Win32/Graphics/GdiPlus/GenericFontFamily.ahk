@@ -7,17 +7,20 @@
 class GenericFontFamily extends Win32Enum {
 
     /**
+     * Native name: GenericFontFamilySerif
      * @type {Integer (Int32)}
      */
-    static GenericFontFamilySerif => 0
+    static Serif => 0
 
     /**
+     * Native name: GenericFontFamilySansSerif
      * @type {Integer (Int32)}
      */
-    static GenericFontFamilySansSerif => 1
+    static SansSerif => 1
 
     /**
+     * Native name: GenericFontFamilyMonospace
      * @type {Integer (Int32)}
      */
-    static GenericFontFamilyMonospace => 2
+    static Monospace => 2
 }

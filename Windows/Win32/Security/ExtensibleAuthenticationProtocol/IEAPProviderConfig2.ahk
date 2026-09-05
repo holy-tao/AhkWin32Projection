@@ -30,7 +30,6 @@ class IEAPProviderConfig2 extends IEAPProviderConfig {
     static VTableNames => ["ServerInvokeConfigUI2", "GetGlobalConfig"]
 
     /**
-     * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer} uConnectionParam 
      * @param {HWND} _hWnd 
@@ -52,7 +51,6 @@ class IEAPProviderConfig2 extends IEAPProviderConfig {
     }
 
     /**
-     * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer<Pointer<Integer>>} ppConfigDataOut 
      * @param {Pointer<Integer>} pdwSizeOfConfigDataOut 

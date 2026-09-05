@@ -30,7 +30,6 @@ class IRTCClientProvisioning2 extends IRTCClientProvisioning {
     static VTableNames => ["EnableProfileEx"]
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lRegisterFlags 
      * @param {Integer} lRoamingFlags 

@@ -7,12 +7,14 @@
 class XACTRM extends Win32Enum {
 
     /**
+     * Native name: XACTRM_OPTIMISTICLASTWINS
      * @type {Integer (Int32)}
      */
-    static XACTRM_OPTIMISTICLASTWINS => 1
+    static OPTIMISTICLASTWINS => 1
 
     /**
+     * Native name: XACTRM_NOREADONLYPREPARES
      * @type {Integer (Int32)}
      */
-    static XACTRM_NOREADONLYPREPARES => 2
+    static NOREADONLYPREPARES => 2
 }

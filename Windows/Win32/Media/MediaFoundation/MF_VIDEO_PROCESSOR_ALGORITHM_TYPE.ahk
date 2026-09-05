@@ -10,13 +10,15 @@ class MF_VIDEO_PROCESSOR_ALGORITHM_TYPE extends Win32Enum {
 
     /**
      * default mode favors a balance of quality and speed
+     * Native name: MF_VIDEO_PROCESSOR_ALGORITHM_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MF_VIDEO_PROCESSOR_ALGORITHM_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The video processor will always internally process in AYUV and use high quality filters.
+     * Native name: MF_VIDEO_PROCESSOR_ALGORITHM_MRF_CRF_444
      * @type {Integer (Int32)}
      */
-    static MF_VIDEO_PROCESSOR_ALGORITHM_MRF_CRF_444 => 1
+    static MRF_CRF_444 => 1
 }

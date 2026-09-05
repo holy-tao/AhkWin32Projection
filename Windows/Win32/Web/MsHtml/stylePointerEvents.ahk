@@ -7,67 +7,80 @@
 class stylePointerEvents extends Win32Enum {
 
     /**
+     * Native name: stylePointerEventsNotSet
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: stylePointerEventsVisiblePainted
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsVisiblePainted => 1
+    static VisiblePainted => 1
 
     /**
+     * Native name: stylePointerEventsVisibleFill
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsVisibleFill => 2
+    static VisibleFill => 2
 
     /**
+     * Native name: stylePointerEventsVisibleStroke
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsVisibleStroke => 3
+    static VisibleStroke => 3
 
     /**
+     * Native name: stylePointerEventsVisible
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsVisible => 4
+    static Visible => 4
 
     /**
+     * Native name: stylePointerEventsPainted
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsPainted => 5
+    static Painted => 5
 
     /**
+     * Native name: stylePointerEventsFill
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsFill => 6
+    static Fill => 6
 
     /**
+     * Native name: stylePointerEventsStroke
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsStroke => 7
+    static Stroke => 7
 
     /**
+     * Native name: stylePointerEventsAll
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsAll => 8
+    static All => 8
 
     /**
+     * Native name: stylePointerEventsNone
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsNone => 9
+    static None => 9
 
     /**
+     * Native name: stylePointerEventsInitial
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsInitial => 10
+    static Initial => 10
 
     /**
+     * Native name: stylePointerEventsAuto
      * @type {Integer (Int32)}
      */
-    static stylePointerEventsAuto => 11
+    static Auto => 11
 
     /**
+     * Native name: stylePointerEvents_Max
      * @type {Integer (Int32)}
      */
-    static stylePointerEvents_Max => 2147483647
+    static Max => 2147483647
 }

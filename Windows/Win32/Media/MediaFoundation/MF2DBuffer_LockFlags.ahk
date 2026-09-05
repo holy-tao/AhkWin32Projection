@@ -10,31 +10,36 @@ class MF2DBuffer_LockFlags extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: MF2DBuffer_LockFlags_LockTypeMask
      * @type {Integer (Int32)}
      */
-    static MF2DBuffer_LockFlags_LockTypeMask => 3
+    static LockTypeMask => 3
 
     /**
      * Lock the buffer for reading.
+     * Native name: MF2DBuffer_LockFlags_Read
      * @type {Integer (Int32)}
      */
-    static MF2DBuffer_LockFlags_Read => 1
+    static Read => 1
 
     /**
      * Lock the buffer for writing.
+     * Native name: MF2DBuffer_LockFlags_Write
      * @type {Integer (Int32)}
      */
-    static MF2DBuffer_LockFlags_Write => 2
+    static Write => 2
 
     /**
      * Lock the buffer for both reading and writing.
+     * Native name: MF2DBuffer_LockFlags_ReadWrite
      * @type {Integer (Int32)}
      */
-    static MF2DBuffer_LockFlags_ReadWrite => 3
+    static ReadWrite => 3
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.
+     * Native name: MF2DBuffer_LockFlags_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static MF2DBuffer_LockFlags_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

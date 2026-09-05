@@ -31,7 +31,6 @@ class IDxcOperationResult extends IUnknown {
     static VTableNames => ["GetStatus", "GetResult", "GetErrorBuffer"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetStatus() {
@@ -40,7 +39,6 @@ class IDxcOperationResult extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlob} 
      */
     GetResult() {
@@ -49,7 +47,6 @@ class IDxcOperationResult extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlobEncoding} 
      */
     GetErrorBuffer() {

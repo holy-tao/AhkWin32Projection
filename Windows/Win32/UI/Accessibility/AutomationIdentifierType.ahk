@@ -10,55 +10,64 @@ class AutomationIdentifierType extends Win32Enum {
 
     /**
      * Specifies a property ID.
+     * Native name: AutomationIdentifierType_Property
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_Property => 0
+    static Property => 0
 
     /**
      * Specifies a control pattern ID.
+     * Native name: AutomationIdentifierType_Pattern
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_Pattern => 1
+    static Pattern => 1
 
     /**
      * Specifies an event ID.
+     * Native name: AutomationIdentifierType_Event
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_Event => 2
+    static Event => 2
 
     /**
      * Specifies a control type ID.
+     * Native name: AutomationIdentifierType_ControlType
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_ControlType => 3
+    static ControlType => 3
 
     /**
      * Specifies a text attribute ID.
+     * Native name: AutomationIdentifierType_TextAttribute
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_TextAttribute => 4
+    static TextAttribute => 4
 
     /**
      * Specifies a landmark type ID.
+     * Native name: AutomationIdentifierType_LandmarkType
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_LandmarkType => 5
+    static LandmarkType => 5
 
     /**
      * Specifies an annotation ID.
+     * Native name: AutomationIdentifierType_Annotation
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_Annotation => 6
+    static Annotation => 6
 
     /**
      * Specifies a changes ID.
+     * Native name: AutomationIdentifierType_Changes
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_Changes => 7
+    static Changes => 7
 
     /**
      * Specifies a style ID.
+     * Native name: AutomationIdentifierType_Style
      * @type {Integer (Int32)}
      */
-    static AutomationIdentifierType_Style => 8
+    static Style => 8
 }

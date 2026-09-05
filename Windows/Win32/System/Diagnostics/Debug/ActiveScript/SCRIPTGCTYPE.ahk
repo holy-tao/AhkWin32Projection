@@ -7,12 +7,14 @@
 class SCRIPTGCTYPE extends Win32Enum {
 
     /**
+     * Native name: SCRIPTGCTYPE_NORMAL
      * @type {Integer (Int32)}
      */
-    static SCRIPTGCTYPE_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: SCRIPTGCTYPE_EXHAUSTIVE
      * @type {Integer (Int32)}
      */
-    static SCRIPTGCTYPE_EXHAUSTIVE => 1
+    static EXHAUSTIVE => 1
 }

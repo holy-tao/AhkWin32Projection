@@ -7,62 +7,74 @@
 class ExtendedArrayDimensionFlags extends Win32Enum {
 
     /**
+     * Native name: ExtendedArrayLengthIsOffset32
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayLengthIsOffset32 => 1
+    static LengthIsOffset32 => 1
 
     /**
+     * Native name: ExtendedArrayLengthIsOffset64
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayLengthIsOffset64 => 2
+    static LengthIsOffset64 => 2
 
     /**
+     * Native name: ExtendedArrayLengthIsOffset
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayLengthIsOffset => 3
+    static LengthIsOffset => 3
 
     /**
+     * Native name: ExtendedArrayLowerBoundIsOffset32
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayLowerBoundIsOffset32 => 4
+    static LowerBoundIsOffset32 => 4
 
     /**
+     * Native name: ExtendedArrayLowerBoundIsOffset64
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayLowerBoundIsOffset64 => 8
+    static LowerBoundIsOffset64 => 8
 
     /**
+     * Native name: ExtendedArrayLowerBoundIsOffset
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayLowerBoundIsOffset => 12
+    static LowerBoundIsOffset => 12
 
     /**
+     * Native name: ExtendedArrayStrideIsOffset32
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayStrideIsOffset32 => 16
+    static StrideIsOffset32 => 16
 
     /**
+     * Native name: ExtendedArrayStrideIsOffset64
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayStrideIsOffset64 => 32
+    static StrideIsOffset64 => 32
 
     /**
+     * Native name: ExtendedArrayStrideIsOffset
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayStrideIsOffset => 48
+    static StrideIsOffset => 48
 
     /**
+     * Native name: ExtendedArrayStrideIsComputedByNextRank
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayStrideIsComputedByNextRank => 64
+    static StrideIsComputedByNextRank => 64
 
     /**
+     * Native name: ExtendedArrayStrideIsComputedByPreviousRank
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayStrideIsComputedByPreviousRank => 128
+    static StrideIsComputedByPreviousRank => 128
 
     /**
+     * Native name: ExtendedArrayStrideIsComputed
      * @type {Integer (Int32)}
      */
-    static ExtendedArrayStrideIsComputed => 192
+    static StrideIsComputed => 192
 }

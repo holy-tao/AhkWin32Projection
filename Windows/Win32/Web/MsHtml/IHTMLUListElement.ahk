@@ -53,7 +53,6 @@ class IHTMLUListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ class IHTMLUListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_compact() {
@@ -72,7 +70,6 @@ class IHTMLUListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ class IHTMLUListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {

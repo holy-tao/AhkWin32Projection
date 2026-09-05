@@ -58,7 +58,6 @@ class IMFNetCrossOriginSupport extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszURL 
      * @returns {BOOL} 
      */

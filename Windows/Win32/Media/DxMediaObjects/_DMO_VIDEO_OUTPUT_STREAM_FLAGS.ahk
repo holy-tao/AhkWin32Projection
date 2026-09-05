@@ -10,7 +10,8 @@ class _DMO_VIDEO_OUTPUT_STREAM_FLAGS extends Win32Enum {
 
     /**
      * Requests that every output buffer passed to the DMO contain the previous data that was generated.
+     * Native name: DMO_VOSF_NEEDS_PREVIOUS_SAMPLE
      * @type {Integer (Int32)}
      */
-    static DMO_VOSF_NEEDS_PREVIOUS_SAMPLE => 1
+    static VOSF_NEEDS_PREVIOUS_SAMPLE => 1
 }

@@ -15,25 +15,29 @@ class VDS_VOLUME_PLEX_STATUS extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_VPS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_VPS_UNKNOWN => 0
+    static VPS_UNKNOWN => 0
 
     /**
      * The volume plex is available.
+     * Native name: VDS_VPS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_VPS_ONLINE => 1
+    static VPS_ONLINE => 1
 
     /**
      * The volume plex has no media.
+     * Native name: VDS_VPS_NO_MEDIA
      * @type {Integer (Int32)}
      */
-    static VDS_VPS_NO_MEDIA => 3
+    static VPS_NO_MEDIA => 3
 
     /**
      * The volume plex is unavailable.
+     * Native name: VDS_VPS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_VPS_FAILED => 5
+    static VPS_FAILED => 5
 }

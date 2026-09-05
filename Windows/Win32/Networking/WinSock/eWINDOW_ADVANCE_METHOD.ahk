@@ -10,13 +10,15 @@ class eWINDOW_ADVANCE_METHOD extends Win32Enum {
 
     /**
      * Window advances based on time. This is the default mode.
+     * Native name: E_WINDOW_ADVANCE_BY_TIME
      * @type {Integer (Int32)}
      */
-    static E_WINDOW_ADVANCE_BY_TIME => 1
+    static BY_TIME => 1
 
     /**
      * Use the receive window as a data cache.
+     * Native name: E_WINDOW_USE_AS_DATA_CACHE
      * @type {Integer (Int32)}
      */
-    static E_WINDOW_USE_AS_DATA_CACHE => 2
+    static USE_AS_DATA_CACHE => 2
 }

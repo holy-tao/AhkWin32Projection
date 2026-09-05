@@ -20,19 +20,22 @@ class TfLBBalloonStyle extends Win32Enum {
 
     /**
      * This balloon style is used to represent a reconversion operation.
+     * Native name: TF_LB_BALLOON_RECO
      * @type {Integer (Int32)}
      */
-    static TF_LB_BALLOON_RECO => 0
+    static RECO => 0
 
     /**
      * This is a normal balloon style.
+     * Native name: TF_LB_BALLOON_SHOW
      * @type {Integer (Int32)}
      */
-    static TF_LB_BALLOON_SHOW => 1
+    static SHOW => 1
 
     /**
      * This balloon style is used to indicate that a command was not recognized.
+     * Native name: TF_LB_BALLOON_MISS
      * @type {Integer (Int32)}
      */
-    static TF_LB_BALLOON_MISS => 2
+    static MISS => 2
 }

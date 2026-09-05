@@ -66,7 +66,7 @@ class NTSTATUS extends Win32Struct {
         msgBuf := Buffer(1024, 0)
     
         chars := Debug.FormatMessageW(
-            FORMAT_MESSAGE_OPTIONS.FORMAT_MESSAGE_FROM_HMODULE | FORMAT_MESSAGE_OPTIONS.FORMAT_MESSAGE_FROM_SYSTEM,
+            FORMAT_MESSAGE_OPTIONS.FROM_HMODULE | FORMAT_MESSAGE_OPTIONS.FROM_SYSTEM,
             hMod.value,
             status,
             0,

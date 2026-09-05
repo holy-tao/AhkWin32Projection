@@ -29,7 +29,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     static VTableNames => ["AckUnplug", "TmDown", "SessionLost", "BackedOut", "BackOut", "Committed", "Forget", "RequestCommit"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AckUnplug() {
@@ -38,7 +37,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TmDown() {
@@ -47,7 +45,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SessionLost() {
@@ -56,7 +53,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BackedOut() {
@@ -65,7 +61,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BackOut() {
@@ -74,7 +69,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Committed() {
@@ -83,7 +77,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Forget() {
@@ -92,7 +85,6 @@ class IDtcLuSubordinateDtcSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RequestCommit() {

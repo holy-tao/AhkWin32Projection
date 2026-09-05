@@ -10,19 +10,22 @@ class D3D12_AXIS_SHADING_RATE extends Win32Enum {
 
     /**
      * Specifies a 1x shading rate for the axis.
+     * Native name: D3D12_AXIS_SHADING_RATE_1X
      * @type {Integer (Int32)}
      */
-    static D3D12_AXIS_SHADING_RATE_1X => 0
+    static 1X => 0
 
     /**
      * Specifies a 2x shading rate for the axis.
+     * Native name: D3D12_AXIS_SHADING_RATE_2X
      * @type {Integer (Int32)}
      */
-    static D3D12_AXIS_SHADING_RATE_2X => 1
+    static 2X => 1
 
     /**
      * Specifies a 4x shading rate for the axis.
+     * Native name: D3D12_AXIS_SHADING_RATE_4X
      * @type {Integer (Int32)}
      */
-    static D3D12_AXIS_SHADING_RATE_4X => 2
+    static 4X => 2
 }

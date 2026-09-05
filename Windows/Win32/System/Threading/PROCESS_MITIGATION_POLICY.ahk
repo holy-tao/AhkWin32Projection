@@ -22,99 +22,115 @@ class PROCESS_MITIGATION_POLICY extends Win32Enum {
 
     /**
      * The policy that turns off the ability of the process to generate dynamic code or modify existing executable code.
+     * Native name: ProcessDynamicCodePolicy
      * @type {Integer (Int32)}
      */
-    static ProcessDynamicCodePolicy => 2
+    static DynamicCodePolicy => 2
 
     /**
      * The process will receive a fatal error if it manipulates an invalid handle. Useful for preventing downstream problems in a process due to handle misuse.
+     * Native name: ProcessStrictHandleCheckPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessStrictHandleCheckPolicy => 3
+    static StrictHandleCheckPolicy => 3
 
     /**
      * Disables the ability to use NTUser/GDI functions at the lowest layer.
+     * Native name: ProcessSystemCallDisablePolicy
      * @type {Integer (Int32)}
      */
-    static ProcessSystemCallDisablePolicy => 4
+    static SystemCallDisablePolicy => 4
 
     /**
      * Returns the mask of valid bits for all the mitigation options on the system.  An application can set many mitigation options without querying the operating system for mitigation options by combining bitwise with the mask to exclude all non-supported bits at once.
+     * Native name: ProcessMitigationOptionsMask
      * @type {Integer (Int32)}
      */
-    static ProcessMitigationOptionsMask => 5
+    static OptionsMask => 5
 
     /**
      * The policy that prevents some built-in third party extension points from being turned on, which prevents legacy extension point DLLs from being loaded into the process.
+     * Native name: ProcessExtensionPointDisablePolicy
      * @type {Integer (Int32)}
      */
-    static ProcessExtensionPointDisablePolicy => 6
+    static ExtensionPointDisablePolicy => 6
 
     /**
      * The Control Flow Guard (CFG) policy of the process.
+     * Native name: ProcessControlFlowGuardPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessControlFlowGuardPolicy => 7
+    static ControlFlowGuardPolicy => 7
 
     /**
      * The policy of a process that can restrict image loading to those images that are either signed by Microsoft, by the Windows Store, or by Microsoft, the Windows Store and the Windows Hardware Quality Labs (WHQL).
+     * Native name: ProcessSignaturePolicy
      * @type {Integer (Int32)}
      */
-    static ProcessSignaturePolicy => 8
+    static SignaturePolicy => 8
 
     /**
      * The policy that turns off the ability of the process to load non-system fonts.
+     * Native name: ProcessFontDisablePolicy
      * @type {Integer (Int32)}
      */
-    static ProcessFontDisablePolicy => 9
+    static FontDisablePolicy => 9
 
     /**
      * The policy that turns off the ability of the process to load images from some locations, such a remote devices or files that have the low mandatory label.
+     * Native name: ProcessImageLoadPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessImageLoadPolicy => 10
+    static ImageLoadPolicy => 10
 
     /**
      * The system call filter policy of the process.
+     * Native name: ProcessSystemCallFilterPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessSystemCallFilterPolicy => 11
+    static SystemCallFilterPolicy => 11
 
     /**
      * The payload restriction policy of the process.
+     * Native name: ProcessPayloadRestrictionPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessPayloadRestrictionPolicy => 12
+    static PayloadRestrictionPolicy => 12
 
     /**
      * The child process policy of the process.
+     * Native name: ProcessChildProcessPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessChildProcessPolicy => 13
+    static ChildProcessPolicy => 13
 
     /**
      * The side channel isolation policy of the process.
+     * Native name: ProcessSideChannelIsolationPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessSideChannelIsolationPolicy => 14
+    static SideChannelIsolationPolicy => 14
 
     /**
      * Windows 10, version 2004 and above: The policy regarding user-mode Hardware-enforced Stack Protection for the process.
+     * Native name: ProcessUserShadowStackPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessUserShadowStackPolicy => 15
+    static UserShadowStackPolicy => 15
 
     /**
      * The RedirectionGuard policy of the process.
+     * Native name: ProcessRedirectionTrustPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessRedirectionTrustPolicy => 16
+    static RedirectionTrustPolicy => 16
 
     /**
      * The user pointer authentication policy of the process.
+     * Native name: ProcessUserPointerAuthPolicy
      * @type {Integer (Int32)}
      */
-    static ProcessUserPointerAuthPolicy => 17
+    static UserPointerAuthPolicy => 17
 
     /**
      * The Structured Exception Handling Overwrite Protection (SEHOP) policy of the process.

@@ -30,7 +30,6 @@ class IDebugHostMemory4 extends IDebugHostMemory3 {
     static VTableNames => ["GetPhysicalAddressLocation", "IsPhysicalAddressLocation"]
 
     /**
-     * 
      * @param {Integer} physAddr 
      * @returns {Location} 
      */
@@ -41,7 +40,6 @@ class IDebugHostMemory4 extends IDebugHostMemory3 {
     }
 
     /**
-     * 
      * @param {Pointer<Location>} pLocation 
      * @returns {Boolean} 
      */

@@ -10,38 +10,44 @@ class RPC_NOTIFICATION_TYPES extends Win32Enum {
 
     /**
      * The client does not require notification of the completion of an asynchronous remote procedure call.
+     * Native name: RpcNotificationTypeNone
      * @type {Integer (Int32)}
      */
-    static RpcNotificationTypeNone => 0
+    static TypeNone => 0
 
     /**
      * Notify the client program by signaling an event object. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/event-objects">Event Objects</a>.
+     * Native name: RpcNotificationTypeEvent
      * @type {Integer (Int32)}
      */
-    static RpcNotificationTypeEvent => 1
+    static TypeEvent => 1
 
     /**
      * Use an asynchronous procedure call to notify the client that the remote procedure call is complete.
+     * Native name: RpcNotificationTypeApc
      * @type {Integer (Int32)}
      */
-    static RpcNotificationTypeApc => 2
+    static TypeApc => 2
 
     /**
      * Send the asynchronous RPC notification to the client through an I/O completion port.
+     * Native name: RpcNotificationTypeIoc
      * @type {Integer (Int32)}
      */
-    static RpcNotificationTypeIoc => 3
+    static TypeIoc => 3
 
     /**
      * Post a notification message to the specified window handle.
+     * Native name: RpcNotificationTypeHwnd
      * @type {Integer (Int32)}
      */
-    static RpcNotificationTypeHwnd => 4
+    static TypeHwnd => 4
 
     /**
      * Invoke a callback function provided by the client program.
+     * Native name: RpcNotificationTypeCallback
      * @type {Integer (Int32)}
      */
-    static RpcNotificationTypeCallback => 5
+    static TypeCallback => 5
 }

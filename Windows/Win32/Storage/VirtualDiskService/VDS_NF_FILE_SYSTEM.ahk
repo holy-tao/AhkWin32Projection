@@ -7,12 +7,14 @@
 class VDS_NF_FILE_SYSTEM extends Win32Enum {
 
     /**
+     * Native name: VDS_NF_FILE_SYSTEM_MODIFY
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_FILE_SYSTEM_MODIFY => 203
+    static MODIFY => 203
 
     /**
+     * Native name: VDS_NF_FILE_SYSTEM_FORMAT_PROGRESS
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_FILE_SYSTEM_FORMAT_PROGRESS => 204
+    static FORMAT_PROGRESS => 204
 }

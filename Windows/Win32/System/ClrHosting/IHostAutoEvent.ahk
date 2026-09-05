@@ -29,7 +29,6 @@ class IHostAutoEvent extends IUnknown {
     static VTableNames => ["Wait", "Set"]
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
      * @returns {HRESULT} 
@@ -40,7 +39,6 @@ class IHostAutoEvent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Set() {

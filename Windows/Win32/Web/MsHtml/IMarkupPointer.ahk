@@ -38,7 +38,6 @@ class IMarkupPointer extends IUnknown {
     static VTableNames => ["OwningDoc", "Gravity", "SetGravity", "Cling", "SetCling", "Unposition", "IsPositioned", "GetContainer", "MoveAdjacentToElement", "MoveToPointer", "MoveToContainer", "Left", "Right", "CurrentScope", "IsLeftOf", "IsLeftOfOrEqualTo", "IsRightOf", "IsRightOfOrEqualTo", "IsEqualTo", "MoveUnit", "FindText"]
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     OwningDoc() {
@@ -47,7 +46,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {POINTER_GRAVITY} 
      */
     Gravity() {
@@ -56,7 +54,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINTER_GRAVITY} Gravity 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Cling() {
@@ -75,7 +71,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fCLing 
      * @returns {HRESULT} 
      */
@@ -85,7 +80,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unposition() {
@@ -94,7 +88,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsPositioned() {
@@ -103,7 +96,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMarkupContainer} 
      */
     GetContainer() {
@@ -112,7 +104,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElement 
      * @param {ELEMENT_ADJACENCY} eAdj 
      * @returns {HRESULT} 
@@ -123,7 +114,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointer 
      * @returns {HRESULT} 
      */
@@ -133,7 +123,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupContainer} pContainer 
      * @param {BOOL} fAtStart 
      * @returns {HRESULT} 
@@ -144,7 +133,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fMove 
      * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
@@ -163,7 +151,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fMove 
      * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
@@ -182,7 +169,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     CurrentScope() {
@@ -191,7 +177,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -201,7 +186,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -211,7 +195,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -221,7 +204,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -231,7 +213,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -241,7 +222,6 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {MOVEUNIT_ACTION} muAction 
      * @returns {HRESULT} 
      */

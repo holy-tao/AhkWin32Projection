@@ -7,22 +7,26 @@
 class FILE_STORAGE_TIER_CLASS extends Win32Enum {
 
     /**
+     * Native name: FileStorageTierClassUnspecified
      * @type {Integer (Int32)}
      */
-    static FileStorageTierClassUnspecified => 0
+    static Unspecified => 0
 
     /**
+     * Native name: FileStorageTierClassCapacity
      * @type {Integer (Int32)}
      */
-    static FileStorageTierClassCapacity => 1
+    static Capacity => 1
 
     /**
+     * Native name: FileStorageTierClassPerformance
      * @type {Integer (Int32)}
      */
-    static FileStorageTierClassPerformance => 2
+    static Performance => 2
 
     /**
+     * Native name: FileStorageTierClassMax
      * @type {Integer (Int32)}
      */
-    static FileStorageTierClassMax => 3
+    static Max => 3
 }

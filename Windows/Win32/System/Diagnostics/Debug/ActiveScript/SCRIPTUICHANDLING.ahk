@@ -7,17 +7,20 @@
 class SCRIPTUICHANDLING extends Win32Enum {
 
     /**
+     * Native name: SCRIPTUICHANDLING_ALLOW
      * @type {Integer (Int32)}
      */
-    static SCRIPTUICHANDLING_ALLOW => 0
+    static ALLOW => 0
 
     /**
+     * Native name: SCRIPTUICHANDLING_NOUIERROR
      * @type {Integer (Int32)}
      */
-    static SCRIPTUICHANDLING_NOUIERROR => 1
+    static NOUIERROR => 1
 
     /**
+     * Native name: SCRIPTUICHANDLING_NOUIDEFAULT
      * @type {Integer (Int32)}
      */
-    static SCRIPTUICHANDLING_NOUIDEFAULT => 2
+    static NOUIDEFAULT => 2
 }

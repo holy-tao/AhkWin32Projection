@@ -10,19 +10,22 @@ class MF_TIMED_TEXT_DISPLAY_ALIGNMENT extends Win32Enum {
 
     /**
      * Text is aligned before an element.
+     * Native name: MF_TIMED_TEXT_DISPLAY_ALIGNMENT_BEFORE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_DISPLAY_ALIGNMENT_BEFORE => 0
+    static BEFORE => 0
 
     /**
      * Text is aligned after an element.
+     * Native name: MF_TIMED_TEXT_DISPLAY_ALIGNMENT_AFTER
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_DISPLAY_ALIGNMENT_AFTER => 1
+    static AFTER => 1
 
     /**
      * Text is aligned in the center between elements.
+     * Native name: MF_TIMED_TEXT_DISPLAY_ALIGNMENT_CENTER
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_DISPLAY_ALIGNMENT_CENTER => 2
+    static CENTER => 2
 }

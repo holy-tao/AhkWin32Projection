@@ -29,7 +29,6 @@ class IDataConvert extends IUnknown {
     static VTableNames => ["DataConvert", "CanConvert", "GetConversionSize"]
 
     /**
-     * 
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @param {Pointer} cbSrcLength 
@@ -54,7 +53,6 @@ class IDataConvert extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ class IDataConvert extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @param {Pointer<Pointer>} pcbSrcLength 

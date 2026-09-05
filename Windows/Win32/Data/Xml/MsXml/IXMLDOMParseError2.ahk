@@ -52,7 +52,6 @@ class IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_errorXPath() {
@@ -62,7 +61,6 @@ class IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @returns {IXMLDOMParseErrorCollection} 
      */
     get_allErrors() {
@@ -71,7 +69,6 @@ class IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -82,7 +79,6 @@ class IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorParametersCount() {

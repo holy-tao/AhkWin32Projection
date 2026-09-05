@@ -32,7 +32,6 @@ class IHlinkTarget extends IUnknown {
     static VTableNames => ["SetBrowseContext", "GetBrowseContext", "Navigate", "GetMoniker", "GetFriendlyName"]
 
     /**
-     * 
      * @param {IHlinkBrowseContext} pihlbc 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IHlinkTarget extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHlinkBrowseContext} 
      */
     GetBrowseContext() {
@@ -65,7 +63,6 @@ class IHlinkTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzLocation 
      * @param {Integer} dwAssign 
      * @returns {IMoniker} 
@@ -78,7 +75,6 @@ class IHlinkTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzLocation 
      * @returns {PWSTR} 
      */

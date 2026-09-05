@@ -7,12 +7,14 @@
 class KSPROPERTY_VIDCAP_SELECTOR extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_SELECTOR_SOURCE_NODE_ID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SELECTOR_SOURCE_NODE_ID => 0
+    static SOURCE_NODE_ID => 0
 
     /**
+     * Native name: KSPROPERTY_SELECTOR_NUM_SOURCES
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SELECTOR_NUM_SOURCES => 1
+    static NUM_SOURCES => 1
 }

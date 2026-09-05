@@ -7,17 +7,20 @@
 class D3D12_VIDEO_ENCODER_AV1_PROFILE extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_PROFILE_MAIN
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_PROFILE_MAIN => 0
+    static MAIN => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_PROFILE_HIGH
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_PROFILE_HIGH => 1
+    static HIGH => 1
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_PROFILE_PROFESSIONAL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_PROFILE_PROFESSIONAL => 2
+    static PROFESSIONAL => 2
 }

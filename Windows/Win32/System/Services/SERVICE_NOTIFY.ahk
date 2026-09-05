@@ -7,52 +7,62 @@
 class SERVICE_NOTIFY extends Win32BitflagEnum {
 
     /**
+     * Native name: SERVICE_NOTIFY_CREATED
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_CREATED => 128
+    static CREATED => 128
 
     /**
+     * Native name: SERVICE_NOTIFY_CONTINUE_PENDING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_CONTINUE_PENDING => 16
+    static CONTINUE_PENDING => 16
 
     /**
+     * Native name: SERVICE_NOTIFY_DELETE_PENDING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_DELETE_PENDING => 512
+    static DELETE_PENDING => 512
 
     /**
+     * Native name: SERVICE_NOTIFY_DELETED
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_DELETED => 256
+    static DELETED => 256
 
     /**
+     * Native name: SERVICE_NOTIFY_PAUSE_PENDING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_PAUSE_PENDING => 32
+    static PAUSE_PENDING => 32
 
     /**
+     * Native name: SERVICE_NOTIFY_PAUSED
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_PAUSED => 64
+    static PAUSED => 64
 
     /**
+     * Native name: SERVICE_NOTIFY_RUNNING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_RUNNING => 8
+    static RUNNING => 8
 
     /**
+     * Native name: SERVICE_NOTIFY_START_PENDING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_START_PENDING => 2
+    static START_PENDING => 2
 
     /**
+     * Native name: SERVICE_NOTIFY_STOP_PENDING
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_STOP_PENDING => 4
+    static STOP_PENDING => 4
 
     /**
+     * Native name: SERVICE_NOTIFY_STOPPED
      * @type {Integer (UInt32)}
      */
-    static SERVICE_NOTIFY_STOPPED => 1
+    static STOPPED => 1
 }

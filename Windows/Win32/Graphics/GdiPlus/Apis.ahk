@@ -1628,7 +1628,6 @@ class GdiPlus {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer} _size 
      * @returns {Pointer<Void>} 
      */
@@ -1638,7 +1637,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ptr 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1649,7 +1647,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} token 
      * @param {Pointer<GdiplusStartupInput>} _input 
      * @param {Pointer<GdiplusStartupOutput>} output 
@@ -1664,7 +1661,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer} token 
      * @returns {String} Nothing - always returns an empty string
      * @since windows5.1.2600
@@ -1674,7 +1670,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Guid} guid 
      * @param {Pointer<Pointer<CGpEffect>>} _effect 
      * @returns {Status} 
@@ -1687,7 +1682,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<CGpEffect>} _effect 
      * @returns {Status} 
      */
@@ -1699,7 +1693,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<Integer>} _size 
      * @returns {Status} 
@@ -1713,7 +1706,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<Void>} params 
      * @param {Integer} _size 
@@ -1728,7 +1720,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<Integer>} _size 
      * @param {Pointer<Void>} params 
@@ -1744,7 +1735,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {FillMode} brushMode 
      * @param {Pointer<Pointer<GpPath>>} _path 
      * @returns {Status} 
@@ -1757,7 +1747,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<PointF>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
@@ -1774,7 +1763,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Point>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
@@ -1791,7 +1779,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Pointer<GpPath>>} clonePath 
      * @returns {Status} 
@@ -1804,7 +1791,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1814,7 +1800,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1824,7 +1809,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -1837,7 +1821,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} types 
      * @param {Integer} count 
@@ -1849,7 +1832,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} param0 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -1861,7 +1843,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} param0 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -1873,7 +1854,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<FillMode>} _fillmode 
      * @returns {Status} 
@@ -1886,7 +1866,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {FillMode} _fillmode 
      * @returns {Status} 
@@ -1897,7 +1876,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PathData>} _pathData 
      * @returns {Status} 
@@ -1910,7 +1888,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1920,7 +1897,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1930,7 +1906,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1940,7 +1915,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1950,7 +1924,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1960,7 +1933,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
      */
@@ -1970,7 +1942,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} lastPoint 
      * @returns {Status} 
@@ -1981,7 +1952,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x1 
      * @param {Float} y1 
@@ -1995,7 +1965,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2007,7 +1976,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
@@ -2023,7 +1991,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x1 
      * @param {Float} y1 
@@ -2041,7 +2008,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2053,7 +2019,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2065,7 +2030,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2078,7 +2042,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2093,7 +2056,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2105,7 +2067,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2118,7 +2079,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
@@ -2132,7 +2092,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<RectF>} rects 
      * @param {Integer} count 
@@ -2144,7 +2103,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
@@ -2158,7 +2116,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
@@ -2174,7 +2131,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
@@ -2186,7 +2142,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<GpPath>} addingPath 
      * @param {BOOL} connect 
@@ -2198,7 +2153,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {PWSTR} _string 
      * @param {Integer} length 
@@ -2217,7 +2171,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {PWSTR} _string 
      * @param {Integer} length 
@@ -2236,7 +2189,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x1 
      * @param {Integer} y1 
@@ -2250,7 +2202,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2262,7 +2213,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -2278,7 +2228,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x1 
      * @param {Integer} y1 
@@ -2296,7 +2245,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2308,7 +2256,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2320,7 +2267,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2333,7 +2279,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2348,7 +2293,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2360,7 +2304,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2373,7 +2316,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -2387,7 +2329,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Rect>} rects 
      * @param {Integer} count 
@@ -2399,7 +2340,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -2413,7 +2353,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -2429,7 +2368,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
@@ -2441,7 +2379,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Float} flatness 
@@ -2455,7 +2392,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Float} flatness 
@@ -2469,7 +2405,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} nativePath 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Matrix>} _matrix 
@@ -2484,7 +2419,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<PointF>} _points 
@@ -2505,7 +2439,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -2518,7 +2451,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<RectF>} bounds 
      * @param {Pointer<Matrix>} _matrix 
@@ -2533,7 +2465,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Rect>} bounds 
      * @param {Pointer<Matrix>} _matrix 
@@ -2548,7 +2479,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
@@ -2564,7 +2494,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -2580,7 +2509,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Float} x 
      * @param {Float} y 
@@ -2597,7 +2525,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -2614,7 +2541,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpPathIterator>>} iterator 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
@@ -2627,7 +2553,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @returns {Status} 
      */
@@ -2637,7 +2562,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
      * @param {Pointer<Integer>} startIndex 
@@ -2656,7 +2580,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
      * @param {Pointer<GpPath>} _path 
@@ -2672,7 +2595,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
      * @param {Pointer<Integer>} pathType 
@@ -2691,7 +2613,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
      * @param {Pointer<Integer>} startIndex 
@@ -2708,7 +2629,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
      * @param {Pointer<GpPath>} _path 
@@ -2722,7 +2642,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -2735,7 +2654,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -2748,7 +2666,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<BOOL>} valid 
      * @returns {Status} 
@@ -2761,7 +2678,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<BOOL>} hasCurve 
      * @returns {Status} 
@@ -2774,7 +2690,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @returns {Status} 
      */
@@ -2784,7 +2699,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
      * @param {Pointer<PointF>} _points 
@@ -2801,7 +2715,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathIterator>} iterator 
      * @param {Pointer<Integer>} resultCount 
      * @param {Pointer<PointF>} _points 
@@ -2819,7 +2732,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Matrix>>} _matrix 
      * @returns {Status} 
      */
@@ -2831,7 +2743,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Float} m11 
      * @param {Float} m12 
      * @param {Float} m21 
@@ -2849,7 +2760,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<RectF>} _rect 
      * @param {Pointer<PointF>} dstplg 
      * @param {Pointer<Pointer<Matrix>>} _matrix 
@@ -2863,7 +2773,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Rect>} _rect 
      * @param {Pointer<Point>} dstplg 
      * @param {Pointer<Pointer<Matrix>>} _matrix 
@@ -2877,7 +2786,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Pointer<Matrix>>} cloneMatrix 
      * @returns {Status} 
@@ -2891,7 +2799,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
      */
@@ -2903,7 +2810,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Float} m11 
      * @param {Float} m12 
@@ -2921,7 +2827,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Matrix>} matrix2 
      * @param {MatrixOrder} order 
@@ -2936,7 +2841,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Float} offsetX 
      * @param {Float} offsetY 
@@ -2951,7 +2855,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Float} scaleX 
      * @param {Float} scaleY 
@@ -2966,7 +2869,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Float} angle 
      * @param {MatrixOrder} order 
@@ -2980,7 +2882,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Float} shearX 
      * @param {Float} shearY 
@@ -2995,7 +2896,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
      */
@@ -3007,7 +2907,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<PointF>} pts 
      * @param {Integer} count 
@@ -3021,7 +2920,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Point>} pts 
      * @param {Integer} count 
@@ -3035,7 +2933,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<PointF>} pts 
      * @param {Integer} count 
@@ -3049,7 +2946,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Point>} pts 
      * @param {Integer} count 
@@ -3063,7 +2959,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Float>} matrixOut 
      * @returns {Status} 
@@ -3077,7 +2972,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<BOOL>} result 
      * @returns {Status} 
@@ -3091,7 +2985,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<BOOL>} result 
      * @returns {Status} 
@@ -3105,7 +2998,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Matrix>} _matrix 
      * @param {Pointer<Matrix>} matrix2 
      * @param {Pointer<BOOL>} result 
@@ -3121,7 +3013,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Status} 
      */
@@ -3133,7 +3024,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<RectF>} _rect 
      * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Status} 
@@ -3146,7 +3036,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Rect>} _rect 
      * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Status} 
@@ -3159,7 +3048,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Status} 
@@ -3172,7 +3060,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} regionData 
      * @param {Integer} _size 
      * @param {Pointer<Pointer<GpRegion>>} _region 
@@ -3187,7 +3074,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HRGN} _hRgn 
      * @param {Pointer<Pointer<GpRegion>>} _region 
      * @returns {Status} 
@@ -3202,7 +3088,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Pointer<GpRegion>>} cloneRegion 
      * @returns {Status} 
@@ -3215,7 +3100,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @returns {Status} 
      */
@@ -3225,7 +3109,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @returns {Status} 
      */
@@ -3235,7 +3118,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @returns {Status} 
      */
@@ -3245,7 +3127,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<RectF>} _rect 
      * @param {CombineMode} _combineMode 
@@ -3257,7 +3138,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Rect>} _rect 
      * @param {CombineMode} _combineMode 
@@ -3269,7 +3149,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpPath>} _path 
      * @param {CombineMode} _combineMode 
@@ -3281,7 +3160,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpRegion>} region2 
      * @param {CombineMode} _combineMode 
@@ -3293,7 +3171,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -3305,7 +3182,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Integer} dx 
      * @param {Integer} dy 
@@ -3317,7 +3193,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -3330,7 +3205,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<RectF>} _rect 
@@ -3342,7 +3216,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Rect>} _rect 
@@ -3354,7 +3227,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<HRGN>} _hRgn 
@@ -3366,7 +3238,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
@@ -3380,7 +3251,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
@@ -3394,7 +3264,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<GpRegion>} region2 
      * @param {Pointer<GpGraphics>} graphics 
@@ -3409,7 +3278,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Integer>} bufferSize 
      * @returns {Status} 
@@ -3422,7 +3290,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferSize 
@@ -3438,7 +3305,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Float} x 
      * @param {Float} y 
@@ -3454,7 +3320,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -3470,7 +3335,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Float} x 
      * @param {Float} y 
@@ -3488,7 +3352,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -3506,7 +3369,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Integer>} count 
      * @param {Pointer<Matrix>} _matrix 
@@ -3521,7 +3383,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<RectF>} rects 
      * @param {Pointer<Integer>} count 
@@ -3537,7 +3398,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpRegion>} _region 
      * @param {Pointer<Rect>} rects 
      * @param {Pointer<Integer>} count 
@@ -3553,7 +3413,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<Pointer<GpBrush>>} cloneBrush 
      * @returns {Status} 
@@ -3566,7 +3425,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBrush>} brush 
      * @returns {Status} 
      */
@@ -3576,7 +3434,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<BrushType>} type 
      * @returns {Status} 
@@ -3589,7 +3446,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HatchStyle} _hatchstyle 
      * @param {Integer} forecol 
      * @param {Integer} backcol 
@@ -3604,7 +3460,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpHatch>} brush 
      * @param {Pointer<HatchStyle>} _hatchstyle 
      * @returns {Status} 
@@ -3617,7 +3472,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpHatch>} brush 
      * @param {Pointer<Integer>} forecol 
      * @returns {Status} 
@@ -3630,7 +3484,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpHatch>} brush 
      * @param {Pointer<Integer>} backcol 
      * @returns {Status} 
@@ -3643,7 +3496,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {WrapMode} _wrapmode 
      * @param {Pointer<Pointer<GpTexture>>} texture 
@@ -3657,7 +3509,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {WrapMode} _wrapmode 
      * @param {Float} x 
@@ -3675,7 +3526,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @param {Float} x 
@@ -3693,7 +3543,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {WrapMode} _wrapmode 
      * @param {Integer} x 
@@ -3711,7 +3560,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<GpImageAttributes>} imageAttributes 
      * @param {Integer} x 
@@ -3729,7 +3577,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -3742,7 +3589,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -3755,7 +3601,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @returns {Status} 
      */
@@ -3765,7 +3610,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @param {MatrixOrder} order 
@@ -3779,7 +3623,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -3792,7 +3635,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Float} sx 
      * @param {Float} sy 
@@ -3805,7 +3647,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Float} angle 
      * @param {MatrixOrder} order 
@@ -3817,7 +3658,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {WrapMode} _wrapmode 
      * @returns {Status} 
@@ -3828,7 +3668,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Pointer<WrapMode>} _wrapmode 
      * @returns {Status} 
@@ -3841,7 +3680,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpTexture>} brush 
      * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Status} 
@@ -3854,7 +3692,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} _color 
      * @param {Pointer<Pointer<GpSolidFill>>} brush 
      * @returns {Status} 
@@ -3867,7 +3704,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpSolidFill>} brush 
      * @param {Integer} _color 
      * @returns {Status} 
@@ -3878,7 +3714,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpSolidFill>} brush 
      * @param {Pointer<Integer>} _color 
      * @returns {Status} 
@@ -3891,7 +3726,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<PointF>} point1 
      * @param {Pointer<PointF>} point2 
      * @param {Integer} color1 
@@ -3908,7 +3742,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Point>} point1 
      * @param {Pointer<Point>} point2 
      * @param {Integer} color1 
@@ -3925,7 +3758,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<RectF>} _rect 
      * @param {Integer} color1 
      * @param {Integer} color2 
@@ -3942,7 +3774,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Rect>} _rect 
      * @param {Integer} color1 
      * @param {Integer} color2 
@@ -3959,7 +3790,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<RectF>} _rect 
      * @param {Integer} color1 
      * @param {Integer} color2 
@@ -3977,7 +3807,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Rect>} _rect 
      * @param {Integer} color1 
      * @param {Integer} color2 
@@ -3995,7 +3824,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Integer} color1 
      * @param {Integer} color2 
@@ -4007,7 +3835,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Integer>} colors 
      * @returns {Status} 
@@ -4020,7 +3847,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<RectF>} _rect 
      * @returns {Status} 
@@ -4031,7 +3857,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Rect>} _rect 
      * @returns {Status} 
@@ -4042,7 +3867,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {BOOL} useGammaCorrection 
      * @returns {Status} 
@@ -4053,7 +3877,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<BOOL>} useGammaCorrection 
      * @returns {Status} 
@@ -4066,7 +3889,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -4079,7 +3901,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Float>} blend 
      * @param {Pointer<Float>} positions 
@@ -4095,7 +3916,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Float>} blend 
      * @param {Pointer<Float>} positions 
@@ -4111,7 +3931,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -4124,7 +3943,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Integer>} blend 
      * @param {Pointer<Float>} positions 
@@ -4140,7 +3958,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Integer>} blend 
      * @param {Pointer<Float>} positions 
@@ -4156,7 +3973,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Float} focus 
      * @param {Float} scale 
@@ -4168,7 +3984,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Float} focus 
      * @param {Float} scale 
@@ -4180,7 +3995,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {WrapMode} _wrapmode 
      * @returns {Status} 
@@ -4191,7 +4005,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<WrapMode>} _wrapmode 
      * @returns {Status} 
@@ -4204,7 +4017,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -4217,7 +4029,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -4230,7 +4041,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @returns {Status} 
      */
@@ -4240,7 +4050,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @param {MatrixOrder} order 
@@ -4254,7 +4063,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -4267,7 +4075,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Float} sx 
      * @param {Float} sy 
@@ -4280,7 +4087,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpLineGradient>} brush 
      * @param {Float} angle 
      * @param {MatrixOrder} order 
@@ -4292,7 +4098,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<PointF>} _points 
      * @param {Integer} count 
      * @param {WrapMode} _wrapMode 
@@ -4307,7 +4112,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Point>} _points 
      * @param {Integer} count 
      * @param {WrapMode} _wrapMode 
@@ -4322,7 +4126,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} _path 
      * @param {Pointer<Pointer<GpPathGradient>>} polyGradient 
      * @returns {Status} 
@@ -4335,7 +4138,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} colors 
      * @returns {Status} 
@@ -4348,7 +4150,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Integer} colors 
      * @returns {Status} 
@@ -4359,7 +4160,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} _color 
      * @param {Pointer<Integer>} count 
@@ -4374,7 +4174,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} _color 
      * @param {Pointer<Integer>} count 
@@ -4389,7 +4188,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
@@ -4400,7 +4198,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<GpPath>} _path 
      * @returns {Status} 
@@ -4411,7 +4208,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<PointF>} _points 
      * @returns {Status} 
@@ -4422,7 +4218,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Point>} _points 
      * @returns {Status} 
@@ -4433,7 +4228,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<PointF>} _points 
      * @returns {Status} 
@@ -4444,7 +4238,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Point>} _points 
      * @returns {Status} 
@@ -4455,7 +4248,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<RectF>} _rect 
      * @returns {Status} 
@@ -4466,7 +4258,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Rect>} _rect 
      * @returns {Status} 
@@ -4477,7 +4268,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -4490,7 +4280,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -4503,7 +4292,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {BOOL} useGammaCorrection 
      * @returns {Status} 
@@ -4514,7 +4302,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<BOOL>} useGammaCorrection 
      * @returns {Status} 
@@ -4527,7 +4314,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -4540,7 +4326,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Float>} blend 
      * @param {Pointer<Float>} positions 
@@ -4556,7 +4341,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Float>} blend 
      * @param {Pointer<Float>} positions 
@@ -4572,7 +4356,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -4585,7 +4368,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} blend 
      * @param {Pointer<Float>} positions 
@@ -4601,7 +4383,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Integer>} blend 
      * @param {Pointer<Float>} positions 
@@ -4617,7 +4398,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Float} focus 
      * @param {Float} scale 
@@ -4629,7 +4409,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Float} focus 
      * @param {Float} scale 
@@ -4641,7 +4420,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<WrapMode>} _wrapmode 
      * @returns {Status} 
@@ -4654,7 +4432,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {WrapMode} _wrapmode 
      * @returns {Status} 
@@ -4665,7 +4442,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -4678,7 +4454,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -4691,7 +4466,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @returns {Status} 
      */
@@ -4701,7 +4475,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Matrix>} _matrix 
      * @param {MatrixOrder} order 
@@ -4715,7 +4488,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -4728,7 +4500,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Float} sx 
      * @param {Float} sy 
@@ -4741,7 +4512,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Float} angle 
      * @param {MatrixOrder} order 
@@ -4753,7 +4523,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Pointer<Float>} xScale 
      * @param {Pointer<Float>} yScale 
@@ -4768,7 +4537,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPathGradient>} brush 
      * @param {Float} xScale 
      * @param {Float} yScale 
@@ -4780,7 +4548,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} _color 
      * @param {Float} width 
      * @param {Unit} _unit 
@@ -4795,7 +4562,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBrush>} brush 
      * @param {Float} width 
      * @param {Unit} _unit 
@@ -4810,7 +4576,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Pointer<GpPen>>} clonepen 
      * @returns {Status} 
@@ -4823,7 +4588,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @returns {Status} 
      */
@@ -4833,7 +4597,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} width 
      * @returns {Status} 
@@ -4844,7 +4607,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Float>} width 
      * @returns {Status} 
@@ -4857,7 +4619,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Unit} _unit 
      * @returns {Status} 
@@ -4868,7 +4629,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Unit>} _unit 
      * @returns {Status} 
@@ -4881,7 +4641,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {LineCap} startCap 
      * @param {LineCap} endCap 
@@ -4894,7 +4653,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {LineCap} startCap 
      * @returns {Status} 
@@ -4905,7 +4663,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {LineCap} endCap 
      * @returns {Status} 
@@ -4916,7 +4673,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {DashCap} _dashCap 
      * @returns {Status} 
@@ -4927,7 +4683,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<LineCap>} startCap 
      * @returns {Status} 
@@ -4940,7 +4695,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<LineCap>} endCap 
      * @returns {Status} 
@@ -4953,7 +4707,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<DashCap>} _dashCap 
      * @returns {Status} 
@@ -4966,7 +4719,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {LineJoin} _lineJoin 
      * @returns {Status} 
@@ -4977,7 +4729,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<LineJoin>} _lineJoin 
      * @returns {Status} 
@@ -4990,7 +4741,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @returns {Status} 
@@ -5001,7 +4751,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Pointer<GpCustomLineCap>>} customCap 
      * @returns {Status} 
@@ -5014,7 +4763,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @returns {Status} 
@@ -5025,7 +4773,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Pointer<GpCustomLineCap>>} customCap 
      * @returns {Status} 
@@ -5038,7 +4785,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} miterLimit 
      * @returns {Status} 
@@ -5049,7 +4795,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Float>} miterLimit 
      * @returns {Status} 
@@ -5062,7 +4807,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {PenAlignment} penMode 
      * @returns {Status} 
@@ -5073,7 +4817,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PenAlignment>} penMode 
      * @returns {Status} 
@@ -5086,7 +4829,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -5099,7 +4841,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -5112,7 +4853,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @returns {Status} 
      */
@@ -5122,7 +4862,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Matrix>} _matrix 
      * @param {MatrixOrder} order 
@@ -5136,7 +4875,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -5149,7 +4887,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} sx 
      * @param {Float} sy 
@@ -5162,7 +4899,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} angle 
      * @param {MatrixOrder} order 
@@ -5174,7 +4910,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} argb 
      * @returns {Status} 
@@ -5185,7 +4920,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Integer>} argb 
      * @returns {Status} 
@@ -5198,7 +4932,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<GpBrush>} brush 
      * @returns {Status} 
@@ -5209,7 +4942,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Pointer<GpBrush>>} brush 
      * @returns {Status} 
@@ -5222,7 +4954,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PenType>} type 
      * @returns {Status} 
@@ -5235,7 +4966,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<DashStyle>} _dashstyle 
      * @returns {Status} 
@@ -5248,7 +4978,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {DashStyle} _dashstyle 
      * @returns {Status} 
@@ -5259,7 +4988,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Float>} offset 
      * @returns {Status} 
@@ -5272,7 +5000,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} offset 
      * @returns {Status} 
@@ -5283,7 +5010,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -5296,7 +5022,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Float>} dash 
      * @param {Integer} count 
@@ -5310,7 +5035,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Float>} dash 
      * @param {Integer} count 
@@ -5324,7 +5048,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -5337,7 +5060,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Float>} dash 
      * @param {Integer} count 
@@ -5351,7 +5073,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Float>} dash 
      * @param {Integer} count 
@@ -5365,7 +5086,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpPath>} fillPath 
      * @param {Pointer<GpPath>} strokePath 
      * @param {LineCap} baseCap 
@@ -5381,7 +5101,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @returns {Status} 
      */
@@ -5391,7 +5110,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Pointer<Pointer<GpCustomLineCap>>} clonedCap 
      * @returns {Status} 
@@ -5404,7 +5122,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Pointer<CustomLineCapType>} capType 
      * @returns {Status} 
@@ -5417,7 +5134,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {LineCap} startCap 
      * @param {LineCap} endCap 
@@ -5429,7 +5145,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Pointer<LineCap>} startCap 
      * @param {Pointer<LineCap>} endCap 
@@ -5444,7 +5159,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {LineJoin} _lineJoin 
      * @returns {Status} 
@@ -5455,7 +5169,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Pointer<LineJoin>} _lineJoin 
      * @returns {Status} 
@@ -5468,7 +5181,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {LineCap} baseCap 
      * @returns {Status} 
@@ -5479,7 +5191,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Pointer<LineCap>} baseCap 
      * @returns {Status} 
@@ -5492,7 +5203,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Float} inset 
      * @returns {Status} 
@@ -5503,7 +5213,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Pointer<Float>} inset 
      * @returns {Status} 
@@ -5516,7 +5225,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Float} widthScale 
      * @returns {Status} 
@@ -5527,7 +5235,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCustomLineCap>} customCap 
      * @param {Pointer<Float>} widthScale 
      * @returns {Status} 
@@ -5540,7 +5247,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Float} height 
      * @param {Float} width 
      * @param {BOOL} isFilled 
@@ -5555,7 +5261,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {Float} height 
      * @returns {Status} 
@@ -5566,7 +5271,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {Pointer<Float>} height 
      * @returns {Status} 
@@ -5579,7 +5283,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {Float} width 
      * @returns {Status} 
@@ -5590,7 +5293,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {Pointer<Float>} width 
      * @returns {Status} 
@@ -5603,7 +5305,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {Float} middleInset 
      * @returns {Status} 
@@ -5614,7 +5315,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {Pointer<Float>} middleInset 
      * @returns {Status} 
@@ -5627,7 +5327,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {BOOL} fillState 
      * @returns {Status} 
@@ -5638,7 +5337,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpAdjustableArrowCap>} cap 
      * @param {Pointer<BOOL>} fillState 
      * @returns {Status} 
@@ -5651,7 +5349,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Status} 
@@ -5664,7 +5361,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} filename 
      * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Status} 
@@ -5679,7 +5375,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Status} 
@@ -5692,7 +5387,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} filename 
      * @param {Pointer<Pointer<GpImage>>} _image 
      * @returns {Status} 
@@ -5707,7 +5401,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Pointer<GpImage>>} cloneImage 
      * @returns {Status} 
@@ -5720,7 +5413,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @returns {Status} 
      */
@@ -5730,7 +5422,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {PWSTR} filename 
      * @param {Pointer<Guid>} clsidEncoder 
@@ -5745,7 +5436,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {IStream} stream 
      * @param {Pointer<Guid>} clsidEncoder 
@@ -5758,7 +5448,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<EncoderParameters>} encoderParams 
      * @returns {Status} 
@@ -5769,7 +5458,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<GpImage>} newImage 
      * @param {Pointer<EncoderParameters>} encoderParams 
@@ -5781,7 +5469,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Status} 
@@ -5794,7 +5481,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<RectF>} srcRect 
      * @param {Pointer<Unit>} srcUnit 
@@ -5808,7 +5494,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Float>} width 
      * @param {Pointer<Float>} height 
@@ -5823,7 +5508,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ImageType>} type 
      * @returns {Status} 
@@ -5836,7 +5520,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} width 
      * @returns {Status} 
@@ -5849,7 +5532,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} height 
      * @returns {Status} 
@@ -5862,7 +5544,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Float>} resolution 
      * @returns {Status} 
@@ -5875,7 +5556,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Float>} resolution 
      * @returns {Status} 
@@ -5888,7 +5568,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} flags 
      * @returns {Status} 
@@ -5901,7 +5580,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} format 
      * @returns {Status} 
@@ -5912,7 +5590,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} format 
      * @returns {Status} 
@@ -5925,7 +5602,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} thumbWidth 
      * @param {Integer} thumbHeight 
@@ -5943,7 +5619,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} clsidEncoder 
      * @param {Pointer<Integer>} _size 
@@ -5957,7 +5632,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} clsidEncoder 
      * @param {Integer} _size 
@@ -5970,7 +5644,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -5983,7 +5656,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} dimensionIDs 
      * @param {Integer} count 
@@ -5995,7 +5667,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} dimensionID 
      * @param {Pointer<Integer>} count 
@@ -6009,7 +5680,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Guid>} dimensionID 
      * @param {Integer} frameIndex 
@@ -6021,7 +5691,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {RotateFlipType} rfType 
      * @returns {Status} 
@@ -6032,7 +5701,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ColorPalette>} palette 
      * @param {Integer} _size 
@@ -6044,7 +5712,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ColorPalette>} palette 
      * @returns {Status} 
@@ -6055,7 +5722,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} _size 
      * @returns {Status} 
@@ -6068,7 +5734,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} numOfProperty 
      * @returns {Status} 
@@ -6081,7 +5746,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} numOfProperty 
      * @param {Pointer<Integer>} list 
@@ -6095,7 +5759,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} propId 
      * @param {Pointer<Integer>} _size 
@@ -6109,7 +5772,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} propId 
      * @param {Integer} propSize 
@@ -6122,7 +5784,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Integer>} totalBufferSize 
      * @param {Pointer<Integer>} numProperties 
@@ -6137,7 +5798,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} totalBufferSize 
      * @param {Integer} numProperties 
@@ -6150,7 +5810,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} propId 
      * @returns {Status} 
@@ -6161,7 +5820,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<PropertyItem>} item 
      * @returns {Status} 
@@ -6172,7 +5830,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ImageItemData>} item 
      * @returns {Status} 
@@ -6183,7 +5840,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ImageItemData>} item 
      * @returns {Status} 
@@ -6194,7 +5850,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<ImageItemData>} item 
      * @returns {Status} 
@@ -6205,7 +5860,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} _image 
      * @returns {Status} 
      */
@@ -6215,7 +5869,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Status} 
@@ -6228,7 +5881,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} filename 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Status} 
@@ -6243,7 +5895,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Status} 
@@ -6256,7 +5907,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} filename 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Status} 
@@ -6271,7 +5921,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} width 
      * @param {Integer} height 
      * @param {Integer} stride 
@@ -6289,7 +5938,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} width 
      * @param {Integer} height 
      * @param {Pointer<GpGraphics>} target 
@@ -6304,7 +5952,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface7} surface 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Status} 
@@ -6317,7 +5964,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<BITMAPINFO>} gdiBitmapInfo 
      * @param {Pointer<Void>} gdiBitmapData 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
@@ -6332,7 +5978,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HBITMAP} _hbm 
      * @param {HPALETTE} hpal 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
@@ -6349,7 +5994,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<HBITMAP>} hbmReturn 
      * @param {Integer} background 
@@ -6361,7 +6005,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HICON} _hicon 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
      * @returns {Status} 
@@ -6376,7 +6019,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<HICON>} hbmReturn 
      * @returns {Status} 
@@ -6387,7 +6029,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} lpBitmapName 
      * @param {Pointer<Pointer<GpBitmap>>} _bitmap 
@@ -6404,7 +6045,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} width 
@@ -6422,7 +6062,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
@@ -6440,7 +6079,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<Rect>} _rect 
      * @param {Integer} flags 
@@ -6454,7 +6092,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<BitmapData>} lockedBitmapData 
      * @returns {Status} 
@@ -6465,7 +6102,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -6480,7 +6116,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -6493,7 +6128,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImage>} pImage 
      * @param {GdiplusAbort} pIAbort 
      * @returns {Status} 
@@ -6504,7 +6138,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} pGraphics 
      * @param {GdiplusAbort} pIAbort 
      * @returns {Status} 
@@ -6515,7 +6148,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} pInputBitmap 
      * @param {Integer} format 
      * @param {DitherType} _dithertype 
@@ -6530,7 +6162,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<ColorPalette>} palette 
      * @param {PaletteType} _palettetype 
      * @param {Integer} optimalColors 
@@ -6544,7 +6175,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<CGpEffect>} _effect 
      * @param {Pointer<RECT>} roi 
@@ -6563,7 +6193,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpBitmap>>} inputBitmaps 
      * @param {Integer} numInputs 
      * @param {Pointer<CGpEffect>} _effect 
@@ -6587,7 +6216,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {HistogramFormat} format 
      * @param {Integer} NumberOfEntries 
@@ -6608,7 +6236,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HistogramFormat} format 
      * @param {Pointer<Integer>} NumberOfEntries 
      * @returns {Status} 
@@ -6621,7 +6248,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Float} xdpi 
      * @param {Float} ydpi 
@@ -6633,7 +6259,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpImageAttributes>>} imageattr 
      * @returns {Status} 
      */
@@ -6645,7 +6270,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {Pointer<Pointer<GpImageAttributes>>} cloneImageattr 
      * @returns {Status} 
@@ -6658,7 +6282,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @returns {Status} 
      */
@@ -6668,7 +6291,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @returns {Status} 
@@ -6679,7 +6301,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @returns {Status} 
@@ -6690,7 +6311,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6705,7 +6325,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6718,7 +6337,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6731,7 +6349,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6743,7 +6360,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6757,7 +6373,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6770,7 +6385,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6785,7 +6399,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {ColorAdjustType} type 
      * @param {BOOL} enableFlag 
@@ -6799,7 +6412,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageAttr 
      * @param {WrapMode} wrap 
      * @param {Integer} argb 
@@ -6812,7 +6424,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageAttr 
      * @param {Pointer<ColorPalette>} _colorPalette 
      * @param {ColorAdjustType} _colorAdjustType 
@@ -6824,7 +6435,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {FlushIntention} intention 
      * @returns {Status} 
@@ -6835,7 +6445,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Status} 
@@ -6850,7 +6459,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {HANDLE} hDevice 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
@@ -6867,7 +6475,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Status} 
@@ -6882,7 +6489,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Pointer<Pointer<GpGraphics>>} graphics 
      * @returns {Status} 
@@ -6897,7 +6503,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @returns {Status} 
      */
@@ -6907,7 +6512,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<HDC>} _hdc 
      * @returns {Status} 
@@ -6918,7 +6522,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {HDC} _hdc 
      * @returns {Status} 
@@ -6931,7 +6534,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {CompositingMode} _compositingMode 
      * @returns {Status} 
@@ -6942,7 +6544,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<CompositingMode>} _compositingMode 
      * @returns {Status} 
@@ -6955,7 +6556,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -6967,7 +6567,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} x 
      * @param {Pointer<Integer>} y 
@@ -6982,7 +6581,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {CompositingQuality} _compositingQuality 
      * @returns {Status} 
@@ -6993,7 +6591,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<CompositingQuality>} _compositingQuality 
      * @returns {Status} 
@@ -7006,7 +6603,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {SmoothingMode} _smoothingMode 
      * @returns {Status} 
@@ -7017,7 +6613,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<SmoothingMode>} _smoothingMode 
      * @returns {Status} 
@@ -7030,7 +6625,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {PixelOffsetMode} _pixelOffsetMode 
      * @returns {Status} 
@@ -7041,7 +6635,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<PixelOffsetMode>} _pixelOffsetMode 
      * @returns {Status} 
@@ -7054,7 +6647,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {TextRenderingHint} _mode 
      * @returns {Status} 
@@ -7065,7 +6657,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<TextRenderingHint>} _mode 
      * @returns {Status} 
@@ -7078,7 +6669,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} contrast 
      * @returns {Status} 
@@ -7089,7 +6679,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} contrast 
      * @returns {Status} 
@@ -7102,7 +6691,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {InterpolationMode} _interpolationMode 
      * @returns {Status} 
@@ -7113,7 +6701,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<InterpolationMode>} _interpolationMode 
      * @returns {Status} 
@@ -7126,7 +6713,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -7139,7 +6725,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @returns {Status} 
      */
@@ -7149,7 +6734,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Matrix>} _matrix 
      * @param {MatrixOrder} order 
@@ -7163,7 +6747,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -7176,7 +6759,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} sx 
      * @param {Float} sy 
@@ -7189,7 +6771,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} angle 
      * @param {MatrixOrder} order 
@@ -7201,7 +6782,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Matrix>} _matrix 
      * @returns {Status} 
@@ -7214,7 +6794,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @returns {Status} 
      */
@@ -7224,7 +6803,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Unit>} _unit 
      * @returns {Status} 
@@ -7237,7 +6815,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Float>} scale 
      * @returns {Status} 
@@ -7250,7 +6827,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Unit} _unit 
      * @returns {Status} 
@@ -7261,7 +6837,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} scale 
      * @returns {Status} 
@@ -7272,7 +6847,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Float>} dpi 
      * @returns {Status} 
@@ -7285,7 +6859,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Float>} dpi 
      * @returns {Status} 
@@ -7298,7 +6871,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {CoordinateSpace} destSpace 
      * @param {CoordinateSpace} srcSpace 
@@ -7312,7 +6884,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {CoordinateSpace} destSpace 
      * @param {CoordinateSpace} srcSpace 
@@ -7326,7 +6897,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} argb 
      * @returns {Status} 
@@ -7339,7 +6909,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @returns {HPALETTE} 
      */
     static GdipCreateHalftonePalette() {
@@ -7349,7 +6918,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} x1 
@@ -7364,7 +6932,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} x1 
@@ -7379,7 +6946,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7392,7 +6958,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7405,7 +6970,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} x 
@@ -7422,7 +6986,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} x 
@@ -7439,7 +7002,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} x1 
@@ -7458,7 +7020,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} x1 
@@ -7477,7 +7038,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7490,7 +7050,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7503,7 +7062,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} x 
@@ -7518,7 +7076,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} x 
@@ -7533,7 +7090,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<RectF>} rects 
@@ -7546,7 +7102,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Rect>} rects 
@@ -7559,7 +7114,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} x 
@@ -7574,7 +7128,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} x 
@@ -7589,7 +7142,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Float} x 
@@ -7606,7 +7158,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Integer} x 
@@ -7623,7 +7174,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7636,7 +7186,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7649,7 +7198,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<GpPath>} _path 
@@ -7661,7 +7209,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7674,7 +7221,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7687,7 +7233,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7701,7 +7246,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7715,7 +7259,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7731,7 +7274,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7747,7 +7289,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7760,7 +7301,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7773,7 +7313,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<PointF>} _points 
@@ -7787,7 +7326,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPen>} pen 
      * @param {Pointer<Point>} _points 
@@ -7801,7 +7339,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} _color 
      * @returns {Status} 
@@ -7812,7 +7349,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Float} x 
@@ -7827,7 +7363,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Integer} x 
@@ -7842,7 +7377,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<RectF>} rects 
@@ -7855,7 +7389,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<Rect>} rects 
@@ -7868,7 +7401,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<PointF>} _points 
@@ -7882,7 +7414,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<Point>} _points 
@@ -7896,7 +7427,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<PointF>} _points 
@@ -7909,7 +7439,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<Point>} _points 
@@ -7922,7 +7451,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Float} x 
@@ -7937,7 +7465,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Integer} x 
@@ -7952,7 +7479,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Float} x 
@@ -7969,7 +7495,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Integer} x 
@@ -7986,7 +7511,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<GpPath>} _path 
@@ -7998,7 +7522,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<PointF>} _points 
@@ -8011,7 +7534,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<Point>} _points 
@@ -8024,7 +7546,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<PointF>} _points 
@@ -8039,7 +7560,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<Point>} _points 
@@ -8054,7 +7574,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpBrush>} brush 
      * @param {Pointer<GpRegion>} _region 
@@ -8066,7 +7585,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<RectF>} source 
@@ -8085,7 +7603,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Float} x 
@@ -8098,7 +7615,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} x 
@@ -8111,7 +7627,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Float} x 
@@ -8126,7 +7641,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} x 
@@ -8141,7 +7655,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<PointF>} dstpoints 
@@ -8154,7 +7667,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Point>} dstpoints 
@@ -8167,7 +7679,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Float} x 
@@ -8185,7 +7696,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} x 
@@ -8203,7 +7713,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Float} dstx 
@@ -8228,7 +7737,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Integer} dstx 
@@ -8253,7 +7761,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<PointF>} _points 
@@ -8276,7 +7783,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpImage>} _image 
      * @param {Pointer<Point>} _points 
@@ -8299,7 +7805,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoint 
@@ -8316,7 +7821,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoint 
@@ -8333,7 +7837,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<RectF>} destRect 
@@ -8350,7 +7853,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Rect>} destRect 
@@ -8367,7 +7869,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoints 
@@ -8385,7 +7886,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoints 
@@ -8403,7 +7903,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoint 
@@ -8422,7 +7921,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoint 
@@ -8441,7 +7939,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<RectF>} destRect 
@@ -8460,7 +7957,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Rect>} destRect 
@@ -8479,7 +7975,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<PointF>} destPoints 
@@ -8499,7 +7994,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Point>} destPoints 
@@ -8519,7 +8013,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {EmfPlusRecordType} recordType 
      * @param {Integer} flags 
@@ -8535,7 +8028,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpGraphics>} srcgraphics 
      * @param {CombineMode} _combineMode 
@@ -8547,7 +8039,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} x 
      * @param {Float} y 
@@ -8562,7 +8053,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -8577,7 +8067,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpPath>} _path 
      * @param {CombineMode} _combineMode 
@@ -8589,7 +8078,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpRegion>} _region 
      * @param {CombineMode} _combineMode 
@@ -8601,7 +8089,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {HRGN} _hRgn 
      * @param {CombineMode} _combineMode 
@@ -8615,7 +8102,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @returns {Status} 
      */
@@ -8625,7 +8111,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -8637,7 +8122,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} dx 
      * @param {Integer} dy 
@@ -8649,7 +8133,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpRegion>} _region 
      * @returns {Status} 
@@ -8660,7 +8143,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<RectF>} _rect 
      * @returns {Status} 
@@ -8671,7 +8153,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Rect>} _rect 
      * @returns {Status} 
@@ -8682,7 +8163,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Status} 
@@ -8695,7 +8175,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<RectF>} _rect 
      * @returns {Status} 
@@ -8706,7 +8185,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Rect>} _rect 
      * @returns {Status} 
@@ -8717,7 +8195,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<BOOL>} result 
      * @returns {Status} 
@@ -8730,7 +8207,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} x 
      * @param {Float} y 
@@ -8745,7 +8221,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -8760,7 +8235,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Float} x 
      * @param {Float} y 
@@ -8777,7 +8251,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -8794,7 +8267,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} state 
      * @returns {Status} 
@@ -8807,7 +8279,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} state 
      * @returns {Status} 
@@ -8818,7 +8289,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<RectF>} dstrect 
      * @param {Pointer<RectF>} srcrect 
@@ -8834,7 +8304,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Rect>} dstrect 
      * @param {Pointer<Rect>} srcrect 
@@ -8850,7 +8319,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} state 
      * @returns {Status} 
@@ -8863,7 +8331,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} state 
      * @returns {Status} 
@@ -8874,7 +8341,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HMETAFILE} hWmf 
      * @param {Pointer<WmfPlaceableFileHeader>} _wmfPlaceableFileHeader 
      * @param {Pointer<MetafileHeader>} header 
@@ -8888,7 +8354,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HENHMETAFILE} hEmf 
      * @param {Pointer<MetafileHeader>} header 
      * @returns {Status} 
@@ -8901,7 +8366,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} filename 
      * @param {Pointer<MetafileHeader>} header 
      * @returns {Status} 
@@ -8914,7 +8378,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {Pointer<MetafileHeader>} header 
      * @returns {Status} 
@@ -8925,7 +8388,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<MetafileHeader>} header 
      * @returns {Status} 
@@ -8936,7 +8398,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<HENHMETAFILE>} hEmf 
      * @returns {Status} 
@@ -8947,7 +8408,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} filename 
      * @param {Integer} access 
      * @param {Pointer<IStream>} stream 
@@ -8961,7 +8421,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HMETAFILE} hWmf 
      * @param {BOOL} deleteWmf 
      * @param {Pointer<WmfPlaceableFileHeader>} _wmfPlaceableFileHeader 
@@ -8978,7 +8437,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HENHMETAFILE} hEmf 
      * @param {BOOL} deleteEmf 
      * @param {Pointer<Pointer<GpMetafile>>} _metafile 
@@ -8994,7 +8452,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} _file 
      * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Status} 
@@ -9009,7 +8466,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} _file 
      * @param {Pointer<WmfPlaceableFileHeader>} _wmfPlaceableFileHeader 
      * @param {Pointer<Pointer<GpMetafile>>} _metafile 
@@ -9025,7 +8481,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {Pointer<Pointer<GpMetafile>>} _metafile 
      * @returns {Status} 
@@ -9038,7 +8493,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HDC} referenceHdc 
      * @param {EmfType} type 
      * @param {Pointer<RectF>} frameRect 
@@ -9058,7 +8512,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HDC} referenceHdc 
      * @param {EmfType} type 
      * @param {Pointer<Rect>} frameRect 
@@ -9078,7 +8531,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} fileName 
      * @param {HDC} referenceHdc 
      * @param {EmfType} type 
@@ -9100,7 +8552,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} fileName 
      * @param {HDC} referenceHdc 
      * @param {EmfType} type 
@@ -9122,7 +8573,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {HDC} referenceHdc 
      * @param {EmfType} type 
@@ -9143,7 +8593,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {IStream} stream 
      * @param {HDC} referenceHdc 
      * @param {EmfType} type 
@@ -9164,7 +8613,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Integer} metafileRasterizationLimitDpi 
      * @returns {Status} 
@@ -9175,7 +8623,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} metafileRasterizationLimitDpi 
      * @returns {Status} 
@@ -9188,7 +8635,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} numDecoders 
      * @param {Pointer<Integer>} _size 
      * @returns {Status} 
@@ -9202,7 +8648,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} numDecoders 
      * @param {Integer} _size 
      * @param {Integer} decoders 
@@ -9214,7 +8659,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} numEncoders 
      * @param {Pointer<Integer>} _size 
      * @returns {Status} 
@@ -9228,7 +8672,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} numEncoders 
      * @param {Integer} _size 
      * @param {Integer} encoders 
@@ -9240,7 +8683,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Integer} sizeData 
      * @param {Pointer<Integer>} data 
@@ -9254,7 +8696,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {Pointer<Pointer<GpFontFamily>>} _fontFamily 
@@ -9270,7 +8711,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} _fontFamily 
      * @returns {Status} 
      */
@@ -9280,7 +8720,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} _fontFamily 
      * @param {Pointer<Pointer<GpFontFamily>>} clonedFontFamily 
      * @returns {Status} 
@@ -9293,7 +8732,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpFontFamily>>} nativeFamily 
      * @returns {Status} 
      */
@@ -9305,7 +8743,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpFontFamily>>} nativeFamily 
      * @returns {Status} 
      */
@@ -9317,7 +8754,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpFontFamily>>} nativeFamily 
      * @returns {Status} 
      */
@@ -9329,7 +8765,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} family 
      * @param {PWSTR} name 
      * @param {Integer} language 
@@ -9343,7 +8778,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
      * @param {Pointer<BOOL>} IsStyleAvailable 
@@ -9357,7 +8791,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
      * @param {Pointer<Integer>} EmHeight 
@@ -9371,7 +8804,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
      * @param {Pointer<Integer>} CellAscent 
@@ -9385,7 +8817,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
      * @param {Pointer<Integer>} CellDescent 
@@ -9399,7 +8830,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
      * @param {Pointer<Integer>} LineSpacing 
@@ -9413,7 +8843,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<Pointer<GpFont>>} _font 
      * @returns {Status} 
@@ -9428,7 +8857,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<LOGFONTA>} logfont 
      * @param {Pointer<Pointer<GpFont>>} _font 
@@ -9444,7 +8872,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<LOGFONTW>} logfont 
      * @param {Pointer<Pointer<GpFont>>} _font 
@@ -9460,7 +8887,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontFamily>} _fontFamily 
      * @param {Float} emSize 
      * @param {Integer} style 
@@ -9476,7 +8902,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Pointer<GpFont>>} cloneFont 
      * @returns {Status} 
@@ -9489,7 +8914,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @returns {Status} 
      */
@@ -9499,7 +8923,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Pointer<GpFontFamily>>} family 
      * @returns {Status} 
@@ -9512,7 +8935,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Integer>} style 
      * @returns {Status} 
@@ -9525,7 +8947,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Float>} _size 
      * @returns {Status} 
@@ -9538,7 +8959,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<Unit>} _unit 
      * @returns {Status} 
@@ -9551,7 +8971,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Float>} height 
@@ -9565,7 +8984,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Float} dpi 
      * @param {Pointer<Float>} height 
@@ -9579,7 +8997,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<LOGFONTA>} _logfontA 
@@ -9591,7 +9008,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFont>} _font 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<LOGFONTW>} _logfontW 
@@ -9603,7 +9019,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpFontCollection>>} _fontCollection 
      * @returns {Status} 
      */
@@ -9615,7 +9030,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpFontCollection>>} _fontCollection 
      * @returns {Status} 
      */
@@ -9627,7 +9041,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpFontCollection>>} _fontCollection 
      * @returns {Status} 
      */
@@ -9639,7 +9052,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {Pointer<Integer>} numFound 
      * @returns {Status} 
@@ -9652,7 +9064,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {Integer} numSought 
      * @param {Pointer<Pointer<GpFontFamily>>} gpfamilies 
@@ -9668,7 +9079,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {PWSTR} filename 
      * @returns {Status} 
@@ -9681,7 +9091,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpFontCollection>} _fontCollection 
      * @param {Pointer<Void>} memory 
      * @param {Integer} length 
@@ -9695,7 +9104,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {PWSTR} _string 
      * @param {Integer} length 
@@ -9713,7 +9121,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {PWSTR} _string 
      * @param {Integer} length 
@@ -9736,7 +9143,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {PWSTR} _string 
      * @param {Integer} length 
@@ -9757,7 +9163,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} text 
      * @param {Integer} length 
@@ -9777,7 +9182,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Integer>} text 
      * @param {Integer} length 
@@ -9797,7 +9201,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Integer} formatAttributes 
      * @param {Integer} language 
      * @param {Pointer<Pointer<GpStringFormat>>} format 
@@ -9811,7 +9214,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpStringFormat>>} format 
      * @returns {Status} 
      */
@@ -9823,7 +9225,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<GpStringFormat>>} format 
      * @returns {Status} 
      */
@@ -9835,7 +9236,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @returns {Status} 
      */
@@ -9845,7 +9245,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<Pointer<GpStringFormat>>} newFormat 
      * @returns {Status} 
@@ -9858,7 +9257,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Integer} flags 
      * @returns {Status} 
@@ -9869,7 +9267,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<Integer>} flags 
      * @returns {Status} 
@@ -9882,7 +9279,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {StringAlignment} align 
      * @returns {Status} 
@@ -9893,7 +9289,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<StringAlignment>} align 
      * @returns {Status} 
@@ -9906,7 +9301,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {StringAlignment} align 
      * @returns {Status} 
@@ -9917,7 +9311,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<StringAlignment>} align 
      * @returns {Status} 
@@ -9930,7 +9323,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {StringTrimming} trimming 
      * @returns {Status} 
@@ -9941,7 +9333,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<StringTrimming>} trimming 
      * @returns {Status} 
@@ -9954,7 +9345,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Integer} _hotkeyPrefix 
      * @returns {Status} 
@@ -9965,7 +9355,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<Integer>} _hotkeyPrefix 
      * @returns {Status} 
@@ -9978,7 +9367,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Float} firstTabOffset 
      * @param {Integer} count 
@@ -9993,7 +9381,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Integer} count 
      * @param {Pointer<Float>} firstTabOffset 
@@ -10009,7 +9396,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -10022,7 +9408,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Integer} language 
      * @param {StringDigitSubstitute} substitute 
@@ -10034,7 +9419,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<Integer>} language 
      * @param {Pointer<StringDigitSubstitute>} substitute 
@@ -10049,7 +9433,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Pointer<Integer>} count 
      * @returns {Status} 
@@ -10062,7 +9445,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpStringFormat>} format 
      * @param {Integer} rangeCount 
      * @param {Pointer<CharacterRange>} ranges 
@@ -10074,7 +9456,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpBitmap>} _bitmap 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<Pointer<GpCachedBitmap>>} _cachedBitmap 
@@ -10088,7 +9469,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpCachedBitmap>} _cachedBitmap 
      * @returns {Status} 
      */
@@ -10098,7 +9478,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} graphics 
      * @param {Pointer<GpCachedBitmap>} _cachedBitmap 
      * @param {Integer} x 
@@ -10111,7 +9490,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {HENHMETAFILE} hemf 
      * @param {Integer} cbData16 
      * @param {Pointer<Integer>} pData16 
@@ -10129,7 +9507,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpImageAttributes>} imageattr 
      * @param {BOOL} enableFlag 
      * @returns {Status} 
@@ -10140,7 +9517,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {GpTestControlEnum} control 
      * @param {Pointer<Void>} param1 
      * @returns {Status} 
@@ -10153,7 +9529,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} token 
      * @returns {Status} 
      */
@@ -10165,7 +9540,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer} token 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10174,7 +9548,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} refGraphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} conversionFailureFlag 
@@ -10194,7 +9567,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} refGraphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} conversionFailureFlag 
@@ -10216,7 +9588,6 @@ class GdiPlus {
     }
 
     /**
-     * 
      * @param {Pointer<GpGraphics>} refGraphics 
      * @param {Pointer<GpMetafile>} _metafile 
      * @param {Pointer<Integer>} conversionFailureFlag 

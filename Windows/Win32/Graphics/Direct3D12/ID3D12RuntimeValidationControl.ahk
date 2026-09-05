@@ -29,7 +29,6 @@ class ID3D12RuntimeValidationControl extends IUnknown {
     static VTableNames => ["DisableFailuresFromStricterValidationInAppLocalRuntime", "FailuresFromStricterValidationInAppLocalRuntimeDisabled"]
 
     /**
-     * 
      * @param {BOOL} bDisable 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -38,7 +37,6 @@ class ID3D12RuntimeValidationControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     FailuresFromStricterValidationInAppLocalRuntimeDisabled() {

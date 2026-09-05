@@ -30,7 +30,6 @@ class IRowPosition extends IUnknown {
     static VTableNames => ["ClearRowPosition", "GetRowPosition", "GetRowset", "Initialize", "SetRowPosition"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearRowPosition() {
@@ -39,7 +38,6 @@ class IRowPosition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} phChapter 
      * @param {Pointer<Pointer>} phRow 
      * @param {Pointer<Integer>} pdwPositionFlags 
@@ -55,7 +53,6 @@ class IRowPosition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -99,7 +96,6 @@ class IRowPosition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} hRow 
      * @param {Integer} dwPositionFlags 

@@ -7,92 +7,110 @@
 class KSPIN_LOCK_QUEUE_NUMBER extends Win32Enum {
 
     /**
+     * Native name: LockQueueUnusedSpare0
      * @type {Integer (Int32)}
      */
-    static LockQueueUnusedSpare0 => 0
+    static UnusedSpare0 => 0
 
     /**
+     * Native name: LockQueueUnusedSpare1
      * @type {Integer (Int32)}
      */
-    static LockQueueUnusedSpare1 => 1
+    static UnusedSpare1 => 1
 
     /**
+     * Native name: LockQueueUnusedSpare2
      * @type {Integer (Int32)}
      */
-    static LockQueueUnusedSpare2 => 2
+    static UnusedSpare2 => 2
 
     /**
+     * Native name: LockQueueUnusedSpare3
      * @type {Integer (Int32)}
      */
-    static LockQueueUnusedSpare3 => 3
+    static UnusedSpare3 => 3
 
     /**
+     * Native name: LockQueueVacbLock
      * @type {Integer (Int32)}
      */
-    static LockQueueVacbLock => 4
+    static VacbLock => 4
 
     /**
+     * Native name: LockQueueMasterLock
      * @type {Integer (Int32)}
      */
-    static LockQueueMasterLock => 5
+    static MasterLock => 5
 
     /**
+     * Native name: LockQueueNonPagedPoolLock
      * @type {Integer (Int32)}
      */
-    static LockQueueNonPagedPoolLock => 6
+    static NonPagedPoolLock => 6
 
     /**
+     * Native name: LockQueueIoCancelLock
      * @type {Integer (Int32)}
      */
-    static LockQueueIoCancelLock => 7
+    static IoCancelLock => 7
 
     /**
+     * Native name: LockQueueUnusedSpare8
      * @type {Integer (Int32)}
      */
-    static LockQueueUnusedSpare8 => 8
+    static UnusedSpare8 => 8
 
     /**
+     * Native name: LockQueueIoVpbLock
      * @type {Integer (Int32)}
      */
-    static LockQueueIoVpbLock => 9
+    static IoVpbLock => 9
 
     /**
+     * Native name: LockQueueIoDatabaseLock
      * @type {Integer (Int32)}
      */
-    static LockQueueIoDatabaseLock => 10
+    static IoDatabaseLock => 10
 
     /**
+     * Native name: LockQueueIoCompletionLock
      * @type {Integer (Int32)}
      */
-    static LockQueueIoCompletionLock => 11
+    static IoCompletionLock => 11
 
     /**
+     * Native name: LockQueueNtfsStructLock
      * @type {Integer (Int32)}
      */
-    static LockQueueNtfsStructLock => 12
+    static NtfsStructLock => 12
 
     /**
+     * Native name: LockQueueAfdWorkQueueLock
      * @type {Integer (Int32)}
      */
-    static LockQueueAfdWorkQueueLock => 13
+    static AfdWorkQueueLock => 13
 
     /**
+     * Native name: LockQueueBcbLock
      * @type {Integer (Int32)}
      */
-    static LockQueueBcbLock => 14
+    static BcbLock => 14
 
     /**
+     * Native name: LockQueueUnusedSpare15
      * @type {Integer (Int32)}
      */
-    static LockQueueUnusedSpare15 => 15
+    static UnusedSpare15 => 15
 
     /**
+     * Native name: LockQueueUnusedSpare16
      * @type {Integer (Int32)}
      */
-    static LockQueueUnusedSpare16 => 16
+    static UnusedSpare16 => 16
 
     /**
+     * Native name: LockQueueMaximumLock
      * @type {Integer (Int32)}
      */
-    static LockQueueMaximumLock => 17
+    static MaximumLock => 17
 }

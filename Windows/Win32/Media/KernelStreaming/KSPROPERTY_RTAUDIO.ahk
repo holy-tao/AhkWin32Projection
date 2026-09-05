@@ -7,72 +7,86 @@
 class KSPROPERTY_RTAUDIO extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_GETPOSITIONFUNCTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_GETPOSITIONFUNCTION => 0
+    static GETPOSITIONFUNCTION => 0
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_BUFFER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_BUFFER => 1
+    static BUFFER => 1
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_HWLATENCY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_HWLATENCY => 2
+    static HWLATENCY => 2
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_POSITIONREGISTER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_POSITIONREGISTER => 3
+    static POSITIONREGISTER => 3
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_CLOCKREGISTER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_CLOCKREGISTER => 4
+    static CLOCKREGISTER => 4
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_BUFFER_WITH_NOTIFICATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_BUFFER_WITH_NOTIFICATION => 5
+    static BUFFER_WITH_NOTIFICATION => 5
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_REGISTER_NOTIFICATION_EVENT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_REGISTER_NOTIFICATION_EVENT => 6
+    static REGISTER_NOTIFICATION_EVENT => 6
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_UNREGISTER_NOTIFICATION_EVENT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_UNREGISTER_NOTIFICATION_EVENT => 7
+    static UNREGISTER_NOTIFICATION_EVENT => 7
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_QUERY_NOTIFICATION_SUPPORT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_QUERY_NOTIFICATION_SUPPORT => 8
+    static QUERY_NOTIFICATION_SUPPORT => 8
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_PACKETCOUNT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_PACKETCOUNT => 9
+    static PACKETCOUNT => 9
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_PRESENTATION_POSITION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_PRESENTATION_POSITION => 10
+    static PRESENTATION_POSITION => 10
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_GETREADPACKET
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_GETREADPACKET => 11
+    static GETREADPACKET => 11
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_SETWRITEPACKET
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_SETWRITEPACKET => 12
+    static SETWRITEPACKET => 12
 
     /**
+     * Native name: KSPROPERTY_RTAUDIO_PACKETVREGISTER
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_RTAUDIO_PACKETVREGISTER => 13
+    static PACKETVREGISTER => 13
 }

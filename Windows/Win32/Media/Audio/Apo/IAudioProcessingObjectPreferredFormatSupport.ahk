@@ -30,7 +30,6 @@ class IAudioProcessingObjectPreferredFormatSupport extends IUnknown {
     static VTableNames => ["GetPreferredInputFormat", "GetPreferredOutputFormat"]
 
     /**
-     * 
      * @param {IAudioMediaType} outputFormat 
      * @returns {IAudioMediaType} 
      */
@@ -40,7 +39,6 @@ class IAudioProcessingObjectPreferredFormatSupport extends IUnknown {
     }
 
     /**
-     * 
      * @param {IAudioMediaType} inputFormat 
      * @returns {IAudioMediaType} 
      */

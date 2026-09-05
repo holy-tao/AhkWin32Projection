@@ -32,7 +32,6 @@ class IDebugHostTypeSignature extends IUnknown {
     static VTableNames => ["GetHashCode", "IsMatch", "CompareAgainst"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHashCode() {
@@ -41,7 +40,6 @@ class IDebugHostTypeSignature extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostType} type 
      * @param {Pointer<Boolean>} isMatch 
      * @param {Pointer<IDebugHostSymbolEnumerator>} wildcardMatches 
@@ -55,7 +53,6 @@ class IDebugHostTypeSignature extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {SignatureComparison} 
      */

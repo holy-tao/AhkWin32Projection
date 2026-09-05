@@ -10,13 +10,15 @@ class DWRITE_OPTICAL_ALIGNMENT extends Win32Enum {
 
     /**
      * Align to the default origin and side-bearings of the glyph.
+     * Native name: DWRITE_OPTICAL_ALIGNMENT_NONE
      * @type {Integer (Int32)}
      */
-    static DWRITE_OPTICAL_ALIGNMENT_NONE => 0
+    static NONE => 0
 
     /**
      * Align to the ink of the glyphs, such that the black box abuts the margins.
+     * Native name: DWRITE_OPTICAL_ALIGNMENT_NO_SIDE_BEARINGS
      * @type {Integer (Int32)}
      */
-    static DWRITE_OPTICAL_ALIGNMENT_NO_SIDE_BEARINGS => 1
+    static NO_SIDE_BEARINGS => 1
 }

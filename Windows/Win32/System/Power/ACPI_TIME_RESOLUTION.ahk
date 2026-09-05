@@ -7,17 +7,20 @@
 class ACPI_TIME_RESOLUTION extends Win32Enum {
 
     /**
+     * Native name: AcpiTimeResolutionMilliseconds
      * @type {Integer (Int32)}
      */
-    static AcpiTimeResolutionMilliseconds => 0
+    static Milliseconds => 0
 
     /**
+     * Native name: AcpiTimeResolutionSeconds
      * @type {Integer (Int32)}
      */
-    static AcpiTimeResolutionSeconds => 1
+    static Seconds => 1
 
     /**
+     * Native name: AcpiTimeResolutionMax
      * @type {Integer (Int32)}
      */
-    static AcpiTimeResolutionMax => 2
+    static Max => 2
 }

@@ -29,7 +29,6 @@ class ITxProxyHolder extends IUnknown {
     static VTableNames => ["GetIdentifier"]
 
     /**
-     * 
      * @param {Pointer<Guid>} pGuidLtx 
      * @returns {String} Nothing - always returns an empty string
      */

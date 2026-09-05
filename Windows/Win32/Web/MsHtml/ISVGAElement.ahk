@@ -43,7 +43,6 @@ class ISVGAElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedString} v 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ISVGAElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedString} 
      */
     get_target() {

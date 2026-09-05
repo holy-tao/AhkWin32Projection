@@ -10,19 +10,22 @@ class DML_RECURRENT_NETWORK_DIRECTION extends Win32Enum {
 
     /**
      * Indicates the forward pass.
+     * Native name: DML_RECURRENT_NETWORK_DIRECTION_FORWARD
      * @type {Integer (Int32)}
      */
-    static DML_RECURRENT_NETWORK_DIRECTION_FORWARD => 0
+    static FORWARD => 0
 
     /**
      * Indicates the backward pass.
+     * Native name: DML_RECURRENT_NETWORK_DIRECTION_BACKWARD
      * @type {Integer (Int32)}
      */
-    static DML_RECURRENT_NETWORK_DIRECTION_BACKWARD => 1
+    static BACKWARD => 1
 
     /**
      * Indicates both passes.
+     * Native name: DML_RECURRENT_NETWORK_DIRECTION_BIDIRECTIONAL
      * @type {Integer (Int32)}
      */
-    static DML_RECURRENT_NETWORK_DIRECTION_BIDIRECTIONAL => 2
+    static BIDIRECTIONAL => 2
 }

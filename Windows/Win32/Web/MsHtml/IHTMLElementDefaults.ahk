@@ -119,7 +119,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyle} 
      */
     get_style() {
@@ -128,7 +127,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -138,7 +136,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_tabStop() {
@@ -147,7 +144,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -157,7 +153,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_viewInheritStyle() {
@@ -166,7 +161,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -176,7 +170,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_viewMasterTab() {
@@ -185,7 +178,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -195,7 +187,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollSegmentX() {
@@ -204,7 +195,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -214,7 +204,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollSegmentY() {
@@ -223,7 +212,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -233,7 +221,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isMultiLine() {
@@ -242,7 +229,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -254,7 +240,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentEditable() {
@@ -264,7 +249,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -274,7 +258,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_canHaveHTML() {
@@ -283,7 +266,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDocument} v 
      * @returns {HRESULT} 
      */
@@ -293,7 +275,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument} 
      */
     get_viewLink() {
@@ -302,7 +283,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -312,7 +292,6 @@ class IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frozen() {

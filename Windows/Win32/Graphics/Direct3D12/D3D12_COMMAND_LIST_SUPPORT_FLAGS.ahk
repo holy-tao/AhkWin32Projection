@@ -10,48 +10,56 @@ class D3D12_COMMAND_LIST_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies that no command list supports the operation in question.
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Specifies that direct command lists can support the operation in question.
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_DIRECT
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_DIRECT => 1
+    static FLAG_DIRECT => 1
 
     /**
      * Specifies that command list bundles can support the operation in question.
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_BUNDLE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_BUNDLE => 2
+    static FLAG_BUNDLE => 2
 
     /**
      * Specifies that compute command lists can support the operation in question.
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_COMPUTE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_COMPUTE => 4
+    static FLAG_COMPUTE => 4
 
     /**
      * Specifies that copy command lists can support the operation in question.
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_COPY
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_COPY => 8
+    static FLAG_COPY => 8
 
     /**
      * Specifies that video-decode command lists can support the operation in question.
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE => 16
+    static FLAG_VIDEO_DECODE => 16
 
     /**
      * Specifies that video-processing command lists can support the operation is question.
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS => 32
+    static FLAG_VIDEO_PROCESS => 32
 
     /**
+     * Native name: D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE => 64
+    static FLAG_VIDEO_ENCODE => 64
 }

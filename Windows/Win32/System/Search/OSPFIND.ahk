@@ -7,22 +7,26 @@
 class OSPFIND extends Win32Enum {
 
     /**
+     * Native name: OSPFIND_DEFAULT
      * @type {Integer (Int32)}
      */
-    static OSPFIND_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: OSPFIND_UP
      * @type {Integer (Int32)}
      */
-    static OSPFIND_UP => 1
+    static UP => 1
 
     /**
+     * Native name: OSPFIND_CASESENSITIVE
      * @type {Integer (Int32)}
      */
-    static OSPFIND_CASESENSITIVE => 2
+    static CASESENSITIVE => 2
 
     /**
+     * Native name: OSPFIND_UPCASESENSITIVE
      * @type {Integer (Int32)}
      */
-    static OSPFIND_UPCASESENSITIVE => 3
+    static UPCASESENSITIVE => 3
 }

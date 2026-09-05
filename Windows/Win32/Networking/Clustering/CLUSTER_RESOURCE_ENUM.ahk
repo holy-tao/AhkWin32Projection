@@ -13,31 +13,35 @@ class CLUSTER_RESOURCE_ENUM extends Win32Enum {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a> functions directly 
      *        depends on.
+     * Native name: CLUSTER_RESOURCE_ENUM_DEPENDS
      * @type {Integer (Int32)}
      */
-    static CLUSTER_RESOURCE_ENUM_DEPENDS => 1
+    static DEPENDS => 1
 
     /**
      * A resource that directly depends on the resource identified by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a> functions.
+     * Native name: CLUSTER_RESOURCE_ENUM_PROVIDES
      * @type {Integer (Int32)}
      */
-    static CLUSTER_RESOURCE_ENUM_PROVIDES => 2
+    static PROVIDES => 2
 
     /**
      * A node that can host the resource identified by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a> functions.
+     * Native name: CLUSTER_RESOURCE_ENUM_NODES
      * @type {Integer (Int32)}
      */
-    static CLUSTER_RESOURCE_ENUM_NODES => 4
+    static NODES => 4
 
     /**
      * All nodes and resources identified by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a> functions.
+     * Native name: CLUSTER_RESOURCE_ENUM_ALL
      * @type {Integer (Int32)}
      */
-    static CLUSTER_RESOURCE_ENUM_ALL => 7
+    static ALL => 7
 }

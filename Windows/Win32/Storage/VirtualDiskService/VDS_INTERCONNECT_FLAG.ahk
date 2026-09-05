@@ -13,25 +13,29 @@ class VDS_INTERCONNECT_FLAG extends Win32Enum {
 
     /**
      * The subsystem supports a PCI RAID interconnect.
+     * Native name: VDS_ITF_PCI_RAID
      * @type {Integer (Int32)}
      */
-    static VDS_ITF_PCI_RAID => 1
+    static ITF_PCI_RAID => 1
 
     /**
      * The subsystem supports a Fibre Channel interconnect.
+     * Native name: VDS_ITF_FIBRE_CHANNEL
      * @type {Integer (Int32)}
      */
-    static VDS_ITF_FIBRE_CHANNEL => 2
+    static ITF_FIBRE_CHANNEL => 2
 
     /**
      * The subsystem supports an iSCSI interconnect.
+     * Native name: VDS_ITF_ISCSI
      * @type {Integer (Int32)}
      */
-    static VDS_ITF_ISCSI => 4
+    static ITF_ISCSI => 4
 
     /**
      * The subsystem supports a serial attached iSCSI (SAS) interconnect.
+     * Native name: VDS_ITF_SAS
      * @type {Integer (Int32)}
      */
-    static VDS_ITF_SAS => 8
+    static ITF_SAS => 8
 }

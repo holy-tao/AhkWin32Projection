@@ -29,7 +29,6 @@ class ILearningModelSessionOptionsNative extends IUnknown {
     static VTableNames => ["SetIntraOpNumThreadsOverride"]
 
     /**
-     * 
      * @param {Integer} intraOpNumThreads 
      * @returns {HRESULT} 
      */

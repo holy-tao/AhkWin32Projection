@@ -30,7 +30,6 @@ class IActionOnCLREvent extends IUnknown {
     static VTableNames => ["OnEvent"]
 
     /**
-     * 
      * @param {EClrEvent} event 
      * @param {Pointer<Void>} data 
      * @returns {HRESULT} 

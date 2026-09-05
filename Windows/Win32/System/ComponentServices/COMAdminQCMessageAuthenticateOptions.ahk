@@ -7,17 +7,20 @@
 class COMAdminQCMessageAuthenticateOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminQCMessageAuthenticateSecureApps
      * @type {Integer (Int32)}
      */
-    static COMAdminQCMessageAuthenticateSecureApps => 0
+    static SecureApps => 0
 
     /**
+     * Native name: COMAdminQCMessageAuthenticateOff
      * @type {Integer (Int32)}
      */
-    static COMAdminQCMessageAuthenticateOff => 1
+    static Off => 1
 
     /**
+     * Native name: COMAdminQCMessageAuthenticateOn
      * @type {Integer (Int32)}
      */
-    static COMAdminQCMessageAuthenticateOn => 2
+    static On => 2
 }

@@ -7,7 +7,8 @@
 class KSINTERFACE_FILEIO extends Win32Enum {
 
     /**
+     * Native name: KSINTERFACE_FILEIO_STREAMING
      * @type {Integer (Int32)}
      */
-    static KSINTERFACE_FILEIO_STREAMING => 0
+    static STREAMING => 0
 }

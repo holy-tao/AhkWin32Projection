@@ -11,62 +11,74 @@
 class UpdateAssessmentStatus extends Win32Enum {
 
     /**
+     * Native name: UpdateAssessmentStatus_Latest
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_Latest => 0
+    static Latest => 0
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestSoftRestriction
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestSoftRestriction => 1
+    static NotLatestSoftRestriction => 1
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestHardRestriction
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestHardRestriction => 2
+    static NotLatestHardRestriction => 2
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestEndOfSupport
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestEndOfSupport => 3
+    static NotLatestEndOfSupport => 3
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestServicingTrain
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestServicingTrain => 4
+    static NotLatestServicingTrain => 4
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestDeferredFeature
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestDeferredFeature => 5
+    static NotLatestDeferredFeature => 5
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestDeferredQuality
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestDeferredQuality => 6
+    static NotLatestDeferredQuality => 6
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestPausedFeature
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestPausedFeature => 7
+    static NotLatestPausedFeature => 7
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestPausedQuality
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestPausedQuality => 8
+    static NotLatestPausedQuality => 8
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestManaged
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestManaged => 9
+    static NotLatestManaged => 9
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestUnknown
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestUnknown => 10
+    static NotLatestUnknown => 10
 
     /**
+     * Native name: UpdateAssessmentStatus_NotLatestTargetedVersion
      * @type {Integer (Int32)}
      */
-    static UpdateAssessmentStatus_NotLatestTargetedVersion => 11
+    static NotLatestTargetedVersion => 11
 }

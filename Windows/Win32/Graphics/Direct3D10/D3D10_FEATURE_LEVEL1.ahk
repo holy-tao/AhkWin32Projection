@@ -20,31 +20,36 @@ class D3D10_FEATURE_LEVEL1 extends Win32Enum {
 
     /**
      * The hardware supports Direct3D 10.0 features.
+     * Native name: D3D10_FEATURE_LEVEL_10_0
      * @type {Integer (Int32)}
      */
-    static D3D10_FEATURE_LEVEL_10_0 => 40960
+    static 10_0 => 40960
 
     /**
      * The hardware supports Direct3D 10.1 features.
+     * Native name: D3D10_FEATURE_LEVEL_10_1
      * @type {Integer (Int32)}
      */
-    static D3D10_FEATURE_LEVEL_10_1 => 41216
+    static 10_1 => 41216
 
     /**
      * The hardware supports 9.1 <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a>.
+     * Native name: D3D10_FEATURE_LEVEL_9_1
      * @type {Integer (Int32)}
      */
-    static D3D10_FEATURE_LEVEL_9_1 => 37120
+    static 9_1 => 37120
 
     /**
      * The hardware supports 9.2 <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a>.
+     * Native name: D3D10_FEATURE_LEVEL_9_2
      * @type {Integer (Int32)}
      */
-    static D3D10_FEATURE_LEVEL_9_2 => 37376
+    static 9_2 => 37376
 
     /**
      * The hardware supports 9.3 <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a>.
+     * Native name: D3D10_FEATURE_LEVEL_9_3
      * @type {Integer (Int32)}
      */
-    static D3D10_FEATURE_LEVEL_9_3 => 37632
+    static 9_3 => 37632
 }

@@ -30,7 +30,6 @@ class ITransactionReceiver extends IUnknown {
     static VTableNames => ["UnmarshalPropagationToken", "GetReturnTokenSize", "MarshalReturnToken", "Reset"]
 
     /**
-     * 
      * @param {Integer} cbToken 
      * @param {Pointer<Integer>} rgbToken 
      * @returns {ITransaction} 
@@ -43,7 +42,6 @@ class ITransactionReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetReturnTokenSize() {
@@ -52,7 +50,6 @@ class ITransactionReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbReturnToken 
      * @param {Pointer<Integer>} rgbReturnToken 
      * @param {Pointer<Integer>} pcbUsed 
@@ -67,7 +64,6 @@ class ITransactionReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {

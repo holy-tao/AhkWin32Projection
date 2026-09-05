@@ -30,7 +30,6 @@ class IPrintReadStreamFactory extends IUnknown {
     static VTableNames => ["GetStream"]
 
     /**
-     * 
      * @returns {IPrintReadStream} 
      */
     GetStream() {

@@ -10,25 +10,29 @@ class WLAN_OPCODE_VALUE_TYPE extends Win32Enum {
 
     /**
      * The auto config settings were queried, but the origin of the settings was not determined.
+     * Native name: wlan_opcode_value_type_query_only
      * @type {Integer (Int32)}
      */
-    static wlan_opcode_value_type_query_only => 0
+    static query_only => 0
 
     /**
      * The auto config settings were set by group policy.
+     * Native name: wlan_opcode_value_type_set_by_group_policy
      * @type {Integer (Int32)}
      */
-    static wlan_opcode_value_type_set_by_group_policy => 1
+    static set_by_group_policy => 1
 
     /**
      * The auto config settings were set by the user.
+     * Native name: wlan_opcode_value_type_set_by_user
      * @type {Integer (Int32)}
      */
-    static wlan_opcode_value_type_set_by_user => 2
+    static set_by_user => 2
 
     /**
      * The auto config settings are invalid.
+     * Native name: wlan_opcode_value_type_invalid
      * @type {Integer (Int32)}
      */
-    static wlan_opcode_value_type_invalid => 3
+    static invalid => 3
 }

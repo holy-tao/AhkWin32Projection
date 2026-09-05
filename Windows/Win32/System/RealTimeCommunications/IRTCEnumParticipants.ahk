@@ -30,7 +30,6 @@ class IRTCEnumParticipants extends IUnknown {
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {IRTCParticipant} 
@@ -43,7 +42,6 @@ class IRTCEnumParticipants extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -52,7 +50,6 @@ class IRTCEnumParticipants extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class IRTCEnumParticipants extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumParticipants} 
      */
     Clone() {

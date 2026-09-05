@@ -10,28 +10,32 @@ class CF_HYDRATION_POLICY_PRIMARY extends Win32Enum {
 
     /**
      * The same behavior as **CF_HYDRATION_POLICY_PROGRESSIVE**, except that **CF_HYDRATION_POLICY_PARTIAL** does not have continuous hydration in the background.
+     * Native name: CF_HYDRATION_POLICY_PARTIAL
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_PARTIAL => 0
+    static PARTIAL => 0
 
     /**
      * When **CF_HYDRATION_POLICY_PROGRESSIVE** is selected, the platform will allow a placeholder to be dehydrated. When the platform detects access to a dehydrated placeholder, it will complete the user IO request as soon as it determines that sufficient data is received from the sync provider. However, the platform will continue requesting the remaining content in the placeholder from the sync provider in the background until either the full content of the placeholder is available locally, or the last user handle on the placeholder is closed.
      * 
      * >[!NOTE]
      * >Sync providers who opt in for **CF_HYDRATION_POLICY_PROGRESSIVE** may not assume that hydration callbacks arrive sequentially from offset 0. In other words, sync providers with **CF_HYDRATION_POLICY_PROGRESSIVE** policy are expected to handle random seeks on the placeholder.
+     * Native name: CF_HYDRATION_POLICY_PROGRESSIVE
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_PROGRESSIVE => 1
+    static PROGRESSIVE => 1
 
     /**
      * When **CF_HYDRATION_POLICY_FULL** is selected, the platform will allow a placeholder to be dehydrated. When the platform detects access to a dehydrated placeholder, it will ensure that the full content of the placeholder is available locally before completing the user IO request, even if the request is only asking for 1 byte.
+     * Native name: CF_HYDRATION_POLICY_FULL
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_FULL => 2
+    static FULL => 2
 
     /**
      * When **CF_HYDRATION_POLICY_ALWAYS_FULL** is selected, the platform will block any placeholder operation that could result in a not fully hydrated placeholder, which includes [CfCreatePlaceholders](nf-cfapi-cfcreateplaceholders.md), [CfUpdatePlaceholder](nf-cfapi-cfupdateplaceholder.md) with the dehydrate option, and [CfConvertToPlaceholder](nf-cfapi-cfconverttoplaceholder.md) with the dehydrate option.
+     * Native name: CF_HYDRATION_POLICY_ALWAYS_FULL
      * @type {Integer (UInt16)}
      */
-    static CF_HYDRATION_POLICY_ALWAYS_FULL => 3
+    static ALWAYS_FULL => 3
 }

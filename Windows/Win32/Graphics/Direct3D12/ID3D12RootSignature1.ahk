@@ -29,7 +29,6 @@ class ID3D12RootSignature1 extends ID3D12RootSignature {
     static VTableNames => ["GetSerializedSize", "GetSerializedData"]
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetSerializedSize() {
@@ -38,7 +37,6 @@ class ID3D12RootSignature1 extends ID3D12RootSignature {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {Pointer} _Size 
      * @returns {HRESULT} 

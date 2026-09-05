@@ -10,23 +10,26 @@ class D3D12_RAY_FLAGS extends Win32BitflagEnum {
 
     /**
      * No options selected.
+     * Native name: D3D12_RAY_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * All ray-primitive intersections encountered in a raytrace are treated as opaque. So no any hit shaders will be executed regardless of whether or not the hit geometry specifies D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE, and regardless of the instance flags on the instance that was hit.
      * 
      * This flag is mutually exclusive with RAY_FLAG_FORCE_NON_OPAQUE, RAY_FLAG_CULL_OPAQUE and RAY_FLAG_CULL_NON_OPAQUE.
+     * Native name: D3D12_RAY_FLAG_FORCE_OPAQUE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_FORCE_OPAQUE => 1
+    static FLAG_FORCE_OPAQUE => 1
 
     /**
      * All ray-primitive intersections encountered in a raytrace are treated as non-opaque. So any hit shaders, if present, will be executed regardless of whether or not the hit geometry specifies D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE, and regardless of the instance flags on the instance that was hit. This flag is mutually exclusive with RAY_FLAG_FORCE_\OPAQUE, RAY_FLAG_CULL_OPAQUE and RAY_FLAG_CULL_NON_OPAQUE.
+     * Native name: D3D12_RAY_FLAG_FORCE_NON_OPAQUE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_FORCE_NON_OPAQUE => 2
+    static FLAG_FORCE_NON_OPAQUE => 2
 
     /**
      * The first ray-primitive intersection encountered in a raytrace automatically causes <a href="https://docs.microsoft.com/windows/desktop/direct3d12/accepthitandendsearch-function">AcceptHitAndEndSearch</a> to be called immediately after the any hit shader, including if there is no any hit shader.
@@ -36,15 +39,17 @@ class D3D12_RAY_FLAGS extends Win32BitflagEnum {
      * If a closest hit shader is present at the first hit, it gets invoked unless RAY_FLAG_SKIP_CLOSEST_HIT_SHADER is also present. The one hit that was found is considered “closest”, even though other potential hits that might be closer on the ray may not have been visited.
      * 
      * A typical use for this flag is for shadows, where only a single hit needs to be found.
+     * Native name: D3D12_RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH => 4
+    static FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH => 4
 
     /**
      * Even if at least one hit has been committed, and the hit group for the closest hit contains a closest hit shader, skip execution of that shader.
+     * Native name: D3D12_RAY_FLAG_SKIP_CLOSEST_HIT_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_SKIP_CLOSEST_HIT_SHADER => 8
+    static FLAG_SKIP_CLOSEST_HIT_SHADER => 8
 
     /**
      * Enables culling of back facing triangles. See <a href="https://msdn.microsoft.com/en-us/library/Mt815589(v=VS.85).aspx">D3D12_RAYTRACING_INSTANCE_FLAGS</a> for selecting which triangles are back facing, per-instance.
@@ -54,9 +59,10 @@ class D3D12_RAY_FLAGS extends Win32BitflagEnum {
      * On geometry types other than D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES, this flag has no effect.
      * 
      * This flag is mutually exclusive with RAY_FLAG_CULL_FRONT_FACING_TRIANGLES.
+     * Native name: D3D12_RAY_FLAG_CULL_BACK_FACING_TRIANGLES
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_CULL_BACK_FACING_TRIANGLES => 16
+    static FLAG_CULL_BACK_FACING_TRIANGLES => 16
 
     /**
      * Enables culling of front facing triangles. See <a href="https://msdn.microsoft.com/en-us/library/Mt815589(v=VS.85).aspx">D3D12_RAYTRACING_INSTANCE_FLAGS</a> for selecting which triangles are back facing, per-instance.
@@ -66,38 +72,44 @@ class D3D12_RAY_FLAGS extends Win32BitflagEnum {
      * On geometry types other than D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES, this flag has no effect.
      * 
      * This flag is mutually exclusive with RAY_FLAG_CULL_FRONT_FACING_TRIANGLES.
+     * Native name: D3D12_RAY_FLAG_CULL_FRONT_FACING_TRIANGLES
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_CULL_FRONT_FACING_TRIANGLES => 32
+    static FLAG_CULL_FRONT_FACING_TRIANGLES => 32
 
     /**
      * Culls all primitives that are considered opaque based on their geometry and instance flags.
      * 
      * This flag is mutually exclusive with RAY_FLAG_FORCE_OPAQUE, RAY_FLAG_FORCE_NON_OPAQUE, and RAY_FLAG_CULL_NON_OPAQUE.
+     * Native name: D3D12_RAY_FLAG_CULL_OPAQUE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_CULL_OPAQUE => 64
+    static FLAG_CULL_OPAQUE => 64
 
     /**
      * Culls all primitives that are considered non-opaque based on their geometry and instance flags.
      * 
      * This flag is mutually exclusive with RAY_FLAG_FORCE_OPAQUE, RAY_FLAG_FORCE_NON_OPAQUE, and RAY_FLAG_CULL_OPAQUE.
+     * Native name: D3D12_RAY_FLAG_CULL_NON_OPAQUE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_CULL_NON_OPAQUE => 128
+    static FLAG_CULL_NON_OPAQUE => 128
 
     /**
+     * Native name: D3D12_RAY_FLAG_SKIP_TRIANGLES
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_SKIP_TRIANGLES => 256
+    static FLAG_SKIP_TRIANGLES => 256
 
     /**
+     * Native name: D3D12_RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES => 512
+    static FLAG_SKIP_PROCEDURAL_PRIMITIVES => 512
 
     /**
+     * Native name: D3D12_RAY_FLAG_FORCE_OMM_2_STATE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAY_FLAG_FORCE_OMM_2_STATE => 1024
+    static FLAG_FORCE_OMM_2_STATE => 1024
 }

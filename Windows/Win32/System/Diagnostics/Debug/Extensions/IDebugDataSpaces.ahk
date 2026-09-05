@@ -29,7 +29,6 @@ class IDebugDataSpaces extends IUnknown {
     static VTableNames => ["ReadVirtual", "WriteVirtual", "SearchVirtual", "ReadVirtualUncached", "WriteVirtualUncached", "ReadPointersVirtual", "WritePointersVirtual", "ReadPhysical", "WritePhysical", "ReadControl", "WriteControl", "ReadIo", "WriteIo", "ReadMsr", "WriteMsr", "ReadBusData", "WriteBusData", "CheckLowMemory", "ReadDebuggerData", "ReadProcessorSystemData"]
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -41,7 +40,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -53,7 +51,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Length 
      * @param {Integer} Pattern 
@@ -67,7 +64,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -79,7 +75,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -91,7 +86,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Integer} Offset 
      * @returns {Integer} 
@@ -102,7 +96,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Ptrs 
@@ -116,7 +109,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -128,7 +120,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -140,7 +131,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -153,7 +143,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -166,7 +155,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
@@ -181,7 +169,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
@@ -196,7 +183,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Msr 
      * @returns {Integer} 
      */
@@ -206,7 +192,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Msr 
      * @param {Integer} Value 
      * @returns {HRESULT} 
@@ -217,7 +202,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -232,7 +216,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -247,7 +230,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CheckLowMemory() {
@@ -256,7 +238,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -268,7 +249,6 @@ class IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Index 
      * @param {Integer} _Buffer 

@@ -7,32 +7,38 @@
 class SNMP_LOG extends Win32Enum {
 
     /**
+     * Native name: SNMP_LOG_SILENT
      * @type {Integer (Int32)}
      */
-    static SNMP_LOG_SILENT => 0
+    static SILENT => 0
 
     /**
+     * Native name: SNMP_LOG_FATAL
      * @type {Integer (Int32)}
      */
-    static SNMP_LOG_FATAL => 1
+    static FATAL => 1
 
     /**
+     * Native name: SNMP_LOG_ERROR
      * @type {Integer (Int32)}
      */
-    static SNMP_LOG_ERROR => 2
+    static ERROR => 2
 
     /**
+     * Native name: SNMP_LOG_WARNING
      * @type {Integer (Int32)}
      */
-    static SNMP_LOG_WARNING => 3
+    static WARNING => 3
 
     /**
+     * Native name: SNMP_LOG_TRACE
      * @type {Integer (Int32)}
      */
-    static SNMP_LOG_TRACE => 4
+    static TRACE => 4
 
     /**
+     * Native name: SNMP_LOG_VERBOSE
      * @type {Integer (Int32)}
      */
-    static SNMP_LOG_VERBOSE => 5
+    static VERBOSE => 5
 }

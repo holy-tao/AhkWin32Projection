@@ -7,52 +7,62 @@
 class styleTextJustify extends Win32Enum {
 
     /**
+     * Native name: styleTextJustifyNotSet
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTextJustifyInterWord
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyInterWord => 1
+    static InterWord => 1
 
     /**
+     * Native name: styleTextJustifyNewspaper
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyNewspaper => 2
+    static Newspaper => 2
 
     /**
+     * Native name: styleTextJustifyDistribute
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyDistribute => 3
+    static Distribute => 3
 
     /**
+     * Native name: styleTextJustifyDistributeAllLines
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyDistributeAllLines => 4
+    static DistributeAllLines => 4
 
     /**
+     * Native name: styleTextJustifyInterIdeograph
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyInterIdeograph => 5
+    static InterIdeograph => 5
 
     /**
+     * Native name: styleTextJustifyInterCluster
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyInterCluster => 6
+    static InterCluster => 6
 
     /**
+     * Native name: styleTextJustifyKashida
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyKashida => 7
+    static Kashida => 7
 
     /**
+     * Native name: styleTextJustifyAuto
      * @type {Integer (Int32)}
      */
-    static styleTextJustifyAuto => 8
+    static Auto => 8
 
     /**
+     * Native name: styleTextJustify_Max
      * @type {Integer (Int32)}
      */
-    static styleTextJustify_Max => 2147483647
+    static Max => 2147483647
 }

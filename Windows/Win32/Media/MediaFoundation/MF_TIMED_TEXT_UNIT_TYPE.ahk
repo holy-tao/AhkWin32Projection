@@ -10,13 +10,15 @@ class MF_TIMED_TEXT_UNIT_TYPE extends Win32Enum {
 
     /**
      * The timed text is measured in pixels.
+     * Native name: MF_TIMED_TEXT_UNIT_TYPE_PIXELS
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_UNIT_TYPE_PIXELS => 0
+    static PIXELS => 0
 
     /**
      * The timed text is measured as a percentage.
+     * Native name: MF_TIMED_TEXT_UNIT_TYPE_PERCENTAGE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_UNIT_TYPE_PERCENTAGE => 1
+    static PERCENTAGE => 1
 }

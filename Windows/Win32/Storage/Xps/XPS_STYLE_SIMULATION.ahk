@@ -10,25 +10,29 @@ class XPS_STYLE_SIMULATION extends Win32Enum {
 
     /**
      * No font style simulation.
+     * Native name: XPS_STYLE_SIMULATION_NONE
      * @type {Integer (Int32)}
      */
-    static XPS_STYLE_SIMULATION_NONE => 1
+    static NONE => 1
 
     /**
      * Italic style simulation.
+     * Native name: XPS_STYLE_SIMULATION_ITALIC
      * @type {Integer (Int32)}
      */
-    static XPS_STYLE_SIMULATION_ITALIC => 2
+    static ITALIC => 2
 
     /**
      * Bold style simulation.
+     * Native name: XPS_STYLE_SIMULATION_BOLD
      * @type {Integer (Int32)}
      */
-    static XPS_STYLE_SIMULATION_BOLD => 3
+    static BOLD => 3
 
     /**
      * Both bold and italic style simulation: first bold, then italic.
+     * Native name: XPS_STYLE_SIMULATION_BOLDITALIC
      * @type {Integer (Int32)}
      */
-    static XPS_STYLE_SIMULATION_BOLDITALIC => 4
+    static BOLDITALIC => 4
 }

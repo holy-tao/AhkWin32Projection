@@ -36,7 +36,6 @@ class IStorageProviderBanners extends IUnknown {
     static VTableNames => ["SetBanner", "ClearBanner", "ClearAllBanners", "GetBanner"]
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @param {PWSTR} subscriptionId 
      * @param {PWSTR} contentId 
@@ -52,7 +51,6 @@ class IStorageProviderBanners extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @param {PWSTR} subscriptionId 
      * @returns {HRESULT} 
@@ -66,7 +64,6 @@ class IStorageProviderBanners extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @returns {HRESULT} 
      */
@@ -78,7 +75,6 @@ class IStorageProviderBanners extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @param {PWSTR} subscriptionId 
      * @returns {PWSTR} 

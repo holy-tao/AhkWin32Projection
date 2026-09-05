@@ -30,7 +30,6 @@ class ICompositionCapabilitiesInteropFactory extends IInspectable {
     static VTableNames => ["GetForWindow"]
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @returns {Pointer} 
      */

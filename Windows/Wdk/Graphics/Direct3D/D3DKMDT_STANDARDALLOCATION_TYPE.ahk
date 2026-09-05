@@ -7,27 +7,32 @@
 class D3DKMDT_STANDARDALLOCATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMDT_STANDARDALLOCATION_SHAREDPRIMARYSURFACE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_STANDARDALLOCATION_SHAREDPRIMARYSURFACE => 1
+    static SHAREDPRIMARYSURFACE => 1
 
     /**
+     * Native name: D3DKMDT_STANDARDALLOCATION_SHADOWSURFACE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_STANDARDALLOCATION_SHADOWSURFACE => 2
+    static SHADOWSURFACE => 2
 
     /**
+     * Native name: D3DKMDT_STANDARDALLOCATION_STAGINGSURFACE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_STANDARDALLOCATION_STAGINGSURFACE => 3
+    static STAGINGSURFACE => 3
 
     /**
+     * Native name: D3DKMDT_STANDARDALLOCATION_GDISURFACE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_STANDARDALLOCATION_GDISURFACE => 4
+    static GDISURFACE => 4
 
     /**
+     * Native name: D3DKMDT_STANDARDALLOCATION_VGPU
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_STANDARDALLOCATION_VGPU => 5
+    static VGPU => 5
 }

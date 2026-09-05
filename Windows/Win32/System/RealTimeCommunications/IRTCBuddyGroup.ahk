@@ -64,7 +64,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -74,7 +73,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @returns {HRESULT} 
      */
@@ -86,7 +84,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCBuddy} pBuddy 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCBuddy} pBuddy 
      * @returns {HRESULT} 
      */
@@ -106,7 +102,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumBuddies} 
      */
     EnumerateBuddies() {
@@ -115,7 +110,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Buddies() {
@@ -124,7 +118,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Data() {
@@ -134,7 +127,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrData 
      * @returns {HRESULT} 
      */
@@ -146,7 +138,6 @@ class IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {

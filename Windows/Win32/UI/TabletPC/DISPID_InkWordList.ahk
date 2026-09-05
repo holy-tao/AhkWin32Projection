@@ -7,17 +7,20 @@
 class DISPID_InkWordList extends Win32Enum {
 
     /**
+     * Native name: DISPID_InkWordList_AddWord
      * @type {Integer (Int32)}
      */
-    static DISPID_InkWordList_AddWord => 0
+    static AddWord => 0
 
     /**
+     * Native name: DISPID_InkWordList_RemoveWord
      * @type {Integer (Int32)}
      */
-    static DISPID_InkWordList_RemoveWord => 1
+    static RemoveWord => 1
 
     /**
+     * Native name: DISPID_InkWordList_Merge
      * @type {Integer (Int32)}
      */
-    static DISPID_InkWordList_Merge => 2
+    static Merge => 2
 }

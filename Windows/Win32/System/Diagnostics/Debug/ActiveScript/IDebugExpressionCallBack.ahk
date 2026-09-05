@@ -29,7 +29,6 @@ class IDebugExpressionCallBack extends IUnknown {
     static VTableNames => ["onComplete"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onComplete() {

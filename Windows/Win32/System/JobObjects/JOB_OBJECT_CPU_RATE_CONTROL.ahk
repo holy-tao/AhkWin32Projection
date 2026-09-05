@@ -7,32 +7,38 @@
 class JOB_OBJECT_CPU_RATE_CONTROL extends Win32BitflagEnum {
 
     /**
+     * Native name: JOB_OBJECT_CPU_RATE_CONTROL_ENABLE
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_CPU_RATE_CONTROL_ENABLE => 1
+    static ENABLE => 1
 
     /**
+     * Native name: JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED => 2
+    static WEIGHT_BASED => 2
 
     /**
+     * Native name: JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP => 4
+    static HARD_CAP => 4
 
     /**
+     * Native name: JOB_OBJECT_CPU_RATE_CONTROL_NOTIFY
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_CPU_RATE_CONTROL_NOTIFY => 8
+    static NOTIFY => 8
 
     /**
+     * Native name: JOB_OBJECT_CPU_RATE_CONTROL_MIN_MAX_RATE
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_CPU_RATE_CONTROL_MIN_MAX_RATE => 16
+    static MIN_MAX_RATE => 16
 
     /**
+     * Native name: JOB_OBJECT_CPU_RATE_CONTROL_VALID_FLAGS
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_CPU_RATE_CONTROL_VALID_FLAGS => 63
+    static VALID_FLAGS => 63
 }

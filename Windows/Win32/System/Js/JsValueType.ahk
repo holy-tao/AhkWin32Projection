@@ -7,47 +7,56 @@
 class JsValueType extends Win32Enum {
 
     /**
+     * Native name: JsUndefined
      * @type {Integer (Int32)}
      */
-    static JsUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: JsNull
      * @type {Integer (Int32)}
      */
-    static JsNull => 1
+    static Null => 1
 
     /**
+     * Native name: JsNumber
      * @type {Integer (Int32)}
      */
-    static JsNumber => 2
+    static Number => 2
 
     /**
+     * Native name: JsString
      * @type {Integer (Int32)}
      */
-    static JsString => 3
+    static String => 3
 
     /**
+     * Native name: JsBoolean
      * @type {Integer (Int32)}
      */
-    static JsBoolean => 4
+    static Boolean => 4
 
     /**
+     * Native name: JsObject
      * @type {Integer (Int32)}
      */
-    static JsObject => 5
+    static Object => 5
 
     /**
+     * Native name: JsFunction
      * @type {Integer (Int32)}
      */
-    static JsFunction => 6
+    static Function => 6
 
     /**
+     * Native name: JsError
      * @type {Integer (Int32)}
      */
-    static JsError => 7
+    static Error => 7
 
     /**
+     * Native name: JsArray
      * @type {Integer (Int32)}
      */
-    static JsArray => 8
+    static Array => 8
 }

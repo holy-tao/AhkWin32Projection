@@ -29,7 +29,6 @@ class ITargetNotify extends IUnknown {
     static VTableNames => ["OnCreate", "OnReuse"]
 
     /**
-     * 
      * @param {IUnknown} pUnkDestination 
      * @param {Integer} cbCookie 
      * @returns {HRESULT} 
@@ -40,7 +39,6 @@ class ITargetNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDestination 
      * @returns {HRESULT} 
      */

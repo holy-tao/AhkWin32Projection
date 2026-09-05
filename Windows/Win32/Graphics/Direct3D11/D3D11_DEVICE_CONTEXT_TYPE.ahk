@@ -12,13 +12,15 @@ class D3D11_DEVICE_CONTEXT_TYPE extends Win32Enum {
 
     /**
      * The device context is an immediate context.
+     * Native name: D3D11_DEVICE_CONTEXT_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static D3D11_DEVICE_CONTEXT_IMMEDIATE => 0
+    static IMMEDIATE => 0
 
     /**
      * The device context is a deferred context.
+     * Native name: D3D11_DEVICE_CONTEXT_DEFERRED
      * @type {Integer (Int32)}
      */
-    static D3D11_DEVICE_CONTEXT_DEFERRED => 1
+    static DEFERRED => 1
 }

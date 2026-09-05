@@ -7,132 +7,158 @@
 class GameInputRawDevicePhysicalUnitKind extends Win32Enum {
 
     /**
+     * Native name: GameInputPhysicalUnitUnknown
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitUnknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: GameInputPhysicalUnitNone
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputPhysicalUnitTime
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitTime => 1
+    static Time => 1
 
     /**
+     * Native name: GameInputPhysicalUnitFrequency
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitFrequency => 2
+    static Frequency => 2
 
     /**
+     * Native name: GameInputPhysicalUnitLength
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitLength => 3
+    static Length => 3
 
     /**
+     * Native name: GameInputPhysicalUnitVelocity
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitVelocity => 4
+    static Velocity => 4
 
     /**
+     * Native name: GameInputPhysicalUnitAcceleration
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitAcceleration => 5
+    static Acceleration => 5
 
     /**
+     * Native name: GameInputPhysicalUnitMass
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitMass => 6
+    static Mass => 6
 
     /**
+     * Native name: GameInputPhysicalUnitMomentum
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitMomentum => 7
+    static Momentum => 7
 
     /**
+     * Native name: GameInputPhysicalUnitForce
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitForce => 8
+    static Force => 8
 
     /**
+     * Native name: GameInputPhysicalUnitPressure
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitPressure => 9
+    static Pressure => 9
 
     /**
+     * Native name: GameInputPhysicalUnitAngle
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitAngle => 10
+    static Angle => 10
 
     /**
+     * Native name: GameInputPhysicalUnitAngularVelocity
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitAngularVelocity => 11
+    static AngularVelocity => 11
 
     /**
+     * Native name: GameInputPhysicalUnitAngularAcceleration
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitAngularAcceleration => 12
+    static AngularAcceleration => 12
 
     /**
+     * Native name: GameInputPhysicalUnitAngularMass
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitAngularMass => 13
+    static AngularMass => 13
 
     /**
+     * Native name: GameInputPhysicalUnitAngularMomentum
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitAngularMomentum => 14
+    static AngularMomentum => 14
 
     /**
+     * Native name: GameInputPhysicalUnitAngularTorque
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitAngularTorque => 15
+    static AngularTorque => 15
 
     /**
+     * Native name: GameInputPhysicalUnitElectricCurrent
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitElectricCurrent => 16
+    static ElectricCurrent => 16
 
     /**
+     * Native name: GameInputPhysicalUnitElectricCharge
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitElectricCharge => 17
+    static ElectricCharge => 17
 
     /**
+     * Native name: GameInputPhysicalUnitElectricPotential
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitElectricPotential => 18
+    static ElectricPotential => 18
 
     /**
+     * Native name: GameInputPhysicalUnitEnergy
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitEnergy => 19
+    static Energy => 19
 
     /**
+     * Native name: GameInputPhysicalUnitPower
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitPower => 20
+    static Power => 20
 
     /**
+     * Native name: GameInputPhysicalUnitTemperature
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitTemperature => 21
+    static Temperature => 21
 
     /**
+     * Native name: GameInputPhysicalUnitLuminousIntensity
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitLuminousIntensity => 22
+    static LuminousIntensity => 22
 
     /**
+     * Native name: GameInputPhysicalUnitLuminousFlux
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitLuminousFlux => 23
+    static LuminousFlux => 23
 
     /**
+     * Native name: GameInputPhysicalUnitIlluminance
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalUnitIlluminance => 24
+    static Illuminance => 24
 }

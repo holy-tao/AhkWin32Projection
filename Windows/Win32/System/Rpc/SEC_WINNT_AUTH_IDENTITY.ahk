@@ -13,12 +13,14 @@
 class SEC_WINNT_AUTH_IDENTITY extends Win32Enum {
 
     /**
+     * Native name: SEC_WINNT_AUTH_IDENTITY_ANSI
      * @type {Integer (UInt32)}
      */
-    static SEC_WINNT_AUTH_IDENTITY_ANSI => 1
+    static ANSI => 1
 
     /**
+     * Native name: SEC_WINNT_AUTH_IDENTITY_UNICODE
      * @type {Integer (UInt32)}
      */
-    static SEC_WINNT_AUTH_IDENTITY_UNICODE => 2
+    static UNICODE => 2
 }

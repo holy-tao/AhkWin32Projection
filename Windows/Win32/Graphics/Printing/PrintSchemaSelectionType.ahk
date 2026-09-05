@@ -7,12 +7,14 @@
 class PrintSchemaSelectionType extends Win32Enum {
 
     /**
+     * Native name: PrintSchemaSelectionType_PickOne
      * @type {Integer (Int32)}
      */
-    static PrintSchemaSelectionType_PickOne => 0
+    static PickOne => 0
 
     /**
+     * Native name: PrintSchemaSelectionType_PickMany
      * @type {Integer (Int32)}
      */
-    static PrintSchemaSelectionType_PickMany => 1
+    static PickMany => 1
 }

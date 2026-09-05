@@ -38,7 +38,6 @@ class IPrintSchemaParameterInitializer extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -48,7 +47,6 @@ class IPrintSchemaParameterInitializer extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pVar 
      * @returns {HRESULT} 
      */

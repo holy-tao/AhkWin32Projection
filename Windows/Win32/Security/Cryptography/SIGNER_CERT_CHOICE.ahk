@@ -7,17 +7,20 @@
 class SIGNER_CERT_CHOICE extends Win32Enum {
 
     /**
+     * Native name: SIGNER_CERT_SPC_FILE
      * @type {Integer (UInt32)}
      */
-    static SIGNER_CERT_SPC_FILE => 1
+    static SPC_FILE => 1
 
     /**
+     * Native name: SIGNER_CERT_STORE
      * @type {Integer (UInt32)}
      */
-    static SIGNER_CERT_STORE => 2
+    static STORE => 2
 
     /**
+     * Native name: SIGNER_CERT_SPC_CHAIN
      * @type {Integer (UInt32)}
      */
-    static SIGNER_CERT_SPC_CHAIN => 3
+    static SPC_CHAIN => 3
 }

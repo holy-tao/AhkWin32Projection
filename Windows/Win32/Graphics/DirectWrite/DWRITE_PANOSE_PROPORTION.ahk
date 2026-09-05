@@ -10,61 +10,71 @@ class DWRITE_PANOSE_PROPORTION extends Win32Enum {
 
     /**
      * Any proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_ANY => 0
+    static ANY => 0
 
     /**
      * No fit proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Old style proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_OLD_STYLE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_OLD_STYLE => 2
+    static OLD_STYLE => 2
 
     /**
      * Modern proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_MODERN
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_MODERN => 3
+    static MODERN => 3
 
     /**
      * Extra width proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_EVEN_WIDTH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_EVEN_WIDTH => 4
+    static EVEN_WIDTH => 4
 
     /**
      * Expanded proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_EXPANDED => 5
+    static EXPANDED => 5
 
     /**
      * Condensed proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_CONDENSED => 6
+    static CONDENSED => 6
 
     /**
      * Very expanded proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_VERY_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_VERY_EXPANDED => 7
+    static VERY_EXPANDED => 7
 
     /**
      * Very condensed proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_VERY_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_VERY_CONDENSED => 8
+    static VERY_CONDENSED => 8
 
     /**
      * Monospaced proportion for the text.
+     * Native name: DWRITE_PANOSE_PROPORTION_MONOSPACED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_PROPORTION_MONOSPACED => 9
+    static MONOSPACED => 9
 }

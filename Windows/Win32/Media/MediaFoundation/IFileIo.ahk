@@ -72,7 +72,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pqwLength 
      * @returns {HRESULT} 
      */
@@ -84,7 +83,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} qwLength 
      * @returns {HRESULT} 
      */
@@ -94,7 +92,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pqwPosition 
      * @returns {HRESULT} 
      */
@@ -106,7 +103,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} qwPosition 
      * @returns {HRESULT} 
      */
@@ -116,7 +112,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbEndOfStream 
      * @returns {HRESULT} 
      */
@@ -128,7 +123,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulRead 
@@ -143,7 +137,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulWritten 
@@ -158,7 +151,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {SEEK_ORIGIN} eSeekOrigin 
      * @param {Integer} qwSeekOffset 
      * @param {Integer} dwSeekFlags 
@@ -173,7 +165,6 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {

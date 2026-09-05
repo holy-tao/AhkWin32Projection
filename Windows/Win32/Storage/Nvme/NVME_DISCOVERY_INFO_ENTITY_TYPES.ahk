@@ -7,22 +7,26 @@
 class NVME_DISCOVERY_INFO_ENTITY_TYPES extends Win32Enum {
 
     /**
+     * Native name: NVME_DISCOVERY_INFO_ENTITY_TYPE_RESERVED
      * @type {Integer (Int32)}
      */
-    static NVME_DISCOVERY_INFO_ENTITY_TYPE_RESERVED => 0
+    static TYPE_RESERVED => 0
 
     /**
+     * Native name: NVME_DISCOVERY_INFO_ENTITY_TYPE_HOST
      * @type {Integer (Int32)}
      */
-    static NVME_DISCOVERY_INFO_ENTITY_TYPE_HOST => 1
+    static TYPE_HOST => 1
 
     /**
+     * Native name: NVME_DISCOVERY_INFO_ENTITY_TYPE_DDC
      * @type {Integer (Int32)}
      */
-    static NVME_DISCOVERY_INFO_ENTITY_TYPE_DDC => 2
+    static TYPE_DDC => 2
 
     /**
+     * Native name: NVME_DISCOVERY_INFO_ENTITY_TYPE_CDC
      * @type {Integer (Int32)}
      */
-    static NVME_DISCOVERY_INFO_ENTITY_TYPE_CDC => 3
+    static TYPE_CDC => 3
 }

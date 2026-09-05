@@ -15,23 +15,26 @@ class WS_METADATA_STATE extends Win32Enum {
 
     /**
      * The initial state of the metadata object.
+     * Native name: WS_METADATA_STATE_CREATED
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_STATE_CREATED => 1
+    static CREATED => 1
 
     /**
      * All references between metadata documents have been
      *                     resolved and no more metadata documents may be added
      *                     to the metadata object.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataendpoints">WsGetMetadataEndpoints</a> for
      *                     more information.
+     * Native name: WS_METADATA_STATE_RESOLVED
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_STATE_RESOLVED => 2
+    static RESOLVED => 2
 
     /**
      * The metadata object not usable due to a previous error.  See
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataendpoints">WsGetMetadataEndpoints</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmetadata">WsReadMetadata</a> for more information.
+     * Native name: WS_METADATA_STATE_FAULTED
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_STATE_FAULTED => 3
+    static FAULTED => 3
 }

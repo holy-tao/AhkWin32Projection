@@ -21,37 +21,43 @@ class DIRECTMANIPULATION_DRAG_DROP_STATUS extends Win32Enum {
 
     /**
      * The viewport is at rest and ready for input.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_READY
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_READY => 0
+    static READY => 0
 
     /**
      * The viewport is updating its content and the content is not selected.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_PRESELECT
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_PRESELECT => 1
+    static PRESELECT => 1
 
     /**
      * The viewport is updating its content and the content is selected.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_SELECTING
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_SELECTING => 2
+    static SELECTING => 2
 
     /**
      * The viewport is updating its content and the content is being dragged.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_DRAGGING
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_DRAGGING => 3
+    static DRAGGING => 3
 
     /**
      * The viewport has concluded the interaction and requests a revert.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_CANCELLED
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_CANCELLED => 4
+    static CANCELLED => 4
 
     /**
      * The viewport has concluded the interaction and requests a commit.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_COMMITTED
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_COMMITTED => 5
+    static COMMITTED => 5
 }

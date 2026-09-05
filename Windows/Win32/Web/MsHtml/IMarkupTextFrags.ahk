@@ -32,7 +32,6 @@ class IMarkupTextFrags extends IUnknown {
     static VTableNames => ["GetTextFragCount", "GetTextFrag", "RemoveTextFrag", "InsertTextFrag", "FindTextFragFromMarkupPointer"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTextFragCount() {
@@ -41,7 +40,6 @@ class IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iFrag 
      * @param {IMarkupPointer} pPointerFrag 
      * @returns {BSTR} 
@@ -53,7 +51,6 @@ class IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iFrag 
      * @returns {HRESULT} 
      */
@@ -63,7 +60,6 @@ class IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iFrag 
      * @param {BSTR} bstrInsert 
      * @param {IMarkupPointer} pPointerInsert 
@@ -77,7 +73,6 @@ class IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerFind 
      * @param {Pointer<Integer>} piFrag 
      * @param {Pointer<BOOL>} pfFragFound 

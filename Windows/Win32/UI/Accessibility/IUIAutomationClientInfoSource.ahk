@@ -31,7 +31,6 @@ class IUIAutomationClientInfoSource extends IUnknown {
     static VTableNames => ["RegisterClientConnectionCallback", "UnregisterClientConnectionCallback", "GetConnectedClients"]
 
     /**
-     * 
      * @param {IUIAutomationClientConnectionCallback} callback 
      * @returns {Integer} 
      */
@@ -41,7 +40,6 @@ class IUIAutomationClientInfoSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _handle 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IUIAutomationClientInfoSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<SAFEARRAY>} 
      */
     GetConnectedClients() {

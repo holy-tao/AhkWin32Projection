@@ -38,7 +38,6 @@ class IMSMQQuery4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} QueueGuid 
      * @param {Pointer<VARIANT>} ServiceTypeGuid 
      * @param {Pointer<VARIANT>} Label 
@@ -56,7 +55,6 @@ class IMSMQQuery4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -65,7 +63,6 @@ class IMSMQQuery4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} QueueGuid 
      * @param {Pointer<VARIANT>} ServiceTypeGuid 
      * @param {Pointer<VARIANT>} Label 

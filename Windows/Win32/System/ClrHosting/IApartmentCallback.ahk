@@ -29,7 +29,6 @@ class IApartmentCallback extends IUnknown {
     static VTableNames => ["DoCallback"]
 
     /**
-     * 
      * @param {Pointer} pFunc 
      * @param {Pointer} pData 
      * @returns {HRESULT} 

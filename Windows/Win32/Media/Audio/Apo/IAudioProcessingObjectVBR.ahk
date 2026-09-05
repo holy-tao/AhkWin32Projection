@@ -29,7 +29,6 @@ class IAudioProcessingObjectVBR extends IUnknown {
     static VTableNames => ["CalcMaxInputFrames", "CalcMaxOutputFrames"]
 
     /**
-     * 
      * @param {Integer} u32MaxOutputFrameCount 
      * @returns {Integer} 
      */
@@ -39,7 +38,6 @@ class IAudioProcessingObjectVBR extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} u32MaxInputFrameCount 
      * @returns {Integer} 
      */

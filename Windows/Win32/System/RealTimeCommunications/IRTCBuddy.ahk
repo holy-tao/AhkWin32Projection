@@ -45,7 +45,6 @@ class IRTCBuddy extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @returns {RTC_PRESENCE_STATUS} 
      */
     get_Status() {
@@ -54,7 +53,6 @@ class IRTCBuddy extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Notes() {

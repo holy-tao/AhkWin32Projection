@@ -7,17 +7,20 @@
 class NET_IF_RCV_ADDRESS_TYPE extends Win32Enum {
 
     /**
+     * Native name: NET_IF_RCV_ADDRESS_TYPE_OTHER
      * @type {Integer (Int32)}
      */
-    static NET_IF_RCV_ADDRESS_TYPE_OTHER => 1
+    static OTHER => 1
 
     /**
+     * Native name: NET_IF_RCV_ADDRESS_TYPE_VOLATILE
      * @type {Integer (Int32)}
      */
-    static NET_IF_RCV_ADDRESS_TYPE_VOLATILE => 2
+    static VOLATILE => 2
 
     /**
+     * Native name: NET_IF_RCV_ADDRESS_TYPE_NON_VOLATILE
      * @type {Integer (Int32)}
      */
-    static NET_IF_RCV_ADDRESS_TYPE_NON_VOLATILE => 3
+    static NON_VOLATILE => 3
 }

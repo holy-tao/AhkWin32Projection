@@ -29,7 +29,6 @@ class IWinInetHttpTimeouts extends IUnknown {
     static VTableNames => ["GetRequestTimeouts"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwConnectTimeout 
      * @param {Pointer<Integer>} pdwSendTimeout 
      * @param {Pointer<Integer>} pdwReceiveTimeout 

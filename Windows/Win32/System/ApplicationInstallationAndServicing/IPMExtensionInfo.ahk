@@ -62,7 +62,6 @@ class IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_SupplierPID() {
@@ -72,7 +71,6 @@ class IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pSupplierTID 
      * @returns {HRESULT} 
      */
@@ -82,7 +80,6 @@ class IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTitle 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ class IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pIconPath 
      * @returns {HRESULT} 
      */
@@ -102,7 +98,6 @@ class IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pFilePath 
      * @returns {HRESULT} 
      */
@@ -112,7 +107,6 @@ class IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 

@@ -42,7 +42,6 @@ class ICanvasTextMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_width() {

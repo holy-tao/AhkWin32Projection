@@ -60,7 +60,6 @@ class IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -70,7 +69,6 @@ class IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +78,6 @@ class IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_media() {
@@ -90,7 +87,6 @@ class IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_styleSheet() {

@@ -107,7 +107,8 @@ class svgPathSegType extends Win32Enum {
     static PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL => 19
 
     /**
+     * Native name: svgPathSegType_Max
      * @type {Integer (Int32)}
      */
-    static svgPathSegType_Max => 2147483647
+    static Max => 2147483647
 }

@@ -1808,7 +1808,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_RECORDA>} pRecord 
      * @param {Integer} ullFlags 
      * @param {Pointer<BOOL>} pfFlat 
@@ -2118,7 +2117,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_QUERY_RAW_RESULT>} queryResults 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2127,7 +2125,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_QUERY_RAW_REQUEST>} queryRequest 
      * @param {Pointer<DNS_QUERY_RAW_CANCEL>} cancelHandle 
      * @returns {Integer} 
@@ -2138,7 +2135,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_QUERY_RAW_CANCEL>} cancelHandle 
      * @returns {Integer} 
      */
@@ -2789,7 +2785,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszHostUrl 
      * @param {Pointer<Integer>} pSelectionContext 
      * @param {Integer} dwSelectionContextLength 
@@ -2807,7 +2802,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszHostUrl 
      * @param {Pointer<Integer>} pSelectionContext 
      * @param {Integer} dwSelectionContextLength 
@@ -2827,7 +2821,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO_EX>} pProxyInfoEx 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2836,7 +2829,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszConnectionName 
      * @param {DNS_CONNECTION_PROXY_TYPE} Type 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO>} pProxyInfo 
@@ -2850,7 +2842,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO>} pProxyInfo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2859,7 +2850,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszConnectionName 
      * @param {DNS_CONNECTION_PROXY_TYPE} Type 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO>} pProxyInfo 
@@ -2873,7 +2863,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszConnectionName 
      * @param {DNS_CONNECTION_PROXY_TYPE} Type 
      * @returns {Integer} 
@@ -2886,7 +2875,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszConnectionName 
      * @param {Pointer<DNS_CONNECTION_PROXY_LIST>} pProxyList 
      * @returns {Integer} 
@@ -2899,7 +2887,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_CONNECTION_PROXY_LIST>} pProxyList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2908,7 +2895,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_CONNECTION_NAME_LIST>} pNameList 
      * @returns {Integer} 
      */
@@ -2918,7 +2904,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_CONNECTION_NAME_LIST>} pNameList 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2927,7 +2912,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {Pointer<DNS_CONNECTION_IFINDEX_LIST>} pConnectionIfIndexEntries 
      * @returns {Integer} 
      */
@@ -2937,7 +2921,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {DNS_CONNECTION_POLICY_TAG} PolicyEntryTag 
      * @param {Pointer<DNS_CONNECTION_POLICY_ENTRY_LIST>} pPolicyEntryList 
      * @returns {Integer} 
@@ -2948,7 +2931,6 @@ class Dns {
     }
 
     /**
-     * 
      * @param {DNS_CONNECTION_POLICY_TAG} PolicyEntryTag 
      * @returns {Integer} 
      */

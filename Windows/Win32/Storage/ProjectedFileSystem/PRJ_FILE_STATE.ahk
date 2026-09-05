@@ -12,31 +12,36 @@ class PRJ_FILE_STATE extends Win32BitflagEnum {
 
     /**
      * The item is a placeholder.
+     * Native name: PRJ_FILE_STATE_PLACEHOLDER
      * @type {Integer (Int32)}
      */
-    static PRJ_FILE_STATE_PLACEHOLDER => 1
+    static PLACEHOLDER => 1
 
     /**
      * The item is a hydrated placeholder, i.e., the item's content has been written to disk.
+     * Native name: PRJ_FILE_STATE_HYDRATED_PLACEHOLDER
      * @type {Integer (Int32)}
      */
-    static PRJ_FILE_STATE_HYDRATED_PLACEHOLDER => 2
+    static HYDRATED_PLACEHOLDER => 2
 
     /**
      * The placeholder item's metadata has been modified.
+     * Native name: PRJ_FILE_STATE_DIRTY_PLACEHOLDER
      * @type {Integer (Int32)}
      */
-    static PRJ_FILE_STATE_DIRTY_PLACEHOLDER => 4
+    static DIRTY_PLACEHOLDER => 4
 
     /**
      * The item is full.
+     * Native name: PRJ_FILE_STATE_FULL
      * @type {Integer (Int32)}
      */
-    static PRJ_FILE_STATE_FULL => 8
+    static FULL => 8
 
     /**
      * The item is a tombstone.
+     * Native name: PRJ_FILE_STATE_TOMBSTONE
      * @type {Integer (Int32)}
      */
-    static PRJ_FILE_STATE_TOMBSTONE => 16
+    static TOMBSTONE => 16
 }

@@ -132,7 +132,6 @@ class IMFTimedText extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} label 
      * @param {PWSTR} language 
      * @param {MF_TIMED_TEXT_TRACK_KIND} kind 

@@ -44,7 +44,6 @@ class IXFeed extends IUnknown {
     static VTableNames => ["Xml", "Name", "Rename", "Url", "SetUrl", "LocalId", "Path", "Move", "Parent", "LastWriteTime", "Delete", "Download", "AsyncDownload", "CancelAsyncDownload", "SyncSetting", "SetSyncSetting", "Interval", "SetInterval", "LastDownloadTime", "LocalEnclosurePath", "Items", "GetItem", "MarkAllItemsRead", "MaxItemCount", "SetMaxItemCount", "DownloadEnclosuresAutomatically", "SetDownloadEnclosuresAutomatically", "DownloadStatus", "LastDownloadError", "Merge", "DownloadUrl", "Title", "Description", "Link", "Image", "LastBuildDate", "PubDate", "Ttl", "Language", "Copyright", "IsList", "GetWatcher", "UnreadItemCount", "ItemCount"]
 
     /**
-     * 
      * @param {Integer} uiItemCount 
      * @param {FEEDS_XML_SORT_PROPERTY} sortProperty 
      * @param {FEEDS_XML_SORT_ORDER} sortOrder 
@@ -68,7 +67,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @returns {HRESULT} 
      */
@@ -80,7 +78,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Url() {
@@ -89,7 +86,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @returns {HRESULT} 
      */
@@ -101,7 +97,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     LocalId() {
@@ -121,7 +116,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -133,7 +127,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -143,7 +136,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastWriteTime() {
@@ -153,7 +145,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -162,7 +153,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Download() {
@@ -171,7 +161,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -180,7 +169,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -189,7 +177,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FEEDS_SYNC_SETTING} 
      */
     SyncSetting() {
@@ -198,7 +185,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {FEEDS_SYNC_SETTING} fss 
      * @returns {HRESULT} 
      */
@@ -224,7 +210,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiInterval 
      * @returns {HRESULT} 
      */
@@ -234,7 +219,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastDownloadTime() {
@@ -244,7 +228,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     LocalEnclosurePath() {
@@ -253,7 +236,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IXFeedsEnum} 
      */
     Items() {
@@ -262,7 +244,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiId 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -273,7 +254,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MarkAllItemsRead() {
@@ -282,7 +262,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     MaxItemCount() {
@@ -291,7 +270,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiMaxItemCount 
      * @returns {HRESULT} 
      */
@@ -301,7 +279,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     DownloadEnclosuresAutomatically() {
@@ -310,7 +287,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bDownloadEnclosuresAutomatically 
      * @returns {HRESULT} 
      */
@@ -332,7 +308,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError() {
@@ -341,7 +316,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {PWSTR} pszUrl 
      * @returns {HRESULT} 
@@ -354,7 +328,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadUrl() {
@@ -383,7 +356,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Link() {
@@ -410,7 +382,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastBuildDate() {
@@ -420,7 +391,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     PubDate() {
@@ -430,7 +400,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Ttl() {
@@ -439,7 +408,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Language() {
@@ -462,7 +430,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsList() {
@@ -471,7 +438,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {FEEDS_EVENTS_SCOPE} scope 
      * @param {FEEDS_EVENTS_MASK} mask 
      * @param {Pointer<Guid>} riid 
@@ -483,7 +449,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     UnreadItemCount() {
@@ -492,7 +457,6 @@ class IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     ItemCount() {

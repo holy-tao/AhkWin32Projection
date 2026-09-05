@@ -7,27 +7,32 @@
 class TP_CALLBACK_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: TP_CALLBACK_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static TP_CALLBACK_PRIORITY_HIGH => 0
+    static HIGH => 0
 
     /**
+     * Native name: TP_CALLBACK_PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static TP_CALLBACK_PRIORITY_NORMAL => 1
+    static NORMAL => 1
 
     /**
+     * Native name: TP_CALLBACK_PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static TP_CALLBACK_PRIORITY_LOW => 2
+    static LOW => 2
 
     /**
+     * Native name: TP_CALLBACK_PRIORITY_INVALID
      * @type {Integer (Int32)}
      */
-    static TP_CALLBACK_PRIORITY_INVALID => 3
+    static INVALID => 3
 
     /**
+     * Native name: TP_CALLBACK_PRIORITY_COUNT
      * @type {Integer (Int32)}
      */
-    static TP_CALLBACK_PRIORITY_COUNT => 3
+    static COUNT => 3
 }

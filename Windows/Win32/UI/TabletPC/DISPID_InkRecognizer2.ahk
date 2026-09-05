@@ -7,12 +7,14 @@
 class DISPID_InkRecognizer2 extends Win32Enum {
 
     /**
+     * Native name: DISPID_RecoId
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoId => 0
+    static RecoId => 0
 
     /**
+     * Native name: DISPID_RecoUnicodeRanges
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoUnicodeRanges => 1
+    static RecoUnicodeRanges => 1
 }

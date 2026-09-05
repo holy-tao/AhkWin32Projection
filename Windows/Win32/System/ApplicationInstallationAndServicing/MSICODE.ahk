@@ -7,12 +7,14 @@
 class MSICODE extends Win32Enum {
 
     /**
+     * Native name: MSICODE_PRODUCT
      * @type {Integer (Int32)}
      */
-    static MSICODE_PRODUCT => 0
+    static PRODUCT => 0
 
     /**
+     * Native name: MSICODE_PATCH
      * @type {Integer (Int32)}
      */
-    static MSICODE_PATCH => 1073741824
+    static PATCH => 1073741824
 }

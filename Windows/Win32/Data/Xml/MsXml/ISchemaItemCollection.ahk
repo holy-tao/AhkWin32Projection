@@ -46,7 +46,6 @@ class ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISchemaItem} 
      */
@@ -56,7 +55,6 @@ class ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {ISchemaItem} 
      */
@@ -68,7 +66,6 @@ class ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} namespaceURI 
      * @returns {ISchemaItem} 
@@ -82,7 +79,6 @@ class ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -91,7 +87,6 @@ class ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {

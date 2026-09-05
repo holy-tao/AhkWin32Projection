@@ -7,12 +7,14 @@
 class DOCHOSTUITYPE extends Win32Enum {
 
     /**
+     * Native name: DOCHOSTUITYPE_BROWSE
      * @type {Integer (Int32)}
      */
-    static DOCHOSTUITYPE_BROWSE => 0
+    static BROWSE => 0
 
     /**
+     * Native name: DOCHOSTUITYPE_AUTHOR
      * @type {Integer (Int32)}
      */
-    static DOCHOSTUITYPE_AUTHOR => 1
+    static AUTHOR => 1
 }

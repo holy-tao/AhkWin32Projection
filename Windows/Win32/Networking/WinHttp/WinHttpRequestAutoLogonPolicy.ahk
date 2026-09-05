@@ -14,17 +14,20 @@
 class WinHttpRequestAutoLogonPolicy extends Win32Enum {
 
     /**
+     * Native name: AutoLogonPolicy_Always
      * @type {Integer (Int32)}
      */
-    static AutoLogonPolicy_Always => 0
+    static Always => 0
 
     /**
+     * Native name: AutoLogonPolicy_OnlyIfBypassProxy
      * @type {Integer (Int32)}
      */
-    static AutoLogonPolicy_OnlyIfBypassProxy => 1
+    static OnlyIfBypassProxy => 1
 
     /**
+     * Native name: AutoLogonPolicy_Never
      * @type {Integer (Int32)}
      */
-    static AutoLogonPolicy_Never => 2
+    static Never => 2
 }

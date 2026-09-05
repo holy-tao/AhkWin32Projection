@@ -38,7 +38,6 @@ class IContactAggregationAggregateCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationAggregate} 
      */
     FindFirst() {
@@ -47,7 +46,6 @@ class IContactAggregationAggregateCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAntiLinkId 
      * @returns {IContactAggregationAggregate} 
      */
@@ -59,7 +57,6 @@ class IContactAggregationAggregateCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationAggregate} 
      */
     FindNext() {
@@ -68,7 +65,6 @@ class IContactAggregationAggregateCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {

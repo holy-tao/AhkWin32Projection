@@ -10,19 +10,22 @@ class FixupState extends Win32Enum {
 
     /**
      * SHA fix-up is successful.
+     * Native name: fixupStateSuccess
      * @type {Integer (Int32)}
      */
-    static fixupStateSuccess => 0
+    static Success => 0
 
     /**
      * SHA fix-up in progress.
+     * Native name: fixupStateInProgress
      * @type {Integer (Int32)}
      */
-    static fixupStateInProgress => 1
+    static InProgress => 1
 
     /**
      * SHA could not be updated.
+     * Native name: fixupStateCouldNotUpdate
      * @type {Integer (Int32)}
      */
-    static fixupStateCouldNotUpdate => 2
+    static CouldNotUpdate => 2
 }

@@ -50,7 +50,6 @@ class ISVGAnimatedPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPreserveAspectRatio} v 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ class ISVGAnimatedPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPreserveAspectRatio} 
      */
     get_baseVal() {
@@ -69,7 +67,6 @@ class ISVGAnimatedPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPreserveAspectRatio} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class ISVGAnimatedPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPreserveAspectRatio} 
      */
     get_animVal() {

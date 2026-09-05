@@ -45,7 +45,6 @@ class ISchemaAny extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_namespaces() {
@@ -54,7 +53,6 @@ class ISchemaAny extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {SCHEMAPROCESSCONTENTS} 
      */
     get_processContents() {

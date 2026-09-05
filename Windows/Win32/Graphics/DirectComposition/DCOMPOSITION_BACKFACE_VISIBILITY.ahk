@@ -10,19 +10,22 @@ class DCOMPOSITION_BACKFACE_VISIBILITY extends Win32Enum {
 
     /**
      * Surfaces in this visual's sub-tree are visible regardless of transformation.
+     * Native name: DCOMPOSITION_BACKFACE_VISIBILITY_VISIBLE
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BACKFACE_VISIBILITY_VISIBLE => 0
+    static VISIBLE => 0
 
     /**
      * Surfaces in this visual's sub-tree are only visible when facing the observer.
+     * Native name: DCOMPOSITION_BACKFACE_VISIBILITY_HIDDEN
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BACKFACE_VISIBILITY_HIDDEN => 1
+    static HIDDEN => 1
 
     /**
      * The back face visibility is the same as that of the target visual's parent visual.
+     * Native name: DCOMPOSITION_BACKFACE_VISIBILITY_INHERIT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BACKFACE_VISIBILITY_INHERIT => -1
+    static INHERIT => -1
 }

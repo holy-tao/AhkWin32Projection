@@ -68,7 +68,6 @@ class ID3D11VideoContext3 extends ID3D11VideoContext2 {
     }
 
     /**
-     * 
      * @param {ID3D11VideoDecoder} pDecoder 
      * @param {Integer} NumBuffers 
      * @param {Pointer<D3D11_VIDEO_DECODER_BUFFER_DESC2>} pBufferDesc 

@@ -32,7 +32,6 @@ class IShellUIHelper5 extends IShellUIHelper4 {
     static VTableNames => ["msProvisionNetworks", "msReportSafeUrl", "msSiteModeRefreshBadge", "msSiteModeClearBadge", "msDiagnoseConnectionUILess", "msLaunchNetworkClientHelp", "msChangeDefaultBrowser"]
 
     /**
-     * 
      * @param {BSTR} bstrProvisioningXml 
      * @returns {VARIANT} 
      */
@@ -45,7 +44,6 @@ class IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msReportSafeUrl() {
@@ -54,7 +52,6 @@ class IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeRefreshBadge() {
@@ -63,7 +60,6 @@ class IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeClearBadge() {
@@ -72,7 +68,6 @@ class IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msDiagnoseConnectionUILess() {
@@ -81,7 +76,6 @@ class IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msLaunchNetworkClientHelp() {
@@ -90,7 +84,6 @@ class IShellUIHelper5 extends IShellUIHelper4 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */

@@ -29,7 +29,6 @@ class ID3D12ManualWriteTrackingResource extends IUnknown {
     static VTableNames => ["TrackWrite"]
 
     /**
-     * 
      * @param {Integer} Subresource 
      * @param {Pointer<D3D12_RANGE>} pWrittenRange 
      * @returns {String} Nothing - always returns an empty string

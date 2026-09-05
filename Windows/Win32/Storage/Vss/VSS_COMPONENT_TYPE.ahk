@@ -35,19 +35,22 @@ class VSS_COMPONENT_TYPE extends Win32Enum {
      *       
      * 
      * This value indicates an application error.
+     * Native name: VSS_CT_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_CT_UNDEFINED => 0
+    static CT_UNDEFINED => 0
 
     /**
      * Database component.
+     * Native name: VSS_CT_DATABASE
      * @type {Integer (Int32)}
      */
-    static VSS_CT_DATABASE => 1
+    static CT_DATABASE => 1
 
     /**
      * File group component. This is any component other than a database.
+     * Native name: VSS_CT_FILEGROUP
      * @type {Integer (Int32)}
      */
-    static VSS_CT_FILEGROUP => 2
+    static CT_FILEGROUP => 2
 }

@@ -34,7 +34,6 @@ class ICLRDebugManager extends IUnknown {
     static VTableNames => ["BeginConnection", "SetConnectionTasks", "EndConnection", "SetDacl", "GetDacl", "IsDebuggerAttached", "SetSymbolReadingPolicy"]
 
     /**
-     * 
      * @param {Integer} dwConnectionId 
      * @param {PWSTR} szConnectionName 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @param {Integer} dwCount 
      * @param {Pointer<ICLRTask>} ppCLRTask 
@@ -59,7 +57,6 @@ class ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwConnectionId 
      * @returns {HRESULT} 
      */
@@ -69,7 +66,6 @@ class ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} pacl 
      * @returns {HRESULT} 
      */
@@ -79,7 +75,6 @@ class ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ACL>} 
      */
     GetDacl() {
@@ -88,7 +83,6 @@ class ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsDebuggerAttached() {
@@ -97,7 +91,6 @@ class ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ESymbolReadingPolicy} policy 
      * @returns {HRESULT} 
      */

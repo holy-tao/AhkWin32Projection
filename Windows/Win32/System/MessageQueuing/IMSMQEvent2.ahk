@@ -37,7 +37,6 @@ class IMSMQEvent2 extends IMSMQEvent {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {

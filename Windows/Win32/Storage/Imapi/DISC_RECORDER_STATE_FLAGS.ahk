@@ -7,17 +7,20 @@
 class DISC_RECORDER_STATE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: RECORDER_BURNING
      * @type {Integer (UInt32)}
      */
-    static RECORDER_BURNING => 2
+    static BURNING => 2
 
     /**
+     * Native name: RECORDER_DOING_NOTHING
      * @type {Integer (UInt32)}
      */
-    static RECORDER_DOING_NOTHING => 0
+    static DOING_NOTHING => 0
 
     /**
+     * Native name: RECORDER_OPENED
      * @type {Integer (UInt32)}
      */
-    static RECORDER_OPENED => 1
+    static OPENED => 1
 }

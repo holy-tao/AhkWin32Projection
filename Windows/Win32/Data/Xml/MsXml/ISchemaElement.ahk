@@ -112,7 +112,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaType} 
      */
     get_type() {
@@ -121,7 +120,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaComplexType} 
      */
     get_scope() {
@@ -130,7 +128,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -140,7 +137,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fixedValue() {
@@ -150,7 +146,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isNillable() {
@@ -159,7 +154,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_identityConstraints() {
@@ -168,7 +162,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaElement} 
      */
     get_substitutionGroup() {
@@ -177,7 +170,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_substitutionGroupExclusions() {
@@ -186,7 +178,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_disallowedSubstitutions() {
@@ -195,7 +186,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isAbstract() {
@@ -204,7 +194,6 @@ class ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {

@@ -7,27 +7,32 @@
 class WS_SECURE_PROTOCOL extends Win32Enum {
 
     /**
+     * Native name: WS_SECURE_PROTOCOL_SSL2
      * @type {Integer (Int32)}
      */
-    static WS_SECURE_PROTOCOL_SSL2 => 1
+    static SSL2 => 1
 
     /**
+     * Native name: WS_SECURE_PROTOCOL_SSL3
      * @type {Integer (Int32)}
      */
-    static WS_SECURE_PROTOCOL_SSL3 => 2
+    static SSL3 => 2
 
     /**
+     * Native name: WS_SECURE_PROTOCOL_TLS1_0
      * @type {Integer (Int32)}
      */
-    static WS_SECURE_PROTOCOL_TLS1_0 => 4
+    static TLS1_0 => 4
 
     /**
+     * Native name: WS_SECURE_PROTOCOL_TLS1_1
      * @type {Integer (Int32)}
      */
-    static WS_SECURE_PROTOCOL_TLS1_1 => 8
+    static TLS1_1 => 8
 
     /**
+     * Native name: WS_SECURE_PROTOCOL_TLS1_2
      * @type {Integer (Int32)}
      */
-    static WS_SECURE_PROTOCOL_TLS1_2 => 16
+    static TLS1_2 => 16
 }

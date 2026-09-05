@@ -10,25 +10,29 @@ class PNRP_CLOUD_FLAGS extends Win32Enum {
 
     /**
      * The cloud name is valid on the network.
+     * Native name: PNRP_CLOUD_NO_FLAGS
      * @type {Integer (Int32)}
      */
-    static PNRP_CLOUD_NO_FLAGS => 0
+    static NO_FLAGS => 0
 
     /**
      * The cloud name is not valid on other computers.
+     * Native name: PNRP_CLOUD_NAME_LOCAL
      * @type {Integer (Int32)}
      */
-    static PNRP_CLOUD_NAME_LOCAL => 1
+    static NAME_LOCAL => 1
 
     /**
      * The cloud is configured to be resolve only.  Names cannot be published to the cloud from this computer.
+     * Native name: PNRP_CLOUD_RESOLVE_ONLY
      * @type {Integer (Int32)}
      */
-    static PNRP_CLOUD_RESOLVE_ONLY => 2
+    static RESOLVE_ONLY => 2
 
     /**
      * This machine is a full participant in the cloud, and can publish and resolve names.
+     * Native name: PNRP_CLOUD_FULL_PARTICIPANT
      * @type {Integer (Int32)}
      */
-    static PNRP_CLOUD_FULL_PARTICIPANT => 4
+    static FULL_PARTICIPANT => 4
 }

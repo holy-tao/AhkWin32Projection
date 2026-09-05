@@ -7,17 +7,20 @@
 class WLDP_HOST extends Win32Enum {
 
     /**
+     * Native name: WLDP_HOST_RUNDLL32
      * @type {Integer (Int32)}
      */
-    static WLDP_HOST_RUNDLL32 => 0
+    static RUNDLL32 => 0
 
     /**
+     * Native name: WLDP_HOST_SVCHOST
      * @type {Integer (Int32)}
      */
-    static WLDP_HOST_SVCHOST => 1
+    static SVCHOST => 1
 
     /**
+     * Native name: WLDP_HOST_MAX
      * @type {Integer (Int32)}
      */
-    static WLDP_HOST_MAX => 2
+    static MAX => 2
 }

@@ -7,27 +7,32 @@
 class SELECTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: SELECTION_TYPE_None
      * @type {Integer (Int32)}
      */
-    static SELECTION_TYPE_None => 0
+    static None => 0
 
     /**
+     * Native name: SELECTION_TYPE_Caret
      * @type {Integer (Int32)}
      */
-    static SELECTION_TYPE_Caret => 1
+    static Caret => 1
 
     /**
+     * Native name: SELECTION_TYPE_Text
      * @type {Integer (Int32)}
      */
-    static SELECTION_TYPE_Text => 2
+    static Text => 2
 
     /**
+     * Native name: SELECTION_TYPE_Control
      * @type {Integer (Int32)}
      */
-    static SELECTION_TYPE_Control => 3
+    static Control => 3
 
     /**
+     * Native name: SELECTION_TYPE_Max
      * @type {Integer (Int32)}
      */
-    static SELECTION_TYPE_Max => 2147483647
+    static Max => 2147483647
 }

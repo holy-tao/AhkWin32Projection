@@ -47,7 +47,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_expr() {
@@ -57,7 +56,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {BSTR} expression 
      * @returns {HRESULT} 
      */
@@ -69,7 +67,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_context() {
@@ -78,7 +75,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {HRESULT} 
      */
@@ -88,7 +84,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     peekNode() {
@@ -97,7 +92,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {IXMLDOMNode} 
      */
@@ -107,7 +101,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     removeNext() {
@@ -116,7 +109,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     removeAll() {
@@ -125,7 +117,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMSelection} 
      */
     clone() {
@@ -134,7 +125,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -147,7 +137,6 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 

@@ -153,7 +153,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appCodeName() {
@@ -163,7 +162,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appName() {
@@ -173,7 +171,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appVersion() {
@@ -183,7 +180,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userAgent() {
@@ -193,7 +189,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     javaEnabled() {
@@ -202,7 +197,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     taintEnabled() {
@@ -211,7 +205,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLMimeTypesCollection} 
      */
     get_mimeTypes() {
@@ -220,7 +213,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLPluginsCollection} 
      */
     get_plugins() {
@@ -229,7 +221,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cookieEnabled() {
@@ -238,7 +229,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLOpsProfile} 
      */
     get_opsProfile() {
@@ -247,7 +237,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -257,7 +246,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cpuClass() {
@@ -267,7 +255,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemLanguage() {
@@ -277,7 +264,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_browserLanguage() {
@@ -287,7 +273,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userLanguage() {
@@ -297,7 +282,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_platform() {
@@ -307,7 +291,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appMinorVersion() {
@@ -317,7 +300,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectionSpeed() {
@@ -326,7 +308,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_onLine() {
@@ -335,7 +316,6 @@ class IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLOpsProfile} 
      */
     get_userProfile() {

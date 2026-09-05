@@ -30,7 +30,6 @@ class IProvideExpressionContexts extends IUnknown {
     static VTableNames => ["EnumExpressionContexts"]
 
     /**
-     * 
      * @returns {IEnumDebugExpressionContexts} 
      */
     EnumExpressionContexts() {

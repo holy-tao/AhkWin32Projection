@@ -169,7 +169,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -181,7 +180,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -191,7 +189,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -203,7 +200,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_bgProperties() {
@@ -213,7 +209,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -223,7 +218,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_leftMargin() {
@@ -233,7 +227,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -243,7 +236,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_topMargin() {
@@ -253,7 +245,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -263,7 +254,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_rightMargin() {
@@ -273,7 +263,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -283,7 +272,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bottomMargin() {
@@ -293,7 +281,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -303,7 +290,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
@@ -312,7 +298,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -322,7 +307,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -332,7 +316,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -342,7 +325,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_text() {
@@ -352,7 +334,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -362,7 +343,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_link() {
@@ -372,7 +352,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -382,7 +361,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_vLink() {
@@ -392,7 +370,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -402,7 +379,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_aLink() {
@@ -412,7 +388,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -422,7 +397,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -432,7 +406,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -442,7 +415,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onunload() {
@@ -452,7 +424,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -464,7 +435,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scroll() {
@@ -474,7 +444,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -484,7 +453,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -494,7 +462,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -504,7 +471,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeunload() {
@@ -514,7 +480,6 @@ class IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {

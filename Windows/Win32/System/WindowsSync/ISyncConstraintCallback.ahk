@@ -30,7 +30,6 @@ class ISyncConstraintCallback extends IUnknown {
     static VTableNames => ["OnConstraintConflict"]
 
     /**
-     * 
      * @param {IConstraintConflict} pConflict 
      * @returns {HRESULT} 
      */

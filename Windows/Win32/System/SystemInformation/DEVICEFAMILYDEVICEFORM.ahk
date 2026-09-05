@@ -7,247 +7,296 @@
 class DEVICEFAMILYDEVICEFORM extends Win32Enum {
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_UNKNOWN
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_PHONE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_PHONE => 1
+    static PHONE => 1
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_TABLET
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_TABLET => 2
+    static TABLET => 2
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_DESKTOP
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_DESKTOP => 3
+    static DESKTOP => 3
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_NOTEBOOK
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_NOTEBOOK => 4
+    static NOTEBOOK => 4
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_CONVERTIBLE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_CONVERTIBLE => 5
+    static CONVERTIBLE => 5
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_DETACHABLE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_DETACHABLE => 6
+    static DETACHABLE => 6
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_ALLINONE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_ALLINONE => 7
+    static ALLINONE => 7
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_STICKPC
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_STICKPC => 8
+    static STICKPC => 8
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_PUCK
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_PUCK => 9
+    static PUCK => 9
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_LARGESCREEN
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_LARGESCREEN => 10
+    static LARGESCREEN => 10
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_HMD
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_HMD => 11
+    static HMD => 11
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_INDUSTRY_HANDHELD
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_INDUSTRY_HANDHELD => 12
+    static INDUSTRY_HANDHELD => 12
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_INDUSTRY_TABLET
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_INDUSTRY_TABLET => 13
+    static INDUSTRY_TABLET => 13
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_BANKING
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_BANKING => 14
+    static BANKING => 14
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_BUILDING_AUTOMATION
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_BUILDING_AUTOMATION => 15
+    static BUILDING_AUTOMATION => 15
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_DIGITAL_SIGNAGE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_DIGITAL_SIGNAGE => 16
+    static DIGITAL_SIGNAGE => 16
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_GAMING
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_GAMING => 17
+    static GAMING => 17
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_HOME_AUTOMATION
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_HOME_AUTOMATION => 18
+    static HOME_AUTOMATION => 18
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_INDUSTRIAL_AUTOMATION
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_INDUSTRIAL_AUTOMATION => 19
+    static INDUSTRIAL_AUTOMATION => 19
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_KIOSK
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_KIOSK => 20
+    static KIOSK => 20
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_MAKER_BOARD
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_MAKER_BOARD => 21
+    static MAKER_BOARD => 21
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_MEDICAL
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_MEDICAL => 22
+    static MEDICAL => 22
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_NETWORKING
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_NETWORKING => 23
+    static NETWORKING => 23
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_POINT_OF_SERVICE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_POINT_OF_SERVICE => 24
+    static POINT_OF_SERVICE => 24
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_PRINTING
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_PRINTING => 25
+    static PRINTING => 25
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_THIN_CLIENT
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_THIN_CLIENT => 26
+    static THIN_CLIENT => 26
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_TOY
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_TOY => 27
+    static TOY => 27
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_VENDING
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_VENDING => 28
+    static VENDING => 28
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_INDUSTRY_OTHER
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_INDUSTRY_OTHER => 29
+    static INDUSTRY_OTHER => 29
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_ONE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_ONE => 30
+    static XBOX_ONE => 30
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_ONE_S
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_ONE_S => 31
+    static XBOX_ONE_S => 31
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_ONE_X
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_ONE_X => 32
+    static XBOX_ONE_X => 32
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_ONE_X_DEVKIT
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_ONE_X_DEVKIT => 33
+    static XBOX_ONE_X_DEVKIT => 33
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X => 34
+    static XBOX_SERIES_X => 34
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X_DEVKIT
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X_DEVKIT => 35
+    static XBOX_SERIES_X_DEVKIT => 35
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_SERIES_S
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_SERIES_S => 36
+    static XBOX_SERIES_S => 36
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_01
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_01 => 37
+    static XBOX_RESERVED_01 => 37
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_02
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_02 => 38
+    static XBOX_RESERVED_02 => 38
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_03
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_03 => 39
+    static XBOX_RESERVED_03 => 39
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_04
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_04 => 40
+    static XBOX_RESERVED_04 => 40
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_05
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_05 => 41
+    static XBOX_RESERVED_05 => 41
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_06
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_06 => 42
+    static XBOX_RESERVED_06 => 42
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_07
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_07 => 43
+    static XBOX_RESERVED_07 => 43
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_08
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_08 => 44
+    static XBOX_RESERVED_08 => 44
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_09
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_09 => 45
+    static XBOX_RESERVED_09 => 45
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_GAMING_HANDHELD
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_GAMING_HANDHELD => 46
+    static GAMING_HANDHELD => 46
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_GAMING_CONSOLE
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_GAMING_CONSOLE => 47
+    static GAMING_CONSOLE => 47
 
     /**
+     * Native name: DEVICEFAMILYDEVICEFORM_MAX
      * @type {Integer (UInt32)}
      */
-    static DEVICEFAMILYDEVICEFORM_MAX => 47
+    static MAX => 47
 }

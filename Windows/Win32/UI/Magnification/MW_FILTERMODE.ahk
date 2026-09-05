@@ -7,12 +7,14 @@
 class MW_FILTERMODE extends Win32Enum {
 
     /**
+     * Native name: MW_FILTERMODE_EXCLUDE
      * @type {Integer (UInt32)}
      */
-    static MW_FILTERMODE_EXCLUDE => 0
+    static EXCLUDE => 0
 
     /**
+     * Native name: MW_FILTERMODE_INCLUDE
      * @type {Integer (UInt32)}
      */
-    static MW_FILTERMODE_INCLUDE => 1
+    static INCLUDE => 1
 }

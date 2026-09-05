@@ -198,7 +198,6 @@ class ISdoMachine extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetSDOSchema() {

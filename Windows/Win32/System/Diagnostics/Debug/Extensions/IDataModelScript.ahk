@@ -44,7 +44,6 @@ class IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptName 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} contentStream 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptClient} client 
      * @returns {HRESULT} 
      */
@@ -76,7 +73,6 @@ class IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unlink() {
@@ -85,7 +81,6 @@ class IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsInvocable() {
@@ -94,7 +89,6 @@ class IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptClient} client 
      * @returns {HRESULT} 
      */

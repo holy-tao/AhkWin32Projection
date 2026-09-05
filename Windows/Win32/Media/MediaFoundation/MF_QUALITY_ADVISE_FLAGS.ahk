@@ -12,7 +12,8 @@ class MF_QUALITY_ADVISE_FLAGS extends Win32Enum {
 
     /**
      * The decoder has done everything that it can to reduce sample latency, and samples are still late.
+     * Native name: MF_QUALITY_CANNOT_KEEP_UP
      * @type {Integer (Int32)}
      */
-    static MF_QUALITY_CANNOT_KEEP_UP => 1
+    static CANNOT_KEEP_UP => 1
 }

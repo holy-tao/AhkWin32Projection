@@ -10,19 +10,22 @@ class FsiItemType extends Win32Enum {
 
     /**
      * The specified item was not found.
+     * Native name: FsiItemNotFound
      * @type {Integer (Int32)}
      */
-    static FsiItemNotFound => 0
+    static NotFound => 0
 
     /**
      * The specified item is a directory.
+     * Native name: FsiItemDirectory
      * @type {Integer (Int32)}
      */
-    static FsiItemDirectory => 1
+    static Directory => 1
 
     /**
      * The specified item is a file.
+     * Native name: FsiItemFile
      * @type {Integer (Int32)}
      */
-    static FsiItemFile => 2
+    static File => 2
 }

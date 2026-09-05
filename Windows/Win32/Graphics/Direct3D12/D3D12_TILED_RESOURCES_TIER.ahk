@@ -51,9 +51,10 @@ class D3D12_TILED_RESOURCES_TIER extends Win32Enum {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createreservedresource">ID3D12Device::CreateReservedResource</a> cannot be used, not even for buffers.
+     * Native name: D3D12_TILED_RESOURCES_TIER_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_TILED_RESOURCES_TIER_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * Indicates that 2D textures can be created with the D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE layout.
@@ -70,9 +71,10 @@ class D3D12_TILED_RESOURCES_TIER extends Win32Enum {
      *             
      * 
      * When the size of a texture mipmap level is an integer multiple of the standard tile shape for its format, it is guaranteed to be nonpacked.
+     * Native name: D3D12_TILED_RESOURCES_TIER_1
      * @type {Integer (Int32)}
      */
-    static D3D12_TILED_RESOURCES_TIER_1 => 1
+    static 1 => 1
 
     /**
      * Indicates that a superset of Tier_1 functionality is supported, including this additional support:
@@ -91,18 +93,21 @@ class D3D12_TILED_RESOURCES_TIER extends Win32Enum {
      *               </li>
      * </ul>
      * Adapters that support feature level 12_0 all support TIER_2 or greater.
+     * Native name: D3D12_TILED_RESOURCES_TIER_2
      * @type {Integer (Int32)}
      */
-    static D3D12_TILED_RESOURCES_TIER_2 => 2
+    static 2 => 2
 
     /**
      * Indicates that a superset of Tier 2 is supported, with the addition that 3D textures (<a href="https://docs.microsoft.com/windows/desktop/direct3d12/volume-tiled-resources">Volume Tiled Resources</a>) are supported.
+     * Native name: D3D12_TILED_RESOURCES_TIER_3
      * @type {Integer (Int32)}
      */
-    static D3D12_TILED_RESOURCES_TIER_3 => 3
+    static 3 => 3
 
     /**
+     * Native name: D3D12_TILED_RESOURCES_TIER_4
      * @type {Integer (Int32)}
      */
-    static D3D12_TILED_RESOURCES_TIER_4 => 4
+    static 4 => 4
 }

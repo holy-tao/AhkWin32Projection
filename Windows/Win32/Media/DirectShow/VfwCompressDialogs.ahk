@@ -10,25 +10,29 @@ class VfwCompressDialogs extends Win32Enum {
 
     /**
      * Configure dialog box.
+     * Native name: VfwCompressDialog_Config
      * @type {Integer (Int32)}
      */
-    static VfwCompressDialog_Config => 1
+    static Dialog_Config => 1
 
     /**
      * About dialog box.
+     * Native name: VfwCompressDialog_About
      * @type {Integer (Int32)}
      */
-    static VfwCompressDialog_About => 2
+    static Dialog_About => 2
 
     /**
      * Specifies whether the Configure dialog box is available.
+     * Native name: VfwCompressDialog_QueryConfig
      * @type {Integer (Int32)}
      */
-    static VfwCompressDialog_QueryConfig => 4
+    static Dialog_QueryConfig => 4
 
     /**
      * Specifies whether the About dialog box is available.
+     * Native name: VfwCompressDialog_QueryAbout
      * @type {Integer (Int32)}
      */
-    static VfwCompressDialog_QueryAbout => 8
+    static Dialog_QueryAbout => 8
 }

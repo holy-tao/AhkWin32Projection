@@ -7,17 +7,20 @@
 class WBEM_BATCH_TYPE extends Win32Enum {
 
     /**
+     * Native name: WBEM_FLAG_BATCH_IF_NEEDED
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_BATCH_IF_NEEDED => 0
+    static FLAG_BATCH_IF_NEEDED => 0
 
     /**
+     * Native name: WBEM_FLAG_MUST_BATCH
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_MUST_BATCH => 1
+    static FLAG_MUST_BATCH => 1
 
     /**
+     * Native name: WBEM_FLAG_MUST_NOT_BATCH
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_MUST_NOT_BATCH => 2
+    static FLAG_MUST_NOT_BATCH => 2
 }

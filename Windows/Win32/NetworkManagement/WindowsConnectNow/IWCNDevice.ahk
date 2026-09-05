@@ -524,7 +524,6 @@ class IWCNDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {WCN_PASSWORD_TYPE} Type 
      * @param {Integer} dwOOBPasswordID 
      * @param {Integer} dwPasswordLength 

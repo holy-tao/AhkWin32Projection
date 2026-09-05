@@ -7,27 +7,32 @@
 class stylePerspectiveOriginX extends Win32Enum {
 
     /**
+     * Native name: stylePerspectiveOriginXNotSet
      * @type {Integer (Int32)}
      */
-    static stylePerspectiveOriginXNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: stylePerspectiveOriginXLeft
      * @type {Integer (Int32)}
      */
-    static stylePerspectiveOriginXLeft => 1
+    static Left => 1
 
     /**
+     * Native name: stylePerspectiveOriginXCenter
      * @type {Integer (Int32)}
      */
-    static stylePerspectiveOriginXCenter => 2
+    static Center => 2
 
     /**
+     * Native name: stylePerspectiveOriginXRight
      * @type {Integer (Int32)}
      */
-    static stylePerspectiveOriginXRight => 3
+    static Right => 3
 
     /**
+     * Native name: stylePerspectiveOriginX_Max
      * @type {Integer (Int32)}
      */
-    static stylePerspectiveOriginX_Max => 2147483647
+    static Max => 2147483647
 }

@@ -10,24 +10,28 @@ class DML_PADDING_MODE extends Win32Enum {
 
     /**
      * Indicates padding with a constant.
+     * Native name: DML_PADDING_MODE_CONSTANT
      * @type {Integer (Int32)}
      */
-    static DML_PADDING_MODE_CONSTANT => 0
+    static CONSTANT => 0
 
     /**
      * Indicates edge mode for padding.
+     * Native name: DML_PADDING_MODE_EDGE
      * @type {Integer (Int32)}
      */
-    static DML_PADDING_MODE_EDGE => 1
+    static EDGE => 1
 
     /**
      * Indicates reflection mode for padding.
+     * Native name: DML_PADDING_MODE_REFLECTION
      * @type {Integer (Int32)}
      */
-    static DML_PADDING_MODE_REFLECTION => 2
+    static REFLECTION => 2
 
     /**
+     * Native name: DML_PADDING_MODE_SYMMETRIC
      * @type {Integer (Int32)}
      */
-    static DML_PADDING_MODE_SYMMETRIC => 3
+    static SYMMETRIC => 3
 }

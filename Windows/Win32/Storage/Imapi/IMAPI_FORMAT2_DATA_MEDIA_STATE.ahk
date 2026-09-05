@@ -12,88 +12,102 @@ class IMAPI_FORMAT2_DATA_MEDIA_STATE extends Win32Enum {
 
     /**
      * Indicates that the interface does not know the media state.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Reports information (but not errors) about the media state.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_INFORMATIONAL_MASK
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_INFORMATIONAL_MASK => 15
+    static INFORMATIONAL_MASK => 15
 
     /**
      * Reports an unsupported media state.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_UNSUPPORTED_MASK
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_UNSUPPORTED_MASK => 64512
+    static UNSUPPORTED_MASK => 64512
 
     /**
      * Write operations can occur on used portions of the disc.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_OVERWRITE_ONLY
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_OVERWRITE_ONLY => 1
+    static OVERWRITE_ONLY => 1
 
     /**
      * Media is randomly writable.  This indicates that a single session can be written to this disc.
      * 
      * <div class="alert"><b>Note</b>  This value is deprecated and superseded by <b>IMAPI_FORMAT2_DATA_MEDIA_STATE_OVERWRITE_ONLY</b>.</div>
      * <div> </div>
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_RANDOMLY_WRITABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_RANDOMLY_WRITABLE => 1
+    static RANDOMLY_WRITABLE => 1
 
     /**
      * Media has never been used, or has been erased.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_BLANK
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_BLANK => 2
+    static BLANK => 2
 
     /**
      * Media is appendable (supports multiple sessions).
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_APPENDABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_APPENDABLE => 4
+    static APPENDABLE => 4
 
     /**
      * Media can have only one additional session added to it, or the media does not support multiple sessions.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_FINAL_SESSION
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_FINAL_SESSION => 8
+    static FINAL_SESSION => 8
 
     /**
      * Media is not usable by this interface.  The media might require an erase or other recovery.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_DAMAGED
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_DAMAGED => 1024
+    static DAMAGED => 1024
 
     /**
      * Media must be erased prior to use by this interface.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_ERASE_REQUIRED
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_ERASE_REQUIRED => 2048
+    static ERASE_REQUIRED => 2048
 
     /**
      * Media has a partially written last session, which is not supported by this interface.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_NON_EMPTY_SESSION
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_NON_EMPTY_SESSION => 4096
+    static NON_EMPTY_SESSION => 4096
 
     /**
      * Media or drive is write-protected.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_WRITE_PROTECTED
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_WRITE_PROTECTED => 8192
+    static WRITE_PROTECTED => 8192
 
     /**
      * Media cannot be written to (finalized).
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_FINALIZED
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_FINALIZED => 16384
+    static FINALIZED => 16384
 
     /**
      * Media is not supported by this interface.
+     * Native name: IMAPI_FORMAT2_DATA_MEDIA_STATE_UNSUPPORTED_MEDIA
      * @type {Integer (Int32)}
      */
-    static IMAPI_FORMAT2_DATA_MEDIA_STATE_UNSUPPORTED_MEDIA => 32768
+    static UNSUPPORTED_MEDIA => 32768
 }

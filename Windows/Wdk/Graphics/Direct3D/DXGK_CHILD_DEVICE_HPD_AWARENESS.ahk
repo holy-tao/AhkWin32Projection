@@ -7,27 +7,32 @@
 class DXGK_CHILD_DEVICE_HPD_AWARENESS extends Win32Enum {
 
     /**
+     * Native name: HpdAwarenessUninitialized
      * @type {Integer (Int32)}
      */
-    static HpdAwarenessUninitialized => 0
+    static Uninitialized => 0
 
     /**
+     * Native name: HpdAwarenessAlwaysConnected
      * @type {Integer (Int32)}
      */
-    static HpdAwarenessAlwaysConnected => 1
+    static AlwaysConnected => 1
 
     /**
+     * Native name: HpdAwarenessNone
      * @type {Integer (Int32)}
      */
-    static HpdAwarenessNone => 2
+    static None => 2
 
     /**
+     * Native name: HpdAwarenessPolled
      * @type {Integer (Int32)}
      */
-    static HpdAwarenessPolled => 3
+    static Polled => 3
 
     /**
+     * Native name: HpdAwarenessInterruptible
      * @type {Integer (Int32)}
      */
-    static HpdAwarenessInterruptible => 4
+    static Interruptible => 4
 }

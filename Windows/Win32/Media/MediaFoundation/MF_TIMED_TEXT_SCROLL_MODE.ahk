@@ -10,13 +10,15 @@ class MF_TIMED_TEXT_SCROLL_MODE extends Win32Enum {
 
     /**
      * Text pops on when the parent element is scrolled.
+     * Native name: MF_TIMED_TEXT_SCROLL_MODE_POP_ON
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_SCROLL_MODE_POP_ON => 0
+    static POP_ON => 0
 
     /**
      * Text rolls up when the parent element is scrolled.
+     * Native name: MF_TIMED_TEXT_SCROLL_MODE_ROLL_UP
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_SCROLL_MODE_ROLL_UP => 1
+    static ROLL_UP => 1
 }

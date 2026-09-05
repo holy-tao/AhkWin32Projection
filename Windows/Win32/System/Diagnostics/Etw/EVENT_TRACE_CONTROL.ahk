@@ -7,22 +7,26 @@
 class EVENT_TRACE_CONTROL extends Win32Enum {
 
     /**
+     * Native name: EVENT_TRACE_CONTROL_FLUSH
      * @type {Integer (UInt32)}
      */
-    static EVENT_TRACE_CONTROL_FLUSH => 3
+    static FLUSH => 3
 
     /**
+     * Native name: EVENT_TRACE_CONTROL_QUERY
      * @type {Integer (UInt32)}
      */
-    static EVENT_TRACE_CONTROL_QUERY => 0
+    static QUERY => 0
 
     /**
+     * Native name: EVENT_TRACE_CONTROL_STOP
      * @type {Integer (UInt32)}
      */
-    static EVENT_TRACE_CONTROL_STOP => 1
+    static STOP => 1
 
     /**
+     * Native name: EVENT_TRACE_CONTROL_UPDATE
      * @type {Integer (UInt32)}
      */
-    static EVENT_TRACE_CONTROL_UPDATE => 2
+    static UPDATE => 2
 }

@@ -7,12 +7,14 @@
 class ATF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: ATF_TIMEOUTON
      * @type {Integer (UInt32)}
      */
-    static ATF_TIMEOUTON => 1
+    static TIMEOUTON => 1
 
     /**
+     * Native name: ATF_ONOFFFEEDBACK
      * @type {Integer (UInt32)}
      */
-    static ATF_ONOFFFEEDBACK => 2
+    static ONOFFFEEDBACK => 2
 }

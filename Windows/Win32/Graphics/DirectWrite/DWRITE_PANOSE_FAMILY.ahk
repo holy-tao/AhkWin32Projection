@@ -10,43 +10,50 @@ class DWRITE_PANOSE_FAMILY extends Win32Enum {
 
     /**
      * Any typeface classification.
+     * Native name: DWRITE_PANOSE_FAMILY_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FAMILY_ANY => 0
+    static ANY => 0
 
     /**
      * No fit typeface classification.
+     * Native name: DWRITE_PANOSE_FAMILY_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FAMILY_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Text display typeface classification.
+     * Native name: DWRITE_PANOSE_FAMILY_TEXT_DISPLAY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FAMILY_TEXT_DISPLAY => 2
+    static TEXT_DISPLAY => 2
 
     /**
      * Script (or hand written) typeface classification.
+     * Native name: DWRITE_PANOSE_FAMILY_SCRIPT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FAMILY_SCRIPT => 3
+    static SCRIPT => 3
 
     /**
      * Decorative typeface classification.
+     * Native name: DWRITE_PANOSE_FAMILY_DECORATIVE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FAMILY_DECORATIVE => 4
+    static DECORATIVE => 4
 
     /**
      * Symbol typeface classification.
+     * Native name: DWRITE_PANOSE_FAMILY_SYMBOL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FAMILY_SYMBOL => 5
+    static SYMBOL => 5
 
     /**
      * Pictorial (or symbol) typeface classification.
+     * Native name: DWRITE_PANOSE_FAMILY_PICTORIAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_FAMILY_PICTORIAL => 5
+    static PICTORIAL => 5
 }

@@ -31,7 +31,6 @@ class IRemoteDebugApplication110 extends IUnknown {
     static VTableNames => ["SetDebuggerOptions", "GetCurrentDebuggerOptions", "GetMainThread"]
 
     /**
-     * 
      * @param {SCRIPT_DEBUGGER_OPTIONS} mask 
      * @param {SCRIPT_DEBUGGER_OPTIONS} value 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IRemoteDebugApplication110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SCRIPT_DEBUGGER_OPTIONS} 
      */
     GetCurrentDebuggerOptions() {
@@ -51,7 +49,6 @@ class IRemoteDebugApplication110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRemoteDebugApplicationThread} 
      */
     GetMainThread() {

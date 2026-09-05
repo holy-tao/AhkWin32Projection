@@ -136,7 +136,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_javaEnabled() {
@@ -145,7 +144,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cookieEnabled() {
@@ -154,7 +152,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cpuClass() {
@@ -164,7 +161,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemLanguage() {
@@ -174,7 +170,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userLanguage() {
@@ -184,7 +179,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_platform() {
@@ -194,7 +188,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectionSpeed() {
@@ -203,7 +196,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_onLine() {
@@ -212,7 +204,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_colorDepth() {
@@ -221,7 +212,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_bufferDepth() {
@@ -230,7 +220,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -239,7 +228,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -248,7 +236,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availHeight() {
@@ -257,7 +244,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availWidth() {
@@ -266,7 +252,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_connectionType() {
@@ -276,7 +261,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bStrVer 
@@ -292,7 +276,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
      * @returns {BSTR} 
@@ -307,7 +290,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVer1 
      * @param {BSTR} bstrVer2 
      * @returns {Integer} 
@@ -321,7 +303,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bStrVer 
@@ -337,7 +318,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     doComponentRequest() {
@@ -346,7 +326,6 @@ class IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clearComponentRequest() {

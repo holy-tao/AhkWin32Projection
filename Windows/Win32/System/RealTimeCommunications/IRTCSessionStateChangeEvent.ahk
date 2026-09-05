@@ -60,7 +60,6 @@ class IRTCSessionStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession} 
      */
     get_Session() {
@@ -69,7 +68,6 @@ class IRTCSessionStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_SESSION_STATE} 
      */
     get_State() {
@@ -78,7 +76,6 @@ class IRTCSessionStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -87,7 +84,6 @@ class IRTCSessionStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {

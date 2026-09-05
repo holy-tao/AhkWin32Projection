@@ -7,17 +7,20 @@
 class DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_VOS_COPP_SEMANTICS
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_VOS_COPP_SEMANTICS => 0
+    static VOS_COPP_SEMANTICS => 0
 
     /**
+     * Native name: DXGKMDT_OPM_VOS_OPM_SEMANTICS
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_VOS_OPM_SEMANTICS => 1
+    static VOS_OPM_SEMANTICS => 1
 
     /**
+     * Native name: DXGKMDT_OPM_VOS_OPM_INDIRECT_DISPLAY
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_VOS_OPM_INDIRECT_DISPLAY => 2
+    static VOS_OPM_INDIRECT_DISPLAY => 2
 }

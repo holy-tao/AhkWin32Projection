@@ -7,12 +7,14 @@
 class GPO_OPTIONS extends Win32BitflagEnum {
 
     /**
+     * Native name: GPO_OPTION_DISABLE_USER
      * @type {Integer (UInt32)}
      */
-    static GPO_OPTION_DISABLE_USER => 1
+    static OPTION_DISABLE_USER => 1
 
     /**
+     * Native name: GPO_OPTION_DISABLE_MACHINE
      * @type {Integer (UInt32)}
      */
-    static GPO_OPTION_DISABLE_MACHINE => 2
+    static OPTION_DISABLE_MACHINE => 2
 }

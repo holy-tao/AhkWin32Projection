@@ -30,7 +30,6 @@ class IDebugHostField2 extends IDebugHostField {
     static VTableNames => ["GetContainingType"]
 
     /**
-     * 
      * @returns {IDebugHostType3} 
      */
     GetContainingType() {

@@ -10,19 +10,22 @@ class IPSEC_TRAFFIC_TYPE extends Win32Enum {
 
     /**
      * Specifies transport traffic.
+     * Native name: IPSEC_TRAFFIC_TYPE_TRANSPORT
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRAFFIC_TYPE_TRANSPORT => 0
+    static TRANSPORT => 0
 
     /**
      * Specifies tunnel traffic.
+     * Native name: IPSEC_TRAFFIC_TYPE_TUNNEL
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRAFFIC_TYPE_TUNNEL => 1
+    static TUNNEL => 1
 
     /**
      * Maximum value for testing only.
+     * Native name: IPSEC_TRAFFIC_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IPSEC_TRAFFIC_TYPE_MAX => 2
+    static MAX => 2
 }

@@ -7,12 +7,14 @@
 class DXGKMDT_OPM_HDCP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_HDCP_OFF
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_HDCP_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: DXGKMDT_OPM_HDCP_ON
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_HDCP_ON => 1
+    static ON => 1
 }

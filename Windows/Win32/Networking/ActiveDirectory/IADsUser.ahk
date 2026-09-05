@@ -554,7 +554,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BadLoginAddress() {
@@ -564,7 +563,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BadLoginCount() {
@@ -573,7 +571,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastLogin() {
@@ -582,7 +579,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastLogoff() {
@@ -591,7 +587,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastFailedLogin() {
@@ -600,7 +595,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PasswordLastChanged() {
@@ -609,7 +603,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -619,7 +612,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -631,7 +623,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Division() {
@@ -641,7 +632,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDivision 
      * @returns {HRESULT} 
      */
@@ -653,7 +643,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Department() {
@@ -663,7 +652,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDepartment 
      * @returns {HRESULT} 
      */
@@ -675,7 +663,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_EmployeeID() {
@@ -685,7 +672,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEmployeeID 
      * @returns {HRESULT} 
      */
@@ -697,7 +683,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FullName() {
@@ -707,7 +692,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFullName 
      * @returns {HRESULT} 
      */
@@ -719,7 +703,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FirstName() {
@@ -729,7 +712,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFirstName 
      * @returns {HRESULT} 
      */
@@ -741,7 +723,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LastName() {
@@ -751,7 +732,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLastName 
      * @returns {HRESULT} 
      */
@@ -763,7 +743,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OtherName() {
@@ -773,7 +752,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOtherName 
      * @returns {HRESULT} 
      */
@@ -785,7 +763,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NamePrefix() {
@@ -795,7 +772,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNamePrefix 
      * @returns {HRESULT} 
      */
@@ -807,7 +783,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NameSuffix() {
@@ -817,7 +792,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNameSuffix 
      * @returns {HRESULT} 
      */
@@ -829,7 +803,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -839,7 +812,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTitle 
      * @returns {HRESULT} 
      */
@@ -851,7 +823,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Manager() {
@@ -861,7 +832,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrManager 
      * @returns {HRESULT} 
      */
@@ -873,7 +843,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephoneHome() {
@@ -883,7 +852,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephoneHome 
      * @returns {HRESULT} 
      */
@@ -893,7 +861,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephoneMobile() {
@@ -903,7 +870,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephoneMobile 
      * @returns {HRESULT} 
      */
@@ -913,7 +879,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephoneNumber() {
@@ -923,7 +888,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephoneNumber 
      * @returns {HRESULT} 
      */
@@ -933,7 +897,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephonePager() {
@@ -943,7 +906,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephonePager 
      * @returns {HRESULT} 
      */
@@ -953,7 +915,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_FaxNumber() {
@@ -963,7 +924,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vFaxNumber 
      * @returns {HRESULT} 
      */
@@ -973,7 +933,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OfficeLocations() {
@@ -983,7 +942,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vOfficeLocations 
      * @returns {HRESULT} 
      */
@@ -993,7 +951,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PostalAddresses() {
@@ -1003,7 +960,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPostalAddresses 
      * @returns {HRESULT} 
      */
@@ -1013,7 +969,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PostalCodes() {
@@ -1023,7 +978,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPostalCodes 
      * @returns {HRESULT} 
      */
@@ -1033,7 +987,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SeeAlso() {
@@ -1043,7 +996,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vSeeAlso 
      * @returns {HRESULT} 
      */
@@ -1053,7 +1005,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AccountDisabled() {
@@ -1062,7 +1013,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fAccountDisabled 
      * @returns {HRESULT} 
      */
@@ -1072,7 +1022,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_AccountExpirationDate() {
@@ -1081,7 +1030,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daAccountExpirationDate 
      * @returns {HRESULT} 
      */
@@ -1091,7 +1039,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GraceLoginsAllowed() {
@@ -1100,7 +1047,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnGraceLoginsAllowed 
      * @returns {HRESULT} 
      */
@@ -1110,7 +1056,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GraceLoginsRemaining() {
@@ -1119,7 +1064,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnGraceLoginsRemaining 
      * @returns {HRESULT} 
      */
@@ -1129,7 +1073,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsAccountLocked() {
@@ -1138,7 +1081,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fIsAccountLocked 
      * @returns {HRESULT} 
      */
@@ -1148,7 +1090,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_LoginHours() {
@@ -1158,7 +1099,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vLoginHours 
      * @returns {HRESULT} 
      */
@@ -1168,7 +1108,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_LoginWorkstations() {
@@ -1178,7 +1117,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vLoginWorkstations 
      * @returns {HRESULT} 
      */
@@ -1188,7 +1126,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxLogins() {
@@ -1197,7 +1134,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxLogins 
      * @returns {HRESULT} 
      */
@@ -1207,7 +1143,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxStorage() {
@@ -1216,7 +1151,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxStorage 
      * @returns {HRESULT} 
      */
@@ -1226,7 +1160,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PasswordExpirationDate() {
@@ -1235,7 +1168,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daPasswordExpirationDate 
      * @returns {HRESULT} 
      */
@@ -1245,7 +1177,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PasswordMinimumLength() {
@@ -1254,7 +1185,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPasswordMinimumLength 
      * @returns {HRESULT} 
      */
@@ -1264,7 +1194,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PasswordRequired() {
@@ -1273,7 +1202,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fPasswordRequired 
      * @returns {HRESULT} 
      */
@@ -1283,7 +1211,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_RequireUniquePassword() {
@@ -1292,7 +1219,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fRequireUniquePassword 
      * @returns {HRESULT} 
      */
@@ -1302,7 +1228,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_EmailAddress() {
@@ -1312,7 +1237,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEmailAddress 
      * @returns {HRESULT} 
      */
@@ -1324,7 +1248,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HomeDirectory() {
@@ -1334,7 +1257,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHomeDirectory 
      * @returns {HRESULT} 
      */
@@ -1346,7 +1268,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Languages() {
@@ -1356,7 +1277,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vLanguages 
      * @returns {HRESULT} 
      */
@@ -1366,7 +1286,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Profile() {
@@ -1376,7 +1295,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProfile 
      * @returns {HRESULT} 
      */
@@ -1388,7 +1306,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoginScript() {
@@ -1398,7 +1315,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLoginScript 
      * @returns {HRESULT} 
      */
@@ -1410,7 +1326,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Picture() {
@@ -1420,7 +1335,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPicture 
      * @returns {HRESULT} 
      */
@@ -1430,7 +1344,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HomePage() {
@@ -1440,7 +1353,6 @@ class IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHomePage 
      * @returns {HRESULT} 
      */

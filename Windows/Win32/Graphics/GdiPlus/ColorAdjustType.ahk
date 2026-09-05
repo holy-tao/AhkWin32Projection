@@ -7,37 +7,44 @@
 class ColorAdjustType extends Win32Enum {
 
     /**
+     * Native name: ColorAdjustTypeDefault
      * @type {Integer (Int32)}
      */
-    static ColorAdjustTypeDefault => 0
+    static Default => 0
 
     /**
+     * Native name: ColorAdjustTypeBitmap
      * @type {Integer (Int32)}
      */
-    static ColorAdjustTypeBitmap => 1
+    static Bitmap => 1
 
     /**
+     * Native name: ColorAdjustTypeBrush
      * @type {Integer (Int32)}
      */
-    static ColorAdjustTypeBrush => 2
+    static Brush => 2
 
     /**
+     * Native name: ColorAdjustTypePen
      * @type {Integer (Int32)}
      */
-    static ColorAdjustTypePen => 3
+    static Pen => 3
 
     /**
+     * Native name: ColorAdjustTypeText
      * @type {Integer (Int32)}
      */
-    static ColorAdjustTypeText => 4
+    static Text => 4
 
     /**
+     * Native name: ColorAdjustTypeCount
      * @type {Integer (Int32)}
      */
-    static ColorAdjustTypeCount => 5
+    static Count => 5
 
     /**
+     * Native name: ColorAdjustTypeAny
      * @type {Integer (Int32)}
      */
-    static ColorAdjustTypeAny => 6
+    static Any => 6
 }

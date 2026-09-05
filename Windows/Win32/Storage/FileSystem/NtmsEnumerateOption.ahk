@@ -7,12 +7,14 @@
 class NtmsEnumerateOption extends Win32Enum {
 
     /**
+     * Native name: NTMS_ENUM_DEFAULT
      * @type {Integer (Int32)}
      */
-    static NTMS_ENUM_DEFAULT => 0
+    static ENUM_DEFAULT => 0
 
     /**
+     * Native name: NTMS_ENUM_ROOTPOOL
      * @type {Integer (Int32)}
      */
-    static NTMS_ENUM_ROOTPOOL => 1
+    static ENUM_ROOTPOOL => 1
 }

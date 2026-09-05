@@ -31,7 +31,6 @@ class IMachineDebugManagerCookie extends IUnknown {
     static VTableNames => ["AddApplication", "RemoveApplication", "EnumApplications"]
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @param {Integer} dwDebugAppCookie 
      * @returns {Integer} 
@@ -42,7 +41,6 @@ class IMachineDebugManagerCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwDebugAppCookie 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
@@ -53,7 +51,6 @@ class IMachineDebugManagerCookie extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRemoteDebugApplications} 
      */
     EnumApplications() {

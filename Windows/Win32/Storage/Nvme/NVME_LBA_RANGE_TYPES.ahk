@@ -12,31 +12,36 @@ class NVME_LBA_RANGE_TYPES extends Win32Enum {
 
     /**
      * The reserved LBA range.
+     * Native name: NVME_LBA_RANGE_TYPE_RESERVED
      * @type {Integer (Int32)}
      */
-    static NVME_LBA_RANGE_TYPE_RESERVED => 0
+    static TYPE_RESERVED => 0
 
     /**
      * The filesystem LBA range.
+     * Native name: NVME_LBA_RANGE_TYPE_FILESYSTEM
      * @type {Integer (Int32)}
      */
-    static NVME_LBA_RANGE_TYPE_FILESYSTEM => 1
+    static TYPE_FILESYSTEM => 1
 
     /**
      * The RAID LBA range.
+     * Native name: NVME_LBA_RANGE_TYPE_RAID
      * @type {Integer (Int32)}
      */
-    static NVME_LBA_RANGE_TYPE_RAID => 2
+    static TYPE_RAID => 2
 
     /**
      * The cache LBA range.
+     * Native name: NVME_LBA_RANGE_TYPE_CACHE
      * @type {Integer (Int32)}
      */
-    static NVME_LBA_RANGE_TYPE_CACHE => 3
+    static TYPE_CACHE => 3
 
     /**
      * The page/swap file LBA range.
+     * Native name: NVME_LBA_RANGE_TYPE_PAGE_SWAP_FILE
      * @type {Integer (Int32)}
      */
-    static NVME_LBA_RANGE_TYPE_PAGE_SWAP_FILE => 4
+    static TYPE_PAGE_SWAP_FILE => 4
 }

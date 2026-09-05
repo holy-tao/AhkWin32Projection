@@ -12,25 +12,29 @@ class NVME_PROTECTION_INFORMATION_TYPES extends Win32Enum {
 
     /**
      * Protection information is not enabled.
+     * Native name: NVME_PROTECTION_INFORMATION_NOT_ENABLED
      * @type {Integer (Int32)}
      */
-    static NVME_PROTECTION_INFORMATION_NOT_ENABLED => 0
+    static NOT_ENABLED => 0
 
     /**
      * Type 1 protection information is enabled.
+     * Native name: NVME_PROTECTION_INFORMATION_TYPE1
      * @type {Integer (Int32)}
      */
-    static NVME_PROTECTION_INFORMATION_TYPE1 => 1
+    static TYPE1 => 1
 
     /**
      * Type 2 protection information is enabled.
+     * Native name: NVME_PROTECTION_INFORMATION_TYPE2
      * @type {Integer (Int32)}
      */
-    static NVME_PROTECTION_INFORMATION_TYPE2 => 2
+    static TYPE2 => 2
 
     /**
      * Type 3 protection information is enabled.
+     * Native name: NVME_PROTECTION_INFORMATION_TYPE3
      * @type {Integer (Int32)}
      */
-    static NVME_PROTECTION_INFORMATION_TYPE3 => 3
+    static TYPE3 => 3
 }

@@ -29,7 +29,6 @@ class ISyncMergeTombstoneChange extends IUnknown {
     static VTableNames => ["GetWinnerItemId"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pcbIdSize 
      * @returns {HRESULT} 

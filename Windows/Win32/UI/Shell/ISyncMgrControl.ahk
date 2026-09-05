@@ -289,7 +289,6 @@ class ISyncMgrControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszHandlerID 
      * @param {PWSTR} pszItemID 
      * @param {ISyncMgrConflict} pConflict 

@@ -7,7 +7,8 @@
 class KSPROPERTY_FMRX_CONTROL extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_FMRX_STATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_FMRX_STATE => 0
+    static STATE => 0
 }

@@ -7,32 +7,38 @@
 class BATTERY_SET_INFORMATION_LEVEL extends Win32Enum {
 
     /**
+     * Native name: BatteryCriticalBias
      * @type {Integer (Int32)}
      */
-    static BatteryCriticalBias => 0
+    static CriticalBias => 0
 
     /**
+     * Native name: BatteryCharge
      * @type {Integer (Int32)}
      */
-    static BatteryCharge => 1
+    static Charge => 1
 
     /**
+     * Native name: BatteryDischarge
      * @type {Integer (Int32)}
      */
-    static BatteryDischarge => 2
+    static Discharge => 2
 
     /**
+     * Native name: BatteryChargingSource
      * @type {Integer (Int32)}
      */
-    static BatteryChargingSource => 3
+    static ChargingSource => 3
 
     /**
+     * Native name: BatteryChargerId
      * @type {Integer (Int32)}
      */
-    static BatteryChargerId => 4
+    static ChargerId => 4
 
     /**
+     * Native name: BatteryChargerStatus
      * @type {Integer (Int32)}
      */
-    static BatteryChargerStatus => 5
+    static ChargerStatus => 5
 }

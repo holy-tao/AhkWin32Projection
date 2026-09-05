@@ -51,7 +51,6 @@ class IRTCProfileEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCProfile} 
      */
     get_Profile() {
@@ -60,7 +59,6 @@ class IRTCProfileEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Cookie() {
@@ -69,7 +67,6 @@ class IRTCProfileEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {

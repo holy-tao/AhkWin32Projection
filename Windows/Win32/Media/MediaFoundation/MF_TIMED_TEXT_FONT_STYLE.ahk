@@ -10,19 +10,22 @@ class MF_TIMED_TEXT_FONT_STYLE extends Win32Enum {
 
     /**
      * The font style is normal, sometimes referred to as roman.
+     * Native name: MF_TIMED_TEXT_FONT_STYLE_NORMAL
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_FONT_STYLE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The font style is oblique.
+     * Native name: MF_TIMED_TEXT_FONT_STYLE_OBLIQUE
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_FONT_STYLE_OBLIQUE => 1
+    static OBLIQUE => 1
 
     /**
      * The font style is italic.
+     * Native name: MF_TIMED_TEXT_FONT_STYLE_ITALIC
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_FONT_STYLE_ITALIC => 2
+    static ITALIC => 2
 }

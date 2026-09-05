@@ -71,7 +71,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_contentWindow() {
@@ -80,7 +79,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +88,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -100,7 +97,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -110,7 +106,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -120,7 +115,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -130,7 +124,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -140,7 +133,6 @@ class IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_allowTransparency() {

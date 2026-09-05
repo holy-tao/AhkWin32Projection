@@ -7,12 +7,14 @@
 class CPRecordingStatus extends Win32Enum {
 
     /**
+     * Native name: RECORDING_STOPPED
      * @type {Integer (Int32)}
      */
-    static RECORDING_STOPPED => 0
+    static STOPPED => 0
 
     /**
+     * Native name: RECORDING_STARTED
      * @type {Integer (Int32)}
      */
-    static RECORDING_STARTED => 1
+    static STARTED => 1
 }

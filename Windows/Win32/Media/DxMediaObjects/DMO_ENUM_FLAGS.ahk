@@ -12,7 +12,8 @@ class DMO_ENUM_FLAGS extends Win32Enum {
 
     /**
      * The enumeration should include DMOs whose use is restricted by a software key. If this flag is absent, keyed DMOs are omitted from the enumeration.
+     * Native name: DMO_ENUMF_INCLUDE_KEYED
      * @type {Integer (Int32)}
      */
-    static DMO_ENUMF_INCLUDE_KEYED => 1
+    static ENUMF_INCLUDE_KEYED => 1
 }

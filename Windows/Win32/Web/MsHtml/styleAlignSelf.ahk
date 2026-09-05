@@ -7,42 +7,50 @@
 class styleAlignSelf extends Win32Enum {
 
     /**
+     * Native name: styleAlignSelfFlexStart
      * @type {Integer (Int32)}
      */
-    static styleAlignSelfFlexStart => 0
+    static FlexStart => 0
 
     /**
+     * Native name: styleAlignSelfFlexEnd
      * @type {Integer (Int32)}
      */
-    static styleAlignSelfFlexEnd => 1
+    static FlexEnd => 1
 
     /**
+     * Native name: styleAlignSelfCenter
      * @type {Integer (Int32)}
      */
-    static styleAlignSelfCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleAlignSelfBaseline
      * @type {Integer (Int32)}
      */
-    static styleAlignSelfBaseline => 3
+    static Baseline => 3
 
     /**
+     * Native name: styleAlignSelfStretch
      * @type {Integer (Int32)}
      */
-    static styleAlignSelfStretch => 4
+    static Stretch => 4
 
     /**
+     * Native name: styleAlignSelfAuto
      * @type {Integer (Int32)}
      */
-    static styleAlignSelfAuto => 5
+    static Auto => 5
 
     /**
+     * Native name: styleAlignSelfNotSet
      * @type {Integer (Int32)}
      */
-    static styleAlignSelfNotSet => 6
+    static NotSet => 6
 
     /**
+     * Native name: styleAlignSelf_Max
      * @type {Integer (Int32)}
      */
-    static styleAlignSelf_Max => 2147483647
+    static Max => 2147483647
 }

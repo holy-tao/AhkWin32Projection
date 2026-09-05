@@ -29,7 +29,6 @@ class IXFeedItem2 extends IXFeedItem {
     static VTableNames => ["EffectiveId"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     EffectiveId() {

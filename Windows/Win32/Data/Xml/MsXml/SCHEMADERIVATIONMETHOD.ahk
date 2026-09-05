@@ -7,42 +7,50 @@
 class SCHEMADERIVATIONMETHOD extends Win32Enum {
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_EMPTY
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_EMPTY => 0
+    static EMPTY => 0
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_SUBSTITUTION
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_SUBSTITUTION => 1
+    static SUBSTITUTION => 1
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_EXTENSION
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_EXTENSION => 2
+    static EXTENSION => 2
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_RESTRICTION
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_RESTRICTION => 4
+    static RESTRICTION => 4
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_LIST
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_LIST => 8
+    static LIST => 8
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_UNION
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_UNION => 16
+    static UNION => 16
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_ALL
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_ALL => 255
+    static ALL => 255
 
     /**
+     * Native name: SCHEMADERIVATIONMETHOD_NONE
      * @type {Integer (Int32)}
      */
-    static SCHEMADERIVATIONMETHOD_NONE => 256
+    static NONE => 256
 }

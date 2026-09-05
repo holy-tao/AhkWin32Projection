@@ -27,378 +27,441 @@ class D3D_SHADER_VARIABLE_TYPE extends Win32Enum {
 
     /**
      * The variable is a void pointer.
+     * Native name: D3D_SVT_VOID
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_VOID => 0
+    static SVT_VOID => 0
 
     /**
      * The variable is a boolean.
+     * Native name: D3D_SVT_BOOL
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_BOOL => 1
+    static SVT_BOOL => 1
 
     /**
      * The variable is an integer.
+     * Native name: D3D_SVT_INT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_INT => 2
+    static SVT_INT => 2
 
     /**
      * The variable is a floating-point number.
+     * Native name: D3D_SVT_FLOAT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_FLOAT => 3
+    static SVT_FLOAT => 3
 
     /**
      * The variable is a string.
+     * Native name: D3D_SVT_STRING
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_STRING => 4
+    static SVT_STRING => 4
 
     /**
      * The variable is a texture.
+     * Native name: D3D_SVT_TEXTURE
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE => 5
+    static SVT_TEXTURE => 5
 
     /**
      * The variable is a 1D texture.
+     * Native name: D3D_SVT_TEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE1D => 6
+    static SVT_TEXTURE1D => 6
 
     /**
      * The variable is a 2D texture.
+     * Native name: D3D_SVT_TEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE2D => 7
+    static SVT_TEXTURE2D => 7
 
     /**
      * The variable is a 3D texture.
+     * Native name: D3D_SVT_TEXTURE3D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE3D => 8
+    static SVT_TEXTURE3D => 8
 
     /**
      * The variable is a texture cube.
+     * Native name: D3D_SVT_TEXTURECUBE
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURECUBE => 9
+    static SVT_TEXTURECUBE => 9
 
     /**
      * The variable is a sampler.
+     * Native name: D3D_SVT_SAMPLER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_SAMPLER => 10
+    static SVT_SAMPLER => 10
 
     /**
      * The variable is a 1D sampler.
+     * Native name: D3D_SVT_SAMPLER1D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_SAMPLER1D => 11
+    static SVT_SAMPLER1D => 11
 
     /**
      * The variable is a 2D sampler.
+     * Native name: D3D_SVT_SAMPLER2D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_SAMPLER2D => 12
+    static SVT_SAMPLER2D => 12
 
     /**
      * The variable is a 3D sampler.
+     * Native name: D3D_SVT_SAMPLER3D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_SAMPLER3D => 13
+    static SVT_SAMPLER3D => 13
 
     /**
      * The variable is a cube sampler.
+     * Native name: D3D_SVT_SAMPLERCUBE
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_SAMPLERCUBE => 14
+    static SVT_SAMPLERCUBE => 14
 
     /**
      * The variable is a pixel shader.
+     * Native name: D3D_SVT_PIXELSHADER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_PIXELSHADER => 15
+    static SVT_PIXELSHADER => 15
 
     /**
      * The variable is a vertex shader.
+     * Native name: D3D_SVT_VERTEXSHADER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_VERTEXSHADER => 16
+    static SVT_VERTEXSHADER => 16
 
     /**
      * The variable is a pixel fragment.
+     * Native name: D3D_SVT_PIXELFRAGMENT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_PIXELFRAGMENT => 17
+    static SVT_PIXELFRAGMENT => 17
 
     /**
      * The variable is a vertex fragment.
+     * Native name: D3D_SVT_VERTEXFRAGMENT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_VERTEXFRAGMENT => 18
+    static SVT_VERTEXFRAGMENT => 18
 
     /**
      * The variable is an unsigned integer.
+     * Native name: D3D_SVT_UINT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_UINT => 19
+    static SVT_UINT => 19
 
     /**
      * The variable is an 8-bit unsigned integer.
+     * Native name: D3D_SVT_UINT8
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_UINT8 => 20
+    static SVT_UINT8 => 20
 
     /**
      * The variable is a geometry shader.
+     * Native name: D3D_SVT_GEOMETRYSHADER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_GEOMETRYSHADER => 21
+    static SVT_GEOMETRYSHADER => 21
 
     /**
      * The variable is a rasterizer-state object.
+     * Native name: D3D_SVT_RASTERIZER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RASTERIZER => 22
+    static SVT_RASTERIZER => 22
 
     /**
      * The variable is a depth-stencil-state object.
+     * Native name: D3D_SVT_DEPTHSTENCIL
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_DEPTHSTENCIL => 23
+    static SVT_DEPTHSTENCIL => 23
 
     /**
      * The variable is a blend-state object.
+     * Native name: D3D_SVT_BLEND
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_BLEND => 24
+    static SVT_BLEND => 24
 
     /**
      * The variable is a buffer.
+     * Native name: D3D_SVT_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_BUFFER => 25
+    static SVT_BUFFER => 25
 
     /**
      * The variable is a constant buffer.
+     * Native name: D3D_SVT_CBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_CBUFFER => 26
+    static SVT_CBUFFER => 26
 
     /**
      * The variable is a texture buffer.
+     * Native name: D3D_SVT_TBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TBUFFER => 27
+    static SVT_TBUFFER => 27
 
     /**
      * The variable is a 1D-texture array.
+     * Native name: D3D_SVT_TEXTURE1DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE1DARRAY => 28
+    static SVT_TEXTURE1DARRAY => 28
 
     /**
      * The variable is a 2D-texture array.
+     * Native name: D3D_SVT_TEXTURE2DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE2DARRAY => 29
+    static SVT_TEXTURE2DARRAY => 29
 
     /**
      * The variable is a render-target view.
+     * Native name: D3D_SVT_RENDERTARGETVIEW
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RENDERTARGETVIEW => 30
+    static SVT_RENDERTARGETVIEW => 30
 
     /**
      * The variable is a depth-stencil view.
+     * Native name: D3D_SVT_DEPTHSTENCILVIEW
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_DEPTHSTENCILVIEW => 31
+    static SVT_DEPTHSTENCILVIEW => 31
 
     /**
      * The variable is a 2D-multisampled texture.
+     * Native name: D3D_SVT_TEXTURE2DMS
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE2DMS => 32
+    static SVT_TEXTURE2DMS => 32
 
     /**
      * The variable is a 2D-multisampled-texture array.
+     * Native name: D3D_SVT_TEXTURE2DMSARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURE2DMSARRAY => 33
+    static SVT_TEXTURE2DMSARRAY => 33
 
     /**
      * The variable is a texture-cube array.
+     * Native name: D3D_SVT_TEXTURECUBEARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_TEXTURECUBEARRAY => 34
+    static SVT_TEXTURECUBEARRAY => 34
 
     /**
      * The variable holds a compiled hull-shader binary.
+     * Native name: D3D_SVT_HULLSHADER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_HULLSHADER => 35
+    static SVT_HULLSHADER => 35
 
     /**
      * The variable holds a compiled domain-shader binary.
+     * Native name: D3D_SVT_DOMAINSHADER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_DOMAINSHADER => 36
+    static SVT_DOMAINSHADER => 36
 
     /**
      * The variable is an interface.
+     * Native name: D3D_SVT_INTERFACE_POINTER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_INTERFACE_POINTER => 37
+    static SVT_INTERFACE_POINTER => 37
 
     /**
      * The variable holds a compiled compute-shader binary.
+     * Native name: D3D_SVT_COMPUTESHADER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_COMPUTESHADER => 38
+    static SVT_COMPUTESHADER => 38
 
     /**
      * The variable is a double precision (64-bit) floating-point number.
+     * Native name: D3D_SVT_DOUBLE
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_DOUBLE => 39
+    static SVT_DOUBLE => 39
 
     /**
      * The variable is a 1D read-and-write texture.
+     * Native name: D3D_SVT_RWTEXTURE1D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWTEXTURE1D => 40
+    static SVT_RWTEXTURE1D => 40
 
     /**
      * The variable is an array of 1D read-and-write textures.
+     * Native name: D3D_SVT_RWTEXTURE1DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWTEXTURE1DARRAY => 41
+    static SVT_RWTEXTURE1DARRAY => 41
 
     /**
      * The variable is a 2D read-and-write texture.
+     * Native name: D3D_SVT_RWTEXTURE2D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWTEXTURE2D => 42
+    static SVT_RWTEXTURE2D => 42
 
     /**
      * The variable is an array of 2D read-and-write textures.
+     * Native name: D3D_SVT_RWTEXTURE2DARRAY
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWTEXTURE2DARRAY => 43
+    static SVT_RWTEXTURE2DARRAY => 43
 
     /**
      * The variable is a 3D read-and-write texture.
+     * Native name: D3D_SVT_RWTEXTURE3D
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWTEXTURE3D => 44
+    static SVT_RWTEXTURE3D => 44
 
     /**
      * The variable is a read-and-write buffer.
+     * Native name: D3D_SVT_RWBUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWBUFFER => 45
+    static SVT_RWBUFFER => 45
 
     /**
      * The variable is a byte-address buffer.
+     * Native name: D3D_SVT_BYTEADDRESS_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_BYTEADDRESS_BUFFER => 46
+    static SVT_BYTEADDRESS_BUFFER => 46
 
     /**
      * The variable is a read-and-write byte-address buffer.
+     * Native name: D3D_SVT_RWBYTEADDRESS_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWBYTEADDRESS_BUFFER => 47
+    static SVT_RWBYTEADDRESS_BUFFER => 47
 
     /**
      * The variable is a structured buffer. 
      * 
      * For more information about structured buffer, see the <b>Remarks</b> section.
+     * Native name: D3D_SVT_STRUCTURED_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_STRUCTURED_BUFFER => 48
+    static SVT_STRUCTURED_BUFFER => 48
 
     /**
      * The variable is a read-and-write structured buffer.
+     * Native name: D3D_SVT_RWSTRUCTURED_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_RWSTRUCTURED_BUFFER => 49
+    static SVT_RWSTRUCTURED_BUFFER => 49
 
     /**
      * The variable is an append structured buffer.
+     * Native name: D3D_SVT_APPEND_STRUCTURED_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_APPEND_STRUCTURED_BUFFER => 50
+    static SVT_APPEND_STRUCTURED_BUFFER => 50
 
     /**
      * The variable is a consume structured buffer.
+     * Native name: D3D_SVT_CONSUME_STRUCTURED_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_CONSUME_STRUCTURED_BUFFER => 51
+    static SVT_CONSUME_STRUCTURED_BUFFER => 51
 
     /**
      * The variable is an 8-byte FLOAT.
+     * Native name: D3D_SVT_MIN8FLOAT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_MIN8FLOAT => 52
+    static SVT_MIN8FLOAT => 52
 
     /**
      * The variable is a 10-byte FLOAT.
+     * Native name: D3D_SVT_MIN10FLOAT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_MIN10FLOAT => 53
+    static SVT_MIN10FLOAT => 53
 
     /**
      * The variable is a 16-byte FLOAT.
+     * Native name: D3D_SVT_MIN16FLOAT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_MIN16FLOAT => 54
+    static SVT_MIN16FLOAT => 54
 
     /**
      * The variable is a 12-byte INT.
+     * Native name: D3D_SVT_MIN12INT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_MIN12INT => 55
+    static SVT_MIN12INT => 55
 
     /**
      * The variable is a 16-byte INT.
+     * Native name: D3D_SVT_MIN16INT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_MIN16INT => 56
+    static SVT_MIN16INT => 56
 
     /**
      * The variable is a 16-byte INT.
+     * Native name: D3D_SVT_MIN16UINT
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_MIN16UINT => 57
+    static SVT_MIN16UINT => 57
 
     /**
+     * Native name: D3D_SVT_INT16
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_INT16 => 58
+    static SVT_INT16 => 58
 
     /**
+     * Native name: D3D_SVT_UINT16
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_UINT16 => 59
+    static SVT_UINT16 => 59
 
     /**
+     * Native name: D3D_SVT_FLOAT16
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_FLOAT16 => 60
+    static SVT_FLOAT16 => 60
 
     /**
+     * Native name: D3D_SVT_INT64
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_INT64 => 61
+    static SVT_INT64 => 61
 
     /**
+     * Native name: D3D_SVT_UINT64
      * @type {Integer (Int32)}
      */
-    static D3D_SVT_UINT64 => 62
+    static SVT_UINT64 => 62
 
     /**
      * The variable is a void pointer.

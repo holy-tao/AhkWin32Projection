@@ -10,24 +10,28 @@ class MMC_RESULT_VIEW_STYLE extends Win32Enum {
 
     /**
      * Allows only one item at a time to be selected. Without this view style, multiple items can be selected.
+     * Native name: MMC_SINGLESEL
      * @type {Integer (Int32)}
      */
-    static MMC_SINGLESEL => 1
+    static SINGLESEL => 1
 
     /**
      * Always show the selection, if any, even if the control does not have the focus.
+     * Native name: MMC_SHOWSELALWAYS
      * @type {Integer (Int32)}
      */
-    static MMC_SHOWSELALWAYS => 2
+    static SHOWSELALWAYS => 2
 
     /**
      * A value that specifies that column headers do not work like buttons. This style is useful if clicking a column header in report view does not carry out an action, such as sorting.
+     * Native name: MMC_NOSORTHEADER
      * @type {Integer (Int32)}
      */
-    static MMC_NOSORTHEADER => 4
+    static NOSORTHEADER => 4
 
     /**
+     * Native name: MMC_ENSUREFOCUSVISIBLE
      * @type {Integer (Int32)}
      */
-    static MMC_ENSUREFOCUSVISIBLE => 8
+    static ENSUREFOCUSVISIBLE => 8
 }

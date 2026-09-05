@@ -26,9 +26,10 @@ class WS_FAULT_ERROR_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <b>NULL</b>.
+     * Native name: WS_FAULT_ERROR_PROPERTY_FAULT
      * @type {Integer (Int32)}
      */
-    static WS_FAULT_ERROR_PROPERTY_FAULT => 0
+    static FAULT => 0
 
     /**
      * An optional <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_string">WS_XML_STRING</a> value representing the action to use for the fault.
@@ -45,9 +46,10 @@ class WS_FAULT_ERROR_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is a zero-length string.
+     * Native name: WS_FAULT_ERROR_PROPERTY_ACTION
      * @type {Integer (Int32)}
      */
-    static WS_FAULT_ERROR_PROPERTY_ACTION => 1
+    static ACTION => 1
 
     /**
      * An optional <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> value representing a header to
@@ -65,7 +67,8 @@ class WS_FAULT_ERROR_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <b>NULL</b>.
+     * Native name: WS_FAULT_ERROR_PROPERTY_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_FAULT_ERROR_PROPERTY_HEADER => 2
+    static HEADER => 2
 }

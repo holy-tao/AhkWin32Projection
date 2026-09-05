@@ -7,17 +7,20 @@
 class PDH_FMT extends Win32Enum {
 
     /**
+     * Native name: PDH_FMT_DOUBLE
      * @type {Integer (UInt32)}
      */
-    static PDH_FMT_DOUBLE => 512
+    static DOUBLE => 512
 
     /**
+     * Native name: PDH_FMT_LARGE
      * @type {Integer (UInt32)}
      */
-    static PDH_FMT_LARGE => 1024
+    static LARGE => 1024
 
     /**
+     * Native name: PDH_FMT_LONG
      * @type {Integer (UInt32)}
      */
-    static PDH_FMT_LONG => 256
+    static LONG => 256
 }

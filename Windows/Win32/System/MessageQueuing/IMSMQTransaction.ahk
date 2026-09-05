@@ -43,7 +43,6 @@ class IMSMQTransaction extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Transaction() {
@@ -52,7 +51,6 @@ class IMSMQTransaction extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} fRetaining 
      * @param {Pointer<VARIANT>} grfTC 
      * @param {Pointer<VARIANT>} grfRM 
@@ -64,7 +62,6 @@ class IMSMQTransaction extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} fRetaining 
      * @param {Pointer<VARIANT>} fAsync 
      * @returns {HRESULT} 

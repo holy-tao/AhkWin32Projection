@@ -7,12 +7,14 @@
 class BDA_Range extends Win32Enum {
 
     /**
+     * Native name: BDA_RANGE_NOT_SET
      * @type {Integer (Int32)}
      */
-    static BDA_RANGE_NOT_SET => -1
+    static NOT_SET => -1
 
     /**
+     * Native name: BDA_RANGE_NOT_DEFINED
      * @type {Integer (Int32)}
      */
-    static BDA_RANGE_NOT_DEFINED => 0
+    static NOT_DEFINED => 0
 }

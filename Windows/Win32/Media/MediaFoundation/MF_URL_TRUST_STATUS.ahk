@@ -10,19 +10,22 @@ class MF_URL_TRUST_STATUS extends Win32Enum {
 
     /**
      * The validity of the URL cannot be guaranteed because it is not signed. The application should warn the user.
+     * Native name: MF_LICENSE_URL_UNTRUSTED
      * @type {Integer (Int32)}
      */
-    static MF_LICENSE_URL_UNTRUSTED => 0
+    static LICENSE_URL_UNTRUSTED => 0
 
     /**
      * The URL is the original one provided with the content.
+     * Native name: MF_LICENSE_URL_TRUSTED
      * @type {Integer (Int32)}
      */
-    static MF_LICENSE_URL_TRUSTED => 1
+    static LICENSE_URL_TRUSTED => 1
 
     /**
      * The URL was originally signed and has been tampered with. The file should be considered corrupted, and the application should not navigate to the URL without issuing a strong warning the user.
+     * Native name: MF_LICENSE_URL_TAMPERED
      * @type {Integer (Int32)}
      */
-    static MF_LICENSE_URL_TAMPERED => 2
+    static LICENSE_URL_TAMPERED => 2
 }

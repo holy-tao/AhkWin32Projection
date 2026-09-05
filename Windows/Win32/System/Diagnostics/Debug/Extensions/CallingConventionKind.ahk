@@ -7,32 +7,38 @@
 class CallingConventionKind extends Win32Enum {
 
     /**
+     * Native name: CallingConventionUnknown
      * @type {Integer (Int32)}
      */
-    static CallingConventionUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: CallingConventionCDecl
      * @type {Integer (Int32)}
      */
-    static CallingConventionCDecl => 1
+    static ConventionCDecl => 1
 
     /**
+     * Native name: CallingConventionFastCall
      * @type {Integer (Int32)}
      */
-    static CallingConventionFastCall => 2
+    static FastCall => 2
 
     /**
+     * Native name: CallingConventionStdCall
      * @type {Integer (Int32)}
      */
-    static CallingConventionStdCall => 3
+    static StdCall => 3
 
     /**
+     * Native name: CallingConventionSysCall
      * @type {Integer (Int32)}
      */
-    static CallingConventionSysCall => 4
+    static SysCall => 4
 
     /**
+     * Native name: CallingConventionThisCall
      * @type {Integer (Int32)}
      */
-    static CallingConventionThisCall => 5
+    static ThisCall => 5
 }

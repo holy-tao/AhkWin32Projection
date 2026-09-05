@@ -7,37 +7,44 @@
 class VA_COLOR_PRIMARIES extends Win32Enum {
 
     /**
+     * Native name: VA_PRIMARIES_ITU_R_BT_709
      * @type {Integer (Int32)}
      */
-    static VA_PRIMARIES_ITU_R_BT_709 => 1
+    static ITU_R_BT_709 => 1
 
     /**
+     * Native name: VA_PRIMARIES_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static VA_PRIMARIES_UNSPECIFIED => 2
+    static UNSPECIFIED => 2
 
     /**
+     * Native name: VA_PRIMARIES_ITU_R_BT_470_SYSTEM_M
      * @type {Integer (Int32)}
      */
-    static VA_PRIMARIES_ITU_R_BT_470_SYSTEM_M => 4
+    static ITU_R_BT_470_SYSTEM_M => 4
 
     /**
+     * Native name: VA_PRIMARIES_ITU_R_BT_470_SYSTEM_B_G
      * @type {Integer (Int32)}
      */
-    static VA_PRIMARIES_ITU_R_BT_470_SYSTEM_B_G => 5
+    static ITU_R_BT_470_SYSTEM_B_G => 5
 
     /**
+     * Native name: VA_PRIMARIES_SMPTE_170M
      * @type {Integer (Int32)}
      */
-    static VA_PRIMARIES_SMPTE_170M => 6
+    static SMPTE_170M => 6
 
     /**
+     * Native name: VA_PRIMARIES_SMPTE_240M
      * @type {Integer (Int32)}
      */
-    static VA_PRIMARIES_SMPTE_240M => 7
+    static SMPTE_240M => 7
 
     /**
+     * Native name: VA_PRIMARIES_H264_GENERIC_FILM
      * @type {Integer (Int32)}
      */
-    static VA_PRIMARIES_H264_GENERIC_FILM => 8
+    static H264_GENERIC_FILM => 8
 }

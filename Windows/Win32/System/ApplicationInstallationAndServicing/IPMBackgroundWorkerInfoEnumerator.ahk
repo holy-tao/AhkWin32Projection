@@ -37,7 +37,6 @@ class IPMBackgroundWorkerInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMBackgroundWorkerInfo} 
      */
     get_Next() {

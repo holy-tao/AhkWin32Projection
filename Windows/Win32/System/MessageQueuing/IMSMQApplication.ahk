@@ -36,7 +36,6 @@ class IMSMQApplication extends IDispatch {
     static VTableNames => ["MachineIdOfMachineName"]
 
     /**
-     * 
      * @param {BSTR} MachineName 
      * @returns {BSTR} 
      */

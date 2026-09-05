@@ -7,17 +7,20 @@
 class CREATE_FILE_TYPE extends Win32Enum {
 
     /**
+     * Native name: CreateFileTypeNone
      * @type {Integer (Int32)}
      */
-    static CreateFileTypeNone => 0
+    static None => 0
 
     /**
+     * Native name: CreateFileTypeNamedPipe
      * @type {Integer (Int32)}
      */
-    static CreateFileTypeNamedPipe => 1
+    static NamedPipe => 1
 
     /**
+     * Native name: CreateFileTypeMailslot
      * @type {Integer (Int32)}
      */
-    static CreateFileTypeMailslot => 2
+    static Mailslot => 2
 }

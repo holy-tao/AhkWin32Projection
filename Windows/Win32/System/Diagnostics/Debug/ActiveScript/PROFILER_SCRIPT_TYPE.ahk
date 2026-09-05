@@ -7,22 +7,26 @@
 class PROFILER_SCRIPT_TYPE extends Win32Enum {
 
     /**
+     * Native name: PROFILER_SCRIPT_TYPE_USER
      * @type {Integer (Int32)}
      */
-    static PROFILER_SCRIPT_TYPE_USER => 0
+    static USER => 0
 
     /**
+     * Native name: PROFILER_SCRIPT_TYPE_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static PROFILER_SCRIPT_TYPE_DYNAMIC => 1
+    static DYNAMIC => 1
 
     /**
+     * Native name: PROFILER_SCRIPT_TYPE_NATIVE
      * @type {Integer (Int32)}
      */
-    static PROFILER_SCRIPT_TYPE_NATIVE => 2
+    static NATIVE => 2
 
     /**
+     * Native name: PROFILER_SCRIPT_TYPE_DOM
      * @type {Integer (Int32)}
      */
-    static PROFILER_SCRIPT_TYPE_DOM => 3
+    static DOM => 3
 }

@@ -89,7 +89,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Feeds() {
@@ -98,7 +97,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Subfolders() {
@@ -107,7 +105,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedName 
      * @param {BSTR} feedUrl 
      * @returns {IDispatch} 
@@ -121,7 +118,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {IDispatch} 
      */
@@ -133,7 +129,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedName 
      * @returns {VARIANT_BOOL} 
      */
@@ -145,7 +140,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedName 
      * @returns {IDispatch} 
      */
@@ -157,7 +151,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {VARIANT_BOOL} 
      */
@@ -169,7 +162,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {IDispatch} 
      */
@@ -181,7 +173,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -190,7 +181,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -200,7 +190,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {HRESULT} 
      */
@@ -212,7 +201,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -222,7 +210,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newParentPath 
      * @returns {HRESULT} 
      */
@@ -234,7 +221,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -243,7 +229,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsRoot() {
@@ -252,7 +237,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalUnreadItemCount() {
@@ -261,7 +245,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalItemCount() {
@@ -270,7 +253,6 @@ class IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_EVENTS_SCOPE} scope 
      * @param {FEEDS_EVENTS_MASK} mask 
      * @returns {IDispatch} 

@@ -12,19 +12,22 @@ class WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: WCN_VALUE_SS_RESERVED00
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_SS_RESERVED00 => 0
+    static SS_RESERVED00 => 0
 
     /**
      * The device is not configured.
+     * Native name: WCN_VALUE_SS_NOT_CONFIGURED
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_SS_NOT_CONFIGURED => 1
+    static SS_NOT_CONFIGURED => 1
 
     /**
      * The device is configured.
+     * Native name: WCN_VALUE_SS_CONFIGURED
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_SS_CONFIGURED => 2
+    static SS_CONFIGURED => 2
 }

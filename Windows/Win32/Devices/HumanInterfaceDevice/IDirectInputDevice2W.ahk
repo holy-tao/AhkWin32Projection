@@ -37,7 +37,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     static VTableNames => ["CreateEffect", "EnumEffects", "GetEffectInfo", "GetForceFeedbackState", "SendForceFeedbackCommand", "EnumCreatedEffectObjects", "Escape", "Poll", "SendDeviceData"]
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIEFFECT>} param1 
      * @param {IUnknown} param3 
@@ -49,7 +48,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     }
 
     /**
-     * 
      * @param {Pointer<LPDIENUMEFFECTSCALLBACKW>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
@@ -63,7 +61,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     }
 
     /**
-     * 
      * @param {Pointer<DIEFFECTINFOW>} param0 
      * @param {Pointer<Guid>} param1 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -86,7 +82,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -96,7 +91,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     }
 
     /**
-     * 
      * @param {Pointer<LPDIENUMCREATEDEFFECTOBJECTSCALLBACK>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
@@ -161,7 +155,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Poll() {
@@ -170,7 +163,6 @@ class IDirectInputDevice2W extends IDirectInputDeviceW {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICEOBJECTDATA>} param1 
      * @param {Pointer<Integer>} param2 

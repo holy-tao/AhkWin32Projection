@@ -58,7 +58,6 @@ class ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_StreamTime() {
@@ -68,7 +67,6 @@ class ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Length() {
@@ -78,7 +76,6 @@ class ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TickCount() {
@@ -87,7 +84,6 @@ class ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OffsetFromStart() {

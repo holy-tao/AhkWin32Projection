@@ -33,7 +33,6 @@ class IWorkspaceScriptable3 extends IWorkspaceScriptable2 {
     static VTableNames => ["StartWorkspaceEx2"]
 
     /**
-     * 
      * @param {BSTR} bstrWorkspaceId 
      * @param {BSTR} bstrWorkspaceFriendlyName 
      * @param {BSTR} bstrRedirectorName 

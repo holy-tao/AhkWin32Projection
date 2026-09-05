@@ -12,49 +12,57 @@ class D3D11_COMPARISON_FUNC extends Win32Enum {
 
     /**
      * Never pass the comparison.
+     * Native name: D3D11_COMPARISON_NEVER
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_NEVER => 1
+    static NEVER => 1
 
     /**
      * If the source data is less than the destination data, the comparison passes.
+     * Native name: D3D11_COMPARISON_LESS
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_LESS => 2
+    static LESS => 2
 
     /**
      * If the source data is equal to the destination data, the comparison passes.
+     * Native name: D3D11_COMPARISON_EQUAL
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_EQUAL => 3
+    static EQUAL => 3
 
     /**
      * If the source data is less than or equal to the destination data, the comparison passes.
+     * Native name: D3D11_COMPARISON_LESS_EQUAL
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_LESS_EQUAL => 4
+    static LESS_EQUAL => 4
 
     /**
      * If the source data is greater than the destination data, the comparison passes.
+     * Native name: D3D11_COMPARISON_GREATER
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_GREATER => 5
+    static GREATER => 5
 
     /**
      * If the source data is not equal to the destination data, the comparison passes.
+     * Native name: D3D11_COMPARISON_NOT_EQUAL
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_NOT_EQUAL => 6
+    static NOT_EQUAL => 6
 
     /**
      * If the source data is greater than or equal to the destination data, the comparison passes.
+     * Native name: D3D11_COMPARISON_GREATER_EQUAL
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_GREATER_EQUAL => 7
+    static GREATER_EQUAL => 7
 
     /**
      * Always pass the comparison.
+     * Native name: D3D11_COMPARISON_ALWAYS
      * @type {Integer (Int32)}
      */
-    static D3D11_COMPARISON_ALWAYS => 8
+    static ALWAYS => 8
 }

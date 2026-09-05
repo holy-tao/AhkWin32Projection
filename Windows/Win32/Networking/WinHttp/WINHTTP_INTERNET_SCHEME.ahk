@@ -7,22 +7,26 @@
 class WINHTTP_INTERNET_SCHEME extends Win32Enum {
 
     /**
+     * Native name: WINHTTP_INTERNET_SCHEME_HTTP
      * @type {Integer (Int32)}
      */
-    static WINHTTP_INTERNET_SCHEME_HTTP => 1
+    static HTTP => 1
 
     /**
+     * Native name: WINHTTP_INTERNET_SCHEME_HTTPS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_INTERNET_SCHEME_HTTPS => 2
+    static HTTPS => 2
 
     /**
+     * Native name: WINHTTP_INTERNET_SCHEME_FTP
      * @type {Integer (Int32)}
      */
-    static WINHTTP_INTERNET_SCHEME_FTP => 3
+    static FTP => 3
 
     /**
+     * Native name: WINHTTP_INTERNET_SCHEME_SOCKS
      * @type {Integer (Int32)}
      */
-    static WINHTTP_INTERNET_SCHEME_SOCKS => 4
+    static SOCKS => 4
 }

@@ -12,7 +12,8 @@ class PCI_EXPRESS_CARD_PRESENCE extends Win32Enum {
     static SlotEmpty => 0
 
     /**
+     * Native name: CardPresent
      * @type {Integer (Int32)}
      */
-    static CardPresent => 1
+    static Present => 1
 }

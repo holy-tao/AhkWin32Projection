@@ -46,7 +46,6 @@ class ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -55,7 +54,6 @@ class ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -64,7 +62,6 @@ class ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -73,7 +70,6 @@ class ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {BSTR} 
      */
@@ -84,7 +80,6 @@ class ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRegistryKey 
      * @returns {HRESULT} 
      */
@@ -96,7 +91,6 @@ class ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */

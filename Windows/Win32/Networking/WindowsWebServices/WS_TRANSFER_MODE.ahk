@@ -26,9 +26,10 @@ class WS_TRANSFER_MODE extends Win32Enum {
      * 
      * Not setting this flag means the entire message is read and buffered
      *                     in memory before <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmessagestart">WsReadMessageStart</a> indicates completion.
+     * Native name: WS_STREAMED_INPUT_TRANSFER_MODE
      * @type {Integer (Int32)}
      */
-    static WS_STREAMED_INPUT_TRANSFER_MODE => 1
+    static STREAMED_INPUT_TRANSFER_MODE => 1
 
     /**
      * Setting this flag means messages are transmitted in chunks.  The start of the message (opening
@@ -40,9 +41,10 @@ class WS_TRANSFER_MODE extends Win32Enum {
      * 
      * Not setting this flag means the entire message is buffered in 
      *                     memory and is only transmitted once <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritemessageend">WsWriteMessageEnd</a> is called.
+     * Native name: WS_STREAMED_OUTPUT_TRANSFER_MODE
      * @type {Integer (Int32)}
      */
-    static WS_STREAMED_OUTPUT_TRANSFER_MODE => 2
+    static STREAMED_OUTPUT_TRANSFER_MODE => 2
 
     /**
      * Messages that are written or read are buffered.
@@ -51,9 +53,10 @@ class WS_TRANSFER_MODE extends Win32Enum {
      * This is equivalent to specifying neither
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_transfer_mode">WS_STREAMED_INPUT_TRANSFER_MODE</a> nor
      *                     <b>WS_STREAMED_OUTPUT_TRANSFER_MODE</b>.
+     * Native name: WS_BUFFERED_TRANSFER_MODE
      * @type {Integer (Int32)}
      */
-    static WS_BUFFERED_TRANSFER_MODE => 0
+    static BUFFERED_TRANSFER_MODE => 0
 
     /**
      * Messages that are written or read are streamed.
@@ -62,7 +65,8 @@ class WS_TRANSFER_MODE extends Win32Enum {
      * This is equivalent to specifying both
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_transfer_mode">WS_STREAMED_INPUT_TRANSFER_MODE</a> and
      *                     <b>WS_STREAMED_OUTPUT_TRANSFER_MODE</b>.
+     * Native name: WS_STREAMED_TRANSFER_MODE
      * @type {Integer (Int32)}
      */
-    static WS_STREAMED_TRANSFER_MODE => 3
+    static STREAMED_TRANSFER_MODE => 3
 }

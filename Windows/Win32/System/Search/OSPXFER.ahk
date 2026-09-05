@@ -7,17 +7,20 @@
 class OSPXFER extends Win32Enum {
 
     /**
+     * Native name: OSPXFER_COMPLETE
      * @type {Integer (Int32)}
      */
-    static OSPXFER_COMPLETE => 0
+    static COMPLETE => 0
 
     /**
+     * Native name: OSPXFER_ABORT
      * @type {Integer (Int32)}
      */
-    static OSPXFER_ABORT => 1
+    static ABORT => 1
 
     /**
+     * Native name: OSPXFER_ERROR
      * @type {Integer (Int32)}
      */
-    static OSPXFER_ERROR => 2
+    static ERROR => 2
 }

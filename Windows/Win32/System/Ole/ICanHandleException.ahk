@@ -31,7 +31,6 @@ class ICanHandleException extends IUnknown {
     static VTableNames => ["CanHandleException"]
 
     /**
-     * 
      * @param {Pointer<EXCEPINFO>} pExcepInfo 
      * @param {Pointer<VARIANT>} pvar 
      * @returns {HRESULT} 

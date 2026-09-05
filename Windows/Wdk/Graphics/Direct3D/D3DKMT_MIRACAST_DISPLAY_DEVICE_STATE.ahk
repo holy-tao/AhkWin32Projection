@@ -7,22 +7,26 @@
 class D3DKMT_MIRACAST_DISPLAY_DEVICE_STATE extends Win32Enum {
 
     /**
+     * Native name: MiracastStopped
      * @type {Integer (Int32)}
      */
-    static MiracastStopped => 0
+    static Stopped => 0
 
     /**
+     * Native name: MiracastStartPending
      * @type {Integer (Int32)}
      */
-    static MiracastStartPending => 1
+    static StartPending => 1
 
     /**
+     * Native name: MiracastStarted
      * @type {Integer (Int32)}
      */
-    static MiracastStarted => 2
+    static Started => 2
 
     /**
+     * Native name: MiracastStopPending
      * @type {Integer (Int32)}
      */
-    static MiracastStopPending => 3
+    static StopPending => 3
 }

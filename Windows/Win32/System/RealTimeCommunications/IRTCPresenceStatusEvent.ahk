@@ -45,7 +45,6 @@ class IRTCPresenceStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -54,7 +53,6 @@ class IRTCPresenceStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -64,7 +62,6 @@ class IRTCPresenceStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<RTC_PRESENCE_STATUS>} penStatus 
      * @param {Pointer<BSTR>} pbstrNotes 
      * @returns {HRESULT} 

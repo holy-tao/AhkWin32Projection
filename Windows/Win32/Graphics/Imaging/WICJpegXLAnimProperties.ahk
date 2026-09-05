@@ -7,17 +7,20 @@
 class WICJpegXLAnimProperties extends Win32Enum {
 
     /**
+     * Native name: WICJpegXLAnimLoopCount
      * @type {Integer (Int32)}
      */
-    static WICJpegXLAnimLoopCount => 1
+    static LoopCount => 1
 
     /**
+     * Native name: WICJpegXLAnimFrameTicksPerSecondNumerator
      * @type {Integer (Int32)}
      */
-    static WICJpegXLAnimFrameTicksPerSecondNumerator => 2
+    static FrameTicksPerSecondNumerator => 2
 
     /**
+     * Native name: WICJpegXLAnimFrameTicksPerSecondDenominator
      * @type {Integer (Int32)}
      */
-    static WICJpegXLAnimFrameTicksPerSecondDenominator => 3
+    static FrameTicksPerSecondDenominator => 3
 }

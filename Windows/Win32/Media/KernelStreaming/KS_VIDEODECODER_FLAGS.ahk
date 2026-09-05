@@ -7,17 +7,20 @@
 class KS_VIDEODECODER_FLAGS extends Win32Enum {
 
     /**
+     * Native name: KS_VIDEODECODER_FLAGS_CAN_DISABLE_OUTPUT
      * @type {Integer (Int32)}
      */
-    static KS_VIDEODECODER_FLAGS_CAN_DISABLE_OUTPUT => 1
+    static CAN_DISABLE_OUTPUT => 1
 
     /**
+     * Native name: KS_VIDEODECODER_FLAGS_CAN_USE_VCR_LOCKING
      * @type {Integer (Int32)}
      */
-    static KS_VIDEODECODER_FLAGS_CAN_USE_VCR_LOCKING => 2
+    static CAN_USE_VCR_LOCKING => 2
 
     /**
+     * Native name: KS_VIDEODECODER_FLAGS_CAN_INDICATE_LOCKED
      * @type {Integer (Int32)}
      */
-    static KS_VIDEODECODER_FLAGS_CAN_INDICATE_LOCKED => 4
+    static CAN_INDICATE_LOCKED => 4
 }

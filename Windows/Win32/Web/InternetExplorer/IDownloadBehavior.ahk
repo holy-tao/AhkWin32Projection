@@ -30,7 +30,6 @@ class IDownloadBehavior extends IDispatch {
     static VTableNames => ["startDownload"]
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {IDispatch} pdispCallback 
      * @returns {HRESULT} 

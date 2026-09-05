@@ -35,7 +35,6 @@ class ITextDocument2Old extends ITextDocument {
     static VTableNames => ["AttachMsgFilter", "SetEffectColor", "GetEffectColor", "GetCaretType", "SetCaretType", "GetImmContext", "ReleaseImmContext", "GetPreferredFont", "GetNotificationMode", "SetNotificationMode", "GetClientRect", "GetSelection2", "GetWindow", "GetFEFlags", "UpdateWindow", "CheckTextLimit", "IMEInProgress", "SysBeep", "Update", "Notify", "GetDocumentFont", "GetDocumentPara", "GetCallManager", "ReleaseCallManager"]
 
     /**
-     * 
      * @param {IUnknown} pFilter 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {COLORREF} cr 
      * @returns {HRESULT} 
@@ -56,7 +54,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {COLORREF} 
      */
@@ -66,7 +63,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCaretType() {
@@ -75,7 +71,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} CaretType 
      * @returns {HRESULT} 
      */
@@ -85,7 +80,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetImmContext() {
@@ -94,7 +88,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} _Context 
      * @returns {HRESULT} 
      */
@@ -104,7 +97,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} cp 
      * @param {Integer} CharRep 
      * @param {Integer} Option 
@@ -124,7 +116,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNotificationMode() {
@@ -133,7 +124,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
@@ -169,7 +159,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {ITextSelection} 
      */
     GetSelection2() {
@@ -190,7 +179,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFEFlags() {
@@ -211,7 +199,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} cch 
      * @param {Pointer<Integer>} pcch 
      * @returns {HRESULT} 
@@ -224,7 +211,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
      */
@@ -234,7 +220,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SysBeep() {
@@ -254,7 +239,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {Integer} Notify 
      * @returns {HRESULT} 
      */
@@ -264,7 +248,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {ITextFont} 
      */
     GetDocumentFont() {
@@ -273,7 +256,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {ITextPara} 
      */
     GetDocumentPara() {
@@ -282,7 +264,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetCallManager() {
@@ -291,7 +272,6 @@ class ITextDocument2Old extends ITextDocument {
     }
 
     /**
-     * 
      * @param {IUnknown} pVoid 
      * @returns {HRESULT} 
      */

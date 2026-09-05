@@ -10,17 +10,20 @@ class COMPACT_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flags are specified.
+     * Native name: COMPACT_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static COMPACT_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: COMPACT_VIRTUAL_DISK_FLAG_NO_ZERO_SCAN
      * @type {Integer (Int32)}
      */
-    static COMPACT_VIRTUAL_DISK_FLAG_NO_ZERO_SCAN => 1
+    static NO_ZERO_SCAN => 1
 
     /**
+     * Native name: COMPACT_VIRTUAL_DISK_FLAG_NO_BLOCK_MOVES
      * @type {Integer (Int32)}
      */
-    static COMPACT_VIRTUAL_DISK_FLAG_NO_BLOCK_MOVES => 2
+    static NO_BLOCK_MOVES => 2
 }

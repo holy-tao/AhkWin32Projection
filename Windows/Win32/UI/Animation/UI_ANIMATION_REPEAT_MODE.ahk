@@ -10,13 +10,15 @@ class UI_ANIMATION_REPEAT_MODE extends Win32Enum {
 
     /**
      * The start of a  loop begins with the first value (v1-&gt;v2, v1-&gt;v2, v1-&gt;v2, and so on).
+     * Native name: UI_ANIMATION_REPEAT_MODE_NORMAL
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_REPEAT_MODE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * The  start of a loop alternates between values (v1-&gt;v2, v2-&gt;v1, v1-&gt;v2, and so on).
+     * Native name: UI_ANIMATION_REPEAT_MODE_ALTERNATE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_REPEAT_MODE_ALTERNATE => 1
+    static ALTERNATE => 1
 }

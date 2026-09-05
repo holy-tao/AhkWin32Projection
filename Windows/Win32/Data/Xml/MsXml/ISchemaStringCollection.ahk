@@ -45,7 +45,6 @@ class ISchemaStringCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -56,7 +55,6 @@ class ISchemaStringCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -65,7 +63,6 @@ class ISchemaStringCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {

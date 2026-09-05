@@ -31,7 +31,6 @@ class IPTFilterLicenseRenewal extends IUnknown {
     static VTableNames => ["RenewLicenses", "CancelLicenseRenewal"]
 
     /**
-     * 
      * @param {PWSTR} wszFileName 
      * @param {PWSTR} wszExpiredKid 
      * @param {Integer} dwCallersId 
@@ -47,7 +46,6 @@ class IPTFilterLicenseRenewal extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelLicenseRenewal() {

@@ -29,7 +29,6 @@ class IADsAggregator extends IUnknown {
     static VTableNames => ["ConnectAsAggregator", "DisconnectAsAggregator"]
 
     /**
-     * 
      * @param {IUnknown} pAggregatee 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IADsAggregator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisconnectAsAggregator() {

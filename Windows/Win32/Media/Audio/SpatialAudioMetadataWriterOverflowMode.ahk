@@ -10,19 +10,22 @@ class SpatialAudioMetadataWriterOverflowMode extends Win32Enum {
 
     /**
      * The write operation will fail.
+     * Native name: SpatialAudioMetadataWriterOverflow_Fail
      * @type {Integer (Int32)}
      */
-    static SpatialAudioMetadataWriterOverflow_Fail => 0
+    static Fail => 0
 
     /**
      * The write operation will succeed, the overflow item will be merged with previous item and adopt the frame offset of newest item.
+     * Native name: SpatialAudioMetadataWriterOverflow_MergeWithNew
      * @type {Integer (Int32)}
      */
-    static SpatialAudioMetadataWriterOverflow_MergeWithNew => 1
+    static MergeWithNew => 1
 
     /**
      * The write operation will succeed, the overflow item will be merged with previous item and keep the existing frame offset.
+     * Native name: SpatialAudioMetadataWriterOverflow_MergeWithLast
      * @type {Integer (Int32)}
      */
-    static SpatialAudioMetadataWriterOverflow_MergeWithLast => 2
+    static MergeWithLast => 2
 }

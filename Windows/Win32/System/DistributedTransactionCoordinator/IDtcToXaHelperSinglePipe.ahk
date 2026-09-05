@@ -35,7 +35,6 @@ class IDtcToXaHelperSinglePipe extends IUnknown {
     static VTableNames => ["XARMCreate", "ConvertTridToXID", "EnlistWithRM", "ReleaseRMCookie"]
 
     /**
-     * 
      * @param {PSTR} pszDSN 
      * @param {PSTR} pszClientDll 
      * @param {Pointer<Integer>} pdwRMCookie 
@@ -52,7 +51,6 @@ class IDtcToXaHelperSinglePipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwITrans 
      * @param {Integer} dwRMCookie 
      * @param {Pointer<XID>} pxid 
@@ -66,7 +64,6 @@ class IDtcToXaHelperSinglePipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwRMCookie 
      * @param {ITransaction} i_pITransaction 
      * @param {ITransactionResourceAsync} i_pITransRes 
@@ -78,7 +75,6 @@ class IDtcToXaHelperSinglePipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} i_dwRMCookie 
      * @param {BOOL} i_fNormal 
      * @returns {String} Nothing - always returns an empty string

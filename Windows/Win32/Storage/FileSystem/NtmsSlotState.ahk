@@ -7,27 +7,32 @@
 class NtmsSlotState extends Win32Enum {
 
     /**
+     * Native name: NTMS_SLOTSTATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_SLOTSTATE_UNKNOWN => 0
+    static SLOTSTATE_UNKNOWN => 0
 
     /**
+     * Native name: NTMS_SLOTSTATE_FULL
      * @type {Integer (Int32)}
      */
-    static NTMS_SLOTSTATE_FULL => 1
+    static SLOTSTATE_FULL => 1
 
     /**
+     * Native name: NTMS_SLOTSTATE_EMPTY
      * @type {Integer (Int32)}
      */
-    static NTMS_SLOTSTATE_EMPTY => 2
+    static SLOTSTATE_EMPTY => 2
 
     /**
+     * Native name: NTMS_SLOTSTATE_NOTPRESENT
      * @type {Integer (Int32)}
      */
-    static NTMS_SLOTSTATE_NOTPRESENT => 3
+    static SLOTSTATE_NOTPRESENT => 3
 
     /**
+     * Native name: NTMS_SLOTSTATE_NEEDSINVENTORY
      * @type {Integer (Int32)}
      */
-    static NTMS_SLOTSTATE_NEEDSINVENTORY => 4
+    static SLOTSTATE_NEEDSINVENTORY => 4
 }

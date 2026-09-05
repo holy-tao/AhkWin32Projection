@@ -34,7 +34,6 @@ class IPrintTicketProvider extends IUnknown {
     static VTableNames => ["GetSupportedVersions", "BindPrinter", "QueryDeviceNamespace", "ConvertPrintTicketToDevMode", "ConvertDevModeToPrintTicket", "GetPrintCapabilities", "ValidatePrintTicket"]
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<Pointer<Integer>>} ppVersions 
      * @param {Pointer<Integer>} cVersions 
@@ -51,7 +50,6 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} _version 
      * @param {Pointer<SHIMOPTS>} pOptions 
@@ -73,7 +71,6 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDefaultNamespace 
      * @returns {HRESULT} 
      */
@@ -83,7 +80,6 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @param {Integer} cbDevmodeIn 
      * @param {Pointer<DEVMODEA>} pDevmodeIn 
@@ -100,7 +96,6 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbDevmode 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {IXMLDOMDocument2} pPrintTicket 
@@ -112,7 +107,6 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 
      */
@@ -122,7 +116,6 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pBaseTicket 
      * @returns {HRESULT} 
      */

@@ -7,22 +7,26 @@
 class MAGNETOMETER_ACCURACY extends Win32Enum {
 
     /**
+     * Native name: MagnetometerAccuracy_Unknown
      * @type {Integer (Int32)}
      */
-    static MagnetometerAccuracy_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: MagnetometerAccuracy_Unreliable
      * @type {Integer (Int32)}
      */
-    static MagnetometerAccuracy_Unreliable => 1
+    static Unreliable => 1
 
     /**
+     * Native name: MagnetometerAccuracy_Approximate
      * @type {Integer (Int32)}
      */
-    static MagnetometerAccuracy_Approximate => 2
+    static Approximate => 2
 
     /**
+     * Native name: MagnetometerAccuracy_High
      * @type {Integer (Int32)}
      */
-    static MagnetometerAccuracy_High => 3
+    static High => 3
 }

@@ -15,19 +15,22 @@ class _AM_ASFWRITERCONFIG_PARAM extends Win32Enum {
 
     /**
      * Indicates whether the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-asf-writer-filter">WM ASF Writer</a> should automatically create a temporal index after it has completed encoding a file. Set this parameter to <b>FALSE</b> if you want to create a frame-based index using the Windows Media Format SDK directly.
+     * Native name: AM_CONFIGASFWRITER_PARAM_AUTOINDEX
      * @type {Integer (Int32)}
      */
-    static AM_CONFIGASFWRITER_PARAM_AUTOINDEX => 1
+    static CONFIGASFWRITER_PARAM_AUTOINDEX => 1
 
     /**
      * Indicates whether the filter should operate in two-pass mode. See Remarks.
+     * Native name: AM_CONFIGASFWRITER_PARAM_MULTIPASS
      * @type {Integer (Int32)}
      */
-    static AM_CONFIGASFWRITER_PARAM_MULTIPASS => 2
+    static CONFIGASFWRITER_PARAM_MULTIPASS => 2
 
     /**
      * Indicates that the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-asf-writer-filter">WM ASF Writer</a> will not attempt to compress the input streams. Use this flag to pack content that is not Windows Media–based into an ASF file.
+     * Native name: AM_CONFIGASFWRITER_PARAM_DONTCOMPRESS
      * @type {Integer (Int32)}
      */
-    static AM_CONFIGASFWRITER_PARAM_DONTCOMPRESS => 3
+    static CONFIGASFWRITER_PARAM_DONTCOMPRESS => 3
 }

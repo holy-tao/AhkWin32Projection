@@ -32,7 +32,6 @@ class IMachineGlobalObjectTable extends IUnknown {
     static VTableNames => ["RegisterObject", "GetObject", "RevokeObject"]
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @param {PWSTR} identifier 
      * @param {IUnknown} _object 
@@ -71,7 +70,6 @@ class IMachineGlobalObjectTable extends IUnknown {
     }
 
     /**
-     * 
      * @param {MachineGlobalObjectTableRegistrationToken} token 
      * @returns {HRESULT} 
      */

@@ -7,17 +7,20 @@
 class WHEA_PCI_RECOVERY_SIGNAL extends Win32Enum {
 
     /**
+     * Native name: WheaPciRecoverySignalUnknown
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoverySignalUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: WheaPciRecoverySignalAer
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoverySignalAer => 1
+    static Aer => 1
 
     /**
+     * Native name: WheaPciRecoverySignalDpc
      * @type {Integer (Int32)}
      */
-    static WheaPciRecoverySignalDpc => 2
+    static Dpc => 2
 }

@@ -30,7 +30,6 @@ class IRTCEnumWatchers extends IUnknown {
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {IRTCWatcher} 
@@ -43,7 +42,6 @@ class IRTCEnumWatchers extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -52,7 +50,6 @@ class IRTCEnumWatchers extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class IRTCEnumWatchers extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumWatchers} 
      */
     Clone() {

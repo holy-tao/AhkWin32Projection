@@ -7,7 +7,8 @@
 class AM_MEDIAEVENT_FLAGS extends Win32Enum {
 
     /**
+     * Native name: AM_MEDIAEVENT_NONOTIFY
      * @type {Integer (Int32)}
      */
-    static AM_MEDIAEVENT_NONOTIFY => 1
+    static NONOTIFY => 1
 }

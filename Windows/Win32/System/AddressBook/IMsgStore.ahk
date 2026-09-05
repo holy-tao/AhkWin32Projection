@@ -51,7 +51,6 @@ class IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::Unadvise** method cancels a registration for notification. **Unadvise** releases its pointer to the caller's advise sink, which it received in the **Advise** call used for registration. 
      *   
@@ -219,7 +218,6 @@ class IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::StoreLogoff** method exerts control over the interaction of the message store and transport providers during the logoff process. Calling **StoreLogoff** is valid only for message stores that are being used only by the caller. For example, when two clients are using the same message store and one of them calls **StoreLogoff**, the message store is immediately released and control is returned to the calling client.
      * @param {Pointer<Integer>} lpulFlags > [in, out] A bitmask of flags that controls logoff from the message store. On input, all flags set for this parameter are mutually exclusive; a caller must specify only one flag per call. The following flags are valid on input:
@@ -295,7 +293,6 @@ class IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::GetOutgoingQueue** method provides the MAPI spooler with access to the table that shows the message store's queue of outgoing messages. Typically, messages are placed in the outgoing queue table after their [IMessage::SubmitMessage](imessage-submitmessage.md) method is called. However, because the order of submission affects the order of preprocessing and submission to the transport provider, some messages that have been marked for sending might not appear in the outgoing queue table immediately.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
@@ -308,7 +305,6 @@ class IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::SetLockState** method locks or unlocks a message. **SetLockState** can be called only by the MAPI spooler while it is sending the message. 
      *   
@@ -355,7 +351,6 @@ class IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::NotifyNewMail** method is called by the MAPI spooler to inform the message store that a message is ready for delivery.
      * @param {Pointer<NOTIFICATION>} lpNotification > [in] A pointer to a [NOTIFICATION](notification.md) structure that describes the new message notification.

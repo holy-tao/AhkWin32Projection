@@ -30,7 +30,6 @@ class IQueryOEMWinSATCustomization extends IUnknown {
     static VTableNames => ["GetOEMPrePopulationInfo"]
 
     /**
-     * 
      * @returns {WINSAT_OEM_CUSTOMIZATION_STATE} 
      */
     GetOEMPrePopulationInfo() {

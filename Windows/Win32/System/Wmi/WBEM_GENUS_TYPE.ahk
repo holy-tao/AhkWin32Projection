@@ -9,12 +9,14 @@
 class WBEM_GENUS_TYPE extends Win32Enum {
 
     /**
+     * Native name: WBEM_GENUS_CLASS
      * @type {Integer (Int32)}
      */
-    static WBEM_GENUS_CLASS => 1
+    static CLASS => 1
 
     /**
+     * Native name: WBEM_GENUS_INSTANCE
      * @type {Integer (Int32)}
      */
-    static WBEM_GENUS_INSTANCE => 2
+    static INSTANCE => 2
 }

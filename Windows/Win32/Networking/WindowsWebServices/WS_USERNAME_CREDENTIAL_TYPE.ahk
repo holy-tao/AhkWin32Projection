@@ -10,7 +10,8 @@ class WS_USERNAME_CREDENTIAL_TYPE extends Win32Enum {
 
     /**
      * Type ID for the username/password credential <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_string_username_credential">WS_STRING_USERNAME_CREDENTIAL</a>.
+     * Native name: WS_STRING_USERNAME_CREDENTIAL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_STRING_USERNAME_CREDENTIAL_TYPE => 1
+    static STRING_USERNAME_CREDENTIAL_TYPE => 1
 }

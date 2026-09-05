@@ -30,7 +30,6 @@ class IMSAdminBase3W extends IMSAdminBase2W {
     static VTableNames => ["GetChildPaths"]
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} cchMDBufferSize 

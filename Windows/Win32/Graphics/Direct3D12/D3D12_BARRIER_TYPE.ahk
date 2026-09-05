@@ -7,17 +7,20 @@
 class D3D12_BARRIER_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3D12_BARRIER_TYPE_GLOBAL
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_TYPE_GLOBAL => 0
+    static GLOBAL => 0
 
     /**
+     * Native name: D3D12_BARRIER_TYPE_TEXTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_TYPE_TEXTURE => 1
+    static TEXTURE => 1
 
     /**
+     * Native name: D3D12_BARRIER_TYPE_BUFFER
      * @type {Integer (Int32)}
      */
-    static D3D12_BARRIER_TYPE_BUFFER => 2
+    static BUFFER => 2
 }

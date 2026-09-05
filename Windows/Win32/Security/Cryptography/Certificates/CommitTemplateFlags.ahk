@@ -10,25 +10,29 @@ class CommitTemplateFlags extends Win32Enum {
 
     /**
      * Save the template and create an object identifier for it.
+     * Native name: CommitFlagSaveTemplateGenerateOID
      * @type {Integer (Int32)}
      */
-    static CommitFlagSaveTemplateGenerateOID => 1
+    static FlagSaveTemplateGenerateOID => 1
 
     /**
      * Not used.
+     * Native name: CommitFlagSaveTemplateUseCurrentOID
      * @type {Integer (Int32)}
      */
-    static CommitFlagSaveTemplateUseCurrentOID => 2
+    static FlagSaveTemplateUseCurrentOID => 2
 
     /**
      * Not used.
+     * Native name: CommitFlagSaveTemplateOverwrite
      * @type {Integer (Int32)}
      */
-    static CommitFlagSaveTemplateOverwrite => 3
+    static FlagSaveTemplateOverwrite => 3
 
     /**
      * Delete the template.
+     * Native name: CommitFlagDeleteTemplate
      * @type {Integer (Int32)}
      */
-    static CommitFlagDeleteTemplate => 4
+    static FlagDeleteTemplate => 4
 }

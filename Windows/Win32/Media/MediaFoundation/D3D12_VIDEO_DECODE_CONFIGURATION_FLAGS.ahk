@@ -10,31 +10,36 @@ class D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No configuration flags.
+     * Native name: D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The height of the output decoded surfaces must be a multiple of 32.
+     * Native name: D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_HEIGHT_ALIGNMENT_MULTIPLE_32_REQUIRED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_HEIGHT_ALIGNMENT_MULTIPLE_32_REQUIRED => 1
+    static FLAG_HEIGHT_ALIGNMENT_MULTIPLE_32_REQUIRED => 1
 
     /**
      * The driver supports post processing. If this flag is set, the host decoder can set up post-processing by using the conversion flags in the <a href="ns-d3d12video-d3d12_video_decode_conversion_arguments.md">D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS</a>.
+     * Native name: D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_POST_PROCESSING_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_POST_PROCESSING_SUPPORTED => 2
+    static FLAG_POST_PROCESSING_SUPPORTED => 2
 
     /**
      * Reference resources must be allocated with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_flags">D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY</a>  resource flag.  References textures must be separate from output textures, similar to performing a format conversion or downscale.  This flag must not be set for [D3D12_VIDEO_DECODE_TIER_3](ne-d3d12video-d3d12_video_decode_tier.md) or greater.
+     * Native name: D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_REFERENCE_ONLY_ALLOCATIONS_REQUIRED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_REFERENCE_ONLY_ALLOCATIONS_REQUIRED => 4
+    static FLAG_REFERENCE_ONLY_ALLOCATIONS_REQUIRED => 4
 
     /**
      * The decode resolution can be changed on a non-key frame.
+     * Native name: D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_ALLOW_RESOLUTION_CHANGE_ON_NON_KEY_FRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_ALLOW_RESOLUTION_CHANGE_ON_NON_KEY_FRAME => 8
+    static FLAG_ALLOW_RESOLUTION_CHANGE_ON_NON_KEY_FRAME => 8
 }

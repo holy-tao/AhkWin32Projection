@@ -7,27 +7,32 @@
 class DISPID_SpeechAudioStatus extends Win32Enum {
 
     /**
+     * Native name: DISPID_SASFreeBufferSpace
      * @type {Integer (Int32)}
      */
-    static DISPID_SASFreeBufferSpace => 1
+    static SASFreeBufferSpace => 1
 
     /**
+     * Native name: DISPID_SASNonBlockingIO
      * @type {Integer (Int32)}
      */
-    static DISPID_SASNonBlockingIO => 2
+    static SASNonBlockingIO => 2
 
     /**
+     * Native name: DISPID_SASState
      * @type {Integer (Int32)}
      */
-    static DISPID_SASState => 3
+    static SASState => 3
 
     /**
+     * Native name: DISPID_SASCurrentSeekPosition
      * @type {Integer (Int32)}
      */
-    static DISPID_SASCurrentSeekPosition => 4
+    static SASCurrentSeekPosition => 4
 
     /**
+     * Native name: DISPID_SASCurrentDevicePosition
      * @type {Integer (Int32)}
      */
-    static DISPID_SASCurrentDevicePosition => 5
+    static SASCurrentDevicePosition => 5
 }

@@ -15,22 +15,26 @@
 class D3DDEVTYPE extends Win32Enum {
 
     /**
+     * Native name: D3DDEVTYPE_HAL
      * @type {Integer (Int32)}
      */
-    static D3DDEVTYPE_HAL => 1
+    static HAL => 1
 
     /**
+     * Native name: D3DDEVTYPE_REF
      * @type {Integer (Int32)}
      */
-    static D3DDEVTYPE_REF => 2
+    static REF => 2
 
     /**
+     * Native name: D3DDEVTYPE_SW
      * @type {Integer (Int32)}
      */
-    static D3DDEVTYPE_SW => 3
+    static SW => 3
 
     /**
+     * Native name: D3DDEVTYPE_NULLREF
      * @type {Integer (Int32)}
      */
-    static D3DDEVTYPE_NULLREF => 4
+    static NULLREF => 4
 }

@@ -1137,7 +1137,8 @@ class ELEMENT_TAG_ID extends Win32Enum {
     static TAGID_LAST_PREDEFINED => 10000
 
     /**
+     * Native name: ELEMENT_TAG_ID_Max
      * @type {Integer (Int32)}
      */
-    static ELEMENT_TAG_ID_Max => 2147483647
+    static Max => 2147483647
 }

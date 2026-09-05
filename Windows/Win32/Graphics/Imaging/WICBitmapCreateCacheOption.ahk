@@ -12,19 +12,22 @@ class WICBitmapCreateCacheOption extends Win32Enum {
 
     /**
      * Do not cache the bitmap.
+     * Native name: WICBitmapNoCache
      * @type {Integer (Int32)}
      */
-    static WICBitmapNoCache => 0
+    static NoCache => 0
 
     /**
      * Cache the bitmap when needed.
+     * Native name: WICBitmapCacheOnDemand
      * @type {Integer (Int32)}
      */
-    static WICBitmapCacheOnDemand => 1
+    static OnDemand => 1
 
     /**
      * Cache the bitmap at initialization.
+     * Native name: WICBitmapCacheOnLoad
      * @type {Integer (Int32)}
      */
-    static WICBitmapCacheOnLoad => 2
+    static OnLoad => 2
 }

@@ -110,7 +110,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -120,7 +119,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -130,7 +128,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BSAID() {
@@ -139,7 +136,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGSpecifier 
      * @returns {HRESULT} 
      */
@@ -149,7 +145,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGName 
      * @returns {HRESULT} 
      */
@@ -159,7 +154,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGSource 
      * @returns {HRESULT} 
      */
@@ -169,7 +163,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGType 
      * @returns {HRESULT} 
      */
@@ -179,7 +172,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsPeriodic() {
@@ -188,7 +180,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsScheduled() {
@@ -197,7 +188,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsScheduleAllowed() {
@@ -206,7 +196,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDescription 
      * @returns {HRESULT} 
      */
@@ -216,7 +205,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsLaunchOnBoot() {
@@ -225,7 +213,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsScheduled 
      * @returns {HRESULT} 
      */
@@ -235,7 +222,6 @@ class IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsScheduleAllowed 
      * @returns {HRESULT} 
      */

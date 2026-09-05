@@ -10,19 +10,22 @@ class OLECLOSE extends Win32Enum {
 
     /**
      * The object should be saved if it is dirty.
+     * Native name: OLECLOSE_SAVEIFDIRTY
      * @type {Integer (Int32)}
      */
-    static OLECLOSE_SAVEIFDIRTY => 0
+    static SAVEIFDIRTY => 0
 
     /**
      * The object should not be saved, even if it is dirty. This flag is typically used when an object is being deleted.
+     * Native name: OLECLOSE_NOSAVE
      * @type {Integer (Int32)}
      */
-    static OLECLOSE_NOSAVE => 1
+    static NOSAVE => 1
 
     /**
      * If the object is dirty, the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-close">IOleObject::Close</a> implementation should display a dialog box to let the end user determine whether to save the object. However, if the object is in the running state but its user interface is invisible, the end user should not be prompted, and the close should be handled as if OLECLOSE_SAVEIFDIRTY had been specified.
+     * Native name: OLECLOSE_PROMPTSAVE
      * @type {Integer (Int32)}
      */
-    static OLECLOSE_PROMPTSAVE => 2
+    static PROMPTSAVE => 2
 }

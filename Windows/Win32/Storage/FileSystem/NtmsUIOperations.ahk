@@ -7,22 +7,26 @@
 class NtmsUIOperations extends Win32Enum {
 
     /**
+     * Native name: NTMS_UIDEST_ADD
      * @type {Integer (Int32)}
      */
-    static NTMS_UIDEST_ADD => 1
+    static UIDEST_ADD => 1
 
     /**
+     * Native name: NTMS_UIDEST_DELETE
      * @type {Integer (Int32)}
      */
-    static NTMS_UIDEST_DELETE => 2
+    static UIDEST_DELETE => 2
 
     /**
+     * Native name: NTMS_UIDEST_DELETEALL
      * @type {Integer (Int32)}
      */
-    static NTMS_UIDEST_DELETEALL => 3
+    static UIDEST_DELETEALL => 3
 
     /**
+     * Native name: NTMS_UIOPERATION_MAX
      * @type {Integer (Int32)}
      */
-    static NTMS_UIOPERATION_MAX => 4
+    static UIOPERATION_MAX => 4
 }

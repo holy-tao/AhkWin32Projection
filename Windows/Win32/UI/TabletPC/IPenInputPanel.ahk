@@ -334,7 +334,6 @@ class IPenInputPanel extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Visible 
      * @returns {HRESULT} 
      */

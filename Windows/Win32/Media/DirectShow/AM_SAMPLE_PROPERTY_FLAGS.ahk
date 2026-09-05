@@ -7,57 +7,68 @@
 class AM_SAMPLE_PROPERTY_FLAGS extends Win32Enum {
 
     /**
+     * Native name: AM_SAMPLE_SPLICEPOINT
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_SPLICEPOINT => 1
+    static SPLICEPOINT => 1
 
     /**
+     * Native name: AM_SAMPLE_PREROLL
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_PREROLL => 2
+    static PREROLL => 2
 
     /**
+     * Native name: AM_SAMPLE_DATADISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_DATADISCONTINUITY => 4
+    static DATADISCONTINUITY => 4
 
     /**
+     * Native name: AM_SAMPLE_TYPECHANGED
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_TYPECHANGED => 8
+    static TYPECHANGED => 8
 
     /**
+     * Native name: AM_SAMPLE_TIMEVALID
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_TIMEVALID => 16
+    static TIMEVALID => 16
 
     /**
+     * Native name: AM_SAMPLE_TIMEDISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_TIMEDISCONTINUITY => 64
+    static TIMEDISCONTINUITY => 64
 
     /**
+     * Native name: AM_SAMPLE_FLUSH_ON_PAUSE
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_FLUSH_ON_PAUSE => 128
+    static FLUSH_ON_PAUSE => 128
 
     /**
+     * Native name: AM_SAMPLE_STOPVALID
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_STOPVALID => 256
+    static STOPVALID => 256
 
     /**
+     * Native name: AM_SAMPLE_ENDOFSTREAM
      * @type {Integer (Int32)}
      */
-    static AM_SAMPLE_ENDOFSTREAM => 512
+    static ENDOFSTREAM => 512
 
     /**
+     * Native name: AM_STREAM_MEDIA
      * @type {Integer (Int32)}
      */
-    static AM_STREAM_MEDIA => 0
+    static STREAM_MEDIA => 0
 
     /**
+     * Native name: AM_STREAM_CONTROL
      * @type {Integer (Int32)}
      */
-    static AM_STREAM_CONTROL => 1
+    static STREAM_CONTROL => 1
 }

@@ -7,32 +7,38 @@
 class svgAngleType extends Win32Enum {
 
     /**
+     * Native name: SVG_ANGLETYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SVG_ANGLETYPE_UNKNOWN => 0
+    static ANGLETYPE_UNKNOWN => 0
 
     /**
+     * Native name: SVG_ANGLETYPE_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static SVG_ANGLETYPE_UNSPECIFIED => 1
+    static ANGLETYPE_UNSPECIFIED => 1
 
     /**
+     * Native name: SVG_ANGLETYPE_DEG
      * @type {Integer (Int32)}
      */
-    static SVG_ANGLETYPE_DEG => 2
+    static ANGLETYPE_DEG => 2
 
     /**
+     * Native name: SVG_ANGLETYPE_RAD
      * @type {Integer (Int32)}
      */
-    static SVG_ANGLETYPE_RAD => 3
+    static ANGLETYPE_RAD => 3
 
     /**
+     * Native name: SVG_ANGLETYPE_GRAD
      * @type {Integer (Int32)}
      */
-    static SVG_ANGLETYPE_GRAD => 4
+    static ANGLETYPE_GRAD => 4
 
     /**
+     * Native name: svgAngleType_Max
      * @type {Integer (Int32)}
      */
-    static svgAngleType_Max => 2147483647
+    static Max => 2147483647
 }

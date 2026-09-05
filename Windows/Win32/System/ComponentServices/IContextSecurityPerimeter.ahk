@@ -30,7 +30,6 @@ class IContextSecurityPerimeter extends IUnknown {
     static VTableNames => ["GetPerimeterFlag", "SetPerimeterFlag"]
 
     /**
-     * 
      * @param {Pointer<BOOL>} pFlag 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IContextSecurityPerimeter extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFlag 
      * @returns {HRESULT} 
      */

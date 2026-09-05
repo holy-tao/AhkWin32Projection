@@ -18,19 +18,22 @@ class AudioSessionState extends Win32Enum {
 
     /**
      * The audio session is inactive. (It contains at least one stream, but none of the streams in the session is currently running.)
+     * Native name: AudioSessionStateInactive
      * @type {Integer (Int32)}
      */
-    static AudioSessionStateInactive => 0
+    static Inactive => 0
 
     /**
      * The audio session is active. (At least one of the streams in the session is running.)
+     * Native name: AudioSessionStateActive
      * @type {Integer (Int32)}
      */
-    static AudioSessionStateActive => 1
+    static Active => 1
 
     /**
      * The audio session has expired. (It contains no streams.)
+     * Native name: AudioSessionStateExpired
      * @type {Integer (Int32)}
      */
-    static AudioSessionStateExpired => 2
+    static Expired => 2
 }

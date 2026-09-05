@@ -32,7 +32,6 @@ class IWindowsDevicesAllJoynBusAttachmentFactoryInterop extends IInspectable {
     static VTableNames => ["CreateFromWin32Handle"]
 
     /**
-     * 
      * @param {Integer} win32handle 
      * @param {Integer} enableAboutData 
      * @param {Pointer<Guid>} riid 

@@ -10,19 +10,22 @@ class WICBitmapAlphaChannelOption extends Win32Enum {
 
     /**
      * Use alpha channel.
+     * Native name: WICBitmapUseAlpha
      * @type {Integer (Int32)}
      */
-    static WICBitmapUseAlpha => 0
+    static UseAlpha => 0
 
     /**
      * Use a pre-multiplied alpha channel.
+     * Native name: WICBitmapUsePremultipliedAlpha
      * @type {Integer (Int32)}
      */
-    static WICBitmapUsePremultipliedAlpha => 1
+    static UsePremultipliedAlpha => 1
 
     /**
      * Ignore alpha channel.
+     * Native name: WICBitmapIgnoreAlpha
      * @type {Integer (Int32)}
      */
-    static WICBitmapIgnoreAlpha => 2
+    static IgnoreAlpha => 2
 }

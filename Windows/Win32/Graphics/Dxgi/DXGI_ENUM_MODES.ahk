@@ -13,22 +13,26 @@
 class DXGI_ENUM_MODES extends Win32BitflagEnum {
 
     /**
+     * Native name: DXGI_ENUM_MODES_INTERLACED
      * @type {Integer (UInt32)}
      */
-    static DXGI_ENUM_MODES_INTERLACED => 1
+    static INTERLACED => 1
 
     /**
+     * Native name: DXGI_ENUM_MODES_SCALING
      * @type {Integer (UInt32)}
      */
-    static DXGI_ENUM_MODES_SCALING => 2
+    static SCALING => 2
 
     /**
+     * Native name: DXGI_ENUM_MODES_STEREO
      * @type {Integer (UInt32)}
      */
-    static DXGI_ENUM_MODES_STEREO => 4
+    static STEREO => 4
 
     /**
+     * Native name: DXGI_ENUM_MODES_DISABLED_STEREO
      * @type {Integer (UInt32)}
      */
-    static DXGI_ENUM_MODES_DISABLED_STEREO => 8
+    static DISABLED_STEREO => 8
 }

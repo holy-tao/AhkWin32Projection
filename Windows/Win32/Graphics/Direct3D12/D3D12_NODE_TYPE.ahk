@@ -7,7 +7,8 @@
 class D3D12_NODE_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3D12_NODE_TYPE_SHADER
      * @type {Integer (Int32)}
      */
-    static D3D12_NODE_TYPE_SHADER => 0
+    static SHADER => 0
 }

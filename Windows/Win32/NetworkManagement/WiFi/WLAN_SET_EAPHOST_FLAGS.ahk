@@ -7,7 +7,8 @@
 class WLAN_SET_EAPHOST_FLAGS extends Win32Enum {
 
     /**
+     * Native name: WLAN_SET_EAPHOST_DATA_ALL_USERS
      * @type {Integer (UInt32)}
      */
-    static WLAN_SET_EAPHOST_DATA_ALL_USERS => 1
+    static DATA_ALL_USERS => 1
 }

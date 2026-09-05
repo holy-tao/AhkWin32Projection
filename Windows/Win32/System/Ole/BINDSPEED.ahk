@@ -18,9 +18,10 @@ class BINDSPEED extends Win32Enum {
 
     /**
      * There is no time limit on the binding operation.
+     * Native name: BINDSPEED_INDEFINITE
      * @type {Integer (Int32)}
      */
-    static BINDSPEED_INDEFINITE => 1
+    static INDEFINITE => 1
 
     /**
      * The binding operation must be completed in a moderate amount of time. 
@@ -34,13 +35,15 @@ class BINDSPEED extends Win32Enum {
      * <li>The object is supported by an in-process server (so it is always in the running state when it is loaded). In this case, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">GetObject</a> should load the designated object, and, if the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleisrunning">OleIsRunning</a> function indicates that the object is running, return successfully. 
      * </li>
      * </ul>
+     * Native name: BINDSPEED_MODERATE
      * @type {Integer (Int32)}
      */
-    static BINDSPEED_MODERATE => 2
+    static MODERATE => 2
 
     /**
      * The caller will wait only a short time. In this case, the binding operation should return MK_E_EXCEEEDEDDEADLINE unless the object is already in the running state or is a pseudo-object.
+     * Native name: BINDSPEED_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static BINDSPEED_IMMEDIATE => 3
+    static IMMEDIATE => 3
 }

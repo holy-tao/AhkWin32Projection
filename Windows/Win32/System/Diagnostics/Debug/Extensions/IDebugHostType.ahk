@@ -34,7 +34,6 @@ class IDebugHostType extends IDebugHostSymbol {
     static VTableNames => ["GetTypeKind", "GetSize", "GetBaseType", "GetHashCode", "GetIntrinsicType", "GetBitField", "GetPointerKind", "GetMemberType", "CreatePointerTo", "GetArrayDimensionality", "GetArrayDimensions", "CreateArrayOf", "GetFunctionCallingConvention", "GetFunctionReturnType", "GetFunctionParameterTypeCount", "GetFunctionParameterTypeAt", "IsGeneric", "GetGenericArgumentCount", "GetGenericArgumentAt"]
 
     /**
-     * 
      * @returns {TypeKind} 
      */
     GetTypeKind() {
@@ -43,7 +42,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSize() {
@@ -52,7 +50,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetBaseType() {
@@ -61,7 +58,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHashCode() {
@@ -70,7 +66,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Pointer<IntrinsicKind>} _intrinsicKind 
      * @param {Pointer<Integer>} carrierType 
      * @returns {HRESULT} 
@@ -84,7 +79,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lsbOfField 
      * @param {Pointer<Integer>} lengthOfField 
      * @returns {HRESULT} 
@@ -98,7 +92,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {PointerKind} 
      */
     GetPointerKind() {
@@ -107,7 +100,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetMemberType() {
@@ -116,7 +108,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {PointerKind} kind 
      * @returns {IDebugHostType} 
      */
@@ -126,7 +117,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArrayDimensionality() {
@@ -135,7 +125,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} dimensions 
      * @returns {ArrayDimension} 
      */
@@ -146,7 +135,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} dimensions 
      * @param {Pointer<ArrayDimension>} pDimensions 
      * @returns {IDebugHostType} 
@@ -157,7 +145,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {CallingConventionKind} 
      */
     GetFunctionCallingConvention() {
@@ -166,7 +153,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetFunctionReturnType() {
@@ -175,7 +161,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFunctionParameterTypeCount() {
@@ -184,7 +169,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} i 
      * @returns {IDebugHostType} 
      */
@@ -194,7 +178,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsGeneric() {
@@ -203,7 +186,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetGenericArgumentCount() {
@@ -212,7 +194,6 @@ class IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} i 
      * @returns {IDebugHostSymbol} 
      */

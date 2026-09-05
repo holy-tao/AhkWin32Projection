@@ -10,13 +10,15 @@ class PEER_WATCH_PERMISSION extends Win32Enum {
 
     /**
      * The peer contact cannot receive presence updates.
+     * Native name: PEER_WATCH_BLOCKED
      * @type {Integer (Int32)}
      */
-    static PEER_WATCH_BLOCKED => 0
+    static BLOCKED => 0
 
     /**
      * The peer contact can receive presence updates.
+     * Native name: PEER_WATCH_ALLOWED
      * @type {Integer (Int32)}
      */
-    static PEER_WATCH_ALLOWED => 1
+    static ALLOWED => 1
 }

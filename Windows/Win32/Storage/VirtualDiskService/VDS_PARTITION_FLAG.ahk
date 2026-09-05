@@ -15,7 +15,8 @@ class VDS_PARTITION_FLAG extends Win32Enum {
 
     /**
      * If set, the partition is a system partition.
+     * Native name: VDS_PTF_SYSTEM
      * @type {Integer (Int32)}
      */
-    static VDS_PTF_SYSTEM => 1
+    static PTF_SYSTEM => 1
 }

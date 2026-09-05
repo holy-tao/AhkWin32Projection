@@ -37,7 +37,6 @@ class IPMExtensionInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMExtensionInfo} 
      */
     get_Next() {

@@ -7,17 +7,20 @@
 class DTCLUXLNERROR extends Win32Enum {
 
     /**
+     * Native name: DTCLUXLNERROR_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNERROR_PROTOCOL => 1
+    static PROTOCOL => 1
 
     /**
+     * Native name: DTCLUXLNERROR_LOGNAMEMISMATCH
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNERROR_LOGNAMEMISMATCH => 2
+    static LOGNAMEMISMATCH => 2
 
     /**
+     * Native name: DTCLUXLNERROR_COLDWARMMISMATCH
      * @type {Integer (Int32)}
      */
-    static DTCLUXLNERROR_COLDWARMMISMATCH => 3
+    static COLDWARMMISMATCH => 3
 }

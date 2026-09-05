@@ -10,13 +10,15 @@ class COPP_StatusHDCPFlags extends Win32Enum {
 
     /**
      * The device is an HDCP repeater.
+     * Native name: COPP_HDCPRepeater
      * @type {Integer (Int32)}
      */
-    static COPP_HDCPRepeater => 1
+    static Repeater => 1
 
     /**
      * Reserved. Must be zero.
+     * Native name: COPP_HDCPFlagsReserved
      * @type {Integer (Int32)}
      */
-    static COPP_HDCPFlagsReserved => -2
+    static Reserved => -2
 }

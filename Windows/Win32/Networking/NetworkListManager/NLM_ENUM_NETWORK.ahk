@@ -10,19 +10,22 @@ class NLM_ENUM_NETWORK extends Win32Enum {
 
     /**
      * Returns connected networks
+     * Native name: NLM_ENUM_NETWORK_CONNECTED
      * @type {Integer (Int32)}
      */
-    static NLM_ENUM_NETWORK_CONNECTED => 1
+    static CONNECTED => 1
 
     /**
      * Returns disconnected networks
+     * Native name: NLM_ENUM_NETWORK_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static NLM_ENUM_NETWORK_DISCONNECTED => 2
+    static DISCONNECTED => 2
 
     /**
      * Returns connected and disconnected networks
+     * Native name: NLM_ENUM_NETWORK_ALL
      * @type {Integer (Int32)}
      */
-    static NLM_ENUM_NETWORK_ALL => 3
+    static ALL => 3
 }

@@ -30,7 +30,6 @@ class ITridentTouchInputSite extends IUnknown {
     static VTableNames => ["SetManipulationMode", "ZoomToPoint"]
 
     /**
-     * 
      * @param {styleMsTouchAction} msTouchAction 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ITridentTouchInputSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 

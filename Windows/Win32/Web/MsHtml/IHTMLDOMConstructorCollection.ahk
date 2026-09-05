@@ -771,7 +771,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Attr() {
@@ -780,7 +779,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_BehaviorUrnsCollection() {
@@ -789,7 +787,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_BookmarkCollection() {
@@ -798,7 +795,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CompatibleInfo() {
@@ -807,7 +803,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CompatibleInfoCollection() {
@@ -816,7 +811,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ControlRangeCollection() {
@@ -825,7 +819,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSCurrentStyleDeclaration() {
@@ -834,7 +827,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSRuleList() {
@@ -843,7 +835,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSRuleStyleDeclaration() {
@@ -852,7 +843,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSStyleDeclaration() {
@@ -861,7 +851,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSStyleRule() {
@@ -870,7 +859,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSStyleSheet() {
@@ -879,7 +867,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DataTransfer() {
@@ -888,7 +875,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DOMImplementation() {
@@ -897,7 +883,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Element() {
@@ -906,7 +891,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Event() {
@@ -915,7 +899,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_History() {
@@ -924,7 +907,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTCElementBehaviorDefaults() {
@@ -933,7 +915,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLAnchorElement() {
@@ -942,7 +923,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLAreaElement() {
@@ -951,7 +931,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLAreasCollection() {
@@ -960,7 +939,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBaseElement() {
@@ -969,7 +947,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBaseFontElement() {
@@ -978,7 +955,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBGSoundElement() {
@@ -987,7 +963,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBlockElement() {
@@ -996,7 +971,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBodyElement() {
@@ -1005,7 +979,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBRElement() {
@@ -1014,7 +987,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLButtonElement() {
@@ -1023,7 +995,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLCollection() {
@@ -1032,7 +1003,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLCommentElement() {
@@ -1041,7 +1011,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDDElement() {
@@ -1050,7 +1019,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDivElement() {
@@ -1059,7 +1027,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDocument() {
@@ -1068,7 +1035,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDListElement() {
@@ -1077,7 +1043,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDTElement() {
@@ -1086,7 +1051,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLEmbedElement() {
@@ -1095,7 +1059,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFieldSetElement() {
@@ -1104,7 +1067,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFontElement() {
@@ -1113,7 +1075,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFormElement() {
@@ -1122,7 +1083,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFrameElement() {
@@ -1131,7 +1091,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFrameSetElement() {
@@ -1140,7 +1099,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLGenericElement() {
@@ -1149,7 +1107,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHeadElement() {
@@ -1158,7 +1115,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHeadingElement() {
@@ -1167,7 +1123,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHRElement() {
@@ -1176,7 +1131,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHtmlElement() {
@@ -1185,7 +1139,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLIFrameElement() {
@@ -1194,7 +1147,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLImageElement() {
@@ -1203,7 +1155,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLInputElement() {
@@ -1212,7 +1163,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLIsIndexElement() {
@@ -1221,7 +1171,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLabelElement() {
@@ -1230,7 +1179,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLegendElement() {
@@ -1239,7 +1187,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLIElement() {
@@ -1248,7 +1195,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLinkElement() {
@@ -1257,7 +1203,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLMapElement() {
@@ -1266,7 +1211,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLMarqueeElement() {
@@ -1275,7 +1219,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLMetaElement() {
@@ -1284,7 +1227,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLModelessDialog() {
@@ -1293,7 +1235,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNamespaceInfo() {
@@ -1302,7 +1243,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNamespaceInfoCollection() {
@@ -1311,7 +1251,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNextIdElement() {
@@ -1320,7 +1259,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNoShowElement() {
@@ -1329,7 +1267,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLObjectElement() {
@@ -1338,7 +1275,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLOListElement() {
@@ -1347,7 +1283,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLOptionElement() {
@@ -1356,7 +1291,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLParagraphElement() {
@@ -1365,7 +1299,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLParamElement() {
@@ -1374,7 +1307,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLPhraseElement() {
@@ -1383,7 +1315,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLPluginsCollection() {
@@ -1392,7 +1323,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLPopup() {
@@ -1401,7 +1331,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLScriptElement() {
@@ -1410,7 +1339,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLSelectElement() {
@@ -1419,7 +1347,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLSpanElement() {
@@ -1428,7 +1355,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLStyleElement() {
@@ -1437,7 +1363,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableCaptionElement() {
@@ -1446,7 +1371,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableCellElement() {
@@ -1455,7 +1379,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableColElement() {
@@ -1464,7 +1387,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableElement() {
@@ -1473,7 +1395,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableRowElement() {
@@ -1482,7 +1403,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableSectionElement() {
@@ -1491,7 +1411,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTextAreaElement() {
@@ -1500,7 +1419,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTextElement() {
@@ -1509,7 +1427,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTitleElement() {
@@ -1518,7 +1435,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLUListElement() {
@@ -1527,7 +1443,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLUnknownElement() {
@@ -1536,7 +1451,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Image() {
@@ -1545,7 +1459,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Location() {
@@ -1554,7 +1467,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_NamedNodeMap() {
@@ -1563,7 +1475,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Navigator() {
@@ -1572,7 +1483,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_NodeList() {
@@ -1581,7 +1491,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Option() {
@@ -1590,7 +1499,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Screen() {
@@ -1599,7 +1507,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Selection() {
@@ -1608,7 +1515,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StaticNodeList() {
@@ -1617,7 +1523,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Storage() {
@@ -1626,7 +1531,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StyleSheetList() {
@@ -1635,7 +1539,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StyleSheetPage() {
@@ -1644,7 +1547,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StyleSheetPageList() {
@@ -1653,7 +1555,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Text() {
@@ -1662,7 +1563,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRange() {
@@ -1671,7 +1571,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRangeCollection() {
@@ -1680,7 +1579,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRectangle() {
@@ -1689,7 +1587,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRectangleList() {
@@ -1698,7 +1595,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Window() {
@@ -1707,7 +1603,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_XDomainRequest() {
@@ -1716,7 +1611,6 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_XMLHttpRequest() {

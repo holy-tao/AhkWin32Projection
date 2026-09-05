@@ -7,32 +7,38 @@
 class KSPROPERTY_SOUNDDETECTOR extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_SOUNDDETECTOR_SUPPORTEDPATTERNS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SOUNDDETECTOR_SUPPORTEDPATTERNS => 1
+    static SUPPORTEDPATTERNS => 1
 
     /**
+     * Native name: KSPROPERTY_SOUNDDETECTOR_PATTERNS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SOUNDDETECTOR_PATTERNS => 2
+    static PATTERNS => 2
 
     /**
+     * Native name: KSPROPERTY_SOUNDDETECTOR_ARMED
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SOUNDDETECTOR_ARMED => 3
+    static ARMED => 3
 
     /**
+     * Native name: KSPROPERTY_SOUNDDETECTOR_MATCHRESULT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SOUNDDETECTOR_MATCHRESULT => 4
+    static MATCHRESULT => 4
 
     /**
+     * Native name: KSPROPERTY_SOUNDDETECTOR_RESET
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SOUNDDETECTOR_RESET => 5
+    static RESET => 5
 
     /**
+     * Native name: KSPROPERTY_SOUNDDETECTOR_STREAMINGSUPPORT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_SOUNDDETECTOR_STREAMINGSUPPORT => 6
+    static STREAMINGSUPPORT => 6
 }

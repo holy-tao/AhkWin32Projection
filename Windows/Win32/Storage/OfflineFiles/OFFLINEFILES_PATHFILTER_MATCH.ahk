@@ -10,31 +10,36 @@ class OFFLINEFILES_PATHFILTER_MATCH extends Win32Enum {
 
     /**
      * Event must be an exact match for the fully qualified UNC path associated with the filter.
+     * Native name: OFFLINEFILES_PATHFILTER_SELF
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_PATHFILTER_SELF => 0
+    static SELF => 0
 
     /**
      * Event must be for an immediate child of the fully qualified UNC path associated with the filter.
+     * Native name: OFFLINEFILES_PATHFILTER_CHILD
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_PATHFILTER_CHILD => 1
+    static CHILD => 1
 
     /**
      * Event can be any descendant of the fully qualified UNC path associated with the filter.
+     * Native name: OFFLINEFILES_PATHFILTER_DESCENDENT
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_PATHFILTER_DESCENDENT => 2
+    static DESCENDENT => 2
 
     /**
      * Event must be an exact match or an immediate child of the fully qualified UNC path associated with the filter.
+     * Native name: OFFLINEFILES_PATHFILTER_SELFORCHILD
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_PATHFILTER_SELFORCHILD => 3
+    static SELFORCHILD => 3
 
     /**
      * Event must be an exact match or any descendant of the fully qualified UNC path associated with the filter.
+     * Native name: OFFLINEFILES_PATHFILTER_SELFORDESCENDENT
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_PATHFILTER_SELFORDESCENDENT => 4
+    static SELFORDESCENDENT => 4
 }

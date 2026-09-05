@@ -7,32 +7,38 @@
 class GameInputDeviceFamily extends Win32Enum {
 
     /**
+     * Native name: GameInputFamilyVirtual
      * @type {Integer (Int32)}
      */
-    static GameInputFamilyVirtual => -1
+    static Virtual => -1
 
     /**
+     * Native name: GameInputFamilyAggregate
      * @type {Integer (Int32)}
      */
-    static GameInputFamilyAggregate => 0
+    static Aggregate => 0
 
     /**
+     * Native name: GameInputFamilyXboxOne
      * @type {Integer (Int32)}
      */
-    static GameInputFamilyXboxOne => 1
+    static XboxOne => 1
 
     /**
+     * Native name: GameInputFamilyXbox360
      * @type {Integer (Int32)}
      */
-    static GameInputFamilyXbox360 => 2
+    static Xbox360 => 2
 
     /**
+     * Native name: GameInputFamilyHid
      * @type {Integer (Int32)}
      */
-    static GameInputFamilyHid => 3
+    static Hid => 3
 
     /**
+     * Native name: GameInputFamilyI8042
      * @type {Integer (Int32)}
      */
-    static GameInputFamilyI8042 => 4
+    static FamilyI8042 => 4
 }

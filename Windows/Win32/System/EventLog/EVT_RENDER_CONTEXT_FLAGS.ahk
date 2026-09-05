@@ -12,19 +12,22 @@ class EVT_RENDER_CONTEXT_FLAGS extends Win32Enum {
 
     /**
      * Render specific properties from the event.
+     * Native name: EvtRenderContextValues
      * @type {Integer (UInt32)}
      */
-    static EvtRenderContextValues => 0
+    static Values => 0
 
     /**
      * Render the system properties under the <b>System</b> element. The properties are returned in the order defined in the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_system_property_id">EVT_SYSTEM_PROPERTY_ID</a> enumeration.
+     * Native name: EvtRenderContextSystem
      * @type {Integer (UInt32)}
      */
-    static EvtRenderContextSystem => 1
+    static System => 1
 
     /**
      * Render all user-defined properties under the <b>UserData</b> or <b>EventData</b> element. If the data template associated with the event contains a <b>UserData</b> section, the <b>UserData</b> properties are rendered; otherwise, the <b>EventData</b> properties are rendered.
+     * Native name: EvtRenderContextUser
      * @type {Integer (UInt32)}
      */
-    static EvtRenderContextUser => 2
+    static User => 2
 }

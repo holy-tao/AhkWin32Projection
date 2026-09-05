@@ -30,7 +30,6 @@ class IWiaDrvItem extends IUnknown {
     static VTableNames => ["GetItemFlags", "GetDeviceSpecContext", "GetFullItemName", "GetItemName", "AddItemToFolder", "UnlinkItemTree", "RemoveItemFromFolder", "FindItemByName", "FindChildItemByName", "GetParentItem", "GetFirstChildItem", "GetNextSiblingItem", "DumpItemData"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetItemFlags() {
@@ -39,7 +38,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetDeviceSpecContext() {
@@ -48,7 +46,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFullItemName() {
@@ -58,7 +55,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetItemName() {
@@ -68,7 +64,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {IWiaDrvItem} __MIDL__IWiaDrvItem0004 
      * @returns {HRESULT} 
      */
@@ -78,7 +73,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaDrvItem0005 
      * @returns {HRESULT} 
      */
@@ -88,7 +82,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaDrvItem0006 
      * @returns {HRESULT} 
      */
@@ -98,7 +91,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaDrvItem0007 
      * @param {BSTR} __MIDL__IWiaDrvItem0008 
      * @returns {IWiaDrvItem} 
@@ -111,7 +103,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} __MIDL__IWiaDrvItem0010 
      * @returns {IWiaDrvItem} 
      */
@@ -123,7 +114,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IWiaDrvItem} 
      */
     GetParentItem() {
@@ -132,7 +122,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IWiaDrvItem} 
      */
     GetFirstChildItem() {
@@ -141,7 +130,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IWiaDrvItem} 
      */
     GetNextSiblingItem() {
@@ -150,7 +138,6 @@ class IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     DumpItemData() {

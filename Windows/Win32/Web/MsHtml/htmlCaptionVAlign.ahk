@@ -7,22 +7,26 @@
 class htmlCaptionVAlign extends Win32Enum {
 
     /**
+     * Native name: htmlCaptionVAlignNotSet
      * @type {Integer (Int32)}
      */
-    static htmlCaptionVAlignNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlCaptionVAlignTop
      * @type {Integer (Int32)}
      */
-    static htmlCaptionVAlignTop => 1
+    static Top => 1
 
     /**
+     * Native name: htmlCaptionVAlignBottom
      * @type {Integer (Int32)}
      */
-    static htmlCaptionVAlignBottom => 2
+    static Bottom => 2
 
     /**
+     * Native name: htmlCaptionVAlign_Max
      * @type {Integer (Int32)}
      */
-    static htmlCaptionVAlign_Max => 2147483647
+    static Max => 2147483647
 }

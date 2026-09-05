@@ -30,7 +30,6 @@ class ISideShowNotificationManager extends IUnknown {
     static VTableNames => ["Show", "Revoke", "RevokeAll"]
 
     /**
-     * 
      * @param {ISideShowNotification} in_pINotification 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ISideShowNotificationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} in_notificationId 
      * @returns {HRESULT} 
      */
@@ -50,7 +48,6 @@ class ISideShowNotificationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RevokeAll() {

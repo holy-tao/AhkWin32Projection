@@ -12,19 +12,22 @@ class _AUDCLNT_BUFFERFLAGS extends Win32Enum {
 
     /**
      * The data in the packet is not correlated with the previous packet's device position; this is possibly due to a stream state transition or timing glitch.
+     * Native name: AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY => 1
+    static DATA_DISCONTINUITY => 1
 
     /**
      * Treat all of the data in the packet as silence and ignore the actual data values. For more information about the use of this flag, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/rendering-a-stream">Rendering a Stream</a> and <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/capturing-a-stream">Capturing a Stream</a>.
+     * Native name: AUDCLNT_BUFFERFLAGS_SILENT
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_BUFFERFLAGS_SILENT => 2
+    static SILENT => 2
 
     /**
      * The time at which the device's stream position was recorded is uncertain. Thus, the client might be unable to accurately set the time stamp for the current data packet.
+     * Native name: AUDCLNT_BUFFERFLAGS_TIMESTAMP_ERROR
      * @type {Integer (Int32)}
      */
-    static AUDCLNT_BUFFERFLAGS_TIMESTAMP_ERROR => 4
+    static TIMESTAMP_ERROR => 4
 }

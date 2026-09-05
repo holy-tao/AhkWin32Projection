@@ -46,7 +46,6 @@ class ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {HRESULT} 
@@ -57,7 +56,6 @@ class ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @returns {ISWbemPropertySet} 
      */
     get_SystemProperties_() {
@@ -66,7 +64,6 @@ class ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @param {WbemObjectTextFormatEnum} iObjectTextFormat 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -79,7 +76,6 @@ class ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @param {BSTR} bsText 
      * @param {WbemObjectTextFormatEnum} iObjectTextFormat 
      * @param {Integer} iFlags 

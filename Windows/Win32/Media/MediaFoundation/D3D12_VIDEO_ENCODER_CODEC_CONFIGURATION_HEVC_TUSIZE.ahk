@@ -12,25 +12,29 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE extends Win32Enum {
 
     /**
      * Indicates a luma transform block of pixel size 4.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_4x4
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_4x4 => 0
+    static 4x4 => 0
 
     /**
      * Indicates a luma transform block of pixel size 8.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_8x8
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_8x8 => 1
+    static 8x8 => 1
 
     /**
      * Indicates a luma transform block of pixel size 16.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_16x16
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_16x16 => 2
+    static 16x16 => 2
 
     /**
      * Indicates a luma transform block of pixel size 32.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_32x32
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_32x32 => 3
+    static 32x32 => 3
 }

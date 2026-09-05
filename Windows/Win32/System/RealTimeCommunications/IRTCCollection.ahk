@@ -45,7 +45,6 @@ class IRTCCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -54,7 +53,6 @@ class IRTCCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {VARIANT} 
      */
@@ -65,7 +63,6 @@ class IRTCCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

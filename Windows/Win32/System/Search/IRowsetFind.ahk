@@ -30,7 +30,6 @@ class IRowsetFind extends IUnknown {
     static VTableNames => ["FindNextRow"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pFindValue 

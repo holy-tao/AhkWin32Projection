@@ -43,7 +43,6 @@ class IDirectDrawSurface4 extends IUnknown {
     static VTableNames => ["AddAttachedSurface", "AddOverlayDirtyRect", "Blt", "BltBatch", "BltFast", "DeleteAttachedSurface", "EnumAttachedSurfaces", "EnumOverlayZOrders", "Flip", "GetAttachedSurface", "GetBltStatus", "GetCaps", "GetClipper", "GetColorKey", "GetDC", "GetFlipStatus", "GetOverlayPosition", "GetPalette", "GetPixelFormat", "GetSurfaceDesc", "Initialize", "IsLost", "Lock", "ReleaseDC", "Restore", "SetClipper", "SetColorKey", "SetOverlayPosition", "SetPalette", "Unlock", "UpdateOverlay", "UpdateOverlayDisplay", "UpdateOverlayZOrder", "GetDDInterface", "PageLock", "PageUnlock", "SetSurfaceDesc", "SetPrivateData", "GetPrivateData", "FreePrivateData", "GetUniquenessValue", "ChangeUniquenessValue"]
 
     /**
-     * 
      * @param {IDirectDrawSurface4} param0 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} param0 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} param0 
      * @param {IDirectDrawSurface4} param1 
      * @param {Pointer<RECT>} param2 
@@ -77,7 +74,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDBLTBATCH>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -89,7 +85,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {IDirectDrawSurface4} param2 
@@ -103,7 +98,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {IDirectDrawSurface4} param1 
      * @returns {HRESULT} 
@@ -114,7 +108,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {Pointer<LPDDENUMSURFACESCALLBACK2>} param1 
      * @returns {HRESULT} 
@@ -127,7 +120,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @param {Pointer<LPDDENUMSURFACESCALLBACK2>} param2 
@@ -141,7 +133,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface4} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -152,7 +143,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSCAPS2>} param0 
      * @returns {IDirectDrawSurface4} 
      */
@@ -162,7 +152,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -172,7 +161,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSCAPS2>} param0 
      * @returns {HRESULT} 
      */
@@ -182,7 +170,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDirectDrawClipper} 
      */
     GetClipper() {
@@ -191,7 +178,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDCOLORKEY>} param1 
      * @returns {HRESULT} 
@@ -221,7 +207,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -231,7 +216,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {HRESULT} 
@@ -245,7 +229,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDirectDrawPalette} 
      */
     GetPalette() {
@@ -267,7 +250,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC2>} param0 
      * @returns {HRESULT} 
      */
@@ -312,7 +294,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsLost() {
@@ -380,7 +361,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawClipper} param0 
      * @returns {HRESULT} 
      */
@@ -390,7 +370,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDCOLORKEY>} param1 
      * @returns {HRESULT} 
@@ -401,7 +380,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -412,7 +390,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawPalette} param0 
      * @returns {HRESULT} 
      */
@@ -422,7 +399,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} param0 
      * @returns {HRESULT} 
      */
@@ -432,7 +408,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} param0 
      * @param {IDirectDrawSurface4} param1 
      * @param {Pointer<RECT>} param2 
@@ -446,7 +421,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -456,7 +430,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {IDirectDrawSurface4} param1 
      * @returns {HRESULT} 
@@ -467,7 +440,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} param0 
      * @returns {HRESULT} 
      */
@@ -479,7 +451,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -489,7 +460,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -499,7 +469,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC2>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -510,7 +479,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
@@ -560,7 +528,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -572,7 +539,6 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ChangeUniquenessValue() {

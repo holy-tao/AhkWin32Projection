@@ -7,7 +7,8 @@
 class KSPROPERTY_STREAMINTERFACE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_STREAMINTERFACE_HEADERSIZE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_STREAMINTERFACE_HEADERSIZE => 0
+    static HEADERSIZE => 0
 }

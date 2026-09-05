@@ -29,7 +29,6 @@ class IChapteredRowset extends IUnknown {
     static VTableNames => ["AddRefChapter", "ReleaseChapter"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @returns {Integer} 
      */
@@ -39,7 +38,6 @@ class IChapteredRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @returns {Integer} 
      */

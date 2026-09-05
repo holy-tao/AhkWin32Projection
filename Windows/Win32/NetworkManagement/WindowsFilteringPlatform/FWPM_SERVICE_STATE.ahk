@@ -10,31 +10,36 @@ class FWPM_SERVICE_STATE extends Win32Enum {
 
     /**
      * The filter engine is not running.
+     * Native name: FWPM_SERVICE_STOPPED
      * @type {Integer (Int32)}
      */
-    static FWPM_SERVICE_STOPPED => 0
+    static STOPPED => 0
 
     /**
      * The filter engine is starting.
+     * Native name: FWPM_SERVICE_START_PENDING
      * @type {Integer (Int32)}
      */
-    static FWPM_SERVICE_START_PENDING => 1
+    static START_PENDING => 1
 
     /**
      * The filter engine is stopping.
+     * Native name: FWPM_SERVICE_STOP_PENDING
      * @type {Integer (Int32)}
      */
-    static FWPM_SERVICE_STOP_PENDING => 2
+    static STOP_PENDING => 2
 
     /**
      * The filter engine is running.
+     * Native name: FWPM_SERVICE_RUNNING
      * @type {Integer (Int32)}
      */
-    static FWPM_SERVICE_RUNNING => 3
+    static RUNNING => 3
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWPM_SERVICE_STATE_MAX
      * @type {Integer (Int32)}
      */
-    static FWPM_SERVICE_STATE_MAX => 4
+    static MAX => 4
 }

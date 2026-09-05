@@ -12,9 +12,10 @@ class X509EnrollmentPolicyExportFlags extends Win32Enum {
 
     /**
      * Export templates.
+     * Native name: ExportTemplates
      * @type {Integer (Int32)}
      */
-    static ExportTemplates => 1
+    static Templates => 1
 
     /**
      * Export custom object identifiers.

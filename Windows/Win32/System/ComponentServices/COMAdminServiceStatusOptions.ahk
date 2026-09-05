@@ -7,42 +7,50 @@
 class COMAdminServiceStatusOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminServiceStopped
      * @type {Integer (Int32)}
      */
-    static COMAdminServiceStopped => 0
+    static Stopped => 0
 
     /**
+     * Native name: COMAdminServiceStartPending
      * @type {Integer (Int32)}
      */
-    static COMAdminServiceStartPending => 1
+    static StartPending => 1
 
     /**
+     * Native name: COMAdminServiceStopPending
      * @type {Integer (Int32)}
      */
-    static COMAdminServiceStopPending => 2
+    static StopPending => 2
 
     /**
+     * Native name: COMAdminServiceRunning
      * @type {Integer (Int32)}
      */
-    static COMAdminServiceRunning => 3
+    static Running => 3
 
     /**
+     * Native name: COMAdminServiceContinuePending
      * @type {Integer (Int32)}
      */
-    static COMAdminServiceContinuePending => 4
+    static ContinuePending => 4
 
     /**
+     * Native name: COMAdminServicePausePending
      * @type {Integer (Int32)}
      */
-    static COMAdminServicePausePending => 5
+    static PausePending => 5
 
     /**
+     * Native name: COMAdminServicePaused
      * @type {Integer (Int32)}
      */
-    static COMAdminServicePaused => 6
+    static Paused => 6
 
     /**
+     * Native name: COMAdminServiceUnknownState
      * @type {Integer (Int32)}
      */
-    static COMAdminServiceUnknownState => 7
+    static UnknownState => 7
 }

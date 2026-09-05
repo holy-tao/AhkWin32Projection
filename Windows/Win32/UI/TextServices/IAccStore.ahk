@@ -55,7 +55,6 @@ class IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
      */
@@ -65,7 +64,6 @@ class IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     GetDocuments() {
@@ -74,7 +72,6 @@ class IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -87,7 +84,6 @@ class IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} pt 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -98,7 +94,6 @@ class IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
      */
@@ -108,7 +103,6 @@ class IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

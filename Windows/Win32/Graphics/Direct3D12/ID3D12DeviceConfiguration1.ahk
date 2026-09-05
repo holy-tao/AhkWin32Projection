@@ -31,7 +31,6 @@ class ID3D12DeviceConfiguration1 extends ID3D12DeviceConfiguration {
     static VTableNames => ["CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary"]
 
     /**
-     * 
      * @param {Integer} pLibraryBlob 
      * @param {Pointer} _Size 
      * @param {PWSTR} RootSignatureSubobjectName 

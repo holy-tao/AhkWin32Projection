@@ -50,7 +50,6 @@ class IMSMQQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JournalMessageCount() {
@@ -59,7 +58,6 @@ class IMSMQQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_BytesInJournal() {
@@ -69,7 +67,6 @@ class IMSMQQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     EodGetReceiveInfo() {

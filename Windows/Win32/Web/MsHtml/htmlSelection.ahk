@@ -7,27 +7,32 @@
 class htmlSelection extends Win32Enum {
 
     /**
+     * Native name: htmlSelectionNone
      * @type {Integer (Int32)}
      */
-    static htmlSelectionNone => 0
+    static None => 0
 
     /**
+     * Native name: htmlSelectionText
      * @type {Integer (Int32)}
      */
-    static htmlSelectionText => 1
+    static Text => 1
 
     /**
+     * Native name: htmlSelectionControl
      * @type {Integer (Int32)}
      */
-    static htmlSelectionControl => 2
+    static Control => 2
 
     /**
+     * Native name: htmlSelectionTable
      * @type {Integer (Int32)}
      */
-    static htmlSelectionTable => 3
+    static Table => 3
 
     /**
+     * Native name: htmlSelection_Max
      * @type {Integer (Int32)}
      */
-    static htmlSelection_Max => 2147483647
+    static Max => 2147483647
 }

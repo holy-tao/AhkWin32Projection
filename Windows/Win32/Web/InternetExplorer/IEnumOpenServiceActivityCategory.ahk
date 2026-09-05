@@ -30,7 +30,6 @@ class IEnumOpenServiceActivityCategory extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<IOpenServiceActivityCategory>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
@@ -44,7 +43,6 @@ class IEnumOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumOpenServiceActivityCategory} 
      */
     Clone() {

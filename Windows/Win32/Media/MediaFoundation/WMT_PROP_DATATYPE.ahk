@@ -12,43 +12,50 @@ class WMT_PROP_DATATYPE extends Win32Enum {
 
     /**
      * Specifies a double-word value.
+     * Native name: WMT_PROP_TYPE_DWORD
      * @type {Integer (Int32)}
      */
-    static WMT_PROP_TYPE_DWORD => 0
+    static TYPE_DWORD => 0
 
     /**
      * Specifies a string value.
+     * Native name: WMT_PROP_TYPE_STRING
      * @type {Integer (Int32)}
      */
-    static WMT_PROP_TYPE_STRING => 1
+    static TYPE_STRING => 1
 
     /**
      * Specifies a binary value.
+     * Native name: WMT_PROP_TYPE_BINARY
      * @type {Integer (Int32)}
      */
-    static WMT_PROP_TYPE_BINARY => 2
+    static TYPE_BINARY => 2
 
     /**
      * Specifies a Boolean value.
+     * Native name: WMT_PROP_TYPE_BOOL
      * @type {Integer (Int32)}
      */
-    static WMT_PROP_TYPE_BOOL => 3
+    static TYPE_BOOL => 3
 
     /**
      * Specifies a quadruple-word value.
+     * Native name: WMT_PROP_TYPE_QWORD
      * @type {Integer (Int32)}
      */
-    static WMT_PROP_TYPE_QWORD => 4
+    static TYPE_QWORD => 4
 
     /**
      * Specifies a word value.
+     * Native name: WMT_PROP_TYPE_WORD
      * @type {Integer (Int32)}
      */
-    static WMT_PROP_TYPE_WORD => 5
+    static TYPE_WORD => 5
 
     /**
      * Specifies a GUID value.
+     * Native name: WMT_PROP_TYPE_GUID
      * @type {Integer (Int32)}
      */
-    static WMT_PROP_TYPE_GUID => 6
+    static TYPE_GUID => 6
 }

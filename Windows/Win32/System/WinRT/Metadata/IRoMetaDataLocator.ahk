@@ -27,7 +27,6 @@ class IRoMetaDataLocator extends Win32ComInterface {
     static VTableNames => ["Locate"]
 
     /**
-     * 
      * @param {PWSTR} nameElement 
      * @param {IRoSimpleMetaDataBuilder} metaDataDestination 
      * @returns {HRESULT} 

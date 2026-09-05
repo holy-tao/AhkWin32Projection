@@ -7,22 +7,26 @@
 class GNSS_FIXSESSIONTYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_FixSession_SingleShot
      * @type {Integer (Int32)}
      */
-    static GNSS_FixSession_SingleShot => 1
+    static FixSession_SingleShot => 1
 
     /**
+     * Native name: GNSS_FixSession_DistanceTracking
      * @type {Integer (Int32)}
      */
-    static GNSS_FixSession_DistanceTracking => 2
+    static FixSession_DistanceTracking => 2
 
     /**
+     * Native name: GNSS_FixSession_ContinuousTracking
      * @type {Integer (Int32)}
      */
-    static GNSS_FixSession_ContinuousTracking => 3
+    static FixSession_ContinuousTracking => 3
 
     /**
+     * Native name: GNSS_FixSession_LKG
      * @type {Integer (Int32)}
      */
-    static GNSS_FixSession_LKG => 4
+    static FixSession_LKG => 4
 }

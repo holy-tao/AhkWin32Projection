@@ -7,22 +7,26 @@
 class BATTERY_LEVEL extends Win32Enum {
 
     /**
+     * Native name: BATTERY_LEVEL_EMPTY
      * @type {Integer (Byte)}
      */
-    static BATTERY_LEVEL_EMPTY => 0x00
+    static EMPTY => 0x00
 
     /**
+     * Native name: BATTERY_LEVEL_LOW
      * @type {Integer (Byte)}
      */
-    static BATTERY_LEVEL_LOW => 0x01
+    static LOW => 0x01
 
     /**
+     * Native name: BATTERY_LEVEL_MEDIUM
      * @type {Integer (Byte)}
      */
-    static BATTERY_LEVEL_MEDIUM => 0x02
+    static MEDIUM => 0x02
 
     /**
+     * Native name: BATTERY_LEVEL_FULL
      * @type {Integer (Byte)}
      */
-    static BATTERY_LEVEL_FULL => 0x03
+    static FULL => 0x03
 }

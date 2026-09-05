@@ -7,17 +7,20 @@
 class HTTP_PROTECTION_LEVEL_TYPE extends Win32Enum {
 
     /**
+     * Native name: HttpProtectionLevelUnrestricted
      * @type {Integer (Int32)}
      */
-    static HttpProtectionLevelUnrestricted => 0
+    static Unrestricted => 0
 
     /**
+     * Native name: HttpProtectionLevelEdgeRestricted
      * @type {Integer (Int32)}
      */
-    static HttpProtectionLevelEdgeRestricted => 1
+    static EdgeRestricted => 1
 
     /**
+     * Native name: HttpProtectionLevelRestricted
      * @type {Integer (Int32)}
      */
-    static HttpProtectionLevelRestricted => 2
+    static Restricted => 2
 }

@@ -16,9 +16,10 @@ class EnrollmentEnrollStatus extends Win32Enum {
 
     /**
      * The request has been submitted and the enrollment is pending, or the request has been issued out of band.
+     * Native name: EnrollPended
      * @type {Integer (Int32)}
      */
-    static EnrollPended => 2
+    static Pended => 2
 
     /**
      * Enrollment must be deferred.
@@ -28,25 +29,29 @@ class EnrollmentEnrollStatus extends Win32Enum {
 
     /**
      * An error occurred.
+     * Native name: EnrollError
      * @type {Integer (Int32)}
      */
-    static EnrollError => 16
+    static Error => 16
 
     /**
      * The enrollment status is unknown.
+     * Native name: EnrollUnknown
      * @type {Integer (Int32)}
      */
-    static EnrollUnknown => 32
+    static Unknown => 32
 
     /**
      * The status information has been skipped. This can occur if a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> is not valid or has not been selected for monitoring.
+     * Native name: EnrollSkipped
      * @type {Integer (Int32)}
      */
-    static EnrollSkipped => 64
+    static Skipped => 64
 
     /**
      * Enrollment has been denied.
+     * Native name: EnrollDenied
      * @type {Integer (Int32)}
      */
-    static EnrollDenied => 256
+    static Denied => 256
 }

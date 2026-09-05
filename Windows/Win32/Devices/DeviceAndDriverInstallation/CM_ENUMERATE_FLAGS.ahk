@@ -7,17 +7,20 @@
 class CM_ENUMERATE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CM_ENUMERATE_CLASSES_INSTALLER
      * @type {Integer (UInt32)}
      */
-    static CM_ENUMERATE_CLASSES_INSTALLER => 0
+    static CLASSES_INSTALLER => 0
 
     /**
+     * Native name: CM_ENUMERATE_CLASSES_INTERFACE
      * @type {Integer (UInt32)}
      */
-    static CM_ENUMERATE_CLASSES_INTERFACE => 1
+    static CLASSES_INTERFACE => 1
 
     /**
+     * Native name: CM_ENUMERATE_CLASSES_BITS
      * @type {Integer (UInt32)}
      */
-    static CM_ENUMERATE_CLASSES_BITS => 1
+    static CLASSES_BITS => 1
 }

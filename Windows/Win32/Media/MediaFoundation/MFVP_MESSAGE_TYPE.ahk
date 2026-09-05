@@ -10,49 +10,57 @@ class MFVP_MESSAGE_TYPE extends Win32Enum {
 
     /**
      * The presenter should discard any pending samples. The <i>ulParam</i> parameter is not used and should be zero.
+     * Native name: MFVP_MESSAGE_FLUSH
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_FLUSH => 0
+    static FLUSH => 0
 
     /**
      * The mixer's output format has changed. The EVR will initiate format negotiation. The <i>ulParam</i> parameter is not used and should be zero.
+     * Native name: MFVP_MESSAGE_INVALIDATEMEDIATYPE
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_INVALIDATEMEDIATYPE => 1
+    static INVALIDATEMEDIATYPE => 1
 
     /**
      * One input stream on the mixer has received a new sample. The <i>ulParam</i> parameter is not used and should be zero.
+     * Native name: MFVP_MESSAGE_PROCESSINPUTNOTIFY
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_PROCESSINPUTNOTIFY => 2
+    static PROCESSINPUTNOTIFY => 2
 
     /**
      * The EVR switched from stopped to paused. The presenter should allocate resources. The <i>ulParam</i> parameter is not used and should be zero.
+     * Native name: MFVP_MESSAGE_BEGINSTREAMING
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_BEGINSTREAMING => 3
+    static BEGINSTREAMING => 3
 
     /**
      * The EVR switched from running or paused to stopped. The presenter should free resources. The <i>ulParam</i> parameter is not used and should be zero.
+     * Native name: MFVP_MESSAGE_ENDSTREAMING
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_ENDSTREAMING => 4
+    static ENDSTREAMING => 4
 
     /**
      * All streams have ended. The <i>ulParam</i> parameter is not used and should be zero.
+     * Native name: MFVP_MESSAGE_ENDOFSTREAM
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_ENDOFSTREAM => 5
+    static ENDOFSTREAM => 5
 
     /**
      * Requests a frame step. The lower <b>DWORD</b> of the <i>ulParam</i> parameter contains the number of frames to step. If the value is <i>N</i>, the presenter should skip <i>N</i>–1 frames and display the <i>N</i>th frame. When that frame has been displayed, the presenter should send an <b>EC_STEP_COMPLETE</b> event to the EVR. If the presenter is not paused when it receives this message, it should return MF_E_INVALIDREQUEST.
+     * Native name: MFVP_MESSAGE_STEP
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_STEP => 6
+    static STEP => 6
 
     /**
      * Cancels a frame step. The <i>ulParam</i> parameter is not used and should be zero.
+     * Native name: MFVP_MESSAGE_CANCELSTEP
      * @type {Integer (Int32)}
      */
-    static MFVP_MESSAGE_CANCELSTEP => 7
+    static CANCELSTEP => 7
 }

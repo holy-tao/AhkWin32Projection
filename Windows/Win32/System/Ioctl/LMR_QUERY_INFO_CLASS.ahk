@@ -7,7 +7,8 @@
 class LMR_QUERY_INFO_CLASS extends Win32Enum {
 
     /**
+     * Native name: LMRQuerySessionInfo
      * @type {Integer (Int32)}
      */
-    static LMRQuerySessionInfo => 1
+    static SessionInfo => 1
 }

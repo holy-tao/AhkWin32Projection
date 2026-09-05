@@ -31,7 +31,6 @@ class IElementSegment extends ISegment {
     static VTableNames => ["GetElement", "SetPrimary", "IsPrimary"]
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetElement() {
@@ -40,7 +39,6 @@ class IElementSegment extends ISegment {
     }
 
     /**
-     * 
      * @param {BOOL} fPrimary 
      * @returns {HRESULT} 
      */
@@ -50,7 +48,6 @@ class IElementSegment extends ISegment {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsPrimary() {

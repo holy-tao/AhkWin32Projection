@@ -32,7 +32,6 @@ class IPrintWorkflowXpsReceiver extends IUnknown {
     static VTableNames => ["SetDocumentSequencePrintTicket", "SetDocumentSequenceUri", "AddDocumentData", "AddPage", "Close"]
 
     /**
-     * 
      * @param {IStream} documentSequencePrintTicket 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} documentSequenceUri 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} documentId 
      * @param {IStream} documentPrintTicket 
      * @param {PWSTR} documentUri 
@@ -68,7 +65,6 @@ class IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} documentId 
      * @param {Integer} pageId 
      * @param {IXpsOMPageReference} pageReference 
@@ -83,7 +79,6 @@ class IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {

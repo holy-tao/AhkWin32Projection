@@ -30,7 +30,6 @@ class ICustomDoc extends IUnknown {
     static VTableNames => ["SetUIHandler"]
 
     /**
-     * 
      * @param {IDocHostUIHandler} pUIHandler 
      * @returns {HRESULT} 
      */

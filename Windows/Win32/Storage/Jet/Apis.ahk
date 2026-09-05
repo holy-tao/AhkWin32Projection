@@ -5763,7 +5763,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Integer} _dbid 
      * @param {Pointer<JET_TABLECREATE4_A>} ptablecreate 
@@ -6070,7 +6069,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szName 
@@ -6090,7 +6088,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szName 
@@ -6110,7 +6107,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Integer} _dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -6131,7 +6127,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Integer} _dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -6350,7 +6345,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE3_A>} pindexcreate 
@@ -6505,7 +6499,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Integer} _dbid 
      * @param {Integer} pvResult 
@@ -6521,7 +6514,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Integer} _dbid 
      * @param {Integer} pvResult 
@@ -7517,7 +7509,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szDatabaseName 
      * @param {Pointer<Integer>} szTableName 
@@ -7542,7 +7533,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szDatabaseName 
      * @param {Pointer<Integer>} szTableName 
@@ -8875,7 +8865,6 @@ class Jet {
     }
 
     /**
-     * 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */

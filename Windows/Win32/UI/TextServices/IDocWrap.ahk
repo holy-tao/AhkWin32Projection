@@ -36,7 +36,6 @@ class IDocWrap extends IUnknown {
     static VTableNames => ["SetDoc", "GetWrappedDoc"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class IDocWrap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

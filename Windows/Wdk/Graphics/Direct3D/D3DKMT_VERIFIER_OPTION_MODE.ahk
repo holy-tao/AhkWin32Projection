@@ -7,12 +7,14 @@
 class D3DKMT_VERIFIER_OPTION_MODE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_VERIFIER_OPTION_QUERY
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VERIFIER_OPTION_QUERY => 0
+    static QUERY => 0
 
     /**
+     * Native name: D3DKMT_VERIFIER_OPTION_SET
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VERIFIER_OPTION_SET => 1
+    static SET => 1
 }

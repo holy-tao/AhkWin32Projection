@@ -7,22 +7,26 @@
 class GUEST_OS_VENDOR extends Win32Enum {
 
     /**
+     * Native name: GuestOsVendorUndefined
      * @type {Integer (Int32)}
      */
-    static GuestOsVendorUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: GuestOsVendorMicrosoft
      * @type {Integer (Int32)}
      */
-    static GuestOsVendorMicrosoft => 1
+    static Microsoft => 1
 
     /**
+     * Native name: GuestOsVendorHPE
      * @type {Integer (Int32)}
      */
-    static GuestOsVendorHPE => 2
+    static VendorHPE => 2
 
     /**
+     * Native name: GuestOsVendorLANCOM
      * @type {Integer (Int32)}
      */
-    static GuestOsVendorLANCOM => 512
+    static VendorLANCOM => 512
 }

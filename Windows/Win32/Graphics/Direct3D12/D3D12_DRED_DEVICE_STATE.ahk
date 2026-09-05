@@ -7,22 +7,26 @@
 class D3D12_DRED_DEVICE_STATE extends Win32Enum {
 
     /**
+     * Native name: D3D12_DRED_DEVICE_STATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_DEVICE_STATE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: D3D12_DRED_DEVICE_STATE_HUNG
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_DEVICE_STATE_HUNG => 3
+    static HUNG => 3
 
     /**
+     * Native name: D3D12_DRED_DEVICE_STATE_FAULT
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_DEVICE_STATE_FAULT => 6
+    static FAULT => 6
 
     /**
+     * Native name: D3D12_DRED_DEVICE_STATE_PAGEFAULT
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_DEVICE_STATE_PAGEFAULT => 7
+    static PAGEFAULT => 7
 }

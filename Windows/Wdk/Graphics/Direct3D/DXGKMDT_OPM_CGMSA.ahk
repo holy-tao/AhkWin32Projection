@@ -7,32 +7,38 @@
 class DXGKMDT_OPM_CGMSA extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_CGMSA_OFF
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_CGMSA_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: DXGKMDT_OPM_CGMSA_COPY_FREELY
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_CGMSA_COPY_FREELY => 1
+    static COPY_FREELY => 1
 
     /**
+     * Native name: DXGKMDT_OPM_CGMSA_COPY_NO_MORE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_CGMSA_COPY_NO_MORE => 2
+    static COPY_NO_MORE => 2
 
     /**
+     * Native name: DXGKMDT_OPM_CGMSA_COPY_ONE_GENERATION
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_CGMSA_COPY_ONE_GENERATION => 3
+    static COPY_ONE_GENERATION => 3
 
     /**
+     * Native name: DXGKMDT_OPM_CGMSA_COPY_NEVER
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_CGMSA_COPY_NEVER => 4
+    static COPY_NEVER => 4
 
     /**
+     * Native name: DXGKMDT_OPM_REDISTRIBUTION_CONTROL_REQUIRED
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_REDISTRIBUTION_CONTROL_REQUIRED => 8
+    static REDISTRIBUTION_CONTROL_REQUIRED => 8
 }

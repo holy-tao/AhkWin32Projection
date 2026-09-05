@@ -52,7 +52,6 @@ class IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prompt() {
@@ -74,7 +72,6 @@ class IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -86,7 +83,6 @@ class IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_action() {

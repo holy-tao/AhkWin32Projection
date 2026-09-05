@@ -30,7 +30,6 @@ class IVBSAXDeclHandler extends IDispatch {
     static VTableNames => ["elementDecl", "attributeDecl", "internalEntityDecl", "externalEntityDecl"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strModel 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IVBSAXDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strElementName 
      * @param {Pointer<BSTR>} strAttributeName 
      * @param {Pointer<BSTR>} strType 
@@ -55,7 +53,6 @@ class IVBSAXDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strValue 
      * @returns {HRESULT} 
@@ -66,7 +63,6 @@ class IVBSAXDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 

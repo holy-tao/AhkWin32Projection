@@ -3337,7 +3337,6 @@ class Clustering {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<CLUSAPI_REASON_HANDLER>} lpHandler 
      * @returns {Pointer<CLUSAPI_REASON_HANDLER>} 
      */
@@ -3531,7 +3530,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNewClusterName 
      * @param {PWSTR} lpszReason 
@@ -3713,7 +3711,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDeviceName 
      * @param {Integer} dwMaxQuorumLogSize 
@@ -4275,7 +4272,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -4834,7 +4830,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} dwType 
      * @param {Pointer<Void>} pOptions 
@@ -5052,7 +5047,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -5081,7 +5075,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {HGROUP} _hGroup 
      * @param {Integer} faultDomain 
@@ -5094,7 +5087,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {HGROUP} _hGroup 
      * @param {Integer} faultDomain 
@@ -5125,7 +5117,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -5244,7 +5235,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -5282,7 +5272,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} hDependentGroup 
      * @param {HGROUP} hProviderGroup 
      * @param {PWSTR} lpszReason 
@@ -5314,7 +5303,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszDependencyExpression 
      * @param {PWSTR} lpszReason 
@@ -5345,7 +5333,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HGROUP} hDependsOn 
      * @param {PWSTR} lpszReason 
@@ -5375,7 +5362,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} hDependentGroupSet 
      * @param {HGROUPSET} hProviderGroupSet 
      * @param {PWSTR} lpszReason 
@@ -5407,7 +5393,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {PWSTR} lpszDependencyExpression 
      * @param {PWSTR} lpszReason 
@@ -5438,7 +5423,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {HGROUPSET} hDependsOn 
      * @param {PWSTR} lpszReason 
@@ -5468,7 +5452,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} hDependentGroup 
      * @param {HGROUPSET} hProviderGroupSet 
      * @param {PWSTR} lpszReason 
@@ -5498,7 +5481,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HGROUPSET} hDependsOn 
      * @param {PWSTR} lpszReason 
@@ -5590,7 +5572,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} hDependentGroupSet 
      * @param {PWSTR} lpRemoteClusterName 
      * @param {PWSTR} lpRemoteGroupSetName 
@@ -5605,7 +5586,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUPSET} hDependentGroupSet 
      * @param {PWSTR} lpRemoteClusterName 
      * @param {PWSTR} lpRemoteGroupSetName 
@@ -5620,7 +5600,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpAvailabilitySetName 
      * @param {Pointer<CLUSTER_AVAILABILITY_SET_CONFIG>} pAvailabilitySetConfig 
@@ -5634,7 +5613,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeNameCurrent 
      * @param {PWSTR} lpszNodeNameNew 
@@ -5649,7 +5627,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @param {CLUS_AFFINITY_RULE_TYPE} ruleType 
@@ -5663,7 +5640,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @returns {Integer} 
@@ -5676,7 +5652,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @param {HGROUP} _hGroup 
@@ -5690,7 +5665,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @param {HGROUP} _hGroup 
@@ -5704,7 +5678,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} affinityRuleName 
      * @param {HNODE} hHostNode 
@@ -5833,7 +5806,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} nodeId 
      * @returns {HNODE} 
@@ -6298,7 +6270,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {Integer} dwType 
      * @param {Pointer<Void>} pOptions 
@@ -6553,7 +6524,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {Integer} dwTimeout 
      * @param {Pointer<HRESULT>} phrCleanupStatus 
@@ -6725,7 +6695,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {BOOL} bDrainNode 
      * @param {Integer} dwPauseFlags 
@@ -6739,7 +6708,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {BOOL} bDrainNode 
      * @param {Integer} dwPauseFlags 
@@ -6772,7 +6740,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {CLUSTER_NODE_RESUME_FAILBACK_TYPE} eResumeFailbackType 
      * @param {Integer} dwResumeFlagsReserved 
@@ -7136,7 +7103,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode 
      * @param {Integer} dwOnlineFlags 
@@ -7153,7 +7119,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {Integer} dwOfflineFlags 
      * @param {Pointer<Integer>} lpInBuffer 
@@ -7207,7 +7172,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOnlineFlags 
      * @param {Integer} lpInBuffer 
@@ -7260,7 +7224,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOfflineFlags 
      * @param {Integer} lpInBuffer 
@@ -7310,7 +7273,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode 
      * @param {Integer} dwMoveFlags 
@@ -7355,7 +7317,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -7367,7 +7328,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszReason 
@@ -7623,7 +7583,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszGroupName 
      * @param {PWSTR} lpszReason 
@@ -7638,7 +7597,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {Integer} NodeCount 
      * @param {Pointer<HNODE>} NodeList 
@@ -7847,7 +7805,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -7860,7 +7817,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -8060,7 +8016,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszResourceName 
      * @param {PWSTR} lpszResourceType 
@@ -8303,7 +8258,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -8501,7 +8455,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszResourceName 
      * @param {PWSTR} lpszReason 
@@ -8535,7 +8488,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -8671,7 +8623,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HGROUP} _hGroup 
      * @param {Integer} Flags 
@@ -8683,7 +8634,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HGROUP} _hGroup 
      * @param {Integer} Flags 
@@ -8741,7 +8691,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} _hNode 
      * @param {PWSTR} lpszReason 
@@ -8755,7 +8704,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} _hNode 
      * @param {PWSTR} lpszReason 
@@ -8914,7 +8862,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn 
      * @param {PWSTR} lpszReason 
@@ -8928,7 +8875,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn 
      * @param {PWSTR} lpszReason 
@@ -10043,7 +9989,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -10065,7 +10010,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -10087,7 +10031,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {HNODE} hHostNode 
@@ -10111,7 +10054,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {HNODE} hHostNode 
@@ -10135,7 +10077,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -10304,7 +10245,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -10568,7 +10508,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {PWSTR} lpszDisplayName 
@@ -10589,7 +10528,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszTypeName 
      * @param {PWSTR} lpszReason 
@@ -11188,7 +11126,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @param {PWSTR} lpszName 
      * @param {PWSTR} lpszReason 
@@ -11391,7 +11328,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -11869,7 +11805,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HNETINTERFACE} _hNetInterface 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -12119,7 +12054,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpSubKey 
      * @param {Integer} dwOptions 
@@ -12221,7 +12155,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpSubKey 
      * @param {PWSTR} lpszReason 
@@ -12455,7 +12388,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName 
      * @param {Integer} dwType 
@@ -12476,7 +12408,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName 
      * @param {PWSTR} lpszReason 
@@ -12762,7 +12693,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
@@ -13780,7 +13710,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {BOOL} bDeleteComputerObjects 
      * @returns {Integer} 
@@ -13791,7 +13720,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG>} pConfig 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
@@ -13806,7 +13734,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Integer} cNodes 
      * @param {Pointer<PWSTR>} ppszNodeNames 
      * @param {Pointer<CLUSTER_MGMT_POINT_RESTYPE>} pCNOResType 
@@ -13821,7 +13748,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<CLUSTER_MGMT_POINT_RESTYPE>} pCNOResType 
      * @returns {Integer} 
@@ -13834,7 +13760,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Integer} cNodes 
      * @param {Pointer<PWSTR>} ppszNodeNames 
      * @param {Pointer<CLUSTER_CLOUD_TYPE>} pCloudType 
@@ -13849,7 +13774,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<CLUSTER_CLOUD_TYPE>} pCloudType 
      * @returns {Integer} 
@@ -13862,7 +13786,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {PWSTR} ppszNodeName 
      * @param {Pointer<Integer>} NodeCloudType 
      * @returns {Integer} 
@@ -13930,7 +13853,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
@@ -13951,7 +13873,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @param {Integer} dwFlags 
@@ -13969,7 +13890,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszClusterStorageEnclosureName 
      * @param {Integer} dwTimeout 
@@ -14010,7 +13930,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault 
      * @returns {Integer} 
      * @since windowsserver2016
@@ -14021,7 +13940,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray 
      * @returns {Integer} 
      * @since windowsserver2016
@@ -14032,7 +13950,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault 
      * @returns {Integer} 
      * @since windowsserver2016
@@ -14043,7 +13960,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray 
      * @returns {Integer} 
      * @since windowsserver2016
@@ -14054,7 +13970,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} objects 
      * @param {Integer} flags 
@@ -14067,7 +13982,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} id 
      * @param {Integer} flags 
@@ -14082,7 +13996,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<CLUSTER_HEALTH_FAULT>} failure 
      * @param {Integer} param2 
@@ -15684,7 +15597,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @param {Pointer<Integer>} pqwOutValue 
@@ -16255,7 +16167,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plOutValue 
      * @param {Pointer<CLUSPROP_LONG>} pValueStruct 
      * @param {Integer} lOldValue 
@@ -18425,7 +18336,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszResource 
      * @param {PWSTR} lpszKeyname 
      * @param {Pointer<Integer>} lpszProvider 
@@ -18496,7 +18406,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pCryptInfo 
      * @returns {Integer} 
      * @since windowsserver2012
@@ -18509,7 +18418,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Integer} flags 
      * @param {Integer} reason 
      * @param {Pointer<Integer>} pResult 
@@ -18549,7 +18457,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HKEY} key 
      * @param {PWSTR} keyName 
      * @param {BOOL} treatNoKeyAsError 
@@ -18564,7 +18471,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} hSelf 
      * @param {HGROUP} _hGroup 
      * @param {Pointer<BOOL>} pEqual 
@@ -18578,7 +18484,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {HGROUP} hSelf 
      * @param {Pointer<LPGROUP_CALLBACK_EX>} pResCallBack 
@@ -18593,7 +18498,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {HGROUP} hSelf 
      * @param {CLUSGROUP_TYPE} groupType 
@@ -18609,7 +18513,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} group 
      * @param {Pointer<HGROUP>} copy 
      * @returns {Integer} 
@@ -18622,7 +18525,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {Pointer<CLUSGROUP_TYPE>} groupType 
      * @returns {Integer} 
@@ -18635,7 +18537,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @returns {HGROUP} 
      */
@@ -18645,7 +18546,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} hSelf 
      * @param {Integer} _enumType 
      * @param {Pointer<LPRESOURCE_CALLBACK_EX>} pResCallBack 
@@ -18660,7 +18560,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HRESOURCE} group 
      * @param {Pointer<HRESOURCE>} copy 
      * @returns {Integer} 
@@ -18673,7 +18572,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<Guid>} guid 
      * @returns {Integer} 
@@ -18684,7 +18582,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<LPNODE_CALLBACK>} pNodeCallBack 
      * @param {Pointer<Void>} pParameter 
@@ -18791,7 +18688,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} AppInstanceId 
      * @param {Integer} InstanceVersionHigh 
      * @param {Integer} InstanceVersionLow 
@@ -18803,7 +18699,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} AppInstanceId 
      * @param {Pointer<Integer>} InstanceVersionHigh 
      * @param {Pointer<Integer>} InstanceVersionLow 
@@ -18819,7 +18714,6 @@ class Clustering {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ResetAllAppInstanceVersions() {

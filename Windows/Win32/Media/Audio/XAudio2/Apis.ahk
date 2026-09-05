@@ -1161,7 +1161,6 @@ class XAudio2 {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} XAudio2Processor 
      * @param {Integer} ntddiVersion 
@@ -1173,7 +1172,6 @@ class XAudio2 {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     static CreateAudioVolumeMeter() {
@@ -1182,7 +1180,6 @@ class XAudio2 {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     static CreateAudioReverb() {

@@ -33,7 +33,6 @@ class IDataModelScriptDebugClient extends IUnknown {
     static VTableNames => ["NotifyDebugEvent"]
 
     /**
-     * 
      * @param {Pointer<ScriptDebugEventInformation>} pEventInfo 
      * @param {IDataModelScript} pScript 
      * @param {IModelObject} pEventDataObject 

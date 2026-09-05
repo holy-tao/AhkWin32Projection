@@ -7,47 +7,56 @@
 class BREAKREASON extends Win32Enum {
 
     /**
+     * Native name: BREAKREASON_STEP
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_STEP => 0
+    static STEP => 0
 
     /**
+     * Native name: BREAKREASON_BREAKPOINT
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_BREAKPOINT => 1
+    static BREAKPOINT => 1
 
     /**
+     * Native name: BREAKREASON_DEBUGGER_BLOCK
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_DEBUGGER_BLOCK => 2
+    static DEBUGGER_BLOCK => 2
 
     /**
+     * Native name: BREAKREASON_HOST_INITIATED
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_HOST_INITIATED => 3
+    static HOST_INITIATED => 3
 
     /**
+     * Native name: BREAKREASON_LANGUAGE_INITIATED
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_LANGUAGE_INITIATED => 4
+    static LANGUAGE_INITIATED => 4
 
     /**
+     * Native name: BREAKREASON_DEBUGGER_HALT
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_DEBUGGER_HALT => 5
+    static DEBUGGER_HALT => 5
 
     /**
+     * Native name: BREAKREASON_ERROR
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_ERROR => 6
+    static ERROR => 6
 
     /**
+     * Native name: BREAKREASON_JIT
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_JIT => 7
+    static JIT => 7
 
     /**
+     * Native name: BREAKREASON_MUTATION_BREAKPOINT
      * @type {Integer (Int32)}
      */
-    static BREAKREASON_MUTATION_BREAKPOINT => 8
+    static MUTATION_BREAKPOINT => 8
 }

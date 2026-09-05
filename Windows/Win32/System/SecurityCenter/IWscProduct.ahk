@@ -137,7 +137,6 @@ class IWscProduct extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProductGuid() {
@@ -147,7 +146,6 @@ class IWscProduct extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_ProductIsDefault() {

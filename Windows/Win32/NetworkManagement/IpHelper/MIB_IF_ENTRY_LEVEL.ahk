@@ -7,12 +7,14 @@
 class MIB_IF_ENTRY_LEVEL extends Win32Enum {
 
     /**
+     * Native name: MibIfEntryNormal
      * @type {Integer (Int32)}
      */
-    static MibIfEntryNormal => 0
+    static Normal => 0
 
     /**
+     * Native name: MibIfEntryNormalWithoutStatistics
      * @type {Integer (Int32)}
      */
-    static MibIfEntryNormalWithoutStatistics => 2
+    static NormalWithoutStatistics => 2
 }

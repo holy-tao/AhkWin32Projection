@@ -85,7 +85,6 @@ class IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Client applications and service providers call the **CompareEntryIDs** method to compare two entry identifiers that belongs to a single address book provider to determine whether they refer to the same object. **CompareEntryIDs** is useful because an object can have more than one valid entry identifier. This situation can occur, for example, after a new version of an address book provider is installed. 
      *   
@@ -168,7 +167,6 @@ class IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Clients call the **Unadvise** method to stop receiving notifications about changes to a particular address book entry. When a notification registration is canceled, the address book provider releases its pointer to the caller's advise sink. However, the release can occur during the **Unadvise** call or at some later point, if another thread is in the process of calling the [IMAPIAdviseSink::OnNotify](imapiadvisesink-onnotify.md) method. When a notification is in progress, the release is delayed until the **OnNotify** method returns.
      * @param {Integer} ulConnection > [in] A connection number that represents the registration to be canceled. The  _ulConnection_ parameter should contain a value returned by a prior call to the [IAddrBook::Advise](iaddrbook-advise.md) method.
@@ -223,7 +221,6 @@ class IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **NewEntry** method creates a new address book entry, to be added directly into a container or to be used to address an outgoing message.
      * @param {Integer} ulUIParam > [in] A handle to the parent window for the dialog box.
@@ -520,7 +517,6 @@ class IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Clients and service providers call the **GetSearchPath** method to get the search path that is used to resolve names with the **ResolveName** method. Typically, clients call the [IAddrBook::SetSearchPath](iaddrbook-setsearchpath.md) method to establish a container search path in the profile before they call **GetSearchPath** to retrieve it. However, calling **SetSearchPath** is optional. 
      *   
@@ -554,7 +550,6 @@ class IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Clients and service providers call the **SetSearchPath** method to save changes that were made to the container search order that is used to resolve names with the [IAddrBook::ResolveName](iaddrbook-resolvename.md) method. The search path is saved between instances of a session. 
      *   
@@ -576,7 +571,6 @@ class IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Clients and service providers call the **PrepareRecips** method to do the following: 
      *   

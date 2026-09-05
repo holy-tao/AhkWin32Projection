@@ -7,12 +7,14 @@
 class SENS_CONNECTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: CONNECTION_LAN
      * @type {Integer (UInt32)}
      */
-    static CONNECTION_LAN => 0
+    static LAN => 0
 
     /**
+     * Native name: CONNECTION_WAN
      * @type {Integer (UInt32)}
      */
-    static CONNECTION_WAN => 1
+    static WAN => 1
 }

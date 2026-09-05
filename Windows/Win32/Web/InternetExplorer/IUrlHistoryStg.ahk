@@ -33,7 +33,6 @@ class IUrlHistoryStg extends IUnknown {
     static VTableNames => ["AddUrl", "DeleteUrl", "QueryUrl", "BindToObject", "EnumUrls"]
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {PWSTR} pocsTitle 
      * @param {Integer} dwFlags 
@@ -48,7 +47,6 @@ class IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -61,7 +59,6 @@ class IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {Integer} dwFlags 
      * @param {Pointer<STATURL>} lpSTATURL 
@@ -75,7 +72,6 @@ class IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -88,7 +84,6 @@ class IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSTATURL} 
      */
     EnumUrls() {

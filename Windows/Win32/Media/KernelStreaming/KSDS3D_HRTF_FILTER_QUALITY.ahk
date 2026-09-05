@@ -17,7 +17,8 @@ class KSDS3D_HRTF_FILTER_QUALITY extends Win32Enum {
     static LIGHT_FILTER => 1
 
     /**
+     * Native name: KSDS3D_FILTER_QUALITY_COUNT
      * @type {Integer (Int32)}
      */
-    static KSDS3D_FILTER_QUALITY_COUNT => 2
+    static COUNT => 2
 }

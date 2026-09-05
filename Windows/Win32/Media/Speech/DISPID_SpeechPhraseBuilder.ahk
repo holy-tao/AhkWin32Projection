@@ -7,7 +7,8 @@
 class DISPID_SpeechPhraseBuilder extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPPBRestorePhraseFromMemory
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPBRestorePhraseFromMemory => 1
+    static SPPBRestorePhraseFromMemory => 1
 }

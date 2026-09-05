@@ -32,7 +32,6 @@ class IModelKeyReference extends IUnknown {
     static VTableNames => ["GetKeyName", "GetOriginalObject", "GetContextObject", "GetKey", "GetKeyValue", "SetKey", "SetKeyValue"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetKeyName() {
@@ -42,7 +41,6 @@ class IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetOriginalObject() {
@@ -51,7 +49,6 @@ class IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetContextObject() {
@@ -60,7 +57,6 @@ class IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
@@ -71,7 +67,6 @@ class IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
@@ -82,7 +77,6 @@ class IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} _object 
      * @param {IKeyStore} metadata 
      * @returns {HRESULT} 
@@ -93,7 +87,6 @@ class IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} _object 
      * @returns {HRESULT} 
      */

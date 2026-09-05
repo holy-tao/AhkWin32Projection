@@ -83,7 +83,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -93,7 +92,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_href() {
@@ -103,7 +101,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -113,7 +110,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_ownerNode() {
@@ -122,7 +118,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLCSSRule} 
      */
     get_ownerRule() {
@@ -131,7 +126,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
@@ -140,7 +134,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_media() {
@@ -150,7 +143,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRule 
      * @param {Integer} lIndex 
      * @returns {Integer} 
@@ -163,7 +155,6 @@ class IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */

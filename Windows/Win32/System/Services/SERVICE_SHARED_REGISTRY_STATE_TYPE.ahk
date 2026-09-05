@@ -13,7 +13,8 @@ class SERVICE_SHARED_REGISTRY_STATE_TYPE extends Win32Enum {
 
     /**
      * Mutable, persistent service state. This state is readable and writeable by the service and by local administrators. This state persists across reboots and and OS updates.
+     * Native name: ServiceSharedRegistryPersistentState
      * @type {Integer (Int32)}
      */
-    static ServiceSharedRegistryPersistentState => 0
+    static PersistentState => 0
 }

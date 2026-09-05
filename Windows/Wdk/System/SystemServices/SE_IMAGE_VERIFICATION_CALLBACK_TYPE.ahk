@@ -7,7 +7,8 @@
 class SE_IMAGE_VERIFICATION_CALLBACK_TYPE extends Win32Enum {
 
     /**
+     * Native name: SeImageVerificationCallbackInformational
      * @type {Integer (Int32)}
      */
-    static SeImageVerificationCallbackInformational => 0
+    static Informational => 0
 }

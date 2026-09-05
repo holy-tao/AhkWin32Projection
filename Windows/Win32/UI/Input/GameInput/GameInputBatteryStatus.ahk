@@ -7,27 +7,32 @@
 class GameInputBatteryStatus extends Win32Enum {
 
     /**
+     * Native name: GameInputBatteryUnknown
      * @type {Integer (Int32)}
      */
-    static GameInputBatteryUnknown => -1
+    static Unknown => -1
 
     /**
+     * Native name: GameInputBatteryNotPresent
      * @type {Integer (Int32)}
      */
-    static GameInputBatteryNotPresent => 0
+    static NotPresent => 0
 
     /**
+     * Native name: GameInputBatteryDischarging
      * @type {Integer (Int32)}
      */
-    static GameInputBatteryDischarging => 1
+    static Discharging => 1
 
     /**
+     * Native name: GameInputBatteryIdle
      * @type {Integer (Int32)}
      */
-    static GameInputBatteryIdle => 2
+    static Idle => 2
 
     /**
+     * Native name: GameInputBatteryCharging
      * @type {Integer (Int32)}
      */
-    static GameInputBatteryCharging => 3
+    static Charging => 3
 }

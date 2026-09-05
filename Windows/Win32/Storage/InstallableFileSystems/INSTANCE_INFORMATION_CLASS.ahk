@@ -7,22 +7,26 @@
 class INSTANCE_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: InstanceBasicInformation
      * @type {Integer (Int32)}
      */
-    static InstanceBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: InstancePartialInformation
      * @type {Integer (Int32)}
      */
-    static InstancePartialInformation => 1
+    static PartialInformation => 1
 
     /**
+     * Native name: InstanceFullInformation
      * @type {Integer (Int32)}
      */
-    static InstanceFullInformation => 2
+    static FullInformation => 2
 
     /**
+     * Native name: InstanceAggregateStandardInformation
      * @type {Integer (Int32)}
      */
-    static InstanceAggregateStandardInformation => 3
+    static AggregateStandardInformation => 3
 }

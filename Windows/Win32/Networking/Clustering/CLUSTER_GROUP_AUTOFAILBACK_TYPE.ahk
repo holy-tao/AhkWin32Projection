@@ -10,20 +10,23 @@ class CLUSTER_GROUP_AUTOFAILBACK_TYPE extends Win32Enum {
 
     /**
      * Prevents <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failback">failback</a>.
+     * Native name: ClusterGroupPreventFailback
      * @type {Integer (Int32)}
      */
-    static ClusterGroupPreventFailback => 0
+    static PreventFailback => 0
 
     /**
      * Allows failback (requires a preferred owners list for the group).
+     * Native name: ClusterGroupAllowFailback
      * @type {Integer (Int32)}
      */
-    static ClusterGroupAllowFailback => 1
+    static AllowFailback => 1
 
     /**
      * Defines a maximum group property value. It is not supported by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups-autofailbacktype">AutoFailbackType</a> group property.
+     * Native name: ClusterGroupFailbackTypeCount
      * @type {Integer (Int32)}
      */
-    static ClusterGroupFailbackTypeCount => 2
+    static FailbackTypeCount => 2
 }

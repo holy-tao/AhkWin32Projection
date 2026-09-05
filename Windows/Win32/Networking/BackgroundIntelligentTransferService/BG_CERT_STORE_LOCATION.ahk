@@ -12,49 +12,57 @@ class BG_CERT_STORE_LOCATION extends Win32Enum {
 
     /**
      * Use the current user's certificate store.
+     * Native name: BG_CERT_STORE_LOCATION_CURRENT_USER
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_CURRENT_USER => 0
+    static CURRENT_USER => 0
 
     /**
      * Use the local computer's certificate store.
+     * Native name: BG_CERT_STORE_LOCATION_LOCAL_MACHINE
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_LOCAL_MACHINE => 1
+    static LOCAL_MACHINE => 1
 
     /**
      * Use the current service's certificate store.
+     * Native name: BG_CERT_STORE_LOCATION_CURRENT_SERVICE
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_CURRENT_SERVICE => 2
+    static CURRENT_SERVICE => 2
 
     /**
      * Use a specific service's certificate store.
+     * Native name: BG_CERT_STORE_LOCATION_SERVICES
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_SERVICES => 3
+    static SERVICES => 3
 
     /**
      * Use a specific user's certificate store.
+     * Native name: BG_CERT_STORE_LOCATION_USERS
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_USERS => 4
+    static USERS => 4
 
     /**
      * Use the current user's group policy certificate store. In a network setting, stores in this location are downloaded to the client computer from the Group Policy Template (GPT) during computer startup, or user logon.
+     * Native name: BG_CERT_STORE_LOCATION_CURRENT_USER_GROUP_POLICY
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_CURRENT_USER_GROUP_POLICY => 5
+    static CURRENT_USER_GROUP_POLICY => 5
 
     /**
      * Use the local computer's certificate store. In a network setting, stores in this location are downloaded to the client computer from the Group Policy Template (GPT) during computer startup, or user logon.
+     * Native name: BG_CERT_STORE_LOCATION_LOCAL_MACHINE_GROUP_POLICY
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_LOCAL_MACHINE_GROUP_POLICY => 6
+    static LOCAL_MACHINE_GROUP_POLICY => 6
 
     /**
      * Use the enterprise certificate store. The enterprise store is shared across domains in the enterprise, and downloaded from the global enterprise directory.
+     * Native name: BG_CERT_STORE_LOCATION_LOCAL_MACHINE_ENTERPRISE
      * @type {Integer (Int32)}
      */
-    static BG_CERT_STORE_LOCATION_LOCAL_MACHINE_ENTERPRISE => 7
+    static LOCAL_MACHINE_ENTERPRISE => 7
 }

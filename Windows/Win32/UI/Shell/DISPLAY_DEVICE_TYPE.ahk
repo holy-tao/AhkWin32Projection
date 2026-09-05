@@ -10,13 +10,15 @@ class DISPLAY_DEVICE_TYPE extends Win32Enum {
 
     /**
      * The device is a primary display device.
+     * Native name: DEVICE_PRIMARY
      * @type {Integer (Int32)}
      */
-    static DEVICE_PRIMARY => 0
+    static PRIMARY => 0
 
     /**
      * The device is an immersive display device.
+     * Native name: DEVICE_IMMERSIVE
      * @type {Integer (Int32)}
      */
-    static DEVICE_IMMERSIVE => 1
+    static IMMERSIVE => 1
 }

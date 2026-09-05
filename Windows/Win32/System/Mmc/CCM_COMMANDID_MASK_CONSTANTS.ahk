@@ -7,7 +7,8 @@
 class CCM_COMMANDID_MASK_CONSTANTS extends Win32Enum {
 
     /**
+     * Native name: CCM_COMMANDID_MASK_RESERVED
      * @type {Integer (UInt32)}
      */
-    static CCM_COMMANDID_MASK_RESERVED => 4294901760
+    static RESERVED => 4294901760
 }

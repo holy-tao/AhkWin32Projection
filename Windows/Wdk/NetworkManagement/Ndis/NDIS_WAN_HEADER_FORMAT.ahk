@@ -7,12 +7,14 @@
 class NDIS_WAN_HEADER_FORMAT extends Win32Enum {
 
     /**
+     * Native name: NdisWanHeaderNative
      * @type {Integer (Int32)}
      */
-    static NdisWanHeaderNative => 0
+    static Native => 0
 
     /**
+     * Native name: NdisWanHeaderEthernet
      * @type {Integer (Int32)}
      */
-    static NdisWanHeaderEthernet => 1
+    static Ethernet => 1
 }

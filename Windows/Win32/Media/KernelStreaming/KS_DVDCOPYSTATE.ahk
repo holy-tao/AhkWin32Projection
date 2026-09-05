@@ -7,27 +7,32 @@
 class KS_DVDCOPYSTATE extends Win32Enum {
 
     /**
+     * Native name: KS_DVDCOPYSTATE_INITIALIZE
      * @type {Integer (Int32)}
      */
-    static KS_DVDCOPYSTATE_INITIALIZE => 0
+    static INITIALIZE => 0
 
     /**
+     * Native name: KS_DVDCOPYSTATE_INITIALIZE_TITLE
      * @type {Integer (Int32)}
      */
-    static KS_DVDCOPYSTATE_INITIALIZE_TITLE => 1
+    static INITIALIZE_TITLE => 1
 
     /**
+     * Native name: KS_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED
      * @type {Integer (Int32)}
      */
-    static KS_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED => 2
+    static AUTHENTICATION_NOT_REQUIRED => 2
 
     /**
+     * Native name: KS_DVDCOPYSTATE_AUTHENTICATION_REQUIRED
      * @type {Integer (Int32)}
      */
-    static KS_DVDCOPYSTATE_AUTHENTICATION_REQUIRED => 3
+    static AUTHENTICATION_REQUIRED => 3
 
     /**
+     * Native name: KS_DVDCOPYSTATE_DONE
      * @type {Integer (Int32)}
      */
-    static KS_DVDCOPYSTATE_DONE => 4
+    static DONE => 4
 }

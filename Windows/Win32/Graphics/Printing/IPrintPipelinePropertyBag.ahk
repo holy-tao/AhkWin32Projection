@@ -32,7 +32,6 @@ class IPrintPipelinePropertyBag extends IUnknown {
     static VTableNames => ["AddProperty", "GetProperty", "DeleteProperty"]
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<VARIANT>} pVar 
      * @returns {HRESULT} 
@@ -63,7 +62,6 @@ class IPrintPipelinePropertyBag extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @returns {BOOL} 
      */

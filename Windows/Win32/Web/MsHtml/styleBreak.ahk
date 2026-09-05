@@ -7,57 +7,68 @@
 class styleBreak extends Win32Enum {
 
     /**
+     * Native name: styleBreakNotSet
      * @type {Integer (Int32)}
      */
-    static styleBreakNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleBreakAuto
      * @type {Integer (Int32)}
      */
-    static styleBreakAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleBreakAlways
      * @type {Integer (Int32)}
      */
-    static styleBreakAlways => 2
+    static Always => 2
 
     /**
+     * Native name: styleBreakAvoid
      * @type {Integer (Int32)}
      */
-    static styleBreakAvoid => 3
+    static Avoid => 3
 
     /**
+     * Native name: styleBreakLeft
      * @type {Integer (Int32)}
      */
-    static styleBreakLeft => 4
+    static Left => 4
 
     /**
+     * Native name: styleBreakRight
      * @type {Integer (Int32)}
      */
-    static styleBreakRight => 5
+    static Right => 5
 
     /**
+     * Native name: styleBreakPage
      * @type {Integer (Int32)}
      */
-    static styleBreakPage => 6
+    static Page => 6
 
     /**
+     * Native name: styleBreakColumn
      * @type {Integer (Int32)}
      */
-    static styleBreakColumn => 7
+    static Column => 7
 
     /**
+     * Native name: styleBreakAvoidPage
      * @type {Integer (Int32)}
      */
-    static styleBreakAvoidPage => 8
+    static AvoidPage => 8
 
     /**
+     * Native name: styleBreakAvoidColumn
      * @type {Integer (Int32)}
      */
-    static styleBreakAvoidColumn => 9
+    static AvoidColumn => 9
 
     /**
+     * Native name: styleBreak_Max
      * @type {Integer (Int32)}
      */
-    static styleBreak_Max => 2147483647
+    static Max => 2147483647
 }

@@ -14,15 +14,17 @@ class MFVideoRenderPrefs extends Win32Enum {
 
     /**
      * If this flag is set, the EVR does not draw the border color. By default, the EVR draws a border on areas of the destination rectangle that have no video. See <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideodisplaycontrol-setbordercolor">IMFVideoDisplayControl::SetBorderColor</a>.
+     * Native name: MFVideoRenderPrefs_DoNotRenderBorder
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_DoNotRenderBorder => 1
+    static DoNotRenderBorder => 1
 
     /**
      * If this flag is set, the EVR does not clip the video when the video window straddles two monitors. By default, if the video window straddles two monitors, the EVR clips the video to the monitor that contains the largest area of video.
+     * Native name: MFVideoRenderPrefs_DoNotClipToDevice
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_DoNotClipToDevice => 2
+    static DoNotClipToDevice => 2
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
@@ -30,9 +32,10 @@ class MFVideoRenderPrefs extends Win32Enum {
      * 
      * 
      * Allow the EVR to limit its output to match GPU bandwidth.
+     * Native name: MFVideoRenderPrefs_AllowOutputThrottling
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_AllowOutputThrottling => 4
+    static AllowOutputThrottling => 4
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
@@ -41,9 +44,10 @@ class MFVideoRenderPrefs extends Win32Enum {
      * 
      * Force the EVR
      *             to limit its output to match GPU bandwidth.
+     * Native name: MFVideoRenderPrefs_ForceOutputThrottling
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_ForceOutputThrottling => 8
+    static ForceOutputThrottling => 8
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
@@ -51,9 +55,10 @@ class MFVideoRenderPrefs extends Win32Enum {
      * 
      * 
      * Force the EVR to batch Direct3D <b>Present</b> calls. This optimization enables the system to enter to idle states more frequently, which can reduce power consumption.
+     * Native name: MFVideoRenderPrefs_ForceBatching
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_ForceBatching => 16
+    static ForceBatching => 16
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
@@ -61,9 +66,10 @@ class MFVideoRenderPrefs extends Win32Enum {
      * 
      * 
      * Allow the EVR to batch Direct3D <b>Present</b> calls.
+     * Native name: MFVideoRenderPrefs_AllowBatching
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_AllowBatching => 32
+    static AllowBatching => 32
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
@@ -71,9 +77,10 @@ class MFVideoRenderPrefs extends Win32Enum {
      * 
      * 
      * Force the EVR to mix the video inside a rectangle that is smaller than the output rectangle. The EVR will then scale the result to the correct output size. The effective resolution will be lower if this setting is applied.
+     * Native name: MFVideoRenderPrefs_ForceScaling
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_ForceScaling => 64
+    static ForceScaling => 64
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
@@ -82,9 +89,10 @@ class MFVideoRenderPrefs extends Win32Enum {
      * 
      * Allow
      *             the EVR to mix the video inside a rectangle that is smaller than the output rectangle.
+     * Native name: MFVideoRenderPrefs_AllowScaling
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_AllowScaling => 128
+    static AllowScaling => 128
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
@@ -92,13 +100,15 @@ class MFVideoRenderPrefs extends Win32Enum {
      * 
      * 
      * Prevent the EVR from repainting the video window after a stop command. By default, the EVR repaints the video window black after a stop command.
+     * Native name: MFVideoRenderPrefs_DoNotRepaintOnStop
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_DoNotRepaintOnStop => 256
+    static DoNotRepaintOnStop => 256
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: MFVideoRenderPrefs_Mask
      * @type {Integer (Int32)}
      */
-    static MFVideoRenderPrefs_Mask => 511
+    static Mask => 511
 }

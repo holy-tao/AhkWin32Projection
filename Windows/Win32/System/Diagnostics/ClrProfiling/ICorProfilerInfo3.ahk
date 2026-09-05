@@ -35,7 +35,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     static VTableNames => ["EnumJITedFunctions", "RequestProfilerDetach", "SetFunctionIDMapper2", "GetStringLayout2", "SetEnterLeaveFunctionHooks3", "SetEnterLeaveFunctionHooks3WithInfo", "GetFunctionEnter3Info", "GetFunctionLeave3Info", "GetFunctionTailcall3Info", "EnumModules", "GetRuntimeInformation", "GetThreadStaticAddress2", "GetAppDomainsContainingModule", "GetModuleInfo2"]
 
     /**
-     * 
      * @returns {ICorProfilerFunctionEnum} 
      */
     EnumJITedFunctions() {
@@ -44,7 +43,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Integer} dwExpectedCompletionMilliseconds 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionIDMapper2>>} pFunc 
      * @param {Pointer<Void>} clientData 
      * @returns {HRESULT} 
@@ -68,7 +65,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pStringLengthOffset 
      * @param {Pointer<Integer>} pBufferOffset 
      * @returns {HRESULT} 
@@ -82,7 +78,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionEnter3>>} pFuncEnter3 
      * @param {Pointer<Pointer<FunctionLeave3>>} pFuncLeave3 
      * @param {Pointer<Pointer<FunctionTailcall3>>} pFuncTailcall3 
@@ -98,7 +93,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionEnter3WithInfo>>} pFuncEnter3WithInfo 
      * @param {Pointer<Pointer<FunctionLeave3WithInfo>>} pFuncLeave3WithInfo 
      * @param {Pointer<Pointer<FunctionTailcall3WithInfo>>} pFuncTailcall3WithInfo 
@@ -114,7 +108,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} eltInfo 
      * @param {Pointer<Pointer>} pFrameInfo 
@@ -131,7 +124,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} eltInfo 
      * @param {Pointer<Pointer>} pFrameInfo 
@@ -146,7 +138,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} eltInfo 
      * @returns {Pointer} 
@@ -157,7 +148,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @returns {ICorProfilerModuleEnum} 
      */
     EnumModules() {
@@ -166,7 +156,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pClrInstanceId 
      * @param {Pointer<COR_PRF_RUNTIME_TYPE>} pRuntimeType 
      * @param {Pointer<Integer>} pMajorVersion 
@@ -194,7 +183,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} appDomainId 
@@ -207,7 +195,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} cAppDomainIds 
      * @param {Pointer<Integer>} pcAppDomainIds 
@@ -223,7 +210,6 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppBaseLoadAddress 
      * @param {Integer} cchName 

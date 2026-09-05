@@ -13,33 +13,38 @@ class VSS_PROVIDER_TYPE extends Win32Enum {
      *      
      * 
      * This indicates an error in the application or the VSS service, or that no provider is available.
+     * Native name: VSS_PROV_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VSS_PROV_UNKNOWN => 0
+    static PROV_UNKNOWN => 0
 
     /**
      * The default provider that ships with Windows.
+     * Native name: VSS_PROV_SYSTEM
      * @type {Integer (Int32)}
      */
-    static VSS_PROV_SYSTEM => 1
+    static PROV_SYSTEM => 1
 
     /**
      * A software provider.
+     * Native name: VSS_PROV_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static VSS_PROV_SOFTWARE => 2
+    static PROV_SOFTWARE => 2
 
     /**
      * A hardware provider.
+     * Native name: VSS_PROV_HARDWARE
      * @type {Integer (Int32)}
      */
-    static VSS_PROV_HARDWARE => 3
+    static PROV_HARDWARE => 3
 
     /**
      * A file share provider.
      * 
      * <b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>This enumeration value is not supported until Windows 8 and Windows Server 2012.
+     * Native name: VSS_PROV_FILESHARE
      * @type {Integer (Int32)}
      */
-    static VSS_PROV_FILESHARE => 4
+    static PROV_FILESHARE => 4
 }

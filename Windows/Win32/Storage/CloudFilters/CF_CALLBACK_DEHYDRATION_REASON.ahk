@@ -10,31 +10,36 @@ class CF_CALLBACK_DEHYDRATION_REASON extends Win32Enum {
 
     /**
      * The cloud file has never been dehydrated after its creation.
+     * Native name: CF_CALLBACK_DEHYDRATION_REASON_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATION_REASON_NONE => 0
+    static NONE => 0
 
     /**
      * User explicitly dehydrated the cloud file.
+     * Native name: CF_CALLBACK_DEHYDRATION_REASON_USER_MANUAL
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATION_REASON_USER_MANUAL => 1
+    static USER_MANUAL => 1
 
     /**
      * The platform dehydrated the cloud file when experiencing low disk space on the volume where this file resides.
+     * Native name: CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_LOW_SPACE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_LOW_SPACE => 2
+    static SYSTEM_LOW_SPACE => 2
 
     /**
      * The platform aged out the cloud file based on user defined policies.
+     * Native name: CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_INACTIVITY
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_INACTIVITY => 3
+    static SYSTEM_INACTIVITY => 3
 
     /**
      * The platform dehydrated this file when reclaiming disk space in order to upgrade the OS.
+     * Native name: CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_OS_UPGRADE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_OS_UPGRADE => 4
+    static SYSTEM_OS_UPGRADE => 4
 }

@@ -31,7 +31,6 @@ class ICorProfilerInfo6 extends ICorProfilerInfo5 {
     static VTableNames => ["EnumNgenModuleMethodsInliningThisMethod"]
 
     /**
-     * 
      * @param {Pointer} inlinersModuleId 
      * @param {Pointer} inlineeModuleId 
      * @param {Integer} inlineeMethodId 

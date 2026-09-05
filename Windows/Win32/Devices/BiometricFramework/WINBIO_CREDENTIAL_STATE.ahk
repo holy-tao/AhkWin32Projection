@@ -9,12 +9,14 @@
 class WINBIO_CREDENTIAL_STATE extends Win32Enum {
 
     /**
+     * Native name: WINBIO_CREDENTIAL_NOT_SET
      * @type {Integer (Int32)}
      */
-    static WINBIO_CREDENTIAL_NOT_SET => 1
+    static NOT_SET => 1
 
     /**
+     * Native name: WINBIO_CREDENTIAL_SET
      * @type {Integer (Int32)}
      */
-    static WINBIO_CREDENTIAL_SET => 2
+    static SET => 2
 }

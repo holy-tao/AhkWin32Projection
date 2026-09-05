@@ -7,17 +7,20 @@
 class D3D12_SAMPLER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_SAMPLER_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_SAMPLER_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: D3D12_SAMPLER_FLAG_UINT_BORDER_COLOR
      * @type {Integer (Int32)}
      */
-    static D3D12_SAMPLER_FLAG_UINT_BORDER_COLOR => 1
+    static FLAG_UINT_BORDER_COLOR => 1
 
     /**
+     * Native name: D3D12_SAMPLER_FLAG_NON_NORMALIZED_COORDINATES
      * @type {Integer (Int32)}
      */
-    static D3D12_SAMPLER_FLAG_NON_NORMALIZED_COORDINATES => 2
+    static FLAG_NON_NORMALIZED_COORDINATES => 2
 }

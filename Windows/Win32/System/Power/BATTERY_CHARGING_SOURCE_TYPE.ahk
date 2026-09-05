@@ -7,22 +7,26 @@
 class BATTERY_CHARGING_SOURCE_TYPE extends Win32Enum {
 
     /**
+     * Native name: BatteryChargingSourceType_AC
      * @type {Integer (Int32)}
      */
-    static BatteryChargingSourceType_AC => 1
+    static AC => 1
 
     /**
+     * Native name: BatteryChargingSourceType_USB
      * @type {Integer (Int32)}
      */
-    static BatteryChargingSourceType_USB => 2
+    static USB => 2
 
     /**
+     * Native name: BatteryChargingSourceType_Wireless
      * @type {Integer (Int32)}
      */
-    static BatteryChargingSourceType_Wireless => 3
+    static Wireless => 3
 
     /**
+     * Native name: BatteryChargingSourceType_Max
      * @type {Integer (Int32)}
      */
-    static BatteryChargingSourceType_Max => 4
+    static Max => 4
 }

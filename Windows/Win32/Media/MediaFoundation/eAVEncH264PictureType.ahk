@@ -12,19 +12,22 @@ class eAVEncH264PictureType extends Win32Enum {
 
     /**
      * Instantaneous decoding refresh (IDR) picture.
+     * Native name: eAVEncH264PictureType_IDR
      * @type {Integer (Int32)}
      */
-    static eAVEncH264PictureType_IDR => 0
+    static IDR => 0
 
     /**
      * Predictive (B) picture.
+     * Native name: eAVEncH264PictureType_P
      * @type {Integer (Int32)}
      */
-    static eAVEncH264PictureType_P => 1
+    static P => 1
 
     /**
      * Bi-predictive (B) picture.
+     * Native name: eAVEncH264PictureType_B
      * @type {Integer (Int32)}
      */
-    static eAVEncH264PictureType_B => 2
+    static B => 2
 }

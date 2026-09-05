@@ -7,47 +7,56 @@
 class DUMP_TYPE extends Win32Enum {
 
     /**
+     * Native name: DUMP_TYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_INVALID => -1
+    static INVALID => -1
 
     /**
+     * Native name: DUMP_TYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: DUMP_TYPE_FULL
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_FULL => 1
+    static FULL => 1
 
     /**
+     * Native name: DUMP_TYPE_SUMMARY
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_SUMMARY => 2
+    static SUMMARY => 2
 
     /**
+     * Native name: DUMP_TYPE_HEADER
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_HEADER => 3
+    static HEADER => 3
 
     /**
+     * Native name: DUMP_TYPE_TRIAGE
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_TRIAGE => 4
+    static TRIAGE => 4
 
     /**
+     * Native name: DUMP_TYPE_BITMAP_FULL
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_BITMAP_FULL => 5
+    static BITMAP_FULL => 5
 
     /**
+     * Native name: DUMP_TYPE_BITMAP_KERNEL
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_BITMAP_KERNEL => 6
+    static BITMAP_KERNEL => 6
 
     /**
+     * Native name: DUMP_TYPE_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static DUMP_TYPE_AUTOMATIC => 7
+    static AUTOMATIC => 7
 }

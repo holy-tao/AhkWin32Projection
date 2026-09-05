@@ -7,12 +7,14 @@
 class HANDEDNESS extends Win32Enum {
 
     /**
+     * Native name: HANDEDNESS_LEFT
      * @type {Integer (Int32)}
      */
-    static HANDEDNESS_LEFT => 0
+    static LEFT => 0
 
     /**
+     * Native name: HANDEDNESS_RIGHT
      * @type {Integer (Int32)}
      */
-    static HANDEDNESS_RIGHT => 1
+    static RIGHT => 1
 }

@@ -30,7 +30,6 @@ class IKsPinEx extends IKsPin {
     static VTableNames => ["KsNotifyError"]
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {HRESULT} hr 
      * @returns {String} Nothing - always returns an empty string

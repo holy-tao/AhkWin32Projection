@@ -101,7 +101,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -111,7 +110,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MajorVersion() {
@@ -120,7 +118,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinorVersion() {
@@ -129,7 +126,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BuildNumber() {
@@ -138,7 +134,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VendorId() {
@@ -148,7 +143,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CSDVersion() {
@@ -158,7 +152,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ClusterHighestVersion() {
@@ -167,7 +160,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ClusterLowestVersion() {
@@ -176,7 +168,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -185,7 +176,6 @@ class ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_MixedVersion() {

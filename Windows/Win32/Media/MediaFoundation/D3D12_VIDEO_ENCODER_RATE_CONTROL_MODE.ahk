@@ -10,31 +10,36 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE extends Win32Enum {
 
     /**
      * No rate control budgeting. Each [EncodeFrame](nf-d3d12video-id3d12videoencodecommandlist2-encodeframe.md) call will interpret the the QP values in the **pRateControlQPMap** field of the [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264](ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264.md) or [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC](ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_hevc.md) structure as a map of absolute QP values.
+     * Native name: D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_ABSOLUTE_QP_MAP
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_ABSOLUTE_QP_MAP => 0
+    static ABSOLUTE_QP_MAP => 0
 
     /**
      * Constant quantization parameter rate control mode.
+     * Native name: D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_CQP
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_CQP => 1
+    static CQP => 1
 
     /**
      * Constant bit rate rate control mode.
+     * Native name: D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_CBR
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_CBR => 2
+    static CBR => 2
 
     /**
      * Variable bit rate control mode.
+     * Native name: D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_VBR
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_VBR => 3
+    static VBR => 3
 
     /**
      * Constant quality target rate variable rate control mode.
+     * Native name: D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_QVBR
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_QVBR => 4
+    static QVBR => 4
 }

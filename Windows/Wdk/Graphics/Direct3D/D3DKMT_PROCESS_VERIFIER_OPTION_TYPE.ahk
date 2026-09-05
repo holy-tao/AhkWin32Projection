@@ -7,12 +7,14 @@
 class D3DKMT_PROCESS_VERIFIER_OPTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_PROCESS_VERIFIER_OPTION_VIDMM_FLAGS
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PROCESS_VERIFIER_OPTION_VIDMM_FLAGS => 1000
+    static VIDMM_FLAGS => 1000
 
     /**
+     * Native name: D3DKMT_PROCESS_VERIFIER_OPTION_VIDMM_RESTRICT_BUDGET
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PROCESS_VERIFIER_OPTION_VIDMM_RESTRICT_BUDGET => 1001
+    static VIDMM_RESTRICT_BUDGET => 1001
 }

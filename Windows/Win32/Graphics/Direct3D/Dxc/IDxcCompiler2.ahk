@@ -34,7 +34,6 @@ class IDxcCompiler2 extends IDxcCompiler {
     static VTableNames => ["CompileWithDebug"]
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {PWSTR} pEntryPoint 

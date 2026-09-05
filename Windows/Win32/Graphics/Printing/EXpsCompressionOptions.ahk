@@ -7,22 +7,26 @@
 class EXpsCompressionOptions extends Win32Enum {
 
     /**
+     * Native name: Compression_NotCompressed
      * @type {Integer (Int32)}
      */
-    static Compression_NotCompressed => 0
+    static NotCompressed => 0
 
     /**
+     * Native name: Compression_Normal
      * @type {Integer (Int32)}
      */
-    static Compression_Normal => 1
+    static Normal => 1
 
     /**
+     * Native name: Compression_Small
      * @type {Integer (Int32)}
      */
-    static Compression_Small => 2
+    static Small => 2
 
     /**
+     * Native name: Compression_Fast
      * @type {Integer (Int32)}
      */
-    static Compression_Fast => 3
+    static Fast => 3
 }

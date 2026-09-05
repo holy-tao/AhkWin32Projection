@@ -31,7 +31,6 @@ class ITransactionExportFactory extends IUnknown {
     static VTableNames => ["GetRemoteClassId", "Create"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetRemoteClassId() {

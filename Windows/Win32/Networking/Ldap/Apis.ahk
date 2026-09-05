@@ -8699,7 +8699,6 @@ class Ldap {
     }
 
     /**
-     * 
      * @param {Pointer<LDAP_VERSION_INFO>} _version 
      * @param {Pointer<HANDLE>} Instance 
      * @returns {Integer} 
@@ -8812,7 +8811,6 @@ class Ldap {
     }
 
     /**
-     * 
      * @param {Integer} NewFlags 
      * @returns {Integer} 
      */
@@ -8822,7 +8820,6 @@ class Ldap {
     }
 
     /**
-     * 
      * @param {Pointer<DBGPRINT>} DebugPrintRoutine 
      * @returns {String} Nothing - always returns an empty string
      */

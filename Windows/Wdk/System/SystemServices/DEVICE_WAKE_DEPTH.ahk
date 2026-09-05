@@ -7,37 +7,44 @@
 class DEVICE_WAKE_DEPTH extends Win32Enum {
 
     /**
+     * Native name: DeviceWakeDepthNotWakeable
      * @type {Integer (Int32)}
      */
-    static DeviceWakeDepthNotWakeable => 0
+    static NotWakeable => 0
 
     /**
+     * Native name: DeviceWakeDepthD0
      * @type {Integer (Int32)}
      */
-    static DeviceWakeDepthD0 => 1
+    static DepthD0 => 1
 
     /**
+     * Native name: DeviceWakeDepthD1
      * @type {Integer (Int32)}
      */
-    static DeviceWakeDepthD1 => 2
+    static DepthD1 => 2
 
     /**
+     * Native name: DeviceWakeDepthD2
      * @type {Integer (Int32)}
      */
-    static DeviceWakeDepthD2 => 3
+    static DepthD2 => 3
 
     /**
+     * Native name: DeviceWakeDepthD3hot
      * @type {Integer (Int32)}
      */
-    static DeviceWakeDepthD3hot => 4
+    static DepthD3hot => 4
 
     /**
+     * Native name: DeviceWakeDepthD3cold
      * @type {Integer (Int32)}
      */
-    static DeviceWakeDepthD3cold => 5
+    static DepthD3cold => 5
 
     /**
+     * Native name: DeviceWakeDepthMaximum
      * @type {Integer (Int32)}
      */
-    static DeviceWakeDepthMaximum => 6
+    static Maximum => 6
 }

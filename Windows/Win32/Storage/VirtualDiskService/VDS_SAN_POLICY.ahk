@@ -33,35 +33,41 @@ class VDS_SAN_POLICY extends Win32Enum {
 
     /**
      * The SAN policy is unknown.
+     * Native name: VDS_SP_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_SP_UNKNOWN => 0
+    static SP_UNKNOWN => 0
 
     /**
      * All newly discovered disks are brought online and made read-write.
+     * Native name: VDS_SP_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_SP_ONLINE => 1
+    static SP_ONLINE => 1
 
     /**
      * All newly discovered disks that do not reside on a shared bus are brought online and made read-write.
+     * Native name: VDS_SP_OFFLINE_SHARED
      * @type {Integer (Int32)}
      */
-    static VDS_SP_OFFLINE_SHARED => 2
+    static SP_OFFLINE_SHARED => 2
 
     /**
      * All newly discovered disks remain offline and read-only.
+     * Native name: VDS_SP_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_SP_OFFLINE => 3
+    static SP_OFFLINE => 3
 
     /**
+     * Native name: VDS_SP_OFFLINE_INTERNAL
      * @type {Integer (Int32)}
      */
-    static VDS_SP_OFFLINE_INTERNAL => 4
+    static SP_OFFLINE_INTERNAL => 4
 
     /**
+     * Native name: VDS_SP_MAX
      * @type {Integer (Int32)}
      */
-    static VDS_SP_MAX => 5
+    static SP_MAX => 5
 }

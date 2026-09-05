@@ -31,7 +31,6 @@ class IXMLDOMImplementation extends IDispatch {
     static VTableNames => ["hasFeature"]
 
     /**
-     * 
      * @param {BSTR} feature 
      * @param {BSTR} _version 
      * @returns {VARIANT_BOOL} 

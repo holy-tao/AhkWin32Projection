@@ -10,7 +10,8 @@ class PRJ_PLACEHOLDER_ID extends Win32Enum {
 
     /**
      * The length of a placeholder identifier.
+     * Native name: PRJ_PLACEHOLDER_ID_LENGTH
      * @type {Integer (Int32)}
      */
-    static PRJ_PLACEHOLDER_ID_LENGTH => 128
+    static LENGTH => 128
 }

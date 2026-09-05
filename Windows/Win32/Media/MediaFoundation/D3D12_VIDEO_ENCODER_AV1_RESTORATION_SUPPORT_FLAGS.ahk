@@ -7,27 +7,32 @@
 class D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_NOT_SUPPORTED => 0
+    static FLAG_NOT_SUPPORTED => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_32x32
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_32x32 => 1
+    static FLAG_32x32 => 1
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_64x64
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_64x64 => 2
+    static FLAG_64x64 => 2
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_128x128
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_128x128 => 4
+    static FLAG_128x128 => 4
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_256x256
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAG_256x256 => 8
+    static FLAG_256x256 => 8
 }

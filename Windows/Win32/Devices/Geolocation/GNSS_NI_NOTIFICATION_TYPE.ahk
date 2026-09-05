@@ -7,27 +7,32 @@
 class GNSS_NI_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: GNSS_NI_NoNotifyNoVerify
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_NoNotifyNoVerify => 1
+    static NoNotifyNoVerify => 1
 
     /**
+     * Native name: GNSS_NI_NotifyOnly
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_NotifyOnly => 2
+    static NotifyOnly => 2
 
     /**
+     * Native name: GNSS_NI_NotifyVerifyDefaultAllow
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_NotifyVerifyDefaultAllow => 3
+    static NotifyVerifyDefaultAllow => 3
 
     /**
+     * Native name: GNSS_NI_NotifyVerifyDefaultNotAllow
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_NotifyVerifyDefaultNotAllow => 4
+    static NotifyVerifyDefaultNotAllow => 4
 
     /**
+     * Native name: GNSS_NI_PrivacyOverride
      * @type {Integer (Int32)}
      */
-    static GNSS_NI_PrivacyOverride => 5
+    static PrivacyOverride => 5
 }

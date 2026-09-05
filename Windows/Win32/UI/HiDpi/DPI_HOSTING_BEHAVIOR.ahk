@@ -18,19 +18,22 @@ class DPI_HOSTING_BEHAVIOR extends Win32Enum {
 
     /**
      * Invalid DPI hosting behavior. This usually occurs if the previous <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setthreaddpihostingbehavior">SetThreadDpiHostingBehavior</a> call used an invalid parameter.
+     * Native name: DPI_HOSTING_BEHAVIOR_INVALID
      * @type {Integer (Int32)}
      */
-    static DPI_HOSTING_BEHAVIOR_INVALID => -1
+    static INVALID => -1
 
     /**
      * Default DPI hosting behavior. The associated window behaves as normal, and cannot create or re-parent child windows with a different <b>DPI_AWARENESS_CONTEXT</b>.
+     * Native name: DPI_HOSTING_BEHAVIOR_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DPI_HOSTING_BEHAVIOR_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Mixed DPI hosting behavior. This enables the creation and re-parenting of child windows with different <b>DPI_AWARENESS_CONTEXT</b>. These child windows will be independently scaled by the OS.
+     * Native name: DPI_HOSTING_BEHAVIOR_MIXED
      * @type {Integer (Int32)}
      */
-    static DPI_HOSTING_BEHAVIOR_MIXED => 1
+    static MIXED => 1
 }

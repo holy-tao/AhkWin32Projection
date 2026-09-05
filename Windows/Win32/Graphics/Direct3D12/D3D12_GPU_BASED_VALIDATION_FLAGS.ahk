@@ -12,13 +12,15 @@ class D3D12_GPU_BASED_VALIDATION_FLAGS extends Win32BitflagEnum {
 
     /**
      * Default behavior; resource states, descriptors, and descriptor tables are all validated.
+     * Native name: D3D12_GPU_BASED_VALIDATION_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
      * When set, GPU-based validation does not perform resource state validation which greatly reduces the performance cost of GPU-based validation. Descriptors and descriptor heaps are still validated.
+     * Native name: D3D12_GPU_BASED_VALIDATION_FLAGS_DISABLE_STATE_TRACKING
      * @type {Integer (Int32)}
      */
-    static D3D12_GPU_BASED_VALIDATION_FLAGS_DISABLE_STATE_TRACKING => 1
+    static DISABLE_STATE_TRACKING => 1
 }

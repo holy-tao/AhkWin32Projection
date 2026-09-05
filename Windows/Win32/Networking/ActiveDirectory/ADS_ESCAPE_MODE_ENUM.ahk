@@ -67,25 +67,29 @@ class ADS_ESCAPE_MODE_ENUM extends Win32Enum {
      * <td><b>ADS_ESCAPEDMODE_ON</b></td>
      * </tr>
      * </table>
+     * Native name: ADS_ESCAPEDMODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static ADS_ESCAPEDMODE_DEFAULT => 1
+    static ESCAPEDMODE_DEFAULT => 1
 
     /**
      * All special characters are displayed in the escape format; for example, "CN=date\=yy\/mm\/dd\,weekday" appears as is.
+     * Native name: ADS_ESCAPEDMODE_ON
      * @type {Integer (Int32)}
      */
-    static ADS_ESCAPEDMODE_ON => 2
+    static ESCAPEDMODE_ON => 2
 
     /**
      * ADSI special characters are displayed in the unescaped format; for example, "CN=date\=yy\/mm\/dd\,weekday" appears as "CN=date\=yy/mm/dd\,weekday".
+     * Native name: ADS_ESCAPEDMODE_OFF
      * @type {Integer (Int32)}
      */
-    static ADS_ESCAPEDMODE_OFF => 3
+    static ESCAPEDMODE_OFF => 3
 
     /**
      * ADSI and LDAP special characters are displayed in the  unescaped format; for example, "CN=date\=yy\/mm\/dd\,weekday" appears as "CN=date=yy/mm/dd,weekday".
+     * Native name: ADS_ESCAPEDMODE_OFF_EX
      * @type {Integer (Int32)}
      */
-    static ADS_ESCAPEDMODE_OFF_EX => 4
+    static ESCAPEDMODE_OFF_EX => 4
 }

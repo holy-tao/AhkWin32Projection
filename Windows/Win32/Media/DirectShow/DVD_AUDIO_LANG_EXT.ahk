@@ -12,31 +12,36 @@ class DVD_AUDIO_LANG_EXT extends Win32Enum {
 
     /**
      * The DVD doesn't specify an audio language extension for this audio stream.
+     * Native name: DVD_AUD_EXT_NotSpecified
      * @type {Integer (Int32)}
      */
-    static DVD_AUD_EXT_NotSpecified => 0
+    static AUD_EXT_NotSpecified => 0
 
     /**
      * The audio stream contains captions.
+     * Native name: DVD_AUD_EXT_Captions
      * @type {Integer (Int32)}
      */
-    static DVD_AUD_EXT_Captions => 1
+    static AUD_EXT_Captions => 1
 
     /**
      * The audio stream contains content for people with low vision.
+     * Native name: DVD_AUD_EXT_VisuallyImpaired
      * @type {Integer (Int32)}
      */
-    static DVD_AUD_EXT_VisuallyImpaired => 2
+    static AUD_EXT_VisuallyImpaired => 2
 
     /**
      * The audio stream contains "director comments 1."
+     * Native name: DVD_AUD_EXT_DirectorComments1
      * @type {Integer (Int32)}
      */
-    static DVD_AUD_EXT_DirectorComments1 => 3
+    static AUD_EXT_DirectorComments1 => 3
 
     /**
      * The audio stream contains "director comments 2."
+     * Native name: DVD_AUD_EXT_DirectorComments2
      * @type {Integer (Int32)}
      */
-    static DVD_AUD_EXT_DirectorComments2 => 4
+    static AUD_EXT_DirectorComments2 => 4
 }

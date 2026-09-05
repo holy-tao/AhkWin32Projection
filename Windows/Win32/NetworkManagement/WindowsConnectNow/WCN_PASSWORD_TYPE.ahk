@@ -10,32 +10,37 @@ class WCN_PASSWORD_TYPE extends Win32Enum {
 
     /**
      * Indicates the device uses a WPS button interface to put the device into wireless provisioning mode. If this value is specified when calling <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-setpassword">IWCNDevice::SetPassword</a>, set <i>dwPasswordLength</i> to zero and <i>pbPassword</i> to <b>NULL</b>.
+     * Native name: WCN_PASSWORD_TYPE_PUSH_BUTTON
      * @type {Integer (Int32)}
      */
-    static WCN_PASSWORD_TYPE_PUSH_BUTTON => 0
+    static PUSH_BUTTON => 0
 
     /**
      * Indicates that authentication is secured via a PIN. The user must provide the PIN of the device. Usually, the PIN is a 4 or 8-digit number printed on a label attached to the device, or displayed on the screen. If this value is specified when calling <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-setpassword">IWCNDevice::SetPassword</a>, set <i>dwPasswordLength</i> to the number of digits in the password, and <i>pbPassword</i> to point to a buffer containing the ASCII representation of the pin.
+     * Native name: WCN_PASSWORD_TYPE_PIN
      * @type {Integer (Int32)}
      */
-    static WCN_PASSWORD_TYPE_PIN => 1
+    static PIN => 1
 
     /**
      * Indicates that authentication is secured via a PIN, as above, but that the PIN is specified by the registrar.
      * 
      * <div class="alert"><b>Note</b>  Only available  in Windows 8.</div>
      * <div> </div>
+     * Native name: WCN_PASSWORD_TYPE_PIN_REGISTRAR_SPECIFIED
      * @type {Integer (Int32)}
      */
-    static WCN_PASSWORD_TYPE_PIN_REGISTRAR_SPECIFIED => 2
+    static PIN_REGISTRAR_SPECIFIED => 2
 
     /**
+     * Native name: WCN_PASSWORD_TYPE_OOB_SPECIFIED
      * @type {Integer (Int32)}
      */
-    static WCN_PASSWORD_TYPE_OOB_SPECIFIED => 3
+    static OOB_SPECIFIED => 3
 
     /**
+     * Native name: WCN_PASSWORD_TYPE_WFDS
      * @type {Integer (Int32)}
      */
-    static WCN_PASSWORD_TYPE_WFDS => 4
+    static WFDS => 4
 }

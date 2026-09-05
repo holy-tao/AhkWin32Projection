@@ -10,19 +10,22 @@ class NLM_DOMAIN_AUTHENTICATION_KIND extends Win32Enum {
 
     /**
      * Specifies no domain authentication method; and/or that the network couldn't be domain-authenticated.
+     * Native name: NLM_DOMAIN_AUTHENTICATION_KIND_NONE
      * @type {Integer (Int32)}
      */
-    static NLM_DOMAIN_AUTHENTICATION_KIND_NONE => 0
+    static NONE => 0
 
     /**
      * Specifies the domain authentication method for an Active Directory network; and/or that the machine was successful in a Lightweight Directory Access Protocol (LDAP) authentication request against the configured Active Directory servers on the current network.
+     * Native name: NLM_DOMAIN_AUTHENTICATION_KIND_LDAP
      * @type {Integer (Int32)}
      */
-    static NLM_DOMAIN_AUTHENTICATION_KIND_LDAP => 1
+    static LDAP => 1
 
     /**
      * Specifies the Transport Layer Security (TLS) domain authentication method; and/or that the network connection was able to successfully complete a HTTPS connection with verified TLS authentication to an endpoint configured by the `AllowedTlsAuthenticationEndpoints` Mobile Device Management (MDM) policy.
+     * Native name: NLM_DOMAIN_AUTHENTICATION_KIND_TLS
      * @type {Integer (Int32)}
      */
-    static NLM_DOMAIN_AUTHENTICATION_KIND_TLS => 2
+    static TLS => 2
 }

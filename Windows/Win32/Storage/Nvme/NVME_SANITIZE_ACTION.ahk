@@ -7,27 +7,32 @@
 class NVME_SANITIZE_ACTION extends Win32Enum {
 
     /**
+     * Native name: NVME_SANITIZE_ACTION_RESERVED
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_ACTION_RESERVED => 0
+    static RESERVED => 0
 
     /**
+     * Native name: NVME_SANITIZE_ACTION_EXIT_FAILURE_MODE
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_ACTION_EXIT_FAILURE_MODE => 1
+    static EXIT_FAILURE_MODE => 1
 
     /**
+     * Native name: NVME_SANITIZE_ACTION_START_BLOCK_ERASE_SANITIZE
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_ACTION_START_BLOCK_ERASE_SANITIZE => 2
+    static START_BLOCK_ERASE_SANITIZE => 2
 
     /**
+     * Native name: NVME_SANITIZE_ACTION_START_OVERWRITE_SANITIZE
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_ACTION_START_OVERWRITE_SANITIZE => 3
+    static START_OVERWRITE_SANITIZE => 3
 
     /**
+     * Native name: NVME_SANITIZE_ACTION_START_CRYPTO_ERASE_SANITIZE
      * @type {Integer (Int32)}
      */
-    static NVME_SANITIZE_ACTION_START_CRYPTO_ERASE_SANITIZE => 4
+    static START_CRYPTO_ERASE_SANITIZE => 4
 }

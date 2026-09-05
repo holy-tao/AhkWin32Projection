@@ -10,13 +10,15 @@ class WLAN_ADHOC_NETWORK_STATE extends Win32Enum {
 
     /**
      * The ad hoc network has been formed, but no client or host is connected to the network.
+     * Native name: wlan_adhoc_network_state_formed
      * @type {Integer (Int32)}
      */
-    static wlan_adhoc_network_state_formed => 0
+    static formed => 0
 
     /**
      * A client or host is connected to the ad hoc network.
+     * Native name: wlan_adhoc_network_state_connected
      * @type {Integer (Int32)}
      */
-    static wlan_adhoc_network_state_connected => 1
+    static connected => 1
 }

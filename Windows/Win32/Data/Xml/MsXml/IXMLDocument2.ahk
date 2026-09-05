@@ -120,7 +120,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElement2} 
      */
     get_root() {
@@ -129,7 +128,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileSize() {
@@ -139,7 +137,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
@@ -149,7 +146,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
@@ -159,7 +155,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -169,7 +164,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -181,7 +175,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -191,7 +184,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -200,7 +192,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -210,7 +201,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -222,7 +212,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -232,7 +221,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_doctype() {
@@ -242,7 +230,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dtdURL() {
@@ -252,7 +239,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vType 
      * @param {VARIANT} var1 
      * @returns {IXMLElement2} 
@@ -263,7 +249,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_async() {
@@ -272,7 +257,6 @@ class IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} f 
      * @returns {HRESULT} 
      */

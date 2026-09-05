@@ -24,47 +24,55 @@ class D3D12_COMMAND_LIST_TYPE extends Win32Enum {
 
     /**
      * Specifies a command buffer that the GPU can execute. A direct command list doesn't inherit any GPU state.
+     * Native name: D3D12_COMMAND_LIST_TYPE_DIRECT
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_DIRECT => 0
+    static DIRECT => 0
 
     /**
      * Specifies a command buffer that can be executed only directly via a direct command list. A bundle command list inherits all GPU state (except for the currently set pipeline state object and primitive topology).
+     * Native name: D3D12_COMMAND_LIST_TYPE_BUNDLE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_BUNDLE => 1
+    static BUNDLE => 1
 
     /**
      * Specifies a command buffer for computing.
+     * Native name: D3D12_COMMAND_LIST_TYPE_COMPUTE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_COMPUTE => 2
+    static COMPUTE => 2
 
     /**
      * Specifies a command buffer for copying.
+     * Native name: D3D12_COMMAND_LIST_TYPE_COPY
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_COPY => 3
+    static COPY => 3
 
     /**
      * Specifies a command buffer for video decoding.
+     * Native name: D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE => 4
+    static VIDEO_DECODE => 4
 
     /**
      * Specifies a command buffer for video processing.
+     * Native name: D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS => 5
+    static VIDEO_PROCESS => 5
 
     /**
+     * Native name: D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE => 6
+    static VIDEO_ENCODE => 6
 
     /**
+     * Native name: D3D12_COMMAND_LIST_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_COMMAND_LIST_TYPE_NONE => -1
+    static NONE => -1
 }

@@ -7,17 +7,20 @@
 class AM_PROPERTY_DVDSUBPIC extends Win32Enum {
 
     /**
+     * Native name: AM_PROPERTY_DVDSUBPIC_PALETTE
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_DVDSUBPIC_PALETTE => 0
+    static PALETTE => 0
 
     /**
+     * Native name: AM_PROPERTY_DVDSUBPIC_HLI
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_DVDSUBPIC_HLI => 1
+    static HLI => 1
 
     /**
+     * Native name: AM_PROPERTY_DVDSUBPIC_COMPOSIT_ON
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_DVDSUBPIC_COMPOSIT_ON => 2
+    static COMPOSIT_ON => 2
 }

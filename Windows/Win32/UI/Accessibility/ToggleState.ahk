@@ -10,15 +10,17 @@ class ToggleState extends Win32Enum {
 
     /**
      * The UI Automation element is not selected, checked, marked or otherwise activated.
+     * Native name: ToggleState_Off
      * @type {Integer (Int32)}
      */
-    static ToggleState_Off => 0
+    static Off => 0
 
     /**
      * The UI Automation element is selected, checked, marked or otherwise activated.
+     * Native name: ToggleState_On
      * @type {Integer (Int32)}
      */
-    static ToggleState_On => 1
+    static On => 1
 
     /**
      * The UI Automation element is in an indeterminate state. 
@@ -31,7 +33,8 @@ class ToggleState extends Win32Enum {
      * Creating an indeterminate state is different from disabling the control. 
      *             Consequently, a check box in the indeterminate state can still receive the focus. 
      *             When the user clicks an indeterminate control the ToggleState cycles to its next value.
+     * Native name: ToggleState_Indeterminate
      * @type {Integer (Int32)}
      */
-    static ToggleState_Indeterminate => 2
+    static Indeterminate => 2
 }

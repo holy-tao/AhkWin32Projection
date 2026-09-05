@@ -7,12 +7,14 @@
 class TTLOAD_EMBEDDED_FONT_STATUS extends Win32BitflagEnum {
 
     /**
+     * Native name: TTLOAD_FONT_SUBSETTED
      * @type {Integer (UInt32)}
      */
-    static TTLOAD_FONT_SUBSETTED => 1
+    static SUBSETTED => 1
 
     /**
+     * Native name: TTLOAD_FONT_IN_SYSSTARTUP
      * @type {Integer (UInt32)}
      */
-    static TTLOAD_FONT_IN_SYSSTARTUP => 2
+    static IN_SYSSTARTUP => 2
 }

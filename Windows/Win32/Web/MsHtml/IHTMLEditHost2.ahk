@@ -29,7 +29,6 @@ class IHTMLEditHost2 extends IHTMLEditHost {
     static VTableNames => ["PreDrag"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PreDrag() {

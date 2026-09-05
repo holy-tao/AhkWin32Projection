@@ -32,7 +32,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     static VTableNames => ["DefineMethodSpec", "GetDeltaSaveSize", "SaveDelta", "SaveDeltaToStream", "SaveDeltaToMemory", "DefineGenericParam", "SetGenericParamProps", "ResetENCLog"]
 
     /**
-     * 
      * @param {Integer} tkParent 
      * @param {Pointer<Integer>} pvSigBlob 
      * @param {Integer} cbSigBlob 
@@ -48,7 +47,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {CorSaveSize} fSave 
      * @param {Pointer<Integer>} pdwSaveSize 
      * @returns {HRESULT} 
@@ -61,7 +59,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {IStream} pIStream 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -85,7 +81,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
@@ -98,7 +93,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} ulParamSeq 
      * @param {Integer} dwParamFlags 
@@ -119,7 +113,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {Integer} gp 
      * @param {Integer} dwParamFlags 
      * @param {PWSTR} szName 
@@ -137,7 +130,6 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetENCLog() {

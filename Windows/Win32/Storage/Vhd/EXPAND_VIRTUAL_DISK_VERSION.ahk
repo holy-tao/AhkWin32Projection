@@ -9,12 +9,14 @@
 class EXPAND_VIRTUAL_DISK_VERSION extends Win32Enum {
 
     /**
+     * Native name: EXPAND_VIRTUAL_DISK_VERSION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static EXPAND_VIRTUAL_DISK_VERSION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: EXPAND_VIRTUAL_DISK_VERSION_1
      * @type {Integer (Int32)}
      */
-    static EXPAND_VIRTUAL_DISK_VERSION_1 => 1
+    static 1 => 1
 }

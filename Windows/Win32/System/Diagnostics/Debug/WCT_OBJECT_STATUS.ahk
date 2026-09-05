@@ -7,57 +7,68 @@
 class WCT_OBJECT_STATUS extends Win32Enum {
 
     /**
+     * Native name: WctStatusNoAccess
      * @type {Integer (Int32)}
      */
-    static WctStatusNoAccess => 1
+    static NoAccess => 1
 
     /**
+     * Native name: WctStatusRunning
      * @type {Integer (Int32)}
      */
-    static WctStatusRunning => 2
+    static Running => 2
 
     /**
+     * Native name: WctStatusBlocked
      * @type {Integer (Int32)}
      */
-    static WctStatusBlocked => 3
+    static Blocked => 3
 
     /**
+     * Native name: WctStatusPidOnly
      * @type {Integer (Int32)}
      */
-    static WctStatusPidOnly => 4
+    static PidOnly => 4
 
     /**
+     * Native name: WctStatusPidOnlyRpcss
      * @type {Integer (Int32)}
      */
-    static WctStatusPidOnlyRpcss => 5
+    static PidOnlyRpcss => 5
 
     /**
+     * Native name: WctStatusOwned
      * @type {Integer (Int32)}
      */
-    static WctStatusOwned => 6
+    static Owned => 6
 
     /**
+     * Native name: WctStatusNotOwned
      * @type {Integer (Int32)}
      */
-    static WctStatusNotOwned => 7
+    static NotOwned => 7
 
     /**
+     * Native name: WctStatusAbandoned
      * @type {Integer (Int32)}
      */
-    static WctStatusAbandoned => 8
+    static Abandoned => 8
 
     /**
+     * Native name: WctStatusUnknown
      * @type {Integer (Int32)}
      */
-    static WctStatusUnknown => 9
+    static Unknown => 9
 
     /**
+     * Native name: WctStatusError
      * @type {Integer (Int32)}
      */
-    static WctStatusError => 10
+    static Error => 10
 
     /**
+     * Native name: WctStatusMax
      * @type {Integer (Int32)}
      */
-    static WctStatusMax => 11
+    static Max => 11
 }

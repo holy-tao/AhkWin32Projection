@@ -10,19 +10,22 @@ class STREAM_SEEK extends Win32Enum {
 
     /**
      * The new seek pointer is an offset relative to the beginning of the stream. In this case, the <i>dlibMove</i> parameter is the new seek position relative to the beginning of the stream.
+     * Native name: STREAM_SEEK_SET
      * @type {Integer (UInt32)}
      */
-    static STREAM_SEEK_SET => 0
+    static SET => 0
 
     /**
      * The new seek pointer is an offset relative to the current seek pointer location. In this case, the <i>dlibMove</i> parameter is the signed displacement from the current seek position.
+     * Native name: STREAM_SEEK_CUR
      * @type {Integer (UInt32)}
      */
-    static STREAM_SEEK_CUR => 1
+    static CUR => 1
 
     /**
      * The new seek pointer is an offset relative to the end of the stream. In this case, the <i>dlibMove</i> parameter is the new seek position relative to the end of the stream.
+     * Native name: STREAM_SEEK_END
      * @type {Integer (UInt32)}
      */
-    static STREAM_SEEK_END => 2
+    static END => 2
 }

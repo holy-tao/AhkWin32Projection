@@ -40,7 +40,6 @@ class IGameInput extends IUnknown {
     static VTableNames => ["GetCurrentTimestamp", "GetCurrentReading", "GetNextReading", "GetPreviousReading", "GetTemporalReading", "RegisterReadingCallback", "RegisterDeviceCallback", "RegisterSystemButtonCallback", "RegisterKeyboardLayoutCallback", "StopCallback", "UnregisterCallback", "CreateDispatcher", "CreateAggregateDevice", "FindDeviceFromId", "FindDeviceFromObject", "FindDeviceFromPlatformHandle", "FindDeviceFromPlatformString", "EnableOemDeviceSupport", "SetFocusPolicy"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentTimestamp() {
@@ -49,7 +48,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
@@ -60,7 +58,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputReading} referenceReading 
      * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
@@ -72,7 +69,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputReading} referenceReading 
      * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
@@ -84,7 +80,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _timestamp 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
@@ -95,7 +90,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {GameInputKind} inputKind 
      * @param {Float} analogThreshold 
@@ -111,7 +105,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {GameInputKind} inputKind 
      * @param {GameInputDeviceStatus} statusFilter 
@@ -128,7 +121,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {GameInputSystemButtons} buttonFilter 
      * @param {Pointer<Void>} _context 
@@ -143,7 +135,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputKeyboardLayoutCallback>} callbackFunc 
@@ -157,7 +148,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} callbackToken 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -166,7 +156,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} callbackToken 
      * @param {Integer} timeoutInMicroseconds 
      * @returns {Boolean} 
@@ -177,7 +166,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IGameInputDispatcher} 
      */
     CreateDispatcher() {
@@ -186,7 +174,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputKind} inputKind 
      * @returns {IGameInputDevice} 
      */
@@ -196,7 +183,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<APP_LOCAL_DEVICE_ID>} value 
      * @returns {IGameInputDevice} 
      */
@@ -206,7 +192,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} value 
      * @returns {IGameInputDevice} 
      */
@@ -216,7 +201,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} value 
      * @returns {IGameInputDevice} 
      */
@@ -228,7 +212,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} value 
      * @returns {IGameInputDevice} 
      */
@@ -240,7 +223,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} vendorId 
      * @param {Integer} productId 
      * @param {Integer} interfaceNumber 
@@ -253,7 +235,6 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputFocusPolicy} policy 
      * @returns {String} Nothing - always returns an empty string
      */

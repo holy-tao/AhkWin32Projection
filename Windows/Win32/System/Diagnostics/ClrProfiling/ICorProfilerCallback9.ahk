@@ -29,7 +29,6 @@ class ICorProfilerCallback9 extends ICorProfilerCallback8 {
     static VTableNames => ["DynamicMethodUnloaded"]
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */

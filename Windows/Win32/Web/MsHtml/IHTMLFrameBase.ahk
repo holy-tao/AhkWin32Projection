@@ -110,7 +110,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -122,7 +121,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -132,7 +130,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -144,7 +141,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -154,7 +150,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -164,7 +159,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -174,7 +168,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -186,7 +179,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_frameBorder() {
@@ -196,7 +188,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -206,7 +197,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_frameSpacing() {
@@ -216,7 +206,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -226,7 +215,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginWidth() {
@@ -236,7 +224,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -246,7 +233,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginHeight() {
@@ -256,7 +242,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -266,7 +251,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noResize() {
@@ -275,7 +259,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -287,7 +270,6 @@ class IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scrolling() {

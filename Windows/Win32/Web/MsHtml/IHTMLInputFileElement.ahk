@@ -117,7 +117,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -127,7 +126,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -139,7 +137,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -149,7 +146,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -159,7 +155,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_status() {
@@ -169,7 +164,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -179,7 +173,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -188,7 +181,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -197,7 +189,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -207,7 +198,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_size() {
@@ -216,7 +206,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -226,7 +215,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_maxLength() {
@@ -429,7 +417,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -439,7 +426,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -449,7 +435,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -459,7 +444,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -469,7 +453,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -481,7 +464,6 @@ class IHTMLInputFileElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {

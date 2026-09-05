@@ -10,31 +10,36 @@ class DISPLAYCONFIG_PIXELFORMAT extends Win32Enum {
 
     /**
      * Indicates 8 BPP format.
+     * Native name: DISPLAYCONFIG_PIXELFORMAT_8BPP
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_PIXELFORMAT_8BPP => 1
+    static 8BPP => 1
 
     /**
      * Indicates 16 BPP format.
+     * Native name: DISPLAYCONFIG_PIXELFORMAT_16BPP
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_PIXELFORMAT_16BPP => 2
+    static 16BPP => 2
 
     /**
      * Indicates 24 BPP format.
+     * Native name: DISPLAYCONFIG_PIXELFORMAT_24BPP
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_PIXELFORMAT_24BPP => 3
+    static 24BPP => 3
 
     /**
      * Indicates 32 BPP format.
+     * Native name: DISPLAYCONFIG_PIXELFORMAT_32BPP
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_PIXELFORMAT_32BPP => 4
+    static 32BPP => 4
 
     /**
      * Indicates that the current display is not an 8, 16, 24, or 32 BPP GDI desktop mode. For example, a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function returns DISPLAYCONFIG_PIXELFORMAT_NONGDI if a DirectX application previously set the desktop to A2R10G10B10 format. A call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdisplayconfig">SetDisplayConfig</a> function fails if any pixel formats for active paths are set to DISPLAYCONFIG_PIXELFORMAT_NONGDI.
+     * Native name: DISPLAYCONFIG_PIXELFORMAT_NONGDI
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_PIXELFORMAT_NONGDI => 5
+    static NONGDI => 5
 }

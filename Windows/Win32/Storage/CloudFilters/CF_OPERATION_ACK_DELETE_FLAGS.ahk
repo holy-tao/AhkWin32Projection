@@ -10,7 +10,8 @@ class CF_OPERATION_ACK_DELETE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No deletion acknowledgment flags.
+     * Native name: CF_OPERATION_ACK_DELETE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_ACK_DELETE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

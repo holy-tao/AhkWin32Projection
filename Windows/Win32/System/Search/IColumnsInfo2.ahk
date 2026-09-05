@@ -31,7 +31,6 @@ class IColumnsInfo2 extends IColumnsInfo {
     static VTableNames => ["GetRestrictedColumnInfo"]
 
     /**
-     * 
      * @param {Pointer} cColumnIDMasks 
      * @param {Pointer<DBID>} rgColumnIDMasks 
      * @param {Integer} dwFlags 

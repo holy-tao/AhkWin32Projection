@@ -10,25 +10,29 @@ class MBN_CONTEXT_CONSTANTS extends Win32Enum {
 
     /**
      * Maximum string length of the <b>accessString</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_context">MBN_CONTEXT</a> structure.
+     * Native name: MBN_ACCESSSTRING_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_ACCESSSTRING_LEN => 100
+    static ACCESSSTRING_LEN => 100
 
     /**
      * Maximum string length of the <b>userName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_context">MBN_CONTEXT</a> structure.
+     * Native name: MBN_USERNAME_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_USERNAME_LEN => 255
+    static USERNAME_LEN => 255
 
     /**
      * Maximum string length of the <b>password</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_context">MBN_CONTEXT</a> structure.
+     * Native name: MBN_PASSWORD_LEN
      * @type {Integer (Int32)}
      */
-    static MBN_PASSWORD_LEN => 255
+    static PASSWORD_LEN => 255
 
     /**
      * The device will find the appropriate index to store a context into.
+     * Native name: MBN_CONTEXT_ID_APPEND
      * @type {Integer (Int32)}
      */
-    static MBN_CONTEXT_ID_APPEND => -1
+    static ID_APPEND => -1
 }

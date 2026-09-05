@@ -31,7 +31,6 @@ class IMultiLanguage3 extends IMultiLanguage2 {
     static VTableNames => ["DetectOutboundCodePage", "DetectOutboundCodePageInIStream"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpWideCharStr 
      * @param {Integer} cchWideChar 
@@ -53,7 +52,6 @@ class IMultiLanguage3 extends IMultiLanguage2 {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {IStream} pStrIn 
      * @param {Pointer<Integer>} puiPreferredCodePages 

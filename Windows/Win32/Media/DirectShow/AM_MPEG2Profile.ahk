@@ -12,31 +12,36 @@ class AM_MPEG2Profile extends Win32Enum {
 
     /**
      * Simple profile.
+     * Native name: AM_MPEG2Profile_Simple
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Profile_Simple => 1
+    static Simple => 1
 
     /**
      * Main profile.
+     * Native name: AM_MPEG2Profile_Main
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Profile_Main => 2
+    static Main => 2
 
     /**
      * Signal to Noise Ratio (SNR) scalable profile
+     * Native name: AM_MPEG2Profile_SNRScalable
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Profile_SNRScalable => 3
+    static SNRScalable => 3
 
     /**
      * Spatially scalable profile.
+     * Native name: AM_MPEG2Profile_SpatiallyScalable
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Profile_SpatiallyScalable => 4
+    static SpatiallyScalable => 4
 
     /**
      * High profile.
+     * Native name: AM_MPEG2Profile_High
      * @type {Integer (Int32)}
      */
-    static AM_MPEG2Profile_High => 5
+    static High => 5
 }

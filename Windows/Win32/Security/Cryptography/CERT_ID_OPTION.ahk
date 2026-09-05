@@ -7,17 +7,20 @@
 class CERT_ID_OPTION extends Win32Enum {
 
     /**
+     * Native name: CERT_ID_ISSUER_SERIAL_NUMBER
      * @type {Integer (UInt32)}
      */
-    static CERT_ID_ISSUER_SERIAL_NUMBER => 1
+    static ISSUER_SERIAL_NUMBER => 1
 
     /**
+     * Native name: CERT_ID_KEY_IDENTIFIER
      * @type {Integer (UInt32)}
      */
-    static CERT_ID_KEY_IDENTIFIER => 2
+    static KEY_IDENTIFIER => 2
 
     /**
+     * Native name: CERT_ID_SHA1_HASH
      * @type {Integer (UInt32)}
      */
-    static CERT_ID_SHA1_HASH => 3
+    static SHA1_HASH => 3
 }

@@ -31,7 +31,6 @@ class ITransactionOutcomeEvents extends IUnknown {
     static VTableNames => ["Committed", "Aborted", "HeuristicDecision", "Indoubt"]
 
     /**
-     * 
      * @param {BOOL} fRetaining 
      * @param {Pointer<BOID>} pNewUOW 
      * @param {HRESULT} hr 
@@ -43,7 +42,6 @@ class ITransactionOutcomeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pboidReason 
      * @param {BOOL} fRetaining 
      * @param {Pointer<BOID>} pNewUOW 
@@ -56,7 +54,6 @@ class ITransactionOutcomeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwDecision 
      * @param {Pointer<BOID>} pboidReason 
      * @param {HRESULT} hr 
@@ -68,7 +65,6 @@ class ITransactionOutcomeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Indoubt() {

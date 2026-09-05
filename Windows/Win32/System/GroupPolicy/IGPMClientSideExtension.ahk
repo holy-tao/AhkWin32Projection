@@ -53,7 +53,6 @@ class IGPMClientSideExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -63,7 +62,6 @@ class IGPMClientSideExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {

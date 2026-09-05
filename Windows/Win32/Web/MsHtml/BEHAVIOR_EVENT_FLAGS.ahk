@@ -17,7 +17,8 @@ class BEHAVIOR_EVENT_FLAGS extends Win32Enum {
     static BEHAVIOREVENTFLAGS_STANDARDADDITIVE => 2
 
     /**
+     * Native name: BEHAVIOR_EVENT_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_EVENT_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

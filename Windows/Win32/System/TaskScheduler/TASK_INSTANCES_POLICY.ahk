@@ -10,25 +10,29 @@ class TASK_INSTANCES_POLICY extends Win32Enum {
 
     /**
      * Starts new instance while an existing instance is running.
+     * Native name: TASK_INSTANCES_PARALLEL
      * @type {Integer (Int32)}
      */
-    static TASK_INSTANCES_PARALLEL => 0
+    static PARALLEL => 0
 
     /**
      * Starts a new instance of the task after all other instances of the task are complete.
+     * Native name: TASK_INSTANCES_QUEUE
      * @type {Integer (Int32)}
      */
-    static TASK_INSTANCES_QUEUE => 1
+    static QUEUE => 1
 
     /**
      * Does not start a new instance if an existing instance of the task is running.
+     * Native name: TASK_INSTANCES_IGNORE_NEW
      * @type {Integer (Int32)}
      */
-    static TASK_INSTANCES_IGNORE_NEW => 2
+    static IGNORE_NEW => 2
 
     /**
      * Stops an existing instance of the task before it starts a new instance.
+     * Native name: TASK_INSTANCES_STOP_EXISTING
      * @type {Integer (Int32)}
      */
-    static TASK_INSTANCES_STOP_EXISTING => 3
+    static STOP_EXISTING => 3
 }

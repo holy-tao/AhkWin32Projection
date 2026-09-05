@@ -7,19 +7,22 @@
 class SegEventidList extends Win32Enum {
 
     /**
+     * Native name: eventidStateChange
      * @type {Integer (Int32)}
      */
-    static eventidStateChange => 0
+    static StateChange => 0
 
     /**
+     * Native name: eventidOnTuneChanged
      * @type {Integer (Int32)}
      */
-    static eventidOnTuneChanged => 1
+    static OnTuneChanged => 1
 
     /**
+     * Native name: eventidEndOfMedia
      * @type {Integer (Int32)}
      */
-    static eventidEndOfMedia => 2
+    static EndOfMedia => 2
 
     /**
      * @type {Integer (Int32)}
@@ -27,199 +30,238 @@ class SegEventidList extends Win32Enum {
     static eventidDVDNotify => 3
 
     /**
+     * Native name: eventidPlayForwards
      * @type {Integer (Int32)}
      */
-    static eventidPlayForwards => 4
+    static PlayForwards => 4
 
     /**
+     * Native name: eventidPlayBackwards
      * @type {Integer (Int32)}
      */
-    static eventidPlayBackwards => 5
+    static PlayBackwards => 5
 
     /**
+     * Native name: eventidShowMenu
      * @type {Integer (Int32)}
      */
-    static eventidShowMenu => 6
+    static ShowMenu => 6
 
     /**
+     * Native name: eventidResume
      * @type {Integer (Int32)}
      */
-    static eventidResume => 7
+    static Resume => 7
 
     /**
+     * Native name: eventidSelectOrActivateButton
      * @type {Integer (Int32)}
      */
-    static eventidSelectOrActivateButton => 8
+    static SelectOrActivateButton => 8
 
     /**
+     * Native name: eventidStillOff
      * @type {Integer (Int32)}
      */
-    static eventidStillOff => 9
+    static StillOff => 9
 
     /**
+     * Native name: eventidPauseOn
      * @type {Integer (Int32)}
      */
-    static eventidPauseOn => 10
+    static PauseOn => 10
 
     /**
+     * Native name: eventidChangeCurrentAudioStream
      * @type {Integer (Int32)}
      */
-    static eventidChangeCurrentAudioStream => 11
+    static ChangeCurrentAudioStream => 11
 
     /**
+     * Native name: eventidChangeCurrentSubpictureStream
      * @type {Integer (Int32)}
      */
-    static eventidChangeCurrentSubpictureStream => 12
+    static ChangeCurrentSubpictureStream => 12
 
     /**
+     * Native name: eventidChangeCurrentAngle
      * @type {Integer (Int32)}
      */
-    static eventidChangeCurrentAngle => 13
+    static ChangeCurrentAngle => 13
 
     /**
+     * Native name: eventidPlayAtTimeInTitle
      * @type {Integer (Int32)}
      */
-    static eventidPlayAtTimeInTitle => 14
+    static PlayAtTimeInTitle => 14
 
     /**
+     * Native name: eventidPlayAtTime
      * @type {Integer (Int32)}
      */
-    static eventidPlayAtTime => 15
+    static PlayAtTime => 15
 
     /**
+     * Native name: eventidPlayChapterInTitle
      * @type {Integer (Int32)}
      */
-    static eventidPlayChapterInTitle => 16
+    static PlayChapterInTitle => 16
 
     /**
+     * Native name: eventidPlayChapter
      * @type {Integer (Int32)}
      */
-    static eventidPlayChapter => 17
+    static PlayChapter => 17
 
     /**
+     * Native name: eventidReplayChapter
      * @type {Integer (Int32)}
      */
-    static eventidReplayChapter => 18
+    static ReplayChapter => 18
 
     /**
+     * Native name: eventidPlayNextChapter
      * @type {Integer (Int32)}
      */
-    static eventidPlayNextChapter => 19
+    static PlayNextChapter => 19
 
     /**
+     * Native name: eventidStop
      * @type {Integer (Int32)}
      */
-    static eventidStop => 20
+    static Stop => 20
 
     /**
+     * Native name: eventidReturnFromSubmenu
      * @type {Integer (Int32)}
      */
-    static eventidReturnFromSubmenu => 21
+    static ReturnFromSubmenu => 21
 
     /**
+     * Native name: eventidPlayTitle
      * @type {Integer (Int32)}
      */
-    static eventidPlayTitle => 22
+    static PlayTitle => 22
 
     /**
+     * Native name: eventidPlayPrevChapter
      * @type {Integer (Int32)}
      */
-    static eventidPlayPrevChapter => 23
+    static PlayPrevChapter => 23
 
     /**
+     * Native name: eventidChangeKaraokePresMode
      * @type {Integer (Int32)}
      */
-    static eventidChangeKaraokePresMode => 24
+    static ChangeKaraokePresMode => 24
 
     /**
+     * Native name: eventidChangeVideoPresMode
      * @type {Integer (Int32)}
      */
-    static eventidChangeVideoPresMode => 25
+    static ChangeVideoPresMode => 25
 
     /**
+     * Native name: eventidOverlayUnavailable
      * @type {Integer (Int32)}
      */
-    static eventidOverlayUnavailable => 26
+    static OverlayUnavailable => 26
 
     /**
+     * Native name: eventidSinkCertificateFailure
      * @type {Integer (Int32)}
      */
-    static eventidSinkCertificateFailure => 27
+    static SinkCertificateFailure => 27
 
     /**
+     * Native name: eventidSinkCertificateSuccess
      * @type {Integer (Int32)}
      */
-    static eventidSinkCertificateSuccess => 28
+    static SinkCertificateSuccess => 28
 
     /**
+     * Native name: eventidSourceCertificateFailure
      * @type {Integer (Int32)}
      */
-    static eventidSourceCertificateFailure => 29
+    static SourceCertificateFailure => 29
 
     /**
+     * Native name: eventidSourceCertificateSuccess
      * @type {Integer (Int32)}
      */
-    static eventidSourceCertificateSuccess => 30
+    static SourceCertificateSuccess => 30
 
     /**
+     * Native name: eventidRatingsBlocked
      * @type {Integer (Int32)}
      */
-    static eventidRatingsBlocked => 31
+    static RatingsBlocked => 31
 
     /**
+     * Native name: eventidRatingsUnlocked
      * @type {Integer (Int32)}
      */
-    static eventidRatingsUnlocked => 32
+    static RatingsUnlocked => 32
 
     /**
+     * Native name: eventidRatingsChanged
      * @type {Integer (Int32)}
      */
-    static eventidRatingsChanged => 33
+    static RatingsChanged => 33
 
     /**
+     * Native name: eventidWriteFailure
      * @type {Integer (Int32)}
      */
-    static eventidWriteFailure => 34
+    static WriteFailure => 34
 
     /**
+     * Native name: eventidTimeHole
      * @type {Integer (Int32)}
      */
-    static eventidTimeHole => 35
+    static TimeHole => 35
 
     /**
+     * Native name: eventidStaleDataRead
      * @type {Integer (Int32)}
      */
-    static eventidStaleDataRead => 36
+    static StaleDataRead => 36
 
     /**
+     * Native name: eventidContentBecomingStale
      * @type {Integer (Int32)}
      */
-    static eventidContentBecomingStale => 37
+    static ContentBecomingStale => 37
 
     /**
+     * Native name: eventidStaleFileDeleted
      * @type {Integer (Int32)}
      */
-    static eventidStaleFileDeleted => 38
+    static StaleFileDeleted => 38
 
     /**
+     * Native name: eventidEncryptionOn
      * @type {Integer (Int32)}
      */
-    static eventidEncryptionOn => 39
+    static EncryptionOn => 39
 
     /**
+     * Native name: eventidEncryptionOff
      * @type {Integer (Int32)}
      */
-    static eventidEncryptionOff => 40
+    static EncryptionOff => 40
 
     /**
+     * Native name: eventidRateChange
      * @type {Integer (Int32)}
      */
-    static eventidRateChange => 41
+    static RateChange => 41
 
     /**
+     * Native name: eventidLicenseChange
      * @type {Integer (Int32)}
      */
-    static eventidLicenseChange => 42
+    static LicenseChange => 42
 
     /**
      * @type {Integer (Int32)}
@@ -237,19 +279,22 @@ class SegEventidList extends Win32Enum {
     static dispidlicenseerrorcode => 45
 
     /**
+     * Native name: eventidBroadcastEvent
      * @type {Integer (Int32)}
      */
-    static eventidBroadcastEvent => 46
+    static BroadcastEvent => 46
 
     /**
+     * Native name: eventidBroadcastEventEx
      * @type {Integer (Int32)}
      */
-    static eventidBroadcastEventEx => 47
+    static BroadcastEventEx => 47
 
     /**
+     * Native name: eventidContentPrimarilyAudio
      * @type {Integer (Int32)}
      */
-    static eventidContentPrimarilyAudio => 48
+    static ContentPrimarilyAudio => 48
 
     /**
      * @type {Integer (Int32)}
@@ -292,9 +337,10 @@ class SegEventidList extends Win32Enum {
     static dispidAVDecCommonOutputFormatEvent => 56
 
     /**
+     * Native name: eventidWriteFailureClear
      * @type {Integer (Int32)}
      */
-    static eventidWriteFailureClear => 57
+    static WriteFailureClear => 57
 
     /**
      * @type {Integer (Int32)}

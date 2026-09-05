@@ -32,7 +32,6 @@ class IGameExplorer2 extends IUnknown {
     static VTableNames => ["InstallGame", "UninstallGame", "CheckAccess"]
 
     /**
-     * 
      * @param {PWSTR} binaryGDFPath 
      * @param {PWSTR} installDirectory 
      * @param {GAME_INSTALL_SCOPE} installScope 
@@ -47,7 +46,6 @@ class IGameExplorer2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} binaryGDFPath 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ class IGameExplorer2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} binaryGDFPath 
      * @returns {BOOL} 
      */

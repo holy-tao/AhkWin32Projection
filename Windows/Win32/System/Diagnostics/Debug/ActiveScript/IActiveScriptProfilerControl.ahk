@@ -30,7 +30,6 @@ class IActiveScriptProfilerControl extends IUnknown {
     static VTableNames => ["StartProfiling", "SetProfilerEventMask", "StopProfiling"]
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidProfilerObject 
      * @param {Integer} dwEventMask 
      * @param {Integer} dwContext 
@@ -42,7 +41,6 @@ class IActiveScriptProfilerControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEventMask 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class IActiveScriptProfilerControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrShutdownReason 
      * @returns {HRESULT} 
      */

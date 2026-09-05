@@ -72,7 +72,6 @@ class MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -82,7 +81,6 @@ class MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LanguageIndependentName() {
@@ -92,7 +90,6 @@ class MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -102,7 +99,6 @@ class MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LanguageIndependentPath() {
@@ -112,7 +108,6 @@ class MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Execute() {
@@ -121,7 +116,6 @@ class MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Enabled() {

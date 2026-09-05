@@ -61,7 +61,6 @@ class IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_element() {
@@ -70,7 +69,6 @@ class IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyle} 
      */
     get_inlineStyles() {
@@ -79,7 +77,6 @@ class IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesAppliedCollection} 
      */
     get_appliedRules() {
@@ -88,7 +85,6 @@ class IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -100,7 +96,6 @@ class IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -112,7 +107,6 @@ class IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasInheritableProperty() {

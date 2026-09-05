@@ -69,7 +69,6 @@ class IInkRecognitionAlternates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

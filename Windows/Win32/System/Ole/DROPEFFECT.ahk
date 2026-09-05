@@ -25,27 +25,32 @@
 class DROPEFFECT extends Win32BitflagEnum {
 
     /**
+     * Native name: DROPEFFECT_NONE
      * @type {Integer (UInt32)}
      */
-    static DROPEFFECT_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: DROPEFFECT_COPY
      * @type {Integer (UInt32)}
      */
-    static DROPEFFECT_COPY => 1
+    static COPY => 1
 
     /**
+     * Native name: DROPEFFECT_MOVE
      * @type {Integer (UInt32)}
      */
-    static DROPEFFECT_MOVE => 2
+    static MOVE => 2
 
     /**
+     * Native name: DROPEFFECT_LINK
      * @type {Integer (UInt32)}
      */
-    static DROPEFFECT_LINK => 4
+    static LINK => 4
 
     /**
+     * Native name: DROPEFFECT_SCROLL
      * @type {Integer (UInt32)}
      */
-    static DROPEFFECT_SCROLL => 2147483648
+    static SCROLL => 2147483648
 }

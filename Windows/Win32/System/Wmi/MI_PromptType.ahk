@@ -10,13 +10,15 @@ class MI_PromptType extends Win32Enum {
 
     /**
      * A parameter of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_context_promptuser">MI_Context_PromptUser</a> function that specifies whether the prompt is a normal prompt such as "are you sure you want to delete this file?"
+     * Native name: MI_PROMPTTYPE_NORMAL
      * @type {Integer (Int32)}
      */
-    static MI_PROMPTTYPE_NORMAL => 0
+    static PROMPTTYPE_NORMAL => 0
 
     /**
      * A parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_context_promptuser">MI_Context_PromptUser</a> function that specifies whether the prompt is a critical prompt, such as "are you sure you want to format your hard disk drive?"
+     * Native name: MI_PROMPTTYPE_CRITICAL
      * @type {Integer (Int32)}
      */
-    static MI_PROMPTTYPE_CRITICAL => 1
+    static PROMPTTYPE_CRITICAL => 1
 }

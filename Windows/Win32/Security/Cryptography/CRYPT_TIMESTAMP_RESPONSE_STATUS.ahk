@@ -7,32 +7,38 @@
 class CRYPT_TIMESTAMP_RESPONSE_STATUS extends Win32Enum {
 
     /**
+     * Native name: TIMESTAMP_STATUS_GRANTED
      * @type {Integer (UInt32)}
      */
-    static TIMESTAMP_STATUS_GRANTED => 0
+    static GRANTED => 0
 
     /**
+     * Native name: TIMESTAMP_STATUS_GRANTED_WITH_MODS
      * @type {Integer (UInt32)}
      */
-    static TIMESTAMP_STATUS_GRANTED_WITH_MODS => 1
+    static GRANTED_WITH_MODS => 1
 
     /**
+     * Native name: TIMESTAMP_STATUS_REJECTED
      * @type {Integer (UInt32)}
      */
-    static TIMESTAMP_STATUS_REJECTED => 2
+    static REJECTED => 2
 
     /**
+     * Native name: TIMESTAMP_STATUS_WAITING
      * @type {Integer (UInt32)}
      */
-    static TIMESTAMP_STATUS_WAITING => 3
+    static WAITING => 3
 
     /**
+     * Native name: TIMESTAMP_STATUS_REVOCATION_WARNING
      * @type {Integer (UInt32)}
      */
-    static TIMESTAMP_STATUS_REVOCATION_WARNING => 4
+    static REVOCATION_WARNING => 4
 
     /**
+     * Native name: TIMESTAMP_STATUS_REVOKED
      * @type {Integer (UInt32)}
      */
-    static TIMESTAMP_STATUS_REVOKED => 5
+    static REVOKED => 5
 }

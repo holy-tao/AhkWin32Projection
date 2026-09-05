@@ -98,7 +98,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -107,7 +106,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -116,7 +114,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -125,7 +122,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -134,7 +130,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -144,7 +139,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -153,7 +147,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -162,7 +155,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResTypeResources} 
      */
     get_Resources() {
@@ -171,7 +163,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResTypePossibleOwnerNodes} 
      */
     get_PossibleOwnerNodes() {
@@ -180,7 +171,6 @@ class ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusDisks} 
      */
     get_AvailableDisks() {

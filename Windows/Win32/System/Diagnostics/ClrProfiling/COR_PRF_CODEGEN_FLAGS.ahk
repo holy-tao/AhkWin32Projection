@@ -7,12 +7,14 @@
 class COR_PRF_CODEGEN_FLAGS extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_CODEGEN_DISABLE_INLINING
      * @type {Integer (Int32)}
      */
-    static COR_PRF_CODEGEN_DISABLE_INLINING => 1
+    static DISABLE_INLINING => 1
 
     /**
+     * Native name: COR_PRF_CODEGEN_DISABLE_ALL_OPTIMIZATIONS
      * @type {Integer (Int32)}
      */
-    static COR_PRF_CODEGEN_DISABLE_ALL_OPTIMIZATIONS => 2
+    static DISABLE_ALL_OPTIMIZATIONS => 2
 }

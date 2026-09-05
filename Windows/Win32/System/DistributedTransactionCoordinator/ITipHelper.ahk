@@ -31,7 +31,6 @@ class ITipHelper extends IUnknown {
     static VTableNames => ["Pull", "PullAsync", "GetLocalTmUrl"]
 
     /**
-     * 
      * @param {Pointer<Integer>} i_pszTxUrl 
      * @returns {ITransaction} 
      */
@@ -43,7 +42,6 @@ class ITipHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} i_pszTxUrl 
      * @param {ITipPullSink} i_pTipPullSink 
      * @returns {ITransaction} 
@@ -56,7 +54,6 @@ class ITipHelper extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetLocalTmUrl() {

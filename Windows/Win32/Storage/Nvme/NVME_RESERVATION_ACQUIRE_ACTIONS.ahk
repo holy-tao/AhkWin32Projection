@@ -7,17 +7,20 @@
 class NVME_RESERVATION_ACQUIRE_ACTIONS extends Win32Enum {
 
     /**
+     * Native name: NVME_RESERVATION_ACQUIRE_ACTION_ACQUIRE
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_ACQUIRE_ACTION_ACQUIRE => 0
+    static ACTION_ACQUIRE => 0
 
     /**
+     * Native name: NVME_RESERVATION_ACQUIRE_ACTION_PREEMPT
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_ACQUIRE_ACTION_PREEMPT => 1
+    static ACTION_PREEMPT => 1
 
     /**
+     * Native name: NVME_RESERVATION_ACQUIRE_ACTION_PREEMPT_AND_ABORT
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_ACQUIRE_ACTION_PREEMPT_AND_ABORT => 2
+    static ACTION_PREEMPT_AND_ABORT => 2
 }

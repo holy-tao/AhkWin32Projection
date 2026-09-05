@@ -202,7 +202,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -214,7 +213,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -224,7 +222,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -236,7 +233,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -246,7 +242,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -258,7 +253,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rel() {
@@ -268,7 +262,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -280,7 +273,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rev() {
@@ -290,7 +282,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -302,7 +293,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_urn() {
@@ -312,7 +302,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -324,7 +313,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Methods() {
@@ -334,7 +322,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -346,7 +333,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -356,7 +342,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -368,7 +353,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_host() {
@@ -378,7 +362,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -390,7 +373,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hostname() {
@@ -400,7 +382,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -412,7 +393,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pathname() {
@@ -422,7 +402,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -434,7 +413,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_port() {
@@ -444,7 +422,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -456,7 +433,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -466,7 +442,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -478,7 +453,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_search() {
@@ -488,7 +462,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -500,7 +473,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hash() {
@@ -510,7 +482,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -520,7 +491,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -530,7 +500,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -540,7 +509,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -550,7 +518,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -562,7 +529,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accessKey() {
@@ -572,7 +538,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocolLong() {
@@ -582,7 +547,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -592,7 +556,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nameProp() {
@@ -602,7 +565,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -612,7 +574,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_tabIndex() {
@@ -621,7 +582,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -630,7 +590,6 @@ class IHTMLAnchorElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {

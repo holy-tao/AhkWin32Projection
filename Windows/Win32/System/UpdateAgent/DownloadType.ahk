@@ -7,12 +7,14 @@
 class DownloadType extends Win32Enum {
 
     /**
+     * Native name: downloadTypeFull
      * @type {Integer (Int32)}
      */
-    static downloadTypeFull => 0
+    static Full => 0
 
     /**
+     * Native name: downloadTypeUpdateBootstrapper
      * @type {Integer (Int32)}
      */
-    static downloadTypeUpdateBootstrapper => 1
+    static UpdateBootstrapper => 1
 }

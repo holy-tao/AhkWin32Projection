@@ -10,28 +10,32 @@ class FWPM_FIELD_TYPE extends Win32Enum {
 
     /**
      * Value contains raw data.
+     * Native name: FWPM_FIELD_RAW_DATA
      * @type {Integer (Int32)}
      */
-    static FWPM_FIELD_RAW_DATA => 0
+    static RAW_DATA => 0
 
     /**
      * Value contains an IP address.
+     * Native name: FWPM_FIELD_IP_ADDRESS
      * @type {Integer (Int32)}
      */
-    static FWPM_FIELD_IP_ADDRESS => 1
+    static IP_ADDRESS => 1
 
     /**
      * Value contains flags.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
      * <div> </div>
+     * Native name: FWPM_FIELD_FLAGS
      * @type {Integer (Int32)}
      */
-    static FWPM_FIELD_FLAGS => 2
+    static FLAGS => 2
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWPM_FIELD_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static FWPM_FIELD_TYPE_MAX => 3
+    static MAX => 3
 }

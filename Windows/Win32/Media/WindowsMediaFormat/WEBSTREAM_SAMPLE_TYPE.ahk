@@ -7,12 +7,14 @@
 class WEBSTREAM_SAMPLE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WEBSTREAM_SAMPLE_TYPE_FILE
      * @type {Integer (Int32)}
      */
-    static WEBSTREAM_SAMPLE_TYPE_FILE => 1
+    static FILE => 1
 
     /**
+     * Native name: WEBSTREAM_SAMPLE_TYPE_RENDER
      * @type {Integer (Int32)}
      */
-    static WEBSTREAM_SAMPLE_TYPE_RENDER => 2
+    static RENDER => 2
 }

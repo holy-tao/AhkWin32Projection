@@ -7,12 +7,14 @@
 class JS_PROPERTY_MEMBERS extends Win32Enum {
 
     /**
+     * Native name: JS_PROPERTY_MEMBERS_ALL
      * @type {Integer (Int32)}
      */
-    static JS_PROPERTY_MEMBERS_ALL => 0
+    static ALL => 0
 
     /**
+     * Native name: JS_PROPERTY_MEMBERS_ARGUMENTS
      * @type {Integer (Int32)}
      */
-    static JS_PROPERTY_MEMBERS_ARGUMENTS => 1
+    static ARGUMENTS => 1
 }

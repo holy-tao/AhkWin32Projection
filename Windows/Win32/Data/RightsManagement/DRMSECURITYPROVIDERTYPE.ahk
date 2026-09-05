@@ -10,7 +10,8 @@ class DRMSECURITYPROVIDERTYPE extends Win32Enum {
 
     /**
      * Software-level security, using a lockbox.
+     * Native name: DRMSECURITYPROVIDERTYPE_SOFTWARESECREP
      * @type {Integer (Int32)}
      */
-    static DRMSECURITYPROVIDERTYPE_SOFTWARESECREP => 0
+    static SOFTWARESECREP => 0
 }

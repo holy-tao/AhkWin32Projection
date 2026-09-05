@@ -10,15 +10,17 @@ class MFVideoAspectRatioMode extends Win32Enum {
 
     /**
      * Do not maintain the aspect ratio of the video. Stretch the video to fit the output rectangle.
+     * Native name: MFVideoARMode_None
      * @type {Integer (Int32)}
      */
-    static MFVideoARMode_None => 0
+    static VideoARMode_None => 0
 
     /**
      * Preserve the aspect ratio of the video by letterboxing or within the output rectangle.
+     * Native name: MFVideoARMode_PreservePicture
      * @type {Integer (Int32)}
      */
-    static MFVideoARMode_PreservePicture => 1
+    static VideoARMode_PreservePicture => 1
 
     /**
      * <div class="alert"><b>Note</b>  Currently the EVR ignores this flag.</div>
@@ -26,9 +28,10 @@ class MFVideoAspectRatioMode extends Win32Enum {
      * Correct the aspect ratio if the physical size of the display device does not match the display resolution. For example, if the native resolution of the monitor is 1600 by 1200 (4:3) but the display resolution is 1280 by 1024 (5:4), the monitor will display non-square pixels.
      * 
      * If this flag is set, you must also set the <b>MFVideoARMode_PreservePicture</b> flag.
+     * Native name: MFVideoARMode_PreservePixel
      * @type {Integer (Int32)}
      */
-    static MFVideoARMode_PreservePixel => 2
+    static VideoARMode_PreservePixel => 2
 
     /**
      * Apply a non-linear horizontal stretch if the aspect ratio of the destination rectangle does not match the aspect ratio of the source rectangle.
@@ -38,13 +41,15 @@ class MFVideoAspectRatioMode extends Win32Enum {
      * This mode may cause performance degradation.
      * 
      * If this flag is set, you must also set the <b>MFVideoARMode_PreservePixel</b> and <b>MFVideoARMode_PreservePicture</b> flags.
+     * Native name: MFVideoARMode_NonLinearStretch
      * @type {Integer (Int32)}
      */
-    static MFVideoARMode_NonLinearStretch => 4
+    static VideoARMode_NonLinearStretch => 4
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: MFVideoARMode_Mask
      * @type {Integer (Int32)}
      */
-    static MFVideoARMode_Mask => 7
+    static VideoARMode_Mask => 7
 }

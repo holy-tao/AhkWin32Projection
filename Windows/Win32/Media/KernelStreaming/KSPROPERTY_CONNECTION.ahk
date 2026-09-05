@@ -7,42 +7,50 @@
 class KSPROPERTY_CONNECTION extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_STATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_STATE => 0
+    static STATE => 0
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_PRIORITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_PRIORITY => 1
+    static PRIORITY => 1
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_DATAFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_DATAFORMAT => 2
+    static DATAFORMAT => 2
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_ALLOCATORFRAMING
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_ALLOCATORFRAMING => 3
+    static ALLOCATORFRAMING => 3
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_PROPOSEDATAFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_PROPOSEDATAFORMAT => 4
+    static PROPOSEDATAFORMAT => 4
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_ACQUIREORDERING
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_ACQUIREORDERING => 5
+    static ACQUIREORDERING => 5
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_ALLOCATORFRAMING_EX
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_ALLOCATORFRAMING_EX => 6
+    static ALLOCATORFRAMING_EX => 6
 
     /**
+     * Native name: KSPROPERTY_CONNECTION_STARTAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CONNECTION_STARTAT => 7
+    static STARTAT => 7
 }

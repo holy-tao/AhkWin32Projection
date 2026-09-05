@@ -61,7 +61,6 @@ class ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemImpersonationLevelEnum} 
      */
     get_ImpersonationLevel() {
@@ -70,7 +69,6 @@ class ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @param {WbemImpersonationLevelEnum} iImpersonationLevel 
      * @returns {HRESULT} 
      */
@@ -80,7 +78,6 @@ class ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemAuthenticationLevelEnum} 
      */
     get_AuthenticationLevel() {
@@ -89,7 +86,6 @@ class ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @param {WbemAuthenticationLevelEnum} iAuthenticationLevel 
      * @returns {HRESULT} 
      */
@@ -99,7 +95,6 @@ class ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemPrivilegeSet} 
      */
     get_Privileges() {

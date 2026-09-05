@@ -65,7 +65,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrForwardToURI 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrReferToURI 
      * @param {BSTR} bstrReferCookie 
      * @returns {HRESULT} 
@@ -101,7 +98,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrReferredByURI 
      * @returns {HRESULT} 
      */
@@ -113,7 +109,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferredByURI() {
@@ -123,7 +118,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrReferCookie 
      * @returns {HRESULT} 
      */
@@ -135,7 +129,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferCookie() {
@@ -145,7 +138,6 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsReferred() {

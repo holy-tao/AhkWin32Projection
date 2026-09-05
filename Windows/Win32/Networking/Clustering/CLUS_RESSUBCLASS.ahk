@@ -15,7 +15,8 @@ class CLUS_RESSUBCLASS extends Win32Enum {
      *       control code can retrieve a 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure that contains 
      *       this information.
+     * Native name: CLUS_RESSUBCLASS_SHARED
      * @type {Integer (Int32)}
      */
-    static CLUS_RESSUBCLASS_SHARED => -2147483648
+    static SHARED => -2147483648
 }

@@ -31,7 +31,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     static VTableNames => ["SetExperimentalFlag", "GetExperimentalFlag", "SetExperimentalValue", "GetExperimentalValue", "ResetAllExperimentalFlagsAndValues", "GetNeedIEAutoLaunchFlag", "SetNeedIEAutoLaunchFlag", "HasNeedIEAutoLaunchFlag", "LaunchIE"]
 
     /**
-     * 
      * @param {BSTR} bstrFlagString 
      * @param {VARIANT_BOOL} vfFlag 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFlagString 
      * @returns {VARIANT_BOOL} 
      */
@@ -56,7 +54,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrValueString 
      * @param {Integer} dwValue 
      * @returns {HRESULT} 
@@ -69,7 +66,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrValueString 
      * @returns {Integer} 
      */
@@ -81,7 +77,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetAllExperimentalFlagsAndValues() {
@@ -90,7 +85,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -102,7 +96,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {VARIANT_BOOL} flag 
      * @returns {HRESULT} 
@@ -115,7 +108,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -127,7 +119,6 @@ class IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {VARIANT_BOOL} automated 
      * @returns {HRESULT} 

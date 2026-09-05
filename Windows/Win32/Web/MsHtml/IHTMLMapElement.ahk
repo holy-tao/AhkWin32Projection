@@ -52,7 +52,6 @@ class IHTMLMapElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLAreasCollection} 
      */
     get_areas() {
@@ -61,7 +60,6 @@ class IHTMLMapElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ class IHTMLMapElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {

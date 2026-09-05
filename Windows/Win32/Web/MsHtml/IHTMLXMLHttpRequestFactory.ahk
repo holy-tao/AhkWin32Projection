@@ -36,7 +36,6 @@ class IHTMLXMLHttpRequestFactory extends IDispatch {
     static VTableNames => ["create"]
 
     /**
-     * 
      * @returns {IHTMLXMLHttpRequest} 
      */
     create() {

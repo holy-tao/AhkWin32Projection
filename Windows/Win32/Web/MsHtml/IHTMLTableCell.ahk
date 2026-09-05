@@ -141,7 +141,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -151,7 +150,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_rowSpan() {
@@ -160,7 +158,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -170,7 +167,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_colSpan() {
@@ -179,7 +175,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -191,7 +186,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -201,7 +195,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -213,7 +206,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {
@@ -223,7 +215,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -233,7 +224,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -243,7 +233,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -253,7 +242,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
@@ -262,7 +250,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -274,7 +261,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -284,7 +270,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -294,7 +279,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {
@@ -304,7 +288,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -314,7 +297,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorLight() {
@@ -324,7 +306,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -334,7 +315,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorDark() {
@@ -344,7 +324,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -354,7 +333,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -364,7 +342,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -374,7 +351,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -384,7 +360,6 @@ class IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_cellIndex() {

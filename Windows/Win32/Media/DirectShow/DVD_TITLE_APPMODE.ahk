@@ -12,19 +12,22 @@ class DVD_TITLE_APPMODE extends Win32Enum {
 
     /**
      * The disc does not provide any application mode information about this title.
+     * Native name: DVD_AppMode_Not_Specified
      * @type {Integer (Int32)}
      */
-    static DVD_AppMode_Not_Specified => 0
+    static AppMode_Not_Specified => 0
 
     /**
      * Title contains karaoke content.
+     * Native name: DVD_AppMode_Karaoke
      * @type {Integer (Int32)}
      */
-    static DVD_AppMode_Karaoke => 1
+    static AppMode_Karaoke => 1
 
     /**
      * Title contains a type of content that the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-navigator-filter">DVD Navigator Filter</a> does not recognize, so the application should treat the title as a regular DVD-Video title.
+     * Native name: DVD_AppMode_Other
      * @type {Integer (Int32)}
      */
-    static DVD_AppMode_Other => 3
+    static AppMode_Other => 3
 }

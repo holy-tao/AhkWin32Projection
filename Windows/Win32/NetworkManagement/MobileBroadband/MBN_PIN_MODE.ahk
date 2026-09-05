@@ -10,13 +10,15 @@ class MBN_PIN_MODE extends Win32Enum {
 
     /**
      * The PIN type is currently enabled.
+     * Native name: MBN_PIN_MODE_ENABLED
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_MODE_ENABLED => 1
+    static ENABLED => 1
 
     /**
      * The PIN type is currently disabled.
+     * Native name: MBN_PIN_MODE_DISABLED
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_MODE_DISABLED => 2
+    static DISABLED => 2
 }

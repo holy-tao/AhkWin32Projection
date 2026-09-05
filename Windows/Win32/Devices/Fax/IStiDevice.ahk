@@ -78,7 +78,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DEV_CAPS>} pDevCaps 
      * @returns {HRESULT} 
      */
@@ -88,7 +87,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DEVICE_STATUS>} pDevStatus 
      * @returns {HRESULT} 
      */
@@ -98,7 +96,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeviceReset() {
@@ -107,7 +104,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
      */
@@ -196,7 +192,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwTimeOut 
      * @returns {HRESULT} 
      */
@@ -206,7 +201,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnLockDevice() {
@@ -215,7 +209,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -229,7 +222,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -241,7 +233,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -255,7 +246,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
@@ -267,7 +257,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STISUBSCRIBE>} lpSubsribe 
      * @returns {HRESULT} 
      */
@@ -277,7 +266,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {STINOTIFY} 
      */
     GetLastNotificationData() {
@@ -287,7 +275,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnSubscribe() {
@@ -296,7 +283,6 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {_ERROR_INFOW} 
      */
     GetLastErrorInfo() {

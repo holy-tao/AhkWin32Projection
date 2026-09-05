@@ -10,25 +10,29 @@ class FlowDirections extends Win32Enum {
 
     /**
      * The default flow direction.
+     * Native name: FlowDirections_Default
      * @type {Integer (Int32)}
      */
-    static FlowDirections_Default => 0
+    static Default => 0
 
     /**
      * The text flows from right to left.
+     * Native name: FlowDirections_RightToLeft
      * @type {Integer (Int32)}
      */
-    static FlowDirections_RightToLeft => 1
+    static RightToLeft => 1
 
     /**
      * The text flows from bottom to top.
+     * Native name: FlowDirections_BottomToTop
      * @type {Integer (Int32)}
      */
-    static FlowDirections_BottomToTop => 2
+    static BottomToTop => 2
 
     /**
      * The text flows vertically.
+     * Native name: FlowDirections_Vertical
      * @type {Integer (Int32)}
      */
-    static FlowDirections_Vertical => 4
+    static Vertical => 4
 }

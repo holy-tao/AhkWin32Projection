@@ -9,25 +9,29 @@
 class X509CertificateEnrollmentContext extends Win32Enum {
 
     /**
+     * Native name: ContextNone
      * @type {Integer (Int32)}
      */
-    static ContextNone => 0
+    static None => 0
 
     /**
      * The certificate is intended for an end user.
+     * Native name: ContextUser
      * @type {Integer (Int32)}
      */
-    static ContextUser => 1
+    static User => 1
 
     /**
      * The certificate is intended for a computer.
+     * Native name: ContextMachine
      * @type {Integer (Int32)}
      */
-    static ContextMachine => 2
+    static Machine => 2
 
     /**
      * The certificate is being requested by an administrator acting on the behalf of a computer.
+     * Native name: ContextAdministratorForceMachine
      * @type {Integer (Int32)}
      */
-    static ContextAdministratorForceMachine => 3
+    static AdministratorForceMachine => 3
 }

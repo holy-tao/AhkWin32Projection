@@ -13,19 +13,22 @@ class WcmSettingType extends Win32Enum {
 
     /**
      * For items of this type, you can call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getdatatype">ISettingsItem::GetDataType</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalue">ISettingsItem::GetValue</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalueraw">ISettingsItem::GetValueRaw</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestriction">ISettingsItem::GetRestriction</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestrictionfacets">ISettingsItem::GetRestrictionFacets</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-setvalue">ISettingsItem::SetValue</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-setvalueraw">ISettingsItem::SetValueRaw</a> methods.
+     * Native name: settingTypeScalar
      * @type {Integer (Int32)}
      */
-    static settingTypeScalar => 1
+    static Scalar => 1
 
     /**
      * Items of this type may have children. You may call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-children">ISettingsItem::Children</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getchild">ISettingsItem::GetChild</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-haschild">ISettingsItem::HasChild</a> methods on this setting type.
+     * Native name: settingTypeComplex
      * @type {Integer (Int32)}
      */
-    static settingTypeComplex => 2
+    static Complex => 2
 
     /**
      * Items of this type may have children. You may call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-children">ISettingsItem::Children</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getchild">ISettingsItem::GetChild</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-haschild">ISettingsItem::HasChild</a> methods on this setting type. You can also call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-createlistelement">ISettingsItem::CreateListElement</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-removelistelement">ISettingsItem::RemoveListElement</a> methods  on children of items of this type.
+     * Native name: settingTypeList
      * @type {Integer (Int32)}
      */
-    static settingTypeList => 3
+    static List => 3
 }

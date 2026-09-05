@@ -7,27 +7,32 @@
 class styleMsScrollSnapType extends Win32Enum {
 
     /**
+     * Native name: styleMsScrollSnapTypeNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsScrollSnapTypeNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleMsScrollSnapTypeNone
      * @type {Integer (Int32)}
      */
-    static styleMsScrollSnapTypeNone => 1
+    static None => 1
 
     /**
+     * Native name: styleMsScrollSnapTypeMandatory
      * @type {Integer (Int32)}
      */
-    static styleMsScrollSnapTypeMandatory => 2
+    static Mandatory => 2
 
     /**
+     * Native name: styleMsScrollSnapTypeProximity
      * @type {Integer (Int32)}
      */
-    static styleMsScrollSnapTypeProximity => 3
+    static Proximity => 3
 
     /**
+     * Native name: styleMsScrollSnapType_Max
      * @type {Integer (Int32)}
      */
-    static styleMsScrollSnapType_Max => 2147483647
+    static Max => 2147483647
 }

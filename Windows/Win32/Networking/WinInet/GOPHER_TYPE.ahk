@@ -7,122 +7,146 @@
 class GOPHER_TYPE extends Win32Enum {
 
     /**
+     * Native name: GOPHER_TYPE_ASK
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_ASK => 1073741824
+    static ASK => 1073741824
 
     /**
+     * Native name: GOPHER_TYPE_BINARY
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_BINARY => 512
+    static BINARY => 512
 
     /**
+     * Native name: GOPHER_TYPE_BITMAP
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_BITMAP => 16384
+    static BITMAP => 16384
 
     /**
+     * Native name: GOPHER_TYPE_CALENDAR
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_CALENDAR => 524288
+    static CALENDAR => 524288
 
     /**
+     * Native name: GOPHER_TYPE_CSO
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_CSO => 4
+    static CSO => 4
 
     /**
+     * Native name: GOPHER_TYPE_DIRECTORY
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_DIRECTORY => 2
+    static DIRECTORY => 2
 
     /**
+     * Native name: GOPHER_TYPE_DOS_ARCHIVE
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_DOS_ARCHIVE => 32
+    static DOS_ARCHIVE => 32
 
     /**
+     * Native name: GOPHER_TYPE_ERROR
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_ERROR => 8
+    static ERROR => 8
 
     /**
+     * Native name: GOPHER_TYPE_GIF
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_GIF => 4096
+    static GIF => 4096
 
     /**
+     * Native name: GOPHER_TYPE_GOPHER_PLUS
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_GOPHER_PLUS => 2147483648
+    static GOPHER_PLUS => 2147483648
 
     /**
+     * Native name: GOPHER_TYPE_HTML
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_HTML => 131072
+    static HTML => 131072
 
     /**
+     * Native name: GOPHER_TYPE_IMAGE
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_IMAGE => 8192
+    static IMAGE => 8192
 
     /**
+     * Native name: GOPHER_TYPE_INDEX_SERVER
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_INDEX_SERVER => 128
+    static INDEX_SERVER => 128
 
     /**
+     * Native name: GOPHER_TYPE_INLINE
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_INLINE => 1048576
+    static INLINE => 1048576
 
     /**
+     * Native name: GOPHER_TYPE_MAC_BINHEX
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_MAC_BINHEX => 16
+    static MAC_BINHEX => 16
 
     /**
+     * Native name: GOPHER_TYPE_MOVIE
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_MOVIE => 32768
+    static MOVIE => 32768
 
     /**
+     * Native name: GOPHER_TYPE_PDF
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_PDF => 262144
+    static PDF => 262144
 
     /**
+     * Native name: GOPHER_TYPE_REDUNDANT
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_REDUNDANT => 1024
+    static REDUNDANT => 1024
 
     /**
+     * Native name: GOPHER_TYPE_SOUND
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_SOUND => 65536
+    static SOUND => 65536
 
     /**
+     * Native name: GOPHER_TYPE_TELNET
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_TELNET => 256
+    static TELNET => 256
 
     /**
+     * Native name: GOPHER_TYPE_TEXT_FILE
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_TEXT_FILE => 1
+    static TEXT_FILE => 1
 
     /**
+     * Native name: GOPHER_TYPE_TN3270
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_TN3270 => 2048
+    static TN3270 => 2048
 
     /**
+     * Native name: GOPHER_TYPE_UNIX_UUENCODED
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_UNIX_UUENCODED => 64
+    static UNIX_UUENCODED => 64
 
     /**
+     * Native name: GOPHER_TYPE_UNKNOWN
      * @type {Integer (UInt32)}
      */
-    static GOPHER_TYPE_UNKNOWN => 536870912
+    static UNKNOWN => 536870912
 }

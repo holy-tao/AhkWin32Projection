@@ -12,7 +12,8 @@ class SendToMode extends Win32Enum {
 
     /**
      * The file is faxed as it is. The user cannot add typed material preceding it or following it.
+     * Native name: SEND_TO_FAX_RECIPIENT_ATTACHMENT
      * @type {Integer (Int32)}
      */
-    static SEND_TO_FAX_RECIPIENT_ATTACHMENT => 0
+    static FAX_RECIPIENT_ATTACHMENT => 0
 }

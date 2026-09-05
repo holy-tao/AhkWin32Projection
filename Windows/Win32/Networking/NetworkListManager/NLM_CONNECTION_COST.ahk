@@ -12,49 +12,57 @@ class NLM_CONNECTION_COST extends Win32Enum {
 
     /**
      * The cost is unknown.
+     * Native name: NLM_CONNECTION_COST_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The connection is unlimited and is considered to be unrestricted of usage charges and capacity constraints.
+     * Native name: NLM_CONNECTION_COST_UNRESTRICTED
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_UNRESTRICTED => 1
+    static UNRESTRICTED => 1
 
     /**
      * The use of this connection is unrestricted up to a specific data transfer limit.
+     * Native name: NLM_CONNECTION_COST_FIXED
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_FIXED => 2
+    static FIXED => 2
 
     /**
      * This connection is regulated on a per byte basis.
+     * Native name: NLM_CONNECTION_COST_VARIABLE
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_VARIABLE => 4
+    static VARIABLE => 4
 
     /**
      * The connection is currently in an OverDataLimit state as it has exceeded the carrier specified data transfer limit.
+     * Native name: NLM_CONNECTION_COST_OVERDATALIMIT
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_OVERDATALIMIT => 65536
+    static OVERDATALIMIT => 65536
 
     /**
      * The network is experiencing high traffic load and is congested.
+     * Native name: NLM_CONNECTION_COST_CONGESTED
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_CONGESTED => 131072
+    static CONGESTED => 131072
 
     /**
      * The connection is roaming outside the network and  affiliates of the home provider.
+     * Native name: NLM_CONNECTION_COST_ROAMING
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_ROAMING => 262144
+    static ROAMING => 262144
 
     /**
      * The connection is approaching the data limit specified by the carrier.
+     * Native name: NLM_CONNECTION_COST_APPROACHINGDATALIMIT
      * @type {Integer (Int32)}
      */
-    static NLM_CONNECTION_COST_APPROACHINGDATALIMIT => 524288
+    static APPROACHINGDATALIMIT => 524288
 }

@@ -7,92 +7,110 @@
 class DISPID_SpeechRecoContextEvents extends Win32Enum {
 
     /**
+     * Native name: DISPID_SRCEStartStream
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEStartStream => 1
+    static SRCEStartStream => 1
 
     /**
+     * Native name: DISPID_SRCEEndStream
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEEndStream => 2
+    static SRCEEndStream => 2
 
     /**
+     * Native name: DISPID_SRCEBookmark
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEBookmark => 3
+    static SRCEBookmark => 3
 
     /**
+     * Native name: DISPID_SRCESoundStart
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCESoundStart => 4
+    static SRCESoundStart => 4
 
     /**
+     * Native name: DISPID_SRCESoundEnd
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCESoundEnd => 5
+    static SRCESoundEnd => 5
 
     /**
+     * Native name: DISPID_SRCEPhraseStart
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEPhraseStart => 6
+    static SRCEPhraseStart => 6
 
     /**
+     * Native name: DISPID_SRCERecognition
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCERecognition => 7
+    static SRCERecognition => 7
 
     /**
+     * Native name: DISPID_SRCEHypothesis
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEHypothesis => 8
+    static SRCEHypothesis => 8
 
     /**
+     * Native name: DISPID_SRCEPropertyNumberChange
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEPropertyNumberChange => 9
+    static SRCEPropertyNumberChange => 9
 
     /**
+     * Native name: DISPID_SRCEPropertyStringChange
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEPropertyStringChange => 10
+    static SRCEPropertyStringChange => 10
 
     /**
+     * Native name: DISPID_SRCEFalseRecognition
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEFalseRecognition => 11
+    static SRCEFalseRecognition => 11
 
     /**
+     * Native name: DISPID_SRCEInterference
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEInterference => 12
+    static SRCEInterference => 12
 
     /**
+     * Native name: DISPID_SRCERequestUI
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCERequestUI => 13
+    static SRCERequestUI => 13
 
     /**
+     * Native name: DISPID_SRCERecognizerStateChange
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCERecognizerStateChange => 14
+    static SRCERecognizerStateChange => 14
 
     /**
+     * Native name: DISPID_SRCEAdaptation
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEAdaptation => 15
+    static SRCEAdaptation => 15
 
     /**
+     * Native name: DISPID_SRCERecognitionForOtherContext
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCERecognitionForOtherContext => 16
+    static SRCERecognitionForOtherContext => 16
 
     /**
+     * Native name: DISPID_SRCEAudioLevel
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEAudioLevel => 17
+    static SRCEAudioLevel => 17
 
     /**
+     * Native name: DISPID_SRCEEnginePrivate
      * @type {Integer (Int32)}
      */
-    static DISPID_SRCEEnginePrivate => 18
+    static SRCEEnginePrivate => 18
 }

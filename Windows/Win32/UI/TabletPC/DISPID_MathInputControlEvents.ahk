@@ -7,22 +7,26 @@
 class DISPID_MathInputControlEvents extends Win32Enum {
 
     /**
+     * Native name: DISPID_MICInsert
      * @type {Integer (Int32)}
      */
-    static DISPID_MICInsert => 0
+    static MICInsert => 0
 
     /**
+     * Native name: DISPID_MICClose
      * @type {Integer (Int32)}
      */
-    static DISPID_MICClose => 1
+    static MICClose => 1
 
     /**
+     * Native name: DISPID_MICPaint
      * @type {Integer (Int32)}
      */
-    static DISPID_MICPaint => 2
+    static MICPaint => 2
 
     /**
+     * Native name: DISPID_MICClear
      * @type {Integer (Int32)}
      */
-    static DISPID_MICClear => 3
+    static MICClear => 3
 }

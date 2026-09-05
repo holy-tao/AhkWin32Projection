@@ -30,7 +30,6 @@ class ILearningModelOperatorProviderNative extends IUnknown {
     static VTableNames => ["GetRegistry"]
 
     /**
-     * 
      * @returns {IMLOperatorRegistry} 
      */
     GetRegistry() {

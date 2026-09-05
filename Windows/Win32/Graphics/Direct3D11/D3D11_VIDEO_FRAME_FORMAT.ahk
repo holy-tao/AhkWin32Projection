@@ -10,19 +10,22 @@ class D3D11_VIDEO_FRAME_FORMAT extends Win32Enum {
 
     /**
      * Frames are progressive.
+     * Native name: D3D11_VIDEO_FRAME_FORMAT_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_FRAME_FORMAT_PROGRESSIVE => 0
+    static PROGRESSIVE => 0
 
     /**
      * Frames are interlaced. The top field of each frame is displayed first.
+     * Native name: D3D11_VIDEO_FRAME_FORMAT_INTERLACED_TOP_FIELD_FIRST
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_FRAME_FORMAT_INTERLACED_TOP_FIELD_FIRST => 1
+    static INTERLACED_TOP_FIELD_FIRST => 1
 
     /**
      * Frame are interlaced. The bottom field of each frame is displayed first.
+     * Native name: D3D11_VIDEO_FRAME_FORMAT_INTERLACED_BOTTOM_FIELD_FIRST
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_FRAME_FORMAT_INTERLACED_BOTTOM_FIELD_FIRST => 2
+    static INTERLACED_BOTTOM_FIELD_FIRST => 2
 }

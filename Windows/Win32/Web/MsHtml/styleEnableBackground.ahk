@@ -7,27 +7,32 @@
 class styleEnableBackground extends Win32Enum {
 
     /**
+     * Native name: styleEnableBackgroundNotSet
      * @type {Integer (Int32)}
      */
-    static styleEnableBackgroundNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleEnableBackgroundAccumulate
      * @type {Integer (Int32)}
      */
-    static styleEnableBackgroundAccumulate => 1
+    static Accumulate => 1
 
     /**
+     * Native name: styleEnableBackgroundNew
      * @type {Integer (Int32)}
      */
-    static styleEnableBackgroundNew => 2
+    static New => 2
 
     /**
+     * Native name: styleEnableBackgroundInherit
      * @type {Integer (Int32)}
      */
-    static styleEnableBackgroundInherit => 3
+    static Inherit => 3
 
     /**
+     * Native name: styleEnableBackground_Max
      * @type {Integer (Int32)}
      */
-    static styleEnableBackground_Max => 2147483647
+    static Max => 2147483647
 }

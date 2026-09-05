@@ -10,13 +10,15 @@ class APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE extends Win32Enum {
 
     /**
      * The package is an app.
+     * Native name: APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_APPLICATION
      * @type {Integer (Int32)}
      */
-    static APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_APPLICATION => 0
+    static APPLICATION => 0
 
     /**
      * The package is a resource.
+     * Native name: APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_RESOURCE
      * @type {Integer (Int32)}
      */
-    static APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_RESOURCE => 1
+    static RESOURCE => 1
 }

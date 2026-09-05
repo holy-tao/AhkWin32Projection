@@ -7,7 +7,8 @@
 class KSEVENT_BDA_EVENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_BDA_EVENT_PENDINGEVENT
      * @type {Integer (Int32)}
      */
-    static KSEVENT_BDA_EVENT_PENDINGEVENT => 0
+    static PENDINGEVENT => 0
 }

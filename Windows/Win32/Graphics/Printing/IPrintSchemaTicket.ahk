@@ -41,7 +41,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKeyName 
      * @returns {IPrintSchemaFeature} 
      */
@@ -53,7 +52,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
@@ -67,7 +65,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaAsyncOperation} 
      */
     ValidateAsync() {
@@ -76,7 +73,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {IPrintSchemaTicket} pPrintTicketCommit 
      * @returns {IPrintSchemaAsyncOperation} 
      */
@@ -86,7 +82,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyXmlChanged() {
@@ -95,7 +90,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaCapabilities} 
      */
     GetCapabilities() {
@@ -104,7 +98,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JobCopiesAllDocuments() {
@@ -113,7 +106,6 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {Integer} ulJobCopiesAllDocuments 
      * @returns {HRESULT} 
      */

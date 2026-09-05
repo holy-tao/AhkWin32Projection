@@ -31,7 +31,6 @@ class IAppxManifestCapabilitiesEnumerator extends IUnknown {
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetCurrent() {
@@ -40,7 +39,6 @@ class IAppxManifestCapabilitiesEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetHasCurrent() {
@@ -49,7 +47,6 @@ class IAppxManifestCapabilitiesEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     MoveNext() {

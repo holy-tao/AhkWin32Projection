@@ -30,7 +30,6 @@ class ICustomFilterInfo extends ISyncFilterInfo {
     static VTableNames => ["GetSyncFilter"]
 
     /**
-     * 
      * @returns {ISyncFilter} 
      */
     GetSyncFilter() {

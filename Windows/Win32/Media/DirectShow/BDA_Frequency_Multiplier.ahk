@@ -7,12 +7,14 @@
 class BDA_Frequency_Multiplier extends Win32Enum {
 
     /**
+     * Native name: BDA_FREQUENCY_MULTIPLIER_NOT_SET
      * @type {Integer (Int32)}
      */
-    static BDA_FREQUENCY_MULTIPLIER_NOT_SET => -1
+    static NOT_SET => -1
 
     /**
+     * Native name: BDA_FREQUENCY_MULTIPLIER_NOT_DEFINED
      * @type {Integer (Int32)}
      */
-    static BDA_FREQUENCY_MULTIPLIER_NOT_DEFINED => 0
+    static NOT_DEFINED => 0
 }

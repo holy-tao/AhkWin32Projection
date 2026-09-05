@@ -7,12 +7,14 @@
 class EContextType extends Win32Enum {
 
     /**
+     * Native name: eCurrentContext
      * @type {Integer (Int32)}
      */
-    static eCurrentContext => 0
+    static CurrentContext => 0
 
     /**
+     * Native name: eRestrictedContext
      * @type {Integer (Int32)}
      */
-    static eRestrictedContext => 1
+    static RestrictedContext => 1
 }

@@ -14,13 +14,15 @@ class SEARCH_NOTIFICATION_PRIORITY extends Win32Enum {
 
     /**
      * The changed item is added to the end of the indexer's queue.
+     * Native name: SEARCH_NORMAL_PRIORITY
      * @type {Integer (Int32)}
      */
-    static SEARCH_NORMAL_PRIORITY => 0
+    static NORMAL_PRIORITY => 0
 
     /**
      * The changed item is placed ahead of other queued items in the indexer's queue, to be processed as soon as possible.
+     * Native name: SEARCH_HIGH_PRIORITY
      * @type {Integer (Int32)}
      */
-    static SEARCH_HIGH_PRIORITY => 1
+    static HIGH_PRIORITY => 1
 }

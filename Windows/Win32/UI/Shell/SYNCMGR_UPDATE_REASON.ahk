@@ -7,22 +7,26 @@
 class SYNCMGR_UPDATE_REASON extends Win32Enum {
 
     /**
+     * Native name: SYNCMGR_UR_ADDED
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_UR_ADDED => 0
+    static UR_ADDED => 0
 
     /**
+     * Native name: SYNCMGR_UR_CHANGED
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_UR_CHANGED => 1
+    static UR_CHANGED => 1
 
     /**
+     * Native name: SYNCMGR_UR_REMOVED
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_UR_REMOVED => 2
+    static UR_REMOVED => 2
 
     /**
+     * Native name: SYNCMGR_UR_MAX
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_UR_MAX => 2
+    static UR_MAX => 2
 }

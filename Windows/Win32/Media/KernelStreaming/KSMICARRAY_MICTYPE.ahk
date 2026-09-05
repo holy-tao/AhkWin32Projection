@@ -7,37 +7,44 @@
 class KSMICARRAY_MICTYPE extends Win32Enum {
 
     /**
+     * Native name: KSMICARRAY_MICTYPE_OMNIDIRECTIONAL
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICTYPE_OMNIDIRECTIONAL => 0
+    static OMNIDIRECTIONAL => 0
 
     /**
+     * Native name: KSMICARRAY_MICTYPE_SUBCARDIOID
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICTYPE_SUBCARDIOID => 1
+    static SUBCARDIOID => 1
 
     /**
+     * Native name: KSMICARRAY_MICTYPE_CARDIOID
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICTYPE_CARDIOID => 2
+    static CARDIOID => 2
 
     /**
+     * Native name: KSMICARRAY_MICTYPE_SUPERCARDIOID
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICTYPE_SUPERCARDIOID => 3
+    static SUPERCARDIOID => 3
 
     /**
+     * Native name: KSMICARRAY_MICTYPE_HYPERCARDIOID
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICTYPE_HYPERCARDIOID => 4
+    static HYPERCARDIOID => 4
 
     /**
+     * Native name: KSMICARRAY_MICTYPE_8SHAPED
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICTYPE_8SHAPED => 5
+    static 8SHAPED => 5
 
     /**
+     * Native name: KSMICARRAY_MICTYPE_VENDORDEFINED
      * @type {Integer (Int32)}
      */
-    static KSMICARRAY_MICTYPE_VENDORDEFINED => 15
+    static VENDORDEFINED => 15
 }

@@ -35,25 +35,29 @@ class DOT11_ADHOC_CIPHER_ALGORITHM extends Win32Enum {
 
     /**
      * The cipher algorithm specified is invalid.
+     * Native name: DOT11_ADHOC_CIPHER_ALGO_INVALID
      * @type {Integer (Int32)}
      */
-    static DOT11_ADHOC_CIPHER_ALGO_INVALID => -1
+    static ALGO_INVALID => -1
 
     /**
      * Specifies that no cipher algorithm is enabled or supported.
+     * Native name: DOT11_ADHOC_CIPHER_ALGO_NONE
      * @type {Integer (Int32)}
      */
-    static DOT11_ADHOC_CIPHER_ALGO_NONE => 0
+    static ALGO_NONE => 0
 
     /**
      * Specifies a Counter Mode with Cipher Block Chaining Message Authentication Code Protocol (CCMP) algorithm. The CCMP algorithm is specified in the IEEE 802.11i-2004 standard and RFC 3610. CCMP is used with the Advanced Encryption Standard (AES) encryption algorithm, as defined in FIPS PUB 197.
+     * Native name: DOT11_ADHOC_CIPHER_ALGO_CCMP
      * @type {Integer (Int32)}
      */
-    static DOT11_ADHOC_CIPHER_ALGO_CCMP => 4
+    static ALGO_CCMP => 4
 
     /**
      * Specifies a Wired Equivalent Privacy (WEP) algorithm of any length.
+     * Native name: DOT11_ADHOC_CIPHER_ALGO_WEP
      * @type {Integer (Int32)}
      */
-    static DOT11_ADHOC_CIPHER_ALGO_WEP => 257
+    static ALGO_WEP => 257
 }

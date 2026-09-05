@@ -30,7 +30,6 @@ class IDirectSoundFXDistortion extends IUnknown {
     static VTableNames => ["SetAllParameters", "GetAllParameters"]
 
     /**
-     * 
      * @param {Pointer<DSFXDistortion>} pcDsFxDistortion 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDirectSoundFXDistortion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXDistortion} 
      */
     GetAllParameters() {

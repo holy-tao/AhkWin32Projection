@@ -14,48 +14,56 @@ class APO_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
      * None.
+     * Native name: APO_NOTIFICATION_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * Endpoint volume notification.
+     * Native name: APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME => 1
+    static ENDPOINT_VOLUME => 1
 
     /**
      * Endpoint property change notification.
+     * Native name: APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE => 2
+    static ENDPOINT_PROPERTY_CHANGE => 2
 
     /**
      * System effects property change notification.
+     * Native name: APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE => 3
+    static SYSTEM_EFFECTS_PROPERTY_CHANGE => 3
 
     /**
      * Endpoint volume notification for an endpoint that includes master and channel volume, in dB.
+     * Native name: APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2 => 4
+    static ENDPOINT_VOLUME2 => 4
 
     /**
      * Display orientation notification for the device.
+     * Native name: APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION => 5
+    static DEVICE_ORIENTATION => 5
 
     /**
      * Microphone boost notification.
+     * Native name: APO_NOTIFICATION_TYPE_MICROPHONE_BOOST
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_MICROPHONE_BOOST => 6
+    static MICROPHONE_BOOST => 6
 
     /**
+     * Native name: APO_NOTIFICATION_TYPE_AUDIO_ENVIRONMENT_STATE_CHANGE
      * @type {Integer (Int32)}
      */
-    static APO_NOTIFICATION_TYPE_AUDIO_ENVIRONMENT_STATE_CHANGE => 7
+    static AUDIO_ENVIRONMENT_STATE_CHANGE => 7
 }

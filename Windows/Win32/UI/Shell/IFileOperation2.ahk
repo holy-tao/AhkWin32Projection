@@ -30,7 +30,6 @@ class IFileOperation2 extends IFileOperation {
     static VTableNames => ["SetOperationFlags2"]
 
     /**
-     * 
      * @param {FILE_OPERATION_FLAGS2} operationFlags2 
      * @returns {HRESULT} 
      */

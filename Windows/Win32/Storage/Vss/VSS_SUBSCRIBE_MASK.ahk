@@ -23,9 +23,10 @@ class VSS_SUBSCRIBE_MASK extends Win32Enum {
      * Specifies that the writer expects to be notified after the shadow copy it is participating in has completed. 
      *        It will then call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a>.
+     * Native name: VSS_SM_POST_SNAPSHOT_FLAG
      * @type {Integer (Int32)}
      */
-    static VSS_SM_POST_SNAPSHOT_FLAG => 1
+    static SM_POST_SNAPSHOT_FLAG => 1
 
     /**
      * Currently, <b>VSS_SM_BACKUP_EVENTS_FLAG</b> can be used as an argument only when 
@@ -48,9 +49,10 @@ class VSS_SUBSCRIBE_MASK extends Win32Enum {
      * <li>A PostSnapshot event when the writer will call 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a>.</li>
      * </ul>
+     * Native name: VSS_SM_BACKUP_EVENTS_FLAG
      * @type {Integer (Int32)}
      */
-    static VSS_SM_BACKUP_EVENTS_FLAG => 2
+    static SM_BACKUP_EVENTS_FLAG => 2
 
     /**
      * Currently, <b>VSS_SM_RESTORE_EVENTS_FLAG</b> can be used as an argument only when 
@@ -65,22 +67,25 @@ class VSS_SUBSCRIBE_MASK extends Win32Enum {
      * <li>A PostRestore event when the writer will call 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostrestore">CVssWriter::OnPostRestore</a>.</li>
      * </ul>
+     * Native name: VSS_SM_RESTORE_EVENTS_FLAG
      * @type {Integer (Int32)}
      */
-    static VSS_SM_RESTORE_EVENTS_FLAG => 4
+    static SM_RESTORE_EVENTS_FLAG => 4
 
     /**
      * This enumeration value is reserved for future use.
+     * Native name: VSS_SM_IO_THROTTLING_FLAG
      * @type {Integer (Int32)}
      */
-    static VSS_SM_IO_THROTTLING_FLAG => 8
+    static SM_IO_THROTTLING_FLAG => 8
 
     /**
      * This enumeration value is reserved for future use. 
      *       
      * 
      * Specifies that the writer expects to be notified for all events.
+     * Native name: VSS_SM_ALL_FLAGS
      * @type {Integer (Int32)}
      */
-    static VSS_SM_ALL_FLAGS => -1
+    static SM_ALL_FLAGS => -1
 }

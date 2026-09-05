@@ -7,17 +7,20 @@
 class ESymbolReadingPolicy extends Win32Enum {
 
     /**
+     * Native name: eSymbolReadingNever
      * @type {Integer (Int32)}
      */
-    static eSymbolReadingNever => 0
+    static Never => 0
 
     /**
+     * Native name: eSymbolReadingAlways
      * @type {Integer (Int32)}
      */
-    static eSymbolReadingAlways => 1
+    static Always => 1
 
     /**
+     * Native name: eSymbolReadingFullTrustOnly
      * @type {Integer (Int32)}
      */
-    static eSymbolReadingFullTrustOnly => 2
+    static FullTrustOnly => 2
 }

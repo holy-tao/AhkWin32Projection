@@ -7,17 +7,20 @@
 class POINTER_GRAVITY extends Win32Enum {
 
     /**
+     * Native name: POINTER_GRAVITY_Left
      * @type {Integer (Int32)}
      */
-    static POINTER_GRAVITY_Left => 0
+    static Left => 0
 
     /**
+     * Native name: POINTER_GRAVITY_Right
      * @type {Integer (Int32)}
      */
-    static POINTER_GRAVITY_Right => 1
+    static Right => 1
 
     /**
+     * Native name: POINTER_GRAVITY_Max
      * @type {Integer (Int32)}
      */
-    static POINTER_GRAVITY_Max => 2147483647
+    static Max => 2147483647
 }

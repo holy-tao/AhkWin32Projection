@@ -36,7 +36,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     static VTableNames => ["RegisterDriverUpdateListener", "UnregisterDriverUpdateListener", "RegisterServiceDriverUpdateTrigger", "UnregisterServiceDriverUpdateTrigger", "RegisterApplication", "RemoveApplication", "GetApplicationCount", "GetApplication", "ClearAllState", "GetMaxPrecompileTargetCount", "GetPrecompileTargets"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RegisterDriverUpdateListener() {
@@ -45,7 +44,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnregisterDriverUpdateListener() {
@@ -54,7 +52,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {SC_HANDLE} hServiceHandle 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {SC_HANDLE} hServiceHandle 
      * @returns {HRESULT} 
      */
@@ -78,7 +74,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pExePath 
      * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Guid>} riid 
@@ -92,7 +87,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3DShaderCacheApplication} pApplication 
      * @returns {HRESULT} 
      */
@@ -102,7 +96,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetApplicationCount() {
@@ -111,7 +104,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -122,7 +114,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearAllState() {
@@ -131,7 +122,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxPrecompileTargetCount() {
@@ -140,7 +130,6 @@ class ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Integer>} pArraySize 
      * @param {D3D_SHADER_CACHE_TARGET_FLAGS} flags 

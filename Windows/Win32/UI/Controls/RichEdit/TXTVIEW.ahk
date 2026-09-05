@@ -7,12 +7,14 @@
 class TXTVIEW extends Win32Enum {
 
     /**
+     * Native name: TXTVIEW_ACTIVE
      * @type {Integer (Int32)}
      */
-    static TXTVIEW_ACTIVE => 0
+    static ACTIVE => 0
 
     /**
+     * Native name: TXTVIEW_INACTIVE
      * @type {Integer (Int32)}
      */
-    static TXTVIEW_INACTIVE => -1
+    static INACTIVE => -1
 }

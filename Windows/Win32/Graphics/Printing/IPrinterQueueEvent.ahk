@@ -30,7 +30,6 @@ class IPrinterQueueEvent extends IDispatch {
     static VTableNames => ["OnBidiResponseReceived"]
 
     /**
-     * 
      * @param {BSTR} bstrResponse 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 

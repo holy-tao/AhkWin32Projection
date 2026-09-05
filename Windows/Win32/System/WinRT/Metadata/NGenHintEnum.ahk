@@ -7,22 +7,26 @@
 class NGenHintEnum extends Win32Enum {
 
     /**
+     * Native name: NGenDefault
      * @type {Integer (Int32)}
      */
-    static NGenDefault => 0
+    static Default => 0
 
     /**
+     * Native name: NGenEager
      * @type {Integer (Int32)}
      */
-    static NGenEager => 1
+    static Eager => 1
 
     /**
+     * Native name: NGenLazy
      * @type {Integer (Int32)}
      */
-    static NGenLazy => 2
+    static Lazy => 2
 
     /**
+     * Native name: NGenNever
      * @type {Integer (Int32)}
      */
-    static NGenNever => 3
+    static Never => 3
 }

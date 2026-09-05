@@ -7,22 +7,26 @@
 class USBD_PIPE_TYPE extends Win32Enum {
 
     /**
+     * Native name: UsbdPipeTypeControl
      * @type {Integer (Int32)}
      */
-    static UsbdPipeTypeControl => 0
+    static Control => 0
 
     /**
+     * Native name: UsbdPipeTypeIsochronous
      * @type {Integer (Int32)}
      */
-    static UsbdPipeTypeIsochronous => 1
+    static Isochronous => 1
 
     /**
+     * Native name: UsbdPipeTypeBulk
      * @type {Integer (Int32)}
      */
-    static UsbdPipeTypeBulk => 2
+    static Bulk => 2
 
     /**
+     * Native name: UsbdPipeTypeInterrupt
      * @type {Integer (Int32)}
      */
-    static UsbdPipeTypeInterrupt => 3
+    static Interrupt => 3
 }

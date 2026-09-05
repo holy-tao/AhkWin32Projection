@@ -10,43 +10,50 @@ class DWRITE_PANOSE_ASPECT_RATIO extends Win32Enum {
 
     /**
      * Any aspect ratio.
+     * Native name: DWRITE_PANOSE_ASPECT_RATIO_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_RATIO_ANY => 0
+    static ANY => 0
 
     /**
      * No fit for aspect ratio.
+     * Native name: DWRITE_PANOSE_ASPECT_RATIO_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_RATIO_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Very condensed aspect ratio.
+     * Native name: DWRITE_PANOSE_ASPECT_RATIO_VERY_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_RATIO_VERY_CONDENSED => 2
+    static VERY_CONDENSED => 2
 
     /**
      * Condensed aspect ratio.
+     * Native name: DWRITE_PANOSE_ASPECT_RATIO_CONDENSED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_RATIO_CONDENSED => 3
+    static CONDENSED => 3
 
     /**
      * Normal aspect ratio.
+     * Native name: DWRITE_PANOSE_ASPECT_RATIO_NORMAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_RATIO_NORMAL => 4
+    static NORMAL => 4
 
     /**
      * Expanded aspect ratio.
+     * Native name: DWRITE_PANOSE_ASPECT_RATIO_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_RATIO_EXPANDED => 5
+    static EXPANDED => 5
 
     /**
      * Very expanded aspect ratio.
+     * Native name: DWRITE_PANOSE_ASPECT_RATIO_VERY_EXPANDED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_ASPECT_RATIO_VERY_EXPANDED => 6
+    static VERY_EXPANDED => 6
 }

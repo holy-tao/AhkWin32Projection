@@ -31,7 +31,6 @@ class ICommandCost extends IUnknown {
     static VTableNames => ["GetAccumulatedCost", "GetCostEstimate", "GetCostGoals", "GetCostLimits", "SetCostGoals", "SetCostLimits"]
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostLimits 
      * @returns {Pointer<DBCOST>} 
@@ -46,7 +45,6 @@ class ICommandCost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostEstimates 
      * @param {Pointer<DBCOST>} prgCostEstimates 
@@ -62,7 +60,6 @@ class ICommandCost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostGoals 
      * @param {Pointer<DBCOST>} prgCostGoals 
@@ -78,7 +75,6 @@ class ICommandCost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostLimits 
      * @param {Pointer<DBCOST>} prgCostLimits 
@@ -94,7 +90,6 @@ class ICommandCost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Integer} cCostGoals 
      * @param {Pointer<DBCOST>} rgCostGoals 
@@ -108,7 +103,6 @@ class ICommandCost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Integer} cCostLimits 
      * @param {Pointer<DBCOST>} prgCostLimits 

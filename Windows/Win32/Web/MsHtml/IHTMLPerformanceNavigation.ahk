@@ -51,7 +51,6 @@ class IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -60,7 +59,6 @@ class IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_redirectCount() {
@@ -69,7 +67,6 @@ class IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -79,7 +76,6 @@ class IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     toJSON() {

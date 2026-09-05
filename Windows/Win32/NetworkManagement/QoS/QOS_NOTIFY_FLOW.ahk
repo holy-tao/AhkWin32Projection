@@ -10,19 +10,22 @@ class QOS_NOTIFY_FLOW extends Win32Enum {
 
     /**
      * Notifications will be sent when congestion is detected.  If the flow is currently congested, a notification may be sent immediately.
+     * Native name: QOSNotifyCongested
      * @type {Integer (Int32)}
      */
-    static QOSNotifyCongested => 0
+    static Congested => 0
 
     /**
      * Notifications will be sent when the flow is not congested.  If the flow is currently uncongested, a notification may be sent immediately.
+     * Native name: QOSNotifyUncongested
      * @type {Integer (Int32)}
      */
-    static QOSNotifyUncongested => 1
+    static Uncongested => 1
 
     /**
      * Notifications will be sent when the flow's available capacity is sufficient to allow upgrading its bandwidth to a specified capacity.
+     * Native name: QOSNotifyAvailable
      * @type {Integer (Int32)}
      */
-    static QOSNotifyAvailable => 2
+    static Available => 2
 }

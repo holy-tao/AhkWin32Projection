@@ -7,12 +7,14 @@
 class NFC_SE_EMULATION_MODE extends Win32Enum {
 
     /**
+     * Native name: EmulationDisabled
      * @type {Integer (Int32)}
      */
-    static EmulationDisabled => 0
+    static Disabled => 0
 
     /**
+     * Native name: EmulationEnabled
      * @type {Integer (Int32)}
      */
-    static EmulationEnabled => 1
+    static Enabled => 1
 }

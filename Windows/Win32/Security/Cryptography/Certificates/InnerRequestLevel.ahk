@@ -10,13 +10,15 @@ class InnerRequestLevel extends Win32Enum {
 
     /**
      * Use to retrieve the most deeply nested request.
+     * Native name: LevelInnermost
      * @type {Integer (Int32)}
      */
-    static LevelInnermost => 0
+    static Innermost => 0
 
     /**
      * Use to retrieve the request at the next nesting level.
+     * Native name: LevelNext
      * @type {Integer (Int32)}
      */
-    static LevelNext => 1
+    static Next => 1
 }

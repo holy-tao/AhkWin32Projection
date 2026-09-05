@@ -7,12 +7,14 @@
 class MF_CAPTURE_ENGINE_AUDIO_PROCESSING_MODE extends Win32Enum {
 
     /**
+     * Native name: MF_CAPTURE_ENGINE_AUDIO_PROCESSING_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_AUDIO_PROCESSING_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: MF_CAPTURE_ENGINE_AUDIO_PROCESSING_RAW
      * @type {Integer (Int32)}
      */
-    static MF_CAPTURE_ENGINE_AUDIO_PROCESSING_RAW => 1
+    static RAW => 1
 }

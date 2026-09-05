@@ -7,12 +7,14 @@
 class FORK_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: FORK_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static FORK_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: FORK_VIRTUAL_DISK_FLAG_EXISTING_FILE
      * @type {Integer (Int32)}
      */
-    static FORK_VIRTUAL_DISK_FLAG_EXISTING_FILE => 1
+    static EXISTING_FILE => 1
 }

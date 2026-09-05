@@ -37,7 +37,6 @@ class AsyncIFtpPreprocessProvider extends IUnknown {
     static VTableNames => ["Begin_HandlePreprocess", "Finish_HandlePreprocess"]
 
     /**
-     * 
      * @param {Pointer<PRE_PROCESS_PARAMETERS>} pPreProcessParameters 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ class AsyncIFtpPreprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FTP_PROCESS_STATUS} 
      */
     Finish_HandlePreprocess() {

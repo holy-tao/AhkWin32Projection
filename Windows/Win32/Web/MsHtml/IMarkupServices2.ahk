@@ -34,7 +34,6 @@ class IMarkupServices2 extends IMarkupServices {
     static VTableNames => ["ParseGlobalEx", "ValidateElements", "SaveSegmentsToClipboard"]
 
     /**
-     * 
      * @param {HGLOBAL} hglobalHTML 
      * @param {Integer} dwFlags 
      * @param {IMarkupContainer} pContext 
@@ -50,7 +49,6 @@ class IMarkupServices2 extends IMarkupServices {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
      * @param {IMarkupPointer} pPointerTarget 
@@ -65,7 +63,6 @@ class IMarkupServices2 extends IMarkupServices {
     }
 
     /**
-     * 
      * @param {ISegmentList} pSegmentList 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 

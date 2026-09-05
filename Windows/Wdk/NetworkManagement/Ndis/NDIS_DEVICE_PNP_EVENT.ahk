@@ -7,37 +7,44 @@
 class NDIS_DEVICE_PNP_EVENT extends Win32Enum {
 
     /**
+     * Native name: NdisDevicePnPEventQueryRemoved
      * @type {Integer (Int32)}
      */
-    static NdisDevicePnPEventQueryRemoved => 0
+    static PnPEventQueryRemoved => 0
 
     /**
+     * Native name: NdisDevicePnPEventRemoved
      * @type {Integer (Int32)}
      */
-    static NdisDevicePnPEventRemoved => 1
+    static PnPEventRemoved => 1
 
     /**
+     * Native name: NdisDevicePnPEventSurpriseRemoved
      * @type {Integer (Int32)}
      */
-    static NdisDevicePnPEventSurpriseRemoved => 2
+    static PnPEventSurpriseRemoved => 2
 
     /**
+     * Native name: NdisDevicePnPEventQueryStopped
      * @type {Integer (Int32)}
      */
-    static NdisDevicePnPEventQueryStopped => 3
+    static PnPEventQueryStopped => 3
 
     /**
+     * Native name: NdisDevicePnPEventStopped
      * @type {Integer (Int32)}
      */
-    static NdisDevicePnPEventStopped => 4
+    static PnPEventStopped => 4
 
     /**
+     * Native name: NdisDevicePnPEventPowerProfileChanged
      * @type {Integer (Int32)}
      */
-    static NdisDevicePnPEventPowerProfileChanged => 5
+    static PnPEventPowerProfileChanged => 5
 
     /**
+     * Native name: NdisDevicePnPEventMaximum
      * @type {Integer (Int32)}
      */
-    static NdisDevicePnPEventMaximum => 6
+    static PnPEventMaximum => 6
 }

@@ -43,7 +43,6 @@ class IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plId 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,6 @@ class IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} _lItem 
      * @returns {IWMPDownloadItem2} 
      */
@@ -77,7 +74,6 @@ class IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSourceURL 
      * @param {BSTR} bstrType 
      * @returns {IWMPDownloadItem2} 
@@ -91,7 +87,6 @@ class IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} _lItem 
      * @returns {HRESULT} 
      */

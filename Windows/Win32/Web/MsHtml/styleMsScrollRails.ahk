@@ -7,22 +7,26 @@
 class styleMsScrollRails extends Win32Enum {
 
     /**
+     * Native name: styleMsScrollRailsNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsScrollRailsNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleMsScrollRailsNone
      * @type {Integer (Int32)}
      */
-    static styleMsScrollRailsNone => 1
+    static None => 1
 
     /**
+     * Native name: styleMsScrollRailsRailed
      * @type {Integer (Int32)}
      */
-    static styleMsScrollRailsRailed => 2
+    static Railed => 2
 
     /**
+     * Native name: styleMsScrollRails_Max
      * @type {Integer (Int32)}
      */
-    static styleMsScrollRails_Max => 2147483647
+    static Max => 2147483647
 }

@@ -45,36 +45,42 @@ class MFVideoMixPrefs extends Win32Enum {
 
     /**
      * Force the EVR  to skip the second field (in temporal order) of every interlaced frame.
+     * Native name: MFVideoMixPrefs_ForceHalfInterlace
      * @type {Integer (Int32)}
      */
-    static MFVideoMixPrefs_ForceHalfInterlace => 1
+    static ForceHalfInterlace => 1
 
     /**
      * If the EVR is falling behind, allow it to skip the second field (in temporal order) of every interlaced frame.
+     * Native name: MFVideoMixPrefs_AllowDropToHalfInterlace
      * @type {Integer (Int32)}
      */
-    static MFVideoMixPrefs_AllowDropToHalfInterlace => 2
+    static AllowDropToHalfInterlace => 2
 
     /**
      * If the EVR is falling behind, allow it to use bob deinterlacing, even if the driver supports a higher-quality deinterlacing mode.
+     * Native name: MFVideoMixPrefs_AllowDropToBob
      * @type {Integer (Int32)}
      */
-    static MFVideoMixPrefs_AllowDropToBob => 4
+    static AllowDropToBob => 4
 
     /**
      * Force the EVR to use bob deinterlacing, even if the driver supports a higher-quality mode.
+     * Native name: MFVideoMixPrefs_ForceBob
      * @type {Integer (Int32)}
      */
-    static MFVideoMixPrefs_ForceBob => 8
+    static ForceBob => 8
 
     /**
+     * Native name: MFVideoMixPrefs_EnableRotation
      * @type {Integer (Int32)}
      */
-    static MFVideoMixPrefs_EnableRotation => 16
+    static EnableRotation => 16
 
     /**
      * The bitmask of valid flag values. This constant is not itself a valid flag.
+     * Native name: MFVideoMixPrefs_Mask
      * @type {Integer (Int32)}
      */
-    static MFVideoMixPrefs_Mask => 31
+    static Mask => 31
 }

@@ -10,13 +10,15 @@ class TextPatternRangeEndpoint extends Win32Enum {
 
     /**
      * The starting endpoint of the range.
+     * Native name: TextPatternRangeEndpoint_Start
      * @type {Integer (Int32)}
      */
-    static TextPatternRangeEndpoint_Start => 0
+    static Start => 0
 
     /**
      * The ending endpoint of the range.
+     * Native name: TextPatternRangeEndpoint_End
      * @type {Integer (Int32)}
      */
-    static TextPatternRangeEndpoint_End => 1
+    static End => 1
 }

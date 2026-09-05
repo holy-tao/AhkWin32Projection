@@ -34,7 +34,6 @@ class IDirectInputA extends IUnknown {
     static VTableNames => ["CreateDevice", "EnumDevices", "GetDeviceStatus", "RunControlPanel", "Initialize"]
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectInputDeviceA} 
@@ -45,7 +44,6 @@ class IDirectInputA extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<LPDIENUMDEVICESCALLBACKA>} param1 
      * @param {Pointer<Void>} param2 
@@ -60,7 +58,6 @@ class IDirectInputA extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @returns {HRESULT} 
      */
@@ -70,7 +67,6 @@ class IDirectInputA extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 

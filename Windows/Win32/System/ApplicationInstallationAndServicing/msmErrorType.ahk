@@ -7,42 +7,50 @@
 class msmErrorType extends Win32Enum {
 
     /**
+     * Native name: msmErrorLanguageUnsupported
      * @type {Integer (Int32)}
      */
-    static msmErrorLanguageUnsupported => 1
+    static LanguageUnsupported => 1
 
     /**
+     * Native name: msmErrorLanguageFailed
      * @type {Integer (Int32)}
      */
-    static msmErrorLanguageFailed => 2
+    static LanguageFailed => 2
 
     /**
+     * Native name: msmErrorExclusion
      * @type {Integer (Int32)}
      */
-    static msmErrorExclusion => 3
+    static Exclusion => 3
 
     /**
+     * Native name: msmErrorTableMerge
      * @type {Integer (Int32)}
      */
-    static msmErrorTableMerge => 4
+    static TableMerge => 4
 
     /**
+     * Native name: msmErrorResequenceMerge
      * @type {Integer (Int32)}
      */
-    static msmErrorResequenceMerge => 5
+    static ResequenceMerge => 5
 
     /**
+     * Native name: msmErrorFileCreate
      * @type {Integer (Int32)}
      */
-    static msmErrorFileCreate => 6
+    static FileCreate => 6
 
     /**
+     * Native name: msmErrorDirCreate
      * @type {Integer (Int32)}
      */
-    static msmErrorDirCreate => 7
+    static DirCreate => 7
 
     /**
+     * Native name: msmErrorFeatureRequired
      * @type {Integer (Int32)}
      */
-    static msmErrorFeatureRequired => 8
+    static FeatureRequired => 8
 }

@@ -31,7 +31,6 @@ class IDataModelScript2 extends IDataModelScript {
     static VTableNames => ["GetScriptFullFilePathName", "SetScriptFullFilePathName"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetScriptFullFilePathName() {
@@ -41,7 +40,6 @@ class IDataModelScript2 extends IDataModelScript {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptFullPathName 
      * @returns {HRESULT} 
      */

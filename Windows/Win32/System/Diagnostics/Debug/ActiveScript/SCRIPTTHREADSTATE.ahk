@@ -7,12 +7,14 @@
 class SCRIPTTHREADSTATE extends Win32Enum {
 
     /**
+     * Native name: SCRIPTTHREADSTATE_NOTINSCRIPT
      * @type {Integer (Int32)}
      */
-    static SCRIPTTHREADSTATE_NOTINSCRIPT => 0
+    static NOTINSCRIPT => 0
 
     /**
+     * Native name: SCRIPTTHREADSTATE_RUNNING
      * @type {Integer (Int32)}
      */
-    static SCRIPTTHREADSTATE_RUNNING => 1
+    static RUNNING => 1
 }

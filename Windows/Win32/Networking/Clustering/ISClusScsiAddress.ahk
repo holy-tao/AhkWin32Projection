@@ -58,7 +58,6 @@ class ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PortNumber() {
@@ -68,7 +67,6 @@ class ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PathId() {
@@ -78,7 +76,6 @@ class ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TargetId() {
@@ -88,7 +85,6 @@ class ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Lun() {

@@ -7,22 +7,26 @@
 class SharedVirtualDiskSupportType extends Win32Enum {
 
     /**
+     * Native name: SharedVirtualDisksUnsupported
      * @type {Integer (Int32)}
      */
-    static SharedVirtualDisksUnsupported => 0
+    static DisksUnsupported => 0
 
     /**
+     * Native name: SharedVirtualDisksSupported
      * @type {Integer (Int32)}
      */
-    static SharedVirtualDisksSupported => 1
+    static DisksSupported => 1
 
     /**
+     * Native name: SharedVirtualDiskSnapshotsSupported
      * @type {Integer (Int32)}
      */
-    static SharedVirtualDiskSnapshotsSupported => 3
+    static SnapshotsSupported => 3
 
     /**
+     * Native name: SharedVirtualDiskCDPSnapshotsSupported
      * @type {Integer (Int32)}
      */
-    static SharedVirtualDiskCDPSnapshotsSupported => 7
+    static DiskCDPSnapshotsSupported => 7
 }

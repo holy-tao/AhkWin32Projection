@@ -14,49 +14,57 @@ class COPYFILE2_MESSAGE_TYPE extends Win32Enum {
 
     /**
      * Not a valid value.
+     * Native name: COPYFILE2_CALLBACK_NONE
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_NONE => 0
+    static CALLBACK_NONE => 0
 
     /**
      * Indicates a single chunk of a stream has started to be copied.
+     * Native name: COPYFILE2_CALLBACK_CHUNK_STARTED
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_CHUNK_STARTED => 1
+    static CALLBACK_CHUNK_STARTED => 1
 
     /**
      * Indicates the copy of a single chunk of a stream has completed.
+     * Native name: COPYFILE2_CALLBACK_CHUNK_FINISHED
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_CHUNK_FINISHED => 2
+    static CALLBACK_CHUNK_FINISHED => 2
 
     /**
      * Indicates both source and destination handles for a stream have been opened and the  copy of the stream is 
      *       about to be started.
+     * Native name: COPYFILE2_CALLBACK_STREAM_STARTED
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_STREAM_STARTED => 3
+    static CALLBACK_STREAM_STARTED => 3
 
     /**
      * Indicates the copy operation for a stream have started to be completed.
+     * Native name: COPYFILE2_CALLBACK_STREAM_FINISHED
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_STREAM_FINISHED => 4
+    static CALLBACK_STREAM_FINISHED => 4
 
     /**
      * May be sent periodically.
+     * Native name: COPYFILE2_CALLBACK_POLL_CONTINUE
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_POLL_CONTINUE => 5
+    static CALLBACK_POLL_CONTINUE => 5
 
     /**
+     * Native name: COPYFILE2_CALLBACK_ERROR
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_ERROR => 6
+    static CALLBACK_ERROR => 6
 
     /**
      * An error was encountered during the copy operation.
+     * Native name: COPYFILE2_CALLBACK_MAX
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_CALLBACK_MAX => 7
+    static CALLBACK_MAX => 7
 }

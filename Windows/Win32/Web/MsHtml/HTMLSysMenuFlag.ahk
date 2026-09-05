@@ -7,17 +7,20 @@
 class HTMLSysMenuFlag extends Win32Enum {
 
     /**
+     * Native name: HTMLSysMenuFlagNo
      * @type {Integer (Int32)}
      */
-    static HTMLSysMenuFlagNo => 0
+    static No => 0
 
     /**
+     * Native name: HTMLSysMenuFlagYes
      * @type {Integer (Int32)}
      */
-    static HTMLSysMenuFlagYes => 524288
+    static Yes => 524288
 
     /**
+     * Native name: HTMLSysMenuFlag_Max
      * @type {Integer (Int32)}
      */
-    static HTMLSysMenuFlag_Max => 2147483647
+    static Max => 2147483647
 }

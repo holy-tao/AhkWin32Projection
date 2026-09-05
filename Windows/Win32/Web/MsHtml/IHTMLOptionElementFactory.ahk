@@ -37,7 +37,6 @@ class IHTMLOptionElementFactory extends IDispatch {
     static VTableNames => ["create"]
 
     /**
-     * 
      * @param {VARIANT} text 
      * @param {VARIANT} value 
      * @param {VARIANT} defaultselected 

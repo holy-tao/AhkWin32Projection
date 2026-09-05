@@ -30,7 +30,6 @@ class INetworkTransportSettings extends IUnknown {
     static VTableNames => ["ApplySetting", "QuerySetting"]
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING_ID>} SettingId 
      * @param {Integer} LengthIn 
      * @param {Pointer<Integer>} ValueIn 
@@ -48,7 +47,6 @@ class INetworkTransportSettings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING_ID>} SettingId 
      * @param {Integer} LengthIn 
      * @param {Pointer<Integer>} ValueIn 

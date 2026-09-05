@@ -31,7 +31,6 @@ class IDCompositionDynamicTexture extends IUnknown {
     static VTableNames => ["SetTexture", "SetTexture1"]
 
     /**
-     * 
      * @param {IDCompositionTexture} pTexture 
      * @param {Pointer<RECT>} pRects 
      * @param {Pointer} rectCount 
@@ -43,7 +42,6 @@ class IDCompositionDynamicTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDCompositionTexture} pTexture 
      * @returns {HRESULT} 
      */

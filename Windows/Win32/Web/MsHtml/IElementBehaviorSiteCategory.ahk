@@ -31,7 +31,6 @@ class IElementBehaviorSiteCategory extends IUnknown {
     static VTableNames => ["GetRelatedBehaviors"]
 
     /**
-     * 
      * @param {Integer} lDirection 
      * @param {PWSTR} pchCategory 
      * @returns {IEnumUnknown} 

@@ -7,32 +7,38 @@
 class styleImeMode extends Win32Enum {
 
     /**
+     * Native name: styleImeModeAuto
      * @type {Integer (Int32)}
      */
-    static styleImeModeAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleImeModeActive
      * @type {Integer (Int32)}
      */
-    static styleImeModeActive => 1
+    static Active => 1
 
     /**
+     * Native name: styleImeModeInactive
      * @type {Integer (Int32)}
      */
-    static styleImeModeInactive => 2
+    static Inactive => 2
 
     /**
+     * Native name: styleImeModeDisabled
      * @type {Integer (Int32)}
      */
-    static styleImeModeDisabled => 3
+    static Disabled => 3
 
     /**
+     * Native name: styleImeModeNotSet
      * @type {Integer (Int32)}
      */
-    static styleImeModeNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleImeMode_Max
      * @type {Integer (Int32)}
      */
-    static styleImeMode_Max => 2147483647
+    static Max => 2147483647
 }

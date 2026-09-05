@@ -8328,7 +8328,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} CAPDNs 
      * @param {Integer} CAPDNCount 
      * @param {Integer} Flags 
@@ -10167,7 +10166,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {LSA_HANDLE} PolicyHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName 
      * @param {LSA_FOREST_TRUST_RECORD_TYPE} HighestRecordType 
@@ -10185,7 +10183,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {LSA_HANDLE} PolicyHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName 
      * @param {LSA_FOREST_TRUST_RECORD_TYPE} HighestRecordType 
@@ -13808,7 +13805,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Integer} lpIpAddress 
      * @param {Integer} cchIpAddress 
      * @returns {Integer} 
@@ -13819,7 +13815,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Integer} lpIpAddress 
      * @param {Integer} cchIpAddress 
      * @param {PWSTR} TargetName 
@@ -13833,7 +13828,6 @@ class Identity {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static SecFreeCallContext() {
@@ -16097,7 +16091,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Pointer<SecPkgContext_Bindings>} pBindings 
      * @param {Integer} flags 
      * @returns {HRESULT} 
@@ -16206,7 +16199,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Pointer<CREDENTIAL_TARGET_INFORMATIONW>>} RetTargetInfo 
@@ -16259,7 +16251,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pRandomData 
      * @param {Integer} cRandomData 
      * @returns {String} Nothing - always returns an empty string
@@ -16302,7 +16293,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Integer} Reserved 
      * @returns {Integer} 
      */
@@ -16371,7 +16361,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} clientHello 
      * @param {Integer} clientHelloByteSize 
      * @param {Pointer<SCH_EXTENSION_DATA>} genericExtensions 
@@ -16387,7 +16376,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {CRYPT_INTEGER_BLOB} SerializedCertificateStore 
      * @returns {Pointer<CERT_CONTEXT>} 
      */
@@ -16545,7 +16533,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {TOKENBINDING_KEY_PARAMETERS_TYPE} keyType 
      * @param {PWSTR} targetUri 
      * @returns {Pointer<TOKENBINDING_RESULT_DATA>} 
@@ -16558,7 +16545,6 @@ class Identity {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} majorVersion 
      * @param {Pointer<Integer>} minorVersion 
      * @returns {HRESULT} 

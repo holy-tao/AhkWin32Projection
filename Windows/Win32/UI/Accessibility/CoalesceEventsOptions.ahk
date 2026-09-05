@@ -10,13 +10,15 @@ class CoalesceEventsOptions extends Win32Enum {
 
     /**
      * Event coalescing is disabled.
+     * Native name: CoalesceEventsOptions_Disabled
      * @type {Integer (Int32)}
      */
-    static CoalesceEventsOptions_Disabled => 0
+    static Disabled => 0
 
     /**
      * Event coalescing is enabled.
+     * Native name: CoalesceEventsOptions_Enabled
      * @type {Integer (Int32)}
      */
-    static CoalesceEventsOptions_Enabled => 1
+    static Enabled => 1
 }

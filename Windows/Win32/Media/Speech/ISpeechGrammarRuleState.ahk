@@ -49,7 +49,6 @@ class ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRule} 
      */
     get_Rule() {
@@ -58,7 +57,6 @@ class ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleStateTransitions} 
      */
     get_Transitions() {
@@ -67,7 +65,6 @@ class ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechGrammarRuleState} DestState 
      * @param {BSTR} Words 
      * @param {BSTR} Separators 
@@ -88,7 +85,6 @@ class ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechGrammarRuleState} DestinationState 
      * @param {ISpeechGrammarRule} Rule 
      * @param {BSTR} PropertyName 
@@ -105,7 +101,6 @@ class ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechGrammarRuleState} DestinationState 
      * @param {SpeechSpecialTransitionType} Type 
      * @param {BSTR} PropertyName 

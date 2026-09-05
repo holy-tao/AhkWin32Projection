@@ -7,12 +7,14 @@
 class KSPROPERTY_TELEPHONY_TOPOLOGY extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_TELEPHONY_ENDPOINTIDPAIR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TELEPHONY_ENDPOINTIDPAIR => 0
+    static ENDPOINTIDPAIR => 0
 
     /**
+     * Native name: KSPROPERTY_TELEPHONY_VOLUME
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_TELEPHONY_VOLUME => 1
+    static VOLUME => 1
 }

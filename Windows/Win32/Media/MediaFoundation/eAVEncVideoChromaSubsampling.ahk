@@ -10,31 +10,36 @@ class eAVEncVideoChromaSubsampling extends Win32Enum {
 
     /**
      * Use the same chroma siting as the input video. This flag applies to the <b>AVEncVideoOutputChromaResolution</b> property only. This flag may not be combined with other flags.
+     * Native name: eAVEncVideoChromaSubsamplingFormat_SameAsSource
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaSubsamplingFormat_SameAsSource => 0
+    static Format_SameAsSource => 0
 
     /**
      * Chroma should be reconstructed as if the underlying video was progressive content, rather than skipping fields or applying chroma filtering to minimize artifacts from reconstructing 4:2:0 interlaced chroma.
+     * Native name: eAVEncVideoChromaSubsamplingFormat_ProgressiveChroma
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaSubsamplingFormat_ProgressiveChroma => 8
+    static Format_ProgressiveChroma => 8
 
     /**
      * Chroma samples are aligned horizontally with multiples of the luma samples.
+     * Native name: eAVEncVideoChromaSubsamplingFormat_Horizontally_Cosited
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaSubsamplingFormat_Horizontally_Cosited => 4
+    static Format_Horizontally_Cosited => 4
 
     /**
      * Chroma samples are aligned vertically with multiples of the luma samples.
+     * Native name: eAVEncVideoChromaSubsamplingFormat_Vertically_Cosited
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaSubsamplingFormat_Vertically_Cosited => 2
+    static Format_Vertically_Cosited => 2
 
     /**
      * The chroma planes have the same phase alignment. It is not valid to omit this flag unless the data is vertically cosited. If the data is not vertically cosited, this flag is required. If this flag is absent, the Cb and Cr samples are sited on alternate lines. For example, interlaced PAL DV video uses non-aligned chroma planes.
+     * Native name: eAVEncVideoChromaSubsamplingFormat_Vertically_AlignedChromaPlanes
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoChromaSubsamplingFormat_Vertically_AlignedChromaPlanes => 1
+    static Format_Vertically_AlignedChromaPlanes => 1
 }

@@ -66,7 +66,6 @@ class IMXReaderControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     suspend() {

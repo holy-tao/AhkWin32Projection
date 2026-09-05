@@ -7,7 +7,8 @@
 class KSPROPERTY_AUDIOLOOPBACK extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_AUDIOLOOPBACK_TAPPOINT_CAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOLOOPBACK_TAPPOINT_CAPS => 0
+    static TAPPOINT_CAPS => 0
 }

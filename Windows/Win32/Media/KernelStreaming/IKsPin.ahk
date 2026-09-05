@@ -61,7 +61,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<KSMULTIPLE_ITEM>} 
      */
     KsQueryInterfaces() {
@@ -70,7 +69,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} _Interface 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
@@ -81,7 +79,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSPIN_COMMUNICATION>} Communication 
      * @param {Pointer<KSIDENTIFIER>} _Interface 
      * @param {Pointer<KSIDENTIFIER>} Medium 
@@ -95,7 +92,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KsPropagateAcquire() {
@@ -104,7 +100,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -115,7 +110,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSSTREAM_SEGMENT>} StreamSegment 
      * @returns {HRESULT} 
      */
@@ -125,7 +119,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {KSPEEKOPERATION} Operation 
      * @returns {IMemAllocator} 
      */
@@ -135,7 +128,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMemAllocator} MemAllocator 
      * @returns {HRESULT} 
      */
@@ -145,7 +137,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KsRenegotiateAllocator() {
@@ -154,7 +145,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsIncrementPendingIoCount() {
@@ -163,7 +153,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsDecrementPendingIoCount() {
@@ -172,7 +161,6 @@ class IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Proportion 
      * @param {Integer} TimeDelta 
      * @returns {HRESULT} 

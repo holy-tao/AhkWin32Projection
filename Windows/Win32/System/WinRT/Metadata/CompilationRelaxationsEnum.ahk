@@ -7,7 +7,8 @@
 class CompilationRelaxationsEnum extends Win32Enum {
 
     /**
+     * Native name: CompilationRelaxations_NoStringInterning
      * @type {Integer (Int32)}
      */
-    static CompilationRelaxations_NoStringInterning => 8
+    static NoStringInterning => 8
 }

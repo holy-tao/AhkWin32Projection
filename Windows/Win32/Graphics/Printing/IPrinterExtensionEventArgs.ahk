@@ -83,7 +83,6 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BidiNotification() {
@@ -93,7 +92,6 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ReasonId() {
@@ -103,7 +101,6 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
     }
 
     /**
-     * 
      * @returns {IPrinterExtensionRequest} 
      */
     get_Request() {
@@ -112,7 +109,6 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SourceApplication() {
@@ -122,7 +118,6 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_DetailedReasonId() {
@@ -132,7 +127,6 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_WindowModal() {
@@ -141,7 +135,6 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     get_WindowParent() {

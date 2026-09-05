@@ -39,7 +39,6 @@ class IADsSyntax extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OleAutoDataType() {
@@ -48,7 +47,6 @@ class IADsSyntax extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnOleAutoDataType 
      * @returns {HRESULT} 
      */

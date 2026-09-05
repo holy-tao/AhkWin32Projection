@@ -37,7 +37,6 @@ class IRTCBuddyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCBuddy} 
      */
     get_Buddy() {

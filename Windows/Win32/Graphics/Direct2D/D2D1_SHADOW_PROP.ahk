@@ -18,9 +18,10 @@ class D2D1_SHADOW_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 3.0f.
+     * Native name: D2D1_SHADOW_PROP_BLUR_STANDARD_DEVIATION
      * @type {Integer (Int32)}
      */
-    static D2D1_SHADOW_PROP_BLUR_STANDARD_DEVIATION => 0
+    static BLUR_STANDARD_DEVIATION => 0
 
     /**
      * The color of the drop shadow. This property is a D2D1_VECTOR_4F defined as: (R, G, B, A). You must specify this color in straight alpha.
@@ -29,9 +30,10 @@ class D2D1_SHADOW_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a>.
      * 
      * The default value is {0.0f, 0.0f, 0.0f, 1.0f}.
+     * Native name: D2D1_SHADOW_PROP_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_SHADOW_PROP_COLOR => 1
+    static COLOR => 1
 
     /**
      * The level of performance optimization.
@@ -40,7 +42,8 @@ class D2D1_SHADOW_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_shadow_optimization">D2D1_SHADOW_OPTIMIZATION</a>.
      * 
      * The default value is D2D1_SHADOW_OPTIMIZATION_BALANCED.
+     * Native name: D2D1_SHADOW_PROP_OPTIMIZATION
      * @type {Integer (Int32)}
      */
-    static D2D1_SHADOW_PROP_OPTIMIZATION => 2
+    static OPTIMIZATION => 2
 }

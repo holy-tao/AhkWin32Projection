@@ -16,19 +16,22 @@ class D3D12_DSV_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates a default view.
+     * Native name: D3D12_DSV_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Indicates that depth values are read only.
+     * Native name: D3D12_DSV_FLAG_READ_ONLY_DEPTH
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_FLAG_READ_ONLY_DEPTH => 1
+    static FLAG_READ_ONLY_DEPTH => 1
 
     /**
      * Indicates that stencil values are read only.
+     * Native name: D3D12_DSV_FLAG_READ_ONLY_STENCIL
      * @type {Integer (Int32)}
      */
-    static D3D12_DSV_FLAG_READ_ONLY_STENCIL => 2
+    static FLAG_READ_ONLY_STENCIL => 2
 }

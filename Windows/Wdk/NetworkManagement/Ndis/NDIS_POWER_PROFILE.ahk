@@ -7,12 +7,14 @@
 class NDIS_POWER_PROFILE extends Win32Enum {
 
     /**
+     * Native name: NdisPowerProfileBattery
      * @type {Integer (Int32)}
      */
-    static NdisPowerProfileBattery => 0
+    static Battery => 0
 
     /**
+     * Native name: NdisPowerProfileAcOnLine
      * @type {Integer (Int32)}
      */
-    static NdisPowerProfileAcOnLine => 1
+    static AcOnLine => 1
 }

@@ -15,7 +15,8 @@ class CLUS_RESSUBCLASS_NETWORK extends Win32Enum {
      *       control code can retrieve a 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure that contains 
      *       this information.
+     * Native name: CLUS_RESSUBCLASS_NETWORK_INTERNET_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static CLUS_RESSUBCLASS_NETWORK_INTERNET_PROTOCOL => -2147483648
+    static INTERNET_PROTOCOL => -2147483648
 }

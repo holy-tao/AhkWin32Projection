@@ -35,7 +35,6 @@ class IDataModelManager2 extends IDataModelManager {
     static VTableNames => ["AcquireSubNamespace", "CreateTypedIntrinsicObjectEx"]
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @param {PWSTR} subNamespaceModelName 
      * @param {PWSTR} accessName 
@@ -52,7 +51,6 @@ class IDataModelManager2 extends IDataModelManager {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 

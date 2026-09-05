@@ -7,12 +7,14 @@
 class NVME_RESERVATION_RELEASE_ACTIONS extends Win32Enum {
 
     /**
+     * Native name: NVME_RESERVATION_RELEASE_ACTION_RELEASE
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_RELEASE_ACTION_RELEASE => 0
+    static ACTION_RELEASE => 0
 
     /**
+     * Native name: NVME_RESERVATION_RELEASE_ACTION_CLEAR
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_RELEASE_ACTION_CLEAR => 1
+    static ACTION_CLEAR => 1
 }

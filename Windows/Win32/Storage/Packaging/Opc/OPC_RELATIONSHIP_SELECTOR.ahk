@@ -10,13 +10,15 @@ class OPC_RELATIONSHIP_SELECTOR extends Win32Enum {
 
     /**
      * The <i>selectionCriterion</i> parameter is a relationship identifier.
+     * Native name: OPC_RELATIONSHIP_SELECT_BY_ID
      * @type {Integer (Int32)}
      */
-    static OPC_RELATIONSHIP_SELECT_BY_ID => 0
+    static SELECT_BY_ID => 0
 
     /**
      * The <i>selectionCriterion</i> parameter is a relationship type.
+     * Native name: OPC_RELATIONSHIP_SELECT_BY_TYPE
      * @type {Integer (Int32)}
      */
-    static OPC_RELATIONSHIP_SELECT_BY_TYPE => 1
+    static SELECT_BY_TYPE => 1
 }

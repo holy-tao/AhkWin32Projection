@@ -7,32 +7,38 @@
 class BI_COMPRESSION extends Win32Enum {
 
     /**
+     * Native name: BI_RGB
      * @type {Integer (UInt32)}
      */
-    static BI_RGB => 0
+    static RGB => 0
 
     /**
+     * Native name: BI_RLE8
      * @type {Integer (UInt32)}
      */
-    static BI_RLE8 => 1
+    static RLE8 => 1
 
     /**
+     * Native name: BI_RLE4
      * @type {Integer (UInt32)}
      */
-    static BI_RLE4 => 2
+    static RLE4 => 2
 
     /**
+     * Native name: BI_BITFIELDS
      * @type {Integer (UInt32)}
      */
-    static BI_BITFIELDS => 3
+    static BITFIELDS => 3
 
     /**
+     * Native name: BI_JPEG
      * @type {Integer (UInt32)}
      */
-    static BI_JPEG => 4
+    static JPEG => 4
 
     /**
+     * Native name: BI_PNG
      * @type {Integer (UInt32)}
      */
-    static BI_PNG => 5
+    static PNG => 5
 }

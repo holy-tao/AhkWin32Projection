@@ -7,137 +7,164 @@
 class SSF_MASK extends Win32BitflagEnum {
 
     /**
+     * Native name: SSF_SHOWALLOBJECTS
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWALLOBJECTS => 1
+    static SHOWALLOBJECTS => 1
 
     /**
+     * Native name: SSF_SHOWEXTENSIONS
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWEXTENSIONS => 2
+    static SHOWEXTENSIONS => 2
 
     /**
+     * Native name: SSF_HIDDENFILEEXTS
      * @type {Integer (UInt32)}
      */
-    static SSF_HIDDENFILEEXTS => 4
+    static HIDDENFILEEXTS => 4
 
     /**
+     * Native name: SSF_SERVERADMINUI
      * @type {Integer (UInt32)}
      */
-    static SSF_SERVERADMINUI => 4
+    static SERVERADMINUI => 4
 
     /**
+     * Native name: SSF_SHOWCOMPCOLOR
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWCOMPCOLOR => 8
+    static SHOWCOMPCOLOR => 8
 
     /**
+     * Native name: SSF_SORTCOLUMNS
      * @type {Integer (UInt32)}
      */
-    static SSF_SORTCOLUMNS => 16
+    static SORTCOLUMNS => 16
 
     /**
+     * Native name: SSF_SHOWSYSFILES
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWSYSFILES => 32
+    static SHOWSYSFILES => 32
 
     /**
+     * Native name: SSF_DOUBLECLICKINWEBVIEW
      * @type {Integer (UInt32)}
      */
-    static SSF_DOUBLECLICKINWEBVIEW => 128
+    static DOUBLECLICKINWEBVIEW => 128
 
     /**
+     * Native name: SSF_SHOWATTRIBCOL
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWATTRIBCOL => 256
+    static SHOWATTRIBCOL => 256
 
     /**
+     * Native name: SSF_DESKTOPHTML
      * @type {Integer (UInt32)}
      */
-    static SSF_DESKTOPHTML => 512
+    static DESKTOPHTML => 512
 
     /**
+     * Native name: SSF_WIN95CLASSIC
      * @type {Integer (UInt32)}
      */
-    static SSF_WIN95CLASSIC => 1024
+    static WIN95CLASSIC => 1024
 
     /**
+     * Native name: SSF_DONTPRETTYPATH
      * @type {Integer (UInt32)}
      */
-    static SSF_DONTPRETTYPATH => 2048
+    static DONTPRETTYPATH => 2048
 
     /**
+     * Native name: SSF_SHOWINFOTIP
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWINFOTIP => 8192
+    static SHOWINFOTIP => 8192
 
     /**
+     * Native name: SSF_MAPNETDRVBUTTON
      * @type {Integer (UInt32)}
      */
-    static SSF_MAPNETDRVBUTTON => 4096
+    static MAPNETDRVBUTTON => 4096
 
     /**
+     * Native name: SSF_NOCONFIRMRECYCLE
      * @type {Integer (UInt32)}
      */
-    static SSF_NOCONFIRMRECYCLE => 32768
+    static NOCONFIRMRECYCLE => 32768
 
     /**
+     * Native name: SSF_HIDEICONS
      * @type {Integer (UInt32)}
      */
-    static SSF_HIDEICONS => 16384
+    static HIDEICONS => 16384
 
     /**
+     * Native name: SSF_FILTER
      * @type {Integer (UInt32)}
      */
-    static SSF_FILTER => 65536
+    static FILTER => 65536
 
     /**
+     * Native name: SSF_WEBVIEW
      * @type {Integer (UInt32)}
      */
-    static SSF_WEBVIEW => 131072
+    static WEBVIEW => 131072
 
     /**
+     * Native name: SSF_SHOWSUPERHIDDEN
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWSUPERHIDDEN => 262144
+    static SHOWSUPERHIDDEN => 262144
 
     /**
+     * Native name: SSF_SEPPROCESS
      * @type {Integer (UInt32)}
      */
-    static SSF_SEPPROCESS => 524288
+    static SEPPROCESS => 524288
 
     /**
+     * Native name: SSF_NONETCRAWLING
      * @type {Integer (UInt32)}
      */
-    static SSF_NONETCRAWLING => 1048576
+    static NONETCRAWLING => 1048576
 
     /**
+     * Native name: SSF_STARTPANELON
      * @type {Integer (UInt32)}
      */
-    static SSF_STARTPANELON => 2097152
+    static STARTPANELON => 2097152
 
     /**
+     * Native name: SSF_SHOWSTARTPAGE
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWSTARTPAGE => 4194304
+    static SHOWSTARTPAGE => 4194304
 
     /**
+     * Native name: SSF_AUTOCHECKSELECT
      * @type {Integer (UInt32)}
      */
-    static SSF_AUTOCHECKSELECT => 8388608
+    static AUTOCHECKSELECT => 8388608
 
     /**
+     * Native name: SSF_ICONSONLY
      * @type {Integer (UInt32)}
      */
-    static SSF_ICONSONLY => 16777216
+    static ICONSONLY => 16777216
 
     /**
+     * Native name: SSF_SHOWTYPEOVERLAY
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWTYPEOVERLAY => 33554432
+    static SHOWTYPEOVERLAY => 33554432
 
     /**
+     * Native name: SSF_SHOWSTATUSBAR
      * @type {Integer (UInt32)}
      */
-    static SSF_SHOWSTATUSBAR => 67108864
+    static SHOWSTATUSBAR => 67108864
 }

@@ -7,7 +7,8 @@
 class WBEM_LOCKING_FLAG_TYPE extends Win32Enum {
 
     /**
+     * Native name: WBEM_FLAG_ALLOW_READ
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_ALLOW_READ => 1
+    static ALLOW_READ => 1
 }

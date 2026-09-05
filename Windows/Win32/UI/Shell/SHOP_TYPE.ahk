@@ -7,17 +7,20 @@
 class SHOP_TYPE extends Win32BitflagEnum {
 
     /**
+     * Native name: SHOP_PRINTERNAME
      * @type {Integer (Int32)}
      */
-    static SHOP_PRINTERNAME => 1
+    static PRINTERNAME => 1
 
     /**
+     * Native name: SHOP_FILEPATH
      * @type {Integer (Int32)}
      */
-    static SHOP_FILEPATH => 2
+    static FILEPATH => 2
 
     /**
+     * Native name: SHOP_VOLUMEGUID
      * @type {Integer (Int32)}
      */
-    static SHOP_VOLUMEGUID => 4
+    static VOLUMEGUID => 4
 }

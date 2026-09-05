@@ -29,7 +29,6 @@ class IPrinterScriptableSequentialStream extends IDispatch {
     static VTableNames => ["Read", "Write"]
 
     /**
-     * 
      * @param {Integer} cbRead 
      * @returns {IDispatch} 
      */
@@ -39,7 +38,6 @@ class IPrinterScriptableSequentialStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pArray 
      * @returns {Integer} 
      */

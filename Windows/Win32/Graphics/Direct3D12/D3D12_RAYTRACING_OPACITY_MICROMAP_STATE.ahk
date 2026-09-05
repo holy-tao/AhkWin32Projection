@@ -7,22 +7,26 @@
 class D3D12_RAYTRACING_OPACITY_MICROMAP_STATE extends Win32Enum {
 
     /**
+     * Native name: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_TRANSPARENT
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_TRANSPARENT => 0
+    static TRANSPARENT => 0
 
     /**
+     * Native name: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_OPAQUE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_OPAQUE => 1
+    static OPAQUE => 1
 
     /**
+     * Native name: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_UNKNOWN_TRANSPARENT
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_UNKNOWN_TRANSPARENT => 2
+    static UNKNOWN_TRANSPARENT => 2
 
     /**
+     * Native name: D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_UNKNOWN_OPAQUE
      * @type {Integer (Int32)}
      */
-    static D3D12_RAYTRACING_OPACITY_MICROMAP_STATE_UNKNOWN_OPAQUE => 3
+    static UNKNOWN_OPAQUE => 3
 }

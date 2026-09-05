@@ -48,7 +48,6 @@ class ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechAudioFormatType} 
      */
     get_Type() {
@@ -57,7 +56,6 @@ class ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechAudioFormatType} AudioFormat 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Guid() {
@@ -77,7 +74,6 @@ class ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Guid 
      * @returns {HRESULT} 
      */
@@ -89,7 +85,6 @@ class ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechWaveFormatEx} 
      */
     GetWaveFormatEx() {
@@ -98,7 +93,6 @@ class ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechWaveFormatEx} SpeechWaveFormatEx 
      * @returns {HRESULT} 
      */

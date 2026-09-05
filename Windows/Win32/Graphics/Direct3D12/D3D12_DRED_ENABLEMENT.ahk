@@ -10,19 +10,22 @@ class D3D12_DRED_ENABLEMENT extends Win32Enum {
 
     /**
      * Specifies that a DRED feature is enabled only when DRED is turned on by the system automatically (for example, when a user is reproducing a problem via FeedbackHub).
+     * Native name: D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_ENABLEMENT_SYSTEM_CONTROLLED => 0
+    static SYSTEM_CONTROLLED => 0
 
     /**
      * Specifies that a DRED feature should be force-disabled, regardless of the system state.
+     * Native name: D3D12_DRED_ENABLEMENT_FORCED_OFF
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_ENABLEMENT_FORCED_OFF => 1
+    static FORCED_OFF => 1
 
     /**
      * Specifies that a DRED feature should be force-enabled, regardless of the system state.
+     * Native name: D3D12_DRED_ENABLEMENT_FORCED_ON
      * @type {Integer (Int32)}
      */
-    static D3D12_DRED_ENABLEMENT_FORCED_ON => 2
+    static FORCED_ON => 2
 }

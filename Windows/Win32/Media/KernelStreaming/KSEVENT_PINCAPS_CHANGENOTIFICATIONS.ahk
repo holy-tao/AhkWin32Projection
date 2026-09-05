@@ -7,17 +7,20 @@
 class KSEVENT_PINCAPS_CHANGENOTIFICATIONS extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_PINCAPS_FORMATCHANGE
      * @type {Integer (Int32)}
      */
-    static KSEVENT_PINCAPS_FORMATCHANGE => 0
+    static FORMATCHANGE => 0
 
     /**
+     * Native name: KSEVENT_PINCAPS_JACKINFOCHANGE
      * @type {Integer (Int32)}
      */
-    static KSEVENT_PINCAPS_JACKINFOCHANGE => 1
+    static JACKINFOCHANGE => 1
 
     /**
+     * Native name: KSEVENT_PINCAPS_INVALIDATECLIENTS
      * @type {Integer (Int32)}
      */
-    static KSEVENT_PINCAPS_INVALIDATECLIENTS => 2
+    static INVALIDATECLIENTS => 2
 }

@@ -31,7 +31,6 @@ class IRTCPortManager extends IUnknown {
     static VTableNames => ["GetMapping", "UpdateRemoteAddress", "ReleaseMapping"]
 
     /**
-     * 
      * @param {BSTR} bstrRemoteAddress 
      * @param {RTC_PORT_TYPE} enPortType 
      * @param {Pointer<BSTR>} pbstrInternalLocalAddress 
@@ -51,7 +50,6 @@ class IRTCPortManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteAddress 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
@@ -69,7 +67,6 @@ class IRTCPortManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
      * @param {BSTR} bstrExternalLocalAddress 

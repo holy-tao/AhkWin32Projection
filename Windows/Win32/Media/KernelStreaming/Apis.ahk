@@ -3273,7 +3273,6 @@ class KernelStreaming {
 
 ;@region Methods
     /**
-     * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSALLOCATOR_FRAMING>} AllocatorFraming 
      * @param {Pointer<HANDLE>} AllocatorHandle 
@@ -3287,7 +3286,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSCLOCK_CREATE>} ClockCreate 
      * @param {Pointer<HANDLE>} ClockHandle 
@@ -3301,7 +3299,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} FilterHandle 
      * @param {Pointer<KSPIN_CONNECT>} Connect 
      * @param {Integer} DesiredAccess 
@@ -3316,7 +3313,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} ParentHandle 
      * @param {Pointer<KSNODE_CREATE>} NodeCreate 
      * @param {Integer} DesiredAccess 
@@ -3331,7 +3327,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSALLOCATOR_FRAMING>} AllocatorFraming 
      * @returns {HANDLE} 
@@ -3345,7 +3340,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSCLOCK_CREATE>} ClockCreate 
      * @returns {HANDLE} 
@@ -3359,7 +3353,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} FilterHandle 
      * @param {Pointer<KSPIN_CONNECT>} Connect 
      * @param {Integer} DesiredAccess 
@@ -3374,7 +3367,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} ParentHandle 
      * @param {Pointer<KSNODE_CREATE>} NodeCreate 
      * @param {Integer} DesiredAccess 
@@ -3389,7 +3381,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {Pointer<KSDATAFORMAT>} DataRange 
      * @param {Pointer<KSMULTIPLE_ITEM>} Attributes 
      * @returns {HRESULT} 
@@ -3400,7 +3391,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} Category 
      * @param {Integer} Access 
      * @returns {HANDLE} 
@@ -3412,7 +3402,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} _Handle 
      * @param {Integer} IoControl 
      * @param {Integer} InBuffer 
@@ -3432,7 +3421,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
      * @param {Integer} PropertyId 
@@ -3446,7 +3434,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
      * @returns {Integer} 
@@ -3459,7 +3446,6 @@ class KernelStreaming {
     }
 
     /**
-     * 
      * @param {Integer} Position 
      * @param {Pointer<AM_MEDIA_TYPE>} AmMediaType 
      * @param {HANDLE} FilterHandle 

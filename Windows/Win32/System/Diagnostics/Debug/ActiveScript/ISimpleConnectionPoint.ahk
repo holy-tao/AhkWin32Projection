@@ -31,7 +31,6 @@ class ISimpleConnectionPoint extends IUnknown {
     static VTableNames => ["GetEventCount", "DescribeEvents", "Advise", "Unadvise"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventCount() {
@@ -40,7 +39,6 @@ class ISimpleConnectionPoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iEvent 
      * @param {Integer} cEvents 
      * @param {Pointer<Integer>} prgid 
@@ -57,7 +55,6 @@ class ISimpleConnectionPoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @returns {Integer} 
      */
@@ -67,7 +64,6 @@ class ISimpleConnectionPoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */

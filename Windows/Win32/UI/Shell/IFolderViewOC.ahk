@@ -29,7 +29,6 @@ class IFolderViewOC extends IDispatch {
     static VTableNames => ["SetFolderView"]
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @returns {HRESULT} 
      */

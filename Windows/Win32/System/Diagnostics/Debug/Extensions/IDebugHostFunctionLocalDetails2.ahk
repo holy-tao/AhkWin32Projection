@@ -30,7 +30,6 @@ class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails {
     static VTableNames => ["IsInlineScope", "GetInlinedFunction"]
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsInlineScope() {
@@ -39,7 +38,6 @@ class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails {
     }
 
     /**
-     * 
      * @returns {IDebugHostSymbol} 
      */
     GetInlinedFunction() {

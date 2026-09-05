@@ -7,97 +7,116 @@
 class COMAdminFileFlags extends Win32Enum {
 
     /**
+     * Native name: COMAdminFileFlagLoadable
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagLoadable => 1
+    static FlagLoadable => 1
 
     /**
+     * Native name: COMAdminFileFlagCOM
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagCOM => 2
+    static FlagCOM => 2
 
     /**
+     * Native name: COMAdminFileFlagContainsPS
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagContainsPS => 4
+    static FlagContainsPS => 4
 
     /**
+     * Native name: COMAdminFileFlagContainsComp
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagContainsComp => 8
+    static FlagContainsComp => 8
 
     /**
+     * Native name: COMAdminFileFlagContainsTLB
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagContainsTLB => 16
+    static FlagContainsTLB => 16
 
     /**
+     * Native name: COMAdminFileFlagSelfReg
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagSelfReg => 32
+    static FlagSelfReg => 32
 
     /**
+     * Native name: COMAdminFileFlagSelfUnReg
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagSelfUnReg => 64
+    static FlagSelfUnReg => 64
 
     /**
+     * Native name: COMAdminFileFlagUnloadableDLL
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagUnloadableDLL => 128
+    static FlagUnloadableDLL => 128
 
     /**
+     * Native name: COMAdminFileFlagDoesNotExist
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagDoesNotExist => 256
+    static FlagDoesNotExist => 256
 
     /**
+     * Native name: COMAdminFileFlagAlreadyInstalled
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagAlreadyInstalled => 512
+    static FlagAlreadyInstalled => 512
 
     /**
+     * Native name: COMAdminFileFlagBadTLB
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagBadTLB => 1024
+    static FlagBadTLB => 1024
 
     /**
+     * Native name: COMAdminFileFlagGetClassObjFailed
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagGetClassObjFailed => 2048
+    static FlagGetClassObjFailed => 2048
 
     /**
+     * Native name: COMAdminFileFlagClassNotAvailable
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagClassNotAvailable => 4096
+    static FlagClassNotAvailable => 4096
 
     /**
+     * Native name: COMAdminFileFlagRegistrar
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagRegistrar => 8192
+    static FlagRegistrar => 8192
 
     /**
+     * Native name: COMAdminFileFlagNoRegistrar
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagNoRegistrar => 16384
+    static FlagNoRegistrar => 16384
 
     /**
+     * Native name: COMAdminFileFlagDLLRegsvrFailed
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagDLLRegsvrFailed => 32768
+    static FlagDLLRegsvrFailed => 32768
 
     /**
+     * Native name: COMAdminFileFlagRegTLBFailed
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagRegTLBFailed => 65536
+    static FlagRegTLBFailed => 65536
 
     /**
+     * Native name: COMAdminFileFlagRegistrarFailed
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagRegistrarFailed => 131072
+    static FlagRegistrarFailed => 131072
 
     /**
+     * Native name: COMAdminFileFlagError
      * @type {Integer (Int32)}
      */
-    static COMAdminFileFlagError => 262144
+    static FlagError => 262144
 }

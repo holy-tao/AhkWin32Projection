@@ -7,42 +7,50 @@
 class AHTYPE extends Win32BitflagEnum {
 
     /**
+     * Native name: AHTYPE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static AHTYPE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: AHTYPE_USER_APPLICATION
      * @type {Integer (Int32)}
      */
-    static AHTYPE_USER_APPLICATION => 8
+    static USER_APPLICATION => 8
 
     /**
+     * Native name: AHTYPE_ANY_APPLICATION
      * @type {Integer (Int32)}
      */
-    static AHTYPE_ANY_APPLICATION => 16
+    static ANY_APPLICATION => 16
 
     /**
+     * Native name: AHTYPE_MACHINEDEFAULT
      * @type {Integer (Int32)}
      */
-    static AHTYPE_MACHINEDEFAULT => 32
+    static MACHINEDEFAULT => 32
 
     /**
+     * Native name: AHTYPE_PROGID
      * @type {Integer (Int32)}
      */
-    static AHTYPE_PROGID => 64
+    static PROGID => 64
 
     /**
+     * Native name: AHTYPE_APPLICATION
      * @type {Integer (Int32)}
      */
-    static AHTYPE_APPLICATION => 128
+    static APPLICATION => 128
 
     /**
+     * Native name: AHTYPE_CLASS_APPLICATION
      * @type {Integer (Int32)}
      */
-    static AHTYPE_CLASS_APPLICATION => 256
+    static CLASS_APPLICATION => 256
 
     /**
+     * Native name: AHTYPE_ANY_PROGID
      * @type {Integer (Int32)}
      */
-    static AHTYPE_ANY_PROGID => 512
+    static ANY_PROGID => 512
 }

@@ -7,79 +7,94 @@
 class HAL_SET_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: HalProfileSourceInterval
      * @type {Integer (Int32)}
      */
-    static HalProfileSourceInterval => 0
+    static ProfileSourceInterval => 0
 
     /**
+     * Native name: HalProfileSourceInterruptHandler
      * @type {Integer (Int32)}
      */
-    static HalProfileSourceInterruptHandler => 1
+    static ProfileSourceInterruptHandler => 1
 
     /**
+     * Native name: HalMcaRegisterDriver
      * @type {Integer (Int32)}
      */
-    static HalMcaRegisterDriver => 2
+    static McaRegisterDriver => 2
 
     /**
+     * Native name: HalKernelErrorHandler
      * @type {Integer (Int32)}
      */
-    static HalKernelErrorHandler => 3
+    static KernelErrorHandler => 3
 
     /**
+     * Native name: HalCmcRegisterDriver
      * @type {Integer (Int32)}
      */
-    static HalCmcRegisterDriver => 4
+    static CmcRegisterDriver => 4
 
     /**
+     * Native name: HalCpeRegisterDriver
      * @type {Integer (Int32)}
      */
-    static HalCpeRegisterDriver => 5
+    static CpeRegisterDriver => 5
 
     /**
+     * Native name: HalMcaLog
      * @type {Integer (Int32)}
      */
-    static HalMcaLog => 6
+    static McaLog => 6
 
     /**
+     * Native name: HalCmcLog
      * @type {Integer (Int32)}
      */
-    static HalCmcLog => 7
+    static CmcLog => 7
 
     /**
+     * Native name: HalCpeLog
      * @type {Integer (Int32)}
      */
-    static HalCpeLog => 8
+    static CpeLog => 8
 
     /**
+     * Native name: HalGenerateCmcInterrupt
      * @type {Integer (Int32)}
      */
-    static HalGenerateCmcInterrupt => 9
+    static GenerateCmcInterrupt => 9
 
     /**
+     * Native name: HalProfileSourceTimerHandler
      * @type {Integer (Int32)}
      */
-    static HalProfileSourceTimerHandler => 10
+    static ProfileSourceTimerHandler => 10
 
     /**
+     * Native name: HalEnlightenment
      * @type {Integer (Int32)}
      */
-    static HalEnlightenment => 11
+    static Enlightenment => 11
 
     /**
+     * Native name: HalProfileDpgoSourceInterruptHandler
      * @type {Integer (Int32)}
      */
-    static HalProfileDpgoSourceInterruptHandler => 12
+    static ProfileDpgoSourceInterruptHandler => 12
 
     /**
+     * Native name: HalRegisterSecondaryInterruptInterface
      * @type {Integer (Int32)}
      */
-    static HalRegisterSecondaryInterruptInterface => 13
+    static RegisterSecondaryInterruptInterface => 13
 
     /**
+     * Native name: HalSetChannelPowerInformation
      * @type {Integer (Int32)}
      */
-    static HalSetChannelPowerInformation => 14
+    static ChannelPowerInformation => 14
 
     /**
      * @type {Integer (Int32)}
@@ -87,42 +102,50 @@ class HAL_SET_INFORMATION_CLASS extends Win32Enum {
     static HalI386ExceptionChainTerminatorInformation => 15
 
     /**
+     * Native name: HalSetResetParkDisposition
      * @type {Integer (Int32)}
      */
-    static HalSetResetParkDisposition => 16
+    static ResetParkDisposition => 16
 
     /**
+     * Native name: HalSetPsciSuspendMode
      * @type {Integer (Int32)}
      */
-    static HalSetPsciSuspendMode => 17
+    static PsciSuspendMode => 17
 
     /**
+     * Native name: HalSetHvciEnabled
      * @type {Integer (Int32)}
      */
-    static HalSetHvciEnabled => 18
+    static HvciEnabled => 18
 
     /**
+     * Native name: HalSetProcessorTraceInterruptHandler
      * @type {Integer (Int32)}
      */
-    static HalSetProcessorTraceInterruptHandler => 19
+    static ProcessorTraceInterruptHandler => 19
 
     /**
+     * Native name: HalProfileSourceAdd
      * @type {Integer (Int32)}
      */
-    static HalProfileSourceAdd => 20
+    static ProfileSourceAdd => 20
 
     /**
+     * Native name: HalProfileSourceRemove
      * @type {Integer (Int32)}
      */
-    static HalProfileSourceRemove => 21
+    static ProfileSourceRemove => 21
 
     /**
+     * Native name: HalSetSwInterruptHandler
      * @type {Integer (Int32)}
      */
-    static HalSetSwInterruptHandler => 22
+    static SwInterruptHandler => 22
 
     /**
+     * Native name: HalSetClockTimerMinimumInterval
      * @type {Integer (Int32)}
      */
-    static HalSetClockTimerMinimumInterval => 23
+    static ClockTimerMinimumInterval => 23
 }

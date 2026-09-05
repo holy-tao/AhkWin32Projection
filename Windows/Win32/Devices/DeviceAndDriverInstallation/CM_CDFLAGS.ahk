@@ -7,17 +7,20 @@
 class CM_CDFLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CM_CDFLAGS_DRIVER
      * @type {Integer (UInt32)}
      */
-    static CM_CDFLAGS_DRIVER => 1
+    static DRIVER => 1
 
     /**
+     * Native name: CM_CDFLAGS_ROOT_OWNED
      * @type {Integer (UInt32)}
      */
-    static CM_CDFLAGS_ROOT_OWNED => 2
+    static ROOT_OWNED => 2
 
     /**
+     * Native name: CM_CDFLAGS_RESERVED
      * @type {Integer (UInt32)}
      */
-    static CM_CDFLAGS_RESERVED => 4
+    static RESERVED => 4
 }

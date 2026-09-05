@@ -16,49 +16,57 @@ class UI_EVENTTYPE extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-applicationmenu">ApplicationMenu</a> opened.
+     * Native name: UI_EVENTTYPE_ApplicationMenuOpened
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_ApplicationMenuOpened => 0
+    static ApplicationMenuOpened => 0
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-ribbon">Ribbon</a> minimized.
+     * Native name: UI_EVENTTYPE_RibbonMinimized
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_RibbonMinimized => 1
+    static RibbonMinimized => 1
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-ribbon">Ribbon</a> expanded.
+     * Native name: UI_EVENTTYPE_RibbonExpanded
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_RibbonExpanded => 2
+    static RibbonExpanded => 2
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/ribbon-applicationmodes">application mode</a> changed.
+     * Native name: UI_EVENTTYPE_ApplicationModeSwitched
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_ApplicationModeSwitched => 3
+    static ApplicationModeSwitched => 3
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-tab">Tab</a> activated.
+     * Native name: UI_EVENTTYPE_TabActivated
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_TabActivated => 4
+    static TabActivated => 4
 
     /**
      * A menu opened.
+     * Native name: UI_EVENTTYPE_MenuOpened
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_MenuOpened => 5
+    static MenuOpened => 5
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> executed.
+     * Native name: UI_EVENTTYPE_CommandExecuted
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_CommandExecuted => 6
+    static CommandExecuted => 6
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> tooltip displayed.
+     * Native name: UI_EVENTTYPE_TooltipShown
      * @type {Integer (Int32)}
      */
-    static UI_EVENTTYPE_TooltipShown => 7
+    static TooltipShown => 7
 }

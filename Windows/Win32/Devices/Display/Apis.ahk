@@ -6810,7 +6810,6 @@ class Display {
     }
 
     /**
-     * 
      * @param {HDEV} _hdev 
      * @param {Pointer<EMFINFO>} pEMFInfo 
      * @returns {BOOL} 

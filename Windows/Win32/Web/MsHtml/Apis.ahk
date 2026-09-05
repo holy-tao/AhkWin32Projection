@@ -31562,7 +31562,6 @@ class MsHtml {
 
 ;@region Methods
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {PWSTR} pszUrl 
      * @param {IEnumPrivacyRecords} pPrivacyEnum 

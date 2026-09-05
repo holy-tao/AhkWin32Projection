@@ -7,17 +7,20 @@
 class LEGACY_TOUCHPAD_FEATURES extends Win32BitflagEnum {
 
     /**
+     * Native name: LEGACY_TOUCHPAD_FEATURE_NONE
      * @type {Integer (Int32)}
      */
-    static LEGACY_TOUCHPAD_FEATURE_NONE => 0
+    static FEATURE_NONE => 0
 
     /**
+     * Native name: LEGACY_TOUCHPAD_FEATURE_ENABLE_DISABLE
      * @type {Integer (Int32)}
      */
-    static LEGACY_TOUCHPAD_FEATURE_ENABLE_DISABLE => 1
+    static FEATURE_ENABLE_DISABLE => 1
 
     /**
+     * Native name: LEGACY_TOUCHPAD_FEATURE_REVERSE_SCROLL_DIRECTION
      * @type {Integer (Int32)}
      */
-    static LEGACY_TOUCHPAD_FEATURE_REVERSE_SCROLL_DIRECTION => 4
+    static FEATURE_REVERSE_SCROLL_DIRECTION => 4
 }

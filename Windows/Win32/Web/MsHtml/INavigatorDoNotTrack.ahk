@@ -37,7 +37,6 @@ class INavigatorDoNotTrack extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msDoNotTrack() {

@@ -7,42 +7,50 @@
 class WPC_ARGS_CONTENTUSAGEEVENT extends Win32Enum {
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_CONTENTPROVIDERID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_CONTENTPROVIDERID => 0
+    static CONTENTPROVIDERID => 0
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_CONTENTPROVIDERTITLE
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_CONTENTPROVIDERTITLE => 1
+    static CONTENTPROVIDERTITLE => 1
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_ID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_ID => 2
+    static ID => 2
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_TITLE
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_TITLE => 3
+    static TITLE => 3
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_CATEGORY
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_CATEGORY => 4
+    static CATEGORY => 4
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_RATINGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_RATINGS => 5
+    static RATINGS => 5
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_DECISION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_DECISION => 6
+    static DECISION => 6
 
     /**
+     * Native name: WPC_ARGS_CONTENTUSAGEEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONTENTUSAGEEVENT_CARGS => 7
+    static CARGS => 7
 }

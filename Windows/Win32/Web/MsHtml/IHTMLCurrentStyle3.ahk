@@ -59,7 +59,6 @@ class IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textOverflow() {
@@ -69,7 +68,6 @@ class IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minHeight() {
@@ -79,7 +77,6 @@ class IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_wordSpacing() {
@@ -89,7 +86,6 @@ class IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_whiteSpace() {

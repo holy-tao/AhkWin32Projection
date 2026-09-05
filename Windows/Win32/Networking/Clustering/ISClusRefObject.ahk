@@ -36,7 +36,6 @@ class ISClusRefObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {

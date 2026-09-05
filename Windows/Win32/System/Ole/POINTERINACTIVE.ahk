@@ -25,19 +25,22 @@ class POINTERINACTIVE extends Win32Enum {
 
     /**
      * The object should be in-place activated when the mouse enters it during a mouse move operation.
+     * Native name: POINTERINACTIVE_ACTIVATEONENTRY
      * @type {Integer (Int32)}
      */
-    static POINTERINACTIVE_ACTIVATEONENTRY => 1
+    static ACTIVATEONENTRY => 1
 
     /**
      * The object should be deactivated when the mouse leaves the object during a mouse move operation.
+     * Native name: POINTERINACTIVE_DEACTIVATEONLEAVE
      * @type {Integer (Int32)}
      */
-    static POINTERINACTIVE_DEACTIVATEONLEAVE => 2
+    static DEACTIVATEONLEAVE => 2
 
     /**
      * The object should be in-place activated when the mouse is dragged over it during a drag and drop operation.
+     * Native name: POINTERINACTIVE_ACTIVATEONDRAG
      * @type {Integer (Int32)}
      */
-    static POINTERINACTIVE_ACTIVATEONDRAG => 4
+    static ACTIVATEONDRAG => 4
 }

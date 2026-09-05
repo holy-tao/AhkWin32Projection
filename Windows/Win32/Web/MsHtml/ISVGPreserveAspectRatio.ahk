@@ -51,7 +51,6 @@ class ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ class ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_align() {
@@ -70,7 +68,6 @@ class ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ class ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_meetOrSlice() {

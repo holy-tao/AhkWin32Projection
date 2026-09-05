@@ -51,7 +51,6 @@ class IDOMMSAnimationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationName() {
@@ -61,7 +60,6 @@ class IDOMMSAnimationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_elapsedTime() {
@@ -70,7 +68,6 @@ class IDOMMSAnimationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

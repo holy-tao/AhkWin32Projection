@@ -29,7 +29,6 @@ class IBFCacheable extends IUnknown {
     static VTableNames => ["EnterBFCache", "ExitBFCache"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnterBFCache() {
@@ -38,7 +37,6 @@ class IBFCacheable extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExitBFCache() {

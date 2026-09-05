@@ -7,32 +7,38 @@
 class DelayRetryAction extends Win32Enum {
 
     /**
+     * Native name: DelayRetryUnknown
      * @type {Integer (Int32)}
      */
-    static DelayRetryUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DelayRetryNone
      * @type {Integer (Int32)}
      */
-    static DelayRetryNone => 1
+    static None => 1
 
     /**
+     * Native name: DelayRetryShort
      * @type {Integer (Int32)}
      */
-    static DelayRetryShort => 2
+    static Short => 2
 
     /**
+     * Native name: DelayRetryLong
      * @type {Integer (Int32)}
      */
-    static DelayRetryLong => 3
+    static Long => 3
 
     /**
+     * Native name: DelayRetrySuccess
      * @type {Integer (Int32)}
      */
-    static DelayRetrySuccess => 4
+    static Success => 4
 
     /**
+     * Native name: DelayRetryPastSuccess
      * @type {Integer (Int32)}
      */
-    static DelayRetryPastSuccess => 5
+    static PastSuccess => 5
 }

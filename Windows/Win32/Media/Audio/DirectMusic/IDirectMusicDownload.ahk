@@ -29,7 +29,6 @@ class IDirectMusicDownload extends IUnknown {
     static VTableNames => ["GetBuffer"]
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppvBuffer 
      * @param {Pointer<Integer>} pdwSize 
      * @returns {HRESULT} 

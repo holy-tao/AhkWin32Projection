@@ -29,7 +29,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     static VTableNames => ["SetMinThreadCount", "GetMinThreadCount", "SetMaxThreadCount", "GetMaxThreadCount", "SetActivityPerThread", "GetActivityPerThread", "SetActivityRatio", "GetActivityRatio", "GetThreadCount", "GetQueueDepth", "SetQueueDepth"]
 
     /**
-     * 
      * @param {Integer} minThreads 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinThreadCount() {
@@ -48,7 +46,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} maxThreads 
      * @returns {HRESULT} 
      */
@@ -58,7 +55,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxThreadCount() {
@@ -67,7 +63,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} activitiesPerThread 
      * @returns {HRESULT} 
      */
@@ -77,7 +72,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActivityPerThread() {
@@ -86,7 +80,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} activityRatio 
      * @returns {HRESULT} 
      */
@@ -96,7 +89,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetActivityRatio() {
@@ -105,7 +97,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetThreadCount() {
@@ -114,7 +105,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetQueueDepth() {
@@ -123,7 +113,6 @@ class IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwQDepth 
      * @returns {HRESULT} 
      */

@@ -33,7 +33,6 @@ class IDebugRegisters2 extends IUnknown {
     static VTableNames => ["GetNumberRegisters", "GetDescription", "GetIndexByName", "GetValue", "SetValue", "GetValues", "SetValues", "OutputRegisters", "GetInstructionOffset", "GetStackOffset", "GetFrameOffset", "GetDescriptionWide", "GetIndexByNameWide", "GetNumberPseudoRegisters", "GetPseudoDescription", "GetPseudoDescriptionWide", "GetPseudoIndexByName", "GetPseudoIndexByNameWide", "GetPseudoValues", "SetPseudoValues", "GetValues2", "SetValues2", "OutputRegisters2", "GetInstructionOffset2", "GetStackOffset2", "GetFrameOffset2"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberRegisters() {
@@ -61,7 +60,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {Integer} 
      */
@@ -73,7 +71,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @returns {DEBUG_VALUE} 
      */
@@ -84,7 +81,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {Pointer<DEBUG_VALUE>} Value 
      * @returns {HRESULT} 
@@ -95,7 +91,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
      * @param {Integer} Start 
@@ -110,7 +105,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
      * @param {Integer} Start 
@@ -125,7 +119,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -136,7 +129,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInstructionOffset() {
@@ -145,7 +137,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStackOffset() {
@@ -154,7 +145,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameOffset() {
@@ -163,7 +153,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {PWSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -181,7 +170,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @returns {Integer} 
      */
@@ -193,7 +181,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberPseudoRegisters() {
@@ -202,7 +189,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {PSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -223,7 +209,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {PWSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -244,7 +229,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {Integer} 
      */
@@ -256,7 +240,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @returns {Integer} 
      */
@@ -268,7 +251,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -284,7 +266,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -300,7 +281,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -316,7 +296,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -332,7 +311,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Source 
      * @param {Integer} Flags 
@@ -344,7 +322,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @returns {Integer} 
      */
@@ -354,7 +331,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @returns {Integer} 
      */
@@ -364,7 +340,6 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @returns {Integer} 
      */

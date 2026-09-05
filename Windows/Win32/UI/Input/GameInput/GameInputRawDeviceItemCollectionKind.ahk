@@ -7,42 +7,50 @@
 class GameInputRawDeviceItemCollectionKind extends Win32Enum {
 
     /**
+     * Native name: GameInputUnknownItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputUnknownItemCollection => -1
+    static UnknownItemCollection => -1
 
     /**
+     * Native name: GameInputPhysicalItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputPhysicalItemCollection => 0
+    static PhysicalItemCollection => 0
 
     /**
+     * Native name: GameInputApplicationItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputApplicationItemCollection => 1
+    static ApplicationItemCollection => 1
 
     /**
+     * Native name: GameInputLogicalItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputLogicalItemCollection => 2
+    static LogicalItemCollection => 2
 
     /**
+     * Native name: GameInputReportItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputReportItemCollection => 3
+    static ReportItemCollection => 3
 
     /**
+     * Native name: GameInputNamedArrayItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputNamedArrayItemCollection => 4
+    static NamedArrayItemCollection => 4
 
     /**
+     * Native name: GameInputUsageSwitchItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputUsageSwitchItemCollection => 5
+    static UsageSwitchItemCollection => 5
 
     /**
+     * Native name: GameInputUsageModifierItemCollection
      * @type {Integer (Int32)}
      */
-    static GameInputUsageModifierItemCollection => 6
+    static UsageModifierItemCollection => 6
 }

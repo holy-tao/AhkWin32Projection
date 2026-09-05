@@ -44,7 +44,6 @@ class IHTMLGenericElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_recordset() {
@@ -53,7 +52,6 @@ class IHTMLGenericElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} dataMember 
      * @param {Pointer<VARIANT>} hierarchy 
      * @returns {IDispatch} 

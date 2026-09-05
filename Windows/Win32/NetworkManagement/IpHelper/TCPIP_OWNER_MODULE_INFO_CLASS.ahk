@@ -10,7 +10,8 @@ class TCPIP_OWNER_MODULE_INFO_CLASS extends Win32Enum {
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is passed to the <b>GetOwnerModuleFromXXXEntry</b> function.
+     * Native name: TCPIP_OWNER_MODULE_INFO_BASIC
      * @type {Integer (Int32)}
      */
-    static TCPIP_OWNER_MODULE_INFO_BASIC => 0
+    static BASIC => 0
 }

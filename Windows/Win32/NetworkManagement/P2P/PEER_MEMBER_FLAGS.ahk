@@ -10,7 +10,8 @@ class PEER_MEMBER_FLAGS extends Win32Enum {
 
     /**
      * The member is present in the peer group.
+     * Native name: PEER_MEMBER_PRESENT
      * @type {Integer (Int32)}
      */
-    static PEER_MEMBER_PRESENT => 1
+    static PRESENT => 1
 }

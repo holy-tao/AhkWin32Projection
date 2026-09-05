@@ -7,37 +7,44 @@
 class NVMEOF_AUTH_DHCHAP_GROUP_ID extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthDHCHAPGroupNull
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPGroupNull => 0
+    static Null => 0
 
     /**
+     * Native name: NvmeofAuthDHCHAPGroup2048
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPGroup2048 => 1
+    static Group2048 => 1
 
     /**
+     * Native name: NvmeofAuthDHCHAPGroup3072
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPGroup3072 => 2
+    static Group3072 => 2
 
     /**
+     * Native name: NvmeofAuthDHCHAPGroup4096
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPGroup4096 => 3
+    static Group4096 => 3
 
     /**
+     * Native name: NvmeofAuthDHCHAPGroup6144
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPGroup6144 => 4
+    static Group6144 => 4
 
     /**
+     * Native name: NvmeofAuthDHCHAPGroup8192
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPGroup8192 => 5
+    static Group8192 => 5
 
     /**
+     * Native name: NvmeofAuthDHCHAPGroupMax
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPGroupMax => 255
+    static Max => 255
 }

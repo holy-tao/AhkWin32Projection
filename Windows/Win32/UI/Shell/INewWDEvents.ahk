@@ -31,7 +31,6 @@ class INewWDEvents extends IWebWizardHost {
     static VTableNames => ["PassportAuthenticate"]
 
     /**
-     * 
      * @param {BSTR} bstrSignInUrl 
      * @returns {VARIANT_BOOL} 
      */

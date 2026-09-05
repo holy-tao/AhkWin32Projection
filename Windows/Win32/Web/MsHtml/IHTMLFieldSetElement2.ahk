@@ -37,7 +37,6 @@ class IHTMLFieldSetElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {

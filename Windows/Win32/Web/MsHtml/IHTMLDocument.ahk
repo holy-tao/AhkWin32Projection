@@ -42,7 +42,6 @@ class IHTMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Script() {

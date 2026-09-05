@@ -33,7 +33,6 @@ class IDataModelScriptManager extends IUnknown {
     static VTableNames => ["GetDefaultNameBinder", "RegisterScriptProvider", "UnregisterScriptProvider", "FindProviderForScriptType", "FindProviderForScriptExtension", "EnumerateScriptProviders"]
 
     /**
-     * 
      * @returns {IDataModelNameBinder} 
      */
     GetDefaultNameBinder() {
@@ -42,7 +41,6 @@ class IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptProvider} provider 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptProvider} provider 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptType 
      * @returns {IDataModelScriptProvider} 
      */
@@ -74,7 +70,6 @@ class IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptExtension 
      * @returns {IDataModelScriptProvider} 
      */
@@ -86,7 +81,6 @@ class IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptProviderEnumerator} 
      */
     EnumerateScriptProviders() {

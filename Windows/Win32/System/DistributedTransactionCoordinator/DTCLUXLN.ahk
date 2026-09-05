@@ -7,12 +7,14 @@
 class DTCLUXLN extends Win32Enum {
 
     /**
+     * Native name: DTCLUXLN_COLD
      * @type {Integer (Int32)}
      */
-    static DTCLUXLN_COLD => 1
+    static COLD => 1
 
     /**
+     * Native name: DTCLUXLN_WARM
      * @type {Integer (Int32)}
      */
-    static DTCLUXLN_WARM => 2
+    static WARM => 2
 }

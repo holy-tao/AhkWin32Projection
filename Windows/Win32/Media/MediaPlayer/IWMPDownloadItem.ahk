@@ -61,7 +61,6 @@ class IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrURL 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ class IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plSize 
      * @returns {HRESULT} 
      */
@@ -83,7 +81,6 @@ class IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrType 
      * @returns {HRESULT} 
      */
@@ -93,7 +90,6 @@ class IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plProgress 
      * @returns {HRESULT} 
      */
@@ -105,7 +101,6 @@ class IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<WMPSubscriptionDownloadState>} pwmpsdls 
      * @returns {HRESULT} 
      */
@@ -161,7 +156,6 @@ class IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     cancel() {

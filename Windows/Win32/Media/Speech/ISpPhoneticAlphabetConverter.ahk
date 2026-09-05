@@ -36,7 +36,6 @@ class ISpPhoneticAlphabetConverter extends IUnknown {
     static VTableNames => ["GetLangId", "SetLangId", "SAPI2UPS", "UPS2SAPI", "GetMaxConvertLength"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLangId() {
@@ -45,7 +44,6 @@ class ISpPhoneticAlphabetConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} LangID 
      * @returns {HRESULT} 
      */
@@ -55,7 +53,6 @@ class ISpPhoneticAlphabetConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pszSAPIId 
      * @param {Integer} cMaxLength 
      * @returns {Integer} 
@@ -68,7 +65,6 @@ class ISpPhoneticAlphabetConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pszUPSId 
      * @param {Integer} cMaxLength 
      * @returns {Integer} 
@@ -81,7 +77,6 @@ class ISpPhoneticAlphabetConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cSrcLength 
      * @param {BOOL} bSAPI2UPS 
      * @returns {Integer} 

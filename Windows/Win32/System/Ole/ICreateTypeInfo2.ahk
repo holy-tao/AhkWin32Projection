@@ -842,7 +842,6 @@ class ICreateTypeInfo2 extends ICreateTypeInfo {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Invalidate() {

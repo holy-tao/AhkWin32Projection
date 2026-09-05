@@ -7,22 +7,26 @@
 class styleMsScrollTranslation extends Win32Enum {
 
     /**
+     * Native name: styleMsScrollTranslationNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsScrollTranslationNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleMsScrollTranslationNone
      * @type {Integer (Int32)}
      */
-    static styleMsScrollTranslationNone => 1
+    static None => 1
 
     /**
+     * Native name: styleMsScrollTranslationVtoH
      * @type {Integer (Int32)}
      */
-    static styleMsScrollTranslationVtoH => 2
+    static VtoH => 2
 
     /**
+     * Native name: styleMsScrollTranslation_Max
      * @type {Integer (Int32)}
      */
-    static styleMsScrollTranslation_Max => 2147483647
+    static Max => 2147483647
 }

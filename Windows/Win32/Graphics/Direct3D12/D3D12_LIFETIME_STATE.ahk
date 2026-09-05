@@ -10,13 +10,15 @@ class D3D12_LIFETIME_STATE extends Win32Enum {
 
     /**
      * Specifies that the lifetime-tracked object is in use.
+     * Native name: D3D12_LIFETIME_STATE_IN_USE
      * @type {Integer (Int32)}
      */
-    static D3D12_LIFETIME_STATE_IN_USE => 0
+    static IN_USE => 0
 
     /**
      * Specifies that the lifetime-tracked object is not in use.
+     * Native name: D3D12_LIFETIME_STATE_NOT_IN_USE
      * @type {Integer (Int32)}
      */
-    static D3D12_LIFETIME_STATE_NOT_IN_USE => 1
+    static NOT_IN_USE => 1
 }

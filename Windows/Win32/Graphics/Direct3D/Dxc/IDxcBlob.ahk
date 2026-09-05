@@ -28,7 +28,6 @@ class IDxcBlob extends IUnknown {
     static VTableNames => ["GetBufferPointer", "GetBufferSize"]
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     GetBufferPointer() {
@@ -37,7 +36,6 @@ class IDxcBlob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetBufferSize() {

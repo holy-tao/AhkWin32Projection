@@ -32,7 +32,6 @@ class IDirectInput2A extends IDirectInputA {
     static VTableNames => ["FindDevice"]
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PSTR} param1 
      * @param {Pointer<Guid>} param2 

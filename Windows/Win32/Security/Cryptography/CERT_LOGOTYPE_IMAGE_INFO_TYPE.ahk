@@ -7,12 +7,14 @@
 class CERT_LOGOTYPE_IMAGE_INFO_TYPE extends Win32Enum {
 
     /**
+     * Native name: CERT_LOGOTYPE_GRAY_SCALE_IMAGE_INFO_CHOICE
      * @type {Integer (UInt32)}
      */
-    static CERT_LOGOTYPE_GRAY_SCALE_IMAGE_INFO_CHOICE => 1
+    static GRAY_SCALE_IMAGE_INFO_CHOICE => 1
 
     /**
+     * Native name: CERT_LOGOTYPE_COLOR_IMAGE_INFO_CHOICE
      * @type {Integer (UInt32)}
      */
-    static CERT_LOGOTYPE_COLOR_IMAGE_INFO_CHOICE => 2
+    static COLOR_IMAGE_INFO_CHOICE => 2
 }

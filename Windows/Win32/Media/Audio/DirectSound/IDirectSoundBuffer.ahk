@@ -33,7 +33,6 @@ class IDirectSoundBuffer extends IUnknown {
     static VTableNames => ["GetCaps", "GetCurrentPosition", "GetFormat", "GetVolume", "GetPan", "GetFrequency", "GetStatus", "Initialize", "Lock", "Play", "SetCurrentPosition", "SetFormat", "SetVolume", "SetPan", "SetFrequency", "Stop", "Unlock", "Restore"]
 
     /**
-     * 
      * @returns {DSBCAPS} 
      */
     GetCaps() {
@@ -43,7 +42,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwCurrentPlayCursor 
      * @param {Pointer<Integer>} pdwCurrentWriteCursor 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
      * @returns {Integer} 
@@ -68,7 +65,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVolume() {
@@ -77,7 +73,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPan() {
@@ -86,7 +81,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrequency() {
@@ -95,7 +89,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStatus() {
@@ -190,7 +183,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwNewPosition 
      * @returns {HRESULT} 
      */
@@ -200,7 +192,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WAVEFORMATEX>} pcfxFormat 
      * @returns {HRESULT} 
      */
@@ -210,7 +201,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
      */
@@ -220,7 +210,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lPan 
      * @returns {HRESULT} 
      */
@@ -230,7 +219,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFrequency 
      * @returns {HRESULT} 
      */
@@ -240,7 +228,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -249,7 +236,6 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pvAudioPtr1 
      * @param {Integer} dwAudioBytes1 
      * @param {Integer} pvAudioPtr2 

@@ -33,7 +33,6 @@ class IWMPNodeWindowedHost extends IUnknown {
     static VTableNames => ["OnWindowMessageFromRenderer"]
 
     /**
-     * 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wparam 
      * @param {LPARAM} _lparam 

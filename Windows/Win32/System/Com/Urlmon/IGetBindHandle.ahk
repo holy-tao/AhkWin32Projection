@@ -31,7 +31,6 @@ class IGetBindHandle extends IUnknown {
     static VTableNames => ["GetBindHandle"]
 
     /**
-     * 
      * @param {BINDHANDLETYPES} enumRequestedHandle 
      * @returns {HANDLE} 
      */

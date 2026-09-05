@@ -7,12 +7,14 @@
 class WHEA_THROTTLE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaPcieThrottle
      * @type {Integer (Int32)}
      */
-    static WheaPcieThrottle => 0
+    static PcieThrottle => 0
 
     /**
+     * Native name: WheaMemoryThrottle
      * @type {Integer (Int32)}
      */
-    static WheaMemoryThrottle => 1
+    static MemoryThrottle => 1
 }

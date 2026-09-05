@@ -36,7 +36,6 @@ class IDWriteFontFallback1 extends IDWriteFontFallback {
     static VTableNames => ["MapCharacters"]
 
     /**
-     * 
      * @param {IDWriteTextAnalysisSource} analysisSource 
      * @param {Integer} textPosition 
      * @param {Integer} textLength 

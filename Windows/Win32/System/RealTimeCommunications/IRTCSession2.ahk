@@ -33,7 +33,6 @@ class IRTCSession2 extends IRTCSession {
     static VTableNames => ["SendInfo", "put_PreferredSecurityLevel", "get_PreferredSecurityLevel", "IsSecurityEnabled", "AnswerWithSessionDescription", "ReInviteWithSessionDescription"]
 
     /**
-     * 
      * @param {BSTR} bstrInfoHeader 
      * @param {BSTR} bstrInfo 
      * @param {Pointer} lCookie 
@@ -48,7 +47,6 @@ class IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @param {RTC_SECURITY_LEVEL} enSecurityLevel 
      * @returns {HRESULT} 
@@ -59,7 +57,6 @@ class IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -69,7 +66,6 @@ class IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {VARIANT_BOOL} 
      */
@@ -79,7 +75,6 @@ class IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @returns {HRESULT} 
@@ -93,7 +88,6 @@ class IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @param {Pointer} lCookie 

@@ -7,32 +7,38 @@
 class CRYPT_XML_STATUS_ERROR_STATUS extends Win32Enum {
 
     /**
+     * Native name: CRYPT_XML_STATUS_ERROR_NOT_RESOLVED
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_STATUS_ERROR_NOT_RESOLVED => 1
+    static NOT_RESOLVED => 1
 
     /**
+     * Native name: CRYPT_XML_STATUS_ERROR_DIGEST_INVALID
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_STATUS_ERROR_DIGEST_INVALID => 2
+    static DIGEST_INVALID => 2
 
     /**
+     * Native name: CRYPT_XML_STATUS_ERROR_NOT_SUPPORTED_ALGORITHM
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_STATUS_ERROR_NOT_SUPPORTED_ALGORITHM => 5
+    static NOT_SUPPORTED_ALGORITHM => 5
 
     /**
+     * Native name: CRYPT_XML_STATUS_ERROR_NOT_SUPPORTED_TRANSFORM
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_STATUS_ERROR_NOT_SUPPORTED_TRANSFORM => 8
+    static NOT_SUPPORTED_TRANSFORM => 8
 
     /**
+     * Native name: CRYPT_XML_STATUS_ERROR_SIGNATURE_INVALID
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_STATUS_ERROR_SIGNATURE_INVALID => 65536
+    static SIGNATURE_INVALID => 65536
 
     /**
+     * Native name: CRYPT_XML_STATUS_ERROR_KEYINFO_NOT_PARSED
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_STATUS_ERROR_KEYINFO_NOT_PARSED => 131072
+    static KEYINFO_NOT_PARSED => 131072
 }

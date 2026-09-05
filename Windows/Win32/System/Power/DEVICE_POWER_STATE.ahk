@@ -7,32 +7,38 @@
 class DEVICE_POWER_STATE extends Win32Enum {
 
     /**
+     * Native name: PowerDeviceUnspecified
      * @type {Integer (Int32)}
      */
-    static PowerDeviceUnspecified => 0
+    static DeviceUnspecified => 0
 
     /**
+     * Native name: PowerDeviceD0
      * @type {Integer (Int32)}
      */
-    static PowerDeviceD0 => 1
+    static DeviceD0 => 1
 
     /**
+     * Native name: PowerDeviceD1
      * @type {Integer (Int32)}
      */
-    static PowerDeviceD1 => 2
+    static DeviceD1 => 2
 
     /**
+     * Native name: PowerDeviceD2
      * @type {Integer (Int32)}
      */
-    static PowerDeviceD2 => 3
+    static DeviceD2 => 3
 
     /**
+     * Native name: PowerDeviceD3
      * @type {Integer (Int32)}
      */
-    static PowerDeviceD3 => 4
+    static DeviceD3 => 4
 
     /**
+     * Native name: PowerDeviceMaximum
      * @type {Integer (Int32)}
      */
-    static PowerDeviceMaximum => 5
+    static DeviceMaximum => 5
 }

@@ -54,7 +54,6 @@ class Property extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -64,7 +63,6 @@ class Property extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
      */
@@ -74,7 +72,6 @@ class Property extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {

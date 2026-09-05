@@ -30,7 +30,6 @@ class ITableRename extends IUnknown {
     static VTableNames => ["RenameColumn", "RenameTable"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pOldColumnId 
      * @param {Pointer<DBID>} pNewColumnId 
@@ -42,7 +41,6 @@ class ITableRename extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pOldTableId 
      * @param {Pointer<DBID>} pOldIndexId 
      * @param {Pointer<DBID>} pNewTableId 

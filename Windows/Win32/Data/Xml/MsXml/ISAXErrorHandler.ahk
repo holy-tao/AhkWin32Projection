@@ -31,7 +31,6 @@ class ISAXErrorHandler extends IUnknown {
     static VTableNames => ["error", "fatalError", "ignorableWarning"]
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 
@@ -45,7 +44,6 @@ class ISAXErrorHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 
@@ -59,7 +57,6 @@ class ISAXErrorHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 

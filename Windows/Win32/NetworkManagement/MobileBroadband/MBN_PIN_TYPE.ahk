@@ -10,67 +10,78 @@ class MBN_PIN_TYPE extends Win32Enum {
 
     /**
      * Indicates that no PIN is pending to be entered.
+     * Native name: MBN_PIN_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates a custom PIN code.
+     * Native name: MBN_PIN_TYPE_CUSTOM
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_CUSTOM => 1
+    static CUSTOM => 1
 
     /**
      * Indicates a PIN1 code.  For CDMA devices, PIN1 represents the power-on device lock code.  For GSM devices, PIN1 represents the SIM lock, also referred to  as PIN in GSM terminology.
+     * Native name: MBN_PIN_TYPE_PIN1
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_PIN1 => 2
+    static PIN1 => 2
 
     /**
      * Indicates a PIN2 code.
+     * Native name: MBN_PIN_TYPE_PIN2
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_PIN2 => 3
+    static PIN2 => 3
 
     /**
      * Indicates a device to SIM password.
+     * Native name: MBN_PIN_TYPE_DEVICE_SIM_PIN
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_DEVICE_SIM_PIN => 4
+    static DEVICE_SIM_PIN => 4
 
     /**
      * Indicates a device to very first SIM password.
+     * Native name: MBN_PIN_TYPE_DEVICE_FIRST_SIM_PIN
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_DEVICE_FIRST_SIM_PIN => 5
+    static DEVICE_FIRST_SIM_PIN => 5
 
     /**
      * Indicates a network personalization password.
+     * Native name: MBN_PIN_TYPE_NETWORK_PIN
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_NETWORK_PIN => 6
+    static NETWORK_PIN => 6
 
     /**
      * Indicates a network subset personalization password.
+     * Native name: MBN_PIN_TYPE_NETWORK_SUBSET_PIN
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_NETWORK_SUBSET_PIN => 7
+    static NETWORK_SUBSET_PIN => 7
 
     /**
      * Indicates a Service Provider (SP) personalization password.
+     * Native name: MBN_PIN_TYPE_SVC_PROVIDER_PIN
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_SVC_PROVIDER_PIN => 8
+    static SVC_PROVIDER_PIN => 8
 
     /**
      * Indicates a corporate personalization password.
+     * Native name: MBN_PIN_TYPE_CORPORATE_PIN
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_CORPORATE_PIN => 9
+    static CORPORATE_PIN => 9
 
     /**
      * Indicates a subsidy unlock code.
+     * Native name: MBN_PIN_TYPE_SUBSIDY_LOCK
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_TYPE_SUBSIDY_LOCK => 10
+    static SUBSIDY_LOCK => 10
 }

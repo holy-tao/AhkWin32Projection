@@ -7,32 +7,38 @@
 class DISPID_InkCursor extends Win32Enum {
 
     /**
+     * Native name: DISPID_ICsrName
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsrName => 0
+    static ICsrName => 0
 
     /**
+     * Native name: DISPID_ICsrId
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsrId => 1
+    static ICsrId => 1
 
     /**
+     * Native name: DISPID_ICsrDrawingAttributes
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsrDrawingAttributes => 2
+    static ICsrDrawingAttributes => 2
 
     /**
+     * Native name: DISPID_ICsrButtons
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsrButtons => 3
+    static ICsrButtons => 3
 
     /**
+     * Native name: DISPID_ICsrInverted
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsrInverted => 4
+    static ICsrInverted => 4
 
     /**
+     * Native name: DISPID_ICsrTablet
      * @type {Integer (Int32)}
      */
-    static DISPID_ICsrTablet => 5
+    static ICsrTablet => 5
 }

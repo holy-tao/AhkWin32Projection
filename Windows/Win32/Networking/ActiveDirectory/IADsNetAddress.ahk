@@ -48,7 +48,6 @@ class IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AddressType() {
@@ -57,7 +56,6 @@ class IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAddressType 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Address() {
@@ -77,7 +74,6 @@ class IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vAddress 
      * @returns {HRESULT} 
      */

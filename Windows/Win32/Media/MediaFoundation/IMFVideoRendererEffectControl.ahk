@@ -29,7 +29,6 @@ class IMFVideoRendererEffectControl extends IUnknown {
     static VTableNames => ["OnAppServiceConnectionEstablished"]
 
     /**
-     * 
      * @param {IUnknown} pAppServiceConnection 
      * @returns {HRESULT} 
      */

@@ -7,17 +7,20 @@
 class MF_MEDIAKEYS_REQUIREMENT extends Win32Enum {
 
     /**
+     * Native name: MF_MEDIAKEYS_REQUIREMENT_REQUIRED
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAKEYS_REQUIREMENT_REQUIRED => 1
+    static REQUIRED => 1
 
     /**
+     * Native name: MF_MEDIAKEYS_REQUIREMENT_OPTIONAL
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAKEYS_REQUIREMENT_OPTIONAL => 2
+    static OPTIONAL => 2
 
     /**
+     * Native name: MF_MEDIAKEYS_REQUIREMENT_NOT_ALLOWED
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAKEYS_REQUIREMENT_NOT_ALLOWED => 3
+    static NOT_ALLOWED => 3
 }

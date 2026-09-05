@@ -15,9 +15,10 @@ class D2D1_POINTSPECULAR_PROP extends Win32Enum {
      * The type is D2D1_VECTOR_3F.
      * 
      * The default value is {0.0f, 0.0f, 0.0f}.
+     * Native name: D2D1_POINTSPECULAR_PROP_LIGHT_POSITION
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTSPECULAR_PROP_LIGHT_POSITION => 0
+    static LIGHT_POSITION => 0
 
     /**
      * The exponent for the specular term in the Phong lighting equation. A larger value corresponds to a more reflective surface. This value is unitless and must be between 1.0 and 128.
@@ -26,9 +27,10 @@ class D2D1_POINTSPECULAR_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_POINTSPECULAR_PROP_SPECULAR_EXPONENT
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTSPECULAR_PROP_SPECULAR_EXPONENT => 1
+    static SPECULAR_EXPONENT => 1
 
     /**
      * The ratio of specular reflection to the incoming light. The value is unitless and must be between 0 and 10,000.
@@ -37,9 +39,10 @@ class D2D1_POINTSPECULAR_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_POINTSPECULAR_PROP_SPECULAR_CONSTANT
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTSPECULAR_PROP_SPECULAR_CONSTANT => 2
+    static SPECULAR_CONSTANT => 2
 
     /**
      * The scale factor in the Z direction for generating a height map. The value is unitless and must be between 0 and 10,000.
@@ -48,9 +51,10 @@ class D2D1_POINTSPECULAR_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_POINTSPECULAR_PROP_SURFACE_SCALE
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTSPECULAR_PROP_SURFACE_SCALE => 3
+    static SURFACE_SCALE => 3
 
     /**
      * The color of the incoming light. This property is exposed as a <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_3f">D2D1_VECTOR_3F</a> – (R, G, B) and used to compute LR, LG, LB.
@@ -59,9 +63,10 @@ class D2D1_POINTSPECULAR_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_3f">D2D1_VECTOR_3F</a>.
      * 
      * The default value is {1.0f, 1.0f, 1.0f}.
+     * Native name: D2D1_POINTSPECULAR_PROP_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTSPECULAR_PROP_COLOR => 4
+    static COLOR => 4
 
     /**
      * The size of an element in the Sobel kernel used to generate the surface normal in the X and Y directions. This property maps to the dx and dy values in the Sobel gradient. 
@@ -72,9 +77,10 @@ class D2D1_POINTSPECULAR_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a>.
      * 
      * The default value is {1.0f, 1.0f}.
+     * Native name: D2D1_POINTSPECULAR_PROP_KERNEL_UNIT_LENGTH
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTSPECULAR_PROP_KERNEL_UNIT_LENGTH => 5
+    static KERNEL_UNIT_LENGTH => 5
 
     /**
      * The interpolation mode the effect uses to scale the image to the corresponding kernel unit length. There are six scale modes that range in quality and speed.
@@ -83,7 +89,8 @@ class D2D1_POINTSPECULAR_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_pointspecular_scale_mode">D2D1_POINTSPECULAR_SCALE_MODE</a>.
      * 
      * The default value is D2D1_POINTSPECULAR_SCALE_MODE_LINEAR.
+     * Native name: D2D1_POINTSPECULAR_PROP_SCALE_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTSPECULAR_PROP_SCALE_MODE => 6
+    static SCALE_MODE => 6
 }

@@ -10,7 +10,8 @@ class SnapshotEncodingType extends Win32Enum {
 
     /**
      * The snapshot will be taken and a data URI that contains the snapshot will be returned.
+     * Native name: SnapshotEncodingDataUri
      * @type {Integer (Int32)}
      */
-    static SnapshotEncodingDataUri => 0
+    static DataUri => 0
 }

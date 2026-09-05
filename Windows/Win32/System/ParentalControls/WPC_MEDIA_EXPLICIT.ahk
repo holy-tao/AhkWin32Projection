@@ -10,19 +10,22 @@ class WPC_MEDIA_EXPLICIT extends Win32Enum {
 
     /**
      * The media file is not rated as explicit.
+     * Native name: WPC_MEDIA_EXPLICIT_FALSE
      * @type {Integer (Int32)}
      */
-    static WPC_MEDIA_EXPLICIT_FALSE => 0
+    static FALSE => 0
 
     /**
      * The media file is rated as explicit.
+     * Native name: WPC_MEDIA_EXPLICIT_TRUE
      * @type {Integer (Int32)}
      */
-    static WPC_MEDIA_EXPLICIT_TRUE => 1
+    static TRUE => 1
 
     /**
      * The media file has an unknown explicit rating.
+     * Native name: WPC_MEDIA_EXPLICIT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static WPC_MEDIA_EXPLICIT_UNKNOWN => 2
+    static UNKNOWN => 2
 }

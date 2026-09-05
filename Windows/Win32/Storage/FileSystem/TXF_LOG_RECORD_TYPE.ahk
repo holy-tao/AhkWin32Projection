@@ -7,17 +7,20 @@
 class TXF_LOG_RECORD_TYPE extends Win32Enum {
 
     /**
+     * Native name: TXF_LOG_RECORD_TYPE_AFFECTED_FILE
      * @type {Integer (UInt16)}
      */
-    static TXF_LOG_RECORD_TYPE_AFFECTED_FILE => 4
+    static AFFECTED_FILE => 4
 
     /**
+     * Native name: TXF_LOG_RECORD_TYPE_TRUNCATE
      * @type {Integer (UInt16)}
      */
-    static TXF_LOG_RECORD_TYPE_TRUNCATE => 2
+    static TRUNCATE => 2
 
     /**
+     * Native name: TXF_LOG_RECORD_TYPE_WRITE
      * @type {Integer (UInt16)}
      */
-    static TXF_LOG_RECORD_TYPE_WRITE => 1
+    static WRITE => 1
 }

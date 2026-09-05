@@ -64,7 +64,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x1() {
@@ -83,7 +81,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -93,7 +90,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y1() {
@@ -102,7 +98,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -112,7 +107,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x2() {
@@ -121,7 +115,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -131,7 +124,6 @@ class ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y2() {

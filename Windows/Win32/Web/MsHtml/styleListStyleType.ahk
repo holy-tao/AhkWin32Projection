@@ -7,92 +7,110 @@
 class styleListStyleType extends Win32Enum {
 
     /**
+     * Native name: styleListStyleTypeNotSet
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleListStyleTypeDisc
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeDisc => 1
+    static Disc => 1
 
     /**
+     * Native name: styleListStyleTypeCircle
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeCircle => 2
+    static Circle => 2
 
     /**
+     * Native name: styleListStyleTypeSquare
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeSquare => 3
+    static Square => 3
 
     /**
+     * Native name: styleListStyleTypeDecimal
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeDecimal => 4
+    static Decimal => 4
 
     /**
+     * Native name: styleListStyleTypeLowerRoman
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeLowerRoman => 5
+    static LowerRoman => 5
 
     /**
+     * Native name: styleListStyleTypeUpperRoman
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeUpperRoman => 6
+    static UpperRoman => 6
 
     /**
+     * Native name: styleListStyleTypeLowerAlpha
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeLowerAlpha => 7
+    static LowerAlpha => 7
 
     /**
+     * Native name: styleListStyleTypeUpperAlpha
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeUpperAlpha => 8
+    static UpperAlpha => 8
 
     /**
+     * Native name: styleListStyleTypeNone
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeNone => 9
+    static None => 9
 
     /**
+     * Native name: styleListStyleTypeDecimalLeadingZero
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeDecimalLeadingZero => 10
+    static DecimalLeadingZero => 10
 
     /**
+     * Native name: styleListStyleTypeGeorgian
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeGeorgian => 11
+    static Georgian => 11
 
     /**
+     * Native name: styleListStyleTypeArmenian
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeArmenian => 12
+    static Armenian => 12
 
     /**
+     * Native name: styleListStyleTypeUpperLatin
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeUpperLatin => 13
+    static UpperLatin => 13
 
     /**
+     * Native name: styleListStyleTypeLowerLatin
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeLowerLatin => 14
+    static LowerLatin => 14
 
     /**
+     * Native name: styleListStyleTypeUpperGreek
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeUpperGreek => 15
+    static UpperGreek => 15
 
     /**
+     * Native name: styleListStyleTypeLowerGreek
      * @type {Integer (Int32)}
      */
-    static styleListStyleTypeLowerGreek => 16
+    static LowerGreek => 16
 
     /**
+     * Native name: styleListStyleType_Max
      * @type {Integer (Int32)}
      */
-    static styleListStyleType_Max => 2147483647
+    static Max => 2147483647
 }

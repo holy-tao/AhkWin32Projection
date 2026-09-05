@@ -32,7 +32,6 @@ class IDebugExpression extends IUnknown {
     static VTableNames => ["Start", "Abort", "QueryIsComplete", "GetResultAsString", "GetResultAsDebugProperty"]
 
     /**
-     * 
      * @param {IDebugExpressionCallBack} pdecb 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -51,7 +49,6 @@ class IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsComplete() {
@@ -60,7 +57,6 @@ class IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HRESULT>} phrResult 
      * @param {Pointer<BSTR>} pbstrResult 
      * @returns {HRESULT} 
@@ -73,7 +69,6 @@ class IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HRESULT>} phrResult 
      * @param {Pointer<IDebugProperty>} ppdp 
      * @returns {HRESULT} 

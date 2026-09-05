@@ -77,7 +77,6 @@ class IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Latitude() {
@@ -86,7 +85,6 @@ class IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Longitude() {
@@ -95,7 +93,6 @@ class IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ErrorRadius() {
@@ -104,7 +101,6 @@ class IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Altitude() {
@@ -113,7 +109,6 @@ class IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_AltitudeError() {
@@ -122,7 +117,6 @@ class IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Timestamp() {

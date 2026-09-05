@@ -30,7 +30,6 @@ class ISpObjectWithToken extends IUnknown {
     static VTableNames => ["SetObjectToken", "GetObjectToken"]
 
     /**
-     * 
      * @param {ISpObjectToken} pToken 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ISpObjectWithToken extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetObjectToken() {

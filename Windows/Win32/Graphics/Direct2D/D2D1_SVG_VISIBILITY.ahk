@@ -10,13 +10,15 @@ class D2D1_SVG_VISIBILITY extends Win32Enum {
 
     /**
      * The element is visible.
+     * Native name: D2D1_SVG_VISIBILITY_VISIBLE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_VISIBILITY_VISIBLE => 0
+    static VISIBLE => 0
 
     /**
      * The element is invisible.
+     * Native name: D2D1_SVG_VISIBILITY_HIDDEN
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_VISIBILITY_HIDDEN => 1
+    static HIDDEN => 1
 }

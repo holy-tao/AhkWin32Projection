@@ -10,18 +10,21 @@ class D3D12_STATE_OBJECT_TYPE extends Win32Enum {
 
     /**
      * Collection state object.
+     * Native name: D3D12_STATE_OBJECT_TYPE_COLLECTION
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_OBJECT_TYPE_COLLECTION => 0
+    static COLLECTION => 0
 
     /**
      * Raytracing pipeline state object.
+     * Native name: D3D12_STATE_OBJECT_TYPE_RAYTRACING_PIPELINE
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_OBJECT_TYPE_RAYTRACING_PIPELINE => 3
+    static RAYTRACING_PIPELINE => 3
 
     /**
+     * Native name: D3D12_STATE_OBJECT_TYPE_EXECUTABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_OBJECT_TYPE_EXECUTABLE => 4
+    static EXECUTABLE => 4
 }

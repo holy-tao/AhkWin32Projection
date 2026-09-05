@@ -7,22 +7,26 @@
 class DEV_QUERY_RESULT_ACTION extends Win32Enum {
 
     /**
+     * Native name: DevQueryResultStateChange
      * @type {Integer (Int32)}
      */
-    static DevQueryResultStateChange => 0
+    static StateChange => 0
 
     /**
+     * Native name: DevQueryResultAdd
      * @type {Integer (Int32)}
      */
-    static DevQueryResultAdd => 1
+    static Add => 1
 
     /**
+     * Native name: DevQueryResultUpdate
      * @type {Integer (Int32)}
      */
-    static DevQueryResultUpdate => 2
+    static Update => 2
 
     /**
+     * Native name: DevQueryResultRemove
      * @type {Integer (Int32)}
      */
-    static DevQueryResultRemove => 3
+    static Remove => 3
 }

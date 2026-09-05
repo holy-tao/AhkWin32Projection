@@ -10,17 +10,20 @@ class WCN_SESSION_STATUS extends Win32Enum {
 
     /**
      * Indicates that the session is successful.
+     * Native name: WCN_SESSION_STATUS_SUCCESS
      * @type {Integer (Int32)}
      */
-    static WCN_SESSION_STATUS_SUCCESS => 0
+    static SUCCESS => 0
 
     /**
+     * Native name: WCN_SESSION_STATUS_FAILURE_GENERIC
      * @type {Integer (Int32)}
      */
-    static WCN_SESSION_STATUS_FAILURE_GENERIC => 1
+    static FAILURE_GENERIC => 1
 
     /**
+     * Native name: WCN_SESSION_STATUS_FAILURE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WCN_SESSION_STATUS_FAILURE_TIMEOUT => 2
+    static FAILURE_TIMEOUT => 2
 }

@@ -30,7 +30,6 @@ class INetCfgComponentNotifyBinding extends IUnknown {
     static VTableNames => ["QueryBindingPath", "NotifyBindingPath"]
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class INetCfgComponentNotifyBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 

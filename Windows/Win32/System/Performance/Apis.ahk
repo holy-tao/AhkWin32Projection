@@ -1225,7 +1225,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PSTR} szNewCtrFilePath 
      * @param {PSTR} szNewHlpFilePath 
      * @param {PSTR} szLanguageID 
@@ -1242,7 +1241,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PWSTR} szNewCtrFilePath 
      * @param {PWSTR} szNewHlpFilePath 
      * @param {PWSTR} szLanguageID 
@@ -1259,7 +1257,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PSTR} szReserved 
      * @param {PSTR} szServiceName 
      * @returns {Integer} 
@@ -1273,7 +1270,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PWSTR} szReserved 
      * @param {PWSTR} szServiceName 
      * @returns {Integer} 
@@ -1287,7 +1283,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PWSTR} szFileName 
      * @param {PWSTR} szCommentString 
      * @returns {Integer} 
@@ -1301,7 +1296,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PWSTR} szFileName 
      * @param {PWSTR} szLangId 
      * @returns {Integer} 
@@ -9364,7 +9358,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PWSTR} szDataSource 
      * @returns {Integer} 
      */
@@ -9376,7 +9369,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PSTR} szDataSource 
      * @returns {Integer} 
      */
@@ -9388,7 +9380,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PWSTR} szDataSource 
      * @returns {Integer} 
      */
@@ -9400,7 +9391,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PSTR} szDataSource 
      * @returns {Integer} 
      */
@@ -9534,7 +9524,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PDH_HLOG} _hLog 
      * @param {Pointer<Guid>} pGuid 
      * @param {Pointer<Integer>} pRunId 
@@ -9550,7 +9539,6 @@ class Performance {
     }
 
     /**
-     * 
      * @param {PDH_HLOG} _hLog 
      * @param {Integer} RunId 
      * @returns {Integer} 

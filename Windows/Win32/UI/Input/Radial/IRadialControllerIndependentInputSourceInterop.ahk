@@ -31,7 +31,6 @@ class IRadialControllerIndependentInputSourceInterop extends IInspectable {
     static VTableNames => ["CreateForWindow"]
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

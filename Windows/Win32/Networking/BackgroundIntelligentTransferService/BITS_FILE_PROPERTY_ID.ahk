@@ -10,7 +10,8 @@ class BITS_FILE_PROPERTY_ID extends Win32Enum {
 
     /**
      * The full set of HTTP response headers from the server's last HTTP response packet.
+     * Native name: BITS_FILE_PROPERTY_ID_HTTP_RESPONSE_HEADERS
      * @type {Integer (Int32)}
      */
-    static BITS_FILE_PROPERTY_ID_HTTP_RESPONSE_HEADERS => 1
+    static HTTP_RESPONSE_HEADERS => 1
 }

@@ -34,7 +34,6 @@ class IWICD3DTextureSource extends IUnknown {
     static VTableNames => ["GetTexture", "GetTransformedTexture", "DoesSupportD3DDeviceType", "GetD3DTextureOptions"]
 
     /**
-     * 
      * @param {IUnknown} pD3DDevice 
      * @param {IPropertyBag2} pID3DTextureOptions 
      * @param {Pointer<Guid>} riid 
@@ -46,7 +45,6 @@ class IWICD3DTextureSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WICRect>} prc 
      * @param {Integer} uiWidth 
      * @param {Integer} uiHeight 
@@ -63,7 +61,6 @@ class IWICD3DTextureSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {BOOL} 
      */
@@ -73,7 +70,6 @@ class IWICD3DTextureSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyBag2} 
      */
     GetD3DTextureOptions() {

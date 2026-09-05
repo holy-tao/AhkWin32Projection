@@ -30,7 +30,6 @@ class ID3D12StateObjectProperties1 extends ID3D12StateObjectProperties {
     static VTableNames => ["GetProgramIdentifier"]
 
     /**
-     * 
      * @param {PWSTR} pProgramName 
      * @returns {D3D12_PROGRAM_IDENTIFIER} 
      */

@@ -7,14 +7,16 @@
 class PointerKind extends Win32Enum {
 
     /**
+     * Native name: PointerStandard
      * @type {Integer (Int32)}
      */
-    static PointerStandard => 0
+    static Standard => 0
 
     /**
+     * Native name: PointerReference
      * @type {Integer (Int32)}
      */
-    static PointerReference => 1
+    static Reference => 1
 
     /**
      * @type {Integer (Int32)}
@@ -27,7 +29,8 @@ class PointerKind extends Win32Enum {
     static PointerCXHat => 3
 
     /**
+     * Native name: PointerManagedReference
      * @type {Integer (Int32)}
      */
-    static PointerManagedReference => 4
+    static ManagedReference => 4
 }

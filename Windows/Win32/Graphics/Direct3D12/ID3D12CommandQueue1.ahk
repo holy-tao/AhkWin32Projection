@@ -31,7 +31,6 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue {
     static VTableNames => ["SetProcessPriority", "GetProcessPriority", "SetGlobalPriority", "GetGlobalPriority"]
 
     /**
-     * 
      * @param {D3D12_COMMAND_QUEUE_PROCESS_PRIORITY} _Priority 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMMAND_QUEUE_PROCESS_PRIORITY>} pOutValue 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue {
     }
 
     /**
-     * 
      * @param {D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY} _Priority 
      * @returns {HRESULT} 
      */
@@ -63,7 +60,6 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY>} pOutValue 
      * @returns {HRESULT} 
      */

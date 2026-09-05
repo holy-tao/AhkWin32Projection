@@ -48,7 +48,6 @@ class ISpSREngine extends IUnknown {
     static VTableNames => ["SetSite", "GetInputAudioFormat", "RecognizeStream", "SetRecoProfile", "OnCreateGrammar", "OnDeleteGrammar", "LoadProprietaryGrammar", "UnloadProprietaryGrammar", "SetProprietaryRuleState", "SetProprietaryRuleIdState", "LoadSLM", "UnloadSLM", "SetSLMState", "SetWordSequenceData", "SetTextSelection", "IsPronounceable", "OnCreateRecoContext", "OnDeleteRecoContext", "PrivateCall", "SetAdaptationData", "SetPropertyNum", "GetPropertyNum", "SetPropertyString", "GetPropertyString", "SetGrammarState", "WordNotify", "RuleNotify", "PrivateCallEx", "SetContextState"]
 
     /**
-     * 
      * @param {ISpSREngineSite} pSite 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidSourceFormatId 
      * @param {Pointer<WAVEFORMATEX>} pSourceWaveFormatEx 
      * @param {Pointer<Guid>} pguidDesiredFormatId 
@@ -73,7 +71,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidFmtId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {HANDLE} hRequestSync 
@@ -94,7 +91,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pProfile 
      * @returns {HRESULT} 
      */
@@ -104,7 +100,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineRecoContext 
      * @param {SPGRAMMARHANDLE} hSAPIGrammar 
      * @returns {Pointer<Void>} 
@@ -119,7 +114,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @returns {HRESULT} 
      */
@@ -131,7 +125,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Pointer<Guid>} rguidParam 
      * @param {PWSTR} pszStringParam 
@@ -151,7 +144,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @returns {HRESULT} 
      */
@@ -163,7 +155,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszName 
      * @param {Pointer<Void>} pReserved 
@@ -181,7 +172,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Integer} dwRuleId 
      * @param {SPRULESTATE} NewState 
@@ -195,7 +185,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszTopicName 
      * @returns {HRESULT} 
@@ -210,7 +199,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @returns {HRESULT} 
      */
@@ -222,7 +210,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
@@ -235,7 +222,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pText 
      * @param {Integer} cchText 
@@ -252,7 +238,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Pointer<SPTEXTSELECTIONINFO>} pInfo 
      * @returns {HRESULT} 
@@ -265,7 +250,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszWord 
      * @returns {SPWORDPRONOUNCEABLE} 
@@ -280,7 +264,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRECOCONTEXTHANDLE} hSAPIRecoContext 
      * @returns {Pointer<Void>} 
      */
@@ -292,7 +275,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @returns {HRESULT} 
      */
@@ -304,7 +286,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {Pointer<Void>} pCallFrame 
      * @param {Integer} ulCallFrameSize 
@@ -319,7 +300,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
@@ -335,7 +315,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -352,7 +331,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -368,7 +346,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -386,7 +363,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -402,7 +378,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {SPGRAMMARSTATE} eGrammarState 
      * @returns {HRESULT} 
@@ -415,7 +390,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPCFGNOTIFY} Action 
      * @param {Integer} cWords 
      * @param {Pointer<SPWORDENTRY>} pWords 
@@ -427,7 +401,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPCFGNOTIFY} Action 
      * @param {Integer} cRules 
      * @param {Pointer<SPRULEENTRY>} pRules 
@@ -439,7 +412,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {Pointer<Void>} pInCallFrame 
      * @param {Integer} ulInCallFrameSize 
@@ -458,7 +430,6 @@ class ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {SPCONTEXTSTATE} eContextState 
      * @returns {HRESULT} 

@@ -10,19 +10,22 @@ class MF_MEDIA_ENGINE_STREAMTYPE_FAILED extends Win32Enum {
 
     /**
      * The stream type is unknown.
+     * Native name: MF_MEDIA_ENGINE_STREAMTYPE_FAILED_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_STREAMTYPE_FAILED_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The stream is an audio stream.
+     * Native name: MF_MEDIA_ENGINE_STREAMTYPE_FAILED_AUDIO
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_STREAMTYPE_FAILED_AUDIO => 1
+    static AUDIO => 1
 
     /**
      * The stream is a video stream.
+     * Native name: MF_MEDIA_ENGINE_STREAMTYPE_FAILED_VIDEO
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_STREAMTYPE_FAILED_VIDEO => 2
+    static VIDEO => 2
 }

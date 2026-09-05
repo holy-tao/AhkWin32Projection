@@ -15249,7 +15249,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerName 
      * @param {PWSTR} AccountName 
      * @param {Pointer<BOOL>} IsService 
@@ -16181,7 +16180,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -16197,7 +16195,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf 
@@ -16215,7 +16212,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf 
@@ -16233,7 +16229,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @returns {Integer} 
@@ -16247,7 +16242,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -16270,7 +16264,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} level 
@@ -16288,7 +16281,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} level 
@@ -16308,7 +16300,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @returns {Integer} 
@@ -16322,7 +16313,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} unlockforce 
@@ -16337,7 +16327,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf 
@@ -16355,7 +16344,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @returns {Integer} 
@@ -16369,7 +16357,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -16392,7 +16379,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} level 
@@ -16410,7 +16396,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @returns {Integer} 
@@ -16424,7 +16409,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} unlockforce 
@@ -21423,7 +21407,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PSTR} lpszCallerName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -21436,7 +21419,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @returns {Integer} 
      */
@@ -21446,7 +21428,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -21457,7 +21438,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Pointer<HANDLE>} lphConsole 
      * @returns {Integer} 
@@ -21468,7 +21448,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {PSTR} lpszFormat 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -21485,7 +21464,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PSTR} lpszFormat 
@@ -21503,7 +21481,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PSTR} lpszFormat 
@@ -21520,7 +21497,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PSTR} lpszString 
@@ -21534,7 +21510,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} lpbBytes 
@@ -21554,7 +21529,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszCallerName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -21567,7 +21541,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @returns {Integer} 
      */
@@ -21577,7 +21550,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -21588,7 +21560,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Pointer<HANDLE>} lphConsole 
      * @returns {Integer} 
@@ -21599,7 +21570,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {PWSTR} lpszFormat 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -21616,7 +21586,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszFormat 
@@ -21634,7 +21603,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszFormat 
@@ -21651,7 +21619,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszString 
@@ -21665,7 +21632,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} lpbBytes 
@@ -21685,7 +21651,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
      * @param {Pointer<PSTR>} plpwsSubStrings 
@@ -21699,7 +21664,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} wEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
@@ -21713,7 +21677,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
      * @param {Pointer<PWSTR>} plpwsSubStrings 
@@ -21727,7 +21690,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} wEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
@@ -21741,7 +21703,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PSTR} lpszSource 
      * @returns {HANDLE} 
      */
@@ -21754,7 +21715,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21765,7 +21725,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
@@ -21783,7 +21742,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
@@ -21803,7 +21761,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
@@ -21822,7 +21779,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
@@ -21842,7 +21798,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
@@ -21861,7 +21816,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwErrorCode 
      * @param {Pointer<PSTR>} lplpszErrorString 
      * @returns {Integer} 
@@ -21874,7 +21828,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszSource 
      * @returns {HANDLE} 
      */
@@ -21887,7 +21840,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21898,7 +21850,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
@@ -21916,7 +21867,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
@@ -21936,7 +21886,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
@@ -21955,7 +21904,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
@@ -21975,7 +21923,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
@@ -21994,7 +21941,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwErrorCode 
      * @param {Pointer<PWSTR>} lplpwszErrorString 
      * @returns {Integer} 
@@ -22007,7 +21953,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {PSTR} pszFailedAssertion 
      * @param {PSTR} pszFileName 
      * @param {Integer} dwLineNumber 
@@ -22023,7 +21968,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Integer} dwTransportId 
      * @param {Pointer<Pointer<Integer>>} lplpBuffer 
      * @param {Pointer<Integer>} lpdwEntriesRead 
@@ -22038,7 +21982,6 @@ class NetManagement {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @returns {Integer} 
      */

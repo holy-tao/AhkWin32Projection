@@ -10,25 +10,29 @@ class DNS_PROXY_INFORMATION_TYPE extends Win32Enum {
 
     /**
      * The type is bypass proxy information.
+     * Native name: DNS_PROXY_INFORMATION_DIRECT
      * @type {Integer (Int32)}
      */
-    static DNS_PROXY_INFORMATION_DIRECT => 0
+    static DIRECT => 0
 
     /**
      * The type is the user's default browser proxy settings.
+     * Native name: DNS_PROXY_INFORMATION_DEFAULT_SETTINGS
      * @type {Integer (Int32)}
      */
-    static DNS_PROXY_INFORMATION_DEFAULT_SETTINGS => 1
+    static DEFAULT_SETTINGS => 1
 
     /**
      * The type is defined by the <b>proxyName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_proxy_information">DNS_PROXY_INFORMATION</a> structure.
+     * Native name: DNS_PROXY_INFORMATION_PROXY_NAME
      * @type {Integer (Int32)}
      */
-    static DNS_PROXY_INFORMATION_PROXY_NAME => 2
+    static PROXY_NAME => 2
 
     /**
      * The type does not exist. DNS policy does not have proxy information for this name space. This type is used if no wildcard policy exists and there is no default proxy information.
+     * Native name: DNS_PROXY_INFORMATION_DOES_NOT_EXIST
      * @type {Integer (Int32)}
      */
-    static DNS_PROXY_INFORMATION_DOES_NOT_EXIST => 3
+    static DOES_NOT_EXIST => 3
 }

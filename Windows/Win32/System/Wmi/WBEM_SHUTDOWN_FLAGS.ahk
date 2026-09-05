@@ -7,17 +7,20 @@
 class WBEM_SHUTDOWN_FLAGS extends Win32Enum {
 
     /**
+     * Native name: WBEM_SHUTDOWN_UNLOAD_COMPONENT
      * @type {Integer (Int32)}
      */
-    static WBEM_SHUTDOWN_UNLOAD_COMPONENT => 1
+    static UNLOAD_COMPONENT => 1
 
     /**
+     * Native name: WBEM_SHUTDOWN_WMI
      * @type {Integer (Int32)}
      */
-    static WBEM_SHUTDOWN_WMI => 2
+    static WMI => 2
 
     /**
+     * Native name: WBEM_SHUTDOWN_OS
      * @type {Integer (Int32)}
      */
-    static WBEM_SHUTDOWN_OS => 3
+    static OS => 3
 }

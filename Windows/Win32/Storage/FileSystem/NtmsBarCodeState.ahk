@@ -7,12 +7,14 @@
 class NtmsBarCodeState extends Win32Enum {
 
     /**
+     * Native name: NTMS_BARCODESTATE_OK
      * @type {Integer (Int32)}
      */
-    static NTMS_BARCODESTATE_OK => 1
+    static BARCODESTATE_OK => 1
 
     /**
+     * Native name: NTMS_BARCODESTATE_UNREADABLE
      * @type {Integer (Int32)}
      */
-    static NTMS_BARCODESTATE_UNREADABLE => 2
+    static BARCODESTATE_UNREADABLE => 2
 }

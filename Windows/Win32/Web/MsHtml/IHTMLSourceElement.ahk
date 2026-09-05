@@ -60,7 +60,6 @@ class IHTMLSourceElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -72,7 +71,6 @@ class IHTMLSourceElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -82,7 +80,6 @@ class IHTMLSourceElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -94,7 +91,6 @@ class IHTMLSourceElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -104,7 +100,6 @@ class IHTMLSourceElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +111,6 @@ class IHTMLSourceElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {

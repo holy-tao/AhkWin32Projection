@@ -7,52 +7,62 @@
 class PIDMSI_STATUS_VALUE extends Win32Enum {
 
     /**
+     * Native name: PIDMSI_STATUS_NORMAL
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_NORMAL => 0
+    static NORMAL => 0
 
     /**
+     * Native name: PIDMSI_STATUS_NEW
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_NEW => 1
+    static NEW => 1
 
     /**
+     * Native name: PIDMSI_STATUS_PRELIM
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_PRELIM => 2
+    static PRELIM => 2
 
     /**
+     * Native name: PIDMSI_STATUS_DRAFT
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_DRAFT => 3
+    static DRAFT => 3
 
     /**
+     * Native name: PIDMSI_STATUS_INPROGRESS
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_INPROGRESS => 4
+    static INPROGRESS => 4
 
     /**
+     * Native name: PIDMSI_STATUS_EDIT
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_EDIT => 5
+    static EDIT => 5
 
     /**
+     * Native name: PIDMSI_STATUS_REVIEW
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_REVIEW => 6
+    static REVIEW => 6
 
     /**
+     * Native name: PIDMSI_STATUS_PROOF
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_PROOF => 7
+    static PROOF => 7
 
     /**
+     * Native name: PIDMSI_STATUS_FINAL
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_FINAL => 8
+    static FINAL => 8
 
     /**
+     * Native name: PIDMSI_STATUS_OTHER
      * @type {Integer (Int32)}
      */
-    static PIDMSI_STATUS_OTHER => 32767
+    static OTHER => 32767
 }

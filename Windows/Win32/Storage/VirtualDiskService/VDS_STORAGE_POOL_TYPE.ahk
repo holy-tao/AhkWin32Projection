@@ -17,19 +17,22 @@ class VDS_STORAGE_POOL_TYPE extends Win32Enum {
 
     /**
      * The storage pool type is unknown.
+     * Native name: VDS_SPT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_SPT_UNKNOWN => 0
+    static SPT_UNKNOWN => 0
 
     /**
      * The storage pool type is primordial.
+     * Native name: VDS_SPT_PRIMORDIAL
      * @type {Integer (Int32)}
      */
-    static VDS_SPT_PRIMORDIAL => 1
+    static SPT_PRIMORDIAL => 1
 
     /**
      * The storage pool type is concrete (non-primordial).
+     * Native name: VDS_SPT_CONCRETE
      * @type {Integer (Int32)}
      */
-    static VDS_SPT_CONCRETE => 2
+    static SPT_CONCRETE => 2
 }

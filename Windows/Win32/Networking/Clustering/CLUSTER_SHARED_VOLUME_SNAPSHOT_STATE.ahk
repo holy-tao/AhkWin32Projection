@@ -7,22 +7,26 @@
 class CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE extends Win32Enum {
 
     /**
+     * Native name: ClusterSharedVolumeSnapshotStateUnknown
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumeSnapshotStateUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: ClusterSharedVolumePrepareForHWSnapshot
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumePrepareForHWSnapshot => 1
+    static PrepareForHWSnapshot => 1
 
     /**
+     * Native name: ClusterSharedVolumeHWSnapshotCompleted
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumeHWSnapshotCompleted => 2
+    static VolumeHWSnapshotCompleted => 2
 
     /**
+     * Native name: ClusterSharedVolumePrepareForFreeze
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumePrepareForFreeze => 3
+    static PrepareForFreeze => 3
 }

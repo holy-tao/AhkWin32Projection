@@ -16,9 +16,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * 
      * This controls the maximum length of the queue of pending connections. If set to 
      *                     SOMAXCONN, the backlog will be set to a maximum reasonable value.
+     * Native name: WS_LISTENER_PROPERTY_LISTEN_BACKLOG
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_LISTEN_BACKLOG => 0
+    static LISTEN_BACKLOG => 0
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> or <b>WS_UDP_CHANNEL_BINDING</b>.
@@ -30,9 +31,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_ip_version">WS_IP_VERSION_AUTO</a>.
+     * Native name: WS_LISTENER_PROPERTY_IP_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_IP_VERSION => 1
+    static IP_VERSION => 1
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for all channel types.
@@ -44,9 +46,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * Returns the current <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_state">WS_LISTENER_STATE</a> of the listener.  The returned value is a snapshot of the current state, so it is
      *                     possible that the state may have changed before the caller has
      *                     had a chance to examine the value.
+     * Native name: WS_LISTENER_PROPERTY_STATE
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_STATE => 2
+    static STATE => 2
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for all channel types.
@@ -64,9 +67,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a> only supports <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_callback_model">WS_LONG_CALLBACK</a> as an acceptable value
      *                     for this property.
+     * Native name: WS_LISTENER_PROPERTY_ASYNC_CALLBACK_MODEL
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_ASYNC_CALLBACK_MODEL => 3
+    static ASYNC_CALLBACK_MODEL => 3
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for all channel types.  
@@ -75,9 +79,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * 
      * This property
      *                     specifies the message exchange pattern of the channel being used.
+     * Native name: WS_LISTENER_PROPERTY_CHANNEL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_CHANNEL_TYPE => 4
+    static CHANNEL_TYPE => 4
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for all channel types.  
@@ -86,9 +91,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * 
      * This property
      *                     specifies the binding of the channel being used.
+     * Native name: WS_LISTENER_PROPERTY_CHANNEL_BINDING
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_CHANNEL_BINDING => 5
+    static CHANNEL_BINDING => 5
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> and   <b>WS_NAMEDPIPE_CHANNEL_BINDING</b>.
@@ -106,9 +112,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 15000 (15 seconds).
+     * Native name: WS_LISTENER_PROPERTY_CONNECT_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_CONNECT_TIMEOUT => 6
+    static CONNECT_TIMEOUT => 6
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_DUPLEX</a> to indicate that the listener is listening on a multicast address.
@@ -127,9 +134,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <b>FALSE</b>.
+     * Native name: WS_LISTENER_PROPERTY_IS_MULTICAST
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_IS_MULTICAST => 7
+    static IS_MULTICAST => 7
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetlistenerproperty">WsSetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_DUPLEX</a>.
@@ -148,9 +156,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is an empty list (no interfaces).
+     * Native name: WS_LISTENER_PROPERTY_MULTICAST_INTERFACES
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_MULTICAST_INTERFACES => 8
+    static MULTICAST_INTERFACES => 8
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> 
@@ -169,9 +178,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <b>TRUE</b>.
+     * Native name: WS_LISTENER_PROPERTY_MULTICAST_LOOPBACK
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_MULTICAST_LOOPBACK => 9
+    static MULTICAST_LOOPBACK => 9
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_REPLY</a>.
@@ -206,9 +216,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 </li>
      * </ul>
      * The default timeout value is 5000 (5 seconds).
+     * Native name: WS_LISTENER_PROPERTY_CLOSE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_CLOSE_TIMEOUT => 10
+    static CLOSE_TIMEOUT => 10
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>,
@@ -233,9 +244,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * WS_MATCH_URL_NO_QUERY
      * 
      * ```
+     * Native name: WS_LISTENER_PROPERTY_TO_HEADER_MATCHING_OPTIONS
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_TO_HEADER_MATCHING_OPTIONS => 11
+    static TO_HEADER_MATCHING_OPTIONS => 11
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> or
@@ -265,9 +277,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * This property only controls the verification of the message once it has been received
      *                     by the process, not the routing of the message to the process (which is determined
      *                     by the URL passed to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsopenlistener">WsOpenListener</a>).
+     * Native name: WS_LISTENER_PROPERTY_TRANSPORT_URL_MATCHING_OPTIONS
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_TRANSPORT_URL_MATCHING_OPTIONS => 12
+    static TRANSPORT_URL_MATCHING_OPTIONS => 12
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
@@ -280,9 +293,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * This property must be specified when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a> is used.
+     * Native name: WS_LISTENER_PROPERTY_CUSTOM_LISTENER_CALLBACKS
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_CUSTOM_LISTENER_CALLBACKS => 13
+    static CUSTOM_LISTENER_CALLBACKS => 13
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
@@ -301,9 +315,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * If this property is not specified, its value is <b>NULL</b> and size is zero.
+     * Native name: WS_LISTENER_PROPERTY_CUSTOM_LISTENER_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_CUSTOM_LISTENER_PARAMETERS => 14
+    static CUSTOM_LISTENER_PARAMETERS => 14
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
@@ -320,9 +335,10 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      *                     instance for a custom listener.  This allows a caller to directly
      *                     interact with the instance for cases when the existing
      *                     set of listener properties or listener functions is insufficient.
+     * Native name: WS_LISTENER_PROPERTY_CUSTOM_LISTENER_INSTANCE
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_CUSTOM_LISTENER_INSTANCE => 15
+    static CUSTOM_LISTENER_INSTANCE => 15
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>.
@@ -348,7 +364,8 @@ class WS_LISTENER_PROPERTY_ID extends Win32Enum {
      * 
      * 
      * This property does not apply to listeners configured with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_encoding">WS_ENCODING_RAW</a> encoding.
+     * Native name: WS_LISTENER_PROPERTY_DISALLOWED_USER_AGENT
      * @type {Integer (Int32)}
      */
-    static WS_LISTENER_PROPERTY_DISALLOWED_USER_AGENT => 16
+    static DISALLOWED_USER_AGENT => 16
 }

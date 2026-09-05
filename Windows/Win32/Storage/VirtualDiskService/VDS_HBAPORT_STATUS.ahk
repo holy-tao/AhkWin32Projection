@@ -16,70 +16,78 @@ class VDS_HBAPORT_STATUS extends Win32Enum {
      *      
      * 
      * HBA_PORTSTATE_UNKNOWN
+     * Native name: VDS_HPS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_UNKNOWN => 1
+    static HPS_UNKNOWN => 1
 
     /**
      * The HBA port is operational.
      *      
      * 
      * HBA_PORTSTATE_ONLINE
+     * Native name: VDS_HPS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_ONLINE => 2
+    static HPS_ONLINE => 2
 
     /**
      * The HBA port has been set offline by a user.
      *      
      * 
      * HBA_PORTSTATE_OFFLINE
+     * Native name: VDS_HPS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_OFFLINE => 3
+    static HPS_OFFLINE => 3
 
     /**
      * The HBA port is bypassed.
      *      
      * 
      * HBA_PORTSTATE_BYPASSED
+     * Native name: VDS_HPS_BYPASSED
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_BYPASSED => 4
+    static HPS_BYPASSED => 4
 
     /**
      * The HBA port is in diagnostics mode.
      *      
      * 
      * HBA_PORTSTATE_DIAGNOSTICS
+     * Native name: VDS_HPS_DIAGNOSTICS
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_DIAGNOSTICS => 5
+    static HPS_DIAGNOSTICS => 5
 
     /**
      * The HBA port link is down.
      *      
      * 
      * HBA_PORTSTATE_LINKDOWN
+     * Native name: VDS_HPS_LINKDOWN
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_LINKDOWN => 6
+    static HPS_LINKDOWN => 6
 
     /**
      * The HBA port has an error.
      *      
      * 
      * HBA_PORTSTATE_ERROR
+     * Native name: VDS_HPS_ERROR
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_ERROR => 7
+    static HPS_ERROR => 7
 
     /**
      * The HBA port is loopback.
      *      
      * 
      * HBA_PORTSTATE_LOOPBACK
+     * Native name: VDS_HPS_LOOPBACK
      * @type {Integer (Int32)}
      */
-    static VDS_HPS_LOOPBACK => 8
+    static HPS_LOOPBACK => 8
 }

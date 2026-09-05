@@ -7,32 +7,38 @@
 class PACKMAN_RUNTIME extends Win32Enum {
 
     /**
+     * Native name: PACKMAN_RUNTIME_NATIVE
      * @type {Integer (Int32)}
      */
-    static PACKMAN_RUNTIME_NATIVE => 1
+    static NATIVE => 1
 
     /**
+     * Native name: PACKMAN_RUNTIME_SILVERLIGHTMOBILE
      * @type {Integer (Int32)}
      */
-    static PACKMAN_RUNTIME_SILVERLIGHTMOBILE => 2
+    static SILVERLIGHTMOBILE => 2
 
     /**
+     * Native name: PACKMAN_RUNTIME_XNA
      * @type {Integer (Int32)}
      */
-    static PACKMAN_RUNTIME_XNA => 3
+    static XNA => 3
 
     /**
+     * Native name: PACKMAN_RUNTIME_MODERN_NATIVE
      * @type {Integer (Int32)}
      */
-    static PACKMAN_RUNTIME_MODERN_NATIVE => 4
+    static MODERN_NATIVE => 4
 
     /**
+     * Native name: PACKMAN_RUNTIME_JUPITER
      * @type {Integer (Int32)}
      */
-    static PACKMAN_RUNTIME_JUPITER => 5
+    static JUPITER => 5
 
     /**
+     * Native name: PACKMAN_RUNTIME_INVALID
      * @type {Integer (Int32)}
      */
-    static PACKMAN_RUNTIME_INVALID => 6
+    static INVALID => 6
 }

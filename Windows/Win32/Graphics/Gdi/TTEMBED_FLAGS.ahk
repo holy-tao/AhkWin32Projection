@@ -7,22 +7,26 @@
 class TTEMBED_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: TTEMBED_EMBEDEUDC
      * @type {Integer (UInt32)}
      */
-    static TTEMBED_EMBEDEUDC => 32
+    static EMBEDEUDC => 32
 
     /**
+     * Native name: TTEMBED_RAW
      * @type {Integer (UInt32)}
      */
-    static TTEMBED_RAW => 0
+    static RAW => 0
 
     /**
+     * Native name: TTEMBED_SUBSET
      * @type {Integer (UInt32)}
      */
-    static TTEMBED_SUBSET => 1
+    static SUBSET => 1
 
     /**
+     * Native name: TTEMBED_TTCOMPRESSED
      * @type {Integer (UInt32)}
      */
-    static TTEMBED_TTCOMPRESSED => 4
+    static TTCOMPRESSED => 4
 }

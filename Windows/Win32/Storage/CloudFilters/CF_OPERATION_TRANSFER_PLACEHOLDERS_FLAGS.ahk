@@ -10,15 +10,17 @@ class CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS extends Win32BitflagEnum {
 
     /**
      * No transfer placeholder flags.
+     * Native name: CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Causes the API to return immediately if a placeholder transfer fails. If a transfer fails, the error code will be returned.
+     * Native name: CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_STOP_ON_ERROR
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_STOP_ON_ERROR => 1
+    static FLAG_STOP_ON_ERROR => 1
 
     /**
      * If the provider no longer wants its **CF_CALLBACK_TYPE_FETCH_PLACEHOLDERS** callback to be invoked, it should mark the placeholder directory fully populated by setting the **CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION** flag in **CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS**. Typically, a provider should set this flag after it has already laid down all the placeholders in the directory, or if the current invocation of **CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS** is supposed to lay down all the placeholders. The provider can set this flag anytime and it would be honored by the platform if the during the current invocation of **CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS**:
@@ -40,7 +42,8 @@ class CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS extends Win32BitflagEnum {
      * 1. Set `TransferPlaceholders.PlaceholderTotalCount` = `5`, set `TransferPlaceholders.PlaceholderCount` = `4`, and set `Flags` to `NONE`.
      * 2. Set `TransferPlaceholders.PlaceholderTotalCount` = `9`, set `TransferPlaceholders.PlaceholderCount` = `4`, and set `Flags` to `NONE`.
      * 3. Set `TransferPlaceholders.PlaceholderTotalCount` = `10`, set `TransferPlaceholders.PlaceholderCount` = `2`, and set `Flags` to `CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION`.
+     * Native name: CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION => 2
+    static FLAG_DISABLE_ON_DEMAND_POPULATION => 2
 }

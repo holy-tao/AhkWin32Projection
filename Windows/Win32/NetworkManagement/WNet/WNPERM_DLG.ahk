@@ -7,17 +7,20 @@
 class WNPERM_DLG extends Win32Enum {
 
     /**
+     * Native name: WNPERM_DLG_PERM
      * @type {Integer (UInt32)}
      */
-    static WNPERM_DLG_PERM => 0
+    static PERM => 0
 
     /**
+     * Native name: WNPERM_DLG_AUDIT
      * @type {Integer (UInt32)}
      */
-    static WNPERM_DLG_AUDIT => 1
+    static AUDIT => 1
 
     /**
+     * Native name: WNPERM_DLG_OWNER
      * @type {Integer (UInt32)}
      */
-    static WNPERM_DLG_OWNER => 2
+    static OWNER => 2
 }

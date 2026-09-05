@@ -36,7 +36,6 @@ class IXpsDocumentConsumer extends IUnknown {
     static VTableNames => ["SendXpsUnknown", "SendXpsDocument", "SendFixedDocumentSequence", "SendFixedDocument", "SendFixedPage", "CloseSender", "GetNewEmptyPart"]
 
     /**
-     * 
      * @param {IUnknown} pUnknown 
      * @returns {HRESULT} 
      */
@@ -46,7 +45,6 @@ class IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXpsDocument} pIXpsDocument 
      * @returns {HRESULT} 
      */
@@ -56,7 +54,6 @@ class IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFixedDocumentSequence} pIFixedDocumentSequence 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFixedDocument} pIFixedDocument 
      * @returns {HRESULT} 
      */
@@ -76,7 +72,6 @@ class IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFixedPage} pIFixedPage 
      * @returns {HRESULT} 
      */
@@ -86,7 +81,6 @@ class IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseSender() {
@@ -95,7 +89,6 @@ class IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppNewObject 

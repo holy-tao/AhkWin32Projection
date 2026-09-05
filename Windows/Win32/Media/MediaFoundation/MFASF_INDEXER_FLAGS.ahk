@@ -10,19 +10,22 @@ class MFASF_INDEXER_FLAGS extends Win32Enum {
 
     /**
      * The indexer creates a new index object.
+     * Native name: MFASF_INDEXER_WRITE_NEW_INDEX
      * @type {Integer (Int32)}
      */
-    static MFASF_INDEXER_WRITE_NEW_INDEX => 1
+    static WRITE_NEW_INDEX => 1
 
     /**
      * The indexer returns values for reverse playback.
+     * Native name: MFASF_INDEXER_READ_FOR_REVERSEPLAYBACK
      * @type {Integer (Int32)}
      */
-    static MFASF_INDEXER_READ_FOR_REVERSEPLAYBACK => 2
+    static READ_FOR_REVERSEPLAYBACK => 2
 
     /**
      * The indexer creates an index object for a live ASF stream.
+     * Native name: MFASF_INDEXER_WRITE_FOR_LIVEREAD
      * @type {Integer (Int32)}
      */
-    static MFASF_INDEXER_WRITE_FOR_LIVEREAD => 4
+    static WRITE_FOR_LIVEREAD => 4
 }

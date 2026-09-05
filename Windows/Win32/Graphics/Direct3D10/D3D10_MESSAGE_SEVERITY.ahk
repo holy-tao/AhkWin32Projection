@@ -12,30 +12,35 @@ class D3D10_MESSAGE_SEVERITY extends Win32Enum {
 
     /**
      * Defines some type of corruption which has occurred.
+     * Native name: D3D10_MESSAGE_SEVERITY_CORRUPTION
      * @type {Integer (Int32)}
      */
-    static D3D10_MESSAGE_SEVERITY_CORRUPTION => 0
+    static CORRUPTION => 0
 
     /**
      * Defines an error message.
+     * Native name: D3D10_MESSAGE_SEVERITY_ERROR
      * @type {Integer (Int32)}
      */
-    static D3D10_MESSAGE_SEVERITY_ERROR => 1
+    static ERROR => 1
 
     /**
      * Defines a warning message.
+     * Native name: D3D10_MESSAGE_SEVERITY_WARNING
      * @type {Integer (Int32)}
      */
-    static D3D10_MESSAGE_SEVERITY_WARNING => 2
+    static WARNING => 2
 
     /**
      * Defines an information message.
+     * Native name: D3D10_MESSAGE_SEVERITY_INFO
      * @type {Integer (Int32)}
      */
-    static D3D10_MESSAGE_SEVERITY_INFO => 3
+    static INFO => 3
 
     /**
+     * Native name: D3D10_MESSAGE_SEVERITY_MESSAGE
      * @type {Integer (Int32)}
      */
-    static D3D10_MESSAGE_SEVERITY_MESSAGE => 4
+    static MESSAGE => 4
 }

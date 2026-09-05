@@ -42,7 +42,6 @@ class IHTMLTimeRanges extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -51,7 +50,6 @@ class IHTMLTimeRanges extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Float} 
      */
@@ -61,7 +59,6 @@ class IHTMLTimeRanges extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Float} 
      */

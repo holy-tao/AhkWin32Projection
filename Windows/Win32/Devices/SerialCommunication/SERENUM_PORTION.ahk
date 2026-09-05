@@ -7,17 +7,20 @@
 class SERENUM_PORTION extends Win32Enum {
 
     /**
+     * Native name: SerenumFirstHalf
      * @type {Integer (Int32)}
      */
-    static SerenumFirstHalf => 0
+    static FirstHalf => 0
 
     /**
+     * Native name: SerenumSecondHalf
      * @type {Integer (Int32)}
      */
-    static SerenumSecondHalf => 1
+    static SecondHalf => 1
 
     /**
+     * Native name: SerenumWhole
      * @type {Integer (Int32)}
      */
-    static SerenumWhole => 2
+    static Whole => 2
 }

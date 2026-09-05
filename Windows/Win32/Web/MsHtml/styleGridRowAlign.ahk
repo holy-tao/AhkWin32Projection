@@ -7,32 +7,38 @@
 class styleGridRowAlign extends Win32Enum {
 
     /**
+     * Native name: styleGridRowAlignCenter
      * @type {Integer (Int32)}
      */
-    static styleGridRowAlignCenter => 0
+    static Center => 0
 
     /**
+     * Native name: styleGridRowAlignEnd
      * @type {Integer (Int32)}
      */
-    static styleGridRowAlignEnd => 1
+    static End => 1
 
     /**
+     * Native name: styleGridRowAlignStart
      * @type {Integer (Int32)}
      */
-    static styleGridRowAlignStart => 2
+    static Start => 2
 
     /**
+     * Native name: styleGridRowAlignStretch
      * @type {Integer (Int32)}
      */
-    static styleGridRowAlignStretch => 3
+    static Stretch => 3
 
     /**
+     * Native name: styleGridRowAlignNotSet
      * @type {Integer (Int32)}
      */
-    static styleGridRowAlignNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleGridRowAlign_Max
      * @type {Integer (Int32)}
      */
-    static styleGridRowAlign_Max => 2147483647
+    static Max => 2147483647
 }

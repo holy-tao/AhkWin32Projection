@@ -59,7 +59,6 @@ class IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession} 
      */
     get_Session() {
@@ -68,7 +67,6 @@ class IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Cookie() {
@@ -77,7 +75,6 @@ class IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -86,7 +83,6 @@ class IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {

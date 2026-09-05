@@ -10,27 +10,31 @@ class CLUSTER_MGMT_POINT_TYPE extends Win32Enum {
 
     /**
      * The cluster has no management point.
+     * Native name: CLUSTER_MGMT_POINT_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static CLUSTER_MGMT_POINT_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * The management point is a cluster name object.
+     * Native name: CLUSTER_MGMT_POINT_TYPE_CNO
      * @type {Integer (Int32)}
      */
-    static CLUSTER_MGMT_POINT_TYPE_CNO => 1
+    static CNO => 1
 
     /**
      * The management point is DNS only.
+     * Native name: CLUSTER_MGMT_POINT_TYPE_DNS_ONLY
      * @type {Integer (Int32)}
      */
-    static CLUSTER_MGMT_POINT_TYPE_DNS_ONLY => 2
+    static DNS_ONLY => 2
 
     /**
      * The management point type is cluster name object (CNO) only.
      * 
      * <b>Windows Server 2012 R2:  </b>This value is not supported before Windows Server 2016.
+     * Native name: CLUSTER_MGMT_POINT_TYPE_CNO_ONLY
      * @type {Integer (Int32)}
      */
-    static CLUSTER_MGMT_POINT_TYPE_CNO_ONLY => 3
+    static CNO_ONLY => 3
 }

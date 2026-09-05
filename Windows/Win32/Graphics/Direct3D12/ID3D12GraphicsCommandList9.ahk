@@ -29,7 +29,6 @@ class ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandList8 {
     static VTableNames => ["RSSetDepthBias", "IASetIndexBufferStripCutValue"]
 
     /**
-     * 
      * @param {Float} DepthBias 
      * @param {Float} DepthBiasClamp 
      * @param {Float} SlopeScaledDepthBias 
@@ -40,7 +39,6 @@ class ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandList8 {
     }
 
     /**
-     * 
      * @param {D3D12_INDEX_BUFFER_STRIP_CUT_VALUE} IBStripCutValue 
      * @returns {String} Nothing - always returns an empty string
      */

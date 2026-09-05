@@ -90,7 +90,6 @@ class IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strServerUrl 
      * @param {BSTR} strRequestHeaders 
      * @param {X509CertificateEnrollmentContext} _Context 
@@ -107,7 +106,6 @@ class IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {X509SCEPProcessMessageFlags} ProcessFlags 
      * @returns {X509SCEPDisposition} 
      */
@@ -117,7 +115,6 @@ class IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {X509SCEPProcessMessageFlags} ProcessFlags 
      * @returns {X509SCEPDisposition} 
      */
@@ -127,7 +124,6 @@ class IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509SCEPEnrollment} 
      */
     get_X509SCEPEnrollment() {
@@ -136,7 +132,6 @@ class IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ResultMessageText() {

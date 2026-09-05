@@ -32,7 +32,6 @@ class IDWriteFontFace7 extends IDWriteFontFace6 {
     static VTableNames => ["GetPaintFeatureLevel", "CreatePaintReader"]
 
     /**
-     * 
      * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat 
      * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
@@ -42,7 +41,6 @@ class IDWriteFontFace7 extends IDWriteFontFace6 {
     }
 
     /**
-     * 
      * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat 
      * @param {DWRITE_PAINT_FEATURE_LEVEL} paintFeatureLevel 
      * @returns {IDWritePaintReader} 

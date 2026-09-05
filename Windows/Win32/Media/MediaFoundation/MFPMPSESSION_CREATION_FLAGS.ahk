@@ -10,12 +10,14 @@ class MFPMPSESSION_CREATION_FLAGS extends Win32Enum {
 
     /**
      * If this flag is set, the Protected Media Path (PMP) Media Session is created in an unprotected process. You can use the unprotected process to play clear content but not protected content. If this flag is not set, the PMP Media Session is created in a protected process. In that case, the protected process is used for both protected content and clear content.
+     * Native name: MFPMPSESSION_UNPROTECTED_PROCESS
      * @type {Integer (Int32)}
      */
-    static MFPMPSESSION_UNPROTECTED_PROCESS => 1
+    static UNPROTECTED_PROCESS => 1
 
     /**
+     * Native name: MFPMPSESSION_IN_PROCESS
      * @type {Integer (Int32)}
      */
-    static MFPMPSESSION_IN_PROCESS => 2
+    static IN_PROCESS => 2
 }

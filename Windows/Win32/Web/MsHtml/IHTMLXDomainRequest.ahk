@@ -85,7 +85,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_responseText() {
@@ -95,7 +94,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -105,7 +103,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timeout() {
@@ -114,7 +111,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentType() {
@@ -124,7 +120,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +129,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onprogress() {
@@ -144,7 +138,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -164,7 +156,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -174,7 +165,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ontimeout() {
@@ -184,7 +174,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -194,7 +183,6 @@ class IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {

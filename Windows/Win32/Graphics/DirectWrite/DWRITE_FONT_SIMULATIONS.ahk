@@ -12,19 +12,22 @@ class DWRITE_FONT_SIMULATIONS extends Win32BitflagEnum {
 
     /**
      * Indicates that no simulations are applied to the font face.
+     * Native name: DWRITE_FONT_SIMULATIONS_NONE
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SIMULATIONS_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates that algorithmic emboldening is applied to the font face.  <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS_BOLD</a> increases weight by applying a widening algorithm to the glyph outline. This may  be used to simulate a bold weight where no designed bold weight is available.
+     * Native name: DWRITE_FONT_SIMULATIONS_BOLD
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SIMULATIONS_BOLD => 1
+    static BOLD => 1
 
     /**
      * Indicates that algorithmic italicization is applied to the font face. <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS_OBLIQUE</a> applies obliquing (shear) to the glyph outline. This may be used to simulate an oblique/italic style where no designed oblique/italic style is available.
+     * Native name: DWRITE_FONT_SIMULATIONS_OBLIQUE
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_SIMULATIONS_OBLIQUE => 2
+    static OBLIQUE => 2
 }

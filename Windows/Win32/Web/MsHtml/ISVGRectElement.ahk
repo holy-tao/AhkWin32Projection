@@ -78,7 +78,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -88,7 +87,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
@@ -97,7 +95,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -107,7 +104,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
@@ -116,7 +112,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +121,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
@@ -135,7 +129,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -145,7 +138,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
@@ -154,7 +146,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -164,7 +155,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_rx() {
@@ -173,7 +163,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -183,7 +172,6 @@ class ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_ry() {

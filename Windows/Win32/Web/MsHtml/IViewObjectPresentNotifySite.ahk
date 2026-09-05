@@ -29,7 +29,6 @@ class IViewObjectPresentNotifySite extends IViewObjectPresentSite {
     static VTableNames => ["RequestFrame"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RequestFrame() {

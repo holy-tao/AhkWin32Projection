@@ -66,7 +66,6 @@ class IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSourceCodePage() {
@@ -75,7 +74,6 @@ class IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDestinationCodePage() {
@@ -98,7 +96,6 @@ class IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {Integer} pDstStr 
@@ -114,7 +111,6 @@ class IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {PWSTR} pDstStr 
@@ -132,7 +128,6 @@ class IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {Integer} pDstStr 

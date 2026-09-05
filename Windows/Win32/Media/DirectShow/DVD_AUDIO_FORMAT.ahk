@@ -12,55 +12,64 @@ class DVD_AUDIO_FORMAT extends Win32Enum {
 
     /**
      * Audio format is Dolby AC-3.
+     * Native name: DVD_AudioFormat_AC3
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_AC3 => 0
+    static AC3 => 0
 
     /**
      * Audio format is MPEG-1.
+     * Native name: DVD_AudioFormat_MPEG1
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_MPEG1 => 1
+    static MPEG1 => 1
 
     /**
      * Audio format is MPEG-1 with dynamic range control.
+     * Native name: DVD_AudioFormat_MPEG1_DRC
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_MPEG1_DRC => 2
+    static MPEG1_DRC => 2
 
     /**
      * Audio format is MPEG-2.
+     * Native name: DVD_AudioFormat_MPEG2
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_MPEG2 => 3
+    static MPEG2 => 3
 
     /**
      * Audio format is MPEG-2 with dynamic range control.
+     * Native name: DVD_AudioFormat_MPEG2_DRC
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_MPEG2_DRC => 4
+    static MPEG2_DRC => 4
 
     /**
      * Audio format is Linear Pulse Code Modulated (LPCM).
+     * Native name: DVD_AudioFormat_LPCM
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_LPCM => 5
+    static LPCM => 5
 
     /**
      * Audio format is Digital Theater Systems (DTS).
+     * Native name: DVD_AudioFormat_DTS
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_DTS => 6
+    static DTS => 6
 
     /**
      * Audio format is Sony Dynamic Digital Sound (SDDS).
+     * Native name: DVD_AudioFormat_SDDS
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_SDDS => 7
+    static SDDS => 7
 
     /**
      * Audio format is unrecognized.
+     * Native name: DVD_AudioFormat_Other
      * @type {Integer (Int32)}
      */
-    static DVD_AudioFormat_Other => 8
+    static Other => 8
 }

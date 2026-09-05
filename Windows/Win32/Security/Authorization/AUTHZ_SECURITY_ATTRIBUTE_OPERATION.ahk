@@ -10,9 +10,10 @@ class AUTHZ_SECURITY_ATTRIBUTE_OPERATION extends Win32Enum {
 
     /**
      * Do not perform any modification.
+     * Native name: AUTHZ_SECURITY_ATTRIBUTE_OPERATION_NONE
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SECURITY_ATTRIBUTE_OPERATION_NONE => 0
+    static NONE => 0
 
     /**
      * Delete all existing security attributes and their values in the token and replace them with the specified attributes and values.
@@ -20,17 +21,19 @@ class AUTHZ_SECURITY_ATTRIBUTE_OPERATION extends Win32Enum {
      * If no new attributes are specified, all existing attributes and values are deleted.
      * 
      * This operation must be the only operation specified and can be specified only once in a single call to <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzmodifysecurityattributes">AuthzModifySecurityAttributes</a>. If the operation is not specified as the first in the list of operations, the call to <b>AuthzModifySecurityAttributes</b> fails. If the operation is specified as the first in the array of operations performed, the rest of the operations are ignored.
+     * Native name: AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE_ALL
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE_ALL => 1
+    static REPLACE_ALL => 1
 
     /**
      * Add a new attribute or a new value to an existing attribute.
      * 
      * If the value specified for any attribute already exists for that attribute, the call to <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzmodifysecurityattributes">AuthzModifySecurityAttributes</a> fails.
+     * Native name: AUTHZ_SECURITY_ATTRIBUTE_OPERATION_ADD
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SECURITY_ATTRIBUTE_OPERATION_ADD => 2
+    static ADD => 2
 
     /**
      * Delete the specified values of the specified attributes. If an attribute is specified without a value, that attribute is deleted.
@@ -38,9 +41,10 @@ class AUTHZ_SECURITY_ATTRIBUTE_OPERATION extends Win32Enum {
      * If this operation results in an attribute that does not contain any values, that attribute is deleted.
      * 
      * If a value is specified that does not match an existing attribute, no modifications are performed and the call to <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzmodifysecurityattributes">AuthzModifySecurityAttributes</a> fails.
+     * Native name: AUTHZ_SECURITY_ATTRIBUTE_OPERATION_DELETE
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SECURITY_ATTRIBUTE_OPERATION_DELETE => 3
+    static DELETE => 3
 
     /**
      * The existing values of the specified security attributes are replaced by the specified new values.
@@ -48,7 +52,8 @@ class AUTHZ_SECURITY_ATTRIBUTE_OPERATION extends Win32Enum {
      * If any of the specified attributes does not already exist, they are added.
      * 
      * When no value is specified for an attribute, that attribute is deleted. Otherwise, the operation is simply ignored and no failure is reported.
+     * Native name: AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE
      * @type {Integer (Int32)}
      */
-    static AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE => 4
+    static REPLACE => 4
 }

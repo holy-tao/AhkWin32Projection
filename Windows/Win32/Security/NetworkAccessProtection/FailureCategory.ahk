@@ -10,37 +10,43 @@ class FailureCategory extends Win32Enum {
 
     /**
      * No failure.
+     * Native name: failureCategoryNone
      * @type {Integer (Int32)}
      */
-    static failureCategoryNone => 0
+    static None => 0
 
     /**
      * A failure which is not due to client or server components or communications.
+     * Native name: failureCategoryOther
      * @type {Integer (Int32)}
      */
-    static failureCategoryOther => 1
+    static Other => 1
 
     /**
      * Failure due to client component.
+     * Native name: failureCategoryClientComponent
      * @type {Integer (Int32)}
      */
-    static failureCategoryClientComponent => 2
+    static ClientComponent => 2
 
     /**
      * Failure due to client communication.
+     * Native name: failureCategoryClientCommunication
      * @type {Integer (Int32)}
      */
-    static failureCategoryClientCommunication => 3
+    static ClientCommunication => 3
 
     /**
      * Failure due to server component.
+     * Native name: failureCategoryServerComponent
      * @type {Integer (Int32)}
      */
-    static failureCategoryServerComponent => 4
+    static ServerComponent => 4
 
     /**
      * Failure due to server communication.
+     * Native name: failureCategoryServerCommunication
      * @type {Integer (Int32)}
      */
-    static failureCategoryServerCommunication => 5
+    static ServerCommunication => 5
 }

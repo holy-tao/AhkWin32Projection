@@ -10,28 +10,33 @@ class IORING_VERSION extends Win32Enum {
 
     /**
      * Invalid version.
+     * Native name: IORING_VERSION_INVALID
      * @type {Integer (Int32)}
      */
-    static IORING_VERSION_INVALID => 0
+    static INVALID => 0
 
     /**
      * Version 1.
+     * Native name: IORING_VERSION_1
      * @type {Integer (Int32)}
      */
-    static IORING_VERSION_1 => 1
+    static 1 => 1
 
     /**
+     * Native name: IORING_VERSION_2
      * @type {Integer (Int32)}
      */
-    static IORING_VERSION_2 => 2
+    static 2 => 2
 
     /**
+     * Native name: IORING_VERSION_3
      * @type {Integer (Int32)}
      */
-    static IORING_VERSION_3 => 300
+    static 3 => 300
 
     /**
+     * Native name: IORING_VERSION_4
      * @type {Integer (Int32)}
      */
-    static IORING_VERSION_4 => 400
+    static 4 => 400
 }

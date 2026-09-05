@@ -14,13 +14,15 @@ class D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS extends Win32BitflagEnum {
 
     /**
      * The render target supports no additional features.
+     * Native name: D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * The render target supports interoperability with the Windows Graphics Device Interface  (GDI).
+     * Native name: D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_GDI_COMPATIBLE
      * @type {Integer (Int32)}
      */
-    static D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_GDI_COMPATIBLE => 1
+    static GDI_COMPATIBLE => 1
 }

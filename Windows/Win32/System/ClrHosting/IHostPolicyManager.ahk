@@ -32,7 +32,6 @@ class IHostPolicyManager extends IUnknown {
     static VTableNames => ["OnDefaultAction", "OnTimeout", "OnFailure"]
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IHostPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -54,7 +52,6 @@ class IHostPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrFailure} failure 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 

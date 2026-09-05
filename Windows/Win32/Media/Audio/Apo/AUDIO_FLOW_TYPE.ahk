@@ -7,12 +7,14 @@
 class AUDIO_FLOW_TYPE extends Win32Enum {
 
     /**
+     * Native name: AUDIO_FLOW_PULL
      * @type {Integer (Int32)}
      */
-    static AUDIO_FLOW_PULL => 0
+    static PULL => 0
 
     /**
+     * Native name: AUDIO_FLOW_PUSH
      * @type {Integer (Int32)}
      */
-    static AUDIO_FLOW_PUSH => 1
+    static PUSH => 1
 }

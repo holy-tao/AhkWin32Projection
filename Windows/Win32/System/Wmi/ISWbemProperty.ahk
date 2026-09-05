@@ -90,7 +90,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -100,7 +99,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varValue 
      * @returns {HRESULT} 
      */
@@ -110,7 +108,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -120,7 +117,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
@@ -129,7 +125,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Origin() {
@@ -139,7 +134,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemCimtypeEnum} 
      */
     get_CIMType() {
@@ -148,7 +142,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {
@@ -157,7 +150,6 @@ class ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsArray() {

@@ -32,7 +32,6 @@ class IDebugHostType6 extends IDebugHostType5 {
     static VTableNames => ["GetTaggedUnionTag", "GetTaggedUnionTagRanges", "UpcastToTaggedUnionType"]
 
     /**
-     * 
      * @param {Pointer<IDebugHostType>} pTagType 
      * @param {Pointer<Integer>} pTagOffset 
      * @param {Pointer<VARIANT>} pTagMask 
@@ -46,7 +45,6 @@ class IDebugHostType6 extends IDebugHostType5 {
     }
 
     /**
-     * 
      * @returns {IDebugHostTaggedUnionRangeEnumerator} 
      */
     GetTaggedUnionTagRanges() {
@@ -55,7 +53,6 @@ class IDebugHostType6 extends IDebugHostType5 {
     }
 
     /**
-     * 
      * @param {IDebugHostType} pTaggedUnionType 
      * @returns {IDebugHostType} 
      */

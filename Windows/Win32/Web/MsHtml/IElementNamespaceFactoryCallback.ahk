@@ -31,7 +31,6 @@ class IElementNamespaceFactoryCallback extends IUnknown {
     static VTableNames => ["Resolve"]
 
     /**
-     * 
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrTagName 
      * @param {BSTR} bstrAttrs 

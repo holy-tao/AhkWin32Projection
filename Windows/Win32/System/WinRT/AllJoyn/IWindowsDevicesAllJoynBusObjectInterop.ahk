@@ -37,7 +37,6 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
@@ -53,7 +52,6 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
@@ -69,7 +67,6 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Win32Handle() {

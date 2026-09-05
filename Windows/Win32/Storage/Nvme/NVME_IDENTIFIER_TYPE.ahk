@@ -7,22 +7,26 @@
 class NVME_IDENTIFIER_TYPE extends Win32Enum {
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_EUI64
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_EUI64 => 1
+    static EUI64 => 1
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_NGUID
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_NGUID => 2
+    static NGUID => 2
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_UUID
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_UUID => 3
+    static UUID => 3
 
     /**
+     * Native name: NVME_IDENTIFIER_TYPE_CSI
      * @type {Integer (Int32)}
      */
-    static NVME_IDENTIFIER_TYPE_CSI => 4
+    static CSI => 4
 }

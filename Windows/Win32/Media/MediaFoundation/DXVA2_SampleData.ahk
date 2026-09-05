@@ -7,22 +7,26 @@
 class DXVA2_SampleData extends Win32Enum {
 
     /**
+     * Native name: DXVA2_SampleData_RFF
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleData_RFF => 1
+    static RFF => 1
 
     /**
+     * Native name: DXVA2_SampleData_TFF
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleData_TFF => 2
+    static TFF => 2
 
     /**
+     * Native name: DXVA2_SampleData_RFF_TFF_Present
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleData_RFF_TFF_Present => 4
+    static RFF_TFF_Present => 4
 
     /**
+     * Native name: DXVA2_SampleData_Mask
      * @type {Integer (Int32)}
      */
-    static DXVA2_SampleData_Mask => 65535
+    static Mask => 65535
 }

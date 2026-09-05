@@ -10,27 +10,31 @@ class VDS_DISK_OFFLINE_REASON extends Win32Enum {
 
     /**
      * The reason is unknown.
+     * Native name: VDSDiskOfflineReasonNone
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonNone => 0
+    static None => 0
 
     /**
      * The disk is offline because of the current <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_san_policy">SAN policy</a>.
+     * Native name: VDSDiskOfflineReasonPolicy
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonPolicy => 1
+    static Policy => 1
 
     /**
      * The disk is offline because it has a path that is the same as that of another device. This value is used when multipathing is physically enabled, but the MPIO software is not installed or is not functioning properly. (When the MPIO software is functioning properly, it exposes only one disk device.)
+     * Native name: VDSDiskOfflineReasonRedundantPath
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonRedundantPath => 2
+    static RedundantPath => 2
 
     /**
      * The disk is offline because it contains a volume shadow copy volume. In this case, the disk is a clone of another disk that is online.
+     * Native name: VDSDiskOfflineReasonSnapshot
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonSnapshot => 3
+    static Snapshot => 3
 
     /**
      * If the disk is an MBR disk, it is offline because its disk signature is the same as that of another disk that is online. The disk signature is found in the <b>dwSignature</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_disk_prop">VDS_DISK_PROP</a> and <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_disk_prop2">VDS_DISK_PROP2</a> structures and in the <b>Signature</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-drive_layout_information_mbr">DRIVE_LAYOUT_INFORMATION_MBR</a> structure.
@@ -39,27 +43,32 @@ class VDS_DISK_OFFLINE_REASON extends Win32Enum {
      * <li>Its disk identifier is the same as that of another disk that is offline. The disk identifier is found in the <b>DiskGuid</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_disk_prop">VDS_DISK_PROP</a> and <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_disk_prop2">VDS_DISK_PROP2</a> structures and in the <b>DiskId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-drive_layout_information_gpt">DRIVE_LAYOUT_INFORMATION_GPT</a> structure.</li>
      * <li>One of the partitions has the same partition GUID as another partition on the same disk.</li>
      * </ul>
+     * Native name: VDSDiskOfflineReasonCollision
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonCollision => 4
+    static Collision => 4
 
     /**
+     * Native name: VDSDiskOfflineReasonResourceExhaustion
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonResourceExhaustion => 5
+    static ResourceExhaustion => 5
 
     /**
+     * Native name: VDSDiskOfflineReasonWriteFailure
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonWriteFailure => 6
+    static WriteFailure => 6
 
     /**
+     * Native name: VDSDiskOfflineReasonDIScan
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonDIScan => 7
+    static ReasonDIScan => 7
 
     /**
+     * Native name: VDSDiskOfflineReasonLostDataPersistence
      * @type {Integer (Int32)}
      */
-    static VDSDiskOfflineReasonLostDataPersistence => 8
+    static LostDataPersistence => 8
 }

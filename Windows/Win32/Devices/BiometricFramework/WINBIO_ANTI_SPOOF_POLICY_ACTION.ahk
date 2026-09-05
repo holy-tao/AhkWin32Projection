@@ -9,17 +9,20 @@
 class WINBIO_ANTI_SPOOF_POLICY_ACTION extends Win32Enum {
 
     /**
+     * Native name: WINBIO_ANTI_SPOOF_DISABLE
      * @type {Integer (Int32)}
      */
-    static WINBIO_ANTI_SPOOF_DISABLE => 0
+    static DISABLE => 0
 
     /**
+     * Native name: WINBIO_ANTI_SPOOF_ENABLE
      * @type {Integer (Int32)}
      */
-    static WINBIO_ANTI_SPOOF_ENABLE => 1
+    static ENABLE => 1
 
     /**
+     * Native name: WINBIO_ANTI_SPOOF_REMOVE
      * @type {Integer (Int32)}
      */
-    static WINBIO_ANTI_SPOOF_REMOVE => 2
+    static REMOVE => 2
 }

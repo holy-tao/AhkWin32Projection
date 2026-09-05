@@ -73,7 +73,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -82,7 +81,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Width 
      * @returns {HRESULT} 
      */
@@ -92,7 +90,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DisplayPosition() {
@@ -101,7 +98,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -111,7 +107,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Hidden() {
@@ -120,7 +115,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} Hidden 
      * @returns {HRESULT} 
      */
@@ -130,7 +124,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {_ColumnSortOrder} SortOrder 
      * @returns {HRESULT} 
      */
@@ -140,7 +133,6 @@ class Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsSortColumn() {

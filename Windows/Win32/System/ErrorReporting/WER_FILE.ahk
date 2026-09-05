@@ -7,12 +7,14 @@
 class WER_FILE extends Win32BitflagEnum {
 
     /**
+     * Native name: WER_FILE_ANONYMOUS_DATA
      * @type {Integer (UInt32)}
      */
-    static WER_FILE_ANONYMOUS_DATA => 2
+    static ANONYMOUS_DATA => 2
 
     /**
+     * Native name: WER_FILE_DELETE_WHEN_DONE
      * @type {Integer (UInt32)}
      */
-    static WER_FILE_DELETE_WHEN_DONE => 1
+    static DELETE_WHEN_DONE => 1
 }

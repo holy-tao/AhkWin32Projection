@@ -10,19 +10,22 @@ class ADS_PATHTYPE_ENUM extends Win32Enum {
 
     /**
      * Indicates that the security descriptor will be retrieved or set on a file object.
+     * Native name: ADS_PATH_FILE
      * @type {Integer (Int32)}
      */
-    static ADS_PATH_FILE => 1
+    static PATH_FILE => 1
 
     /**
      * Indicates that the security descriptor will be retrieved or set on a file share object.
+     * Native name: ADS_PATH_FILESHARE
      * @type {Integer (Int32)}
      */
-    static ADS_PATH_FILESHARE => 2
+    static PATH_FILESHARE => 2
 
     /**
      * Indicates that the security descriptor will be retrieved or set on a registry key object.
+     * Native name: ADS_PATH_REGISTRY
      * @type {Integer (Int32)}
      */
-    static ADS_PATH_REGISTRY => 3
+    static PATH_REGISTRY => 3
 }

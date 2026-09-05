@@ -53,7 +53,6 @@ class IGPMResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IGPMStatusMsgCollection} 
      */
     get_Status() {
@@ -62,7 +61,6 @@ class IGPMResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Result() {

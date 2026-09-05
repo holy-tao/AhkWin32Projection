@@ -32,7 +32,6 @@ class ISpeechFileStream extends ISpeechBaseStream {
     static VTableNames => ["Open", "Close"]
 
     /**
-     * 
      * @param {BSTR} FileName 
      * @param {SpeechStreamFileMode} FileMode 
      * @param {VARIANT_BOOL} DoEvents 
@@ -46,7 +45,6 @@ class ISpeechFileStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {

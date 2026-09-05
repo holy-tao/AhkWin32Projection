@@ -10,25 +10,29 @@ class MKRREDUCE extends Win32Enum {
 
     /**
      * Performs only one step of reducing the moniker. In general, the caller must have specific knowledge about the particular kind of moniker to take advantage of this option.
+     * Native name: MKRREDUCE_ONE
      * @type {Integer (Int32)}
      */
-    static MKRREDUCE_ONE => 196608
+    static ONE => 196608
 
     /**
      * Reduces the moniker to a form that the user identifies as a persistent object. If no such point exists, then this option should be treated as MKRREDUCE_ALL.
+     * Native name: MKRREDUCE_TOUSER
      * @type {Integer (Int32)}
      */
-    static MKRREDUCE_TOUSER => 131072
+    static TOUSER => 131072
 
     /**
      * Reduces the moniker to where any further reduction would reduce it to a form that the user does not identify as a persistent object. Often, this is the same stage as MKRREDUCE_TOUSER.
+     * Native name: MKRREDUCE_THROUGHUSER
      * @type {Integer (Int32)}
      */
-    static MKRREDUCE_THROUGHUSER => 65536
+    static THROUGHUSER => 65536
 
     /**
      * Reduces the moniker until it is in its simplest form, that is, reduce it to itself.
+     * Native name: MKRREDUCE_ALL
      * @type {Integer (Int32)}
      */
-    static MKRREDUCE_ALL => 0
+    static ALL => 0
 }

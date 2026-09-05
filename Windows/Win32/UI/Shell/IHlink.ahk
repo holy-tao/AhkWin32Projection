@@ -35,7 +35,6 @@ class IHlink extends IUnknown {
     static VTableNames => ["SetHlinkSite", "GetHlinkSite", "SetMonikerReference", "GetMonikerReference", "SetStringReference", "GetStringReference", "SetFriendlyName", "GetFriendlyName", "SetTargetFrameName", "GetTargetFrameName", "GetMiscStatus", "Navigate", "SetAdditionalParams", "GetAdditionalParams"]
 
     /**
-     * 
      * @param {IHlinkSite} pihlSite 
      * @param {Integer} dwSiteData 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IHlinkSite>} ppihlSite 
      * @param {Pointer<Integer>} pdwSiteData 
      * @returns {HRESULT} 
@@ -59,7 +57,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLSETF 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -73,7 +70,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWhichRef 
      * @param {Pointer<IMoniker>} ppimkTarget 
      * @param {Pointer<PWSTR>} ppwzLocation 
@@ -87,7 +83,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLSETF 
      * @param {PWSTR} pwzTarget 
      * @param {PWSTR} pwzLocation 
@@ -102,7 +97,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWhichRef 
      * @param {Pointer<PWSTR>} ppwzTarget 
      * @param {Pointer<PWSTR>} ppwzLocation 
@@ -117,7 +111,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFriendlyName 
      * @returns {HRESULT} 
      */
@@ -129,7 +122,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLFNAMEF 
      * @returns {PWSTR} 
      */
@@ -139,7 +131,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzTargetFrameName 
      * @returns {HRESULT} 
      */
@@ -151,7 +142,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetTargetFrameName() {
@@ -160,7 +150,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMiscStatus() {
@@ -183,7 +172,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAdditionalParams 
      * @returns {HRESULT} 
      */
@@ -195,7 +183,6 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetAdditionalParams() {

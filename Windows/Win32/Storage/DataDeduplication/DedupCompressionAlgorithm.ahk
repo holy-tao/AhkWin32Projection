@@ -7,12 +7,14 @@
 class DedupCompressionAlgorithm extends Win32Enum {
 
     /**
+     * Native name: DedupCompressionAlgorithm_Unknonwn
      * @type {Integer (Int32)}
      */
-    static DedupCompressionAlgorithm_Unknonwn => 0
+    static Unknonwn => 0
 
     /**
+     * Native name: DedupCompressionAlgorithm_Xpress
      * @type {Integer (Int32)}
      */
-    static DedupCompressionAlgorithm_Xpress => 1
+    static Xpress => 1
 }

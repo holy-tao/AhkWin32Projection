@@ -29,7 +29,6 @@ class IDialEventSink extends IUnknown {
     static VTableNames => ["OnEvent"]
 
     /**
-     * 
      * @param {Integer} dwEvent 
      * @param {Integer} dwStatus 
      * @returns {HRESULT} 

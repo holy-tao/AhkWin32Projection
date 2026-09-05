@@ -75,7 +75,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_anchorNode() {
@@ -84,7 +83,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_anchorOffset() {
@@ -93,7 +91,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_focusNode() {
@@ -102,7 +99,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_focusOffset() {
@@ -111,7 +107,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isCollapsed() {
@@ -120,7 +115,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} parentNode 
      * @param {Integer} offfset 
      * @returns {HRESULT} 
@@ -131,7 +125,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     collapseToStart() {
@@ -140,7 +133,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     collapseToEnd() {
@@ -149,7 +141,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} parentNode 
      * @returns {HRESULT} 
      */
@@ -159,7 +150,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deleteFromDocument() {
@@ -168,7 +158,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_rangeCount() {
@@ -177,7 +166,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLDOMRange} 
      */
@@ -187,7 +175,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} range 
      * @returns {HRESULT} 
      */
@@ -197,7 +184,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} range 
      * @returns {HRESULT} 
      */
@@ -207,7 +193,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     removeAllRanges() {
@@ -216,7 +201,6 @@ class IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {

@@ -24,25 +24,28 @@ class TCP_ESTATS_TYPE extends Win32Enum {
      * This value specifies SYN exchange information for a TCP connection.
      * 
      * Only read-only static information is available for this enumeration value.
+     * Native name: TcpConnectionEstatsSynOpts
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsSynOpts => 0
+    static ConnectionEstatsSynOpts => 0
 
     /**
      * This value specifies extended data transfer information for a TCP connection.
      * 
      * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * Native name: TcpConnectionEstatsData
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsData => 1
+    static ConnectionEstatsData => 1
 
     /**
      * This value specifies sender congestion for a TCP connection.
      * 
      * All three types of information (read-only static, read-only dynamic,  and read/write information) are available for this enumeration value.
+     * Native name: TcpConnectionEstatsSndCong
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsSndCong => 2
+    static ConnectionEstatsSndCong => 2
 
     /**
      * This value specifies extended path measurement information for a TCP connection. This information is  used to infer segment
@@ -50,53 +53,60 @@ class TCP_ESTATS_TYPE extends Win32Enum {
      *    receiver.
      * 
      * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * Native name: TcpConnectionEstatsPath
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsPath => 3
+    static ConnectionEstatsPath => 3
 
     /**
      * This value specifies extended output-queuing information for a TCP connection.
      * 
      * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * Native name: TcpConnectionEstatsSendBuff
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsSendBuff => 4
+    static ConnectionEstatsSendBuff => 4
 
     /**
      * This value specifies extended local-receiver information for a TCP connection. 
      * 
      * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * Native name: TcpConnectionEstatsRec
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsRec => 5
+    static ConnectionEstatsRec => 5
 
     /**
      * This value specifies extended remote-receiver information for a TCP connection.
      * 
      * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * Native name: TcpConnectionEstatsObsRec
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsObsRec => 6
+    static ConnectionEstatsObsRec => 6
 
     /**
      * This value specifies bandwidth estimation statistics for a TCP connection on bandwidth.
      * 
      * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * Native name: TcpConnectionEstatsBandwidth
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsBandwidth => 7
+    static ConnectionEstatsBandwidth => 7
 
     /**
      * This value specifies fine-grained round-trip time (RTT) estimation statistics for a TCP connection.
      * 
      * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * Native name: TcpConnectionEstatsFineRtt
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsFineRtt => 8
+    static ConnectionEstatsFineRtt => 8
 
     /**
      * The maximum possible value for the <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ne-tcpestats-tcp_estats_type">TCP_ESTATS_TYPE</a>_STATE enumeration type. This is not a legal value for the possible type of extended statistics for a TCP connection.
+     * Native name: TcpConnectionEstatsMaximum
      * @type {Integer (Int32)}
      */
-    static TcpConnectionEstatsMaximum => 9
+    static ConnectionEstatsMaximum => 9
 }

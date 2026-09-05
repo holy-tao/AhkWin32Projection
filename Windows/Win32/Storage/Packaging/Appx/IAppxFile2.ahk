@@ -29,7 +29,6 @@ class IAppxFile2 extends IAppxFile {
     static VTableNames => ["GetBlockSize"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetBlockSize() {

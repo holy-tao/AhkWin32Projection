@@ -7,22 +7,26 @@
 class IELAUNCHOPTION_FLAGS extends Win32Enum {
 
     /**
+     * Native name: IELAUNCHOPTION_SCRIPTDEBUG
      * @type {Integer (Int32)}
      */
-    static IELAUNCHOPTION_SCRIPTDEBUG => 1
+    static SCRIPTDEBUG => 1
 
     /**
+     * Native name: IELAUNCHOPTION_FORCE_COMPAT
      * @type {Integer (Int32)}
      */
-    static IELAUNCHOPTION_FORCE_COMPAT => 2
+    static FORCE_COMPAT => 2
 
     /**
+     * Native name: IELAUNCHOPTION_FORCE_EDGE
      * @type {Integer (Int32)}
      */
-    static IELAUNCHOPTION_FORCE_EDGE => 4
+    static FORCE_EDGE => 4
 
     /**
+     * Native name: IELAUNCHOPTION_LOCK_ENGINE
      * @type {Integer (Int32)}
      */
-    static IELAUNCHOPTION_LOCK_ENGINE => 8
+    static LOCK_ENGINE => 8
 }

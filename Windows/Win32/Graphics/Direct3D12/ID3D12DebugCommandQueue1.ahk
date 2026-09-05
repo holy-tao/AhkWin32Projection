@@ -31,7 +31,6 @@ class ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue {
     static VTableNames => ["AssertResourceAccess", "AssertTextureLayout"]
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @param {D3D12_BARRIER_ACCESS} Access 
@@ -42,7 +41,6 @@ class ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @param {D3D12_BARRIER_LAYOUT} Layout 

@@ -30,7 +30,6 @@ class IDirectSoundNotify extends IUnknown {
     static VTableNames => ["SetNotificationPositions"]
 
     /**
-     * 
      * @param {Integer} dwPositionNotifies 
      * @param {Pointer<DSBPOSITIONNOTIFY>} pcPositionNotifies 
      * @returns {HRESULT} 

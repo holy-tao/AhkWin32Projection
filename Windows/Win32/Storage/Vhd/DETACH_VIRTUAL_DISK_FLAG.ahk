@@ -10,7 +10,8 @@ class DETACH_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flags. Use system defaults.
+     * Native name: DETACH_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static DETACH_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 }

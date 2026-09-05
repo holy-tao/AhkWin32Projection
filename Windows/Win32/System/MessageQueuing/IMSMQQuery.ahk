@@ -37,7 +37,6 @@ class IMSMQQuery extends IDispatch {
     static VTableNames => ["LookupQueue"]
 
     /**
-     * 
      * @param {Pointer<VARIANT>} QueueGuid 
      * @param {Pointer<VARIANT>} ServiceTypeGuid 
      * @param {Pointer<VARIANT>} Label 

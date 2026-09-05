@@ -30,7 +30,6 @@ class INetDiagExtensibleHelper extends IUnknown {
     static VTableNames => ["ResolveAttributes"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<HELPER_ATTRIBUTE>} rgKeyAttributes 
      * @param {Pointer<Integer>} pcelt 

@@ -10,19 +10,22 @@ class PROXY_ACCESS extends Win32Enum {
 
     /**
      * Use proxy as set by Internet settings.
+     * Native name: PROXY_ACCESS_PRECONFIG
      * @type {Integer (Int32)}
      */
-    static PROXY_ACCESS_PRECONFIG => 0
+    static PRECONFIG => 0
 
     /**
      * Do not use a proxy.
+     * Native name: PROXY_ACCESS_DIRECT
      * @type {Integer (Int32)}
      */
-    static PROXY_ACCESS_DIRECT => 1
+    static DIRECT => 1
 
     /**
      * Use the specified proxy.
+     * Native name: PROXY_ACCESS_PROXY
      * @type {Integer (Int32)}
      */
-    static PROXY_ACCESS_PROXY => 2
+    static PROXY => 2
 }

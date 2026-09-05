@@ -44,7 +44,6 @@ class Folder3 extends Folder2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowWebViewBarricade() {
@@ -53,7 +52,6 @@ class Folder3 extends Folder2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bShowWebViewBarricade 
      * @returns {HRESULT} 
      */

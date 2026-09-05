@@ -49,7 +49,6 @@ class IDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cInfos 
      * @param {Pointer<Guid>} rgguidExtendedInfo 
      * @returns {VARIANT} 
@@ -61,7 +60,6 @@ class IDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValue 
      * @param {Integer} nRadix 
      * @returns {HRESULT} 
@@ -74,7 +72,6 @@ class IDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @param {Pointer<Guid>} refiid 

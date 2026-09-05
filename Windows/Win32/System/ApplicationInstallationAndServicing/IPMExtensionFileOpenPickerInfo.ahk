@@ -38,7 +38,6 @@ class IPMExtensionFileOpenPickerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcTypes 
      * @param {Pointer<Pointer<BSTR>>} ppTypes 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ class IPMExtensionFileOpenPickerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SupportsAllFileTypes() {

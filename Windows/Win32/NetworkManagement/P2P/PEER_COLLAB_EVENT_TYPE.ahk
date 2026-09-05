@@ -10,67 +10,78 @@ class PEER_COLLAB_EVENT_TYPE extends Win32Enum {
 
     /**
      * The peer's list of watched contacts has changed.
+     * Native name: PEER_EVENT_WATCHLIST_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_WATCHLIST_CHANGED => 1
+    static WATCHLIST_CHANGED => 1
 
     /**
      * The endpoint has changed.
+     * Native name: PEER_EVENT_ENDPOINT_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_ENDPOINT_CHANGED => 2
+    static ENDPOINT_CHANGED => 2
 
     /**
      * The presence status of an endpoint has changed.
+     * Native name: PEER_EVENT_ENDPOINT_PRESENCE_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_ENDPOINT_PRESENCE_CHANGED => 3
+    static ENDPOINT_PRESENCE_CHANGED => 3
 
     /**
      * The registered application of the endpoint has changed.
+     * Native name: PEER_EVENT_ENDPOINT_APPLICATION_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_ENDPOINT_APPLICATION_CHANGED => 4
+    static ENDPOINT_APPLICATION_CHANGED => 4
 
     /**
      * A peer object registered to the endpoint has changed.
+     * Native name: PEER_EVENT_ENDPOINT_OBJECT_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_ENDPOINT_OBJECT_CHANGED => 5
+    static ENDPOINT_OBJECT_CHANGED => 5
 
     /**
      * The local peer's endpoint has changed.
+     * Native name: PEER_EVENT_MY_ENDPOINT_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_MY_ENDPOINT_CHANGED => 6
+    static MY_ENDPOINT_CHANGED => 6
 
     /**
      * The local peer's presence status has changed.
+     * Native name: PEER_EVENT_MY_PRESENCE_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_MY_PRESENCE_CHANGED => 7
+    static MY_PRESENCE_CHANGED => 7
 
     /**
      * The local peer's registered application has changed.
+     * Native name: PEER_EVENT_MY_APPLICATION_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_MY_APPLICATION_CHANGED => 8
+    static MY_APPLICATION_CHANGED => 8
 
     /**
      * A peer object registered with the local peer has changed.
+     * Native name: PEER_EVENT_MY_OBJECT_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_MY_OBJECT_CHANGED => 9
+    static MY_OBJECT_CHANGED => 9
 
     /**
      * An endpoint in the same subnet as the local peer's endpoint has changed.
+     * Native name: PEER_EVENT_PEOPLE_NEAR_ME_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_PEOPLE_NEAR_ME_CHANGED => 10
+    static PEOPLE_NEAR_ME_CHANGED => 10
 
     /**
      * The status of a  request to refresh endpoint data or subscribe to endpoint data has changed.
+     * Native name: PEER_EVENT_REQUEST_STATUS_CHANGED
      * @type {Integer (Int32)}
      */
-    static PEER_EVENT_REQUEST_STATUS_CHANGED => 11
+    static REQUEST_STATUS_CHANGED => 11
 }

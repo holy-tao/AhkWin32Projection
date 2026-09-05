@@ -29,7 +29,6 @@ class IPropertySystemChangeNotify extends IUnknown {
     static VTableNames => ["SchemaRefreshed"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SchemaRefreshed() {

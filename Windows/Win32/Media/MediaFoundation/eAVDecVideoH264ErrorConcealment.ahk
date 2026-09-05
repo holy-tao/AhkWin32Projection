@@ -7,22 +7,26 @@
 class eAVDecVideoH264ErrorConcealment extends Win32Enum {
 
     /**
+     * Native name: eErrorConcealmentTypeDrop
      * @type {Integer (Int32)}
      */
-    static eErrorConcealmentTypeDrop => 0
+    static TypeDrop => 0
 
     /**
+     * Native name: eErrorConcealmentTypeBasic
      * @type {Integer (Int32)}
      */
-    static eErrorConcealmentTypeBasic => 1
+    static TypeBasic => 1
 
     /**
+     * Native name: eErrorConcealmentTypeAdvanced
      * @type {Integer (Int32)}
      */
-    static eErrorConcealmentTypeAdvanced => 2
+    static TypeAdvanced => 2
 
     /**
+     * Native name: eErrorConcealmentTypeDXVASetBlack
      * @type {Integer (Int32)}
      */
-    static eErrorConcealmentTypeDXVASetBlack => 3
+    static TypeDXVASetBlack => 3
 }

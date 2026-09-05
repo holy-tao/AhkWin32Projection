@@ -7,12 +7,14 @@
 class _NMCSAEI_FLAGS extends Win32Enum {
 
     /**
+     * Native name: NMCSAEI_SELECT
      * @type {Integer (Int32)}
      */
-    static NMCSAEI_SELECT => 0
+    static SELECT => 0
 
     /**
+     * Native name: NMCSAEI_EDIT
      * @type {Integer (Int32)}
      */
-    static NMCSAEI_EDIT => 1
+    static EDIT => 1
 }

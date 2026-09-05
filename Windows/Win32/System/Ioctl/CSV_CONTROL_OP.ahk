@@ -12,95 +12,113 @@ class CSV_CONTROL_OP extends Win32Enum {
 
     /**
      * Start file redirection.
+     * Native name: CsvControlStartRedirectFile
      * @type {Integer (Int32)}
      */
-    static CsvControlStartRedirectFile => 2
+    static StartRedirectFile => 2
 
     /**
      * Stop file redirection.
+     * Native name: CsvControlStopRedirectFile
      * @type {Integer (Int32)}
      */
-    static CsvControlStopRedirectFile => 3
+    static StopRedirectFile => 3
 
     /**
      * Search for state redirection. When this value is specified, the [CSV_QUERY_REDIRECT_STATE](ns-winioctl-csv_query_redirect_state.md) structure must also be used.
+     * Native name: CsvControlQueryRedirectState
      * @type {Integer (Int32)}
      */
-    static CsvControlQueryRedirectState => 4
+    static QueryRedirectState => 4
 
     /**
      * Search for file revision. When this value is specified, the [CSV_QUERY_FILE_REVISION](ns-winioctl-csv_query_file_revision.md) structure must also be used.
+     * Native name: CsvControlQueryFileRevision
      * @type {Integer (Int32)}
      */
-    static CsvControlQueryFileRevision => 6
+    static QueryFileRevision => 6
 
     /**
+     * Native name: CsvControlQueryMdsPath
      * @type {Integer (Int32)}
      */
-    static CsvControlQueryMdsPath => 8
+    static QueryMdsPath => 8
 
     /**
+     * Native name: CsvControlQueryFileRevisionFileId128
      * @type {Integer (Int32)}
      */
-    static CsvControlQueryFileRevisionFileId128 => 9
+    static QueryFileRevisionFileId128 => 9
 
     /**
+     * Native name: CsvControlQueryVolumeRedirectState
      * @type {Integer (Int32)}
      */
-    static CsvControlQueryVolumeRedirectState => 10
+    static QueryVolumeRedirectState => 10
 
     /**
+     * Native name: CsvControlEnableUSNRangeModificationTracking
      * @type {Integer (Int32)}
      */
-    static CsvControlEnableUSNRangeModificationTracking => 13
+    static EnableUSNRangeModificationTracking => 13
 
     /**
+     * Native name: CsvControlMarkHandleLocalVolumeMount
      * @type {Integer (Int32)}
      */
-    static CsvControlMarkHandleLocalVolumeMount => 14
+    static MarkHandleLocalVolumeMount => 14
 
     /**
+     * Native name: CsvControlUnmarkHandleLocalVolumeMount
      * @type {Integer (Int32)}
      */
-    static CsvControlUnmarkHandleLocalVolumeMount => 15
+    static UnmarkHandleLocalVolumeMount => 15
 
     /**
+     * Native name: CsvControlGetCsvFsMdsPathV2
      * @type {Integer (Int32)}
      */
-    static CsvControlGetCsvFsMdsPathV2 => 18
+    static GetCsvFsMdsPathV2 => 18
 
     /**
+     * Native name: CsvControlDisableCaching
      * @type {Integer (Int32)}
      */
-    static CsvControlDisableCaching => 19
+    static DisableCaching => 19
 
     /**
+     * Native name: CsvControlEnableCaching
      * @type {Integer (Int32)}
      */
-    static CsvControlEnableCaching => 20
+    static EnableCaching => 20
 
     /**
+     * Native name: CsvControlStartForceDFO
      * @type {Integer (Int32)}
      */
-    static CsvControlStartForceDFO => 21
+    static StartForceDFO => 21
 
     /**
+     * Native name: CsvControlStopForceDFO
      * @type {Integer (Int32)}
      */
-    static CsvControlStopForceDFO => 22
+    static StopForceDFO => 22
 
     /**
+     * Native name: CsvControlQueryMdsPathNoPause
      * @type {Integer (Int32)}
      */
-    static CsvControlQueryMdsPathNoPause => 23
+    static QueryMdsPathNoPause => 23
 
     /**
+     * Native name: CsvControlSetVolumeId
      * @type {Integer (Int32)}
      */
-    static CsvControlSetVolumeId => 24
+    static SetVolumeId => 24
 
     /**
+     * Native name: CsvControlQueryVolumeId
      * @type {Integer (Int32)}
      */
-    static CsvControlQueryVolumeId => 25
+    static QueryVolumeId => 25
 }

@@ -30,7 +30,6 @@ class ICorProfilerCallback11 extends ICorProfilerCallback10 {
     static VTableNames => ["LoadAsNotificationOnly"]
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbNotificationOnly 
      * @returns {HRESULT} 
      */

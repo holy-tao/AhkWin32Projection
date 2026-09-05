@@ -7,12 +7,14 @@
 class HLTRANSLATEF extends Win32Enum {
 
     /**
+     * Native name: HLTRANSLATEF_DEFAULT
      * @type {Integer (Int32)}
      */
-    static HLTRANSLATEF_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: HLTRANSLATEF_DONTAPPLYDEFAULTPREFIX
      * @type {Integer (Int32)}
      */
-    static HLTRANSLATEF_DONTAPPLYDEFAULTPREFIX => 1
+    static DONTAPPLYDEFAULTPREFIX => 1
 }

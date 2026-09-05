@@ -20,7 +20,6 @@ class Direct3D9on12 {
 
 ;@region Methods
     /**
-     * 
      * @param {Integer} SDKVersion 
      * @param {Pointer<D3D9ON12_ARGS>} pOverrideList 
      * @param {Integer} NumOverrideEntries 
@@ -32,7 +31,6 @@ class Direct3D9on12 {
     }
 
     /**
-     * 
      * @param {Integer} SDKVersion 
      * @param {Pointer<D3D9ON12_ARGS>} pOverrideList 
      * @param {Integer} NumOverrideEntries 

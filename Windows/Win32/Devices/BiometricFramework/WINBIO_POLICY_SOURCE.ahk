@@ -9,22 +9,26 @@
 class WINBIO_POLICY_SOURCE extends Win32Enum {
 
     /**
+     * Native name: WINBIO_POLICY_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static WINBIO_POLICY_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: WINBIO_POLICY_DEFAULT
      * @type {Integer (Int32)}
      */
-    static WINBIO_POLICY_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
+     * Native name: WINBIO_POLICY_LOCAL
      * @type {Integer (Int32)}
      */
-    static WINBIO_POLICY_LOCAL => 2
+    static LOCAL => 2
 
     /**
+     * Native name: WINBIO_POLICY_ADMIN
      * @type {Integer (Int32)}
      */
-    static WINBIO_POLICY_ADMIN => 3
+    static ADMIN => 3
 }

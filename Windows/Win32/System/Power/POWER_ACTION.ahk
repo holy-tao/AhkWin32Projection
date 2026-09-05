@@ -10,54 +10,63 @@ class POWER_ACTION extends Win32Enum {
 
     /**
      * No system power action.
+     * Native name: PowerActionNone
      * @type {Integer (Int32)}
      */
-    static PowerActionNone => 0
+    static None => 0
 
     /**
      * Reserved; do not use.
+     * Native name: PowerActionReserved
      * @type {Integer (Int32)}
      */
-    static PowerActionReserved => 1
+    static Reserved => 1
 
     /**
      * Sleep.
+     * Native name: PowerActionSleep
      * @type {Integer (Int32)}
      */
-    static PowerActionSleep => 2
+    static Sleep => 2
 
     /**
      * Hibernate.
+     * Native name: PowerActionHibernate
      * @type {Integer (Int32)}
      */
-    static PowerActionHibernate => 3
+    static Hibernate => 3
 
     /**
      * Shutdown.
+     * Native name: PowerActionShutdown
      * @type {Integer (Int32)}
      */
-    static PowerActionShutdown => 4
+    static Shutdown => 4
 
     /**
      * Shutdown and reset.
+     * Native name: PowerActionShutdownReset
      * @type {Integer (Int32)}
      */
-    static PowerActionShutdownReset => 5
+    static ShutdownReset => 5
 
     /**
      * Shutdown and power off.
+     * Native name: PowerActionShutdownOff
      * @type {Integer (Int32)}
      */
-    static PowerActionShutdownOff => 6
+    static ShutdownOff => 6
 
     /**
      * Warm eject.
+     * Native name: PowerActionWarmEject
      * @type {Integer (Int32)}
      */
-    static PowerActionWarmEject => 7
+    static WarmEject => 7
 
     /**
+     * Native name: PowerActionDisplayOff
      * @type {Integer (Int32)}
      */
-    static PowerActionDisplayOff => 8
+    static DisplayOff => 8
 }

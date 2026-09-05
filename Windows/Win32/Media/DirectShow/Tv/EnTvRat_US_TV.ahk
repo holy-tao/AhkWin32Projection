@@ -7,42 +7,50 @@
 class EnTvRat_US_TV extends Win32Enum {
 
     /**
+     * Native name: US_TV_None
      * @type {Integer (Int32)}
      */
-    static US_TV_None => 0
+    static None => 0
 
     /**
+     * Native name: US_TV_Y
      * @type {Integer (Int32)}
      */
-    static US_TV_Y => 1
+    static Y => 1
 
     /**
+     * Native name: US_TV_Y7
      * @type {Integer (Int32)}
      */
-    static US_TV_Y7 => 2
+    static Y7 => 2
 
     /**
+     * Native name: US_TV_G
      * @type {Integer (Int32)}
      */
-    static US_TV_G => 3
+    static G => 3
 
     /**
+     * Native name: US_TV_PG
      * @type {Integer (Int32)}
      */
-    static US_TV_PG => 4
+    static PG => 4
 
     /**
+     * Native name: US_TV_14
      * @type {Integer (Int32)}
      */
-    static US_TV_14 => 5
+    static 14 => 5
 
     /**
+     * Native name: US_TV_MA
      * @type {Integer (Int32)}
      */
-    static US_TV_MA => 6
+    static MA => 6
 
     /**
+     * Native name: US_TV_None7
      * @type {Integer (Int32)}
      */
-    static US_TV_None7 => 7
+    static None7 => 7
 }

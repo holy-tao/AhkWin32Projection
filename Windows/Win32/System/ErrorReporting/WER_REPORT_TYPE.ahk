@@ -7,32 +7,38 @@
 class WER_REPORT_TYPE extends Win32Enum {
 
     /**
+     * Native name: WerReportNonCritical
      * @type {Integer (Int32)}
      */
-    static WerReportNonCritical => 0
+    static NonCritical => 0
 
     /**
+     * Native name: WerReportCritical
      * @type {Integer (Int32)}
      */
-    static WerReportCritical => 1
+    static Critical => 1
 
     /**
+     * Native name: WerReportApplicationCrash
      * @type {Integer (Int32)}
      */
-    static WerReportApplicationCrash => 2
+    static ApplicationCrash => 2
 
     /**
+     * Native name: WerReportApplicationHang
      * @type {Integer (Int32)}
      */
-    static WerReportApplicationHang => 3
+    static ApplicationHang => 3
 
     /**
+     * Native name: WerReportKernel
      * @type {Integer (Int32)}
      */
-    static WerReportKernel => 4
+    static Kernel => 4
 
     /**
+     * Native name: WerReportInvalid
      * @type {Integer (Int32)}
      */
-    static WerReportInvalid => 5
+    static Invalid => 5
 }

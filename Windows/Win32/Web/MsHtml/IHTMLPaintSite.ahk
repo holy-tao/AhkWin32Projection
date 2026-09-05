@@ -33,7 +33,6 @@ class IHTMLPaintSite extends IUnknown {
     static VTableNames => ["InvalidatePainterInfo", "InvalidateRect", "InvalidateRegion", "GetDrawInfo", "TransformGlobalToLocal", "TransformLocalToGlobal", "GetHitTestCookie"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidatePainterInfo() {
@@ -61,7 +60,6 @@ class IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRGN} rgnInvalid 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ class IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HTML_PAINT_DRAW_INFO} 
      */
@@ -84,7 +81,6 @@ class IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} ptGlobal 
      * @returns {POINT} 
      */
@@ -95,7 +91,6 @@ class IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} ptLocal 
      * @returns {POINT} 
      */
@@ -106,7 +101,6 @@ class IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHitTestCookie() {

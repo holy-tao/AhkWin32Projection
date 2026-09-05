@@ -10,21 +10,24 @@ class MERGE_VIRTUAL_DISK_VERSION extends Win32Enum {
 
     /**
      * Not supported.
+     * Native name: MERGE_VIRTUAL_DISK_VERSION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static MERGE_VIRTUAL_DISK_VERSION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * The <b>Version1</b> member structure will be used.
+     * Native name: MERGE_VIRTUAL_DISK_VERSION_1
      * @type {Integer (Int32)}
      */
-    static MERGE_VIRTUAL_DISK_VERSION_1 => 1
+    static 1 => 1
 
     /**
      * The <b>Version2</b> member structure will be used.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported until Windows 8 and Windows Server 2012.
+     * Native name: MERGE_VIRTUAL_DISK_VERSION_2
      * @type {Integer (Int32)}
      */
-    static MERGE_VIRTUAL_DISK_VERSION_2 => 2
+    static 2 => 2
 }

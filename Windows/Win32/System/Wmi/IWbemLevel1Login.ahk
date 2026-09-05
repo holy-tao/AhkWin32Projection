@@ -38,7 +38,6 @@ class IWbemLevel1Login extends IUnknown {
     static VTableNames => ["EstablishPosition", "RequestChallenge", "WBEMLogin", "NTLMLogin"]
 
     /**
-     * 
      * @param {PWSTR} wszLocaleList 
      * @param {Integer} dwNumLocales 
      * @returns {Integer} 
@@ -51,7 +50,6 @@ class IWbemLevel1Login extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszNetworkResource 
      * @param {PWSTR} wszUser 
      * @returns {Integer} 
@@ -65,7 +63,6 @@ class IWbemLevel1Login extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszPreferredLocale 
      * @param {Pointer<Integer>} AccessToken 
      * @param {Integer} lFlags 
@@ -82,7 +79,6 @@ class IWbemLevel1Login extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszNetworkResource 
      * @param {PWSTR} wszPreferredLocale 
      * @param {Integer} lFlags 

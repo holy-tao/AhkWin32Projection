@@ -13,25 +13,29 @@ class WORDLIST_TYPE extends Win32Enum {
 
     /**
      * Words considered to be correctly spelled, but which are not offered as  suggestions. This word list isn't saved and is specific to a spelling session. (The others types of word lists are saved in the default custom dictionary files, and are global.)
+     * Native name: WORDLIST_TYPE_IGNORE
      * @type {Integer (Int32)}
      */
-    static WORDLIST_TYPE_IGNORE => 0
+    static IGNORE => 0
 
     /**
      * Words considered to be correctly spelled and which can be offered as  suggestions.
+     * Native name: WORDLIST_TYPE_ADD
      * @type {Integer (Int32)}
      */
-    static WORDLIST_TYPE_ADD => 1
+    static ADD => 1
 
     /**
      * Words considered to be incorrectly spelled.
+     * Native name: WORDLIST_TYPE_EXCLUDE
      * @type {Integer (Int32)}
      */
-    static WORDLIST_TYPE_EXCLUDE => 2
+    static EXCLUDE => 2
 
     /**
      * Word pairs of a misspelled word and the word that should replace it.
+     * Native name: WORDLIST_TYPE_AUTOCORRECT
      * @type {Integer (Int32)}
      */
-    static WORDLIST_TYPE_AUTOCORRECT => 3
+    static AUTOCORRECT => 3
 }

@@ -7,77 +7,92 @@
 class styleFontWeight extends Win32Enum {
 
     /**
+     * Native name: styleFontWeightNotSet
      * @type {Integer (Int32)}
      */
-    static styleFontWeightNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleFontWeight100
      * @type {Integer (Int32)}
      */
-    static styleFontWeight100 => 1
+    static Weight100 => 1
 
     /**
+     * Native name: styleFontWeight200
      * @type {Integer (Int32)}
      */
-    static styleFontWeight200 => 2
+    static Weight200 => 2
 
     /**
+     * Native name: styleFontWeight300
      * @type {Integer (Int32)}
      */
-    static styleFontWeight300 => 3
+    static Weight300 => 3
 
     /**
+     * Native name: styleFontWeight400
      * @type {Integer (Int32)}
      */
-    static styleFontWeight400 => 4
+    static Weight400 => 4
 
     /**
+     * Native name: styleFontWeight500
      * @type {Integer (Int32)}
      */
-    static styleFontWeight500 => 5
+    static Weight500 => 5
 
     /**
+     * Native name: styleFontWeight600
      * @type {Integer (Int32)}
      */
-    static styleFontWeight600 => 6
+    static Weight600 => 6
 
     /**
+     * Native name: styleFontWeight700
      * @type {Integer (Int32)}
      */
-    static styleFontWeight700 => 7
+    static Weight700 => 7
 
     /**
+     * Native name: styleFontWeight800
      * @type {Integer (Int32)}
      */
-    static styleFontWeight800 => 8
+    static Weight800 => 8
 
     /**
+     * Native name: styleFontWeight900
      * @type {Integer (Int32)}
      */
-    static styleFontWeight900 => 9
+    static Weight900 => 9
 
     /**
+     * Native name: styleFontWeightNormal
      * @type {Integer (Int32)}
      */
-    static styleFontWeightNormal => 10
+    static Normal => 10
 
     /**
+     * Native name: styleFontWeightBold
      * @type {Integer (Int32)}
      */
-    static styleFontWeightBold => 11
+    static Bold => 11
 
     /**
+     * Native name: styleFontWeightBolder
      * @type {Integer (Int32)}
      */
-    static styleFontWeightBolder => 12
+    static Bolder => 12
 
     /**
+     * Native name: styleFontWeightLighter
      * @type {Integer (Int32)}
      */
-    static styleFontWeightLighter => 13
+    static Lighter => 13
 
     /**
+     * Native name: styleFontWeight_Max
      * @type {Integer (Int32)}
      */
-    static styleFontWeight_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,12 +7,14 @@
 class XINPUT_FLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: XINPUT_FLAG_ALL
      * @type {Integer (UInt32)}
      */
-    static XINPUT_FLAG_ALL => 0
+    static ALL => 0
 
     /**
+     * Native name: XINPUT_FLAG_GAMEPAD
      * @type {Integer (UInt32)}
      */
-    static XINPUT_FLAG_GAMEPAD => 1
+    static GAMEPAD => 1
 }

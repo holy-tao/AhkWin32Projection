@@ -10,7 +10,8 @@ class D3D12_PROTECTED_RESOURCE_SESSION_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies no flag.
+     * Native name: D3D12_PROTECTED_RESOURCE_SESSION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_PROTECTED_RESOURCE_SESSION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

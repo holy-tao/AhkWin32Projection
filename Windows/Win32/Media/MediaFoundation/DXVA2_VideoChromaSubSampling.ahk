@@ -46,61 +46,71 @@ class DXVA2_VideoChromaSubSampling extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: DXVA2_VideoChromaSubsamplingMask
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsamplingMask => 15
+    static SubsamplingMask => 15
 
     /**
      * Unknown encoding scheme.
+     * Native name: DXVA2_VideoChromaSubsampling_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_Unknown => 0
+    static Subsampling_Unknown => 0
 
     /**
      * Chroma should be reconstructed as if the underlying video was progressive content, rather than skipping fields or applying chroma filtering to minimize artifacts from reconstructing 4:2:0 interlaced chroma.
+     * Native name: DXVA2_VideoChromaSubsampling_ProgressiveChroma
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_ProgressiveChroma => 8
+    static Subsampling_ProgressiveChroma => 8
 
     /**
      * Horizontally cosited. Chroma samples are aligned horizontally with multiples of the luma samples. If this flag is not set, chroma samples are located 1/2 pixel to the right of the corresponding luma samples.
+     * Native name: DXVA2_VideoChromaSubsampling_Horizontally_Cosited
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_Horizontally_Cosited => 4
+    static Subsampling_Horizontally_Cosited => 4
 
     /**
      * Vertically cosited. Chroma samples are aligned vertically with multiples of the luma samples. If this flag is not set, chroma samples are located 1/2 pixel down from the corresponding luma samples.
+     * Native name: DXVA2_VideoChromaSubsampling_Vertically_Cosited
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_Vertically_Cosited => 2
+    static Subsampling_Vertically_Cosited => 2
 
     /**
      * The chroma planes are vertically aligned. If this flag is not set, chroma planes are out of phase by 1/2 chroma sample, and the Cb and Cr samples are sited on alternate lines.
+     * Native name: DXVA2_VideoChromaSubsampling_Vertically_AlignedChromaPlanes
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_Vertically_AlignedChromaPlanes => 1
+    static Subsampling_Vertically_AlignedChromaPlanes => 1
 
     /**
      * Specifies the chroma encoding scheme for MPEG-2 video. Chroma samples are aligned horizontally with the luma samples, but are not aligned vertically. The U and V planes are aligned vertically.
+     * Native name: DXVA2_VideoChromaSubsampling_MPEG2
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_MPEG2 => 5
+    static Subsampling_MPEG2 => 5
 
     /**
      * Specifies the chroma encoding scheme for MPEG-1 video.
+     * Native name: DXVA2_VideoChromaSubsampling_MPEG1
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_MPEG1 => 1
+    static Subsampling_MPEG1 => 1
 
     /**
      * Specifies the chroma encoding scheme for PAL DV video.
+     * Native name: DXVA2_VideoChromaSubsampling_DV_PAL
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_DV_PAL => 6
+    static Subsampling_DV_PAL => 6
 
     /**
      * Horizontally and vertically cosited. Chroma samples are aligned vertically and horizontally with the luma samples. YUV formats such as 4:4:4, 4:2:2, and 4:1:1 are always cosited in both directions and should use this flag.
+     * Native name: DXVA2_VideoChromaSubsampling_Cosited
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoChromaSubsampling_Cosited => 7
+    static Subsampling_Cosited => 7
 }

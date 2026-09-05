@@ -7,24 +7,28 @@
 class NFC_DEVICE_TYPE extends Win32Enum {
 
     /**
+     * Native name: NfcType1Tag
      * @type {Integer (Int32)}
      */
-    static NfcType1Tag => 0
+    static Type1Tag => 0
 
     /**
+     * Native name: NfcType2Tag
      * @type {Integer (Int32)}
      */
-    static NfcType2Tag => 1
+    static Type2Tag => 1
 
     /**
+     * Native name: NfcType3Tag
      * @type {Integer (Int32)}
      */
-    static NfcType3Tag => 2
+    static Type3Tag => 2
 
     /**
+     * Native name: NfcType4Tag
      * @type {Integer (Int32)}
      */
-    static NfcType4Tag => 3
+    static Type4Tag => 3
 
     /**
      * @type {Integer (Int32)}
@@ -37,7 +41,8 @@ class NFC_DEVICE_TYPE extends Win32Enum {
     static NfcIP1Initiator => 5
 
     /**
+     * Native name: NfcReader
      * @type {Integer (Int32)}
      */
-    static NfcReader => 6
+    static Reader => 6
 }

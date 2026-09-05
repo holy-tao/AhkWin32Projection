@@ -31,7 +31,6 @@ class IActiveScriptTraceInfo extends IUnknown {
     static VTableNames => ["StartScriptTracing", "StopScriptTracing"]
 
     /**
-     * 
      * @param {IActiveScriptSiteTraceInfo} pSiteTraceInfo 
      * @param {Guid} guidContextID 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IActiveScriptTraceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopScriptTracing() {

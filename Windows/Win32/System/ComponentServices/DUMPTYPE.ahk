@@ -7,17 +7,20 @@
 class DUMPTYPE extends Win32Enum {
 
     /**
+     * Native name: DUMPTYPE_FULL
      * @type {Integer (Int32)}
      */
-    static DUMPTYPE_FULL => 0
+    static FULL => 0
 
     /**
+     * Native name: DUMPTYPE_MINI
      * @type {Integer (Int32)}
      */
-    static DUMPTYPE_MINI => 1
+    static MINI => 1
 
     /**
+     * Native name: DUMPTYPE_NONE
      * @type {Integer (Int32)}
      */
-    static DUMPTYPE_NONE => 2
+    static NONE => 2
 }

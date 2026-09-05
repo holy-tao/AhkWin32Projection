@@ -12,19 +12,22 @@ class DVD_VIDEO_COMPRESSION extends Win32Enum {
 
     /**
      * Unrecognized compression type.
+     * Native name: DVD_VideoCompression_Other
      * @type {Integer (Int32)}
      */
-    static DVD_VideoCompression_Other => 0
+    static Other => 0
 
     /**
      * MPEG-1 compression type.
+     * Native name: DVD_VideoCompression_MPEG1
      * @type {Integer (Int32)}
      */
-    static DVD_VideoCompression_MPEG1 => 1
+    static MPEG1 => 1
 
     /**
      * MPEG-2 compression type.
+     * Native name: DVD_VideoCompression_MPEG2
      * @type {Integer (Int32)}
      */
-    static DVD_VideoCompression_MPEG2 => 2
+    static MPEG2 => 2
 }

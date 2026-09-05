@@ -37,7 +37,6 @@ class IHTMLStyleFontFace2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRuleStyle} 
      */
     get_style() {

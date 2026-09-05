@@ -160,7 +160,6 @@ class IADsPathname extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EscapedMode() {
@@ -169,7 +168,6 @@ class IADsPathname extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnEscapedMode 
      * @returns {HRESULT} 
      */

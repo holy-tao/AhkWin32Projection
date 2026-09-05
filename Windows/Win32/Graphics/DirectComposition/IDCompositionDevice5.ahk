@@ -30,7 +30,6 @@ class IDCompositionDevice5 extends IDCompositionDevice4 {
     static VTableNames => ["CreateDynamicTexture"]
 
     /**
-     * 
      * @returns {IDCompositionDynamicTexture} 
      */
     CreateDynamicTexture() {

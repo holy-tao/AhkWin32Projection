@@ -11,21 +11,24 @@ class WS_CALL_PROPERTY_ID extends Win32Enum {
     /**
      * An application can suppress or enable must understand header processing 
      *                     on the proxy using this setting. This is <b>TRUE</b> by default.
+     * Native name: WS_CALL_PROPERTY_CHECK_MUST_UNDERSTAND
      * @type {Integer (Int32)}
      */
-    static WS_CALL_PROPERTY_CHECK_MUST_UNDERSTAND => 0
+    static CHECK_MUST_UNDERSTAND => 0
 
     /**
      * Enables an application to put headers into the input message for a given call.
+     * Native name: WS_CALL_PROPERTY_SEND_MESSAGE_CONTEXT
      * @type {Integer (Int32)}
      */
-    static WS_CALL_PROPERTY_SEND_MESSAGE_CONTEXT => 1
+    static SEND_MESSAGE_CONTEXT => 1
 
     /**
      * Enables an application to extract headers from the output message for a given call.
+     * Native name: WS_CALL_PROPERTY_RECEIVE_MESSAGE_CONTEXT
      * @type {Integer (Int32)}
      */
-    static WS_CALL_PROPERTY_RECEIVE_MESSAGE_CONTEXT => 2
+    static RECEIVE_MESSAGE_CONTEXT => 2
 
     /**
      * On a <a href="https://docs.microsoft.com/windows/desktop/wsw/service-operation">service operation</a> an application can use the call id property to uniquely identify 
@@ -34,7 +37,8 @@ class WS_CALL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * For more information about abandoning calls see <a href="https://docs.microsoft.com/windows/desktop/wsw/client-side-service-operations">service operation</a>.
+     * Native name: WS_CALL_PROPERTY_CALL_ID
      * @type {Integer (Int32)}
      */
-    static WS_CALL_PROPERTY_CALL_ID => 3
+    static CALL_ID => 3
 }

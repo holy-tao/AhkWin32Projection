@@ -14,25 +14,29 @@ class MF_MEDIAKEYSESSION_MESSAGETYPE extends Win32Enum {
 
     /**
      * The message contains a request for a new license.
+     * Native name: MF_MEDIAKEYSESSION_MESSAGETYPE_LICENSE_REQUEST
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAKEYSESSION_MESSAGETYPE_LICENSE_REQUEST => 0
+    static LICENSE_REQUEST => 0
 
     /**
      * The message contains a request to renew an existing license.
+     * Native name: MF_MEDIAKEYSESSION_MESSAGETYPE_LICENSE_RENEWAL
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAKEYSESSION_MESSAGETYPE_LICENSE_RENEWAL => 1
+    static LICENSE_RENEWAL => 1
 
     /**
      * The message contains a record of license destruction.
+     * Native name: MF_MEDIAKEYSESSION_MESSAGETYPE_LICENSE_RELEASE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAKEYSESSION_MESSAGETYPE_LICENSE_RELEASE => 2
+    static LICENSE_RELEASE => 2
 
     /**
      * The message contains a request for App-Assisted Individualization (or re-individualization).
+     * Native name: MF_MEDIAKEYSESSION_MESSAGETYPE_INDIVIDUALIZATION_REQUEST
      * @type {Integer (Int32)}
      */
-    static MF_MEDIAKEYSESSION_MESSAGETYPE_INDIVIDUALIZATION_REQUEST => 3
+    static INDIVIDUALIZATION_REQUEST => 3
 }

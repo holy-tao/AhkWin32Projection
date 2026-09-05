@@ -7,47 +7,56 @@
 class JOB_OBJECT_UILIMIT extends Win32BitflagEnum {
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_NONE
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_HANDLES
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_HANDLES => 1
+    static HANDLES => 1
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_READCLIPBOARD
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_READCLIPBOARD => 2
+    static READCLIPBOARD => 2
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_WRITECLIPBOARD
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_WRITECLIPBOARD => 4
+    static WRITECLIPBOARD => 4
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_SYSTEMPARAMETERS
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_SYSTEMPARAMETERS => 8
+    static SYSTEMPARAMETERS => 8
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_DISPLAYSETTINGS
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_DISPLAYSETTINGS => 16
+    static DISPLAYSETTINGS => 16
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_GLOBALATOMS
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_GLOBALATOMS => 32
+    static GLOBALATOMS => 32
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_DESKTOP
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_DESKTOP => 64
+    static DESKTOP => 64
 
     /**
+     * Native name: JOB_OBJECT_UILIMIT_EXITWINDOWS
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_UILIMIT_EXITWINDOWS => 128
+    static EXITWINDOWS => 128
 }

@@ -10,19 +10,22 @@ class OFFLINEFILES_OP_RESPONSE extends Win32Enum {
 
     /**
      * Continue processing items.
+     * Native name: OFFLINEFILES_OP_CONTINUE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_OP_CONTINUE => 0
+    static CONTINUE => 0
 
     /**
      * Repeat processing of this item.
+     * Native name: OFFLINEFILES_OP_RETRY
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_OP_RETRY => 1
+    static RETRY => 1
 
     /**
      * Stop processing now.
+     * Native name: OFFLINEFILES_OP_ABORT
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_OP_ABORT => 2
+    static ABORT => 2
 }

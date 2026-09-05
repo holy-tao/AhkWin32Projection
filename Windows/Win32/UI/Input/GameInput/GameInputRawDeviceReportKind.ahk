@@ -7,17 +7,20 @@
 class GameInputRawDeviceReportKind extends Win32Enum {
 
     /**
+     * Native name: GameInputRawInputReport
      * @type {Integer (Int32)}
      */
-    static GameInputRawInputReport => 0
+    static InputReport => 0
 
     /**
+     * Native name: GameInputRawOutputReport
      * @type {Integer (Int32)}
      */
-    static GameInputRawOutputReport => 1
+    static OutputReport => 1
 
     /**
+     * Native name: GameInputRawFeatureReport
      * @type {Integer (Int32)}
      */
-    static GameInputRawFeatureReport => 2
+    static FeatureReport => 2
 }

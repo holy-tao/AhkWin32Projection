@@ -10,43 +10,50 @@ class D3DX11_SCAN_OPCODE extends Win32Enum {
 
     /**
      * Add values.
+     * Native name: D3DX11_SCAN_OPCODE_ADD
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_OPCODE_ADD => 1
+    static ADD => 1
 
     /**
      * Take the minimum value.
+     * Native name: D3DX11_SCAN_OPCODE_MIN
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_OPCODE_MIN => 2
+    static MIN => 2
 
     /**
      * Take the maximum value.
+     * Native name: D3DX11_SCAN_OPCODE_MAX
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_OPCODE_MAX => 3
+    static MAX => 3
 
     /**
      * Multiply the values.
+     * Native name: D3DX11_SCAN_OPCODE_MUL
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_OPCODE_MUL => 4
+    static MUL => 4
 
     /**
      * Perform a logical AND on the values.
+     * Native name: D3DX11_SCAN_OPCODE_AND
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_OPCODE_AND => 5
+    static AND => 5
 
     /**
      * Perform a logical OR on the values.
+     * Native name: D3DX11_SCAN_OPCODE_OR
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_OPCODE_OR => 6
+    static OR => 6
 
     /**
      * Perform a logical XOR on the values.
+     * Native name: D3DX11_SCAN_OPCODE_XOR
      * @type {Integer (Int32)}
      */
-    static D3DX11_SCAN_OPCODE_XOR => 7
+    static XOR => 7
 }

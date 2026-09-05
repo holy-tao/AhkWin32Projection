@@ -33,7 +33,6 @@ class IKsDataTypeHandler extends IUnknown {
     static VTableNames => ["KsCompleteIoOperation", "KsIsMediaTypeInRanges", "KsPrepareIoOperation", "KsQueryExtendedSize", "KsSetMediaType"]
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {Pointer<Void>} StreamHeader 
      * @param {KSIOOPERATION} IoOperation 
@@ -48,7 +47,6 @@ class IKsDataTypeHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataRanges 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ class IKsDataTypeHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {Pointer<Void>} StreamHeader 
      * @param {KSIOOPERATION} IoOperation 
@@ -74,7 +71,6 @@ class IKsDataTypeHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsQueryExtendedSize() {
@@ -83,7 +79,6 @@ class IKsDataTypeHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<AM_MEDIA_TYPE>} AmMediaType 
      * @returns {HRESULT} 
      */

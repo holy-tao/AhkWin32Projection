@@ -30,7 +30,6 @@ class IDebugSystemObjects2 extends IUnknown {
     static VTableNames => ["GetEventThread", "GetEventProcess", "GetCurrentThreadId", "SetCurrentThreadId", "GetCurrentProcessId", "SetCurrentProcessId", "GetNumberThreads", "GetTotalNumberThreads", "GetThreadIdsByIndex", "GetThreadIdByProcessor", "GetCurrentThreadDataOffset", "GetThreadIdByDataOffset", "GetCurrentThreadTeb", "GetThreadIdByTeb", "GetCurrentThreadSystemId", "GetThreadIdBySystemId", "GetCurrentThreadHandle", "GetThreadIdByHandle", "GetNumberProcesses", "GetProcessIdsByIndex", "GetCurrentProcessDataOffset", "GetProcessIdByDataOffset", "GetCurrentProcessPeb", "GetProcessIdByPeb", "GetCurrentProcessSystemId", "GetProcessIdBySystemId", "GetCurrentProcessHandle", "GetProcessIdByHandle", "GetCurrentProcessExecutableName", "GetCurrentProcessUpTime", "GetImplicitThreadDataOffset", "SetImplicitThreadDataOffset", "GetImplicitProcessDataOffset", "SetImplicitProcessDataOffset"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventThread() {
@@ -39,7 +38,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventProcess() {
@@ -60,7 +58,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Id 
      * @returns {HRESULT} 
      */
@@ -82,7 +79,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Id 
      * @returns {HRESULT} 
      */
@@ -92,7 +88,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberThreads() {
@@ -101,7 +96,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Total 
      * @param {Pointer<Integer>} LargestProcess 
      * @returns {HRESULT} 
@@ -115,7 +109,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Ids 
@@ -131,7 +124,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @returns {Integer} 
      */
@@ -141,7 +133,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadDataOffset() {
@@ -150,7 +141,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -160,7 +150,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadTeb() {
@@ -169,7 +158,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -179,7 +167,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadSystemId() {
@@ -188,7 +175,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SysId 
      * @returns {Integer} 
      */
@@ -198,7 +184,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadHandle() {
@@ -207,7 +192,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {Integer} 
      */
@@ -217,7 +201,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberProcesses() {
@@ -226,7 +209,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Ids 
@@ -242,7 +224,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessDataOffset() {
@@ -251,7 +232,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -261,7 +241,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessPeb() {
@@ -270,7 +249,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -280,7 +258,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessSystemId() {
@@ -289,7 +266,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SysId 
      * @returns {Integer} 
      */
@@ -299,7 +275,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessHandle() {
@@ -308,7 +283,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {Integer} 
      */
@@ -318,7 +292,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -331,7 +304,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessUpTime() {
@@ -340,7 +312,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetImplicitThreadDataOffset() {
@@ -349,7 +320,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {HRESULT} 
      */
@@ -359,7 +329,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetImplicitProcessDataOffset() {
@@ -368,7 +337,6 @@ class IDebugSystemObjects2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {HRESULT} 
      */

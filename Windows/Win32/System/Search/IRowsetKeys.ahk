@@ -29,7 +29,6 @@ class IRowsetKeys extends IUnknown {
     static VTableNames => ["ListKeys"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcColumns 
      * @param {Pointer<Pointer<Pointer>>} prgColumns 
      * @returns {HRESULT} 

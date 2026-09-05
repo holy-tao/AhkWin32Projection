@@ -29,7 +29,6 @@ class IPrintAsyncNotifyRegistration extends IUnknown {
     static VTableNames => ["RegisterForNotifications", "UnregisterForNotifications"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RegisterForNotifications() {
@@ -38,7 +37,6 @@ class IPrintAsyncNotifyRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnregisterForNotifications() {

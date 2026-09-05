@@ -74,7 +74,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Access() {
@@ -83,7 +82,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ShareMode() {
@@ -92,7 +90,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     get_QueueInfo() {
@@ -101,7 +98,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Handle() {
@@ -110,7 +106,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsOpen() {
@@ -119,7 +114,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -128,7 +122,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -141,7 +134,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -153,7 +145,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQEvent} Event 
      * @param {Pointer<VARIANT>} Cursor 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -165,7 +156,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -174,7 +164,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -187,7 +176,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -199,7 +187,6 @@ class IMSMQQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 

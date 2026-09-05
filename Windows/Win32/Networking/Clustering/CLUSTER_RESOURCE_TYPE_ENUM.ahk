@@ -10,9 +10,10 @@ class CLUSTER_RESOURCE_TYPE_ENUM extends Win32Enum {
 
     /**
      * The object is a node that can be a possible owner of the resource type.
+     * Native name: CLUSTER_RESOURCE_TYPE_ENUM_NODES
      * @type {Integer (Int32)}
      */
-    static CLUSTER_RESOURCE_TYPE_ENUM_NODES => 1
+    static NODES => 1
 
     /**
      * The object is a resource that is an instance of the resource type.
@@ -24,16 +25,18 @@ class CLUSTER_RESOURCE_TYPE_ENUM extends Win32Enum {
      *        function. If the call is made on a system without ResUtils.dll, then use the steps mentioned in the Remarks 
      *        section of the <b>ResUtilResourceTypesEqual</b> 
      *        function.
+     * Native name: CLUSTER_RESOURCE_TYPE_ENUM_RESOURCES
      * @type {Integer (Int32)}
      */
-    static CLUSTER_RESOURCE_TYPE_ENUM_RESOURCES => 2
+    static RESOURCES => 2
 
     /**
      * All cluster objects identified by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeenum">ClusterResourceTypeEnum</a> and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeopenenum">ClusterResourceTypeOpenEnum</a> 
      *        functions.
+     * Native name: CLUSTER_RESOURCE_TYPE_ENUM_ALL
      * @type {Integer (Int32)}
      */
-    static CLUSTER_RESOURCE_TYPE_ENUM_ALL => 3
+    static ALL => 3
 }

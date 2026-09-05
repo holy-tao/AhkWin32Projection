@@ -7,12 +7,14 @@
 class ARP_HARDWARE_TYPE extends Win32Enum {
 
     /**
+     * Native name: ARP_HW_ENET
      * @type {Integer (Int32)}
      */
-    static ARP_HW_ENET => 1
+    static HW_ENET => 1
 
     /**
+     * Native name: ARP_HW_802
      * @type {Integer (Int32)}
      */
-    static ARP_HW_802 => 6
+    static HW_802 => 6
 }

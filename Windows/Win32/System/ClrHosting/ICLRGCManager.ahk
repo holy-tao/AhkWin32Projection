@@ -30,7 +30,6 @@ class ICLRGCManager extends IUnknown {
     static VTableNames => ["Collect", "GetStats", "SetGCStartupLimits"]
 
     /**
-     * 
      * @param {Integer} Generation 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ICLRGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COR_GC_STATS>} pStats 
      * @returns {HRESULT} 
      */
@@ -50,7 +48,6 @@ class ICLRGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SegmentSize 
      * @param {Integer} MaxGen0Size 
      * @returns {HRESULT} 

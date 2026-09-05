@@ -7,27 +7,32 @@
 class VIRTUAL_PROCESSOR_VENDOR extends Win32Enum {
 
     /**
+     * Native name: ProcessorVendor_Unknown
      * @type {Integer (Int32)}
      */
-    static ProcessorVendor_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: ProcessorVendor_Amd
      * @type {Integer (Int32)}
      */
-    static ProcessorVendor_Amd => 1
+    static Amd => 1
 
     /**
+     * Native name: ProcessorVendor_Intel
      * @type {Integer (Int32)}
      */
-    static ProcessorVendor_Intel => 2
+    static Intel => 2
 
     /**
+     * Native name: ProcessorVendor_Hygon
      * @type {Integer (Int32)}
      */
-    static ProcessorVendor_Hygon => 3
+    static Hygon => 3
 
     /**
+     * Native name: ProcessorVendor_Arm
      * @type {Integer (Int32)}
      */
-    static ProcessorVendor_Arm => 4
+    static Arm => 4
 }

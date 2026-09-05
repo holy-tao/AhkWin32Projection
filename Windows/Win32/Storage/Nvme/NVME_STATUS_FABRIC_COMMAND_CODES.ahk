@@ -7,42 +7,50 @@
 class NVME_STATUS_FABRIC_COMMAND_CODES extends Win32Enum {
 
     /**
+     * Native name: NVME_STATUS_INCOMPATIBLE_FORMAT
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INCOMPATIBLE_FORMAT => 128
+    static INCOMPATIBLE_FORMAT => 128
 
     /**
+     * Native name: NVME_STATUS_CONTROLLER_BUSY
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_CONTROLLER_BUSY => 129
+    static CONTROLLER_BUSY => 129
 
     /**
+     * Native name: NVME_STATUS_CONNECT_INVALID_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_CONNECT_INVALID_PARAMETERS => 130
+    static CONNECT_INVALID_PARAMETERS => 130
 
     /**
+     * Native name: NVME_STATUS_CONNECT_RESTART_DISCOVERY
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_CONNECT_RESTART_DISCOVERY => 131
+    static CONNECT_RESTART_DISCOVERY => 131
 
     /**
+     * Native name: NVME_STATUS_CONNECT_INVALID_HOST
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_CONNECT_INVALID_HOST => 132
+    static CONNECT_INVALID_HOST => 132
 
     /**
+     * Native name: NVME_STATUS_INVALID_QUEUE_TYPE
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_INVALID_QUEUE_TYPE => 133
+    static INVALID_QUEUE_TYPE => 133
 
     /**
+     * Native name: NVME_STATUS_DISCOVER_RESTART
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_DISCOVER_RESTART => 144
+    static DISCOVER_RESTART => 144
 
     /**
+     * Native name: NVME_STATUS_AUTHENTICATION_REQUIRED
      * @type {Integer (Int32)}
      */
-    static NVME_STATUS_AUTHENTICATION_REQUIRED => 145
+    static AUTHENTICATION_REQUIRED => 145
 }

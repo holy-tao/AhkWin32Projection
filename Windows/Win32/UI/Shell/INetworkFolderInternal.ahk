@@ -31,7 +31,6 @@ class INetworkFolderInternal extends IUnknown {
     static VTableNames => ["GetResourceDisplayType", "GetIDList", "GetProvider"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetResourceDisplayType() {
@@ -40,7 +39,6 @@ class INetworkFolderInternal extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ITEMIDLIST>} 
      */
     GetIDList() {
@@ -49,7 +47,6 @@ class INetworkFolderInternal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itemIdCount 
      * @param {Pointer<Pointer<ITEMIDLIST>>} itemIds 
      * @param {Integer} providerMaxLength 

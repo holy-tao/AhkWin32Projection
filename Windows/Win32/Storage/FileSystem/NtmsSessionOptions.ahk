@@ -7,7 +7,8 @@
 class NtmsSessionOptions extends Win32Enum {
 
     /**
+     * Native name: NTMS_SESSION_QUERYEXPEDITE
      * @type {Integer (Int32)}
      */
-    static NTMS_SESSION_QUERYEXPEDITE => 1
+    static QUERYEXPEDITE => 1
 }

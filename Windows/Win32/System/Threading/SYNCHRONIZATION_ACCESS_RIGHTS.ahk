@@ -52,27 +52,32 @@ class SYNCHRONIZATION_ACCESS_RIGHTS extends Win32BitflagEnum {
     static TIMER_QUERY_STATE => 1
 
     /**
+     * Native name: SYNCHRONIZATION_DELETE
      * @type {Integer (UInt32)}
      */
-    static SYNCHRONIZATION_DELETE => 65536
+    static DELETE => 65536
 
     /**
+     * Native name: SYNCHRONIZATION_READ_CONTROL
      * @type {Integer (UInt32)}
      */
-    static SYNCHRONIZATION_READ_CONTROL => 131072
+    static READ_CONTROL => 131072
 
     /**
+     * Native name: SYNCHRONIZATION_WRITE_DAC
      * @type {Integer (UInt32)}
      */
-    static SYNCHRONIZATION_WRITE_DAC => 262144
+    static WRITE_DAC => 262144
 
     /**
+     * Native name: SYNCHRONIZATION_WRITE_OWNER
      * @type {Integer (UInt32)}
      */
-    static SYNCHRONIZATION_WRITE_OWNER => 524288
+    static WRITE_OWNER => 524288
 
     /**
+     * Native name: SYNCHRONIZATION_SYNCHRONIZE
      * @type {Integer (UInt32)}
      */
-    static SYNCHRONIZATION_SYNCHRONIZE => 1048576
+    static SYNCHRONIZE => 1048576
 }

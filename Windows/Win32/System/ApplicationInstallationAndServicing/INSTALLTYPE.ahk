@@ -7,17 +7,20 @@
 class INSTALLTYPE extends Win32Enum {
 
     /**
+     * Native name: INSTALLTYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static INSTALLTYPE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: INSTALLTYPE_NETWORK_IMAGE
      * @type {Integer (Int32)}
      */
-    static INSTALLTYPE_NETWORK_IMAGE => 1
+    static NETWORK_IMAGE => 1
 
     /**
+     * Native name: INSTALLTYPE_SINGLE_INSTANCE
      * @type {Integer (Int32)}
      */
-    static INSTALLTYPE_SINGLE_INSTANCE => 2
+    static SINGLE_INSTANCE => 2
 }

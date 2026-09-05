@@ -16,22 +16,25 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
     /**
      * Query for an array of GUIDs of the providers that are registered on the
      * computer.
+     * Native name: TraceGuidQueryList
      * @type {Integer (Int32)}
      */
-    static TraceGuidQueryList => 0
+    static GuidQueryList => 0
 
     /**
      * Query for information that each session used to enable the provider.
+     * Native name: TraceGuidQueryInfo
      * @type {Integer (Int32)}
      */
-    static TraceGuidQueryInfo => 1
+    static GuidQueryInfo => 1
 
     /**
      * Query for an array of GUIDs of the providers that registered themselves in the
      * same process as the calling process.
+     * Native name: TraceGuidQueryProcess
      * @type {Integer (Int32)}
      */
-    static TraceGuidQueryProcess => 2
+    static GuidQueryProcess => 2
 
     /**
      * Query the setting for call stack tracing for kernel events.
@@ -41,9 +44,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * enabled. The array is limited to 256 elements.
      * 
      * The value is supported on Windows 7, Windows Server 2008 R2, and later.
+     * Native name: TraceStackTracingInfo
      * @type {Integer (Int32)}
      */
-    static TraceStackTracingInfo => 3
+    static StackTracingInfo => 3
 
     /**
      * Query the setting for the **EnableFlags** for the system trace provider. For
@@ -51,17 +55,19 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
      * 
      * The value is supported on Windows 8, Windows Server 2012, and later.
+     * Native name: TraceSystemTraceEnableFlagsInfo
      * @type {Integer (Int32)}
      */
-    static TraceSystemTraceEnableFlagsInfo => 4
+    static SystemTraceEnableFlagsInfo => 4
 
     /**
      * Queries the setting for the sampling profile interval for the supplied source.
      * 
      * The value is supported on Windows 8, Windows Server 2012, and later.
+     * Native name: TraceSampledProfileIntervalInfo
      * @type {Integer (Int32)}
      */
-    static TraceSampledProfileIntervalInfo => 5
+    static SampledProfileIntervalInfo => 5
 
     /**
      * Configures the list of profiling sources that will be collected when the
@@ -69,35 +75,39 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * be emitted as part of the `PERF_PMC_PROFILE` event.
      * 
      * The value is supported on Windows 8, Windows Server 2012, and later.
+     * Native name: TraceProfileSourceConfigInfo
      * @type {Integer (Int32)}
      */
-    static TraceProfileSourceConfigInfo => 6
+    static ProfileSourceConfigInfo => 6
 
     /**
      * Queries the list of profiling sources available on the system.
      * 
      * The value is supported on Windows 8, Windows Server 2012, and later.
+     * Native name: TraceProfileSourceListInfo
      * @type {Integer (Int32)}
      */
-    static TraceProfileSourceListInfo => 7
+    static ProfileSourceListInfo => 7
 
     /**
      * Configures the session with a list of system events for which performance
      * monitoring counters configured by `TracePmcCounterListInfo` will be collected.
      * 
      * The value is supported on Windows 8, Windows Server 2012, and later.
+     * Native name: TracePmcEventListInfo
      * @type {Integer (Int32)}
      */
-    static TracePmcEventListInfo => 8
+    static PmcEventListInfo => 8
 
     /**
      * Configures the session with a list of profiling sources that will be collected
      * when events configured by `TracePmcEventListInfo` are logged to the session.
      * 
      * The value is supported on Windows 8, Windows Server 2012, and later.
+     * Native name: TracePmcCounterListInfo
      * @type {Integer (Int32)}
      */
-    static TracePmcCounterListInfo => 9
+    static PmcCounterListInfo => 9
 
     /**
      * Set the list of providers that will not be enabled to this session as part of a
@@ -105,31 +115,35 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * [Provider Traits](/windows/desktop/ETW/provider-traits).
      * 
      * The value is supported on Windows 10, Windows Server 2016, and later.
+     * Native name: TraceSetDisallowList
      * @type {Integer (Int32)}
      */
-    static TraceSetDisallowList => 10
+    static SetDisallowList => 10
 
     /**
      * Query the trace file version information.
      * 
      * The value is supported on Windows 10, Windows Server 2016, and later.
+     * Native name: TraceVersionInfo
      * @type {Integer (Int32)}
      */
-    static TraceVersionInfo => 11
+    static VersionInfo => 11
 
     /**
      * Query an array of GUIDs of the provider groups that are active on the computer.
+     * Native name: TraceGroupQueryList
      * @type {Integer (Int32)}
      */
-    static TraceGroupQueryList => 12
+    static GroupQueryList => 12
 
     /**
      * The value is supported on Windows 10, Windows Server 2016, and later.
      * 
      * Query information that each session used to enable the provider group.
+     * Native name: TraceGroupQueryInfo
      * @type {Integer (Int32)}
      */
-    static TraceGroupQueryInfo => 13
+    static GroupQueryInfo => 13
 
     /**
      * The value is supported on Windows 10, Windows Server 2016, and later.
@@ -137,15 +151,17 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * Query an array of GUIDs that are disallowed for group enables on this session.
      * 
      * The value is supported on Windows 10, Windows Server 2016, and later.
+     * Native name: TraceDisallowListQuery
      * @type {Integer (Int32)}
      */
-    static TraceDisallowListQuery => 14
+    static DisallowListQuery => 14
 
     /**
      * Reserved for future use. Do not use.
+     * Native name: TraceInfoReserved15
      * @type {Integer (Int32)}
      */
-    static TraceInfoReserved15 => 15
+    static Reserved15 => 15
 
     /**
      * Updates the session with a list of providers that will periodically receive the
@@ -157,9 +173,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 1709, Windows Server, version
      * 1709, and later.
+     * Native name: TracePeriodicCaptureStateListInfo
      * @type {Integer (Int32)}
      */
-    static TracePeriodicCaptureStateListInfo => 16
+    static PeriodicCaptureStateListInfo => 16
 
     /**
      * Queries the limits of periodic capture state settings on the system, including
@@ -171,9 +188,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 1709, Windows Server, version
      * 1709, and later.
+     * Native name: TracePeriodicCaptureStateInfo
      * @type {Integer (Int32)}
      */
-    static TracePeriodicCaptureStateInfo => 17
+    static PeriodicCaptureStateInfo => 17
 
     /**
      * Instructs ETW to begin tracking binaries for all providers that are enabled to
@@ -194,9 +212,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 1709, Windows Server, version
      * 1709, and later.
+     * Native name: TraceProviderBinaryTracking
      * @type {Integer (Int32)}
      */
-    static TraceProviderBinaryTracking => 18
+    static ProviderBinaryTracking => 18
 
     /**
      * Queries the currently configured maximum number of ETW logging sessions allowed
@@ -205,9 +224,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 1709, Windows Server, version
      * 1709, and later.
+     * Native name: TraceMaxLoggersQuery
      * @type {Integer (Int32)}
      */
-    static TraceMaxLoggersQuery => 19
+    static MaxLoggersQuery => 19
 
     /**
      * Enables Last Branch Record tracing for the given session, and configures
@@ -215,9 +235,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 19H1, Windows Server, version
      * 1903, and later.
+     * Native name: TraceLbrConfigurationInfo
      * @type {Integer (Int32)}
      */
-    static TraceLbrConfigurationInfo => 20
+    static LbrConfigurationInfo => 20
 
     /**
      * Configures the list of events that will trigger ETW to trace Last Branch Record
@@ -225,9 +246,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 19H1, Windows Server, version
      * 1903, and later.
+     * Native name: TraceLbrEventListInfo
      * @type {Integer (Int32)}
      */
-    static TraceLbrEventListInfo => 21
+    static LbrEventListInfo => 21
 
     /**
      * Queries the maximum number of profiling sources that may be simultaneously
@@ -235,9 +257,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 19H1, Windows Server, version
      * 1903, and later.
+     * Native name: TraceMaxPmcCounterQuery
      * @type {Integer (Int32)}
      */
-    static TraceMaxPmcCounterQuery => 22
+    static MaxPmcCounterQuery => 22
 
     /**
      * Queries the configured stream count for a session. This is usually, but not
@@ -246,9 +269,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 21H2, Windows Server 2022, and
      * later.
+     * Native name: TraceStreamCount
      * @type {Integer (Int32)}
      */
-    static TraceStreamCount => 23
+    static StreamCount => 23
 
     /**
      * Instructs ETW to begin caching stack traces for RegisterTraceGuids-based
@@ -256,9 +280,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 21H2, Windows Server 2022, and
      * later.
+     * Native name: TraceStackCachingInfo
      * @type {Integer (Int32)}
      */
-    static TraceStackCachingInfo => 24
+    static StackCachingInfo => 24
 
     /**
      * Queries ETW for a list of processor performance monitoring counters currently in
@@ -266,9 +291,10 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 21H2, Windows Server 2022, and
      * later.
+     * Native name: TracePmcCounterOwners
      * @type {Integer (Int32)}
      */
-    static TracePmcCounterOwners => 25
+    static PmcCounterOwners => 25
 
     /**
      * Instructs ETW to begin caching stack traces for both RegisterTraceGuids-based
@@ -276,22 +302,25 @@ class TRACE_QUERY_INFO_CLASS extends Win32Enum {
      * 
      * The value is supported on Windows 10, version 21H2, Windows Server 2022, and
      * later.
+     * Native name: TraceUnifiedStackCachingInfo
      * @type {Integer (Int32)}
      */
-    static TraceUnifiedStackCachingInfo => 26
+    static UnifiedStackCachingInfo => 26
 
     /**
      * Query all sessions for their PMC configuration set via `TracePmcEventListInfo` and `TracePmcCounterListInfo`.
      * 
      * The value is supported on Windows 10, version 22H2 and later.
+     * Native name: TracePmcSessionInformation
      * @type {Integer (Int32)}
      */
-    static TracePmcSessionInformation => 27
+    static PmcSessionInformation => 27
 
     /**
+     * Native name: TraceContextRegisterInfo
      * @type {Integer (Int32)}
      */
-    static TraceContextRegisterInfo => 28
+    static ContextRegisterInfo => 28
 
     /**
      * Marks the last value in the enumeration. Do not use.

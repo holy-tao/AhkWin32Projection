@@ -37,7 +37,6 @@ class ISVGURIReference extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedString} 
      */
     get_href() {

@@ -31,7 +31,6 @@ class IHTMLTextRangeMetrics2 extends IDispatch {
     static VTableNames => ["getClientRects", "getBoundingClientRect"]
 
     /**
-     * 
      * @returns {IHTMLRectCollection} 
      */
     getClientRects() {
@@ -40,7 +39,6 @@ class IHTMLTextRangeMetrics2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRect} 
      */
     getBoundingClientRect() {

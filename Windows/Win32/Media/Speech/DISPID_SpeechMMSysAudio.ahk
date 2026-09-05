@@ -7,17 +7,20 @@
 class DISPID_SpeechMMSysAudio extends Win32Enum {
 
     /**
+     * Native name: DISPID_SMSADeviceId
      * @type {Integer (Int32)}
      */
-    static DISPID_SMSADeviceId => 300
+    static SMSADeviceId => 300
 
     /**
+     * Native name: DISPID_SMSALineId
      * @type {Integer (Int32)}
      */
-    static DISPID_SMSALineId => 301
+    static SMSALineId => 301
 
     /**
+     * Native name: DISPID_SMSAMMHandle
      * @type {Integer (Int32)}
      */
-    static DISPID_SMSAMMHandle => 302
+    static SMSAMMHandle => 302
 }

@@ -12,7 +12,8 @@ class D3D11_BUFFEREX_SRV_FLAG extends Win32Enum {
 
     /**
      * View the buffer as raw. For more info about raw viewing of buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-intro">Raw Views of Buffers</a>.
+     * Native name: D3D11_BUFFEREX_SRV_FLAG_RAW
      * @type {Integer (Int32)}
      */
-    static D3D11_BUFFEREX_SRV_FLAG_RAW => 1
+    static RAW => 1
 }

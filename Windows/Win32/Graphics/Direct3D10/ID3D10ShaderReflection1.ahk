@@ -41,7 +41,6 @@ class ID3D10ShaderReflection1 extends IUnknown {
     static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetInputParameterDesc", "GetOutputParameterDesc", "GetVariableByName", "GetResourceBindingDescByName", "GetMovInstructionCount", "GetMovcInstructionCount", "GetConversionInstructionCount", "GetBitwiseInstructionCount", "GetGSInputPrimitive", "IsLevel9Shader", "IsSampleFrequencyShader"]
 
     /**
-     * 
      * @returns {D3D10_SHADER_DESC} 
      */
     GetDesc() {
@@ -51,7 +50,6 @@ class ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {ID3D10ShaderReflectionConstantBuffer} 
      */
@@ -61,7 +59,6 @@ class ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {ID3D10ShaderReflectionConstantBuffer} 
      */
@@ -73,7 +70,6 @@ class ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ResourceIndex 
      * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
      */
@@ -84,7 +80,6 @@ class ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ParameterIndex 
      * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      */
@@ -95,7 +90,6 @@ class ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ParameterIndex 
      * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      */

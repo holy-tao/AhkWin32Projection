@@ -30,7 +30,6 @@ class ISurfacePresenterFlipBuffer extends IUnknown {
     static VTableNames => ["BeginDraw", "EndDraw"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -40,7 +39,6 @@ class ISurfacePresenterFlipBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndDraw() {

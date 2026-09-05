@@ -171,7 +171,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_Mode() {
@@ -180,7 +179,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Namespace() {
@@ -190,7 +188,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -202,7 +199,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoggingComputer() {
@@ -212,7 +208,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -224,7 +219,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoggingUser() {
@@ -234,7 +228,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -244,7 +237,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LoggingFlags() {
@@ -253,7 +245,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -263,7 +254,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PlanningFlags() {
@@ -272,7 +262,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -284,7 +273,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningDomainController() {
@@ -294,7 +282,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -306,7 +293,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningSiteName() {
@@ -316,7 +302,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -328,7 +313,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningUser() {
@@ -338,7 +322,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -350,7 +333,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningUserSOM() {
@@ -360,7 +342,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -370,7 +351,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningUserWMIFilters() {
@@ -380,7 +360,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -390,7 +369,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningUserSecurityGroups() {
@@ -400,7 +378,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -412,7 +389,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningComputer() {
@@ -422,7 +398,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -434,7 +409,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningComputerSOM() {
@@ -444,7 +418,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -454,7 +427,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningComputerWMIFilters() {
@@ -464,7 +436,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -474,7 +445,6 @@ class IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningComputerSecurityGroups() {

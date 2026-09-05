@@ -7,32 +7,38 @@
 class SRV_INSTANCE_TYPE extends Win32Enum {
 
     /**
+     * Native name: SrvInstanceTypeUndefined
      * @type {Integer (Int32)}
      */
-    static SrvInstanceTypeUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: SrvInstanceTypePrimary
      * @type {Integer (Int32)}
      */
-    static SrvInstanceTypePrimary => 1
+    static Primary => 1
 
     /**
+     * Native name: SrvInstanceTypeCsv
      * @type {Integer (Int32)}
      */
-    static SrvInstanceTypeCsv => 2
+    static Csv => 2
 
     /**
+     * Native name: SrvInstanceTypeSBL
      * @type {Integer (Int32)}
      */
-    static SrvInstanceTypeSBL => 3
+    static TypeSBL => 3
 
     /**
+     * Native name: SrvInstanceTypeSR
      * @type {Integer (Int32)}
      */
-    static SrvInstanceTypeSR => 4
+    static TypeSR => 4
 
     /**
+     * Native name: SrvInstanceTypeVSMB
      * @type {Integer (Int32)}
      */
-    static SrvInstanceTypeVSMB => 5
+    static TypeVSMB => 5
 }

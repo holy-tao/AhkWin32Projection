@@ -29,7 +29,6 @@ class IActiveXUIHandlerSite2 extends IUnknown {
     static VTableNames => ["AddSuspensionExemption", "RemoveSuspensionExemption"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     AddSuspensionExemption() {
@@ -38,7 +37,6 @@ class IActiveXUIHandlerSite2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullCookie 
      * @returns {HRESULT} 
      */

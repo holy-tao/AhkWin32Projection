@@ -23287,7 +23287,6 @@ class Multimedia {
 
 ;@region Methods
     /**
-     * 
      * @param {Integer} mciId 
      * @param {Integer} uMsg 
      * @param {Pointer} dwParam1 
@@ -23300,7 +23299,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} mciId 
      * @param {Integer} uMsg 
      * @param {Pointer} dwParam1 
@@ -23313,7 +23311,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {PSTR} lpstrCommand 
      * @param {PSTR} lpstrReturnString 
      * @param {Integer} uReturnLength 
@@ -23330,7 +23327,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {PWSTR} lpstrCommand 
      * @param {PWSTR} lpstrReturnString 
      * @param {Integer} uReturnLength 
@@ -23347,7 +23343,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {PSTR} pszDevice 
      * @returns {Integer} 
      */
@@ -23359,7 +23354,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDevice 
      * @returns {Integer} 
      */
@@ -23371,7 +23365,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} dwElementID 
      * @param {PSTR} lpstrType 
      * @returns {Integer} 
@@ -23384,7 +23377,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} dwElementID 
      * @param {PWSTR} lpstrType 
      * @returns {Integer} 
@@ -23397,7 +23389,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} mcierr 
      * @param {PSTR} pszText 
      * @param {Integer} cchText 
@@ -23411,7 +23402,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} mcierr 
      * @param {PWSTR} pszText 
      * @param {Integer} cchText 
@@ -23425,7 +23415,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} mciId 
      * @param {Pointer<YIELDPROC>} fpYieldProc 
      * @param {Integer} dwYieldData 
@@ -23437,7 +23426,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} mciId 
      * @returns {HTASK} 
      */
@@ -23448,7 +23436,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} mciId 
      * @param {Pointer<Integer>} pdwYieldData 
      * @returns {Pointer<YIELDPROC>} 
@@ -23461,7 +23448,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} wDeviceID 
      * @returns {Pointer} 
      */
@@ -23471,7 +23457,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {HANDLE} _hInstance 
      * @param {PWSTR} lpResName 
      * @param {Integer} wType 
@@ -23486,7 +23471,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} wDeviceID 
      * @param {Pointer} dwData 
      * @returns {BOOL} 
@@ -23497,7 +23481,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} wDeviceID 
      * @returns {Integer} 
      */
@@ -23507,7 +23490,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {HANDLE} hwndCallback 
      * @param {Integer} wDeviceID 
      * @param {Integer} uStatus 
@@ -23521,7 +23503,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {Integer} wTable 
      * @returns {BOOL} 
      */
@@ -23768,7 +23749,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @param {HDRVR} hDriver 
      * @param {PWSTR} wszDrvEntry 
      * @param {Pointer<DRIVERMSGPROC>} drvMessage 
@@ -25335,7 +25315,6 @@ class Multimedia {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static VideoForWindowsVersion() {

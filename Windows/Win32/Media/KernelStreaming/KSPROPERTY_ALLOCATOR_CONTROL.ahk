@@ -7,22 +7,26 @@
 class KSPROPERTY_ALLOCATOR_CONTROL extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_ALLOCATOR_CONTROL_HONOR_COUNT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ALLOCATOR_CONTROL_HONOR_COUNT => 0
+    static HONOR_COUNT => 0
 
     /**
+     * Native name: KSPROPERTY_ALLOCATOR_CONTROL_SURFACE_SIZE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ALLOCATOR_CONTROL_SURFACE_SIZE => 1
+    static SURFACE_SIZE => 1
 
     /**
+     * Native name: KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_CAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_CAPS => 2
+    static CAPTURE_CAPS => 2
 
     /**
+     * Native name: KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_INTERLEAVE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_INTERLEAVE => 3
+    static CAPTURE_INTERLEAVE => 3
 }

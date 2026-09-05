@@ -33,7 +33,6 @@ class IMFSensorProfileCollection extends IUnknown {
     static VTableNames => ["GetProfileCount", "GetProfile", "AddProfile", "FindProfile", "RemoveProfileByIndex", "RemoveProfile"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProfileCount() {

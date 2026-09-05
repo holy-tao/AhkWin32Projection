@@ -12,35 +12,40 @@ class D3DCOMPILER_STRIP_FLAGS extends Win32Enum {
 
     /**
      * Remove reflection data.
+     * Native name: D3DCOMPILER_STRIP_REFLECTION_DATA
      * @type {Integer (Int32)}
      */
-    static D3DCOMPILER_STRIP_REFLECTION_DATA => 1
+    static REFLECTION_DATA => 1
 
     /**
      * Remove debug information.
+     * Native name: D3DCOMPILER_STRIP_DEBUG_INFO
      * @type {Integer (Int32)}
      */
-    static D3DCOMPILER_STRIP_DEBUG_INFO => 2
+    static DEBUG_INFO => 2
 
     /**
      * Remove test blob data.
+     * Native name: D3DCOMPILER_STRIP_TEST_BLOBS
      * @type {Integer (Int32)}
      */
-    static D3DCOMPILER_STRIP_TEST_BLOBS => 4
+    static TEST_BLOBS => 4
 
     /**
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_44.dll or later version of the file.</div>
      * <div> </div>
      * Remove private data.
+     * Native name: D3DCOMPILER_STRIP_PRIVATE_DATA
      * @type {Integer (Int32)}
      */
-    static D3DCOMPILER_STRIP_PRIVATE_DATA => 8
+    static PRIVATE_DATA => 8
 
     /**
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_47.dll or later version of the file.</div>
      * <div> </div>
      * Remove the root signature. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/specifying-root-signatures-in-hlsl">Specifying Root Signatures in HLSL</a> for more information on using Direct3D12 with HLSL.
+     * Native name: D3DCOMPILER_STRIP_ROOT_SIGNATURE
      * @type {Integer (Int32)}
      */
-    static D3DCOMPILER_STRIP_ROOT_SIGNATURE => 16
+    static ROOT_SIGNATURE => 16
 }

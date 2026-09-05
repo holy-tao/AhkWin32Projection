@@ -7,17 +7,20 @@
 class SHFMT_OPT extends Win32BitflagEnum {
 
     /**
+     * Native name: SHFMT_OPT_NONE
      * @type {Integer (Int32)}
      */
-    static SHFMT_OPT_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: SHFMT_OPT_FULL
      * @type {Integer (Int32)}
      */
-    static SHFMT_OPT_FULL => 1
+    static FULL => 1
 
     /**
+     * Native name: SHFMT_OPT_SYSONLY
      * @type {Integer (Int32)}
      */
-    static SHFMT_OPT_SYSONLY => 2
+    static SYSONLY => 2
 }

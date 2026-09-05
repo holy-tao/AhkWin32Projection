@@ -33,7 +33,6 @@ class ICLRMetaHost extends IUnknown {
     static VTableNames => ["GetRuntime", "GetVersionFromFile", "EnumerateInstalledRuntimes", "EnumerateLoadedRuntimes", "RequestRuntimeLoadedNotification", "QueryLegacyV2RuntimeBinding", "ExitProcess"]
 
     /**
-     * 
      * @param {PWSTR} pwzVersion 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -46,7 +45,6 @@ class ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
@@ -63,7 +61,6 @@ class ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     EnumerateInstalledRuntimes() {
@@ -72,7 +69,6 @@ class ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hndProcess 
      * @returns {IEnumUnknown} 
      */
@@ -84,7 +80,6 @@ class ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RuntimeLoadedCallbackFnPtr>} pCallbackFunction 
      * @returns {HRESULT} 
      */
@@ -94,7 +89,6 @@ class ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

@@ -79,7 +79,6 @@ class IMSEventBinder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} CancelCookie 
      * @returns {HRESULT} 
      */

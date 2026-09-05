@@ -10,25 +10,29 @@ class DVD_NavCmdType extends Win32Enum {
 
     /**
      * Pre-command.
+     * Native name: DVD_NavCmdType_Pre
      * @type {Integer (Int32)}
      */
-    static DVD_NavCmdType_Pre => 1
+    static Pre => 1
 
     /**
      * Post-command.
+     * Native name: DVD_NavCmdType_Post
      * @type {Integer (Int32)}
      */
-    static DVD_NavCmdType_Post => 2
+    static Post => 2
 
     /**
      * Cell command.
+     * Native name: DVD_NavCmdType_Cell
      * @type {Integer (Int32)}
      */
-    static DVD_NavCmdType_Cell => 3
+    static Cell => 3
 
     /**
      * Button command.
+     * Native name: DVD_NavCmdType_Button
      * @type {Integer (Int32)}
      */
-    static DVD_NavCmdType_Button => 4
+    static Button => 4
 }

@@ -7,27 +7,32 @@
 class TBS_COMMAND_LOCALITY extends Win32Enum {
 
     /**
+     * Native name: TBS_COMMAND_LOCALITY_ZERO
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_LOCALITY_ZERO => 0
+    static ZERO => 0
 
     /**
+     * Native name: TBS_COMMAND_LOCALITY_ONE
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_LOCALITY_ONE => 1
+    static ONE => 1
 
     /**
+     * Native name: TBS_COMMAND_LOCALITY_TWO
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_LOCALITY_TWO => 2
+    static TWO => 2
 
     /**
+     * Native name: TBS_COMMAND_LOCALITY_THREE
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_LOCALITY_THREE => 3
+    static THREE => 3
 
     /**
+     * Native name: TBS_COMMAND_LOCALITY_FOUR
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_LOCALITY_FOUR => 4
+    static FOUR => 4
 }

@@ -7,7 +7,8 @@
 class KSPROPERTY_CYCLIC extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_CYCLIC_POSITION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CYCLIC_POSITION => 0
+    static POSITION => 0
 }

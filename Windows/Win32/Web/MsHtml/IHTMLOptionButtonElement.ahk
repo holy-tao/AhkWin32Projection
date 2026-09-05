@@ -117,7 +117,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -129,7 +128,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -139,7 +137,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -149,7 +146,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -161,7 +157,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -171,7 +166,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -181,7 +175,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_checked() {
@@ -190,7 +183,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -200,7 +192,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultChecked() {
@@ -209,7 +200,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -219,7 +209,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -229,7 +218,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -239,7 +227,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -248,7 +235,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -258,7 +244,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_status() {
@@ -267,7 +252,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -277,7 +261,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_indeterminate() {
@@ -286,7 +269,6 @@ class IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {

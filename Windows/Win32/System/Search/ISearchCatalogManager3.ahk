@@ -30,7 +30,6 @@ class ISearchCatalogManager3 extends ISearchCatalogManager2 {
     static VTableNames => ["IsContainsSemanticSupported"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsContainsSemanticSupported() {

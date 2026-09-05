@@ -31,7 +31,6 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7 {
     static VTableNames => ["IsFunctionDynamic", "GetFunctionFromIP3", "GetDynamicFunctionInfo"]
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {BOOL} 
      */
@@ -41,7 +40,6 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ip 
      * @param {Pointer<Pointer>} functionId 
      * @param {Pointer<Pointer>} pReJitId 
@@ -57,7 +55,6 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Pointer>} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppvSig 

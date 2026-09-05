@@ -15,37 +15,43 @@ class D3D11_TRACE_GS_INPUT_PRIMITIVE extends Win32Enum {
 
     /**
      * Identifies the geometry shader input primitive as undefined.
+     * Native name: D3D11_TRACE_GS_INPUT_PRIMITIVE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D11_TRACE_GS_INPUT_PRIMITIVE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * Identifies the geometry shader input primitive as a point.
+     * Native name: D3D11_TRACE_GS_INPUT_PRIMITIVE_POINT
      * @type {Integer (Int32)}
      */
-    static D3D11_TRACE_GS_INPUT_PRIMITIVE_POINT => 1
+    static POINT => 1
 
     /**
      * Identifies the geometry shader input primitive as a line.
+     * Native name: D3D11_TRACE_GS_INPUT_PRIMITIVE_LINE
      * @type {Integer (Int32)}
      */
-    static D3D11_TRACE_GS_INPUT_PRIMITIVE_LINE => 2
+    static LINE => 2
 
     /**
      * Identifies the geometry shader input primitive as a triangle.
+     * Native name: D3D11_TRACE_GS_INPUT_PRIMITIVE_TRIANGLE
      * @type {Integer (Int32)}
      */
-    static D3D11_TRACE_GS_INPUT_PRIMITIVE_TRIANGLE => 3
+    static TRIANGLE => 3
 
     /**
      * Identifies the geometry shader input primitive as an adjacent line.
+     * Native name: D3D11_TRACE_GS_INPUT_PRIMITIVE_LINE_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D11_TRACE_GS_INPUT_PRIMITIVE_LINE_ADJ => 6
+    static LINE_ADJ => 6
 
     /**
      * Identifies the geometry shader input primitive as an adjacent triangle.
+     * Native name: D3D11_TRACE_GS_INPUT_PRIMITIVE_TRIANGLE_ADJ
      * @type {Integer (Int32)}
      */
-    static D3D11_TRACE_GS_INPUT_PRIMITIVE_TRIANGLE_ADJ => 7
+    static TRIANGLE_ADJ => 7
 }

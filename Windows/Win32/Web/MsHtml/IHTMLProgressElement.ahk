@@ -66,7 +66,6 @@ class IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -76,7 +75,6 @@ class IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_value() {
@@ -85,7 +83,6 @@ class IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +92,6 @@ class IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_max() {
@@ -104,7 +100,6 @@ class IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_position() {
@@ -113,7 +108,6 @@ class IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {

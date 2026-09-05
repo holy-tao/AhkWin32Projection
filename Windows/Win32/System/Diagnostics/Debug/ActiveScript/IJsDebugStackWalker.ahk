@@ -30,7 +30,6 @@ class IJsDebugStackWalker extends IUnknown {
     static VTableNames => ["GetNext"]
 
     /**
-     * 
      * @returns {IJsDebugFrame} 
      */
     GetNext() {

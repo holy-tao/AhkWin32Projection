@@ -10,31 +10,36 @@ class NavigateDirection extends Win32Enum {
 
     /**
      * The navigation direction is to the parent.
+     * Native name: NavigateDirection_Parent
      * @type {Integer (Int32)}
      */
-    static NavigateDirection_Parent => 0
+    static Parent => 0
 
     /**
      * The navigation direction is to the next sibling.
+     * Native name: NavigateDirection_NextSibling
      * @type {Integer (Int32)}
      */
-    static NavigateDirection_NextSibling => 1
+    static NextSibling => 1
 
     /**
      * The navigation direction is to the previous sibling.
+     * Native name: NavigateDirection_PreviousSibling
      * @type {Integer (Int32)}
      */
-    static NavigateDirection_PreviousSibling => 2
+    static PreviousSibling => 2
 
     /**
      * The navigation direction is to the first child.
+     * Native name: NavigateDirection_FirstChild
      * @type {Integer (Int32)}
      */
-    static NavigateDirection_FirstChild => 3
+    static FirstChild => 3
 
     /**
      * The navigation direction is to the last child.
+     * Native name: NavigateDirection_LastChild
      * @type {Integer (Int32)}
      */
-    static NavigateDirection_LastChild => 4
+    static LastChild => 4
 }

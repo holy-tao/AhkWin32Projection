@@ -7,12 +7,14 @@
 class eVideoEncoderDisplayContentType extends Win32Enum {
 
     /**
+     * Native name: eVideoEncoderDisplayContent_Unknown
      * @type {Integer (Int32)}
      */
-    static eVideoEncoderDisplayContent_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: eVideoEncoderDisplayContent_FullScreenVideo
      * @type {Integer (Int32)}
      */
-    static eVideoEncoderDisplayContent_FullScreenVideo => 1
+    static FullScreenVideo => 1
 }

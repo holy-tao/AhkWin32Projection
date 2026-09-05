@@ -47,7 +47,6 @@ class IActiveDesktopP extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnsureUpdateHTML() {
@@ -56,7 +55,6 @@ class IActiveDesktopP extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSchemeName 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -69,7 +67,6 @@ class IActiveDesktopP extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSchemeName 
      * @param {Pointer<Integer>} pdwcchBuffer 
      * @param {Integer} dwFlags 

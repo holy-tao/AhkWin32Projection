@@ -37,7 +37,6 @@ class IDOMParser extends IDispatch {
     static VTableNames => ["parseFromString"]
 
     /**
-     * 
      * @param {BSTR} xmlSource 
      * @param {BSTR} mimeType 
      * @returns {IHTMLDocument2} 

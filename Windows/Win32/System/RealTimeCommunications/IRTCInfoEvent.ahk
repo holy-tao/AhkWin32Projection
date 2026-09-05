@@ -60,7 +60,6 @@ class IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -69,7 +68,6 @@ class IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -78,7 +76,6 @@ class IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Info() {
@@ -88,7 +85,6 @@ class IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InfoHeader() {

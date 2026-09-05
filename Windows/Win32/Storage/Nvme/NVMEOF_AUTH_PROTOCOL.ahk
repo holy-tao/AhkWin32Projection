@@ -7,7 +7,8 @@
 class NVMEOF_AUTH_PROTOCOL extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthProtocolDHCHAP
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthProtocolDHCHAP => 233
+    static ProtocolDHCHAP => 233
 }

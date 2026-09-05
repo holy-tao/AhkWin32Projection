@@ -29,7 +29,6 @@ class IWinInetInfo extends IUnknown {
     static VTableNames => ["QueryOption"]
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pcbBuf 

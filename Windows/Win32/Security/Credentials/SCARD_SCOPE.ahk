@@ -7,12 +7,14 @@
 class SCARD_SCOPE extends Win32Enum {
 
     /**
+     * Native name: SCARD_SCOPE_USER
      * @type {Integer (UInt32)}
      */
-    static SCARD_SCOPE_USER => 0
+    static USER => 0
 
     /**
+     * Native name: SCARD_SCOPE_SYSTEM
      * @type {Integer (UInt32)}
      */
-    static SCARD_SCOPE_SYSTEM => 2
+    static SYSTEM => 2
 }

@@ -13,25 +13,29 @@ class VDS_PATH_STATUS extends Win32Enum {
 
     /**
      * The path status is unknown.
+     * Native name: VDS_MPS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_MPS_UNKNOWN => 0
+    static MPS_UNKNOWN => 0
 
     /**
      * The path is active.
+     * Native name: VDS_MPS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_MPS_ONLINE => 1
+    static MPS_ONLINE => 1
 
     /**
      * The path is failed.
+     * Native name: VDS_MPS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_MPS_FAILED => 5
+    static MPS_FAILED => 5
 
     /**
      * The path is in standby mode.
+     * Native name: VDS_MPS_STANDBY
      * @type {Integer (Int32)}
      */
-    static VDS_MPS_STANDBY => 7
+    static MPS_STANDBY => 7
 }

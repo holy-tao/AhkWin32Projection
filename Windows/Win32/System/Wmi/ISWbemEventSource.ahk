@@ -44,7 +44,6 @@ class ISWbemEventSource extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iTimeoutMs 
      * @returns {ISWbemObject} 
      */
@@ -54,7 +53,6 @@ class ISWbemEventSource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {

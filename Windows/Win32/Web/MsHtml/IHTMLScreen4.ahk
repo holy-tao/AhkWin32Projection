@@ -36,7 +36,6 @@ class IHTMLScreen4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pixelDepth() {

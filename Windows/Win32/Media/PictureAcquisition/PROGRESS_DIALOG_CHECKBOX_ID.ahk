@@ -10,7 +10,8 @@ class PROGRESS_DIALOG_CHECKBOX_ID extends Win32Enum {
 
     /**
      * Specifies PROGRESS_DIALOG_CHECKBOX_ID_DEFAULT .
+     * Native name: PROGRESS_DIALOG_CHECKBOX_ID_DEFAULT
      * @type {Integer (Int32)}
      */
-    static PROGRESS_DIALOG_CHECKBOX_ID_DEFAULT => 0
+    static DEFAULT => 0
 }

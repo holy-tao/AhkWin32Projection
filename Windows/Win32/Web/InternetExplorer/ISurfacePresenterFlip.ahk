@@ -30,7 +30,6 @@ class ISurfacePresenterFlip extends IUnknown {
     static VTableNames => ["Present", "GetBuffer"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Present() {
@@ -39,7 +38,6 @@ class ISurfacePresenterFlip extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} backBufferIndex 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

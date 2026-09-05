@@ -133,12 +133,14 @@ class DXCoreAdapterProperty extends Win32Enum {
     static PhysicalAdapterCount => 15
 
     /**
+     * Native name: AdapterEngineCount
      * @type {Integer (UInt32)}
      */
-    static AdapterEngineCount => 16
+    static EngineCount => 16
 
     /**
+     * Native name: AdapterEngineName
      * @type {Integer (UInt32)}
      */
-    static AdapterEngineName => 17
+    static EngineName => 17
 }

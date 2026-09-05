@@ -75,7 +75,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -85,7 +84,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_currentTimeDouble() {
@@ -94,7 +92,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_initialTimeDouble() {
@@ -103,7 +100,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_durationDouble() {
@@ -112,7 +108,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -122,7 +117,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_defaultPlaybackRateDouble() {
@@ -131,7 +125,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +134,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_playbackRateDouble() {
@@ -150,7 +142,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +151,6 @@ class IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_volumeDouble() {

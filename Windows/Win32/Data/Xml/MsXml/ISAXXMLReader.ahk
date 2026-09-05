@@ -36,7 +36,6 @@ class ISAXXMLReader extends IUnknown {
     static VTableNames => ["getFeature", "putFeature", "getProperty", "putProperty", "getEntityResolver", "putEntityResolver", "getContentHandler", "putContentHandler", "getDTDHandler", "putDTDHandler", "getErrorHandler", "putErrorHandler", "getBaseURL", "putBaseURL", "getSecureBaseURL", "putSecureBaseURL", "parse", "parseURL"]
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @returns {VARIANT_BOOL} 
      */
@@ -48,7 +47,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {VARIANT_BOOL} vfValue 
      * @returns {HRESULT} 
@@ -61,7 +59,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @returns {VARIANT} 
      */
@@ -74,7 +71,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
@@ -87,7 +83,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXEntityResolver} 
      */
     getEntityResolver() {
@@ -96,7 +91,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXEntityResolver} pResolver 
      * @returns {HRESULT} 
      */
@@ -106,7 +100,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXContentHandler} 
      */
     getContentHandler() {
@@ -115,7 +108,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXContentHandler} pHandler 
      * @returns {HRESULT} 
      */
@@ -125,7 +117,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXDTDHandler} 
      */
     getDTDHandler() {
@@ -134,7 +125,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXDTDHandler} pHandler 
      * @returns {HRESULT} 
      */
@@ -144,7 +134,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXErrorHandler} 
      */
     getErrorHandler() {
@@ -153,7 +142,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXErrorHandler} pHandler 
      * @returns {HRESULT} 
      */
@@ -163,7 +151,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getBaseURL() {
@@ -172,7 +159,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchBaseUrl 
      * @returns {HRESULT} 
      */
@@ -184,7 +170,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getSecureBaseURL() {
@@ -193,7 +178,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchSecureBaseUrl 
      * @returns {HRESULT} 
      */
@@ -205,7 +189,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} varInput 
      * @returns {HRESULT} 
      */
@@ -215,7 +198,6 @@ class ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUrl 
      * @returns {HRESULT} 
      */

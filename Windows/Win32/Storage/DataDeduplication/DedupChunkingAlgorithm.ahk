@@ -7,12 +7,14 @@
 class DedupChunkingAlgorithm extends Win32Enum {
 
     /**
+     * Native name: DedupChunkingAlgorithm_Unknonwn
      * @type {Integer (Int32)}
      */
-    static DedupChunkingAlgorithm_Unknonwn => 0
+    static Unknonwn => 0
 
     /**
+     * Native name: DedupChunkingAlgorithm_V1
      * @type {Integer (Int32)}
      */
-    static DedupChunkingAlgorithm_V1 => 1
+    static V1 => 1
 }

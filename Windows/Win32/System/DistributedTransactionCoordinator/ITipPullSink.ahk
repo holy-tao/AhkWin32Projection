@@ -29,7 +29,6 @@ class ITipPullSink extends IUnknown {
     static VTableNames => ["PullComplete"]
 
     /**
-     * 
      * @param {HRESULT} i_hrPull 
      * @returns {HRESULT} 
      */

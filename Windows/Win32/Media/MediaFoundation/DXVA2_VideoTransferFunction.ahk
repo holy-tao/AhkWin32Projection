@@ -112,61 +112,71 @@ class DXVA2_VideoTransferFunction extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
+     * Native name: DXVA2_VideoTransFuncMask
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFuncMask => 31
+    static TransFuncMask => 31
 
     /**
      * Unknown. Treat as DXVA2_VideoTransFunc_709.
+     * Native name: DXVA2_VideoTransFunc_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_Unknown => 0
+    static TransFunc_Unknown => 0
 
     /**
      * Linear RGB (gamma = 1.0).
+     * Native name: DXVA2_VideoTransFunc_10
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_10 => 1
+    static TransFunc_10 => 1
 
     /**
      * True 1.8 gamma, L' = L^1/1.8.
+     * Native name: DXVA2_VideoTransFunc_18
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_18 => 2
+    static TransFunc_18 => 2
 
     /**
      * True 2.0 gamma, L' = L^1/2.0.
+     * Native name: DXVA2_VideoTransFunc_20
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_20 => 3
+    static TransFunc_20 => 3
 
     /**
      * True 2.2 gamma, L' = L^1/2.2. This transfer function is used in ITU-R BT.470-2 System M (NTSC).
+     * Native name: DXVA2_VideoTransFunc_22
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_22 => 4
+    static TransFunc_22 => 4
 
     /**
      * ITU-R BT.709 transfer function. Gamma 2.2 curve with a linear segment in the lower range. This transfer function is used in BT.709, BT.601, SMPTE 296M, SMPTE 170M, BT.470, and SMPTE 274M. In addition BT-1361 uses this function within the range [0...1].
+     * Native name: DXVA2_VideoTransFunc_709
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_709 => 5
+    static TransFunc_709 => 5
 
     /**
      * SMPTE 240M transfer function. Gamma 2.2 curve with a linear segment in the lower range.
+     * Native name: DXVA2_VideoTransFunc_240M
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_240M => 6
+    static TransFunc_240M => 6
 
     /**
      * sRGB transfer function. Gamma 2.4 curve with a linear segment in the lower range.
+     * Native name: DXVA2_VideoTransFunc_sRGB
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_sRGB => 7
+    static TransFunc_sRGB => 7
 
     /**
      * True 2.8 gamma. L' = L^1/2.8. This transfer function is used in ITU-R BT.470-2 System B, G (PAL).
+     * Native name: DXVA2_VideoTransFunc_28
      * @type {Integer (Int32)}
      */
-    static DXVA2_VideoTransFunc_28 => 8
+    static TransFunc_28 => 8
 }

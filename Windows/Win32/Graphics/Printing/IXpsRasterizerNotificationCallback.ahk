@@ -29,7 +29,6 @@ class IXpsRasterizerNotificationCallback extends IUnknown {
     static VTableNames => ["Continue"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Continue() {

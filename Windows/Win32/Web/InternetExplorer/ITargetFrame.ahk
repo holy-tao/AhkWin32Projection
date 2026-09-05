@@ -31,7 +31,6 @@ class ITargetFrame extends IUnknown {
     static VTableNames => ["SetFrameName", "GetFrameName", "GetParentFrame", "FindFrame", "SetFrameSrc", "GetFrameSrc", "GetFramesContainer", "SetFrameOptions", "GetFrameOptions", "SetFrameMargins", "GetFrameMargins", "RemoteNavigate", "OnChildFrameActivate", "OnChildFrameDeactivate"]
 
     /**
-     * 
      * @param {PWSTR} pszFrameName 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameName() {
@@ -52,7 +50,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetParentFrame() {
@@ -61,7 +58,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {IUnknown} ppunkContextFrame 
      * @param {Integer} dwFlags 
@@ -75,7 +71,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFrameSrc 
      * @returns {HRESULT} 
      */
@@ -87,7 +82,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameSrc() {
@@ -96,7 +90,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {
@@ -105,7 +98,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -115,7 +107,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameOptions() {
@@ -124,7 +115,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWidth 
      * @param {Integer} dwHeight 
      * @returns {HRESULT} 
@@ -135,7 +125,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwWidth 
      * @param {Pointer<Integer>} pdwHeight 
      * @returns {HRESULT} 
@@ -149,7 +138,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cLength 
      * @param {Pointer<Integer>} pulData 
      * @returns {HRESULT} 
@@ -162,7 +150,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */
@@ -172,7 +159,6 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */

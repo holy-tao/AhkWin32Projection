@@ -12,13 +12,15 @@ class OLEVERBATTRIB extends Win32Enum {
 
     /**
      * Executing this verb will not cause the object to become dirty and is therefore in need of saving to persistent storage.
+     * Native name: OLEVERBATTRIB_NEVERDIRTIES
      * @type {Integer (Int32)}
      */
-    static OLEVERBATTRIB_NEVERDIRTIES => 1
+    static NEVERDIRTIES => 1
 
     /**
      * Indicates a verb that should appear in the container's menu of verbs for this object. OLEIVERB_HIDE, OLEIVERB_SHOW, and OLEIVERB_OPEN never have this value set.
+     * Native name: OLEVERBATTRIB_ONCONTAINERMENU
      * @type {Integer (Int32)}
      */
-    static OLEVERBATTRIB_ONCONTAINERMENU => 2
+    static ONCONTAINERMENU => 2
 }

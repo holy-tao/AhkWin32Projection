@@ -82,7 +82,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_startContainer() {
@@ -91,7 +90,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_startOffset() {
@@ -100,7 +98,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_endContainer() {
@@ -109,7 +106,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_endOffset() {
@@ -118,7 +114,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_collapsed() {
@@ -127,7 +122,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_commonAncestorContainer() {
@@ -136,7 +130,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @param {Integer} offset 
      * @returns {HRESULT} 
@@ -147,7 +140,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @param {Integer} offset 
      * @returns {HRESULT} 
@@ -158,7 +150,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -168,7 +159,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -178,7 +168,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -188,7 +177,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -198,7 +186,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} toStart 
      * @returns {HRESULT} 
      */
@@ -208,7 +195,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -218,7 +204,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -228,7 +213,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} how 
      * @param {IDispatch} sourceRange 
      * @returns {Integer} 
@@ -239,7 +223,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deleteContents() {
@@ -248,7 +231,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     extractContents() {
@@ -257,7 +239,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     cloneContents() {
@@ -266,7 +247,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} newNode 
      * @returns {HRESULT} 
      */
@@ -276,7 +256,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} newParent 
      * @returns {HRESULT} 
      */
@@ -286,7 +265,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMRange} 
      */
     cloneRange() {
@@ -295,7 +273,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -305,7 +282,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     detach() {
@@ -314,7 +290,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRectCollection} 
      */
     getClientRects() {
@@ -323,7 +298,6 @@ class IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRect} 
      */
     getBoundingClientRect() {

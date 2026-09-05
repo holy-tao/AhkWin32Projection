@@ -29,7 +29,6 @@ class IDtcLuConfigure extends IUnknown {
     static VTableNames => ["Add", "Delete"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IDtcLuConfigure extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @returns {HRESULT} 

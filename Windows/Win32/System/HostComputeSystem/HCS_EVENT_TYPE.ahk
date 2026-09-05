@@ -9,67 +9,80 @@
 class HCS_EVENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: HcsEventInvalid
      * @type {Integer (Int32)}
      */
-    static HcsEventInvalid => 0
+    static Invalid => 0
 
     /**
+     * Native name: HcsEventSystemExited
      * @type {Integer (Int32)}
      */
-    static HcsEventSystemExited => 1
+    static SystemExited => 1
 
     /**
+     * Native name: HcsEventSystemCrashInitiated
      * @type {Integer (Int32)}
      */
-    static HcsEventSystemCrashInitiated => 2
+    static SystemCrashInitiated => 2
 
     /**
+     * Native name: HcsEventSystemCrashReport
      * @type {Integer (Int32)}
      */
-    static HcsEventSystemCrashReport => 3
+    static SystemCrashReport => 3
 
     /**
+     * Native name: HcsEventSystemRdpEnhancedModeStateChanged
      * @type {Integer (Int32)}
      */
-    static HcsEventSystemRdpEnhancedModeStateChanged => 4
+    static SystemRdpEnhancedModeStateChanged => 4
 
     /**
+     * Native name: HcsEventSystemSiloJobCreated
      * @type {Integer (Int32)}
      */
-    static HcsEventSystemSiloJobCreated => 5
+    static SystemSiloJobCreated => 5
 
     /**
+     * Native name: HcsEventSystemGuestConnectionClosed
      * @type {Integer (Int32)}
      */
-    static HcsEventSystemGuestConnectionClosed => 6
+    static SystemGuestConnectionClosed => 6
 
     /**
+     * Native name: HcsEventProcessExited
      * @type {Integer (Int32)}
      */
-    static HcsEventProcessExited => 65536
+    static ProcessExited => 65536
 
     /**
+     * Native name: HcsEventOperationCallback
      * @type {Integer (Int32)}
      */
-    static HcsEventOperationCallback => 16777216
+    static OperationCallback => 16777216
 
     /**
+     * Native name: HcsEventServiceDisconnect
      * @type {Integer (Int32)}
      */
-    static HcsEventServiceDisconnect => 33554432
+    static ServiceDisconnect => 33554432
 
     /**
+     * Native name: HcsEventGroupVmLifecycle
      * @type {Integer (Int32)}
      */
-    static HcsEventGroupVmLifecycle => -2147483646
+    static GroupVmLifecycle => -2147483646
 
     /**
+     * Native name: HcsEventGroupLiveMigration
      * @type {Integer (Int32)}
      */
-    static HcsEventGroupLiveMigration => -2147483645
+    static GroupLiveMigration => -2147483645
 
     /**
+     * Native name: HcsEventGroupOperationInfo
      * @type {Integer (Int32)}
      */
-    static HcsEventGroupOperationInfo => -1073741823
+    static GroupOperationInfo => -1073741823
 }

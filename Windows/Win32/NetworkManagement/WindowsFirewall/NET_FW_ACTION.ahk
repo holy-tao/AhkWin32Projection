@@ -10,19 +10,22 @@ class NET_FW_ACTION extends Win32Enum {
 
     /**
      * Block traffic.
+     * Native name: NET_FW_ACTION_BLOCK
      * @type {Integer (Int32)}
      */
-    static NET_FW_ACTION_BLOCK => 0
+    static BLOCK => 0
 
     /**
      * Allow traffic.
+     * Native name: NET_FW_ACTION_ALLOW
      * @type {Integer (Int32)}
      */
-    static NET_FW_ACTION_ALLOW => 1
+    static ALLOW => 1
 
     /**
      * Maximum traffic.
+     * Native name: NET_FW_ACTION_MAX
      * @type {Integer (Int32)}
      */
-    static NET_FW_ACTION_MAX => 2
+    static MAX => 2
 }

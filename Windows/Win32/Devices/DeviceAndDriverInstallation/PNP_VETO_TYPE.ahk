@@ -147,84 +147,98 @@ class PNP_VETO_TYPE extends Win32Enum {
 
     /**
      * The specified operation was rejected for an unknown reason.
+     * Native name: PNP_VetoTypeUnknown
      * @type {Integer (Int32)}
      */
-    static PNP_VetoTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * The device does not support the specified PnP operation.
+     * Native name: PNP_VetoLegacyDevice
      * @type {Integer (Int32)}
      */
-    static PNP_VetoLegacyDevice => 1
+    static LegacyDevice => 1
 
     /**
      * The specified operation cannot be completed because of a pending close operation.
+     * Native name: PNP_VetoPendingClose
      * @type {Integer (Int32)}
      */
-    static PNP_VetoPendingClose => 2
+    static PendingClose => 2
 
     /**
      * A Microsoft Win32 application vetoed the specified operation.
+     * Native name: PNP_VetoWindowsApp
      * @type {Integer (Int32)}
      */
-    static PNP_VetoWindowsApp => 3
+    static WindowsApp => 3
 
     /**
      * A Win32 service vetoed the specified operation.
+     * Native name: PNP_VetoWindowsService
      * @type {Integer (Int32)}
      */
-    static PNP_VetoWindowsService => 4
+    static WindowsService => 4
 
     /**
      * The requested operation was rejected because of outstanding open handles.
+     * Native name: PNP_VetoOutstandingOpen
      * @type {Integer (Int32)}
      */
-    static PNP_VetoOutstandingOpen => 5
+    static OutstandingOpen => 5
 
     /**
      * The device supports the specified operation, but the device rejected the operation.
+     * Native name: PNP_VetoDevice
      * @type {Integer (Int32)}
      */
-    static PNP_VetoDevice => 6
+    static Device => 6
 
     /**
      * The driver supports the specified operation, but the driver rejected the operation.
+     * Native name: PNP_VetoDriver
      * @type {Integer (Int32)}
      */
-    static PNP_VetoDriver => 7
+    static Driver => 7
 
     /**
      * The device does not support the specified operation.
+     * Native name: PNP_VetoIllegalDeviceRequest
      * @type {Integer (Int32)}
      */
-    static PNP_VetoIllegalDeviceRequest => 8
+    static IllegalDeviceRequest => 8
 
     /**
      * There is insufficient power to perform the requested operation.
+     * Native name: PNP_VetoInsufficientPower
      * @type {Integer (Int32)}
      */
-    static PNP_VetoInsufficientPower => 9
+    static InsufficientPower => 9
 
     /**
      * The device cannot be disabled.
+     * Native name: PNP_VetoNonDisableable
      * @type {Integer (Int32)}
      */
-    static PNP_VetoNonDisableable => 10
+    static NonDisableable => 10
 
     /**
      * The driver does not support the specified PnP operation.
+     * Native name: PNP_VetoLegacyDriver
      * @type {Integer (Int32)}
      */
-    static PNP_VetoLegacyDriver => 11
+    static LegacyDriver => 11
 
     /**
      * The caller has insufficient privileges to complete the operation.
+     * Native name: PNP_VetoInsufficientRights
      * @type {Integer (Int32)}
      */
-    static PNP_VetoInsufficientRights => 12
+    static InsufficientRights => 12
 
     /**
+     * Native name: PNP_VetoAlreadyRemoved
      * @type {Integer (Int32)}
      */
-    static PNP_VetoAlreadyRemoved => 13
+    static AlreadyRemoved => 13
 }

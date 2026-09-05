@@ -7,12 +7,14 @@
 class JOB_OBJECT_TERMINATE_AT_END_ACTION extends Win32Enum {
 
     /**
+     * Native name: JOB_OBJECT_TERMINATE_AT_END_OF_JOB
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_TERMINATE_AT_END_OF_JOB => 0
+    static OF_JOB => 0
 
     /**
+     * Native name: JOB_OBJECT_POST_AT_END_OF_JOB
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_POST_AT_END_OF_JOB => 1
+    static POST_AT_END_OF_JOB => 1
 }

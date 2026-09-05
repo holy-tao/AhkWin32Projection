@@ -7,22 +7,26 @@
 class LocationKind extends Win32Enum {
 
     /**
+     * Native name: LocationMember
      * @type {Integer (Int32)}
      */
-    static LocationMember => 0
+    static Member => 0
 
     /**
+     * Native name: LocationStatic
      * @type {Integer (Int32)}
      */
-    static LocationStatic => 1
+    static Static => 1
 
     /**
+     * Native name: LocationConstant
      * @type {Integer (Int32)}
      */
-    static LocationConstant => 2
+    static Constant => 2
 
     /**
+     * Native name: LocationNone
      * @type {Integer (Int32)}
      */
-    static LocationNone => 3
+    static None => 3
 }

@@ -7,7 +7,8 @@
 class MTSPackageInstallOptions extends Win32Enum {
 
     /**
+     * Native name: mtsInstallUsers
      * @type {Integer (Int32)}
      */
-    static mtsInstallUsers => 1
+    static Users => 1
 }

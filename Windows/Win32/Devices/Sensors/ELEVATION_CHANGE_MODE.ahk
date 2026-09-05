@@ -7,27 +7,32 @@
 class ELEVATION_CHANGE_MODE extends Win32Enum {
 
     /**
+     * Native name: ElevationChangeMode_Unknown
      * @type {Integer (Int32)}
      */
-    static ElevationChangeMode_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: ElevationChangeMode_Elevator
      * @type {Integer (Int32)}
      */
-    static ElevationChangeMode_Elevator => 1
+    static Elevator => 1
 
     /**
+     * Native name: ElevationChangeMode_Stepping
      * @type {Integer (Int32)}
      */
-    static ElevationChangeMode_Stepping => 2
+    static Stepping => 2
 
     /**
+     * Native name: ElevationChangeMode_Max
      * @type {Integer (Int32)}
      */
-    static ElevationChangeMode_Max => 3
+    static Max => 3
 
     /**
+     * Native name: ElevationChangeMode_Force_Dword
      * @type {Integer (Int32)}
      */
-    static ElevationChangeMode_Force_Dword => -1
+    static Force_Dword => -1
 }

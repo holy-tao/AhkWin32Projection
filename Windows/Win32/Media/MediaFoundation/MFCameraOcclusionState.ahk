@@ -12,19 +12,22 @@ class MFCameraOcclusionState extends Win32BitflagEnum {
 
     /**
      * The camera is not occluded.
+     * Native name: MFCameraOcclusionState_Open
      * @type {Integer (Int32)}
      */
-    static MFCameraOcclusionState_Open => 0
+    static Open => 0
 
     /**
      * The camera is occluded by the lid of the device.
+     * Native name: MFCameraOcclusionState_OccludedByLid
      * @type {Integer (Int32)}
      */
-    static MFCameraOcclusionState_OccludedByLid => 1
+    static OccludedByLid => 1
 
     /**
      * The camera is occluded by camera hardware.
+     * Native name: MFCameraOcclusionState_OccludedByCameraHardware
      * @type {Integer (Int32)}
      */
-    static MFCameraOcclusionState_OccludedByCameraHardware => 2
+    static OccludedByCameraHardware => 2
 }

@@ -7,37 +7,44 @@
 class DISPID_InkExtendedProperties extends Win32Enum {
 
     /**
+     * Native name: DISPID_IEPs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPs_NewEnum => -4
+    static IEPs_NewEnum => -4
 
     /**
+     * Native name: DISPID_IEPsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPsItem => 0
+    static IEPsItem => 0
 
     /**
+     * Native name: DISPID_IEPsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPsCount => 1
+    static IEPsCount => 1
 
     /**
+     * Native name: DISPID_IEPsAdd
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPsAdd => 2
+    static IEPsAdd => 2
 
     /**
+     * Native name: DISPID_IEPsRemove
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPsRemove => 3
+    static IEPsRemove => 3
 
     /**
+     * Native name: DISPID_IEPsClear
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPsClear => 4
+    static IEPsClear => 4
 
     /**
+     * Native name: DISPID_IEPsDoesPropertyExist
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPsDoesPropertyExist => 5
+    static IEPsDoesPropertyExist => 5
 }

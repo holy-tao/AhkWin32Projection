@@ -25,7 +25,6 @@ class IAsyncGetSrvReferralCookie extends IUnknown {
     static VTableNames => ["FinishAsyncCall", "CancelAsyncCall", "FinishAsyncCallWithData"]
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @returns {HRESULT} 
      */
@@ -35,7 +34,6 @@ class IAsyncGetSrvReferralCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @returns {HRESULT} 
      */
@@ -45,7 +43,6 @@ class IAsyncGetSrvReferralCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {HRESULT} 
      */

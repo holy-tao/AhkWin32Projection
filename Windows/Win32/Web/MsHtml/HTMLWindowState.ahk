@@ -7,22 +7,26 @@
 class HTMLWindowState extends Win32Enum {
 
     /**
+     * Native name: HTMLWindowStateNormal
      * @type {Integer (Int32)}
      */
-    static HTMLWindowStateNormal => 1
+    static Normal => 1
 
     /**
+     * Native name: HTMLWindowStateMaximize
      * @type {Integer (Int32)}
      */
-    static HTMLWindowStateMaximize => 3
+    static Maximize => 3
 
     /**
+     * Native name: HTMLWindowStateMinimize
      * @type {Integer (Int32)}
      */
-    static HTMLWindowStateMinimize => 6
+    static Minimize => 6
 
     /**
+     * Native name: HTMLWindowState_Max
      * @type {Integer (Int32)}
      */
-    static HTMLWindowState_Max => 2147483647
+    static Max => 2147483647
 }

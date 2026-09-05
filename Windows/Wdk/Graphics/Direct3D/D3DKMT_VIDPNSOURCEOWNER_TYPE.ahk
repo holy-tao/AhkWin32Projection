@@ -7,27 +7,32 @@
 class D3DKMT_VIDPNSOURCEOWNER_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_VIDPNSOURCEOWNER_UNOWNED
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDPNSOURCEOWNER_UNOWNED => 0
+    static UNOWNED => 0
 
     /**
+     * Native name: D3DKMT_VIDPNSOURCEOWNER_SHARED
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDPNSOURCEOWNER_SHARED => 1
+    static SHARED => 1
 
     /**
+     * Native name: D3DKMT_VIDPNSOURCEOWNER_EXCLUSIVE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDPNSOURCEOWNER_EXCLUSIVE => 2
+    static EXCLUSIVE => 2
 
     /**
+     * Native name: D3DKMT_VIDPNSOURCEOWNER_EXCLUSIVEGDI
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDPNSOURCEOWNER_EXCLUSIVEGDI => 3
+    static EXCLUSIVEGDI => 3
 
     /**
+     * Native name: D3DKMT_VIDPNSOURCEOWNER_EMULATED
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDPNSOURCEOWNER_EMULATED => 4
+    static EMULATED => 4
 }

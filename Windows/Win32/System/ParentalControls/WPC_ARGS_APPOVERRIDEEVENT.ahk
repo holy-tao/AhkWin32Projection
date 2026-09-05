@@ -7,22 +7,26 @@
 class WPC_ARGS_APPOVERRIDEEVENT extends Win32Enum {
 
     /**
+     * Native name: WPC_ARGS_APPOVERRIDEEVENT_USERID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPOVERRIDEEVENT_USERID => 0
+    static USERID => 0
 
     /**
+     * Native name: WPC_ARGS_APPOVERRIDEEVENT_PATH
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPOVERRIDEEVENT_PATH => 1
+    static PATH => 1
 
     /**
+     * Native name: WPC_ARGS_APPOVERRIDEEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPOVERRIDEEVENT_REASON => 2
+    static REASON => 2
 
     /**
+     * Native name: WPC_ARGS_APPOVERRIDEEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_APPOVERRIDEEVENT_CARGS => 3
+    static CARGS => 3
 }

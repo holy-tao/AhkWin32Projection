@@ -15,9 +15,10 @@ class WS_ERROR_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      *                     This property is read only.
+     * Native name: WS_ERROR_PROPERTY_STRING_COUNT
      * @type {Integer (Int32)}
      */
-    static WS_ERROR_PROPERTY_STRING_COUNT => 0
+    static STRING_COUNT => 0
 
     /**
      * If the error returned from the function was mapped to one of the 
@@ -42,9 +43,10 @@ class WS_ERROR_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is NOERROR.
+     * Native name: WS_ERROR_PROPERTY_ORIGINAL_ERROR_CODE
      * @type {Integer (Int32)}
      */
-    static WS_ERROR_PROPERTY_ORIGINAL_ERROR_CODE => 1
+    static ORIGINAL_ERROR_CODE => 1
 
     /**
      * This identifies the language of any language sensitive information
@@ -56,7 +58,8 @@ class WS_ERROR_PROPERTY_ID extends Win32Enum {
      * 
      * This value may only be set when the error object is first created, or
      *                     after it has been reset using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreseterror">WsResetError</a>.
+     * Native name: WS_ERROR_PROPERTY_LANGID
      * @type {Integer (Int32)}
      */
-    static WS_ERROR_PROPERTY_LANGID => 2
+    static LANGID => 2
 }

@@ -46,7 +46,6 @@ class ISClusNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -55,7 +54,6 @@ class ISClusNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -64,7 +62,6 @@ class ISClusNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -73,7 +70,6 @@ class ISClusNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusNode} 
      */

@@ -2584,7 +2584,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {PSTR} pszSound 
      * @param {Integer} fuSound 
      * @returns {BOOL} 
@@ -2597,7 +2596,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSound 
      * @param {Integer} fuSound 
      * @returns {BOOL} 
@@ -2610,7 +2608,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {PSTR} pszSound 
      * @param {HMODULE} hmod 
      * @param {SND_FLAGS} fdwSound 
@@ -2625,7 +2622,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSound 
      * @param {HMODULE} hmod 
      * @param {SND_FLAGS} fdwSound 
@@ -2651,7 +2647,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Pointer} uDeviceID 
      * @param {Pointer<WAVEOUTCAPSA>} pwoc 
      * @param {Integer} cbwoc 
@@ -2663,7 +2658,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Pointer} uDeviceID 
      * @param {Pointer<WAVEOUTCAPSW>} pwoc 
      * @param {Integer} cbwoc 
@@ -2831,7 +2825,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Integer} mmrError 
      * @param {PSTR} pszText 
      * @param {Integer} cchText 
@@ -2845,7 +2838,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Integer} mmrError 
      * @param {PWSTR} pszText 
      * @param {Integer} cchText 
@@ -4118,7 +4110,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Pointer} uDeviceID 
      * @param {Integer} pwic 
      * @param {Integer} cbwic 
@@ -4130,7 +4121,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Pointer} uDeviceID 
      * @param {Integer} pwic 
      * @param {Integer} cbwic 
@@ -4142,7 +4132,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Integer} mmrError 
      * @param {PSTR} pszText 
      * @param {Integer} cchText 
@@ -4156,7 +4145,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {Integer} mmrError 
      * @param {PWSTR} pszText 
      * @param {Integer} cchText 
@@ -9907,7 +9895,6 @@ class Audio {
     }
 
     /**
-     * 
      * @returns {IAudioStateMonitor} 
      */
     static CreateRenderAudioStateMonitor() {
@@ -9916,7 +9903,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {AUDIO_STREAM_CATEGORY} category 
      * @returns {IAudioStateMonitor} 
      */
@@ -9926,7 +9912,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {AUDIO_STREAM_CATEGORY} category 
      * @param {ERole} role 
      * @returns {IAudioStateMonitor} 
@@ -9937,7 +9922,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {AUDIO_STREAM_CATEGORY} category 
      * @param {PWSTR} deviceId 
      * @returns {IAudioStateMonitor} 
@@ -9950,7 +9934,6 @@ class Audio {
     }
 
     /**
-     * 
      * @returns {IAudioStateMonitor} 
      */
     static CreateCaptureAudioStateMonitor() {
@@ -9959,7 +9942,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {AUDIO_STREAM_CATEGORY} category 
      * @returns {IAudioStateMonitor} 
      */
@@ -9969,7 +9951,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {AUDIO_STREAM_CATEGORY} category 
      * @param {ERole} role 
      * @returns {IAudioStateMonitor} 
@@ -9980,7 +9961,6 @@ class Audio {
     }
 
     /**
-     * 
      * @param {AUDIO_STREAM_CATEGORY} category 
      * @param {PWSTR} deviceId 
      * @returns {IAudioStateMonitor} 

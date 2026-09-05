@@ -10,13 +10,15 @@ class DWRITE_SCRIPT_SHAPES extends Win32BitflagEnum {
 
     /**
      * Indicates that there is no additional shaping requirements for text. Text is shaped with the writing system default behavior.
+     * Native name: DWRITE_SCRIPT_SHAPES_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DWRITE_SCRIPT_SHAPES_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Indicates that text should leave no visible control or format control characters.
+     * Native name: DWRITE_SCRIPT_SHAPES_NO_VISUAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_SCRIPT_SHAPES_NO_VISUAL => 1
+    static NO_VISUAL => 1
 }

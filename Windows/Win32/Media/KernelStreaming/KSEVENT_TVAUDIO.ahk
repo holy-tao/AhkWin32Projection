@@ -7,7 +7,8 @@
 class KSEVENT_TVAUDIO extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_TVAUDIO_CHANGED
      * @type {Integer (Int32)}
      */
-    static KSEVENT_TVAUDIO_CHANGED => 0
+    static CHANGED => 0
 }

@@ -10,19 +10,22 @@ class MBN_CELLULAR_CLASS extends Win32Enum {
 
     /**
      * No cellular class.
+     * Native name: MBN_CELLULAR_CLASS_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_CELLULAR_CLASS_NONE => 0
+    static NONE => 0
 
     /**
      * GSM cellular class.
+     * Native name: MBN_CELLULAR_CLASS_GSM
      * @type {Integer (Int32)}
      */
-    static MBN_CELLULAR_CLASS_GSM => 1
+    static GSM => 1
 
     /**
      * CDMA cellular class.
+     * Native name: MBN_CELLULAR_CLASS_CDMA
      * @type {Integer (Int32)}
      */
-    static MBN_CELLULAR_CLASS_CDMA => 2
+    static CDMA => 2
 }

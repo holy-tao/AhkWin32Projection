@@ -12,37 +12,43 @@ class EAP_INTERACTIVE_UI_DATA_TYPE extends Win32Enum {
 
     /**
      * The data contains an EAP security credential retry request.
+     * Native name: EapCredReq
      * @type {Integer (Int32)}
      */
-    static EapCredReq => 0
+    static CredReq => 0
 
     /**
      * The data contains an EAP security credential retry response.
+     * Native name: EapCredResp
      * @type {Integer (Int32)}
      */
-    static EapCredResp => 1
+    static CredResp => 1
 
     /**
      * The data contains an EAP security credential expiration request.
+     * Native name: EapCredExpiryReq
      * @type {Integer (Int32)}
      */
-    static EapCredExpiryReq => 2
+    static CredExpiryReq => 2
 
     /**
      * The data contains an EAP security credential expiration response.
+     * Native name: EapCredExpiryResp
      * @type {Integer (Int32)}
      */
-    static EapCredExpiryResp => 3
+    static CredExpiryResp => 3
 
     /**
      * The data contains an EAP security credential logon request.
+     * Native name: EapCredLogonReq
      * @type {Integer (Int32)}
      */
-    static EapCredLogonReq => 4
+    static CredLogonReq => 4
 
     /**
      * The data contains an EAP security credential logon response.
+     * Native name: EapCredLogonResp
      * @type {Integer (Int32)}
      */
-    static EapCredLogonResp => 5
+    static CredLogonResp => 5
 }

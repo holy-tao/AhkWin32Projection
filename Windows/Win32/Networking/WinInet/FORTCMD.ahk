@@ -7,17 +7,20 @@
 class FORTCMD extends Win32Enum {
 
     /**
+     * Native name: FORTCMD_LOGON
      * @type {Integer (Int32)}
      */
-    static FORTCMD_LOGON => 1
+    static LOGON => 1
 
     /**
+     * Native name: FORTCMD_LOGOFF
      * @type {Integer (Int32)}
      */
-    static FORTCMD_LOGOFF => 2
+    static LOGOFF => 2
 
     /**
+     * Native name: FORTCMD_CHG_PERSONALITY
      * @type {Integer (Int32)}
      */
-    static FORTCMD_CHG_PERSONALITY => 3
+    static CHG_PERSONALITY => 3
 }

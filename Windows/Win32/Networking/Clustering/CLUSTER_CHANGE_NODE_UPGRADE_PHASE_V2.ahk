@@ -10,25 +10,29 @@ class CLUSTER_CHANGE_NODE_UPGRADE_PHASE_V2 extends Win32Enum {
 
     /**
      * Indicates that the upgrade is being prepared.
+     * Native name: CLUSTER_CHANGE_UPGRADE_NODE_PREPARE
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_UPGRADE_NODE_PREPARE => 1
+    static NODE_PREPARE => 1
 
     /**
      * Indicates that the upgrade is in progress.
+     * Native name: CLUSTER_CHANGE_UPGRADE_NODE_COMMIT
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_UPGRADE_NODE_COMMIT => 2
+    static NODE_COMMIT => 2
 
     /**
      * Indicates that the upgrade is finished.
+     * Native name: CLUSTER_CHANGE_UPGRADE_NODE_POSTCOMMIT
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_UPGRADE_NODE_POSTCOMMIT => 4
+    static NODE_POSTCOMMIT => 4
 
     /**
      * Indicates all <b>CLUSTER_CHANGE_NODE_UPGRADE_PHASE_V2</b> notifications.
+     * Native name: CLUSTER_CHANGE_UPGRADE_ALL
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_UPGRADE_ALL => 7
+    static ALL => 7
 }

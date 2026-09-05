@@ -68,7 +68,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -78,7 +77,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unitType() {
@@ -87,7 +85,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -97,7 +94,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_value() {
@@ -106,7 +102,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +111,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_valueInSpecifiedUnits() {
@@ -125,7 +119,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -137,7 +130,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_valueAsString() {
@@ -147,7 +139,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} unitType 
      * @param {Float} valueInSpecifiedUnits 
      * @returns {HRESULT} 
@@ -158,7 +149,6 @@ class ISVGAngle extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} unitType 
      * @returns {HRESULT} 
      */

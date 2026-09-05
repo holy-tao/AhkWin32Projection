@@ -38,7 +38,6 @@ class IBidiSpl extends IUnknown {
     static VTableNames => ["BindDevice", "UnbindDevice", "SendRecv", "MultiSendRecv"]
 
     /**
-     * 
      * @param {PWSTR} pszDeviceName 
      * @param {Integer} dwAccess 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ class IBidiSpl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnbindDevice() {
@@ -60,7 +58,6 @@ class IBidiSpl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszAction 
      * @param {IBidiRequest} pRequest 
      * @returns {HRESULT} 
@@ -73,7 +70,6 @@ class IBidiSpl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszAction 
      * @param {IBidiRequestContainer} pRequestContainer 
      * @returns {HRESULT} 

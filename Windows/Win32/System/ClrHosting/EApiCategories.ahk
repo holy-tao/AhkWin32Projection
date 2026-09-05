@@ -7,44 +7,52 @@
 class EApiCategories extends Win32Enum {
 
     /**
+     * Native name: eNoChecks
      * @type {Integer (Int32)}
      */
-    static eNoChecks => 0
+    static NoChecks => 0
 
     /**
+     * Native name: eSynchronization
      * @type {Integer (Int32)}
      */
-    static eSynchronization => 1
+    static Synchronization => 1
 
     /**
+     * Native name: eSharedState
      * @type {Integer (Int32)}
      */
-    static eSharedState => 2
+    static SharedState => 2
 
     /**
+     * Native name: eExternalProcessMgmt
      * @type {Integer (Int32)}
      */
-    static eExternalProcessMgmt => 4
+    static ExternalProcessMgmt => 4
 
     /**
+     * Native name: eSelfAffectingProcessMgmt
      * @type {Integer (Int32)}
      */
-    static eSelfAffectingProcessMgmt => 8
+    static SelfAffectingProcessMgmt => 8
 
     /**
+     * Native name: eExternalThreading
      * @type {Integer (Int32)}
      */
-    static eExternalThreading => 16
+    static ExternalThreading => 16
 
     /**
+     * Native name: eSelfAffectingThreading
      * @type {Integer (Int32)}
      */
-    static eSelfAffectingThreading => 32
+    static SelfAffectingThreading => 32
 
     /**
+     * Native name: eSecurityInfrastructure
      * @type {Integer (Int32)}
      */
-    static eSecurityInfrastructure => 64
+    static SecurityInfrastructure => 64
 
     /**
      * @type {Integer (Int32)}
@@ -52,12 +60,14 @@ class EApiCategories extends Win32Enum {
     static eUI => 128
 
     /**
+     * Native name: eMayLeakOnAbort
      * @type {Integer (Int32)}
      */
-    static eMayLeakOnAbort => 256
+    static MayLeakOnAbort => 256
 
     /**
+     * Native name: eAll
      * @type {Integer (Int32)}
      */
-    static eAll => 511
+    static All => 511
 }

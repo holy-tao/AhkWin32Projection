@@ -7,52 +7,62 @@
 class SPINTERFERENCE extends Win32Enum {
 
     /**
+     * Native name: SPINTERFERENCE_NONE
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: SPINTERFERENCE_NOISE
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_NOISE => 1
+    static NOISE => 1
 
     /**
+     * Native name: SPINTERFERENCE_NOSIGNAL
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_NOSIGNAL => 2
+    static NOSIGNAL => 2
 
     /**
+     * Native name: SPINTERFERENCE_TOOLOUD
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_TOOLOUD => 3
+    static TOOLOUD => 3
 
     /**
+     * Native name: SPINTERFERENCE_TOOQUIET
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_TOOQUIET => 4
+    static TOOQUIET => 4
 
     /**
+     * Native name: SPINTERFERENCE_TOOFAST
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_TOOFAST => 5
+    static TOOFAST => 5
 
     /**
+     * Native name: SPINTERFERENCE_TOOSLOW
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_TOOSLOW => 6
+    static TOOSLOW => 6
 
     /**
+     * Native name: SPINTERFERENCE_LATENCY_WARNING
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_LATENCY_WARNING => 7
+    static LATENCY_WARNING => 7
 
     /**
+     * Native name: SPINTERFERENCE_LATENCY_TRUNCATE_BEGIN
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_LATENCY_TRUNCATE_BEGIN => 8
+    static LATENCY_TRUNCATE_BEGIN => 8
 
     /**
+     * Native name: SPINTERFERENCE_LATENCY_TRUNCATE_END
      * @type {Integer (Int32)}
      */
-    static SPINTERFERENCE_LATENCY_TRUNCATE_END => 9
+    static LATENCY_TRUNCATE_END => 9
 }

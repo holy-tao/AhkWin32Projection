@@ -12,13 +12,15 @@ class D2D1_WINDOW_STATE extends Win32BitflagEnum {
 
     /**
      * The window is not occluded.
+     * Native name: D2D1_WINDOW_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_WINDOW_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * The window is occluded.
+     * Native name: D2D1_WINDOW_STATE_OCCLUDED
      * @type {Integer (Int32)}
      */
-    static D2D1_WINDOW_STATE_OCCLUDED => 1
+    static OCCLUDED => 1
 }

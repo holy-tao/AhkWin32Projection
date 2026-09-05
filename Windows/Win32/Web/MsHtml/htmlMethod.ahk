@@ -7,22 +7,26 @@
 class htmlMethod extends Win32Enum {
 
     /**
+     * Native name: htmlMethodNotSet
      * @type {Integer (Int32)}
      */
-    static htmlMethodNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlMethodGet
      * @type {Integer (Int32)}
      */
-    static htmlMethodGet => 1
+    static Get => 1
 
     /**
+     * Native name: htmlMethodPost
      * @type {Integer (Int32)}
      */
-    static htmlMethodPost => 2
+    static Post => 2
 
     /**
+     * Native name: htmlMethod_Max
      * @type {Integer (Int32)}
      */
-    static htmlMethod_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,32 +7,38 @@
 class GUEST_OS_MICROSOFT_IDS extends Win32Enum {
 
     /**
+     * Native name: GuestOsMicrosoftUndefined
      * @type {Integer (Int32)}
      */
-    static GuestOsMicrosoftUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: GuestOsMicrosoftMSDOS
      * @type {Integer (Int32)}
      */
-    static GuestOsMicrosoftMSDOS => 1
+    static MicrosoftMSDOS => 1
 
     /**
+     * Native name: GuestOsMicrosoftWindows3x
      * @type {Integer (Int32)}
      */
-    static GuestOsMicrosoftWindows3x => 2
+    static Windows3x => 2
 
     /**
+     * Native name: GuestOsMicrosoftWindows9x
      * @type {Integer (Int32)}
      */
-    static GuestOsMicrosoftWindows9x => 3
+    static Windows9x => 3
 
     /**
+     * Native name: GuestOsMicrosoftWindowsNT
      * @type {Integer (Int32)}
      */
-    static GuestOsMicrosoftWindowsNT => 4
+    static WindowsNT => 4
 
     /**
+     * Native name: GuestOsMicrosoftWindowsCE
      * @type {Integer (Int32)}
      */
-    static GuestOsMicrosoftWindowsCE => 5
+    static WindowsCE => 5
 }

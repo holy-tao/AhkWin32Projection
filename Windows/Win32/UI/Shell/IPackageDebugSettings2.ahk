@@ -30,7 +30,6 @@ class IPackageDebugSettings2 extends IPackageDebugSettings {
     static VTableNames => ["EnumerateApps"]
 
     /**
-     * 
      * @param {PWSTR} packageFullName 
      * @param {Pointer<Integer>} appCount 
      * @param {Pointer<Pointer<PWSTR>>} appUserModelIds 

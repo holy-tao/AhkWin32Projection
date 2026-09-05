@@ -30,7 +30,6 @@ class IPrintOemCommon extends IUnknown {
     static VTableNames => ["GetInfo", "DevMode"]
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Integer} pBuffer 
      * @param {Integer} cbSize 
@@ -42,7 +41,6 @@ class IPrintOemCommon extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Pointer<OEMDMPARAM>} pOemDMParam 
      * @returns {HRESULT} 

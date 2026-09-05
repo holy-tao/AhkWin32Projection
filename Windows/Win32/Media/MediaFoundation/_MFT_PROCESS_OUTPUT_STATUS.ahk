@@ -28,7 +28,8 @@ class _MFT_PROCESS_OUTPUT_STATUS extends Win32Enum {
 
     /**
      * The Media Foundation transform (MFT) has created one or more new output streams.
+     * Native name: MFT_PROCESS_OUTPUT_STATUS_NEW_STREAMS
      * @type {Integer (Int32)}
      */
-    static MFT_PROCESS_OUTPUT_STATUS_NEW_STREAMS => 256
+    static NEW_STREAMS => 256
 }

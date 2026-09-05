@@ -7,7 +7,8 @@
 class SC_STATUS_TYPE extends Win32Enum {
 
     /**
+     * Native name: SC_STATUS_PROCESS_INFO
      * @type {Integer (Int32)}
      */
-    static SC_STATUS_PROCESS_INFO => 0
+    static PROCESS_INFO => 0
 }

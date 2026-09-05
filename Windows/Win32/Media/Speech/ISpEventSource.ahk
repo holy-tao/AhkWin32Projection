@@ -31,7 +31,6 @@ class ISpEventSource extends ISpNotifySource {
     static VTableNames => ["SetInterest", "GetEvents", "GetInfo"]
 
     /**
-     * 
      * @param {Integer} ullEventInterest 
      * @param {Integer} ullQueuedInterest 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class ISpEventSource extends ISpNotifySource {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<SPEVENT>} pEventArray 
      * @param {Pointer<Integer>} pulFetched 
@@ -56,7 +54,6 @@ class ISpEventSource extends ISpNotifySource {
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENTSOURCEINFO>} pInfo 
      * @returns {HRESULT} 
      */

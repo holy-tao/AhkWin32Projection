@@ -10,19 +10,22 @@ class CALLFRAME_WALK extends Win32Enum {
 
     /**
      * The [in] parameter values will be walked.
+     * Native name: CALLFRAME_WALK_IN
      * @type {Integer (Int32)}
      */
-    static CALLFRAME_WALK_IN => 1
+    static IN => 1
 
     /**
      * The [in, out] parameter values will be walked.
+     * Native name: CALLFRAME_WALK_INOUT
      * @type {Integer (Int32)}
      */
-    static CALLFRAME_WALK_INOUT => 2
+    static INOUT => 2
 
     /**
      * The [out] parameter values will be walked.
+     * Native name: CALLFRAME_WALK_OUT
      * @type {Integer (Int32)}
      */
-    static CALLFRAME_WALK_OUT => 4
+    static OUT => 4
 }

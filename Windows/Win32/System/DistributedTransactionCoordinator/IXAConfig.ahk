@@ -64,7 +64,6 @@ class IXAConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Terminate() {

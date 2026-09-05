@@ -30,7 +30,6 @@ class IRowsetCurrentIndex extends IRowsetIndex {
     static VTableNames => ["GetIndex", "SetIndex"]
 
     /**
-     * 
      * @returns {Pointer<DBID>} 
      */
     GetIndex() {
@@ -39,7 +38,6 @@ class IRowsetCurrentIndex extends IRowsetIndex {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pIndexID 
      * @returns {HRESULT} 
      */

@@ -30,7 +30,6 @@ class ID3D12Device11 extends ID3D12Device10 {
     static VTableNames => ["CreateSampler2"]
 
     /**
-     * 
      * @param {Pointer<D3D12_SAMPLER_DESC2>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {String} Nothing - always returns an empty string

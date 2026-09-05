@@ -96,9 +96,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_BOOL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_BOOL_TYPE => 0
+    static BOOL_TYPE => 0
 
     /**
      * Used when serializing a signed 8-bit integer (<b>char</b>).
@@ -170,9 +171,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_INT8_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_INT8_TYPE => 1
+    static INT8_TYPE => 1
 
     /**
      * Used when serializing a signed 16-bit integer (<b>short</b>).
@@ -244,9 +246,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_INT16_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_INT16_TYPE => 2
+    static INT16_TYPE => 2
 
     /**
      * Used when serializing a signed 32-bit integer.
@@ -318,9 +321,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_INT32_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_INT32_TYPE => 3
+    static INT32_TYPE => 3
 
     /**
      * Used when serializing a signed 64-bit integer.
@@ -392,9 +396,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_INT64_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_INT64_TYPE => 4
+    static INT64_TYPE => 4
 
     /**
      * Used when serializing an unsigned 8-bit integer (<b>BYTE</b>).
@@ -466,9 +471,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_UINT8_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_UINT8_TYPE => 5
+    static UINT8_TYPE => 5
 
     /**
      * Used when serializing an unsigned 16-bit integer.
@@ -540,9 +546,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_UINT16_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_UINT16_TYPE => 6
+    static UINT16_TYPE => 6
 
     /**
      * Used when serializing an unsigned 32-bit integer.
@@ -614,9 +621,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_UINT32_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_UINT32_TYPE => 7
+    static UINT32_TYPE => 7
 
     /**
      * Used when serializing an unsigned 64-bit integer.
@@ -688,9 +696,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_UINT64_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_UINT64_TYPE => 8
+    static UINT64_TYPE => 8
 
     /**
      * Used when serializing a <b>float</b>.
@@ -762,9 +771,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_FLOAT_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_FLOAT_TYPE => 9
+    static FLOAT_TYPE => 9
 
     /**
      * Used when serializing a <b>double</b>.
@@ -836,9 +846,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_DOUBLE_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_DOUBLE_TYPE => 10
+    static DOUBLE_TYPE => 10
 
     /**
      * Used when serializing a <b>DECIMAL</b>.
@@ -910,9 +921,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_DECIMAL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_DECIMAL_TYPE => 11
+    static DECIMAL_TYPE => 11
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_datetime">WS_DATETIME</a>.
@@ -984,9 +996,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_DATETIME_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_DATETIME_TYPE => 12
+    static DATETIME_TYPE => 12
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_timespan">WS_TIMESPAN</a>.
@@ -1058,9 +1071,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_TIMESPAN_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_TIMESPAN_TYPE => 13
+    static TIMESPAN_TYPE => 13
 
     /**
      * Used when serializing a <b>GUID</b>.
@@ -1132,9 +1146,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_GUID_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_GUID_TYPE => 14
+    static GUID_TYPE => 14
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_unique_id">WS_UNIQUE_ID</a>.
@@ -1206,9 +1221,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_UNIQUE_ID_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_UNIQUE_ID_TYPE => 15
+    static UNIQUE_ID_TYPE => 15
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_string">WS_STRING</a>.
@@ -1287,9 +1303,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_STRING_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_STRING_TYPE => 16
+    static STRING_TYPE => 16
 
     /**
      * Used when serializing a zero-terminated <b>WCHAR</b>*.
@@ -1372,9 +1389,10 @@ class WS_TYPE extends Win32Enum {
      *                     which field mapping values allow a default value to be specified.
      *                     The default value should point to the address of a WCHAR*, and 
      *                     the size should be sizeof(WCHAR*).
+     * Native name: WS_WSZ_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_WSZ_TYPE => 17
+    static WSZ_TYPE => 17
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_bytes">WS_BYTES</a>.
@@ -1450,9 +1468,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_BYTES_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_BYTES_TYPE => 18
+    static BYTES_TYPE => 18
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_string">WS_XML_STRING</a>.
@@ -1531,9 +1550,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_XML_STRING_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_XML_STRING_TYPE => 19
+    static XML_STRING_TYPE => 19
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_qname">WS_XML_QNAME</a>.
@@ -1606,9 +1626,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_XML_QNAME_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_XML_QNAME_TYPE => 20
+    static XML_QNAME_TYPE => 20
 
     /**
      * Used when serializing an <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>*.
@@ -1753,9 +1774,10 @@ class WS_TYPE extends Win32Enum {
      * 
      * </li>
      * </ul>
+     * Native name: WS_XML_BUFFER_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_XML_BUFFER_TYPE => 21
+    static XML_BUFFER_TYPE => 21
 
     /**
      * Used when serializing two fields of a structure as a unit: a <b>WCHAR</b>* field which
@@ -1847,9 +1869,10 @@ class WS_TYPE extends Win32Enum {
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_CHAR_ARRAY_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_CHAR_ARRAY_TYPE => 22
+    static CHAR_ARRAY_TYPE => 22
 
     /**
      * Used when serializing two fields of a structure as a unit: a BYTE* field which
@@ -1926,9 +1949,10 @@ class WS_TYPE extends Win32Enum {
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_UTF8_ARRAY_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_UTF8_ARRAY_TYPE => 23
+    static UTF8_ARRAY_TYPE => 23
 
     /**
      * Used when serializing two fields of a structure as a unit: a BYTE* field which
@@ -2002,9 +2026,10 @@ class WS_TYPE extends Win32Enum {
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_BYTE_ARRAY_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_BYTE_ARRAY_TYPE => 24
+    static BYTE_ARRAY_TYPE => 24
 
     /**
      * Used to represent the XML type of the structure being serialized.  This can be used
@@ -2039,9 +2064,10 @@ class WS_TYPE extends Win32Enum {
      * <li>0
      *                 </li>
      * </ul>
+     * Native name: WS_DESCRIPTION_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_DESCRIPTION_TYPE => 25
+    static DESCRIPTION_TYPE => 25
 
     /**
      * Used when serializing a user-defined structure.  The associated type description points to a
@@ -2138,9 +2164,10 @@ class WS_TYPE extends Win32Enum {
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_STRUCT_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_STRUCT_TYPE => 26
+    static STRUCT_TYPE => 26
 
     /**
      * Used when serializing a custom type.    The associated type description points to a
@@ -2225,9 +2252,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_CUSTOM_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_CUSTOM_TYPE => 27
+    static CUSTOM_TYPE => 27
 
     /**
      * Used when serializing <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_address">WS_ENDPOINT_ADDRESS</a> .  The associated type description points to a
@@ -2285,9 +2313,10 @@ class WS_TYPE extends Win32Enum {
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_ENDPOINT_ADDRESS_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_ENDPOINT_ADDRESS_TYPE => 28
+    static ENDPOINT_ADDRESS_TYPE => 28
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_fault">WS_FAULT</a>.  The associated type description points to a
@@ -2345,9 +2374,10 @@ class WS_TYPE extends Win32Enum {
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_FAULT_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_FAULT_TYPE => 29
+    static FAULT_TYPE => 29
 
     /**
      * This type is used to specify an arbitrary size field.
@@ -2412,9 +2442,10 @@ class WS_TYPE extends Win32Enum {
      *                     option should not be used.
      *                 </li>
      * </ul>
+     * Native name: WS_VOID_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_VOID_TYPE => 30
+    static VOID_TYPE => 30
 
     /**
      * Used when serializing a signed 32-bit integer which corresponds
@@ -2488,9 +2519,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_ENUM_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_ENUM_TYPE => 31
+    static ENUM_TYPE => 31
 
     /**
      * Used when serializing a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_duration">WS_DURATION</a>.
@@ -2562,9 +2594,10 @@ class WS_TYPE extends Win32Enum {
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
      *                     See the documentation for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> to see
      *                     which field mapping values allow a default value to be specified.
+     * Native name: WS_DURATION_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_DURATION_TYPE => 32
+    static DURATION_TYPE => 32
 
     /**
      * Used when serializing a set of choices which correspond to a tagged union.
@@ -2631,9 +2664,10 @@ class WS_TYPE extends Win32Enum {
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
      *                     When used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_OPTIONAL</a>, the default value in the 
      *                     union is specified using the nonEnumValue of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_union_description">WS_UNION_DESCRIPTION</a>.
+     * Native name: WS_UNION_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_UNION_TYPE => 33
+    static UNION_TYPE => 33
 
     /**
      * Used when serializing a set of attributes that are not mapped to fields
@@ -2668,7 +2702,8 @@ class WS_TYPE extends Win32Enum {
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
+     * Native name: WS_ANY_ATTRIBUTES_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_ANY_ATTRIBUTES_TYPE => 34
+    static ANY_ATTRIBUTES_TYPE => 34
 }

@@ -7,37 +7,44 @@
 class GameInputFocusPolicy extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputDefaultFocusPolicy
      * @type {Integer (Int32)}
      */
-    static GameInputDefaultFocusPolicy => 0
+    static DefaultFocusPolicy => 0
 
     /**
+     * Native name: GameInputDisableBackgroundInput
      * @type {Integer (Int32)}
      */
-    static GameInputDisableBackgroundInput => 1
+    static DisableBackgroundInput => 1
 
     /**
+     * Native name: GameInputExclusiveForegroundInput
      * @type {Integer (Int32)}
      */
-    static GameInputExclusiveForegroundInput => 2
+    static ExclusiveForegroundInput => 2
 
     /**
+     * Native name: GameInputDisableBackgroundGuideButton
      * @type {Integer (Int32)}
      */
-    static GameInputDisableBackgroundGuideButton => 4
+    static DisableBackgroundGuideButton => 4
 
     /**
+     * Native name: GameInputExclusiveForegroundGuideButton
      * @type {Integer (Int32)}
      */
-    static GameInputExclusiveForegroundGuideButton => 8
+    static ExclusiveForegroundGuideButton => 8
 
     /**
+     * Native name: GameInputDisableBackgroundShareButton
      * @type {Integer (Int32)}
      */
-    static GameInputDisableBackgroundShareButton => 16
+    static DisableBackgroundShareButton => 16
 
     /**
+     * Native name: GameInputExclusiveForegroundShareButton
      * @type {Integer (Int32)}
      */
-    static GameInputExclusiveForegroundShareButton => 32
+    static ExclusiveForegroundShareButton => 32
 }

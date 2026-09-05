@@ -10,7 +10,8 @@ class RAW_SCSI_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
+     * Native name: RAW_SCSI_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static RAW_SCSI_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 }

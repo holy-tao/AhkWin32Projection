@@ -10,19 +10,22 @@ class DISPLAYCONFIG_MODE_INFO_TYPE extends Win32Enum {
 
     /**
      * Indicates that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_mode_info">DISPLAYCONFIG_MODE_INFO</a> structure contains source mode information.
+     * Native name: DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE => 1
+    static SOURCE => 1
 
     /**
      * Indicates that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_mode_info">DISPLAYCONFIG_MODE_INFO</a> structure contains target mode information.
+     * Native name: DISPLAYCONFIG_MODE_INFO_TYPE_TARGET
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_MODE_INFO_TYPE_TARGET => 2
+    static TARGET => 2
 
     /**
      * Indicates that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_mode_info">DISPLAYCONFIG_MODE_INFO</a> structure contains a valid <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_desktop_image_info">DISPLAYCONFIG_DESKTOP_IMAGE_INFO</a> structure. Supported starting in Windows 10.
+     * Native name: DISPLAYCONFIG_MODE_INFO_TYPE_DESKTOP_IMAGE
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_MODE_INFO_TYPE_DESKTOP_IMAGE => 3
+    static DESKTOP_IMAGE => 3
 }

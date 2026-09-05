@@ -7,12 +7,14 @@
 class CLSID_RESOLUTION_FLAGS extends Win32Enum {
 
     /**
+     * Native name: CLSID_RESOLUTION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static CLSID_RESOLUTION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: CLSID_RESOLUTION_REGISTERED
      * @type {Integer (Int32)}
      */
-    static CLSID_RESOLUTION_REGISTERED => 1
+    static REGISTERED => 1
 }

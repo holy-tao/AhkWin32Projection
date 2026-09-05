@@ -29,7 +29,6 @@ class ISAXXMLFilter extends ISAXXMLReader {
     static VTableNames => ["getParent", "putParent"]
 
     /**
-     * 
      * @returns {ISAXXMLReader} 
      */
     getParent() {
@@ -38,7 +37,6 @@ class ISAXXMLFilter extends ISAXXMLReader {
     }
 
     /**
-     * 
      * @param {ISAXXMLReader} pReader 
      * @returns {HRESULT} 
      */

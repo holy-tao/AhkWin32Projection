@@ -12,25 +12,29 @@ class WRDS_SETTING_STATUS extends Win32Enum {
 
     /**
      * The setting status has not been defined.
+     * Native name: WRDS_SETTING_STATUS_NOTAPPLICABLE
      * @type {Integer (Int32)}
      */
-    static WRDS_SETTING_STATUS_NOTAPPLICABLE => -1
+    static NOTAPPLICABLE => -1
 
     /**
      * The setting is disabled.
+     * Native name: WRDS_SETTING_STATUS_DISABLED
      * @type {Integer (Int32)}
      */
-    static WRDS_SETTING_STATUS_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * The setting is enabled.
+     * Native name: WRDS_SETTING_STATUS_ENABLED
      * @type {Integer (Int32)}
      */
-    static WRDS_SETTING_STATUS_ENABLED => 1
+    static ENABLED => 1
 
     /**
      * The setting is not configured.
+     * Native name: WRDS_SETTING_STATUS_NOTCONFIGURED
      * @type {Integer (Int32)}
      */
-    static WRDS_SETTING_STATUS_NOTCONFIGURED => 2
+    static NOTCONFIGURED => 2
 }

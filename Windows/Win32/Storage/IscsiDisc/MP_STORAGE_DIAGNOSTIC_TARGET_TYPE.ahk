@@ -7,22 +7,26 @@
 class MP_STORAGE_DIAGNOSTIC_TARGET_TYPE extends Win32Enum {
 
     /**
+     * Native name: MpStorageDiagnosticTargetTypeUndefined
      * @type {Integer (Int32)}
      */
-    static MpStorageDiagnosticTargetTypeUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: MpStorageDiagnosticTargetTypeMiniport
      * @type {Integer (Int32)}
      */
-    static MpStorageDiagnosticTargetTypeMiniport => 2
+    static Miniport => 2
 
     /**
+     * Native name: MpStorageDiagnosticTargetTypeHbaFirmware
      * @type {Integer (Int32)}
      */
-    static MpStorageDiagnosticTargetTypeHbaFirmware => 3
+    static HbaFirmware => 3
 
     /**
+     * Native name: MpStorageDiagnosticTargetTypeMax
      * @type {Integer (Int32)}
      */
-    static MpStorageDiagnosticTargetTypeMax => 4
+    static Max => 4
 }

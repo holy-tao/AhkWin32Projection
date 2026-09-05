@@ -7,72 +7,86 @@
 class ImageFlags extends Win32Enum {
 
     /**
+     * Native name: ImageFlagsNone
      * @type {Integer (Int32)}
      */
-    static ImageFlagsNone => 0
+    static None => 0
 
     /**
+     * Native name: ImageFlagsScalable
      * @type {Integer (Int32)}
      */
-    static ImageFlagsScalable => 1
+    static Scalable => 1
 
     /**
+     * Native name: ImageFlagsHasAlpha
      * @type {Integer (Int32)}
      */
-    static ImageFlagsHasAlpha => 2
+    static HasAlpha => 2
 
     /**
+     * Native name: ImageFlagsHasTranslucent
      * @type {Integer (Int32)}
      */
-    static ImageFlagsHasTranslucent => 4
+    static HasTranslucent => 4
 
     /**
+     * Native name: ImageFlagsPartiallyScalable
      * @type {Integer (Int32)}
      */
-    static ImageFlagsPartiallyScalable => 8
+    static PartiallyScalable => 8
 
     /**
+     * Native name: ImageFlagsColorSpaceRGB
      * @type {Integer (Int32)}
      */
-    static ImageFlagsColorSpaceRGB => 16
+    static ColorSpaceRGB => 16
 
     /**
+     * Native name: ImageFlagsColorSpaceCMYK
      * @type {Integer (Int32)}
      */
-    static ImageFlagsColorSpaceCMYK => 32
+    static ColorSpaceCMYK => 32
 
     /**
+     * Native name: ImageFlagsColorSpaceGRAY
      * @type {Integer (Int32)}
      */
-    static ImageFlagsColorSpaceGRAY => 64
+    static ColorSpaceGRAY => 64
 
     /**
+     * Native name: ImageFlagsColorSpaceYCBCR
      * @type {Integer (Int32)}
      */
-    static ImageFlagsColorSpaceYCBCR => 128
+    static ColorSpaceYCBCR => 128
 
     /**
+     * Native name: ImageFlagsColorSpaceYCCK
      * @type {Integer (Int32)}
      */
-    static ImageFlagsColorSpaceYCCK => 256
+    static ColorSpaceYCCK => 256
 
     /**
+     * Native name: ImageFlagsHasRealDPI
      * @type {Integer (Int32)}
      */
-    static ImageFlagsHasRealDPI => 4096
+    static HasRealDPI => 4096
 
     /**
+     * Native name: ImageFlagsHasRealPixelSize
      * @type {Integer (Int32)}
      */
-    static ImageFlagsHasRealPixelSize => 8192
+    static HasRealPixelSize => 8192
 
     /**
+     * Native name: ImageFlagsReadOnly
      * @type {Integer (Int32)}
      */
-    static ImageFlagsReadOnly => 65536
+    static ReadOnly => 65536
 
     /**
+     * Native name: ImageFlagsCaching
      * @type {Integer (Int32)}
      */
-    static ImageFlagsCaching => 131072
+    static Caching => 131072
 }

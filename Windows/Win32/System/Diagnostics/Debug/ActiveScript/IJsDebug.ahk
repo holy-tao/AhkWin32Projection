@@ -31,7 +31,6 @@ class IJsDebug extends IUnknown {
     static VTableNames => ["OpenVirtualProcess"]
 
     /**
-     * 
      * @param {Integer} processId 
      * @param {Integer} runtimeJsBaseAddress 
      * @param {IJsDebugDataTarget} pDataTarget 

@@ -84,7 +84,6 @@ class Extension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -94,7 +93,6 @@ class Extension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Vendor() {
@@ -104,7 +102,6 @@ class Extension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Version() {
@@ -114,7 +111,6 @@ class Extension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Extensions} 
      */
     get_Extensions() {
@@ -123,7 +119,6 @@ class Extension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SnapinCLSID() {
@@ -133,7 +128,6 @@ class Extension extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} Enable 
      * @returns {HRESULT} 
      */

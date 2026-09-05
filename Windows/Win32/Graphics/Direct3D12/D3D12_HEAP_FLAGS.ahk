@@ -102,57 +102,66 @@ class D3D12_HEAP_FLAGS extends Win32BitflagEnum {
 
     /**
      * No options are specified.
+     * Native name: D3D12_HEAP_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The heap is shared. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/shared-heaps">Shared Heaps</a>.
+     * Native name: D3D12_HEAP_FLAG_SHARED
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_SHARED => 1
+    static FLAG_SHARED => 1
 
     /**
      * The heap isn't allowed to contain buffers.
+     * Native name: D3D12_HEAP_FLAG_DENY_BUFFERS
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_DENY_BUFFERS => 4
+    static FLAG_DENY_BUFFERS => 4
 
     /**
      * The heap is allowed to contain swap-chain surfaces.
+     * Native name: D3D12_HEAP_FLAG_ALLOW_DISPLAY
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_ALLOW_DISPLAY => 8
+    static FLAG_ALLOW_DISPLAY => 8
 
     /**
      * The heap is allowed to share resources across adapters. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/shared-heaps">Shared Heaps</a>. A protected session cannot be mixed with resources that are shared across adapters.
+     * Native name: D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER => 32
+    static FLAG_SHARED_CROSS_ADAPTER => 32
 
     /**
      * The heap is not allowed to store Render Target (RT) and/or Depth-Stencil (DS) textures.
+     * Native name: D3D12_HEAP_FLAG_DENY_RT_DS_TEXTURES
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_DENY_RT_DS_TEXTURES => 64
+    static FLAG_DENY_RT_DS_TEXTURES => 64
 
     /**
      * The heap is not allowed to contain resources with D3D12_RESOURCE_DIMENSION_TEXTURE1D, D3D12_RESOURCE_DIMENSION_TEXTURE2D, or D3D12_RESOURCE_DIMENSION_TEXTURE3D  unless either D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET or D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL are present. Refer to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_dimension">D3D12_RESOURCE_DIMENSION</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_flags">D3D12_RESOURCE_FLAGS</a>.
+     * Native name: D3D12_HEAP_FLAG_DENY_NON_RT_DS_TEXTURES
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_DENY_NON_RT_DS_TEXTURES => 128
+    static FLAG_DENY_NON_RT_DS_TEXTURES => 128
 
     /**
      * Unsupported. Do not use.
+     * Native name: D3D12_HEAP_FLAG_HARDWARE_PROTECTED
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_HARDWARE_PROTECTED => 256
+    static FLAG_HARDWARE_PROTECTED => 256
 
     /**
      * The heap supports MEM_WRITE_WATCH functionality, which causes the system to track the pages that are written to in the committed memory region. This flag can't be combined with the D3D12_HEAP_TYPE_DEFAULT or D3D12_CPU_PAGE_PROPERTY_UNKNOWN flags. Applications are discouraged from using this flag themselves because it prevents tools from using this functionality.
+     * Native name: D3D12_HEAP_FLAG_ALLOW_WRITE_WATCH
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_ALLOW_WRITE_WATCH => 512
+    static FLAG_ALLOW_WRITE_WATCH => 512
 
     /**
      * Ensures that atomic operations will be atomic on this heap's memory, according to components able to see the memory.
@@ -162,50 +171,58 @@ class D3D12_HEAP_FLAGS extends Win32BitflagEnum {
      * - The heap is CPU-visible, but the heap type is *not* **D3D12_HEAP_TYPE_CUSTOM**.
      * 
      * Note that heaps with this flag might be a limited resource on some systems.
+     * Native name: D3D12_HEAP_FLAG_ALLOW_SHADER_ATOMICS
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_ALLOW_SHADER_ATOMICS => 1024
+    static FLAG_ALLOW_SHADER_ATOMICS => 1024
 
     /**
      * The heap is created in a non-resident state and must be made resident using [ID3D12Device::MakeResident](./nf-d3d12-id3d12device-makeresident.md) or [ID3D12Device3::EnqueueMakeResident](./nf-d3d12-id3d12device3-enqueuemakeresident.md).
      * 
      * By default, the final step of heap creation is to make the heap resident, so this flag skips this step and allows the application to decide when to do so.
+     * Native name: D3D12_HEAP_FLAG_CREATE_NOT_RESIDENT
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_CREATE_NOT_RESIDENT => 2048
+    static FLAG_CREATE_NOT_RESIDENT => 2048
 
     /**
      * Allows the OS to not zero the heap created. By default, committed resources and heaps are almost always zeroed upon creation. This flag allows this to be elided in some scenarios. However, it doesn't guarantee it. For example, memory coming from other processes still needs to be zeroed for data protection and process isolation. This can lower the overhead of creating the heap.
+     * Native name: D3D12_HEAP_FLAG_CREATE_NOT_ZEROED
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_CREATE_NOT_ZEROED => 4096
+    static FLAG_CREATE_NOT_ZEROED => 4096
 
     /**
+     * Native name: D3D12_HEAP_FLAG_TOOLS_USE_MANUAL_WRITE_TRACKING
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_TOOLS_USE_MANUAL_WRITE_TRACKING => 8192
+    static FLAG_TOOLS_USE_MANUAL_WRITE_TRACKING => 8192
 
     /**
      * The heap is allowed to store all types of buffers and/or textures. This is an alias; for more details, see "Aliases" in the Remarks section.
+     * Native name: D3D12_HEAP_FLAG_ALLOW_ALL_BUFFERS_AND_TEXTURES
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_ALLOW_ALL_BUFFERS_AND_TEXTURES => 0
+    static FLAG_ALLOW_ALL_BUFFERS_AND_TEXTURES => 0
 
     /**
      * The heap is only allowed to store buffers. This is an alias; for more details, see "Aliases" in the Remarks section.
+     * Native name: D3D12_HEAP_FLAG_ALLOW_ONLY_BUFFERS
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_ALLOW_ONLY_BUFFERS => 192
+    static FLAG_ALLOW_ONLY_BUFFERS => 192
 
     /**
      * The heap is only allowed to store non-RT, non-DS textures. This is an alias; for more details, see "Aliases" in the Remarks section.
+     * Native name: D3D12_HEAP_FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURES
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURES => 68
+    static FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURES => 68
 
     /**
      * The heap is only allowed to store RT and/or DS textures. This is an alias; for more details, see "Aliases" in the Remarks section.
+     * Native name: D3D12_HEAP_FLAG_ALLOW_ONLY_RT_DS_TEXTURES
      * @type {Integer (Int32)}
      */
-    static D3D12_HEAP_FLAG_ALLOW_ONLY_RT_DS_TEXTURES => 132
+    static FLAG_ALLOW_ONLY_RT_DS_TEXTURES => 132
 }

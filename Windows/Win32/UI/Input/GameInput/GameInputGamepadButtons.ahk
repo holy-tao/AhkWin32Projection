@@ -7,77 +7,92 @@
 class GameInputGamepadButtons extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputGamepadNone
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputGamepadMenu
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadMenu => 1
+    static Menu => 1
 
     /**
+     * Native name: GameInputGamepadView
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadView => 2
+    static View => 2
 
     /**
+     * Native name: GameInputGamepadA
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadA => 4
+    static GamepadA => 4
 
     /**
+     * Native name: GameInputGamepadB
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadB => 8
+    static GamepadB => 8
 
     /**
+     * Native name: GameInputGamepadX
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadX => 16
+    static GamepadX => 16
 
     /**
+     * Native name: GameInputGamepadY
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadY => 32
+    static GamepadY => 32
 
     /**
+     * Native name: GameInputGamepadDPadUp
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadDPadUp => 64
+    static GamepadDPadUp => 64
 
     /**
+     * Native name: GameInputGamepadDPadDown
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadDPadDown => 128
+    static GamepadDPadDown => 128
 
     /**
+     * Native name: GameInputGamepadDPadLeft
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadDPadLeft => 256
+    static GamepadDPadLeft => 256
 
     /**
+     * Native name: GameInputGamepadDPadRight
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadDPadRight => 512
+    static GamepadDPadRight => 512
 
     /**
+     * Native name: GameInputGamepadLeftShoulder
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadLeftShoulder => 1024
+    static LeftShoulder => 1024
 
     /**
+     * Native name: GameInputGamepadRightShoulder
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadRightShoulder => 2048
+    static RightShoulder => 2048
 
     /**
+     * Native name: GameInputGamepadLeftThumbstick
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadLeftThumbstick => 4096
+    static LeftThumbstick => 4096
 
     /**
+     * Native name: GameInputGamepadRightThumbstick
      * @type {Integer (Int32)}
      */
-    static GameInputGamepadRightThumbstick => 8192
+    static RightThumbstick => 8192
 }

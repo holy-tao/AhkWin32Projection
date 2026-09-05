@@ -7,97 +7,116 @@
 class SNMP_ERROR extends Win32Enum {
 
     /**
+     * Native name: SNMP_ERROR_NOERROR
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_NOERROR => 0
+    static NOERROR => 0
 
     /**
+     * Native name: SNMP_ERROR_TOOBIG
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_TOOBIG => 1
+    static TOOBIG => 1
 
     /**
+     * Native name: SNMP_ERROR_NOSUCHNAME
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_NOSUCHNAME => 2
+    static NOSUCHNAME => 2
 
     /**
+     * Native name: SNMP_ERROR_BADVALUE
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_BADVALUE => 3
+    static BADVALUE => 3
 
     /**
+     * Native name: SNMP_ERROR_READONLY
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_READONLY => 4
+    static READONLY => 4
 
     /**
+     * Native name: SNMP_ERROR_GENERR
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_GENERR => 5
+    static GENERR => 5
 
     /**
+     * Native name: SNMP_ERROR_NOACCESS
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_NOACCESS => 6
+    static NOACCESS => 6
 
     /**
+     * Native name: SNMP_ERROR_WRONGTYPE
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_WRONGTYPE => 7
+    static WRONGTYPE => 7
 
     /**
+     * Native name: SNMP_ERROR_WRONGLENGTH
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_WRONGLENGTH => 8
+    static WRONGLENGTH => 8
 
     /**
+     * Native name: SNMP_ERROR_WRONGENCODING
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_WRONGENCODING => 9
+    static WRONGENCODING => 9
 
     /**
+     * Native name: SNMP_ERROR_WRONGVALUE
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_WRONGVALUE => 10
+    static WRONGVALUE => 10
 
     /**
+     * Native name: SNMP_ERROR_NOCREATION
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_NOCREATION => 11
+    static NOCREATION => 11
 
     /**
+     * Native name: SNMP_ERROR_INCONSISTENTVALUE
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_INCONSISTENTVALUE => 12
+    static INCONSISTENTVALUE => 12
 
     /**
+     * Native name: SNMP_ERROR_RESOURCEUNAVAILABLE
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_RESOURCEUNAVAILABLE => 13
+    static RESOURCEUNAVAILABLE => 13
 
     /**
+     * Native name: SNMP_ERROR_COMMITFAILED
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_COMMITFAILED => 14
+    static COMMITFAILED => 14
 
     /**
+     * Native name: SNMP_ERROR_UNDOFAILED
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_UNDOFAILED => 15
+    static UNDOFAILED => 15
 
     /**
+     * Native name: SNMP_ERROR_AUTHORIZATIONERROR
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_AUTHORIZATIONERROR => 16
+    static AUTHORIZATIONERROR => 16
 
     /**
+     * Native name: SNMP_ERROR_NOTWRITABLE
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_NOTWRITABLE => 17
+    static NOTWRITABLE => 17
 
     /**
+     * Native name: SNMP_ERROR_INCONSISTENTNAME
      * @type {Integer (UInt32)}
      */
-    static SNMP_ERROR_INCONSISTENTNAME => 18
+    static INCONSISTENTNAME => 18
 }

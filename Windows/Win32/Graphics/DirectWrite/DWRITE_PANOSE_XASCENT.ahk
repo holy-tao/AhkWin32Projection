@@ -10,43 +10,50 @@ class DWRITE_PANOSE_XASCENT extends Win32Enum {
 
     /**
      * Any xascent.
+     * Native name: DWRITE_PANOSE_XASCENT_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_XASCENT_ANY => 0
+    static ANY => 0
 
     /**
      * No fit for xascent.
+     * Native name: DWRITE_PANOSE_XASCENT_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_XASCENT_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Very low xascent.
+     * Native name: DWRITE_PANOSE_XASCENT_VERY_LOW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_XASCENT_VERY_LOW => 2
+    static VERY_LOW => 2
 
     /**
      * Low xascent.
+     * Native name: DWRITE_PANOSE_XASCENT_LOW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_XASCENT_LOW => 3
+    static LOW => 3
 
     /**
      * Medium xascent.
+     * Native name: DWRITE_PANOSE_XASCENT_MEDIUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_XASCENT_MEDIUM => 4
+    static MEDIUM => 4
 
     /**
      * High xascent.
+     * Native name: DWRITE_PANOSE_XASCENT_HIGH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_XASCENT_HIGH => 5
+    static HIGH => 5
 
     /**
      * Very high xascent.
+     * Native name: DWRITE_PANOSE_XASCENT_VERY_HIGH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_XASCENT_VERY_HIGH => 6
+    static VERY_HIGH => 6
 }

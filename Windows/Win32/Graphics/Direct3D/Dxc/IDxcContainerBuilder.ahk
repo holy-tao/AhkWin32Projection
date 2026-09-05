@@ -107,7 +107,6 @@ class IDxcContainerBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fourCC 
      * @param {IDxcBlob} pSource 
      * @returns {HRESULT} 
@@ -118,7 +117,6 @@ class IDxcContainerBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fourCC 
      * @returns {HRESULT} 
      */
@@ -128,7 +126,6 @@ class IDxcContainerBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcOperationResult} 
      */
     SerializeContainer() {

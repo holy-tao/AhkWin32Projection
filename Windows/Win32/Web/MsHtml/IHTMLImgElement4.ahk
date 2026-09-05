@@ -43,7 +43,6 @@ class IHTMLImgElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_naturalWidth() {
@@ -52,7 +51,6 @@ class IHTMLImgElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_naturalHeight() {

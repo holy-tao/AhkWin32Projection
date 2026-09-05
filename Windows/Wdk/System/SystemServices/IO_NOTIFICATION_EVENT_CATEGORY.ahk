@@ -7,27 +7,32 @@
 class IO_NOTIFICATION_EVENT_CATEGORY extends Win32Enum {
 
     /**
+     * Native name: EventCategoryReserved
      * @type {Integer (Int32)}
      */
-    static EventCategoryReserved => 0
+    static Reserved => 0
 
     /**
+     * Native name: EventCategoryHardwareProfileChange
      * @type {Integer (Int32)}
      */
-    static EventCategoryHardwareProfileChange => 1
+    static HardwareProfileChange => 1
 
     /**
+     * Native name: EventCategoryDeviceInterfaceChange
      * @type {Integer (Int32)}
      */
-    static EventCategoryDeviceInterfaceChange => 2
+    static DeviceInterfaceChange => 2
 
     /**
+     * Native name: EventCategoryTargetDeviceChange
      * @type {Integer (Int32)}
      */
-    static EventCategoryTargetDeviceChange => 3
+    static TargetDeviceChange => 3
 
     /**
+     * Native name: EventCategoryKernelSoftRestart
      * @type {Integer (Int32)}
      */
-    static EventCategoryKernelSoftRestart => 4
+    static KernelSoftRestart => 4
 }

@@ -7,12 +7,14 @@
 class DISPID_SpeechFileStream extends Win32Enum {
 
     /**
+     * Native name: DISPID_SFSOpen
      * @type {Integer (Int32)}
      */
-    static DISPID_SFSOpen => 100
+    static SFSOpen => 100
 
     /**
+     * Native name: DISPID_SFSClose
      * @type {Integer (Int32)}
      */
-    static DISPID_SFSClose => 101
+    static SFSClose => 101
 }

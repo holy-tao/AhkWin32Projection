@@ -31,7 +31,6 @@ class IStaticVerbProvider extends IUnknown {
     static VTableNames => ["IsVerbSupported"]
 
     /**
-     * 
      * @param {PWSTR} verbName 
      * @returns {BOOL} 
      */

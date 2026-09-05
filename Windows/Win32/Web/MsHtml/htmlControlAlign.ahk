@@ -7,62 +7,74 @@
 class htmlControlAlign extends Win32Enum {
 
     /**
+     * Native name: htmlControlAlignNotSet
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlControlAlignLeft
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignLeft => 1
+    static Left => 1
 
     /**
+     * Native name: htmlControlAlignCenter
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignCenter => 2
+    static Center => 2
 
     /**
+     * Native name: htmlControlAlignRight
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignRight => 3
+    static Right => 3
 
     /**
+     * Native name: htmlControlAlignTextTop
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignTextTop => 4
+    static TextTop => 4
 
     /**
+     * Native name: htmlControlAlignAbsMiddle
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignAbsMiddle => 5
+    static AbsMiddle => 5
 
     /**
+     * Native name: htmlControlAlignBaseline
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignBaseline => 6
+    static Baseline => 6
 
     /**
+     * Native name: htmlControlAlignAbsBottom
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignAbsBottom => 7
+    static AbsBottom => 7
 
     /**
+     * Native name: htmlControlAlignBottom
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignBottom => 8
+    static Bottom => 8
 
     /**
+     * Native name: htmlControlAlignMiddle
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignMiddle => 9
+    static Middle => 9
 
     /**
+     * Native name: htmlControlAlignTop
      * @type {Integer (Int32)}
      */
-    static htmlControlAlignTop => 10
+    static Top => 10
 
     /**
+     * Native name: htmlControlAlign_Max
      * @type {Integer (Int32)}
      */
-    static htmlControlAlign_Max => 2147483647
+    static Max => 2147483647
 }

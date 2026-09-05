@@ -30,7 +30,6 @@ class ITfFnCustomSpeechCommand extends ITfFunction {
     static VTableNames => ["SetSpeechCommandProvider"]
 
     /**
-     * 
      * @param {IUnknown} pspcmdProvider 
      * @returns {HRESULT} 
      */

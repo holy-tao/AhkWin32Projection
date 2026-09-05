@@ -46,7 +46,6 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WaitForEnlistment() {
@@ -55,7 +54,6 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Phase0Done() {
@@ -64,7 +62,6 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unenlist() {
@@ -73,7 +70,6 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ITransaction} 
      */
     GetTransaction() {

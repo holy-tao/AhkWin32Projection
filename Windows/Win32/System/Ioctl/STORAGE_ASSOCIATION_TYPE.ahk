@@ -7,17 +7,20 @@
 class STORAGE_ASSOCIATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: StorageIdAssocDevice
      * @type {Integer (Int32)}
      */
-    static StorageIdAssocDevice => 0
+    static IdAssocDevice => 0
 
     /**
+     * Native name: StorageIdAssocPort
      * @type {Integer (Int32)}
      */
-    static StorageIdAssocPort => 1
+    static IdAssocPort => 1
 
     /**
+     * Native name: StorageIdAssocTarget
      * @type {Integer (Int32)}
      */
-    static StorageIdAssocTarget => 2
+    static IdAssocTarget => 2
 }

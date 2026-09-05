@@ -10,61 +10,71 @@ class D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS extends Win32Enum {
 
     /**
      * The video processor can reverse 3:2 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_32
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_32 => 1
+    static 32 => 1
 
     /**
      * The video processor can reverse 2:2 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_22
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_22 => 2
+    static 22 => 2
 
     /**
      * The video processor can reverse 2:2:2:4 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_2224
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_2224 => 4
+    static 2224 => 4
 
     /**
      * The video processor can reverse 2:3:3:2 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_2332
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_2332 => 8
+    static 2332 => 8
 
     /**
      * The video processor can reverse 3:2:3:2:2 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_32322
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_32322 => 16
+    static 32322 => 16
 
     /**
      * The video processor can reverse 5:5 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_55
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_55 => 32
+    static 55 => 32
 
     /**
      * The video processor can reverse 6:4 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_64
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_64 => 64
+    static 64 => 64
 
     /**
      * The video processor can reverse 8:7 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_87
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_87 => 128
+    static 87 => 128
 
     /**
      * The video processor can reverse 2:2:2:2:2:2:2:2:2:2:2:3 pulldown.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_222222222223
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_222222222223 => 256
+    static 222222222223 => 256
 
     /**
      * The video processor can reverse other telecine modes not listed here.
+     * Native name: D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_OTHER
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS_OTHER => -2147483648
+    static OTHER => -2147483648
 }

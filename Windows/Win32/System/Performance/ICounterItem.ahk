@@ -82,7 +82,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Value() {
@@ -91,7 +90,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -101,7 +99,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Color() {
@@ -110,7 +107,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iWidth 
      * @returns {HRESULT} 
      */
@@ -120,7 +116,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -129,7 +124,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iLineStyle 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LineStyle() {
@@ -148,7 +141,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iScale 
      * @returns {HRESULT} 
      */
@@ -158,7 +150,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ScaleFactor() {
@@ -167,7 +158,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -177,7 +167,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} Value 
      * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
@@ -191,7 +180,6 @@ class ICounterItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} Max 
      * @param {Pointer<Float>} Min 
      * @param {Pointer<Float>} Avg 

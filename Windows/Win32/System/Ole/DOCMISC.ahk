@@ -16,25 +16,29 @@ class DOCMISC extends Win32Enum {
 
     /**
      * Object supports multiple views.
+     * Native name: DOCMISC_CANCREATEMULTIPLEVIEWS
      * @type {Integer (Int32)}
      */
-    static DOCMISC_CANCREATEMULTIPLEVIEWS => 1
+    static CANCREATEMULTIPLEVIEWS => 1
 
     /**
      * Object supports complex rectangles and therefore implements <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-ioledocumentview-setrectcomplex">IOleDocumentView::SetRectComplex</a>.
+     * Native name: DOCMISC_SUPPORTCOMPLEXRECTANGLES
      * @type {Integer (Int32)}
      */
-    static DOCMISC_SUPPORTCOMPLEXRECTANGLES => 2
+    static SUPPORTCOMPLEXRECTANGLES => 2
 
     /**
      * Object supports activation in a separate window and therefore implements <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-ioledocumentview-open">IOleDocumentView::Open</a>.
+     * Native name: DOCMISC_CANTOPENEDIT
      * @type {Integer (Int32)}
      */
-    static DOCMISC_CANTOPENEDIT => 4
+    static CANTOPENEDIT => 4
 
     /**
      * Object does not support file read/write.
+     * Native name: DOCMISC_NOFILESUPPORT
      * @type {Integer (Int32)}
      */
-    static DOCMISC_NOFILESUPPORT => 8
+    static NOFILESUPPORT => 8
 }

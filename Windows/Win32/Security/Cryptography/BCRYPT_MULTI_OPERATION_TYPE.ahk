@@ -10,7 +10,8 @@ class BCRYPT_MULTI_OPERATION_TYPE extends Win32Enum {
 
     /**
      * A hash operation.
+     * Native name: BCRYPT_OPERATION_TYPE_HASH
      * @type {Integer (Int32)}
      */
-    static BCRYPT_OPERATION_TYPE_HASH => 1
+    static HASH => 1
 }

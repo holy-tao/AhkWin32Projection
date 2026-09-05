@@ -10,25 +10,29 @@ class SVUIA_STATUS extends Win32Enum {
 
     /**
      * The browser view has been deactivated.
+     * Native name: SVUIA_DEACTIVATE
      * @type {Integer (Int32)}
      */
-    static SVUIA_DEACTIVATE => 0
+    static DEACTIVATE => 0
 
     /**
      * The browser view is activated and does not have focus.
+     * Native name: SVUIA_ACTIVATE_NOFOCUS
      * @type {Integer (Int32)}
      */
-    static SVUIA_ACTIVATE_NOFOCUS => 1
+    static ACTIVATE_NOFOCUS => 1
 
     /**
      * The browser view is activated and has focus.
+     * Native name: SVUIA_ACTIVATE_FOCUS
      * @type {Integer (Int32)}
      */
-    static SVUIA_ACTIVATE_FOCUS => 2
+    static ACTIVATE_FOCUS => 2
 
     /**
      * The browser view is activated in place.
+     * Native name: SVUIA_INPLACEACTIVATE
      * @type {Integer (Int32)}
      */
-    static SVUIA_INPLACEACTIVATE => 3
+    static INPLACEACTIVATE => 3
 }

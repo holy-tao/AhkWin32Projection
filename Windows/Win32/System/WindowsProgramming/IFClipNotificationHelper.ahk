@@ -30,7 +30,6 @@ class IFClipNotificationHelper extends IUnknown {
     static VTableNames => ["ShowSystemDialog"]
 
     /**
-     * 
      * @param {BSTR} titleText 
      * @param {BSTR} bodyText 
      * @returns {HRESULT} 

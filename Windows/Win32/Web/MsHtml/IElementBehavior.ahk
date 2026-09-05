@@ -31,7 +31,6 @@ class IElementBehavior extends IUnknown {
     static VTableNames => ["Init", "Notify", "Detach"]
 
     /**
-     * 
      * @param {IElementBehaviorSite} pBehaviorSite 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IElementBehavior extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lEvent 
      * @param {Pointer<VARIANT>} pVar 
      * @returns {HRESULT} 
@@ -52,7 +50,6 @@ class IElementBehavior extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {

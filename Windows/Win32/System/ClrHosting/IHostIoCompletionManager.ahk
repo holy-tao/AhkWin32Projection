@@ -133,7 +133,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hPort 
      * @returns {HRESULT} 
      */
@@ -145,7 +144,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMaxIOCompletionThreads 
      * @returns {HRESULT} 
      */
@@ -155,7 +153,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxThreads() {
@@ -164,7 +161,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAvailableThreads() {
@@ -173,7 +169,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHostOverlappedSize() {
@@ -182,7 +177,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRIoCompletionManager} pManager 
      * @returns {HRESULT} 
      */
@@ -192,7 +186,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvOverlapped 
      * @returns {HRESULT} 
      */
@@ -246,7 +239,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMinIOCompletionThreads 
      * @returns {HRESULT} 
      */
@@ -256,7 +248,6 @@ class IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinThreads() {

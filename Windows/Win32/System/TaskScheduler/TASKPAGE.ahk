@@ -32,9 +32,10 @@ class TASKPAGE extends Win32Enum {
      * <li>This property can also be set by setting this flag in the <b>rgFlags</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure.</li>
      * </ul>
+     * Native name: TASKPAGE_TASK
      * @type {Integer (Int32)}
      */
-    static TASKPAGE_TASK => 0
+    static TASK => 0
 
     /**
      * Specifies the Schedule page for the task. This page is used to manage the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/t">triggers</a> for the task. The user can create triggers, edit triggers, and delete triggers from this page. 
@@ -52,9 +53,10 @@ class TASKPAGE extends Win32Enum {
      * <li><b>Schedule Task</b> group box: This group box is only displayed if the <b>Schedule Task</b> field specifies daily, weekly, monthly, or once.</li>
      * <li><b>Show multiple schedules</b>: Shows all triggers. When checked, Trigger list box is displayed.</li>
      * </ul>
+     * Native name: TASKPAGE_SCHEDULE
      * @type {Integer (Int32)}
      */
-    static TASKPAGE_SCHEDULE => 1
+    static SCHEDULE => 1
 
     /**
      * Specifies the Settings page for the task. The user can specify what happens when the task is completed, <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/i">idle conditions</a>, and power management properties for the task. 
@@ -77,7 +79,8 @@ class TASKPAGE extends Win32Enum {
      * <li>These properties can also be set programmatically by setting the TASK_FLAG_DONT_START_IF_ON_BATTERIES and TASK_FLAG_KILL_IF_GOING_ON_BATTERIES flags using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-setflags">IScheduledWorkItem::SetFlags</a>.</li>
      * </ul>
+     * Native name: TASKPAGE_SETTINGS
      * @type {Integer (Int32)}
      */
-    static TASKPAGE_SETTINGS => 2
+    static SETTINGS => 2
 }

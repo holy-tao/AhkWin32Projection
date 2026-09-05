@@ -10,25 +10,29 @@ class DXVAHD_FEATURE_CAPS extends Win32Enum {
 
     /**
      * The device can set the alpha values on the video output. See <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_blt_state_alpha_fill_data">DXVAHD_BLT_STATE_ALPHA_FILL_DATA</a>.
+     * Native name: DXVAHD_FEATURE_CAPS_ALPHA_FILL
      * @type {Integer (Int32)}
      */
-    static DXVAHD_FEATURE_CAPS_ALPHA_FILL => 1
+    static ALPHA_FILL => 1
 
     /**
      * The device can downsample the video output. See <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_blt_state_constriction_data">DXVAHD_BLT_STATE_CONSTRICTION_DATA</a>.
+     * Native name: DXVAHD_FEATURE_CAPS_CONSTRICTION
      * @type {Integer (Int32)}
      */
-    static DXVAHD_FEATURE_CAPS_CONSTRICTION => 2
+    static CONSTRICTION => 2
 
     /**
      * The device can perform luma keying. See <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_luma_key_data">DXVAHD_STREAM_STATE_LUMA_KEY_DATA</a>.
+     * Native name: DXVAHD_FEATURE_CAPS_LUMA_KEY
      * @type {Integer (Int32)}
      */
-    static DXVAHD_FEATURE_CAPS_LUMA_KEY => 4
+    static LUMA_KEY => 4
 
     /**
      * The device can apply alpha values from color palette entries. See <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_alpha_data">DXVAHD_STREAM_STATE_ALPHA_DATA</a>.
+     * Native name: DXVAHD_FEATURE_CAPS_ALPHA_PALETTE
      * @type {Integer (Int32)}
      */
-    static DXVAHD_FEATURE_CAPS_ALPHA_PALETTE => 8
+    static ALPHA_PALETTE => 8
 }

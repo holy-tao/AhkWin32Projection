@@ -31,7 +31,6 @@ class IOplockStorage extends IUnknown {
     static VTableNames => ["CreateStorageEx", "OpenStorageEx"]
 
     /**
-     * 
      * @param {PWSTR} pwcsName 
      * @param {Integer} grfMode 
      * @param {Integer} _stgfmt 
@@ -47,7 +46,6 @@ class IOplockStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcsName 
      * @param {Integer} grfMode 
      * @param {Integer} _stgfmt 

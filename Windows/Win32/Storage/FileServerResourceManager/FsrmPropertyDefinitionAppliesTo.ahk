@@ -10,13 +10,15 @@ class FsrmPropertyDefinitionAppliesTo extends Win32Enum {
 
     /**
      * Indicates if a classification property can be applied to a file.
+     * Native name: FsrmPropertyDefinitionAppliesTo_Files
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionAppliesTo_Files => 1
+    static Files => 1
 
     /**
      * Indicates if a classification property can be applied to a folder.
+     * Native name: FsrmPropertyDefinitionAppliesTo_Folders
      * @type {Integer (Int32)}
      */
-    static FsrmPropertyDefinitionAppliesTo_Folders => 2
+    static Folders => 2
 }

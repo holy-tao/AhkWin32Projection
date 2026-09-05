@@ -11,28 +11,32 @@ class WS_SECURITY_HEADER_LAYOUT extends Win32Enum {
     /**
      * The elements of the security header must follow a 'declare before use'
      * layout.  All security tokens must appear before their usage.
+     * Native name: WS_SECURITY_HEADER_LAYOUT_STRICT
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_HEADER_LAYOUT_STRICT => 1
+    static STRICT => 1
 
     /**
      * The elements of the security header can be in arbitrary order,
      * including security tokens appearing after usage.
+     * Native name: WS_SECURITY_HEADER_LAYOUT_LAX
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_HEADER_LAYOUT_LAX => 2
+    static LAX => 2
 
     /**
      * The elements of the security header can be in arbitrary order as in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_header_layout">WS_SECURITY_HEADER_LAYOUT_LAX</a>, but the timestamp element must
      * be the first element.
+     * Native name: WS_SECURITY_HEADER_LAYOUT_LAX_WITH_TIMESTAMP_FIRST
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_HEADER_LAYOUT_LAX_WITH_TIMESTAMP_FIRST => 3
+    static LAX_WITH_TIMESTAMP_FIRST => 3
 
     /**
      * The elements of the security header can be in arbitrary order as in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_header_layout">WS_SECURITY_HEADER_LAYOUT_LAX</a>, but the timestamp element must
      * be the last element.
+     * Native name: WS_SECURITY_HEADER_LAYOUT_LAX_WITH_TIMESTAMP_LAST
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_HEADER_LAYOUT_LAX_WITH_TIMESTAMP_LAST => 4
+    static LAX_WITH_TIMESTAMP_LAST => 4
 }

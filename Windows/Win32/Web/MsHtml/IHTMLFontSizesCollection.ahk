@@ -52,7 +52,6 @@ class IHTMLFontSizesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -61,7 +60,6 @@ class IHTMLFontSizesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -70,7 +68,6 @@ class IHTMLFontSizesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_forFont() {
@@ -80,7 +77,6 @@ class IHTMLFontSizesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Integer} 
      */

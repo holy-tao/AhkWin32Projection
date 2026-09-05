@@ -30,7 +30,6 @@ class IInternetExplorerManager2 extends IUnknown {
     static VTableNames => ["EnumFrameWindows"]
 
     /**
-     * 
      * @returns {IEnumManagerFrames} 
      */
     EnumFrameWindows() {

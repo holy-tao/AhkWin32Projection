@@ -10,67 +10,78 @@ class WPC_ARGS_CONVERSATIONLEAVEEVENT extends Win32Enum {
 
     /**
      * The name of the application used for leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_APPNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_APPNAME => 0
+    static APPNAME => 0
 
     /**
      * The version of the application used for leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_APPVERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_APPVERSION => 1
+    static APPVERSION => 1
 
     /**
      * The account name used for leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_ACCOUNTNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_ACCOUNTNAME => 2
+    static ACCOUNTNAME => 2
 
     /**
      * The conversation identifier used for leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_CONVID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_CONVID => 3
+    static CONVID => 3
 
     /**
      * The IP address of the computer leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGIP
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGIP => 4
+    static LEAVINGIP => 4
 
     /**
      * The user who is leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGUSER
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGUSER => 5
+    static LEAVINGUSER => 5
 
     /**
      * The reason given for leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_REASON => 6
+    static REASON => 6
 
     /**
      * The number of members left in the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBERCOUNT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBERCOUNT => 7
+    static MEMBERCOUNT => 7
 
     /**
      * The member who is leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBER
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBER => 8
+    static MEMBER => 8
 
     /**
      * The flags used for leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_FLAGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_FLAGS => 9
+    static FLAGS => 9
 
     /**
      * The arguments used for leaving the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONLEAVEEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONLEAVEEVENT_CARGS => 10
+    static CARGS => 10
 }

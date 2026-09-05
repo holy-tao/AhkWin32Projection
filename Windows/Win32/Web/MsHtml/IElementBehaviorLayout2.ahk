@@ -29,7 +29,6 @@ class IElementBehaviorLayout2 extends IUnknown {
     static VTableNames => ["GetTextDescent"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTextDescent() {

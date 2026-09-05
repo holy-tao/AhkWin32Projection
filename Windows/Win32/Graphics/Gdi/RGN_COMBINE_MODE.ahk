@@ -7,37 +7,44 @@
 class RGN_COMBINE_MODE extends Win32Enum {
 
     /**
+     * Native name: RGN_AND
      * @type {Integer (Int32)}
      */
-    static RGN_AND => 1
+    static AND => 1
 
     /**
+     * Native name: RGN_OR
      * @type {Integer (Int32)}
      */
-    static RGN_OR => 2
+    static OR => 2
 
     /**
+     * Native name: RGN_XOR
      * @type {Integer (Int32)}
      */
-    static RGN_XOR => 3
+    static XOR => 3
 
     /**
+     * Native name: RGN_DIFF
      * @type {Integer (Int32)}
      */
-    static RGN_DIFF => 4
+    static DIFF => 4
 
     /**
+     * Native name: RGN_COPY
      * @type {Integer (Int32)}
      */
-    static RGN_COPY => 5
+    static COPY => 5
 
     /**
+     * Native name: RGN_MIN
      * @type {Integer (Int32)}
      */
-    static RGN_MIN => 1
+    static MIN => 1
 
     /**
+     * Native name: RGN_MAX
      * @type {Integer (Int32)}
      */
-    static RGN_MAX => 5
+    static MAX => 5
 }

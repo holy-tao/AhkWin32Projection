@@ -16,9 +16,10 @@ class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
      * The default is 4096.
      * 
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
+     * Native name: WEB_SOCKET_RECEIVE_BUFFER_SIZE_PROPERTY_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_RECEIVE_BUFFER_SIZE_PROPERTY_TYPE => 0
+    static RECEIVE_BUFFER_SIZE_PROPERTY_TYPE => 0
 
     /**
      * Property type: <b>ULONG</b>
@@ -28,9 +29,10 @@ class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
      * The default is 4096 on a handle created with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a>, and 16 on a handle created with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * 
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
+     * Native name: WEB_SOCKET_SEND_BUFFER_SIZE_PROPERTY_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_SEND_BUFFER_SIZE_PROPERTY_TYPE => 1
+    static SEND_BUFFER_SIZE_PROPERTY_TYPE => 1
 
     /**
      * Property type:  <b>BOOL</b>
@@ -39,9 +41,10 @@ class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
      * By default, this property is not used and masking is enabled.
      * 
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
+     * Native name: WEB_SOCKET_DISABLE_MASKING_PROPERTY_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_DISABLE_MASKING_PROPERTY_TYPE => 2
+    static DISABLE_MASKING_PROPERTY_TYPE => 2
 
     /**
      * Property type: <b>PVOID</b>
@@ -50,9 +53,10 @@ class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
      * The passed buffer must be aligned to an 8-byte boundary and be greater in size than the  receive buffer size + send buffer size + 256 bytes.
      * 
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
+     * Native name: WEB_SOCKET_ALLOCATED_BUFFER_PROPERTY_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_ALLOCATED_BUFFER_PROPERTY_TYPE => 3
+    static ALLOCATED_BUFFER_PROPERTY_TYPE => 3
 
     /**
      * Property type: <b>BOOL</b>
@@ -60,9 +64,10 @@ class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
      * The WebSocket property disables UTF-8 verification.
      * 
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
+     * Native name: WEB_SOCKET_DISABLE_UTF8_VERIFICATION_PROPERTY_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_DISABLE_UTF8_VERIFICATION_PROPERTY_TYPE => 4
+    static DISABLE_UTF8_VERIFICATION_PROPERTY_TYPE => 4
 
     /**
      * Property type: <b>ULONG</b>
@@ -73,9 +78,10 @@ class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
      * 
      * 
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetglobalproperty">WebSocketGetGlobalProperty</a>.
+     * Native name: WEB_SOCKET_KEEPALIVE_INTERVAL_PROPERTY_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_KEEPALIVE_INTERVAL_PROPERTY_TYPE => 5
+    static KEEPALIVE_INTERVAL_PROPERTY_TYPE => 5
 
     /**
      * Property type: <b>ULONG</b> array
@@ -84,7 +90,8 @@ class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
      *  
      * 
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetglobalproperty">WebSocketGetGlobalProperty</a>.
+     * Native name: WEB_SOCKET_SUPPORTED_VERSIONS_PROPERTY_TYPE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_SUPPORTED_VERSIONS_PROPERTY_TYPE => 6
+    static SUPPORTED_VERSIONS_PROPERTY_TYPE => 6
 }

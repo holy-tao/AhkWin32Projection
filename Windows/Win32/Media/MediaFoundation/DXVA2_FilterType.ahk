@@ -7,62 +7,74 @@
 class DXVA2_FilterType extends Win32Enum {
 
     /**
+     * Native name: DXVA2_NoiseFilterLumaLevel
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterLumaLevel => 1
+    static NoiseFilterLumaLevel => 1
 
     /**
+     * Native name: DXVA2_NoiseFilterLumaThreshold
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterLumaThreshold => 2
+    static NoiseFilterLumaThreshold => 2
 
     /**
+     * Native name: DXVA2_NoiseFilterLumaRadius
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterLumaRadius => 3
+    static NoiseFilterLumaRadius => 3
 
     /**
+     * Native name: DXVA2_NoiseFilterChromaLevel
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterChromaLevel => 4
+    static NoiseFilterChromaLevel => 4
 
     /**
+     * Native name: DXVA2_NoiseFilterChromaThreshold
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterChromaThreshold => 5
+    static NoiseFilterChromaThreshold => 5
 
     /**
+     * Native name: DXVA2_NoiseFilterChromaRadius
      * @type {Integer (Int32)}
      */
-    static DXVA2_NoiseFilterChromaRadius => 6
+    static NoiseFilterChromaRadius => 6
 
     /**
+     * Native name: DXVA2_DetailFilterLumaLevel
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterLumaLevel => 7
+    static DetailFilterLumaLevel => 7
 
     /**
+     * Native name: DXVA2_DetailFilterLumaThreshold
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterLumaThreshold => 8
+    static DetailFilterLumaThreshold => 8
 
     /**
+     * Native name: DXVA2_DetailFilterLumaRadius
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterLumaRadius => 9
+    static DetailFilterLumaRadius => 9
 
     /**
+     * Native name: DXVA2_DetailFilterChromaLevel
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterChromaLevel => 10
+    static DetailFilterChromaLevel => 10
 
     /**
+     * Native name: DXVA2_DetailFilterChromaThreshold
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterChromaThreshold => 11
+    static DetailFilterChromaThreshold => 11
 
     /**
+     * Native name: DXVA2_DetailFilterChromaRadius
      * @type {Integer (Int32)}
      */
-    static DXVA2_DetailFilterChromaRadius => 12
+    static DetailFilterChromaRadius => 12
 }

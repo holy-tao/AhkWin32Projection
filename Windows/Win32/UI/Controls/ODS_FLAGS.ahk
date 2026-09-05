@@ -7,57 +7,68 @@
 class ODS_FLAGS extends Win32Enum {
 
     /**
+     * Native name: ODS_SELECTED
      * @type {Integer (UInt32)}
      */
-    static ODS_SELECTED => 1
+    static SELECTED => 1
 
     /**
+     * Native name: ODS_GRAYED
      * @type {Integer (UInt32)}
      */
-    static ODS_GRAYED => 2
+    static GRAYED => 2
 
     /**
+     * Native name: ODS_DISABLED
      * @type {Integer (UInt32)}
      */
-    static ODS_DISABLED => 4
+    static DISABLED => 4
 
     /**
+     * Native name: ODS_CHECKED
      * @type {Integer (UInt32)}
      */
-    static ODS_CHECKED => 8
+    static CHECKED => 8
 
     /**
+     * Native name: ODS_FOCUS
      * @type {Integer (UInt32)}
      */
-    static ODS_FOCUS => 16
+    static FOCUS => 16
 
     /**
+     * Native name: ODS_DEFAULT
      * @type {Integer (UInt32)}
      */
-    static ODS_DEFAULT => 32
+    static DEFAULT => 32
 
     /**
+     * Native name: ODS_COMBOBOXEDIT
      * @type {Integer (UInt32)}
      */
-    static ODS_COMBOBOXEDIT => 4096
+    static COMBOBOXEDIT => 4096
 
     /**
+     * Native name: ODS_HOTLIGHT
      * @type {Integer (UInt32)}
      */
-    static ODS_HOTLIGHT => 64
+    static HOTLIGHT => 64
 
     /**
+     * Native name: ODS_INACTIVE
      * @type {Integer (UInt32)}
      */
-    static ODS_INACTIVE => 128
+    static INACTIVE => 128
 
     /**
+     * Native name: ODS_NOACCEL
      * @type {Integer (UInt32)}
      */
-    static ODS_NOACCEL => 256
+    static NOACCEL => 256
 
     /**
+     * Native name: ODS_NOFOCUSRECT
      * @type {Integer (UInt32)}
      */
-    static ODS_NOFOCUSRECT => 512
+    static NOFOCUSRECT => 512
 }

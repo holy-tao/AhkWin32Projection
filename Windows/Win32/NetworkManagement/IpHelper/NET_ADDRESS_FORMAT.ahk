@@ -14,25 +14,29 @@ class NET_ADDRESS_FORMAT extends Win32Enum {
 
     /**
      * The format of the network address is unspecified.
+     * Native name: NET_ADDRESS_FORMAT_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static NET_ADDRESS_FORMAT_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * The format of the network address is a DNS name.
+     * Native name: NET_ADDRESS_DNS_NAME
      * @type {Integer (Int32)}
      */
-    static NET_ADDRESS_DNS_NAME => 1
+    static DNS_NAME => 1
 
     /**
      * The format of the network address is a string in Internet standard dotted-decimal notation for IPv4.
+     * Native name: NET_ADDRESS_IPV4
      * @type {Integer (Int32)}
      */
-    static NET_ADDRESS_IPV4 => 2
+    static IPV4 => 2
 
     /**
      * The format of the network address is a string in Internet standard hexadecimal encoding for IPv6.
+     * Native name: NET_ADDRESS_IPV6
      * @type {Integer (Int32)}
      */
-    static NET_ADDRESS_IPV6 => 3
+    static IPV6 => 3
 }

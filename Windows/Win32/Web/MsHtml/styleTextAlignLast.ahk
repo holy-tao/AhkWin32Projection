@@ -7,37 +7,44 @@
 class styleTextAlignLast extends Win32Enum {
 
     /**
+     * Native name: styleTextAlignLastNotSet
      * @type {Integer (Int32)}
      */
-    static styleTextAlignLastNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTextAlignLastLeft
      * @type {Integer (Int32)}
      */
-    static styleTextAlignLastLeft => 1
+    static Left => 1
 
     /**
+     * Native name: styleTextAlignLastCenter
      * @type {Integer (Int32)}
      */
-    static styleTextAlignLastCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleTextAlignLastRight
      * @type {Integer (Int32)}
      */
-    static styleTextAlignLastRight => 3
+    static Right => 3
 
     /**
+     * Native name: styleTextAlignLastJustify
      * @type {Integer (Int32)}
      */
-    static styleTextAlignLastJustify => 4
+    static Justify => 4
 
     /**
+     * Native name: styleTextAlignLastAuto
      * @type {Integer (Int32)}
      */
-    static styleTextAlignLastAuto => 5
+    static Auto => 5
 
     /**
+     * Native name: styleTextAlignLast_Max
      * @type {Integer (Int32)}
      */
-    static styleTextAlignLast_Max => 2147483647
+    static Max => 2147483647
 }

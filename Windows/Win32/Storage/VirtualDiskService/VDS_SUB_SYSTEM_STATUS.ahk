@@ -18,41 +18,47 @@ class VDS_SUB_SYSTEM_STATUS extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_SSS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_SSS_UNKNOWN => 0
+    static SSS_UNKNOWN => 0
 
     /**
      * The subsystem is working properly.
+     * Native name: VDS_SSS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_SSS_ONLINE => 1
+    static SSS_ONLINE => 1
 
     /**
      * The subsystem is initializing and not yet ready to work.
+     * Native name: VDS_SSS_NOT_READY
      * @type {Integer (Int32)}
      */
-    static VDS_SSS_NOT_READY => 2
+    static SSS_NOT_READY => 2
 
     /**
      * The subsystem is unavailable. This value indicates either that the subsystem is disconnected or that it has 
      *       failed so severely that it appears to be disconnected.
+     * Native name: VDS_SSS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_SSS_OFFLINE => 4
+    static SSS_OFFLINE => 4
 
     /**
      * The subsystem has failed. This value indicates that the subsystem is not merely 
      *       disconnected but rather that it has failed.
+     * Native name: VDS_SSS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_SSS_FAILED => 5
+    static SSS_FAILED => 5
 
     /**
      * The subsystem is operating in a degraded state. This means that one or more of the subsystem's subcomponents, such as  disk drives or controllers, are in a failed state.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * Native name: VDS_SSS_PARTIALLY_MANAGED
      * @type {Integer (Int32)}
      */
-    static VDS_SSS_PARTIALLY_MANAGED => 9
+    static SSS_PARTIALLY_MANAGED => 9
 }

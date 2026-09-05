@@ -7,27 +7,32 @@
 class NDIS_PARAMETER_TYPE extends Win32Enum {
 
     /**
+     * Native name: NdisParameterInteger
      * @type {Integer (Int32)}
      */
-    static NdisParameterInteger => 0
+    static Integer => 0
 
     /**
+     * Native name: NdisParameterHexInteger
      * @type {Integer (Int32)}
      */
-    static NdisParameterHexInteger => 1
+    static HexInteger => 1
 
     /**
+     * Native name: NdisParameterString
      * @type {Integer (Int32)}
      */
-    static NdisParameterString => 2
+    static String => 2
 
     /**
+     * Native name: NdisParameterMultiString
      * @type {Integer (Int32)}
      */
-    static NdisParameterMultiString => 3
+    static MultiString => 3
 
     /**
+     * Native name: NdisParameterBinary
      * @type {Integer (Int32)}
      */
-    static NdisParameterBinary => 4
+    static Binary => 4
 }

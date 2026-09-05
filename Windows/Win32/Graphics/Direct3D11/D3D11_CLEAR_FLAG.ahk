@@ -12,13 +12,15 @@ class D3D11_CLEAR_FLAG extends Win32BitflagEnum {
 
     /**
      * Clear the depth buffer, using fast clear if possible, then place the resource in a compressed state.
+     * Native name: D3D11_CLEAR_DEPTH
      * @type {Integer (UInt32)}
      */
-    static D3D11_CLEAR_DEPTH => 1
+    static DEPTH => 1
 
     /**
      * Clear the stencil buffer, using fast clear if possible, then place the resource in a compressed state.
+     * Native name: D3D11_CLEAR_STENCIL
      * @type {Integer (UInt32)}
      */
-    static D3D11_CLEAR_STENCIL => 2
+    static STENCIL => 2
 }

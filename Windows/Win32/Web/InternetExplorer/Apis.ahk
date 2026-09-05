@@ -2276,7 +2276,6 @@ class InternetExplorer {
 
 ;@region Methods
     /**
-     * 
      * @param {Integer} dwTabThreadID 
      * @param {Integer} dwAssociatedThreadID 
      * @returns {HRESULT} 
@@ -2287,7 +2286,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Integer} dwTabThreadID 
      * @param {Integer} dwAssociatedThreadID 
      * @returns {HRESULT} 
@@ -2298,7 +2296,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static IEIsInPrivateBrowsing() {
@@ -2307,7 +2304,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static IEInPrivateFilteringEnabled() {
@@ -2316,7 +2312,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static IETrackingProtectionEnabled() {
@@ -2325,7 +2320,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HANDLE} hState 
      * @param {PWSTR} lpwstrSourceFile 
      * @returns {HRESULT} 
@@ -2339,7 +2333,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HANDLE} hState 
      * @returns {HRESULT} 
      */
@@ -2351,7 +2344,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} lpwstrInitialFileName 
      * @param {PWSTR} lpwstrInitialDir 
@@ -2377,7 +2369,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} lpwstrFileName 
      * @param {Integer} cchMaxFileName 
@@ -2401,7 +2392,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {HKEY} 
      */
     static IEGetWriteableLowHKCU() {
@@ -2411,7 +2401,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidFolderID 
      * @returns {PWSTR} 
      */
@@ -2421,7 +2410,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static IEIsProtectedModeProcess() {
@@ -2430,7 +2418,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwstrUrl 
      * @returns {HRESULT} 
      */
@@ -2442,7 +2429,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwstrUrl 
      * @param {Pointer<PROCESS_INFORMATION>} lpProcInfo 
      * @param {Pointer<Void>} lpInfo 
@@ -2458,7 +2444,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static IERefreshElevationPolicy() {
@@ -2467,7 +2452,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszURL 
      * @param {PWSTR} lpszCookieName 
      * @param {PWSTR} lpszCookieData 
@@ -2487,7 +2471,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszURL 
      * @param {PWSTR} lpszCookieName 
      * @param {PWSTR} lpszCookieData 
@@ -2504,7 +2487,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Guid} guid 
      * @param {PWSTR} lpSubkey 
      * @param {BOOL} fSubkeyAllowed 
@@ -2518,7 +2500,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Guid} guid 
      * @param {PWSTR} lpPath 
      * @param {PWSTR} lpValueName 
@@ -2536,7 +2517,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Guid} guid 
      * @returns {HRESULT} 
      */
@@ -2546,7 +2526,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpSubKey 
      * @param {Integer} Reserved 
      * @param {PWSTR} lpClass 
@@ -2568,7 +2547,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpSubKey 
      * @param {PWSTR} lpValueName 
      * @param {Integer} Reserved 
@@ -2586,7 +2564,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} dwShareMode 
@@ -2606,7 +2583,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @returns {BOOL} 
      */
@@ -2618,7 +2594,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpPathName 
      * @returns {BOOL} 
      */
@@ -2630,7 +2605,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpExistingFileName 
      * @param {PWSTR} lpNewFileName 
      * @param {Integer} dwFlags 
@@ -2645,7 +2619,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpPathName 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @returns {BOOL} 
@@ -2658,7 +2631,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId 
      * @param {Pointer<Void>} lpFileInformation 
@@ -2674,7 +2646,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileName 
      * @param {Pointer<WIN32_FIND_DATAA>} lpFindFileData 
      * @returns {HANDLE} 
@@ -2688,7 +2659,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PSTR} pszUsername 
      * @param {BOOL} fEnable 
@@ -2703,7 +2673,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszUsername 
      * @param {BOOL} fEnable 
@@ -2718,7 +2687,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PSTR} pszUsername 
      * @param {PSTR} pszURL 
      * @param {PSTR} pszRatingInfo 
@@ -2736,7 +2704,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszURL 
      * @param {PWSTR} pszRatingInfo 
@@ -2754,7 +2721,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {PSTR} pszUsername 
      * @param {PSTR} pszContentDescription 
@@ -2770,7 +2736,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszContentDescription 
@@ -2786,7 +2751,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {PSTR} pszUsername 
      * @returns {Void} 
@@ -2800,7 +2764,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {PWSTR} pszUsername 
      * @returns {Void} 
@@ -2814,7 +2777,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pRatingDetails 
      * @returns {HRESULT} 
      */
@@ -2826,7 +2788,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HANDLE} hRatingObtainQuery 
      * @returns {HRESULT} 
      */
@@ -2838,7 +2799,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PSTR} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
@@ -2853,7 +2813,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
@@ -2868,7 +2827,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {PSTR} pszUsername 
      * @returns {HRESULT} 
@@ -2882,7 +2840,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {PWSTR} pszUsername 
      * @returns {HRESULT} 
@@ -2896,7 +2853,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {Integer} cbPasswordBlob 
      * @param {Integer} pbPasswordBlob 
@@ -2915,7 +2871,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hWndOwner 
      * @param {HINSTANCE} param1 
      * @param {PSTR} lpszFileName 
@@ -2932,7 +2887,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HWND} hWndOwner 
      * @param {HINSTANCE} param1 
      * @param {PSTR} lpszFileName 
@@ -2949,7 +2903,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static RatingEnabledQuery() {
@@ -2958,7 +2911,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static RatingInit() {
@@ -2967,7 +2919,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @returns {IMapMIMEToCLSID} 
      */
     static CreateMIMEMap() {
@@ -2976,7 +2927,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {IMapMIMEToCLSID} pMap 
      * @param {IUnknown} pEventSink 
@@ -2988,7 +2938,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {IStream} pInStream 
      * @param {Pointer<Integer>} pnFormat 
      * @returns {IStream} 
@@ -3001,7 +2950,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pnMaxBytes 
      * @returns {HRESULT} 
      */
@@ -3013,7 +2961,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBytes 
      * @param {Integer} nBytes 
      * @param {Pointer<Integer>} pnFormat 
@@ -3028,7 +2975,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Pointer<RGBQUAD>} pRGBColors 
      * @param {Integer} nColors 
      * @param {Pointer<Integer>} pInvTable 
@@ -3043,7 +2989,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pDestBits 
      * @param {Integer} nDestPitch 
      * @param {Pointer<Integer>} pSrcBits 
@@ -3070,7 +3015,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {HBITMAP} hbmDib 
      * @returns {IDirectDrawSurface} 
      */
@@ -3082,7 +3026,6 @@ class InternetExplorer {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {IMapMIMEToCLSID} pMap 
      * @param {IUnknown} pEventSink 

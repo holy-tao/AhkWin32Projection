@@ -141,7 +141,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ADsType() {
@@ -150,7 +149,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnADsType 
      * @returns {HRESULT} 
      */
@@ -160,7 +158,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DNString() {
@@ -170,7 +167,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDNString 
      * @returns {HRESULT} 
      */
@@ -182,7 +178,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CaseExactString() {
@@ -192,7 +187,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCaseExactString 
      * @returns {HRESULT} 
      */
@@ -204,7 +198,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CaseIgnoreString() {
@@ -214,7 +207,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCaseIgnoreString 
      * @returns {HRESULT} 
      */
@@ -226,7 +218,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrintableString() {
@@ -236,7 +227,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrintableString 
      * @returns {HRESULT} 
      */
@@ -248,7 +238,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NumericString() {
@@ -258,7 +247,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNumericString 
      * @returns {HRESULT} 
      */
@@ -270,7 +258,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Boolean() {
@@ -279,7 +266,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnBoolean 
      * @returns {HRESULT} 
      */
@@ -289,7 +275,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Integer() {
@@ -298,7 +283,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnInteger 
      * @returns {HRESULT} 
      */
@@ -308,7 +292,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OctetString() {
@@ -318,7 +301,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vOctetString 
      * @returns {HRESULT} 
      */
@@ -328,7 +310,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_SecurityDescriptor() {
@@ -337,7 +318,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pSecurityDescriptor 
      * @returns {HRESULT} 
      */
@@ -347,7 +327,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_LargeInteger() {
@@ -356,7 +335,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pLargeInteger 
      * @returns {HRESULT} 
      */
@@ -366,7 +344,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UTCTime() {
@@ -375,7 +352,6 @@ class IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} daUTCTime 
      * @returns {HRESULT} 
      */

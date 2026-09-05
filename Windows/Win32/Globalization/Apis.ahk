@@ -10851,7 +10851,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} flags 
      * @param {PWSTR} languages 
      * @param {Pointer<Integer>} numLanguagesSet 
@@ -10868,7 +10867,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {HSAVEDUILANGUAGES} snapshot 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15221,7 +15219,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Pointer<Integer>} pi 
      * @param {Integer} length 
@@ -15238,7 +15235,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} i 
      * @param {Integer} length 
@@ -15255,7 +15251,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} start 
      * @param {Pointer<Integer>} pi 
@@ -15272,7 +15267,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} start 
      * @param {Integer} i 
@@ -15286,7 +15280,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} versionArray 
      * @param {PSTR} versionString 
      * @returns {String} Nothing - always returns an empty string
@@ -15300,7 +15293,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} versionArray 
      * @param {Pointer<Integer>} versionString 
      * @returns {String} Nothing - always returns an empty string
@@ -15313,7 +15305,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} versionArray 
      * @param {PSTR} versionString 
      * @returns {String} Nothing - always returns an empty string
@@ -15327,7 +15318,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} versionArray 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15338,7 +15328,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UErrorCode} code 
      * @returns {PSTR} 
      */
@@ -15348,7 +15337,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} traceLevel 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15357,7 +15345,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static utrace_getLevel() {
@@ -15366,7 +15353,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UTraceEntry>} e 
      * @param {Pointer<UTraceExit>} x 
@@ -15380,7 +15366,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _context 
      * @param {Pointer<Pointer<UTraceEntry>>} e 
      * @param {Pointer<Pointer<UTraceExit>>} x 
@@ -15397,7 +15382,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} outBuf 
      * @param {Integer} capacity 
      * @param {Integer} indent 
@@ -15416,7 +15400,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} outBuf 
      * @param {Integer} capacity 
      * @param {Integer} indent 
@@ -15436,7 +15419,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} fnNumber 
      * @returns {PSTR} 
      */
@@ -15446,7 +15428,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} dest 
@@ -15465,7 +15446,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} nameOrAbbrOrLocale 
      * @param {Pointer<UScriptCode>} fillIn 
      * @param {Integer} capacity 
@@ -15483,7 +15463,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UScriptCode} scriptCode 
      * @returns {PSTR} 
      */
@@ -15493,7 +15472,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UScriptCode} scriptCode 
      * @returns {PSTR} 
      */
@@ -15503,7 +15481,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} codepoint 
      * @param {Pointer<UErrorCode>} err 
      * @returns {UScriptCode} 
@@ -15516,7 +15493,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @param {UScriptCode} sc 
      * @returns {Integer} 
@@ -15527,7 +15503,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @param {Pointer<UScriptCode>} scripts 
      * @param {Integer} capacity 
@@ -15543,7 +15518,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UScriptCode} script 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} capacity 
@@ -15559,7 +15533,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UScriptCode} script 
      * @returns {UScriptUsage} 
      */
@@ -15569,7 +15542,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UScriptCode} script 
      * @returns {Integer} 
      */
@@ -15579,7 +15551,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UScriptCode} script 
      * @returns {Integer} 
      */
@@ -15589,7 +15560,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UScriptCode} script 
      * @returns {Integer} 
      */
@@ -15599,7 +15569,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @returns {Integer} 
      */
@@ -15609,7 +15578,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @returns {Integer} 
      */
@@ -15619,7 +15587,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @returns {Integer} 
      */
@@ -15629,7 +15596,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @returns {Integer} 
      */
@@ -15639,7 +15605,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {Integer} state 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -15652,7 +15617,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -15665,7 +15629,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {PSTR} s 
      * @param {Integer} length 
@@ -15678,7 +15641,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {PSTR} s 
      * @param {Integer} length 
@@ -15691,7 +15653,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UEnumeration>} en 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15702,7 +15663,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -15716,7 +15676,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<Integer>} resultLength 
      * @param {Pointer<UErrorCode>} _status 
@@ -15732,7 +15691,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<Integer>} resultLength 
      * @param {Pointer<UErrorCode>} _status 
@@ -15748,7 +15706,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
@@ -15761,7 +15718,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} strings 
      * @param {Integer} count 
      * @param {Pointer<UErrorCode>} ec 
@@ -15776,7 +15732,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} strings 
      * @param {Integer} count 
      * @param {Pointer<UErrorCode>} ec 
@@ -15791,7 +15746,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     static uloc_getDefault() {
@@ -15800,7 +15754,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
@@ -15814,7 +15767,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} language 
      * @param {Integer} languageCapacity 
@@ -15832,7 +15784,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} script 
      * @param {Integer} scriptCapacity 
@@ -15850,7 +15801,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} country 
      * @param {Integer} countryCapacity 
@@ -15868,7 +15818,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} _variant 
      * @param {Integer} variantCapacity 
@@ -15886,7 +15835,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} name 
      * @param {Integer} nameCapacity 
@@ -15904,7 +15852,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} name 
      * @param {Integer} nameCapacity 
@@ -15922,7 +15869,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @returns {PSTR} 
      */
@@ -15934,7 +15880,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @returns {PSTR} 
      */
@@ -15946,7 +15891,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @returns {Integer} 
      */
@@ -15958,7 +15902,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} language 
@@ -15978,7 +15921,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} script 
@@ -15998,7 +15940,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} country 
@@ -16018,7 +15959,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} _variant 
@@ -16038,7 +15978,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} keyword 
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} dest 
@@ -16058,7 +15997,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {PSTR} keyword 
      * @param {PSTR} displayLocale 
@@ -16080,7 +16018,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} inLocaleID 
      * @param {Pointer<Integer>} result 
@@ -16100,7 +16037,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} n 
      * @returns {PSTR} 
      */
@@ -16110,7 +16046,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static uloc_countAvailable() {
@@ -16119,7 +16054,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {ULocAvailableType} type 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -16132,7 +16066,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Pointer<Pointer<Integer>>} 
      */
     static uloc_getISOLanguages() {
@@ -16141,7 +16074,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Pointer<Pointer<Integer>>} 
      */
     static uloc_getISOCountries() {
@@ -16150,7 +16082,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} parent 
      * @param {Integer} parentCapacity 
@@ -16168,7 +16099,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} name 
      * @param {Integer} nameCapacity 
@@ -16186,7 +16116,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -16201,7 +16130,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} keywordName 
      * @param {PSTR} _buffer 
@@ -16221,7 +16149,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} keywordName 
      * @param {PSTR} keywordValue 
      * @param {PSTR} _buffer 
@@ -16241,7 +16168,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @returns {Integer} 
      */
@@ -16253,7 +16179,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeId 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {ULayoutType} 
@@ -16268,7 +16193,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeId 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {ULayoutType} 
@@ -16283,7 +16207,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} result 
      * @param {Integer} resultAvailable 
      * @param {Pointer<UAcceptResult>} outResult 
@@ -16305,7 +16228,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} result 
      * @param {Integer} resultAvailable 
      * @param {Pointer<UAcceptResult>} outResult 
@@ -16328,7 +16250,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} hostID 
      * @param {PSTR} locale 
      * @param {Integer} localeCapacity 
@@ -16345,7 +16266,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} maximizedLocaleID 
      * @param {Integer} maximizedLocaleIDCapacity 
@@ -16363,7 +16283,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} minimizedLocaleID 
      * @param {Integer} minimizedLocaleIDCapacity 
@@ -16381,7 +16300,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} langtag 
      * @param {PSTR} localeID 
      * @param {Integer} localeIDCapacity 
@@ -16401,7 +16319,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {PSTR} langtag 
      * @param {Integer} langtagCapacity 
@@ -16420,7 +16337,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} keyword 
      * @returns {PSTR} 
      */
@@ -16432,7 +16348,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} keyword 
      * @param {PSTR} value 
      * @returns {PSTR} 
@@ -16446,7 +16361,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} keyword 
      * @returns {PSTR} 
      */
@@ -16458,7 +16372,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} keyword 
      * @param {PSTR} value 
      * @returns {PSTR} 
@@ -16472,7 +16385,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} packageName 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
@@ -16489,7 +16401,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} packageName 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
@@ -16506,7 +16417,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} packageName 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
@@ -16523,7 +16433,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16534,7 +16443,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resB 
      * @param {Pointer<Integer>} versionInfo 
      * @returns {String} Nothing - always returns an empty string
@@ -16547,7 +16455,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {ULocDataLocaleType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -16562,7 +16469,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<UErrorCode>} _status 
@@ -16578,7 +16484,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resB 
      * @param {PSTR} dest 
      * @param {Pointer<Integer>} length 
@@ -16598,7 +16503,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<UErrorCode>} _status 
@@ -16614,7 +16518,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<UErrorCode>} _status 
@@ -16630,7 +16533,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -16644,7 +16546,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -16658,7 +16559,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @returns {Integer} 
      */
@@ -16670,7 +16570,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @returns {UResType} 
      */
@@ -16682,7 +16581,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @returns {PSTR} 
      */
@@ -16694,7 +16592,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16705,7 +16602,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @returns {Integer} 
      */
@@ -16717,7 +16613,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<UResourceBundle>} fillIn 
      * @param {Pointer<UErrorCode>} _status 
@@ -16733,7 +16628,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<Pointer<Integer>>} key 
@@ -16751,7 +16645,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Integer} indexR 
      * @param {Pointer<UResourceBundle>} fillIn 
@@ -16768,7 +16661,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Integer} indexS 
      * @param {Pointer<Integer>} len 
@@ -16785,7 +16677,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resB 
      * @param {Integer} stringIndex 
      * @param {PSTR} dest 
@@ -16806,7 +16697,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {PSTR} key 
      * @param {Pointer<UResourceBundle>} fillIn 
@@ -16825,7 +16715,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resB 
      * @param {PSTR} key 
      * @param {Pointer<Integer>} len 
@@ -16844,7 +16733,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} resB 
      * @param {PSTR} key 
      * @param {PSTR} dest 
@@ -16866,7 +16754,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} packageName 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -16881,7 +16768,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {UDialectHandling} dialectHandling 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -16897,7 +16783,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -16908,7 +16793,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @returns {PSTR} 
      */
@@ -16920,7 +16804,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @returns {UDialectHandling} 
      */
@@ -16932,7 +16815,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} result 
@@ -16952,7 +16834,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {PSTR} lang 
      * @param {Pointer<Integer>} result 
@@ -16972,7 +16853,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {PSTR} script 
      * @param {Pointer<Integer>} result 
@@ -16992,7 +16872,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {UScriptCode} scriptCode 
      * @param {Pointer<Integer>} result 
@@ -17010,7 +16889,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {PSTR} _region 
      * @param {Pointer<Integer>} result 
@@ -17030,7 +16908,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {PSTR} _variant 
      * @param {Pointer<Integer>} result 
@@ -17050,7 +16927,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {PSTR} key 
      * @param {Pointer<Integer>} result 
@@ -17070,7 +16946,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {PSTR} key 
      * @param {PSTR} value 
@@ -17092,7 +16967,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<UDisplayContext>} contexts 
      * @param {Integer} length 
@@ -17110,7 +16984,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
      * @param {UDisplayContextType} type 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -17125,7 +16998,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} buff 
      * @param {Integer} buffCapacity 
@@ -17143,7 +17015,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} isoCode 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
@@ -17160,7 +17031,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} key 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -17174,7 +17044,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} currency 
      * @param {PSTR} locale 
      * @param {UCurrNameStyle} nameStyle 
@@ -17196,7 +17065,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} currency 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} isChoiceFormat 
@@ -17219,7 +17087,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} currency 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
@@ -17233,7 +17100,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} currency 
      * @param {UCurrencyUsage} usage 
      * @param {Pointer<UErrorCode>} ec 
@@ -17248,7 +17114,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} currency 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Float} 
@@ -17262,7 +17127,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} currency 
      * @param {UCurrencyUsage} usage 
      * @param {Pointer<UErrorCode>} ec 
@@ -17277,7 +17141,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} currType 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
@@ -17290,7 +17153,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} isoCode 
      * @param {Float} from 
      * @param {Float} to 
@@ -17306,7 +17168,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Float} date 
      * @param {Pointer<UErrorCode>} ec 
@@ -17322,7 +17183,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Float} date 
      * @param {Integer} index 
@@ -17342,7 +17202,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
@@ -17360,7 +17219,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} currency 
      * @returns {Integer} 
      */
@@ -17372,7 +17230,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPMap>} _map 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -17385,7 +17242,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPMap>} _map 
      * @param {Integer} start 
      * @param {UCPMapRangeOption} option 
@@ -17406,7 +17262,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UCPTrieType} type 
      * @param {UCPTrieValueWidth} valueWidth 
      * @param {Pointer<Void>} data 
@@ -17425,7 +17280,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -17434,7 +17288,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @returns {UCPTrieType} 
      */
@@ -17444,7 +17297,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @returns {UCPTrieValueWidth} 
      */
@@ -17454,7 +17306,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -17465,7 +17316,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Integer} start 
      * @param {UCPMapRangeOption} option 
@@ -17485,7 +17335,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Pointer<Void>} data 
      * @param {Integer} capacity 
@@ -17501,7 +17350,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -17512,7 +17360,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Integer} lt1 
      * @param {Integer} t2 
@@ -17525,7 +17372,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Integer} c 
      * @param {Pointer<Integer>} start 
@@ -17541,7 +17387,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} initialValue 
      * @param {Integer} errorValue 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -17555,7 +17400,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UMutableCPTrie>} other 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UMutableCPTrie>} 
@@ -17569,7 +17413,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UMutableCPTrie>} trie 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -17580,7 +17423,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPMap>} _map 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UMutableCPTrie>} 
@@ -17594,7 +17436,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UMutableCPTrie>} 
@@ -17607,7 +17448,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UMutableCPTrie>} trie 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -17620,7 +17460,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UMutableCPTrie>} trie 
      * @param {Integer} start 
      * @param {UCPMapRangeOption} option 
@@ -17641,7 +17480,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UMutableCPTrie>} trie 
      * @param {Integer} c 
      * @param {Integer} value 
@@ -17656,7 +17494,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UMutableCPTrie>} trie 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -17672,7 +17509,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UMutableCPTrie>} trie 
      * @param {UCPTrieType} type 
      * @param {UCPTrieValueWidth} valueWidth 
@@ -17688,7 +17524,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
@@ -17707,7 +17542,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
@@ -17726,7 +17560,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
@@ -17745,7 +17578,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
@@ -17764,7 +17596,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} fromUArgs 
      * @param {Pointer<Integer>} codeUnits 
@@ -17783,7 +17614,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
@@ -17802,7 +17632,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
@@ -17821,7 +17650,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
@@ -17840,7 +17668,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} name1 
      * @param {PSTR} name2 
      * @returns {Integer} 
@@ -17854,7 +17681,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} converterName 
      * @param {Pointer<UErrorCode>} err 
      * @returns {Pointer<UConverter>} 
@@ -17869,7 +17695,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} name 
      * @param {Pointer<UErrorCode>} err 
      * @returns {Pointer<UConverter>} 
@@ -17883,7 +17708,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} codepage 
      * @param {UConverterPlatform} platform 
      * @param {Pointer<UErrorCode>} err 
@@ -17897,7 +17721,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} packageName 
      * @param {PSTR} converterName 
      * @param {Pointer<UErrorCode>} err 
@@ -17914,7 +17737,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
@@ -17932,7 +17754,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UConverter>} 
@@ -17946,7 +17767,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -17957,7 +17777,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {PSTR} subChars 
      * @param {Pointer<Integer>} len 
@@ -17975,7 +17794,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {PSTR} subChars 
      * @param {Integer} len 
@@ -17992,7 +17810,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -18008,7 +17825,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {PSTR} errBytes 
      * @param {Pointer<Integer>} len 
@@ -18026,7 +17842,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Integer>} errUChars 
      * @param {Pointer<Integer>} len 
@@ -18043,7 +17858,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18054,7 +17868,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18065,7 +17878,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18076,7 +17888,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @returns {Integer} 
      */
@@ -18088,7 +17899,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @returns {Integer} 
      */
@@ -18100,7 +17910,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} displayName 
@@ -18120,7 +17929,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<UErrorCode>} err 
      * @returns {PSTR} 
@@ -18134,7 +17942,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
@@ -18148,7 +17955,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<UErrorCode>} err 
      * @returns {UConverterPlatform} 
@@ -18162,7 +17968,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @returns {UConverterType} 
      */
@@ -18174,7 +17979,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Integer>} starters 
      * @param {Pointer<UErrorCode>} err 
@@ -18189,7 +17993,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<USet>} setFillIn 
      * @param {UConverterUnicodeSet} whichSet 
@@ -18205,7 +18008,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<UConverterToUCallback>>} action 
      * @param {Pointer<Pointer<Void>>} _context 
@@ -18220,7 +18022,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<UConverterFromUCallback>>} action 
      * @param {Pointer<Pointer<Void>>} _context 
@@ -18235,7 +18036,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<UConverterToUCallback>} newAction 
      * @param {Pointer<Void>} newContext 
@@ -18255,7 +18055,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<UConverterFromUCallback>} newAction 
      * @param {Pointer<Void>} newContext 
@@ -18275,7 +18074,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<Integer>>} target 
      * @param {PSTR} targetLimit 
@@ -18300,7 +18098,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<Integer>>} target 
      * @param {Pointer<Integer>} targetLimit 
@@ -18325,7 +18122,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -18346,7 +18142,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -18367,7 +18162,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<Integer>>} source 
      * @param {PSTR} sourceLimit 
@@ -18386,7 +18180,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} targetCnv 
      * @param {Pointer<UConverter>} sourceCnv 
      * @param {Pointer<Pointer<Integer>>} target 
@@ -18420,7 +18213,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} toConverterName 
      * @param {PSTR} fromConverterName 
      * @param {PSTR} target 
@@ -18443,7 +18235,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UConverterType} algorithmicType 
      * @param {Pointer<UConverter>} cnv 
      * @param {PSTR} target 
@@ -18465,7 +18256,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {UConverterType} algorithmicType 
      * @param {PSTR} target 
@@ -18487,7 +18277,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ucnv_flushCache() {
@@ -18496,7 +18285,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ucnv_countAvailable() {
@@ -18505,7 +18293,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} n 
      * @returns {PSTR} 
      */
@@ -18515,7 +18302,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
@@ -18527,7 +18313,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} alias 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
@@ -18542,7 +18327,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} alias 
      * @param {Integer} n 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -18558,7 +18342,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} alias 
      * @param {Pointer<Pointer<Integer>>} aliases 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -18574,7 +18357,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} convName 
      * @param {PSTR} standard 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -18591,7 +18373,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ucnv_countStandards() {
@@ -18600,7 +18381,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} n 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
@@ -18613,7 +18393,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {PSTR} standard 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -18630,7 +18409,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} alias 
      * @param {PSTR} standard 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -18647,7 +18425,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     static ucnv_getDefaultName() {
@@ -18656,7 +18433,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18667,7 +18443,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLen 
@@ -18681,7 +18456,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @returns {Integer} 
      */
@@ -18693,7 +18467,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Integer} usesFallback 
      * @returns {String} Nothing - always returns an empty string
@@ -18705,7 +18478,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @returns {Integer} 
      */
@@ -18717,7 +18489,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} signatureLength 
@@ -18735,7 +18506,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -18749,7 +18519,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -18763,7 +18532,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -18777,7 +18545,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterFromUnicodeArgs>} args 
      * @param {PSTR} source 
      * @param {Integer} length 
@@ -18794,7 +18561,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterFromUnicodeArgs>} args 
      * @param {Integer} offsetIndex 
      * @param {Pointer<UErrorCode>} err 
@@ -18807,7 +18573,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterFromUnicodeArgs>} args 
      * @param {Pointer<Pointer<Integer>>} source 
      * @param {Pointer<Integer>} sourceLimit 
@@ -18824,7 +18589,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterToUnicodeArgs>} args 
      * @param {Pointer<Integer>} source 
      * @param {Integer} length 
@@ -18840,7 +18604,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterToUnicodeArgs>} args 
      * @param {Integer} offsetIndex 
      * @param {Pointer<UErrorCode>} err 
@@ -18853,7 +18616,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18864,7 +18626,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_cleanup() {
@@ -18872,7 +18633,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<Pointer<UMemAllocFn>>} a 
      * @param {Pointer<Pointer<UMemReallocFn>>} r 
@@ -18891,7 +18651,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} ec 
@@ -18908,7 +18667,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} catd 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18919,7 +18677,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UResourceBundle>} catd 
      * @param {Integer} set_num 
      * @param {Integer} msg_num 
@@ -18939,7 +18696,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @param {UProperty} which 
      * @returns {Integer} 
@@ -18950,7 +18706,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
      * @param {UProperty} which 
@@ -18964,7 +18719,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UProperty} _property 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<USet>} 
@@ -18977,7 +18731,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -18987,7 +18740,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -18997,7 +18749,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19007,7 +18758,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19017,7 +18767,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @param {UProperty} which 
      * @returns {Integer} 
@@ -19028,7 +18777,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UProperty} which 
      * @returns {Integer} 
      */
@@ -19038,7 +18786,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UProperty} which 
      * @returns {Integer} 
      */
@@ -19048,7 +18795,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UProperty} _property 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UCPMap>} 
@@ -19061,7 +18807,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Float} 
      */
@@ -19071,7 +18816,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19081,7 +18825,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19091,7 +18834,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19101,7 +18843,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19111,7 +18852,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19121,7 +18861,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19131,7 +18870,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19141,7 +18879,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19151,7 +18888,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19161,7 +18897,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19171,7 +18906,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19181,7 +18915,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19191,7 +18924,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19201,7 +18933,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19211,7 +18942,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19221,7 +18951,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19231,7 +18960,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19241,7 +18969,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19251,7 +18978,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {UCharDirection} 
      */
@@ -19261,7 +18987,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19271,7 +18996,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19281,7 +19005,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19291,7 +19014,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19301,7 +19023,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<UCharEnumTypeRange>>} enumRange 
      * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
@@ -19314,7 +19035,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19324,7 +19044,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19334,7 +19053,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {UBlockCode} 
      */
@@ -19344,7 +19062,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} code 
      * @param {UCharNameChoice} nameChoice 
      * @param {PSTR} _buffer 
@@ -19362,7 +19079,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UCharNameChoice} nameChoice 
      * @param {PSTR} name 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -19378,7 +19094,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} start 
      * @param {Integer} limit 
      * @param {Pointer<Pointer<UEnumCharNamesFn>>} fn 
@@ -19396,7 +19111,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UProperty} _property 
      * @param {UPropertyNameChoice} nameChoice 
      * @returns {PSTR} 
@@ -19407,7 +19121,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} alias 
      * @returns {UProperty} 
      */
@@ -19419,7 +19132,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UProperty} _property 
      * @param {Integer} value 
      * @param {UPropertyNameChoice} nameChoice 
@@ -19431,7 +19143,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UProperty} _property 
      * @param {PSTR} alias 
      * @returns {Integer} 
@@ -19444,7 +19155,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19454,7 +19164,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19464,7 +19173,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19474,7 +19182,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19484,7 +19191,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19494,7 +19200,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19504,7 +19209,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19514,7 +19218,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {Integer} 
      */
@@ -19524,7 +19227,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @param {Integer} options 
      * @returns {Integer} 
@@ -19535,7 +19237,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} ch 
      * @param {Integer} radix 
      * @returns {Integer} 
@@ -19546,7 +19247,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} digit 
      * @param {Integer} radix 
      * @returns {Integer} 
@@ -19557,7 +19257,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @param {Pointer<Integer>} versionArray 
      * @returns {String} Nothing - always returns an empty string
@@ -19569,7 +19268,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} versionArray 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -19580,7 +19278,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -19596,7 +19293,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Pointer<UBiDi>} 
      */
     static ubidi_open() {
@@ -19605,7 +19301,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} maxLength 
      * @param {Integer} maxRunCount 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -19619,7 +19314,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -19630,7 +19324,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} isInverse 
      * @returns {String} Nothing - always returns an empty string
@@ -19642,7 +19335,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -19654,7 +19346,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} orderParagraphsLTR 
      * @returns {String} Nothing - always returns an empty string
@@ -19666,7 +19357,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -19678,7 +19368,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {UBiDiReorderingMode} reorderingMode 
      * @returns {String} Nothing - always returns an empty string
@@ -19690,7 +19379,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {UBiDiReorderingMode} 
      */
@@ -19702,7 +19390,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} reorderingOptions 
      * @returns {String} Nothing - always returns an empty string
@@ -19714,7 +19401,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -19726,7 +19412,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Integer>} prologue 
      * @param {Integer} proLength 
@@ -19745,7 +19430,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Integer>} text 
      * @param {Integer} length 
@@ -19764,7 +19448,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pParaBiDi 
      * @param {Integer} start 
      * @param {Integer} limit 
@@ -19781,7 +19464,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {UBiDiDirection} 
      */
@@ -19793,7 +19475,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} text 
      * @param {Integer} length 
      * @returns {UBiDiDirection} 
@@ -19806,7 +19487,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Pointer<Integer>} 
      */
@@ -19818,7 +19498,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -19830,7 +19509,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -19842,7 +19520,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -19854,7 +19531,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} charIndex 
      * @param {Pointer<Integer>} pParaStart 
@@ -19875,7 +19551,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} paraIndex 
      * @param {Pointer<Integer>} pParaStart 
@@ -19895,7 +19570,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} charIndex 
      * @returns {Integer} 
@@ -19908,7 +19582,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
@@ -19922,7 +19595,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} logicalPosition 
      * @param {Pointer<Integer>} pLogicalLimit 
@@ -19938,7 +19610,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
@@ -19952,7 +19623,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} runIndex 
      * @param {Pointer<Integer>} pLogicalStart 
@@ -19969,7 +19639,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} logicalIndex 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -19984,7 +19653,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} visualIndex 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -19999,7 +19667,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Integer>} indexMap 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -20014,7 +19681,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Integer>} indexMap 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -20029,7 +19695,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _levels 
      * @param {Integer} length 
      * @param {Pointer<Integer>} indexMap 
@@ -20043,7 +19708,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _levels 
      * @param {Integer} length 
      * @param {Pointer<Integer>} indexMap 
@@ -20057,7 +19721,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} srcMap 
      * @param {Pointer<Integer>} destMap 
      * @param {Integer} length 
@@ -20071,7 +19734,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -20083,7 +19745,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @returns {Integer} 
      */
@@ -20095,7 +19756,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} c 
      * @returns {UCharDirection} 
@@ -20108,7 +19768,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<UBiDiClassCallback>} newFn 
      * @param {Pointer<Void>} newContext 
@@ -20128,7 +19787,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Pointer<UBiDiClassCallback>>} fn 
      * @param {Pointer<Pointer<Void>>} _context 
@@ -20143,7 +19801,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destSize 
@@ -20161,7 +19818,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
      * @param {Pointer<Integer>} dest 
@@ -20180,7 +19836,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDiTransform>} pBiDiTransform 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
@@ -20206,7 +19861,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UBiDiTransform>} 
      */
@@ -20218,7 +19872,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBiDiTransform>} pBidiTransform 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20229,7 +19882,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Pointer<UText>} 
      */
@@ -20239,7 +19891,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {PSTR} s 
      * @param {Integer} length 
@@ -20256,7 +19907,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -20272,7 +19922,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<UText>} src 
      * @param {Integer} deep 
@@ -20288,7 +19937,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} a 
      * @param {Pointer<UText>} b 
      * @returns {Integer} 
@@ -20299,7 +19947,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20309,7 +19956,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20319,7 +19965,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeIndex 
      * @returns {Integer} 
@@ -20330,7 +19975,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20340,7 +19984,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20350,7 +19993,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20360,7 +20002,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeIndex 
      * @returns {Integer} 
@@ -20371,7 +20012,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeIndex 
      * @returns {Integer} 
@@ -20382,7 +20022,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20392,7 +20031,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeIndex 
      * @returns {String} Nothing - always returns an empty string
@@ -20402,7 +20040,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} delta 
      * @returns {Integer} 
@@ -20413,7 +20050,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20423,7 +20059,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeStart 
      * @param {Integer} nativeLimit 
@@ -20441,7 +20076,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20451,7 +20085,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */
@@ -20461,7 +20094,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeStart 
      * @param {Integer} nativeLimit 
@@ -20479,7 +20111,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeStart 
      * @param {Integer} nativeLimit 
@@ -20495,7 +20126,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20504,7 +20134,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} extraSpace 
      * @param {Pointer<UErrorCode>} _status 
@@ -20518,7 +20147,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Pointer<USet>} 
      */
     static uset_openEmpty() {
@@ -20527,7 +20155,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} start 
      * @param {Integer} end 
      * @returns {Pointer<USet>} 
@@ -20538,7 +20165,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Pointer<UErrorCode>} ec 
@@ -20553,7 +20179,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Integer} options 
@@ -20569,7 +20194,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20580,7 +20204,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Pointer<USet>} 
      */
@@ -20592,7 +20215,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Integer} 
      */
@@ -20604,7 +20226,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20615,7 +20236,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Pointer<USet>} 
      */
@@ -20627,7 +20247,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -20640,7 +20259,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -20658,7 +20276,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {UProperty} prop 
      * @param {Integer} value 
@@ -20673,7 +20290,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} prop 
      * @param {Integer} propLength 
@@ -20692,7 +20308,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Integer} pos 
@@ -20706,7 +20321,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
@@ -20724,7 +20338,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} c 
      * @returns {String} Nothing - always returns an empty string
@@ -20736,7 +20349,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<USet>} additionalSet 
      * @returns {String} Nothing - always returns an empty string
@@ -20749,7 +20361,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -20762,7 +20373,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} strLen 
@@ -20776,7 +20386,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} strLen 
@@ -20790,7 +20399,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} c 
      * @returns {String} Nothing - always returns an empty string
@@ -20802,7 +20410,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -20815,7 +20422,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} strLen 
@@ -20829,7 +20435,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} length 
@@ -20843,7 +20448,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<USet>} removeSet 
      * @returns {String} Nothing - always returns an empty string
@@ -20856,7 +20460,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -20869,7 +20472,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} length 
@@ -20883,7 +20485,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} length 
@@ -20897,7 +20498,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<USet>} retain 
      * @returns {String} Nothing - always returns an empty string
@@ -20910,7 +20510,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20921,7 +20520,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20932,7 +20530,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -20945,7 +20542,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} length 
@@ -20959,7 +20555,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} length 
@@ -20973,7 +20568,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<USet>} complement 
      * @returns {String} Nothing - always returns an empty string
@@ -20986,7 +20580,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20997,7 +20590,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} attributes 
      * @returns {String} Nothing - always returns an empty string
@@ -21009,7 +20601,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21020,7 +20611,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Integer} 
      */
@@ -21032,7 +20622,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Integer} 
      */
@@ -21044,7 +20633,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -21057,7 +20645,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -21071,7 +20658,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} strLen 
@@ -21086,7 +20672,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -21099,7 +20684,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} charIndex 
      * @returns {Integer} 
@@ -21112,7 +20696,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Integer} 
      */
@@ -21124,7 +20707,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Integer} 
      */
@@ -21136,7 +20718,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @returns {Integer} 
      */
@@ -21148,7 +20729,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Integer} itemIndex 
      * @param {Pointer<Integer>} start 
@@ -21170,7 +20750,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set1 
      * @param {Pointer<USet>} set2 
      * @returns {Integer} 
@@ -21184,7 +20763,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} str 
      * @param {Integer} strLen 
@@ -21199,7 +20777,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set1 
      * @param {Pointer<USet>} set2 
      * @returns {Integer} 
@@ -21213,7 +20790,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set1 
      * @param {Pointer<USet>} set2 
      * @returns {Integer} 
@@ -21227,7 +20803,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -21243,7 +20818,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -21259,7 +20833,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {PSTR} s 
      * @param {Integer} length 
@@ -21276,7 +20849,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {PSTR} s 
      * @param {Integer} length 
@@ -21293,7 +20865,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set1 
      * @param {Pointer<USet>} set2 
      * @returns {Integer} 
@@ -21307,7 +20878,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -21324,7 +20894,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USerializedSet>} fillSet 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
@@ -21338,7 +20907,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USerializedSet>} fillSet 
      * @param {Integer} c 
      * @returns {String} Nothing - always returns an empty string
@@ -21348,7 +20916,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USerializedSet>} set 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -21359,7 +20926,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USerializedSet>} set 
      * @returns {Integer} 
      */
@@ -21369,7 +20935,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USerializedSet>} set 
      * @param {Integer} rangeIndex 
      * @param {Pointer<Integer>} pStart 
@@ -21385,7 +20950,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
@@ -21397,7 +20961,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
@@ -21409,7 +20972,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
@@ -21421,7 +20983,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
@@ -21433,7 +20994,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
@@ -21445,7 +21005,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} packageName 
      * @param {PSTR} name 
      * @param {UNormalization2Mode} _mode 
@@ -21463,7 +21022,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<USet>} filterSet 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -21479,7 +21037,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21490,7 +21047,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} src 
      * @param {Integer} length 
@@ -21510,7 +21066,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} first 
      * @param {Integer} firstLength 
@@ -21531,7 +21086,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} first 
      * @param {Integer} firstLength 
@@ -21552,7 +21106,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Integer} c 
      * @param {Pointer<Integer>} decomposition 
@@ -21570,7 +21123,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Integer} c 
      * @param {Pointer<Integer>} decomposition 
@@ -21588,7 +21140,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Integer} a 
      * @param {Integer} b 
@@ -21602,7 +21153,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -21615,7 +21165,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -21632,7 +21181,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -21649,7 +21197,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -21666,7 +21213,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -21679,7 +21225,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -21692,7 +21237,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Integer} c 
      * @returns {Integer} 
@@ -21705,7 +21249,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Integer} length1 
      * @param {Pointer<Integer>} s2 
@@ -21724,7 +21267,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} converterList 
      * @param {Integer} converterListSize 
      * @param {Pointer<USet>} excludedCodePoints 
@@ -21742,7 +21284,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterSelector>} sel 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -21753,7 +21294,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _buffer 
      * @param {Integer} length 
      * @param {Pointer<UErrorCode>} _status 
@@ -21768,7 +21308,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterSelector>} sel 
      * @param {Pointer<Void>} _buffer 
      * @param {Integer} bufferCapacity 
@@ -21785,7 +21324,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterSelector>} sel 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
@@ -21802,7 +21340,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConverterSelector>} sel 
      * @param {PSTR} s 
      * @param {Integer} length 
@@ -21820,7 +21357,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} cs 
      * @param {Pointer<Integer>} us 
      * @param {Integer} length 
@@ -21835,7 +21371,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} us 
      * @param {PSTR} cs 
      * @param {Integer} length 
@@ -21850,7 +21385,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @returns {Integer} 
      */
@@ -21862,7 +21396,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
      * @returns {Integer} 
@@ -21875,7 +21408,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
      * @param {Integer} _number 
@@ -21889,7 +21421,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dst 
      * @param {Pointer<Integer>} src 
      * @returns {Pointer<Integer>} 
@@ -21903,7 +21434,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dst 
      * @param {Pointer<Integer>} src 
      * @param {Integer} n 
@@ -21918,7 +21448,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Pointer<Integer>} substring 
      * @returns {Pointer<Integer>} 
@@ -21932,7 +21461,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
      * @param {Pointer<Integer>} substring 
@@ -21948,7 +21476,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @returns {Pointer<Integer>} 
@@ -21961,7 +21488,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @returns {Pointer<Integer>} 
@@ -21974,7 +21500,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Pointer<Integer>} substring 
      * @returns {Pointer<Integer>} 
@@ -21988,7 +21513,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
      * @param {Pointer<Integer>} substring 
@@ -22004,7 +21528,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @returns {Pointer<Integer>} 
@@ -22017,7 +21540,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @returns {Pointer<Integer>} 
@@ -22030,7 +21552,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _string 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Pointer<Integer>} 
@@ -22044,7 +21565,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _string 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Integer} 
@@ -22058,7 +21578,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _string 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Integer} 
@@ -22072,7 +21591,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} src 
      * @param {Pointer<Integer>} delim 
      * @param {Pointer<Pointer<Integer>>} saveState 
@@ -22088,7 +21606,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Pointer<Integer>} s2 
      * @returns {Integer} 
@@ -22102,7 +21619,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Pointer<Integer>} s2 
      * @returns {Integer} 
@@ -22116,7 +21632,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Integer} length1 
      * @param {Pointer<Integer>} s2 
@@ -22133,7 +21648,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter1 
      * @param {Pointer<UCharIterator>} iter2 
      * @param {Integer} codePointOrder 
@@ -22145,7 +21659,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Integer} length1 
      * @param {Pointer<Integer>} s2 
@@ -22164,7 +21677,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ucs1 
      * @param {Pointer<Integer>} ucs2 
      * @param {Integer} n 
@@ -22179,7 +21691,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Pointer<Integer>} s2 
      * @param {Integer} n 
@@ -22194,7 +21705,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Pointer<Integer>} s2 
      * @param {Integer} options 
@@ -22209,7 +21719,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Pointer<Integer>} s2 
      * @param {Integer} n 
@@ -22225,7 +21734,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Pointer<Integer>} s2 
      * @param {Integer} length 
@@ -22241,7 +21749,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dst 
      * @param {Pointer<Integer>} src 
      * @returns {Pointer<Integer>} 
@@ -22255,7 +21762,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dst 
      * @param {Pointer<Integer>} src 
      * @param {Integer} n 
@@ -22270,7 +21776,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dst 
      * @param {PSTR} src 
      * @returns {Pointer<Integer>} 
@@ -22285,7 +21790,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dst 
      * @param {PSTR} src 
      * @param {Integer} n 
@@ -22301,7 +21805,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} dst 
      * @param {Pointer<Integer>} src 
      * @returns {PSTR} 
@@ -22316,7 +21819,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} dst 
      * @param {Pointer<Integer>} src 
      * @param {Integer} n 
@@ -22332,7 +21834,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Pointer<Integer>} src 
      * @param {Integer} count 
@@ -22347,7 +21848,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Pointer<Integer>} src 
      * @param {Integer} count 
@@ -22362,7 +21862,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} c 
      * @param {Integer} count 
@@ -22376,7 +21875,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} buf1 
      * @param {Pointer<Integer>} buf2 
      * @param {Integer} count 
@@ -22391,7 +21889,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s1 
      * @param {Pointer<Integer>} s2 
      * @param {Integer} count 
@@ -22406,7 +21903,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @param {Integer} count 
@@ -22420,7 +21916,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @param {Integer} count 
@@ -22434,7 +21929,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @param {Integer} count 
@@ -22448,7 +21942,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} c 
      * @param {Integer} count 
@@ -22462,7 +21955,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} src 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -22478,7 +21970,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNESCAPE_CHAR_AT>} charAt 
      * @param {Pointer<Integer>} offset 
      * @param {Integer} length 
@@ -22494,7 +21985,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} src 
@@ -22515,7 +22005,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} src 
@@ -22536,7 +22025,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} src 
@@ -22559,7 +22047,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} src 
@@ -22578,7 +22065,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PWSTR} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22599,7 +22085,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22620,7 +22105,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22641,7 +22125,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22662,7 +22145,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22686,7 +22168,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22710,7 +22191,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22731,7 +22211,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22751,7 +22230,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22771,7 +22249,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22794,7 +22271,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22817,7 +22293,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22838,7 +22313,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} pDestLength 
@@ -22862,7 +22336,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Integer} options 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -22878,7 +22351,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -22889,7 +22361,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @returns {PSTR} 
      */
@@ -22901,7 +22372,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @returns {Integer} 
      */
@@ -22913,7 +22383,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -22929,7 +22398,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {Integer} options 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -22943,7 +22411,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @returns {Pointer<UBreakIterator>} 
      */
@@ -22955,7 +22422,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {Pointer<UBreakIterator>} iterToAdopt 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -22970,7 +22436,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -22990,7 +22455,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -23011,7 +22475,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -23032,7 +22495,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -23053,7 +22515,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -23074,7 +22535,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} _path 
      * @param {PSTR} fileName 
      * @param {Pointer<UErrorCode>} _status 
@@ -23091,7 +22551,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UStringPrepProfileType} type 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UStringPrepProfile>} 
@@ -23104,7 +22563,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringPrepProfile>} _profile 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -23115,7 +22573,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringPrepProfile>} prep 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
@@ -23137,7 +22594,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} options 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UIDNA>} 
@@ -23150,7 +22606,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -23161,7 +22616,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {Pointer<Integer>} label 
      * @param {Integer} length 
@@ -23182,7 +22636,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {Pointer<Integer>} label 
      * @param {Integer} length 
@@ -23203,7 +22656,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {Pointer<Integer>} name 
      * @param {Integer} length 
@@ -23224,7 +22676,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {Pointer<Integer>} name 
      * @param {Integer} length 
@@ -23245,7 +22696,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {PSTR} label 
      * @param {Integer} length 
@@ -23267,7 +22717,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {PSTR} label 
      * @param {Integer} length 
@@ -23289,7 +22738,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {PSTR} name 
      * @param {Integer} length 
@@ -23311,7 +22759,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UIDNA>} idna 
      * @param {PSTR} name 
      * @param {Integer} length 
@@ -23333,7 +22780,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UBreakIteratorType} type 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} text 
@@ -23352,7 +22798,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} rules 
      * @param {Integer} rulesLength 
      * @param {Pointer<Integer>} text 
@@ -23371,7 +22816,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} binaryRules 
      * @param {Integer} rulesLength 
      * @param {Pointer<Integer>} text 
@@ -23389,7 +22833,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
@@ -23407,7 +22850,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UBreakIterator>} 
@@ -23421,7 +22863,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -23432,7 +22873,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -23448,7 +22888,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<UText>} text 
      * @param {Pointer<UErrorCode>} _status 
@@ -23462,7 +22901,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @returns {Integer} 
      */
@@ -23474,7 +22912,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @returns {Integer} 
      */
@@ -23486,7 +22923,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @returns {Integer} 
      */
@@ -23498,7 +22934,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @returns {Integer} 
      */
@@ -23510,7 +22945,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @returns {Integer} 
      */
@@ -23522,7 +22956,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Integer} offset 
      * @returns {Integer} 
@@ -23535,7 +22968,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Integer} offset 
      * @returns {Integer} 
@@ -23548,7 +22980,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {PSTR} 
      */
@@ -23558,7 +22989,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ubrk_countAvailable() {
@@ -23567,7 +22997,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Integer} offset 
      * @returns {Integer} 
@@ -23580,7 +23009,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @returns {Integer} 
      */
@@ -23592,7 +23020,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} fillInVec 
      * @param {Integer} capacity 
@@ -23609,7 +23036,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {ULocDataLocaleType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -23624,7 +23050,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<UText>} text 
      * @param {Pointer<UErrorCode>} _status 
@@ -23638,7 +23063,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} binaryRules 
      * @param {Integer} rulesCapacity 
@@ -23655,7 +23079,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} dataVersionFillin 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
@@ -23668,7 +23091,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {USystemTimeZoneType} zoneType 
      * @param {PSTR} _region 
      * @param {Pointer<Integer>} rawOffset 
@@ -23686,7 +23108,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UEnumeration>} 
      */
@@ -23698,7 +23119,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} country 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UEnumeration>} 
@@ -23713,7 +23133,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
      * @param {Pointer<UErrorCode>} ec 
@@ -23728,7 +23147,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} zoneID 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
@@ -23741,7 +23159,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
      * @param {Pointer<UErrorCode>} ec 
@@ -23756,7 +23173,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} zoneID 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
@@ -23770,7 +23186,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     static ucal_getNow() {
@@ -23779,7 +23194,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} zoneID 
      * @param {Integer} len 
      * @param {PSTR} locale 
@@ -23798,7 +23212,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -23809,7 +23222,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
@@ -23823,7 +23235,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<Integer>} zoneID 
      * @param {Integer} len 
@@ -23839,7 +23250,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
@@ -23856,7 +23266,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDisplayNameType} type 
      * @param {PSTR} locale 
@@ -23877,7 +23286,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -23891,7 +23299,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} date 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -23905,7 +23312,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Float} 
@@ -23919,7 +23325,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarAttribute} attr 
      * @returns {Integer} 
@@ -23932,7 +23337,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarAttribute} attr 
      * @param {Integer} newValue 
@@ -23945,7 +23349,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} localeIndex 
      * @returns {PSTR} 
      */
@@ -23955,7 +23358,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ucal_countAvailable() {
@@ -23964,7 +23366,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
@@ -23978,7 +23379,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} _dateTime 
      * @param {Pointer<UErrorCode>} _status 
@@ -23992,7 +23392,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} year 
      * @param {Integer} month 
@@ -24008,7 +23407,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Integer} year 
      * @param {Integer} month 
@@ -24027,7 +23425,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} cal1 
      * @param {Pointer<Pointer<Void>>} cal2 
      * @returns {Integer} 
@@ -24041,7 +23438,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDateFields} field 
      * @param {Integer} amount 
@@ -24056,7 +23452,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDateFields} field 
      * @param {Integer} amount 
@@ -24071,7 +23466,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDateFields} field 
      * @param {Pointer<UErrorCode>} _status 
@@ -24086,7 +23480,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDateFields} field 
      * @param {Integer} value 
@@ -24099,7 +23492,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDateFields} field 
      * @returns {Integer} 
@@ -24112,7 +23504,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDateFields} field 
      * @returns {String} Nothing - always returns an empty string
@@ -24124,7 +23515,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} calendar 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24135,7 +23525,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDateFields} field 
      * @param {UCalendarLimitType} type 
@@ -24151,7 +23540,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {ULocDataLocaleType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -24166,7 +23554,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
@@ -24178,7 +23565,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} id 
      * @param {Integer} len 
      * @param {Pointer<Integer>} result 
@@ -24198,7 +23584,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
@@ -24212,7 +23597,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
@@ -24230,7 +23614,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDaysOfWeek} dayOfWeek 
      * @param {Pointer<UErrorCode>} _status 
@@ -24245,7 +23628,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UCalendarDaysOfWeek} dayOfWeek 
      * @param {Pointer<UErrorCode>} _status 
@@ -24260,7 +23642,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} date 
      * @param {Pointer<UErrorCode>} _status 
@@ -24275,7 +23656,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} target 
      * @param {UCalendarDateFields} field 
@@ -24291,7 +23671,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UTimeZoneTransitionType} type 
      * @param {Pointer<Float>} transition 
@@ -24308,7 +23687,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} id 
      * @param {Integer} len 
      * @param {Pointer<Integer>} winid 
@@ -24326,7 +23704,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} winid 
      * @param {Integer} len 
      * @param {PSTR} _region 
@@ -24347,7 +23724,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {UTimeZoneLocalOption} nonExistingTimeOpt 
      * @param {UTimeZoneLocalOption} duplicatedTimeOpt 
@@ -24366,7 +23742,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} loc 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollator>} 
@@ -24381,7 +23756,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} rules 
      * @param {Integer} rulesLength 
      * @param {UColAttributeValue} normalizationMode 
@@ -24399,7 +23773,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<USet>} contractions 
      * @param {Pointer<USet>} expansions 
@@ -24417,7 +23790,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -24428,7 +23800,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
@@ -24446,7 +23817,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {PSTR} source 
      * @param {Integer} sourceLength 
@@ -24467,7 +23837,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
@@ -24485,7 +23854,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
@@ -24503,7 +23871,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
@@ -24521,7 +23888,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<UCharIterator>} sIter 
      * @param {Pointer<UCharIterator>} tIter 
@@ -24537,7 +23903,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @returns {UColAttributeValue} 
      */
@@ -24549,7 +23914,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {UColAttributeValue} strength 
      * @returns {String} Nothing - always returns an empty string
@@ -24561,7 +23925,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -24578,7 +23941,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} reorderCodes 
      * @param {Integer} reorderCodesLength 
@@ -24594,7 +23956,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} reorderCode 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -24610,7 +23971,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} objLoc 
      * @param {PSTR} dispLoc 
      * @param {Pointer<Integer>} result 
@@ -24630,7 +23990,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} localeIndex 
      * @returns {PSTR} 
      */
@@ -24640,7 +23999,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static ucol_countAvailable() {
@@ -24649,7 +24007,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
@@ -24661,7 +24018,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
@@ -24673,7 +24029,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} keyword 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -24688,7 +24043,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
@@ -24706,7 +24060,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} result 
      * @param {Integer} resultCapacity 
      * @param {PSTR} keyword 
@@ -24728,7 +24081,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} length 
      * @returns {Pointer<Integer>} 
@@ -24742,7 +24094,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
@@ -24760,7 +24111,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<UCharIterator>} iter 
      * @param {Pointer<Integer>} state 
@@ -24780,7 +24130,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {UColBoundMode} boundType 
@@ -24800,7 +24149,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} info 
      * @returns {String} Nothing - always returns an empty string
@@ -24813,7 +24161,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} info 
      * @returns {String} Nothing - always returns an empty string
@@ -24826,7 +24173,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} src1 
      * @param {Integer} src1Length 
      * @param {Pointer<Integer>} src2 
@@ -24845,7 +24191,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {UColAttribute} attr 
      * @param {UColAttributeValue} value 
@@ -24860,7 +24205,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {UColAttribute} attr 
      * @param {Pointer<UErrorCode>} _status 
@@ -24875,7 +24219,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {UColReorderCode} group 
      * @param {Pointer<UErrorCode>} pErrorCode 
@@ -24889,7 +24232,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @returns {UColReorderCode} 
      */
@@ -24901,7 +24243,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -24915,7 +24256,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
@@ -24933,7 +24273,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollator>} 
@@ -24947,7 +24286,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {UColRuleOption} delta 
      * @param {Pointer<Integer>} _buffer 
@@ -24963,7 +24301,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {ULocDataLocaleType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -24978,7 +24315,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
@@ -24992,7 +24328,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} _buffer 
      * @param {Integer} capacity 
@@ -25009,7 +24344,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} bin 
      * @param {Integer} length 
      * @param {Pointer<UCollator>} base 
@@ -25026,7 +24360,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -25043,7 +24376,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} key 
      * @param {Integer} length 
      * @returns {Integer} 
@@ -25056,7 +24388,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25067,7 +24398,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25078,7 +24408,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -25092,7 +24421,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -25106,7 +24434,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @param {Integer} order 
      * @returns {Integer} 
@@ -25119,7 +24446,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -25135,7 +24461,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @returns {Integer} 
      */
@@ -25147,7 +24472,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCollationElements>} elems 
      * @param {Integer} offset 
      * @param {Pointer<UErrorCode>} _status 
@@ -25161,7 +24485,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} order 
      * @returns {Integer} 
      */
@@ -25171,7 +24494,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} order 
      * @returns {Integer} 
      */
@@ -25181,7 +24503,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} order 
      * @returns {Integer} 
      */
@@ -25191,7 +24512,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCharsetDetector>} 
      */
@@ -25203,7 +24523,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25214,7 +24533,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {PSTR} textIn 
      * @param {Integer} len 
@@ -25231,7 +24549,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {PSTR} encoding 
      * @param {Integer} length 
@@ -25248,7 +24565,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCharsetMatch>} 
@@ -25262,7 +24578,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {Pointer<Integer>} matchesFound 
      * @param {Pointer<UErrorCode>} _status 
@@ -25278,7 +24593,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetMatch>} ucsm 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
@@ -25292,7 +24606,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetMatch>} ucsm 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -25306,7 +24619,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetMatch>} ucsm 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
@@ -25320,7 +24632,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetMatch>} ucsm 
      * @param {Pointer<Integer>} buf 
      * @param {Integer} cap 
@@ -25337,7 +24648,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -25351,7 +24661,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @returns {Integer} 
      */
@@ -25363,7 +24672,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {Integer} filter 
      * @returns {Integer} 
@@ -25376,7 +24684,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UFieldPositionIterator>} 
      */
@@ -25388,7 +24695,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25399,7 +24705,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
      * @param {Pointer<Integer>} beginIndex 
      * @param {Pointer<Integer>} endIndex 
@@ -25415,7 +24720,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
@@ -25427,7 +24731,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25438,7 +24741,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {UFormattableType} 
@@ -25452,7 +24754,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @returns {Integer} 
      */
@@ -25464,7 +24765,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
@@ -25478,7 +24778,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
@@ -25492,7 +24791,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -25506,7 +24804,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -25520,7 +24817,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Void>} 
@@ -25534,7 +24830,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<UErrorCode>} _status 
@@ -25550,7 +24845,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -25564,7 +24858,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} n 
      * @param {Pointer<UErrorCode>} _status 
@@ -25579,7 +24872,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<UErrorCode>} _status 
@@ -25595,7 +24887,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UConstrainedFieldPosition>} 
      */
@@ -25607,7 +24898,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
@@ -25620,7 +24910,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25631,7 +24920,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} category 
      * @param {Pointer<UErrorCode>} ec 
@@ -25645,7 +24933,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} category 
      * @param {Integer} field 
@@ -25660,7 +24947,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
@@ -25674,7 +24960,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
@@ -25688,7 +24973,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Pointer<Integer>} pStart 
      * @param {Pointer<Integer>} pLimit 
@@ -25705,7 +24989,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
@@ -25719,7 +25002,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} _context 
      * @param {Pointer<UErrorCode>} ec 
@@ -25733,7 +25015,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} category 
      * @param {Integer} field 
@@ -25749,7 +25030,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} category 
      * @param {Integer} field 
@@ -25766,7 +25046,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedValue>} ufmtval 
      * @param {Pointer<Integer>} pLength 
      * @param {Pointer<UErrorCode>} ec 
@@ -25782,7 +25061,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedValue>} ufmtval 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Pointer<UErrorCode>} ec 
@@ -25798,7 +25076,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLength 
@@ -25819,7 +25096,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25830,7 +25106,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedDateInterval>} 
      */
@@ -25842,7 +25117,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedDateInterval>} uresult 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
@@ -25856,7 +25130,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedDateInterval>} uresult 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25867,7 +25140,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
      * @param {Float} fromDate 
      * @param {Float} toDate 
@@ -25887,7 +25159,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
      * @param {Float} fromDate 
      * @param {Float} toDate 
@@ -25904,7 +25175,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
      * @param {UDisplayContext} value 
      * @param {Pointer<UErrorCode>} _status 
@@ -25918,7 +25188,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
      * @param {UDisplayContextType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -25933,7 +25202,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UGenderInfo>} 
@@ -25948,7 +25216,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UGenderInfo>} genderInfo 
      * @param {Pointer<UGender>} genders 
      * @param {Integer} _size 
@@ -25965,7 +25232,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UListFormatter>} 
@@ -25980,7 +25246,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {UListFormatterType} type 
      * @param {UListFormatterWidth} width 
@@ -25997,7 +25262,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UListFormatter>} listfmt 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -26008,7 +25272,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedList>} 
      */
@@ -26020,7 +25283,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedList>} uresult 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
@@ -26034,7 +25296,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedList>} uresult 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -26045,7 +25306,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UListFormatter>} listfmt 
      * @param {Pointer<Pointer<Integer>>} strings 
      * @param {Pointer<Integer>} stringLengths 
@@ -26067,7 +25327,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UListFormatter>} listfmt 
      * @param {Pointer<Pointer<Integer>>} strings 
      * @param {Pointer<Integer>} stringLengths 
@@ -26087,7 +25346,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<ULocaleData>} 
@@ -26102,7 +25360,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleData>} uld 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -26113,7 +25370,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleData>} uld 
      * @param {Integer} setting 
      * @returns {String} Nothing - always returns an empty string
@@ -26125,7 +25381,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleData>} uld 
      * @returns {Integer} 
      */
@@ -26137,7 +25392,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<USet>} fillIn 
      * @param {Integer} options 
@@ -26155,7 +25409,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleData>} uld 
      * @param {ULocaleDataDelimiterType} type 
      * @param {Pointer<Integer>} result 
@@ -26173,7 +25426,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {UMeasurementSystem} 
@@ -26188,7 +25440,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} localeID 
      * @param {Pointer<Integer>} height 
      * @param {Pointer<Integer>} width 
@@ -26206,7 +25457,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} versionArray 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
@@ -26219,7 +25469,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternCapacity 
@@ -26236,7 +25485,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<Integer>} separator 
      * @param {Integer} separatorCapacity 
@@ -26253,7 +25501,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26278,7 +25525,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26301,7 +25547,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26325,7 +25570,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26347,7 +25591,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26373,7 +25616,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26397,7 +25639,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26422,7 +25663,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26445,7 +25685,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {PSTR} locale 
@@ -26464,7 +25703,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -26475,7 +25713,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Void>} 
@@ -26489,7 +25726,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {PSTR} locale 
      * @returns {String} Nothing - always returns an empty string
@@ -26503,7 +25739,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @returns {PSTR} 
      */
@@ -26515,7 +25750,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26532,7 +25766,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
@@ -26549,7 +25782,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
@@ -26570,7 +25802,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
@@ -26589,7 +25820,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
@@ -26611,7 +25841,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
@@ -26631,7 +25860,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Pointer<Integer>} dest 
@@ -26649,7 +25877,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UNumberFormatStyle} style 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -26669,7 +25896,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -26680,7 +25906,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
@@ -26694,7 +25919,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} _number 
      * @param {Pointer<Integer>} result 
@@ -26713,7 +25937,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} _number 
      * @param {Pointer<Integer>} result 
@@ -26732,7 +25955,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Float} _number 
      * @param {Pointer<Integer>} result 
@@ -26751,7 +25973,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Float} _number 
      * @param {Pointer<Integer>} result 
@@ -26771,7 +25992,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {PSTR} _number 
      * @param {Integer} length 
@@ -26793,7 +26013,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Float} _number 
      * @param {Pointer<Integer>} currency 
@@ -26814,7 +26033,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Pointer<Void>>} _number 
      * @param {Pointer<Integer>} result 
@@ -26834,7 +26052,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -26853,7 +26070,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -26872,7 +26088,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -26891,7 +26106,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -26914,7 +26128,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -26935,7 +26148,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Pointer<Void>>} result 
      * @param {Pointer<Integer>} text 
@@ -26956,7 +26168,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Integer} localized 
      * @param {Pointer<Integer>} pattern 
@@ -26974,7 +26185,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} localeIndex 
      * @returns {PSTR} 
      */
@@ -26984,7 +26194,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static unum_countAvailable() {
@@ -26993,7 +26202,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatAttribute} attr 
      * @returns {Integer} 
@@ -27006,7 +26214,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatAttribute} attr 
      * @param {Integer} newValue 
@@ -27019,7 +26226,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatAttribute} attr 
      * @returns {Float} 
@@ -27032,7 +26238,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatAttribute} attr 
      * @param {Float} newValue 
@@ -27045,7 +26250,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatTextAttribute} tag 
      * @param {Pointer<Integer>} result 
@@ -27063,7 +26267,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatTextAttribute} tag 
      * @param {Pointer<Integer>} newValue 
@@ -27080,7 +26283,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} isPatternLocalized 
      * @param {Pointer<Integer>} result 
@@ -27098,7 +26300,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatSymbol} symbol 
      * @param {Pointer<Integer>} _buffer 
@@ -27116,7 +26317,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UNumberFormatSymbol} symbol 
      * @param {Pointer<Integer>} value 
@@ -27133,7 +26333,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {ULocDataLocaleType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -27148,7 +26347,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDisplayContext} value 
      * @param {Pointer<UErrorCode>} _status 
@@ -27162,7 +26360,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDisplayContextType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -27177,7 +26374,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UDateFormatField} field 
      * @returns {UCalendarDateFields} 
      */
@@ -27187,7 +26383,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UDateFormatStyle} timeStyle 
      * @param {UDateFormatStyle} dateStyle 
      * @param {PSTR} locale 
@@ -27210,7 +26405,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -27221,7 +26415,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDateFormatBooleanAttribute} attr 
      * @param {Pointer<UErrorCode>} _status 
@@ -27236,7 +26429,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDateFormatBooleanAttribute} attr 
      * @param {Integer} newValue 
@@ -27251,7 +26443,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
@@ -27265,7 +26456,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Float} dateToFormat 
      * @param {Pointer<Integer>} result 
@@ -27284,7 +26474,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Pointer<Pointer<Void>>} calendar 
      * @param {Pointer<Integer>} result 
@@ -27304,7 +26493,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Float} dateToFormat 
      * @param {Pointer<Integer>} result 
@@ -27324,7 +26512,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Pointer<Pointer<Void>>} calendar 
      * @param {Pointer<Integer>} result 
@@ -27345,7 +26532,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -27364,7 +26550,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Pointer<Pointer<Void>>} calendar 
      * @param {Pointer<Integer>} text 
@@ -27384,7 +26569,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @returns {Integer} 
      */
@@ -27396,7 +26580,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} isLenient 
      * @returns {String} Nothing - always returns an empty string
@@ -27408,7 +26591,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @returns {Pointer<Pointer<Void>>} 
      */
@@ -27420,7 +26602,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Pointer<Void>>} calendarToSet 
      * @returns {String} Nothing - always returns an empty string
@@ -27433,7 +26614,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @returns {Pointer<Pointer<Void>>} 
      */
@@ -27445,7 +26625,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} field 
      * @returns {Pointer<Pointer<Void>>} 
@@ -27458,7 +26637,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} fields 
      * @param {Pointer<Pointer<Void>>} numberFormatToSet 
@@ -27475,7 +26653,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Pointer<Void>>} numberFormatToSet 
      * @returns {String} Nothing - always returns an empty string
@@ -27488,7 +26665,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Pointer<Void>>} numberFormatToAdopt 
      * @returns {String} Nothing - always returns an empty string
@@ -27501,7 +26677,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} localeIndex 
      * @returns {PSTR} 
      */
@@ -27511,7 +26686,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static udat_countAvailable() {
@@ -27520,7 +26694,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
@@ -27534,7 +26707,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Float} d 
      * @param {Pointer<UErrorCode>} _status 
@@ -27548,7 +26720,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} localized 
      * @param {Pointer<Integer>} result 
@@ -27566,7 +26737,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {Integer} localized 
      * @param {Pointer<Integer>} pattern 
@@ -27581,7 +26751,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDateFormatSymbolType} type 
      * @param {Integer} symbolIndex 
@@ -27600,7 +26769,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDateFormatSymbolType} type 
      * @returns {Integer} 
@@ -27613,7 +26781,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} format 
      * @param {UDateFormatSymbolType} type 
      * @param {Integer} symbolIndex 
@@ -27631,7 +26798,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {ULocDataLocaleType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -27646,7 +26812,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDisplayContext} value 
      * @param {Pointer<UErrorCode>} _status 
@@ -27660,7 +26825,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {UDisplayContextType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -27675,7 +26839,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Pointer<Void>>} 
@@ -27690,7 +26853,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Pointer<Void>>} 
      */
@@ -27702,7 +26864,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -27713,7 +26874,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Pointer<Void>>} 
@@ -27727,7 +26887,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} length 
@@ -27747,7 +26906,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} length 
@@ -27768,7 +26926,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} unusedDtpg 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} length 
@@ -27788,7 +26945,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} unusedDtpg 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} length 
@@ -27808,7 +26964,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -27831,7 +26986,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} value 
@@ -27846,7 +27000,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} pLength 
@@ -27861,7 +27014,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} value 
@@ -27876,7 +27028,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} pLength 
@@ -27891,7 +27042,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {UDateTimePatternField} field 
      * @param {UDateTimePGDisplayWidth} width 
@@ -27910,7 +27060,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} dtFormat 
      * @param {Integer} length 
@@ -27924,7 +27073,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} pLength 
      * @returns {Pointer<Integer>} 
@@ -27938,7 +27086,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} _decimal 
      * @param {Integer} length 
@@ -27952,7 +27099,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} pLength 
      * @returns {Pointer<Integer>} 
@@ -27966,7 +27112,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -27989,7 +27134,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
@@ -28013,7 +27157,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
@@ -28027,7 +27170,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
@@ -28041,7 +27183,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLength 
@@ -28058,7 +27199,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {UDateFormatHourCycle} 
@@ -28072,7 +27212,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLen 
      * @param {PSTR} locale 
@@ -28090,7 +27229,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLen 
      * @param {PSTR} locale 
@@ -28109,7 +27247,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedNumber>} 
      */
@@ -28121,7 +27258,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberFormatter>} uformatter 
      * @param {Integer} value 
      * @param {Pointer<UFormattedNumber>} uresult 
@@ -28137,7 +27273,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberFormatter>} uformatter 
      * @param {Float} value 
      * @param {Pointer<UFormattedNumber>} uresult 
@@ -28153,7 +27288,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberFormatter>} uformatter 
      * @param {PSTR} value 
      * @param {Integer} valueLen 
@@ -28172,7 +27306,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
@@ -28186,7 +27319,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferCapacity 
@@ -28203,7 +27335,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {Pointer<UFieldPosition>} ufpos 
      * @param {Pointer<UErrorCode>} ec 
@@ -28218,7 +27349,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {Pointer<UFieldPositionIterator>} ufpositer 
      * @param {Pointer<UErrorCode>} ec 
@@ -28233,7 +27363,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -28251,7 +27380,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberFormatter>} uformatter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -28262,7 +27390,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -28273,7 +27400,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLen 
      * @param {UNumberRangeCollapse} collapse 
@@ -28294,7 +27420,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedNumberRange>} 
      */
@@ -28306,7 +27431,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberRangeFormatter>} uformatter 
      * @param {Float} first 
      * @param {Float} second 
@@ -28323,7 +27447,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberRangeFormatter>} uformatter 
      * @param {PSTR} first 
      * @param {Integer} firstLen 
@@ -28345,7 +27468,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumberRange>} uresult 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
@@ -28359,7 +27481,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumberRange>} uresult 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {UNumberRangeIdentityResult} 
@@ -28373,7 +27494,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumberRange>} uresult 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -28391,7 +27511,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumberRange>} uresult 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
@@ -28409,7 +27528,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberRangeFormatter>} uformatter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -28420,7 +27538,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedNumberRange>} uresult 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -28431,7 +27548,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UNumberingSystem>} 
@@ -28446,7 +27562,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UNumberingSystem>} 
@@ -28461,7 +27576,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberingSystem>} unumsys 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -28472,7 +27586,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
@@ -28484,7 +27597,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberingSystem>} unumsys 
      * @returns {PSTR} 
      */
@@ -28496,7 +27608,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberingSystem>} unumsys 
      * @returns {Integer} 
      */
@@ -28508,7 +27619,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberingSystem>} unumsys 
      * @returns {Integer} 
      */
@@ -28520,7 +27630,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UNumberingSystem>} unumsys 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
@@ -28537,7 +27646,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UPluralRules>} 
@@ -28552,7 +27660,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {UPluralType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -28568,7 +27675,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UPluralRules>} uplrules 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -28579,7 +27685,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UPluralRules>} uplrules 
      * @param {Float} _number 
      * @param {Pointer<Integer>} keyword 
@@ -28597,7 +27702,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UPluralRules>} uplrules 
      * @param {Pointer<UFormattedNumber>} _number 
      * @param {Pointer<Integer>} keyword 
@@ -28616,7 +27720,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UPluralRules>} uplrules 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -28630,7 +27733,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Integer} flags 
@@ -28647,7 +27749,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} pattern 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
@@ -28662,7 +27763,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} pattern 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
@@ -28679,7 +27779,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -28690,7 +27789,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegularExpression>} 
@@ -28704,7 +27802,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} patLength 
      * @param {Pointer<UErrorCode>} _status 
@@ -28720,7 +27817,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
@@ -28734,7 +27830,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -28748,7 +27843,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
@@ -28764,7 +27858,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} text 
      * @param {Pointer<UErrorCode>} _status 
@@ -28778,7 +27871,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} textLength 
      * @param {Pointer<UErrorCode>} _status 
@@ -28794,7 +27886,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<UErrorCode>} _status 
@@ -28809,7 +27900,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} text 
      * @param {Pointer<UErrorCode>} _status 
@@ -28823,7 +27913,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
      * @param {Pointer<UErrorCode>} _status 
@@ -28838,7 +27927,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
      * @param {Pointer<UErrorCode>} _status 
@@ -28853,7 +27941,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
      * @param {Pointer<UErrorCode>} _status 
@@ -28868,7 +27955,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
      * @param {Pointer<UErrorCode>} _status 
@@ -28883,7 +27969,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
      * @param {Pointer<UErrorCode>} _status 
@@ -28898,7 +27983,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
      * @param {Pointer<UErrorCode>} _status 
@@ -28913,7 +27997,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -28927,7 +28010,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -28941,7 +28023,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} groupName 
      * @param {Integer} nameLength 
@@ -28958,7 +28039,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {PSTR} groupName 
      * @param {Integer} nameLength 
@@ -28976,7 +28056,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
      * @param {Pointer<Integer>} dest 
@@ -28994,7 +28073,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
      * @param {Pointer<UText>} dest 
@@ -29012,7 +28090,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
      * @param {Pointer<UErrorCode>} _status 
@@ -29027,7 +28104,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
      * @param {Pointer<UErrorCode>} _status 
@@ -29042,7 +28118,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
      * @param {Pointer<UErrorCode>} _status 
@@ -29057,7 +28132,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
      * @param {Pointer<UErrorCode>} _status 
@@ -29072,7 +28146,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} index 
      * @param {Pointer<UErrorCode>} _status 
@@ -29086,7 +28159,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} index 
      * @param {Pointer<UErrorCode>} _status 
@@ -29100,7 +28172,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
@@ -29115,7 +28186,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
@@ -29130,7 +28200,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
@@ -29146,7 +28215,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29160,7 +28228,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29174,7 +28241,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29188,7 +28254,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29202,7 +28267,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29216,7 +28280,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} b 
      * @param {Pointer<UErrorCode>} _status 
@@ -29230,7 +28293,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29244,7 +28306,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} b 
      * @param {Pointer<UErrorCode>} _status 
@@ -29258,7 +28319,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29272,7 +28332,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29286,7 +28345,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} replacementText 
      * @param {Integer} replacementLength 
@@ -29306,7 +28364,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
@@ -29322,7 +28379,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} replacementText 
      * @param {Integer} replacementLength 
@@ -29342,7 +28398,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
@@ -29358,7 +28413,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} replacementText 
      * @param {Integer} replacementLength 
@@ -29379,7 +28433,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacementText 
      * @param {Pointer<UText>} dest 
@@ -29394,7 +28447,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<Integer>>} destBuf 
      * @param {Pointer<Integer>} destCapacity 
@@ -29412,7 +28464,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<UErrorCode>} _status 
@@ -29427,7 +28478,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} destBuf 
      * @param {Integer} destCapacity 
@@ -29449,7 +28499,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<UText>>} destFields 
      * @param {Integer} destFieldsCapacity 
@@ -29466,7 +28515,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} limit 
      * @param {Pointer<UErrorCode>} _status 
@@ -29480,7 +28528,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29494,7 +28541,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} limit 
      * @param {Pointer<UErrorCode>} _status 
@@ -29508,7 +28554,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -29522,7 +28567,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<URegexMatchCallback>} callback 
      * @param {Pointer<Void>} _context 
@@ -29538,7 +28582,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<URegexMatchCallback>>} callback 
      * @param {Pointer<Pointer<Void>>} _context 
@@ -29555,7 +28598,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<URegexFindProgressCallback>} callback 
      * @param {Pointer<Void>} _context 
@@ -29571,7 +28613,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<URegexFindProgressCallback>>} callback 
      * @param {Pointer<Pointer<Void>>} _context 
@@ -29588,7 +28629,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} regionCode 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegion>} 
@@ -29603,7 +28643,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} code 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegion>} 
@@ -29616,7 +28655,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {URegionType} type 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -29629,7 +28667,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @param {Pointer<URegion>} otherRegion 
      * @returns {Integer} 
@@ -29643,7 +28680,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @returns {Pointer<URegion>} 
      */
@@ -29655,7 +28691,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @param {URegionType} type 
      * @returns {Pointer<URegion>} 
@@ -29668,7 +28703,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -29682,7 +28716,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @param {URegionType} type 
      * @param {Pointer<UErrorCode>} _status 
@@ -29697,7 +28730,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @param {Pointer<URegion>} otherRegion 
      * @returns {Integer} 
@@ -29711,7 +28743,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
@@ -29725,7 +28756,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @returns {PSTR} 
      */
@@ -29737,7 +28767,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @returns {Integer} 
      */
@@ -29749,7 +28778,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URegion>} _uregion 
      * @returns {URegionType} 
      */
@@ -29761,7 +28789,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} locale 
      * @param {Pointer<Pointer<Void>>} nfToAdopt 
      * @param {UDateRelativeDateTimeFormatterStyle} width 
@@ -29780,7 +28807,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -29791,7 +28817,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedRelativeDateTime>} 
      */
@@ -29803,7 +28828,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedRelativeDateTime>} ufrdt 
      * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
@@ -29817,7 +28841,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UFormattedRelativeDateTime>} ufrdt 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -29828,7 +28851,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
      * @param {URelativeDateTimeUnit} _unit 
@@ -29847,7 +28869,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
      * @param {URelativeDateTimeUnit} _unit 
@@ -29864,7 +28885,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
      * @param {URelativeDateTimeUnit} _unit 
@@ -29883,7 +28903,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
      * @param {URelativeDateTimeUnit} _unit 
@@ -29900,7 +28919,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Pointer<Integer>} relativeDateString 
      * @param {Integer} relativeDateStringLen 
@@ -29923,7 +28941,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternlength 
      * @param {Pointer<Integer>} text 
@@ -29946,7 +28963,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternlength 
      * @param {Pointer<Integer>} text 
@@ -29968,7 +28984,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} searchiter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -29979,7 +28994,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
      * @param {Pointer<UErrorCode>} _status 
@@ -29993,7 +29007,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @returns {Integer} 
      */
@@ -30005,7 +29018,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {USearchAttribute} attribute 
      * @param {USearchAttributeValue} value 
@@ -30020,7 +29032,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {USearchAttribute} attribute 
      * @returns {USearchAttributeValue} 
@@ -30033,7 +29044,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @returns {Integer} 
      */
@@ -30045,7 +29055,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @returns {Integer} 
      */
@@ -30057,7 +29066,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
@@ -30074,7 +29082,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UBreakIterator>} breakiter 
      * @param {Pointer<UErrorCode>} _status 
@@ -30089,7 +29096,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @returns {Pointer<UBreakIterator>} 
      */
@@ -30101,7 +29107,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textlength 
@@ -30117,7 +29122,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} length 
      * @returns {Pointer<Integer>} 
@@ -30131,7 +29135,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @returns {Pointer<UCollator>} 
      */
@@ -30143,7 +29146,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UCollator>} collator 
      * @param {Pointer<UErrorCode>} _status 
@@ -30158,7 +29160,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternlength 
@@ -30174,7 +29175,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} length 
      * @returns {Pointer<Integer>} 
@@ -30188,7 +29188,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -30202,7 +29201,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
      * @param {Pointer<UErrorCode>} _status 
@@ -30217,7 +29215,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -30231,7 +29228,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
      * @param {Pointer<UErrorCode>} _status 
@@ -30246,7 +29242,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -30260,7 +29255,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -30274,7 +29268,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -30285,7 +29278,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USpoofChecker>} 
      */
@@ -30297,7 +29289,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} data 
      * @param {Integer} length 
      * @param {Pointer<Integer>} pActualLength 
@@ -30314,7 +29305,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {PSTR} confusables 
      * @param {Integer} confusablesLen 
      * @param {PSTR} confusablesWholeScript 
@@ -30336,7 +29326,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -30347,7 +29336,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USpoofChecker>} 
@@ -30361,7 +29349,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Integer} checks 
      * @param {Pointer<UErrorCode>} _status 
@@ -30375,7 +29362,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -30389,7 +29375,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {URestrictionLevel} restrictionLevel 
      * @returns {String} Nothing - always returns an empty string
@@ -30401,7 +29386,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @returns {URestrictionLevel} 
      */
@@ -30413,7 +29397,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {PSTR} localesList 
      * @param {Pointer<UErrorCode>} _status 
@@ -30429,7 +29412,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
@@ -30443,7 +29425,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<USet>} chars 
      * @param {Pointer<UErrorCode>} _status 
@@ -30458,7 +29439,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
@@ -30472,7 +29452,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<Integer>} id 
      * @param {Integer} length 
@@ -30491,7 +29470,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {PSTR} id 
      * @param {Integer} length 
@@ -30511,7 +29489,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<Integer>} id 
      * @param {Integer} length 
@@ -30530,7 +29507,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {PSTR} id 
      * @param {Integer} length 
@@ -30550,7 +29526,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USpoofCheckResult>} 
      */
@@ -30562,7 +29537,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -30573,7 +29547,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
@@ -30587,7 +29560,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {URestrictionLevel} 
@@ -30601,7 +29573,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
@@ -30615,7 +29586,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<Integer>} id1 
      * @param {Integer} length1 
@@ -30635,7 +29605,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {PSTR} id1 
      * @param {Integer} length1 
@@ -30656,7 +29625,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Integer} type 
      * @param {Pointer<Integer>} id 
@@ -30677,7 +29645,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Integer} type 
      * @param {PSTR} id 
@@ -30699,7 +29666,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
@@ -30711,7 +29677,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
@@ -30723,7 +29688,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<Void>} data 
      * @param {Integer} capacity 
@@ -30740,7 +29704,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {UDateTimeScale} timeScale 
      * @param {UTimeScaleValue} value 
      * @param {Pointer<UErrorCode>} _status 
@@ -30754,7 +29717,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} otherTime 
      * @param {UDateTimeScale} timeScale 
      * @param {Pointer<UErrorCode>} _status 
@@ -30768,7 +29730,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Integer} universalTime 
      * @param {UDateTimeScale} timeScale 
      * @param {Pointer<UErrorCode>} _status 
@@ -30782,7 +29743,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} id 
      * @param {Integer} idLength 
      * @param {UTransDirection} dir 
@@ -30802,7 +29762,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
@@ -30816,7 +29775,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
@@ -30830,7 +29788,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -30841,7 +29798,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Integer>} resultLength 
      * @returns {Pointer<Integer>} 
@@ -30855,7 +29811,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} adoptedTrans 
      * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
@@ -30868,7 +29823,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} id 
      * @param {Integer} idLength 
      * @returns {String} Nothing - always returns an empty string
@@ -30880,7 +29834,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Integer>} filterPattern 
      * @param {Integer} filterPatternLen 
@@ -30896,7 +29849,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static utrans_countAvailableIDs() {
@@ -30905,7 +29857,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
@@ -30917,7 +29868,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Pointer<Void>>} rep 
      * @param {Pointer<UReplaceableCallbacks>} repFunc 
@@ -30936,7 +29886,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Pointer<Void>>} rep 
      * @param {Pointer<UReplaceableCallbacks>} repFunc 
@@ -30953,7 +29902,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Integer>} text 
      * @param {Pointer<Integer>} textLength 
@@ -30974,7 +29922,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Integer>} text 
      * @param {Pointer<Integer>} textLength 
@@ -30993,7 +29940,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Integer} escapeUnprintable 
      * @param {Pointer<Integer>} result 
@@ -31011,7 +29957,6 @@ class Globalization {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Integer} ignoreFilter 
      * @param {Pointer<USet>} fillIn 

@@ -10,19 +10,22 @@ class PKA_FLAGS extends Win32BitflagEnum {
 
     /**
      * Replace current value.
+     * Native name: PKA_SET
      * @type {Integer (Int32)}
      */
-    static PKA_SET => 0
+    static SET => 0
 
     /**
      * Append to current value - multi-value properties only.
+     * Native name: PKA_APPEND
      * @type {Integer (Int32)}
      */
-    static PKA_APPEND => 1
+    static APPEND => 1
 
     /**
      * Delete from current value - multi-value properties only.
+     * Native name: PKA_DELETE
      * @type {Integer (Int32)}
      */
-    static PKA_DELETE => 2
+    static DELETE => 2
 }

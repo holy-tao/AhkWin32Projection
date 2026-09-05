@@ -7,12 +7,14 @@
 class SchGetExtensionsOptions extends Win32BitflagEnum {
 
     /**
+     * Native name: SCH_EXTENSIONS_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static SCH_EXTENSIONS_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: SCH_NO_RECORD_HEADER
      * @type {Integer (Int32)}
      */
-    static SCH_NO_RECORD_HEADER => 1
+    static NO_RECORD_HEADER => 1
 }

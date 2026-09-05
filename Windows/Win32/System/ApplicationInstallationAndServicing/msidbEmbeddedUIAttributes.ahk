@@ -12,7 +12,8 @@ class msidbEmbeddedUIAttributes extends Win32Enum {
     static msidbEmbeddedUI => 1
 
     /**
+     * Native name: msidbEmbeddedHandlesBasic
      * @type {Integer (Int32)}
      */
-    static msidbEmbeddedHandlesBasic => 2
+    static HandlesBasic => 2
 }

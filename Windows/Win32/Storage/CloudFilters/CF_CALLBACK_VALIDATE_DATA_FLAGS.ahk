@@ -10,16 +10,18 @@ class CF_CALLBACK_VALIDATE_DATA_FLAGS extends Win32BitflagEnum {
 
     /**
      * No data validation flag.
+     * Native name: CF_CALLBACK_VALIDATE_DATA_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_VALIDATE_DATA_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * >[!NOTE]
      * >This value is new for Windows 10, version 1803.
      * 
      * Set if the callback is invoked as a result of a call to [CfHydratePlaceholder](nf-cfapi-cfhydrateplaceholder.md).
+     * Native name: CF_CALLBACK_VALIDATE_DATA_FLAG_EXPLICIT_HYDRATION
      * @type {Integer (Int32)}
      */
-    static CF_CALLBACK_VALIDATE_DATA_FLAG_EXPLICIT_HYDRATION => 2
+    static FLAG_EXPLICIT_HYDRATION => 2
 }

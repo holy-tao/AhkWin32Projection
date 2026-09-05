@@ -12,25 +12,29 @@ class WMT_VERSION extends Win32Enum {
 
     /**
      * Compatible with version 4 of the Windows Media Format SDK.
+     * Native name: WMT_VER_4_0
      * @type {Integer (Int32)}
      */
-    static WMT_VER_4_0 => 262144
+    static VER_4_0 => 262144
 
     /**
      * Compatible with the Windows Media Format 7 SDK.
+     * Native name: WMT_VER_7_0
      * @type {Integer (Int32)}
      */
-    static WMT_VER_7_0 => 458752
+    static VER_7_0 => 458752
 
     /**
      * Compatible with the Windows Media Format 8.2 SDK.
+     * Native name: WMT_VER_8_0
      * @type {Integer (Int32)}
      */
-    static WMT_VER_8_0 => 524288
+    static VER_8_0 => 524288
 
     /**
      * Compatible with the Windows Media Format 9 Series SDK, and with the Windows Media Format 9.5 SDK.
+     * Native name: WMT_VER_9_0
      * @type {Integer (Int32)}
      */
-    static WMT_VER_9_0 => 589824
+    static VER_9_0 => 589824
 }

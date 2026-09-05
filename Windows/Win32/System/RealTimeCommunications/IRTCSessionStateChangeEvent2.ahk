@@ -47,7 +47,6 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MediaTypes() {
@@ -56,7 +55,6 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -66,7 +64,6 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsForked() {
@@ -75,7 +72,6 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrContentType 
      * @param {Pointer<BSTR>} pbstrSessionDescription 
      * @returns {HRESULT} 

@@ -7,27 +7,32 @@
 class BACKLIGHT_OPTIMIZATION_LEVEL extends Win32Enum {
 
     /**
+     * Native name: BacklightOptimizationDisable
      * @type {Integer (Int32)}
      */
-    static BacklightOptimizationDisable => 0
+    static Disable => 0
 
     /**
+     * Native name: BacklightOptimizationDesktop
      * @type {Integer (Int32)}
      */
-    static BacklightOptimizationDesktop => 1
+    static Desktop => 1
 
     /**
+     * Native name: BacklightOptimizationDynamic
      * @type {Integer (Int32)}
      */
-    static BacklightOptimizationDynamic => 2
+    static Dynamic => 2
 
     /**
+     * Native name: BacklightOptimizationDimmed
      * @type {Integer (Int32)}
      */
-    static BacklightOptimizationDimmed => 3
+    static Dimmed => 3
 
     /**
+     * Native name: BacklightOptimizationEDR
      * @type {Integer (Int32)}
      */
-    static BacklightOptimizationEDR => 4
+    static OptimizationEDR => 4
 }

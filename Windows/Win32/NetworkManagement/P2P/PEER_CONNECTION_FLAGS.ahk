@@ -10,13 +10,15 @@ class PEER_CONNECTION_FLAGS extends Win32Enum {
 
     /**
      * Specifies that a connection is a neighbor connection.
+     * Native name: PEER_CONNECTION_NEIGHBOR
      * @type {Integer (Int32)}
      */
-    static PEER_CONNECTION_NEIGHBOR => 1
+    static NEIGHBOR => 1
 
     /**
      * Specifies that a connection is a direct connection to another node.
+     * Native name: PEER_CONNECTION_DIRECT
      * @type {Integer (Int32)}
      */
-    static PEER_CONNECTION_DIRECT => 2
+    static DIRECT => 2
 }

@@ -33,7 +33,6 @@ class IMLangFontLink2 extends IMLangCodePages {
     static VTableNames => ["GetFontCodePages", "ReleaseFont", "ResetFontMapping", "MapFont", "GetFontUnicodeRanges", "GetScriptFontInfo", "CodePageToScriptID"]
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {HFONT} _hFont 
      * @returns {Integer} 
@@ -47,7 +46,6 @@ class IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HFONT} _hFont 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ class IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetFontMapping() {
@@ -68,7 +65,6 @@ class IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {Integer} dwCodePages 
      * @param {Integer} chSrc 
@@ -100,7 +96,6 @@ class IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {Integer} _sid 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} puiFonts 
@@ -115,7 +110,6 @@ class IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {Integer} 
      */

@@ -10,7 +10,8 @@ class D3D10_ASYNC_GETDATA_FLAG extends Win32Enum {
 
     /**
      * Do not flush the command buffer. This can potentially cause an infinite loop if GetData is continually called until it returns S_OK as there may still be commands in the command buffer that need to be processed in order for GetData to return S_OK. Since the commands in the command buffer are not flushed they will not be processed and therefore GetData will never return S_OK.
+     * Native name: D3D10_ASYNC_GETDATA_DONOTFLUSH
      * @type {Integer (Int32)}
      */
-    static D3D10_ASYNC_GETDATA_DONOTFLUSH => 1
+    static DONOTFLUSH => 1
 }

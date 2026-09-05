@@ -7,12 +7,14 @@
 class RUNTIME_REPORT_TYPE extends Win32Enum {
 
     /**
+     * Native name: RuntimeReportTypeDriver
      * @type {Integer (Int32)}
      */
-    static RuntimeReportTypeDriver => 0
+    static Driver => 0
 
     /**
+     * Native name: RuntimeReportTypeMax
      * @type {Integer (Int32)}
      */
-    static RuntimeReportTypeMax => 1
+    static Max => 1
 }

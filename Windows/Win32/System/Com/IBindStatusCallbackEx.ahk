@@ -30,7 +30,6 @@ class IBindStatusCallbackEx extends IBindStatusCallback {
     static VTableNames => ["GetBindInfoEx"]
 
     /**
-     * 
      * @param {Pointer<Integer>} grfBINDF 
      * @param {Pointer<BINDINFO>} pbindinfo 
      * @param {Pointer<Integer>} grfBINDF2 

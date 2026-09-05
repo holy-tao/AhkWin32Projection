@@ -7,12 +7,14 @@
 class D3DKMT_PROTECTED_SESSION_STATUS extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_PROTECTED_SESSION_STATUS_OK
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PROTECTED_SESSION_STATUS_OK => 0
+    static OK => 0
 
     /**
+     * Native name: D3DKMT_PROTECTED_SESSION_STATUS_INVALID
      * @type {Integer (Int32)}
      */
-    static D3DKMT_PROTECTED_SESSION_STATUS_INVALID => 1
+    static INVALID => 1
 }

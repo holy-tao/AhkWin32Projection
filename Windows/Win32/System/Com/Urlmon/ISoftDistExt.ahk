@@ -34,7 +34,6 @@ class ISoftDistExt extends IUnknown {
     static VTableNames => ["ProcessSoftDist", "GetFirstCodeBase", "GetNextCodeBase", "AsyncInstallDistributionUnit"]
 
     /**
-     * 
      * @param {PWSTR} szCDFURL 
      * @param {IXMLElement} pSoftDistElement 
      * @param {Pointer<SOFTDISTINFO>} lpsdi 
@@ -48,7 +47,6 @@ class ISoftDistExt extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} szCodeBase 
      * @param {Pointer<Integer>} dwMaxSize 
      * @returns {HRESULT} 
@@ -62,7 +60,6 @@ class ISoftDistExt extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} szCodeBase 
      * @param {Pointer<Integer>} dwMaxSize 
      * @returns {HRESULT} 
@@ -76,7 +73,6 @@ class ISoftDistExt extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBindCtx} pbc 
      * @param {Pointer<Void>} pvReserved 
      * @param {Integer} flags 

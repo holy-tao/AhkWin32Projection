@@ -31,7 +31,6 @@ class ISpRecognizer2 extends IUnknown {
     static VTableNames => ["EmulateRecognitionEx", "SetTrainingState", "ResetAcousticModelAdaptation"]
 
     /**
-     * 
      * @param {ISpPhrase} pPhrase 
      * @param {Integer} dwCompareFlags 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class ISpRecognizer2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fDoingTraining 
      * @param {BOOL} fAdaptFromTrainingData 
      * @returns {HRESULT} 
@@ -53,7 +51,6 @@ class ISpRecognizer2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetAcousticModelAdaptation() {

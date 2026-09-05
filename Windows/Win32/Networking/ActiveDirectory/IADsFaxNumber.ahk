@@ -49,7 +49,6 @@ class IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TelephoneNumber() {
@@ -59,7 +58,6 @@ class IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTelephoneNumber 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ class IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Parameters() {
@@ -81,7 +78,6 @@ class IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vParameters 
      * @returns {HRESULT} 
      */

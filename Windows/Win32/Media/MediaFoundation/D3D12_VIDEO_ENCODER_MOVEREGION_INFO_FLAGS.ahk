@@ -7,12 +7,14 @@
 class D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAG_MULTIPLE_HINTS
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAG_MULTIPLE_HINTS => 1
+    static FLAG_MULTIPLE_HINTS => 1
 }

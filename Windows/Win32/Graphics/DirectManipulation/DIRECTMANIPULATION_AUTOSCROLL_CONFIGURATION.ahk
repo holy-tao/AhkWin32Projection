@@ -10,19 +10,22 @@ class DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION extends Win32Enum {
 
     /**
      * If content is scrolling, slowly stop along the direction of the motion.
+     * Native name: DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_STOP
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_STOP => 0
+    static STOP => 0
 
     /**
      * Scroll towards the positive boundary of the content.
+     * Native name: DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_FORWARD
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_FORWARD => 1
+    static FORWARD => 1
 
     /**
      * Scroll towards the origin of the content.
+     * Native name: DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_REVERSE
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_REVERSE => 2
+    static REVERSE => 2
 }

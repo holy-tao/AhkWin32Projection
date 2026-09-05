@@ -10,13 +10,15 @@ class CF_DEHYDRATE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No dehydration flags.
+     * Native name: CF_DEHYDRATE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_DEHYDRATE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * If specified, the caller is a system process running in the background. Otherwise, the caller is performing this operation on behalf of a logged-in user.
+     * Native name: CF_DEHYDRATE_FLAG_BACKGROUND
      * @type {Integer (Int32)}
      */
-    static CF_DEHYDRATE_FLAG_BACKGROUND => 1
+    static FLAG_BACKGROUND => 1
 }

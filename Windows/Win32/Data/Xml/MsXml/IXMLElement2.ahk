@@ -76,7 +76,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagName() {
@@ -86,7 +85,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -98,7 +96,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElement2} 
      */
     get_parent() {
@@ -107,7 +104,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @param {VARIANT} _PropertyValue 
      * @returns {HRESULT} 
@@ -120,7 +116,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @returns {VARIANT} 
      */
@@ -133,7 +128,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @returns {HRESULT} 
      */
@@ -145,7 +139,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElementCollection} 
      */
     get_children() {
@@ -154,7 +147,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -163,7 +155,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -173,7 +164,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -185,7 +175,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLElement2} pChildElem 
      * @param {Integer} lIndex 
      * @param {Integer} lReserved 
@@ -197,7 +186,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLElement2} pChildElem 
      * @returns {HRESULT} 
      */
@@ -207,7 +195,6 @@ class IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElementCollection} 
      */
     get_attributes() {

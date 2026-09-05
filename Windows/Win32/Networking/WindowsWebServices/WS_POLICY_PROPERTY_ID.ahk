@@ -13,9 +13,10 @@ class WS_POLICY_PROPERTY_ID extends Win32Enum {
      *                  It is of type <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_policy_state">WS_POLICY_STATE</a>.
      * 
      * The current state of the policy object.
+     * Native name: WS_POLICY_PROPERTY_STATE
      * @type {Integer (Int32)}
      */
-    static WS_POLICY_PROPERTY_STATE => 1
+    static STATE => 1
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a> when
@@ -36,9 +37,10 @@ class WS_POLICY_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 32.
+     * Native name: WS_POLICY_PROPERTY_MAX_ALTERNATIVES
      * @type {Integer (Int32)}
      */
-    static WS_POLICY_PROPERTY_MAX_ALTERNATIVES => 2
+    static MAX_ALTERNATIVES => 2
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a> when
@@ -58,9 +60,10 @@ class WS_POLICY_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 32.
+     * Native name: WS_POLICY_PROPERTY_MAX_DEPTH
      * @type {Integer (Int32)}
      */
-    static WS_POLICY_PROPERTY_MAX_DEPTH => 3
+    static MAX_DEPTH => 3
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a> when
@@ -84,7 +87,8 @@ class WS_POLICY_PROPERTY_ID extends Win32Enum {
      *                     of alternatives due to the expansion of different permutations
      *                     of assertions.  Setting this property to a large
      *                     value may lead to excessive processing or memory consumption.
+     * Native name: WS_POLICY_PROPERTY_MAX_EXTENSIONS
      * @type {Integer (Int32)}
      */
-    static WS_POLICY_PROPERTY_MAX_EXTENSIONS => 4
+    static MAX_EXTENSIONS => 4
 }

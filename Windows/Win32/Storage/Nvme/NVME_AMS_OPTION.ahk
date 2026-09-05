@@ -7,12 +7,14 @@
 class NVME_AMS_OPTION extends Win32Enum {
 
     /**
+     * Native name: NVME_AMS_ROUND_ROBIN
      * @type {Integer (Int32)}
      */
-    static NVME_AMS_ROUND_ROBIN => 0
+    static ROUND_ROBIN => 0
 
     /**
+     * Native name: NVME_AMS_WEIGHTED_ROUND_ROBIN_URGENT
      * @type {Integer (Int32)}
      */
-    static NVME_AMS_WEIGHTED_ROUND_ROBIN_URGENT => 1
+    static WEIGHTED_ROUND_ROBIN_URGENT => 1
 }

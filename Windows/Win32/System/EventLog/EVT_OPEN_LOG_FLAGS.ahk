@@ -10,13 +10,15 @@ class EVT_OPEN_LOG_FLAGS extends Win32Enum {
 
     /**
      * Open a channel.
+     * Native name: EvtOpenChannelPath
      * @type {Integer (UInt32)}
      */
-    static EvtOpenChannelPath => 1
+    static ChannelPath => 1
 
     /**
      * Open an exported log file.
+     * Native name: EvtOpenFilePath
      * @type {Integer (UInt32)}
      */
-    static EvtOpenFilePath => 2
+    static FilePath => 2
 }

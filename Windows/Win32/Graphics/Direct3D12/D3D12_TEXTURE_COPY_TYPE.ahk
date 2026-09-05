@@ -12,13 +12,15 @@ class D3D12_TEXTURE_COPY_TYPE extends Win32Enum {
 
     /**
      * Indicates a subresource, identified by an index, is to be copied.
+     * Native name: D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX => 0
+    static SUBRESOURCE_INDEX => 0
 
     /**
      * Indicates a place footprint, identified by a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint">D3D12_PLACED_SUBRESOURCE_FOOTPRINT</a> structure, is to be copied.
+     * Native name: D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT
      * @type {Integer (Int32)}
      */
-    static D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT => 1
+    static PLACED_FOOTPRINT => 1
 }

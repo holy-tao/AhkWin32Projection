@@ -51,7 +51,6 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_showHeaderFooter() {
@@ -60,7 +59,6 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shrinkToFit() {
@@ -69,7 +67,6 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_percentScale() {

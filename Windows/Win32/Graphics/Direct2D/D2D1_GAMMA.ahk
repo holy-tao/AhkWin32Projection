@@ -16,13 +16,15 @@ class D2D1_GAMMA extends Win32Enum {
 
     /**
      * Interpolation is performed in the standard RGB (sRGB) gamma.
+     * Native name: D2D1_GAMMA_2_2
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMA_2_2 => 0
+    static 2_2 => 0
 
     /**
      * Interpolation is performed in the linear-gamma color space.
+     * Native name: D2D1_GAMMA_1_0
      * @type {Integer (Int32)}
      */
-    static D2D1_GAMMA_1_0 => 1
+    static 1_0 => 1
 }

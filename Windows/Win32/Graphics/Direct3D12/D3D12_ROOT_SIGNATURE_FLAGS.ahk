@@ -15,79 +15,92 @@ class D3D12_ROOT_SIGNATURE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates default behavior.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The app is opting in to using the Input Assembler (requiring an input layout that defines a set of vertex buffer bindings). Omitting this flag can result in one root argument space being saved on some hardware. Omit this flag if the Input Assembler is not required, though the optimization is minor.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT => 1
+    static FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT => 1
 
     /**
      * Denies the vertex shader access to the root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_DENY_VERTEX_SHADER_ROOT_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_DENY_VERTEX_SHADER_ROOT_ACCESS => 2
+    static FLAG_DENY_VERTEX_SHADER_ROOT_ACCESS => 2
 
     /**
      * Denies the hull shader access to the root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS => 4
+    static FLAG_DENY_HULL_SHADER_ROOT_ACCESS => 4
 
     /**
      * Denies the domain shader access to the root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS => 8
+    static FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS => 8
 
     /**
      * Denies the geometry shader access to the root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS => 16
+    static FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS => 16
 
     /**
      * Denies the pixel shader access to the root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS => 32
+    static FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS => 32
 
     /**
      * The app is opting in to using Stream Output. Omitting this flag can result in one root argument space being saved on some hardware. Omit this flag if Stream Output is not required, though the optimization is minor.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_ALLOW_STREAM_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_ALLOW_STREAM_OUTPUT => 64
+    static FLAG_ALLOW_STREAM_OUTPUT => 64
 
     /**
      * The root signature is to be used with raytracing shaders to define resource bindings sourced from shader records in shader tables.  This flag cannot be combined with any other root signature flags, which are all related to the graphics pipeline.  The absence of the flag means the root signature can be used with graphics or compute, where the compute version is also shared with raytracing’s global root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_LOCAL_ROOT_SIGNATURE
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_LOCAL_ROOT_SIGNATURE => 128
+    static FLAG_LOCAL_ROOT_SIGNATURE => 128
 
     /**
      * Denies the amplification shader access to the root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS => 256
+    static FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS => 256
 
     /**
      * Denies the mesh shader access to the root signature.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS => 512
+    static FLAG_DENY_MESH_SHADER_ROOT_ACCESS => 512
 
     /**
      * The shaders are allowed to index the CBV/SRV/UAV descriptor heap directly, using the *ResourceDescriptorHeap* built-in variable.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED => 1024
+    static FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED => 1024
 
     /**
      * The shaders are allowed to index the sampler descriptor heap directly, using the *SamplerDescriptorHeap* built-in variable.
+     * Native name: D3D12_ROOT_SIGNATURE_FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_SIGNATURE_FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED => 2048
+    static FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED => 2048
 }

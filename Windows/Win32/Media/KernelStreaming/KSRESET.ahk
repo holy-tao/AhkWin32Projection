@@ -7,12 +7,14 @@
 class KSRESET extends Win32Enum {
 
     /**
+     * Native name: KSRESET_BEGIN
      * @type {Integer (Int32)}
      */
-    static KSRESET_BEGIN => 0
+    static BEGIN => 0
 
     /**
+     * Native name: KSRESET_END
      * @type {Integer (Int32)}
      */
-    static KSRESET_END => 1
+    static END => 1
 }

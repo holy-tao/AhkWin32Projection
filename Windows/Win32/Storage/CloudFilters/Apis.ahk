@@ -665,7 +665,6 @@ class CloudFilters {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle 
      * @param {Integer} StartingOffset 
      * @param {Integer} Length 

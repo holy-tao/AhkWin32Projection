@@ -30,7 +30,6 @@ class IActiveScriptStringCompare extends IUnknown {
     static VTableNames => ["StrComp"]
 
     /**
-     * 
      * @param {BSTR} bszStr1 
      * @param {BSTR} bszStr2 
      * @returns {Integer} 

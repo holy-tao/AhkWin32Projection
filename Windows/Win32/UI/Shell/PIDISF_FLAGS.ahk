@@ -7,22 +7,26 @@
 class PIDISF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: PIDISF_RECENTLYCHANGED
      * @type {Integer (Int32)}
      */
-    static PIDISF_RECENTLYCHANGED => 1
+    static RECENTLYCHANGED => 1
 
     /**
+     * Native name: PIDISF_CACHEDSTICKY
      * @type {Integer (Int32)}
      */
-    static PIDISF_CACHEDSTICKY => 2
+    static CACHEDSTICKY => 2
 
     /**
+     * Native name: PIDISF_CACHEIMAGES
      * @type {Integer (Int32)}
      */
-    static PIDISF_CACHEIMAGES => 16
+    static CACHEIMAGES => 16
 
     /**
+     * Native name: PIDISF_FOLLOWALLLINKS
      * @type {Integer (Int32)}
      */
-    static PIDISF_FOLLOWALLLINKS => 32
+    static FOLLOWALLLINKS => 32
 }

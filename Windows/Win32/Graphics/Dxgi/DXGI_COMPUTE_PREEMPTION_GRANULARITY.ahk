@@ -12,31 +12,36 @@ class DXGI_COMPUTE_PREEMPTION_GRANULARITY extends Win32Enum {
 
     /**
      * Indicates the preemption granularity as a compute packet.
+     * Native name: DXGI_COMPUTE_PREEMPTION_DMA_BUFFER_BOUNDARY
      * @type {Integer (Int32)}
      */
-    static DXGI_COMPUTE_PREEMPTION_DMA_BUFFER_BOUNDARY => 0
+    static DMA_BUFFER_BOUNDARY => 0
 
     /**
      * Indicates the preemption granularity as a dispatch (for example, a call to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-dispatch">ID3D11DeviceContext::Dispatch</a> method). A dispatch is a part of a compute packet.
+     * Native name: DXGI_COMPUTE_PREEMPTION_DISPATCH_BOUNDARY
      * @type {Integer (Int32)}
      */
-    static DXGI_COMPUTE_PREEMPTION_DISPATCH_BOUNDARY => 1
+    static DISPATCH_BOUNDARY => 1
 
     /**
      * Indicates the preemption granularity as a thread group. A thread group is a part of a dispatch.
+     * Native name: DXGI_COMPUTE_PREEMPTION_THREAD_GROUP_BOUNDARY
      * @type {Integer (Int32)}
      */
-    static DXGI_COMPUTE_PREEMPTION_THREAD_GROUP_BOUNDARY => 2
+    static THREAD_GROUP_BOUNDARY => 2
 
     /**
      * Indicates the preemption granularity as a thread in a thread group. A thread is a part of a thread group.
+     * Native name: DXGI_COMPUTE_PREEMPTION_THREAD_BOUNDARY
      * @type {Integer (Int32)}
      */
-    static DXGI_COMPUTE_PREEMPTION_THREAD_BOUNDARY => 3
+    static THREAD_BOUNDARY => 3
 
     /**
      * Indicates the preemption granularity as a compute instruction in a thread.
+     * Native name: DXGI_COMPUTE_PREEMPTION_INSTRUCTION_BOUNDARY
      * @type {Integer (Int32)}
      */
-    static DXGI_COMPUTE_PREEMPTION_INSTRUCTION_BOUNDARY => 4
+    static INSTRUCTION_BOUNDARY => 4
 }

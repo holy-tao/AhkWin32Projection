@@ -7,12 +7,14 @@
 class BfEnTvRat_Attributes_MPAA extends Win32Enum {
 
     /**
+     * Native name: MPAA_IsBlocked
      * @type {Integer (Int32)}
      */
-    static MPAA_IsBlocked => 1
+    static IsBlocked => 1
 
     /**
+     * Native name: MPAA_ValidAttrSubmask
      * @type {Integer (Int32)}
      */
-    static MPAA_ValidAttrSubmask => 1
+    static ValidAttrSubmask => 1
 }

@@ -10,30 +10,35 @@ class D3D12_VIDEO_DECODE_STATUS extends Win32Enum {
 
     /**
      * The operation succeeded.
+     * Native name: D3D12_VIDEO_DECODE_STATUS_OK
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_STATUS_OK => 0
+    static OK => 0
 
     /**
      * There was a minor problem in the data format, but the host decoder should continue processing.
+     * Native name: D3D12_VIDEO_DECODE_STATUS_CONTINUE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_STATUS_CONTINUE => 1
+    static CONTINUE => 1
 
     /**
      * There was a significant problem in the data format. The host decoder should continue processing, but should skip display.
+     * Native name: D3D12_VIDEO_DECODE_STATUS_CONTINUE_SKIP_DISPLAY
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_STATUS_CONTINUE_SKIP_DISPLAY => 2
+    static CONTINUE_SKIP_DISPLAY => 2
 
     /**
      * There was a severe problem in the data format. The host decoder should restart the entire decoding process, starting at a sequence or random-access entry point.
+     * Native name: D3D12_VIDEO_DECODE_STATUS_RESTART
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_STATUS_RESTART => 3
+    static RESTART => 3
 
     /**
+     * Native name: D3D12_VIDEO_DECODE_STATUS_RATE_EXCEEDED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_STATUS_RATE_EXCEEDED => 4
+    static RATE_EXCEEDED => 4
 }

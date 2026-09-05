@@ -26,9 +26,10 @@ class WS_CALLBACK_MODEL extends Win32Enum {
      * 
      * If it is necessary to do IO within a callback that was invoked short, the best practice is
      *                     to use asynchronous IO (instead of synchronous IO), to avoid lengthy blocking calls.
+     * Native name: WS_SHORT_CALLBACK
      * @type {Integer (Int32)}
      */
-    static WS_SHORT_CALLBACK => 0
+    static SHORT_CALLBACK => 0
 
     /**
      * This value is used to indicate that a callback is invoked long.
@@ -57,7 +58,8 @@ class WS_CALLBACK_MODEL extends Win32Enum {
      * <li>A callback that is invoked long but expects short can go about its work normally.
      *                     </li>
      * </ul>
+     * Native name: WS_LONG_CALLBACK
      * @type {Integer (Int32)}
      */
-    static WS_LONG_CALLBACK => 1
+    static LONG_CALLBACK => 1
 }

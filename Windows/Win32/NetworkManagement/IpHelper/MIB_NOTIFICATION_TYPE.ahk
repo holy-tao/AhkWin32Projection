@@ -16,25 +16,29 @@ class MIB_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
      * A parameter was changed.
+     * Native name: MibParameterNotification
      * @type {Integer (Int32)}
      */
-    static MibParameterNotification => 0
+    static ParameterNotification => 0
 
     /**
      * A new MIB instance was added.
+     * Native name: MibAddInstance
      * @type {Integer (Int32)}
      */
-    static MibAddInstance => 1
+    static AddInstance => 1
 
     /**
      * An existing MIB instance was deleted.
+     * Native name: MibDeleteInstance
      * @type {Integer (Int32)}
      */
-    static MibDeleteInstance => 2
+    static DeleteInstance => 2
 
     /**
      * A notification that is invoked immediately after registration for change notification completes. This initial notification does not indicate a change occurred to a MIB instance. The purpose of this initial notification type is  to provide confirmation that the callback function is properly registered.
+     * Native name: MibInitialNotification
      * @type {Integer (Int32)}
      */
-    static MibInitialNotification => 3
+    static InitialNotification => 3
 }

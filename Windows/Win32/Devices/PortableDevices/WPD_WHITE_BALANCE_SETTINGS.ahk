@@ -11,42 +11,50 @@
 class WPD_WHITE_BALANCE_SETTINGS extends Win32Enum {
 
     /**
+     * Native name: WPD_WHITE_BALANCE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: WPD_WHITE_BALANCE_MANUAL
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_MANUAL => 1
+    static MANUAL => 1
 
     /**
+     * Native name: WPD_WHITE_BALANCE_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_AUTOMATIC => 2
+    static AUTOMATIC => 2
 
     /**
+     * Native name: WPD_WHITE_BALANCE_ONE_PUSH_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_ONE_PUSH_AUTOMATIC => 3
+    static ONE_PUSH_AUTOMATIC => 3
 
     /**
+     * Native name: WPD_WHITE_BALANCE_DAYLIGHT
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_DAYLIGHT => 4
+    static DAYLIGHT => 4
 
     /**
+     * Native name: WPD_WHITE_BALANCE_FLORESCENT
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_FLORESCENT => 5
+    static FLORESCENT => 5
 
     /**
+     * Native name: WPD_WHITE_BALANCE_TUNGSTEN
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_TUNGSTEN => 6
+    static TUNGSTEN => 6
 
     /**
+     * Native name: WPD_WHITE_BALANCE_FLASH
      * @type {Integer (Int32)}
      */
-    static WPD_WHITE_BALANCE_FLASH => 7
+    static FLASH => 7
 }

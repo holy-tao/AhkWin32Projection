@@ -35,7 +35,6 @@ class AsyncIAdviseSink2 extends AsyncIAdviseSink {
     static VTableNames => ["Begin_OnLinkSrcChange", "Finish_OnLinkSrcChange"]
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -44,7 +43,6 @@ class AsyncIAdviseSink2 extends AsyncIAdviseSink {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnLinkSrcChange() {

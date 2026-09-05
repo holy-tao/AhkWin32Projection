@@ -13,25 +13,29 @@ class ROUTER_CONNECTION_STATE extends Win32Enum {
     /**
      * The interface is unreachable. For a list of possible reasons, see 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/unreachability-reasons">Unreachability Reasons</a>.
+     * Native name: ROUTER_IF_STATE_UNREACHABLE
      * @type {Integer (Int32)}
      */
-    static ROUTER_IF_STATE_UNREACHABLE => 0
+    static IF_STATE_UNREACHABLE => 0
 
     /**
      * The interface is reachable but disconnected.
+     * Native name: ROUTER_IF_STATE_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static ROUTER_IF_STATE_DISCONNECTED => 1
+    static IF_STATE_DISCONNECTED => 1
 
     /**
      * The interface is in the process of connecting.
+     * Native name: ROUTER_IF_STATE_CONNECTING
      * @type {Integer (Int32)}
      */
-    static ROUTER_IF_STATE_CONNECTING => 2
+    static IF_STATE_CONNECTING => 2
 
     /**
      * The interface is connected.
+     * Native name: ROUTER_IF_STATE_CONNECTED
      * @type {Integer (Int32)}
      */
-    static ROUTER_IF_STATE_CONNECTED => 3
+    static IF_STATE_CONNECTED => 3
 }

@@ -7,12 +7,14 @@
 class ICMP4_TIME_EXCEED_CODE extends Win32Enum {
 
     /**
+     * Native name: ICMP4_TIME_EXCEED_TRANSIT
      * @type {Integer (Int32)}
      */
-    static ICMP4_TIME_EXCEED_TRANSIT => 0
+    static TRANSIT => 0
 
     /**
+     * Native name: ICMP4_TIME_EXCEED_REASSEMBLY
      * @type {Integer (Int32)}
      */
-    static ICMP4_TIME_EXCEED_REASSEMBLY => 1
+    static REASSEMBLY => 1
 }

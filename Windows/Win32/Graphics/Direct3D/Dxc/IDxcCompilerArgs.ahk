@@ -32,7 +32,6 @@ class IDxcCompilerArgs extends IUnknown {
     static VTableNames => ["GetArguments", "GetCount", "AddArguments", "AddArgumentsUTF8", "AddDefines"]
 
     /**
-     * 
      * @returns {Pointer<PWSTR>} 
      */
     GetArguments() {
@@ -41,7 +40,6 @@ class IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -50,7 +48,6 @@ class IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
      * @returns {HRESULT} 
@@ -63,7 +60,6 @@ class IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PSTR>} pArguments 
      * @param {Integer} argCount 
      * @returns {HRESULT} 
@@ -76,7 +72,6 @@ class IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
      * @returns {HRESULT} 

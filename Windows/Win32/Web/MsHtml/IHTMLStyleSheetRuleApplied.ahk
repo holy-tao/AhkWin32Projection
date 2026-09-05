@@ -36,7 +36,6 @@ class IHTMLStyleSheetRuleApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_msSpecificity() {
@@ -45,7 +44,6 @@ class IHTMLStyleSheetRuleApplied extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Integer} 
      */

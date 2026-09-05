@@ -8446,7 +8446,6 @@ class Credentials {
     }
 
     /**
-     * 
      * @param {Pointer} hCard 
      * @param {Pointer<Integer>} pdwState 
      * @param {Pointer<Integer>} pdwProtocol 
@@ -9682,7 +9681,6 @@ class Credentials {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static SCardDlgExtendedError() {

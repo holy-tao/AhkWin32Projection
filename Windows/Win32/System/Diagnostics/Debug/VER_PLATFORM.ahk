@@ -7,17 +7,20 @@
 class VER_PLATFORM extends Win32Enum {
 
     /**
+     * Native name: VER_PLATFORM_WIN32s
      * @type {Integer (UInt32)}
      */
-    static VER_PLATFORM_WIN32s => 0
+    static WIN32s => 0
 
     /**
+     * Native name: VER_PLATFORM_WIN32_WINDOWS
      * @type {Integer (UInt32)}
      */
-    static VER_PLATFORM_WIN32_WINDOWS => 1
+    static WIN32_WINDOWS => 1
 
     /**
+     * Native name: VER_PLATFORM_WIN32_NT
      * @type {Integer (UInt32)}
      */
-    static VER_PLATFORM_WIN32_NT => 2
+    static WIN32_NT => 2
 }

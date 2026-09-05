@@ -9,12 +9,14 @@
 class HCN_PORT_ACCESS extends Win32Enum {
 
     /**
+     * Native name: HCN_PORT_ACCESS_EXCLUSIVE
      * @type {Integer (Int32)}
      */
-    static HCN_PORT_ACCESS_EXCLUSIVE => 1
+    static EXCLUSIVE => 1
 
     /**
+     * Native name: HCN_PORT_ACCESS_SHARED
      * @type {Integer (Int32)}
      */
-    static HCN_PORT_ACCESS_SHARED => 2
+    static SHARED => 2
 }

@@ -7,22 +7,26 @@
 class APPX_PACKAGING_CONTEXT_CHANGE_TYPE extends Win32Enum {
 
     /**
+     * Native name: APPX_PACKAGING_CONTEXT_CHANGE_TYPE_START
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGING_CONTEXT_CHANGE_TYPE_START => 0
+    static START => 0
 
     /**
+     * Native name: APPX_PACKAGING_CONTEXT_CHANGE_TYPE_CHANGE
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGING_CONTEXT_CHANGE_TYPE_CHANGE => 1
+    static CHANGE => 1
 
     /**
+     * Native name: APPX_PACKAGING_CONTEXT_CHANGE_TYPE_DETAILS
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGING_CONTEXT_CHANGE_TYPE_DETAILS => 2
+    static DETAILS => 2
 
     /**
+     * Native name: APPX_PACKAGING_CONTEXT_CHANGE_TYPE_END
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGING_CONTEXT_CHANGE_TYPE_END => 3
+    static END => 3
 }

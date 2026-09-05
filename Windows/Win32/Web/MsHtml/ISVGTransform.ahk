@@ -59,7 +59,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -78,7 +76,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} v 
      * @returns {HRESULT} 
      */
@@ -88,7 +85,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     get_matrix() {
@@ -97,7 +93,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -107,7 +102,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_angle() {
@@ -116,7 +110,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} _matrix 
      * @returns {HRESULT} 
      */
@@ -126,7 +119,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} tx 
      * @param {Float} ty 
      * @returns {HRESULT} 
@@ -137,7 +129,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} sx 
      * @param {Float} sy 
      * @returns {HRESULT} 
@@ -148,7 +139,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @param {Float} cx 
      * @param {Float} _cy 
@@ -160,7 +150,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {HRESULT} 
      */
@@ -170,7 +159,6 @@ class ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {HRESULT} 
      */

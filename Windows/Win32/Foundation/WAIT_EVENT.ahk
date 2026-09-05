@@ -7,32 +7,38 @@
 class WAIT_EVENT extends Win32Enum {
 
     /**
+     * Native name: WAIT_OBJECT_0
      * @type {Integer (UInt32)}
      */
-    static WAIT_OBJECT_0 => 0
+    static OBJECT_0 => 0
 
     /**
+     * Native name: WAIT_ABANDONED
      * @type {Integer (UInt32)}
      */
-    static WAIT_ABANDONED => 128
+    static ABANDONED => 128
 
     /**
+     * Native name: WAIT_ABANDONED_0
      * @type {Integer (UInt32)}
      */
-    static WAIT_ABANDONED_0 => 128
+    static ABANDONED_0 => 128
 
     /**
+     * Native name: WAIT_IO_COMPLETION
      * @type {Integer (UInt32)}
      */
-    static WAIT_IO_COMPLETION => 192
+    static IO_COMPLETION => 192
 
     /**
+     * Native name: WAIT_TIMEOUT
      * @type {Integer (UInt32)}
      */
-    static WAIT_TIMEOUT => 258
+    static TIMEOUT => 258
 
     /**
+     * Native name: WAIT_FAILED
      * @type {Integer (UInt32)}
      */
-    static WAIT_FAILED => 4294967295
+    static FAILED => 4294967295
 }

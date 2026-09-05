@@ -7,32 +7,38 @@
 class DEVICE_INTERNAL_STATUS_DATA_SET extends Win32Enum {
 
     /**
+     * Native name: DeviceStatusDataSetUndefined
      * @type {Integer (Int32)}
      */
-    static DeviceStatusDataSetUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: DeviceStatusDataSet1
      * @type {Integer (Int32)}
      */
-    static DeviceStatusDataSet1 => 1
+    static Set1 => 1
 
     /**
+     * Native name: DeviceStatusDataSet2
      * @type {Integer (Int32)}
      */
-    static DeviceStatusDataSet2 => 2
+    static Set2 => 2
 
     /**
+     * Native name: DeviceStatusDataSet3
      * @type {Integer (Int32)}
      */
-    static DeviceStatusDataSet3 => 3
+    static Set3 => 3
 
     /**
+     * Native name: DeviceStatusDataSet4
      * @type {Integer (Int32)}
      */
-    static DeviceStatusDataSet4 => 4
+    static Set4 => 4
 
     /**
+     * Native name: DeviceStatusDataSetMax
      * @type {Integer (Int32)}
      */
-    static DeviceStatusDataSetMax => 5
+    static Max => 5
 }

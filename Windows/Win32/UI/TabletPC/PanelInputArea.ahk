@@ -10,25 +10,29 @@ class PanelInputArea extends Win32Enum {
 
     /**
      * The system controls the default input area.
+     * Native name: PanelInputArea_Auto
      * @type {Integer (Int32)}
      */
-    static PanelInputArea_Auto => 0
+    static Auto => 0
 
     /**
      * The keyboard is the default input area.
+     * Native name: PanelInputArea_Keyboard
      * @type {Integer (Int32)}
      */
-    static PanelInputArea_Keyboard => 1
+    static Keyboard => 1
 
     /**
      * The writing pad is the default input area.
+     * Native name: PanelInputArea_WritingPad
      * @type {Integer (Int32)}
      */
-    static PanelInputArea_WritingPad => 2
+    static WritingPad => 2
 
     /**
      * The character pad is the default input area.
+     * Native name: PanelInputArea_CharacterPad
      * @type {Integer (Int32)}
      */
-    static PanelInputArea_CharacterPad => 3
+    static CharacterPad => 3
 }

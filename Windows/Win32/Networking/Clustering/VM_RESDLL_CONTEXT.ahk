@@ -19,31 +19,36 @@ class VM_RESDLL_CONTEXT extends Win32Enum {
 
     /**
      * Turns off the virtual machine.
+     * Native name: VmResdllContextTurnOff
      * @type {Integer (Int32)}
      */
-    static VmResdllContextTurnOff => 0
+    static TurnOff => 0
 
     /**
      * Saves the virtual machine.
+     * Native name: VmResdllContextSave
      * @type {Integer (Int32)}
      */
-    static VmResdllContextSave => 1
+    static Save => 1
 
     /**
      * Shuts down the virtual machine.
+     * Native name: VmResdllContextShutdown
      * @type {Integer (Int32)}
      */
-    static VmResdllContextShutdown => 2
+    static Shutdown => 2
 
     /**
      * Forces a shutdown of the virtual machine.
+     * Native name: VmResdllContextShutdownForce
      * @type {Integer (Int32)}
      */
-    static VmResdllContextShutdownForce => 3
+    static ShutdownForce => 3
 
     /**
      * Performs a live migration of the virtual machine.
+     * Native name: VmResdllContextLiveMigration
      * @type {Integer (Int32)}
      */
-    static VmResdllContextLiveMigration => 4
+    static LiveMigration => 4
 }

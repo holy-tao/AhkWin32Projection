@@ -14,13 +14,15 @@ class D3D10_CPU_ACCESS_FLAG extends Win32Enum {
 
     /**
      * The resource is to be <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">mappable</a> so that the CPU can change its contents. Resources created with this flag cannot be set as outputs of the pipeline and must be created with either dynamic or staging usage (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a>).
+     * Native name: D3D10_CPU_ACCESS_WRITE
      * @type {Integer (Int32)}
      */
-    static D3D10_CPU_ACCESS_WRITE => 65536
+    static WRITE => 65536
 
     /**
      * The resource is to be <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">mappable</a> so that the CPU can read its contents. Resources created with this flag cannot be set as either inputs or outputs to the pipeline and must be created with staging usage (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a>).
+     * Native name: D3D10_CPU_ACCESS_READ
      * @type {Integer (Int32)}
      */
-    static D3D10_CPU_ACCESS_READ => 131072
+    static READ => 131072
 }

@@ -7,9 +7,10 @@
 class USB_HUB_TYPE extends Win32Enum {
 
     /**
+     * Native name: UsbRootHub
      * @type {Integer (Int32)}
      */
-    static UsbRootHub => 1
+    static RootHub => 1
 
     /**
      * @type {Integer (Int32)}

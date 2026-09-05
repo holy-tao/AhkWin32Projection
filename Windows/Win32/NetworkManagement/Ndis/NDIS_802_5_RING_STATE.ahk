@@ -7,32 +7,38 @@
 class NDIS_802_5_RING_STATE extends Win32Enum {
 
     /**
+     * Native name: NdisRingStateOpened
      * @type {Integer (Int32)}
      */
-    static NdisRingStateOpened => 1
+    static Opened => 1
 
     /**
+     * Native name: NdisRingStateClosed
      * @type {Integer (Int32)}
      */
-    static NdisRingStateClosed => 2
+    static Closed => 2
 
     /**
+     * Native name: NdisRingStateOpening
      * @type {Integer (Int32)}
      */
-    static NdisRingStateOpening => 3
+    static Opening => 3
 
     /**
+     * Native name: NdisRingStateClosing
      * @type {Integer (Int32)}
      */
-    static NdisRingStateClosing => 4
+    static Closing => 4
 
     /**
+     * Native name: NdisRingStateOpenFailure
      * @type {Integer (Int32)}
      */
-    static NdisRingStateOpenFailure => 5
+    static OpenFailure => 5
 
     /**
+     * Native name: NdisRingStateRingFailure
      * @type {Integer (Int32)}
      */
-    static NdisRingStateRingFailure => 6
+    static RingFailure => 6
 }

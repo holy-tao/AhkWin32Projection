@@ -7,17 +7,20 @@
 class BDA_SIGNAL_STATE extends Win32Enum {
 
     /**
+     * Native name: BDA_SIGNAL_UNAVAILABLE
      * @type {Integer (Int32)}
      */
-    static BDA_SIGNAL_UNAVAILABLE => 0
+    static UNAVAILABLE => 0
 
     /**
+     * Native name: BDA_SIGNAL_INACTIVE
      * @type {Integer (Int32)}
      */
-    static BDA_SIGNAL_INACTIVE => 1
+    static INACTIVE => 1
 
     /**
+     * Native name: BDA_SIGNAL_ACTIVE
      * @type {Integer (Int32)}
      */
-    static BDA_SIGNAL_ACTIVE => 2
+    static ACTIVE => 2
 }

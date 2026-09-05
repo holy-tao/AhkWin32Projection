@@ -7,22 +7,26 @@
 class ENG_SYSTEM_ATTRIBUTE extends Win32Enum {
 
     /**
+     * Native name: EngProcessorFeature
      * @type {Integer (Int32)}
      */
-    static EngProcessorFeature => 1
+    static ProcessorFeature => 1
 
     /**
+     * Native name: EngNumberOfProcessors
      * @type {Integer (Int32)}
      */
-    static EngNumberOfProcessors => 2
+    static NumberOfProcessors => 2
 
     /**
+     * Native name: EngOptimumAvailableUserMemory
      * @type {Integer (Int32)}
      */
-    static EngOptimumAvailableUserMemory => 3
+    static OptimumAvailableUserMemory => 3
 
     /**
+     * Native name: EngOptimumAvailableSystemMemory
      * @type {Integer (Int32)}
      */
-    static EngOptimumAvailableSystemMemory => 4
+    static OptimumAvailableSystemMemory => 4
 }

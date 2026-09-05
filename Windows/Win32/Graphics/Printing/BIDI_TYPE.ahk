@@ -7,42 +7,50 @@
 class BIDI_TYPE extends Win32Enum {
 
     /**
+     * Native name: BIDI_NULL
      * @type {Integer (Int32)}
      */
-    static BIDI_NULL => 0
+    static NULL => 0
 
     /**
+     * Native name: BIDI_INT
      * @type {Integer (Int32)}
      */
-    static BIDI_INT => 1
+    static INT => 1
 
     /**
+     * Native name: BIDI_FLOAT
      * @type {Integer (Int32)}
      */
-    static BIDI_FLOAT => 2
+    static FLOAT => 2
 
     /**
+     * Native name: BIDI_BOOL
      * @type {Integer (Int32)}
      */
-    static BIDI_BOOL => 3
+    static BOOL => 3
 
     /**
+     * Native name: BIDI_STRING
      * @type {Integer (Int32)}
      */
-    static BIDI_STRING => 4
+    static STRING => 4
 
     /**
+     * Native name: BIDI_TEXT
      * @type {Integer (Int32)}
      */
-    static BIDI_TEXT => 5
+    static TEXT => 5
 
     /**
+     * Native name: BIDI_ENUM
      * @type {Integer (Int32)}
      */
-    static BIDI_ENUM => 6
+    static ENUM => 6
 
     /**
+     * Native name: BIDI_BLOB
      * @type {Integer (Int32)}
      */
-    static BIDI_BLOB => 7
+    static BLOB => 7
 }

@@ -30,7 +30,6 @@ class IRowPositionChange extends IUnknown {
     static VTableNames => ["OnRowPositionChange"]
 
     /**
-     * 
      * @param {Integer} eReason 
      * @param {Integer} ePhase 
      * @param {BOOL} fCantDeny 

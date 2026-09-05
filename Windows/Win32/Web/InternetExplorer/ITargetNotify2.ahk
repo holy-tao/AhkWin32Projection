@@ -30,7 +30,6 @@ class ITargetNotify2 extends ITargetNotify {
     static VTableNames => ["GetOptionString"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrOptions 
      * @returns {HRESULT} 
      */

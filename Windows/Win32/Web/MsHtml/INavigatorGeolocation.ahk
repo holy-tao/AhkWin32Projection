@@ -37,7 +37,6 @@ class INavigatorGeolocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IWebGeolocation} 
      */
     get_geolocation() {

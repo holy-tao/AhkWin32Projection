@@ -7,9 +7,10 @@
 class USB_CONTROLLER_FLAVOR extends Win32Enum {
 
     /**
+     * Native name: USB_HcGeneric
      * @type {Integer (Int32)}
      */
-    static USB_HcGeneric => 0
+    static HcGeneric => 0
 
     /**
      * @type {Integer (Int32)}

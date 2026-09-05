@@ -30,7 +30,6 @@ class IProtectFocus extends IUnknown {
     static VTableNames => ["AllowFocusChange"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     AllowFocusChange() {

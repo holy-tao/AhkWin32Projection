@@ -32,7 +32,6 @@ class IHTMLEditHost extends IUnknown {
     static VTableNames => ["SnapRect"]
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @param {Pointer<RECT>} prcNew 
      * @param {ELEMENT_CORNER} eHandle 

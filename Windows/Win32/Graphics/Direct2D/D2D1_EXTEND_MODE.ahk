@@ -12,19 +12,22 @@ class D2D1_EXTEND_MODE extends Win32Enum {
 
     /**
      * Repeat the edge pixels of the brush's content for all regions outside the normal content area.
+     * Native name: D2D1_EXTEND_MODE_CLAMP
      * @type {Integer (Int32)}
      */
-    static D2D1_EXTEND_MODE_CLAMP => 0
+    static CLAMP => 0
 
     /**
      * Repeat the brush's content.
+     * Native name: D2D1_EXTEND_MODE_WRAP
      * @type {Integer (Int32)}
      */
-    static D2D1_EXTEND_MODE_WRAP => 1
+    static WRAP => 1
 
     /**
      * The same as D2D1_EXTEND_MODE_WRAP, except that alternate tiles of the brush's content are flipped. (The brush's normal content is drawn untransformed.)
+     * Native name: D2D1_EXTEND_MODE_MIRROR
      * @type {Integer (Int32)}
      */
-    static D2D1_EXTEND_MODE_MIRROR => 2
+    static MIRROR => 2
 }

@@ -7,12 +7,14 @@
 class FWPM_SUBSCRIPTION_FLAGS extends Win32Enum {
 
     /**
+     * Native name: FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_ADD
      * @type {Integer (UInt32)}
      */
-    static FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_ADD => 1
+    static FLAG_NOTIFY_ON_ADD => 1
 
     /**
+     * Native name: FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_DELETE
      * @type {Integer (UInt32)}
      */
-    static FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_DELETE => 2
+    static FLAG_NOTIFY_ON_DELETE => 2
 }

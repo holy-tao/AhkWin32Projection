@@ -7,187 +7,224 @@
 class COMAdminOS extends Win32Enum {
 
     /**
+     * Native name: COMAdminOSNotInitialized
      * @type {Integer (Int32)}
      */
-    static COMAdminOSNotInitialized => 0
+    static NotInitialized => 0
 
     /**
+     * Native name: COMAdminOSWindows3_1
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows3_1 => 1
+    static Windows3_1 => 1
 
     /**
+     * Native name: COMAdminOSWindows9x
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows9x => 2
+    static Windows9x => 2
 
     /**
+     * Native name: COMAdminOSWindows2000
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows2000 => 3
+    static Windows2000 => 3
 
     /**
+     * Native name: COMAdminOSWindows2000AdvancedServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows2000AdvancedServer => 4
+    static Windows2000AdvancedServer => 4
 
     /**
+     * Native name: COMAdminOSWindows2000Unknown
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows2000Unknown => 5
+    static Windows2000Unknown => 5
 
     /**
+     * Native name: COMAdminOSUnknown
      * @type {Integer (Int32)}
      */
-    static COMAdminOSUnknown => 6
+    static Unknown => 6
 
     /**
+     * Native name: COMAdminOSWindowsXPPersonal
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsXPPersonal => 11
+    static WindowsXPPersonal => 11
 
     /**
+     * Native name: COMAdminOSWindowsXPProfessional
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsXPProfessional => 12
+    static WindowsXPProfessional => 12
 
     /**
+     * Native name: COMAdminOSWindowsNETStandardServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsNETStandardServer => 13
+    static WindowsNETStandardServer => 13
 
     /**
+     * Native name: COMAdminOSWindowsNETEnterpriseServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsNETEnterpriseServer => 14
+    static WindowsNETEnterpriseServer => 14
 
     /**
+     * Native name: COMAdminOSWindowsNETDatacenterServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsNETDatacenterServer => 15
+    static WindowsNETDatacenterServer => 15
 
     /**
+     * Native name: COMAdminOSWindowsNETWebServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsNETWebServer => 16
+    static WindowsNETWebServer => 16
 
     /**
+     * Native name: COMAdminOSWindowsLonghornPersonal
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsLonghornPersonal => 17
+    static WindowsLonghornPersonal => 17
 
     /**
+     * Native name: COMAdminOSWindowsLonghornProfessional
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsLonghornProfessional => 18
+    static WindowsLonghornProfessional => 18
 
     /**
+     * Native name: COMAdminOSWindowsLonghornStandardServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsLonghornStandardServer => 19
+    static WindowsLonghornStandardServer => 19
 
     /**
+     * Native name: COMAdminOSWindowsLonghornEnterpriseServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsLonghornEnterpriseServer => 20
+    static WindowsLonghornEnterpriseServer => 20
 
     /**
+     * Native name: COMAdminOSWindowsLonghornDatacenterServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsLonghornDatacenterServer => 21
+    static WindowsLonghornDatacenterServer => 21
 
     /**
+     * Native name: COMAdminOSWindowsLonghornWebServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsLonghornWebServer => 22
+    static WindowsLonghornWebServer => 22
 
     /**
+     * Native name: COMAdminOSWindows7Personal
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows7Personal => 23
+    static Windows7Personal => 23
 
     /**
+     * Native name: COMAdminOSWindows7Professional
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows7Professional => 24
+    static Windows7Professional => 24
 
     /**
+     * Native name: COMAdminOSWindows7StandardServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows7StandardServer => 25
+    static Windows7StandardServer => 25
 
     /**
+     * Native name: COMAdminOSWindows7EnterpriseServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows7EnterpriseServer => 26
+    static Windows7EnterpriseServer => 26
 
     /**
+     * Native name: COMAdminOSWindows7DatacenterServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows7DatacenterServer => 27
+    static Windows7DatacenterServer => 27
 
     /**
+     * Native name: COMAdminOSWindows7WebServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows7WebServer => 28
+    static Windows7WebServer => 28
 
     /**
+     * Native name: COMAdminOSWindows8Personal
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows8Personal => 29
+    static Windows8Personal => 29
 
     /**
+     * Native name: COMAdminOSWindows8Professional
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows8Professional => 30
+    static Windows8Professional => 30
 
     /**
+     * Native name: COMAdminOSWindows8StandardServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows8StandardServer => 31
+    static Windows8StandardServer => 31
 
     /**
+     * Native name: COMAdminOSWindows8EnterpriseServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows8EnterpriseServer => 32
+    static Windows8EnterpriseServer => 32
 
     /**
+     * Native name: COMAdminOSWindows8DatacenterServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows8DatacenterServer => 33
+    static Windows8DatacenterServer => 33
 
     /**
+     * Native name: COMAdminOSWindows8WebServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindows8WebServer => 34
+    static Windows8WebServer => 34
 
     /**
+     * Native name: COMAdminOSWindowsBluePersonal
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsBluePersonal => 35
+    static WindowsBluePersonal => 35
 
     /**
+     * Native name: COMAdminOSWindowsBlueProfessional
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsBlueProfessional => 36
+    static WindowsBlueProfessional => 36
 
     /**
+     * Native name: COMAdminOSWindowsBlueStandardServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsBlueStandardServer => 37
+    static WindowsBlueStandardServer => 37
 
     /**
+     * Native name: COMAdminOSWindowsBlueEnterpriseServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsBlueEnterpriseServer => 38
+    static WindowsBlueEnterpriseServer => 38
 
     /**
+     * Native name: COMAdminOSWindowsBlueDatacenterServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsBlueDatacenterServer => 39
+    static WindowsBlueDatacenterServer => 39
 
     /**
+     * Native name: COMAdminOSWindowsBlueWebServer
      * @type {Integer (Int32)}
      */
-    static COMAdminOSWindowsBlueWebServer => 40
+    static WindowsBlueWebServer => 40
 }

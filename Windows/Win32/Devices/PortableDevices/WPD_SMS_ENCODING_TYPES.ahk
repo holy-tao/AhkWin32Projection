@@ -11,17 +11,20 @@
 class WPD_SMS_ENCODING_TYPES extends Win32Enum {
 
     /**
+     * Native name: SMS_ENCODING_7_BIT
      * @type {Integer (Int32)}
      */
-    static SMS_ENCODING_7_BIT => 0
+    static 7_BIT => 0
 
     /**
+     * Native name: SMS_ENCODING_8_BIT
      * @type {Integer (Int32)}
      */
-    static SMS_ENCODING_8_BIT => 1
+    static 8_BIT => 1
 
     /**
+     * Native name: SMS_ENCODING_UTF_16
      * @type {Integer (Int32)}
      */
-    static SMS_ENCODING_UTF_16 => 2
+    static UTF_16 => 2
 }

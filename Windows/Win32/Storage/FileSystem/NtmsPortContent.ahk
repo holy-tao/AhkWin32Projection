@@ -7,17 +7,20 @@
 class NtmsPortContent extends Win32Enum {
 
     /**
+     * Native name: NTMS_PORTCONTENT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_PORTCONTENT_UNKNOWN => 0
+    static PORTCONTENT_UNKNOWN => 0
 
     /**
+     * Native name: NTMS_PORTCONTENT_FULL
      * @type {Integer (Int32)}
      */
-    static NTMS_PORTCONTENT_FULL => 1
+    static PORTCONTENT_FULL => 1
 
     /**
+     * Native name: NTMS_PORTCONTENT_EMPTY
      * @type {Integer (Int32)}
      */
-    static NTMS_PORTCONTENT_EMPTY => 2
+    static PORTCONTENT_EMPTY => 2
 }

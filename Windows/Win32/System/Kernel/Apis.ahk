@@ -100,7 +100,6 @@ class Kernel {
     }
 
     /**
-     * 
      * @param {Pointer<SLIST_HEADER>} ListHead 
      * @param {Pointer<SLIST_ENTRY>} List 
      * @param {Pointer<SLIST_ENTRY>} ListEnd 

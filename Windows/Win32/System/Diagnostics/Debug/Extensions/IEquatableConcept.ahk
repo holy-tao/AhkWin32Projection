@@ -30,7 +30,6 @@ class IEquatableConcept extends IUnknown {
     static VTableNames => ["AreObjectsEqual"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} otherObject 
      * @returns {Boolean} 

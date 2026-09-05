@@ -30,7 +30,6 @@ class IAMPlayListItem extends IUnknown {
     static VTableNames => ["GetFlags", "GetSourceCount", "GetSourceURL", "GetSourceStart", "GetSourceDuration", "GetSourceStartMarker", "GetSourceEndMarker", "GetSourceStartMarkerName", "GetSourceEndMarkerName", "GetLinkURL", "GetScanDuration"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -39,7 +38,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSourceCount() {
@@ -48,7 +46,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {BSTR} 
      */
@@ -59,7 +56,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -69,7 +65,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -79,7 +74,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -89,7 +83,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -99,7 +92,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {BSTR} 
      */
@@ -110,7 +102,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {BSTR} 
      */
@@ -121,7 +112,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetLinkURL() {
@@ -131,7 +121,6 @@ class IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */

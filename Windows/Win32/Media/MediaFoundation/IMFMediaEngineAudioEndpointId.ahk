@@ -30,7 +30,6 @@ class IMFMediaEngineAudioEndpointId extends IUnknown {
     static VTableNames => ["SetAudioEndpointId", "GetAudioEndpointId"]
 
     /**
-     * 
      * @param {PWSTR} pszEndpointId 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IMFMediaEngineAudioEndpointId extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetAudioEndpointId() {

@@ -33,7 +33,6 @@ class ITargetFramePriv2 extends ITargetFramePriv {
     static VTableNames => ["AggregatedNavigation2"]
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IBindCtx} pbc 
      * @param {IBindStatusCallback} pibsc 

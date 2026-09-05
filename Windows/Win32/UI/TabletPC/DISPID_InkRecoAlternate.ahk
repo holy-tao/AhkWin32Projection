@@ -7,77 +7,92 @@
 class DISPID_InkRecoAlternate extends Win32Enum {
 
     /**
+     * Native name: DISPID_InkRecoAlternate_String
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_String => 1
+    static String => 1
 
     /**
+     * Native name: DISPID_InkRecoAlternate_LineNumber
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_LineNumber => 2
+    static LineNumber => 2
 
     /**
+     * Native name: DISPID_InkRecoAlternate_Baseline
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_Baseline => 3
+    static Baseline => 3
 
     /**
+     * Native name: DISPID_InkRecoAlternate_Midline
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_Midline => 4
+    static Midline => 4
 
     /**
+     * Native name: DISPID_InkRecoAlternate_Ascender
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_Ascender => 5
+    static Ascender => 5
 
     /**
+     * Native name: DISPID_InkRecoAlternate_Descender
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_Descender => 6
+    static Descender => 6
 
     /**
+     * Native name: DISPID_InkRecoAlternate_Confidence
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_Confidence => 7
+    static Confidence => 7
 
     /**
+     * Native name: DISPID_InkRecoAlternate_Strokes
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_Strokes => 8
+    static Strokes => 8
 
     /**
+     * Native name: DISPID_InkRecoAlternate_GetStrokesFromStrokeRanges
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_GetStrokesFromStrokeRanges => 9
+    static GetStrokesFromStrokeRanges => 9
 
     /**
+     * Native name: DISPID_InkRecoAlternate_GetStrokesFromTextRange
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_GetStrokesFromTextRange => 10
+    static GetStrokesFromTextRange => 10
 
     /**
+     * Native name: DISPID_InkRecoAlternate_GetTextRangeFromStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_GetTextRangeFromStrokes => 11
+    static GetTextRangeFromStrokes => 11
 
     /**
+     * Native name: DISPID_InkRecoAlternate_GetPropertyValue
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_GetPropertyValue => 12
+    static GetPropertyValue => 12
 
     /**
+     * Native name: DISPID_InkRecoAlternate_LineAlternates
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_LineAlternates => 13
+    static LineAlternates => 13
 
     /**
+     * Native name: DISPID_InkRecoAlternate_ConfidenceAlternates
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_ConfidenceAlternates => 14
+    static ConfidenceAlternates => 14
 
     /**
+     * Native name: DISPID_InkRecoAlternate_AlternatesWithConstantPropertyValues
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecoAlternate_AlternatesWithConstantPropertyValues => 15
+    static AlternatesWithConstantPropertyValues => 15
 }

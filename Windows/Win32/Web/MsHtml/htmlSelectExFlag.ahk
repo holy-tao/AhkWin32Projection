@@ -7,17 +7,20 @@
 class htmlSelectExFlag extends Win32Enum {
 
     /**
+     * Native name: htmlSelectExFlagNone
      * @type {Integer (Int32)}
      */
-    static htmlSelectExFlagNone => 0
+    static None => 0
 
     /**
+     * Native name: htmlSelectExFlagHideSelectionInDesign
      * @type {Integer (Int32)}
      */
-    static htmlSelectExFlagHideSelectionInDesign => 1
+    static HideSelectionInDesign => 1
 
     /**
+     * Native name: htmlSelectExFlag_Max
      * @type {Integer (Int32)}
      */
-    static htmlSelectExFlag_Max => 2147483647
+    static Max => 2147483647
 }

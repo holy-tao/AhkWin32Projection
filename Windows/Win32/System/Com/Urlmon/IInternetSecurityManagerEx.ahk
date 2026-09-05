@@ -30,7 +30,6 @@ class IInternetSecurityManagerEx extends IInternetSecurityManager {
     static VTableNames => ["ProcessUrlActionEx"]
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 

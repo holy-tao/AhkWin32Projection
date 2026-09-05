@@ -67,7 +67,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -77,7 +76,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -86,7 +84,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y() {
@@ -105,7 +101,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -115,7 +110,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x1() {
@@ -124,7 +118,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +127,6 @@ class ISVGPathSegCurvetoQuadraticAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y1() {

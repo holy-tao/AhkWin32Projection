@@ -36,7 +36,6 @@ class ISpPhoneConverter extends ISpObjectWithToken {
     static VTableNames => ["PhoneToId", "IdToPhone"]
 
     /**
-     * 
      * @param {PWSTR} pszPhone 
      * @returns {Integer} 
      */
@@ -48,7 +47,6 @@ class ISpPhoneConverter extends ISpObjectWithToken {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pId 
      * @param {PWSTR} pszPhone 
      * @returns {HRESULT} 

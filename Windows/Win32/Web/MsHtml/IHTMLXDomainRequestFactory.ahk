@@ -30,7 +30,6 @@ class IHTMLXDomainRequestFactory extends IDispatch {
     static VTableNames => ["create"]
 
     /**
-     * 
      * @returns {IHTMLXDomainRequest} 
      */
     create() {

@@ -7,22 +7,26 @@
 class NDIS_CLASS_ID extends Win32Enum {
 
     /**
+     * Native name: NdisClass802_3Priority
      * @type {Integer (Int32)}
      */
-    static NdisClass802_3Priority => 0
+    static Class802_3Priority => 0
 
     /**
+     * Native name: NdisClassWirelessWanMbxMailbox
      * @type {Integer (Int32)}
      */
-    static NdisClassWirelessWanMbxMailbox => 1
+    static WirelessWanMbxMailbox => 1
 
     /**
+     * Native name: NdisClassIrdaPacketInfo
      * @type {Integer (Int32)}
      */
-    static NdisClassIrdaPacketInfo => 2
+    static IrdaPacketInfo => 2
 
     /**
+     * Native name: NdisClassAtmAALInfo
      * @type {Integer (Int32)}
      */
-    static NdisClassAtmAALInfo => 3
+    static AtmAALInfo => 3
 }

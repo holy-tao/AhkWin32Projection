@@ -15,9 +15,10 @@ class D2D1_POINTDIFFUSE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_3f">D2D1_VECTOR_3F</a>.
      * 
      * The default value is {0.0f, 0.0f, 0.0f}.
+     * Native name: D2D1_POINTDIFFUSE_PROP_LIGHT_POSITION
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTDIFFUSE_PROP_LIGHT_POSITION => 0
+    static LIGHT_POSITION => 0
 
     /**
      * The ratio of diffuse reflection to amount of incoming light. This property must be between 0 and 10,000 and is unitless.
@@ -26,9 +27,10 @@ class D2D1_POINTDIFFUSE_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_POINTDIFFUSE_PROP_DIFFUSE_CONSTANT
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTDIFFUSE_PROP_DIFFUSE_CONSTANT => 1
+    static DIFFUSE_CONSTANT => 1
 
     /**
      * The scale factor in the Z direction. The surface scale is unitless and must be between 0 and 10,000.
@@ -37,9 +39,10 @@ class D2D1_POINTDIFFUSE_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default value is 1.0f.
+     * Native name: D2D1_POINTDIFFUSE_PROP_SURFACE_SCALE
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTDIFFUSE_PROP_SURFACE_SCALE => 2
+    static SURFACE_SCALE => 2
 
     /**
      * The color of the incoming light. This property is exposed as a Vector 3 – (R, G, B) and used to compute LR, LG, LB.
@@ -48,9 +51,10 @@ class D2D1_POINTDIFFUSE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_3f">D2D1_VECTOR_3F</a>.
      * 
      * The default value is {1.0f, 1.0f, 1.0f}.
+     * Native name: D2D1_POINTDIFFUSE_PROP_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTDIFFUSE_PROP_COLOR => 3
+    static COLOR => 3
 
     /**
      * The size of an element in the Sobel kernel used to generate the surface normal in the X and Y direction. This property maps to the dx and dy values in the Sobel gradient. 
@@ -61,9 +65,10 @@ class D2D1_POINTDIFFUSE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a>.
      * 
      * The default value is {1.0f, 1.0f}.
+     * Native name: D2D1_POINTDIFFUSE_PROP_KERNEL_UNIT_LENGTH
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTDIFFUSE_PROP_KERNEL_UNIT_LENGTH => 4
+    static KERNEL_UNIT_LENGTH => 4
 
     /**
      * The interpolation mode the effect uses to scale the image to the corresponding kernel unit length. There are six scale modes that range in quality and speed.
@@ -72,7 +77,8 @@ class D2D1_POINTDIFFUSE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_pointdiffuse_scale_mode">D2D1_POINTDIFFUSE_SCALE_MODE</a>.
      * 
      * The default value is D2D1_POINTDIFFUSE_SCALE_MODE_LINEAR.
+     * Native name: D2D1_POINTDIFFUSE_PROP_SCALE_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_POINTDIFFUSE_PROP_SCALE_MODE => 5
+    static SCALE_MODE => 5
 }

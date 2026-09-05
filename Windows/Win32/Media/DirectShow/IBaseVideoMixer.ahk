@@ -29,7 +29,6 @@ class IBaseVideoMixer extends IUnknown {
     static VTableNames => ["SetLeadPin", "GetLeadPin", "GetInputPinCount", "IsUsingClock", "SetUsingClock", "GetClockPeriod", "SetClockPeriod"]
 
     /**
-     * 
      * @param {Integer} _iPin 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLeadPin() {
@@ -48,7 +46,6 @@ class IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputPinCount() {
@@ -57,7 +54,6 @@ class IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     IsUsingClock() {
@@ -66,7 +62,6 @@ class IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bValue 
      * @returns {HRESULT} 
      */
@@ -76,7 +71,6 @@ class IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetClockPeriod() {
@@ -85,7 +79,6 @@ class IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bValue 
      * @returns {HRESULT} 
      */

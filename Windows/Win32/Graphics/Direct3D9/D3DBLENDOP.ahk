@@ -28,27 +28,32 @@
 class D3DBLENDOP extends Win32Enum {
 
     /**
+     * Native name: D3DBLENDOP_ADD
      * @type {Integer (Int32)}
      */
-    static D3DBLENDOP_ADD => 1
+    static ADD => 1
 
     /**
+     * Native name: D3DBLENDOP_SUBTRACT
      * @type {Integer (Int32)}
      */
-    static D3DBLENDOP_SUBTRACT => 2
+    static SUBTRACT => 2
 
     /**
+     * Native name: D3DBLENDOP_REVSUBTRACT
      * @type {Integer (Int32)}
      */
-    static D3DBLENDOP_REVSUBTRACT => 3
+    static REVSUBTRACT => 3
 
     /**
+     * Native name: D3DBLENDOP_MIN
      * @type {Integer (Int32)}
      */
-    static D3DBLENDOP_MIN => 4
+    static MIN => 4
 
     /**
+     * Native name: D3DBLENDOP_MAX
      * @type {Integer (Int32)}
      */
-    static D3DBLENDOP_MAX => 5
+    static MAX => 5
 }

@@ -31,7 +31,6 @@ class IDebugStackFrame110 extends IDebugStackFrame {
     static VTableNames => ["GetStackFrameType", "GetScriptInvocationContext"]
 
     /**
-     * 
      * @returns {DEBUG_STACKFRAME_TYPE} 
      */
     GetStackFrameType() {
@@ -40,7 +39,6 @@ class IDebugStackFrame110 extends IDebugStackFrame {
     }
 
     /**
-     * 
      * @returns {IScriptInvocationContext} 
      */
     GetScriptInvocationContext() {

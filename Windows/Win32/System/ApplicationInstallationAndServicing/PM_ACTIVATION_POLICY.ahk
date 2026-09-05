@@ -7,42 +7,50 @@
 class PM_ACTIVATION_POLICY extends Win32Enum {
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_RESUME
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_RESUME => 0
+    static RESUME => 0
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_RESUMESAMEPARAMS
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_RESUMESAMEPARAMS => 1
+    static RESUMESAMEPARAMS => 1
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_REPLACE
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_REPLACE => 2
+    static REPLACE => 2
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_REPLACESAMEPARAMS
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_REPLACESAMEPARAMS => 3
+    static REPLACESAMEPARAMS => 3
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_MULTISESSION
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_MULTISESSION => 4
+    static MULTISESSION => 4
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_REPLACE_IGNOREFOREGROUND
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_REPLACE_IGNOREFOREGROUND => 5
+    static REPLACE_IGNOREFOREGROUND => 5
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_UNKNOWN => 6
+    static UNKNOWN => 6
 
     /**
+     * Native name: PM_ACTIVATION_POLICY_INVALID
      * @type {Integer (Int32)}
      */
-    static PM_ACTIVATION_POLICY_INVALID => 7
+    static INVALID => 7
 }

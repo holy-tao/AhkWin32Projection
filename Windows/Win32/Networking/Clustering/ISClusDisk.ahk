@@ -59,7 +59,6 @@ class ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Signature() {
@@ -68,7 +67,6 @@ class ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusScsiAddress} 
      */
     get_ScsiAddress() {
@@ -77,7 +75,6 @@ class ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DiskNumber() {
@@ -86,7 +83,6 @@ class ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusPartitions} 
      */
     get_Partitions() {

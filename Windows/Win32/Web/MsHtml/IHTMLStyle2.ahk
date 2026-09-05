@@ -272,7 +272,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -284,7 +283,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tableLayout() {
@@ -294,7 +292,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -306,7 +303,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderCollapse() {
@@ -316,7 +312,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -328,7 +323,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_direction() {
@@ -338,7 +332,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -350,7 +343,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_behavior() {
@@ -360,7 +352,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @param {BSTR} expression 
      * @param {BSTR} language 
@@ -376,7 +367,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT} 
      */
@@ -389,7 +379,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT_BOOL} 
      */
@@ -401,7 +390,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -413,7 +401,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_position() {
@@ -423,7 +410,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -435,7 +421,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_unicodeBidi() {
@@ -445,7 +430,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -455,7 +439,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bottom() {
@@ -465,7 +448,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -475,7 +457,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_right() {
@@ -485,7 +466,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -495,7 +475,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pixelBottom() {
@@ -504,7 +483,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -514,7 +492,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pixelRight() {
@@ -523,7 +500,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -533,7 +509,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_posBottom() {
@@ -542,7 +517,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -552,7 +526,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_posRight() {
@@ -561,7 +534,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -573,7 +545,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_imeMode() {
@@ -583,7 +554,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -595,7 +565,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyAlign() {
@@ -605,7 +574,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -617,7 +585,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyPosition() {
@@ -627,7 +594,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -639,7 +605,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyOverhang() {
@@ -649,7 +614,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -659,7 +623,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_layoutGridChar() {
@@ -669,7 +632,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -679,7 +641,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_layoutGridLine() {
@@ -689,7 +650,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -701,7 +661,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGridMode() {
@@ -711,7 +670,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -723,7 +681,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGridType() {
@@ -733,7 +690,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -745,7 +701,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGrid() {
@@ -755,7 +710,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -767,7 +721,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wordBreak() {
@@ -777,7 +730,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -789,7 +741,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lineBreak() {
@@ -799,7 +750,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -811,7 +761,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textJustify() {
@@ -821,7 +770,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -833,7 +781,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textJustifyTrim() {
@@ -843,7 +790,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -853,7 +799,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textKashida() {
@@ -863,7 +808,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -875,7 +819,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAutospace() {
@@ -885,7 +828,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -897,7 +839,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflowX() {
@@ -907,7 +848,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -919,7 +859,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflowY() {
@@ -929,7 +868,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -941,7 +879,6 @@ class IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accelerator() {

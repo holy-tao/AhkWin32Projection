@@ -7,37 +7,44 @@
 class HTMLAppFlag extends Win32Enum {
 
     /**
+     * Native name: HTMLAppFlagNo
      * @type {Integer (Int32)}
      */
-    static HTMLAppFlagNo => 0
+    static No => 0
 
     /**
+     * Native name: HTMLAppFlagOff
      * @type {Integer (Int32)}
      */
-    static HTMLAppFlagOff => 0
+    static Off => 0
 
     /**
+     * Native name: HTMLAppFlag0
      * @type {Integer (Int32)}
      */
-    static HTMLAppFlag0 => 0
+    static Flag0 => 0
 
     /**
+     * Native name: HTMLAppFlagYes
      * @type {Integer (Int32)}
      */
-    static HTMLAppFlagYes => 1
+    static Yes => 1
 
     /**
+     * Native name: HTMLAppFlagOn
      * @type {Integer (Int32)}
      */
-    static HTMLAppFlagOn => 1
+    static On => 1
 
     /**
+     * Native name: HTMLAppFlag1
      * @type {Integer (Int32)}
      */
-    static HTMLAppFlag1 => 1
+    static Flag1 => 1
 
     /**
+     * Native name: HTMLAppFlag_Max
      * @type {Integer (Int32)}
      */
-    static HTMLAppFlag_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,17 +7,20 @@
 class PO_FX_PERF_STATE_TYPE extends Win32Enum {
 
     /**
+     * Native name: PoFxPerfStateTypeDiscrete
      * @type {Integer (Int32)}
      */
-    static PoFxPerfStateTypeDiscrete => 0
+    static Discrete => 0
 
     /**
+     * Native name: PoFxPerfStateTypeRange
      * @type {Integer (Int32)}
      */
-    static PoFxPerfStateTypeRange => 1
+    static Range => 1
 
     /**
+     * Native name: PoFxPerfStateTypeMaximum
      * @type {Integer (Int32)}
      */
-    static PoFxPerfStateTypeMaximum => 2
+    static Maximum => 2
 }

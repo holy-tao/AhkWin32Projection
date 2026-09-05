@@ -14,9 +14,10 @@ class EmulationType extends Win32Enum {
 
     /**
      * No emulation. The BIOS will not emulate any device type or special sector size for the CD during boot from the CD.
+     * Native name: EmulationNone
      * @type {Integer (Int32)}
      */
-    static EmulationNone => 0
+    static None => 0
 
     /**
      * Emulates a 1.2 MB floppy disk.
@@ -38,7 +39,8 @@ class EmulationType extends Win32Enum {
 
     /**
      * Emulates a hard disk.
+     * Native name: EmulationHardDisk
      * @type {Integer (Int32)}
      */
-    static EmulationHardDisk => 4
+    static HardDisk => 4
 }

@@ -31,7 +31,6 @@ class ISpeechDataKey extends IDispatch {
     static VTableNames => ["SetBinaryValue", "GetBinaryValue", "SetStringValue", "GetStringValue", "SetLongValue", "GetLongValue", "OpenKey", "CreateKey", "DeleteKey", "DeleteValue", "EnumKeys", "EnumValues"]
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {VARIANT} 
      */
@@ -57,7 +55,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -71,7 +68,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {BSTR} 
      */
@@ -84,7 +80,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @param {Integer} Value 
      * @returns {HRESULT} 
@@ -97,7 +92,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {Integer} 
      */
@@ -109,7 +103,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} SubKeyName 
      * @returns {ISpeechDataKey} 
      */
@@ -121,7 +114,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} SubKeyName 
      * @returns {ISpeechDataKey} 
      */
@@ -133,7 +125,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} SubKeyName 
      * @returns {HRESULT} 
      */
@@ -145,7 +136,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {HRESULT} 
      */
@@ -157,7 +147,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {BSTR} 
      */
@@ -168,7 +157,6 @@ class ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {BSTR} 
      */

@@ -10,19 +10,22 @@ class DWRITE_FONT_LINE_GAP_USAGE extends Win32Enum {
 
     /**
      * The usage of the font line gap depends on the method used for text layout.
+     * Native name: DWRITE_FONT_LINE_GAP_USAGE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_LINE_GAP_USAGE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The font line gap is excluded from line spacing.
+     * Native name: DWRITE_FONT_LINE_GAP_USAGE_DISABLED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_LINE_GAP_USAGE_DISABLED => 1
+    static DISABLED => 1
 
     /**
      * The font line gap is included in line spacing.
+     * Native name: DWRITE_FONT_LINE_GAP_USAGE_ENABLED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_LINE_GAP_USAGE_ENABLED => 2
+    static ENABLED => 2
 }

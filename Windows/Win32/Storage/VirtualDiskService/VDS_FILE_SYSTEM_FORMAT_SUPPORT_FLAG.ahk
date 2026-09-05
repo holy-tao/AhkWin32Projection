@@ -13,19 +13,22 @@ class VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG extends Win32Enum {
 
     /**
      * The file system is the default file system to be used for formatting the volume.
+     * Native name: VDS_FSS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static VDS_FSS_DEFAULT => 1
+    static FSS_DEFAULT => 1
 
     /**
      * The revision of the file system is not the latest revision supported for formatting the volume.
+     * Native name: VDS_FSS_PREVIOUS_REVISION
      * @type {Integer (Int32)}
      */
-    static VDS_FSS_PREVIOUS_REVISION => 2
+    static FSS_PREVIOUS_REVISION => 2
 
     /**
      * The file system is the recommended file system to be used for formatting the volume.
+     * Native name: VDS_FSS_RECOMMENDED
      * @type {Integer (Int32)}
      */
-    static VDS_FSS_RECOMMENDED => 4
+    static FSS_RECOMMENDED => 4
 }

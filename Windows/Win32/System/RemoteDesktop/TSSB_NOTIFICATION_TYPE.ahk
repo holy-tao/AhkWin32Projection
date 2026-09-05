@@ -7,22 +7,26 @@
 class TSSB_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: TSSB_NOTIFY_INVALID
      * @type {Integer (Int32)}
      */
-    static TSSB_NOTIFY_INVALID => 0
+    static NOTIFY_INVALID => 0
 
     /**
+     * Native name: TSSB_NOTIFY_TARGET_CHANGE
      * @type {Integer (Int32)}
      */
-    static TSSB_NOTIFY_TARGET_CHANGE => 1
+    static NOTIFY_TARGET_CHANGE => 1
 
     /**
+     * Native name: TSSB_NOTIFY_SESSION_CHANGE
      * @type {Integer (Int32)}
      */
-    static TSSB_NOTIFY_SESSION_CHANGE => 2
+    static NOTIFY_SESSION_CHANGE => 2
 
     /**
+     * Native name: TSSB_NOTIFY_CONNECTION_REQUEST_CHANGE
      * @type {Integer (Int32)}
      */
-    static TSSB_NOTIFY_CONNECTION_REQUEST_CHANGE => 4
+    static NOTIFY_CONNECTION_REQUEST_CHANGE => 4
 }

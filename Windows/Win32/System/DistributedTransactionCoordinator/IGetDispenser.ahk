@@ -30,7 +30,6 @@ class IGetDispenser extends IUnknown {
     static VTableNames => ["GetDispenser"]
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @returns {Pointer<Void>} 
      */

@@ -10,13 +10,15 @@ class VMR9RenderPrefs extends Win32Enum {
 
     /**
      * Indicates that the application paints the color keyed areas.
+     * Native name: RenderPrefs9_DoNotRenderBorder
      * @type {Integer (Int32)}
      */
-    static RenderPrefs9_DoNotRenderBorder => 1
+    static Prefs9_DoNotRenderBorder => 1
 
     /**
      * Bitwise <b>OR</b> of all flags; not used by applications.
+     * Native name: RenderPrefs9_Mask
      * @type {Integer (Int32)}
      */
-    static RenderPrefs9_Mask => 1
+    static Prefs9_Mask => 1
 }

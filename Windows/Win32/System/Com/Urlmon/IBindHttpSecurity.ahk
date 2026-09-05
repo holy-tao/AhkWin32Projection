@@ -29,7 +29,6 @@ class IBindHttpSecurity extends IUnknown {
     static VTableNames => ["GetIgnoreCertMask"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIgnoreCertMask() {

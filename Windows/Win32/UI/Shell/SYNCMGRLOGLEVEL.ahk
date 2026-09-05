@@ -10,25 +10,29 @@ class SYNCMGRLOGLEVEL extends Win32Enum {
 
     /**
      * An information message was logged.
+     * Native name: SYNCMGRLOGLEVEL_INFORMATION
      * @type {Integer (Int32)}
      */
-    static SYNCMGRLOGLEVEL_INFORMATION => 1
+    static INFORMATION => 1
 
     /**
      * A warning message was logged.
+     * Native name: SYNCMGRLOGLEVEL_WARNING
      * @type {Integer (Int32)}
      */
-    static SYNCMGRLOGLEVEL_WARNING => 2
+    static WARNING => 2
 
     /**
      * An error message was logged.
+     * Native name: SYNCMGRLOGLEVEL_ERROR
      * @type {Integer (Int32)}
      */
-    static SYNCMGRLOGLEVEL_ERROR => 3
+    static ERROR => 3
 
     /**
      * The largest valid <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ne-mobsync-syncmgrloglevel">SYNCMGRLOGLEVEL</a> value.
+     * Native name: SYNCMGRLOGLEVEL_LOGLEVELMAX
      * @type {Integer (Int32)}
      */
-    static SYNCMGRLOGLEVEL_LOGLEVELMAX => 3
+    static LOGLEVELMAX => 3
 }

@@ -10,18 +10,21 @@ class TEMPLATE_FLAGS extends Win32Enum {
 
     /**
      * The layout of the event data is determined by the order of the data items defined in the event data template definition.
+     * Native name: TEMPLATE_EVENT_DATA
      * @type {Integer (Int32)}
      */
-    static TEMPLATE_EVENT_DATA => 1
+    static EVENT_DATA => 1
 
     /**
      * The layout of the event data is determined by the XML fragment included in the event data template definition.
+     * Native name: TEMPLATE_USER_DATA
      * @type {Integer (Int32)}
      */
-    static TEMPLATE_USER_DATA => 2
+    static USER_DATA => 2
 
     /**
+     * Native name: TEMPLATE_CONTROL_GUID
      * @type {Integer (Int32)}
      */
-    static TEMPLATE_CONTROL_GUID => 4
+    static CONTROL_GUID => 4
 }

@@ -30,7 +30,6 @@ class IEnumDiscRecorders extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} cRecorders 
      * @param {Pointer<IDiscRecorder>} ppRecorder 
      * @param {Pointer<Integer>} pcFetched 
@@ -44,7 +43,6 @@ class IEnumDiscRecorders extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cRecorders 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumDiscRecorders extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumDiscRecorders extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDiscRecorders} 
      */
     Clone() {

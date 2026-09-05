@@ -31,7 +31,6 @@ class IDirectSound3DBuffer extends IUnknown {
     static VTableNames => ["GetAllParameters", "GetConeAngles", "GetConeOrientation", "GetConeOutsideVolume", "GetMaxDistance", "GetMinDistance", "GetMode", "GetPosition", "GetVelocity", "SetAllParameters", "SetConeAngles", "SetConeOrientation", "SetConeOutsideVolume", "SetMaxDistance", "SetMinDistance", "SetMode", "SetPosition", "SetVelocity"]
 
     /**
-     * 
      * @returns {DS3DBUFFER} 
      */
     GetAllParameters() {
@@ -41,7 +40,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwInsideConeAngle 
      * @param {Pointer<Integer>} pdwOutsideConeAngle 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetConeOrientation() {
@@ -65,7 +62,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetConeOutsideVolume() {
@@ -74,7 +70,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetMaxDistance() {
@@ -83,7 +78,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetMinDistance() {
@@ -92,7 +86,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMode() {
@@ -101,7 +94,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetPosition() {
@@ -111,7 +103,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetVelocity() {
@@ -121,7 +112,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DS3DBUFFER>} pcDs3dBuffer 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -132,7 +122,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwInsideConeAngle 
      * @param {Integer} dwOutsideConeAngle 
      * @param {Integer} dwApply 
@@ -144,7 +133,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -157,7 +145,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lConeOutsideVolume 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -168,7 +155,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flMaxDistance 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -179,7 +165,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flMinDistance 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -190,7 +175,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -201,7 +185,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -214,7 +197,6 @@ class IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 

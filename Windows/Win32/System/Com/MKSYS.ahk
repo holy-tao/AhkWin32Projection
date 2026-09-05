@@ -10,61 +10,71 @@ class MKSYS extends Win32Enum {
 
     /**
      * Indicates a custom moniker implementation.
+     * Native name: MKSYS_NONE
      * @type {Integer (Int32)}
      */
-    static MKSYS_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates the system's generic composite moniker class.
+     * Native name: MKSYS_GENERICCOMPOSITE
      * @type {Integer (Int32)}
      */
-    static MKSYS_GENERICCOMPOSITE => 1
+    static GENERICCOMPOSITE => 1
 
     /**
      * Indicates the system's file moniker class.
+     * Native name: MKSYS_FILEMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_FILEMONIKER => 2
+    static FILEMONIKER => 2
 
     /**
      * Indicates the system's anti-moniker class.
+     * Native name: MKSYS_ANTIMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_ANTIMONIKER => 3
+    static ANTIMONIKER => 3
 
     /**
      * Indicates the system's item moniker class.
+     * Native name: MKSYS_ITEMMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_ITEMMONIKER => 4
+    static ITEMMONIKER => 4
 
     /**
      * Indicates the system's pointer moniker class.
+     * Native name: MKSYS_POINTERMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_POINTERMONIKER => 5
+    static POINTERMONIKER => 5
 
     /**
      * Indicates the system's class moniker class.
+     * Native name: MKSYS_CLASSMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_CLASSMONIKER => 7
+    static CLASSMONIKER => 7
 
     /**
      * Indicates the system's OBJREF moniker class.
+     * Native name: MKSYS_OBJREFMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_OBJREFMONIKER => 8
+    static OBJREFMONIKER => 8
 
     /**
      * Indicates the system's terminal server session moniker class.
+     * Native name: MKSYS_SESSIONMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_SESSIONMONIKER => 9
+    static SESSIONMONIKER => 9
 
     /**
      * Indicates the system's elevation moniker class.
+     * Native name: MKSYS_LUAMONIKER
      * @type {Integer (Int32)}
      */
-    static MKSYS_LUAMONIKER => 10
+    static LUAMONIKER => 10
 }

@@ -53,7 +53,6 @@ class IRangeException extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ class IRangeException extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_code() {
@@ -72,7 +70,6 @@ class IRangeException extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_message() {

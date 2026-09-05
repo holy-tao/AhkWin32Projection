@@ -32,7 +32,6 @@ class IColumnsRowset extends IUnknown {
     static VTableNames => ["GetAvailableColumns", "GetColumnsRowset"]
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcOptColumns 
      * @param {Pointer<Pointer<DBID>>} prgOptColumns 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class IColumnsRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} cOptColumns 
      * @param {Pointer<DBID>} rgOptColumns 

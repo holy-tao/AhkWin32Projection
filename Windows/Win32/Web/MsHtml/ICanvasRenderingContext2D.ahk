@@ -171,7 +171,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLCanvasElement} 
      */
     get_canvas() {
@@ -275,7 +274,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {HRESULT} 
      */
@@ -285,7 +283,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -296,7 +293,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} m11 
      * @param {Float} m12 
      * @param {Float} m21 
@@ -311,7 +307,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} m11 
      * @param {Float} m12 
      * @param {Float} m21 
@@ -326,7 +321,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -337,7 +331,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -347,7 +340,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_globalAlpha() {
@@ -356,7 +348,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -368,7 +359,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_globalCompositeOperation() {
@@ -378,7 +368,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -388,7 +377,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fillStyle() {
@@ -398,7 +386,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -408,7 +395,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_strokeStyle() {
@@ -418,7 +404,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x0 
      * @param {Float} y0 
      * @param {Float} x1 
@@ -431,7 +416,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x0 
      * @param {Float} y0 
      * @param {Float} r0 
@@ -446,7 +430,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} _image 
      * @param {VARIANT} repetition 
      * @returns {ICanvasPattern} 
@@ -457,7 +440,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -469,7 +451,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lineCap() {
@@ -479,7 +460,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -491,7 +471,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lineJoin() {
@@ -501,7 +480,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -511,7 +489,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_lineWidth() {
@@ -520,7 +497,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -530,7 +506,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_miterLimit() {
@@ -539,7 +514,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -549,7 +523,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_shadowBlur() {
@@ -558,7 +531,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -570,7 +542,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shadowColor() {
@@ -580,7 +551,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -590,7 +560,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_shadowOffsetX() {
@@ -599,7 +568,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -609,7 +577,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_shadowOffsetY() {
@@ -618,7 +585,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -631,7 +597,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -644,7 +609,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -657,7 +621,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} radius 
@@ -672,7 +635,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x1 
      * @param {Float} y1 
      * @param {Float} x2 
@@ -686,7 +648,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     beginPath() {
@@ -695,7 +656,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} cp1x 
      * @param {Float} cp1y 
      * @param {Float} cp2x 
@@ -738,7 +698,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     closePath() {
@@ -747,7 +706,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     fill() {
@@ -756,7 +714,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -767,7 +724,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -778,7 +734,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} cpx 
      * @param {Float} cpy 
      * @param {Float} x 
@@ -791,7 +746,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -804,7 +758,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stroke() {
@@ -813,7 +766,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {VARIANT_BOOL} 
@@ -824,7 +776,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -836,7 +787,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_font() {
@@ -846,7 +796,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -858,7 +807,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAlign() {
@@ -868,7 +816,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -880,7 +827,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textBaseline() {
@@ -890,7 +836,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @param {Float} x 
      * @param {Float} y 
@@ -905,7 +850,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @returns {ICanvasTextMetrics} 
      */
@@ -917,7 +861,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @param {Float} x 
      * @param {Float} y 
@@ -932,7 +875,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pSrc 
      * @param {VARIANT} a1 
      * @param {VARIANT} a2 
@@ -950,7 +892,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} a1 
      * @param {VARIANT} a2 
      * @returns {ICanvasImageData} 
@@ -961,7 +902,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} sx 
      * @param {Float} sy 
      * @param {Float} sw 
@@ -974,7 +914,6 @@ class ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {ICanvasImageData} imagedata 
      * @param {Float} dx 
      * @param {Float} dy 

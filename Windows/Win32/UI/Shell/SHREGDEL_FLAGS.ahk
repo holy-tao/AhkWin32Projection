@@ -10,25 +10,29 @@ class SHREGDEL_FLAGS extends Win32Enum {
 
     /**
      * Deletes from <b>HKEY_CURRENT_USER</b>. If the specified item is not found under <b>HKEY_CURRENT_USER</b>, deletes from <b>HKEY_LOCAL_MACHINE</b>.
+     * Native name: SHREGDEL_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SHREGDEL_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Enumerates from <b>HKEY_CURRENT_USER</b> only.
+     * Native name: SHREGDEL_HKCU
      * @type {Integer (Int32)}
      */
-    static SHREGDEL_HKCU => 1
+    static HKCU => 1
 
     /**
      * Enumerates under <b>HKEY_LOCAL_MACHINE</b> only.
+     * Native name: SHREGDEL_HKLM
      * @type {Integer (Int32)}
      */
-    static SHREGDEL_HKLM => 16
+    static HKLM => 16
 
     /**
      * Deletes from both <b>HKEY_CURRENT_USER</b> and <b>HKEY_LOCAL_MACHINE</b>.
+     * Native name: SHREGDEL_BOTH
      * @type {Integer (Int32)}
      */
-    static SHREGDEL_BOTH => 17
+    static BOTH => 17
 }

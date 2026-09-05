@@ -17,19 +17,22 @@ class MFTOPOLOGY_DXVA_MODE extends Win32Enum {
     /**
      * The topology loader enables DXVA
      * on the decoder if possible, and drops optional Media Foundation transforms (MFTs) that do not support DXVA.
+     * Native name: MFTOPOLOGY_DXVA_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MFTOPOLOGY_DXVA_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The topology loader disables all video acceleration. This setting forces software processing, even when the decoder supports DXVA.
+     * Native name: MFTOPOLOGY_DXVA_NONE
      * @type {Integer (Int32)}
      */
-    static MFTOPOLOGY_DXVA_NONE => 1
+    static NONE => 1
 
     /**
      * The topology loader enables DXVA on every MFT that supports it.
+     * Native name: MFTOPOLOGY_DXVA_FULL
      * @type {Integer (Int32)}
      */
-    static MFTOPOLOGY_DXVA_FULL => 2
+    static FULL => 2
 }

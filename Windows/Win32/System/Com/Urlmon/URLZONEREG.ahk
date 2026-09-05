@@ -7,17 +7,20 @@
 class URLZONEREG extends Win32Enum {
 
     /**
+     * Native name: URLZONEREG_DEFAULT
      * @type {Integer (Int32)}
      */
-    static URLZONEREG_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: URLZONEREG_HKLM
      * @type {Integer (Int32)}
      */
-    static URLZONEREG_HKLM => 1
+    static HKLM => 1
 
     /**
+     * Native name: URLZONEREG_HKCU
      * @type {Integer (Int32)}
      */
-    static URLZONEREG_HKCU => 2
+    static HKCU => 2
 }

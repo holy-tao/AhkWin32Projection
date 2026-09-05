@@ -10,13 +10,15 @@ class D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * Protected resources are not supported.
+     * Native name: D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Protected resources are supported.
+     * Native name: D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAG_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAG_SUPPORTED => 1
+    static FLAG_SUPPORTED => 1
 }

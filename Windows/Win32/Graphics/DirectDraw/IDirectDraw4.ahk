@@ -42,7 +42,6 @@ class IDirectDraw4 extends IUnknown {
     static VTableNames => ["Compact", "CreateClipper", "CreatePalette", "CreateSurface", "DuplicateSurface", "EnumDisplayModes", "EnumSurfaces", "FlipToGDISurface", "GetCaps", "GetDisplayMode", "GetFourCCCodes", "GetGDISurface", "GetMonitorFrequency", "GetScanLine", "GetVerticalBlankStatus", "Initialize", "RestoreDisplayMode", "SetCooperativeLevel", "SetDisplayMode", "WaitForVerticalBlank", "GetAvailableVidMem", "GetSurfaceFromDC", "RestoreAllSurfaces", "TestCooperativeLevel", "GetDeviceIdentifier"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Compact() {
@@ -51,7 +50,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawClipper} 
@@ -81,7 +79,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC2>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawSurface4} 
@@ -92,7 +89,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface4} param0 
      * @returns {IDirectDrawSurface4} 
      */
@@ -102,7 +98,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC2>} param1 
      * @param {Pointer<Void>} param2 
@@ -117,7 +112,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC2>} param1 
      * @param {Pointer<Void>} param2 
@@ -132,7 +126,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FlipToGDISurface() {
@@ -141,7 +134,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDCAPS_DX7>} param0 
      * @param {Pointer<DDCAPS_DX7>} param1 
      * @returns {HRESULT} 
@@ -152,7 +144,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC2>} param0 
      * @returns {HRESULT} 
      */
@@ -162,7 +153,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {HRESULT} 
@@ -176,7 +166,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDirectDrawSurface4} 
      */
     GetGDISurface() {
@@ -185,7 +174,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -197,7 +185,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -209,7 +196,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} param0 
      * @returns {HRESULT} 
      */
@@ -255,7 +241,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestoreDisplayMode() {
@@ -264,7 +249,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -277,7 +261,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -291,7 +274,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {HANDLE} param1 
      * @returns {HRESULT} 
@@ -304,7 +286,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSCAPS2>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
@@ -319,7 +300,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {HDC} param0 
      * @returns {IDirectDrawSurface4} 
      */
@@ -331,7 +311,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestoreAllSurfaces() {
@@ -340,7 +319,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TestCooperativeLevel() {
@@ -349,7 +327,6 @@ class IDirectDraw4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDDEVICEIDENTIFIER>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 

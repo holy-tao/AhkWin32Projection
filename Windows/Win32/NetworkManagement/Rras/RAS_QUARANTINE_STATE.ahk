@@ -10,25 +10,29 @@ class RAS_QUARANTINE_STATE extends Win32Enum {
 
     /**
      * The connection state is normal.
+     * Native name: RAS_QUAR_STATE_NORMAL
      * @type {Integer (Int32)}
      */
-    static RAS_QUAR_STATE_NORMAL => 0
+    static QUAR_STATE_NORMAL => 0
 
     /**
      * The connection is quarantined.
+     * Native name: RAS_QUAR_STATE_QUARANTINE
      * @type {Integer (Int32)}
      */
-    static RAS_QUAR_STATE_QUARANTINE => 1
+    static QUAR_STATE_QUARANTINE => 1
 
     /**
      * The connection is in probation.
+     * Native name: RAS_QUAR_STATE_PROBATION
      * @type {Integer (Int32)}
      */
-    static RAS_QUAR_STATE_PROBATION => 2
+    static QUAR_STATE_PROBATION => 2
 
     /**
      * The connection state is unknown.
+     * Native name: RAS_QUAR_STATE_NOT_CAPABLE
      * @type {Integer (Int32)}
      */
-    static RAS_QUAR_STATE_NOT_CAPABLE => 3
+    static QUAR_STATE_NOT_CAPABLE => 3
 }

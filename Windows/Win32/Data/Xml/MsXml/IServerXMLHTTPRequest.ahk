@@ -32,7 +32,6 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest {
     static VTableNames => ["setTimeouts", "waitForResponse", "getOption", "setOption"]
 
     /**
-     * 
      * @param {Integer} resolveTimeout 
      * @param {Integer} connectTimeout 
      * @param {Integer} sendTimeout 
@@ -45,7 +44,6 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {VARIANT} timeoutInSeconds 
      * @returns {VARIANT_BOOL} 
      */
@@ -55,7 +53,6 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {SERVERXMLHTTP_OPTION} option 
      * @returns {VARIANT} 
      */
@@ -66,7 +63,6 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {SERVERXMLHTTP_OPTION} option 
      * @param {VARIANT} value 
      * @returns {HRESULT} 

@@ -7,12 +7,14 @@
 class FAX_ENUM_PORT_OPEN_TYPE extends Win32Enum {
 
     /**
+     * Native name: PORT_OPEN_QUERY
      * @type {Integer (Int32)}
      */
-    static PORT_OPEN_QUERY => 1
+    static QUERY => 1
 
     /**
+     * Native name: PORT_OPEN_MODIFY
      * @type {Integer (Int32)}
      */
-    static PORT_OPEN_MODIFY => 2
+    static MODIFY => 2
 }

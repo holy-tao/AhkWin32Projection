@@ -15779,7 +15779,6 @@ class Gdi {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Integer} x 
      * @param {Integer} y 
@@ -15890,7 +15889,6 @@ class Gdi {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<WGLSWAP>} param1 
      * @returns {Integer} 

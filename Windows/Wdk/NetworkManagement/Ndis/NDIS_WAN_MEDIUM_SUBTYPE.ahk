@@ -7,87 +7,104 @@
 class NDIS_WAN_MEDIUM_SUBTYPE extends Win32Enum {
 
     /**
+     * Native name: NdisWanMediumHub
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumHub => 0
+    static Hub => 0
 
     /**
+     * Native name: NdisWanMediumX_25
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumX_25 => 1
+    static MediumX_25 => 1
 
     /**
+     * Native name: NdisWanMediumIsdn
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumIsdn => 2
+    static Isdn => 2
 
     /**
+     * Native name: NdisWanMediumSerial
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumSerial => 3
+    static Serial => 3
 
     /**
+     * Native name: NdisWanMediumFrameRelay
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumFrameRelay => 4
+    static FrameRelay => 4
 
     /**
+     * Native name: NdisWanMediumAtm
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumAtm => 5
+    static Atm => 5
 
     /**
+     * Native name: NdisWanMediumSonet
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumSonet => 6
+    static Sonet => 6
 
     /**
+     * Native name: NdisWanMediumSW56K
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumSW56K => 7
+    static MediumSW56K => 7
 
     /**
+     * Native name: NdisWanMediumPPTP
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumPPTP => 8
+    static MediumPPTP => 8
 
     /**
+     * Native name: NdisWanMediumL2TP
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumL2TP => 9
+    static MediumL2TP => 9
 
     /**
+     * Native name: NdisWanMediumIrda
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumIrda => 10
+    static Irda => 10
 
     /**
+     * Native name: NdisWanMediumParallel
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumParallel => 11
+    static Parallel => 11
 
     /**
+     * Native name: NdisWanMediumPppoe
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumPppoe => 12
+    static Pppoe => 12
 
     /**
+     * Native name: NdisWanMediumSSTP
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumSSTP => 13
+    static MediumSSTP => 13
 
     /**
+     * Native name: NdisWanMediumAgileVPN
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumAgileVPN => 14
+    static AgileVPN => 14
 
     /**
+     * Native name: NdisWanMediumGre
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumGre => 15
+    static Gre => 15
 
     /**
+     * Native name: NdisWanMediumSubTypeMax
      * @type {Integer (Int32)}
      */
-    static NdisWanMediumSubTypeMax => 16
+    static SubTypeMax => 16
 }

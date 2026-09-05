@@ -29,7 +29,6 @@ class IDebugThreadCall64 extends IUnknown {
     static VTableNames => ["ThreadCallHandler"]
 
     /**
-     * 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 
      * @param {Integer} dwParam3 

@@ -7,12 +7,14 @@
 class CRYPTCAT_VERSION extends Win32Enum {
 
     /**
+     * Native name: CRYPTCAT_VERSION_1
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_VERSION_1 => 256
+    static 1 => 256
 
     /**
+     * Native name: CRYPTCAT_VERSION_2
      * @type {Integer (UInt32)}
      */
-    static CRYPTCAT_VERSION_2 => 512
+    static 2 => 512
 }

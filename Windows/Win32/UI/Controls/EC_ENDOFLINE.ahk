@@ -10,25 +10,29 @@ class EC_ENDOFLINE extends Win32Enum {
 
     /**
      * End of line character specified in content.
+     * Native name: EC_ENDOFLINE_DETECTFROMCONTENT
      * @type {Integer (Int32)}
      */
-    static EC_ENDOFLINE_DETECTFROMCONTENT => 0
+    static DETECTFROMCONTENT => 0
 
     /**
      * End of line character is CRLF.
+     * Native name: EC_ENDOFLINE_CRLF
      * @type {Integer (Int32)}
      */
-    static EC_ENDOFLINE_CRLF => 1
+    static CRLF => 1
 
     /**
      * End of line character is CR.
+     * Native name: EC_ENDOFLINE_CR
      * @type {Integer (Int32)}
      */
-    static EC_ENDOFLINE_CR => 2
+    static CR => 2
 
     /**
      * End of line character is LF.
+     * Native name: EC_ENDOFLINE_LF
      * @type {Integer (Int32)}
      */
-    static EC_ENDOFLINE_LF => 3
+    static LF => 3
 }

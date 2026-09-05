@@ -14,19 +14,22 @@ class DIRECTMANIPULATION_SNAPPOINT_COORDINATE extends Win32BitflagEnum {
      * Default. 
      * 
      * Snap points are specified relative to the top and left boundaries of the content unless <b>DIRECTMANIPULATION_COORDINATE_MIRRORED</b> is also specified, in which case they are relative to the bottom and right boundaries of the content. For zoom, the boundary is 1.0f.
+     * Native name: DIRECTMANIPULATION_COORDINATE_BOUNDARY
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_COORDINATE_BOUNDARY => 0
+    static BOUNDARY => 0
 
     /**
      * Snap points are specified relative to the origin of the viewport.
+     * Native name: DIRECTMANIPULATION_COORDINATE_ORIGIN
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_COORDINATE_ORIGIN => 1
+    static ORIGIN => 1
 
     /**
      * Snap points are interpreted as specified in the negative direction of the origin. The origin is shifted to the bottom and right of the viewport or content. Cannot be set for zoom.
+     * Native name: DIRECTMANIPULATION_COORDINATE_MIRRORED
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_COORDINATE_MIRRORED => 16
+    static MIRRORED => 16
 }

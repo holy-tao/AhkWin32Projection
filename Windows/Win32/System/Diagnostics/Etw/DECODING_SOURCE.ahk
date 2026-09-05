@@ -10,30 +10,35 @@ class DECODING_SOURCE extends Win32Enum {
 
     /**
      * The source of the event data is a XML manifest.
+     * Native name: DecodingSourceXMLFile
      * @type {Integer (Int32)}
      */
-    static DecodingSourceXMLFile => 0
+    static SourceXMLFile => 0
 
     /**
      * The source of the event data is a WMI MOF class.
+     * Native name: DecodingSourceWbem
      * @type {Integer (Int32)}
      */
-    static DecodingSourceWbem => 1
+    static Wbem => 1
 
     /**
      * The source of the event data is a TMF file.
+     * Native name: DecodingSourceWPP
      * @type {Integer (Int32)}
      */
-    static DecodingSourceWPP => 2
+    static SourceWPP => 2
 
     /**
      * Indicates that the event was a self-describing event and was decoded using TraceLogging metadata.
+     * Native name: DecodingSourceTlg
      * @type {Integer (Int32)}
      */
-    static DecodingSourceTlg => 3
+    static Tlg => 3
 
     /**
+     * Native name: DecodingSourceMax
      * @type {Integer (Int32)}
      */
-    static DecodingSourceMax => 4
+    static Max => 4
 }

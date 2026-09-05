@@ -7,17 +7,20 @@
 class DISPID_SpeechPhraseProperties extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPPsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPsCount => 1
+    static SPPsCount => 1
 
     /**
+     * Native name: DISPID_SPPsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPsItem => 0
+    static SPPsItem => 0
 
     /**
+     * Native name: DISPID_SPPs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_SPPs_NewEnum => -4
+    static SPPs_NewEnum => -4
 }

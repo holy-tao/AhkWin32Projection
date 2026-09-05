@@ -7,17 +7,20 @@
 class KSPROPERTY_BDA_ETHERNET_FILTER extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_BDA_ETHERNET_FILTER_MULTICAST_LIST_SIZE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_ETHERNET_FILTER_MULTICAST_LIST_SIZE => 0
+    static MULTICAST_LIST_SIZE => 0
 
     /**
+     * Native name: KSPROPERTY_BDA_ETHERNET_FILTER_MULTICAST_LIST
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_ETHERNET_FILTER_MULTICAST_LIST => 1
+    static MULTICAST_LIST => 1
 
     /**
+     * Native name: KSPROPERTY_BDA_ETHERNET_FILTER_MULTICAST_MODE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_BDA_ETHERNET_FILTER_MULTICAST_MODE => 2
+    static MULTICAST_MODE => 2
 }

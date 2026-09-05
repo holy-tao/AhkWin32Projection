@@ -29,7 +29,6 @@ class ID3D12Resource2 extends ID3D12Resource1 {
     static VTableNames => ["GetDesc1"]
 
     /**
-     * 
      * @returns {D3D12_RESOURCE_DESC1} 
      */
     GetDesc1() {

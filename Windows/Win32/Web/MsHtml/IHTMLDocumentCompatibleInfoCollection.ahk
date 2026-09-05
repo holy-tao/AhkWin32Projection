@@ -43,7 +43,6 @@ class IHTMLDocumentCompatibleInfoCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -52,7 +51,6 @@ class IHTMLDocumentCompatibleInfoCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLDocumentCompatibleInfo} 
      */

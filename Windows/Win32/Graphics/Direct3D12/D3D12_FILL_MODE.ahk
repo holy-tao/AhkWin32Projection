@@ -12,13 +12,15 @@ class D3D12_FILL_MODE extends Win32Enum {
 
     /**
      * Draw lines connecting the vertices. Adjacent vertices are not drawn.
+     * Native name: D3D12_FILL_MODE_WIREFRAME
      * @type {Integer (Int32)}
      */
-    static D3D12_FILL_MODE_WIREFRAME => 2
+    static WIREFRAME => 2
 
     /**
      * Fill the triangles formed by the vertices. Adjacent vertices are not drawn.
+     * Native name: D3D12_FILL_MODE_SOLID
      * @type {Integer (Int32)}
      */
-    static D3D12_FILL_MODE_SOLID => 3
+    static SOLID => 3
 }

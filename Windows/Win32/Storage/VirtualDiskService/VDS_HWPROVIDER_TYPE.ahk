@@ -15,35 +15,40 @@ class VDS_HWPROVIDER_TYPE extends Win32Enum {
 
     /**
      * The type is unknown.
+     * Native name: VDS_HWT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_HWT_UNKNOWN => 0
+    static HWT_UNKNOWN => 0
 
     /**
      * The type indicates a hardware provider for PCI RAID cards.
+     * Native name: VDS_HWT_PCI_RAID
      * @type {Integer (Int32)}
      */
-    static VDS_HWT_PCI_RAID => 1
+    static HWT_PCI_RAID => 1
 
     /**
      * The type indicates a hardware provider for Fibre Channel storage array networks.
+     * Native name: VDS_HWT_FIBRE_CHANNEL
      * @type {Integer (Int32)}
      */
-    static VDS_HWT_FIBRE_CHANNEL => 2
+    static HWT_FIBRE_CHANNEL => 2
 
     /**
      * The type indicates a hardware provider for iSCSI storage array networks.
+     * Native name: VDS_HWT_ISCSI
      * @type {Integer (Int32)}
      */
-    static VDS_HWT_ISCSI => 3
+    static HWT_ISCSI => 3
 
     /**
      * The type indicates a hardware provider for serial attached SCSI (SAS) storage array networks.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7.
+     * Native name: VDS_HWT_SAS
      * @type {Integer (Int32)}
      */
-    static VDS_HWT_SAS => 4
+    static HWT_SAS => 4
 
     /**
      * The type indicates a hybrid hardware provider. A hybrid provider is a provider that manages subsystems that support multiple interconnect types. This is not a valid value for the  
@@ -51,7 +56,8 @@ class VDS_HWPROVIDER_TYPE extends Win32Enum {
      *   structure.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7.
+     * Native name: VDS_HWT_HYBRID
      * @type {Integer (Int32)}
      */
-    static VDS_HWT_HYBRID => 5
+    static HWT_HYBRID => 5
 }

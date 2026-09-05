@@ -21,15 +21,17 @@ class VSS_WRITERRESTORE_ENUM extends Win32Enum {
      *       
      * 
      * This state indicates a writer error.
+     * Native name: VSS_WRE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_WRE_UNDEFINED => 0
+    static WRE_UNDEFINED => 0
 
     /**
      * The writer does not require restore events.
+     * Native name: VSS_WRE_NEVER
      * @type {Integer (Int32)}
      */
-    static VSS_WRE_NEVER => 1
+    static WRE_NEVER => 1
 
     /**
      * Indicates that the writer always expects to handle a 
@@ -40,13 +42,15 @@ class VSS_WRITERRESTORE_ENUM extends Win32Enum {
      *       fails when implementing either a <b>VSS_RME_RESTORE_IF_NOT_THERE</b> or 
      *       <b>VSS_RME_RESTORE_IF_CAN_REPLACE</b> restore method 
      *       (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a>).
+     * Native name: VSS_WRE_IF_REPLACE_FAILS
      * @type {Integer (Int32)}
      */
-    static VSS_WRE_IF_REPLACE_FAILS => 2
+    static WRE_IF_REPLACE_FAILS => 2
 
     /**
      * The writer always performs special operations during the restore operation.
+     * Native name: VSS_WRE_ALWAYS
      * @type {Integer (Int32)}
      */
-    static VSS_WRE_ALWAYS => 3
+    static WRE_ALWAYS => 3
 }

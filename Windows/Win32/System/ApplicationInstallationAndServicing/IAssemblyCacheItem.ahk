@@ -204,7 +204,6 @@ class IAssemblyCacheItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AbortItem() {

@@ -7,17 +7,20 @@
 class AUTHZ_RESOURCE_MANAGER_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: AUTHZ_RM_FLAG_NO_AUDIT
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_RM_FLAG_NO_AUDIT => 1
+    static RM_FLAG_NO_AUDIT => 1
 
     /**
+     * Native name: AUTHZ_RM_FLAG_INITIALIZE_UNDER_IMPERSONATION
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_RM_FLAG_INITIALIZE_UNDER_IMPERSONATION => 2
+    static RM_FLAG_INITIALIZE_UNDER_IMPERSONATION => 2
 
     /**
+     * Native name: AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES => 4
+    static RM_FLAG_NO_CENTRAL_ACCESS_POLICIES => 4
 }

@@ -10,19 +10,22 @@ class WS_SECURITY_KEY_ENTROPY_MODE extends Win32Enum {
 
     /**
      * Only client contributes entropy.
+     * Native name: WS_SECURITY_KEY_ENTROPY_MODE_CLIENT_ONLY
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_KEY_ENTROPY_MODE_CLIENT_ONLY => 1
+    static CLIENT_ONLY => 1
 
     /**
      * Only service contributes entropy.
+     * Native name: WS_SECURITY_KEY_ENTROPY_MODE_SERVER_ONLY
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_KEY_ENTROPY_MODE_SERVER_ONLY => 2
+    static SERVER_ONLY => 2
 
     /**
      * Both contribute entropy.
+     * Native name: WS_SECURITY_KEY_ENTROPY_MODE_COMBINED
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_KEY_ENTROPY_MODE_COMBINED => 3
+    static COMBINED => 3
 }

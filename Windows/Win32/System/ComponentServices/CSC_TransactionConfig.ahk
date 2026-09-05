@@ -12,25 +12,29 @@ class CSC_TransactionConfig extends Win32Enum {
 
     /**
      * Transactions are never used within the enclosed context. This is the default transaction setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.
+     * Native name: CSC_NoTransaction
      * @type {Integer (Int32)}
      */
-    static CSC_NoTransaction => 0
+    static NoTransaction => 0
 
     /**
      * Transactions are used only if the enclosed context is using a transaction; a new transaction is never created. This is the default transaction setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Inherit.
+     * Native name: CSC_IfContainerIsTransactional
      * @type {Integer (Int32)}
      */
-    static CSC_IfContainerIsTransactional => 1
+    static IfContainerIsTransactional => 1
 
     /**
      * Transactions are always used. The existing transaction is used, or if the enclosed context does not already use transactions, a new transaction is created.
+     * Native name: CSC_CreateTransactionIfNecessary
      * @type {Integer (Int32)}
      */
-    static CSC_CreateTransactionIfNecessary => 2
+    static CreateTransactionIfNecessary => 2
 
     /**
      * A new transaction is always created.
+     * Native name: CSC_NewTransaction
      * @type {Integer (Int32)}
      */
-    static CSC_NewTransaction => 3
+    static NewTransaction => 3
 }

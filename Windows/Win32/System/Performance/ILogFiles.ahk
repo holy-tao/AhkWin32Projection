@@ -53,7 +53,6 @@ class ILogFiles extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -62,7 +61,6 @@ class ILogFiles extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -71,7 +69,6 @@ class ILogFiles extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} index 
      * @returns {DILogFileItem} 
      */
@@ -81,7 +78,6 @@ class ILogFiles extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _pathname 
      * @returns {DILogFileItem} 
      */
@@ -93,7 +89,6 @@ class ILogFiles extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} index 
      * @returns {HRESULT} 
      */

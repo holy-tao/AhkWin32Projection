@@ -12,21 +12,24 @@ class MBN_PIN_STATE extends Win32Enum {
      * Indicates that no PIN is currently required.  
      * 
      * This state can occur when the device does not require a PIN.  It can also occur after repeated PIN entry attempts have exhausted the allowable quota and the device does not allow the PIN to be unblocked programmatically
+     * Native name: MBN_PIN_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates that the device is currently locked and requires a PIN to be entered to unlock it  The caller can unlock the device by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnpin-enter">Enter</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpin">IMbnPin</a> interface.
+     * Native name: MBN_PIN_STATE_ENTER
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_STATE_ENTER => 1
+    static ENTER => 1
 
     /**
      * Indicates that the device is in a PIN blocked state and that the PIN needs to be unblocked using the corresponding PIN Unblock Key (PUK).  The caller can unlock the device by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnpin-unblock">Unblock</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpin">IMbnPin</a> interface.
      * 
      * This state can occur after repeated PIN entry attempts have exhausted the allowable quota.
+     * Native name: MBN_PIN_STATE_UNBLOCK
      * @type {Integer (Int32)}
      */
-    static MBN_PIN_STATE_UNBLOCK => 2
+    static UNBLOCK => 2
 }

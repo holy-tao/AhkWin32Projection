@@ -22,19 +22,22 @@ class STORAGE_PROTOCOL_ATA_DATA_TYPE extends Win32Enum {
 
     /**
      * Unknown data type.
+     * Native name: AtaDataTypeUnknown
      * @type {Integer (Int32)}
      */
-    static AtaDataTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * Identify device data type.
+     * Native name: AtaDataTypeIdentify
      * @type {Integer (Int32)}
      */
-    static AtaDataTypeIdentify => 1
+    static Identify => 1
 
     /**
      * Log page data type.
+     * Native name: AtaDataTypeLogPage
      * @type {Integer (Int32)}
      */
-    static AtaDataTypeLogPage => 2
+    static LogPage => 2
 }

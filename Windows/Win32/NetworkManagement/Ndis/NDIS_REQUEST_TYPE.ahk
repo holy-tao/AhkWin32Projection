@@ -7,62 +7,74 @@
 class NDIS_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: NdisRequestQueryInformation
      * @type {Integer (Int32)}
      */
-    static NdisRequestQueryInformation => 0
+    static QueryInformation => 0
 
     /**
+     * Native name: NdisRequestSetInformation
      * @type {Integer (Int32)}
      */
-    static NdisRequestSetInformation => 1
+    static SetInformation => 1
 
     /**
+     * Native name: NdisRequestQueryStatistics
      * @type {Integer (Int32)}
      */
-    static NdisRequestQueryStatistics => 2
+    static QueryStatistics => 2
 
     /**
+     * Native name: NdisRequestOpen
      * @type {Integer (Int32)}
      */
-    static NdisRequestOpen => 3
+    static Open => 3
 
     /**
+     * Native name: NdisRequestClose
      * @type {Integer (Int32)}
      */
-    static NdisRequestClose => 4
+    static Close => 4
 
     /**
+     * Native name: NdisRequestSend
      * @type {Integer (Int32)}
      */
-    static NdisRequestSend => 5
+    static Send => 5
 
     /**
+     * Native name: NdisRequestTransferData
      * @type {Integer (Int32)}
      */
-    static NdisRequestTransferData => 6
+    static TransferData => 6
 
     /**
+     * Native name: NdisRequestReset
      * @type {Integer (Int32)}
      */
-    static NdisRequestReset => 7
+    static Reset => 7
 
     /**
+     * Native name: NdisRequestGeneric1
      * @type {Integer (Int32)}
      */
-    static NdisRequestGeneric1 => 8
+    static Generic1 => 8
 
     /**
+     * Native name: NdisRequestGeneric2
      * @type {Integer (Int32)}
      */
-    static NdisRequestGeneric2 => 9
+    static Generic2 => 9
 
     /**
+     * Native name: NdisRequestGeneric3
      * @type {Integer (Int32)}
      */
-    static NdisRequestGeneric3 => 10
+    static Generic3 => 10
 
     /**
+     * Native name: NdisRequestGeneric4
      * @type {Integer (Int32)}
      */
-    static NdisRequestGeneric4 => 11
+    static Generic4 => 11
 }

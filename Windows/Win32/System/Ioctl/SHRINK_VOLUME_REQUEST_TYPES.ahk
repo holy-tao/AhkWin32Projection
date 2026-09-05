@@ -7,17 +7,20 @@
 class SHRINK_VOLUME_REQUEST_TYPES extends Win32Enum {
 
     /**
+     * Native name: ShrinkPrepare
      * @type {Integer (Int32)}
      */
-    static ShrinkPrepare => 1
+    static Prepare => 1
 
     /**
+     * Native name: ShrinkCommit
      * @type {Integer (Int32)}
      */
-    static ShrinkCommit => 2
+    static Commit => 2
 
     /**
+     * Native name: ShrinkAbort
      * @type {Integer (Int32)}
      */
-    static ShrinkAbort => 3
+    static Abort => 3
 }

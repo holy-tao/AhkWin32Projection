@@ -50,7 +50,6 @@ class IOpenServiceActivityOutputContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUri 
      * @param {PWSTR} pwzMethod 
      * @param {PWSTR} pwzHeaders 

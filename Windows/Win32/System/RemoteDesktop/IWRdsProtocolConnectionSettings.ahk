@@ -31,7 +31,6 @@ class IWRdsProtocolConnectionSettings extends IUnknown {
     static VTableNames => ["SetConnectionSetting", "GetConnectionSetting"]
 
     /**
-     * 
      * @param {Guid} PropertyID 
      * @param {Pointer<WTS_PROPERTY_VALUE>} pPropertyEntriesIn 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IWRdsProtocolConnectionSettings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} PropertyID 
      * @returns {WTS_PROPERTY_VALUE} 
      */

@@ -10,13 +10,15 @@ class AppPolicyMediaFoundationCodecLoading extends Win32Enum {
 
     /**
      * Indicates that the process’s policy allows it to load non-Windows (third-party) plugins.
+     * Native name: AppPolicyMediaFoundationCodecLoading_All
      * @type {Integer (Int32)}
      */
-    static AppPolicyMediaFoundationCodecLoading_All => 0
+    static All => 0
 
     /**
      * Indicates that the process’s policy does not allow it to load non-Windows (third-party) plugins.
+     * Native name: AppPolicyMediaFoundationCodecLoading_InboxOnly
      * @type {Integer (Int32)}
      */
-    static AppPolicyMediaFoundationCodecLoading_InboxOnly => 1
+    static InboxOnly => 1
 }

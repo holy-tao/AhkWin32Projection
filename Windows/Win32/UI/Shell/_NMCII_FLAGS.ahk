@@ -7,17 +7,20 @@
 class _NMCII_FLAGS extends Win32Enum {
 
     /**
+     * Native name: NMCII_NONE
      * @type {Integer (Int32)}
      */
-    static NMCII_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: NMCII_ITEMS
      * @type {Integer (Int32)}
      */
-    static NMCII_ITEMS => 1
+    static ITEMS => 1
 
     /**
+     * Native name: NMCII_FOLDERS
      * @type {Integer (Int32)}
      */
-    static NMCII_FOLDERS => 2
+    static FOLDERS => 2
 }

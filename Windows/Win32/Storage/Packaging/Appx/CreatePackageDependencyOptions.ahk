@@ -10,19 +10,22 @@ class CreatePackageDependencyOptions extends Win32BitflagEnum {
 
     /**
      * No options are applied.
+     * Native name: CreatePackageDependencyOptions_None
      * @type {Integer (Int32)}
      */
-    static CreatePackageDependencyOptions_None => 0
+    static None => 0
 
     /**
      * Disables dependency resolution when pinning a package dependency. This is useful for installers running as user contexts other than the target user (for example, installers running as LocalSystem).
+     * Native name: CreatePackageDependencyOptions_DoNotVerifyDependencyResolution
      * @type {Integer (Int32)}
      */
-    static CreatePackageDependencyOptions_DoNotVerifyDependencyResolution => 1
+    static DoNotVerifyDependencyResolution => 1
 
     /**
      * Defines the package dependency for the system, accessible to all users (by default, the package dependency is defined for a specific user). This option requires the caller has administrative privileges.
+     * Native name: CreatePackageDependencyOptions_ScopeIsSystem
      * @type {Integer (Int32)}
      */
-    static CreatePackageDependencyOptions_ScopeIsSystem => 2
+    static ScopeIsSystem => 2
 }

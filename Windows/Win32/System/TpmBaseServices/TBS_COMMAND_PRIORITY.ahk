@@ -7,27 +7,32 @@
 class TBS_COMMAND_PRIORITY extends Win32Enum {
 
     /**
+     * Native name: TBS_COMMAND_PRIORITY_LOW
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_PRIORITY_LOW => 100
+    static LOW => 100
 
     /**
+     * Native name: TBS_COMMAND_PRIORITY_NORMAL
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_PRIORITY_NORMAL => 200
+    static NORMAL => 200
 
     /**
+     * Native name: TBS_COMMAND_PRIORITY_SYSTEM
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_PRIORITY_SYSTEM => 400
+    static SYSTEM => 400
 
     /**
+     * Native name: TBS_COMMAND_PRIORITY_HIGH
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_PRIORITY_HIGH => 300
+    static HIGH => 300
 
     /**
+     * Native name: TBS_COMMAND_PRIORITY_MAX
      * @type {Integer (UInt32)}
      */
-    static TBS_COMMAND_PRIORITY_MAX => 2147483648
+    static MAX => 2147483648
 }

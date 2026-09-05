@@ -7,22 +7,26 @@
 class PIPE_ALLOCATOR_PLACE extends Win32Enum {
 
     /**
+     * Native name: Pipe_Allocator_None
      * @type {Integer (Int32)}
      */
-    static Pipe_Allocator_None => 0
+    static None => 0
 
     /**
+     * Native name: Pipe_Allocator_FirstPin
      * @type {Integer (Int32)}
      */
-    static Pipe_Allocator_FirstPin => 1
+    static FirstPin => 1
 
     /**
+     * Native name: Pipe_Allocator_LastPin
      * @type {Integer (Int32)}
      */
-    static Pipe_Allocator_LastPin => 2
+    static LastPin => 2
 
     /**
+     * Native name: Pipe_Allocator_MiddlePin
      * @type {Integer (Int32)}
      */
-    static Pipe_Allocator_MiddlePin => 3
+    static MiddlePin => 3
 }

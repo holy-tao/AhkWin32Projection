@@ -7,17 +7,20 @@
 class DOCHOSTUIDBLCLK extends Win32Enum {
 
     /**
+     * Native name: DOCHOSTUIDBLCLK_DEFAULT
      * @type {Integer (Int32)}
      */
-    static DOCHOSTUIDBLCLK_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: DOCHOSTUIDBLCLK_SHOWPROPERTIES
      * @type {Integer (Int32)}
      */
-    static DOCHOSTUIDBLCLK_SHOWPROPERTIES => 1
+    static SHOWPROPERTIES => 1
 
     /**
+     * Native name: DOCHOSTUIDBLCLK_SHOWCODE
      * @type {Integer (Int32)}
      */
-    static DOCHOSTUIDBLCLK_SHOWCODE => 2
+    static SHOWCODE => 2
 }

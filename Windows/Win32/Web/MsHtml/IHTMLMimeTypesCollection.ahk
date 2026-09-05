@@ -36,7 +36,6 @@ class IHTMLMimeTypesCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {

@@ -31,7 +31,6 @@ class ICertEncodeAltName2 extends ICertEncodeAltName {
     static VTableNames => ["DecodeBlob", "EncodeBlob", "GetNameBlob", "SetNameEntryBlob"]
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class ICertEncodeAltName2 extends ICertEncodeAltName {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -55,7 +53,6 @@ class ICertEncodeAltName2 extends ICertEncodeAltName {
     }
 
     /**
-     * 
      * @param {Integer} NameIndex 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
@@ -67,7 +64,6 @@ class ICertEncodeAltName2 extends ICertEncodeAltName {
     }
 
     /**
-     * 
      * @param {Integer} NameIndex 
      * @param {Integer} NameChoice 
      * @param {BSTR} strName 

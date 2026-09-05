@@ -10,13 +10,15 @@ class CaretBidiMode extends Win32Enum {
 
     /**
      * The caret is in text that flows from left to right.
+     * Native name: CaretBidiMode_LTR
      * @type {Integer (Int32)}
      */
-    static CaretBidiMode_LTR => 0
+    static LTR => 0
 
     /**
      * The caret is in text that flows from right to left.
+     * Native name: CaretBidiMode_RTL
      * @type {Integer (Int32)}
      */
-    static CaretBidiMode_RTL => 1
+    static RTL => 1
 }

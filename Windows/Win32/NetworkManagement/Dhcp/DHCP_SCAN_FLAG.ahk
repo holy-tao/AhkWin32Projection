@@ -10,13 +10,15 @@ class DHCP_SCAN_FLAG extends Win32Enum {
 
     /**
      * Indicates that the in-memory client lease cache on the DHCPv4 server does not contain the client lease IP address, but the DHCPv4 client lease database does contain it. (Note that this enumeration does not inform <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpscandatabase">DhcpScanDatabase</a> to perform a registry operation despite the name.) Any reconciliation process should update the in-memory cache.
+     * Native name: DhcpRegistryFix
      * @type {Integer (Int32)}
      */
-    static DhcpRegistryFix => 0
+    static RegistryFix => 0
 
     /**
      * Indicates that the client lease database on the DHCPv4 server does not contain the client lease IP address, but the in-memory cache of client leases  does contain it. Any reconciliation process should update the database.
+     * Native name: DhcpDatabaseFix
      * @type {Integer (Int32)}
      */
-    static DhcpDatabaseFix => 1
+    static DatabaseFix => 1
 }

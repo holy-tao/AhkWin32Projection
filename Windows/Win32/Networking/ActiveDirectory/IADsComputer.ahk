@@ -167,7 +167,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerID() {
@@ -177,7 +176,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Site() {
@@ -187,7 +185,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -197,7 +194,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -209,7 +205,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Location() {
@@ -219,7 +214,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLocation 
      * @returns {HRESULT} 
      */
@@ -231,7 +225,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrimaryUser() {
@@ -241,7 +234,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrimaryUser 
      * @returns {HRESULT} 
      */
@@ -253,7 +245,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Owner() {
@@ -263,7 +254,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOwner 
      * @returns {HRESULT} 
      */
@@ -275,7 +265,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Division() {
@@ -285,7 +274,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDivision 
      * @returns {HRESULT} 
      */
@@ -297,7 +285,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Department() {
@@ -307,7 +294,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDepartment 
      * @returns {HRESULT} 
      */
@@ -319,7 +305,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Role() {
@@ -329,7 +314,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRole 
      * @returns {HRESULT} 
      */
@@ -341,7 +325,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OperatingSystem() {
@@ -351,7 +334,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOperatingSystem 
      * @returns {HRESULT} 
      */
@@ -363,7 +345,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OperatingSystemVersion() {
@@ -373,7 +354,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOperatingSystemVersion 
      * @returns {HRESULT} 
      */
@@ -385,7 +365,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Model() {
@@ -395,7 +374,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrModel 
      * @returns {HRESULT} 
      */
@@ -407,7 +385,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Processor() {
@@ -417,7 +394,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProcessor 
      * @returns {HRESULT} 
      */
@@ -429,7 +405,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProcessorCount() {
@@ -439,7 +414,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProcessorCount 
      * @returns {HRESULT} 
      */
@@ -451,7 +425,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_MemorySize() {
@@ -461,7 +434,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMemorySize 
      * @returns {HRESULT} 
      */
@@ -473,7 +445,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StorageCapacity() {
@@ -483,7 +454,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrStorageCapacity 
      * @returns {HRESULT} 
      */
@@ -495,7 +465,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NetAddresses() {
@@ -505,7 +474,6 @@ class IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vNetAddresses 
      * @returns {HRESULT} 
      */

@@ -7,12 +7,14 @@
 class MPR_VPN_TS_TYPE extends Win32Enum {
 
     /**
+     * Native name: MPR_VPN_TS_IPv4_ADDR_RANGE
      * @type {Integer (Int32)}
      */
-    static MPR_VPN_TS_IPv4_ADDR_RANGE => 7
+    static IPv4_ADDR_RANGE => 7
 
     /**
+     * Native name: MPR_VPN_TS_IPv6_ADDR_RANGE
      * @type {Integer (Int32)}
      */
-    static MPR_VPN_TS_IPv6_ADDR_RANGE => 8
+    static IPv6_ADDR_RANGE => 8
 }

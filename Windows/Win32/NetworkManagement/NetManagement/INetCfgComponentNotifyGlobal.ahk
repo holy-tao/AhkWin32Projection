@@ -31,7 +31,6 @@ class INetCfgComponentNotifyGlobal extends IUnknown {
     static VTableNames => ["GetSupportedNotifications", "SysQueryBindingPath", "SysNotifyBindingPath", "SysNotifyComponent"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSupportedNotifications() {
@@ -40,7 +39,6 @@ class INetCfgComponentNotifyGlobal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 
@@ -51,7 +49,6 @@ class INetCfgComponentNotifyGlobal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 
@@ -62,7 +59,6 @@ class INetCfgComponentNotifyGlobal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgComponent} pIComp 
      * @returns {HRESULT} 

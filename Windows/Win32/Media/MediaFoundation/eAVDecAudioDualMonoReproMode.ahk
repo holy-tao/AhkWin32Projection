@@ -10,25 +10,29 @@ class eAVDecAudioDualMonoReproMode extends Win32Enum {
 
     /**
      * Output channel 1 (Ch1) to the left speaker and channel 2 (Ch2) to the right speaker.
+     * Native name: eAVDecAudioDualMonoReproMode_STEREO
      * @type {Integer (Int32)}
      */
-    static eAVDecAudioDualMonoReproMode_STEREO => 0
+    static STEREO => 0
 
     /**
      * Output Ch1 to the left and right speakers.
+     * Native name: eAVDecAudioDualMonoReproMode_LEFT_MONO
      * @type {Integer (Int32)}
      */
-    static eAVDecAudioDualMonoReproMode_LEFT_MONO => 1
+    static LEFT_MONO => 1
 
     /**
      * Output Ch2 to the left and right speakers.
+     * Native name: eAVDecAudioDualMonoReproMode_RIGHT_MONO
      * @type {Integer (Int32)}
      */
-    static eAVDecAudioDualMonoReproMode_RIGHT_MONO => 2
+    static RIGHT_MONO => 2
 
     /**
      * Mix Ch1 and Ch2 and output the mix to the left and right speakers.
+     * Native name: eAVDecAudioDualMonoReproMode_MIX_MONO
      * @type {Integer (Int32)}
      */
-    static eAVDecAudioDualMonoReproMode_MIX_MONO => 3
+    static MIX_MONO => 3
 }

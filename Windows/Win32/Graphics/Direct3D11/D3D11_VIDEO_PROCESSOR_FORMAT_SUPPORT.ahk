@@ -10,13 +10,15 @@ class D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT extends Win32Enum {
 
     /**
      * The format can be used as the input to the video processor.
+     * Native name: D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT_INPUT
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT_INPUT => 1
+    static INPUT => 1
 
     /**
      * The format can be used as the output from the video processor.
+     * Native name: D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT_OUTPUT => 2
+    static OUTPUT => 2
 }

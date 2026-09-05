@@ -31,7 +31,6 @@ class IPrintSchemaTicket2 extends IPrintSchemaTicket {
     static VTableNames => ["GetParameterInitializer"]
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaParameterInitializer} 

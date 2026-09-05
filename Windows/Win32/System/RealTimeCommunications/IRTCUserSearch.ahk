@@ -31,7 +31,6 @@ class IRTCUserSearch extends IUnknown {
     static VTableNames => ["CreateQuery", "ExecuteSearch"]
 
     /**
-     * 
      * @returns {IRTCUserSearchQuery} 
      */
     CreateQuery() {
@@ -40,7 +39,6 @@ class IRTCUserSearch extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCUserSearchQuery} pQuery 
      * @param {IRTCProfile} pProfile 
      * @param {Pointer} lCookie 

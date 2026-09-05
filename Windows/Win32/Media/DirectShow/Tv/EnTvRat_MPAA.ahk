@@ -7,42 +7,50 @@
 class EnTvRat_MPAA extends Win32Enum {
 
     /**
+     * Native name: MPAA_NotApplicable
      * @type {Integer (Int32)}
      */
-    static MPAA_NotApplicable => 0
+    static NotApplicable => 0
 
     /**
+     * Native name: MPAA_G
      * @type {Integer (Int32)}
      */
-    static MPAA_G => 1
+    static G => 1
 
     /**
+     * Native name: MPAA_PG
      * @type {Integer (Int32)}
      */
-    static MPAA_PG => 2
+    static PG => 2
 
     /**
+     * Native name: MPAA_PG13
      * @type {Integer (Int32)}
      */
-    static MPAA_PG13 => 3
+    static PG13 => 3
 
     /**
+     * Native name: MPAA_R
      * @type {Integer (Int32)}
      */
-    static MPAA_R => 4
+    static R => 4
 
     /**
+     * Native name: MPAA_NC17
      * @type {Integer (Int32)}
      */
-    static MPAA_NC17 => 5
+    static NC17 => 5
 
     /**
+     * Native name: MPAA_X
      * @type {Integer (Int32)}
      */
-    static MPAA_X => 6
+    static X => 6
 
     /**
+     * Native name: MPAA_NotRated
      * @type {Integer (Int32)}
      */
-    static MPAA_NotRated => 7
+    static NotRated => 7
 }

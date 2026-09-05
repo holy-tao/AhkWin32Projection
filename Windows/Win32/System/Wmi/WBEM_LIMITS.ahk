@@ -9,27 +9,32 @@
 class WBEM_LIMITS extends Win32Enum {
 
     /**
+     * Native name: WBEM_MAX_IDENTIFIER
      * @type {Integer (Int32)}
      */
-    static WBEM_MAX_IDENTIFIER => 4096
+    static MAX_IDENTIFIER => 4096
 
     /**
+     * Native name: WBEM_MAX_QUERY
      * @type {Integer (Int32)}
      */
-    static WBEM_MAX_QUERY => 16384
+    static MAX_QUERY => 16384
 
     /**
+     * Native name: WBEM_MAX_PATH
      * @type {Integer (Int32)}
      */
-    static WBEM_MAX_PATH => 8192
+    static MAX_PATH => 8192
 
     /**
+     * Native name: WBEM_MAX_OBJECT_NESTING
      * @type {Integer (Int32)}
      */
-    static WBEM_MAX_OBJECT_NESTING => 64
+    static MAX_OBJECT_NESTING => 64
 
     /**
+     * Native name: WBEM_MAX_USER_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WBEM_MAX_USER_PROPERTIES => 1024
+    static MAX_USER_PROPERTIES => 1024
 }

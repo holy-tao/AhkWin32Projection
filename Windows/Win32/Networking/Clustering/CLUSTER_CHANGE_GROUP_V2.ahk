@@ -12,67 +12,78 @@ class CLUSTER_CHANGE_GROUP_V2 extends Win32Enum {
 
     /**
      * Indicates that a group was deleted.
+     * Native name: CLUSTER_CHANGE_GROUP_DELETED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_DELETED_V2 => 1
+    static DELETED_V2 => 1
 
     /**
      * Indicates that a group's common property changed.
+     * Native name: CLUSTER_CHANGE_GROUP_COMMON_PROPERTY_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_COMMON_PROPERTY_V2 => 2
+    static COMMON_PROPERTY_V2 => 2
 
     /**
      * Indicates that a group's private property changed.
+     * Native name: CLUSTER_CHANGE_GROUP_PRIVATE_PROPERTY_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_PRIVATE_PROPERTY_V2 => 4
+    static PRIVATE_PROPERTY_V2 => 4
 
     /**
      * Indicates that the group's state changed.
+     * Native name: CLUSTER_CHANGE_GROUP_STATE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_STATE_V2 => 8
+    static STATE_V2 => 8
 
     /**
      * Indicates that the group's owner node has changed.
+     * Native name: CLUSTER_CHANGE_GROUP_OWNER_NODE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_OWNER_NODE_V2 => 16
+    static OWNER_NODE_V2 => 16
 
     /**
      * Indicates that the group's preferred owners have changed.
+     * Native name: CLUSTER_CHANGE_GROUP_PREFERRED_OWNERS_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_PREFERRED_OWNERS_V2 => 32
+    static PREFERRED_OWNERS_V2 => 32
 
     /**
      * Indicates that a resource was added to the group.
+     * Native name: CLUSTER_CHANGE_GROUP_RESOURCE_ADDED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_RESOURCE_ADDED_V2 => 64
+    static RESOURCE_ADDED_V2 => 64
 
     /**
      * Indicates that the group gained a resource.
+     * Native name: CLUSTER_CHANGE_GROUP_RESOURCE_GAINED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_RESOURCE_GAINED_V2 => 128
+    static RESOURCE_GAINED_V2 => 128
 
     /**
      * Indicates that a resource is no longer part of the group.
+     * Native name: CLUSTER_CHANGE_GROUP_RESOURCE_LOST_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_RESOURCE_LOST_V2 => 256
+    static RESOURCE_LOST_V2 => 256
 
     /**
      * Indicates that the group's context handle was closed.
+     * Native name: CLUSTER_CHANGE_GROUP_HANDLE_CLOSE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_HANDLE_CLOSE_V2 => 512
+    static HANDLE_CLOSE_V2 => 512
 
     /**
      * Indicates all V2 group notifications.
+     * Native name: CLUSTER_CHANGE_GROUP_ALL_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_GROUP_ALL_V2 => 1023
+    static ALL_V2 => 1023
 }

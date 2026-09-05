@@ -7,27 +7,32 @@
 class DISPLAYCONFIG_COLOR_ENCODING extends Win32Enum {
 
     /**
+     * Native name: DISPLAYCONFIG_COLOR_ENCODING_RGB
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_COLOR_ENCODING_RGB => 0
+    static RGB => 0
 
     /**
+     * Native name: DISPLAYCONFIG_COLOR_ENCODING_YCBCR444
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_COLOR_ENCODING_YCBCR444 => 1
+    static YCBCR444 => 1
 
     /**
+     * Native name: DISPLAYCONFIG_COLOR_ENCODING_YCBCR422
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_COLOR_ENCODING_YCBCR422 => 2
+    static YCBCR422 => 2
 
     /**
+     * Native name: DISPLAYCONFIG_COLOR_ENCODING_YCBCR420
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_COLOR_ENCODING_YCBCR420 => 3
+    static YCBCR420 => 3
 
     /**
+     * Native name: DISPLAYCONFIG_COLOR_ENCODING_INTENSITY
      * @type {Integer (Int32)}
      */
-    static DISPLAYCONFIG_COLOR_ENCODING_INTENSITY => 4
+    static INTENSITY => 4
 }

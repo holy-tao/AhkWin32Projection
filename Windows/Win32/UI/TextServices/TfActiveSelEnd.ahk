@@ -14,19 +14,22 @@ class TfActiveSelEnd extends Win32Enum {
 
     /**
      * The selected range has no active end. This is typical for selected ranges other than the default selected range.
+     * Native name: TF_AE_NONE
      * @type {Integer (Int32)}
      */
-    static TF_AE_NONE => 0
+    static AE_NONE => 0
 
     /**
      * The active end is at the start of the selected range.
+     * Native name: TF_AE_START
      * @type {Integer (Int32)}
      */
-    static TF_AE_START => 1
+    static AE_START => 1
 
     /**
      * The active end is at the end of the selected range.
+     * Native name: TF_AE_END
      * @type {Integer (Int32)}
      */
-    static TF_AE_END => 2
+    static AE_END => 2
 }

@@ -117,12 +117,14 @@ class USB4_STATUS extends Win32Enum {
     static PollingTimeout => 253
 
     /**
+     * Native name: StatusSuccess
      * @type {Integer (Int32)}
      */
-    static StatusSuccess => 254
+    static Success => 254
 
     /**
+     * Native name: StatusUnknown
      * @type {Integer (Int32)}
      */
-    static StatusUnknown => 255
+    static Unknown => 255
 }

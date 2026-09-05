@@ -33,7 +33,6 @@ class ISpPhrase extends IUnknown {
     static VTableNames => ["GetPhrase", "GetSerializedPhrase", "GetText", "Discard"]
 
     /**
-     * 
      * @returns {Pointer<SPPHRASE>} 
      */
     GetPhrase() {
@@ -42,7 +41,6 @@ class ISpPhrase extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<SPSERIALIZEDPHRASE>} 
      */
     GetSerializedPhrase() {
@@ -51,7 +49,6 @@ class ISpPhrase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulStart 
      * @param {Integer} ulCount 
      * @param {BOOL} fUseTextReplacements 
@@ -68,7 +65,6 @@ class ISpPhrase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwValueTypes 
      * @returns {HRESULT} 
      */

@@ -7,22 +7,26 @@
 class D3DDDI_ROTATION extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_ROTATION_IDENTITY
      * @type {Integer (Int32)}
      */
-    static D3DDDI_ROTATION_IDENTITY => 1
+    static IDENTITY => 1
 
     /**
+     * Native name: D3DDDI_ROTATION_90
      * @type {Integer (Int32)}
      */
-    static D3DDDI_ROTATION_90 => 2
+    static 90 => 2
 
     /**
+     * Native name: D3DDDI_ROTATION_180
      * @type {Integer (Int32)}
      */
-    static D3DDDI_ROTATION_180 => 3
+    static 180 => 3
 
     /**
+     * Native name: D3DDDI_ROTATION_270
      * @type {Integer (Int32)}
      */
-    static D3DDDI_ROTATION_270 => 4
+    static 270 => 4
 }

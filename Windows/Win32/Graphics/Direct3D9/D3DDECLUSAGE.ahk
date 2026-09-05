@@ -13,72 +13,86 @@
 class D3DDECLUSAGE extends Win32Enum {
 
     /**
+     * Native name: D3DDECLUSAGE_POSITION
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_POSITION => 0
+    static POSITION => 0
 
     /**
+     * Native name: D3DDECLUSAGE_BLENDWEIGHT
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_BLENDWEIGHT => 1
+    static BLENDWEIGHT => 1
 
     /**
+     * Native name: D3DDECLUSAGE_BLENDINDICES
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_BLENDINDICES => 2
+    static BLENDINDICES => 2
 
     /**
+     * Native name: D3DDECLUSAGE_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_NORMAL => 3
+    static NORMAL => 3
 
     /**
+     * Native name: D3DDECLUSAGE_PSIZE
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_PSIZE => 4
+    static PSIZE => 4
 
     /**
+     * Native name: D3DDECLUSAGE_TEXCOORD
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_TEXCOORD => 5
+    static TEXCOORD => 5
 
     /**
+     * Native name: D3DDECLUSAGE_TANGENT
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_TANGENT => 6
+    static TANGENT => 6
 
     /**
+     * Native name: D3DDECLUSAGE_BINORMAL
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_BINORMAL => 7
+    static BINORMAL => 7
 
     /**
+     * Native name: D3DDECLUSAGE_TESSFACTOR
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_TESSFACTOR => 8
+    static TESSFACTOR => 8
 
     /**
+     * Native name: D3DDECLUSAGE_POSITIONT
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_POSITIONT => 9
+    static POSITIONT => 9
 
     /**
+     * Native name: D3DDECLUSAGE_COLOR
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_COLOR => 10
+    static COLOR => 10
 
     /**
+     * Native name: D3DDECLUSAGE_FOG
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_FOG => 11
+    static FOG => 11
 
     /**
+     * Native name: D3DDECLUSAGE_DEPTH
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_DEPTH => 12
+    static DEPTH => 12
 
     /**
+     * Native name: D3DDECLUSAGE_SAMPLE
      * @type {Integer (Int32)}
      */
-    static D3DDECLUSAGE_SAMPLE => 13
+    static SAMPLE => 13
 }

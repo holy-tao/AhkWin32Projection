@@ -7,27 +7,32 @@
 class htmlMarqueeDirection extends Win32Enum {
 
     /**
+     * Native name: htmlMarqueeDirectionleft
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeDirectionleft => 1
+    static Directionleft => 1
 
     /**
+     * Native name: htmlMarqueeDirectionright
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeDirectionright => 3
+    static Directionright => 3
 
     /**
+     * Native name: htmlMarqueeDirectionup
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeDirectionup => 5
+    static Directionup => 5
 
     /**
+     * Native name: htmlMarqueeDirectiondown
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeDirectiondown => 7
+    static Directiondown => 7
 
     /**
+     * Native name: htmlMarqueeDirection_Max
      * @type {Integer (Int32)}
      */
-    static htmlMarqueeDirection_Max => 2147483647
+    static Max => 2147483647
 }

@@ -50,112 +50,129 @@ class VDS_VOLUME_FLAG extends Win32Enum {
 
     /**
      * The volume is a system volume.
+     * Native name: VDS_VF_SYSTEM_VOLUME
      * @type {Integer (Int32)}
      */
-    static VDS_VF_SYSTEM_VOLUME => 1
+    static VF_SYSTEM_VOLUME => 1
 
     /**
      * The volume is the boot volume.
+     * Native name: VDS_VF_BOOT_VOLUME
      * @type {Integer (Int32)}
      */
-    static VDS_VF_BOOT_VOLUME => 2
+    static VF_BOOT_VOLUME => 2
 
     /**
      * The volume is active. That is, the <i>bootIndicator</i> value of the 
      *       underlying partition is set to true.
+     * Native name: VDS_VF_ACTIVE
      * @type {Integer (Int32)}
      */
-    static VDS_VF_ACTIVE => 4
+    static VF_ACTIVE => 4
 
     /**
      * The volume has a drive letter and a Mount Manager–assigned volume GUID name, and is enumerated by the <b>FindFirstVolume</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findnextvolumew">FindNextVolume</a> functions. However, the volume is read-only. This flag does not apply to CD-ROM or DVD devices.
+     * Native name: VDS_VF_READONLY
      * @type {Integer (Int32)}
      */
-    static VDS_VF_READONLY => 8
+    static VF_READONLY => 8
 
     /**
      * The volume does not have a drive letter and a Mount Manager–assigned volume GUID name. The volume is not enumerated by the <b>FindFirstVolume</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findnextvolumew">FindNextVolume</a> functions. The volume can be opened by using its device name, and the opened volume can be read from or written to. An example of a volume device name is \\?\GLOBALROOT\Device\HarddiskVolumeX. This flag does not apply to CD-ROM or DVD devices.
+     * Native name: VDS_VF_HIDDEN
      * @type {Integer (Int32)}
      */
-    static VDS_VF_HIDDEN => 16
+    static VF_HIDDEN => 16
 
     /**
      * The volume size can be extended.
+     * Native name: VDS_VF_CAN_EXTEND
      * @type {Integer (Int32)}
      */
-    static VDS_VF_CAN_EXTEND => 32
+    static VF_CAN_EXTEND => 32
 
     /**
      * The volume size can be reduced.
+     * Native name: VDS_VF_CAN_SHRINK
      * @type {Integer (Int32)}
      */
-    static VDS_VF_CAN_SHRINK => 64
+    static VF_CAN_SHRINK => 64
 
     /**
      * The volume contains a pagefile.
+     * Native name: VDS_VF_PAGEFILE
      * @type {Integer (Int32)}
      */
-    static VDS_VF_PAGEFILE => 128
+    static VF_PAGEFILE => 128
 
     /**
      * The volume contains a hibernation file.
+     * Native name: VDS_VF_HIBERNATION
      * @type {Integer (Int32)}
      */
-    static VDS_VF_HIBERNATION => 256
+    static VF_HIBERNATION => 256
 
     /**
      * The volume contains the crash dump file.
+     * Native name: VDS_VF_CRASHDUMP
      * @type {Integer (Int32)}
      */
-    static VDS_VF_CRASHDUMP => 512
+    static VF_CRASHDUMP => 512
 
     /**
      * VDS creates a hard partition under a dynamic volume that callers can use to install an operating system. Clearing this flag causes the partition to be deleted. This flag can be set or cleared only for dynamic disks; it is always set for basic disks. This flag does not apply to CD-ROM or DVD devices.
+     * Native name: VDS_VF_INSTALLABLE
      * @type {Integer (Int32)}
      */
-    static VDS_VF_INSTALLABLE => 1024
+    static VF_INSTALLABLE => 1024
 
     /**
      * VDS can change the position of the volume on the disk dynamically. This flag is not valid for basic 
      *       or dynamic volumes and is supported only by some third-party volume managers.
+     * Native name: VDS_VF_LBN_REMAP_ENABLED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_LBN_REMAP_ENABLED => 2048
+    static VF_LBN_REMAP_ENABLED => 2048
 
     /**
      * The volume is being formatted.
+     * Native name: VDS_VF_FORMATTING
      * @type {Integer (Int32)}
      */
-    static VDS_VF_FORMATTING => 4096
+    static VF_FORMATTING => 4096
 
     /**
      * The volume cannot be formatted. This flag applies to small portable memory devices, removable 
      *       devices, CDROM devices, and DVD devices. For CD and DVD devices, this is always set when there is media in the 
      *       drive, and is not set if there is no media in the drive.
+     * Native name: VDS_VF_NOT_FORMATTABLE
      * @type {Integer (Int32)}
      */
-    static VDS_VF_NOT_FORMATTABLE => 8192
+    static VF_NOT_FORMATTABLE => 8192
 
     /**
      * The volume does not support NTFS, but can support other file systems. This flag applies to small 
      *       portable memory devices, removable devices, CDROM devices, and DVD devices.
+     * Native name: VDS_VF_NTFS_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_NTFS_NOT_SUPPORTED => 16384
+    static VF_NTFS_NOT_SUPPORTED => 16384
 
     /**
      * The volume does not support FAT32. This flag applies to small portable memory devices, removable 
      *       devices, CDROM devices, and DVD devices.
+     * Native name: VDS_VF_FAT32_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_FAT32_NOT_SUPPORTED => 32768
+    static VF_FAT32_NOT_SUPPORTED => 32768
 
     /**
      * The volume does not support FAT. This flag applies to small portable memory devices, removable 
      *       devices, CDROM devices, and DVD devices.
+     * Native name: VDS_VF_FAT_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_FAT_NOT_SUPPORTED => 65536
+    static VF_FAT_NOT_SUPPORTED => 65536
 
     /**
      * The operating system does not assign a drive letter automatically the next time the volume is added to the computer. 
@@ -163,9 +180,10 @@ class VDS_VOLUME_FLAG extends Win32Enum {
      *       volumes, assigning or removing a drive letter will toggle this flag. This flag does not apply to CD-ROM or DVD devices.
      * 
      * <b>Windows Server 2003:  </b>On dynamic volumes, this flag is always set and cannot be cleared. On basic volumes, it is cleared by default and can be set or cleared only by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-setflags">IVdsVolume::SetFlags</a> or <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-clearflags">IVdsVolume::ClearFlags</a> method.
+     * Native name: VDS_VF_NO_DEFAULT_DRIVE_LETTER
      * @type {Integer (Int32)}
      */
-    static VDS_VF_NO_DEFAULT_DRIVE_LETTER => 131072
+    static VF_NO_DEFAULT_DRIVE_LETTER => 131072
 
     /**
      * The volume is offline. Volume open will succeed on an offline volume. However, I/O against an offline volume will fail. Assigning an access path, such as a drive letter, to an offline volume causes it to become online. To set this flag, call the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-dismount">IVdsVolumeMF::Dismount</a> 
@@ -175,15 +193,17 @@ class VDS_VOLUME_FLAG extends Win32Enum {
      * <b>Windows Server 2003:  </b>Offlining dynamic volumes is not supported.
      * 
      * When a volume is offline, this flag is set in the <b>ulFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a> structure, and the <b>VDS_VS_OFFLINE</b> flag is also set in the <b>status</b> member of the <b>VDS_VOLUME_PROP</b> or <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop2">VDS_VOLUME_PROP2</a> structure.<b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>The <b>VDS_VS_OFFLINE</b> flag is not supported.
+     * Native name: VDS_VF_PERMANENTLY_DISMOUNTED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_PERMANENTLY_DISMOUNTED => 262144
+    static VF_PERMANENTLY_DISMOUNTED => 262144
 
     /**
      * The volume can be taken offline.
+     * Native name: VDS_VF_PERMANENT_DISMOUNT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_PERMANENT_DISMOUNT_SUPPORTED => 524288
+    static VF_PERMANENT_DISMOUNT_SUPPORTED => 524288
 
     /**
      * The volume is a shadow copy of another volume. This flag is set when the shadow copy is created. It is 
@@ -196,38 +216,44 @@ class VDS_VOLUME_FLAG extends Win32Enum {
      *       
      * 
      * <b>Windows Server 2003:  </b>This flag is not supported before Windows Server 2003 with SP1.
+     * Native name: VDS_VF_SHADOW_COPY
      * @type {Integer (Int32)}
      */
-    static VDS_VF_SHADOW_COPY => 1048576
+    static VF_SHADOW_COPY => 1048576
 
     /**
      * The volume is protected by BitLocker full-volume encryption. This flag does not apply to CD-ROM or DVD devices.
      * 
      * <b>Windows Server 2003:  </b>This flag is not supported.
+     * Native name: VDS_VF_FVE_ENABLED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_FVE_ENABLED => 2097152
+    static VF_FVE_ENABLED => 2097152
 
     /**
      * The volume's dirty bit is set.
      * 
      * <b>Windows Server 2003:  </b>This flag is not supported.
+     * Native name: VDS_VF_DIRTY
      * @type {Integer (Int32)}
      */
-    static VDS_VF_DIRTY => 4194304
+    static VF_DIRTY => 4194304
 
     /**
+     * Native name: VDS_VF_REFS_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static VDS_VF_REFS_NOT_SUPPORTED => 8388608
+    static VF_REFS_NOT_SUPPORTED => 8388608
 
     /**
+     * Native name: VDS_VF_BACKS_BOOT_VOLUME
      * @type {Integer (Int32)}
      */
-    static VDS_VF_BACKS_BOOT_VOLUME => 16777216
+    static VF_BACKS_BOOT_VOLUME => 16777216
 
     /**
+     * Native name: VDS_VF_BACKED_BY_WIM_IMAGE
      * @type {Integer (Int32)}
      */
-    static VDS_VF_BACKED_BY_WIM_IMAGE => 33554432
+    static VF_BACKED_BY_WIM_IMAGE => 33554432
 }

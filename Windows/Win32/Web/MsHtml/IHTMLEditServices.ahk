@@ -34,7 +34,6 @@ class IHTMLEditServices extends IUnknown {
     static VTableNames => ["AddDesigner", "RemoveDesigner", "GetSelectionServices", "MoveToSelectionAnchor", "MoveToSelectionEnd", "SelectRange"]
 
     /**
-     * 
      * @param {IHTMLEditDesigner} pIDesigner 
      * @returns {HRESULT} 
      */
@@ -44,7 +43,6 @@ class IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLEditDesigner} pIDesigner 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupContainer} pIContainer 
      * @returns {ISelectionServices} 
      */
@@ -64,7 +61,6 @@ class IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIStartAnchor 
      * @returns {HRESULT} 
      */
@@ -74,7 +70,6 @@ class IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIEndAnchor 
      * @returns {HRESULT} 
      */
@@ -84,7 +79,6 @@ class IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pStart 
      * @param {IMarkupPointer} pEnd 
      * @param {SELECTION_TYPE} eType 

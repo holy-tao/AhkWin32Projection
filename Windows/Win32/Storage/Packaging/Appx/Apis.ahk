@@ -1293,7 +1293,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFullName 
      * @returns {WIN32_ERROR} 
      */
@@ -1305,7 +1304,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFamilyName 
      * @returns {WIN32_ERROR} 
      */
@@ -1317,7 +1315,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {Pointer<PACKAGE_ID>} packageId 
      * @returns {WIN32_ERROR} 
      */
@@ -1327,7 +1324,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} applicationUserModelId 
      * @returns {WIN32_ERROR} 
      */
@@ -1339,7 +1335,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageRelativeApplicationId 
      * @returns {WIN32_ERROR} 
      */
@@ -2018,7 +2013,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PSID} userSid 
      * @param {PWSTR} packageFullName 
      * @param {Pointer<Pointer<_PACKAGE_INFO_REFERENCE>>} packageInfoReference 
@@ -2203,7 +2197,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFullName 
      * @returns {BOOL} 
      */
@@ -2255,7 +2248,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PSID} user 
      * @param {PWSTR} packageFamilyName 
      * @param {PACKAGE_VERSION} minVersion 
@@ -2342,7 +2334,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageDependencyId 
      * @param {Integer} rank 
      * @param {AddPackageDependencyOptions2} options 
@@ -2402,7 +2393,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageDependencyId 
      * @returns {PWSTR} 
      */
@@ -2429,7 +2419,6 @@ class Appx {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static GetPackageGraphRevisionId() {
@@ -2438,7 +2427,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {Pointer<FindPackageDependencyCriteria>} _findPackageDependencyCriteria 
      * @param {Pointer<Integer>} packageDependencyIdsCount 
      * @param {Pointer<Pointer<PWSTR>>} packageDependencyIds 
@@ -2453,7 +2441,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageDependencyId 
      * @param {Pointer<PSID>} user 
      * @param {Pointer<PWSTR>} packageFamilyName 
@@ -2480,7 +2467,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageDependencyId 
      * @param {PSID} user 
      * @param {BOOL} scopeIsSystem 
@@ -2659,7 +2645,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFamilyName 
      * @returns {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} 
      */
@@ -2671,7 +2656,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} _context 
      * @returns {Pointer} 
      */
@@ -2681,7 +2665,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} _context 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2690,7 +2673,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {Pointer} cookie 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2699,7 +2681,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} sourceContext 
      * @returns {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} 
      */
@@ -2709,7 +2690,6 @@ class Appx {
     }
 
     /**
-     * 
      * @returns {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} 
      */
     static GetCurrentPackageVirtualizationContext() {
@@ -2718,7 +2698,6 @@ class Appx {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFamilyName 
      * @param {Pointer<Integer>} count 
      * @param {Pointer<Pointer<HANDLE>>} processes 

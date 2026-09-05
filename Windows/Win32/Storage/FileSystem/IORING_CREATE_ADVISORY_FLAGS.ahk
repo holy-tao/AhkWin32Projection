@@ -12,12 +12,14 @@ class IORING_CREATE_ADVISORY_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.
+     * Native name: IORING_CREATE_ADVISORY_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static IORING_CREATE_ADVISORY_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: IORING_CREATE_SKIP_BUILDER_PARAM_CHECKS
      * @type {Integer (Int32)}
      */
-    static IORING_CREATE_SKIP_BUILDER_PARAM_CHECKS => 1
+    static SKIP_BUILDER_PARAM_CHECKS => 1
 }

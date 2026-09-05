@@ -58,7 +58,6 @@ class IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_columnNumber() {
@@ -67,7 +66,6 @@ class IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_lineNumber() {
@@ -76,7 +74,6 @@ class IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_publicId() {
@@ -86,7 +83,6 @@ class IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemId() {

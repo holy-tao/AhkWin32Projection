@@ -7,22 +7,26 @@
 class D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_MODE extends Win32Enum {
 
     /**
+     * Native name: D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_DISABLED
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_DISABLED => 0
+    static DISABLED => 0
 
     /**
+     * Native name: D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_WHEN_HASH_BYPASSED
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_WHEN_HASH_BYPASSED => 1
+    static WHEN_HASH_BYPASSED => 1
 
     /**
+     * Native name: D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_ALL_BYTECODE
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_ALL_BYTECODE => 2
+    static ALL_BYTECODE => 2
 
     /**
+     * Native name: D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_MODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_DEVICE_BYTECODE_VALIDATION_MODE_DEFAULT => 1
+    static DEFAULT => 1
 }

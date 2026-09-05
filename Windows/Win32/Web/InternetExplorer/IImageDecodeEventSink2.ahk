@@ -30,7 +30,6 @@ class IImageDecodeEventSink2 extends IImageDecodeEventSink {
     static VTableNames => ["IsAlphaPremultRequired"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAlphaPremultRequired() {

@@ -34,9 +34,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> always uses the value 65536.
+     * Native name: WS_CHANNEL_PROPERTY_MAX_BUFFERED_MESSAGE_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MAX_BUFFERED_MESSAGE_SIZE => 0
+    static MAX_BUFFERED_MESSAGE_SIZE => 0
 
     /**
      * An <b>unsigned __int64</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> or
@@ -53,9 +54,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 4194304.
+     * Native name: WS_CHANNEL_PROPERTY_MAX_STREAMED_MESSAGE_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MAX_STREAMED_MESSAGE_SIZE => 1
+    static MAX_STREAMED_MESSAGE_SIZE => 1
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> or
@@ -77,9 +79,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 16384.
+     * Native name: WS_CHANNEL_PROPERTY_MAX_STREAMED_START_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MAX_STREAMED_START_SIZE => 2
+    static MAX_STREAMED_START_SIZE => 2
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> or
@@ -98,9 +101,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 65536.
+     * Native name: WS_CHANNEL_PROPERTY_MAX_STREAMED_FLUSH_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MAX_STREAMED_FLUSH_SIZE => 3
+    static MAX_STREAMED_FLUSH_SIZE => 3
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_encoding">WS_ENCODING</a> value
@@ -123,9 +127,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> always uses the value <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_encoding">WS_ENCODING_XML_UTF8</a>.
+     * Native name: WS_CHANNEL_PROPERTY_ENCODING
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ENCODING => 4
+    static ENCODING => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION</a> value
@@ -151,9 +156,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> uses <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION_SOAP_1_2</a>.
      *                     </li>
      * </ul>
+     * Native name: WS_CHANNEL_PROPERTY_ENVELOPE_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ENVELOPE_VERSION => 5
+    static ENVELOPE_VERSION => 5
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION</a> value
@@ -183,9 +189,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_TRANSPORT</a> is only supported for
      *                    <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>.
+     * Native name: WS_CHANNEL_PROPERTY_ADDRESSING_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ADDRESSING_VERSION => 6
+    static ADDRESSING_VERSION => 6
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a>.
@@ -211,9 +218,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 2048.
+     * Native name: WS_CHANNEL_PROPERTY_MAX_SESSION_DICTIONARY_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MAX_SESSION_DICTIONARY_SIZE => 7
+    static MAX_SESSION_DICTIONARY_SIZE => 7
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_state">WS_CHANNEL_STATE</a> value
@@ -223,9 +231,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * The returned value is a snapshot of the current state, so it is
      *                    possible that the state may have changed before the caller has
      *                    had a chance to examine the value.
+     * Native name: WS_CHANNEL_PROPERTY_STATE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_STATE => 8
+    static STATE => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_callback_model">WS_CALLBACK_MODEL</a> value used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a>.
@@ -242,9 +251,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * Both the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a> and <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> only support <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_callback_model">WS_LONG_CALLBACK</a> 
      *                     as an acceptable value for this property.
+     * Native name: WS_CHANNEL_PROPERTY_ASYNC_CALLBACK_MODEL
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ASYNC_CALLBACK_MODEL => 9
+    static ASYNC_CALLBACK_MODEL => 9
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_ip_version">WS_IP_VERSION</a> value
@@ -259,9 +269,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_ip_version">WS_IP_VERSION_AUTO</a>.
+     * Native name: WS_CHANNEL_PROPERTY_IP_VERSION
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_IP_VERSION => 10
+    static IP_VERSION => 10
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetchannelproperty">WsSetChannelProperty</a>,
@@ -275,9 +286,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is INFINITE.
+     * Native name: WS_CHANNEL_PROPERTY_RESOLVE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_RESOLVE_TIMEOUT => 11
+    static RESOLVE_TIMEOUT => 11
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, 
@@ -303,9 +315,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> sets this timeout to INFINITE by default.
+     * Native name: WS_CHANNEL_PROPERTY_CONNECT_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_CONNECT_TIMEOUT => 12
+    static CONNECT_TIMEOUT => 12
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>,
@@ -332,9 +345,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * Both <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a> and <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> set this 
      *                     timeout to INFINITE by default.
+     * Native name: WS_CHANNEL_PROPERTY_SEND_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_SEND_TIMEOUT => 13
+    static SEND_TIMEOUT => 13
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetchannelproperty">WsSetChannelProperty</a>,
@@ -351,9 +365,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> sets this timeout to INFINITE.
+     * Native name: WS_CHANNEL_PROPERTY_RECEIVE_RESPONSE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_RECEIVE_RESPONSE_TIMEOUT => 14
+    static RECEIVE_RESPONSE_TIMEOUT => 14
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>,
@@ -380,9 +395,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * Both <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a> and <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> set this
      *                     timeout to INFINITE by default.
+     * Native name: WS_CHANNEL_PROPERTY_RECEIVE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_RECEIVE_TIMEOUT => 15
+    static RECEIVE_TIMEOUT => 15
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>
@@ -400,9 +416,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> sets this timeout to INFINITE by default.
+     * Native name: WS_CHANNEL_PROPERTY_CLOSE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_CLOSE_TIMEOUT => 16
+    static CLOSE_TIMEOUT => 16
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>, <b>WS_TCP_CHANNEL_BINDING</b>, <b>WS_NAMEDPIPE_CHANNEL_BINDING</b>, 
@@ -428,9 +445,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                     standard channels bindings and require custom channels to support it by querying and 
      *                     verifying that it is set to <b>FALSE</b>.
      *                     More specific timeout properties can still be provided as described above.
+     * Native name: WS_CHANNEL_PROPERTY_ENABLE_TIMEOUTS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ENABLE_TIMEOUTS => 17
+    static ENABLE_TIMEOUTS => 17
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_transfer_mode">WS_TRANSFER_MODE</a> value
@@ -456,9 +474,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_transfer_mode">WS_STREAMED_OUTPUT_TRANSFER_MODE</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_REQUEST</a> requires Windows Vista and above, and supports only <b>WS_HTTP_HEADER_AUTH_SCHEME_BASIC</b> when used with security.
+     * Native name: WS_CHANNEL_PROPERTY_TRANSFER_MODE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_TRANSFER_MODE => 18
+    static TRANSFER_MODE => 18
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetchannelproperty">WsSetChannelProperty</a>,
@@ -478,9 +497,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default property value is 0.
+     * Native name: WS_CHANNEL_PROPERTY_MULTICAST_INTERFACE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MULTICAST_INTERFACE => 19
+    static MULTICAST_INTERFACE => 19
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> 
@@ -489,9 +509,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default property value is 1.
+     * Native name: WS_CHANNEL_PROPERTY_MULTICAST_HOPS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MULTICAST_HOPS => 20
+    static MULTICAST_HOPS => 20
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_address">WS_ENDPOINT_ADDRESS</a> structure
@@ -512,9 +533,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * This property is based on the source IP address that is received from
      *                     the network, which may be spoofed or tampered with even if using a
      *                     secure channel (depending on the network environment).
+     * Native name: WS_CHANNEL_PROPERTY_REMOTE_ADDRESS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_REMOTE_ADDRESS => 21
+    static REMOTE_ADDRESS => 21
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms740504(v=vs.85)">SOCKADDR_STORAGE</a> structure
@@ -540,9 +562,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * This property is based on the source IP address that is received from
      *                     the network, which may be spoofed or tampered with even if using a
      *                     secure channel (depending on the network environment).
+     * Native name: WS_CHANNEL_PROPERTY_REMOTE_IP_ADDRESS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_REMOTE_IP_ADDRESS => 22
+    static REMOTE_IP_ADDRESS => 22
 
     /**
      * A pointer to a <b>ULONGLONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> 
@@ -564,9 +587,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * The connection ID can be used by an application to correlate state with 
      *                     a HTTP connection.
+     * Native name: WS_CHANNEL_PROPERTY_HTTP_CONNECTION_ID
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_HTTP_CONNECTION_ID => 23
+    static HTTP_CONNECTION_ID => 23
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_custom_channel_callbacks">WS_CUSTOM_CHANNEL_CALLBACKS</a> structure used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
@@ -577,9 +601,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * This property must be specified when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a> is used.
+     * Native name: WS_CHANNEL_PROPERTY_CUSTOM_CHANNEL_CALLBACKS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_CUSTOM_CHANNEL_CALLBACKS => 24
+    static CUSTOM_CHANNEL_CALLBACKS => 24
 
     /**
      * A pointer to an arbitrary sized data type used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
@@ -597,9 +622,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * If this property is not specified, its value is <b>NULL</b> and size is zero.
+     * Native name: WS_CHANNEL_PROPERTY_CUSTOM_CHANNEL_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_CUSTOM_CHANNEL_PARAMETERS => 25
+    static CUSTOM_CHANNEL_PARAMETERS => 25
 
     /**
      * A <b>void *</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
@@ -614,9 +640,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                     instance for a custom channel.  This allows a caller to directly
      *                     interact with the instance for cases when the existing
      *                     set of channel properties or channel functions is insufficient.
+     * Native name: WS_CHANNEL_PROPERTY_CUSTOM_CHANNEL_INSTANCE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_CUSTOM_CHANNEL_INSTANCE => 26
+    static CUSTOM_CHANNEL_INSTANCE => 26
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_string">WS_STRING</a> structure
@@ -650,9 +677,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                     retrieving this property.  The returned string is a fully qualified
      *                     URL in encoded form.   The returned string is good until the channel 
      *                     is freed or reset.
+     * Native name: WS_CHANNEL_PROPERTY_TRANSPORT_URL
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_TRANSPORT_URL => 27
+    static TRANSPORT_URL => 27
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetchannelproperty">WsSetChannelProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>.
@@ -670,9 +698,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <b>FALSE</b>.
+     * Native name: WS_CHANNEL_PROPERTY_NO_DELAY
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_NO_DELAY => 28
+    static NO_DELAY => 28
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>.
@@ -687,9 +716,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <b>FALSE</b>.
+     * Native name: WS_CHANNEL_PROPERTY_SEND_KEEP_ALIVES
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_SEND_KEEP_ALIVES => 29
+    static SEND_KEEP_ALIVES => 29
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>.
@@ -706,9 +736,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 2 hours.
+     * Native name: WS_CHANNEL_PROPERTY_KEEP_ALIVE_TIME
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_KEEP_ALIVE_TIME => 30
+    static KEEP_ALIVE_TIME => 30
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>.
@@ -727,9 +758,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 1 second.
+     * Native name: WS_CHANNEL_PROPERTY_KEEP_ALIVE_INTERVAL
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_KEEP_ALIVE_INTERVAL => 31
+    static KEEP_ALIVE_INTERVAL => 31
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>.
@@ -741,9 +773,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is INFINITE (no limit).
+     * Native name: WS_CHANNEL_PROPERTY_MAX_HTTP_SERVER_CONNECTIONS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MAX_HTTP_SERVER_CONNECTIONS => 32
+    static MAX_HTTP_SERVER_CONNECTIONS => 32
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> 
@@ -757,9 +790,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * The channel must be in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_state">WS_CHANNEL_STATE_OPEN</a> or 
      *                     <b>WS_CHANNEL_STATE_FAULTED</b> state.
+     * Native name: WS_CHANNEL_PROPERTY_IS_SESSION_SHUT_DOWN
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_IS_SESSION_SHUT_DOWN => 33
+    static IS_SESSION_SHUT_DOWN => 33
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE</a> value
@@ -768,9 +802,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The channel can be in any <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_state">WS_CHANNEL_STATE</a>.
+     * Native name: WS_CHANNEL_PROPERTY_CHANNEL_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_CHANNEL_TYPE => 34
+    static CHANNEL_TYPE => 34
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> or 
@@ -794,27 +829,30 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> always uses the value 65536.
+     * Native name: WS_CHANNEL_PROPERTY_TRIM_BUFFERED_MESSAGE_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_TRIM_BUFFERED_MESSAGE_SIZE => 35
+    static TRIM_BUFFERED_MESSAGE_SIZE => 35
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_channel_encoder">WS_CHANNEL_ENCODER</a> structure used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>, 
      *                     <b>WS_HTTP_CHANNEL_BINDING</b>, or <b>WS_NAMEDPIPE_CHANNEL_BINDING</b> to provide a custom encoding of messages.  
      * 
      * This property cannot be used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a>.
+     * Native name: WS_CHANNEL_PROPERTY_ENCODER
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ENCODER => 36
+    static ENCODER => 36
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_channel_decoder">WS_CHANNEL_DECODER</a> structure used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>, 
      *                     <b>WS_HTTP_CHANNEL_BINDING</b>, or <b>WS_NAMEDPIPE_CHANNEL_BINDING</b> to provide a custom dencoding of messages.  
      * 
      * This property cannot be used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a>.
+     * Native name: WS_CHANNEL_PROPERTY_DECODER
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_DECODER => 37
+    static DECODER => 37
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_protection_level">WS_PROTECTION_LEVEL</a> value used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> for any channel type.
@@ -826,27 +864,30 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * The value of this property depends on the security requirements
      *                     requested for the channel.
+     * Native name: WS_CHANNEL_PROPERTY_PROTECTION_LEVEL
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_PROTECTION_LEVEL => 38
+    static PROTECTION_LEVEL => 38
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_cookie_mode">WS_COOKIE_MODE</a> value used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> to control how HTTP cookies are handled.
      *                 
      * 
      * The default value is <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_cookie_mode">WS_AUTO_COOKIE_MODE</a>.
+     * Native name: WS_CHANNEL_PROPERTY_COOKIE_MODE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_COOKIE_MODE => 39
+    static COOKIE_MODE => 39
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_http_proxy_setting_mode">WS_HTTP_PROXY_SETTING_MODE</a> value used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> to control the HTTP proxy settings for the channel.
      *                 
      * 
      * The default value is <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_http_proxy_setting_mode">WS_HTTP_PROXY_SETTING_MODE_AUTO</a>.
+     * Native name: WS_CHANNEL_PROPERTY_HTTP_PROXY_SETTING_MODE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_HTTP_PROXY_SETTING_MODE => 40
+    static HTTP_PROXY_SETTING_MODE => 40
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_custom_http_proxy">WS_CUSTOM_HTTP_PROXY</a> structure used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> to specify the custom custom setting for the HTTP channel. This property must
@@ -855,9 +896,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is <b>NULL</b>.
+     * Native name: WS_CHANNEL_PROPERTY_CUSTOM_HTTP_PROXY
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_CUSTOM_HTTP_PROXY => 41
+    static CUSTOM_HTTP_PROXY => 41
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_message_mapping">WS_HTTP_MESSAGE_MAPPING</a> structure used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>.
@@ -883,9 +925,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_message_mapping">WS_HTTP_MESSAGE_MAPPING</a> fields requestMappingOptions and responseMappingOptions must be 0 
      *                     unless encoding is set to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_encoding">WS_ENCODING_RAW</a> using channel property <b>WS_CHANNEL_PROPERTY_ENCODING</b>.
+     * Native name: WS_CHANNEL_PROPERTY_HTTP_MESSAGE_MAPPING
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_HTTP_MESSAGE_MAPPING => 42
+    static HTTP_MESSAGE_MAPPING => 42
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_REQUEST</a>.
@@ -900,9 +943,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * The default value is <b>FALSE</b>. 
      *                     If the <b>WS_CHANNEL_PROPERTY_HTTP_REDIRECT_CALLBACK_CONTEXT</b> property is specified, 
      *                     this property is ignored.
+     * Native name: WS_CHANNEL_PROPERTY_ENABLE_HTTP_REDIRECT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ENABLE_HTTP_REDIRECT => 43
+    static ENABLE_HTTP_REDIRECT => 43
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_redirect_callback_context">WS_HTTP_REDIRECT_CALLBACK_CONTEXT</a> structure
@@ -915,9 +959,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * When this property is set, the specified callback routine will be called with the original endpoint URL 
      *                     and the new URL that the message is to be forwarded to. Callback return value is used to indicate whether 
      *                     the redirection should be allowed.
+     * Native name: WS_CHANNEL_PROPERTY_HTTP_REDIRECT_CALLBACK_CONTEXT
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_HTTP_REDIRECT_CALLBACK_CONTEXT => 44
+    static HTTP_REDIRECT_CALLBACK_CONTEXT => 44
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetchannelproperty">WsSetChannelProperty</a>,
@@ -959,9 +1004,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *             
      *                 Setting this property to <b>TRUE</b> can cause message security verification to be disabled for certain faults.
      *                 Unverified faults may not be trustworthy.
+     * Native name: WS_CHANNEL_PROPERTY_FAULTS_AS_ERRORS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_FAULTS_AS_ERRORS => 45
+    static FAULTS_AS_ERRORS => 45
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetchannelproperty">WsSetChannelProperty</a>,
@@ -989,9 +1035,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * Setting this property to <b>TRUE</b> causes message security verification for faults to be disabled. Unsecured faults may not be trustworthy.
+     * Native name: WS_CHANNEL_PROPERTY_ALLOW_UNSECURED_FAULTS
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_ALLOW_UNSECURED_FAULTS => 46
+    static ALLOW_UNSECURED_FAULTS => 46
 
     /**
      * A <b>WCHAR</b> pointer
@@ -1012,9 +1059,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * 
      * This property is only available on Windows 7 and above.
+     * Native name: WS_CHANNEL_PROPERTY_HTTP_SERVER_SPN
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_HTTP_SERVER_SPN => 47
+    static HTTP_SERVER_SPN => 47
 
     /**
      * A <b>WCHAR</b> pointer used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_REQUEST</a>.
@@ -1034,9 +1082,10 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      * 
      * 
      * This property is only available on Windows 7 and above.
+     * Native name: WS_CHANNEL_PROPERTY_HTTP_PROXY_SPN
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_HTTP_PROXY_SPN => 48
+    static HTTP_PROXY_SPN => 48
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a> or
@@ -1053,7 +1102,8 @@ class WS_CHANNEL_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 65536.
+     * Native name: WS_CHANNEL_PROPERTY_MAX_HTTP_REQUEST_HEADERS_BUFFER_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_CHANNEL_PROPERTY_MAX_HTTP_REQUEST_HEADERS_BUFFER_SIZE => 49
+    static MAX_HTTP_REQUEST_HEADERS_BUFFER_SIZE => 49
 }

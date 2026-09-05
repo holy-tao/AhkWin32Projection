@@ -7,12 +7,14 @@
 class CREATE_PROCESS_LOGON_FLAGS extends Win32Enum {
 
     /**
+     * Native name: LOGON_WITH_PROFILE
      * @type {Integer (UInt32)}
      */
-    static LOGON_WITH_PROFILE => 1
+    static WITH_PROFILE => 1
 
     /**
+     * Native name: LOGON_NETCREDENTIALS_ONLY
      * @type {Integer (UInt32)}
      */
-    static LOGON_NETCREDENTIALS_ONLY => 2
+    static NETCREDENTIALS_ONLY => 2
 }

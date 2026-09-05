@@ -15,7 +15,8 @@ class D2D1_HUEROTATION_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 0.0f.
+     * Native name: D2D1_HUEROTATION_PROP_ANGLE
      * @type {Integer (Int32)}
      */
-    static D2D1_HUEROTATION_PROP_ANGLE => 0
+    static ANGLE => 0
 }

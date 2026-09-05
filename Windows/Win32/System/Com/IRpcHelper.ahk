@@ -30,7 +30,6 @@ class IRpcHelper extends IUnknown {
     static VTableNames => ["GetDCOMProtocolVersion", "GetIIDFromOBJREF"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDCOMProtocolVersion() {
@@ -39,7 +38,6 @@ class IRpcHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pObjRef 
      * @returns {Pointer<Guid>} 
      */

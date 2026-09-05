@@ -45,7 +45,6 @@ class IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IXMLDOMNode} 
      */
@@ -55,7 +54,6 @@ class IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -64,7 +62,6 @@ class IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     nextNode() {
@@ -73,7 +70,6 @@ class IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -82,7 +78,6 @@ class IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {

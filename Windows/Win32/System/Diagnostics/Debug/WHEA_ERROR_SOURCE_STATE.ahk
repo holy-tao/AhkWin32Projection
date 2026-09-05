@@ -7,22 +7,26 @@
 class WHEA_ERROR_SOURCE_STATE extends Win32Enum {
 
     /**
+     * Native name: WheaErrSrcStateStopped
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcStateStopped => 1
+    static ErrSrcStateStopped => 1
 
     /**
+     * Native name: WheaErrSrcStateStarted
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcStateStarted => 2
+    static ErrSrcStateStarted => 2
 
     /**
+     * Native name: WheaErrSrcStateRemoved
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcStateRemoved => 3
+    static ErrSrcStateRemoved => 3
 
     /**
+     * Native name: WheaErrSrcStateRemovePending
      * @type {Integer (Int32)}
      */
-    static WheaErrSrcStateRemovePending => 4
+    static ErrSrcStateRemovePending => 4
 }

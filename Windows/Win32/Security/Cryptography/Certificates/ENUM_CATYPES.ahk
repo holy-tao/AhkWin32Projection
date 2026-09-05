@@ -10,31 +10,36 @@ class ENUM_CATYPES extends Win32Enum {
 
     /**
      * A root CA that is a member of an Active Directory domain and uses Directory Service to issue and manage certificates.
+     * Native name: ENUM_ENTERPRISE_ROOTCA
      * @type {Integer (Int32)}
      */
-    static ENUM_ENTERPRISE_ROOTCA => 0
+    static ENTERPRISE_ROOTCA => 0
 
     /**
      * A CA  that uses Directory Service to issue and manage certificates and is subordinate to an enterprise root CA.
+     * Native name: ENUM_ENTERPRISE_SUBCA
      * @type {Integer (Int32)}
      */
-    static ENUM_ENTERPRISE_SUBCA => 1
+    static ENTERPRISE_SUBCA => 1
 
     /**
      * A root CA that does not use Directory Service to issue or manage certificates. It might or might not belong to a domain.
+     * Native name: ENUM_STANDALONE_ROOTCA
      * @type {Integer (Int32)}
      */
-    static ENUM_STANDALONE_ROOTCA => 3
+    static STANDALONE_ROOTCA => 3
 
     /**
      * A CA that does not use Directory Service to issue or manage certificates and is subordinate to a standalone root CA.
+     * Native name: ENUM_STANDALONE_SUBCA
      * @type {Integer (Int32)}
      */
-    static ENUM_STANDALONE_SUBCA => 4
+    static STANDALONE_SUBCA => 4
 
     /**
      * An unknown CA type.
+     * Native name: ENUM_UNKNOWN_CA
      * @type {Integer (Int32)}
      */
-    static ENUM_UNKNOWN_CA => 5
+    static UNKNOWN_CA => 5
 }

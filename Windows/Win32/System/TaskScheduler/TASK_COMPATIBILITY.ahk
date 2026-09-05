@@ -14,39 +14,46 @@ class TASK_COMPATIBILITY extends Win32Enum {
 
     /**
      * The task is compatible with the AT command.
+     * Native name: TASK_COMPATIBILITY_AT
      * @type {Integer (Int32)}
      */
-    static TASK_COMPATIBILITY_AT => 0
+    static AT => 0
 
     /**
      * The task is compatible with Task Scheduler 1.0.
+     * Native name: TASK_COMPATIBILITY_V1
      * @type {Integer (Int32)}
      */
-    static TASK_COMPATIBILITY_V1 => 1
+    static V1 => 1
 
     /**
      * The task is compatible with Task Scheduler 2.0.
+     * Native name: TASK_COMPATIBILITY_V2
      * @type {Integer (Int32)}
      */
-    static TASK_COMPATIBILITY_V2 => 2
+    static V2 => 2
 
     /**
+     * Native name: TASK_COMPATIBILITY_V2_1
      * @type {Integer (Int32)}
      */
-    static TASK_COMPATIBILITY_V2_1 => 3
+    static V2_1 => 3
 
     /**
+     * Native name: TASK_COMPATIBILITY_V2_2
      * @type {Integer (Int32)}
      */
-    static TASK_COMPATIBILITY_V2_2 => 4
+    static V2_2 => 4
 
     /**
+     * Native name: TASK_COMPATIBILITY_V2_3
      * @type {Integer (Int32)}
      */
-    static TASK_COMPATIBILITY_V2_3 => 5
+    static V2_3 => 5
 
     /**
+     * Native name: TASK_COMPATIBILITY_V2_4
      * @type {Integer (Int32)}
      */
-    static TASK_COMPATIBILITY_V2_4 => 6
+    static V2_4 => 6
 }

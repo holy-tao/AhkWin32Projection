@@ -12,29 +12,34 @@ class D3D12_STATIC_BORDER_COLOR extends Win32Enum {
 
     /**
      * Indicates black, with the alpha component as fully transparent.
+     * Native name: D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK
      * @type {Integer (Int32)}
      */
-    static D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK => 0
+    static TRANSPARENT_BLACK => 0
 
     /**
      * Indicates black, with the alpha component as fully opaque.
+     * Native name: D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK
      * @type {Integer (Int32)}
      */
-    static D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK => 1
+    static OPAQUE_BLACK => 1
 
     /**
      * Indicates white, with the alpha component as fully opaque.
+     * Native name: D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE
      * @type {Integer (Int32)}
      */
-    static D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE => 2
+    static OPAQUE_WHITE => 2
 
     /**
+     * Native name: D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK_UINT
      * @type {Integer (Int32)}
      */
-    static D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK_UINT => 3
+    static OPAQUE_BLACK_UINT => 3
 
     /**
+     * Native name: D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE_UINT
      * @type {Integer (Int32)}
      */
-    static D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE_UINT => 4
+    static OPAQUE_WHITE_UINT => 4
 }

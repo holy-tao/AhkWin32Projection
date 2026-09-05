@@ -30,7 +30,6 @@ class IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM {
     static VTableNames => ["GetDefaults"]
 
     /**
-     * 
      * @returns {IHTMLElementDefaults} 
      */
     GetDefaults() {

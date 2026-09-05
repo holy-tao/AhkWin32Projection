@@ -7,22 +7,26 @@
 class CLFS_FLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: CLFS_FLAG_FORCE_APPEND
      * @type {Integer (UInt32)}
      */
-    static CLFS_FLAG_FORCE_APPEND => 1
+    static FORCE_APPEND => 1
 
     /**
+     * Native name: CLFS_FLAG_FORCE_FLUSH
      * @type {Integer (UInt32)}
      */
-    static CLFS_FLAG_FORCE_FLUSH => 2
+    static FORCE_FLUSH => 2
 
     /**
+     * Native name: CLFS_FLAG_NO_FLAGS
      * @type {Integer (UInt32)}
      */
-    static CLFS_FLAG_NO_FLAGS => 0
+    static NO_FLAGS => 0
 
     /**
+     * Native name: CLFS_FLAG_USE_RESERVATION
      * @type {Integer (UInt32)}
      */
-    static CLFS_FLAG_USE_RESERVATION => 4
+    static USE_RESERVATION => 4
 }

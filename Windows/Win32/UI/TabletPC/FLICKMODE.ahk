@@ -11,34 +11,40 @@
 class FLICKMODE extends Win32Enum {
 
     /**
+     * Native name: FLICKMODE_MIN
      * @type {Integer (Int32)}
      */
-    static FLICKMODE_MIN => 0
+    static MIN => 0
 
     /**
      * Pen flicks are not enabled.
+     * Native name: FLICKMODE_OFF
      * @type {Integer (Int32)}
      */
-    static FLICKMODE_OFF => 0
+    static OFF => 0
 
     /**
      * Pen flicks are enabled.
+     * Native name: FLICKMODE_ON
      * @type {Integer (Int32)}
      */
-    static FLICKMODE_ON => 1
+    static ON => 1
 
     /**
+     * Native name: FLICKMODE_LEARNING
      * @type {Integer (Int32)}
      */
-    static FLICKMODE_LEARNING => 2
+    static LEARNING => 2
 
     /**
+     * Native name: FLICKMODE_MAX
      * @type {Integer (Int32)}
      */
-    static FLICKMODE_MAX => 2
+    static MAX => 2
 
     /**
+     * Native name: FLICKMODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static FLICKMODE_DEFAULT => 1
+    static DEFAULT => 1
 }

@@ -40,7 +40,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagName() {
@@ -50,7 +49,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -63,7 +61,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -76,7 +73,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
      */
@@ -88,7 +84,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMAttribute} 
      */
@@ -100,7 +95,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMAttribute} DOMAttribute 
      * @returns {IXMLDOMAttribute} 
      */
@@ -110,7 +104,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMAttribute} DOMAttribute 
      * @returns {IXMLDOMAttribute} 
      */
@@ -120,7 +113,6 @@ class IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} tagName 
      * @returns {IXMLDOMNodeList} 
      */

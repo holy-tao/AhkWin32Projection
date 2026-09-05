@@ -11,34 +11,39 @@ class D3D11_VIDEO_PROCESSOR_STEREO_CAPS extends Win32Enum {
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_MONO_OFFSET</b> 
      *  format.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_CAPS_MONO_OFFSET
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_MONO_OFFSET => 1
+    static MONO_OFFSET => 1
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_ROW_INTERLEAVED</b> 
      *  format.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_CAPS_ROW_INTERLEAVED
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_ROW_INTERLEAVED => 2
+    static ROW_INTERLEAVED => 2
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_COLUMN_INTERLEAVED</b> 
      *  format.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_CAPS_COLUMN_INTERLEAVED
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_COLUMN_INTERLEAVED => 4
+    static COLUMN_INTERLEAVED => 4
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_CHECKERBOARD</b> 
      *  format.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_CAPS_CHECKERBOARD
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_CHECKERBOARD => 8
+    static CHECKERBOARD => 8
 
     /**
      * The video processor can flip one or both views. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_flip_mode">D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE</a>.
+     * Native name: D3D11_VIDEO_PROCESSOR_STEREO_CAPS_FLIP_MODE
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_FLIP_MODE => 16
+    static FLIP_MODE => 16
 }

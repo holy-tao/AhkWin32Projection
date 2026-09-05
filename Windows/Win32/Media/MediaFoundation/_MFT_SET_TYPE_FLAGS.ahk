@@ -10,7 +10,8 @@ class _MFT_SET_TYPE_FLAGS extends Win32Enum {
 
     /**
      * Test the proposed media type, but do not set it.
+     * Native name: MFT_SET_TYPE_TEST_ONLY
      * @type {Integer (Int32)}
      */
-    static MFT_SET_TYPE_TEST_ONLY => 1
+    static TEST_ONLY => 1
 }

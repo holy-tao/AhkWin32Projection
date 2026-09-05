@@ -10,19 +10,22 @@ class CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION extends Win32Enum {
 
     /**
      * Indicates that no action is to be taken.
+     * Native name: ClusterResourceEmbeddedFailureActionNone
      * @type {Integer (Int32)}
      */
-    static ClusterResourceEmbeddedFailureActionNone => 0
+    static None => 0
 
     /**
      * Indicates that the failure is to be logged.
+     * Native name: ClusterResourceEmbeddedFailureActionLogOnly
      * @type {Integer (Int32)}
      */
-    static ClusterResourceEmbeddedFailureActionLogOnly => 1
+    static LogOnly => 1
 
     /**
      * Indicates that the resource is to be recovered.
+     * Native name: ClusterResourceEmbeddedFailureActionRecover
      * @type {Integer (Int32)}
      */
-    static ClusterResourceEmbeddedFailureActionRecover => 2
+    static Recover => 2
 }

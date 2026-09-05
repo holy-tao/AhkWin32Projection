@@ -7,17 +7,20 @@
 class ALLOC_CONSOLE_MODE extends Win32Enum {
 
     /**
+     * Native name: ALLOC_CONSOLE_MODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static ALLOC_CONSOLE_MODE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: ALLOC_CONSOLE_MODE_NEW_WINDOW
      * @type {Integer (Int32)}
      */
-    static ALLOC_CONSOLE_MODE_NEW_WINDOW => 1
+    static NEW_WINDOW => 1
 
     /**
+     * Native name: ALLOC_CONSOLE_MODE_NO_WINDOW
      * @type {Integer (Int32)}
      */
-    static ALLOC_CONSOLE_MODE_NO_WINDOW => 2
+    static NO_WINDOW => 2
 }

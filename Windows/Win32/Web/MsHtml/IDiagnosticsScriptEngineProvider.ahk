@@ -32,7 +32,6 @@ class IDiagnosticsScriptEngineProvider extends IUnknown {
     static VTableNames => ["CreateDiagnosticsScriptEngine"]
 
     /**
-     * 
      * @param {IDiagnosticsScriptEngineSite} pScriptSite 
      * @param {BOOL} fDebuggingEnabled 
      * @param {Integer} ulProcessId 

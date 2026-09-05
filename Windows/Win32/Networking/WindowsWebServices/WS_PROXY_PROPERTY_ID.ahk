@@ -16,9 +16,10 @@ class WS_PROXY_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * This property is write only.
+     * Native name: WS_PROXY_PROPERTY_CALL_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_PROXY_PROPERTY_CALL_TIMEOUT => 0
+    static CALL_TIMEOUT => 0
 
     /**
      * This property allows the user to specify properties of the message
@@ -48,9 +49,10 @@ class WS_PROXY_PROPERTY_ID extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_MAX_PROCESSED_HEADERS</a>
      * </li>
      * </ul>
+     * Native name: WS_PROXY_PROPERTY_MESSAGE_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_PROXY_PROPERTY_MESSAGE_PROPERTIES => 1
+    static MESSAGE_PROPERTIES => 1
 
     /**
      * Each call in the service proxy is represented by an object internal to the service proxy. 
@@ -60,9 +62,10 @@ class WS_PROXY_PROPERTY_ID extends Win32Enum {
      *                  It is of type <b>USHORT</b>.
      * 
      * This property is write only.
+     * Native name: WS_PROXY_PROPERTY_MAX_CALL_POOL_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_PROXY_PROPERTY_MAX_CALL_POOL_SIZE => 2
+    static MAX_CALL_POOL_SIZE => 2
 
     /**
      * The current state of the service proxy.
@@ -74,9 +77,10 @@ class WS_PROXY_PROPERTY_ID extends Win32Enum {
      * The returned value is a snapshot of the current state, so it is
      *                     possible that the state may have changed before the caller has
      *                     had a chance to examine the value.
+     * Native name: WS_PROXY_PROPERTY_STATE
      * @type {Integer (Int32)}
      */
-    static WS_PROXY_PROPERTY_STATE => 3
+    static STATE => 3
 
     /**
      * The maximum number of pending calls allowed on the service proxy. If the 
@@ -86,9 +90,10 @@ class WS_PROXY_PROPERTY_ID extends Win32Enum {
      *                  It is of type <b>ULONG</b>.
      * 
      * This property is write only.
+     * Native name: WS_PROXY_PROPERTY_MAX_PENDING_CALLS
      * @type {Integer (Int32)}
      */
-    static WS_PROXY_PROPERTY_MAX_PENDING_CALLS => 4
+    static MAX_PENDING_CALLS => 4
 
     /**
      * The amount of time in milliseconds the service proxy will wait for the pending calls to complete.
@@ -100,16 +105,18 @@ class WS_PROXY_PROPERTY_ID extends Win32Enum {
      * 
      * This property is write only.
      *                  It is of type <b>ULONG</b>.
+     * Native name: WS_PROXY_PROPERTY_MAX_CLOSE_TIMEOUT
      * @type {Integer (Int32)}
      */
-    static WS_PROXY_PROPERTY_MAX_CLOSE_TIMEOUT => 5
+    static MAX_CLOSE_TIMEOUT => 5
 
     /**
      * The LANGID that would be used for returning a fault. If none specified default user locale will be used. It is of type <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">LANGID</a>. 
      *                 
      * 
      * This property is write only.
+     * Native name: WS_PROXY_FAULT_LANG_ID
      * @type {Integer (Int32)}
      */
-    static WS_PROXY_FAULT_LANG_ID => 6
+    static FAULT_LANG_ID => 6
 }

@@ -7,32 +7,38 @@
 class styleTextDecoration extends Win32Enum {
 
     /**
+     * Native name: styleTextDecorationNone
      * @type {Integer (Int32)}
      */
-    static styleTextDecorationNone => 0
+    static None => 0
 
     /**
+     * Native name: styleTextDecorationUnderline
      * @type {Integer (Int32)}
      */
-    static styleTextDecorationUnderline => 1
+    static Underline => 1
 
     /**
+     * Native name: styleTextDecorationOverline
      * @type {Integer (Int32)}
      */
-    static styleTextDecorationOverline => 2
+    static Overline => 2
 
     /**
+     * Native name: styleTextDecorationLineThrough
      * @type {Integer (Int32)}
      */
-    static styleTextDecorationLineThrough => 3
+    static LineThrough => 3
 
     /**
+     * Native name: styleTextDecorationBlink
      * @type {Integer (Int32)}
      */
-    static styleTextDecorationBlink => 4
+    static Blink => 4
 
     /**
+     * Native name: styleTextDecoration_Max
      * @type {Integer (Int32)}
      */
-    static styleTextDecoration_Max => 2147483647
+    static Max => 2147483647
 }

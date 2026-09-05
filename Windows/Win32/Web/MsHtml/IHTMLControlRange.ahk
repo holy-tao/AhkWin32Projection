@@ -274,7 +274,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -284,7 +283,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLElement} 
      */
@@ -294,7 +292,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varargStart 
      * @returns {HRESULT} 
      */
@@ -304,7 +301,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -316,7 +312,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -328,7 +323,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -340,7 +334,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -352,7 +345,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {BSTR} 
      */
@@ -365,7 +357,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT} 
      */
@@ -378,7 +369,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
@@ -392,7 +382,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -404,7 +393,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     commonParentElement() {
@@ -413,7 +401,6 @@ class IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {

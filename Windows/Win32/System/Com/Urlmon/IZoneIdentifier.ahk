@@ -29,7 +29,6 @@ class IZoneIdentifier extends IUnknown {
     static VTableNames => ["GetId", "SetId", "Remove"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetId() {
@@ -38,7 +37,6 @@ class IZoneIdentifier extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @returns {HRESULT} 
      */
@@ -48,7 +46,6 @@ class IZoneIdentifier extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Remove() {

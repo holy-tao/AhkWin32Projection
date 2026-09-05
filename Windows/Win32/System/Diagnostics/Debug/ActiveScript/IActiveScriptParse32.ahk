@@ -33,7 +33,6 @@ class IActiveScriptParse32 extends IUnknown {
     static VTableNames => ["InitNew", "AddScriptlet", "ParseScriptText"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitNew() {
@@ -42,7 +41,6 @@ class IActiveScriptParse32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrDefaultName 
      * @param {PWSTR} pstrCode 
      * @param {PWSTR} pstrItemName 
@@ -69,7 +67,6 @@ class IActiveScriptParse32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {PWSTR} pstrItemName 
      * @param {IUnknown} punkContext 

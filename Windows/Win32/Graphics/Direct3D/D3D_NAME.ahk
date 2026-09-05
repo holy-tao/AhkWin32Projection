@@ -12,165 +12,192 @@ class D3D_NAME extends Win32Enum {
 
     /**
      * This parameter does not use a predefined system-value semantic.
+     * Native name: D3D_NAME_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
      * This parameter contains position data.
+     * Native name: D3D_NAME_POSITION
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_POSITION => 1
+    static POSITION => 1
 
     /**
      * This parameter contains clip-distance data.
+     * Native name: D3D_NAME_CLIP_DISTANCE
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_CLIP_DISTANCE => 2
+    static CLIP_DISTANCE => 2
 
     /**
      * This parameter contains cull-distance data.
+     * Native name: D3D_NAME_CULL_DISTANCE
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_CULL_DISTANCE => 3
+    static CULL_DISTANCE => 3
 
     /**
      * This parameter contains a render-target-array index.
+     * Native name: D3D_NAME_RENDER_TARGET_ARRAY_INDEX
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_RENDER_TARGET_ARRAY_INDEX => 4
+    static RENDER_TARGET_ARRAY_INDEX => 4
 
     /**
      * This parameter contains a viewport-array index.
+     * Native name: D3D_NAME_VIEWPORT_ARRAY_INDEX
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_VIEWPORT_ARRAY_INDEX => 5
+    static VIEWPORT_ARRAY_INDEX => 5
 
     /**
      * This parameter contains a vertex ID.
+     * Native name: D3D_NAME_VERTEX_ID
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_VERTEX_ID => 6
+    static VERTEX_ID => 6
 
     /**
      * This parameter contains a primitive ID.
+     * Native name: D3D_NAME_PRIMITIVE_ID
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_PRIMITIVE_ID => 7
+    static PRIMITIVE_ID => 7
 
     /**
      * This parameter contains an instance ID.
+     * Native name: D3D_NAME_INSTANCE_ID
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_INSTANCE_ID => 8
+    static INSTANCE_ID => 8
 
     /**
      * This parameter contains data that identifies whether or not the primitive faces the camera.
+     * Native name: D3D_NAME_IS_FRONT_FACE
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_IS_FRONT_FACE => 9
+    static IS_FRONT_FACE => 9
 
     /**
      * This parameter contains a sampler-array index.
+     * Native name: D3D_NAME_SAMPLE_INDEX
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_SAMPLE_INDEX => 10
+    static SAMPLE_INDEX => 10
 
     /**
      * This parameter contains one of four tessellation factors that correspond to the amount of parts that a quad patch is broken into along the given edge. This flag is used to tessellate a quad patch.
+     * Native name: D3D_NAME_FINAL_QUAD_EDGE_TESSFACTOR
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_FINAL_QUAD_EDGE_TESSFACTOR => 11
+    static FINAL_QUAD_EDGE_TESSFACTOR => 11
 
     /**
      * This parameter contains one of two tessellation factors that correspond to the amount of parts that a quad patch is broken into vertically and horizontally within the patch. This flag is used to tessellate a quad patch.
+     * Native name: D3D_NAME_FINAL_QUAD_INSIDE_TESSFACTOR
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_FINAL_QUAD_INSIDE_TESSFACTOR => 12
+    static FINAL_QUAD_INSIDE_TESSFACTOR => 12
 
     /**
      * This parameter contains one of three tessellation factors that correspond to the amount of parts that a tri patch is broken into along the given edge. This flag is used to tessellate a tri patch.
+     * Native name: D3D_NAME_FINAL_TRI_EDGE_TESSFACTOR
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_FINAL_TRI_EDGE_TESSFACTOR => 13
+    static FINAL_TRI_EDGE_TESSFACTOR => 13
 
     /**
      * This parameter contains the tessellation factor that corresponds to the amount of parts that a tri patch is broken into within the patch. This flag is used to tessellate a tri patch.
+     * Native name: D3D_NAME_FINAL_TRI_INSIDE_TESSFACTOR
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_FINAL_TRI_INSIDE_TESSFACTOR => 14
+    static FINAL_TRI_INSIDE_TESSFACTOR => 14
 
     /**
      * This parameter contains the tessellation factor that corresponds to the number of lines broken into within the patch. This flag is used to tessellate an isolines patch.
+     * Native name: D3D_NAME_FINAL_LINE_DETAIL_TESSFACTOR
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_FINAL_LINE_DETAIL_TESSFACTOR => 15
+    static FINAL_LINE_DETAIL_TESSFACTOR => 15
 
     /**
      * This parameter contains the tessellation factor that corresponds to the number of lines that are created within the patch. This flag is used to tessellate an isolines patch.
+     * Native name: D3D_NAME_FINAL_LINE_DENSITY_TESSFACTOR
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_FINAL_LINE_DENSITY_TESSFACTOR => 16
+    static FINAL_LINE_DENSITY_TESSFACTOR => 16
 
     /**
      * This parameter contains barycentric coordinate data.
+     * Native name: D3D_NAME_BARYCENTRICS
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_BARYCENTRICS => 23
+    static BARYCENTRICS => 23
 
     /**
+     * Native name: D3D_NAME_SHADINGRATE
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_SHADINGRATE => 24
+    static SHADINGRATE => 24
 
     /**
+     * Native name: D3D_NAME_CULLPRIMITIVE
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_CULLPRIMITIVE => 25
+    static CULLPRIMITIVE => 25
 
     /**
      * This parameter contains render-target data.
+     * Native name: D3D_NAME_TARGET
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_TARGET => 64
+    static TARGET => 64
 
     /**
      * This parameter contains depth data.
+     * Native name: D3D_NAME_DEPTH
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_DEPTH => 65
+    static DEPTH => 65
 
     /**
      * This parameter contains alpha-coverage data.
+     * Native name: D3D_NAME_COVERAGE
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_COVERAGE => 66
+    static COVERAGE => 66
 
     /**
      * This parameter signifies that the value is greater than or equal to a reference value. This flag is used to specify conservative depth for a pixel shader.
+     * Native name: D3D_NAME_DEPTH_GREATER_EQUAL
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_DEPTH_GREATER_EQUAL => 67
+    static DEPTH_GREATER_EQUAL => 67
 
     /**
      * This parameter signifies that the value is less than or equal to a reference value. This flag is used to specify conservative depth for a pixel shader.
+     * Native name: D3D_NAME_DEPTH_LESS_EQUAL
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_DEPTH_LESS_EQUAL => 68
+    static DEPTH_LESS_EQUAL => 68
 
     /**
      * This parameter contains a stencil reference.
      *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/shader-specified-stencil-reference-value">Shader Specified Stencil Reference Value</a>.
+     * Native name: D3D_NAME_STENCIL_REF
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_STENCIL_REF => 69
+    static STENCIL_REF => 69
 
     /**
      * This parameter contains inner input coverage data.
      *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/conservative-rasterization">Conservative Rasterization</a>.
+     * Native name: D3D_NAME_INNER_COVERAGE
      * @type {Integer (Int32)}
      */
-    static D3D_NAME_INNER_COVERAGE => 70
+    static INNER_COVERAGE => 70
 
     /**
      * This parameter does not use a predefined system-value semantic.

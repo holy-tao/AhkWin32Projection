@@ -7,42 +7,50 @@
 class NVME_SGL_DESC_SUBTYPE extends Win32Enum {
 
     /**
+     * Native name: NvmeSglDescSubtypeAddress
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeAddress => 0
+    static Address => 0
 
     /**
+     * Native name: NvmeSglDescSubtypeOffset
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeOffset => 1
+    static Offset => 1
 
     /**
+     * Native name: NvmeSglDescSubtypeTransportA
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeTransportA => 10
+    static TransportA => 10
 
     /**
+     * Native name: NvmeSglDescSubtypeTransportB
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeTransportB => 11
+    static TransportB => 11
 
     /**
+     * Native name: NvmeSglDescSubtypeTransportC
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeTransportC => 12
+    static TransportC => 12
 
     /**
+     * Native name: NvmeSglDescSubtypeTransportD
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeTransportD => 13
+    static TransportD => 13
 
     /**
+     * Native name: NvmeSglDescSubtypeTransportE
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeTransportE => 14
+    static TransportE => 14
 
     /**
+     * Native name: NvmeSglDescSubtypeTransportF
      * @type {Integer (Int32)}
      */
-    static NvmeSglDescSubtypeTransportF => 15
+    static TransportF => 15
 }

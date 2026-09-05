@@ -10,13 +10,15 @@ class D3D12_ELEMENTS_LAYOUT extends Win32Enum {
 
     /**
      * For a data set of <i>n</i> elements, the pointer parameter points to the start of <i>n</i> elements in memory.
+     * Native name: D3D12_ELEMENTS_LAYOUT_ARRAY
      * @type {Integer (Int32)}
      */
-    static D3D12_ELEMENTS_LAYOUT_ARRAY => 0
+    static ARRAY => 0
 
     /**
      * For a data set of <i>n</i> elements, the pointer parameter points to an array of <i>n</i> pointers in memory, each pointing to an individual element of the set.
+     * Native name: D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS
      * @type {Integer (Int32)}
      */
-    static D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS => 1
+    static ARRAY_OF_POINTERS => 1
 }

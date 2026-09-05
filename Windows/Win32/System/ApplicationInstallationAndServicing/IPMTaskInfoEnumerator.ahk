@@ -37,7 +37,6 @@ class IPMTaskInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMTaskInfo} 
      */
     get_Next() {

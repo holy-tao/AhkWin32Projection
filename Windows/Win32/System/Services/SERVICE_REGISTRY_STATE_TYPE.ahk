@@ -13,15 +13,17 @@ class SERVICE_REGISTRY_STATE_TYPE extends Win32Enum {
 
     /**
      * Immutable service state, populated by INF to the Parameters subkey.
+     * Native name: ServiceRegistryStateParameters
      * @type {Integer (Int32)}
      */
-    static ServiceRegistryStateParameters => 0
+    static Parameters => 0
 
     /**
      * Mutable, persistent service state. This state is both readable and writable by the service, and is inaccessible outside of the service. This state persists across reboots and and OS updates.
+     * Native name: ServiceRegistryStatePersistent
      * @type {Integer (Int32)}
      */
-    static ServiceRegistryStatePersistent => 1
+    static Persistent => 1
 
     /**
      * Reserved. Represents the maximum value of the enumeration.

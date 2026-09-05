@@ -31,7 +31,6 @@ class IPixelFilter extends IFilter {
     static VTableNames => ["GetImageInfo", "GetPixelsForImage"]
 
     /**
-     * 
      * @returns {IMAGE_INFO} 
      */
     GetImageInfo() {
@@ -41,7 +40,6 @@ class IPixelFilter extends IFilter {
     }
 
     /**
-     * 
      * @param {Float} scalingFactor 
      * @param {Pointer<RECT>} sourceRect 
      * @param {Integer} pixelBufferSize 

@@ -32,7 +32,6 @@ class ICLRErrorReportingManager extends IUnknown {
     static VTableNames => ["GetBucketParametersForCurrentException", "BeginCustomDump", "EndCustomDump"]
 
     /**
-     * 
      * @returns {BucketParameters} 
      */
     GetBucketParametersForCurrentException() {
@@ -42,7 +41,6 @@ class ICLRErrorReportingManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ECustomDumpFlavor} dwFlavor 
      * @param {Integer} dwNumItems 
      * @param {Pointer<CustomDumpItem>} items 
@@ -55,7 +53,6 @@ class ICLRErrorReportingManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndCustomDump() {

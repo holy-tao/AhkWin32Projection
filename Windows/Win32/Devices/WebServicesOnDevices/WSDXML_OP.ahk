@@ -7,237 +7,284 @@
 class WSDXML_OP extends Win32Enum {
 
     /**
+     * Native name: OpNone
      * @type {Integer (Int32)}
      */
-    static OpNone => 0
+    static None => 0
 
     /**
+     * Native name: OpEndOfTable
      * @type {Integer (Int32)}
      */
-    static OpEndOfTable => 1
+    static EndOfTable => 1
 
     /**
+     * Native name: OpBeginElement_
      * @type {Integer (Int32)}
      */
-    static OpBeginElement_ => 2
+    static BeginElement_ => 2
 
     /**
+     * Native name: OpBeginAnyElement
      * @type {Integer (Int32)}
      */
-    static OpBeginAnyElement => 3
+    static BeginAnyElement => 3
 
     /**
+     * Native name: OpEndElement
      * @type {Integer (Int32)}
      */
-    static OpEndElement => 4
+    static EndElement => 4
 
     /**
+     * Native name: OpElement_
      * @type {Integer (Int32)}
      */
-    static OpElement_ => 5
+    static Element_ => 5
 
     /**
+     * Native name: OpAnyElement
      * @type {Integer (Int32)}
      */
-    static OpAnyElement => 6
+    static AnyElement => 6
 
     /**
+     * Native name: OpAnyElements
      * @type {Integer (Int32)}
      */
-    static OpAnyElements => 7
+    static AnyElements => 7
 
     /**
+     * Native name: OpAnyText
      * @type {Integer (Int32)}
      */
-    static OpAnyText => 8
+    static AnyText => 8
 
     /**
+     * Native name: OpAttribute_
      * @type {Integer (Int32)}
      */
-    static OpAttribute_ => 9
+    static Attribute_ => 9
 
     /**
+     * Native name: OpBeginChoice
      * @type {Integer (Int32)}
      */
-    static OpBeginChoice => 10
+    static BeginChoice => 10
 
     /**
+     * Native name: OpEndChoice
      * @type {Integer (Int32)}
      */
-    static OpEndChoice => 11
+    static EndChoice => 11
 
     /**
+     * Native name: OpBeginSequence
      * @type {Integer (Int32)}
      */
-    static OpBeginSequence => 12
+    static BeginSequence => 12
 
     /**
+     * Native name: OpEndSequence
      * @type {Integer (Int32)}
      */
-    static OpEndSequence => 13
+    static EndSequence => 13
 
     /**
+     * Native name: OpBeginAll
      * @type {Integer (Int32)}
      */
-    static OpBeginAll => 14
+    static BeginAll => 14
 
     /**
+     * Native name: OpEndAll
      * @type {Integer (Int32)}
      */
-    static OpEndAll => 15
+    static EndAll => 15
 
     /**
+     * Native name: OpAnything
      * @type {Integer (Int32)}
      */
-    static OpAnything => 16
+    static Anything => 16
 
     /**
+     * Native name: OpAnyNumber
      * @type {Integer (Int32)}
      */
-    static OpAnyNumber => 17
+    static AnyNumber => 17
 
     /**
+     * Native name: OpOneOrMore
      * @type {Integer (Int32)}
      */
-    static OpOneOrMore => 18
+    static OneOrMore => 18
 
     /**
+     * Native name: OpOptional
      * @type {Integer (Int32)}
      */
-    static OpOptional => 19
+    static Optional => 19
 
     /**
+     * Native name: OpFormatBool_
      * @type {Integer (Int32)}
      */
-    static OpFormatBool_ => 20
+    static FormatBool_ => 20
 
     /**
+     * Native name: OpFormatInt8_
      * @type {Integer (Int32)}
      */
-    static OpFormatInt8_ => 21
+    static FormatInt8_ => 21
 
     /**
+     * Native name: OpFormatInt16_
      * @type {Integer (Int32)}
      */
-    static OpFormatInt16_ => 22
+    static FormatInt16_ => 22
 
     /**
+     * Native name: OpFormatInt32_
      * @type {Integer (Int32)}
      */
-    static OpFormatInt32_ => 23
+    static FormatInt32_ => 23
 
     /**
+     * Native name: OpFormatInt64_
      * @type {Integer (Int32)}
      */
-    static OpFormatInt64_ => 24
+    static FormatInt64_ => 24
 
     /**
+     * Native name: OpFormatUInt8_
      * @type {Integer (Int32)}
      */
-    static OpFormatUInt8_ => 25
+    static FormatUInt8_ => 25
 
     /**
+     * Native name: OpFormatUInt16_
      * @type {Integer (Int32)}
      */
-    static OpFormatUInt16_ => 26
+    static FormatUInt16_ => 26
 
     /**
+     * Native name: OpFormatUInt32_
      * @type {Integer (Int32)}
      */
-    static OpFormatUInt32_ => 27
+    static FormatUInt32_ => 27
 
     /**
+     * Native name: OpFormatUInt64_
      * @type {Integer (Int32)}
      */
-    static OpFormatUInt64_ => 28
+    static FormatUInt64_ => 28
 
     /**
+     * Native name: OpFormatUnicodeString_
      * @type {Integer (Int32)}
      */
-    static OpFormatUnicodeString_ => 29
+    static FormatUnicodeString_ => 29
 
     /**
+     * Native name: OpFormatDom_
      * @type {Integer (Int32)}
      */
-    static OpFormatDom_ => 30
+    static FormatDom_ => 30
 
     /**
+     * Native name: OpFormatStruct_
      * @type {Integer (Int32)}
      */
-    static OpFormatStruct_ => 31
+    static FormatStruct_ => 31
 
     /**
+     * Native name: OpFormatUri_
      * @type {Integer (Int32)}
      */
-    static OpFormatUri_ => 32
+    static FormatUri_ => 32
 
     /**
+     * Native name: OpFormatUuidUri_
      * @type {Integer (Int32)}
      */
-    static OpFormatUuidUri_ => 33
+    static FormatUuidUri_ => 33
 
     /**
+     * Native name: OpFormatName_
      * @type {Integer (Int32)}
      */
-    static OpFormatName_ => 34
+    static FormatName_ => 34
 
     /**
+     * Native name: OpFormatListInsertTail_
      * @type {Integer (Int32)}
      */
-    static OpFormatListInsertTail_ => 35
+    static FormatListInsertTail_ => 35
 
     /**
+     * Native name: OpFormatType_
      * @type {Integer (Int32)}
      */
-    static OpFormatType_ => 36
+    static FormatType_ => 36
 
     /**
+     * Native name: OpFormatDynamicType_
      * @type {Integer (Int32)}
      */
-    static OpFormatDynamicType_ => 37
+    static FormatDynamicType_ => 37
 
     /**
+     * Native name: OpFormatLookupType_
      * @type {Integer (Int32)}
      */
-    static OpFormatLookupType_ => 38
+    static FormatLookupType_ => 38
 
     /**
+     * Native name: OpFormatDuration_
      * @type {Integer (Int32)}
      */
-    static OpFormatDuration_ => 39
+    static FormatDuration_ => 39
 
     /**
+     * Native name: OpFormatDateTime_
      * @type {Integer (Int32)}
      */
-    static OpFormatDateTime_ => 40
+    static FormatDateTime_ => 40
 
     /**
+     * Native name: OpFormatFloat_
      * @type {Integer (Int32)}
      */
-    static OpFormatFloat_ => 41
+    static FormatFloat_ => 41
 
     /**
+     * Native name: OpFormatDouble_
      * @type {Integer (Int32)}
      */
-    static OpFormatDouble_ => 42
+    static FormatDouble_ => 42
 
     /**
+     * Native name: OpProcess_
      * @type {Integer (Int32)}
      */
-    static OpProcess_ => 43
+    static Process_ => 43
 
     /**
+     * Native name: OpQualifiedAttribute_
      * @type {Integer (Int32)}
      */
-    static OpQualifiedAttribute_ => 44
+    static QualifiedAttribute_ => 44
 
     /**
+     * Native name: OpFormatXMLDeclaration_
      * @type {Integer (Int32)}
      */
-    static OpFormatXMLDeclaration_ => 45
+    static FormatXMLDeclaration_ => 45
 
     /**
+     * Native name: OpFormatMax
      * @type {Integer (Int32)}
      */
-    static OpFormatMax => 46
+    static FormatMax => 46
 }

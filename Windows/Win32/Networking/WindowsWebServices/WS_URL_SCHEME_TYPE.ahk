@@ -10,31 +10,36 @@ class WS_URL_SCHEME_TYPE extends Win32Enum {
 
     /**
      * Denotes the "http" scheme: <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_url">WS_HTTP_URL</a>
+     * Native name: WS_URL_HTTP_SCHEME_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_URL_HTTP_SCHEME_TYPE => 0
+    static HTTP_SCHEME_TYPE => 0
 
     /**
      * Denotes the "https" scheme: <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_https_url">WS_HTTPS_URL</a>
+     * Native name: WS_URL_HTTPS_SCHEME_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_URL_HTTPS_SCHEME_TYPE => 1
+    static HTTPS_SCHEME_TYPE => 1
 
     /**
      * Denotes the "net.tcp" scheme: <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_nettcp_url">WS_NETTCP_URL</a>
+     * Native name: WS_URL_NETTCP_SCHEME_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_URL_NETTCP_SCHEME_TYPE => 2
+    static NETTCP_SCHEME_TYPE => 2
 
     /**
      * Denotes the "soap.udp" scheme: <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_soapudp_url">WS_SOAPUDP_URL</a>
+     * Native name: WS_URL_SOAPUDP_SCHEME_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_URL_SOAPUDP_SCHEME_TYPE => 3
+    static SOAPUDP_SCHEME_TYPE => 3
 
     /**
      * Windows 8 or later: Denotes the "net.pipe" scheme: <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_netpipe_url">WS_NETPIPE_URL</a>
+     * Native name: WS_URL_NETPIPE_SCHEME_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_URL_NETPIPE_SCHEME_TYPE => 4
+    static NETPIPE_SCHEME_TYPE => 4
 }

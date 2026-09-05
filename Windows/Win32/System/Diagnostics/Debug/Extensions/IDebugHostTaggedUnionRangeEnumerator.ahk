@@ -30,7 +30,6 @@ class IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext", "GetCount"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -39,7 +38,6 @@ class IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pLow 
      * @param {Pointer<VARIANT>} pHigh 
      * @returns {HRESULT} 
@@ -50,7 +48,6 @@ class IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {

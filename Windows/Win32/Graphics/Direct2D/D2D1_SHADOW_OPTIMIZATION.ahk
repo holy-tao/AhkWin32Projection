@@ -10,19 +10,22 @@ class D2D1_SHADOW_OPTIMIZATION extends Win32Enum {
 
     /**
      * Applies internal optimizations such as pre-scaling at relatively small radii. Uses linear filtering.
+     * Native name: D2D1_SHADOW_OPTIMIZATION_SPEED
      * @type {Integer (Int32)}
      */
-    static D2D1_SHADOW_OPTIMIZATION_SPEED => 0
+    static SPEED => 0
 
     /**
      * Uses the same optimization thresholds as Speed mode, but uses trilinear filtering.
+     * Native name: D2D1_SHADOW_OPTIMIZATION_BALANCED
      * @type {Integer (Int32)}
      */
-    static D2D1_SHADOW_OPTIMIZATION_BALANCED => 1
+    static BALANCED => 1
 
     /**
      * Only uses internal optimizations with large blur radii, where approximations are less likely to be visible. Uses trilinear filtering.
+     * Native name: D2D1_SHADOW_OPTIMIZATION_QUALITY
      * @type {Integer (Int32)}
      */
-    static D2D1_SHADOW_OPTIMIZATION_QUALITY => 2
+    static QUALITY => 2
 }

@@ -10229,7 +10229,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMONITOR>} param2 
@@ -10243,7 +10242,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
@@ -10258,7 +10256,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
@@ -10273,7 +10270,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMONITOR>} param1 
      * @returns {String} Nothing - always returns an empty string
@@ -10285,7 +10281,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMONITOR>} param2 
@@ -10299,7 +10294,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
@@ -10314,7 +10308,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
@@ -10329,7 +10322,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMONITOR>} param1 
      * @returns {String} Nothing - always returns an empty string
@@ -15174,7 +15166,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15447,7 +15438,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFilename 
      * @param {Pointer<BOOL>} pfParsePrivacyPreferences 
      * @param {Pointer<BOOL>} pfParsePerSiteRules 
@@ -19015,7 +19005,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PSTR} pszPath 
      * @returns {BOOL} 
      */
@@ -19027,7 +19016,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {BOOL} 
      */
@@ -31469,7 +31457,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkTrgt 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
@@ -31488,7 +31475,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzTarget 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
@@ -31508,7 +31494,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IDataObject} piDataObj 
      * @param {IHlinkSite} pihlsite 
      * @param {Integer} dwSiteData 
@@ -31522,7 +31507,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IDataObject} piDataObj 
      * @returns {HRESULT} 
      */
@@ -31532,7 +31516,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IHlink} pihl 
      * @param {Pointer<Guid>} riid 
      * @param {IHlinkSite} pihlsiteForClone 
@@ -31545,7 +31528,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -31556,7 +31538,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzTarget 
      * @param {PWSTR} pwzLocation 
      * @param {IHlinkSite} pihlsite 
@@ -31577,7 +31558,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IHlink} pihl 
      * @param {IHlinkFrame} pihlframe 
      * @param {Integer} grfHLNF 
@@ -31592,7 +31572,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IHlinkFrame} pihlframe 
      * @param {IHlinkBrowseContext} pihlbc 
      * @param {Integer} grfHLNF 
@@ -31613,7 +31592,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IHlinkFrame} pihlframe 
      * @param {IHlinkBrowseContext} pihlbc 
      * @param {Integer} uHLID 
@@ -31631,7 +31609,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @param {IHlinkBrowseContext} pihlbc 
      * @param {IMoniker} pimkOld 
@@ -31644,7 +31621,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkReference 
      * @param {Integer} reserved 
      * @param {IBindCtx} pibc 
@@ -31660,7 +31636,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzReference 
      * @param {Integer} reserved 
      * @param {IBindCtx} pibc 
@@ -31678,7 +31653,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IBindCtx} pibc 
      * @param {PWSTR} pwzDisplayName 
      * @param {BOOL} fNoForceAbs 
@@ -31695,7 +31669,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAdditionalHeaders 
      * @param {HWND} phwnd 
      * @param {PWSTR} pszUsername 
@@ -31715,7 +31688,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IBindCtx} pibc 
      * @param {IMoniker} pimkIn 
      * @returns {IMoniker} 
@@ -31726,7 +31698,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {IUnknown} piunk 
      * @param {IStream} pistm 
      * @param {BOOL} fClearDirty 
@@ -31738,7 +31709,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Integer} uReference 
      * @param {PWSTR} pwzReference 
      * @returns {HRESULT} 
@@ -31751,7 +31721,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Integer} uReference 
      * @returns {PWSTR} 
      */
@@ -31761,7 +31730,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Integer} grfHLSHORTCUTF 
      * @param {IHlink} pihl 
      * @param {PWSTR} pwzDir 
@@ -31778,7 +31746,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Integer} grfHLSHORTCUTF 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -31797,7 +31764,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Integer} grfHLSHORTCUTF 
      * @param {PWSTR} pwzTarget 
      * @param {PWSTR} pwzLocation 
@@ -31817,7 +31783,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzShortcutFileName 
      * @param {IHlinkSite} pihlsite 
      * @param {Integer} dwSiteData 
@@ -31836,7 +31801,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzShortcutFileName 
      * @param {Pointer<IMoniker>} ppimkTarget 
      * @param {Pointer<PWSTR>} ppwzLocation 
@@ -31852,7 +31816,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzShortcutFileName 
      * @param {Pointer<PWSTR>} ppwzTarget 
      * @param {Pointer<PWSTR>} ppwzLocation 
@@ -31869,7 +31832,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFileName 
      * @returns {HRESULT} 
      */
@@ -31881,7 +31843,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzParams 
      * @param {PWSTR} pwzName 
      * @returns {PWSTR} 
@@ -31895,7 +31856,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzURL 
      * @param {Integer} grfFlags 
      * @returns {PWSTR} 
@@ -33253,7 +33213,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {Pointer<PAPPCONSTRAIN_CHANGE_ROUTINE>} Routine 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<PAPPCONSTRAIN_REGISTRATION>} Registration 
@@ -33268,7 +33227,6 @@ class Shell {
     }
 
     /**
-     * 
      * @param {PAPPCONSTRAIN_REGISTRATION} Registration 
      * @returns {String} Nothing - always returns an empty string
      */

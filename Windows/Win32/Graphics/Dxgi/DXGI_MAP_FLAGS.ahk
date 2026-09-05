@@ -7,17 +7,20 @@
 class DXGI_MAP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DXGI_MAP_READ
      * @type {Integer (UInt32)}
      */
-    static DXGI_MAP_READ => 1
+    static READ => 1
 
     /**
+     * Native name: DXGI_MAP_WRITE
      * @type {Integer (UInt32)}
      */
-    static DXGI_MAP_WRITE => 2
+    static WRITE => 2
 
     /**
+     * Native name: DXGI_MAP_DISCARD
      * @type {Integer (UInt32)}
      */
-    static DXGI_MAP_DISCARD => 4
+    static DISCARD => 4
 }

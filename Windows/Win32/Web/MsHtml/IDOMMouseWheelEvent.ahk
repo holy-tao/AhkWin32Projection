@@ -46,7 +46,6 @@ class IDOMMouseWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_wheelDelta() {
@@ -55,7 +54,6 @@ class IDOMMouseWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

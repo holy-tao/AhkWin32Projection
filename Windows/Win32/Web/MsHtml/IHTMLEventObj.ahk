@@ -190,7 +190,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_srcElement() {
@@ -199,7 +198,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -208,7 +206,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -217,7 +214,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -226,7 +222,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -236,7 +231,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_returnValue() {
@@ -246,7 +240,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -256,7 +249,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cancelBubble() {
@@ -265,7 +257,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_fromElement() {
@@ -274,7 +265,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_toElement() {
@@ -283,7 +273,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -293,7 +282,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_keyCode() {
@@ -302,7 +290,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_button() {
@@ -311,7 +298,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -321,7 +307,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_qualifier() {
@@ -331,7 +316,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_reason() {
@@ -340,7 +324,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -349,7 +332,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_y() {
@@ -358,7 +340,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientX() {
@@ -367,7 +348,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientY() {
@@ -376,7 +356,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetX() {
@@ -385,7 +364,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetY() {
@@ -394,7 +372,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -403,7 +380,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -412,7 +388,6 @@ class IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_srcFilter() {

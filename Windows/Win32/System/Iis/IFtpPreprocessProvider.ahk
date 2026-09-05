@@ -31,7 +31,6 @@ class IFtpPreprocessProvider extends IUnknown {
     static VTableNames => ["HandlePreprocess"]
 
     /**
-     * 
      * @param {Pointer<PRE_PROCESS_PARAMETERS>} pPreProcessParameters 
      * @returns {FTP_PROCESS_STATUS} 
      */

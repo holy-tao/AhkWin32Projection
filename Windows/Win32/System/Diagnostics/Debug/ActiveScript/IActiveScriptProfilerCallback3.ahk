@@ -29,7 +29,6 @@ class IActiveScriptProfilerCallback3 extends IActiveScriptProfilerCallback2 {
     static VTableNames => ["SetWebWorkerId"]
 
     /**
-     * 
      * @param {Integer} webWorkerId 
      * @returns {HRESULT} 
      */

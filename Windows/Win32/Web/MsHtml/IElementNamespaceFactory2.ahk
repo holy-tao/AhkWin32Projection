@@ -31,7 +31,6 @@ class IElementNamespaceFactory2 extends IElementNamespaceFactory {
     static VTableNames => ["CreateWithImplementation"]
 
     /**
-     * 
      * @param {IElementNamespace} pNamespace 
      * @param {BSTR} bstrImplementation 
      * @returns {HRESULT} 

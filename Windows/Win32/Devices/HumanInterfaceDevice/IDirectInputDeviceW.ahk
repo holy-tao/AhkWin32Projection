@@ -40,7 +40,6 @@ class IDirectInputDeviceW extends IUnknown {
     static VTableNames => ["GetCapabilities", "EnumObjects", "GetProperty", "SetProperty", "Acquire", "Unacquire", "GetDeviceState", "GetDeviceData", "SetDataFormat", "SetEventNotification", "SetCooperativeLevel", "GetObjectInfo", "GetDeviceInfo", "RunControlPanel", "Initialize"]
 
     /**
-     * 
      * @param {Pointer<DIDEVCAPS>} param0 
      * @returns {HRESULT} 
      */
@@ -85,7 +84,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIPROPHEADER>} param1 
      * @returns {HRESULT} 
@@ -96,7 +94,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Acquire() {
@@ -105,7 +102,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unacquire() {
@@ -114,7 +110,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @returns {HRESULT} 
@@ -127,7 +122,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICEOBJECTDATA>} param1 
      * @param {Pointer<Integer>} param2 
@@ -142,7 +136,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDATAFORMAT>} param0 
      * @returns {HRESULT} 
      */
@@ -152,7 +145,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {HRESULT} 
      */
@@ -164,7 +156,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -177,7 +168,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEOBJECTINSTANCEW>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -189,7 +179,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEINSTANCEW>} param0 
      * @returns {HRESULT} 
      */
@@ -199,7 +188,6 @@ class IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 

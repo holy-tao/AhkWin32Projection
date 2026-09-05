@@ -30,7 +30,6 @@ class IInternetHostSecurityManager extends IUnknown {
     static VTableNames => ["GetSecurityId", "ProcessUrlAction", "QueryCustomPolicy"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
      * @returns {Integer} 
@@ -43,7 +42,6 @@ class IInternetHostSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
      * @param {Pointer<Integer>} pContext 
@@ -60,7 +58,6 @@ class IInternetHostSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 
      * @param {Pointer<Integer>} pcbPolicy 

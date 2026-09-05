@@ -50,7 +50,6 @@ class ISVGAnimatedLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGLengthList} v 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ class ISVGAnimatedLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGLengthList} 
      */
     get_baseVal() {
@@ -69,7 +67,6 @@ class ISVGAnimatedLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGLengthList} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class ISVGAnimatedLengthList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGLengthList} 
      */
     get_animVal() {

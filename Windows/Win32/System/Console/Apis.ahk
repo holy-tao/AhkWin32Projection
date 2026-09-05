@@ -538,7 +538,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Pointer<ALLOC_CONSOLE_OPTIONS>} options 
      * @returns {ALLOC_CONSOLE_RESULT} 
      */
@@ -1163,7 +1162,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HPCON} hPC 
      * @returns {HRESULT} 
      */
@@ -3013,7 +3011,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PSTR} ExeName 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3024,7 +3021,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PWSTR} ExeName 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3035,7 +3031,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} _Number 
      * @param {PSTR} ExeName 
      * @returns {BOOL} 
@@ -3048,7 +3043,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} _Number 
      * @param {PWSTR} ExeName 
      * @returns {BOOL} 
@@ -3061,7 +3055,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PSTR} ExeName 
      * @returns {Integer} 
      */
@@ -3073,7 +3066,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PWSTR} ExeName 
      * @returns {Integer} 
      */
@@ -3085,7 +3077,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} Commands 
      * @param {Integer} CommandBufferLength 
      * @param {PSTR} ExeName 
@@ -3099,7 +3090,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} Commands 
      * @param {Integer} CommandBufferLength 
      * @param {PWSTR} ExeName 
@@ -3143,7 +3133,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PSTR} pszLayout 
      * @returns {BOOL} 
      */
@@ -3155,7 +3144,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PWSTR} pszLayout 
      * @returns {BOOL} 
      */
@@ -3167,7 +3155,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {Pointer<SMALL_RECT>} lpRect 
      * @returns {BOOL} 
@@ -3180,7 +3167,6 @@ class Console {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     static SetLastConsoleEventActive() {
@@ -3188,7 +3174,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} iFunction 
      * @param {Pointer<Void>} lpData 
      * @returns {BOOL} 
@@ -3201,7 +3186,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HICON} _hIcon 
      * @returns {BOOL} 
      */
@@ -3213,7 +3197,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {Integer} nFont 
      * @returns {BOOL} 
@@ -3226,7 +3209,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {BOOL} bMaximumWindow 
      * @param {Integer} nLength 
@@ -3241,7 +3223,6 @@ class Console {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static GetNumberOfConsoleFonts() {
@@ -3250,7 +3231,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {HCURSOR} _hCursor 
      * @returns {BOOL} 
@@ -3264,7 +3244,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {BOOL} bShow 
      * @returns {Integer} 
@@ -3277,7 +3256,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {Integer} dwCommandIdLow 
      * @param {Integer} dwCommandIdHigh 
@@ -3292,7 +3270,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {HPALETTE} _hPalette 
      * @param {Integer} dwUsage 
@@ -3307,7 +3284,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} dwRegisterFlags 
      * @param {HANDLE} hStartHardwareEvent 
      * @param {HANDLE} hEndHardwareEvent 
@@ -3334,7 +3310,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {Pointer<COORD>} lpResolution 
      * @param {Pointer<COORD>} lpFontSize 
@@ -3348,7 +3323,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleOutput 
      * @param {COORD} dwResolution 
      * @param {COORD} dwFontSize 
@@ -3362,7 +3336,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {BOOL} bSet 
      * @param {Integer} bReserveKeys 
      * @param {Pointer<APPKEY>} lpAppKeys 
@@ -3375,7 +3348,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {BOOL} bEnable 
      * @returns {BOOL} 
      */
@@ -3385,7 +3357,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} nBufferLength 
      * @param {PSTR} lpBuffer 
      * @returns {Integer} 
@@ -3398,7 +3369,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {Integer} nBufferLength 
      * @param {PWSTR} lpBuffer 
      * @returns {Integer} 
@@ -3411,7 +3381,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PSTR} lpExeName 
      * @returns {BOOL} 
      */
@@ -3423,7 +3392,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PWSTR} lpExeName 
      * @returns {BOOL} 
      */
@@ -3503,7 +3471,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
@@ -3520,7 +3487,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
@@ -3537,7 +3503,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsole 
      * @param {Pointer<Integer>} lpdwNlsMode 
      * @returns {BOOL} 
@@ -3552,7 +3517,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsole 
      * @param {Integer} fdwNlsMode 
      * @returns {BOOL} 
@@ -3565,7 +3529,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsole 
      * @param {COORD} coordCheck 
      * @param {Pointer<Integer>} pdwType 
@@ -3581,7 +3544,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleHandle 
      * @param {Integer} wCodePoint 
      * @param {COORD} cFontSize 
@@ -3597,7 +3559,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleHandle 
      * @param {BOOL} Blink 
      * @param {BOOL} DBEnable 
@@ -3611,7 +3572,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsoleHandle 
      * @param {Pointer<BOOL>} pbBlink 
      * @param {Pointer<BOOL>} pbDBEnable 
@@ -3628,7 +3588,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {BOOL} fOs2Register 
      * @returns {BOOL} 
      */
@@ -3638,7 +3597,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {BOOL} fOs2OemFormat 
      * @returns {BOOL} 
      */
@@ -3648,7 +3606,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HWND} hWndConsoleIME 
      * @param {Pointer<Integer>} lpdwConsoleThreadId 
      * @returns {BOOL} 
@@ -3663,7 +3620,6 @@ class Console {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static UnregisterConsoleIME() {
@@ -3672,7 +3628,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {PWSTR} lpConsoleDevice 
      * @param {Integer} dwDesiredAccess 
      * @param {BOOL} bInheritHandle 
@@ -3688,7 +3643,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hSourceHandle 
      * @param {Integer} dwDesiredAccess 
      * @param {BOOL} bInheritHandle 
@@ -3704,7 +3658,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hConsole 
      * @returns {BOOL} 
      */
@@ -3716,7 +3669,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {HANDLE} hIoHandle 
      * @returns {BOOL} 
      */
@@ -3728,7 +3680,6 @@ class Console {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     static GetConsoleInputWaitHandle() {
@@ -3738,7 +3689,6 @@ class Console {
     }
 
     /**
-     * 
      * @param {CONSOLECONTROL} Command 
      * @param {Integer} ConsoleInformation 
      * @param {Integer} ConsoleInformationLength 

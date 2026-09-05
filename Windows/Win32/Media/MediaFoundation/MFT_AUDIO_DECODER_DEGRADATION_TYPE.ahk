@@ -7,22 +7,26 @@
 class MFT_AUDIO_DECODER_DEGRADATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: MFT_AUDIO_DECODER_DEGRADATION_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static MFT_AUDIO_DECODER_DEGRADATION_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: MFT_AUDIO_DECODER_DEGRADATION_TYPE_DOWNMIX2CHANNEL
      * @type {Integer (Int32)}
      */
-    static MFT_AUDIO_DECODER_DEGRADATION_TYPE_DOWNMIX2CHANNEL => 1
+    static DOWNMIX2CHANNEL => 1
 
     /**
+     * Native name: MFT_AUDIO_DECODER_DEGRADATION_TYPE_DOWNMIX6CHANNEL
      * @type {Integer (Int32)}
      */
-    static MFT_AUDIO_DECODER_DEGRADATION_TYPE_DOWNMIX6CHANNEL => 2
+    static DOWNMIX6CHANNEL => 2
 
     /**
+     * Native name: MFT_AUDIO_DECODER_DEGRADATION_TYPE_DOWNMIX8CHANNEL
      * @type {Integer (Int32)}
      */
-    static MFT_AUDIO_DECODER_DEGRADATION_TYPE_DOWNMIX8CHANNEL => 3
+    static DOWNMIX8CHANNEL => 3
 }

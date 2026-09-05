@@ -33,7 +33,6 @@ class IIsolatedAppLauncher extends IUnknown {
     static VTableNames => ["Launch"]
 
     /**
-     * 
      * @param {PWSTR} appUserModelId 
      * @param {PWSTR} arguments 
      * @param {Pointer<IsolatedAppLauncherTelemetryParameters>} telemetryParameters 

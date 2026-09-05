@@ -39,7 +39,6 @@ class ICorRuntimeHost extends IUnknown {
     static VTableNames => ["CreateLogicalThreadState", "DeleteLogicalThreadState", "SwitchInLogicalThreadState", "SwitchOutLogicalThreadState", "LocksHeldByLogicalThread", "MapFile", "GetConfiguration", "Start", "Stop", "CreateDomain", "GetDefaultDomain", "EnumDomains", "NextDomain", "CloseEnum", "CreateDomainEx", "CreateDomainSetup", "CreateEvidence", "UnloadDomain", "CurrentDomain"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CreateLogicalThreadState() {
@@ -48,7 +47,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteLogicalThreadState() {
@@ -57,7 +55,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pFiberCookie 
      * @returns {HRESULT} 
      */
@@ -69,7 +66,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     SwitchOutLogicalThreadState() {
@@ -78,7 +74,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     LocksHeldByLogicalThread() {
@@ -87,7 +82,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hFile 
      * @returns {HMODULE} 
      */
@@ -110,7 +104,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -119,7 +112,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -128,7 +120,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFriendlyName 
      * @param {IUnknown} pIdentityArray 
      * @returns {IUnknown} 
@@ -141,7 +132,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetDefaultDomain() {
@@ -150,7 +140,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     EnumDomains() {
@@ -159,7 +148,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hEnum 
      * @returns {IUnknown} 
      */
@@ -171,7 +159,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hEnum 
      * @returns {HRESULT} 
      */
@@ -183,7 +170,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFriendlyName 
      * @param {IUnknown} pSetup 
      * @param {IUnknown} pEvidence 
@@ -197,7 +183,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     CreateDomainSetup() {
@@ -206,7 +191,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     CreateEvidence() {
@@ -215,7 +199,6 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pAppDomain 
      * @returns {HRESULT} 
      */

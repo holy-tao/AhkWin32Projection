@@ -42,7 +42,6 @@ class IDirectMusicPort extends IUnknown {
     static VTableNames => ["PlayBuffer", "SetReadNotificationHandle", "Read", "DownloadInstrument", "UnloadInstrument", "GetLatencyClock", "GetRunningStats", "Compact", "GetCaps", "DeviceIoControl", "SetNumChannelGroups", "GetNumChannelGroups", "Activate", "SetChannelPriority", "GetChannelPriority", "SetDirectSound", "GetFormat"]
 
     /**
-     * 
      * @param {IDirectMusicBuffer} pBuffer 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hEvent 
      * @returns {HRESULT} 
      */
@@ -64,7 +62,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicBuffer} pBuffer 
      * @returns {HRESULT} 
      */
@@ -74,7 +71,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicInstrument} pInstrument 
      * @param {Pointer<DMUS_NOTERANGE>} pNoteRanges 
      * @param {Integer} dwNumNoteRanges 
@@ -86,7 +82,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicDownloadedInstrument} pDownloadedInstrument 
      * @returns {HRESULT} 
      */
@@ -96,7 +91,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IReferenceClock} 
      */
     GetLatencyClock() {
@@ -105,7 +99,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DMUS_SYNTHSTATS>} pStats 
      * @returns {HRESULT} 
      */
@@ -115,7 +108,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Compact() {
@@ -124,7 +116,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DMUS_PORTCAPS>} pPortCaps 
      * @returns {HRESULT} 
      */
@@ -268,7 +259,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChannelGroups 
      * @returns {HRESULT} 
      */
@@ -278,7 +268,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwChannelGroups 
      * @returns {HRESULT} 
      */
@@ -290,7 +279,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fActive 
      * @returns {HRESULT} 
      */
@@ -300,7 +288,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannel 
      * @param {Integer} dwPriority 
@@ -312,7 +299,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannel 
      * @param {Pointer<Integer>} pdwPriority 
@@ -326,7 +312,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectSound} pDirectSound 
      * @param {IDirectSoundBuffer} pDirectSoundBuffer 
      * @returns {HRESULT} 
@@ -337,7 +322,6 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {Pointer<Integer>} pdwWaveFormatExSize 
      * @param {Pointer<Integer>} pdwBufferSize 

@@ -30,7 +30,6 @@ class IWiaMiniDrvCallBack extends IUnknown {
     static VTableNames => ["MiniDrvCallback"]
 
     /**
-     * 
      * @param {Integer} lReason 
      * @param {Integer} lStatus 
      * @param {Integer} lPercentComplete 

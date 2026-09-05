@@ -30,7 +30,6 @@ class IActiveScriptProfilerControl3 extends IActiveScriptProfilerControl2 {
     static VTableNames => ["EnumHeap"]
 
     /**
-     * 
      * @returns {IActiveScriptProfilerHeapEnum} 
      */
     EnumHeap() {

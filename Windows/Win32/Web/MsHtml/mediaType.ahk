@@ -7,62 +7,74 @@
 class mediaType extends Win32Enum {
 
     /**
+     * Native name: mediaTypeNotSet
      * @type {Integer (Int32)}
      */
-    static mediaTypeNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: mediaTypeAll
      * @type {Integer (Int32)}
      */
-    static mediaTypeAll => 511
+    static All => 511
 
     /**
+     * Native name: mediaTypeAural
      * @type {Integer (Int32)}
      */
-    static mediaTypeAural => 1
+    static Aural => 1
 
     /**
+     * Native name: mediaTypeBraille
      * @type {Integer (Int32)}
      */
-    static mediaTypeBraille => 2
+    static Braille => 2
 
     /**
+     * Native name: mediaTypeEmbossed
      * @type {Integer (Int32)}
      */
-    static mediaTypeEmbossed => 4
+    static Embossed => 4
 
     /**
+     * Native name: mediaTypeHandheld
      * @type {Integer (Int32)}
      */
-    static mediaTypeHandheld => 8
+    static Handheld => 8
 
     /**
+     * Native name: mediaTypePrint
      * @type {Integer (Int32)}
      */
-    static mediaTypePrint => 16
+    static Print => 16
 
     /**
+     * Native name: mediaTypeProjection
      * @type {Integer (Int32)}
      */
-    static mediaTypeProjection => 32
+    static Projection => 32
 
     /**
+     * Native name: mediaTypeScreen
      * @type {Integer (Int32)}
      */
-    static mediaTypeScreen => 64
+    static Screen => 64
 
     /**
+     * Native name: mediaTypeTty
      * @type {Integer (Int32)}
      */
-    static mediaTypeTty => 128
+    static Tty => 128
 
     /**
+     * Native name: mediaTypeTv
      * @type {Integer (Int32)}
      */
-    static mediaTypeTv => 256
+    static Tv => 256
 
     /**
+     * Native name: mediaType_Max
      * @type {Integer (Int32)}
      */
-    static mediaType_Max => 2147483647
+    static Max => 2147483647
 }

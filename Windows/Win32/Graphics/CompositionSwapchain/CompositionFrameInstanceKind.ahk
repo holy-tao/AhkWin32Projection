@@ -10,19 +10,22 @@ class CompositionFrameInstanceKind extends Win32Enum {
 
     /**
      * Content was composed directly to the Desktop Window Manager (DWM) backbuffer.
+     * Native name: CompositionFrameInstanceKind_ComposedOnScreen
      * @type {Integer (Int32)}
      */
-    static CompositionFrameInstanceKind_ComposedOnScreen => 0
+    static ComposedOnScreen => 0
 
     /**
      * Content was directly scanned out in an MPO plane.
+     * Native name: CompositionFrameInstanceKind_ScanoutOnScreen
      * @type {Integer (Int32)}
      */
-    static CompositionFrameInstanceKind_ScanoutOnScreen => 1
+    static ScanoutOnScreen => 1
 
     /**
      * Content was composed to an intermediate.
+     * Native name: CompositionFrameInstanceKind_ComposedToIntermediate
      * @type {Integer (Int32)}
      */
-    static CompositionFrameInstanceKind_ComposedToIntermediate => 2
+    static ComposedToIntermediate => 2
 }

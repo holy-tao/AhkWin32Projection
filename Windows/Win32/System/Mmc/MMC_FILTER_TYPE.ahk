@@ -14,15 +14,17 @@ class MMC_FILTER_TYPE extends Win32Enum {
 
     /**
      * String filter.
+     * Native name: MMC_STRING_FILTER
      * @type {Integer (Int32)}
      */
-    static MMC_STRING_FILTER => 0
+    static STRING_FILTER => 0
 
     /**
      * Integer filter.
+     * Native name: MMC_INT_FILTER
      * @type {Integer (Int32)}
      */
-    static MMC_INT_FILTER => 1
+    static INT_FILTER => 1
 
     /**
      * When used by the 
@@ -30,7 +32,8 @@ class MMC_FILTER_TYPE extends Win32Enum {
      * 
      * When used by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iheaderctrl2-getcolumnfilter">IHeaderCtrl2::GetColumnFilter</a> method, the flag is set to indicate that the column filter is empty.
+     * Native name: MMC_FILTER_NOVALUE
      * @type {Integer (Int32)}
      */
-    static MMC_FILTER_NOVALUE => 32768
+    static NOVALUE => 32768
 }

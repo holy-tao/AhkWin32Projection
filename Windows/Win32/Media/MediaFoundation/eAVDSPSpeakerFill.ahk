@@ -12,19 +12,22 @@ class eAVDSPSpeakerFill extends Win32Enum {
 
     /**
      * Speaker fill is disabled.
+     * Native name: eAVDSPSpeakerFill_OFF
      * @type {Integer (Int32)}
      */
-    static eAVDSPSpeakerFill_OFF => 0
+    static OFF => 0
 
     /**
      * Speaker fill is enabled.
+     * Native name: eAVDSPSpeakerFill_ON
      * @type {Integer (Int32)}
      */
-    static eAVDSPSpeakerFill_ON => 1
+    static ON => 1
 
     /**
      * The decoder or DSP automatically selects the speaker fill mode.
+     * Native name: eAVDSPSpeakerFill_AUTO
      * @type {Integer (Int32)}
      */
-    static eAVDSPSpeakerFill_AUTO => 2
+    static AUTO => 2
 }

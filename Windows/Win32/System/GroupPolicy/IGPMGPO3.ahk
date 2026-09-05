@@ -45,7 +45,6 @@ class IGPMGPO3 extends IGPMGPO2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InfrastructureDC() {
@@ -55,7 +54,6 @@ class IGPMGPO3 extends IGPMGPO2 {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ class IGPMGPO3 extends IGPMGPO2 {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */

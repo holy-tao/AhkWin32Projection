@@ -32,7 +32,6 @@ class ITargetFramePriv extends IUnknown {
     static VTableNames => ["FindFrameDownwards", "FindFrameInContext", "OnChildFrameActivate", "OnChildFrameDeactivate", "NavigateHack", "FindBrowserByIndex"]
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {Integer} dwFlags 
      * @returns {IUnknown} 
@@ -45,7 +44,6 @@ class ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {IUnknown} punkContextFrame 
      * @param {Integer} dwFlags 
@@ -59,7 +57,6 @@ class ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */
@@ -69,7 +66,6 @@ class ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */
@@ -79,7 +75,6 @@ class ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IBindCtx} pbc 
      * @param {IBindStatusCallback} pibsc 
@@ -98,7 +93,6 @@ class ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwID 
      * @returns {IUnknown} 
      */

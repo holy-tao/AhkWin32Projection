@@ -16,141 +16,163 @@ class ONEX_REASON_CODE extends Win32Enum {
 
     /**
      * Indicates the 802.1X authentication was a success.
+     * Native name: ONEX_REASON_CODE_SUCCESS
      * @type {Integer (Int32)}
      */
-    static ONEX_REASON_CODE_SUCCESS => 0
+    static SUCCESS => 0
 
     /**
      * Indicates the start of the range that specifies the possible values for 802.1X reason code.
+     * Native name: ONEX_REASON_START
      * @type {Integer (Int32)}
      */
-    static ONEX_REASON_START => 327680
+    static START => 327680
 
     /**
      * The 802.1X module was unable to identify a set of credentials to be used. An example is when the authentication mode is set to user, but no user is logged on.
+     * Native name: ONEX_UNABLE_TO_IDENTIFY_USER
      * @type {Integer (Int32)}
      */
-    static ONEX_UNABLE_TO_IDENTIFY_USER => 327681
+    static UNABLE_TO_IDENTIFY_USER => 327681
 
     /**
      * The EAP module was unable to acquire an identity for the user. Thus value is not currently used. All EAP-specific errors are returned as <b>ONEX_EAP_FAILURE_RECEIVED</b>.
+     * Native name: ONEX_IDENTITY_NOT_FOUND
      * @type {Integer (Int32)}
      */
-    static ONEX_IDENTITY_NOT_FOUND => 327682
+    static IDENTITY_NOT_FOUND => 327682
 
     /**
      * To proceed with 802.1X authentication, the system needs to request user input, but the user interface is disabled. On Windows Vista and on Windows Server 2008, this value can be returned if an EAP method requested user input for a profile for Guest or local machine authentication. On Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed, this value should not be returned.
+     * Native name: ONEX_UI_DISABLED
      * @type {Integer (Int32)}
      */
-    static ONEX_UI_DISABLED => 327683
+    static UI_DISABLED => 327683
 
     /**
      * The 802.1X authentication module was unable to return the requested user input. On Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed, this value can be returned if an EAP method requested user input, but the UI could not be displayed (the network icon was configured to not show in the taskbar, for example).
+     * Native name: ONEX_UI_FAILURE
      * @type {Integer (Int32)}
      */
-    static ONEX_UI_FAILURE => 327684
+    static UI_FAILURE => 327684
 
     /**
      * The EAP module returned an error code.  The <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_eap_error">ONEX_EAP_ERROR</a> structure may contain additional information about the specific EAP error (a certificate not found, for example).
+     * Native name: ONEX_EAP_FAILURE_RECEIVED
      * @type {Integer (Int32)}
      */
-    static ONEX_EAP_FAILURE_RECEIVED => 327685
+    static EAP_FAILURE_RECEIVED => 327685
 
     /**
      * The peer with which the 802.1X module was negotiating is no longer present or is not responding (a laptop client moved out of range of the wireless access point, for example).
+     * Native name: ONEX_AUTHENTICATOR_NO_LONGER_PRESENT
      * @type {Integer (Int32)}
      */
-    static ONEX_AUTHENTICATOR_NO_LONGER_PRESENT => 327686
+    static AUTHENTICATOR_NO_LONGER_PRESENT => 327686
 
     /**
      * No response was received to an EAP identity response packet. This value indicates a problem with the infrastructure (a link between the wireless access point and the authentication server is not functioning, for example).
+     * Native name: ONEX_NO_RESPONSE_TO_IDENTITY
      * @type {Integer (Int32)}
      */
-    static ONEX_NO_RESPONSE_TO_IDENTITY => 327687
+    static NO_RESPONSE_TO_IDENTITY => 327687
 
     /**
      * The 802.1X module does not support this version of the profile.
+     * Native name: ONEX_PROFILE_VERSION_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_VERSION_NOT_SUPPORTED => 327688
+    static PROFILE_VERSION_NOT_SUPPORTED => 327688
 
     /**
      * The length member specified in the 802.1X profile is invalid.
+     * Native name: ONEX_PROFILE_INVALID_LENGTH
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_LENGTH => 327689
+    static PROFILE_INVALID_LENGTH => 327689
 
     /**
      * The EAP type specified in the 802.1X profile is not allowed for this media. An example is when the keyed MD5 algorithm is used for wireless transmission.
+     * Native name: ONEX_PROFILE_DISALLOWED_EAP_TYPE
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_DISALLOWED_EAP_TYPE => 327690
+    static PROFILE_DISALLOWED_EAP_TYPE => 327690
 
     /**
      * The EAP type or EAP flags specified in the 802.1X profile are not valid. An example is when EAP type is not installed on the system.
+     * Native name: ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG => 327691
+    static PROFILE_INVALID_EAP_TYPE_OR_FLAG => 327691
 
     /**
      * The 802.1X flags specified in the 802.1X profile are not valid.
+     * Native name: ONEX_PROFILE_INVALID_ONEX_FLAGS
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_ONEX_FLAGS => 327692
+    static PROFILE_INVALID_ONEX_FLAGS => 327692
 
     /**
      * One or more timer values specified in the 802.1X profile is out of its valid range.
+     * Native name: ONEX_PROFILE_INVALID_TIMER_VALUE
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_TIMER_VALUE => 327693
+    static PROFILE_INVALID_TIMER_VALUE => 327693
 
     /**
      * The supplicant mode specified in the 802.1X profile is not valid.
+     * Native name: ONEX_PROFILE_INVALID_SUPPLICANT_MODE
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_SUPPLICANT_MODE => 327694
+    static PROFILE_INVALID_SUPPLICANT_MODE => 327694
 
     /**
      * The authentication mode specified in the 802.1X profile is not valid.
+     * Native name: ONEX_PROFILE_INVALID_AUTH_MODE
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_AUTH_MODE => 327695
+    static PROFILE_INVALID_AUTH_MODE => 327695
 
     /**
      * The EAP connection properties specified in the 802.1X profile are not valid.
+     * Native name: ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES => 327696
+    static PROFILE_INVALID_EAP_CONNECTION_PROPERTIES => 327696
 
     /**
      * User input was canceled. This value can be returned if an EAP method requested user input, but the user hit the Cancel button or dismissed the user input dialog.
      * 
      * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * Native name: ONEX_UI_CANCELLED
      * @type {Integer (Int32)}
      */
-    static ONEX_UI_CANCELLED => 327697
+    static UI_CANCELLED => 327697
 
     /**
      * The saved user credentials are not valid.  This value can be returned if a profile was saved with bad credentials (an incorrect password, for example), since the credentials are not tested until the profile is actually used to establish a connection.  
      * 
      * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * Native name: ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS => 327698
+    static PROFILE_INVALID_EXPLICIT_CREDENTIALS => 327698
 
     /**
      * The saved user credentials have expired. This value can be returned if a profile was saved with credentials and the credentials subsequently expired (password expiration after some period of time, for example).
      * 
      * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * Native name: ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS
      * @type {Integer (Int32)}
      */
-    static ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS => 327699
+    static PROFILE_EXPIRED_EXPLICIT_CREDENTIALS => 327699
 
     /**
      * User interface is not permitted. On Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed, this value can be returned if an EAP method requested user input and the profile is configured with user credentials saved by another user and not the currently logged in user.
      * 
      * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * Native name: ONEX_UI_NOT_PERMITTED
      * @type {Integer (Int32)}
      */
-    static ONEX_UI_NOT_PERMITTED => 327700
+    static UI_NOT_PERMITTED => 327700
 }

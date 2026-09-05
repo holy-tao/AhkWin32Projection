@@ -41,7 +41,6 @@ class IGameInputReading extends IUnknown {
     static VTableNames => ["GetInputKind", "GetSequenceNumber", "GetTimestamp", "GetDevice", "GetRawReport", "GetControllerAxisCount", "GetControllerAxisState", "GetControllerButtonCount", "GetControllerButtonState", "GetControllerSwitchCount", "GetControllerSwitchState", "GetKeyCount", "GetKeyState", "GetMouseState", "GetTouchCount", "GetTouchState", "GetMotionState", "GetArcadeStickState", "GetFlightStickState", "GetGamepadState", "GetRacingWheelState", "GetUiNavigationState"]
 
     /**
-     * 
      * @returns {GameInputKind} 
      */
     GetInputKind() {
@@ -50,7 +49,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputKind} inputKind 
      * @returns {Integer} 
      */
@@ -60,7 +58,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTimestamp() {
@@ -69,7 +66,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -78,7 +74,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IGameInputRawDeviceReport>} report 
      * @returns {Boolean} 
      */
@@ -88,7 +83,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetControllerAxisCount() {
@@ -97,7 +91,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<Float>} stateArray 
      * @returns {Integer} 
@@ -110,7 +103,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetControllerButtonCount() {
@@ -119,7 +111,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<Boolean>} stateArray 
      * @returns {Integer} 
@@ -132,7 +123,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetControllerSwitchCount() {
@@ -141,7 +131,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<GameInputSwitchPosition>} stateArray 
      * @returns {Integer} 
@@ -154,7 +143,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetKeyCount() {
@@ -200,7 +188,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputMouseState>} state 
      * @returns {Boolean} 
      */
@@ -210,7 +197,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTouchCount() {
@@ -219,7 +205,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<GameInputTouchState>} stateArray 
      * @returns {Integer} 
@@ -230,7 +215,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputMotionState>} state 
      * @returns {Boolean} 
      */
@@ -240,7 +224,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputArcadeStickState>} state 
      * @returns {Boolean} 
      */
@@ -250,7 +233,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputFlightStickState>} state 
      * @returns {Boolean} 
      */
@@ -260,7 +242,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputGamepadState>} state 
      * @returns {Boolean} 
      */
@@ -270,7 +251,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputRacingWheelState>} state 
      * @returns {Boolean} 
      */
@@ -280,7 +260,6 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputUiNavigationState>} state 
      * @returns {Boolean} 
      */

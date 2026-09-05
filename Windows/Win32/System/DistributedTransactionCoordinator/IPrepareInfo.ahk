@@ -29,7 +29,6 @@ class IPrepareInfo extends IUnknown {
     static VTableNames => ["GetPrepareInfoSize", "GetPrepareInfo"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbPrepInfo 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IPrepareInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @returns {HRESULT} 
      */

@@ -7,142 +7,170 @@
 class NVME_PROPERTY_OFFSET extends Win32Enum {
 
     /**
+     * Native name: NvmePropCAP
      * @type {Integer (Int32)}
      */
-    static NvmePropCAP => 0
+    static PropCAP => 0
 
     /**
+     * Native name: NvmePropVS
      * @type {Integer (Int32)}
      */
-    static NvmePropVS => 8
+    static PropVS => 8
 
     /**
+     * Native name: NvmePropINTMS
      * @type {Integer (Int32)}
      */
-    static NvmePropINTMS => 12
+    static PropINTMS => 12
 
     /**
+     * Native name: NvmePropINTMC
      * @type {Integer (Int32)}
      */
-    static NvmePropINTMC => 16
+    static PropINTMC => 16
 
     /**
+     * Native name: NvmePropCC
      * @type {Integer (Int32)}
      */
-    static NvmePropCC => 20
+    static PropCC => 20
 
     /**
+     * Native name: NvmePropCSTS
      * @type {Integer (Int32)}
      */
-    static NvmePropCSTS => 28
+    static PropCSTS => 28
 
     /**
+     * Native name: NvmePropNSSR
      * @type {Integer (Int32)}
      */
-    static NvmePropNSSR => 32
+    static PropNSSR => 32
 
     /**
+     * Native name: NvmePropAQA
      * @type {Integer (Int32)}
      */
-    static NvmePropAQA => 36
+    static PropAQA => 36
 
     /**
+     * Native name: NvmePropASQ
      * @type {Integer (Int32)}
      */
-    static NvmePropASQ => 40
+    static PropASQ => 40
 
     /**
+     * Native name: NvmePropACQ
      * @type {Integer (Int32)}
      */
-    static NvmePropACQ => 48
+    static PropACQ => 48
 
     /**
+     * Native name: NvmePropCMBLOC
      * @type {Integer (Int32)}
      */
-    static NvmePropCMBLOC => 56
+    static PropCMBLOC => 56
 
     /**
+     * Native name: NvmePropCMBSZ
      * @type {Integer (Int32)}
      */
-    static NvmePropCMBSZ => 60
+    static PropCMBSZ => 60
 
     /**
+     * Native name: NvmePropBPINFO
      * @type {Integer (Int32)}
      */
-    static NvmePropBPINFO => 64
+    static PropBPINFO => 64
 
     /**
+     * Native name: NvmePropBPRSEL
      * @type {Integer (Int32)}
      */
-    static NvmePropBPRSEL => 68
+    static PropBPRSEL => 68
 
     /**
+     * Native name: NvmePropBPMBL
      * @type {Integer (Int32)}
      */
-    static NvmePropBPMBL => 72
+    static PropBPMBL => 72
 
     /**
+     * Native name: NvmePropCMBMSC
      * @type {Integer (Int32)}
      */
-    static NvmePropCMBMSC => 80
+    static PropCMBMSC => 80
 
     /**
+     * Native name: NvmePropCMBSTS
      * @type {Integer (Int32)}
      */
-    static NvmePropCMBSTS => 88
+    static PropCMBSTS => 88
 
     /**
+     * Native name: NvmePropCMBEBS
      * @type {Integer (Int32)}
      */
-    static NvmePropCMBEBS => 92
+    static PropCMBEBS => 92
 
     /**
+     * Native name: NvmePropCMBSWTP
      * @type {Integer (Int32)}
      */
-    static NvmePropCMBSWTP => 96
+    static PropCMBSWTP => 96
 
     /**
+     * Native name: NvmePropNSSD
      * @type {Integer (Int32)}
      */
-    static NvmePropNSSD => 100
+    static PropNSSD => 100
 
     /**
+     * Native name: NvmePropCRTO
      * @type {Integer (Int32)}
      */
-    static NvmePropCRTO => 104
+    static PropCRTO => 104
 
     /**
+     * Native name: NvmePropPMRCAP
      * @type {Integer (Int32)}
      */
-    static NvmePropPMRCAP => 3584
+    static PropPMRCAP => 3584
 
     /**
+     * Native name: NvmePropPMRCTL
      * @type {Integer (Int32)}
      */
-    static NvmePropPMRCTL => 3588
+    static PropPMRCTL => 3588
 
     /**
+     * Native name: NvmePropPMRSTS
      * @type {Integer (Int32)}
      */
-    static NvmePropPMRSTS => 3592
+    static PropPMRSTS => 3592
 
     /**
+     * Native name: NvmePropPMREBS
      * @type {Integer (Int32)}
      */
-    static NvmePropPMREBS => 3596
+    static PropPMREBS => 3596
 
     /**
+     * Native name: NvmePropPMRSWTP
      * @type {Integer (Int32)}
      */
-    static NvmePropPMRSWTP => 3600
+    static PropPMRSWTP => 3600
 
     /**
+     * Native name: NvmePropPMRMSCL
      * @type {Integer (Int32)}
      */
-    static NvmePropPMRMSCL => 3604
+    static PropPMRMSCL => 3604
 
     /**
+     * Native name: NvmePropPMRMSCU
      * @type {Integer (Int32)}
      */
-    static NvmePropPMRMSCU => 3608
+    static PropPMRMSCU => 3608
 }

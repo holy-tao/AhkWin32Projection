@@ -7,17 +7,20 @@
 class NET_FL_VIRTUAL_INTERFACE_ORIGIN extends Win32Enum {
 
     /**
+     * Native name: NetFlVirtualInterfaceOriginOid
      * @type {Integer (Int32)}
      */
-    static NetFlVirtualInterfaceOriginOid => 0
+    static Oid => 0
 
     /**
+     * Native name: NetFlVirtualInterfaceOriginApi
      * @type {Integer (Int32)}
      */
-    static NetFlVirtualInterfaceOriginApi => 1
+    static Api => 1
 
     /**
+     * Native name: NetFlVirtualInterfaceOriginDefault
      * @type {Integer (Int32)}
      */
-    static NetFlVirtualInterfaceOriginDefault => 2
+    static Default => 2
 }

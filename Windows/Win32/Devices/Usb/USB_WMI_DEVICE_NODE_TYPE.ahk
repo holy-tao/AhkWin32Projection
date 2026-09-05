@@ -22,7 +22,8 @@ class USB_WMI_DEVICE_NODE_TYPE extends Win32Enum {
     static CompositeDevice => 2
 
     /**
+     * Native name: UsbController
      * @type {Integer (Int32)}
      */
-    static UsbController => 3
+    static Controller => 3
 }

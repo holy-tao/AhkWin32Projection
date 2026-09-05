@@ -7,27 +7,32 @@
 class WinHttpRequestSslErrorFlags extends Win32Enum {
 
     /**
+     * Native name: SslErrorFlag_UnknownCA
      * @type {Integer (Int32)}
      */
-    static SslErrorFlag_UnknownCA => 256
+    static Flag_UnknownCA => 256
 
     /**
+     * Native name: SslErrorFlag_CertWrongUsage
      * @type {Integer (Int32)}
      */
-    static SslErrorFlag_CertWrongUsage => 512
+    static Flag_CertWrongUsage => 512
 
     /**
+     * Native name: SslErrorFlag_CertCNInvalid
      * @type {Integer (Int32)}
      */
-    static SslErrorFlag_CertCNInvalid => 4096
+    static Flag_CertCNInvalid => 4096
 
     /**
+     * Native name: SslErrorFlag_CertDateInvalid
      * @type {Integer (Int32)}
      */
-    static SslErrorFlag_CertDateInvalid => 8192
+    static Flag_CertDateInvalid => 8192
 
     /**
+     * Native name: SslErrorFlag_Ignore_All
      * @type {Integer (Int32)}
      */
-    static SslErrorFlag_Ignore_All => 13056
+    static Flag_Ignore_All => 13056
 }

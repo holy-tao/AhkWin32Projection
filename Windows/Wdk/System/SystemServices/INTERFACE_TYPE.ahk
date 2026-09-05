@@ -7,9 +7,10 @@
 class INTERFACE_TYPE extends Win32Enum {
 
     /**
+     * Native name: InterfaceTypeUndefined
      * @type {Integer (Int32)}
      */
-    static InterfaceTypeUndefined => -1
+    static Undefined => -1
 
     /**
      * @type {Integer (Int32)}

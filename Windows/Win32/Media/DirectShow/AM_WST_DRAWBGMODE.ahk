@@ -10,13 +10,15 @@ class AM_WST_DRAWBGMODE extends Win32Enum {
 
     /**
      * The background is opaque.
+     * Native name: AM_WST_DRAWBGMODE_Opaque
      * @type {Integer (Int32)}
      */
-    static AM_WST_DRAWBGMODE_Opaque => 0
+    static Opaque => 0
 
     /**
      * The background is transparent.
+     * Native name: AM_WST_DRAWBGMODE_Transparent
      * @type {Integer (Int32)}
      */
-    static AM_WST_DRAWBGMODE_Transparent => 1
+    static Transparent => 1
 }

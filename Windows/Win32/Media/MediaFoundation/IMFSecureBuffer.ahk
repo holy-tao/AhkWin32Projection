@@ -30,7 +30,6 @@ class IMFSecureBuffer extends IUnknown {
     static VTableNames => ["GetIdentifier"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetIdentifier() {

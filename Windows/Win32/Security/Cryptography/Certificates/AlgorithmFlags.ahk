@@ -10,13 +10,15 @@ class AlgorithmFlags extends Win32Enum {
 
     /**
      * No flags are specified.
+     * Native name: AlgorithmFlagsNone
      * @type {Integer (Int32)}
      */
-    static AlgorithmFlagsNone => 0
+    static None => 0
 
     /**
      * The algorithm is used for key wrapping. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-initializefromalgorithmname">InitializeFromAlgorithmName</a>.
+     * Native name: AlgorithmFlagsWrap
      * @type {Integer (Int32)}
      */
-    static AlgorithmFlagsWrap => 1
+    static Wrap => 1
 }

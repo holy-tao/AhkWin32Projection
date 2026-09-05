@@ -7,22 +7,26 @@
 class htmlEditable extends Win32Enum {
 
     /**
+     * Native name: htmlEditableInherit
      * @type {Integer (Int32)}
      */
-    static htmlEditableInherit => 0
+    static Inherit => 0
 
     /**
+     * Native name: htmlEditableTrue
      * @type {Integer (Int32)}
      */
-    static htmlEditableTrue => 1
+    static True => 1
 
     /**
+     * Native name: htmlEditableFalse
      * @type {Integer (Int32)}
      */
-    static htmlEditableFalse => 2
+    static False => 2
 
     /**
+     * Native name: htmlEditable_Max
      * @type {Integer (Int32)}
      */
-    static htmlEditable_Max => 2147483647
+    static Max => 2147483647
 }

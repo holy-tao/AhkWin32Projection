@@ -10,19 +10,22 @@ class TS_SB_SORT_BY extends Win32Enum {
 
     /**
      * Do not sort.
+     * Native name: TS_SB_SORT_BY_NONE
      * @type {Integer (Int32)}
      */
-    static TS_SB_SORT_BY_NONE => 0
+    static NONE => 0
 
     /**
      * Sort by target name.
+     * Native name: TS_SB_SORT_BY_NAME
      * @type {Integer (Int32)}
      */
-    static TS_SB_SORT_BY_NAME => 1
+    static NAME => 1
 
     /**
      * Sort by a specified property.
+     * Native name: TS_SB_SORT_BY_PROP
      * @type {Integer (Int32)}
      */
-    static TS_SB_SORT_BY_PROP => 2
+    static PROP => 2
 }

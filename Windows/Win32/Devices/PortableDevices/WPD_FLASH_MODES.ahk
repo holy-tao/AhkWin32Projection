@@ -11,37 +11,44 @@
 class WPD_FLASH_MODES extends Win32Enum {
 
     /**
+     * Native name: WPD_FLASH_MODE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static WPD_FLASH_MODE_UNDEFINED => 0
+    static MODE_UNDEFINED => 0
 
     /**
+     * Native name: WPD_FLASH_MODE_AUTO
      * @type {Integer (Int32)}
      */
-    static WPD_FLASH_MODE_AUTO => 1
+    static MODE_AUTO => 1
 
     /**
+     * Native name: WPD_FLASH_MODE_OFF
      * @type {Integer (Int32)}
      */
-    static WPD_FLASH_MODE_OFF => 2
+    static MODE_OFF => 2
 
     /**
+     * Native name: WPD_FLASH_MODE_FILL
      * @type {Integer (Int32)}
      */
-    static WPD_FLASH_MODE_FILL => 3
+    static MODE_FILL => 3
 
     /**
+     * Native name: WPD_FLASH_MODE_RED_EYE_AUTO
      * @type {Integer (Int32)}
      */
-    static WPD_FLASH_MODE_RED_EYE_AUTO => 4
+    static MODE_RED_EYE_AUTO => 4
 
     /**
+     * Native name: WPD_FLASH_MODE_RED_EYE_FILL
      * @type {Integer (Int32)}
      */
-    static WPD_FLASH_MODE_RED_EYE_FILL => 5
+    static MODE_RED_EYE_FILL => 5
 
     /**
+     * Native name: WPD_FLASH_MODE_EXTERNAL_SYNC
      * @type {Integer (Int32)}
      */
-    static WPD_FLASH_MODE_EXTERNAL_SYNC => 6
+    static MODE_EXTERNAL_SYNC => 6
 }

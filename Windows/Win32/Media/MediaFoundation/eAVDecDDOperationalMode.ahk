@@ -10,49 +10,57 @@ class eAVDecDDOperationalMode extends Win32Enum {
 
     /**
      * No dynamic range control or dialogue normalization (dialnorm). This mode should be used only for signal tests.
+     * Native name: eAVDecDDOperationalMode_NONE
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_NONE => 0
+    static NONE => 0
 
     /**
      * Line mode. Dialnorm is enabled with a reference level of -31 decibels full scale (dBFS). Dynamic range control is applied, and high-level/low-level scaling is enabled. To set the high-level scaling factor, set the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/avdecdddynamicrangescalehigh-property">AVDecDDDynamicRangeScaleHigh</a> property. To set the low-level scaling factor, set the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/avdecdddynamicrangescalelow-property">AVDecDDDynamicRangeScaleLow</a> property.
+     * Native name: eAVDecDDOperationalMode_LINE
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_LINE => 1
+    static LINE => 1
 
     /**
      * RF mode. Dialnorm is enabled with a reference level of -20 dBFS. Dynamic range control is applied. High-level/low-level scaling is disabled; instead, the maximum dynamic range reduction is applied.
+     * Native name: eAVDecDDOperationalMode_RF
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_RF => 2
+    static RF => 2
 
     /**
      * Custom mode 0 (analog dialnorm).
+     * Native name: eAVDecDDOperationalMode_CUSTOM0
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_CUSTOM0 => 3
+    static CUSTOM0 => 3
 
     /**
      * Custom mode 1 (digital dialnorm).
+     * Native name: eAVDecDDOperationalMode_CUSTOM1
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_CUSTOM1 => 4
+    static CUSTOM1 => 4
 
     /**
      * Dialnorm enabled, dialogue at -8dBFS. Dynamic range and compression used. High-level/low-level scaling is not allowed (always fully compressed).
+     * Native name: eAVDecDDOperationalMode_PORTABLE8
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_PORTABLE8 => 5
+    static PORTABLE8 => 5
 
     /**
      * Dialnorm enabled, dialogue at -11dBFS. Dynamic range and compression used. High-level/low-level scaling is not allowed (always fully compressed).
+     * Native name: eAVDecDDOperationalMode_PORTABLE11
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_PORTABLE11 => 6
+    static PORTABLE11 => 6
 
     /**
      * Dialnorm enabled, dialogue at -14dBFS. Dynamic range and compression used. High-level/low-level scaling is not allowed (always fully compressed).
+     * Native name: eAVDecDDOperationalMode_PORTABLE14
      * @type {Integer (Int32)}
      */
-    static eAVDecDDOperationalMode_PORTABLE14 => 7
+    static PORTABLE14 => 7
 }

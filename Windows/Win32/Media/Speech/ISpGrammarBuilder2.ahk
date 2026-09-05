@@ -33,7 +33,6 @@ class ISpGrammarBuilder2 extends IUnknown {
     static VTableNames => ["AddTextSubset", "SetPhoneticAlphabet"]
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hFromState 
      * @param {SPSTATEHANDLE} hToState 
      * @param {PWSTR} psz 
@@ -50,7 +49,6 @@ class ISpGrammarBuilder2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PHONETICALPHABET} _phoneticALphabet 
      * @returns {HRESULT} 
      */

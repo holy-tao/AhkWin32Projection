@@ -31,7 +31,6 @@ class IPrintCoreHelperUni extends IPrintCoreHelper {
     static VTableNames => ["CreateGDLSnapshot", "CreateDefaultGDLSnapshot"]
 
     /**
-     * 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} cbSize 
      * @param {Integer} dwFlags 
@@ -43,7 +42,6 @@ class IPrintCoreHelperUni extends IPrintCoreHelper {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {IStream} 
      */

@@ -10,13 +10,15 @@ class WICPngIccpProperties extends Win32Enum {
 
     /**
      * [VT_LPSTR] Indicates the International Color Consortium (ICC) profile name.
+     * Native name: WICPngIccpProfileName
      * @type {Integer (Int32)}
      */
-    static WICPngIccpProfileName => 1
+    static ProfileName => 1
 
     /**
      * [VT_VECTOR \| VT_UI1] Indicates the embedded ICC profile.
+     * Native name: WICPngIccpProfileData
      * @type {Integer (Int32)}
      */
-    static WICPngIccpProfileData => 2
+    static ProfileData => 2
 }

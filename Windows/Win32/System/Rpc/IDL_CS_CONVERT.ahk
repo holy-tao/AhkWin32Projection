@@ -7,17 +7,20 @@
 class IDL_CS_CONVERT extends Win32Enum {
 
     /**
+     * Native name: IDL_CS_NO_CONVERT
      * @type {Integer (Int32)}
      */
-    static IDL_CS_NO_CONVERT => 0
+    static NO_CONVERT => 0
 
     /**
+     * Native name: IDL_CS_IN_PLACE_CONVERT
      * @type {Integer (Int32)}
      */
-    static IDL_CS_IN_PLACE_CONVERT => 1
+    static IN_PLACE_CONVERT => 1
 
     /**
+     * Native name: IDL_CS_NEW_BUFFER_CONVERT
      * @type {Integer (Int32)}
      */
-    static IDL_CS_NEW_BUFFER_CONVERT => 2
+    static NEW_BUFFER_CONVERT => 2
 }

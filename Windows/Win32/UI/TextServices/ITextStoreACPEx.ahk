@@ -30,7 +30,6 @@ class ITextStoreACPEx extends IUnknown {
     static VTableNames => ["ScrollToRect"]
 
     /**
-     * 
      * @param {Integer} acpStart 
      * @param {Integer} acpEnd 
      * @param {RECT} rc 

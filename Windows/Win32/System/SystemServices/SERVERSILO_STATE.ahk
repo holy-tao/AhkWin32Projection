@@ -7,27 +7,32 @@
 class SERVERSILO_STATE extends Win32Enum {
 
     /**
+     * Native name: SERVERSILO_INITING
      * @type {Integer (Int32)}
      */
-    static SERVERSILO_INITING => 0
+    static INITING => 0
 
     /**
+     * Native name: SERVERSILO_STARTED
      * @type {Integer (Int32)}
      */
-    static SERVERSILO_STARTED => 1
+    static STARTED => 1
 
     /**
+     * Native name: SERVERSILO_SHUTTING_DOWN
      * @type {Integer (Int32)}
      */
-    static SERVERSILO_SHUTTING_DOWN => 2
+    static SHUTTING_DOWN => 2
 
     /**
+     * Native name: SERVERSILO_TERMINATING
      * @type {Integer (Int32)}
      */
-    static SERVERSILO_TERMINATING => 3
+    static TERMINATING => 3
 
     /**
+     * Native name: SERVERSILO_TERMINATED
      * @type {Integer (Int32)}
      */
-    static SERVERSILO_TERMINATED => 4
+    static TERMINATED => 4
 }

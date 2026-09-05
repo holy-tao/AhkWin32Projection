@@ -10,19 +10,22 @@ class D3D12_META_COMMAND_PARAMETER_STAGE extends Win32Enum {
 
     /**
      * Specifies that the parameter is used at the meta command creation stage.
+     * Native name: D3D12_META_COMMAND_PARAMETER_STAGE_CREATION
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_STAGE_CREATION => 0
+    static CREATION => 0
 
     /**
      * Specifies that the parameter is used at the meta command initialization stage.
+     * Native name: D3D12_META_COMMAND_PARAMETER_STAGE_INITIALIZATION
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_STAGE_INITIALIZATION => 1
+    static INITIALIZATION => 1
 
     /**
      * Specifies that the parameter is used at the meta command execution stage.
+     * Native name: D3D12_META_COMMAND_PARAMETER_STAGE_EXECUTION
      * @type {Integer (Int32)}
      */
-    static D3D12_META_COMMAND_PARAMETER_STAGE_EXECUTION => 2
+    static EXECUTION => 2
 }

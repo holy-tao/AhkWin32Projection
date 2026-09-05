@@ -30,7 +30,6 @@ class IPropertyKeyStore extends IUnknown {
     static VTableNames => ["GetKeyCount", "GetKeyAt", "AppendKey", "DeleteKey", "IsKeyInStore", "RemoveKey"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetKeyCount() {
@@ -39,7 +38,6 @@ class IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {PROPERTYKEY} 
      */
@@ -50,7 +48,6 @@ class IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @returns {HRESULT} 
      */
@@ -60,7 +57,6 @@ class IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -70,7 +66,6 @@ class IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @returns {HRESULT} 
      */
@@ -80,7 +75,6 @@ class IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @returns {HRESULT} 
      */

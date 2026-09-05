@@ -30,7 +30,6 @@ class IDCompositionInkTrailDevice extends IUnknown {
     static VTableNames => ["CreateDelegatedInkTrail", "CreateDelegatedInkTrailForSwapChain"]
 
     /**
-     * 
      * @returns {IDCompositionDelegatedInkTrail} 
      */
     CreateDelegatedInkTrail() {
@@ -39,7 +38,6 @@ class IDCompositionInkTrailDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} swapChain 
      * @returns {IDCompositionDelegatedInkTrail} 
      */

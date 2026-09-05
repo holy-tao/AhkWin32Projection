@@ -30,7 +30,6 @@ class ICLRStrongName3 extends IUnknown {
     static VTableNames => ["StrongNameDigestGenerate", "StrongNameDigestSign", "StrongNameDigestEmbed"]
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {Pointer<Pointer<Integer>>} ppbDigestBlob 
      * @param {Pointer<Integer>} pcbDigestBlob 
@@ -48,7 +47,6 @@ class ICLRStrongName3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -73,7 +71,6 @@ class ICLRStrongName3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {Pointer<Integer>} pbSignatureBlob 
      * @param {Integer} cbSignatureBlob 

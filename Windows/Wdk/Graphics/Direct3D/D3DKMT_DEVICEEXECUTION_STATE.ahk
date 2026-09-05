@@ -7,37 +7,44 @@
 class D3DKMT_DEVICEEXECUTION_STATE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_DEVICEEXECUTION_ACTIVE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEVICEEXECUTION_ACTIVE => 1
+    static ACTIVE => 1
 
     /**
+     * Native name: D3DKMT_DEVICEEXECUTION_RESET
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEVICEEXECUTION_RESET => 2
+    static RESET => 2
 
     /**
+     * Native name: D3DKMT_DEVICEEXECUTION_HUNG
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEVICEEXECUTION_HUNG => 3
+    static HUNG => 3
 
     /**
+     * Native name: D3DKMT_DEVICEEXECUTION_STOPPED
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEVICEEXECUTION_STOPPED => 4
+    static STOPPED => 4
 
     /**
+     * Native name: D3DKMT_DEVICEEXECUTION_ERROR_OUTOFMEMORY
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEVICEEXECUTION_ERROR_OUTOFMEMORY => 5
+    static ERROR_OUTOFMEMORY => 5
 
     /**
+     * Native name: D3DKMT_DEVICEEXECUTION_ERROR_DMAFAULT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEVICEEXECUTION_ERROR_DMAFAULT => 6
+    static ERROR_DMAFAULT => 6
 
     /**
+     * Native name: D3DKMT_DEVICEEXECUTION_ERROR_DMAPAGEFAULT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_DEVICEEXECUTION_ERROR_DMAPAGEFAULT => 7
+    static ERROR_DMAPAGEFAULT => 7
 }

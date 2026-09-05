@@ -7,22 +7,26 @@
 class styleBaselineShift extends Win32Enum {
 
     /**
+     * Native name: styleBaselineShiftBaseline
      * @type {Integer (Int32)}
      */
-    static styleBaselineShiftBaseline => 0
+    static Baseline => 0
 
     /**
+     * Native name: styleBaselineShiftSub
      * @type {Integer (Int32)}
      */
-    static styleBaselineShiftSub => 1
+    static Sub => 1
 
     /**
+     * Native name: styleBaselineShiftSuper
      * @type {Integer (Int32)}
      */
-    static styleBaselineShiftSuper => 2
+    static Super => 2
 
     /**
+     * Native name: styleBaselineShift_Max
      * @type {Integer (Int32)}
      */
-    static styleBaselineShift_Max => 2147483647
+    static Max => 2147483647
 }

@@ -38,7 +38,6 @@ class IMetaDataEmit extends IUnknown {
     static VTableNames => ["SetModuleProps", "Save", "SaveToStream", "GetSaveSize", "DefineTypeDef", "DefineNestedType", "SetHandler", "DefineMethod", "DefineMethodImpl", "DefineTypeRefByName", "DefineImportType", "DefineMemberRef", "DefineImportMember", "DefineEvent", "SetClassLayout", "DeleteClassLayout", "SetFieldMarshal", "DeleteFieldMarshal", "DefinePermissionSet", "SetRVA", "GetTokenFromSig", "DefineModuleRef", "SetParent", "GetTokenFromTypeSpec", "SaveToMemory", "DefineUserString", "DeleteToken", "SetMethodProps", "SetTypeDefProps", "SetEventProps", "SetPermissionSetProps", "DefinePinvokeMap", "SetPinvokeMap", "DeletePinvokeMap", "DefineCustomAttribute", "SetCustomAttributeValue", "DefineField", "DefineProperty", "DefineParam", "SetFieldProps", "SetPropertyProps", "SetParamProps", "DefineSecurityAttributeSet", "ApplyEditAndContinue", "TranslateSigWithScope", "SetMethodImplFlags", "SetFieldRVA", "Merge", "MergeEnd"]
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -63,7 +61,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pIStream 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {CorSaveSize} fSave 
      * @param {Pointer<Integer>} pdwSaveSize 
      * @returns {HRESULT} 
@@ -87,7 +83,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szTypeDef 
      * @param {Integer} dwTypeDefFlags 
      * @param {Integer} tkExtends 
@@ -106,7 +101,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szTypeDef 
      * @param {Integer} dwTypeDefFlags 
      * @param {Integer} tkExtends 
@@ -126,7 +120,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -136,7 +129,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szName 
      * @param {Integer} dwMethodFlags 
@@ -158,7 +150,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {Integer} tkBody 
      * @param {Integer} tkDecl 
@@ -170,7 +161,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkResolutionScope 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} ptr 
@@ -186,7 +176,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMetaDataAssemblyImport} pAssemImport 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -205,7 +194,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkImport 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pvSigBlob 
@@ -224,7 +212,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMetaDataAssemblyImport} pAssemImport 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -244,7 +231,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szEvent 
      * @param {Integer} dwEventFlags 
@@ -267,7 +253,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {Integer} dwPackSize 
      * @param {Pointer<COR_FIELD_OFFSET>} rFieldOffsets 
@@ -280,7 +265,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @returns {HRESULT} 
      */
@@ -290,7 +274,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Pointer<Integer>} pvNativeType 
      * @param {Integer} cbNativeType 
@@ -304,7 +287,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */
@@ -314,7 +296,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwAction 
      * @param {Pointer<Void>} pvPermission 
@@ -331,7 +312,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} ulRVA 
      * @returns {HRESULT} 
@@ -342,7 +322,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pvSig 
      * @param {Integer} cbSig 
      * @param {Pointer<Integer>} pmsig 
@@ -357,7 +336,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pmur 
      * @returns {HRESULT} 
@@ -427,7 +405,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pvSig 
      * @param {Integer} cbSig 
      * @param {Pointer<Integer>} ptypespec 
@@ -442,7 +419,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
@@ -455,7 +431,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szString 
      * @param {Integer} cchString 
      * @param {Pointer<Integer>} pstk 
@@ -471,7 +446,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkObj 
      * @returns {HRESULT} 
      */
@@ -481,7 +455,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} dwMethodFlags 
      * @param {Integer} ulCodeRVA 
@@ -494,7 +467,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {Integer} dwTypeDefFlags 
      * @param {Integer} tkExtends 
@@ -509,7 +481,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ev 
      * @param {Integer} dwEventFlags 
      * @param {Integer} tkEventType 
@@ -527,7 +498,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwAction 
      * @param {Pointer<Void>} pvPermission 
@@ -544,7 +514,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwMappingFlags 
      * @param {PWSTR} szImportName 
@@ -559,7 +528,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwMappingFlags 
      * @param {PWSTR} szImportName 
@@ -574,7 +542,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */
@@ -584,7 +551,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkOwner 
      * @param {Integer} tkCtor 
      * @param {Pointer<Void>} pCustomAttribute 
@@ -601,7 +567,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pcv 
      * @param {Pointer<Void>} pCustomAttribute 
      * @param {Integer} cbCustomAttribute 
@@ -615,7 +580,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szName 
      * @param {Integer} dwFieldFlags 
@@ -639,7 +603,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szProperty 
      * @param {Integer} dwPropFlags 
@@ -667,7 +630,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} ulParamSeq 
      * @param {PWSTR} szName 
@@ -689,7 +651,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fd 
      * @param {Integer} dwFieldFlags 
      * @param {Integer} dwCPlusTypeFlag 
@@ -705,7 +666,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pr 
      * @param {Integer} dwPropFlags 
      * @param {Integer} dwCPlusTypeFlag 
@@ -725,7 +685,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pd 
      * @param {PWSTR} szName 
      * @param {Integer} dwParamFlags 
@@ -744,7 +703,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkObj 
      * @param {Pointer<COR_SECATTR>} rSecAttrs 
      * @param {Integer} cSecAttrs 
@@ -759,7 +717,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pImport 
      * @returns {HRESULT} 
      */
@@ -769,7 +726,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMetaDataAssemblyImport} pAssemImport 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -794,7 +750,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} dwImplFlags 
      * @returns {HRESULT} 
@@ -805,7 +760,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fd 
      * @param {Integer} ulRVA 
      * @returns {HRESULT} 
@@ -816,7 +770,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMetaDataImport} pImport 
      * @param {IMapToken} pHostMapToken 
      * @param {IUnknown} pHandler 
@@ -828,7 +781,6 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MergeEnd() {

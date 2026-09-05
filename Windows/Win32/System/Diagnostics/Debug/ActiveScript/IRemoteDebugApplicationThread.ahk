@@ -34,7 +34,6 @@ class IRemoteDebugApplicationThread extends IUnknown {
     static VTableNames => ["GetSystemThreadId", "GetApplication", "EnumStackFrames", "GetDescription", "SetNextStatement", "GetState", "Suspend", "Resume", "GetSuspendCount"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSystemThreadId() {
@@ -43,7 +42,6 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRemoteDebugApplication} 
      */
     GetApplication() {
@@ -52,7 +50,6 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugStackFrames} 
      */
     EnumStackFrames() {
@@ -73,7 +70,6 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugStackFrame} pStackFrame 
      * @param {IDebugCodeContext} pCodeContext 
      * @returns {HRESULT} 
@@ -84,7 +80,6 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetState() {
@@ -93,7 +88,6 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Suspend() {

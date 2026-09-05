@@ -7,27 +7,32 @@
 class KS_CompressionCaps extends Win32Enum {
 
     /**
+     * Native name: KS_CompressionCaps_CanQuality
      * @type {Integer (Int32)}
      */
-    static KS_CompressionCaps_CanQuality => 1
+    static CanQuality => 1
 
     /**
+     * Native name: KS_CompressionCaps_CanCrunch
      * @type {Integer (Int32)}
      */
-    static KS_CompressionCaps_CanCrunch => 2
+    static CanCrunch => 2
 
     /**
+     * Native name: KS_CompressionCaps_CanKeyFrame
      * @type {Integer (Int32)}
      */
-    static KS_CompressionCaps_CanKeyFrame => 4
+    static CanKeyFrame => 4
 
     /**
+     * Native name: KS_CompressionCaps_CanBFrame
      * @type {Integer (Int32)}
      */
-    static KS_CompressionCaps_CanBFrame => 8
+    static CanBFrame => 8
 
     /**
+     * Native name: KS_CompressionCaps_CanWindow
      * @type {Integer (Int32)}
      */
-    static KS_CompressionCaps_CanWindow => 16
+    static CanWindow => 16
 }

@@ -13,25 +13,29 @@ class SERVICE_TYPE extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Internet Authentication Service was renamed Network Policy Server starting with Windows Server 2008.</div>
      * <div> </div>
+     * Native name: SERVICE_TYPE_IAS
      * @type {Integer (Int32)}
      */
-    static SERVICE_TYPE_IAS => 0
+    static IAS => 0
 
     /**
      * The service is the Remote Access Service.
+     * Native name: SERVICE_TYPE_RAS
      * @type {Integer (Int32)}
      */
-    static SERVICE_TYPE_RAS => 1
+    static RAS => 1
 
     /**
      * The service is the Remote Access Management Service.
+     * Native name: SERVICE_TYPE_RAMGMTSVC
      * @type {Integer (Int32)}
      */
-    static SERVICE_TYPE_RAMGMTSVC => 2
+    static RAMGMTSVC => 2
 
     /**
      * Use this constant to test whether the value is in range.
+     * Native name: SERVICE_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static SERVICE_TYPE_MAX => 3
+    static MAX => 3
 }

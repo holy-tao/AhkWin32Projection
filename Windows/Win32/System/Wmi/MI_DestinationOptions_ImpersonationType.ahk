@@ -10,31 +10,36 @@ class MI_DestinationOptions_ImpersonationType extends Win32Enum {
 
     /**
      * Use the default impersonation.
+     * Native name: MI_DestinationOptions_ImpersonationType_Default
      * @type {Integer (Int32)}
      */
-    static MI_DestinationOptions_ImpersonationType_Default => 0
+    static Default => 0
 
     /**
      * Do not impersonate.
+     * Native name: MI_DestinationOptions_ImpersonationType_None
      * @type {Integer (Int32)}
      */
-    static MI_DestinationOptions_ImpersonationType_None => 1
+    static None => 1
 
     /**
      * Identify user only.
+     * Native name: MI_DestinationOptions_ImpersonationType_Identify
      * @type {Integer (Int32)}
      */
-    static MI_DestinationOptions_ImpersonationType_Identify => 2
+    static Identify => 2
 
     /**
      * Allow impersonation of user.
+     * Native name: MI_DestinationOptions_ImpersonationType_Impersonate
      * @type {Integer (Int32)}
      */
-    static MI_DestinationOptions_ImpersonationType_Impersonate => 3
+    static Impersonate => 3
 
     /**
      * This option relates to Kerberos delegation and needs to be enabled on the domain.
+     * Native name: MI_DestinationOptions_ImpersonationType_Delegate
      * @type {Integer (Int32)}
      */
-    static MI_DestinationOptions_ImpersonationType_Delegate => 4
+    static Delegate => 4
 }

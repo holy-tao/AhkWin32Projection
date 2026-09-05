@@ -7,32 +7,38 @@
 class DOCUMENTNAMETYPE extends Win32Enum {
 
     /**
+     * Native name: DOCUMENTNAMETYPE_APPNODE
      * @type {Integer (Int32)}
      */
-    static DOCUMENTNAMETYPE_APPNODE => 0
+    static APPNODE => 0
 
     /**
+     * Native name: DOCUMENTNAMETYPE_TITLE
      * @type {Integer (Int32)}
      */
-    static DOCUMENTNAMETYPE_TITLE => 1
+    static TITLE => 1
 
     /**
+     * Native name: DOCUMENTNAMETYPE_FILE_TAIL
      * @type {Integer (Int32)}
      */
-    static DOCUMENTNAMETYPE_FILE_TAIL => 2
+    static FILE_TAIL => 2
 
     /**
+     * Native name: DOCUMENTNAMETYPE_URL
      * @type {Integer (Int32)}
      */
-    static DOCUMENTNAMETYPE_URL => 3
+    static URL => 3
 
     /**
+     * Native name: DOCUMENTNAMETYPE_UNIQUE_TITLE
      * @type {Integer (Int32)}
      */
-    static DOCUMENTNAMETYPE_UNIQUE_TITLE => 4
+    static UNIQUE_TITLE => 4
 
     /**
+     * Native name: DOCUMENTNAMETYPE_SOURCE_MAP_URL
      * @type {Integer (Int32)}
      */
-    static DOCUMENTNAMETYPE_SOURCE_MAP_URL => 5
+    static SOURCE_MAP_URL => 5
 }

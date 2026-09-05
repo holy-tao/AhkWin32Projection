@@ -12,19 +12,22 @@ class EapPeerMethodResultReason extends Win32Enum {
 
     /**
      * The success or failure of the authentication session is unknown or indeterminate.
+     * Native name: EapPeerMethodResultUnknown
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResultUnknown => 1
+    static Unknown => 1
 
     /**
      * Authentication was successful.
+     * Native name: EapPeerMethodResultSuccess
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResultSuccess => 2
+    static Success => 2
 
     /**
      * Authentication failed.
+     * Native name: EapPeerMethodResultFailure
      * @type {Integer (Int32)}
      */
-    static EapPeerMethodResultFailure => 3
+    static Failure => 3
 }

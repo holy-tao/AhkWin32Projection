@@ -10,31 +10,36 @@ class CLUSTER_CSV_VOLUME_FAULT_STATE extends Win32Enum {
 
     /**
      * The CSV has no faults.
+     * Native name: VolumeStateNoFaults
      * @type {Integer (Int32)}
      */
-    static VolumeStateNoFaults => 0
+    static NoFaults => 0
 
     /**
      * Direct I/O is disabled for the CSV.
+     * Native name: VolumeStateNoDirectIO
      * @type {Integer (Int32)}
      */
-    static VolumeStateNoDirectIO => 1
+    static NoDirectIO => 1
 
     /**
      * The CSV can not be accessed.
+     * Native name: VolumeStateNoAccess
      * @type {Integer (Int32)}
      */
-    static VolumeStateNoAccess => 2
+    static NoAccess => 2
 
     /**
      * The CSV is in maintenance mode.
+     * Native name: VolumeStateInMaintenance
      * @type {Integer (Int32)}
      */
-    static VolumeStateInMaintenance => 4
+    static InMaintenance => 4
 
     /**
      * The CSV is dismounted.
+     * Native name: VolumeStateDismounted
      * @type {Integer (Int32)}
      */
-    static VolumeStateDismounted => 8
+    static Dismounted => 8
 }

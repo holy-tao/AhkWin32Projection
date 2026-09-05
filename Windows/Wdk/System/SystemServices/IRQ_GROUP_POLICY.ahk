@@ -7,12 +7,14 @@
 class IRQ_GROUP_POLICY extends Win32Enum {
 
     /**
+     * Native name: GroupAffinityAllGroupZero
      * @type {Integer (Int32)}
      */
-    static GroupAffinityAllGroupZero => 0
+    static AffinityAllGroupZero => 0
 
     /**
+     * Native name: GroupAffinityDontCare
      * @type {Integer (Int32)}
      */
-    static GroupAffinityDontCare => 1
+    static AffinityDontCare => 1
 }

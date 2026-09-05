@@ -652,7 +652,6 @@ class IFELanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} _string 
      * @param {Integer} start 
      * @param {Integer} length 

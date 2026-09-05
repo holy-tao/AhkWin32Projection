@@ -35,7 +35,6 @@ class AsyncIPipeDouble extends IUnknown {
     static VTableNames => ["Begin_Pull", "Finish_Pull", "Begin_Push", "Finish_Push"]
 
     /**
-     * 
      * @param {Integer} cRequest 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class AsyncIPipeDouble extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} buf 
      * @param {Pointer<Integer>} pcReturned 
      * @returns {HRESULT} 
@@ -59,7 +57,6 @@ class AsyncIPipeDouble extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} buf 
      * @param {Integer} cSent 
      * @returns {HRESULT} 
@@ -72,7 +69,6 @@ class AsyncIPipeDouble extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Push() {

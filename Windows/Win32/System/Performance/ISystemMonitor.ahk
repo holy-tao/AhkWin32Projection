@@ -313,7 +313,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Appearance() {
@@ -322,7 +321,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iAppearance 
      * @returns {HRESULT} 
      */
@@ -332,7 +330,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BackColor() {
@@ -341,7 +338,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -351,7 +347,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BorderStyle() {
@@ -360,7 +355,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iBorderStyle 
      * @returns {HRESULT} 
      */
@@ -370,7 +364,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ForeColor() {
@@ -379,7 +372,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -389,7 +381,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IFontDisp} 
      */
     get_Font() {
@@ -398,7 +389,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFontDisp} pFont 
      * @returns {HRESULT} 
      */
@@ -408,7 +398,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICounters} 
      */
     get_Counters() {
@@ -417,7 +406,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -427,7 +415,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowVerticalGrid() {
@@ -436,7 +423,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -446,7 +432,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowHorizontalGrid() {
@@ -455,7 +440,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -465,7 +449,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowLegend() {
@@ -474,7 +457,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -484,7 +466,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowScaleLabels() {
@@ -493,7 +474,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -503,7 +483,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowValueBar() {
@@ -512,7 +491,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -522,7 +500,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaximumScale() {
@@ -531,7 +508,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -541,7 +517,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinimumScale() {
@@ -550,7 +525,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} fValue 
      * @returns {HRESULT} 
      */
@@ -560,7 +534,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UpdateInterval() {
@@ -569,7 +542,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {DisplayTypeConstants} eDisplayType 
      * @returns {HRESULT} 
      */
@@ -579,7 +551,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DisplayTypeConstants} 
      */
     get_DisplayType() {
@@ -588,7 +559,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -598,7 +568,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ManualUpdate() {
@@ -607,7 +576,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsTitle 
      * @returns {HRESULT} 
      */
@@ -619,7 +587,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GraphTitle() {
@@ -629,7 +596,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsTitle 
      * @returns {HRESULT} 
      */
@@ -641,7 +607,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_YAxisLabel() {
@@ -651,7 +616,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CollectSample() {
@@ -660,7 +624,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateGraph() {
@@ -669,7 +632,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BrowseCounters() {
@@ -678,7 +640,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisplayProperties() {
@@ -687,7 +648,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @returns {ICounterItem} 
      */
@@ -697,7 +657,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsPath 
      * @returns {ICounterItem} 
      */
@@ -709,7 +668,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICounterItem} pCtr 
      * @returns {HRESULT} 
      */
@@ -719,7 +677,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BackColorCtl() {
@@ -728,7 +685,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -738,7 +694,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsFileName 
      * @returns {HRESULT} 
      */
@@ -750,7 +705,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LogFileName() {
@@ -760,7 +714,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StartTime 
      * @returns {HRESULT} 
      */
@@ -770,7 +723,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogViewStart() {
@@ -779,7 +731,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StopTime 
      * @returns {HRESULT} 
      */
@@ -789,7 +740,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogViewStop() {
@@ -798,7 +748,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GridColor() {
@@ -807,7 +756,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -817,7 +765,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TimeBarColor() {
@@ -826,7 +773,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -836,7 +782,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Highlight() {
@@ -845,7 +790,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -855,7 +799,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowToolbar() {
@@ -864,7 +807,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -874,7 +816,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Paste() {
@@ -883,7 +824,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Copy() {
@@ -892,7 +832,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -901,7 +840,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -911,7 +849,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ReadOnly() {
@@ -920,7 +857,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {ReportValueTypeConstants} eReportValueType 
      * @returns {HRESULT} 
      */
@@ -930,7 +866,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ReportValueTypeConstants} 
      */
     get_ReportValueType() {
@@ -939,7 +874,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -949,7 +883,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MonitorDuplicateInstances() {
@@ -958,7 +891,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -968,7 +900,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DisplayFilter() {
@@ -977,7 +908,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ILogFiles} 
      */
     get_LogFiles() {
@@ -986,7 +916,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {DataSourceTypeConstants} eDataSourceType 
      * @returns {HRESULT} 
      */
@@ -996,7 +925,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DataSourceTypeConstants} 
      */
     get_DataSourceType() {
@@ -1005,7 +933,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsSqlDsnName 
      * @returns {HRESULT} 
      */
@@ -1017,7 +944,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SqlDsnName() {
@@ -1027,7 +953,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsSqlLogSetName 
      * @returns {HRESULT} 
      */
@@ -1039,7 +964,6 @@ class ISystemMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SqlLogSetName() {

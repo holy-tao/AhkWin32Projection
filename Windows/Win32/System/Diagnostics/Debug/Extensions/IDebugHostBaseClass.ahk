@@ -29,7 +29,6 @@ class IDebugHostBaseClass extends IDebugHostSymbol {
     static VTableNames => ["GetOffset"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOffset() {

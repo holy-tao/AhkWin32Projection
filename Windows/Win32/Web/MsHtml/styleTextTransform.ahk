@@ -7,32 +7,38 @@
 class styleTextTransform extends Win32Enum {
 
     /**
+     * Native name: styleTextTransformNotSet
      * @type {Integer (Int32)}
      */
-    static styleTextTransformNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTextTransformCapitalize
      * @type {Integer (Int32)}
      */
-    static styleTextTransformCapitalize => 1
+    static Capitalize => 1
 
     /**
+     * Native name: styleTextTransformLowercase
      * @type {Integer (Int32)}
      */
-    static styleTextTransformLowercase => 2
+    static Lowercase => 2
 
     /**
+     * Native name: styleTextTransformUppercase
      * @type {Integer (Int32)}
      */
-    static styleTextTransformUppercase => 3
+    static Uppercase => 3
 
     /**
+     * Native name: styleTextTransformNone
      * @type {Integer (Int32)}
      */
-    static styleTextTransformNone => 4
+    static None => 4
 
     /**
+     * Native name: styleTextTransform_Max
      * @type {Integer (Int32)}
      */
-    static styleTextTransform_Max => 2147483647
+    static Max => 2147483647
 }

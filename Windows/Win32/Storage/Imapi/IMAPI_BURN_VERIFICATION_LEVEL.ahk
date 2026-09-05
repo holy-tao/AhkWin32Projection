@@ -90,19 +90,22 @@ class IMAPI_BURN_VERIFICATION_LEVEL extends Win32Enum {
 
     /**
      * No burn verification.
+     * Native name: IMAPI_BURN_VERIFICATION_NONE
      * @type {Integer (Int32)}
      */
-    static IMAPI_BURN_VERIFICATION_NONE => 0
+    static NONE => 0
 
     /**
      * A quick, heuristic burn verification.
+     * Native name: IMAPI_BURN_VERIFICATION_QUICK
      * @type {Integer (Int32)}
      */
-    static IMAPI_BURN_VERIFICATION_QUICK => 1
+    static QUICK => 1
 
     /**
      * This verification compares the checksum to the referenced stream for either the last session or each track.  A full verification includes the heuristic checks of a quick verification for both burn formats.
+     * Native name: IMAPI_BURN_VERIFICATION_FULL
      * @type {Integer (Int32)}
      */
-    static IMAPI_BURN_VERIFICATION_FULL => 2
+    static FULL => 2
 }

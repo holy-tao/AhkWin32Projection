@@ -10,26 +10,30 @@ class _DMO_INPUT_DATA_BUFFER_FLAGS extends Win32Enum {
 
     /**
      * The beginning of the data is a synchronization point.
+     * Native name: DMO_INPUT_DATA_BUFFERF_SYNCPOINT
      * @type {Integer (Int32)}
      */
-    static DMO_INPUT_DATA_BUFFERF_SYNCPOINT => 1
+    static BUFFERF_SYNCPOINT => 1
 
     /**
      * The buffer's time stamp is valid.
      * 
      * The buffer's indicated time length is valid.
+     * Native name: DMO_INPUT_DATA_BUFFERF_TIME
      * @type {Integer (Int32)}
      */
-    static DMO_INPUT_DATA_BUFFERF_TIME => 2
+    static BUFFERF_TIME => 2
 
     /**
      * The buffer's indicated time length is valid.
+     * Native name: DMO_INPUT_DATA_BUFFERF_TIMELENGTH
      * @type {Integer (Int32)}
      */
-    static DMO_INPUT_DATA_BUFFERF_TIMELENGTH => 4
+    static BUFFERF_TIMELENGTH => 4
 
     /**
+     * Native name: DMO_INPUT_DATA_BUFFERF_DISCONTINUITY
      * @type {Integer (Int32)}
      */
-    static DMO_INPUT_DATA_BUFFERF_DISCONTINUITY => 8
+    static BUFFERF_DISCONTINUITY => 8
 }

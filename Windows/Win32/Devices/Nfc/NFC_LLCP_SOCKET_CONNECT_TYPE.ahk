@@ -7,12 +7,14 @@
 class NFC_LLCP_SOCKET_CONNECT_TYPE extends Win32Enum {
 
     /**
+     * Native name: NfcConnectBySap
      * @type {Integer (Int32)}
      */
-    static NfcConnectBySap => 0
+    static BySap => 0
 
     /**
+     * Native name: NfcConnectByUri
      * @type {Integer (Int32)}
      */
-    static NfcConnectByUri => 1
+    static ByUri => 1
 }

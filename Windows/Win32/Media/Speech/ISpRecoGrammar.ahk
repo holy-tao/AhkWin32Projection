@@ -40,7 +40,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     static VTableNames => ["GetGrammarId", "GetRecoContext", "LoadCmdFromFile", "LoadCmdFromObject", "LoadCmdFromResource", "LoadCmdFromMemory", "LoadCmdFromProprietaryGrammar", "SetRuleState", "SetRuleIdState", "LoadDictation", "UnloadDictation", "SetDictationState", "SetWordSequenceData", "SetTextSelection", "IsPronounceable", "SetGrammarState", "SaveCmd", "GetGrammarState"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pullGrammarId 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @returns {ISpRecoContext} 
      */
     GetRecoContext() {
@@ -61,7 +59,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rcid 
      * @param {PWSTR} pszGrammarName 
      * @param {SPLOADOPTIONS} Options 
@@ -88,7 +84,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {HMODULE} _hModule 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceType 
@@ -106,7 +101,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<SPBINARYGRAMMAR>} pGrammar 
      * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
@@ -117,7 +111,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidParam 
      * @param {PWSTR} pszStringParam 
      * @param {Pointer<Void>} pvDataPrarm 
@@ -135,7 +128,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Void>} pReserved 
      * @param {SPRULESTATE} NewState 
@@ -151,7 +143,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Integer} ulRuleId 
      * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
@@ -162,7 +153,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTopicName 
      * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
@@ -175,7 +165,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnloadDictation() {
@@ -184,7 +173,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
@@ -194,7 +182,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pText 
      * @param {Integer} cchText 
      * @param {Pointer<SPTEXTSELECTIONINFO>} pInfo 
@@ -208,7 +195,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<SPTEXTSELECTIONINFO>} pInfo 
      * @returns {HRESULT} 
      */
@@ -218,7 +204,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Pointer<SPWORDPRONOUNCEABLE>} pWordPronounceable 
      * @returns {HRESULT} 
@@ -233,7 +218,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {SPGRAMMARSTATE} eGrammarState 
      * @returns {HRESULT} 
      */
@@ -243,7 +227,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {PWSTR} 
      */
@@ -253,7 +236,6 @@ class ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<SPGRAMMARSTATE>} peGrammarState 
      * @returns {HRESULT} 
      */

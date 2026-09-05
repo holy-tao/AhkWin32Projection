@@ -7,32 +7,38 @@
 class KSPROPERTY_VIDCAP_VIDEODECODER extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_VIDEODECODER_CAPS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEODECODER_CAPS => 0
+    static CAPS => 0
 
     /**
+     * Native name: KSPROPERTY_VIDEODECODER_STANDARD
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEODECODER_STANDARD => 1
+    static STANDARD => 1
 
     /**
+     * Native name: KSPROPERTY_VIDEODECODER_STATUS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEODECODER_STATUS => 2
+    static STATUS => 2
 
     /**
+     * Native name: KSPROPERTY_VIDEODECODER_OUTPUT_ENABLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEODECODER_OUTPUT_ENABLE => 3
+    static OUTPUT_ENABLE => 3
 
     /**
+     * Native name: KSPROPERTY_VIDEODECODER_VCR_TIMING
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEODECODER_VCR_TIMING => 4
+    static VCR_TIMING => 4
 
     /**
+     * Native name: KSPROPERTY_VIDEODECODER_STATUS2
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VIDEODECODER_STATUS2 => 5
+    static STATUS2 => 5
 }

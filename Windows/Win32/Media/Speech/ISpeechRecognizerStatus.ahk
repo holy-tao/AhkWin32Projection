@@ -74,7 +74,6 @@ class ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioStatus} 
      */
     get_AudioStatus() {
@@ -83,7 +82,6 @@ class ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CurrentStreamPosition() {
@@ -93,7 +91,6 @@ class ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentStreamNumber() {
@@ -102,7 +99,6 @@ class ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfActiveRules() {
@@ -111,7 +107,6 @@ class ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClsidEngine() {
@@ -121,7 +116,6 @@ class ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SupportedLanguages() {

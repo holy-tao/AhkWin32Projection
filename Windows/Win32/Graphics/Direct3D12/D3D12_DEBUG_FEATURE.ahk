@@ -12,30 +12,35 @@ class D3D12_DEBUG_FEATURE extends Win32BitflagEnum {
 
     /**
      * The default. No optional Debug Layer features.
+     * Native name: D3D12_DEBUG_FEATURE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_FEATURE_NONE => 0
+    static NONE => 0
 
     /**
      * The Debug Layer is allowed to deliberately change functional behavior of an application in order to help identify potential errors.  By default, the Debug Layer allows most invalid API usage to run the natural course.
+     * Native name: D3D12_DEBUG_FEATURE_ALLOW_BEHAVIOR_CHANGING_DEBUG_AIDS
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_FEATURE_ALLOW_BEHAVIOR_CHANGING_DEBUG_AIDS => 1
+    static ALLOW_BEHAVIOR_CHANGING_DEBUG_AIDS => 1
 
     /**
      * Performs additional resource state validation of resources set in descriptors at the time <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists">ID3D12CommandQueue::ExecuteCommandLists</a> is called.  By design descriptors can be changed even after submitting command lists assuming proper synchronization.  Conservative resource state tracking ignores this allowance and validates all resources used in descriptor tables when <b>ExecuteCommandLists</b> is called.  The result may be false validation errors.
+     * Native name: D3D12_DEBUG_FEATURE_CONSERVATIVE_RESOURCE_STATE_TRACKING
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_FEATURE_CONSERVATIVE_RESOURCE_STATE_TRACKING => 2
+    static CONSERVATIVE_RESOURCE_STATE_TRACKING => 2
 
     /**
      * Disables validation of bundle commands by virtually injecting checks into the calling command list validation paths.
+     * Native name: D3D12_DEBUG_FEATURE_DISABLE_VIRTUALIZED_BUNDLES_VALIDATION
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_FEATURE_DISABLE_VIRTUALIZED_BUNDLES_VALIDATION => 4
+    static DISABLE_VIRTUALIZED_BUNDLES_VALIDATION => 4
 
     /**
+     * Native name: D3D12_DEBUG_FEATURE_EMULATE_WINDOWS7
      * @type {Integer (Int32)}
      */
-    static D3D12_DEBUG_FEATURE_EMULATE_WINDOWS7 => 8
+    static EMULATE_WINDOWS7 => 8
 }

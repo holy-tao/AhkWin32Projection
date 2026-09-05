@@ -7,12 +7,14 @@
 class LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION extends Win32Enum {
 
     /**
+     * Native name: MarshalDirectionMarshal
      * @type {Integer (Int32)}
      */
-    static MarshalDirectionMarshal => 0
+    static Marshal => 0
 
     /**
+     * Native name: MarshalDirectionUnmarshal
      * @type {Integer (Int32)}
      */
-    static MarshalDirectionUnmarshal => 1
+    static Unmarshal => 1
 }

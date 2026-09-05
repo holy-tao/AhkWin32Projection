@@ -9,27 +9,32 @@
 class WMDM_SESSION_TYPE extends Win32Enum {
 
     /**
+     * Native name: WMDM_SESSION_NONE
      * @type {Integer (Int32)}
      */
-    static WMDM_SESSION_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: WMDM_SESSION_TRANSFER_TO_DEVICE
      * @type {Integer (Int32)}
      */
-    static WMDM_SESSION_TRANSFER_TO_DEVICE => 1
+    static TRANSFER_TO_DEVICE => 1
 
     /**
+     * Native name: WMDM_SESSION_TRANSFER_FROM_DEVICE
      * @type {Integer (Int32)}
      */
-    static WMDM_SESSION_TRANSFER_FROM_DEVICE => 16
+    static TRANSFER_FROM_DEVICE => 16
 
     /**
+     * Native name: WMDM_SESSION_DELETE
      * @type {Integer (Int32)}
      */
-    static WMDM_SESSION_DELETE => 256
+    static DELETE => 256
 
     /**
+     * Native name: WMDM_SESSION_CUSTOM
      * @type {Integer (Int32)}
      */
-    static WMDM_SESSION_CUSTOM => 4096
+    static CUSTOM => 4096
 }

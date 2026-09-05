@@ -12,49 +12,57 @@ class D3D_MIN_PRECISION extends Win32Enum {
 
     /**
      * Default minimum precision, which is 32-bit precision.
+     * Native name: D3D_MIN_PRECISION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Minimum precision is min16float, which is 16-bit floating point.
+     * Native name: D3D_MIN_PRECISION_FLOAT_16
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_FLOAT_16 => 1
+    static FLOAT_16 => 1
 
     /**
      * Minimum precision is min10float, which is 10-bit floating point.
+     * Native name: D3D_MIN_PRECISION_FLOAT_2_8
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_FLOAT_2_8 => 2
+    static FLOAT_2_8 => 2
 
     /**
      * Reserved
+     * Native name: D3D_MIN_PRECISION_RESERVED
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_RESERVED => 3
+    static RESERVED => 3
 
     /**
      * Minimum precision is min16int, which is 16-bit signed integer.
+     * Native name: D3D_MIN_PRECISION_SINT_16
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_SINT_16 => 4
+    static SINT_16 => 4
 
     /**
      * Minimum precision is min16uint, which is 16-bit unsigned integer.
+     * Native name: D3D_MIN_PRECISION_UINT_16
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_UINT_16 => 5
+    static UINT_16 => 5
 
     /**
      * Minimum precision is any 16-bit value.
+     * Native name: D3D_MIN_PRECISION_ANY_16
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_ANY_16 => 240
+    static ANY_16 => 240
 
     /**
      * Minimum precision is any 10-bit value.
+     * Native name: D3D_MIN_PRECISION_ANY_10
      * @type {Integer (Int32)}
      */
-    static D3D_MIN_PRECISION_ANY_10 => 241
+    static ANY_10 => 241
 }

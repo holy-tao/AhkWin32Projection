@@ -7,17 +7,20 @@
 class D3D12_VIDEO_ENCODER_AV1_TX_MODE extends Win32Enum {
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_TX_MODE_ONLY4x4
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_TX_MODE_ONLY4x4 => 0
+    static ONLY4x4 => 0
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_TX_MODE_LARGEST
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_TX_MODE_LARGEST => 1
+    static LARGEST => 1
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_AV1_TX_MODE_SELECT
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_AV1_TX_MODE_SELECT => 2
+    static SELECT => 2
 }

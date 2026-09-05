@@ -34,7 +34,6 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild {
     static VTableNames => ["CompilePipelineState", "CompileStateObject", "CompileAddToStateObject", "GetCacheSession"]
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_PIPELINE_STATE_STREAM_DESC>} pDesc 
@@ -46,7 +45,6 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc 
@@ -59,7 +57,6 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pAddition 
@@ -73,7 +70,6 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

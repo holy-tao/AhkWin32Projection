@@ -44,7 +44,6 @@ class IMediaTypeInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {
@@ -54,7 +53,6 @@ class IMediaTypeInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Subtype() {

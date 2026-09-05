@@ -10,43 +10,50 @@ class IKEEXT_EM_SA_STATE extends Win32Enum {
 
     /**
      * Initial state.  No Extended Mode packets have been sent to the peer.
+     * Native name: IKEEXT_EM_SA_STATE_NONE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EM_SA_STATE_NONE => 0
+    static NONE => 0
 
     /**
      * First packet has been sent to the peer.
+     * Native name: IKEEXT_EM_SA_STATE_SENT_ATTS
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EM_SA_STATE_SENT_ATTS => 1
+    static SENT_ATTS => 1
 
     /**
      * Second packet has been sent to the peer.
+     * Native name: IKEEXT_EM_SA_STATE_SSPI_SENT
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EM_SA_STATE_SSPI_SENT => 2
+    static SSPI_SENT => 2
 
     /**
      * Third packet has been sent to the peer.
+     * Native name: IKEEXT_EM_SA_STATE_AUTH_COMPLETE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EM_SA_STATE_AUTH_COMPLETE => 3
+    static AUTH_COMPLETE => 3
 
     /**
      * Final packet has been sent to the peer.
+     * Native name: IKEEXT_EM_SA_STATE_FINAL
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EM_SA_STATE_FINAL => 4
+    static FINAL => 4
 
     /**
      * Extended mode has been completed.
+     * Native name: IKEEXT_EM_SA_STATE_COMPLETE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EM_SA_STATE_COMPLETE => 5
+    static COMPLETE => 5
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_EM_SA_STATE_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EM_SA_STATE_MAX => 6
+    static MAX => 6
 }

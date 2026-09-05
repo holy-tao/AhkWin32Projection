@@ -60,7 +60,6 @@ class IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_ROAMING_EVENT_TYPE} 
      */
     get_EventType() {
@@ -69,7 +68,6 @@ class IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -78,7 +76,6 @@ class IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -87,7 +84,6 @@ class IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {

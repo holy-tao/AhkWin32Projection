@@ -10,25 +10,29 @@ class eAVFastDecodeMode extends Win32Enum {
 
     /**
      * Use normal decoding.
+     * Native name: eVideoDecodeCompliant
      * @type {Integer (Int32)}
      */
-    static eVideoDecodeCompliant => 0
+    static VideoDecodeCompliant => 0
 
     /**
      * Use the optimal loop filter.
+     * Native name: eVideoDecodeOptimalLF
      * @type {Integer (Int32)}
      */
-    static eVideoDecodeOptimalLF => 1
+    static VideoDecodeOptimalLF => 1
 
     /**
      * Disable the loop filter.
+     * Native name: eVideoDecodeDisableLF
      * @type {Integer (Int32)}
      */
-    static eVideoDecodeDisableLF => 2
+    static VideoDecodeDisableLF => 2
 
     /**
      * Use the fastest decoding mode.
+     * Native name: eVideoDecodeFastest
      * @type {Integer (Int32)}
      */
-    static eVideoDecodeFastest => 32
+    static VideoDecodeFastest => 32
 }

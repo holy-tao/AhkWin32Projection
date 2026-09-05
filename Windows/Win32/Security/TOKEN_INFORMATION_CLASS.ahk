@@ -11,80 +11,91 @@ class TOKEN_INFORMATION_CLASS extends Win32Enum {
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user">TOKEN_USER</a> structure that contains the user account of the token.
+     * Native name: TokenUser
      * @type {Integer (Int32)}
      */
-    static TokenUser => 1
+    static User => 1
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the group accounts associated with the token.
+     * Native name: TokenGroups
      * @type {Integer (Int32)}
      */
-    static TokenGroups => 2
+    static Groups => 2
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_privileges">TOKEN_PRIVILEGES</a> structure that contains the privileges of the token.
+     * Native name: TokenPrivileges
      * @type {Integer (Int32)}
      */
-    static TokenPrivileges => 3
+    static Privileges => 3
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_owner">TOKEN_OWNER</a> structure that contains the default owner <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) for newly created objects.
+     * Native name: TokenOwner
      * @type {Integer (Int32)}
      */
-    static TokenOwner => 4
+    static Owner => 4
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_primary_group">TOKEN_PRIMARY_GROUP</a> structure that contains the default primary group SID for newly created objects.
+     * Native name: TokenPrimaryGroup
      * @type {Integer (Int32)}
      */
-    static TokenPrimaryGroup => 5
+    static PrimaryGroup => 5
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_default_dacl">TOKEN_DEFAULT_DACL</a> structure that contains the default DACL for newly created objects.
+     * Native name: TokenDefaultDacl
      * @type {Integer (Int32)}
      */
-    static TokenDefaultDacl => 6
+    static DefaultDacl => 6
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_source">TOKEN_SOURCE</a> structure that contains the source of the token. <b>TOKEN_QUERY_SOURCE</b> access is needed to retrieve this information.
+     * Native name: TokenSource
      * @type {Integer (Int32)}
      */
-    static TokenSource => 7
+    static Source => 7
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_type">TOKEN_TYPE</a> value that indicates whether the token is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary</a> or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>.
+     * Native name: TokenType
      * @type {Integer (Int32)}
      */
-    static TokenType => 8
+    static Type => 8
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> value that indicates the impersonation level of the token. If the access token is not an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, the function fails.
+     * Native name: TokenImpersonationLevel
      * @type {Integer (Int32)}
      */
-    static TokenImpersonationLevel => 9
+    static ImpersonationLevel => 9
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_statistics">TOKEN_STATISTICS</a> structure that contains various token statistics.
+     * Native name: TokenStatistics
      * @type {Integer (Int32)}
      */
-    static TokenStatistics => 10
+    static Statistics => 10
 
     /**
      * The buffer receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the list of restricting SIDs in a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/restricted-tokens">restricted token</a>.
+     * Native name: TokenRestrictedSids
      * @type {Integer (Int32)}
      */
-    static TokenRestrictedSids => 11
+    static RestrictedSids => 11
 
     /**
      * The buffer receives a <b>DWORD</b> value that indicates the Terminal Services session identifier that is associated with the token.
@@ -96,33 +107,38 @@ class TOKEN_INFORMATION_CLASS extends Win32Enum {
      * In a non-Terminal Services environment, the session identifier is zero.
      * 
      * If <b>TokenSessionId</b> is set with <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-settokeninformation">SetTokenInformation</a>, the application must have the <b>Act As Part Of the Operating System</b> privilege, and the application must be enabled to set the session ID in a token.
+     * Native name: TokenSessionId
      * @type {Integer (Int32)}
      */
-    static TokenSessionId => 12
+    static SessionId => 12
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups_and_privileges">TOKEN_GROUPS_AND_PRIVILEGES</a> structure that contains the user SID, the group accounts, the restricted SIDs, and the authentication ID associated with the token.
+     * Native name: TokenGroupsAndPrivileges
      * @type {Integer (Int32)}
      */
-    static TokenGroupsAndPrivileges => 13
+    static GroupsAndPrivileges => 13
 
     /**
      * Reserved.
+     * Native name: TokenSessionReference
      * @type {Integer (Int32)}
      */
-    static TokenSessionReference => 14
+    static SessionReference => 14
 
     /**
      * The buffer receives a <b>DWORD</b> value that is nonzero if the token includes the <b>SANDBOX_INERT</b> flag.
+     * Native name: TokenSandBoxInert
      * @type {Integer (Int32)}
      */
-    static TokenSandBoxInert => 15
+    static SandBoxInert => 15
 
     /**
      * Reserved.
+     * Native name: TokenAuditPolicy
      * @type {Integer (Int32)}
      */
-    static TokenAuditPolicy => 16
+    static AuditPolicy => 16
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_origin">TOKEN_ORIGIN</a> value. 
@@ -130,57 +146,66 @@ class TOKEN_INFORMATION_CLASS extends Win32Enum {
      * If the token  resulted from a logon that used explicit credentials, such as passing a name, domain, and password to the  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> function, then the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_origin">TOKEN_ORIGIN</a> structure will contain the ID of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> that created it.
      * 
      * If the token resulted from  network authentication, such as a call to <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext</a>  or a call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> with <i>dwLogonType</i> set to <b>LOGON32_LOGON_NETWORK</b> or <b>LOGON32_LOGON_NETWORK_CLEARTEXT</b>, then this value will be zero.
+     * Native name: TokenOrigin
      * @type {Integer (Int32)}
      */
-    static TokenOrigin => 17
+    static Origin => 17
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_elevation_type">TOKEN_ELEVATION_TYPE</a> value that specifies the elevation level of the token.
+     * Native name: TokenElevationType
      * @type {Integer (Int32)}
      */
-    static TokenElevationType => 18
+    static ElevationType => 18
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_linked_token">TOKEN_LINKED_TOKEN</a> structure that contains a handle to another token that is linked to this token.
+     * Native name: TokenLinkedToken
      * @type {Integer (Int32)}
      */
-    static TokenLinkedToken => 19
+    static LinkedToken => 19
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_elevation">TOKEN_ELEVATION</a> structure that specifies whether the token is elevated.
+     * Native name: TokenElevation
      * @type {Integer (Int32)}
      */
-    static TokenElevation => 20
+    static Elevation => 20
 
     /**
      * The buffer receives a <b>DWORD</b> value that is nonzero if the token has ever been filtered.
+     * Native name: TokenHasRestrictions
      * @type {Integer (Int32)}
      */
-    static TokenHasRestrictions => 21
+    static HasRestrictions => 21
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_access_information">TOKEN_ACCESS_INFORMATION</a> structure that specifies  security information contained in the token.
+     * Native name: TokenAccessInformation
      * @type {Integer (Int32)}
      */
-    static TokenAccessInformation => 22
+    static AccessInformation => 22
 
     /**
      * The buffer receives a <b>DWORD</b> value that is nonzero if  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/v-gly">virtualization</a> is allowed for the token.
+     * Native name: TokenVirtualizationAllowed
      * @type {Integer (Int32)}
      */
-    static TokenVirtualizationAllowed => 23
+    static VirtualizationAllowed => 23
 
     /**
      * The buffer receives a <b>DWORD</b> value that is nonzero if  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/v-gly">virtualization</a> is enabled for the token.
+     * Native name: TokenVirtualizationEnabled
      * @type {Integer (Int32)}
      */
-    static TokenVirtualizationEnabled => 24
+    static VirtualizationEnabled => 24
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_mandatory_label">TOKEN_MANDATORY_LABEL</a> structure that specifies the token's integrity level.
+     * Native name: TokenIntegrityLevel
      * @type {Integer (Int32)}
      */
-    static TokenIntegrityLevel => 25
+    static IntegrityLevel => 25
 
     /**
      * The buffer receives a <b>DWORD</b> value that is nonzero if  the token has the UIAccess flag set.
@@ -190,137 +215,161 @@ class TOKEN_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_mandatory_policy">TOKEN_MANDATORY_POLICY</a> structure that specifies the token's mandatory integrity policy.
+     * Native name: TokenMandatoryPolicy
      * @type {Integer (Int32)}
      */
-    static TokenMandatoryPolicy => 27
+    static MandatoryPolicy => 27
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that specifies the token's logon SID.
+     * Native name: TokenLogonSid
      * @type {Integer (Int32)}
      */
-    static TokenLogonSid => 28
+    static LogonSid => 28
 
     /**
      * The buffer receives a <b>DWORD</b> value that is nonzero if the token is an app container token. Any callers who check the <b>TokenIsAppContainer</b> and have it return 0 should also verify that the caller token is not an identify level impersonation token. If the current token is not an app container but is an identity level token, you should return <b>AccessDenied</b>.
+     * Native name: TokenIsAppContainer
      * @type {Integer (Int32)}
      */
-    static TokenIsAppContainer => 29
+    static IsAppContainer => 29
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the capabilities associated with the token.
+     * Native name: TokenCapabilities
      * @type {Integer (Int32)}
      */
-    static TokenCapabilities => 30
+    static Capabilities => 30
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_appcontainer_information">TOKEN_APPCONTAINER_INFORMATION</a> structure that contains the AppContainerSid associated with the token. If the token is not associated with an app container, the <b>TokenAppContainer</b> member of the <b>TOKEN_APPCONTAINER_INFORMATION</b> structure points to <b>NULL</b>.
+     * Native name: TokenAppContainerSid
      * @type {Integer (Int32)}
      */
-    static TokenAppContainerSid => 31
+    static AppContainerSid => 31
 
     /**
      * The buffer receives a <b>DWORD</b> value that includes the   app container number for the token. For tokens that are not app container tokens, this value is zero.
+     * Native name: TokenAppContainerNumber
      * @type {Integer (Int32)}
      */
-    static TokenAppContainerNumber => 32
+    static AppContainerNumber => 32
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-claim_security_attributes_information">CLAIM_SECURITY_ATTRIBUTES_INFORMATION</a> structure that contains the user claims associated with the token.
+     * Native name: TokenUserClaimAttributes
      * @type {Integer (Int32)}
      */
-    static TokenUserClaimAttributes => 33
+    static UserClaimAttributes => 33
 
     /**
      * The buffer receives  a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-claim_security_attributes_information">CLAIM_SECURITY_ATTRIBUTES_INFORMATION</a> structure that contains the  device claims associated with the token.
+     * Native name: TokenDeviceClaimAttributes
      * @type {Integer (Int32)}
      */
-    static TokenDeviceClaimAttributes => 34
+    static DeviceClaimAttributes => 34
 
     /**
      * This value is reserved.
+     * Native name: TokenRestrictedUserClaimAttributes
      * @type {Integer (Int32)}
      */
-    static TokenRestrictedUserClaimAttributes => 35
+    static RestrictedUserClaimAttributes => 35
 
     /**
      * This value is reserved.
+     * Native name: TokenRestrictedDeviceClaimAttributes
      * @type {Integer (Int32)}
      */
-    static TokenRestrictedDeviceClaimAttributes => 36
+    static RestrictedDeviceClaimAttributes => 36
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the device groups that are associated with the token.
+     * Native name: TokenDeviceGroups
      * @type {Integer (Int32)}
      */
-    static TokenDeviceGroups => 37
+    static DeviceGroups => 37
 
     /**
      * The buffer receives a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the restricted device groups that are associated with the token.
+     * Native name: TokenRestrictedDeviceGroups
      * @type {Integer (Int32)}
      */
-    static TokenRestrictedDeviceGroups => 38
+    static RestrictedDeviceGroups => 38
 
     /**
      * This value is reserved.
+     * Native name: TokenSecurityAttributes
      * @type {Integer (Int32)}
      */
-    static TokenSecurityAttributes => 39
+    static SecurityAttributes => 39
 
     /**
      * This value is reserved.
+     * Native name: TokenIsRestricted
      * @type {Integer (Int32)}
      */
-    static TokenIsRestricted => 40
+    static IsRestricted => 40
 
     /**
+     * Native name: TokenProcessTrustLevel
      * @type {Integer (Int32)}
      */
-    static TokenProcessTrustLevel => 41
+    static ProcessTrustLevel => 41
 
     /**
+     * Native name: TokenPrivateNameSpace
      * @type {Integer (Int32)}
      */
-    static TokenPrivateNameSpace => 42
+    static PrivateNameSpace => 42
 
     /**
+     * Native name: TokenSingletonAttributes
      * @type {Integer (Int32)}
      */
-    static TokenSingletonAttributes => 43
+    static SingletonAttributes => 43
 
     /**
+     * Native name: TokenBnoIsolation
      * @type {Integer (Int32)}
      */
-    static TokenBnoIsolation => 44
+    static BnoIsolation => 44
 
     /**
+     * Native name: TokenChildProcessFlags
      * @type {Integer (Int32)}
      */
-    static TokenChildProcessFlags => 45
+    static ChildProcessFlags => 45
 
     /**
+     * Native name: TokenIsLessPrivilegedAppContainer
      * @type {Integer (Int32)}
      */
-    static TokenIsLessPrivilegedAppContainer => 46
+    static IsLessPrivilegedAppContainer => 46
 
     /**
+     * Native name: TokenIsSandboxed
      * @type {Integer (Int32)}
      */
-    static TokenIsSandboxed => 47
+    static IsSandboxed => 47
 
     /**
+     * Native name: TokenIsAppSilo
      * @type {Integer (Int32)}
      */
-    static TokenIsAppSilo => 48
+    static IsAppSilo => 48
 
     /**
+     * Native name: TokenLoggingInformation
      * @type {Integer (Int32)}
      */
-    static TokenLoggingInformation => 49
+    static LoggingInformation => 49
 
     /**
+     * Native name: TokenLearningMode
      * @type {Integer (Int32)}
      */
-    static TokenLearningMode => 50
+    static LearningMode => 50
 
     /**
      * The maximum value for this enumeration.

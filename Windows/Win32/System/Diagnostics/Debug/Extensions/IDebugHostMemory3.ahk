@@ -31,7 +31,6 @@ class IDebugHostMemory3 extends IDebugHostMemory2 {
     static VTableNames => ["CanonicalizeLocation"]
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @returns {Location} 

@@ -667,7 +667,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_position() {
@@ -677,7 +676,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_styleFloat() {
@@ -687,7 +685,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_color() {
@@ -697,7 +694,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_backgroundColor() {
@@ -707,7 +703,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontFamily() {
@@ -717,7 +712,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontStyle() {
@@ -727,7 +721,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontVariant() {
@@ -737,7 +730,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fontWeight() {
@@ -747,7 +739,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fontSize() {
@@ -757,7 +748,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backgroundImage() {
@@ -767,7 +757,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_backgroundPositionX() {
@@ -777,7 +766,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_backgroundPositionY() {
@@ -787,7 +775,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backgroundRepeat() {
@@ -797,7 +784,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderLeftColor() {
@@ -807,7 +793,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderTopColor() {
@@ -817,7 +802,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderRightColor() {
@@ -827,7 +811,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderBottomColor() {
@@ -837,7 +820,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderTopStyle() {
@@ -847,7 +829,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderRightStyle() {
@@ -857,7 +838,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderBottomStyle() {
@@ -867,7 +847,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderLeftStyle() {
@@ -877,7 +856,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderTopWidth() {
@@ -887,7 +865,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderRightWidth() {
@@ -897,7 +874,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderBottomWidth() {
@@ -907,7 +883,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderLeftWidth() {
@@ -917,7 +892,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_left() {
@@ -927,7 +901,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_top() {
@@ -937,7 +910,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -947,7 +919,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -957,7 +928,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingLeft() {
@@ -967,7 +937,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingTop() {
@@ -977,7 +946,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingRight() {
@@ -987,7 +955,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingBottom() {
@@ -997,7 +964,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAlign() {
@@ -1007,7 +973,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textDecoration() {
@@ -1017,7 +982,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_display() {
@@ -1027,7 +991,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_visibility() {
@@ -1037,7 +1000,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_zIndex() {
@@ -1047,7 +1009,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_letterSpacing() {
@@ -1057,7 +1018,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_lineHeight() {
@@ -1067,7 +1027,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textIndent() {
@@ -1077,7 +1036,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_verticalAlign() {
@@ -1087,7 +1045,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backgroundAttachment() {
@@ -1097,7 +1054,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginTop() {
@@ -1107,7 +1063,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginRight() {
@@ -1117,7 +1072,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginBottom() {
@@ -1127,7 +1081,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginLeft() {
@@ -1137,7 +1090,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_clear() {
@@ -1147,7 +1099,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_listStyleType() {
@@ -1157,7 +1108,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_listStylePosition() {
@@ -1167,7 +1117,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_listStyleImage() {
@@ -1177,7 +1126,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_clipTop() {
@@ -1187,7 +1135,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_clipRight() {
@@ -1197,7 +1144,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_clipBottom() {
@@ -1207,7 +1153,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_clipLeft() {
@@ -1217,7 +1162,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflow() {
@@ -1227,7 +1171,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pageBreakBefore() {
@@ -1237,7 +1180,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pageBreakAfter() {
@@ -1247,7 +1189,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cursor() {
@@ -1257,7 +1198,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tableLayout() {
@@ -1267,7 +1207,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderCollapse() {
@@ -1277,7 +1216,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_direction() {
@@ -1287,7 +1225,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_behavior() {
@@ -1297,7 +1234,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT} 
@@ -1311,7 +1247,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_unicodeBidi() {
@@ -1321,7 +1256,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_right() {
@@ -1331,7 +1265,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bottom() {
@@ -1341,7 +1274,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_imeMode() {
@@ -1351,7 +1283,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyAlign() {
@@ -1361,7 +1292,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyPosition() {
@@ -1371,7 +1301,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyOverhang() {
@@ -1381,7 +1310,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAutospace() {
@@ -1391,7 +1319,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lineBreak() {
@@ -1401,7 +1328,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wordBreak() {
@@ -1411,7 +1337,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textJustify() {
@@ -1421,7 +1346,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textJustifyTrim() {
@@ -1431,7 +1355,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textKashida() {
@@ -1441,7 +1364,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_blockDirection() {
@@ -1451,7 +1373,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_layoutGridChar() {
@@ -1461,7 +1382,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_layoutGridLine() {
@@ -1471,7 +1391,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGridMode() {
@@ -1481,7 +1400,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGridType() {
@@ -1491,7 +1409,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderStyle() {
@@ -1501,7 +1418,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderColor() {
@@ -1511,7 +1427,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderWidth() {
@@ -1521,7 +1436,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_padding() {
@@ -1531,7 +1445,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_margin() {
@@ -1541,7 +1454,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accelerator() {
@@ -1551,7 +1463,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflowX() {
@@ -1561,7 +1472,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflowY() {
@@ -1571,7 +1481,6 @@ class IHTMLCurrentStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textTransform() {

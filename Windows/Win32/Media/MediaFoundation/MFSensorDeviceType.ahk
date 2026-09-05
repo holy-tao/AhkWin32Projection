@@ -10,30 +10,35 @@ class MFSensorDeviceType extends Win32Enum {
 
     /**
      * The sensor device type is unknown.
+     * Native name: MFSensorDeviceType_Unknown
      * @type {Integer (Int32)}
      */
-    static MFSensorDeviceType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The sensor device is a physical device. Physical cameras may register as <a href="https://docs.microsoft.com/previous-versions/ff548567(v=vs.85)">KSCATEGORY_SENSOR_CAMERA</a> or <a href="https://docs.microsoft.com/previous-versions/ff548567(v=vs.85)">KSCATEGORY_VIDEO_CAMERA</a>  or both.
+     * Native name: MFSensorDeviceType_Device
      * @type {Integer (Int32)}
      */
-    static MFSensorDeviceType_Device => 1
+    static Device => 1
 
     /**
      * The sensor device is a custom media source.
+     * Native name: MFSensorDeviceType_MediaSource
      * @type {Integer (Int32)}
      */
-    static MFSensorDeviceType_MediaSource => 2
+    static MediaSource => 2
 
     /**
      * The sensor device is a legacy frame provider.
+     * Native name: MFSensorDeviceType_FrameProvider
      * @type {Integer (Int32)}
      */
-    static MFSensorDeviceType_FrameProvider => 3
+    static FrameProvider => 3
 
     /**
+     * Native name: MFSensorDeviceType_SensorTransform
      * @type {Integer (Int32)}
      */
-    static MFSensorDeviceType_SensorTransform => 4
+    static SensorTransform => 4
 }

@@ -48,7 +48,6 @@ class IShellDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -57,7 +56,6 @@ class IShellDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {

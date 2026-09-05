@@ -7,22 +7,26 @@
 class FRAMING_PROP extends Win32Enum {
 
     /**
+     * Native name: FramingProp_Uninitialized
      * @type {Integer (Int32)}
      */
-    static FramingProp_Uninitialized => 0
+    static Uninitialized => 0
 
     /**
+     * Native name: FramingProp_None
      * @type {Integer (Int32)}
      */
-    static FramingProp_None => 1
+    static None => 1
 
     /**
+     * Native name: FramingProp_Old
      * @type {Integer (Int32)}
      */
-    static FramingProp_Old => 2
+    static Old => 2
 
     /**
+     * Native name: FramingProp_Ex
      * @type {Integer (Int32)}
      */
-    static FramingProp_Ex => 3
+    static Ex => 3
 }

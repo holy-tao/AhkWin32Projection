@@ -10,19 +10,22 @@ class FILTER_STATE extends Win32Enum {
 
     /**
      * Stopped. The filter is not processing data.
+     * Native name: State_Stopped
      * @type {Integer (Int32)}
      */
-    static State_Stopped => 0
+    static Stopped => 0
 
     /**
      * Paused. The filter is processing data, but not rendering it.
+     * Native name: State_Paused
      * @type {Integer (Int32)}
      */
-    static State_Paused => 1
+    static Paused => 1
 
     /**
      * Running. The filter is processing and rendering data.
+     * Native name: State_Running
      * @type {Integer (Int32)}
      */
-    static State_Running => 2
+    static Running => 2
 }

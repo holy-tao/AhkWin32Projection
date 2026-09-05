@@ -7,287 +7,344 @@
 class CM_PROB extends Win32Enum {
 
     /**
+     * Native name: CM_PROB_NOT_CONFIGURED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_NOT_CONFIGURED => 1
+    static NOT_CONFIGURED => 1
 
     /**
+     * Native name: CM_PROB_DEVLOADER_FAILED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DEVLOADER_FAILED => 2
+    static DEVLOADER_FAILED => 2
 
     /**
+     * Native name: CM_PROB_OUT_OF_MEMORY
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_OUT_OF_MEMORY => 3
+    static OUT_OF_MEMORY => 3
 
     /**
+     * Native name: CM_PROB_ENTRY_IS_WRONG_TYPE
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_ENTRY_IS_WRONG_TYPE => 4
+    static ENTRY_IS_WRONG_TYPE => 4
 
     /**
+     * Native name: CM_PROB_LACKED_ARBITRATOR
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_LACKED_ARBITRATOR => 5
+    static LACKED_ARBITRATOR => 5
 
     /**
+     * Native name: CM_PROB_BOOT_CONFIG_CONFLICT
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_BOOT_CONFIG_CONFLICT => 6
+    static BOOT_CONFIG_CONFLICT => 6
 
     /**
+     * Native name: CM_PROB_FAILED_FILTER
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_FAILED_FILTER => 7
+    static FAILED_FILTER => 7
 
     /**
+     * Native name: CM_PROB_DEVLOADER_NOT_FOUND
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DEVLOADER_NOT_FOUND => 8
+    static DEVLOADER_NOT_FOUND => 8
 
     /**
+     * Native name: CM_PROB_INVALID_DATA
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_INVALID_DATA => 9
+    static INVALID_DATA => 9
 
     /**
+     * Native name: CM_PROB_FAILED_START
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_FAILED_START => 10
+    static FAILED_START => 10
 
     /**
+     * Native name: CM_PROB_LIAR
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_LIAR => 11
+    static LIAR => 11
 
     /**
+     * Native name: CM_PROB_NORMAL_CONFLICT
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_NORMAL_CONFLICT => 12
+    static NORMAL_CONFLICT => 12
 
     /**
+     * Native name: CM_PROB_NOT_VERIFIED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_NOT_VERIFIED => 13
+    static NOT_VERIFIED => 13
 
     /**
+     * Native name: CM_PROB_NEED_RESTART
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_NEED_RESTART => 14
+    static NEED_RESTART => 14
 
     /**
+     * Native name: CM_PROB_REENUMERATION
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_REENUMERATION => 15
+    static REENUMERATION => 15
 
     /**
+     * Native name: CM_PROB_PARTIAL_LOG_CONF
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_PARTIAL_LOG_CONF => 16
+    static PARTIAL_LOG_CONF => 16
 
     /**
+     * Native name: CM_PROB_UNKNOWN_RESOURCE
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_UNKNOWN_RESOURCE => 17
+    static UNKNOWN_RESOURCE => 17
 
     /**
+     * Native name: CM_PROB_REINSTALL
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_REINSTALL => 18
+    static REINSTALL => 18
 
     /**
+     * Native name: CM_PROB_REGISTRY
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_REGISTRY => 19
+    static REGISTRY => 19
 
     /**
+     * Native name: CM_PROB_VXDLDR
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_VXDLDR => 20
+    static VXDLDR => 20
 
     /**
+     * Native name: CM_PROB_WILL_BE_REMOVED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_WILL_BE_REMOVED => 21
+    static WILL_BE_REMOVED => 21
 
     /**
+     * Native name: CM_PROB_DISABLED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DISABLED => 22
+    static DISABLED => 22
 
     /**
+     * Native name: CM_PROB_DEVLOADER_NOT_READY
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DEVLOADER_NOT_READY => 23
+    static DEVLOADER_NOT_READY => 23
 
     /**
+     * Native name: CM_PROB_DEVICE_NOT_THERE
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DEVICE_NOT_THERE => 24
+    static DEVICE_NOT_THERE => 24
 
     /**
+     * Native name: CM_PROB_MOVED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_MOVED => 25
+    static MOVED => 25
 
     /**
+     * Native name: CM_PROB_TOO_EARLY
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_TOO_EARLY => 26
+    static TOO_EARLY => 26
 
     /**
+     * Native name: CM_PROB_NO_VALID_LOG_CONF
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_NO_VALID_LOG_CONF => 27
+    static NO_VALID_LOG_CONF => 27
 
     /**
+     * Native name: CM_PROB_FAILED_INSTALL
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_FAILED_INSTALL => 28
+    static FAILED_INSTALL => 28
 
     /**
+     * Native name: CM_PROB_HARDWARE_DISABLED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_HARDWARE_DISABLED => 29
+    static HARDWARE_DISABLED => 29
 
     /**
+     * Native name: CM_PROB_CANT_SHARE_IRQ
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_CANT_SHARE_IRQ => 30
+    static CANT_SHARE_IRQ => 30
 
     /**
+     * Native name: CM_PROB_FAILED_ADD
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_FAILED_ADD => 31
+    static FAILED_ADD => 31
 
     /**
+     * Native name: CM_PROB_DISABLED_SERVICE
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DISABLED_SERVICE => 32
+    static DISABLED_SERVICE => 32
 
     /**
+     * Native name: CM_PROB_TRANSLATION_FAILED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_TRANSLATION_FAILED => 33
+    static TRANSLATION_FAILED => 33
 
     /**
+     * Native name: CM_PROB_NO_SOFTCONFIG
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_NO_SOFTCONFIG => 34
+    static NO_SOFTCONFIG => 34
 
     /**
+     * Native name: CM_PROB_BIOS_TABLE
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_BIOS_TABLE => 35
+    static BIOS_TABLE => 35
 
     /**
+     * Native name: CM_PROB_IRQ_TRANSLATION_FAILED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_IRQ_TRANSLATION_FAILED => 36
+    static IRQ_TRANSLATION_FAILED => 36
 
     /**
+     * Native name: CM_PROB_FAILED_DRIVER_ENTRY
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_FAILED_DRIVER_ENTRY => 37
+    static FAILED_DRIVER_ENTRY => 37
 
     /**
+     * Native name: CM_PROB_DRIVER_FAILED_PRIOR_UNLOAD
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DRIVER_FAILED_PRIOR_UNLOAD => 38
+    static DRIVER_FAILED_PRIOR_UNLOAD => 38
 
     /**
+     * Native name: CM_PROB_DRIVER_FAILED_LOAD
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DRIVER_FAILED_LOAD => 39
+    static DRIVER_FAILED_LOAD => 39
 
     /**
+     * Native name: CM_PROB_DRIVER_SERVICE_KEY_INVALID
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DRIVER_SERVICE_KEY_INVALID => 40
+    static DRIVER_SERVICE_KEY_INVALID => 40
 
     /**
+     * Native name: CM_PROB_LEGACY_SERVICE_NO_DEVICES
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_LEGACY_SERVICE_NO_DEVICES => 41
+    static LEGACY_SERVICE_NO_DEVICES => 41
 
     /**
+     * Native name: CM_PROB_DUPLICATE_DEVICE
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DUPLICATE_DEVICE => 42
+    static DUPLICATE_DEVICE => 42
 
     /**
+     * Native name: CM_PROB_FAILED_POST_START
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_FAILED_POST_START => 43
+    static FAILED_POST_START => 43
 
     /**
+     * Native name: CM_PROB_HALTED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_HALTED => 44
+    static HALTED => 44
 
     /**
+     * Native name: CM_PROB_PHANTOM
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_PHANTOM => 45
+    static PHANTOM => 45
 
     /**
+     * Native name: CM_PROB_SYSTEM_SHUTDOWN
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_SYSTEM_SHUTDOWN => 46
+    static SYSTEM_SHUTDOWN => 46
 
     /**
+     * Native name: CM_PROB_HELD_FOR_EJECT
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_HELD_FOR_EJECT => 47
+    static HELD_FOR_EJECT => 47
 
     /**
+     * Native name: CM_PROB_DRIVER_BLOCKED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DRIVER_BLOCKED => 48
+    static DRIVER_BLOCKED => 48
 
     /**
+     * Native name: CM_PROB_REGISTRY_TOO_LARGE
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_REGISTRY_TOO_LARGE => 49
+    static REGISTRY_TOO_LARGE => 49
 
     /**
+     * Native name: CM_PROB_SETPROPERTIES_FAILED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_SETPROPERTIES_FAILED => 50
+    static SETPROPERTIES_FAILED => 50
 
     /**
+     * Native name: CM_PROB_WAITING_ON_DEPENDENCY
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_WAITING_ON_DEPENDENCY => 51
+    static WAITING_ON_DEPENDENCY => 51
 
     /**
+     * Native name: CM_PROB_UNSIGNED_DRIVER
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_UNSIGNED_DRIVER => 52
+    static UNSIGNED_DRIVER => 52
 
     /**
+     * Native name: CM_PROB_USED_BY_DEBUGGER
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_USED_BY_DEBUGGER => 53
+    static USED_BY_DEBUGGER => 53
 
     /**
+     * Native name: CM_PROB_DEVICE_RESET
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_DEVICE_RESET => 54
+    static DEVICE_RESET => 54
 
     /**
+     * Native name: CM_PROB_CONSOLE_LOCKED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_CONSOLE_LOCKED => 55
+    static CONSOLE_LOCKED => 55
 
     /**
+     * Native name: CM_PROB_NEED_CLASS_CONFIG
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_NEED_CLASS_CONFIG => 56
+    static NEED_CLASS_CONFIG => 56
 
     /**
+     * Native name: CM_PROB_GUEST_ASSIGNMENT_FAILED
      * @type {Integer (UInt32)}
      */
-    static CM_PROB_GUEST_ASSIGNMENT_FAILED => 57
+    static GUEST_ASSIGNMENT_FAILED => 57
 }

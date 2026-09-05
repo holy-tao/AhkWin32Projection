@@ -7,297 +7,356 @@
 class POWER_MONITOR_REQUEST_REASON extends Win32Enum {
 
     /**
+     * Native name: MonitorRequestReasonUnknown
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: MonitorRequestReasonPowerButton
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPowerButton => 1
+    static PowerButton => 1
 
     /**
+     * Native name: MonitorRequestReasonRemoteConnection
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonRemoteConnection => 2
+    static RemoteConnection => 2
 
     /**
+     * Native name: MonitorRequestReasonScMonitorpower
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonScMonitorpower => 3
+    static ScMonitorpower => 3
 
     /**
+     * Native name: MonitorRequestReasonUserInput
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInput => 4
+    static UserInput => 4
 
     /**
+     * Native name: MonitorRequestReasonAcDcDisplayBurst
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonAcDcDisplayBurst => 5
+    static AcDcDisplayBurst => 5
 
     /**
+     * Native name: MonitorRequestReasonUserDisplayBurst
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserDisplayBurst => 6
+    static UserDisplayBurst => 6
 
     /**
+     * Native name: MonitorRequestReasonPoSetSystemState
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPoSetSystemState => 7
+    static PoSetSystemState => 7
 
     /**
+     * Native name: MonitorRequestReasonSetThreadExecutionState
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonSetThreadExecutionState => 8
+    static SetThreadExecutionState => 8
 
     /**
+     * Native name: MonitorRequestReasonFullWake
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonFullWake => 9
+    static FullWake => 9
 
     /**
+     * Native name: MonitorRequestReasonSessionUnlock
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonSessionUnlock => 10
+    static SessionUnlock => 10
 
     /**
+     * Native name: MonitorRequestReasonScreenOffRequest
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonScreenOffRequest => 11
+    static ScreenOffRequest => 11
 
     /**
+     * Native name: MonitorRequestReasonIdleTimeout
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonIdleTimeout => 12
+    static IdleTimeout => 12
 
     /**
+     * Native name: MonitorRequestReasonPolicyChange
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPolicyChange => 13
+    static PolicyChange => 13
 
     /**
+     * Native name: MonitorRequestReasonSleepButton
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonSleepButton => 14
+    static SleepButton => 14
 
     /**
+     * Native name: MonitorRequestReasonLid
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonLid => 15
+    static Lid => 15
 
     /**
+     * Native name: MonitorRequestReasonBatteryCountChange
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonBatteryCountChange => 16
+    static BatteryCountChange => 16
 
     /**
+     * Native name: MonitorRequestReasonGracePeriod
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonGracePeriod => 17
+    static GracePeriod => 17
 
     /**
+     * Native name: MonitorRequestReasonPnP
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPnP => 18
+    static PnP => 18
 
     /**
+     * Native name: MonitorRequestReasonDP
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonDP => 19
+    static ReasonDP => 19
 
     /**
+     * Native name: MonitorRequestReasonSxTransition
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonSxTransition => 20
+    static SxTransition => 20
 
     /**
+     * Native name: MonitorRequestReasonSystemIdle
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonSystemIdle => 21
+    static SystemIdle => 21
 
     /**
+     * Native name: MonitorRequestReasonNearProximity
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonNearProximity => 22
+    static NearProximity => 22
 
     /**
+     * Native name: MonitorRequestReasonThermalStandby
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonThermalStandby => 23
+    static ThermalStandby => 23
 
     /**
+     * Native name: MonitorRequestReasonResumePdc
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonResumePdc => 24
+    static ResumePdc => 24
 
     /**
+     * Native name: MonitorRequestReasonResumeS4
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonResumeS4 => 25
+    static ResumeS4 => 25
 
     /**
+     * Native name: MonitorRequestReasonTerminal
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonTerminal => 26
+    static Terminal => 26
 
     /**
+     * Native name: MonitorRequestReasonPdcSignal
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPdcSignal => 27
+    static PdcSignal => 27
 
     /**
+     * Native name: MonitorRequestReasonAcDcDisplayBurstSuppressed
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonAcDcDisplayBurstSuppressed => 28
+    static AcDcDisplayBurstSuppressed => 28
 
     /**
+     * Native name: MonitorRequestReasonSystemStateEntered
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonSystemStateEntered => 29
+    static SystemStateEntered => 29
 
     /**
+     * Native name: MonitorRequestReasonWinrt
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonWinrt => 30
+    static Winrt => 30
 
     /**
+     * Native name: MonitorRequestReasonUserInputKeyboard
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputKeyboard => 31
+    static UserInputKeyboard => 31
 
     /**
+     * Native name: MonitorRequestReasonUserInputMouse
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputMouse => 32
+    static UserInputMouse => 32
 
     /**
+     * Native name: MonitorRequestReasonUserInputTouchpad
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputTouchpad => 33
+    static UserInputTouchpad => 33
 
     /**
+     * Native name: MonitorRequestReasonUserInputPen
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputPen => 34
+    static UserInputPen => 34
 
     /**
+     * Native name: MonitorRequestReasonUserInputAccelerometer
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputAccelerometer => 35
+    static UserInputAccelerometer => 35
 
     /**
+     * Native name: MonitorRequestReasonUserInputHid
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputHid => 36
+    static UserInputHid => 36
 
     /**
+     * Native name: MonitorRequestReasonUserInputPoUserPresent
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputPoUserPresent => 37
+    static UserInputPoUserPresent => 37
 
     /**
+     * Native name: MonitorRequestReasonUserInputSessionSwitch
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputSessionSwitch => 38
+    static UserInputSessionSwitch => 38
 
     /**
+     * Native name: MonitorRequestReasonUserInputInitialization
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputInitialization => 39
+    static UserInputInitialization => 39
 
     /**
+     * Native name: MonitorRequestReasonPdcSignalWindowsMobilePwrNotif
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPdcSignalWindowsMobilePwrNotif => 40
+    static PdcSignalWindowsMobilePwrNotif => 40
 
     /**
+     * Native name: MonitorRequestReasonPdcSignalWindowsMobileShell
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPdcSignalWindowsMobileShell => 41
+    static PdcSignalWindowsMobileShell => 41
 
     /**
+     * Native name: MonitorRequestReasonPdcSignalHeyCortana
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPdcSignalHeyCortana => 42
+    static PdcSignalHeyCortana => 42
 
     /**
+     * Native name: MonitorRequestReasonPdcSignalHolographicShell
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPdcSignalHolographicShell => 43
+    static PdcSignalHolographicShell => 43
 
     /**
+     * Native name: MonitorRequestReasonPdcSignalFingerprint
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPdcSignalFingerprint => 44
+    static PdcSignalFingerprint => 44
 
     /**
+     * Native name: MonitorRequestReasonDirectedDrips
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonDirectedDrips => 45
+    static DirectedDrips => 45
 
     /**
+     * Native name: MonitorRequestReasonDim
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonDim => 46
+    static Dim => 46
 
     /**
+     * Native name: MonitorRequestReasonBuiltinPanel
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonBuiltinPanel => 47
+    static BuiltinPanel => 47
 
     /**
+     * Native name: MonitorRequestReasonDisplayRequiredUnDim
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonDisplayRequiredUnDim => 48
+    static DisplayRequiredUnDim => 48
 
     /**
+     * Native name: MonitorRequestReasonBatteryCountChangeSuppressed
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonBatteryCountChangeSuppressed => 49
+    static BatteryCountChangeSuppressed => 49
 
     /**
+     * Native name: MonitorRequestReasonResumeModernStandby
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonResumeModernStandby => 50
+    static ResumeModernStandby => 50
 
     /**
+     * Native name: MonitorRequestReasonTerminalInit
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonTerminalInit => 51
+    static TerminalInit => 51
 
     /**
+     * Native name: MonitorRequestReasonPdcSignalSensorsHumanPresence
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonPdcSignalSensorsHumanPresence => 52
+    static PdcSignalSensorsHumanPresence => 52
 
     /**
+     * Native name: MonitorRequestReasonBatteryPreCritical
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonBatteryPreCritical => 53
+    static BatteryPreCritical => 53
 
     /**
+     * Native name: MonitorRequestReasonUserInputTouch
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonUserInputTouch => 54
+    static UserInputTouch => 54
 
     /**
+     * Native name: MonitorRequestReasonAusterityBatteryDrain
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonAusterityBatteryDrain => 55
+    static AusterityBatteryDrain => 55
 
     /**
+     * Native name: MonitorRequestReasonDozeRestrictedStandby
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonDozeRestrictedStandby => 56
+    static DozeRestrictedStandby => 56
 
     /**
+     * Native name: MonitorRequestReasonSmartRestrictedStandby
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonSmartRestrictedStandby => 57
+    static SmartRestrictedStandby => 57
 
     /**
+     * Native name: MonitorRequestReasonMax
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonMax => 58
+    static Max => 58
 }

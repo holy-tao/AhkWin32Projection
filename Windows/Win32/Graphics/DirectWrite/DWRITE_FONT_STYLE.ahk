@@ -45,19 +45,22 @@ class DWRITE_FONT_STYLE extends Win32Enum {
 
     /**
      * Font style : Normal.
+     * Native name: DWRITE_FONT_STYLE_NORMAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STYLE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * Font style : Oblique.
+     * Native name: DWRITE_FONT_STYLE_OBLIQUE
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STYLE_OBLIQUE => 1
+    static OBLIQUE => 1
 
     /**
      * Font style : Italic.
+     * Native name: DWRITE_FONT_STYLE_ITALIC
      * @type {Integer (Int32)}
      */
-    static DWRITE_FONT_STYLE_ITALIC => 2
+    static ITALIC => 2
 }

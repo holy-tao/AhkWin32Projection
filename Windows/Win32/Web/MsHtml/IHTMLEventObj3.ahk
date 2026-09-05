@@ -125,7 +125,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_contentOverflow() {
@@ -134,7 +133,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -144,7 +142,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftLeft() {
@@ -153,7 +150,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -163,7 +159,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altLeft() {
@@ -172,7 +167,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -182,7 +176,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlLeft() {
@@ -191,7 +184,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeCompositionChange() {
@@ -200,7 +192,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeNotifyCommand() {
@@ -209,7 +200,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeNotifyData() {
@@ -218,7 +208,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeRequest() {
@@ -227,7 +216,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeRequestData() {
@@ -236,7 +224,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_keyboardLayout() {
@@ -245,7 +232,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_behaviorCookie() {
@@ -254,7 +240,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_behaviorPart() {
@@ -263,7 +248,6 @@ class IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nextPage() {

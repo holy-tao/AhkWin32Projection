@@ -16,13 +16,15 @@ class D2D1_FACTORY_TYPE extends Win32Enum {
 
     /**
      * No synchronization is provided for accessing or writing to the factory or the objects it creates. If the factory or the objects are called from multiple threads, it is up to the application to provide access locking.
+     * Native name: D2D1_FACTORY_TYPE_SINGLE_THREADED
      * @type {Integer (Int32)}
      */
-    static D2D1_FACTORY_TYPE_SINGLE_THREADED => 0
+    static SINGLE_THREADED => 0
 
     /**
      * Direct2D provides synchronization for accessing and writing to the factory and the objects it creates, enabling safe access from multiple threads.
+     * Native name: D2D1_FACTORY_TYPE_MULTI_THREADED
      * @type {Integer (Int32)}
      */
-    static D2D1_FACTORY_TYPE_MULTI_THREADED => 1
+    static MULTI_THREADED => 1
 }

@@ -72,7 +72,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +81,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_x() {
@@ -91,7 +89,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_y() {
@@ -110,7 +106,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +115,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_dx() {
@@ -129,7 +123,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -139,7 +132,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_dy() {
@@ -148,7 +140,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedNumberList} v 
      * @returns {HRESULT} 
      */
@@ -158,7 +149,6 @@ class ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedNumberList} 
      */
     get_rotate() {

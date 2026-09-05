@@ -7,22 +7,26 @@
 class DISPID_InkDivisionUnit extends Win32Enum {
 
     /**
+     * Native name: DISPID_IInkDivisionUnit_Strokes
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivisionUnit_Strokes => 1
+    static IInkDivisionUnit_Strokes => 1
 
     /**
+     * Native name: DISPID_IInkDivisionUnit_DivisionType
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivisionUnit_DivisionType => 2
+    static IInkDivisionUnit_DivisionType => 2
 
     /**
+     * Native name: DISPID_IInkDivisionUnit_RecognizedString
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivisionUnit_RecognizedString => 3
+    static IInkDivisionUnit_RecognizedString => 3
 
     /**
+     * Native name: DISPID_IInkDivisionUnit_RotationTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_IInkDivisionUnit_RotationTransform => 4
+    static IInkDivisionUnit_RotationTransform => 4
 }

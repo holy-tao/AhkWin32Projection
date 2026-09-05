@@ -10,13 +10,15 @@ class D3D11_SHADER_MIN_PRECISION_SUPPORT extends Win32Enum {
 
     /**
      * Minimum precision level is 10-bit.
+     * Native name: D3D11_SHADER_MIN_PRECISION_10_BIT
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_MIN_PRECISION_10_BIT => 1
+    static 10_BIT => 1
 
     /**
      * Minimum precision level is 16-bit.
+     * Native name: D3D11_SHADER_MIN_PRECISION_16_BIT
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_MIN_PRECISION_16_BIT => 2
+    static 16_BIT => 2
 }

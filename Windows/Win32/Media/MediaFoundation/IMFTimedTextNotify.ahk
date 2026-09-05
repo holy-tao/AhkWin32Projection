@@ -74,7 +74,6 @@ class IMFTimedTextNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} trackId 
      * @returns {String} Nothing - always returns an empty string
      */

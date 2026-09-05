@@ -36,7 +36,6 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
     static VTableNames => ["GetPaintFeatureLevel", "DrawPaintGlyphRun", "DrawGlyphRunWithColorSupport"]
 
     /**
-     * 
      * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
     GetPaintFeatureLevel() {
@@ -45,7 +44,6 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
     }
 
     /**
-     * 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {ID2D1Brush} defaultFillBrush 
@@ -58,7 +56,6 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
     }
 
     /**
-     * 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription 

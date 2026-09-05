@@ -30,7 +30,6 @@ class IWMPDownloadItem2 extends IWMPDownloadItem {
     static VTableNames => ["getItemInfo"]
 
     /**
-     * 
      * @param {BSTR} bstrItemName 
      * @param {Pointer<BSTR>} pbstrVal 
      * @returns {HRESULT} 

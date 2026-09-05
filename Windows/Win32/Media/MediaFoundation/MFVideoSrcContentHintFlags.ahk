@@ -12,19 +12,22 @@ class MFVideoSrcContentHintFlags extends Win32Enum {
 
     /**
      * The aspect ratio is unknown.
+     * Native name: MFVideoSrcContentHintFlag_None
      * @type {Integer (Int32)}
      */
-    static MFVideoSrcContentHintFlag_None => 0
+    static Flag_None => 0
 
     /**
      * The source is 16×9 content encoded within a 4×3 area.
+     * Native name: MFVideoSrcContentHintFlag_16x9
      * @type {Integer (Int32)}
      */
-    static MFVideoSrcContentHintFlag_16x9 => 1
+    static Flag_16x9 => 1
 
     /**
      * The source is 2.35:1 content encoded within a 16×9 or 4×3 area.
+     * Native name: MFVideoSrcContentHintFlag_235_1
      * @type {Integer (Int32)}
      */
-    static MFVideoSrcContentHintFlag_235_1 => 2
+    static Flag_235_1 => 2
 }

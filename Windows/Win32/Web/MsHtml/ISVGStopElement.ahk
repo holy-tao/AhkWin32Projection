@@ -43,7 +43,6 @@ class ISVGStopElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedNumber} v 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ISVGStopElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedNumber} 
      */
     get_offset() {

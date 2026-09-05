@@ -7,7 +7,8 @@
 class KSEVENT_BDA_TUNER extends Win32Enum {
 
     /**
+     * Native name: KSEVENT_BDA_TUNER_SCAN
      * @type {Integer (Int32)}
      */
-    static KSEVENT_BDA_TUNER_SCAN => 0
+    static SCAN => 0
 }

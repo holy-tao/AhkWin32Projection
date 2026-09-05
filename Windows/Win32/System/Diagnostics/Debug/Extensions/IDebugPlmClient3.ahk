@@ -31,7 +31,6 @@ class IDebugPlmClient3 extends IUnknown {
     static VTableNames => ["LaunchPlmPackageForDebugWide", "LaunchPlmBgTaskForDebugWide", "QueryPlmPackageWide", "QueryPlmPackageList", "EnablePlmPackageDebugWide", "DisablePlmPackageDebugWide", "SuspendPlmPackageWide", "ResumePlmPackageWide", "TerminatePlmPackageWide", "LaunchAndDebugPlmAppWide", "ActivateAndDebugPlmBgTaskWide"]
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 
@@ -54,7 +53,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 
@@ -75,7 +73,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @param {IDebugOutputStream} Stream 
@@ -89,7 +86,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {IDebugOutputStream} Stream 
      * @returns {HRESULT} 
@@ -100,7 +96,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -113,7 +108,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -126,7 +120,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -139,7 +132,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -152,7 +144,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -165,7 +156,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @param {PWSTR} AppName 
@@ -182,7 +172,6 @@ class IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @param {PWSTR} BackgroundTaskId 

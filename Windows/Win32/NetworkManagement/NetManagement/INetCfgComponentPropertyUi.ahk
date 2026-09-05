@@ -31,7 +31,6 @@ class INetCfgComponentPropertyUi extends IUnknown {
     static VTableNames => ["QueryPropertyUi", "SetContext", "MergePropPages", "ValidateProperties", "ApplyProperties", "CancelProperties"]
 
     /**
-     * 
      * @param {IUnknown} pUnkReserved 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkReserved 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwDefPages 
      * @param {Pointer<Pointer<Integer>>} pahpspPrivate 
      * @param {Pointer<Integer>} pcPages 
@@ -72,7 +69,6 @@ class INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndSheet 
      * @returns {HRESULT} 
      */
@@ -84,7 +80,6 @@ class INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ApplyProperties() {
@@ -93,7 +88,6 @@ class INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelProperties() {

@@ -65,7 +65,6 @@ class IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_firstElementChild() {
@@ -74,7 +73,6 @@ class IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_lastElementChild() {
@@ -83,7 +81,6 @@ class IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_previousElementSibling() {
@@ -92,7 +89,6 @@ class IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_nextElementSibling() {
@@ -101,7 +97,6 @@ class IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_childElementCount() {

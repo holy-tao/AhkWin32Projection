@@ -391,7 +391,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -403,7 +402,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAppearance() {
@@ -413,7 +411,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -425,7 +422,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitUserSelect() {
@@ -435,7 +431,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -447,7 +442,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxAlign() {
@@ -457,7 +451,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -467,7 +460,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBoxOrdinalGroup() {
@@ -477,7 +469,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -489,7 +480,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxPack() {
@@ -499,7 +489,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -509,7 +498,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBoxFlex() {
@@ -519,7 +507,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -531,7 +518,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxOrient() {
@@ -541,7 +527,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -553,7 +538,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxDirection() {
@@ -563,7 +547,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -575,7 +558,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransform() {
@@ -585,7 +567,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -597,7 +578,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundSize() {
@@ -607,7 +587,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -619,7 +598,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackfaceVisibility() {
@@ -629,7 +607,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -641,7 +618,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimation() {
@@ -651,7 +627,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -663,7 +638,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransition() {
@@ -673,7 +647,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -685,7 +658,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationName() {
@@ -695,7 +667,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -707,7 +678,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationDuration() {
@@ -717,7 +687,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -729,7 +698,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationTimingFunction() {
@@ -739,7 +707,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -751,7 +718,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationDelay() {
@@ -761,7 +727,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -773,7 +738,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationIterationCount() {
@@ -783,7 +747,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -795,7 +758,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationDirection() {
@@ -805,7 +767,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -817,7 +778,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationPlayState() {
@@ -827,7 +787,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -839,7 +798,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionProperty() {
@@ -849,7 +807,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -861,7 +818,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionDuration() {
@@ -871,7 +827,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -883,7 +838,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionTimingFunction() {
@@ -893,7 +847,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -905,7 +858,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionDelay() {
@@ -915,7 +867,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -927,7 +878,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundAttachment() {
@@ -937,7 +887,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -947,7 +896,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBackgroundColor() {
@@ -957,7 +905,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -969,7 +916,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundClip() {
@@ -979,7 +925,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -991,7 +936,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundImage() {
@@ -1001,7 +945,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1013,7 +956,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundRepeat() {
@@ -1023,7 +965,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1035,7 +976,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundOrigin() {
@@ -1045,7 +985,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1057,7 +996,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundPosition() {
@@ -1067,7 +1005,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1077,7 +1014,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBackgroundPositionX() {
@@ -1087,7 +1023,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1097,7 +1032,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBackgroundPositionY() {
@@ -1107,7 +1041,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1119,7 +1052,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackground() {
@@ -1129,7 +1061,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1141,7 +1072,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransformOrigin() {
@@ -1151,7 +1081,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1161,7 +1090,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msTextSizeAdjust() {
@@ -1171,7 +1099,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1181,7 +1108,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitTextSizeAdjust() {
@@ -1191,7 +1117,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1203,7 +1128,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImage() {
@@ -1213,7 +1137,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1225,7 +1148,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageSource() {
@@ -1235,7 +1157,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1247,7 +1168,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageSlice() {
@@ -1257,7 +1177,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1269,7 +1188,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageWidth() {
@@ -1279,7 +1197,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1291,7 +1208,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageOutset() {
@@ -1301,7 +1217,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1313,7 +1228,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageRepeat() {
@@ -1323,7 +1237,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1335,7 +1248,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxSizing() {
@@ -1345,7 +1257,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1357,7 +1268,6 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationFillMode() {

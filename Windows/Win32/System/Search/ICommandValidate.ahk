@@ -29,7 +29,6 @@ class ICommandValidate extends IUnknown {
     static VTableNames => ["ValidateCompletely", "ValidateSyntax"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ValidateCompletely() {
@@ -38,7 +37,6 @@ class ICommandValidate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ValidateSyntax() {

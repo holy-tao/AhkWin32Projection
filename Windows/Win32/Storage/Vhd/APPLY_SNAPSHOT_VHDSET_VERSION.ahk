@@ -10,13 +10,15 @@ class APPLY_SNAPSHOT_VHDSET_VERSION extends Win32Enum {
 
     /**
      * Not Supported.
+     * Native name: APPLY_SNAPSHOT_VHDSET_VERSION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static APPLY_SNAPSHOT_VHDSET_VERSION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
      * The Version1 member structure will be used.
+     * Native name: APPLY_SNAPSHOT_VHDSET_VERSION_1
      * @type {Integer (Int32)}
      */
-    static APPLY_SNAPSHOT_VHDSET_VERSION_1 => 1
+    static 1 => 1
 }

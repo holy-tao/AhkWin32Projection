@@ -7,27 +7,32 @@
 class KBUGCHECK_BUFFER_DUMP_STATE extends Win32Enum {
 
     /**
+     * Native name: BufferEmpty
      * @type {Integer (Int32)}
      */
-    static BufferEmpty => 0
+    static Empty => 0
 
     /**
+     * Native name: BufferInserted
      * @type {Integer (Int32)}
      */
-    static BufferInserted => 1
+    static Inserted => 1
 
     /**
+     * Native name: BufferStarted
      * @type {Integer (Int32)}
      */
-    static BufferStarted => 2
+    static Started => 2
 
     /**
+     * Native name: BufferFinished
      * @type {Integer (Int32)}
      */
-    static BufferFinished => 3
+    static Finished => 3
 
     /**
+     * Native name: BufferIncomplete
      * @type {Integer (Int32)}
      */
-    static BufferIncomplete => 4
+    static Incomplete => 4
 }

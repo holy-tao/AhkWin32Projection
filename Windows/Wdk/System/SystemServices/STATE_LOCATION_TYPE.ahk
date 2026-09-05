@@ -7,17 +7,20 @@
 class STATE_LOCATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: LocationTypeRegistry
      * @type {Integer (Int32)}
      */
-    static LocationTypeRegistry => 0
+    static Registry => 0
 
     /**
+     * Native name: LocationTypeFileSystem
      * @type {Integer (Int32)}
      */
-    static LocationTypeFileSystem => 1
+    static FileSystem => 1
 
     /**
+     * Native name: LocationTypeMaximum
      * @type {Integer (Int32)}
      */
-    static LocationTypeMaximum => 2
+    static Maximum => 2
 }

@@ -14,25 +14,29 @@ class D3D12_ROOT_DESCRIPTOR_FLAGS extends Win32BitflagEnum {
 
     /**
      * Default assumptions are made for data (for SRV/CBV: DATA_STATIC_WHILE_SET_AT_EXECUTE, and for UAV: DATA_VOLATILE).
+     * Native name: D3D12_ROOT_DESCRIPTOR_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_DESCRIPTOR_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Data is volatile. Equivalent to Root Signature Version 1.0.
+     * Native name: D3D12_ROOT_DESCRIPTOR_FLAG_DATA_VOLATILE
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_DESCRIPTOR_FLAG_DATA_VOLATILE => 2
+    static FLAG_DATA_VOLATILE => 2
 
     /**
      * Data is static while set at execute.
+     * Native name: D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE => 4
+    static FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE => 4
 
     /**
      * Data is static. The best potential for driver optimization.
+     * Native name: D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC
      * @type {Integer (Int32)}
      */
-    static D3D12_ROOT_DESCRIPTOR_FLAG_DATA_STATIC => 8
+    static FLAG_DATA_STATIC => 8
 }

@@ -22,33 +22,38 @@ class VDS_VOLUME_STATUS extends Win32Enum {
 
     /**
      * The status of the volume is unknown. This value does not apply to dynamic volumes.
+     * Native name: VDS_VS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_VS_UNKNOWN => 0
+    static VS_UNKNOWN => 0
 
     /**
      * The volume is available.
+     * Native name: VDS_VS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_VS_ONLINE => 1
+    static VS_ONLINE => 1
 
     /**
      * The volume is removable media, such as a CD-ROM.
+     * Native name: VDS_VS_NO_MEDIA
      * @type {Integer (Int32)}
      */
-    static VDS_VS_NO_MEDIA => 3
+    static VS_NO_MEDIA => 3
 
     /**
      * The volume is unavailable.
+     * Native name: VDS_VS_FAILED
      * @type {Integer (Int32)}
      */
-    static VDS_VS_FAILED => 5
+    static VS_FAILED => 5
 
     /**
      * The volume is offline.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported. If the volume is offline, the <b>VDS_VF_PERMANENTLY_DISMOUNTED</b> flag is set in the <b>ulFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a> or <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop2">VDS_VOLUME_PROP2</a> structure.
+     * Native name: VDS_VS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_VS_OFFLINE => 4
+    static VS_OFFLINE => 4
 }

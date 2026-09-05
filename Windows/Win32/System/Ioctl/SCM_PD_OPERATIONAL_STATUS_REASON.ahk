@@ -7,122 +7,146 @@
 class SCM_PD_OPERATIONAL_STATUS_REASON extends Win32Enum {
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_Unknown
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_Unknown => 0
+    static PhysicalDeviceOpReason_Unknown => 0
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_Media
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_Media => 1
+    static PhysicalDeviceOpReason_Media => 1
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_ThresholdExceeded
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_ThresholdExceeded => 2
+    static PhysicalDeviceOpReason_ThresholdExceeded => 2
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_LostData
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_LostData => 3
+    static PhysicalDeviceOpReason_LostData => 3
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_EnergySource
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_EnergySource => 4
+    static PhysicalDeviceOpReason_EnergySource => 4
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_Configuration
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_Configuration => 5
+    static PhysicalDeviceOpReason_Configuration => 5
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_DeviceController
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_DeviceController => 6
+    static PhysicalDeviceOpReason_DeviceController => 6
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_MediaController
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_MediaController => 7
+    static PhysicalDeviceOpReason_MediaController => 7
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_Component
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_Component => 8
+    static PhysicalDeviceOpReason_Component => 8
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_BackgroundOperation
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_BackgroundOperation => 9
+    static PhysicalDeviceOpReason_BackgroundOperation => 9
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_InvalidFirmware
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_InvalidFirmware => 10
+    static PhysicalDeviceOpReason_InvalidFirmware => 10
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_HealthCheck
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_HealthCheck => 11
+    static PhysicalDeviceOpReason_HealthCheck => 11
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_LostDataPersistence
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_LostDataPersistence => 12
+    static PhysicalDeviceOpReason_LostDataPersistence => 12
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_DisabledByPlatform
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_DisabledByPlatform => 13
+    static PhysicalDeviceOpReason_DisabledByPlatform => 13
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_PermanentError
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_PermanentError => 14
+    static PhysicalDeviceOpReason_PermanentError => 14
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_LostWritePersistence
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_LostWritePersistence => 15
+    static PhysicalDeviceOpReason_LostWritePersistence => 15
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_FatalError
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_FatalError => 16
+    static PhysicalDeviceOpReason_FatalError => 16
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_DataPersistenceLossImminent
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_DataPersistenceLossImminent => 17
+    static PhysicalDeviceOpReason_DataPersistenceLossImminent => 17
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_WritePersistenceLossImminent
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_WritePersistenceLossImminent => 18
+    static PhysicalDeviceOpReason_WritePersistenceLossImminent => 18
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock => 19
+    static PhysicalDeviceOpReason_MediaRemainingSpareBlock => 19
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_PerformanceDegradation
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_PerformanceDegradation => 20
+    static PhysicalDeviceOpReason_PerformanceDegradation => 20
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_ExcessiveTemperature
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_ExcessiveTemperature => 21
+    static PhysicalDeviceOpReason_ExcessiveTemperature => 21
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_InternalFailure
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_InternalFailure => 22
+    static PhysicalDeviceOpReason_InternalFailure => 22
 
     /**
+     * Native name: ScmPhysicalDeviceOpReason_Max
      * @type {Integer (Int32)}
      */
-    static ScmPhysicalDeviceOpReason_Max => 23
+    static PhysicalDeviceOpReason_Max => 23
 }

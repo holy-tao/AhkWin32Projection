@@ -10,13 +10,15 @@ class TfShiftDir extends Win32Enum {
 
     /**
      * Specifies that the anchor will be moved to the region immediately preceding the range.
+     * Native name: TF_SD_BACKWARD
      * @type {Integer (Int32)}
      */
-    static TF_SD_BACKWARD => 0
+    static SD_BACKWARD => 0
 
     /**
      * Specifies that the anchor will be moved to the region immediately following the range.
+     * Native name: TF_SD_FORWARD
      * @type {Integer (Int32)}
      */
-    static TF_SD_FORWARD => 1
+    static SD_FORWARD => 1
 }

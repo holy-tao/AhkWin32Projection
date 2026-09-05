@@ -7,7 +7,8 @@
 class WPCFLAG_OVERRIDE extends Win32Enum {
 
     /**
+     * Native name: WPCFLAG_APPLICATION
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_APPLICATION => 1
+    static APPLICATION => 1
 }

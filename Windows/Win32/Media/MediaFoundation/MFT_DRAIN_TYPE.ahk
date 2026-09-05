@@ -7,12 +7,14 @@
 class MFT_DRAIN_TYPE extends Win32Enum {
 
     /**
+     * Native name: MFT_DRAIN_PRODUCE_TAILS
      * @type {Integer (Int32)}
      */
-    static MFT_DRAIN_PRODUCE_TAILS => 0
+    static PRODUCE_TAILS => 0
 
     /**
+     * Native name: MFT_DRAIN_NO_TAILS
      * @type {Integer (Int32)}
      */
-    static MFT_DRAIN_NO_TAILS => 1
+    static NO_TAILS => 1
 }

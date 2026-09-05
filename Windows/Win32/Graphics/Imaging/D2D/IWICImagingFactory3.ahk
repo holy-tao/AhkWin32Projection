@@ -30,7 +30,6 @@ class IWICImagingFactory3 extends IWICImagingFactory2 {
     static VTableNames => ["CreateBitmapToneMapper"]
 
     /**
-     * 
      * @returns {IWICBitmapToneMapper} 
      */
     CreateBitmapToneMapper() {

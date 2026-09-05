@@ -45,7 +45,6 @@ class ICorrelationVectorInformation extends IInspectable {
     }
 
     /**
-     * 
      * @returns {HSTRING} 
      */
     get_LastCorrelationVectorForThread() {
@@ -55,7 +54,6 @@ class ICorrelationVectorInformation extends IInspectable {
     }
 
     /**
-     * 
      * @returns {HSTRING} 
      */
     get_NextCorrelationVectorForThread() {
@@ -65,7 +63,6 @@ class ICorrelationVectorInformation extends IInspectable {
     }
 
     /**
-     * 
      * @param {HSTRING} cv 
      * @returns {HRESULT} 
      */

@@ -12,61 +12,71 @@ class SYNCMGR_ITEM_CAPABILITIES extends Win32Enum {
 
     /**
      * No capability flags are set.
+     * Native name: SYNCMGR_ICM_NONE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_NONE => 0
+    static ICM_NONE => 0
 
     /**
      * The item returns a valid object from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject">ISyncMgrSyncItem::GetObject</a> when that method is called with the SYNCMGR_OBJECTID_Icon flag.
+     * Native name: SYNCMGR_ICM_PROVIDES_ICON
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_PROVIDES_ICON => 1
+    static ICM_PROVIDES_ICON => 1
 
     /**
      * The item returns a valid object from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject">ISyncMgrSyncItem::GetObject</a> when that method is called with the SYNCMGR_OBJECTID_EventStore flag.
+     * Native name: SYNCMGR_ICM_EVENT_STORE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_EVENT_STORE => 2
+    static ICM_EVENT_STORE => 2
 
     /**
      * The item returns a valid object from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject">ISyncMgrSyncItem::GetObject</a> when that method is called with the SYNCMGR_OBJECTID_ConflictStore flag.
+     * Native name: SYNCMGR_ICM_CONFLICT_STORE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_CONFLICT_STORE => 4
+    static ICM_CONFLICT_STORE => 4
 
     /**
      * The user is allowed to delete the item from the handler's folder. This can be used by an item to remove itself from the handler's sync set (for instance, remove a folder from the set of Offline Files). If this value is set, the <b>Delete</b> task is shown in the handler's folder when this item is selected.
+     * Native name: SYNCMGR_ICM_CAN_DELETE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_CAN_DELETE => 16
+    static ICM_CAN_DELETE => 16
 
     /**
      * The item returns a valid object from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject">ISyncMgrSyncItem::GetObject</a> when that method is called with the SYNCMGR_OBJECTID_BrowseContent flag. If this value is set, the <b>Browse Content</b> task is added to the item's shortcut menu.
+     * Native name: SYNCMGR_ICM_CAN_BROWSE_CONTENT
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_CAN_BROWSE_CONTENT => 65536
+    static ICM_CAN_BROWSE_CONTENT => 65536
 
     /**
      * The item returns a valid object from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject">ISyncMgrSyncItem::GetObject</a> when that method is called with the SYNCMGR_OBJECTID_QueryBeforeEnable flag.
+     * Native name: SYNCMGR_ICM_QUERY_BEFORE_ENABLE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_QUERY_BEFORE_ENABLE => 1048576
+    static ICM_QUERY_BEFORE_ENABLE => 1048576
 
     /**
      * The item returns a valid object from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject">ISyncMgrSyncItem::GetObject</a> when that method is called with the SYNCMGR_OBJECTID_QueryBeforeDisable flag.
+     * Native name: SYNCMGR_ICM_QUERY_BEFORE_DISABLE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_QUERY_BEFORE_DISABLE => 2097152
+    static ICM_QUERY_BEFORE_DISABLE => 2097152
 
     /**
      * The item returns a valid object from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject">ISyncMgrSyncItem::GetObject</a> when that method is called with the SYNCMGR_OBJECTID_QueryBeforeDelete flag.
+     * Native name: SYNCMGR_ICM_QUERY_BEFORE_DELETE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_QUERY_BEFORE_DELETE => 4194304
+    static ICM_QUERY_BEFORE_DELETE => 4194304
 
     /**
      * A mask used to retrieve valid <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ITEM_CAPABILITIES</a> flags.
+     * Native name: SYNCMGR_ICM_VALID_MASK
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_ICM_VALID_MASK => 7405591
+    static ICM_VALID_MASK => 7405591
 }

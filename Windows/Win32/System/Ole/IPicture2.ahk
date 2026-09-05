@@ -90,7 +90,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -99,7 +98,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_hPal() {
@@ -108,7 +106,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Type() {
@@ -117,7 +114,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -126,7 +122,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Height() {
@@ -176,7 +171,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hPal 
      * @returns {HRESULT} 
      */
@@ -186,7 +180,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HDC} 
      */
     get_CurDC() {
@@ -196,7 +189,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {HDC} hDCIn 
      * @param {Pointer<HDC>} phDCOut 
      * @param {Pointer<Pointer>} phBmpOut 
@@ -212,7 +204,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_KeepOriginalFormat() {
@@ -221,7 +212,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} keep 
      * @returns {HRESULT} 
      */
@@ -231,7 +221,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PictureChanged() {
@@ -240,7 +229,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {BOOL} fSaveMemCopy 
      * @returns {Integer} 
@@ -251,7 +239,6 @@ class IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Attributes() {

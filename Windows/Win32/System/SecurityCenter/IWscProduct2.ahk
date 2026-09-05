@@ -72,7 +72,6 @@ class IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusScanSubstatus() {
@@ -81,7 +80,6 @@ class IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusSettingsSubstatus() {
@@ -90,7 +88,6 @@ class IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusProtectionUpdateSubstatus() {
@@ -99,7 +96,6 @@ class IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallDomainProfileSubstatus() {
@@ -108,7 +104,6 @@ class IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallPrivateProfileSubstatus() {
@@ -117,7 +112,6 @@ class IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallPublicProfileSubstatus() {

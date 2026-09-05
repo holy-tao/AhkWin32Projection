@@ -7,34 +7,40 @@
 class KEY_VALUE_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: KeyValueBasicInformation
      * @type {Integer (Int32)}
      */
-    static KeyValueBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: KeyValueFullInformation
      * @type {Integer (Int32)}
      */
-    static KeyValueFullInformation => 1
+    static FullInformation => 1
 
     /**
+     * Native name: KeyValuePartialInformation
      * @type {Integer (Int32)}
      */
-    static KeyValuePartialInformation => 2
+    static PartialInformation => 2
 
     /**
+     * Native name: KeyValueFullInformationAlign64
      * @type {Integer (Int32)}
      */
-    static KeyValueFullInformationAlign64 => 3
+    static FullInformationAlign64 => 3
 
     /**
+     * Native name: KeyValuePartialInformationAlign64
      * @type {Integer (Int32)}
      */
-    static KeyValuePartialInformationAlign64 => 4
+    static PartialInformationAlign64 => 4
 
     /**
+     * Native name: KeyValueLayerInformation
      * @type {Integer (Int32)}
      */
-    static KeyValueLayerInformation => 5
+    static LayerInformation => 5
 
     /**
      * @type {Integer (Int32)}

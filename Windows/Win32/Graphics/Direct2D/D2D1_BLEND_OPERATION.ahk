@@ -12,31 +12,36 @@ class D2D1_BLEND_OPERATION extends Win32Enum {
 
     /**
      * Add source 1 and source 2.
+     * Native name: D2D1_BLEND_OPERATION_ADD
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_OPERATION_ADD => 1
+    static ADD => 1
 
     /**
      * Subtract source 1 from source 2.
+     * Native name: D2D1_BLEND_OPERATION_SUBTRACT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_OPERATION_SUBTRACT => 2
+    static SUBTRACT => 2
 
     /**
      * Subtract source 2 from source 1.
+     * Native name: D2D1_BLEND_OPERATION_REV_SUBTRACT
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_OPERATION_REV_SUBTRACT => 3
+    static REV_SUBTRACT => 3
 
     /**
      * Find the minimum of source 1 and source 2.
+     * Native name: D2D1_BLEND_OPERATION_MIN
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_OPERATION_MIN => 4
+    static MIN => 4
 
     /**
      * Find the maximum of source 1 and source 2.
+     * Native name: D2D1_BLEND_OPERATION_MAX
      * @type {Integer (Int32)}
      */
-    static D2D1_BLEND_OPERATION_MAX => 5
+    static MAX => 5
 }

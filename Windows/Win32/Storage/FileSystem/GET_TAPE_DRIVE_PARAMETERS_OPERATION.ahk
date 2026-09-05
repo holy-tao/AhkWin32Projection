@@ -7,12 +7,14 @@
 class GET_TAPE_DRIVE_PARAMETERS_OPERATION extends Win32Enum {
 
     /**
+     * Native name: GET_TAPE_DRIVE_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static GET_TAPE_DRIVE_INFORMATION => 1
+    static INFORMATION => 1
 
     /**
+     * Native name: GET_TAPE_MEDIA_INFORMATION
      * @type {Integer (UInt32)}
      */
-    static GET_TAPE_MEDIA_INFORMATION => 0
+    static MEDIA_INFORMATION => 0
 }

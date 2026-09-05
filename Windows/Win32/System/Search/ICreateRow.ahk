@@ -33,7 +33,6 @@ class ICreateRow extends IUnknown {
     static VTableNames => ["CreateRow"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {PWSTR} pwszURL 
      * @param {Integer} dwBindURLFlags 

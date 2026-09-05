@@ -10,59 +10,69 @@ class BDA_DrmPairingError extends Win32Enum {
 
     /**
      * The handshake was successful.
+     * Native name: BDA_DrmPairing_Succeeded
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_Succeeded => 0
+    static Succeeded => 0
 
     /**
      * A hardware failure occurred.
+     * Native name: BDA_DrmPairing_HardwareFailure
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_HardwareFailure => 1
+    static HardwareFailure => 1
 
     /**
      * The tuner could not obtain the certificate revocation list.
+     * Native name: BDA_DrmPairing_NeedRevocationData
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_NeedRevocationData => 2
+    static NeedRevocationData => 2
 
     /**
      * The tuner could not perform individualization.
+     * Native name: BDA_DrmPairing_NeedIndiv
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_NeedIndiv => 3
+    static NeedIndiv => 3
 
     /**
      * Network interface (SCTE 55-1).
+     * Native name: BDA_DrmPairing_Other
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_Other => 4
+    static Other => 4
 
     /**
      * The handshake failed during the initialization step.
+     * Native name: BDA_DrmPairing_DrmInitFailed
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_DrmInitFailed => 5
+    static DrmInitFailed => 5
 
     /**
      * The client has not requested a handshake or the handshake is still in progress.
+     * Native name: BDA_DrmPairing_DrmNotPaired
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_DrmNotPaired => 6
+    static DrmNotPaired => 6
 
     /**
      * The handshake was successful but will soon time out. The client should refresh the handshake soon.
+     * Native name: BDA_DrmPairing_DrmRePairSoon
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_DrmRePairSoon => 7
+    static DrmRePairSoon => 7
 
     /**
+     * Native name: BDA_DrmPairing_Aborted
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_Aborted => 8
+    static Aborted => 8
 
     /**
+     * Native name: BDA_DrmPairing_NeedSDKUpdate
      * @type {Integer (Int32)}
      */
-    static BDA_DrmPairing_NeedSDKUpdate => 9
+    static NeedSDKUpdate => 9
 }

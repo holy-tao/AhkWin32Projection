@@ -10,37 +10,43 @@ class DockPosition extends Win32Enum {
 
     /**
      * The window is docked at the top.
+     * Native name: DockPosition_Top
      * @type {Integer (Int32)}
      */
-    static DockPosition_Top => 0
+    static Top => 0
 
     /**
      * The window is docked at the left.
+     * Native name: DockPosition_Left
      * @type {Integer (Int32)}
      */
-    static DockPosition_Left => 1
+    static Left => 1
 
     /**
      * The window is docked at the bottom.
+     * Native name: DockPosition_Bottom
      * @type {Integer (Int32)}
      */
-    static DockPosition_Bottom => 2
+    static Bottom => 2
 
     /**
      * The window is docked at the right.
+     * Native name: DockPosition_Right
      * @type {Integer (Int32)}
      */
-    static DockPosition_Right => 3
+    static Right => 3
 
     /**
      * The window is docked on all four sides.
+     * Native name: DockPosition_Fill
      * @type {Integer (Int32)}
      */
-    static DockPosition_Fill => 4
+    static Fill => 4
 
     /**
      * The window is not docked.
+     * Native name: DockPosition_None
      * @type {Integer (Int32)}
      */
-    static DockPosition_None => 5
+    static None => 5
 }

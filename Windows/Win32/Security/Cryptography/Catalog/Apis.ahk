@@ -247,7 +247,6 @@ class Catalog {
     }
 
     /**
-     * 
      * @param {HANDLE} hCatalog 
      * @param {PWSTR} pwszReferenceTag 
      * @returns {Pointer<CRYPTCATATTRIBUTE>} 
@@ -441,7 +440,6 @@ class Catalog {
     }
 
     /**
-     * 
      * @param {HANDLE} hCatalog 
      * @param {PWSTR} pwszReferenceTag 
      * @returns {Pointer<CRYPTCATMEMBER>} 
@@ -455,7 +453,6 @@ class Catalog {
     }
 
     /**
-     * 
      * @param {HANDLE} hCatalog 
      * @param {Pointer<CRYPTCATMEMBER>} pCatMember 
      * @returns {String} Nothing - always returns an empty string
@@ -919,7 +916,6 @@ class Catalog {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPTCATCDF>} pCDF 
      * @param {Pointer<CRYPTCATMEMBER>} pPrevMember 
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
@@ -931,7 +927,6 @@ class Catalog {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPTCATCDF>} pCDF 
      * @param {Pointer<CRYPTCATMEMBER>} pMember 
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr 
@@ -1323,7 +1318,6 @@ class Catalog {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {BOOL} fResume 
      * @returns {BOOL} 

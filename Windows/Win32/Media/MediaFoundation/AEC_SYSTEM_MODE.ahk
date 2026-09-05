@@ -48,7 +48,8 @@ class AEC_SYSTEM_MODE extends Win32Enum {
 
     /**
      * Uninitialized. This value is the initial value of the MFPKEY_WMAAECMA_SYSTEM_MODE property. Do not set this value.
+     * Native name: MODE_NOT_SET
      * @type {Integer (Int32)}
      */
-    static MODE_NOT_SET => 6
+    static NOT_SET => 6
 }

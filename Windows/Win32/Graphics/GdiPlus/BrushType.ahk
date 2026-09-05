@@ -7,27 +7,32 @@
 class BrushType extends Win32Enum {
 
     /**
+     * Native name: BrushTypeSolidColor
      * @type {Integer (Int32)}
      */
-    static BrushTypeSolidColor => 0
+    static SolidColor => 0
 
     /**
+     * Native name: BrushTypeHatchFill
      * @type {Integer (Int32)}
      */
-    static BrushTypeHatchFill => 1
+    static HatchFill => 1
 
     /**
+     * Native name: BrushTypeTextureFill
      * @type {Integer (Int32)}
      */
-    static BrushTypeTextureFill => 2
+    static TextureFill => 2
 
     /**
+     * Native name: BrushTypePathGradient
      * @type {Integer (Int32)}
      */
-    static BrushTypePathGradient => 3
+    static PathGradient => 3
 
     /**
+     * Native name: BrushTypeLinearGradient
      * @type {Integer (Int32)}
      */
-    static BrushTypeLinearGradient => 4
+    static LinearGradient => 4
 }

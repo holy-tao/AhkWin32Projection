@@ -32,7 +32,6 @@ class IRawEnumerator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -41,7 +40,6 @@ class IRawEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} name 
      * @param {Pointer<SymbolKind>} kind 
      * @param {Pointer<IModelObject>} value 

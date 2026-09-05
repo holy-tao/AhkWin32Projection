@@ -44,7 +44,6 @@ class IHTMLNamespaceCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -53,7 +52,6 @@ class IHTMLNamespaceCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
      */

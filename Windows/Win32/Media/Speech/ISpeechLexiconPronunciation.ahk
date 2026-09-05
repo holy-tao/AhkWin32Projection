@@ -68,7 +68,6 @@ class ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechLexiconType} 
      */
     get_Type() {
@@ -77,7 +76,6 @@ class ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LangId() {
@@ -86,7 +84,6 @@ class ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechPartOfSpeech} 
      */
     get_PartOfSpeech() {
@@ -95,7 +92,6 @@ class ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PhoneIds() {
@@ -105,7 +101,6 @@ class ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Symbolic() {

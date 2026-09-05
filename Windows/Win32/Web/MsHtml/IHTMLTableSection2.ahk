@@ -29,7 +29,6 @@ class IHTMLTableSection2 extends IDispatch {
     static VTableNames => ["moveRow"]
 
     /**
-     * 
      * @param {Integer} indexFrom 
      * @param {Integer} indexTo 
      * @returns {IDispatch} 

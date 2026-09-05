@@ -7,12 +7,14 @@
 class MALLOC_TYPE extends Win32Enum {
 
     /**
+     * Native name: MALLOC_THREADSAFE
      * @type {Integer (Int32)}
      */
-    static MALLOC_THREADSAFE => 1
+    static THREADSAFE => 1
 
     /**
+     * Native name: MALLOC_EXECUTABLE
      * @type {Integer (Int32)}
      */
-    static MALLOC_EXECUTABLE => 2
+    static EXECUTABLE => 2
 }

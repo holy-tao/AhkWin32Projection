@@ -10,7 +10,8 @@ class DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG extends Win32BitflagEnum {
 
     /**
      * Overlay color space support is present.
+     * Native name: DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG_PRESENT
      * @type {Integer (Int32)}
      */
-    static DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG_PRESENT => 1
+    static PRESENT => 1
 }

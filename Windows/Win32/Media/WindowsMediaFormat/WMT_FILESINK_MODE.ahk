@@ -10,19 +10,22 @@ class WMT_FILESINK_MODE extends Win32Enum {
 
     /**
      * The file sink accepts normal buffers through calls to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwritersink-ondataunit">IWMWriterSink::OnDataUnit</a>. This is the default behavior.
+     * Native name: WMT_FM_SINGLE_BUFFERS
      * @type {Integer (Int32)}
      */
-    static WMT_FM_SINGLE_BUFFERS => 1
+    static FM_SINGLE_BUFFERS => 1
 
     /**
      * The file sink accepts data as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wmt_filesink_data_unit">WMT_FILESINK_DATA_UNIT</a> structures delivered by <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-ondataunitex">IWMWriterFileSink3::OnDataUnitEx</a>.
+     * Native name: WMT_FM_FILESINK_DATA_UNITS
      * @type {Integer (Int32)}
      */
-    static WMT_FM_FILESINK_DATA_UNITS => 2
+    static FM_FILESINK_DATA_UNITS => 2
 
     /**
      * The file sink accepts unbuffered data. A call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-setunbufferedio">IWMWriterFileSink3::SetUnbufferedIO</a> will succeed.
+     * Native name: WMT_FM_FILESINK_UNBUFFERED
      * @type {Integer (Int32)}
      */
-    static WMT_FM_FILESINK_UNBUFFERED => 4
+    static FM_FILESINK_UNBUFFERED => 4
 }

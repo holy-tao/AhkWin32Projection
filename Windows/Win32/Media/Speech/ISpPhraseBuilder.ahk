@@ -43,7 +43,6 @@ class ISpPhraseBuilder extends ISpPhrase {
     static VTableNames => ["InitFromPhrase", "InitFromSerializedPhrase", "AddElements", "AddRules", "AddProperties", "AddReplacements"]
 
     /**
-     * 
      * @param {Pointer<SPPHRASE>} pPhrase 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<SPSERIALIZEDPHRASE>} pPhrase 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ class ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} cElements 
      * @param {Pointer<SPPHRASEELEMENT>} pElement 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ class ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {SPPHRASERULEHANDLE} hParent 
      * @param {Pointer<SPPHRASERULE>} pRule 
      * @returns {SPPHRASERULEHANDLE} 
@@ -88,7 +84,6 @@ class ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {SPPHRASEPROPERTYHANDLE} hParent 
      * @param {Pointer<SPPHRASEPROPERTY>} pProperty 
      * @returns {SPPHRASEPROPERTYHANDLE} 
@@ -102,7 +97,6 @@ class ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} cReplacements 
      * @param {Pointer<SPPHRASEREPLACEMENT>} pReplacements 
      * @returns {HRESULT} 

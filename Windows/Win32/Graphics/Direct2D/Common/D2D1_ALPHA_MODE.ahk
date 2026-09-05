@@ -34,25 +34,29 @@ class D2D1_ALPHA_MODE extends Win32Enum {
 
     /**
      * The alpha value might not be meaningful.
+     * Native name: D2D1_ALPHA_MODE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D2D1_ALPHA_MODE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The alpha value has been premultiplied. Each color is first scaled by the alpha value. The alpha value itself is the same in both straight and premultiplied alpha. Typically, no color channel value is greater than the alpha channel value.  If a color channel value in a premultiplied format is greater than the alpha channel, the standard source-over blending math results in an additive blend.
+     * Native name: D2D1_ALPHA_MODE_PREMULTIPLIED
      * @type {Integer (Int32)}
      */
-    static D2D1_ALPHA_MODE_PREMULTIPLIED => 1
+    static PREMULTIPLIED => 1
 
     /**
      * The alpha value has not been premultiplied. The alpha channel indicates the transparency of the color.
+     * Native name: D2D1_ALPHA_MODE_STRAIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_ALPHA_MODE_STRAIGHT => 2
+    static STRAIGHT => 2
 
     /**
      * The alpha value is ignored.
+     * Native name: D2D1_ALPHA_MODE_IGNORE
      * @type {Integer (Int32)}
      */
-    static D2D1_ALPHA_MODE_IGNORE => 3
+    static IGNORE => 3
 }

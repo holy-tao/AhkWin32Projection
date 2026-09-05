@@ -34,7 +34,6 @@ class IDDVideoPortContainer extends IUnknown {
     static VTableNames => ["CreateVideoPort", "EnumVideoPorts", "GetVideoPortConnectInfo", "QueryVideoPortStatus"]
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDVIDEOPORTDESC>} param1 
      * @param {IUnknown} param3 
@@ -46,7 +45,6 @@ class IDDVideoPortContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDVIDEOPORTCAPS>} param1 
      * @param {Pointer<Void>} param2 
@@ -61,7 +59,6 @@ class IDDVideoPortContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Integer>} pcInfo 
      * @returns {DDVIDEOPORTCONNECT} 
@@ -75,7 +72,6 @@ class IDDVideoPortContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDVIDEOPORTSTATUS>} param1 
      * @returns {HRESULT} 

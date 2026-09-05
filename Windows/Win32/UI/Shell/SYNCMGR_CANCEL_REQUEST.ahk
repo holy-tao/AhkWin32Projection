@@ -10,25 +10,29 @@ class SYNCMGR_CANCEL_REQUEST extends Win32Enum {
 
     /**
      * No cancelation request has been made.
+     * Native name: SYNCMGR_CR_NONE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_CR_NONE => 0
+    static CR_NONE => 0
 
     /**
      * Stop the synchronization of the current item, but continue the synchronization of other items.
+     * Native name: SYNCMGR_CR_CANCEL_ITEM
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_CR_CANCEL_ITEM => 1
+    static CR_CANCEL_ITEM => 1
 
     /**
      * Stop the synchronization entirely.
+     * Native name: SYNCMGR_CR_CANCEL_ALL
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_CR_CANCEL_ALL => 2
+    static CR_CANCEL_ALL => 2
 
     /**
      * The maximum valid <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a> value.
+     * Native name: SYNCMGR_CR_MAX
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_CR_MAX => 2
+    static CR_MAX => 2
 }

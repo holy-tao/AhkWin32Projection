@@ -48,7 +48,6 @@ class GameInput {
 
 ;@region Methods
     /**
-     * 
      * @returns {IGameInput} 
      */
     static GameInputCreate() {

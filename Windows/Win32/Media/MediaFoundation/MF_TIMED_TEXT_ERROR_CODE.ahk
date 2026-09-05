@@ -12,31 +12,36 @@ class MF_TIMED_TEXT_ERROR_CODE extends Win32Enum {
 
     /**
      * No error occurred.
+     * Native name: MF_TIMED_TEXT_ERROR_CODE_NOERROR
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ERROR_CODE_NOERROR => 0
+    static NOERROR => 0
 
     /**
      * A fatal error occurred.
+     * Native name: MF_TIMED_TEXT_ERROR_CODE_FATAL
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ERROR_CODE_FATAL => 1
+    static FATAL => 1
 
     /**
      * An error occurred with the data format of the timed text track.
+     * Native name: MF_TIMED_TEXT_ERROR_CODE_DATA_FORMAT
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ERROR_CODE_DATA_FORMAT => 2
+    static DATA_FORMAT => 2
 
     /**
      * A network error occurred when trying to load the timed text track.
+     * Native name: MF_TIMED_TEXT_ERROR_CODE_NETWORK
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ERROR_CODE_NETWORK => 3
+    static NETWORK => 3
 
     /**
      * An internal error occurred.
+     * Native name: MF_TIMED_TEXT_ERROR_CODE_INTERNAL
      * @type {Integer (Int32)}
      */
-    static MF_TIMED_TEXT_ERROR_CODE_INTERNAL => 4
+    static INTERNAL => 4
 }

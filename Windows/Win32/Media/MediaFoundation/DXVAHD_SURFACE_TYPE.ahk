@@ -12,21 +12,24 @@ class DXVAHD_SURFACE_TYPE extends Win32Enum {
 
     /**
      * A surface for an input stream. This surface type is equivalent to an off-screen plain surface in Microsoft Direct3D. The application can use the surface in Direct3D calls.
+     * Native name: DXVAHD_SURFACE_TYPE_VIDEO_INPUT
      * @type {Integer (Int32)}
      */
-    static DXVAHD_SURFACE_TYPE_VIDEO_INPUT => 0
+    static VIDEO_INPUT => 0
 
     /**
      * A private surface for an input stream. This surface type is equivalent to an off-screen plain surface, except that the application cannot use the surface in Direct3D calls.
+     * Native name: DXVAHD_SURFACE_TYPE_VIDEO_INPUT_PRIVATE
      * @type {Integer (Int32)}
      */
-    static DXVAHD_SURFACE_TYPE_VIDEO_INPUT_PRIVATE => 1
+    static VIDEO_INPUT_PRIVATE => 1
 
     /**
      * A surface for an output stream. This surface type is equivalent to an off-screen plain surface in Direct3D. The application can use the surface in Direct3D calls. 
      * 
      * This surface type is recommended for video processing applications that need to lock the surface and access the surface memory. For video playback with optimal performance, a render-target surface or swap chain is recommended instead.
+     * Native name: DXVAHD_SURFACE_TYPE_VIDEO_OUTPUT
      * @type {Integer (Int32)}
      */
-    static DXVAHD_SURFACE_TYPE_VIDEO_OUTPUT => 2
+    static VIDEO_OUTPUT => 2
 }

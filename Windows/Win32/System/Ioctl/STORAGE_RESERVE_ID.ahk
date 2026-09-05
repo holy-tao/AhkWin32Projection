@@ -7,27 +7,32 @@
 class STORAGE_RESERVE_ID extends Win32Enum {
 
     /**
+     * Native name: StorageReserveIdNone
      * @type {Integer (Int32)}
      */
-    static StorageReserveIdNone => 0
+    static None => 0
 
     /**
+     * Native name: StorageReserveIdHard
      * @type {Integer (Int32)}
      */
-    static StorageReserveIdHard => 1
+    static Hard => 1
 
     /**
+     * Native name: StorageReserveIdSoft
      * @type {Integer (Int32)}
      */
-    static StorageReserveIdSoft => 2
+    static Soft => 2
 
     /**
+     * Native name: StorageReserveIdUpdateScratch
      * @type {Integer (Int32)}
      */
-    static StorageReserveIdUpdateScratch => 3
+    static UpdateScratch => 3
 
     /**
+     * Native name: StorageReserveIdMax
      * @type {Integer (Int32)}
      */
-    static StorageReserveIdMax => 4
+    static Max => 4
 }

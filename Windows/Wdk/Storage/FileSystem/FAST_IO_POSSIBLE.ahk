@@ -7,17 +7,20 @@
 class FAST_IO_POSSIBLE extends Win32Enum {
 
     /**
+     * Native name: FastIoIsNotPossible
      * @type {Integer (Int32)}
      */
-    static FastIoIsNotPossible => 0
+    static IsNotPossible => 0
 
     /**
+     * Native name: FastIoIsPossible
      * @type {Integer (Int32)}
      */
-    static FastIoIsPossible => 1
+    static IsPossible => 1
 
     /**
+     * Native name: FastIoIsQuestionable
      * @type {Integer (Int32)}
      */
-    static FastIoIsQuestionable => 2
+    static IsQuestionable => 2
 }

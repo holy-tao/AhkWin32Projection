@@ -29,7 +29,6 @@ class IComMtaThreadPoolKnobs extends IUnknown {
     static VTableNames => ["MTASetMaxThreadCount", "MTAGetMaxThreadCount", "MTASetThrottleValue", "MTAGetThrottleValue"]
 
     /**
-     * 
      * @param {Integer} dwMaxThreads 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IComMtaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     MTAGetMaxThreadCount() {
@@ -48,7 +46,6 @@ class IComMtaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwThrottle 
      * @returns {HRESULT} 
      */
@@ -58,7 +55,6 @@ class IComMtaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     MTAGetThrottleValue() {

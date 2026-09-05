@@ -23,7 +23,6 @@ class IUMS extends Win32ComInterface {
     static VTableNames => ["SqlUmsSuspend", "SqlUmsYield", "SqlUmsSwitchPremptive", "SqlUmsSwitchNonPremptive", "SqlUmsFIsPremptive"]
 
     /**
-     * 
      * @param {Integer} ticks 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -32,7 +31,6 @@ class IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Integer} ticks 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -41,7 +39,6 @@ class IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     SqlUmsSwitchPremptive() {
@@ -49,7 +46,6 @@ class IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     SqlUmsSwitchNonPremptive() {
@@ -57,7 +53,6 @@ class IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     SqlUmsFIsPremptive() {

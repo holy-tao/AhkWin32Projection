@@ -7,42 +7,50 @@
 class FILE_MAP extends Win32BitflagEnum {
 
     /**
+     * Native name: FILE_MAP_WRITE
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_WRITE => 2
+    static WRITE => 2
 
     /**
+     * Native name: FILE_MAP_READ
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_READ => 4
+    static READ => 4
 
     /**
+     * Native name: FILE_MAP_ALL_ACCESS
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_ALL_ACCESS => 983071
+    static ALL_ACCESS => 983071
 
     /**
+     * Native name: FILE_MAP_EXECUTE
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_EXECUTE => 32
+    static EXECUTE => 32
 
     /**
+     * Native name: FILE_MAP_COPY
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_COPY => 1
+    static COPY => 1
 
     /**
+     * Native name: FILE_MAP_RESERVE
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_RESERVE => 2147483648
+    static RESERVE => 2147483648
 
     /**
+     * Native name: FILE_MAP_TARGETS_INVALID
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_TARGETS_INVALID => 1073741824
+    static TARGETS_INVALID => 1073741824
 
     /**
+     * Native name: FILE_MAP_LARGE_PAGES
      * @type {Integer (UInt32)}
      */
-    static FILE_MAP_LARGE_PAGES => 536870912
+    static LARGE_PAGES => 536870912
 }

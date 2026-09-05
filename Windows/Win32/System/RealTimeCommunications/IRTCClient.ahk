@@ -193,7 +193,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PrepareForShutdown() {
@@ -202,7 +201,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFilter 
      * @returns {HRESULT} 
      */
@@ -212,7 +210,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventFilter() {
@@ -221,7 +218,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaTypes 
      * @param {VARIANT_BOOL} fPersistent 
      * @returns {HRESULT} 
@@ -232,7 +228,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PreferredMediaTypes() {
@@ -241,7 +236,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MediaCapabilities() {
@@ -250,7 +244,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
@@ -265,7 +258,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_LISTEN_MODE} enListen 
      * @returns {HRESULT} 
      */
@@ -275,7 +267,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_LISTEN_MODE} 
      */
     get_ListenForIncomingSessions() {
@@ -284,7 +275,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fTCP 
      * @param {VARIANT_BOOL} fExternal 
      * @returns {VARIANT} 
@@ -296,7 +286,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
@@ -307,7 +296,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {Integer} 
      */
@@ -317,7 +305,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {VARIANT_BOOL} fMuted 
      * @returns {HRESULT} 
@@ -328,7 +315,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {VARIANT_BOOL} 
      */
@@ -338,7 +324,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_VIDEO_DEVICE} enDevice 
      * @returns {IVideoWindow} 
      */
@@ -348,7 +333,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {BSTR} bstrDeviceName 
      * @returns {HRESULT} 
@@ -361,7 +345,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {BSTR} 
      */
@@ -372,7 +355,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
@@ -383,7 +365,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {Integer} 
      */
@@ -393,7 +374,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnable 
      * @returns {HRESULT} 
      */
@@ -403,7 +383,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PreferredAEC() {
@@ -412,7 +391,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDeviceName 
      * @returns {HRESULT} 
      */
@@ -424,7 +402,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PreferredVideoDevice() {
@@ -434,7 +411,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ActiveMedia() {
@@ -443,7 +419,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMaxBitrate 
      * @returns {HRESULT} 
      */
@@ -453,7 +428,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxBitrate() {
@@ -462,7 +436,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lValue 
      * @returns {HRESULT} 
      */
@@ -472,7 +445,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TemporalSpatialTradeOff() {
@@ -481,7 +453,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NetworkQuality() {
@@ -490,7 +461,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_T120_APPLET} enApplet 
      * @returns {HRESULT} 
      */
@@ -500,7 +470,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopT120Applets() {
@@ -509,7 +478,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_T120_APPLET} enApplet 
      * @returns {VARIANT_BOOL} 
      */
@@ -519,7 +487,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalUserURI() {
@@ -529,7 +496,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserURI 
      * @returns {HRESULT} 
      */
@@ -541,7 +507,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalUserName() {
@@ -551,7 +516,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserName 
      * @returns {HRESULT} 
      */
@@ -563,7 +527,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_RING_TYPE} enType 
      * @param {VARIANT_BOOL} bPlay 
      * @returns {HRESULT} 
@@ -574,7 +537,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_DTMF} enDTMF 
      * @returns {HRESULT} 
      */
@@ -584,7 +546,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hwndParent 
      * @returns {HRESULT} 
      */
@@ -594,7 +555,6 @@ class IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsTuned() {

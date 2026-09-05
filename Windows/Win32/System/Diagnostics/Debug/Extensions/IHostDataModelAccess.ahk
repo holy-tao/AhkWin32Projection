@@ -31,7 +31,6 @@ class IHostDataModelAccess extends IUnknown {
     static VTableNames => ["GetDataModel"]
 
     /**
-     * 
      * @param {Pointer<IDataModelManager>} manager 
      * @param {Pointer<IDebugHost>} host 
      * @returns {HRESULT} 

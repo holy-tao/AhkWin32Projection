@@ -7,17 +7,20 @@
 class TXFS_MINIVERSION extends Win32Enum {
 
     /**
+     * Native name: TXFS_MINIVERSION_COMMITTED_VIEW
      * @type {Integer (UInt32)}
      */
-    static TXFS_MINIVERSION_COMMITTED_VIEW => 0
+    static COMMITTED_VIEW => 0
 
     /**
+     * Native name: TXFS_MINIVERSION_DIRTY_VIEW
      * @type {Integer (UInt32)}
      */
-    static TXFS_MINIVERSION_DIRTY_VIEW => 65535
+    static DIRTY_VIEW => 65535
 
     /**
+     * Native name: TXFS_MINIVERSION_DEFAULT_VIEW
      * @type {Integer (UInt32)}
      */
-    static TXFS_MINIVERSION_DEFAULT_VIEW => 65534
+    static DEFAULT_VIEW => 65534
 }

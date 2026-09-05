@@ -7,32 +7,38 @@
 class styleFlexDirection extends Win32Enum {
 
     /**
+     * Native name: styleFlexDirectionRow
      * @type {Integer (Int32)}
      */
-    static styleFlexDirectionRow => 0
+    static Row => 0
 
     /**
+     * Native name: styleFlexDirectionRowReverse
      * @type {Integer (Int32)}
      */
-    static styleFlexDirectionRowReverse => 1
+    static RowReverse => 1
 
     /**
+     * Native name: styleFlexDirectionColumn
      * @type {Integer (Int32)}
      */
-    static styleFlexDirectionColumn => 2
+    static Column => 2
 
     /**
+     * Native name: styleFlexDirectionColumnReverse
      * @type {Integer (Int32)}
      */
-    static styleFlexDirectionColumnReverse => 3
+    static ColumnReverse => 3
 
     /**
+     * Native name: styleFlexDirectionNotSet
      * @type {Integer (Int32)}
      */
-    static styleFlexDirectionNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleFlexDirection_Max
      * @type {Integer (Int32)}
      */
-    static styleFlexDirection_Max => 2147483647
+    static Max => 2147483647
 }

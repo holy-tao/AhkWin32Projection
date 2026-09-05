@@ -77,7 +77,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioStatus} 
      */
     get_Status() {
@@ -86,7 +85,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioBufferInfo} 
      */
     get_BufferInfo() {
@@ -95,7 +93,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_DefaultFormat() {
@@ -104,7 +101,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Volume() {
@@ -113,7 +109,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {Integer} Volume 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BufferNotifySize() {
@@ -132,7 +126,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {Integer} BufferNotifySize 
      * @returns {HRESULT} 
      */
@@ -142,7 +135,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventHandle() {
@@ -151,7 +143,6 @@ class ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {SpeechAudioState} State 
      * @returns {HRESULT} 
      */

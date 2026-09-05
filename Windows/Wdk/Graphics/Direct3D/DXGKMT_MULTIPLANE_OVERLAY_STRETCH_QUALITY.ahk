@@ -7,12 +7,14 @@
 class DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY extends Win32Enum {
 
     /**
+     * Native name: DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY_BILINEAR
      * @type {Integer (Int32)}
      */
-    static DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY_BILINEAR => 1
+    static BILINEAR => 1
 
     /**
+     * Native name: DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY_HIGH
      * @type {Integer (Int32)}
      */
-    static DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY_HIGH => 2
+    static HIGH => 2
 }

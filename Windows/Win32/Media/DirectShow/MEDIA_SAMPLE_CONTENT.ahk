@@ -9,22 +9,26 @@
 class MEDIA_SAMPLE_CONTENT extends Win32Enum {
 
     /**
+     * Native name: MEDIA_TRANSPORT_PACKET
      * @type {Integer (Int32)}
      */
-    static MEDIA_TRANSPORT_PACKET => 0
+    static TRANSPORT_PACKET => 0
 
     /**
+     * Native name: MEDIA_ELEMENTARY_STREAM
      * @type {Integer (Int32)}
      */
-    static MEDIA_ELEMENTARY_STREAM => 1
+    static ELEMENTARY_STREAM => 1
 
     /**
+     * Native name: MEDIA_MPEG2_PSI
      * @type {Integer (Int32)}
      */
-    static MEDIA_MPEG2_PSI => 2
+    static MPEG2_PSI => 2
 
     /**
+     * Native name: MEDIA_TRANSPORT_PAYLOAD
      * @type {Integer (Int32)}
      */
-    static MEDIA_TRANSPORT_PAYLOAD => 3
+    static TRANSPORT_PAYLOAD => 3
 }

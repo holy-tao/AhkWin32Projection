@@ -7,32 +7,38 @@
 class WinHttpRequestSecureProtocols extends Win32Enum {
 
     /**
+     * Native name: SecureProtocol_SSL2
      * @type {Integer (Int32)}
      */
-    static SecureProtocol_SSL2 => 8
+    static Protocol_SSL2 => 8
 
     /**
+     * Native name: SecureProtocol_SSL3
      * @type {Integer (Int32)}
      */
-    static SecureProtocol_SSL3 => 32
+    static Protocol_SSL3 => 32
 
     /**
+     * Native name: SecureProtocol_TLS1
      * @type {Integer (Int32)}
      */
-    static SecureProtocol_TLS1 => 128
+    static Protocol_TLS1 => 128
 
     /**
+     * Native name: SecureProtocol_TLS1_1
      * @type {Integer (Int32)}
      */
-    static SecureProtocol_TLS1_1 => 512
+    static Protocol_TLS1_1 => 512
 
     /**
+     * Native name: SecureProtocol_TLS1_2
      * @type {Integer (Int32)}
      */
-    static SecureProtocol_TLS1_2 => 2048
+    static Protocol_TLS1_2 => 2048
 
     /**
+     * Native name: SecureProtocol_ALL
      * @type {Integer (Int32)}
      */
-    static SecureProtocol_ALL => 168
+    static Protocol_ALL => 168
 }

@@ -43,7 +43,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     static VTableNames => ["RegisterTrimNotificationCallback", "UnregisterTrimNotificationCallback", "TryCreateShaderResourceView", "TryCreateUnorderedAccessView", "TryCreateConstantBufferView", "TryCreateSampler2", "TryCreateRenderTargetView", "TryCreateDepthStencilView", "TryCreateSamplerFeedbackUnorderedAccessView", "CreateQueryHeap1", "ResolveQueryData"]
 
     /**
-     * 
      * @param {Pointer<D3D12_REGISTER_TRIM_NOTIFICATION>} pData 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {Integer} CallbackCookie 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_SHADER_RESOURCE_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
@@ -75,7 +72,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {ID3D12Resource} pCounterResource 
      * @param {Pointer<D3D12_UNORDERED_ACCESS_VIEW_DESC>} pDesc 
@@ -88,7 +84,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_CONSTANT_BUFFER_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
@@ -99,7 +94,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_SAMPLER_DESC2>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
@@ -110,7 +104,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_RENDER_TARGET_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
@@ -122,7 +115,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_DEPTH_STENCIL_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
@@ -134,7 +126,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pTargetedResource 
      * @param {ID3D12Resource} pFeedbackResource 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
@@ -146,7 +137,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_QUERY_HEAP_DESC>} pDesc 
      * @param {D3D12_QUERY_HEAP_FLAGS} Flags 
      * @param {Pointer<Guid>} riid 
@@ -158,7 +148,6 @@ class ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12QueryHeap} pQueryHeap 
      * @param {D3D12_QUERY_TYPE} Type 
      * @param {Integer} StartIndex 

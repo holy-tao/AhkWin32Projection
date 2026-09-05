@@ -7,22 +7,26 @@
 class DEVICE_STATE extends Win32Enum {
 
     /**
+     * Native name: DEVICE_STATE_ACTIVE
      * @type {Integer (UInt32)}
      */
-    static DEVICE_STATE_ACTIVE => 1
+    static ACTIVE => 1
 
     /**
+     * Native name: DEVICE_STATE_DISABLED
      * @type {Integer (UInt32)}
      */
-    static DEVICE_STATE_DISABLED => 2
+    static DISABLED => 2
 
     /**
+     * Native name: DEVICE_STATE_NOTPRESENT
      * @type {Integer (UInt32)}
      */
-    static DEVICE_STATE_NOTPRESENT => 4
+    static NOTPRESENT => 4
 
     /**
+     * Native name: DEVICE_STATE_UNPLUGGED
      * @type {Integer (UInt32)}
      */
-    static DEVICE_STATE_UNPLUGGED => 8
+    static UNPLUGGED => 8
 }

@@ -7,42 +7,50 @@
 class WHEA_ERROR_TYPE extends Win32Enum {
 
     /**
+     * Native name: WheaErrTypeProcessor
      * @type {Integer (Int32)}
      */
-    static WheaErrTypeProcessor => 0
+    static ErrTypeProcessor => 0
 
     /**
+     * Native name: WheaErrTypeMemory
      * @type {Integer (Int32)}
      */
-    static WheaErrTypeMemory => 1
+    static ErrTypeMemory => 1
 
     /**
+     * Native name: WheaErrTypePCIExpress
      * @type {Integer (Int32)}
      */
-    static WheaErrTypePCIExpress => 2
+    static ErrTypePCIExpress => 2
 
     /**
+     * Native name: WheaErrTypeNMI
      * @type {Integer (Int32)}
      */
-    static WheaErrTypeNMI => 3
+    static ErrTypeNMI => 3
 
     /**
+     * Native name: WheaErrTypePCIXBus
      * @type {Integer (Int32)}
      */
-    static WheaErrTypePCIXBus => 4
+    static ErrTypePCIXBus => 4
 
     /**
+     * Native name: WheaErrTypePCIXDevice
      * @type {Integer (Int32)}
      */
-    static WheaErrTypePCIXDevice => 5
+    static ErrTypePCIXDevice => 5
 
     /**
+     * Native name: WheaErrTypeGeneric
      * @type {Integer (Int32)}
      */
-    static WheaErrTypeGeneric => 6
+    static ErrTypeGeneric => 6
 
     /**
+     * Native name: WheaErrTypePmem
      * @type {Integer (Int32)}
      */
-    static WheaErrTypePmem => 7
+    static ErrTypePmem => 7
 }

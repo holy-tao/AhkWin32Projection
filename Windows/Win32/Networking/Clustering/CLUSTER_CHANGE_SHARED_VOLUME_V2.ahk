@@ -12,25 +12,29 @@ class CLUSTER_CHANGE_SHARED_VOLUME_V2 extends Win32Enum {
 
     /**
      * Indicates that the state of the cluster shared volume has changed.
+     * Native name: CLUSTER_CHANGE_SHARED_VOLUME_STATE_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_SHARED_VOLUME_STATE_V2 => 1
+    static STATE_V2 => 1
 
     /**
      * Indicates that the cluster shared volume was added.
+     * Native name: CLUSTER_CHANGE_SHARED_VOLUME_ADDED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_SHARED_VOLUME_ADDED_V2 => 2
+    static ADDED_V2 => 2
 
     /**
      * Indicates that the cluster shared volume was removed.
+     * Native name: CLUSTER_CHANGE_SHARED_VOLUME_REMOVED_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_SHARED_VOLUME_REMOVED_V2 => 4
+    static REMOVED_V2 => 4
 
     /**
      * Indicates all V2 cluster shared volume notifications.
+     * Native name: CLUSTER_CHANGE_SHARED_VOLUME_ALL_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_CHANGE_SHARED_VOLUME_ALL_V2 => 7
+    static ALL_V2 => 7
 }

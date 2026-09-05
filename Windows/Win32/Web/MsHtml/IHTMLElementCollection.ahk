@@ -53,7 +53,6 @@ class IHTMLElementCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -63,7 +62,6 @@ class IHTMLElementCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ class IHTMLElementCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -82,7 +79,6 @@ class IHTMLElementCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -91,7 +87,6 @@ class IHTMLElementCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
@@ -102,7 +97,6 @@ class IHTMLElementCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} tagName 
      * @returns {IDispatch} 
      */

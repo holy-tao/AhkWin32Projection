@@ -47,7 +47,6 @@ class IHTMLRuleStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -59,7 +58,6 @@ class IHTMLRuleStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textOverflow() {
@@ -69,7 +67,6 @@ class IHTMLRuleStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class IHTMLRuleStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minHeight() {

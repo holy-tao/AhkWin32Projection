@@ -27,24 +27,28 @@ class D3D_ROOT_SIGNATURE_VERSION extends Win32Enum {
 
     /**
      * Version one of root signature layout.
+     * Native name: D3D_ROOT_SIGNATURE_VERSION_1
      * @type {Integer (Int32)}
      */
-    static D3D_ROOT_SIGNATURE_VERSION_1 => 1
+    static 1 => 1
 
     /**
      * Version one of root signature layout.
+     * Native name: D3D_ROOT_SIGNATURE_VERSION_1_0
      * @type {Integer (Int32)}
      */
-    static D3D_ROOT_SIGNATURE_VERSION_1_0 => 1
+    static 1_0 => 1
 
     /**
      * Version 1.1  of root signature layout. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/root-signature-version-1-1">Root Signature Version 1.1</a>.
+     * Native name: D3D_ROOT_SIGNATURE_VERSION_1_1
      * @type {Integer (Int32)}
      */
-    static D3D_ROOT_SIGNATURE_VERSION_1_1 => 2
+    static 1_1 => 2
 
     /**
+     * Native name: D3D_ROOT_SIGNATURE_VERSION_1_2
      * @type {Integer (Int32)}
      */
-    static D3D_ROOT_SIGNATURE_VERSION_1_2 => 3
+    static 1_2 => 3
 }

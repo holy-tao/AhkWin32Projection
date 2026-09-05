@@ -10,19 +10,22 @@ class DWRITE_TRIMMING_GRANULARITY extends Win32Enum {
 
     /**
      * No trimming occurs. Text flows beyond the layout width.
+     * Native name: DWRITE_TRIMMING_GRANULARITY_NONE
      * @type {Integer (Int32)}
      */
-    static DWRITE_TRIMMING_GRANULARITY_NONE => 0
+    static NONE => 0
 
     /**
      * Trimming occurs at a character cluster boundary.
+     * Native name: DWRITE_TRIMMING_GRANULARITY_CHARACTER
      * @type {Integer (Int32)}
      */
-    static DWRITE_TRIMMING_GRANULARITY_CHARACTER => 1
+    static CHARACTER => 1
 
     /**
      * Trimming occurs at a word boundary.
+     * Native name: DWRITE_TRIMMING_GRANULARITY_WORD
      * @type {Integer (Int32)}
      */
-    static DWRITE_TRIMMING_GRANULARITY_WORD => 2
+    static WORD => 2
 }

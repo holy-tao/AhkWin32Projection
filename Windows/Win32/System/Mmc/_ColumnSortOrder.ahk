@@ -10,13 +10,15 @@ class _ColumnSortOrder extends Win32Enum {
 
     /**
      * Indicates that the sort order is ascending.
+     * Native name: SortOrder_Ascending
      * @type {Integer (Int32)}
      */
-    static SortOrder_Ascending => 0
+    static Ascending => 0
 
     /**
      * Indicates that the sort order is descending.
+     * Native name: SortOrder_Descending
      * @type {Integer (Int32)}
      */
-    static SortOrder_Descending => 1
+    static Descending => 1
 }

@@ -7,22 +7,26 @@
 class styleMsImeAlign extends Win32Enum {
 
     /**
+     * Native name: styleMsImeAlignAuto
      * @type {Integer (Int32)}
      */
-    static styleMsImeAlignAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleMsImeAlignAfter
      * @type {Integer (Int32)}
      */
-    static styleMsImeAlignAfter => 1
+    static After => 1
 
     /**
+     * Native name: styleMsImeAlignNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsImeAlignNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleMsImeAlign_Max
      * @type {Integer (Int32)}
      */
-    static styleMsImeAlign_Max => 2147483647
+    static Max => 2147483647
 }

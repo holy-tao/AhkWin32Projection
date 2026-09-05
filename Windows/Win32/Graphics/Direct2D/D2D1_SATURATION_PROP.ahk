@@ -16,7 +16,8 @@ class D2D1_SATURATION_PROP extends Win32Enum {
      * The type is FLOAT.
      * 
      * The default is 0.5f.
+     * Native name: D2D1_SATURATION_PROP_SATURATION
      * @type {Integer (Int32)}
      */
-    static D2D1_SATURATION_PROP_SATURATION => 0
+    static SATURATION => 0
 }

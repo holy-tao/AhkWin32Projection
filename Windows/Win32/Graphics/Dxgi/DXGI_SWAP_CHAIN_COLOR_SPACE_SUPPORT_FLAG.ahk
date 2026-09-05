@@ -10,13 +10,15 @@ class DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG extends Win32BitflagEnum {
 
     /**
      * Color space support is present.
+     * Native name: DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_PRESENT
      * @type {Integer (Int32)}
      */
-    static DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_PRESENT => 1
+    static PRESENT => 1
 
     /**
      * Overlay color space support is present.
+     * Native name: DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_OVERLAY_PRESENT
      * @type {Integer (Int32)}
      */
-    static DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_OVERLAY_PRESENT => 2
+    static OVERLAY_PRESENT => 2
 }

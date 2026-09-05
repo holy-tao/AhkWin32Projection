@@ -7,22 +7,26 @@
 class htmlDir extends Win32Enum {
 
     /**
+     * Native name: htmlDirNotSet
      * @type {Integer (Int32)}
      */
-    static htmlDirNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: htmlDirLeftToRight
      * @type {Integer (Int32)}
      */
-    static htmlDirLeftToRight => 1
+    static LeftToRight => 1
 
     /**
+     * Native name: htmlDirRightToLeft
      * @type {Integer (Int32)}
      */
-    static htmlDirRightToLeft => 2
+    static RightToLeft => 2
 
     /**
+     * Native name: htmlDir_Max
      * @type {Integer (Int32)}
      */
-    static htmlDir_Max => 2147483647
+    static Max => 2147483647
 }

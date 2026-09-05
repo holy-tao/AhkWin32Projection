@@ -32,7 +32,6 @@ class ISelectionServicesListener extends IUnknown {
     static VTableNames => ["BeginSelectionUndo", "EndSelectionUndo", "OnSelectedElementExit", "OnChangeType", "GetTypeDetail"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginSelectionUndo() {
@@ -41,7 +40,6 @@ class ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndSelectionUndo() {
@@ -50,7 +48,6 @@ class ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIElementStart 
      * @param {IMarkupPointer} pIElementEnd 
      * @param {IMarkupPointer} pIElementContentStart 
@@ -63,7 +60,6 @@ class ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {SELECTION_TYPE} eType 
      * @param {ISelectionServicesListener} pIListener 
      * @returns {HRESULT} 
@@ -74,7 +70,6 @@ class ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetTypeDetail() {

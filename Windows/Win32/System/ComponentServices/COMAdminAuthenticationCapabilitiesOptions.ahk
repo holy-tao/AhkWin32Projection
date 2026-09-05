@@ -7,22 +7,26 @@
 class COMAdminAuthenticationCapabilitiesOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminAuthenticationCapabilitiesNone
      * @type {Integer (Int32)}
      */
-    static COMAdminAuthenticationCapabilitiesNone => 0
+    static None => 0
 
     /**
+     * Native name: COMAdminAuthenticationCapabilitiesSecureReference
      * @type {Integer (Int32)}
      */
-    static COMAdminAuthenticationCapabilitiesSecureReference => 2
+    static SecureReference => 2
 
     /**
+     * Native name: COMAdminAuthenticationCapabilitiesStaticCloaking
      * @type {Integer (Int32)}
      */
-    static COMAdminAuthenticationCapabilitiesStaticCloaking => 32
+    static StaticCloaking => 32
 
     /**
+     * Native name: COMAdminAuthenticationCapabilitiesDynamicCloaking
      * @type {Integer (Int32)}
      */
-    static COMAdminAuthenticationCapabilitiesDynamicCloaking => 64
+    static DynamicCloaking => 64
 }

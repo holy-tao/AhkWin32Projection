@@ -7,32 +7,38 @@
 class HLNF extends Win32BitflagEnum {
 
     /**
+     * Native name: HLNF_INTERNALJUMP
      * @type {Integer (UInt32)}
      */
-    static HLNF_INTERNALJUMP => 1
+    static INTERNALJUMP => 1
 
     /**
+     * Native name: HLNF_OPENINNEWWINDOW
      * @type {Integer (UInt32)}
      */
-    static HLNF_OPENINNEWWINDOW => 2
+    static OPENINNEWWINDOW => 2
 
     /**
+     * Native name: HLNF_NAVIGATINGBACK
      * @type {Integer (UInt32)}
      */
-    static HLNF_NAVIGATINGBACK => 4
+    static NAVIGATINGBACK => 4
 
     /**
+     * Native name: HLNF_NAVIGATINGFORWARD
      * @type {Integer (UInt32)}
      */
-    static HLNF_NAVIGATINGFORWARD => 8
+    static NAVIGATINGFORWARD => 8
 
     /**
+     * Native name: HLNF_NAVIGATINGTOSTACKITEM
      * @type {Integer (UInt32)}
      */
-    static HLNF_NAVIGATINGTOSTACKITEM => 16
+    static NAVIGATINGTOSTACKITEM => 16
 
     /**
+     * Native name: HLNF_CREATENOHISTORY
      * @type {Integer (UInt32)}
      */
-    static HLNF_CREATENOHISTORY => 32
+    static CREATENOHISTORY => 32
 }

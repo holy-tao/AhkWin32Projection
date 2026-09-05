@@ -7,27 +7,32 @@
 class styleStyleFloat extends Win32Enum {
 
     /**
+     * Native name: styleStyleFloatNotSet
      * @type {Integer (Int32)}
      */
-    static styleStyleFloatNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleStyleFloatLeft
      * @type {Integer (Int32)}
      */
-    static styleStyleFloatLeft => 1
+    static Left => 1
 
     /**
+     * Native name: styleStyleFloatRight
      * @type {Integer (Int32)}
      */
-    static styleStyleFloatRight => 2
+    static Right => 2
 
     /**
+     * Native name: styleStyleFloatNone
      * @type {Integer (Int32)}
      */
-    static styleStyleFloatNone => 3
+    static None => 3
 
     /**
+     * Native name: styleStyleFloat_Max
      * @type {Integer (Int32)}
      */
-    static styleStyleFloat_Max => 2147483647
+    static Max => 2147483647
 }

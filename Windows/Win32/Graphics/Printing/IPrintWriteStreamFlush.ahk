@@ -29,7 +29,6 @@ class IPrintWriteStreamFlush extends IUnknown {
     static VTableNames => ["FlushData"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FlushData() {

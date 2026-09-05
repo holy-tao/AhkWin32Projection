@@ -7,12 +7,14 @@
 class CRYPT_IMAGE_REF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRYPT_MIN_DEPENDENCIES
      * @type {Integer (UInt32)}
      */
-    static CRYPT_MIN_DEPENDENCIES => 1
+    static MIN_DEPENDENCIES => 1
 
     /**
+     * Native name: CRYPT_PROCESS_ISOLATE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_PROCESS_ISOLATE => 65536
+    static PROCESS_ISOLATE => 65536
 }

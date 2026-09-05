@@ -10,114 +10,133 @@ class DNS_CONFIG_TYPE extends Win32Enum {
 
     /**
      * For use with Unicode on Windows 2000.
+     * Native name: DnsConfigPrimaryDomainName_W
      * @type {Integer (Int32)}
      */
-    static DnsConfigPrimaryDomainName_W => 0
+    static PrimaryDomainName_W => 0
 
     /**
      * For use with ANSI on Windows 2000.
+     * Native name: DnsConfigPrimaryDomainName_A
      * @type {Integer (Int32)}
      */
-    static DnsConfigPrimaryDomainName_A => 1
+    static PrimaryDomainName_A => 1
 
     /**
      * For use with UTF8 on Windows 2000.
+     * Native name: DnsConfigPrimaryDomainName_UTF8
      * @type {Integer (Int32)}
      */
-    static DnsConfigPrimaryDomainName_UTF8 => 2
+    static PrimaryDomainName_UTF8 => 2
 
     /**
      * Not currently available.
+     * Native name: DnsConfigAdapterDomainName_W
      * @type {Integer (Int32)}
      */
-    static DnsConfigAdapterDomainName_W => 3
+    static AdapterDomainName_W => 3
 
     /**
      * Not currently available.
+     * Native name: DnsConfigAdapterDomainName_A
      * @type {Integer (Int32)}
      */
-    static DnsConfigAdapterDomainName_A => 4
+    static AdapterDomainName_A => 4
 
     /**
      * Not currently available.
+     * Native name: DnsConfigAdapterDomainName_UTF8
      * @type {Integer (Int32)}
      */
-    static DnsConfigAdapterDomainName_UTF8 => 5
+    static AdapterDomainName_UTF8 => 5
 
     /**
      * For configuring a DNS Server list on Windows 2000.
+     * Native name: DnsConfigDnsServerList
      * @type {Integer (Int32)}
      */
-    static DnsConfigDnsServerList => 6
+    static DnsServerList => 6
 
     /**
      * Not currently available.
+     * Native name: DnsConfigSearchList
      * @type {Integer (Int32)}
      */
-    static DnsConfigSearchList => 7
+    static SearchList => 7
 
     /**
      * Not currently available.
+     * Native name: DnsConfigAdapterInfo
      * @type {Integer (Int32)}
      */
-    static DnsConfigAdapterInfo => 8
+    static AdapterInfo => 8
 
     /**
      * Specifies that primary host name registration is enabled on Windows 2000.
+     * Native name: DnsConfigPrimaryHostNameRegistrationEnabled
      * @type {Integer (Int32)}
      */
-    static DnsConfigPrimaryHostNameRegistrationEnabled => 9
+    static PrimaryHostNameRegistrationEnabled => 9
 
     /**
      * Specifies that adapter host name registration is enabled on Windows 2000.
+     * Native name: DnsConfigAdapterHostNameRegistrationEnabled
      * @type {Integer (Int32)}
      */
-    static DnsConfigAdapterHostNameRegistrationEnabled => 10
+    static AdapterHostNameRegistrationEnabled => 10
 
     /**
      * Specifies configuration of the maximum number of address registrations on Windows 2000.
+     * Native name: DnsConfigAddressRegistrationMaxCount
      * @type {Integer (Int32)}
      */
-    static DnsConfigAddressRegistrationMaxCount => 11
+    static AddressRegistrationMaxCount => 11
 
     /**
      * Specifies configuration of the host name in Unicode on Windows XP, Windows Server 2003, and later versions of Windows.
+     * Native name: DnsConfigHostName_W
      * @type {Integer (Int32)}
      */
-    static DnsConfigHostName_W => 12
+    static HostName_W => 12
 
     /**
      * Specifies configuration of the host name in ANSI on Windows XP, Windows Server 2003, and later versions of Windows.
+     * Native name: DnsConfigHostName_A
      * @type {Integer (Int32)}
      */
-    static DnsConfigHostName_A => 13
+    static HostName_A => 13
 
     /**
      * Specifies configuration of the host name in UTF8 on Windows XP, Windows Server 2003, and later versions of Windows.
+     * Native name: DnsConfigHostName_UTF8
      * @type {Integer (Int32)}
      */
-    static DnsConfigHostName_UTF8 => 14
+    static HostName_UTF8 => 14
 
     /**
      * Specifies configuration of the full host name (fully qualified domain name) in Unicode on Windows XP, Windows Server 2003, and later versions of Windows.
+     * Native name: DnsConfigFullHostName_W
      * @type {Integer (Int32)}
      */
-    static DnsConfigFullHostName_W => 15
+    static FullHostName_W => 15
 
     /**
      * Specifies configuration of the full host name (fully qualified domain name) in ANSI on Windows XP, Windows Server 2003, and later versions of Windows.
+     * Native name: DnsConfigFullHostName_A
      * @type {Integer (Int32)}
      */
-    static DnsConfigFullHostName_A => 16
+    static FullHostName_A => 16
 
     /**
      * Specifies configuration of the full host name (fully qualified domain name) in UTF8 on Windows XP, Windows Server 2003, and later versions of Windows.
+     * Native name: DnsConfigFullHostName_UTF8
      * @type {Integer (Int32)}
      */
-    static DnsConfigFullHostName_UTF8 => 17
+    static FullHostName_UTF8 => 17
 
     /**
+     * Native name: DnsConfigNameServer
      * @type {Integer (Int32)}
      */
-    static DnsConfigNameServer => 18
+    static NameServer => 18
 }

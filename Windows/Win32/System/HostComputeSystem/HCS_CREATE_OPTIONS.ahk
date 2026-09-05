@@ -7,7 +7,8 @@
 class HCS_CREATE_OPTIONS extends Win32Enum {
 
     /**
+     * Native name: HcsCreateOptions_1
      * @type {Integer (Int32)}
      */
-    static HcsCreateOptions_1 => 65536
+    static 1 => 65536
 }

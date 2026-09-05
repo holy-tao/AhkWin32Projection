@@ -125,7 +125,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -135,7 +134,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTileID 
      * @returns {HRESULT} 
      */
@@ -145,7 +143,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {TILE_TEMPLATE_TYPE} 
      */
     get_TemplateType() {
@@ -154,7 +151,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {BOOL} 
      */
@@ -164,7 +160,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {Integer} 
      */
@@ -174,7 +169,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsNotified() {
@@ -183,7 +177,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsDefault() {
@@ -192,7 +185,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -202,7 +194,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_STARTTILE_TYPE} 
      */
     get_TileType() {
@@ -211,7 +202,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsThemable() {
@@ -220,7 +210,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} PropID 
      * @returns {IPMTilePropertyInfo} 
      */
@@ -230,7 +219,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -241,7 +229,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMTilePropertyEnumerator} 
      */
     get_PropertyEnum() {
@@ -250,7 +237,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {PM_TILE_SIZE} 
      */
@@ -260,7 +246,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @param {Integer} Position 
      * @returns {HRESULT} 
@@ -271,7 +256,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} Notified 
      * @returns {HRESULT} 
      */
@@ -281,7 +265,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @param {BOOL} Pinned 
      * @returns {HRESULT} 
@@ -292,7 +275,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @param {PM_TILE_SIZE} _Size 
      * @returns {HRESULT} 
@@ -303,7 +285,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} TaskName 
      * @param {BSTR} TaskParameters 
      * @returns {HRESULT} 
@@ -317,7 +298,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_STARTTILEBLOB>} pBlob 
      * @returns {HRESULT} 
      */
@@ -327,7 +307,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsRestoring() {
@@ -336,7 +315,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsAutoRestoreDisabled() {
@@ -345,7 +323,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} Restoring 
      * @returns {HRESULT} 
      */
@@ -355,7 +332,6 @@ class IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} AutoRestoreDisabled 
      * @returns {HRESULT} 
      */

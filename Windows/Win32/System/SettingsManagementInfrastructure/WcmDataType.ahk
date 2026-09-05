@@ -10,67 +10,78 @@ class WcmDataType extends Win32Enum {
 
     /**
      * Corresponds to a byte.
+     * Native name: dataTypeByte
      * @type {Integer (Int32)}
      */
-    static dataTypeByte => 1
+    static Byte => 1
 
     /**
      * Corresponds to a signed byte.
+     * Native name: dataTypeSByte
      * @type {Integer (Int32)}
      */
-    static dataTypeSByte => 2
+    static TypeSByte => 2
 
     /**
      * Corresponds to an unsigned 16-bit integer.
+     * Native name: dataTypeUInt16
      * @type {Integer (Int32)}
      */
-    static dataTypeUInt16 => 3
+    static TypeUInt16 => 3
 
     /**
      * Corresponds to a 16-bit integer.
+     * Native name: dataTypeInt16
      * @type {Integer (Int32)}
      */
-    static dataTypeInt16 => 4
+    static Int16 => 4
 
     /**
      * Corresponds to an unsigned 32-bit integer.
+     * Native name: dataTypeUInt32
      * @type {Integer (Int32)}
      */
-    static dataTypeUInt32 => 5
+    static TypeUInt32 => 5
 
     /**
      * Corresponds to a 32-bit integer.
+     * Native name: dataTypeInt32
      * @type {Integer (Int32)}
      */
-    static dataTypeInt32 => 6
+    static Int32 => 6
 
     /**
      * Corresponds to an unsigned 64-bit integer.
+     * Native name: dataTypeUInt64
      * @type {Integer (Int32)}
      */
-    static dataTypeUInt64 => 7
+    static TypeUInt64 => 7
 
     /**
      * Corresponds to a 64-bit integer.
+     * Native name: dataTypeInt64
      * @type {Integer (Int32)}
      */
-    static dataTypeInt64 => 8
+    static Int64 => 8
 
     /**
      * Corresponds to a Boolean.
+     * Native name: dataTypeBoolean
      * @type {Integer (Int32)}
      */
-    static dataTypeBoolean => 11
+    static Boolean => 11
 
     /**
      * Corresponds to a string.
+     * Native name: dataTypeString
      * @type {Integer (Int32)}
      */
-    static dataTypeString => 12
+    static String => 12
 
     /**
      * This flag may appear combined with <b>dataTypeByte</b> or <b>dataTypeString</b> to indicate xsd:hexBinary or wcm:multiString settings, respectively.
+     * Native name: dataTypeFlagArray
      * @type {Integer (Int32)}
      */
-    static dataTypeFlagArray => 32768
+    static FlagArray => 32768
 }

@@ -7,12 +7,14 @@
 class CTRLINFO extends Win32Enum {
 
     /**
+     * Native name: CTRLINFO_EATS_RETURN
      * @type {Integer (Int32)}
      */
-    static CTRLINFO_EATS_RETURN => 1
+    static EATS_RETURN => 1
 
     /**
+     * Native name: CTRLINFO_EATS_ESCAPE
      * @type {Integer (Int32)}
      */
-    static CTRLINFO_EATS_ESCAPE => 2
+    static EATS_ESCAPE => 2
 }

@@ -39,7 +39,6 @@ class IGameExplorer extends IUnknown {
     static VTableNames => ["AddGame", "RemoveGame", "UpdateGame", "VerifyAccess"]
 
     /**
-     * 
      * @param {BSTR} bstrGDFBinaryPath 
      * @param {BSTR} bstrGameInstallDirectory 
      * @param {GAME_INSTALL_SCOPE} installScope 
@@ -55,7 +54,6 @@ class IGameExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} guidInstanceID 
      * @returns {HRESULT} 
      */
@@ -65,7 +63,6 @@ class IGameExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} guidInstanceID 
      * @returns {HRESULT} 
      */
@@ -75,7 +72,6 @@ class IGameExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGDFBinaryPath 
      * @returns {BOOL} 
      */

@@ -29,7 +29,6 @@ class IPrinterExtensionAsyncOperation extends IUnknown {
     static VTableNames => ["Cancel"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {

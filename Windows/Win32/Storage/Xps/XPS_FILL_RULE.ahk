@@ -13,9 +13,10 @@ class XPS_FILL_RULE extends Win32Enum {
      * 				a ray from the point to infinity in any direction, and counting the number 
      * 				of path segments within the shape that the ray crosses. If this 
      * 				number is odd, the point is inside; if even, the point is outside.
+     * Native name: XPS_FILL_RULE_EVENODD
      * @type {Integer (Int32)}
      */
-    static XPS_FILL_RULE_EVENODD => 1
+    static EVENODD => 1
 
     /**
      * The rule that determines whether a point is in the fill region of the 
@@ -25,7 +26,8 @@ class XPS_FILL_RULE extends Win32Enum {
      * 				to right; subtract 1 whenever a path segment crosses the ray from 
      * 				right to left. After the crossings are counted, 
      * 				the point is outside the path if the result is zero and inside if otherwise.
+     * Native name: XPS_FILL_RULE_NONZERO
      * @type {Integer (Int32)}
      */
-    static XPS_FILL_RULE_NONZERO => 2
+    static NONZERO => 2
 }

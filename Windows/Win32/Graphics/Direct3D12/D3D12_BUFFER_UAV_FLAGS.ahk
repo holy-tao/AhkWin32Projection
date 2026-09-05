@@ -12,14 +12,16 @@ class D3D12_BUFFER_UAV_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates a default view.
+     * Native name: D3D12_BUFFER_UAV_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_BUFFER_UAV_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Resource contains raw, unstructured data.  Requires the UAV format to be <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R32_TYPELESS</a>.
      *             For more info about raw viewing of buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-intro">Raw Views of Buffers</a>.
+     * Native name: D3D12_BUFFER_UAV_FLAG_RAW
      * @type {Integer (Int32)}
      */
-    static D3D12_BUFFER_UAV_FLAG_RAW => 1
+    static FLAG_RAW => 1
 }

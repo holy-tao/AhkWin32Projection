@@ -10,20 +10,23 @@ class D2D1_COLORMANAGEMENT_QUALITY extends Win32Enum {
 
     /**
      * The lowest quality mode. This mode requires feature level 9_1 or above.
+     * Native name: D2D1_COLORMANAGEMENT_QUALITY_PROOF
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_QUALITY_PROOF => 0
+    static PROOF => 0
 
     /**
      * Normal quality mode. This mode requires feature level 9_1 or above.
+     * Native name: D2D1_COLORMANAGEMENT_QUALITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_QUALITY_NORMAL => 1
+    static NORMAL => 1
 
     /**
      * The best quality mode. This mode requires feature level 10_0 or above, as well as floating point precision buffers. 
      *           This mode supports floating point precision as well as extended range as defined in the ICC v4.3 specification.
+     * Native name: D2D1_COLORMANAGEMENT_QUALITY_BEST
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_QUALITY_BEST => 2
+    static BEST => 2
 }

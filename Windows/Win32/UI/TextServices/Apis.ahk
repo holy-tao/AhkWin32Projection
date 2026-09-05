@@ -2220,7 +2220,6 @@ class TextServices {
 
 ;@region Methods
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {HANDLE} hEventForServiceStop 
      * @returns {BOOL} 

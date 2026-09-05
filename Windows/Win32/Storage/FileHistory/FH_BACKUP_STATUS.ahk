@@ -14,26 +14,30 @@ class FH_BACKUP_STATUS extends Win32Enum {
 
     /**
      * File History backups are not enabled by the user.
+     * Native name: FH_STATUS_DISABLED
      * @type {Integer (Int32)}
      */
-    static FH_STATUS_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * File History backups are disabled by Group Policy.
+     * Native name: FH_STATUS_DISABLED_BY_GP
      * @type {Integer (Int32)}
      */
-    static FH_STATUS_DISABLED_BY_GP => 1
+    static DISABLED_BY_GP => 1
 
     /**
      * File History backups are enabled.
+     * Native name: FH_STATUS_ENABLED
      * @type {Integer (Int32)}
      */
-    static FH_STATUS_ENABLED => 2
+    static ENABLED => 2
 
     /**
+     * Native name: FH_STATUS_REHYDRATING
      * @type {Integer (Int32)}
      */
-    static FH_STATUS_REHYDRATING => 3
+    static REHYDRATING => 3
 
     /**
      * The maximum enumeration value for this enumeration. This value and all values greater than it are reserved for system use.

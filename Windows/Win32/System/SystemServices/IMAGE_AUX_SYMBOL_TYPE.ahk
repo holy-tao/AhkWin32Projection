@@ -7,7 +7,8 @@
 class IMAGE_AUX_SYMBOL_TYPE extends Win32Enum {
 
     /**
+     * Native name: IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF
      * @type {Integer (Int32)}
      */
-    static IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF => 1
+    static TOKEN_DEF => 1
 }

@@ -7,17 +7,20 @@
 class GRADIENT_FILL extends Win32Enum {
 
     /**
+     * Native name: GRADIENT_FILL_RECT_H
      * @type {Integer (UInt32)}
      */
-    static GRADIENT_FILL_RECT_H => 0
+    static RECT_H => 0
 
     /**
+     * Native name: GRADIENT_FILL_RECT_V
      * @type {Integer (UInt32)}
      */
-    static GRADIENT_FILL_RECT_V => 1
+    static RECT_V => 1
 
     /**
+     * Native name: GRADIENT_FILL_TRIANGLE
      * @type {Integer (UInt32)}
      */
-    static GRADIENT_FILL_TRIANGLE => 2
+    static TRIANGLE => 2
 }

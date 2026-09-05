@@ -32,7 +32,6 @@ class IScriptEventHandler extends IUnknown {
     static VTableNames => ["FunctionName", "DebugDocumentContext", "EventHandlerDispatch", "UsesCapture", "Cookie"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     FunctionName() {
@@ -42,7 +41,6 @@ class IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     DebugDocumentContext() {
@@ -51,7 +49,6 @@ class IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     EventHandlerDispatch() {
@@ -60,7 +57,6 @@ class IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     UsesCapture() {
@@ -69,7 +65,6 @@ class IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Cookie() {

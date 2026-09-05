@@ -31,7 +31,6 @@ class ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemovedExtendedData1 
     static VTableNames => ["GetPageFaultAllocationOutput2", "GetDeviceState"]
 
     /**
-     * 
      * @returns {D3D12_DRED_PAGE_FAULT_OUTPUT2} 
      */
     GetPageFaultAllocationOutput2() {
@@ -41,7 +40,6 @@ class ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemovedExtendedData1 
     }
 
     /**
-     * 
      * @returns {D3D12_DRED_DEVICE_STATE} 
      */
     GetDeviceState() {

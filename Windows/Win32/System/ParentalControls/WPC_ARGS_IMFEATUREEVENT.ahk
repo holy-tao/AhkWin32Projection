@@ -10,73 +10,85 @@ class WPC_ARGS_IMFEATUREEVENT extends Win32Enum {
 
     /**
      * The name of the application used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_APPNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_APPNAME => 0
+    static APPNAME => 0
 
     /**
      * The version of the application used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_APPVERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_APPVERSION => 1
+    static APPVERSION => 1
 
     /**
      * The account name used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_ACCOUNTNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_ACCOUNTNAME => 2
+    static ACCOUNTNAME => 2
 
     /**
      * The conversation ID used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_CONVID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_CONVID => 3
+    static CONVID => 3
 
     /**
      * The media type used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_MEDIATYPE
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_MEDIATYPE => 4
+    static MEDIATYPE => 4
 
     /**
      * The reason used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_REASON => 5
+    static REASON => 5
 
     /**
      * The number of recipients in the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_RECIPCOUNT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_RECIPCOUNT => 6
+    static RECIPCOUNT => 6
 
     /**
      * The recipient of the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_RECIPIENT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_RECIPIENT => 7
+    static RECIPIENT => 7
 
     /**
      * The sender of the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_SENDER
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_SENDER => 8
+    static SENDER => 8
 
     /**
      * The IP address of the sender of the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_SENDERIP
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_SENDERIP => 9
+    static SENDERIP => 9
 
     /**
      * The data used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_DATA
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_DATA => 10
+    static DATA => 10
 
     /**
      * The arguments used for the instant messaging interaction.
+     * Native name: WPC_ARGS_IMFEATUREEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_IMFEATUREEVENT_CARGS => 11
+    static CARGS => 11
 }

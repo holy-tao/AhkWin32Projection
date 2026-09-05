@@ -30,7 +30,6 @@ class IEnumRemoteDebugApplications extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<IRemoteDebugApplication>} ppda 
      * @param {Pointer<Integer>} pceltFetched 
@@ -44,7 +43,6 @@ class IEnumRemoteDebugApplications extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumRemoteDebugApplications extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumRemoteDebugApplications extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRemoteDebugApplications} 
      */
     Clone() {

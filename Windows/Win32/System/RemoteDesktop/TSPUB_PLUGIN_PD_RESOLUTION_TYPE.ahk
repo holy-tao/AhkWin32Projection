@@ -10,13 +10,15 @@ class TSPUB_PLUGIN_PD_RESOLUTION_TYPE extends Win32Enum {
 
     /**
      * Resolve an existing personal desktop for the user. If no personal desktop exists, the <a href="https://docs.microsoft.com/windows/desktop/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-resolvepersonaldesktop">ResolvePersonalDesktop</a> method should create a new one.
+     * Native name: TSPUB_PLUGIN_PD_QUERY_OR_CREATE
      * @type {Integer (Int32)}
      */
-    static TSPUB_PLUGIN_PD_QUERY_OR_CREATE => 0
+    static QUERY_OR_CREATE => 0
 
     /**
      * Resolve an existing personal desktop for the user. If no personal desktop exists, the <a href="https://docs.microsoft.com/windows/desktop/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-resolvepersonaldesktop">ResolvePersonalDesktop</a> method should return an error code.
+     * Native name: TSPUB_PLUGIN_PD_QUERY_EXISTING
      * @type {Integer (Int32)}
      */
-    static TSPUB_PLUGIN_PD_QUERY_EXISTING => 1
+    static QUERY_EXISTING => 1
 }

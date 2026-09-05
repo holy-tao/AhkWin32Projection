@@ -12,19 +12,22 @@ class CSC_PartitionConfig extends Win32Enum {
 
     /**
      * The enclosed context runs on the Base Application Partition. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.
+     * Native name: CSC_NoPartition
      * @type {Integer (Int32)}
      */
-    static CSC_NoPartition => 0
+    static NoPartition => 0
 
     /**
      * The enclosed context runs in the current containing COM+ partition. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Inherit.
+     * Native name: CSC_InheritPartition
      * @type {Integer (Int32)}
      */
-    static CSC_InheritPartition => 1
+    static InheritPartition => 1
 
     /**
      * The enclosed context runs in a COM+ partition that is different from the current containing partition.
+     * Native name: CSC_NewPartition
      * @type {Integer (Int32)}
      */
-    static CSC_NewPartition => 2
+    static NewPartition => 2
 }

@@ -30,7 +30,6 @@ class IStemSink extends IUnknown {
     static VTableNames => ["PutAltWord", "PutWord"]
 
     /**
-     * 
      * @param {PWSTR} pwcInBuf 
      * @param {Integer} cwc 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IStemSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcInBuf 
      * @param {Integer} cwc 
      * @returns {HRESULT} 

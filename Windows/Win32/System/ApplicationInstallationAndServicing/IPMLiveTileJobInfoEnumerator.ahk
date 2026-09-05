@@ -37,7 +37,6 @@ class IPMLiveTileJobInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMLiveTileJobInfo} 
      */
     get_Next() {

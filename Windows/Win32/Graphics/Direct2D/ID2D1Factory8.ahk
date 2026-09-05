@@ -31,7 +31,6 @@ class ID2D1Factory8 extends ID2D1Factory7 {
     static VTableNames => ["CreateDevice"]
 
     /**
-     * 
      * @param {IDXGIDevice} dxgiDevice 
      * @returns {ID2D1Device7} 
      */

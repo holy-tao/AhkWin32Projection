@@ -10,18 +10,21 @@ class AdrClientErrorType extends Win32Enum {
 
     /**
      * The ADR client error type is unknown.
+     * Native name: AdrClientErrorType_Unknown
      * @type {Integer (Int32)}
      */
-    static AdrClientErrorType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The ADR client error type is access denied.
+     * Native name: AdrClientErrorType_AccessDenied
      * @type {Integer (Int32)}
      */
-    static AdrClientErrorType_AccessDenied => 1
+    static AccessDenied => 1
 
     /**
+     * Native name: AdrClientErrorType_FileNotFound
      * @type {Integer (Int32)}
      */
-    static AdrClientErrorType_FileNotFound => 2
+    static FileNotFound => 2
 }

@@ -40,7 +40,6 @@ class IADsNameTranslate extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnChaseReferral 
      * @returns {HRESULT} 
      */

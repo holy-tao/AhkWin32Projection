@@ -7,37 +7,44 @@
 class styleMsFlexAlign extends Win32Enum {
 
     /**
+     * Native name: styleMsFlexAlignStart
      * @type {Integer (Int32)}
      */
-    static styleMsFlexAlignStart => 0
+    static Start => 0
 
     /**
+     * Native name: styleMsFlexAlignEnd
      * @type {Integer (Int32)}
      */
-    static styleMsFlexAlignEnd => 1
+    static End => 1
 
     /**
+     * Native name: styleMsFlexAlignCenter
      * @type {Integer (Int32)}
      */
-    static styleMsFlexAlignCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleMsFlexAlignBaseline
      * @type {Integer (Int32)}
      */
-    static styleMsFlexAlignBaseline => 3
+    static Baseline => 3
 
     /**
+     * Native name: styleMsFlexAlignStretch
      * @type {Integer (Int32)}
      */
-    static styleMsFlexAlignStretch => 4
+    static Stretch => 4
 
     /**
+     * Native name: styleMsFlexAlignNotSet
      * @type {Integer (Int32)}
      */
-    static styleMsFlexAlignNotSet => 5
+    static NotSet => 5
 
     /**
+     * Native name: styleMsFlexAlign_Max
      * @type {Integer (Int32)}
      */
-    static styleMsFlexAlign_Max => 2147483647
+    static Max => 2147483647
 }

@@ -76,7 +76,6 @@ class IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCEnumUserSearchResults} 
      */
     EnumerateResults() {
@@ -85,7 +84,6 @@ class IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Results() {
@@ -94,7 +92,6 @@ class IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -103,7 +100,6 @@ class IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCUserSearchQuery} 
      */
     get_Query() {
@@ -112,7 +108,6 @@ class IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Cookie() {
@@ -121,7 +116,6 @@ class IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -130,7 +124,6 @@ class IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MoreAvailable() {

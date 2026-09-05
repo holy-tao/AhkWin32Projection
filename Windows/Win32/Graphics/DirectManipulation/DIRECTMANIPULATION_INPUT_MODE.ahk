@@ -10,13 +10,15 @@ class DIRECTMANIPULATION_INPUT_MODE extends Win32Enum {
 
     /**
      * Input is automatically passed to the viewport in an independent thread.
+     * Native name: DIRECTMANIPULATION_INPUT_MODE_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_INPUT_MODE_AUTOMATIC => 0
+    static AUTOMATIC => 0
 
     /**
      * Input is manually passed by   the app on its thread via the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-processinput">ProcessInput</a> method.
+     * Native name: DIRECTMANIPULATION_INPUT_MODE_MANUAL
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_INPUT_MODE_MANUAL => 1
+    static MANUAL => 1
 }

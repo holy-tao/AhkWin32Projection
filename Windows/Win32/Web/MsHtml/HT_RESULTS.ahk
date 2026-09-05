@@ -7,12 +7,14 @@
 class HT_RESULTS extends Win32Enum {
 
     /**
+     * Native name: HT_RESULTS_Glyph
      * @type {Integer (Int32)}
      */
-    static HT_RESULTS_Glyph => 1
+    static Glyph => 1
 
     /**
+     * Native name: HT_RESULTS_Max
      * @type {Integer (Int32)}
      */
-    static HT_RESULTS_Max => 2147483647
+    static Max => 2147483647
 }

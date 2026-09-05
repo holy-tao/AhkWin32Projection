@@ -29,7 +29,6 @@ class ICLRIoCompletionManager extends IUnknown {
     static VTableNames => ["OnComplete"]
 
     /**
-     * 
      * @param {Integer} dwErrorCode 
      * @param {Integer} NumberOfBytesTransferred 
      * @param {Pointer<Void>} pvOverlapped 

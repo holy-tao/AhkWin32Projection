@@ -31,7 +31,6 @@ class ID3D12DeviceTools1 extends ID3D12DeviceTools {
     static VTableNames => ["GetApplicationSpecificDriverState", "GetApplicationSpecificDriverBlobStatus"]
 
     /**
-     * 
      * @returns {ID3DBlob} 
      */
     GetApplicationSpecificDriverState() {
@@ -40,7 +39,6 @@ class ID3D12DeviceTools1 extends ID3D12DeviceTools {
     }
 
     /**
-     * 
      * @returns {D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS} 
      */
     GetApplicationSpecificDriverBlobStatus() {

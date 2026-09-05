@@ -7,27 +7,32 @@
 class DFC_TYPE extends Win32Enum {
 
     /**
+     * Native name: DFC_CAPTION
      * @type {Integer (UInt32)}
      */
-    static DFC_CAPTION => 1
+    static CAPTION => 1
 
     /**
+     * Native name: DFC_MENU
      * @type {Integer (UInt32)}
      */
-    static DFC_MENU => 2
+    static MENU => 2
 
     /**
+     * Native name: DFC_SCROLL
      * @type {Integer (UInt32)}
      */
-    static DFC_SCROLL => 3
+    static SCROLL => 3
 
     /**
+     * Native name: DFC_BUTTON
      * @type {Integer (UInt32)}
      */
-    static DFC_BUTTON => 4
+    static BUTTON => 4
 
     /**
+     * Native name: DFC_POPUPMENU
      * @type {Integer (UInt32)}
      */
-    static DFC_POPUPMENU => 5
+    static POPUPMENU => 5
 }

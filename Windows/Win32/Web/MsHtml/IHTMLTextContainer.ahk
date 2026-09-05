@@ -68,7 +68,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createControlRange() {
@@ -77,7 +76,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollHeight() {
@@ -86,7 +84,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollWidth() {
@@ -95,7 +92,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -105,7 +101,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollTop() {
@@ -114,7 +109,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -124,7 +118,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollLeft() {
@@ -133,7 +126,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -143,7 +135,6 @@ class IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onscroll() {

@@ -10,19 +10,22 @@ class IMAPI_READ_TRACK_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * Interpret the address field as an LBA (sector address).  The returned data should reflect the information for the track which contains the specified LBA.
+     * Native name: IMAPI_READ_TRACK_ADDRESS_TYPE_LBA
      * @type {Integer (Int32)}
      */
-    static IMAPI_READ_TRACK_ADDRESS_TYPE_LBA => 0
+    static LBA => 0
 
     /**
      * Interpret the address field as a track number.  The returned data should reflect the information for the specified track.  This version of the command has the greatest compatibility with legacy devices.
+     * Native name: IMAPI_READ_TRACK_ADDRESS_TYPE_TRACK
      * @type {Integer (Int32)}
      */
-    static IMAPI_READ_TRACK_ADDRESS_TYPE_TRACK => 1
+    static TRACK => 1
 
     /**
      * Interpret the address field as a session number.  The returned data should reflect the information for the first track which exists in the specified session.  Note that not all drives support this method.
+     * Native name: IMAPI_READ_TRACK_ADDRESS_TYPE_SESSION
      * @type {Integer (Int32)}
      */
-    static IMAPI_READ_TRACK_ADDRESS_TYPE_SESSION => 2
+    static SESSION => 2
 }

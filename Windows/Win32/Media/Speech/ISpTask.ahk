@@ -23,7 +23,6 @@ class ISpTask extends Win32ComInterface {
     static VTableNames => ["Execute"]
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {Pointer<Integer>} pfContinueProcessing 
      * @returns {HRESULT} 

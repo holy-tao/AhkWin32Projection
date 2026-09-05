@@ -31,7 +31,6 @@ class IAppxManifestHostRuntimeDependenciesEnumerator extends IUnknown {
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
-     * 
      * @returns {IAppxManifestHostRuntimeDependency} 
      */
     GetCurrent() {
@@ -40,7 +39,6 @@ class IAppxManifestHostRuntimeDependenciesEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetHasCurrent() {
@@ -49,7 +47,6 @@ class IAppxManifestHostRuntimeDependenciesEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     MoveNext() {

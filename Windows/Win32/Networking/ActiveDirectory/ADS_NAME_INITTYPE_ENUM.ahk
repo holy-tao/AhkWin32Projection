@@ -15,19 +15,22 @@ class ADS_NAME_INITTYPE_ENUM extends Win32Enum {
 
     /**
      * Initializes a <b>NameTranslate</b> object by setting the domain that the object binds to.
+     * Native name: ADS_NAME_INITTYPE_DOMAIN
      * @type {Integer (Int32)}
      */
-    static ADS_NAME_INITTYPE_DOMAIN => 1
+    static DOMAIN => 1
 
     /**
      * Initializes a <b>NameTranslate</b> object by setting the server that the object binds to.
+     * Native name: ADS_NAME_INITTYPE_SERVER
      * @type {Integer (Int32)}
      */
-    static ADS_NAME_INITTYPE_SERVER => 2
+    static SERVER => 2
 
     /**
      * Initializes a <b>NameTranslate</b> object by locating the global catalog that the object binds to.
+     * Native name: ADS_NAME_INITTYPE_GC
      * @type {Integer (Int32)}
      */
-    static ADS_NAME_INITTYPE_GC => 3
+    static GC => 3
 }

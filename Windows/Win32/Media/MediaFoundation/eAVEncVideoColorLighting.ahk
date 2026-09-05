@@ -10,37 +10,43 @@ class eAVEncVideoColorLighting extends Win32Enum {
 
     /**
      * Use the same lighting as the input video. This flag applies to the <b>AVEncVideoOutputColorLighting</b> property only.
+     * Native name: eAVEncVideoColorLighting_SameAsSource
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorLighting_SameAsSource => 0
+    static SameAsSource => 0
 
     /**
      * The optimal lighting is unknown.
+     * Native name: eAVEncVideoColorLighting_Unknown
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorLighting_Unknown => 1
+    static Unknown => 1
 
     /**
      * Bright lighting; for example, outdoors.
+     * Native name: eAVEncVideoColorLighting_Bright
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorLighting_Bright => 2
+    static Bright => 2
 
     /**
      * Medium brightness; for example, normal office lighting.
+     * Native name: eAVEncVideoColorLighting_Office
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorLighting_Office => 3
+    static Office => 3
 
     /**
      * Dim; for example, a living room with a television and additional low lighting.
+     * Native name: eAVEncVideoColorLighting_Dim
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorLighting_Dim => 4
+    static Dim => 4
 
     /**
      * Dark; for example, a movie theater.
+     * Native name: eAVEncVideoColorLighting_Dark
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoColorLighting_Dark => 5
+    static Dark => 5
 }

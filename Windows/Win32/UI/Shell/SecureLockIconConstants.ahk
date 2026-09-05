@@ -7,37 +7,44 @@
 class SecureLockIconConstants extends Win32Enum {
 
     /**
+     * Native name: secureLockIconUnsecure
      * @type {Integer (Int32)}
      */
-    static secureLockIconUnsecure => 0
+    static Unsecure => 0
 
     /**
+     * Native name: secureLockIconMixed
      * @type {Integer (Int32)}
      */
-    static secureLockIconMixed => 1
+    static Mixed => 1
 
     /**
+     * Native name: secureLockIconSecureUnknownBits
      * @type {Integer (Int32)}
      */
-    static secureLockIconSecureUnknownBits => 2
+    static SecureUnknownBits => 2
 
     /**
+     * Native name: secureLockIconSecure40Bit
      * @type {Integer (Int32)}
      */
-    static secureLockIconSecure40Bit => 3
+    static Secure40Bit => 3
 
     /**
+     * Native name: secureLockIconSecure56Bit
      * @type {Integer (Int32)}
      */
-    static secureLockIconSecure56Bit => 4
+    static Secure56Bit => 4
 
     /**
+     * Native name: secureLockIconSecureFortezza
      * @type {Integer (Int32)}
      */
-    static secureLockIconSecureFortezza => 5
+    static SecureFortezza => 5
 
     /**
+     * Native name: secureLockIconSecure128Bit
      * @type {Integer (Int32)}
      */
-    static secureLockIconSecure128Bit => 6
+    static Secure128Bit => 6
 }

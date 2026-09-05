@@ -32,7 +32,6 @@ class IDxcLinker extends IUnknown {
     static VTableNames => ["RegisterLibrary", "Link"]
 
     /**
-     * 
      * @param {PWSTR} pLibName 
      * @param {IDxcBlob} pLib 
      * @returns {HRESULT} 
@@ -45,7 +44,6 @@ class IDxcLinker extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pEntryName 
      * @param {PWSTR} pTargetProfile 
      * @param {Pointer<PWSTR>} pLibNames 

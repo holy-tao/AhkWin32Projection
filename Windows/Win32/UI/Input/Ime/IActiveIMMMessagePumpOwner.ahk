@@ -30,7 +30,6 @@ class IActiveIMMMessagePumpOwner extends IUnknown {
     static VTableNames => ["Start", "End", "OnTranslateMessage", "Pause", "Resume"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -39,7 +38,6 @@ class IActiveIMMMessagePumpOwner extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     End() {
@@ -48,7 +46,6 @@ class IActiveIMMMessagePumpOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<MSG>} pMsg 
      * @returns {HRESULT} 
      */

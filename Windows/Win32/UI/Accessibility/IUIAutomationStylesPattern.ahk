@@ -165,7 +165,6 @@ class IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CurrentFillPatternStyle() {
@@ -207,7 +206,6 @@ class IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<ExtendedProperty>>} propertyArray 
      * @param {Pointer<Integer>} propertyCount 
      * @returns {HRESULT} 
@@ -254,7 +252,6 @@ class IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CachedFillPatternStyle() {
@@ -296,7 +293,6 @@ class IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<ExtendedProperty>>} propertyArray 
      * @param {Pointer<Integer>} propertyCount 
      * @returns {HRESULT} 

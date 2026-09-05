@@ -12,79 +12,92 @@ class DWRITE_PANOSE_WEIGHT extends Win32Enum {
 
     /**
      * Any weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_ANY => 0
+    static ANY => 0
 
     /**
      * No fit weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Very light weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_VERY_LIGHT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_VERY_LIGHT => 2
+    static VERY_LIGHT => 2
 
     /**
      * Light weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_LIGHT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_LIGHT => 3
+    static LIGHT => 3
 
     /**
      * Thin weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_THIN
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_THIN => 4
+    static THIN => 4
 
     /**
      * Book weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_BOOK
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_BOOK => 5
+    static BOOK => 5
 
     /**
      * Medium weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_MEDIUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_MEDIUM => 6
+    static MEDIUM => 6
 
     /**
      * Demi weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_DEMI
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_DEMI => 7
+    static DEMI => 7
 
     /**
      * Bold weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_BOLD
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_BOLD => 8
+    static BOLD => 8
 
     /**
      * Heavy weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_HEAVY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_HEAVY => 9
+    static HEAVY => 9
 
     /**
      * Black weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_BLACK
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_BLACK => 10
+    static BLACK => 10
 
     /**
      * Extra black weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_EXTRA_BLACK
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_EXTRA_BLACK => 11
+    static EXTRA_BLACK => 11
 
     /**
      * Extra black weight.
+     * Native name: DWRITE_PANOSE_WEIGHT_NORD
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_WEIGHT_NORD => 11
+    static NORD => 11
 }

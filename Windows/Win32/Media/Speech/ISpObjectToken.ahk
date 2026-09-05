@@ -41,7 +41,6 @@ class ISpObjectToken extends ISpDataKey {
     static VTableNames => ["SetId", "GetId", "GetCategory", "CreateInstance", "GetStorageFileName", "RemoveStorageFileName", "Remove", "IsUISupported", "DisplayUI", "MatchesAttributes"]
 
     /**
-     * 
      * @param {PWSTR} pszCategoryId 
      * @param {PWSTR} pszTokenId 
      * @param {BOOL} fCreateIfNotExist 
@@ -56,7 +55,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetId() {
@@ -65,7 +63,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @returns {ISpObjectTokenCategory} 
      */
     GetCategory() {
@@ -92,7 +89,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidCaller 
      * @param {PWSTR} pszValueName 
      * @param {PWSTR} pszFileNameSpecifier 
@@ -108,7 +104,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidCaller 
      * @param {PWSTR} pszKeyName 
      * @param {BOOL} fDeleteFile 
@@ -122,7 +117,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pclsidCaller 
      * @returns {HRESULT} 
      */
@@ -132,7 +126,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTypeOfUI 
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
@@ -151,7 +144,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszTypeOfUI 
@@ -172,7 +164,6 @@ class ISpObjectToken extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {PWSTR} pszAttributes 
      * @param {Pointer<BOOL>} pfMatches 
      * @returns {HRESULT} 

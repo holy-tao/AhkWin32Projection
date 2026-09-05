@@ -30,7 +30,6 @@ class ID3D12Tools1 extends ID3D12Tools {
     static VTableNames => ["ReserveGPUVARangesAtCreate", "ClearReservedGPUVARangesList"]
 
     /**
-     * 
      * @param {Pointer<D3D12_GPU_VIRTUAL_ADDRESS_RANGE>} pRanges 
      * @param {Integer} uiNumRanges 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class ID3D12Tools1 extends ID3D12Tools {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     ClearReservedGPUVARangesList() {

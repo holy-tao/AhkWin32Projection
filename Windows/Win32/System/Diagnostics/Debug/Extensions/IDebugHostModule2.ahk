@@ -30,7 +30,6 @@ class IDebugHostModule2 extends IDebugHostModule {
     static VTableNames => ["FindContainingSymbolByRVA"]
 
     /**
-     * 
      * @param {Integer} rva 
      * @param {Pointer<IDebugHostSymbol>} symbol 
      * @param {Pointer<Integer>} offset 

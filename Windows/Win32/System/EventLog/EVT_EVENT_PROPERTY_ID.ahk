@@ -10,19 +10,22 @@ class EVT_EVENT_PROPERTY_ID extends Win32Enum {
 
     /**
      * Not supported. The identifier of the query that selected the event. The variant type of this property is EvtVarTypeInt32.
+     * Native name: EvtEventQueryIDs
      * @type {Integer (Int32)}
      */
-    static EvtEventQueryIDs => 0
+    static QueryIDs => 0
 
     /**
      * The channel or log file from which the event came. The variant type of this property is EvtVarTypeString.
+     * Native name: EvtEventPath
      * @type {Integer (Int32)}
      */
-    static EvtEventPath => 1
+    static Path => 1
 
     /**
      * This enumeration value marks the end of the enumeration values. It can be used to exit a loop when retrieving all the properties.
+     * Native name: EvtEventPropertyIdEND
      * @type {Integer (Int32)}
      */
-    static EvtEventPropertyIdEND => 2
+    static IdEND => 2
 }

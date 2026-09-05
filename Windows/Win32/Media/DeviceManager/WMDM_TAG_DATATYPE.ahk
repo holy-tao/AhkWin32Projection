@@ -9,42 +9,50 @@
 class WMDM_TAG_DATATYPE extends Win32Enum {
 
     /**
+     * Native name: WMDM_TYPE_DWORD
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_DWORD => 0
+    static TYPE_DWORD => 0
 
     /**
+     * Native name: WMDM_TYPE_STRING
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_STRING => 1
+    static TYPE_STRING => 1
 
     /**
+     * Native name: WMDM_TYPE_BINARY
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_BINARY => 2
+    static TYPE_BINARY => 2
 
     /**
+     * Native name: WMDM_TYPE_BOOL
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_BOOL => 3
+    static TYPE_BOOL => 3
 
     /**
+     * Native name: WMDM_TYPE_QWORD
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_QWORD => 4
+    static TYPE_QWORD => 4
 
     /**
+     * Native name: WMDM_TYPE_WORD
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_WORD => 5
+    static TYPE_WORD => 5
 
     /**
+     * Native name: WMDM_TYPE_GUID
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_GUID => 6
+    static TYPE_GUID => 6
 
     /**
+     * Native name: WMDM_TYPE_DATE
      * @type {Integer (Int32)}
      */
-    static WMDM_TYPE_DATE => 7
+    static TYPE_DATE => 7
 }

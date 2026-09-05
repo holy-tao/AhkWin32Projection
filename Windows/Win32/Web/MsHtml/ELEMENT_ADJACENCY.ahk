@@ -27,7 +27,8 @@ class ELEMENT_ADJACENCY extends Win32Enum {
     static ELEM_ADJ_AfterEnd => 3
 
     /**
+     * Native name: ELEMENT_ADJACENCY_Max
      * @type {Integer (Int32)}
      */
-    static ELEMENT_ADJACENCY_Max => 2147483647
+    static Max => 2147483647
 }

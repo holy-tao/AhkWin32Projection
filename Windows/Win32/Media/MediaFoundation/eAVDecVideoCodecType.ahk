@@ -7,17 +7,20 @@
 class eAVDecVideoCodecType extends Win32Enum {
 
     /**
+     * Native name: eAVDecVideoCodecType_NOTPLAYING
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoCodecType_NOTPLAYING => 0
+    static NOTPLAYING => 0
 
     /**
+     * Native name: eAVDecVideoCodecType_MPEG2
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoCodecType_MPEG2 => 1
+    static MPEG2 => 1
 
     /**
+     * Native name: eAVDecVideoCodecType_H264
      * @type {Integer (Int32)}
      */
-    static eAVDecVideoCodecType_H264 => 2
+    static H264 => 2
 }

@@ -31,91 +31,106 @@ class D3D11_SHADER_TRACKING_OPTIONS extends Win32Enum {
 
     /**
      * No debug tracking is performed.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_IGNORE
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_IGNORE => 0
+    static OPTION_IGNORE => 0
 
     /**
      * Track the reading of uninitialized data.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_UNINITIALIZED
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_UNINITIALIZED => 1
+    static OPTION_TRACK_UNINITIALIZED => 1
 
     /**
      * Track read-after-write hazards.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_RAW
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_RAW => 2
+    static OPTION_TRACK_RAW => 2
 
     /**
      * Track write-after-read hazards.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_WAR
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_WAR => 4
+    static OPTION_TRACK_WAR => 4
 
     /**
      * Track write-after-write hazards.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_WAW
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_WAW => 8
+    static OPTION_TRACK_WAW => 8
 
     /**
      * Track that hazards are allowed in which data is written but the value does not change.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_ALLOW_SAME
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_ALLOW_SAME => 16
+    static OPTION_ALLOW_SAME => 16
 
     /**
      * Track that only one type of atomic operation is used on an address.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_ATOMIC_CONSISTENCY
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_ATOMIC_CONSISTENCY => 32
+    static OPTION_TRACK_ATOMIC_CONSISTENCY => 32
 
     /**
      * Track read-after-write hazards across thread groups.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_RAW_ACROSS_THREADGROUPS
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_RAW_ACROSS_THREADGROUPS => 64
+    static OPTION_TRACK_RAW_ACROSS_THREADGROUPS => 64
 
     /**
      * Track write-after-read hazards across thread groups.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_WAR_ACROSS_THREADGROUPS
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_WAR_ACROSS_THREADGROUPS => 128
+    static OPTION_TRACK_WAR_ACROSS_THREADGROUPS => 128
 
     /**
      * Track write-after-write hazards across thread groups.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_WAW_ACROSS_THREADGROUPS
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_WAW_ACROSS_THREADGROUPS => 256
+    static OPTION_TRACK_WAW_ACROSS_THREADGROUPS => 256
 
     /**
      * Track that only one type of atomic operation is used on an address across thread groups.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_TRACK_ATOMIC_CONSISTENCY_ACROSS_THREADGROUPS
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_TRACK_ATOMIC_CONSISTENCY_ACROSS_THREADGROUPS => 512
+    static OPTION_TRACK_ATOMIC_CONSISTENCY_ACROSS_THREADGROUPS => 512
 
     /**
      * Track hazards that are specific to unordered access views (UAVs).
+     * Native name: D3D11_SHADER_TRACKING_OPTION_UAV_SPECIFIC_FLAGS
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_UAV_SPECIFIC_FLAGS => 960
+    static OPTION_UAV_SPECIFIC_FLAGS => 960
 
     /**
      * Track all hazards.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_ALL_HAZARDS
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_ALL_HAZARDS => 1006
+    static OPTION_ALL_HAZARDS => 1006
 
     /**
      * Track all hazards and track that hazards are allowed in which data is written but the value does not change.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_ALL_HAZARDS_ALLOWING_SAME
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_ALL_HAZARDS_ALLOWING_SAME => 1022
+    static OPTION_ALL_HAZARDS_ALLOWING_SAME => 1022
 
     /**
      * All of the preceding tracking options are set except <b>D3D11_SHADER_TRACKING_OPTION_IGNORE</b>.
+     * Native name: D3D11_SHADER_TRACKING_OPTION_ALL_OPTIONS
      * @type {Integer (Int32)}
      */
-    static D3D11_SHADER_TRACKING_OPTION_ALL_OPTIONS => 1023
+    static OPTION_ALL_OPTIONS => 1023
 }

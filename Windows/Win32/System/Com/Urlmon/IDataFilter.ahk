@@ -29,7 +29,6 @@ class IDataFilter extends IUnknown {
     static VTableNames => ["DoEncode", "DoDecode", "SetEncodingLevel"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} lInBufferSize 
      * @param {Pointer<Integer>} pbInBuffer 
@@ -52,7 +51,6 @@ class IDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} lInBufferSize 
      * @param {Pointer<Integer>} pbInBuffer 
@@ -75,7 +73,6 @@ class IDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEncLevel 
      * @returns {HRESULT} 
      */

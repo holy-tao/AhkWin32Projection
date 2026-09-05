@@ -10,19 +10,22 @@ class DS_REPSYNCALL_ERROR extends Win32Enum {
 
     /**
      * The server referred to by the <b>pszSvrId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structure cannot be contacted.
+     * Native name: DS_REPSYNCALL_WIN32_ERROR_CONTACTING_SERVER
      * @type {Integer (Int32)}
      */
-    static DS_REPSYNCALL_WIN32_ERROR_CONTACTING_SERVER => 0
+    static WIN32_ERROR_CONTACTING_SERVER => 0
 
     /**
      * An error occurred during replication of the server identified by the <b>pszSvrId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structure.
+     * Native name: DS_REPSYNCALL_WIN32_ERROR_REPLICATING
      * @type {Integer (Int32)}
      */
-    static DS_REPSYNCALL_WIN32_ERROR_REPLICATING => 1
+    static WIN32_ERROR_REPLICATING => 1
 
     /**
      * The server identified by the <b>pszSvrId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structure cannot be contacted.
+     * Native name: DS_REPSYNCALL_SERVER_UNREACHABLE
      * @type {Integer (Int32)}
      */
-    static DS_REPSYNCALL_SERVER_UNREACHABLE => 2
+    static SERVER_UNREACHABLE => 2
 }

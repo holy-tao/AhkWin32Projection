@@ -48,7 +48,6 @@ class IGPMBackupDir extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BackupDirectory() {

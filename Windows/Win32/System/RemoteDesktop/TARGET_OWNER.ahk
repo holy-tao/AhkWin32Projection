@@ -7,17 +7,20 @@
 class TARGET_OWNER extends Win32Enum {
 
     /**
+     * Native name: OWNER_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static OWNER_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
+     * Native name: OWNER_MS_TS_PLUGIN
      * @type {Integer (Int32)}
      */
-    static OWNER_MS_TS_PLUGIN => 1
+    static MS_TS_PLUGIN => 1
 
     /**
+     * Native name: OWNER_MS_VM_PLUGIN
      * @type {Integer (Int32)}
      */
-    static OWNER_MS_VM_PLUGIN => 2
+    static MS_VM_PLUGIN => 2
 }

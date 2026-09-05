@@ -10,25 +10,29 @@ class D3D11_VIDEO_PROCESSOR_ROTATION extends Win32Enum {
 
     /**
      * The video is not rotated.
+     * Native name: D3D11_VIDEO_PROCESSOR_ROTATION_IDENTITY
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ROTATION_IDENTITY => 0
+    static IDENTITY => 0
 
     /**
      * The video is rotated 90 degrees clockwise.
+     * Native name: D3D11_VIDEO_PROCESSOR_ROTATION_90
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ROTATION_90 => 1
+    static 90 => 1
 
     /**
      * The video is rotated 180 degrees clockwise.
+     * Native name: D3D11_VIDEO_PROCESSOR_ROTATION_180
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ROTATION_180 => 2
+    static 180 => 2
 
     /**
      * The video is rotated 270 degrees clockwise.
+     * Native name: D3D11_VIDEO_PROCESSOR_ROTATION_270
      * @type {Integer (Int32)}
      */
-    static D3D11_VIDEO_PROCESSOR_ROTATION_270 => 3
+    static 270 => 3
 }

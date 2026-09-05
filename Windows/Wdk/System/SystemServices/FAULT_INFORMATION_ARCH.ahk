@@ -7,17 +7,20 @@
 class FAULT_INFORMATION_ARCH extends Win32Enum {
 
     /**
+     * Native name: FaultInformationInvalid
      * @type {Integer (Int32)}
      */
-    static FaultInformationInvalid => 0
+    static Invalid => 0
 
     /**
+     * Native name: FaultInformationArm64
      * @type {Integer (Int32)}
      */
-    static FaultInformationArm64 => 1
+    static Arm64 => 1
 
     /**
+     * Native name: FaultInformationX64
      * @type {Integer (Int32)}
      */
-    static FaultInformationX64 => 2
+    static InformationX64 => 2
 }

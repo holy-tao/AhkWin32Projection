@@ -30,7 +30,6 @@ class IPrintPipelineProgressReport extends IUnknown {
     static VTableNames => ["ReportProgress"]
 
     /**
-     * 
      * @param {EXpsJobConsumption} update 
      * @returns {HRESULT} 
      */

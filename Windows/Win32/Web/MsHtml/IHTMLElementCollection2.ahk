@@ -30,7 +30,6 @@ class IHTMLElementCollection2 extends IDispatch {
     static VTableNames => ["urns"]
 
     /**
-     * 
      * @param {VARIANT} urn 
      * @returns {IDispatch} 
      */

@@ -10,43 +10,50 @@ class WICComponentType extends Win32Enum {
 
     /**
      * A WIC decoder.
+     * Native name: WICDecoder
      * @type {Integer (Int32)}
      */
-    static WICDecoder => 1
+    static Decoder => 1
 
     /**
      * A WIC encoder.
+     * Native name: WICEncoder
      * @type {Integer (Int32)}
      */
-    static WICEncoder => 2
+    static Encoder => 2
 
     /**
      * A WIC pixel converter.
+     * Native name: WICPixelFormatConverter
      * @type {Integer (Int32)}
      */
-    static WICPixelFormatConverter => 4
+    static PixelFormatConverter => 4
 
     /**
      * A WIC metadata reader.
+     * Native name: WICMetadataReader
      * @type {Integer (Int32)}
      */
-    static WICMetadataReader => 8
+    static MetadataReader => 8
 
     /**
      * A WIC metadata writer.
+     * Native name: WICMetadataWriter
      * @type {Integer (Int32)}
      */
-    static WICMetadataWriter => 16
+    static MetadataWriter => 16
 
     /**
      * A WIC pixel format.
+     * Native name: WICPixelFormat
      * @type {Integer (Int32)}
      */
-    static WICPixelFormat => 32
+    static PixelFormat => 32
 
     /**
      * All WIC components.
+     * Native name: WICAllComponents
      * @type {Integer (Int32)}
      */
-    static WICAllComponents => 63
+    static AllComponents => 63
 }

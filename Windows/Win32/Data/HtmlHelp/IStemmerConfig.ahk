@@ -140,7 +140,6 @@ class IStemmerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfStemFlags 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -151,7 +150,6 @@ class IStemmerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pgrfStemFlags 
      * @param {Pointer<Integer>} pdwReserved 
      * @returns {HRESULT} 
@@ -165,7 +163,6 @@ class IStemmerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwExtDataType 
      * @returns {HRESULT} 

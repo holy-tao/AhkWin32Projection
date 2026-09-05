@@ -7,7 +7,8 @@
 class XACTCONST extends Win32Enum {
 
     /**
+     * Native name: XACTCONST_TIMEOUTINFINITE
      * @type {Integer (Int32)}
      */
-    static XACTCONST_TIMEOUTINFINITE => 0
+    static TIMEOUTINFINITE => 0
 }

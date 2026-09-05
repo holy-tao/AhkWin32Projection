@@ -7,12 +7,14 @@
 class MF_MSE_OPUS_SUPPORT_TYPE extends Win32Enum {
 
     /**
+     * Native name: MF_MSE_OPUS_SUPPORT_ON
      * @type {Integer (Int32)}
      */
-    static MF_MSE_OPUS_SUPPORT_ON => 0
+    static ON => 0
 
     /**
+     * Native name: MF_MSE_OPUS_SUPPORT_OFF
      * @type {Integer (Int32)}
      */
-    static MF_MSE_OPUS_SUPPORT_OFF => 1
+    static OFF => 1
 }

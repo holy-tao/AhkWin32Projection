@@ -90,7 +90,6 @@ class IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -103,7 +102,6 @@ class IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -115,7 +113,6 @@ class IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -128,7 +125,6 @@ class IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -142,7 +138,6 @@ class IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 

@@ -530,7 +530,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLSelection} 
      */
     getSelection() {
@@ -539,7 +538,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} varArgIn 
      * @param {BSTR} bstrPseudoElt 
      * @returns {IHTMLCSSStyleDeclaration} 
@@ -552,7 +550,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleMedia} 
      */
     get_styleMedia() {
@@ -561,7 +558,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -571,7 +567,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_performance() {
@@ -581,7 +576,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_innerWidth() {
@@ -590,7 +584,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_innerHeight() {
@@ -599,7 +592,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageXOffset() {
@@ -608,7 +600,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageYOffset() {
@@ -617,7 +608,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -626,7 +616,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -635,7 +624,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_outerWidth() {
@@ -644,7 +632,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_outerHeight() {
@@ -653,7 +640,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -663,7 +649,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -673,7 +658,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -683,7 +667,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncanplay() {
@@ -693,7 +676,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -703,7 +685,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncanplaythrough() {
@@ -713,7 +694,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -723,7 +703,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -733,7 +712,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -743,7 +721,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onclick() {
@@ -753,7 +730,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -763,7 +739,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontextmenu() {
@@ -773,7 +748,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -783,7 +757,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondblclick() {
@@ -793,7 +766,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -803,7 +775,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondrag() {
@@ -813,7 +784,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -823,7 +793,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragend() {
@@ -833,7 +802,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -843,7 +811,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragenter() {
@@ -853,7 +820,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -863,7 +829,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragleave() {
@@ -873,7 +838,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -883,7 +847,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragover() {
@@ -893,7 +856,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -903,7 +865,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragstart() {
@@ -913,7 +874,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -923,7 +883,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondrop() {
@@ -933,7 +892,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -943,7 +901,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondurationchange() {
@@ -953,7 +910,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -963,7 +919,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusin() {
@@ -973,7 +928,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -983,7 +937,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusout() {
@@ -993,7 +946,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1003,7 +955,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oninput() {
@@ -1013,7 +964,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1023,7 +973,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onemptied() {
@@ -1033,7 +982,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1043,7 +991,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onended() {
@@ -1053,7 +1000,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1063,7 +1009,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeydown() {
@@ -1073,7 +1018,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1083,7 +1027,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeypress() {
@@ -1093,7 +1036,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1103,7 +1045,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeyup() {
@@ -1113,7 +1054,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1123,7 +1063,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadeddata() {
@@ -1133,7 +1072,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1143,7 +1081,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadedmetadata() {
@@ -1153,7 +1090,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1163,7 +1099,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadstart() {
@@ -1173,7 +1108,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1183,7 +1117,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousedown() {
@@ -1193,7 +1126,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1203,7 +1135,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseenter() {
@@ -1213,7 +1144,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1223,7 +1153,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseleave() {
@@ -1233,7 +1162,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1243,7 +1171,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousemove() {
@@ -1253,7 +1180,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1263,7 +1189,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseout() {
@@ -1273,7 +1198,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1283,7 +1207,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseover() {
@@ -1293,7 +1216,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1303,7 +1225,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseup() {
@@ -1313,7 +1234,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1323,7 +1243,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousewheel() {
@@ -1333,7 +1252,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1343,7 +1261,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onoffline() {
@@ -1353,7 +1270,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1363,7 +1279,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ononline() {
@@ -1373,7 +1288,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1383,7 +1297,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onprogress() {
@@ -1393,7 +1306,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1403,7 +1315,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onratechange() {
@@ -1413,7 +1324,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1423,7 +1333,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -1433,7 +1342,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1443,7 +1351,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreset() {
@@ -1453,7 +1360,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1463,7 +1369,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onseeked() {
@@ -1473,7 +1378,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1483,7 +1387,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onseeking() {
@@ -1493,7 +1396,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1503,7 +1405,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -1513,7 +1414,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1523,7 +1423,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstalled() {
@@ -1533,7 +1432,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1543,7 +1441,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstorage() {
@@ -1553,7 +1450,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1563,7 +1459,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsubmit() {
@@ -1573,7 +1468,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1583,7 +1477,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsuspend() {
@@ -1593,7 +1486,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1603,7 +1495,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ontimeupdate() {
@@ -1613,7 +1504,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1623,7 +1513,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpause() {
@@ -1633,7 +1522,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1643,7 +1531,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onplay() {
@@ -1653,7 +1540,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1663,7 +1549,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onplaying() {
@@ -1673,7 +1558,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1683,7 +1567,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onvolumechange() {
@@ -1693,7 +1576,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1703,7 +1585,6 @@ class IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onwaiting() {

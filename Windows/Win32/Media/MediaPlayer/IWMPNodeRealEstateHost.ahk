@@ -31,7 +31,6 @@ class IWMPNodeRealEstateHost extends IUnknown {
     static VTableNames => ["OnDesiredSizeChange", "OnFullScreenTransition"]
 
     /**
-     * 
      * @param {Pointer<SIZE>} pSize 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IWMPNodeRealEstateHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFullScreen 
      * @returns {HRESULT} 
      */

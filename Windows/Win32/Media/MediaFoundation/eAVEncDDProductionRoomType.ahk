@@ -10,19 +10,22 @@ class eAVEncDDProductionRoomType extends Win32Enum {
 
     /**
      * The room type is not indicated.
+     * Native name: eAVEncDDProductionRoomType_NotIndicated
      * @type {Integer (Int32)}
      */
-    static eAVEncDDProductionRoomType_NotIndicated => 0
+    static NotIndicated => 0
 
     /**
      * Large room.
+     * Native name: eAVEncDDProductionRoomType_Large
      * @type {Integer (Int32)}
      */
-    static eAVEncDDProductionRoomType_Large => 1
+    static Large => 1
 
     /**
      * Small room.
+     * Native name: eAVEncDDProductionRoomType_Small
      * @type {Integer (Int32)}
      */
-    static eAVEncDDProductionRoomType_Small => 2
+    static Small => 2
 }

@@ -10,19 +10,22 @@ class D3D_PARAMETER_FLAGS extends Win32Enum {
 
     /**
      * The parameter has no semantic flags.
+     * Native name: D3D_PF_NONE
      * @type {Integer (Int32)}
      */
-    static D3D_PF_NONE => 0
+    static PF_NONE => 0
 
     /**
      * Indicates an input parameter.
+     * Native name: D3D_PF_IN
      * @type {Integer (Int32)}
      */
-    static D3D_PF_IN => 1
+    static PF_IN => 1
 
     /**
      * Indicates an output parameter.
+     * Native name: D3D_PF_OUT
      * @type {Integer (Int32)}
      */
-    static D3D_PF_OUT => 2
+    static PF_OUT => 2
 }

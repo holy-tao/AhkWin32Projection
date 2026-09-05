@@ -10,37 +10,43 @@ class SYNCMGR_PRESENTER_CHOICE extends Win32Enum {
 
     /**
      * The user is skipping this conflict, or conflict resolution is being canceled.
+     * Native name: SYNCMGR_PC_NO_CHOICE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PC_NO_CHOICE => 0
+    static PC_NO_CHOICE => 0
 
     /**
      * The user chooses to keep only one item.
+     * Native name: SYNCMGR_PC_KEEP_ONE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PC_KEEP_ONE => 1
+    static PC_KEEP_ONE => 1
 
     /**
      * The user chooses to keep multiple items.
+     * Native name: SYNCMGR_PC_KEEP_MULTIPLE
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PC_KEEP_MULTIPLE => 2
+    static PC_KEEP_MULTIPLE => 2
 
     /**
      * The user chooses to keep the most recent item.
+     * Native name: SYNCMGR_PC_KEEP_RECENT
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PC_KEEP_RECENT => 3
+    static PC_KEEP_RECENT => 3
 
     /**
      * The item is to be removed from the sync set.
+     * Native name: SYNCMGR_PC_REMOVE_FROM_SYNC_SET
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PC_REMOVE_FROM_SYNC_SET => 4
+    static PC_REMOVE_FROM_SYNC_SET => 4
 
     /**
      * The item is not being resolved now but is instead being skipped so that it can be resolved later.
+     * Native name: SYNCMGR_PC_SKIP
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_PC_SKIP => 5
+    static PC_SKIP => 5
 }

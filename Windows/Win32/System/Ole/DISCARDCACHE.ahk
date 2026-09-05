@@ -10,13 +10,15 @@ class DISCARDCACHE extends Win32Enum {
 
     /**
      * The cache is to be saved to disk.
+     * Native name: DISCARDCACHE_SAVEIFDIRTY
      * @type {Integer (Int32)}
      */
-    static DISCARDCACHE_SAVEIFDIRTY => 0
+    static SAVEIFDIRTY => 0
 
     /**
      * The cache can be discarded without saving it.
+     * Native name: DISCARDCACHE_NOSAVE
      * @type {Integer (Int32)}
      */
-    static DISCARDCACHE_NOSAVE => 1
+    static NOSAVE => 1
 }

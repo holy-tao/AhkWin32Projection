@@ -7,57 +7,68 @@
 class KSCAMERA_MetadataId extends Win32Enum {
 
     /**
+     * Native name: MetadataId_Standard_Start
      * @type {Integer (Int32)}
      */
-    static MetadataId_Standard_Start => 1
+    static Standard_Start => 1
 
     /**
+     * Native name: MetadataId_PhotoConfirmation
      * @type {Integer (Int32)}
      */
-    static MetadataId_PhotoConfirmation => 1
+    static PhotoConfirmation => 1
 
     /**
+     * Native name: MetadataId_UsbVideoHeader
      * @type {Integer (Int32)}
      */
-    static MetadataId_UsbVideoHeader => 2
+    static UsbVideoHeader => 2
 
     /**
+     * Native name: MetadataId_CaptureStats
      * @type {Integer (Int32)}
      */
-    static MetadataId_CaptureStats => 3
+    static CaptureStats => 3
 
     /**
+     * Native name: MetadataId_CameraExtrinsics
      * @type {Integer (Int32)}
      */
-    static MetadataId_CameraExtrinsics => 4
+    static CameraExtrinsics => 4
 
     /**
+     * Native name: MetadataId_CameraIntrinsics
      * @type {Integer (Int32)}
      */
-    static MetadataId_CameraIntrinsics => 5
+    static CameraIntrinsics => 5
 
     /**
+     * Native name: MetadataId_FrameIllumination
      * @type {Integer (Int32)}
      */
-    static MetadataId_FrameIllumination => 6
+    static FrameIllumination => 6
 
     /**
+     * Native name: MetadataId_DigitalWindow
      * @type {Integer (Int32)}
      */
-    static MetadataId_DigitalWindow => 7
+    static DigitalWindow => 7
 
     /**
+     * Native name: MetadataId_BackgroundSegmentationMask
      * @type {Integer (Int32)}
      */
-    static MetadataId_BackgroundSegmentationMask => 8
+    static BackgroundSegmentationMask => 8
 
     /**
+     * Native name: MetadataId_Standard_End
      * @type {Integer (Int32)}
      */
-    static MetadataId_Standard_End => 8
+    static Standard_End => 8
 
     /**
+     * Native name: MetadataId_Custom_Start
      * @type {Integer (Int32)}
      */
-    static MetadataId_Custom_Start => -2147483648
+    static Custom_Start => -2147483648
 }

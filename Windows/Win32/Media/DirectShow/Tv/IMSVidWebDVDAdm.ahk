@@ -213,7 +213,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultAudioLCID() {
@@ -222,7 +221,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -232,7 +230,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultSubpictureLCID() {
@@ -241,7 +238,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -251,7 +247,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultMenuLCID() {
@@ -260,7 +255,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -270,7 +264,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_BookmarkOnStop() {
@@ -279,7 +272,6 @@ class IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */

@@ -7,57 +7,68 @@
 class GameInputForceFeedbackEffectKind extends Win32Enum {
 
     /**
+     * Native name: GameInputForceFeedbackConstant
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackConstant => 0
+    static Constant => 0
 
     /**
+     * Native name: GameInputForceFeedbackRamp
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackRamp => 1
+    static Ramp => 1
 
     /**
+     * Native name: GameInputForceFeedbackSineWave
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackSineWave => 2
+    static SineWave => 2
 
     /**
+     * Native name: GameInputForceFeedbackSquareWave
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackSquareWave => 3
+    static SquareWave => 3
 
     /**
+     * Native name: GameInputForceFeedbackTriangleWave
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackTriangleWave => 4
+    static TriangleWave => 4
 
     /**
+     * Native name: GameInputForceFeedbackSawtoothUpWave
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackSawtoothUpWave => 5
+    static SawtoothUpWave => 5
 
     /**
+     * Native name: GameInputForceFeedbackSawtoothDownWave
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackSawtoothDownWave => 6
+    static SawtoothDownWave => 6
 
     /**
+     * Native name: GameInputForceFeedbackSpring
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackSpring => 7
+    static Spring => 7
 
     /**
+     * Native name: GameInputForceFeedbackFriction
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackFriction => 8
+    static Friction => 8
 
     /**
+     * Native name: GameInputForceFeedbackDamper
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackDamper => 9
+    static Damper => 9
 
     /**
+     * Native name: GameInputForceFeedbackInertia
      * @type {Integer (Int32)}
      */
-    static GameInputForceFeedbackInertia => 10
+    static Inertia => 10
 }

@@ -12,25 +12,29 @@ class NVME_RESERVATION_NOTIFICATION_TYPES extends Win32Enum {
 
     /**
      * The log page is empty. The Get Log Page command was processed when no unread Reservation Notification log pages were available. All the fields of an empty log page have a value of zero.
+     * Native name: NVME_RESERVATION_NOTIFICATION_TYPE_EMPTY_LOG_PAGE
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_NOTIFICATION_TYPE_EMPTY_LOG_PAGE => 0
+    static TYPE_EMPTY_LOG_PAGE => 0
 
     /**
      * The registration is preempted.
+     * Native name: NVME_RESERVATION_NOTIFICATION_TYPE_REGISTRATION_PREEMPTED
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_NOTIFICATION_TYPE_REGISTRATION_PREEMPTED => 1
+    static TYPE_REGISTRATION_PREEMPTED => 1
 
     /**
      * The reservation is released.
+     * Native name: NVME_RESERVATION_NOTIFICATION_TYPE_REGISTRATION_RELEASED
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_NOTIFICATION_TYPE_REGISTRATION_RELEASED => 2
+    static TYPE_REGISTRATION_RELEASED => 2
 
     /**
      * The reservation is preempted.
+     * Native name: NVME_RESERVATION_NOTIFICATION_TYPE_RESERVATION_PREEPMPTED
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_NOTIFICATION_TYPE_RESERVATION_PREEPMPTED => 3
+    static TYPE_RESERVATION_PREEPMPTED => 3
 }

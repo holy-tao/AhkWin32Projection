@@ -12,13 +12,15 @@ class TOKENBINDING_TYPE extends Win32Enum {
 
     /**
      * This type of Token Binding is used to protect tokens issued by the Identity Provider for the client to present with subsequent requests back to this Identity Provider.
+     * Native name: TOKENBINDING_TYPE_PROVIDED
      * @type {Integer (Int32)}
      */
-    static TOKENBINDING_TYPE_PROVIDED => 0
+    static PROVIDED => 0
 
     /**
      * This type of Token Binding is used to protect tokens issued by the Identity Provider for the client to present to a Relying Party.
+     * Native name: TOKENBINDING_TYPE_REFERRED
      * @type {Integer (Int32)}
      */
-    static TOKENBINDING_TYPE_REFERRED => 1
+    static REFERRED => 1
 }

@@ -66,7 +66,6 @@ class IGenericDescriptor2 extends IGenericDescriptor {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {

@@ -31,7 +31,6 @@ class IDirectMusicCollection extends IUnknown {
     static VTableNames => ["GetInstrument", "EnumInstrument"]
 
     /**
-     * 
      * @param {Integer} dwPatch 
      * @returns {IDirectMusicInstrument} 
      */
@@ -41,7 +40,6 @@ class IDirectMusicCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<Integer>} pdwPatch 
      * @param {PWSTR} pwszName 

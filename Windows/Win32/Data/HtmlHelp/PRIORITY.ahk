@@ -7,17 +7,20 @@
 class PRIORITY extends Win32Enum {
 
     /**
+     * Native name: PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static PRIORITY_LOW => 0
+    static LOW => 0
 
     /**
+     * Native name: PRIORITY_NORMAL
      * @type {Integer (Int32)}
      */
-    static PRIORITY_NORMAL => 1
+    static NORMAL => 1
 
     /**
+     * Native name: PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static PRIORITY_HIGH => 2
+    static HIGH => 2
 }

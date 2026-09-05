@@ -10,33 +10,38 @@ class CF_CONVERT_FLAGS extends Win32BitflagEnum {
 
     /**
      * No conversion flags.
+     * Native name: CF_CONVERT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_CONVERT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The platform marks the converted placeholder as in sync with cloud upon a successful conversion of the file.
+     * Native name: CF_CONVERT_FLAG_MARK_IN_SYNC
      * @type {Integer (Int32)}
      */
-    static CF_CONVERT_FLAG_MARK_IN_SYNC => 1
+    static FLAG_MARK_IN_SYNC => 1
 
     /**
      * Applicable to files only. When specified, the platform dehydrates the file after converting it to a placeholder successfully. The caller must acquire an exclusive handle when specifying this flag or data corruptions can occur. Note that the platform does not validate the exclusiveness of the handle.
+     * Native name: CF_CONVERT_FLAG_DEHYDRATE
      * @type {Integer (Int32)}
      */
-    static CF_CONVERT_FLAG_DEHYDRATE => 2
+    static FLAG_DEHYDRATE => 2
 
     /**
      * Applicable for directories only. When specified, it marks the converted placeholder directory as partially populated such that any future access to it will result in a **FETCH_PLACEHOLDERS** callback sent to the sync provider.
+     * Native name: CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION
      * @type {Integer (Int32)}
      */
-    static CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION => 4
+    static FLAG_ENABLE_ON_DEMAND_POPULATION => 4
 
     /**
      * When this flag is present, the newly created placeholder will be marked as always full. Once hydrated, any attempt to dehydrate such a (file) placeholder will fail with error code **ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED**. This flag is enforced on a placeholder file only. It can be set on a placeholder directory, but it has no effect.
+     * Native name: CF_CONVERT_FLAG_ALWAYS_FULL
      * @type {Integer (Int32)}
      */
-    static CF_CONVERT_FLAG_ALWAYS_FULL => 8
+    static FLAG_ALWAYS_FULL => 8
 
     /**
      * When specified, the platform allows a sync engine to atomically convert a non-cloud files placeholder (having another reparse tag/data) to a cloud files placeholder. Note that the API normally fails conversion of any non-placeholder file to a placeholder.
@@ -47,7 +52,8 @@ class CF_CONVERT_FLAGS extends Win32BitflagEnum {
      * 
      * >[!NOTE]
      * >The flag is supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x500` or higher.
+     * Native name: CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE
      * @type {Integer (Int32)}
      */
-    static CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE => 16
+    static FLAG_FORCE_CONVERT_TO_CLOUD_FILE => 16
 }

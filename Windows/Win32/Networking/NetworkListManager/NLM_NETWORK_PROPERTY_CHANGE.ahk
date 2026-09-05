@@ -10,30 +10,35 @@ class NLM_NETWORK_PROPERTY_CHANGE extends Win32Enum {
 
     /**
      * A connection to this network has been added or removed.
+     * Native name: NLM_NETWORK_PROPERTY_CHANGE_CONNECTION
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_PROPERTY_CHANGE_CONNECTION => 1
+    static CONNECTION => 1
 
     /**
      * The description of the network has changed.
+     * Native name: NLM_NETWORK_PROPERTY_CHANGE_DESCRIPTION
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_PROPERTY_CHANGE_DESCRIPTION => 2
+    static DESCRIPTION => 2
 
     /**
      * The name of the network has changed.
+     * Native name: NLM_NETWORK_PROPERTY_CHANGE_NAME
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_PROPERTY_CHANGE_NAME => 4
+    static NAME => 4
 
     /**
+     * Native name: NLM_NETWORK_PROPERTY_CHANGE_ICON
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_PROPERTY_CHANGE_ICON => 8
+    static ICON => 8
 
     /**
      * The category of the network has changed.
+     * Native name: NLM_NETWORK_PROPERTY_CHANGE_CATEGORY_VALUE
      * @type {Integer (Int32)}
      */
-    static NLM_NETWORK_PROPERTY_CHANGE_CATEGORY_VALUE => 16
+    static CATEGORY_VALUE => 16
 }

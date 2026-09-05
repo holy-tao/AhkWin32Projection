@@ -12,15 +12,17 @@ class D3D_INCLUDE_TYPE extends Win32Enum {
 
     /**
      * The local directory.
+     * Native name: D3D_INCLUDE_LOCAL
      * @type {Integer (Int32)}
      */
-    static D3D_INCLUDE_LOCAL => 0
+    static LOCAL => 0
 
     /**
      * The system directory.
+     * Native name: D3D_INCLUDE_SYSTEM
      * @type {Integer (Int32)}
      */
-    static D3D_INCLUDE_SYSTEM => 1
+    static SYSTEM => 1
 
     /**
      * The local directory.

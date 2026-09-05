@@ -7,12 +7,14 @@
 class MF_MSE_APPEND_MODE extends Win32Enum {
 
     /**
+     * Native name: MF_MSE_APPEND_MODE_SEGMENTS
      * @type {Integer (Int32)}
      */
-    static MF_MSE_APPEND_MODE_SEGMENTS => 0
+    static SEGMENTS => 0
 
     /**
+     * Native name: MF_MSE_APPEND_MODE_SEQUENCE
      * @type {Integer (Int32)}
      */
-    static MF_MSE_APPEND_MODE_SEQUENCE => 1
+    static SEQUENCE => 1
 }

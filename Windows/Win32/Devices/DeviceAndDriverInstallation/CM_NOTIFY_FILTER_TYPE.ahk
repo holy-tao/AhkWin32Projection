@@ -7,22 +7,26 @@
 class CM_NOTIFY_FILTER_TYPE extends Win32Enum {
 
     /**
+     * Native name: CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE
      * @type {Integer (Int32)}
      */
-    static CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE => 0
+    static DEVICEINTERFACE => 0
 
     /**
+     * Native name: CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE
      * @type {Integer (Int32)}
      */
-    static CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE => 1
+    static DEVICEHANDLE => 1
 
     /**
+     * Native name: CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE
      * @type {Integer (Int32)}
      */
-    static CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE => 2
+    static DEVICEINSTANCE => 2
 
     /**
+     * Native name: CM_NOTIFY_FILTER_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static CM_NOTIFY_FILTER_TYPE_MAX => 3
+    static MAX => 3
 }

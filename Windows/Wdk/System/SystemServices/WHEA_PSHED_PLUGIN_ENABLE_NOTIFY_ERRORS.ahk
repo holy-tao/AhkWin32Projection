@@ -7,17 +7,20 @@
 class WHEA_PSHED_PLUGIN_ENABLE_NOTIFY_ERRORS extends Win32Enum {
 
     /**
+     * Native name: PshedPiEnableNotifyErrorCreateNotifyEvent
      * @type {Integer (Int32)}
      */
-    static PshedPiEnableNotifyErrorCreateNotifyEvent => 1
+    static PiEnableNotifyErrorCreateNotifyEvent => 1
 
     /**
+     * Native name: PshedPiEnableNotifyErrorCreateSystemThread
      * @type {Integer (Int32)}
      */
-    static PshedPiEnableNotifyErrorCreateSystemThread => 2
+    static PiEnableNotifyErrorCreateSystemThread => 2
 
     /**
+     * Native name: PshedPiEnableNotifyErrorMax
      * @type {Integer (Int32)}
      */
-    static PshedPiEnableNotifyErrorMax => 3
+    static PiEnableNotifyErrorMax => 3
 }

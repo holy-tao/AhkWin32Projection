@@ -7,42 +7,50 @@
 class stylePosition extends Win32Enum {
 
     /**
+     * Native name: stylePositionNotSet
      * @type {Integer (Int32)}
      */
-    static stylePositionNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: stylePositionstatic
      * @type {Integer (Int32)}
      */
-    static stylePositionstatic => 1
+    static Positionstatic => 1
 
     /**
+     * Native name: stylePositionrelative
      * @type {Integer (Int32)}
      */
-    static stylePositionrelative => 2
+    static Positionrelative => 2
 
     /**
+     * Native name: stylePositionabsolute
      * @type {Integer (Int32)}
      */
-    static stylePositionabsolute => 3
+    static Positionabsolute => 3
 
     /**
+     * Native name: stylePositionfixed
      * @type {Integer (Int32)}
      */
-    static stylePositionfixed => 4
+    static Positionfixed => 4
 
     /**
+     * Native name: stylePositionMsPage
      * @type {Integer (Int32)}
      */
-    static stylePositionMsPage => 5
+    static MsPage => 5
 
     /**
+     * Native name: stylePositionMsDeviceFixed
      * @type {Integer (Int32)}
      */
-    static stylePositionMsDeviceFixed => 6
+    static MsDeviceFixed => 6
 
     /**
+     * Native name: stylePosition_Max
      * @type {Integer (Int32)}
      */
-    static stylePosition_Max => 2147483647
+    static Max => 2147483647
 }

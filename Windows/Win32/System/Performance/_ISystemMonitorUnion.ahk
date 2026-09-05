@@ -369,7 +369,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Appearance() {
@@ -378,7 +377,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iAppearance 
      * @returns {HRESULT} 
      */
@@ -388,7 +386,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BackColor() {
@@ -397,7 +394,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -407,7 +403,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BorderStyle() {
@@ -416,7 +411,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iBorderStyle 
      * @returns {HRESULT} 
      */
@@ -426,7 +420,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ForeColor() {
@@ -435,7 +428,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -445,7 +437,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IFontDisp} 
      */
     get_Font() {
@@ -454,7 +445,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFontDisp} pFont 
      * @returns {HRESULT} 
      */
@@ -464,7 +454,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICounters} 
      */
     get_Counters() {
@@ -473,7 +462,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -483,7 +471,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowVerticalGrid() {
@@ -492,7 +479,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -502,7 +488,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowHorizontalGrid() {
@@ -511,7 +496,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -521,7 +505,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowLegend() {
@@ -530,7 +513,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -540,7 +522,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowScaleLabels() {
@@ -549,7 +530,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -559,7 +539,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowValueBar() {
@@ -568,7 +547,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -578,7 +556,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaximumScale() {
@@ -587,7 +564,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -597,7 +573,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinimumScale() {
@@ -606,7 +581,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} fValue 
      * @returns {HRESULT} 
      */
@@ -616,7 +590,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UpdateInterval() {
@@ -625,7 +598,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {DisplayTypeConstants} eDisplayType 
      * @returns {HRESULT} 
      */
@@ -635,7 +607,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DisplayTypeConstants} 
      */
     get_DisplayType() {
@@ -644,7 +615,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -654,7 +624,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ManualUpdate() {
@@ -663,7 +632,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsTitle 
      * @returns {HRESULT} 
      */
@@ -675,7 +643,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GraphTitle() {
@@ -685,7 +652,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsTitle 
      * @returns {HRESULT} 
      */
@@ -697,7 +663,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_YAxisLabel() {
@@ -707,7 +672,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CollectSample() {
@@ -716,7 +680,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateGraph() {
@@ -725,7 +688,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BrowseCounters() {
@@ -734,7 +696,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisplayProperties() {
@@ -743,7 +704,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @returns {ICounterItem} 
      */
@@ -753,7 +713,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsPath 
      * @returns {ICounterItem} 
      */
@@ -765,7 +724,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICounterItem} pCtr 
      * @returns {HRESULT} 
      */
@@ -775,7 +733,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BackColorCtl() {
@@ -784,7 +741,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -794,7 +750,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsFileName 
      * @returns {HRESULT} 
      */
@@ -806,7 +761,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LogFileName() {
@@ -816,7 +770,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StartTime 
      * @returns {HRESULT} 
      */
@@ -826,7 +779,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogViewStart() {
@@ -835,7 +787,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StopTime 
      * @returns {HRESULT} 
      */
@@ -845,7 +796,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogViewStop() {
@@ -854,7 +804,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GridColor() {
@@ -863,7 +812,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -873,7 +821,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TimeBarColor() {
@@ -882,7 +829,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -892,7 +838,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Highlight() {
@@ -901,7 +846,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -911,7 +855,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowToolbar() {
@@ -920,7 +863,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -930,7 +872,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Paste() {
@@ -939,7 +880,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Copy() {
@@ -948,7 +888,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -957,7 +896,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -967,7 +905,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ReadOnly() {
@@ -976,7 +913,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {ReportValueTypeConstants} eReportValueType 
      * @returns {HRESULT} 
      */
@@ -986,7 +922,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ReportValueTypeConstants} 
      */
     get_ReportValueType() {
@@ -995,7 +930,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1005,7 +939,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MonitorDuplicateInstances() {
@@ -1014,7 +947,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -1024,7 +956,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DisplayFilter() {
@@ -1033,7 +964,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ILogFiles} 
      */
     get_LogFiles() {
@@ -1042,7 +972,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {DataSourceTypeConstants} eDataSourceType 
      * @returns {HRESULT} 
      */
@@ -1052,7 +981,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DataSourceTypeConstants} 
      */
     get_DataSourceType() {
@@ -1061,7 +989,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsSqlDsnName 
      * @returns {HRESULT} 
      */
@@ -1073,7 +1000,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SqlDsnName() {
@@ -1083,7 +1009,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsSqlLogSetName 
      * @returns {HRESULT} 
      */
@@ -1095,7 +1020,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SqlLogSetName() {
@@ -1105,7 +1029,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1115,7 +1038,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableDigitGrouping() {
@@ -1124,7 +1046,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1134,7 +1055,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableToolTips() {
@@ -1143,7 +1063,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1153,7 +1072,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowTimeAxisLabels() {
@@ -1162,7 +1080,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bScroll 
      * @returns {HRESULT} 
      */
@@ -1172,7 +1089,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ChartScroll() {
@@ -1181,7 +1097,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iNewCount 
      * @returns {HRESULT} 
      */
@@ -1191,7 +1106,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DataPointCount() {
@@ -1200,7 +1114,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSelectedCountersOnly 
      * @returns {HRESULT} 
      */
@@ -1210,7 +1123,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @returns {HRESULT} 
@@ -1223,7 +1135,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @param {Integer} _iFilter 
@@ -1237,7 +1148,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearData() {
@@ -1246,7 +1156,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStartTime() {
@@ -1255,7 +1164,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStopTime() {
@@ -1264,7 +1172,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StartTime 
      * @param {Float} StopTime 
      * @returns {HRESULT} 
@@ -1275,7 +1182,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} StartTime 
      * @param {Pointer<Float>} StopTime 
      * @returns {HRESULT} 
@@ -1289,7 +1195,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fLock 
      * @param {SysmonBatchReason} eBatchReason 
      * @returns {HRESULT} 
@@ -1300,7 +1205,6 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSettingFileName 
      * @returns {HRESULT} 
      */

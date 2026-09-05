@@ -7,12 +7,14 @@
 class msidbAssemblyAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbAssemblyAttributesURT
      * @type {Integer (Int32)}
      */
-    static msidbAssemblyAttributesURT => 0
+    static AttributesURT => 0
 
     /**
+     * Native name: msidbAssemblyAttributesWin32
      * @type {Integer (Int32)}
      */
-    static msidbAssemblyAttributesWin32 => 1
+    static Win32 => 1
 }

@@ -10,19 +10,22 @@ class MF_TOPONODE_DRAIN_MODE extends Win32Enum {
 
     /**
      * The transform is drained when the end of a stream is reached. It is not drained when markout is reached at the end of a segment.
+     * Native name: MF_TOPONODE_DRAIN_DEFAULT
      * @type {Integer (Int32)}
      */
-    static MF_TOPONODE_DRAIN_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The transform is drained whenever a topology ends.
+     * Native name: MF_TOPONODE_DRAIN_ALWAYS
      * @type {Integer (Int32)}
      */
-    static MF_TOPONODE_DRAIN_ALWAYS => 1
+    static ALWAYS => 1
 
     /**
      * The transform is never drained.
+     * Native name: MF_TOPONODE_DRAIN_NEVER
      * @type {Integer (Int32)}
      */
-    static MF_TOPONODE_DRAIN_NEVER => 2
+    static NEVER => 2
 }

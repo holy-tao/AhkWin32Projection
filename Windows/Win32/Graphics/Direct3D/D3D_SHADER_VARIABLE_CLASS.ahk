@@ -12,51 +12,59 @@ class D3D_SHADER_VARIABLE_CLASS extends Win32Enum {
 
     /**
      * The shader variable is a scalar.
+     * Native name: D3D_SVC_SCALAR
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_SCALAR => 0
+    static SVC_SCALAR => 0
 
     /**
      * The shader variable is a vector.
+     * Native name: D3D_SVC_VECTOR
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_VECTOR => 1
+    static SVC_VECTOR => 1
 
     /**
      * The shader variable is a row-major matrix.
+     * Native name: D3D_SVC_MATRIX_ROWS
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_MATRIX_ROWS => 2
+    static SVC_MATRIX_ROWS => 2
 
     /**
      * The shader variable is a column-major matrix.
+     * Native name: D3D_SVC_MATRIX_COLUMNS
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_MATRIX_COLUMNS => 3
+    static SVC_MATRIX_COLUMNS => 3
 
     /**
      * The shader variable is an object.
+     * Native name: D3D_SVC_OBJECT
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_OBJECT => 4
+    static SVC_OBJECT => 4
 
     /**
      * The shader variable is a structure.
+     * Native name: D3D_SVC_STRUCT
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_STRUCT => 5
+    static SVC_STRUCT => 5
 
     /**
      * The shader variable is a class.
+     * Native name: D3D_SVC_INTERFACE_CLASS
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_INTERFACE_CLASS => 6
+    static SVC_INTERFACE_CLASS => 6
 
     /**
      * The shader variable is an interface.
+     * Native name: D3D_SVC_INTERFACE_POINTER
      * @type {Integer (Int32)}
      */
-    static D3D_SVC_INTERFACE_POINTER => 7
+    static SVC_INTERFACE_POINTER => 7
 
     /**
      * The shader variable is a scalar.

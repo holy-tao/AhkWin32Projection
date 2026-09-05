@@ -89,7 +89,6 @@ class IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
      */
@@ -101,7 +100,6 @@ class IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
      */
@@ -113,7 +111,6 @@ class IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -122,7 +119,6 @@ class IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -133,7 +129,6 @@ class IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMSchemaCollection} otherCollection 
      * @returns {HRESULT} 
      */
@@ -143,7 +138,6 @@ class IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {

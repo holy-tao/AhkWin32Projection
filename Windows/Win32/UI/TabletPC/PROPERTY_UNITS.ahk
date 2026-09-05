@@ -10,94 +10,111 @@ class PROPERTY_UNITS extends Win32Enum {
 
     /**
      * Units are unknown.
+     * Native name: PROPERTY_UNITS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The property value is in inches.
+     * Native name: PROPERTY_UNITS_INCHES
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_INCHES => 1
+    static INCHES => 1
 
     /**
      * The property value is in centimeters.
+     * Native name: PROPERTY_UNITS_CENTIMETERS
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_CENTIMETERS => 2
+    static CENTIMETERS => 2
 
     /**
      * The property value is in degrees.
+     * Native name: PROPERTY_UNITS_DEGREES
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_DEGREES => 3
+    static DEGREES => 3
 
     /**
      * The property value is in radians.
+     * Native name: PROPERTY_UNITS_RADIANS
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_RADIANS => 4
+    static RADIANS => 4
 
     /**
      * The property value is in seconds.
+     * Native name: PROPERTY_UNITS_SECONDS
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_SECONDS => 5
+    static SECONDS => 5
 
     /**
      * The property value is in pounds.
+     * Native name: PROPERTY_UNITS_POUNDS
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_POUNDS => 6
+    static POUNDS => 6
 
     /**
      * The property value is in grams.
+     * Native name: PROPERTY_UNITS_GRAMS
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_GRAMS => 7
+    static GRAMS => 7
 
     /**
+     * Native name: PROPERTY_UNITS_SILINEAR
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_SILINEAR => 8
+    static SILINEAR => 8
 
     /**
+     * Native name: PROPERTY_UNITS_SIROTATION
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_SIROTATION => 9
+    static SIROTATION => 9
 
     /**
+     * Native name: PROPERTY_UNITS_ENGLINEAR
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_ENGLINEAR => 10
+    static ENGLINEAR => 10
 
     /**
+     * Native name: PROPERTY_UNITS_ENGROTATION
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_ENGROTATION => 11
+    static ENGROTATION => 11
 
     /**
+     * Native name: PROPERTY_UNITS_SLUGS
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_SLUGS => 12
+    static SLUGS => 12
 
     /**
+     * Native name: PROPERTY_UNITS_KELVIN
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_KELVIN => 13
+    static KELVIN => 13
 
     /**
+     * Native name: PROPERTY_UNITS_FAHRENHEIT
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_FAHRENHEIT => 14
+    static FAHRENHEIT => 14
 
     /**
+     * Native name: PROPERTY_UNITS_AMPERE
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_AMPERE => 15
+    static AMPERE => 15
 
     /**
+     * Native name: PROPERTY_UNITS_CANDELA
      * @type {Integer (Int32)}
      */
-    static PROPERTY_UNITS_CANDELA => 16
+    static CANDELA => 16
 }

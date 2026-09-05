@@ -14,31 +14,36 @@ class D3D12_BLEND_OP extends Win32Enum {
 
     /**
      * Add source 1 and source 2.
+     * Native name: D3D12_BLEND_OP_ADD
      * @type {Integer (Int32)}
      */
-    static D3D12_BLEND_OP_ADD => 1
+    static ADD => 1
 
     /**
      * Subtract source 1 from source 2.
+     * Native name: D3D12_BLEND_OP_SUBTRACT
      * @type {Integer (Int32)}
      */
-    static D3D12_BLEND_OP_SUBTRACT => 2
+    static SUBTRACT => 2
 
     /**
      * Subtract source 2 from source 1.
+     * Native name: D3D12_BLEND_OP_REV_SUBTRACT
      * @type {Integer (Int32)}
      */
-    static D3D12_BLEND_OP_REV_SUBTRACT => 3
+    static REV_SUBTRACT => 3
 
     /**
      * Find the minimum of source 1 and source 2.
+     * Native name: D3D12_BLEND_OP_MIN
      * @type {Integer (Int32)}
      */
-    static D3D12_BLEND_OP_MIN => 4
+    static MIN => 4
 
     /**
      * Find the maximum of source 1 and source 2.
+     * Native name: D3D12_BLEND_OP_MAX
      * @type {Integer (Int32)}
      */
-    static D3D12_BLEND_OP_MAX => 5
+    static MAX => 5
 }

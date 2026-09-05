@@ -79,7 +79,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -89,7 +88,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -101,7 +99,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -111,7 +108,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -123,7 +119,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_WorkingDirectory() {
@@ -133,7 +128,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -145,7 +139,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Arguments() {
@@ -155,7 +148,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -167,7 +159,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Hotkey() {
@@ -176,7 +167,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iHK 
      * @returns {HRESULT} 
      */
@@ -186,7 +176,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ShowCommand() {
@@ -195,7 +184,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iShowCommand 
      * @returns {HRESULT} 
      */
@@ -205,7 +193,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} fFlags 
      * @returns {HRESULT} 
      */
@@ -215,7 +202,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbs 
      * @returns {Integer} 
      */
@@ -225,7 +211,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @param {Integer} iIcon 
      * @returns {HRESULT} 
@@ -238,7 +223,6 @@ class IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vWhere 
      * @returns {HRESULT} 
      */

@@ -48,7 +48,6 @@ class IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StringValue() {
@@ -58,7 +57,6 @@ class IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrStringValue 
      * @returns {HRESULT} 
      */
@@ -70,7 +68,6 @@ class IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DNString() {
@@ -80,7 +77,6 @@ class IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDNString 
      * @returns {HRESULT} 
      */

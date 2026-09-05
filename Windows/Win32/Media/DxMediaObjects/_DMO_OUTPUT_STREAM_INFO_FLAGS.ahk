@@ -12,31 +12,36 @@ class _DMO_OUTPUT_STREAM_INFO_FLAGS extends Win32Enum {
 
     /**
      * The stream contains whole samples. Samples do not span multiple buffers, and buffers do not contain partial samples.
+     * Native name: DMO_OUTPUT_STREAMF_WHOLE_SAMPLES
      * @type {Integer (Int32)}
      */
-    static DMO_OUTPUT_STREAMF_WHOLE_SAMPLES => 1
+    static STREAMF_WHOLE_SAMPLES => 1
 
     /**
      * Each buffer contains exactly one sample.
+     * Native name: DMO_OUTPUT_STREAMF_SINGLE_SAMPLE_PER_BUFFER
      * @type {Integer (Int32)}
      */
-    static DMO_OUTPUT_STREAMF_SINGLE_SAMPLE_PER_BUFFER => 2
+    static STREAMF_SINGLE_SAMPLE_PER_BUFFER => 2
 
     /**
      * All the samples in this stream are the same size.
+     * Native name: DMO_OUTPUT_STREAMF_FIXED_SAMPLE_SIZE
      * @type {Integer (Int32)}
      */
-    static DMO_OUTPUT_STREAMF_FIXED_SAMPLE_SIZE => 4
+    static STREAMF_FIXED_SAMPLE_SIZE => 4
 
     /**
      * The stream is discardable. Within calls to <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nf-mediaobj-imediaobject-processoutput">IMediaObject::ProcessOutput</a>, the DMO can discard data for this stream without copying it to an output buffer.
+     * Native name: DMO_OUTPUT_STREAMF_DISCARDABLE
      * @type {Integer (Int32)}
      */
-    static DMO_OUTPUT_STREAMF_DISCARDABLE => 8
+    static STREAMF_DISCARDABLE => 8
 
     /**
      * The stream is optional. An optional stream is discardable. Also, the application can ignore this stream entirely; it does not have to set the media type for the stream. Optional streams generally contain additional information, or data not needed by all applications.
+     * Native name: DMO_OUTPUT_STREAMF_OPTIONAL
      * @type {Integer (Int32)}
      */
-    static DMO_OUTPUT_STREAMF_OPTIONAL => 16
+    static STREAMF_OPTIONAL => 16
 }

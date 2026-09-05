@@ -7,12 +7,14 @@
 class SYSTEM_FIRMWARE_TABLE_ACTION extends Win32Enum {
 
     /**
+     * Native name: SystemFirmwareTable_Enumerate
      * @type {Integer (Int32)}
      */
-    static SystemFirmwareTable_Enumerate => 0
+    static Enumerate => 0
 
     /**
+     * Native name: SystemFirmwareTable_Get
      * @type {Integer (Int32)}
      */
-    static SystemFirmwareTable_Get => 1
+    static Get => 1
 }

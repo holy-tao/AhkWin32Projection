@@ -54,7 +54,6 @@ class Properties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -81,7 +80,6 @@ class Properties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -90,7 +88,6 @@ class Properties extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @returns {HRESULT} 
      */

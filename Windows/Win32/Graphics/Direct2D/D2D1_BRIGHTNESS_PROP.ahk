@@ -16,9 +16,10 @@ class D2D1_BRIGHTNESS_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a>.
      * 
      * The default value is (1.0f, 1.0f).
+     * Native name: D2D1_BRIGHTNESS_PROP_WHITE_POINT
      * @type {Integer (Int32)}
      */
-    static D2D1_BRIGHTNESS_PROP_WHITE_POINT => 0
+    static WHITE_POINT => 0
 
     /**
      * The lower portion of the brightness transfer curve. The black point adjusts the appearance of the darker portions of the image. 
@@ -28,7 +29,8 @@ class D2D1_BRIGHTNESS_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a>.
      * 
      * The default value is (0.0f, 0.0f).
+     * Native name: D2D1_BRIGHTNESS_PROP_BLACK_POINT
      * @type {Integer (Int32)}
      */
-    static D2D1_BRIGHTNESS_PROP_BLACK_POINT => 1
+    static BLACK_POINT => 1
 }

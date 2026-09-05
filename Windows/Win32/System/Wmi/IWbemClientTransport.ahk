@@ -32,7 +32,6 @@ class IWbemClientTransport extends IUnknown {
     static VTableNames => ["ConnectServer"]
 
     /**
-     * 
      * @param {BSTR} strAddressType 
      * @param {Integer} dwBinaryAddressLength 
      * @param {Pointer<Integer>} abBinaryAddress 

@@ -37,7 +37,6 @@ class ICoreInputInterop2 extends IInspectable {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_WindowHandle() {
@@ -47,7 +46,6 @@ class ICoreInputInterop2 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} newParentWindow 
      * @param {Integer} newViewInstanceId 
      * @returns {HRESULT} 

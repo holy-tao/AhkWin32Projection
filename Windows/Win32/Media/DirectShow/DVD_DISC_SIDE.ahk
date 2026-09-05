@@ -12,13 +12,15 @@ class DVD_DISC_SIDE extends Win32Enum {
 
     /**
      * Side A.
+     * Native name: DVD_SIDE_A
      * @type {Integer (Int32)}
      */
-    static DVD_SIDE_A => 1
+    static A => 1
 
     /**
      * Side B.
+     * Native name: DVD_SIDE_B
      * @type {Integer (Int32)}
      */
-    static DVD_SIDE_B => 2
+    static B => 2
 }

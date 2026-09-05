@@ -7,27 +7,32 @@
 class KD_NAMESPACE_ENUM extends Win32Enum {
 
     /**
+     * Native name: KdNameSpacePCI
      * @type {Integer (Int32)}
      */
-    static KdNameSpacePCI => 0
+    static NameSpacePCI => 0
 
     /**
+     * Native name: KdNameSpaceACPI
      * @type {Integer (Int32)}
      */
-    static KdNameSpaceACPI => 1
+    static NameSpaceACPI => 1
 
     /**
+     * Native name: KdNameSpaceAny
      * @type {Integer (Int32)}
      */
-    static KdNameSpaceAny => 2
+    static NameSpaceAny => 2
 
     /**
+     * Native name: KdNameSpaceNone
      * @type {Integer (Int32)}
      */
-    static KdNameSpaceNone => 3
+    static NameSpaceNone => 3
 
     /**
+     * Native name: KdNameSpaceMax
      * @type {Integer (Int32)}
      */
-    static KdNameSpaceMax => 4
+    static NameSpaceMax => 4
 }

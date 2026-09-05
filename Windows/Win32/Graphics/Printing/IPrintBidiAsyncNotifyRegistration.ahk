@@ -25,7 +25,6 @@ class IPrintBidiAsyncNotifyRegistration extends IPrintAsyncNotifyRegistration {
     static VTableNames => ["AsyncGetNewChannel"]
 
     /**
-     * 
      * @param {IPrintAsyncNewChannelCookie} param0 
      * @returns {HRESULT} 
      */

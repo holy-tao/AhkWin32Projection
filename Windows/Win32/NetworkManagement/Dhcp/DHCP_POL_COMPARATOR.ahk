@@ -10,35 +10,41 @@ class DHCP_POL_COMPARATOR extends Win32Enum {
 
     /**
      * The DHCP client message field specified by the criterion must exactly match the value supplied in the condition.
+     * Native name: DhcpCompEqual
      * @type {Integer (Int32)}
      */
-    static DhcpCompEqual => 0
+    static CompEqual => 0
 
     /**
      * The DHCP client message field specified by the criterion must not exactly match the value supplied in the condition.
+     * Native name: DhcpCompNotEqual
      * @type {Integer (Int32)}
      */
-    static DhcpCompNotEqual => 1
+    static CompNotEqual => 1
 
     /**
      * The DHCP client message field specified by the criterion must begin with the value supplied in the condition.
+     * Native name: DhcpCompBeginsWith
      * @type {Integer (Int32)}
      */
-    static DhcpCompBeginsWith => 2
+    static CompBeginsWith => 2
 
     /**
      * The DHCP client message field specified by the criterion must not begin with the value supplied in the condition.
+     * Native name: DhcpCompNotBeginWith
      * @type {Integer (Int32)}
      */
-    static DhcpCompNotBeginWith => 3
+    static CompNotBeginWith => 3
 
     /**
+     * Native name: DhcpCompEndsWith
      * @type {Integer (Int32)}
      */
-    static DhcpCompEndsWith => 4
+    static CompEndsWith => 4
 
     /**
+     * Native name: DhcpCompNotEndWith
      * @type {Integer (Int32)}
      */
-    static DhcpCompNotEndWith => 5
+    static CompNotEndWith => 5
 }

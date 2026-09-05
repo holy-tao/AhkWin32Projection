@@ -50,7 +50,6 @@ class IWebGeopositionError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_code() {
@@ -59,7 +58,6 @@ class IWebGeopositionError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_message() {

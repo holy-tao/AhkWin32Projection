@@ -7,22 +7,26 @@
 class styleColumnFill extends Win32Enum {
 
     /**
+     * Native name: styleColumnFillAuto
      * @type {Integer (Int32)}
      */
-    static styleColumnFillAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleColumnFillBalance
      * @type {Integer (Int32)}
      */
-    static styleColumnFillBalance => 1
+    static Balance => 1
 
     /**
+     * Native name: styleColumnFillNotSet
      * @type {Integer (Int32)}
      */
-    static styleColumnFillNotSet => 2
+    static NotSet => 2
 
     /**
+     * Native name: styleColumnFill_Max
      * @type {Integer (Int32)}
      */
-    static styleColumnFill_Max => 2147483647
+    static Max => 2147483647
 }

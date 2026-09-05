@@ -7,12 +7,14 @@
 class XPSRAS_BACKGROUND_COLOR extends Win32Enum {
 
     /**
+     * Native name: XPSRAS_BACKGROUND_COLOR_TRANSPARENT
      * @type {Integer (Int32)}
      */
-    static XPSRAS_BACKGROUND_COLOR_TRANSPARENT => 0
+    static TRANSPARENT => 0
 
     /**
+     * Native name: XPSRAS_BACKGROUND_COLOR_OPAQUE
      * @type {Integer (Int32)}
      */
-    static XPSRAS_BACKGROUND_COLOR_OPAQUE => 1
+    static OPAQUE => 1
 }

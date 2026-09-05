@@ -7,12 +7,14 @@
 class HTTP_INITIALIZE extends Win32BitflagEnum {
 
     /**
+     * Native name: HTTP_INITIALIZE_CONFIG
      * @type {Integer (UInt32)}
      */
-    static HTTP_INITIALIZE_CONFIG => 2
+    static CONFIG => 2
 
     /**
+     * Native name: HTTP_INITIALIZE_SERVER
      * @type {Integer (UInt32)}
      */
-    static HTTP_INITIALIZE_SERVER => 1
+    static SERVER => 1
 }

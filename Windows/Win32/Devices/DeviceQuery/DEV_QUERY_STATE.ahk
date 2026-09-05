@@ -7,22 +7,26 @@
 class DEV_QUERY_STATE extends Win32Enum {
 
     /**
+     * Native name: DevQueryStateInitialized
      * @type {Integer (Int32)}
      */
-    static DevQueryStateInitialized => 0
+    static Initialized => 0
 
     /**
+     * Native name: DevQueryStateEnumCompleted
      * @type {Integer (Int32)}
      */
-    static DevQueryStateEnumCompleted => 1
+    static EnumCompleted => 1
 
     /**
+     * Native name: DevQueryStateAborted
      * @type {Integer (Int32)}
      */
-    static DevQueryStateAborted => 2
+    static Aborted => 2
 
     /**
+     * Native name: DevQueryStateClosed
      * @type {Integer (Int32)}
      */
-    static DevQueryStateClosed => 3
+    static Closed => 3
 }

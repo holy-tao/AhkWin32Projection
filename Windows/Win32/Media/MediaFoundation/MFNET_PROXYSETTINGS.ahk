@@ -10,9 +10,10 @@ class MFNET_PROXYSETTINGS extends Win32Enum {
 
     /**
      * The proxy locator bypasses all addresses.
+     * Native name: MFNET_PROXYSETTING_NONE
      * @type {Integer (Int32)}
      */
-    static MFNET_PROXYSETTING_NONE => 0
+    static PROXYSETTING_NONE => 0
 
     /**
      * The proxy locator uses manual settings. The application must set the following properties:
@@ -31,19 +32,22 @@ class MFNET_PROXYSETTINGS extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxyexceptionlist-property">MFNETSOURCE_PROXYEXCEPTIONLIST</a>
      * </li>
      * </ul>
+     * Native name: MFNET_PROXYSETTING_MANUAL
      * @type {Integer (Int32)}
      */
-    static MFNET_PROXYSETTING_MANUAL => 1
+    static PROXYSETTING_MANUAL => 1
 
     /**
      * The proxy locator automatically discovers proxy servers by using the WinInet auto-proxy detection mechanism.
+     * Native name: MFNET_PROXYSETTING_AUTO
      * @type {Integer (Int32)}
      */
-    static MFNET_PROXYSETTING_AUTO => 2
+    static PROXYSETTING_AUTO => 2
 
     /**
      * The proxy locator uses the proxy settings of the browser. By default, the proxy locator sets this value for HTTP.
+     * Native name: MFNET_PROXYSETTING_BROWSER
      * @type {Integer (Int32)}
      */
-    static MFNET_PROXYSETTING_BROWSER => 3
+    static PROXYSETTING_BROWSER => 3
 }

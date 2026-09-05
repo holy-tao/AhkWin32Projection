@@ -7,12 +7,14 @@
 class PNRP_REGISTERED_ID_STATE extends Win32Enum {
 
     /**
+     * Native name: PNRP_REGISTERED_ID_STATE_OK
      * @type {Integer (Int32)}
      */
-    static PNRP_REGISTERED_ID_STATE_OK => 1
+    static OK => 1
 
     /**
+     * Native name: PNRP_REGISTERED_ID_STATE_PROBLEM
      * @type {Integer (Int32)}
      */
-    static PNRP_REGISTERED_ID_STATE_PROBLEM => 2
+    static PROBLEM => 2
 }

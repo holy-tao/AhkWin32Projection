@@ -38,7 +38,6 @@ class IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_XMLDocument() {
@@ -47,7 +46,6 @@ class IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -60,7 +58,6 @@ class IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -73,7 +70,6 @@ class IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
      */

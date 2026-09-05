@@ -7,12 +7,14 @@
 class PCI_EXPRESS_POWER_STATE extends Win32Enum {
 
     /**
+     * Native name: PowerOn
      * @type {Integer (Int32)}
      */
-    static PowerOn => 0
+    static On => 0
 
     /**
+     * Native name: PowerOff
      * @type {Integer (Int32)}
      */
-    static PowerOff => 1
+    static Off => 1
 }

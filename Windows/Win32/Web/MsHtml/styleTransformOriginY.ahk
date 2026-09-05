@@ -7,27 +7,32 @@
 class styleTransformOriginY extends Win32Enum {
 
     /**
+     * Native name: styleTransformOriginYNotSet
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginYNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleTransformOriginYTop
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginYTop => 1
+    static Top => 1
 
     /**
+     * Native name: styleTransformOriginYCenter
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginYCenter => 2
+    static Center => 2
 
     /**
+     * Native name: styleTransformOriginYBottom
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginYBottom => 3
+    static Bottom => 3
 
     /**
+     * Native name: styleTransformOriginY_Max
      * @type {Integer (Int32)}
      */
-    static styleTransformOriginY_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,27 +7,32 @@
 class svgFocusable extends Win32Enum {
 
     /**
+     * Native name: svgFocusableNotSet
      * @type {Integer (Int32)}
      */
-    static svgFocusableNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: svgFocusableAuto
      * @type {Integer (Int32)}
      */
-    static svgFocusableAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: svgFocusableTrue
      * @type {Integer (Int32)}
      */
-    static svgFocusableTrue => 2
+    static True => 2
 
     /**
+     * Native name: svgFocusableFalse
      * @type {Integer (Int32)}
      */
-    static svgFocusableFalse => 3
+    static False => 3
 
     /**
+     * Native name: svgFocusable_Max
      * @type {Integer (Int32)}
      */
-    static svgFocusable_Max => 2147483647
+    static Max => 2147483647
 }

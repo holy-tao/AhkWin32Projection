@@ -14,13 +14,15 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE extends Win32Enum {
 
     /**
      * The search block size is 8x8 pixels.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_8X8
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_8X8 => 0
+    static 8X8 => 0
 
     /**
      * The search block size is 16x16 pixels.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_16X16
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_16X16 => 1
+    static 16X16 => 1
 }

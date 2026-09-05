@@ -34,7 +34,6 @@ class IDebugStackFrame extends IUnknown {
     static VTableNames => ["GetCodeContext", "GetDescriptionString", "GetLanguageString", "GetThread", "GetDebugProperty"]
 
     /**
-     * 
      * @returns {IDebugCodeContext} 
      */
     GetCodeContext() {
@@ -43,7 +42,6 @@ class IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fLong 
      * @returns {BSTR} 
      */
@@ -54,7 +52,6 @@ class IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fLong 
      * @returns {BSTR} 
      */
@@ -65,7 +62,6 @@ class IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationThread} 
      */
     GetThread() {
@@ -74,7 +70,6 @@ class IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugProperty} 
      */
     GetDebugProperty() {

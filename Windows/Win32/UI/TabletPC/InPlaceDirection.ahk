@@ -12,19 +12,22 @@ class InPlaceDirection extends Win32Enum {
 
     /**
      * Restores the system default.
+     * Native name: InPlaceDirection_Auto
      * @type {Integer (Int32)}
      */
-    static InPlaceDirection_Auto => 0
+    static Auto => 0
 
     /**
      * The preferred direction is above the text entry field.
+     * Native name: InPlaceDirection_Bottom
      * @type {Integer (Int32)}
      */
-    static InPlaceDirection_Bottom => 1
+    static Bottom => 1
 
     /**
      * The preferred direction is below the text entry field.
+     * Native name: InPlaceDirection_Top
      * @type {Integer (Int32)}
      */
-    static InPlaceDirection_Top => 2
+    static Top => 2
 }

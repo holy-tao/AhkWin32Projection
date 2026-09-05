@@ -14,19 +14,22 @@ class UI_EXECUTIONVERB extends Win32Enum {
 
     /**
      * Execute a command.
+     * Native name: UI_EXECUTIONVERB_EXECUTE
      * @type {Integer (Int32)}
      */
-    static UI_EXECUTIONVERB_EXECUTE => 0
+    static EXECUTE => 0
 
     /**
      * Show a preview of a visual element.
+     * Native name: UI_EXECUTIONVERB_PREVIEW
      * @type {Integer (Int32)}
      */
-    static UI_EXECUTIONVERB_PREVIEW => 1
+    static PREVIEW => 1
 
     /**
      * Cancel a preview of a visual element.
+     * Native name: UI_EXECUTIONVERB_CANCELPREVIEW
      * @type {Integer (Int32)}
      */
-    static UI_EXECUTIONVERB_CANCELPREVIEW => 2
+    static CANCELPREVIEW => 2
 }

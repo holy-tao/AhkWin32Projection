@@ -27,19 +27,22 @@ class DCOMPOSITION_BITMAP_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * Bitmaps are interpolated by using nearest-neighbor sampling.
+     * Native name: DCOMPOSITION_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR => 0
+    static NEAREST_NEIGHBOR => 0
 
     /**
      * Bitmaps are interpolated by using linear sampling.
+     * Native name: DCOMPOSITION_BITMAP_INTERPOLATION_MODE_LINEAR
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BITMAP_INTERPOLATION_MODE_LINEAR => 1
+    static LINEAR => 1
 
     /**
      * Bitmaps are interpolated according to the mode established by the parent visual.
+     * Native name: DCOMPOSITION_BITMAP_INTERPOLATION_MODE_INHERIT
      * @type {Integer (Int32)}
      */
-    static DCOMPOSITION_BITMAP_INTERPOLATION_MODE_INHERIT => -1
+    static INHERIT => -1
 }

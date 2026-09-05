@@ -12,43 +12,50 @@ class MFVideoLighting extends Win32Enum {
 
     /**
      * The optimal lighting is unknown.
+     * Native name: MFVideoLighting_Unknown
      * @type {Integer (Int32)}
      */
-    static MFVideoLighting_Unknown => 0
+    static Unknown => 0
 
     /**
      * Bright lighting; for example, outdoors.
+     * Native name: MFVideoLighting_bright
      * @type {Integer (Int32)}
      */
-    static MFVideoLighting_bright => 1
+    static bright => 1
 
     /**
      * Medium brightness; for example, normal office lighting.
+     * Native name: MFVideoLighting_office
      * @type {Integer (Int32)}
      */
-    static MFVideoLighting_office => 2
+    static office => 2
 
     /**
      * Dim; for example, a living room with a television and additional low lighting.
+     * Native name: MFVideoLighting_dim
      * @type {Integer (Int32)}
      */
-    static MFVideoLighting_dim => 3
+    static dim => 3
 
     /**
      * Dark; for example, a movie theater.
+     * Native name: MFVideoLighting_dark
      * @type {Integer (Int32)}
      */
-    static MFVideoLighting_dark => 4
+    static dark => 4
 
     /**
      * Reserved.
+     * Native name: MFVideoLighting_Last
      * @type {Integer (Int32)}
      */
-    static MFVideoLighting_Last => 5
+    static Last => 5
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.
+     * Native name: MFVideoLighting_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static MFVideoLighting_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

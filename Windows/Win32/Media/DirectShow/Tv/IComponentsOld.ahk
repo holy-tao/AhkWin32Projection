@@ -48,7 +48,6 @@ class IComponentsOld extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -57,7 +56,6 @@ class IComponentsOld extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEnumVARIANT} 
      */
     get__NewEnum() {
@@ -66,7 +64,6 @@ class IComponentsOld extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEnumComponents} 
      */
     EnumComponents() {
@@ -75,7 +72,6 @@ class IComponentsOld extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} Index 
      * @returns {IComponent} 
      */
@@ -85,7 +81,6 @@ class IComponentsOld extends IDispatch {
     }
 
     /**
-     * 
      * @param {IComponent} _Component 
      * @returns {VARIANT} 
      */
@@ -96,7 +91,6 @@ class IComponentsOld extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} Index 
      * @returns {HRESULT} 
      */
@@ -106,7 +100,6 @@ class IComponentsOld extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IComponents} 
      */
     Clone() {

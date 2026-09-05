@@ -40,25 +40,28 @@ class VSS_FILE_RESTORE_STATUS extends Win32Enum {
      * This value indicates an error, or indicates that a restore operation has not yet started.
      * 
      * This value is not supported for components that are owned by express writers.
+     * Native name: VSS_RS_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_RS_UNDEFINED => 0
+    static RS_UNDEFINED => 0
 
     /**
      * No files were restored. 
      *       
      * 
      * This value indicates an error in restoration that did not leave any restored files on disk.
+     * Native name: VSS_RS_NONE
      * @type {Integer (Int32)}
      */
-    static VSS_RS_NONE => 1
+    static RS_NONE => 1
 
     /**
      * All files were restored. This value indicates success and should be set for each component that was 
      *       restored successfully.
+     * Native name: VSS_RS_ALL
      * @type {Integer (Int32)}
      */
-    static VSS_RS_ALL => 2
+    static RS_ALL => 2
 
     /**
      * The restore process failed. 
@@ -66,7 +69,8 @@ class VSS_FILE_RESTORE_STATUS extends Win32Enum {
      * 
      * This value indicates an error in restoration that did leave some restored files on disk. This means the 
      *        components on disk are now corrupt.
+     * Native name: VSS_RS_FAILED
      * @type {Integer (Int32)}
      */
-    static VSS_RS_FAILED => 3
+    static RS_FAILED => 3
 }

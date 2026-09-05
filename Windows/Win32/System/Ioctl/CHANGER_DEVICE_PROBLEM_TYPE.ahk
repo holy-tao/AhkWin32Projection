@@ -7,72 +7,86 @@
 class CHANGER_DEVICE_PROBLEM_TYPE extends Win32Enum {
 
     /**
+     * Native name: DeviceProblemNone
      * @type {Integer (Int32)}
      */
-    static DeviceProblemNone => 0
+    static None => 0
 
     /**
+     * Native name: DeviceProblemHardware
      * @type {Integer (Int32)}
      */
-    static DeviceProblemHardware => 1
+    static Hardware => 1
 
     /**
+     * Native name: DeviceProblemCHMError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemCHMError => 2
+    static ProblemCHMError => 2
 
     /**
+     * Native name: DeviceProblemDoorOpen
      * @type {Integer (Int32)}
      */
-    static DeviceProblemDoorOpen => 3
+    static DoorOpen => 3
 
     /**
+     * Native name: DeviceProblemCalibrationError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemCalibrationError => 4
+    static CalibrationError => 4
 
     /**
+     * Native name: DeviceProblemTargetFailure
      * @type {Integer (Int32)}
      */
-    static DeviceProblemTargetFailure => 5
+    static TargetFailure => 5
 
     /**
+     * Native name: DeviceProblemCHMMoveError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemCHMMoveError => 6
+    static ProblemCHMMoveError => 6
 
     /**
+     * Native name: DeviceProblemCHMZeroError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemCHMZeroError => 7
+    static ProblemCHMZeroError => 7
 
     /**
+     * Native name: DeviceProblemCartridgeInsertError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemCartridgeInsertError => 8
+    static CartridgeInsertError => 8
 
     /**
+     * Native name: DeviceProblemPositionError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemPositionError => 9
+    static PositionError => 9
 
     /**
+     * Native name: DeviceProblemSensorError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemSensorError => 10
+    static SensorError => 10
 
     /**
+     * Native name: DeviceProblemCartridgeEjectError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemCartridgeEjectError => 11
+    static CartridgeEjectError => 11
 
     /**
+     * Native name: DeviceProblemGripperError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemGripperError => 12
+    static GripperError => 12
 
     /**
+     * Native name: DeviceProblemDriveError
      * @type {Integer (Int32)}
      */
-    static DeviceProblemDriveError => 13
+    static DriveError => 13
 }

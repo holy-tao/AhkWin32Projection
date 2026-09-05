@@ -32,7 +32,6 @@ class IXFeed2 extends IXFeed {
     static VTableNames => ["GetItemByEffectiveId", "LastItemDownloadTime", "Username", "Password", "SetCredentials", "ClearCredentials"]
 
     /**
-     * 
      * @param {Integer} uiEffectiveId 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -43,7 +42,6 @@ class IXFeed2 extends IXFeed {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastItemDownloadTime() {
@@ -75,7 +73,6 @@ class IXFeed2 extends IXFeed {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszPassword 
      * @returns {HRESULT} 
@@ -89,7 +86,6 @@ class IXFeed2 extends IXFeed {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearCredentials() {

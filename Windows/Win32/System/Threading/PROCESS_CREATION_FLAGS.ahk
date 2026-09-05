@@ -107,14 +107,16 @@ class PROCESS_CREATION_FLAGS extends Win32BitflagEnum {
     static EXTENDED_STARTUPINFO_PRESENT => 524288
 
     /**
+     * Native name: PROCESS_MODE_BACKGROUND_BEGIN
      * @type {Integer (UInt32)}
      */
-    static PROCESS_MODE_BACKGROUND_BEGIN => 1048576
+    static MODE_BACKGROUND_BEGIN => 1048576
 
     /**
+     * Native name: PROCESS_MODE_BACKGROUND_END
      * @type {Integer (UInt32)}
      */
-    static PROCESS_MODE_BACKGROUND_END => 2097152
+    static MODE_BACKGROUND_END => 2097152
 
     /**
      * @type {Integer (UInt32)}

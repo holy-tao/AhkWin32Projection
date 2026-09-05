@@ -7,32 +7,38 @@
 class VA_VIDEO_FORMAT extends Win32Enum {
 
     /**
+     * Native name: VA_VIDEO_COMPONENT
      * @type {Integer (Int32)}
      */
-    static VA_VIDEO_COMPONENT => 0
+    static COMPONENT => 0
 
     /**
+     * Native name: VA_VIDEO_PAL
      * @type {Integer (Int32)}
      */
-    static VA_VIDEO_PAL => 1
+    static PAL => 1
 
     /**
+     * Native name: VA_VIDEO_NTSC
      * @type {Integer (Int32)}
      */
-    static VA_VIDEO_NTSC => 2
+    static NTSC => 2
 
     /**
+     * Native name: VA_VIDEO_SECAM
      * @type {Integer (Int32)}
      */
-    static VA_VIDEO_SECAM => 3
+    static SECAM => 3
 
     /**
+     * Native name: VA_VIDEO_MAC
      * @type {Integer (Int32)}
      */
-    static VA_VIDEO_MAC => 4
+    static MAC => 4
 
     /**
+     * Native name: VA_VIDEO_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static VA_VIDEO_UNSPECIFIED => 5
+    static UNSPECIFIED => 5
 }

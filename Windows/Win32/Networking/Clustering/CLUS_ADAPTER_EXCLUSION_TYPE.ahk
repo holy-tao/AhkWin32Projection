@@ -7,17 +7,20 @@
 class CLUS_ADAPTER_EXCLUSION_TYPE extends Win32Enum {
 
     /**
+     * Native name: CLUS_ADAPTER_EXCLUSION_TYPE_IPPREFIX
      * @type {Integer (Int32)}
      */
-    static CLUS_ADAPTER_EXCLUSION_TYPE_IPPREFIX => 0
+    static IPPREFIX => 0
 
     /**
+     * Native name: CLUS_ADAPTER_EXCLUSION_TYPE_DESCRIPTION
      * @type {Integer (Int32)}
      */
-    static CLUS_ADAPTER_EXCLUSION_TYPE_DESCRIPTION => 1
+    static DESCRIPTION => 1
 
     /**
+     * Native name: CLUS_ADAPTER_EXCLUSION_TYPE_FRIENDLYNAME
      * @type {Integer (Int32)}
      */
-    static CLUS_ADAPTER_EXCLUSION_TYPE_FRIENDLYNAME => 2
+    static FRIENDLYNAME => 2
 }

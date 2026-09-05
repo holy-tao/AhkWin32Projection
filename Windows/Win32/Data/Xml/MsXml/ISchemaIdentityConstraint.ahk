@@ -52,7 +52,6 @@ class ISchemaIdentityConstraint extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selector() {
@@ -62,7 +61,6 @@ class ISchemaIdentityConstraint extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_fields() {
@@ -71,7 +69,6 @@ class ISchemaIdentityConstraint extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaIdentityConstraint} 
      */
     get_referencedKey() {

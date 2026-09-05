@@ -12,19 +12,22 @@ class WMT_DRMLA_TRUST extends Win32Enum {
 
     /**
      * Indicates that the validity of the license acquisition URL cannot be guaranteed because it is not signed. All protected content created prior to Windows Media 9 Series will cause this value to be returned.
+     * Native name: WMT_DRMLA_UNTRUSTED
      * @type {Integer (Int32)}
      */
-    static WMT_DRMLA_UNTRUSTED => 0
+    static UNTRUSTED => 0
 
     /**
      * Indicates that the license acquisition URL is the original one provided with the content.
+     * Native name: WMT_DRMLA_TRUSTED
      * @type {Integer (Int32)}
      */
-    static WMT_DRMLA_TRUSTED => 1
+    static TRUSTED => 1
 
     /**
      * Indicates that the license acquisition URL was originally signed and has been tampered with.
+     * Native name: WMT_DRMLA_TAMPERED
      * @type {Integer (Int32)}
      */
-    static WMT_DRMLA_TAMPERED => 2
+    static TAMPERED => 2
 }

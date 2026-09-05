@@ -194,7 +194,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -204,7 +203,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -214,7 +212,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
      */
@@ -224,7 +221,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {DOMNodeType} 
      */
     get_nodeType() {
@@ -233,7 +229,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_parentNode() {
@@ -242,7 +237,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNodeList} 
      */
     get_childNodes() {
@@ -251,7 +245,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_firstChild() {
@@ -260,7 +253,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_lastChild() {
@@ -269,7 +261,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_previousSibling() {
@@ -278,7 +269,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_nextSibling() {
@@ -287,7 +277,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_attributes() {
@@ -296,7 +285,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newChild 
      * @param {VARIANT} refChild 
      * @returns {IXMLDOMNode} 
@@ -307,7 +295,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newChild 
      * @param {IXMLDOMNode} oldChild 
      * @returns {IXMLDOMNode} 
@@ -318,7 +305,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} childNode 
      * @returns {IXMLDOMNode} 
      */
@@ -328,7 +314,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newChild 
      * @returns {IXMLDOMNode} 
      */
@@ -338,7 +323,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
@@ -347,7 +331,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocument} 
      */
     get_ownerDocument() {
@@ -356,7 +339,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} deep 
      * @returns {IXMLDOMNode} 
      */
@@ -366,7 +348,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeTypeString() {
@@ -376,7 +357,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -386,7 +366,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @returns {HRESULT} 
      */
@@ -398,7 +377,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
@@ -407,7 +385,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_definition() {
@@ -416,7 +393,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeTypedValue() {
@@ -426,7 +402,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} typedValue 
      * @returns {HRESULT} 
      */
@@ -436,7 +411,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dataType() {
@@ -446,7 +420,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} dataTypeName 
      * @returns {HRESULT} 
      */
@@ -458,7 +431,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xml() {
@@ -468,7 +440,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} stylesheet 
      * @returns {BSTR} 
      */
@@ -479,7 +450,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} queryString 
      * @returns {IXMLDOMNodeList} 
      */
@@ -491,7 +461,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} queryString 
      * @returns {IXMLDOMNode} 
      */
@@ -503,7 +472,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_parsed() {
@@ -512,7 +480,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_namespaceURI() {
@@ -522,7 +489,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prefix() {
@@ -532,7 +498,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_baseName() {
@@ -542,7 +507,6 @@ class IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} stylesheet 
      * @param {VARIANT} outputObject 
      * @returns {HRESULT} 

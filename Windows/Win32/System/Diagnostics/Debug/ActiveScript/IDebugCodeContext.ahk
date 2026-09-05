@@ -31,7 +31,6 @@ class IDebugCodeContext extends IUnknown {
     static VTableNames => ["GetDocumentContext", "SetBreakPoint"]
 
     /**
-     * 
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContext() {
@@ -40,7 +39,6 @@ class IDebugCodeContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {BREAKPOINT_STATE} bps 
      * @returns {HRESULT} 
      */

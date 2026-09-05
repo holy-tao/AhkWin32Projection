@@ -10,7 +10,8 @@ class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION extends Win32Enum {
 
     /**
      * Appends the delta (difference) of the baseline package and the updated package.
+     * Native name: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA => 0
+    static APPEND_DELTA => 0
 }

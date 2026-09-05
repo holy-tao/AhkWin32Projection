@@ -7,32 +7,38 @@
 class NVME_CONTROLLER_TYPE extends Win32Enum {
 
     /**
+     * Native name: NvmeCtrlNotReported
      * @type {Integer (Int32)}
      */
-    static NvmeCtrlNotReported => 0
+    static CtrlNotReported => 0
 
     /**
+     * Native name: NvmeCtrlIO
      * @type {Integer (Int32)}
      */
-    static NvmeCtrlIO => 1
+    static CtrlIO => 1
 
     /**
+     * Native name: NvmeCtrlDiscovery
      * @type {Integer (Int32)}
      */
-    static NvmeCtrlDiscovery => 2
+    static CtrlDiscovery => 2
 
     /**
+     * Native name: NvmeCtrlAdmin
      * @type {Integer (Int32)}
      */
-    static NvmeCtrlAdmin => 3
+    static CtrlAdmin => 3
 
     /**
+     * Native name: NvmeCtrlReservedMin
      * @type {Integer (Int32)}
      */
-    static NvmeCtrlReservedMin => 4
+    static CtrlReservedMin => 4
 
     /**
+     * Native name: NvmeCtrlReservedMax
      * @type {Integer (Int32)}
      */
-    static NvmeCtrlReservedMax => 255
+    static CtrlReservedMax => 255
 }

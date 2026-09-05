@@ -7,22 +7,26 @@
 class SERVICE_ERROR extends Win32Enum {
 
     /**
+     * Native name: SERVICE_ERROR_CRITICAL
      * @type {Integer (UInt32)}
      */
-    static SERVICE_ERROR_CRITICAL => 3
+    static CRITICAL => 3
 
     /**
+     * Native name: SERVICE_ERROR_IGNORE
      * @type {Integer (UInt32)}
      */
-    static SERVICE_ERROR_IGNORE => 0
+    static IGNORE => 0
 
     /**
+     * Native name: SERVICE_ERROR_NORMAL
      * @type {Integer (UInt32)}
      */
-    static SERVICE_ERROR_NORMAL => 1
+    static NORMAL => 1
 
     /**
+     * Native name: SERVICE_ERROR_SEVERE
      * @type {Integer (UInt32)}
      */
-    static SERVICE_ERROR_SEVERE => 2
+    static SEVERE => 2
 }

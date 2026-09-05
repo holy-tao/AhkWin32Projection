@@ -30,7 +30,6 @@ class ICorProfilerCallback10 extends ICorProfilerCallback9 {
     static VTableNames => ["EventPipeEventDelivered", "EventPipeProviderCreated"]
 
     /**
-     * 
      * @param {Pointer} provider 
      * @param {Integer} eventId 
      * @param {Integer} eventVersion 
@@ -55,7 +54,6 @@ class ICorProfilerCallback10 extends ICorProfilerCallback9 {
     }
 
     /**
-     * 
      * @param {Pointer} provider 
      * @returns {HRESULT} 
      */

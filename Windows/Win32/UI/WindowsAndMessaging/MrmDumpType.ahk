@@ -9,17 +9,20 @@
 class MrmDumpType extends Win32Enum {
 
     /**
+     * Native name: MrmDumpType_Basic
      * @type {Integer (Int32)}
      */
-    static MrmDumpType_Basic => 0
+    static Basic => 0
 
     /**
+     * Native name: MrmDumpType_Detailed
      * @type {Integer (Int32)}
      */
-    static MrmDumpType_Detailed => 1
+    static Detailed => 1
 
     /**
+     * Native name: MrmDumpType_Schema
      * @type {Integer (Int32)}
      */
-    static MrmDumpType_Schema => 2
+    static Schema => 2
 }

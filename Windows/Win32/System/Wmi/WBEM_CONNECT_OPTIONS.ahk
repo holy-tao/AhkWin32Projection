@@ -7,17 +7,20 @@
 class WBEM_CONNECT_OPTIONS extends Win32Enum {
 
     /**
+     * Native name: WBEM_FLAG_CONNECT_REPOSITORY_ONLY
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_CONNECT_REPOSITORY_ONLY => 64
+    static FLAG_CONNECT_REPOSITORY_ONLY => 64
 
     /**
+     * Native name: WBEM_FLAG_CONNECT_USE_MAX_WAIT
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_CONNECT_USE_MAX_WAIT => 128
+    static FLAG_CONNECT_USE_MAX_WAIT => 128
 
     /**
+     * Native name: WBEM_FLAG_CONNECT_PROVIDERS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_CONNECT_PROVIDERS => 256
+    static FLAG_CONNECT_PROVIDERS => 256
 }

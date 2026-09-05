@@ -9,22 +9,26 @@
 class WPD_PARAMETER_USAGE_TYPES extends Win32Enum {
 
     /**
+     * Native name: WPD_PARAMETER_USAGE_RETURN
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_USAGE_RETURN => 0
+    static RETURN => 0
 
     /**
+     * Native name: WPD_PARAMETER_USAGE_IN
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_USAGE_IN => 1
+    static IN => 1
 
     /**
+     * Native name: WPD_PARAMETER_USAGE_OUT
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_USAGE_OUT => 2
+    static OUT => 2
 
     /**
+     * Native name: WPD_PARAMETER_USAGE_INOUT
      * @type {Integer (Int32)}
      */
-    static WPD_PARAMETER_USAGE_INOUT => 3
+    static INOUT => 3
 }

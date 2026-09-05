@@ -2024,7 +2024,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<CONTEXT>} ContextRecord 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2749,7 +2748,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Ptr 
      * @returns {Pointer<Void>} 
      */
@@ -2761,7 +2759,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Ptr 
      * @returns {Pointer<Void>} 
      */
@@ -2773,7 +2770,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Ptr 
      * @returns {Pointer<Void>} 
      */
@@ -2785,7 +2781,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Ptr 
      * @returns {Pointer<Void>} 
      */
@@ -2797,7 +2792,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
      * @returns {Pointer<Void>} 
@@ -2812,7 +2806,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
      * @returns {Pointer<Void>} 
@@ -3352,7 +3345,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer} FailedAllocationSize 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -6080,7 +6072,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Integer} MachineType 
      * @param {HANDLE} hProcess 
      * @param {HANDLE} hThread 
@@ -6193,7 +6184,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<HWND>} pHwnd 
      * @returns {BOOL} 
      */
@@ -7316,7 +7306,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {Integer} _Address 
      * @param {Integer} _Buffer 
@@ -8566,7 +8555,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {Integer} Base 
      * @param {PSTR} FileSpec 
@@ -8704,7 +8692,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {Integer} Base 
      * @param {PWSTR} FileSpec 
@@ -8765,7 +8752,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {Pointer<Void>} Token 
      * @param {PSTR} TokenName 
@@ -8831,7 +8817,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {Pointer<Void>} Token 
      * @param {PWSTR} TokenName 
@@ -12265,7 +12250,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {PSTR} FileName 
      * @param {Pointer<PDBGHELP_CREATE_USER_DUMP_CALLBACK>} Callback 
      * @param {Pointer<Void>} _UserData 
@@ -12281,7 +12265,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {Pointer<PDBGHELP_CREATE_USER_DUMP_CALLBACK>} Callback 
      * @param {Pointer<Void>} _UserData 
@@ -12383,7 +12366,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hprocess 
      * @param {PSTR} SearchPathA 
      * @param {PSTR} FileName 
@@ -12407,7 +12389,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hprocess 
      * @param {PSTR} SearchPathA 
      * @param {PSTR} FileName 
@@ -12428,7 +12409,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {Integer} BaseOfDll 
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback 
@@ -12710,7 +12690,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<LPCALL_BACK_USER_INTERRUPT_ROUTINE>} lpStartAddress 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12739,7 +12718,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {PWSTR} pLoadModule 
      * @param {Pointer<DBGHELP_DATA_REPORT_STRUCT>} pSymbolData 
@@ -12754,7 +12732,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12765,7 +12742,6 @@ class Debug {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     static RangeMapCreate() {
@@ -12774,7 +12750,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RmapHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12785,7 +12760,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {PWSTR} ImageName 
      * @param {Integer} MappedImage 
@@ -12805,7 +12779,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {Integer} UserTag 
      * @returns {BOOL} 
@@ -12818,7 +12791,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -12836,7 +12808,6 @@ class Debug {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 

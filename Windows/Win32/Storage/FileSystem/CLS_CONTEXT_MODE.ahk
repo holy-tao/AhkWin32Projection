@@ -7,22 +7,26 @@
 class CLS_CONTEXT_MODE extends Win32Enum {
 
     /**
+     * Native name: ClsContextNone
      * @type {Integer (Int32)}
      */
-    static ClsContextNone => 0
+    static None => 0
 
     /**
+     * Native name: ClsContextUndoNext
      * @type {Integer (Int32)}
      */
-    static ClsContextUndoNext => 1
+    static UndoNext => 1
 
     /**
+     * Native name: ClsContextPrevious
      * @type {Integer (Int32)}
      */
-    static ClsContextPrevious => 2
+    static Previous => 2
 
     /**
+     * Native name: ClsContextForward
      * @type {Integer (Int32)}
      */
-    static ClsContextForward => 3
+    static Forward => 3
 }

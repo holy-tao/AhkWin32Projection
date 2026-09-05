@@ -31,7 +31,6 @@ class IDeveloperConsoleMessageReceiver extends IUnknown {
     static VTableNames => ["Write", "WriteWithUrl", "WriteWithUrlAndLine", "WriteWithUrlLineAndColumn"]
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
@@ -47,7 +46,6 @@ class IDeveloperConsoleMessageReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
@@ -65,7 +63,6 @@ class IDeveloperConsoleMessageReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
@@ -84,7 +81,6 @@ class IDeveloperConsoleMessageReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 

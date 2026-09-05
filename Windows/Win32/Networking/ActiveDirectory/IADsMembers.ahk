@@ -55,7 +55,6 @@ class IADsMembers extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -74,7 +73,6 @@ class IADsMembers extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Filter() {
@@ -84,7 +82,6 @@ class IADsMembers extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} pvFilter 
      * @returns {HRESULT} 
      */

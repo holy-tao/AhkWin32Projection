@@ -9,32 +9,38 @@
 class HDV_PCI_BAR_SELECTOR extends Win32Enum {
 
     /**
+     * Native name: HDV_PCI_BAR0
      * @type {Integer (Int32)}
      */
-    static HDV_PCI_BAR0 => 0
+    static BAR0 => 0
 
     /**
+     * Native name: HDV_PCI_BAR1
      * @type {Integer (Int32)}
      */
-    static HDV_PCI_BAR1 => 1
+    static BAR1 => 1
 
     /**
+     * Native name: HDV_PCI_BAR2
      * @type {Integer (Int32)}
      */
-    static HDV_PCI_BAR2 => 2
+    static BAR2 => 2
 
     /**
+     * Native name: HDV_PCI_BAR3
      * @type {Integer (Int32)}
      */
-    static HDV_PCI_BAR3 => 3
+    static BAR3 => 3
 
     /**
+     * Native name: HDV_PCI_BAR4
      * @type {Integer (Int32)}
      */
-    static HDV_PCI_BAR4 => 4
+    static BAR4 => 4
 
     /**
+     * Native name: HDV_PCI_BAR5
      * @type {Integer (Int32)}
      */
-    static HDV_PCI_BAR5 => 5
+    static BAR5 => 5
 }

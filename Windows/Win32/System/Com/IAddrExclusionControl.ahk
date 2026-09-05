@@ -30,7 +30,6 @@ class IAddrExclusionControl extends IUnknown {
     static VTableNames => ["GetCurrentAddrExclusionList", "UpdateAddrExclusionList"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -40,7 +39,6 @@ class IAddrExclusionControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEnumerator 
      * @returns {HRESULT} 
      */

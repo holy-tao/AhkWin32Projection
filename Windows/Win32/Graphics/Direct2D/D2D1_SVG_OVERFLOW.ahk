@@ -10,13 +10,15 @@ class D2D1_SVG_OVERFLOW extends Win32Enum {
 
     /**
      * The element is not clipped to its viewport.
+     * Native name: D2D1_SVG_OVERFLOW_VISIBLE
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_OVERFLOW_VISIBLE => 0
+    static VISIBLE => 0
 
     /**
      * The element is clipped to its viewport.
+     * Native name: D2D1_SVG_OVERFLOW_HIDDEN
      * @type {Integer (Int32)}
      */
-    static D2D1_SVG_OVERFLOW_HIDDEN => 1
+    static HIDDEN => 1
 }

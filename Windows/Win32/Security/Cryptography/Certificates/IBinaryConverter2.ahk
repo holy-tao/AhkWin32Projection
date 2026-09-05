@@ -30,7 +30,6 @@ class IBinaryConverter2 extends IBinaryConverter {
     static VTableNames => ["StringArrayToVariantArray", "VariantArrayToStringArray"]
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarStringArray 
      * @returns {VARIANT} 
      */
@@ -41,7 +40,6 @@ class IBinaryConverter2 extends IBinaryConverter {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarVariantArray 
      * @returns {VARIANT} 
      */

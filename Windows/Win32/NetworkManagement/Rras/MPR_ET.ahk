@@ -7,22 +7,26 @@
 class MPR_ET extends Win32Enum {
 
     /**
+     * Native name: MPR_ET_None
      * @type {Integer (UInt32)}
      */
-    static MPR_ET_None => 0
+    static None => 0
 
     /**
+     * Native name: MPR_ET_Require
      * @type {Integer (UInt32)}
      */
-    static MPR_ET_Require => 1
+    static Require => 1
 
     /**
+     * Native name: MPR_ET_RequireMax
      * @type {Integer (UInt32)}
      */
-    static MPR_ET_RequireMax => 2
+    static RequireMax => 2
 
     /**
+     * Native name: MPR_ET_Optional
      * @type {Integer (UInt32)}
      */
-    static MPR_ET_Optional => 3
+    static Optional => 3
 }

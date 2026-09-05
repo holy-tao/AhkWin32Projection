@@ -7,47 +7,56 @@
 class ETO_OPTIONS extends Win32BitflagEnum {
 
     /**
+     * Native name: ETO_OPAQUE
      * @type {Integer (UInt32)}
      */
-    static ETO_OPAQUE => 2
+    static OPAQUE => 2
 
     /**
+     * Native name: ETO_CLIPPED
      * @type {Integer (UInt32)}
      */
-    static ETO_CLIPPED => 4
+    static CLIPPED => 4
 
     /**
+     * Native name: ETO_GLYPH_INDEX
      * @type {Integer (UInt32)}
      */
-    static ETO_GLYPH_INDEX => 16
+    static GLYPH_INDEX => 16
 
     /**
+     * Native name: ETO_RTLREADING
      * @type {Integer (UInt32)}
      */
-    static ETO_RTLREADING => 128
+    static RTLREADING => 128
 
     /**
+     * Native name: ETO_NUMERICSLOCAL
      * @type {Integer (UInt32)}
      */
-    static ETO_NUMERICSLOCAL => 1024
+    static NUMERICSLOCAL => 1024
 
     /**
+     * Native name: ETO_NUMERICSLATIN
      * @type {Integer (UInt32)}
      */
-    static ETO_NUMERICSLATIN => 2048
+    static NUMERICSLATIN => 2048
 
     /**
+     * Native name: ETO_IGNORELANGUAGE
      * @type {Integer (UInt32)}
      */
-    static ETO_IGNORELANGUAGE => 4096
+    static IGNORELANGUAGE => 4096
 
     /**
+     * Native name: ETO_PDY
      * @type {Integer (UInt32)}
      */
-    static ETO_PDY => 8192
+    static PDY => 8192
 
     /**
+     * Native name: ETO_REVERSE_INDEX_MAP
      * @type {Integer (UInt32)}
      */
-    static ETO_REVERSE_INDEX_MAP => 65536
+    static REVERSE_INDEX_MAP => 65536
 }

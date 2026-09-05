@@ -33,7 +33,6 @@ class IDynamicKeyProviderConcept extends IUnknown {
     static VTableNames => ["GetKey", "SetKey", "EnumerateKeys"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} keyValue 
@@ -51,7 +50,6 @@ class IDynamicKeyProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} key 
      * @param {IModelObject} keyValue 
@@ -66,7 +64,6 @@ class IDynamicKeyProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IKeyEnumerator} 
      */

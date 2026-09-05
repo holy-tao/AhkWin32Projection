@@ -10,25 +10,29 @@ class PEER_INVITATION_RESPONSE_TYPE extends Win32Enum {
 
     /**
      * The invitation was declined by the peer.
+     * Native name: PEER_INVITATION_RESPONSE_DECLINED
      * @type {Integer (Int32)}
      */
-    static PEER_INVITATION_RESPONSE_DECLINED => 0
+    static DECLINED => 0
 
     /**
      * The invitation was accepted by the peer.
+     * Native name: PEER_INVITATION_RESPONSE_ACCEPTED
      * @type {Integer (Int32)}
      */
-    static PEER_INVITATION_RESPONSE_ACCEPTED => 1
+    static ACCEPTED => 1
 
     /**
      * The invitation has expired.
+     * Native name: PEER_INVITATION_RESPONSE_EXPIRED
      * @type {Integer (Int32)}
      */
-    static PEER_INVITATION_RESPONSE_EXPIRED => 2
+    static EXPIRED => 2
 
     /**
      * An error occurred during the invitation process.
+     * Native name: PEER_INVITATION_RESPONSE_ERROR
      * @type {Integer (Int32)}
      */
-    static PEER_INVITATION_RESPONSE_ERROR => 3
+    static ERROR => 3
 }

@@ -7,12 +7,14 @@
 class PCI_EXPRESS_MRL_STATE extends Win32Enum {
 
     /**
+     * Native name: MRLClosed
      * @type {Integer (Int32)}
      */
-    static MRLClosed => 0
+    static Closed => 0
 
     /**
+     * Native name: MRLOpen
      * @type {Integer (Int32)}
      */
-    static MRLOpen => 1
+    static Open => 1
 }

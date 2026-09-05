@@ -30,7 +30,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     static VTableNames => ["GetMaxCPULoad", "SetMaxCPULoad", "GetCPUMetricEnabled", "SetCPUMetricEnabled", "GetCreateThreadsAggressively", "SetCreateThreadsAggressively", "GetMaxCSR", "SetMaxCSR", "GetWaitTimeForThreadCleanup", "SetWaitTimeForThreadCleanup"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCPULoad() {
@@ -39,7 +38,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {Integer} pdwLoad 
      * @returns {HRESULT} 
      */
@@ -49,7 +47,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetCPUMetricEnabled() {
@@ -58,7 +55,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {BOOL} bMetricEnabled 
      * @returns {HRESULT} 
      */
@@ -68,7 +64,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetCreateThreadsAggressively() {
@@ -77,7 +72,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {BOOL} bMetricEnabled 
      * @returns {HRESULT} 
      */
@@ -87,7 +81,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCSR() {
@@ -96,7 +89,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {Integer} dwCSR 
      * @returns {HRESULT} 
      */
@@ -106,7 +98,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetWaitTimeForThreadCleanup() {
@@ -115,7 +106,6 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {Integer} dwThreadCleanupWaitTime 
      * @returns {HRESULT} 
      */

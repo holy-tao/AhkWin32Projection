@@ -7,67 +7,80 @@
 class DOMNodeType extends Win32Enum {
 
     /**
+     * Native name: NODE_INVALID
      * @type {Integer (Int32)}
      */
-    static NODE_INVALID => 0
+    static INVALID => 0
 
     /**
+     * Native name: NODE_ELEMENT
      * @type {Integer (Int32)}
      */
-    static NODE_ELEMENT => 1
+    static ELEMENT => 1
 
     /**
+     * Native name: NODE_ATTRIBUTE
      * @type {Integer (Int32)}
      */
-    static NODE_ATTRIBUTE => 2
+    static ATTRIBUTE => 2
 
     /**
+     * Native name: NODE_TEXT
      * @type {Integer (Int32)}
      */
-    static NODE_TEXT => 3
+    static TEXT => 3
 
     /**
+     * Native name: NODE_CDATA_SECTION
      * @type {Integer (Int32)}
      */
-    static NODE_CDATA_SECTION => 4
+    static CDATA_SECTION => 4
 
     /**
+     * Native name: NODE_ENTITY_REFERENCE
      * @type {Integer (Int32)}
      */
-    static NODE_ENTITY_REFERENCE => 5
+    static ENTITY_REFERENCE => 5
 
     /**
+     * Native name: NODE_ENTITY
      * @type {Integer (Int32)}
      */
-    static NODE_ENTITY => 6
+    static ENTITY => 6
 
     /**
+     * Native name: NODE_PROCESSING_INSTRUCTION
      * @type {Integer (Int32)}
      */
-    static NODE_PROCESSING_INSTRUCTION => 7
+    static PROCESSING_INSTRUCTION => 7
 
     /**
+     * Native name: NODE_COMMENT
      * @type {Integer (Int32)}
      */
-    static NODE_COMMENT => 8
+    static COMMENT => 8
 
     /**
+     * Native name: NODE_DOCUMENT
      * @type {Integer (Int32)}
      */
-    static NODE_DOCUMENT => 9
+    static DOCUMENT => 9
 
     /**
+     * Native name: NODE_DOCUMENT_TYPE
      * @type {Integer (Int32)}
      */
-    static NODE_DOCUMENT_TYPE => 10
+    static DOCUMENT_TYPE => 10
 
     /**
+     * Native name: NODE_DOCUMENT_FRAGMENT
      * @type {Integer (Int32)}
      */
-    static NODE_DOCUMENT_FRAGMENT => 11
+    static DOCUMENT_FRAGMENT => 11
 
     /**
+     * Native name: NODE_NOTATION
      * @type {Integer (Int32)}
      */
-    static NODE_NOTATION => 12
+    static NOTATION => 12
 }

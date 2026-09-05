@@ -7,22 +7,26 @@
 class styleWordWrap extends Win32Enum {
 
     /**
+     * Native name: styleWordWrapNotSet
      * @type {Integer (Int32)}
      */
-    static styleWordWrapNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleWordWrapOff
      * @type {Integer (Int32)}
      */
-    static styleWordWrapOff => 1
+    static Off => 1
 
     /**
+     * Native name: styleWordWrapOn
      * @type {Integer (Int32)}
      */
-    static styleWordWrapOn => 2
+    static On => 2
 
     /**
+     * Native name: styleWordWrap_Max
      * @type {Integer (Int32)}
      */
-    static styleWordWrap_Max => 2147483647
+    static Max => 2147483647
 }

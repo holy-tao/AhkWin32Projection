@@ -30,7 +30,6 @@ class IHTMLStorage2 extends IDispatch {
     static VTableNames => ["setItem"]
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 

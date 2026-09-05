@@ -7,22 +7,26 @@
 class STORAGE_TIER_CLASS extends Win32Enum {
 
     /**
+     * Native name: StorageTierClassUnspecified
      * @type {Integer (Int32)}
      */
-    static StorageTierClassUnspecified => 0
+    static Unspecified => 0
 
     /**
+     * Native name: StorageTierClassCapacity
      * @type {Integer (Int32)}
      */
-    static StorageTierClassCapacity => 1
+    static Capacity => 1
 
     /**
+     * Native name: StorageTierClassPerformance
      * @type {Integer (Int32)}
      */
-    static StorageTierClassPerformance => 2
+    static Performance => 2
 
     /**
+     * Native name: StorageTierClassMax
      * @type {Integer (Int32)}
      */
-    static StorageTierClassMax => 3
+    static Max => 3
 }

@@ -38,7 +38,6 @@ class IHeaderFooter2 extends IHeaderFooter {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class IHeaderFooter2 extends IHeaderFooter {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_font() {

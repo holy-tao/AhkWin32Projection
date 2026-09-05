@@ -10,33 +10,38 @@ class MBN_SMS_CAPS extends Win32Enum {
 
     /**
      * The device does not support SMS.
+     * Native name: MBN_SMS_CAPS_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CAPS_NONE => 0
+    static NONE => 0
 
     /**
      * For GSM devices, this indicates that the device is capable of receiving PDU-type SMS. 
      * For CDMA devices, this indicates that the device is capable of reading the SMS in binary format as defined in section 3.4.2.1 “SMS Point-to-Point Message” in 3GPP2 specification C.S0015-A “Short Message Service (SMS) for Wideband Spread Spectrum Systems”.
+     * Native name: MBN_SMS_CAPS_PDU_RECEIVE
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CAPS_PDU_RECEIVE => 1
+    static PDU_RECEIVE => 1
 
     /**
      * For GSM devices, this indicates that the device is capable of sending PDU-type SMS. 
      * For CDMA devices, this indicates that the device is capable of sending the SMS in binary format as defined in section 3.4.2.1 “SMS Point-to-Point Message” in 3GPP2 specification C.S0015-A “Short Message Service (SMS) for Wideband Spread Spectrum Systems”.
+     * Native name: MBN_SMS_CAPS_PDU_SEND
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CAPS_PDU_SEND => 2
+    static PDU_SEND => 2
 
     /**
      * The device supports  receiving text-type SMS messages.  This is applicable only to CDMA devices.
+     * Native name: MBN_SMS_CAPS_TEXT_RECEIVE
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CAPS_TEXT_RECEIVE => 4
+    static TEXT_RECEIVE => 4
 
     /**
      * The device supports  sending text-type SMS messages.  This is applicable only to CDMA devices.
+     * Native name: MBN_SMS_CAPS_TEXT_SEND
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_CAPS_TEXT_SEND => 8
+    static TEXT_SEND => 8
 }

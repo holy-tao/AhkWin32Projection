@@ -7,27 +7,32 @@
 class CARET_DIRECTION extends Win32Enum {
 
     /**
+     * Native name: CARET_DIRECTION_INDETERMINATE
      * @type {Integer (Int32)}
      */
-    static CARET_DIRECTION_INDETERMINATE => 0
+    static INDETERMINATE => 0
 
     /**
+     * Native name: CARET_DIRECTION_SAME
      * @type {Integer (Int32)}
      */
-    static CARET_DIRECTION_SAME => 1
+    static SAME => 1
 
     /**
+     * Native name: CARET_DIRECTION_BACKWARD
      * @type {Integer (Int32)}
      */
-    static CARET_DIRECTION_BACKWARD => 2
+    static BACKWARD => 2
 
     /**
+     * Native name: CARET_DIRECTION_FORWARD
      * @type {Integer (Int32)}
      */
-    static CARET_DIRECTION_FORWARD => 3
+    static FORWARD => 3
 
     /**
+     * Native name: CARET_DIRECTION_Max
      * @type {Integer (Int32)}
      */
-    static CARET_DIRECTION_Max => 2147483647
+    static Max => 2147483647
 }

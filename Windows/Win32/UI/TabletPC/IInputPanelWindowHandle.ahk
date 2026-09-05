@@ -45,7 +45,6 @@ class IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AttachedEditWindow32() {
@@ -54,7 +53,6 @@ class IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AttachedEditWindow 
      * @returns {HRESULT} 
      */
@@ -64,7 +62,6 @@ class IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AttachedEditWindow64() {
@@ -73,7 +70,6 @@ class IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AttachedEditWindow 
      * @returns {HRESULT} 
      */

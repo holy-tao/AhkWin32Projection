@@ -7,42 +7,50 @@
 class USBFN_DEVICE_STATE extends Win32Enum {
 
     /**
+     * Native name: UsbfnDeviceStateMinimum
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateMinimum => 0
+    static Minimum => 0
 
     /**
+     * Native name: UsbfnDeviceStateAttached
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateAttached => 1
+    static Attached => 1
 
     /**
+     * Native name: UsbfnDeviceStateDefault
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateDefault => 2
+    static Default => 2
 
     /**
+     * Native name: UsbfnDeviceStateDetached
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateDetached => 3
+    static Detached => 3
 
     /**
+     * Native name: UsbfnDeviceStateAddressed
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateAddressed => 4
+    static Addressed => 4
 
     /**
+     * Native name: UsbfnDeviceStateConfigured
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateConfigured => 5
+    static Configured => 5
 
     /**
+     * Native name: UsbfnDeviceStateSuspended
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateSuspended => 6
+    static Suspended => 6
 
     /**
+     * Native name: UsbfnDeviceStateStateMaximum
      * @type {Integer (Int32)}
      */
-    static UsbfnDeviceStateStateMaximum => 7
+    static StateMaximum => 7
 }

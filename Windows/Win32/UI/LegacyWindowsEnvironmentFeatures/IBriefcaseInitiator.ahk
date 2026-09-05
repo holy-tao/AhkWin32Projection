@@ -30,7 +30,6 @@ class IBriefcaseInitiator extends IUnknown {
     static VTableNames => ["IsMonikerInBriefcase"]
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @returns {HRESULT} 
      */

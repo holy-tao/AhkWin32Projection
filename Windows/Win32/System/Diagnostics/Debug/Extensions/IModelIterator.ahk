@@ -31,7 +31,6 @@ class IModelIterator extends IUnknown {
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -40,7 +39,6 @@ class IModelIterator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IModelObject>} _object 
      * @param {Integer} dimensions 
      * @param {Pointer<IModelObject>} indexers 

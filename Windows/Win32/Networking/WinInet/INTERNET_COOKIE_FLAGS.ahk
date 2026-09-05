@@ -7,17 +7,20 @@
 class INTERNET_COOKIE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: INTERNET_COOKIE_HTTPONLY
      * @type {Integer (UInt32)}
      */
-    static INTERNET_COOKIE_HTTPONLY => 8192
+    static HTTPONLY => 8192
 
     /**
+     * Native name: INTERNET_COOKIE_THIRD_PARTY
      * @type {Integer (UInt32)}
      */
-    static INTERNET_COOKIE_THIRD_PARTY => 16
+    static THIRD_PARTY => 16
 
     /**
+     * Native name: INTERNET_FLAG_RESTRICTED_ZONE
      * @type {Integer (UInt32)}
      */
-    static INTERNET_FLAG_RESTRICTED_ZONE => 131072
+    static FLAG_RESTRICTED_ZONE => 131072
 }

@@ -32,7 +32,6 @@ class ITravelLogClient extends IUnknown {
     static VTableNames => ["FindWindowByIndex", "GetWindowData", "LoadHistoryPosition"]
 
     /**
-     * 
      * @param {Integer} dwID 
      * @returns {IUnknown} 
      */
@@ -42,7 +41,6 @@ class ITravelLogClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {WINDOWDATA} 
      */
@@ -53,7 +51,6 @@ class ITravelLogClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrlLocation 
      * @param {Integer} dwPosition 
      * @returns {HRESULT} 

@@ -12,43 +12,50 @@ class SEARCH_KIND_OF_CHANGE extends Win32Enum {
 
     /**
      * An item was added.
+     * Native name: SEARCH_CHANGE_ADD
      * @type {Integer (Int32)}
      */
-    static SEARCH_CHANGE_ADD => 0
+    static ADD => 0
 
     /**
      * An item was deleted.
+     * Native name: SEARCH_CHANGE_DELETE
      * @type {Integer (Int32)}
      */
-    static SEARCH_CHANGE_DELETE => 1
+    static DELETE => 1
 
     /**
      * An item was modified.
+     * Native name: SEARCH_CHANGE_MODIFY
      * @type {Integer (Int32)}
      */
-    static SEARCH_CHANGE_MODIFY => 2
+    static MODIFY => 2
 
     /**
      * An item was moved or renamed. Not currently supported for use with <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-onitemschanged">ISearchPersistentItemsChangedSink::OnItemsChanged</a>.
+     * Native name: SEARCH_CHANGE_MOVE_RENAME
      * @type {Integer (Int32)}
      */
-    static SEARCH_CHANGE_MOVE_RENAME => 3
+    static MOVE_RENAME => 3
 
     /**
      * An item is a directory. The item needs to be crawled rather than just reindexed as a document would be.
+     * Native name: SEARCH_CHANGE_SEMANTICS_DIRECTORY
      * @type {Integer (Int32)}
      */
-    static SEARCH_CHANGE_SEMANTICS_DIRECTORY => 262144
+    static SEMANTICS_DIRECTORY => 262144
 
     /**
      * Index directory properties were changed for an item.
+     * Native name: SEARCH_CHANGE_SEMANTICS_SHALLOW
      * @type {Integer (Int32)}
      */
-    static SEARCH_CHANGE_SEMANTICS_SHALLOW => 524288
+    static SEMANTICS_SHALLOW => 524288
 
     /**
      * Security on an item was changed.
+     * Native name: SEARCH_CHANGE_SEMANTICS_UPDATE_SECURITY
      * @type {Integer (Int32)}
      */
-    static SEARCH_CHANGE_SEMANTICS_UPDATE_SECURITY => 4194304
+    static SEMANTICS_UPDATE_SECURITY => 4194304
 }

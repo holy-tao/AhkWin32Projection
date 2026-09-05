@@ -33,7 +33,6 @@ class ID3D12DeviceConfiguration extends IUnknown {
     static VTableNames => ["GetDesc", "GetEnabledExperimentalFeatures", "SerializeVersionedRootSignature", "CreateVersionedRootSignatureDeserializer"]
 
     /**
-     * 
      * @returns {D3D12_DEVICE_CONFIGURATION_DESC} 
      */
     GetDesc() {
@@ -42,7 +41,6 @@ class ID3D12DeviceConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} NumGuids 
      * @returns {Guid} 
      */
@@ -53,7 +51,6 @@ class ID3D12DeviceConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} pDesc 
      * @param {Pointer<ID3DBlob>} ppResult 
      * @param {Pointer<ID3DBlob>} ppError 
@@ -65,7 +62,6 @@ class ID3D12DeviceConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pBlob 
      * @param {Pointer} _Size 
      * @param {Pointer<Guid>} riid 

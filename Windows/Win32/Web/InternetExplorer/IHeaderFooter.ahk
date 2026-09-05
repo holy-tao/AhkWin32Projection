@@ -124,7 +124,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlHead() {
@@ -134,7 +133,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlFoot() {
@@ -144,7 +142,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -156,7 +153,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textHead() {
@@ -166,7 +162,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +173,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textFoot() {
@@ -188,7 +182,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -198,7 +191,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_page() {
@@ -207,7 +199,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -217,7 +208,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageTotal() {
@@ -226,7 +216,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -238,7 +227,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -248,7 +236,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -260,7 +247,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -270,7 +256,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -282,7 +267,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dateShort() {
@@ -292,7 +276,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -304,7 +287,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dateLong() {
@@ -314,7 +296,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -326,7 +307,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_timeShort() {
@@ -336,7 +316,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -348,7 +327,6 @@ class IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_timeLong() {

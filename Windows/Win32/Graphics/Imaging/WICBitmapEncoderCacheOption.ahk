@@ -10,19 +10,22 @@ class WICBitmapEncoderCacheOption extends Win32Enum {
 
     /**
      * The encoder is cached in memory. This option is not supported.
+     * Native name: WICBitmapEncoderCacheInMemory
      * @type {Integer (Int32)}
      */
-    static WICBitmapEncoderCacheInMemory => 0
+    static InMemory => 0
 
     /**
      * The encoder is cached to a temporary file. This option is not supported.
+     * Native name: WICBitmapEncoderCacheTempFile
      * @type {Integer (Int32)}
      */
-    static WICBitmapEncoderCacheTempFile => 1
+    static TempFile => 1
 
     /**
      * The encoder is not cached.
+     * Native name: WICBitmapEncoderNoCache
      * @type {Integer (Int32)}
      */
-    static WICBitmapEncoderNoCache => 2
+    static NoCache => 2
 }

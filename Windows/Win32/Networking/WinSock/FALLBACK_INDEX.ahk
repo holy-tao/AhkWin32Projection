@@ -7,12 +7,14 @@
 class FALLBACK_INDEX extends Win32Enum {
 
     /**
+     * Native name: FallbackIndexTcpFastopen
      * @type {Integer (Int32)}
      */
-    static FallbackIndexTcpFastopen => 0
+    static TcpFastopen => 0
 
     /**
+     * Native name: FallbackIndexMax
      * @type {Integer (Int32)}
      */
-    static FallbackIndexMax => 1
+    static Max => 1
 }

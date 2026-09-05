@@ -53,7 +53,6 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -81,7 +80,6 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -90,7 +88,6 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} varValue 
      * @param {Integer} iFlags 
@@ -104,7 +101,6 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
@@ -117,7 +113,6 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemNamedValueSet} 
      */
     Clone() {
@@ -126,7 +121,6 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteAll() {

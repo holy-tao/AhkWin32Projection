@@ -34,7 +34,6 @@ class IInternetZoneManager extends IUnknown {
     static VTableNames => ["GetZoneAttributes", "SetZoneAttributes", "GetZoneCustomPolicy", "SetZoneCustomPolicy", "GetZoneActionPolicy", "SetZoneActionPolicy", "PromptAction", "LogAction", "CreateZoneEnumerator", "GetZoneAt", "DestroyZoneEnumerator", "CopyTemplatePoliciesToZone"]
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<ZONEATTRIBUTES>} pZoneAttributes 
      * @returns {HRESULT} 
@@ -45,7 +44,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<ZONEATTRIBUTES>} pZoneAttributes 
      * @returns {HRESULT} 
@@ -56,7 +54,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 
@@ -73,7 +70,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Integer>} pPolicy 
@@ -89,7 +85,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
@@ -102,7 +97,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
@@ -118,7 +112,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAction 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pwszUrl 
@@ -136,7 +129,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAction 
      * @param {PWSTR} pwszUrl 
      * @param {PWSTR} pwszText 
@@ -152,7 +144,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwEnum 
      * @param {Pointer<Integer>} pdwCount 
      * @param {Integer} dwFlags 
@@ -167,7 +158,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEnum 
      * @param {Integer} dwIndex 
      * @returns {Integer} 
@@ -178,7 +168,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEnum 
      * @returns {HRESULT} 
      */
@@ -188,7 +177,6 @@ class IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwTemplate 
      * @param {Integer} dwZone 
      * @param {Integer} dwReserved 

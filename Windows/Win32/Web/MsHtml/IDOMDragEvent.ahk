@@ -47,7 +47,6 @@ class IDOMDragEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDataTransfer} 
      */
     get_dataTransfer() {
@@ -56,7 +55,6 @@ class IDOMDragEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

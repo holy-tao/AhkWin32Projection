@@ -31,7 +31,6 @@ class IScriptInvocationContext extends IUnknown {
     static VTableNames => ["GetContextType", "GetContextDescription", "GetContextObject"]
 
     /**
-     * 
      * @returns {SCRIPT_INVOCATION_CONTEXT_TYPE} 
      */
     GetContextType() {
@@ -40,7 +39,6 @@ class IScriptInvocationContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetContextDescription() {
@@ -50,7 +48,6 @@ class IScriptInvocationContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetContextObject() {

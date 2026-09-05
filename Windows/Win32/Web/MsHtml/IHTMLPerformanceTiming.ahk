@@ -184,7 +184,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_navigationStart() {
@@ -193,7 +192,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unloadEventStart() {
@@ -202,7 +200,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unloadEventEnd() {
@@ -211,7 +208,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_redirectStart() {
@@ -220,7 +216,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_redirectEnd() {
@@ -229,7 +224,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fetchStart() {
@@ -238,7 +232,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domainLookupStart() {
@@ -247,7 +240,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domainLookupEnd() {
@@ -256,7 +248,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectStart() {
@@ -265,7 +256,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectEnd() {
@@ -274,7 +264,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_requestStart() {
@@ -283,7 +272,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_responseStart() {
@@ -292,7 +280,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_responseEnd() {
@@ -301,7 +288,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domLoading() {
@@ -310,7 +296,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domInteractive() {
@@ -319,7 +304,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domContentLoadedEventStart() {
@@ -328,7 +312,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domContentLoadedEventEnd() {
@@ -337,7 +320,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domComplete() {
@@ -346,7 +328,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loadEventStart() {
@@ -355,7 +336,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loadEventEnd() {
@@ -364,7 +344,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_msFirstPaint() {
@@ -373,7 +352,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -383,7 +361,6 @@ class IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     toJSON() {

@@ -10,97 +10,113 @@ class WbemCimtypeEnum extends Win32Enum {
 
     /**
      * Signed 8-bit integer
+     * Native name: wbemCimtypeSint8
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeSint8 => 16
+    static Sint8 => 16
 
     /**
      * Unsigned 8-bit integer
+     * Native name: wbemCimtypeUint8
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeUint8 => 17
+    static Uint8 => 17
 
     /**
      * Signed 16-bit integer
+     * Native name: wbemCimtypeSint16
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeSint16 => 2
+    static Sint16 => 2
 
     /**
      * Unsigned 16-bit integer
+     * Native name: wbemCimtypeUint16
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeUint16 => 18
+    static Uint16 => 18
 
     /**
      * Signed 32-bit integer
+     * Native name: wbemCimtypeSint32
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeSint32 => 3
+    static Sint32 => 3
 
     /**
      * Unsigned 32-bit integer
+     * Native name: wbemCimtypeUint32
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeUint32 => 19
+    static Uint32 => 19
 
     /**
      * Signed 64-bit integer
+     * Native name: wbemCimtypeSint64
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeSint64 => 20
+    static Sint64 => 20
 
     /**
      * Unsigned 64-bit integer
+     * Native name: wbemCimtypeUint64
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeUint64 => 21
+    static Uint64 => 21
 
     /**
      * 32-bit real number
+     * Native name: wbemCimtypeReal32
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeReal32 => 4
+    static Real32 => 4
 
     /**
      * 64-bit real number
+     * Native name: wbemCimtypeReal64
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeReal64 => 5
+    static Real64 => 5
 
     /**
      * Boolean value
+     * Native name: wbemCimtypeBoolean
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeBoolean => 11
+    static Boolean => 11
 
     /**
      * String
+     * Native name: wbemCimtypeString
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeString => 8
+    static String => 8
 
     /**
      * Date/time value
+     * Native name: wbemCimtypeDatetime
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeDatetime => 101
+    static Datetime => 101
 
     /**
      * Reference to a CIM object
+     * Native name: wbemCimtypeReference
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeReference => 102
+    static Reference => 102
 
     /**
      * 16-bit character
+     * Native name: wbemCimtypeChar16
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeChar16 => 103
+    static Char16 => 103
 
     /**
      * CIM object
+     * Native name: wbemCimtypeObject
      * @type {Integer (Int32)}
      */
-    static wbemCimtypeObject => 13
+    static Object => 13
 }

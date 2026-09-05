@@ -7,17 +7,20 @@
 class MSVidSegmentType extends Win32Enum {
 
     /**
+     * Native name: MSVidSEG_SOURCE
      * @type {Integer (Int32)}
      */
-    static MSVidSEG_SOURCE => 0
+    static VidSEG_SOURCE => 0
 
     /**
+     * Native name: MSVidSEG_XFORM
      * @type {Integer (Int32)}
      */
-    static MSVidSEG_XFORM => 1
+    static VidSEG_XFORM => 1
 
     /**
+     * Native name: MSVidSEG_DEST
      * @type {Integer (Int32)}
      */
-    static MSVidSEG_DEST => 2
+    static VidSEG_DEST => 2
 }

@@ -37,7 +37,6 @@ class IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createRange() {
@@ -46,7 +45,6 @@ class IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     empty() {
@@ -55,7 +53,6 @@ class IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -64,7 +61,6 @@ class IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {

@@ -11,17 +11,20 @@
 class D3DCULL extends Win32Enum {
 
     /**
+     * Native name: D3DCULL_NONE
      * @type {Integer (Int32)}
      */
-    static D3DCULL_NONE => 1
+    static NONE => 1
 
     /**
+     * Native name: D3DCULL_CW
      * @type {Integer (Int32)}
      */
-    static D3DCULL_CW => 2
+    static CW => 2
 
     /**
+     * Native name: D3DCULL_CCW
      * @type {Integer (Int32)}
      */
-    static D3DCULL_CCW => 3
+    static CCW => 3
 }

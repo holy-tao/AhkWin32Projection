@@ -32,7 +32,6 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult {
     static VTableNames => ["GetXMLResult", "GetXMLErrorInfo"]
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {BSTR} 
      */
@@ -43,7 +42,6 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} LineNumber 
      * @param {Pointer<BSTR>} ScriptLine 
      * @param {Pointer<BSTR>} Source 

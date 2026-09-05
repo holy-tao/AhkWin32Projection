@@ -30,7 +30,6 @@ class IViewRowset extends IUnknown {
     static VTableNames => ["GetSpecification", "OpenViewRowset"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -40,7 +39,6 @@ class IViewRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 

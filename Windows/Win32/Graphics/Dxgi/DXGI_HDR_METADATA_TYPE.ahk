@@ -12,18 +12,21 @@ class DXGI_HDR_METADATA_TYPE extends Win32Enum {
 
     /**
      * Indicates there is no header metadata.
+     * Native name: DXGI_HDR_METADATA_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static DXGI_HDR_METADATA_TYPE_NONE => 0
+    static NONE => 0
 
     /**
      * Indicates the header metadata is held by a  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ns-dxgi1_5-dxgi_hdr_metadata_hdr10">DXGI_HDR_METADATA_HDR10</a> structure.
+     * Native name: DXGI_HDR_METADATA_TYPE_HDR10
      * @type {Integer (Int32)}
      */
-    static DXGI_HDR_METADATA_TYPE_HDR10 => 1
+    static HDR10 => 1
 
     /**
+     * Native name: DXGI_HDR_METADATA_TYPE_HDR10PLUS
      * @type {Integer (Int32)}
      */
-    static DXGI_HDR_METADATA_TYPE_HDR10PLUS => 2
+    static HDR10PLUS => 2
 }

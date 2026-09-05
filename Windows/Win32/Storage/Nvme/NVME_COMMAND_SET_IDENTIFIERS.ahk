@@ -7,17 +7,20 @@
 class NVME_COMMAND_SET_IDENTIFIERS extends Win32Enum {
 
     /**
+     * Native name: NVME_COMMAND_SET_NVM
      * @type {Integer (Int32)}
      */
-    static NVME_COMMAND_SET_NVM => 0
+    static NVM => 0
 
     /**
+     * Native name: NVME_COMMAND_SET_KEY_VALUE
      * @type {Integer (Int32)}
      */
-    static NVME_COMMAND_SET_KEY_VALUE => 1
+    static KEY_VALUE => 1
 
     /**
+     * Native name: NVME_COMMAND_SET_ZONED_NAMESPACE
      * @type {Integer (Int32)}
      */
-    static NVME_COMMAND_SET_ZONED_NAMESPACE => 2
+    static ZONED_NAMESPACE => 2
 }

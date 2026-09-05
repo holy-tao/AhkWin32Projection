@@ -10,19 +10,22 @@ class WEB_SOCKET_ACTION_QUEUE extends Win32Enum {
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> will return only send-related actions.
+     * Native name: WEB_SOCKET_SEND_ACTION_QUEUE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_SEND_ACTION_QUEUE => 1
+    static SEND_ACTION_QUEUE => 1
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> will return receive-related actions as well as internal send actions (reply to a ping frame).
+     * Native name: WEB_SOCKET_RECEIVE_ACTION_QUEUE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_RECEIVE_ACTION_QUEUE => 2
+    static RECEIVE_ACTION_QUEUE => 2
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> will return all actions.
+     * Native name: WEB_SOCKET_ALL_ACTION_QUEUE
      * @type {Integer (Int32)}
      */
-    static WEB_SOCKET_ALL_ACTION_QUEUE => 3
+    static ALL_ACTION_QUEUE => 3
 }

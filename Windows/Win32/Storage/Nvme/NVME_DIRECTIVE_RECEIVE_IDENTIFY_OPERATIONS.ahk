@@ -12,7 +12,8 @@ class NVME_DIRECTIVE_RECEIVE_IDENTIFY_OPERATIONS extends Win32Enum {
 
     /**
      * Indicates a directive to receive return parameters from an Identify operation.
+     * Native name: NVME_DIRECTIVE_RECEIVE_IDENTIFY_OPERATION_RETURN_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_RECEIVE_IDENTIFY_OPERATION_RETURN_PARAMETERS => 1
+    static OPERATION_RETURN_PARAMETERS => 1
 }

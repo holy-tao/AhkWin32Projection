@@ -30,7 +30,6 @@ class ICoreWindowComponentInterop extends IUnknown {
     static VTableNames => ["ConfigureComponentInput", "GetViewInstanceId"]
 
     /**
-     * 
      * @param {Integer} hostViewInstanceId 
      * @param {HWND} hwndHost 
      * @param {IUnknown} inputSourceVisual 
@@ -44,7 +43,6 @@ class ICoreWindowComponentInterop extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetViewInstanceId() {

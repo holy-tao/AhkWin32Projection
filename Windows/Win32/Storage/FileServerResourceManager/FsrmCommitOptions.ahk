@@ -12,13 +12,15 @@ class FsrmCommitOptions extends Win32Enum {
 
     /**
      * Use no options and commit the collection of objects synchronously.
+     * Native name: FsrmCommitOptions_None
      * @type {Integer (Int32)}
      */
-    static FsrmCommitOptions_None => 0
+    static None => 0
 
     /**
      * Reserved. Do not use.
+     * Native name: FsrmCommitOptions_Asynchronous
      * @type {Integer (Int32)}
      */
-    static FsrmCommitOptions_Asynchronous => 1
+    static Asynchronous => 1
 }

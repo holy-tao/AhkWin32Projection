@@ -12,19 +12,22 @@ class MFVideoPadFlags extends Win32Enum {
 
     /**
      * Do not pad the image.
+     * Native name: MFVideoPadFlag_PAD_TO_None
      * @type {Integer (Int32)}
      */
-    static MFVideoPadFlag_PAD_TO_None => 0
+    static Flag_PAD_TO_None => 0
 
     /**
      * Pad the image so that it can be displayed in a 4×3 area.
+     * Native name: MFVideoPadFlag_PAD_TO_4x3
      * @type {Integer (Int32)}
      */
-    static MFVideoPadFlag_PAD_TO_4x3 => 1
+    static Flag_PAD_TO_4x3 => 1
 
     /**
      * Pad the image so that it can be displayed in a 16×9 area.
+     * Native name: MFVideoPadFlag_PAD_TO_16x9
      * @type {Integer (Int32)}
      */
-    static MFVideoPadFlag_PAD_TO_16x9 => 2
+    static Flag_PAD_TO_16x9 => 2
 }

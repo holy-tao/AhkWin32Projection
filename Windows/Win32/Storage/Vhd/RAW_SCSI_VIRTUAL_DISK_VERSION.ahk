@@ -9,12 +9,14 @@
 class RAW_SCSI_VIRTUAL_DISK_VERSION extends Win32Enum {
 
     /**
+     * Native name: RAW_SCSI_VIRTUAL_DISK_VERSION_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static RAW_SCSI_VIRTUAL_DISK_VERSION_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: RAW_SCSI_VIRTUAL_DISK_VERSION_1
      * @type {Integer (Int32)}
      */
-    static RAW_SCSI_VIRTUAL_DISK_VERSION_1 => 1
+    static 1 => 1
 }

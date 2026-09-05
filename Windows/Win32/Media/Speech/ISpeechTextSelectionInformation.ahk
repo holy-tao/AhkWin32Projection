@@ -61,7 +61,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ActiveOffset 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ActiveOffset() {
@@ -80,7 +78,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ActiveLength 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ActiveLength() {
@@ -99,7 +95,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} SelectionOffset 
      * @returns {HRESULT} 
      */
@@ -109,7 +104,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SelectionOffset() {
@@ -118,7 +112,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} SelectionLength 
      * @returns {HRESULT} 
      */
@@ -128,7 +121,6 @@ class ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SelectionLength() {

@@ -30,7 +30,6 @@ class ICorProfilerCallback8 extends ICorProfilerCallback7 {
     static VTableNames => ["DynamicMethodJITCompilationStarted", "DynamicMethodJITCompilationFinished"]
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {BOOL} fIsSafeToBlock 
      * @param {Pointer<Integer>} pILHeader 
@@ -45,7 +44,6 @@ class ICorProfilerCallback8 extends ICorProfilerCallback7 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {HRESULT} hrStatus 
      * @param {BOOL} fIsSafeToBlock 

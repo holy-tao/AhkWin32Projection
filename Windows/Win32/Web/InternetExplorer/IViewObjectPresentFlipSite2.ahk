@@ -30,7 +30,6 @@ class IViewObjectPresentFlipSite2 extends IUnknown {
     static VTableNames => ["GetRotationForCurrentOutput"]
 
     /**
-     * 
      * @returns {DXGI_MODE_ROTATION} 
      */
     GetRotationForCurrentOutput() {

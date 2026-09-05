@@ -22,9 +22,10 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatereader">WsCreateReader</a> for security considerations.
+     * Native name: WS_XML_READER_PROPERTY_MAX_DEPTH
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_MAX_DEPTH => 0
+    static MAX_DEPTH => 0
 
     /**
      * A <b>BOOL</b> that
@@ -33,9 +34,10 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to <b>FALSE</b>.
+     * Native name: WS_XML_READER_PROPERTY_ALLOW_FRAGMENT
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_ALLOW_FRAGMENT => 1
+    static ALLOW_FRAGMENT => 1
 
     /**
      * A <b>ULONG</b> that specifies the maximum number of attributes the reader will permit on an element.
@@ -45,18 +47,20 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatereader">WsCreateReader</a> for security considerations.
+     * Native name: WS_XML_READER_PROPERTY_MAX_ATTRIBUTES
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_MAX_ATTRIBUTES => 2
+    static MAX_ATTRIBUTES => 2
 
     /**
      * A <b>BOOL</b> that specifies if the reader should permit an xml declaration at the start of the document.
      *         
      * 
      * This property defaults to <b>TRUE</b>.
+     * Native name: WS_XML_READER_PROPERTY_READ_DECLARATION
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_READ_DECLARATION => 3
+    static READ_DECLARATION => 3
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET</a> value that returns the character set of the xml document.  This value is only available for
@@ -69,21 +73,24 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * If the reader was initialized with any other value, then this property simply returns that value.
+     * Native name: WS_XML_READER_PROPERTY_CHARSET
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_CHARSET => 4
+    static CHARSET => 4
 
     /**
      * A <b>ULONGLONG</b> that returns the 0 based row number of the node the reader is positioned on for text xml documents.
+     * Native name: WS_XML_READER_PROPERTY_ROW
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_ROW => 5
+    static ROW => 5
 
     /**
      * A <b>ULONGLONG</b> that returns the 0 based column number of the node the reader is positioned on for text xml documents.
+     * Native name: WS_XML_READER_PROPERTY_COLUMN
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_COLUMN => 6
+    static COLUMN => 6
 
     /**
      * A <b>ULONG</b> that specifies the trim size of the internal buffer used by the
@@ -92,9 +99,10 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 4096.
+     * Native name: WS_XML_READER_PROPERTY_UTF8_TRIM_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_UTF8_TRIM_SIZE => 7
+    static UTF8_TRIM_SIZE => 7
 
     /**
      * A <b>ULONG</b> that specifies the size of the buffer the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> will use when configured to use
@@ -103,16 +111,18 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 4096.
+     * Native name: WS_XML_READER_PROPERTY_STREAM_BUFFER_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_STREAM_BUFFER_SIZE => 8
+    static STREAM_BUFFER_SIZE => 8
 
     /**
      * Indicates that <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadstartattribute">WsReadStartAttribute</a> has been called and the reader is
      *           positioned on attribute content.
+     * Native name: WS_XML_READER_PROPERTY_IN_ATTRIBUTE
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_IN_ATTRIBUTE => 9
+    static IN_ATTRIBUTE => 9
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_STREAM_INPUT</a> in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>.
@@ -122,9 +132,10 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 65536.
+     * Native name: WS_XML_READER_PROPERTY_STREAM_MAX_ROOT_MIME_PART_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_STREAM_MAX_ROOT_MIME_PART_SIZE => 10
+    static STREAM_MAX_ROOT_MIME_PART_SIZE => 10
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_STREAM_INPUT</a> in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>.
@@ -133,9 +144,10 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 256.
+     * Native name: WS_XML_READER_PROPERTY_STREAM_MAX_MIME_HEADERS_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_STREAM_MAX_MIME_HEADERS_SIZE => 11
+    static STREAM_MAX_MIME_HEADERS_SIZE => 11
 
     /**
      * A <b>ULONG</b> used with  <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>. This value specifies the maximum number of MIME parts
@@ -143,9 +155,10 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 4096.
+     * Native name: WS_XML_READER_PROPERTY_MAX_MIME_PARTS
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_MAX_MIME_PARTS => 12
+    static MAX_MIME_PARTS => 12
 
     /**
      * A <b>BOOL</b> used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_text_encoding">WS_XML_READER_TEXT_ENCODING</a>. Setting this to <b>TRUE</b> permits character references
@@ -156,9 +169,10 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to <b>FALSE</b>.
+     * Native name: WS_XML_READER_PROPERTY_ALLOW_INVALID_CHARACTER_REFERENCES
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_ALLOW_INVALID_CHARACTER_REFERENCES => 13
+    static ALLOW_INVALID_CHARACTER_REFERENCES => 13
 
     /**
      * A <b>ULONG</b> that specifies the maximum number of xmlns unique declarations that may appear in scope at any point
@@ -169,7 +183,8 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatereader">WsCreateReader</a> for security considerations.
+     * Native name: WS_XML_READER_PROPERTY_MAX_NAMESPACES
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_PROPERTY_MAX_NAMESPACES => 14
+    static MAX_NAMESPACES => 14
 }

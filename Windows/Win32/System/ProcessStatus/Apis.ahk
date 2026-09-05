@@ -2627,7 +2627,6 @@ class ProcessStatus {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {PSTR} lpImageFileName 
      * @param {Integer} nSize 
@@ -2642,7 +2641,6 @@ class ProcessStatus {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {PWSTR} lpImageFileName 
      * @param {Integer} nSize 

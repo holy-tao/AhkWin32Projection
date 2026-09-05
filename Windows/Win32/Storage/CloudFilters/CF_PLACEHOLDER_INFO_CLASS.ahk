@@ -10,13 +10,15 @@ class CF_PLACEHOLDER_INFO_CLASS extends Win32Enum {
 
     /**
      * Basic placeholder information. See [CF_PLACEHOLDER_BASIC_INFO](ns-cfapi-cf_placeholder_basic_info.md).
+     * Native name: CF_PLACEHOLDER_INFO_BASIC
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_INFO_BASIC => 0
+    static BASIC => 0
 
     /**
      * Standard placeholder information. See [CF_PLACEHOLDER_STANDARD_INFO](ns-cfapi-cf_placeholder_standard_info.md).
+     * Native name: CF_PLACEHOLDER_INFO_STANDARD
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_INFO_STANDARD => 1
+    static STANDARD => 1
 }

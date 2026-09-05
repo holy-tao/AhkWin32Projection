@@ -42,7 +42,8 @@ class BEHAVIOR_EVENT extends Win32Enum {
     static BEHAVIOREVENT_LAST => 4
 
     /**
+     * Native name: BEHAVIOR_EVENT_Max
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_EVENT_Max => 2147483647
+    static Max => 2147483647
 }

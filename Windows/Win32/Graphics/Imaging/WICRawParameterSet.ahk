@@ -10,19 +10,22 @@ class WICRawParameterSet extends Win32Enum {
 
     /**
      * An as shot parameter set.
+     * Native name: WICAsShotParameterSet
      * @type {Integer (Int32)}
      */
-    static WICAsShotParameterSet => 1
+    static AsShotParameterSet => 1
 
     /**
      * A user adjusted parameter set.
+     * Native name: WICUserAdjustedParameterSet
      * @type {Integer (Int32)}
      */
-    static WICUserAdjustedParameterSet => 2
+    static UserAdjustedParameterSet => 2
 
     /**
      * A codec adjusted parameter set.
+     * Native name: WICAutoAdjustedParameterSet
      * @type {Integer (Int32)}
      */
-    static WICAutoAdjustedParameterSet => 3
+    static AutoAdjustedParameterSet => 3
 }

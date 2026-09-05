@@ -7,22 +7,26 @@
 class ScriptDebugState extends Win32Enum {
 
     /**
+     * Native name: ScriptDebugNoDebugger
      * @type {Integer (Int32)}
      */
-    static ScriptDebugNoDebugger => 0
+    static NoDebugger => 0
 
     /**
+     * Native name: ScriptDebugNotExecuting
      * @type {Integer (Int32)}
      */
-    static ScriptDebugNotExecuting => 1
+    static NotExecuting => 1
 
     /**
+     * Native name: ScriptDebugExecuting
      * @type {Integer (Int32)}
      */
-    static ScriptDebugExecuting => 2
+    static Executing => 2
 
     /**
+     * Native name: ScriptDebugBreak
      * @type {Integer (Int32)}
      */
-    static ScriptDebugBreak => 3
+    static Break => 3
 }

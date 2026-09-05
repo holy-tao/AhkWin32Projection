@@ -7,12 +7,14 @@
 class KSMETHOD_STREAMALLOCATOR extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_STREAMALLOCATOR_ALLOC
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_STREAMALLOCATOR_ALLOC => 0
+    static ALLOC => 0
 
     /**
+     * Native name: KSMETHOD_STREAMALLOCATOR_FREE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_STREAMALLOCATOR_FREE => 1
+    static FREE => 1
 }

@@ -32,7 +32,6 @@ class IXblIdpAuthManager2 extends IUnknown {
     static VTableNames => ["GetUserlessTokenAndSignatureWithTokenResult"]
 
     /**
-     * 
      * @param {PWSTR} appSid 
      * @param {PWSTR} msaTarget 
      * @param {PWSTR} msaPolicy 

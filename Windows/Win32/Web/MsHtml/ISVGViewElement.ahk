@@ -43,7 +43,6 @@ class ISVGViewElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGStringList} v 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class ISVGViewElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_viewTarget() {

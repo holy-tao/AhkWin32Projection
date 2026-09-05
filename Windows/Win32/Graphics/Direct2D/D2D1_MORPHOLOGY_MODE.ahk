@@ -10,13 +10,15 @@ class D2D1_MORPHOLOGY_MODE extends Win32Enum {
 
     /**
      * The maximum value from each RGB channel in the kernel is used.
+     * Native name: D2D1_MORPHOLOGY_MODE_ERODE
      * @type {Integer (Int32)}
      */
-    static D2D1_MORPHOLOGY_MODE_ERODE => 0
+    static ERODE => 0
 
     /**
      * The minimum value from each RGB channel in the kernel is used.
+     * Native name: D2D1_MORPHOLOGY_MODE_DILATE
      * @type {Integer (Int32)}
      */
-    static D2D1_MORPHOLOGY_MODE_DILATE => 1
+    static DILATE => 1
 }

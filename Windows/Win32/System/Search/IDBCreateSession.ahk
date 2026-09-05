@@ -30,7 +30,6 @@ class IDBCreateSession extends IUnknown {
     static VTableNames => ["CreateSession"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 

@@ -30,7 +30,6 @@ class IWMFrameInterpProps extends IUnknown {
     static VTableNames => ["SetFrameRateIn", "SetFrameRateOut", "SetFrameInterpEnabled", "SetComplexityLevel"]
 
     /**
-     * 
      * @param {Integer} lFrameRate 
      * @param {Integer} lScale 
      * @returns {HRESULT} 
@@ -41,7 +40,6 @@ class IWMFrameInterpProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFrameRate 
      * @param {Integer} lScale 
      * @returns {HRESULT} 
@@ -52,7 +50,6 @@ class IWMFrameInterpProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bFIEnabled 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class IWMFrameInterpProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iComplexity 
      * @returns {HRESULT} 
      */

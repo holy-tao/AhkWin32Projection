@@ -7,12 +7,14 @@
 class WPCFLAG_VISIBILITY extends Win32Enum {
 
     /**
+     * Native name: WPCFLAG_WPC_VISIBLE
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_WPC_VISIBLE => 0
+    static WPC_VISIBLE => 0
 
     /**
+     * Native name: WPCFLAG_WPC_HIDDEN
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_WPC_HIDDEN => 1
+    static WPC_HIDDEN => 1
 }

@@ -31,7 +31,6 @@ class IActionQueryConcept extends IUnknown {
     static VTableNames => ["EnumerateActions"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IActionEnumerator} 
      */

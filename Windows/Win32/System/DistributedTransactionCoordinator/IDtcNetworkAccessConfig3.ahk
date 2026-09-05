@@ -30,7 +30,6 @@ class IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2 {
     static VTableNames => ["GetLUAccess", "SetLUAccess"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetLUAccess() {
@@ -39,7 +38,6 @@ class IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2 {
     }
 
     /**
-     * 
      * @param {BOOL} bLUAccess 
      * @returns {HRESULT} 
      */

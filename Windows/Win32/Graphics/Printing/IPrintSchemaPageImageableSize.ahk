@@ -71,7 +71,6 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ImageableSizeWidthInMicrons() {
@@ -80,7 +79,6 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ImageableSizeHeightInMicrons() {
@@ -89,7 +87,6 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OriginWidthInMicrons() {
@@ -98,7 +95,6 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OriginHeightInMicrons() {
@@ -107,7 +103,6 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExtentWidthInMicrons() {
@@ -116,7 +111,6 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExtentHeightInMicrons() {

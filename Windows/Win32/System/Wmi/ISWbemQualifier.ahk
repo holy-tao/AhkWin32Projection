@@ -91,7 +91,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -101,7 +100,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varValue 
      * @returns {HRESULT} 
      */
@@ -111,7 +109,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -121,7 +118,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
@@ -130,7 +126,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PropagatesToSubclass() {
@@ -139,7 +134,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bPropagatesToSubclass 
      * @returns {HRESULT} 
      */
@@ -149,7 +143,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PropagatesToInstance() {
@@ -158,7 +151,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bPropagatesToInstance 
      * @returns {HRESULT} 
      */
@@ -168,7 +160,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsOverridable() {
@@ -177,7 +168,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsOverridable 
      * @returns {HRESULT} 
      */
@@ -187,7 +177,6 @@ class ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsAmended() {

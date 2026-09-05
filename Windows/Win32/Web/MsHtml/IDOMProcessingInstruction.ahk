@@ -51,7 +51,6 @@ class IDOMProcessingInstruction extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -61,7 +60,6 @@ class IDOMProcessingInstruction extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ class IDOMProcessingInstruction extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {

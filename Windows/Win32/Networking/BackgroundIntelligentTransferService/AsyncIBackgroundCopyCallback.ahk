@@ -37,7 +37,6 @@ class AsyncIBackgroundCopyCallback extends IUnknown {
     static VTableNames => ["Begin_JobTransferred", "Finish_JobTransferred", "Begin_JobError", "Finish_JobError", "Begin_JobModification", "Finish_JobModification"]
 
     /**
-     * 
      * @param {IBackgroundCopyJob} pJob 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ class AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_JobTransferred() {
@@ -56,7 +54,6 @@ class AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBackgroundCopyJob} pJob 
      * @param {IBackgroundCopyError} pError 
      * @returns {HRESULT} 
@@ -67,7 +64,6 @@ class AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_JobError() {
@@ -76,7 +72,6 @@ class AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBackgroundCopyJob} pJob 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -87,7 +82,6 @@ class AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_JobModification() {

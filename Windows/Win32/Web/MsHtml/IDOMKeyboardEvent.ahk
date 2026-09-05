@@ -123,7 +123,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_key() {
@@ -133,7 +132,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_location() {
@@ -142,7 +140,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -151,7 +148,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -160,7 +156,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -169,7 +164,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
@@ -178,7 +172,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_repeat() {
@@ -187,7 +180,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} keyArg 
      * @returns {VARIANT_BOOL} 
      */
@@ -199,7 +191,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -222,7 +213,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_keyCode() {
@@ -231,7 +221,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_charCode() {
@@ -240,7 +229,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_which() {
@@ -249,7 +237,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ie9_char() {
@@ -259,7 +246,6 @@ class IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_locale() {

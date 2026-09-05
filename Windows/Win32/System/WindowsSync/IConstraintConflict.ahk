@@ -33,7 +33,6 @@ class IConstraintConflict extends IUnknown {
     static VTableNames => ["GetDestinationProviderConflictingChange", "GetSourceProviderConflictingChange", "GetDestinationProviderOriginalChange", "GetDestinationProviderConflictingData", "GetSourceProviderConflictingData", "GetDestinationProviderOriginalData", "GetConstraintResolveActionForChange", "SetConstraintResolveActionForChange", "GetConstraintResolveActionForChangeUnit", "SetConstraintResolveActionForChangeUnit", "GetConstraintConflictReason", "IsTemporary"]
 
     /**
-     * 
      * @returns {ISyncChange} 
      */
     GetDestinationProviderConflictingChange() {
@@ -42,7 +41,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISyncChange} 
      */
     GetSourceProviderConflictingChange() {
@@ -51,7 +49,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISyncChange} 
      */
     GetDestinationProviderOriginalChange() {
@@ -60,7 +57,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetDestinationProviderConflictingData() {
@@ -69,7 +65,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetSourceProviderConflictingData() {
@@ -78,7 +73,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetDestinationProviderOriginalData() {
@@ -87,7 +81,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SYNC_CONSTRAINT_RESOLVE_ACTION>} pConstraintResolveAction 
      * @returns {HRESULT} 
      */
@@ -99,7 +92,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {SYNC_CONSTRAINT_RESOLVE_ACTION} constraintResolveAction 
      * @returns {HRESULT} 
      */
@@ -109,7 +101,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncChangeUnit} pChangeUnit 
      * @param {Pointer<SYNC_CONSTRAINT_RESOLVE_ACTION>} pConstraintResolveAction 
      * @returns {HRESULT} 
@@ -122,7 +113,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncChangeUnit} pChangeUnit 
      * @param {SYNC_CONSTRAINT_RESOLVE_ACTION} constraintResolveAction 
      * @returns {HRESULT} 
@@ -133,7 +123,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONSTRAINT_CONFLICT_REASON>} pConstraintConflictReason 
      * @returns {HRESULT} 
      */
@@ -145,7 +134,6 @@ class IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsTemporary() {

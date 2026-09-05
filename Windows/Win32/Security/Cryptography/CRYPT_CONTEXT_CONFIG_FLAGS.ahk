@@ -7,12 +7,14 @@
 class CRYPT_CONTEXT_CONFIG_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CRYPT_EXCLUSIVE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_EXCLUSIVE => 1
+    static EXCLUSIVE => 1
 
     /**
+     * Native name: CRYPT_OVERRIDE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_OVERRIDE => 65536
+    static OVERRIDE => 65536
 }

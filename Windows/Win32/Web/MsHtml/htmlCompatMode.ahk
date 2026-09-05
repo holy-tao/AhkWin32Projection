@@ -7,17 +7,20 @@
 class htmlCompatMode extends Win32Enum {
 
     /**
+     * Native name: htmlCompatModeBackCompat
      * @type {Integer (Int32)}
      */
-    static htmlCompatModeBackCompat => 0
+    static BackCompat => 0
 
     /**
+     * Native name: htmlCompatModeCSS1Compat
      * @type {Integer (Int32)}
      */
-    static htmlCompatModeCSS1Compat => 1
+    static ModeCSS1Compat => 1
 
     /**
+     * Native name: htmlCompatMode_Max
      * @type {Integer (Int32)}
      */
-    static htmlCompatMode_Max => 2147483647
+    static Max => 2147483647
 }

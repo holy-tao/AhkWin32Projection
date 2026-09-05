@@ -7,12 +7,14 @@
 class PCW_REGISTRATION_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PcwRegistrationNone
      * @type {Integer (Int32)}
      */
-    static PcwRegistrationNone => 0
+    static None => 0
 
     /**
+     * Native name: PcwRegistrationSiloNeutral
      * @type {Integer (Int32)}
      */
-    static PcwRegistrationSiloNeutral => 1
+    static SiloNeutral => 1
 }

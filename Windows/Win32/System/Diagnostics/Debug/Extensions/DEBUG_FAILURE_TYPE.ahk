@@ -7,17 +7,20 @@
 class DEBUG_FAILURE_TYPE extends Win32Enum {
 
     /**
+     * Native name: DEBUG_FLR_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static DEBUG_FLR_UNKNOWN => 0
+    static FLR_UNKNOWN => 0
 
     /**
+     * Native name: DEBUG_FLR_KERNEL
      * @type {Integer (Int32)}
      */
-    static DEBUG_FLR_KERNEL => 1
+    static FLR_KERNEL => 1
 
     /**
+     * Native name: DEBUG_FLR_USER
      * @type {Integer (Int32)}
      */
-    static DEBUG_FLR_USER => 2
+    static FLR_USER => 2
 }

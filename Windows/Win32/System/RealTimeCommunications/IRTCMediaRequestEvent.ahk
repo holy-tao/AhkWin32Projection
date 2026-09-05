@@ -61,7 +61,6 @@ class IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -70,7 +69,6 @@ class IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ProposedMedia() {
@@ -79,7 +77,6 @@ class IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentMedia() {
@@ -88,7 +85,6 @@ class IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lMediaTypes 
      * @returns {HRESULT} 
      */
@@ -98,7 +94,6 @@ class IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -108,7 +103,6 @@ class IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reject() {
@@ -117,7 +111,6 @@ class IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_REINVITE_STATE} 
      */
     get_State() {

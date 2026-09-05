@@ -10,19 +10,22 @@ class MMC_VIEW_TYPE extends Win32Enum {
 
     /**
      * The view type is a list view.
+     * Native name: MMC_VIEW_TYPE_LIST
      * @type {Integer (Int32)}
      */
-    static MMC_VIEW_TYPE_LIST => 0
+    static LIST => 0
 
     /**
      * The view type is an HTML view.
+     * Native name: MMC_VIEW_TYPE_HTML
      * @type {Integer (Int32)}
      */
-    static MMC_VIEW_TYPE_HTML => 1
+    static HTML => 1
 
     /**
      * The view type is a control view.
+     * Native name: MMC_VIEW_TYPE_OCX
      * @type {Integer (Int32)}
      */
-    static MMC_VIEW_TYPE_OCX => 2
+    static OCX => 2
 }

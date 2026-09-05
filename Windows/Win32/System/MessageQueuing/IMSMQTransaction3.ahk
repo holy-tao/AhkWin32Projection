@@ -37,7 +37,6 @@ class IMSMQTransaction3 extends IMSMQTransaction2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ITransaction() {

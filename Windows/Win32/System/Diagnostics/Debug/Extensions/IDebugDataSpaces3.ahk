@@ -32,7 +32,6 @@ class IDebugDataSpaces3 extends IUnknown {
     static VTableNames => ["ReadVirtual", "WriteVirtual", "SearchVirtual", "ReadVirtualUncached", "WriteVirtualUncached", "ReadPointersVirtual", "WritePointersVirtual", "ReadPhysical", "WritePhysical", "ReadControl", "WriteControl", "ReadIo", "WriteIo", "ReadMsr", "WriteMsr", "ReadBusData", "WriteBusData", "CheckLowMemory", "ReadDebuggerData", "ReadProcessorSystemData", "VirtualToPhysical", "GetVirtualTranslationPhysicalOffsets", "ReadHandleData", "FillVirtual", "FillPhysical", "QueryVirtual", "ReadImageNtHeaders", "ReadTagged", "StartEnumTagged", "GetNextTagged", "EndEnumTagged"]
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -44,7 +43,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -56,7 +54,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Length 
      * @param {Integer} Pattern 
@@ -70,7 +67,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -82,7 +78,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -94,7 +89,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Integer} Offset 
      * @returns {Integer} 
@@ -105,7 +99,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Ptrs 
@@ -119,7 +112,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -131,7 +123,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -143,7 +134,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -156,7 +146,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -169,7 +158,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
@@ -184,7 +172,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
@@ -199,7 +186,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Msr 
      * @returns {Integer} 
      */
@@ -209,7 +195,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Msr 
      * @param {Integer} Value 
      * @returns {HRESULT} 
@@ -220,7 +205,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -235,7 +219,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -250,7 +233,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CheckLowMemory() {
@@ -259,7 +241,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -271,7 +252,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Index 
      * @param {Integer} _Buffer 
@@ -284,7 +264,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Virtual 
      * @returns {Integer} 
      */
@@ -294,7 +273,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Virtual 
      * @param {Pointer<Integer>} Offsets 
      * @param {Integer} OffsetsSize 
@@ -310,7 +288,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {Integer} DataType 
      * @param {Integer} _Buffer 
@@ -323,7 +300,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} _Size 
      * @param {Integer} Pattern 
@@ -336,7 +312,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} _Size 
      * @param {Integer} Pattern 
@@ -349,7 +324,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {MEMORY_BASIC_INFORMATION64} 
      */
@@ -360,7 +334,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ImageBase 
      * @returns {IMAGE_NT_HEADERS64} 
      */
@@ -371,7 +344,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} Tag 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -384,7 +356,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     StartEnumTagged() {
@@ -393,7 +364,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {Pointer<Guid>} Tag 
      * @param {Pointer<Integer>} _Size 
@@ -407,7 +377,6 @@ class IDebugDataSpaces3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */

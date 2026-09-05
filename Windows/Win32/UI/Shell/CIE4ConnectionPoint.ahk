@@ -27,7 +27,6 @@ class CIE4ConnectionPoint extends IConnectionPoint {
     static VTableNames => ["DoInvokeIE4", "DoInvokePIDLIE4"]
 
     /**
-     * 
      * @param {Pointer<BOOL>} pf 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @param {Integer} dispid 
@@ -43,7 +42,6 @@ class CIE4ConnectionPoint extends IConnectionPoint {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {BOOL} fCanCancel 

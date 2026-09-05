@@ -31,7 +31,6 @@ class IFixedDocumentSequence extends IUnknown {
     static VTableNames => ["GetUri", "GetPrintTicket", "SetPrintTicket"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUri() {
@@ -41,7 +40,6 @@ class IFixedDocumentSequence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPartPrintTicket} 
      */
     GetPrintTicket() {
@@ -50,7 +48,6 @@ class IFixedDocumentSequence extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPartPrintTicket} pPrintTicket 
      * @returns {HRESULT} 
      */

@@ -31,7 +31,6 @@ class IHTMLEditServices2 extends IHTMLEditServices {
     static VTableNames => ["MoveToSelectionAnchorEx", "MoveToSelectionEndEx", "FreezeVirtualCaretPos", "UnFreezeVirtualCaretPos"]
 
     /**
-     * 
      * @param {IDisplayPointer} pIStartAnchor 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,6 @@ class IHTMLEditServices2 extends IHTMLEditServices {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pIEndAnchor 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IHTMLEditServices2 extends IHTMLEditServices {
     }
 
     /**
-     * 
      * @param {BOOL} fReCompute 
      * @returns {HRESULT} 
      */
@@ -61,7 +58,6 @@ class IHTMLEditServices2 extends IHTMLEditServices {
     }
 
     /**
-     * 
      * @param {BOOL} fReset 
      * @returns {HRESULT} 
      */

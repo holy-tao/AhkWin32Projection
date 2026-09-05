@@ -647,7 +647,6 @@ class Vss {
     }
 
     /**
-     * 
      * @param {Guid} ProviderId 
      * @param {Guid} InterfaceId 
      * @returns {IUnknown} 
@@ -658,7 +657,6 @@ class Vss {
     }
 
     /**
-     * 
      * @param {PWSTR} wszVolumeName 
      * @returns {Boolean} 
      */

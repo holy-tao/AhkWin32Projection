@@ -10,7 +10,8 @@ class WS_POLICY_EXTENSION_TYPE extends Win32Enum {
 
     /**
      * This value is used in the type field of <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_policy_extension">WS_POLICY_EXTENSION</a> to identify a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_policy_extension">WS_ENDPOINT_POLICY_EXTENSION</a> structure.
+     * Native name: WS_ENDPOINT_POLICY_EXTENSION_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_ENDPOINT_POLICY_EXTENSION_TYPE => 1
+    static ENDPOINT_POLICY_EXTENSION_TYPE => 1
 }

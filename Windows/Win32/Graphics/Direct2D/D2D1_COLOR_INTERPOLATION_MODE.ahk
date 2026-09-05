@@ -10,13 +10,15 @@ class D2D1_COLOR_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * Colors are interpolated with straight alpha.
+     * Native name: D2D1_COLOR_INTERPOLATION_MODE_STRAIGHT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_INTERPOLATION_MODE_STRAIGHT => 0
+    static STRAIGHT => 0
 
     /**
      * Colors are interpolated with premultiplied alpha.
+     * Native name: D2D1_COLOR_INTERPOLATION_MODE_PREMULTIPLIED
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_INTERPOLATION_MODE_PREMULTIPLIED => 1
+    static PREMULTIPLIED => 1
 }

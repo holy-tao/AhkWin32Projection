@@ -7,17 +7,20 @@
 class KSPROPERTY_EXTENSION_UNIT extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_EXTENSION_UNIT_INFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTENSION_UNIT_INFO => 0
+    static INFO => 0
 
     /**
+     * Native name: KSPROPERTY_EXTENSION_UNIT_CONTROL
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTENSION_UNIT_CONTROL => 1
+    static CONTROL => 1
 
     /**
+     * Native name: KSPROPERTY_EXTENSION_UNIT_PASS_THROUGH
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_EXTENSION_UNIT_PASS_THROUGH => 65535
+    static PASS_THROUGH => 65535
 }

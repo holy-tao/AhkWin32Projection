@@ -7,37 +7,44 @@
 class OSPCOMP extends Win32Enum {
 
     /**
+     * Native name: OSPCOMP_EQ
      * @type {Integer (Int32)}
      */
-    static OSPCOMP_EQ => 1
+    static EQ => 1
 
     /**
+     * Native name: OSPCOMP_DEFAULT
      * @type {Integer (Int32)}
      */
-    static OSPCOMP_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
+     * Native name: OSPCOMP_LT
      * @type {Integer (Int32)}
      */
-    static OSPCOMP_LT => 2
+    static LT => 2
 
     /**
+     * Native name: OSPCOMP_LE
      * @type {Integer (Int32)}
      */
-    static OSPCOMP_LE => 3
+    static LE => 3
 
     /**
+     * Native name: OSPCOMP_GE
      * @type {Integer (Int32)}
      */
-    static OSPCOMP_GE => 4
+    static GE => 4
 
     /**
+     * Native name: OSPCOMP_GT
      * @type {Integer (Int32)}
      */
-    static OSPCOMP_GT => 5
+    static GT => 5
 
     /**
+     * Native name: OSPCOMP_NE
      * @type {Integer (Int32)}
      */
-    static OSPCOMP_NE => 6
+    static NE => 6
 }

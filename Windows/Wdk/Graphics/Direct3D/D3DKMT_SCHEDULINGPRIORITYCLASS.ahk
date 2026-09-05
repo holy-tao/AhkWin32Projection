@@ -7,32 +7,38 @@
 class D3DKMT_SCHEDULINGPRIORITYCLASS extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_SCHEDULINGPRIORITYCLASS_IDLE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SCHEDULINGPRIORITYCLASS_IDLE => 0
+    static IDLE => 0
 
     /**
+     * Native name: D3DKMT_SCHEDULINGPRIORITYCLASS_BELOW_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SCHEDULINGPRIORITYCLASS_BELOW_NORMAL => 1
+    static BELOW_NORMAL => 1
 
     /**
+     * Native name: D3DKMT_SCHEDULINGPRIORITYCLASS_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SCHEDULINGPRIORITYCLASS_NORMAL => 2
+    static NORMAL => 2
 
     /**
+     * Native name: D3DKMT_SCHEDULINGPRIORITYCLASS_ABOVE_NORMAL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SCHEDULINGPRIORITYCLASS_ABOVE_NORMAL => 3
+    static ABOVE_NORMAL => 3
 
     /**
+     * Native name: D3DKMT_SCHEDULINGPRIORITYCLASS_HIGH
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SCHEDULINGPRIORITYCLASS_HIGH => 4
+    static HIGH => 4
 
     /**
+     * Native name: D3DKMT_SCHEDULINGPRIORITYCLASS_REALTIME
      * @type {Integer (Int32)}
      */
-    static D3DKMT_SCHEDULINGPRIORITYCLASS_REALTIME => 5
+    static REALTIME => 5
 }

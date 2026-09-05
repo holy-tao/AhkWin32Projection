@@ -7,12 +7,14 @@
 class PCI_BUS_WIDTH extends Win32Enum {
 
     /**
+     * Native name: BusWidth32Bits
      * @type {Integer (Int32)}
      */
-    static BusWidth32Bits => 0
+    static Width32Bits => 0
 
     /**
+     * Native name: BusWidth64Bits
      * @type {Integer (Int32)}
      */
-    static BusWidth64Bits => 1
+    static Width64Bits => 1
 }

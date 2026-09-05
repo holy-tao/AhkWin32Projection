@@ -30,7 +30,6 @@ class IAppServiceConnectionExtendedExecution extends IUnknown {
     static VTableNames => ["OpenForExtendedExecutionAsync"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

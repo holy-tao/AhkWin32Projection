@@ -71,7 +71,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @returns {HRESULT} 
      */
@@ -81,7 +80,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIEFFECT>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -92,7 +90,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIEFFECT>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -103,7 +100,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -114,7 +110,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -123,7 +118,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
@@ -135,7 +129,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Download() {
@@ -144,7 +137,6 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unload() {

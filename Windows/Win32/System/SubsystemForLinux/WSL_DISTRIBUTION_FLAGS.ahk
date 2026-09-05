@@ -10,25 +10,29 @@ class WSL_DISTRIBUTION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flags are being supplied.
+     * Native name: WSL_DISTRIBUTION_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static WSL_DISTRIBUTION_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
      * Allow the distribution to interoperate with Windows processes (for example, the user can invoke "cmd.exe" or "notepad.exe" from within a WSL session).
+     * Native name: WSL_DISTRIBUTION_FLAGS_ENABLE_INTEROP
      * @type {Integer (Int32)}
      */
-    static WSL_DISTRIBUTION_FLAGS_ENABLE_INTEROP => 1
+    static ENABLE_INTEROP => 1
 
     /**
      * Add the Windows %PATH% environment variable values to WSL sessions.
+     * Native name: WSL_DISTRIBUTION_FLAGS_APPEND_NT_PATH
      * @type {Integer (Int32)}
      */
-    static WSL_DISTRIBUTION_FLAGS_APPEND_NT_PATH => 2
+    static APPEND_NT_PATH => 2
 
     /**
      * Automatically mount Windows drives inside of WSL sessions (for example, "C:\" will be available under "/mnt/c").
+     * Native name: WSL_DISTRIBUTION_FLAGS_ENABLE_DRIVE_MOUNTING
      * @type {Integer (Int32)}
      */
-    static WSL_DISTRIBUTION_FLAGS_ENABLE_DRIVE_MOUNTING => 4
+    static ENABLE_DRIVE_MOUNTING => 4
 }

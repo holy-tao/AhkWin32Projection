@@ -7,32 +7,38 @@
 class HDV_DOORBELL_FLAGS extends Win32Enum {
 
     /**
+     * Native name: HDV_DOORBELL_FLAG_TRIGGER_SIZE_ANY
      * @type {Integer (Int32)}
      */
-    static HDV_DOORBELL_FLAG_TRIGGER_SIZE_ANY => 0
+    static FLAG_TRIGGER_SIZE_ANY => 0
 
     /**
+     * Native name: HDV_DOORBELL_FLAG_TRIGGER_SIZE_BYTE
      * @type {Integer (Int32)}
      */
-    static HDV_DOORBELL_FLAG_TRIGGER_SIZE_BYTE => 1
+    static FLAG_TRIGGER_SIZE_BYTE => 1
 
     /**
+     * Native name: HDV_DOORBELL_FLAG_TRIGGER_SIZE_WORD
      * @type {Integer (Int32)}
      */
-    static HDV_DOORBELL_FLAG_TRIGGER_SIZE_WORD => 2
+    static FLAG_TRIGGER_SIZE_WORD => 2
 
     /**
+     * Native name: HDV_DOORBELL_FLAG_TRIGGER_SIZE_DWORD
      * @type {Integer (Int32)}
      */
-    static HDV_DOORBELL_FLAG_TRIGGER_SIZE_DWORD => 3
+    static FLAG_TRIGGER_SIZE_DWORD => 3
 
     /**
+     * Native name: HDV_DOORBELL_FLAG_TRIGGER_SIZE_QWORD
      * @type {Integer (Int32)}
      */
-    static HDV_DOORBELL_FLAG_TRIGGER_SIZE_QWORD => 4
+    static FLAG_TRIGGER_SIZE_QWORD => 4
 
     /**
+     * Native name: HDV_DOORBELL_FLAG_TRIGGER_ANY_VALUE
      * @type {Integer (Int32)}
      */
-    static HDV_DOORBELL_FLAG_TRIGGER_ANY_VALUE => -2147483648
+    static FLAG_TRIGGER_ANY_VALUE => -2147483648
 }

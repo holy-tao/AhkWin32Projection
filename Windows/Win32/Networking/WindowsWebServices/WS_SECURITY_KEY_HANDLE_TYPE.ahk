@@ -10,19 +10,22 @@ class WS_SECURITY_KEY_HANDLE_TYPE extends Win32Enum {
 
     /**
      * Type ID for <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_raw_symmetric_security_key_handle">WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE</a>.
+     * Native name: WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE_TYPE => 1
+    static RAW_SYMMETRIC_SECURITY_KEY_HANDLE_TYPE => 1
 
     /**
      * Type ID for <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_ncrypt_asymmetric_security_key_handle">WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE</a>.
+     * Native name: WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE_TYPE => 2
+    static NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE_TYPE => 2
 
     /**
      * Type ID for <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_capi_asymmetric_security_key_handle">WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE</a>.
+     * Native name: WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE_TYPE
      * @type {Integer (Int32)}
      */
-    static WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE_TYPE => 3
+    static CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE_TYPE => 3
 }

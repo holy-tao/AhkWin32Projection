@@ -7,27 +7,32 @@
 class UIA_LANDMARKTYPE_ID extends Win32Enum {
 
     /**
+     * Native name: UIA_CustomLandmarkTypeId
      * @type {Integer (Int32)}
      */
-    static UIA_CustomLandmarkTypeId => 80000
+    static CustomLandmarkTypeId => 80000
 
     /**
+     * Native name: UIA_FormLandmarkTypeId
      * @type {Integer (Int32)}
      */
-    static UIA_FormLandmarkTypeId => 80001
+    static FormLandmarkTypeId => 80001
 
     /**
+     * Native name: UIA_MainLandmarkTypeId
      * @type {Integer (Int32)}
      */
-    static UIA_MainLandmarkTypeId => 80002
+    static MainLandmarkTypeId => 80002
 
     /**
+     * Native name: UIA_NavigationLandmarkTypeId
      * @type {Integer (Int32)}
      */
-    static UIA_NavigationLandmarkTypeId => 80003
+    static NavigationLandmarkTypeId => 80003
 
     /**
+     * Native name: UIA_SearchLandmarkTypeId
      * @type {Integer (Int32)}
      */
-    static UIA_SearchLandmarkTypeId => 80004
+    static SearchLandmarkTypeId => 80004
 }

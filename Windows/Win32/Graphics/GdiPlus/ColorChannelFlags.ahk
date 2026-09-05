@@ -7,27 +7,32 @@
 class ColorChannelFlags extends Win32Enum {
 
     /**
+     * Native name: ColorChannelFlagsC
      * @type {Integer (Int32)}
      */
-    static ColorChannelFlagsC => 0
+    static FlagsC => 0
 
     /**
+     * Native name: ColorChannelFlagsM
      * @type {Integer (Int32)}
      */
-    static ColorChannelFlagsM => 1
+    static FlagsM => 1
 
     /**
+     * Native name: ColorChannelFlagsY
      * @type {Integer (Int32)}
      */
-    static ColorChannelFlagsY => 2
+    static FlagsY => 2
 
     /**
+     * Native name: ColorChannelFlagsK
      * @type {Integer (Int32)}
      */
-    static ColorChannelFlagsK => 3
+    static FlagsK => 3
 
     /**
+     * Native name: ColorChannelFlagsLast
      * @type {Integer (Int32)}
      */
-    static ColorChannelFlagsLast => 4
+    static Last => 4
 }

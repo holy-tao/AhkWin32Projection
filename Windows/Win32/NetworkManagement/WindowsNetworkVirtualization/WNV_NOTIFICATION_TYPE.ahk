@@ -10,26 +10,30 @@ class WNV_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
      * A policy mismatch notification.
+     * Native name: WnvPolicyMismatchType
      * @type {Integer (Int32)}
      */
-    static WnvPolicyMismatchType => 0
+    static PolicyMismatchType => 0
 
     /**
      * A notification that an Internet Control Message Protocol
      * (ICMP) redirect message has been received.
+     * Native name: WnvRedirectType
      * @type {Integer (Int32)}
      */
-    static WnvRedirectType => 1
+    static RedirectType => 1
 
     /**
      * A notification that a network object has changed.
+     * Native name: WnvObjectChangeType
      * @type {Integer (Int32)}
      */
-    static WnvObjectChangeType => 2
+    static ObjectChangeType => 2
 
     /**
      * The maximum possible value for this enumeration type. This is not a legal value.
+     * Native name: WnvNotificationTypeMax
      * @type {Integer (Int32)}
      */
-    static WnvNotificationTypeMax => 3
+    static Max => 3
 }

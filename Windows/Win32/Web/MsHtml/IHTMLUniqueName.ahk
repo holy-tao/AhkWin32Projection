@@ -44,7 +44,6 @@ class IHTMLUniqueName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_uniqueNumber() {
@@ -53,7 +52,6 @@ class IHTMLUniqueName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_uniqueID() {

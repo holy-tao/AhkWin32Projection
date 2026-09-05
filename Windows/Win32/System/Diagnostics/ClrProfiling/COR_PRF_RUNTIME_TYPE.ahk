@@ -7,12 +7,14 @@
 class COR_PRF_RUNTIME_TYPE extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_DESKTOP_CLR
      * @type {Integer (Int32)}
      */
-    static COR_PRF_DESKTOP_CLR => 1
+    static DESKTOP_CLR => 1
 
     /**
+     * Native name: COR_PRF_CORE_CLR
      * @type {Integer (Int32)}
      */
-    static COR_PRF_CORE_CLR => 2
+    static CORE_CLR => 2
 }

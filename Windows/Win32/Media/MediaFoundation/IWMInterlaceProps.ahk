@@ -29,7 +29,6 @@ class IWMInterlaceProps extends IUnknown {
     static VTableNames => ["SetProcessType", "SetInitInverseTeleCinePattern", "SetLastFrame"]
 
     /**
-     * 
      * @param {Integer} iProcessType 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IWMInterlaceProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iInitPattern 
      * @returns {HRESULT} 
      */
@@ -49,7 +47,6 @@ class IWMInterlaceProps extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetLastFrame() {

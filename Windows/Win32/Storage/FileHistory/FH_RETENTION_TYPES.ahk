@@ -14,21 +14,24 @@ class FH_RETENTION_TYPES extends Win32Enum {
 
     /**
      * Previous versions are never deleted from the backup target.
+     * Native name: FH_RETENTION_DISABLED
      * @type {Integer (Int32)}
      */
-    static FH_RETENTION_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * The operating system can delete any previous version on an as-needed basis, unless it is the most recent version of a file that currently exists and is within the protection scope.
+     * Native name: FH_RETENTION_UNLIMITED
      * @type {Integer (Int32)}
      */
-    static FH_RETENTION_UNLIMITED => 1
+    static UNLIMITED => 1
 
     /**
      * The operating system can delete any previous version older than the specified minimum age on as-needed basis, unless it is the most recent version of a file that  currently exists and is within the protection scope. The minimum age is specified by the <b>FH_RETENTION_AGE</b> local policy.
+     * Native name: FH_RETENTION_AGE_BASED
      * @type {Integer (Int32)}
      */
-    static FH_RETENTION_AGE_BASED => 2
+    static AGE_BASED => 2
 
     /**
      * The maximum enumeration value for this enumeration. This value and all values greater than it are reserved for system use.

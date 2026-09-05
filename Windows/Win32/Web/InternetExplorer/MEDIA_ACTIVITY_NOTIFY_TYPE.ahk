@@ -7,17 +7,20 @@
 class MEDIA_ACTIVITY_NOTIFY_TYPE extends Win32Enum {
 
     /**
+     * Native name: MediaPlayback
      * @type {Integer (Int32)}
      */
-    static MediaPlayback => 0
+    static Playback => 0
 
     /**
+     * Native name: MediaRecording
      * @type {Integer (Int32)}
      */
-    static MediaRecording => 1
+    static Recording => 1
 
     /**
+     * Native name: MediaCasting
      * @type {Integer (Int32)}
      */
-    static MediaCasting => 2
+    static Casting => 2
 }

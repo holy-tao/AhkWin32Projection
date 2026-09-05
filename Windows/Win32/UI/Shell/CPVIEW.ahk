@@ -7,22 +7,26 @@
 class CPVIEW extends Win32Enum {
 
     /**
+     * Native name: CPVIEW_CLASSIC
      * @type {Integer (Int32)}
      */
-    static CPVIEW_CLASSIC => 0
+    static CLASSIC => 0
 
     /**
+     * Native name: CPVIEW_ALLITEMS
      * @type {Integer (Int32)}
      */
-    static CPVIEW_ALLITEMS => 0
+    static ALLITEMS => 0
 
     /**
+     * Native name: CPVIEW_CATEGORY
      * @type {Integer (Int32)}
      */
-    static CPVIEW_CATEGORY => 1
+    static CATEGORY => 1
 
     /**
+     * Native name: CPVIEW_HOME
      * @type {Integer (Int32)}
      */
-    static CPVIEW_HOME => 1
+    static HOME => 1
 }

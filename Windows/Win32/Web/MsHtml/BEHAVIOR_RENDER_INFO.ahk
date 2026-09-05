@@ -82,7 +82,8 @@ class BEHAVIOR_RENDER_INFO extends Win32Enum {
     static BEHAVIORRENDERINFO_3DSURFACE => 2097152
 
     /**
+     * Native name: BEHAVIOR_RENDER_INFO_Max
      * @type {Integer (Int32)}
      */
-    static BEHAVIOR_RENDER_INFO_Max => 2147483647
+    static Max => 2147483647
 }

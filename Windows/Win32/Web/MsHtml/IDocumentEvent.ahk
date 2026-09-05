@@ -31,7 +31,6 @@ class IDocumentEvent extends IDispatch {
     static VTableNames => ["createEvent"]
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @returns {IDOMEvent} 
      */

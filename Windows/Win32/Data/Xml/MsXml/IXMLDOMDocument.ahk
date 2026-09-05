@@ -139,7 +139,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocumentType} 
      */
     get_doctype() {
@@ -148,7 +147,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMImplementation} 
      */
     get_implementation() {
@@ -157,7 +155,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMElement} 
      */
     get_documentElement() {
@@ -166,7 +163,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMElement} DOMElement 
      * @returns {HRESULT} 
      */
@@ -176,7 +172,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} tagName 
      * @returns {IXMLDOMElement} 
      */
@@ -188,7 +183,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocumentFragment} 
      */
     createDocumentFragment() {
@@ -197,7 +191,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {IXMLDOMText} 
      */
@@ -209,7 +202,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {IXMLDOMComment} 
      */
@@ -221,7 +213,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {IXMLDOMCDATASection} 
      */
@@ -233,7 +224,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} target 
      * @param {BSTR} data 
      * @returns {IXMLDOMProcessingInstruction} 
@@ -247,7 +237,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMAttribute} 
      */
@@ -259,7 +248,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMEntityReference} 
      */
@@ -271,7 +259,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} tagName 
      * @returns {IXMLDOMNodeList} 
      */
@@ -283,7 +270,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} Type 
      * @param {BSTR} name 
      * @param {BSTR} namespaceURI 
@@ -298,7 +284,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} idString 
      * @returns {IXMLDOMNode} 
      */
@@ -323,7 +308,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -332,7 +316,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMParseError} 
      */
     get_parseError() {
@@ -341,7 +324,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -351,7 +333,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_async() {
@@ -360,7 +341,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isAsync 
      * @returns {HRESULT} 
      */
@@ -386,7 +366,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} bstrXML 
      * @returns {VARIANT_BOOL} 
      */
@@ -455,7 +434,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_validateOnParse() {
@@ -464,7 +442,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isValidating 
      * @returns {HRESULT} 
      */
@@ -474,7 +451,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_resolveExternals() {
@@ -483,7 +459,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isResolving 
      * @returns {HRESULT} 
      */
@@ -493,7 +468,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_preserveWhiteSpace() {
@@ -502,7 +476,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isPreserving 
      * @returns {HRESULT} 
      */
@@ -512,7 +485,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} readystatechangeSink 
      * @returns {HRESULT} 
      */
@@ -522,7 +494,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} ondataavailableSink 
      * @returns {HRESULT} 
      */
@@ -532,7 +503,6 @@ class IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} ontransformnodeSink 
      * @returns {HRESULT} 
      */

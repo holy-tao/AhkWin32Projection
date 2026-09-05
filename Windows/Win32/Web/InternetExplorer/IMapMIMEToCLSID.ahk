@@ -32,7 +32,6 @@ class IMapMIMEToCLSID extends IUnknown {
     static VTableNames => ["EnableDefaultMappings", "MapMIMEToCLSID", "SetMapping"]
 
     /**
-     * 
      * @param {BOOL} bEnable 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class IMapMIMEToCLSID extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMIMEType 
      * @param {Pointer<Guid>} pCLSID 
      * @returns {HRESULT} 
@@ -55,7 +53,6 @@ class IMapMIMEToCLSID extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMIMEType 
      * @param {Integer} dwMapMode 
      * @param {Pointer<Guid>} clsid 

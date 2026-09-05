@@ -29,7 +29,6 @@ class ITimerEx extends ITimer {
     static VTableNames => ["SetMode"]
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */

@@ -13,51 +13,59 @@ class IMAPI_MODE_PAGE_TYPE extends Win32Enum {
     /**
      * The mode page specifies the error recovery parameters the
      * drive uses during any command that performs a data read or write operation from the media.
+     * Native name: IMAPI_MODE_PAGE_TYPE_READ_WRITE_ERROR_RECOVERY
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_READ_WRITE_ERROR_RECOVERY => 1
+    static READ_WRITE_ERROR_RECOVERY => 1
 
     /**
      * The mode page provides a method by which the host may control the special features of a
      * MRW CD-RW Drive.
+     * Native name: IMAPI_MODE_PAGE_TYPE_MRW
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_MRW => 3
+    static MRW => 3
 
     /**
      * The mode page provides parameters that are often needed in the execution of
      * commands that write to the media.
+     * Native name: IMAPI_MODE_PAGE_TYPE_WRITE_PARAMETERS
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_WRITE_PARAMETERS => 5
+    static WRITE_PARAMETERS => 5
 
     /**
      * The mode page contains parameters to enable or disable caching during read or write operations.
+     * Native name: IMAPI_MODE_PAGE_TYPE_CACHING
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_CACHING => 8
+    static CACHING => 8
 
     /**
      * The mode page contains parameters for exception reporting mechanisms that result in specific sense code errors when failures are predicted.  This mode page is related to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_feature_page_type">S.M.A.R.T.</a> feature.
+     * Native name: IMAPI_MODE_PAGE_TYPE_INFORMATIONAL_EXCEPTIONS
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_INFORMATIONAL_EXCEPTIONS => 28
+    static INFORMATIONAL_EXCEPTIONS => 28
 
     /**
      * The mode page contains command time-out values that are  suggested by the device.
+     * Native name: IMAPI_MODE_PAGE_TYPE_TIMEOUT_AND_PROTECT
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_TIMEOUT_AND_PROTECT => 29
+    static TIMEOUT_AND_PROTECT => 29
 
     /**
      * The mode page contains power management settings for the drive. The parameters define how long the logical unit delays before changing its internal power state.
+     * Native name: IMAPI_MODE_PAGE_TYPE_POWER_CONDITION
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_POWER_CONDITION => 26
+    static POWER_CONDITION => 26
 
     /**
      * The mode page contains legacy device capabilities. These are superseded by the feature pages returned through the GetConfiguration command.
+     * Native name: IMAPI_MODE_PAGE_TYPE_LEGACY_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static IMAPI_MODE_PAGE_TYPE_LEGACY_CAPABILITIES => 42
+    static LEGACY_CAPABILITIES => 42
 }

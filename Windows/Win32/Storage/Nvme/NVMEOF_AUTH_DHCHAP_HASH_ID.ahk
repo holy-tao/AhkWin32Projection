@@ -7,27 +7,32 @@
 class NVMEOF_AUTH_DHCHAP_HASH_ID extends Win32Enum {
 
     /**
+     * Native name: NvmeofAuthDHCHAPHashReserved
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPHashReserved => 0
+    static Reserved => 0
 
     /**
+     * Native name: NvmeofAuthDHCHAPHashSha256
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPHashSha256 => 1
+    static Sha256 => 1
 
     /**
+     * Native name: NvmeofAuthDHCHAPHashSha384
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPHashSha384 => 2
+    static Sha384 => 2
 
     /**
+     * Native name: NvmeofAuthDHCHAPHashSha512
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPHashSha512 => 3
+    static Sha512 => 3
 
     /**
+     * Native name: NvmeofAuthDHCHAPHashMax
      * @type {Integer (Int32)}
      */
-    static NvmeofAuthDHCHAPHashMax => 255
+    static Max => 255
 }

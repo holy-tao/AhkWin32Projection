@@ -7,32 +7,38 @@
 class styleBlockProgression extends Win32Enum {
 
     /**
+     * Native name: styleBlockProgressionTb
      * @type {Integer (Int32)}
      */
-    static styleBlockProgressionTb => 0
+    static Tb => 0
 
     /**
+     * Native name: styleBlockProgressionRl
      * @type {Integer (Int32)}
      */
-    static styleBlockProgressionRl => 1
+    static Rl => 1
 
     /**
+     * Native name: styleBlockProgressionBt
      * @type {Integer (Int32)}
      */
-    static styleBlockProgressionBt => 2
+    static Bt => 2
 
     /**
+     * Native name: styleBlockProgressionLr
      * @type {Integer (Int32)}
      */
-    static styleBlockProgressionLr => 3
+    static Lr => 3
 
     /**
+     * Native name: styleBlockProgressionNotSet
      * @type {Integer (Int32)}
      */
-    static styleBlockProgressionNotSet => 4
+    static NotSet => 4
 
     /**
+     * Native name: styleBlockProgression_Max
      * @type {Integer (Int32)}
      */
-    static styleBlockProgression_Max => 2147483647
+    static Max => 2147483647
 }

@@ -7,32 +7,38 @@
 class ARBITER_REQUEST_SOURCE extends Win32Enum {
 
     /**
+     * Native name: ArbiterRequestUndefined
      * @type {Integer (Int32)}
      */
-    static ArbiterRequestUndefined => -1
+    static Undefined => -1
 
     /**
+     * Native name: ArbiterRequestLegacyReported
      * @type {Integer (Int32)}
      */
-    static ArbiterRequestLegacyReported => 0
+    static LegacyReported => 0
 
     /**
+     * Native name: ArbiterRequestHalReported
      * @type {Integer (Int32)}
      */
-    static ArbiterRequestHalReported => 1
+    static HalReported => 1
 
     /**
+     * Native name: ArbiterRequestLegacyAssigned
      * @type {Integer (Int32)}
      */
-    static ArbiterRequestLegacyAssigned => 2
+    static LegacyAssigned => 2
 
     /**
+     * Native name: ArbiterRequestPnpDetected
      * @type {Integer (Int32)}
      */
-    static ArbiterRequestPnpDetected => 3
+    static PnpDetected => 3
 
     /**
+     * Native name: ArbiterRequestPnpEnumerated
      * @type {Integer (Int32)}
      */
-    static ArbiterRequestPnpEnumerated => 4
+    static PnpEnumerated => 4
 }

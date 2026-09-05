@@ -7,17 +7,20 @@
 class WMV_DYNAMIC_FLAGS extends Win32Enum {
 
     /**
+     * Native name: WMV_DYNAMIC_BITRATE
      * @type {Integer (Int32)}
      */
-    static WMV_DYNAMIC_BITRATE => 1
+    static BITRATE => 1
 
     /**
+     * Native name: WMV_DYNAMIC_RESOLUTION
      * @type {Integer (Int32)}
      */
-    static WMV_DYNAMIC_RESOLUTION => 2
+    static RESOLUTION => 2
 
     /**
+     * Native name: WMV_DYNAMIC_COMPLEXITY
      * @type {Integer (Int32)}
      */
-    static WMV_DYNAMIC_COMPLEXITY => 4
+    static COMPLEXITY => 4
 }

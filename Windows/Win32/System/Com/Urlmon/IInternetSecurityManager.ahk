@@ -33,7 +33,6 @@ class IInternetSecurityManager extends IUnknown {
     static VTableNames => ["SetSecuritySite", "GetSecuritySite", "MapUrlToZone", "GetSecurityId", "ProcessUrlAction", "QueryCustomPolicy", "SetZoneMapping", "GetZoneMappings"]
 
     /**
-     * 
      * @param {IInternetSecurityMgrSite} pSite 
      * @returns {HRESULT} 
      */
@@ -43,7 +42,6 @@ class IInternetSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IInternetSecurityMgrSite} 
      */
     GetSecuritySite() {
@@ -52,7 +50,6 @@ class IInternetSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -65,7 +62,6 @@ class IInternetSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
@@ -81,7 +77,6 @@ class IInternetSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
@@ -101,7 +96,6 @@ class IInternetSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 
@@ -123,7 +117,6 @@ class IInternetSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {PWSTR} lpszPattern 
      * @param {Integer} dwFlags 
@@ -137,7 +130,6 @@ class IInternetSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwFlags 
      * @returns {IEnumString} 

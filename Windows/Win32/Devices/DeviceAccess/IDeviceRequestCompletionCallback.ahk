@@ -33,7 +33,6 @@ class IDeviceRequestCompletionCallback extends IUnknown {
     static VTableNames => ["Invoke"]
 
     /**
-     * 
      * @param {HRESULT} requestResult 
      * @param {Integer} bytesReturned 
      * @returns {HRESULT} 

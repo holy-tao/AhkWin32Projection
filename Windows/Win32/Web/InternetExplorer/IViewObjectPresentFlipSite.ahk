@@ -37,7 +37,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     static VTableNames => ["CreateSurfacePresenterFlip", "GetDeviceLuid", "EnterFullScreen", "ExitFullScreen", "IsFullScreen", "GetBoundingRect", "GetMetrics", "GetFullScreenSize"]
 
     /**
-     * 
      * @param {IUnknown} pDevice 
      * @param {Integer} width 
      * @param {Integer} height 
@@ -52,7 +51,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {LUID} 
      */
     GetDeviceLuid() {
@@ -62,7 +60,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnterFullScreen() {
@@ -71,7 +68,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExitFullScreen() {
@@ -80,7 +76,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsFullScreen() {
@@ -89,7 +84,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RECT} 
      */
     GetBoundingRect() {
@@ -99,7 +93,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINT>} pPos 
      * @param {Pointer<SIZE>} pSize 
      * @param {Pointer<Float>} pScaleX 
@@ -115,7 +108,6 @@ class IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SIZE} 
      */
     GetFullScreenSize() {

@@ -31,7 +31,6 @@ class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback {
     static VTableNames => ["OnFunctionEnterByName", "OnFunctionExitByName"]
 
     /**
-     * 
      * @param {PWSTR} pwszFunctionName 
      * @param {PROFILER_SCRIPT_TYPE} type 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFunctionName 
      * @param {PROFILER_SCRIPT_TYPE} type 
      * @returns {HRESULT} 

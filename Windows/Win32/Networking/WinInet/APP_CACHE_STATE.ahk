@@ -7,22 +7,26 @@
 class APP_CACHE_STATE extends Win32Enum {
 
     /**
+     * Native name: AppCacheStateNoUpdateNeeded
      * @type {Integer (Int32)}
      */
-    static AppCacheStateNoUpdateNeeded => 0
+    static NoUpdateNeeded => 0
 
     /**
+     * Native name: AppCacheStateUpdateNeeded
      * @type {Integer (Int32)}
      */
-    static AppCacheStateUpdateNeeded => 1
+    static UpdateNeeded => 1
 
     /**
+     * Native name: AppCacheStateUpdateNeededNew
      * @type {Integer (Int32)}
      */
-    static AppCacheStateUpdateNeededNew => 2
+    static UpdateNeededNew => 2
 
     /**
+     * Native name: AppCacheStateUpdateNeededMasterOnly
      * @type {Integer (Int32)}
      */
-    static AppCacheStateUpdateNeededMasterOnly => 3
+    static UpdateNeededMasterOnly => 3
 }

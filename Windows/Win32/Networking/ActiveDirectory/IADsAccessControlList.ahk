@@ -78,7 +78,6 @@ class IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AclRevision() {
@@ -87,7 +86,6 @@ class IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAclRevision 
      * @returns {HRESULT} 
      */
@@ -97,7 +95,6 @@ class IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AceCount() {
@@ -106,7 +103,6 @@ class IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAceCount 
      * @returns {HRESULT} 
      */

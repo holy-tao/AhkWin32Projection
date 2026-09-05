@@ -10,13 +10,15 @@ class FDAP extends Win32Enum {
 
     /**
      * The place is added to the bottom of the default list.
+     * Native name: FDAP_BOTTOM
      * @type {Integer (Int32)}
      */
-    static FDAP_BOTTOM => 0
+    static BOTTOM => 0
 
     /**
      * The place is added to the top of the default list.
+     * Native name: FDAP_TOP
      * @type {Integer (Int32)}
      */
-    static FDAP_TOP => 1
+    static TOP => 1
 }

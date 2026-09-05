@@ -30,7 +30,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     static VTableNames => ["GetDevice", "GetReportInfo", "GetRawDataSize", "GetRawData", "SetRawData", "GetItemValue", "SetItemValue", "ResetItemValue", "ResetAllItems"]
 
     /**
-     * 
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -39,7 +38,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<GameInputRawDeviceReportInfo>} 
      */
     GetReportInfo() {
@@ -48,7 +46,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetRawDataSize() {
@@ -57,7 +54,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} bufferSize 
      * @param {Pointer<Void>} _buffer 
      * @returns {Pointer} 
@@ -70,7 +66,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} bufferSize 
      * @param {Pointer<Void>} _buffer 
      * @returns {Boolean} 
@@ -83,7 +78,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itemIndex 
      * @param {Pointer<Integer>} value 
      * @returns {Boolean} 
@@ -96,7 +90,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itemIndex 
      * @param {Integer} value 
      * @returns {Boolean} 
@@ -107,7 +100,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itemIndex 
      * @returns {Boolean} 
      */
@@ -117,7 +109,6 @@ class IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     ResetAllItems() {

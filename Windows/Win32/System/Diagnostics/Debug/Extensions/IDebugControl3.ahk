@@ -39,7 +39,6 @@ class IDebugControl3 extends IUnknown {
     static VTableNames => ["GetInterrupt", "SetInterrupt", "GetInterruptTimeout", "SetInterruptTimeout", "GetLogFile", "OpenLogFile", "CloseLogFile", "GetLogMask", "SetLogMask", "Input", "ReturnInput", "Output", "OutputVaList", "ControlledOutput", "ControlledOutputVaList", "OutputPrompt", "OutputPromptVaList", "GetPromptText", "OutputCurrentState", "OutputVersionInformation", "GetNotifyEventHandle", "SetNotifyEventHandle", "Assemble", "Disassemble", "GetDisassembleEffectiveOffset", "OutputDisassembly", "OutputDisassemblyLines", "GetNearInstruction", "GetStackTrace", "GetReturnOffset", "OutputStackTrace", "GetDebuggeeType", "GetActualProcessorType", "GetExecutingProcessorType", "GetNumberPossibleExecutingProcessorTypes", "GetPossibleExecutingProcessorTypes", "GetNumberProcessors", "GetSystemVersion", "GetPageSize", "IsPointer64Bit", "ReadBugCheckData", "GetNumberSupportedProcessorTypes", "GetSupportedProcessorTypes", "GetProcessorTypeNames", "GetEffectiveProcessorType", "SetEffectiveProcessorType", "GetExecutionStatus", "SetExecutionStatus", "GetCodeLevel", "SetCodeLevel", "GetEngineOptions", "AddEngineOptions", "RemoveEngineOptions", "SetEngineOptions", "GetSystemErrorControl", "SetSystemErrorControl", "GetTextMacro", "SetTextMacro", "GetRadix", "SetRadix", "Evaluate", "CoerceValue", "CoerceValues", "Execute", "ExecuteCommandFile", "GetNumberBreakpoints", "GetBreakpointByIndex", "GetBreakpointById", "GetBreakpointParameters", "AddBreakpoint", "RemoveBreakpoint", "AddExtension", "RemoveExtension", "GetExtensionByPath", "CallExtension", "GetExtensionFunction", "GetWindbgExtensionApis32", "GetWindbgExtensionApis64", "GetNumberEventFilters", "GetEventFilterText", "GetEventFilterCommand", "SetEventFilterCommand", "GetSpecificFilterParameters", "SetSpecificFilterParameters", "GetSpecificFilterArgument", "SetSpecificFilterArgument", "GetExceptionFilterParameters", "SetExceptionFilterParameters", "GetExceptionFilterSecondCommand", "SetExceptionFilterSecondCommand", "WaitForEvent", "GetLastEventInformation", "GetCurrentTimeDate", "GetCurrentSystemUpTime", "GetDumpFormatFlags", "GetNumberTextReplacements", "GetTextReplacement", "SetTextReplacement", "RemoveTextReplacements", "OutputTextReplacements", "GetAssemblyOptions", "AddAssemblyOptions", "RemoveAssemblyOptions", "SetAssemblyOptions", "GetExpressionSyntax", "SetExpressionSyntax", "SetExpressionSyntaxByName", "GetNumberExpressionSyntaxes", "GetExpressionSyntaxNames", "GetNumberEvents", "GetEventIndexDescription", "GetCurrentEventIndex", "SetNextEventIndex"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetInterrupt() {
@@ -48,7 +47,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -58,7 +56,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInterruptTimeout() {
@@ -67,7 +64,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Seconds 
      * @returns {HRESULT} 
      */
@@ -77,7 +73,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FileSize 
@@ -95,7 +90,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _File 
      * @param {BOOL} Append 
      * @returns {HRESULT} 
@@ -108,7 +102,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseLogFile() {
@@ -117,7 +110,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLogMask() {
@@ -126,7 +118,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @returns {HRESULT} 
      */
@@ -150,7 +141,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @returns {HRESULT} 
      */
@@ -162,7 +152,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
      * @returns {HRESULT} 
@@ -175,7 +164,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
      * @param {Pointer<Integer>} Args 
@@ -191,7 +179,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
@@ -205,7 +192,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
@@ -222,7 +208,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Format 
      * @returns {HRESULT} 
@@ -235,7 +220,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Format 
      * @param {Pointer<Integer>} Args 
@@ -251,7 +235,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -264,7 +247,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -275,7 +257,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @returns {HRESULT} 
      */
@@ -295,7 +276,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -305,7 +285,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {PSTR} Instr 
      * @returns {Integer} 
@@ -318,7 +297,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {PSTR} _Buffer 
@@ -338,7 +316,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDisassembleEffectiveOffset() {
@@ -347,7 +324,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
@@ -359,7 +335,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} PreviousLines 
      * @param {Integer} TotalLines 
@@ -382,7 +357,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Delta 
      * @returns {Integer} 
@@ -393,7 +367,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} FrameOffset 
      * @param {Integer} StackOffset 
      * @param {Integer} InstructionOffset 
@@ -410,7 +383,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetReturnOffset() {
@@ -419,7 +391,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Pointer<DEBUG_STACK_FRAME>} Frames 
      * @param {Integer} FramesSize 
@@ -432,7 +403,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Class 
      * @param {Pointer<Integer>} Qualifier 
      * @returns {HRESULT} 
@@ -446,7 +416,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActualProcessorType() {
@@ -455,7 +424,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExecutingProcessorType() {
@@ -464,7 +432,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberPossibleExecutingProcessorTypes() {
@@ -473,7 +440,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -484,7 +450,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberProcessors() {
@@ -493,7 +458,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _PlatformId 
      * @param {Pointer<Integer>} Major 
      * @param {Pointer<Integer>} Minor 
@@ -522,7 +486,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPageSize() {
@@ -531,7 +494,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsPointer64Bit() {
@@ -540,7 +502,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Code 
      * @param {Pointer<Integer>} Arg1 
      * @param {Pointer<Integer>} Arg2 
@@ -560,7 +521,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberSupportedProcessorTypes() {
@@ -569,7 +529,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -580,7 +539,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Type 
      * @param {PSTR} FullNameBuffer 
      * @param {Integer} FullNameBufferSize 
@@ -602,7 +560,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEffectiveProcessorType() {
@@ -611,7 +568,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Type 
      * @returns {HRESULT} 
      */
@@ -621,7 +577,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExecutionStatus() {
@@ -630,7 +585,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @returns {HRESULT} 
      */
@@ -640,7 +594,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCodeLevel() {
@@ -649,7 +602,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Level 
      * @returns {HRESULT} 
      */
@@ -659,7 +611,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEngineOptions() {
@@ -668,7 +619,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -678,7 +628,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -688,7 +637,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -698,7 +646,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} OutputLevel 
      * @param {Pointer<Integer>} BreakLevel 
      * @returns {HRESULT} 
@@ -712,7 +659,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputLevel 
      * @param {Integer} BreakLevel 
      * @returns {HRESULT} 
@@ -723,7 +669,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Slot 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -737,7 +682,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Slot 
      * @param {PSTR} Macro 
      * @returns {HRESULT} 
@@ -750,7 +694,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRadix() {
@@ -759,7 +702,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Radix 
      * @returns {HRESULT} 
      */
@@ -769,7 +711,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Expression 
      * @param {Integer} DesiredType 
      * @param {Pointer<DEBUG_VALUE>} Value 
@@ -786,7 +727,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_VALUE>} _In 
      * @param {Integer} OutType 
      * @returns {DEBUG_VALUE} 
@@ -798,7 +738,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DEBUG_VALUE>} _In 
      * @param {Pointer<Integer>} OutTypes 
@@ -813,7 +752,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Command 
      * @param {Integer} Flags 
@@ -827,7 +765,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} CommandFile 
      * @param {Integer} Flags 
@@ -841,7 +778,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberBreakpoints() {
@@ -850,7 +786,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {IDebugBreakpoint} 
      */
@@ -860,7 +795,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Id 
      * @returns {IDebugBreakpoint} 
      */
@@ -870,7 +804,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Ids 
      * @param {Integer} Start 
@@ -885,7 +818,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Type 
      * @param {Integer} DesiredId 
      * @returns {IDebugBreakpoint} 
@@ -896,7 +828,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugBreakpoint} Bp 
      * @returns {HRESULT} 
      */
@@ -906,7 +837,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @param {Integer} Flags 
      * @returns {Integer} 
@@ -919,7 +849,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -929,7 +858,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {Integer} 
      */
@@ -941,7 +869,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PSTR} Function 
      * @param {PSTR} Arguments 
@@ -956,7 +883,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PSTR} FuncName 
      * @returns {Pointer<FARPROC>} 
@@ -969,7 +895,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WINDBG_EXTENSION_APIS32>} Api 
      * @returns {HRESULT} 
      */
@@ -979,7 +904,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WINDBG_EXTENSION_APIS64>} Api 
      * @returns {HRESULT} 
      */
@@ -989,7 +913,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpecificEvents 
      * @param {Pointer<Integer>} SpecificExceptions 
      * @param {Pointer<Integer>} ArbitraryExceptions 
@@ -1005,7 +928,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1019,7 +941,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1033,7 +954,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Command 
      * @returns {HRESULT} 
@@ -1046,7 +966,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {DEBUG_SPECIFIC_FILTER_PARAMETERS} 
@@ -1058,7 +977,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @param {Pointer<DEBUG_SPECIFIC_FILTER_PARAMETERS>} Params 
@@ -1070,7 +988,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1084,7 +1001,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Argument 
      * @returns {HRESULT} 
@@ -1097,7 +1013,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Codes 
      * @param {Integer} Start 
@@ -1112,7 +1027,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DEBUG_EXCEPTION_FILTER_PARAMETERS>} Params 
      * @returns {HRESULT} 
@@ -1123,7 +1037,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1137,7 +1050,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Command 
      * @returns {HRESULT} 
@@ -1150,7 +1062,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Timeout 
      * @returns {HRESULT} 
@@ -1161,7 +1072,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Type 
      * @param {Pointer<Integer>} ProcessId 
      * @param {Pointer<Integer>} ThreadId 
@@ -1187,7 +1097,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentTimeDate() {
@@ -1196,7 +1105,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentSystemUpTime() {
@@ -1205,7 +1113,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDumpFormatFlags() {
@@ -1214,7 +1121,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberTextReplacements() {
@@ -1223,7 +1129,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} SrcText 
      * @param {Integer} Index 
      * @param {PSTR} SrcBuffer 
@@ -1247,7 +1152,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} SrcText 
      * @param {PSTR} DstText 
      * @returns {HRESULT} 
@@ -1261,7 +1165,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveTextReplacements() {
@@ -1270,7 +1173,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -1281,7 +1183,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAssemblyOptions() {
@@ -1290,7 +1191,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -1300,7 +1200,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -1310,7 +1209,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -1320,7 +1218,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExpressionSyntax() {
@@ -1329,7 +1226,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -1339,7 +1235,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} AbbrevName 
      * @returns {HRESULT} 
      */
@@ -1351,7 +1246,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberExpressionSyntaxes() {
@@ -1360,7 +1254,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} FullNameBuffer 
      * @param {Integer} FullNameBufferSize 
@@ -1382,7 +1275,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberEvents() {
@@ -1391,7 +1283,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Which 
      * @param {PSTR} _Buffer 
@@ -1406,7 +1297,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentEventIndex() {
@@ -1415,7 +1305,6 @@ class IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Relation 
      * @param {Integer} Value 
      * @returns {Integer} 

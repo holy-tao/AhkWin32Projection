@@ -10,12 +10,14 @@ class D3D12_SERIALIZED_DATA_TYPE extends Win32Enum {
 
     /**
      * The serialized data is a raytracing acceleration structure.
+     * Native name: D3D12_SERIALIZED_DATA_RAYTRACING_ACCELERATION_STRUCTURE
      * @type {Integer (Int32)}
      */
-    static D3D12_SERIALIZED_DATA_RAYTRACING_ACCELERATION_STRUCTURE => 0
+    static RAYTRACING_ACCELERATION_STRUCTURE => 0
 
     /**
+     * Native name: D3D12_SERIALIZED_DATA_APPLICATION_SPECIFIC_DRIVER_STATE
      * @type {Integer (Int32)}
      */
-    static D3D12_SERIALIZED_DATA_APPLICATION_SPECIFIC_DRIVER_STATE => 1
+    static APPLICATION_SPECIFIC_DRIVER_STATE => 1
 }

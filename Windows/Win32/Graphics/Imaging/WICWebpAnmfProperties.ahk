@@ -10,7 +10,8 @@ class WICWebpAnmfProperties extends Win32Enum {
 
     /**
      * The time to wait before displaying the next frame, in milliseconds.
+     * Native name: WICWebpAnmfFrameDuration
      * @type {Integer (Int32)}
      */
-    static WICWebpAnmfFrameDuration => 1
+    static FrameDuration => 1
 }

@@ -10,13 +10,15 @@ class CM_ENUM_FLAGS extends Win32BitflagEnum {
 
     /**
      * Enumerate all.
+     * Native name: CM_ENUM_ALL
      * @type {Integer (Int32)}
      */
-    static CM_ENUM_ALL => 1
+    static ALL => 1
 
     /**
      * Enumerate visible.
+     * Native name: CM_ENUM_VISIBLE
      * @type {Integer (Int32)}
      */
-    static CM_ENUM_VISIBLE => 2
+    static VISIBLE => 2
 }

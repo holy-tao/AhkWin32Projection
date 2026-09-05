@@ -31,9 +31,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 256; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256 => 1
+    static BASIC256 => 1
 
     /**
      * Identifies the Basic192 algorithm suite. This suite uses the following algorithms:
@@ -58,9 +59,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 192; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192 => 2
+    static BASIC192 => 2
 
     /**
      * Identifies the Basic128 algorithm suite. This suite uses the following algorithms:
@@ -85,9 +87,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 128; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128 => 3
+    static BASIC128 => 3
 
     /**
      * Identifies the Basic256Rsa15 algorithm suite. This suite uses the following algorithms:
@@ -112,9 +115,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 256; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256_RSA15
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256_RSA15 => 4
+    static BASIC256_RSA15 => 4
 
     /**
      * Identifies the Basic192Rsa15 algorithm suite. This suite uses the following algorithms:
@@ -139,9 +143,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 192; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192_RSA15
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192_RSA15 => 5
+    static BASIC192_RSA15 => 5
 
     /**
      * Identifies the Basic128RSA15 algorithm suite. This suite uses the following algorithms:
@@ -166,9 +171,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 128; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128_RSA15
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128_RSA15 => 6
+    static BASIC128_RSA15 => 6
 
     /**
      * Identifies the Basic256Sha256 algorithm suite. This suite uses the following algorithms:
@@ -193,9 +199,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 256; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256_SHA256
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256_SHA256 => 7
+    static BASIC256_SHA256 => 7
 
     /**
      * Identifies the Basic192Sha256 algorithm suite. This suite uses the following algorithms:
@@ -220,9 +227,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 192; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192_SHA256
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192_SHA256 => 8
+    static BASIC192_SHA256 => 8
 
     /**
      * Identifies the Basic128Sha256 algorithm suite. This suite uses the following algorithms:
@@ -247,9 +255,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 128; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128_SHA256
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128_SHA256 => 9
+    static BASIC128_SHA256 => 9
 
     /**
      * Identifies the Basic256Sha256Rsa15 algorithm suite. This suite uses the following algorithms:
@@ -274,9 +283,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 256; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256_SHA256_RSA15
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC256_SHA256_RSA15 => 10
+    static BASIC256_SHA256_RSA15 => 10
 
     /**
      * Identifies the Basic192Sha256Rsa15 algorithm suite. This suite uses the following algorithms:
@@ -301,9 +311,10 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 192; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192_SHA256_RSA15
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC192_SHA256_RSA15 => 11
+    static BASIC192_SHA256_RSA15 => 11
 
     /**
      * Identifies the Basic128Sha256Rsa15 algorithm suite. This suite uses the following algorithms:
@@ -328,7 +339,8 @@ class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
      * </li>
      * </ul>The minimum symmetric key length is 128; the maximum symmetric key length is 256.
      *             The minimum asymmetric key length is 1024; the maximum asymmetric key length is 4096.
+     * Native name: WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128_SHA256_RSA15
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_ALGORITHM_SUITE_NAME_BASIC128_SHA256_RSA15 => 12
+    static BASIC128_SHA256_RSA15 => 12
 }

@@ -10,19 +10,22 @@ class RM_FILTER_ACTION extends Win32Enum {
 
     /**
      * An invalid filter action.
+     * Native name: RmInvalidFilterAction
      * @type {Integer (Int32)}
      */
-    static RmInvalidFilterAction => 0
+    static InvalidFilterAction => 0
 
     /**
      * Prevents the restart of the specified application or service.
+     * Native name: RmNoRestart
      * @type {Integer (Int32)}
      */
-    static RmNoRestart => 1
+    static NoRestart => 1
 
     /**
      * Prevents the shut down and restart of the specified application or service.
+     * Native name: RmNoShutdown
      * @type {Integer (Int32)}
      */
-    static RmNoShutdown => 2
+    static NoShutdown => 2
 }

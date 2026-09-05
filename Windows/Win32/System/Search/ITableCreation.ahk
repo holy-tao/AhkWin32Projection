@@ -33,7 +33,6 @@ class ITableCreation extends ITableDefinition {
     static VTableNames => ["GetTableDefinition"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<Pointer>} pcColumnDescs 
      * @param {Pointer<Pointer<DBCOLUMNDESC>>} prgColumnDescs 

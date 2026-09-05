@@ -7,17 +7,20 @@
 class STRRET_TYPE extends Win32Enum {
 
     /**
+     * Native name: STRRET_WSTR
      * @type {Integer (Int32)}
      */
-    static STRRET_WSTR => 0
+    static WSTR => 0
 
     /**
+     * Native name: STRRET_OFFSET
      * @type {Integer (Int32)}
      */
-    static STRRET_OFFSET => 1
+    static OFFSET => 1
 
     /**
+     * Native name: STRRET_CSTR
      * @type {Integer (Int32)}
      */
-    static STRRET_CSTR => 2
+    static CSTR => 2
 }

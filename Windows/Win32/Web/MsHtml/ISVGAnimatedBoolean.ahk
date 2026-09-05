@@ -52,7 +52,6 @@ class ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -62,7 +61,6 @@ class ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_baseVal() {
@@ -71,7 +69,6 @@ class ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -81,7 +78,6 @@ class ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_animVal() {

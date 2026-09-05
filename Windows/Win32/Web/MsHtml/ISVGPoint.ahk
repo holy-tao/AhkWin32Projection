@@ -52,7 +52,6 @@ class ISVGPoint extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -62,7 +61,6 @@ class ISVGPoint extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -71,7 +69,6 @@ class ISVGPoint extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -81,7 +78,6 @@ class ISVGPoint extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y() {
@@ -90,7 +86,6 @@ class ISVGPoint extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} pMatrix 
      * @returns {ISVGPoint} 
      */

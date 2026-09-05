@@ -10,24 +10,28 @@ class MF_PLUGIN_CONTROL_POLICY extends Win32Enum {
 
     /**
      * Enumerate all registered sources and transforms.
+     * Native name: MF_PLUGIN_CONTROL_POLICY_USE_ALL_PLUGINS
      * @type {Integer (Int32)}
      */
-    static MF_PLUGIN_CONTROL_POLICY_USE_ALL_PLUGINS => 0
+    static USE_ALL_PLUGINS => 0
 
     /**
      * Enumerate only approved sources and transforms. Third-party components are excluded unless the component is registered with a valid merit value, or the component was registered locally by the application.
+     * Native name: MF_PLUGIN_CONTROL_POLICY_USE_APPROVED_PLUGINS
      * @type {Integer (Int32)}
      */
-    static MF_PLUGIN_CONTROL_POLICY_USE_APPROVED_PLUGINS => 1
+    static USE_APPROVED_PLUGINS => 1
 
     /**
      * Restrict enumeration to components intended for use in a web browser.
+     * Native name: MF_PLUGIN_CONTROL_POLICY_USE_WEB_PLUGINS
      * @type {Integer (Int32)}
      */
-    static MF_PLUGIN_CONTROL_POLICY_USE_WEB_PLUGINS => 2
+    static USE_WEB_PLUGINS => 2
 
     /**
+     * Native name: MF_PLUGIN_CONTROL_POLICY_USE_WEB_PLUGINS_EDGEMODE
      * @type {Integer (Int32)}
      */
-    static MF_PLUGIN_CONTROL_POLICY_USE_WEB_PLUGINS_EDGEMODE => 3
+    static USE_WEB_PLUGINS_EDGEMODE => 3
 }

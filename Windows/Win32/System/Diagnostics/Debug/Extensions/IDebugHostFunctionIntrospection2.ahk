@@ -30,7 +30,6 @@ class IDebugHostFunctionIntrospection2 extends IDebugHostFunctionIntrospection {
     static VTableNames => ["EnumerateLocalsDetailsEx"]
 
     /**
-     * 
      * @param {Integer} enumerateInlinedLocals 
      * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */

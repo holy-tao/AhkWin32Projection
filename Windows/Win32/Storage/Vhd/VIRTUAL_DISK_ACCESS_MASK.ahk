@@ -13,9 +13,10 @@ class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/vdssys/nf-vdssys-createvirtualdisk">CreateVirtualDisk</a> and specifying  
      *        <b>CREATE_VIRTUAL_DISK_VERSION_2</b> in the 
      *        <i>VirtualDiskAccessMask</i> parameter.
+     * Native name: VIRTUAL_DISK_ACCESS_NONE
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_NONE => 0
+    static NONE => 0
 
     /**
      * Open the virtual disk for read-only attach access. The caller must have <b>READ</b> 
@@ -28,9 +29,10 @@ class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This access right is not supported for opening ISO virtual disks until Windows 8 and 
      *         Windows Server 2012.
+     * Native name: VIRTUAL_DISK_ACCESS_ATTACH_RO
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_ATTACH_RO => 65536
+    static ATTACH_RO => 65536
 
     /**
      * Open the virtual disk for read/write attaching access. The caller must have 
@@ -44,9 +46,10 @@ class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
      *        <b>RWDepth</b> specified during the prior open request for that differencing chain.
      * 
      * This flag is not supported for ISO virtual disks.
+     * Native name: VIRTUAL_DISK_ACCESS_ATTACH_RW
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_ATTACH_RW => 131072
+    static ATTACH_RW => 131072
 
     /**
      * Open the virtual disk to allow detaching of an attached virtual disk. The caller must have 
@@ -55,9 +58,10 @@ class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This access right is not supported for opening ISO virtual disks until Windows 8 and 
      *         Windows Server 2012.
+     * Native name: VIRTUAL_DISK_ACCESS_DETACH
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_DETACH => 262144
+    static DETACH => 262144
 
     /**
      * Information retrieval access to the virtual disk. The caller must have <b>READ</b> 
@@ -65,17 +69,19 @@ class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>This access right is not supported for opening ISO virtual disks until Windows 8 and 
      *         Windows Server 2012.
+     * Native name: VIRTUAL_DISK_ACCESS_GET_INFO
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_GET_INFO => 524288
+    static GET_INFO => 524288
 
     /**
      * Virtual disk creation access.
      * 
      * This flag is not supported for ISO virtual disks.
+     * Native name: VIRTUAL_DISK_ACCESS_CREATE
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_CREATE => 1048576
+    static CREATE => 1048576
 
     /**
      * Open the virtual disk to perform offline meta-operations. The caller must have 
@@ -86,28 +92,32 @@ class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
      *        exclusive mode up to <b>RWDepth</b>.
      * 
      * This flag is not supported for ISO virtual disks.
+     * Native name: VIRTUAL_DISK_ACCESS_METAOPS
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_METAOPS => 2097152
+    static METAOPS => 2097152
 
     /**
      * Reserved.
+     * Native name: VIRTUAL_DISK_ACCESS_READ
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_READ => 851968
+    static READ => 851968
 
     /**
      * Allows unrestricted access to the virtual disk. The caller must have unrestricted access rights to the 
      *        virtual disk image file.
      * 
      * This flag is not supported for ISO virtual disks.
+     * Native name: VIRTUAL_DISK_ACCESS_ALL
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_ALL => 4128768
+    static ALL => 4128768
 
     /**
      * Reserved.
+     * Native name: VIRTUAL_DISK_ACCESS_WRITABLE
      * @type {Integer (Int32)}
      */
-    static VIRTUAL_DISK_ACCESS_WRITABLE => 3276800
+    static WRITABLE => 3276800
 }

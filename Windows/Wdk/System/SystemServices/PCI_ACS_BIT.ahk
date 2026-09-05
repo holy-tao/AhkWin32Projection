@@ -7,22 +7,26 @@
 class PCI_ACS_BIT extends Win32Enum {
 
     /**
+     * Native name: PciAcsReserved
      * @type {Integer (Int32)}
      */
-    static PciAcsReserved => 0
+    static Reserved => 0
 
     /**
+     * Native name: PciAcsBitEnable
      * @type {Integer (Int32)}
      */
-    static PciAcsBitEnable => 1
+    static Enable => 1
 
     /**
+     * Native name: PciAcsBitDisable
      * @type {Integer (Int32)}
      */
-    static PciAcsBitDisable => 2
+    static Disable => 2
 
     /**
+     * Native name: PciAcsBitDontCare
      * @type {Integer (Int32)}
      */
-    static PciAcsBitDontCare => 3
+    static DontCare => 3
 }

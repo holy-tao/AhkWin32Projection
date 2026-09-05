@@ -10,82 +10,95 @@ class AAAuthSchemes extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: AA_AUTH_MIN
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_MIN => 0
+    static MIN => 0
 
     /**
      * Basic protocol authentication.
+     * Native name: AA_AUTH_BASIC
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_BASIC => 1
+    static BASIC => 1
 
     /**
      * NTLM protocol authentication.
+     * Native name: AA_AUTH_NTLM
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_NTLM => 2
+    static NTLM => 2
 
     /**
      * Standard authentication.
+     * Native name: AA_AUTH_SC
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_SC => 3
+    static SC => 3
 
     /**
      * Windows logon credentials authentication.
+     * Native name: AA_AUTH_LOGGEDONCREDENTIALS
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_LOGGEDONCREDENTIALS => 4
+    static LOGGEDONCREDENTIALS => 4
 
     /**
      * Microsoft Negotiate authentication.
+     * Native name: AA_AUTH_NEGOTIATE
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_NEGOTIATE => 5
+    static NEGOTIATE => 5
 
     /**
      * This value is reserved.
+     * Native name: AA_AUTH_ANY
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_ANY => 6
+    static ANY => 6
 
     /**
      * Cookie-based authentication.
+     * Native name: AA_AUTH_COOKIE
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_COOKIE => 7
+    static COOKIE => 7
 
     /**
      * Digest access authentication.
+     * Native name: AA_AUTH_DIGEST
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_DIGEST => 8
+    static DIGEST => 8
 
     /**
      * Claims-based authentication.
      * 
      * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2 and Windows 7:  </b>Not supported.
+     * Native name: AA_AUTH_ORGID
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_ORGID => 9
+    static ORGID => 9
 
     /**
      * Authentication by reverse connection ID.
      * 
      * <b>Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008 R2 and Windows 7:  </b>Not supported.
+     * Native name: AA_AUTH_CONID
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_CONID => 10
+    static CONID => 10
 
     /**
+     * Native name: AA_AUTH_SSPI_NTLM
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_SSPI_NTLM => 11
+    static SSPI_NTLM => 11
 
     /**
      * This value is reserved.
+     * Native name: AA_AUTH_MAX
      * @type {Integer (Int32)}
      */
-    static AA_AUTH_MAX => 12
+    static MAX => 12
 }

@@ -7,17 +7,20 @@
 class ComponentStatus extends Win32Enum {
 
     /**
+     * Native name: StatusActive
      * @type {Integer (Int32)}
      */
-    static StatusActive => 0
+    static Active => 0
 
     /**
+     * Native name: StatusInactive
      * @type {Integer (Int32)}
      */
-    static StatusInactive => 1
+    static Inactive => 1
 
     /**
+     * Native name: StatusUnavailable
      * @type {Integer (Int32)}
      */
-    static StatusUnavailable => 2
+    static Unavailable => 2
 }

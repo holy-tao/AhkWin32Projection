@@ -10,13 +10,15 @@ class _AMRESCTL_RESERVEFLAGS extends Win32Enum {
 
     /**
      * Increment the reserved resource count.
+     * Native name: AMRESCTL_RESERVEFLAGS_RESERVE
      * @type {Integer (Int32)}
      */
-    static AMRESCTL_RESERVEFLAGS_RESERVE => 0
+    static RESERVE => 0
 
     /**
      * Decrement the reserved resource count.
+     * Native name: AMRESCTL_RESERVEFLAGS_UNRESERVE
      * @type {Integer (Int32)}
      */
-    static AMRESCTL_RESERVEFLAGS_UNRESERVE => 1
+    static UNRESERVE => 1
 }

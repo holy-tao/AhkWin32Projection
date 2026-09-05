@@ -33,7 +33,6 @@ class IPropertyBag2 extends IUnknown {
     static VTableNames => ["Read", "Write", "CountProperties", "GetPropertyInfo", "LoadObject"]
 
     /**
-     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {IErrorLog} pErrLog 
@@ -49,7 +48,6 @@ class IPropertyBag2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {Pointer<VARIANT>} pvarValue 
@@ -61,7 +59,6 @@ class IPropertyBag2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     CountProperties() {
@@ -90,7 +87,6 @@ class IPropertyBag2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @param {Integer} dwHint 
      * @param {IUnknown} pUnkObject 

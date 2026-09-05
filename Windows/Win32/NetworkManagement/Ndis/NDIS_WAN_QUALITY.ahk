@@ -7,17 +7,20 @@
 class NDIS_WAN_QUALITY extends Win32Enum {
 
     /**
+     * Native name: NdisWanRaw
      * @type {Integer (Int32)}
      */
-    static NdisWanRaw => 0
+    static Raw => 0
 
     /**
+     * Native name: NdisWanErrorControl
      * @type {Integer (Int32)}
      */
-    static NdisWanErrorControl => 1
+    static ErrorControl => 1
 
     /**
+     * Native name: NdisWanReliable
      * @type {Integer (Int32)}
      */
-    static NdisWanReliable => 2
+    static Reliable => 2
 }

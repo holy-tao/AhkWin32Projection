@@ -64,7 +64,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_Init() {
@@ -73,7 +72,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @param {IUnknown} pInit 
      * @returns {HRESULT} 
      */
@@ -83,7 +81,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {IEnumFilters} 
      */
     EnumFilters() {
@@ -92,7 +89,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegmentContainer} 
      */
     get_Container() {
@@ -101,7 +97,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @param {IMSVidGraphSegmentContainer} pCtl 
      * @returns {HRESULT} 
      */
@@ -111,7 +106,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {MSVidSegmentType} 
      */
     get_Type() {
@@ -120,7 +114,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_Category() {
@@ -130,7 +123,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Build() {
@@ -139,7 +131,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PostBuild() {
@@ -148,7 +139,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PreRun() {
@@ -157,7 +147,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PostRun() {
@@ -166,7 +155,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PreStop() {
@@ -175,7 +163,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PostStop() {
@@ -184,7 +171,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @param {Integer} lEventCode 
      * @param {Pointer} lEventParm1 
      * @param {Pointer} lEventParm2 
@@ -196,7 +182,6 @@ class IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Decompose() {

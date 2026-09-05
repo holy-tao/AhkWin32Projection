@@ -7,12 +7,14 @@
 class DebugEventLevel extends Win32Enum {
 
     /**
+     * Native name: DebugEventLevelFatal
      * @type {Integer (Int32)}
      */
-    static DebugEventLevelFatal => 0
+    static Fatal => 0
 
     /**
+     * Native name: DebugEventLevelWarning
      * @type {Integer (Int32)}
      */
-    static DebugEventLevelWarning => 1
+    static Warning => 1
 }

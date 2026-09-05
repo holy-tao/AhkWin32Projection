@@ -7,12 +7,14 @@
 class DISPID_InkExtendedProperty extends Win32Enum {
 
     /**
+     * Native name: DISPID_IEPGuid
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPGuid => 1
+    static IEPGuid => 1
 
     /**
+     * Native name: DISPID_IEPData
      * @type {Integer (Int32)}
      */
-    static DISPID_IEPData => 2
+    static IEPData => 2
 }

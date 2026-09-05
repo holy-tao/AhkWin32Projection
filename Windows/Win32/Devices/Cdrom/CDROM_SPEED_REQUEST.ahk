@@ -7,12 +7,14 @@
 class CDROM_SPEED_REQUEST extends Win32Enum {
 
     /**
+     * Native name: CdromSetSpeed
      * @type {Integer (Int32)}
      */
-    static CdromSetSpeed => 0
+    static SetSpeed => 0
 
     /**
+     * Native name: CdromSetStreaming
      * @type {Integer (Int32)}
      */
-    static CdromSetStreaming => 1
+    static SetStreaming => 1
 }

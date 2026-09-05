@@ -10,13 +10,15 @@ class POLICY_DOMAIN_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * The information is for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">Encrypting File System</a>.
+     * Native name: PolicyDomainEfsInformation
      * @type {Integer (Int32)}
      */
-    static PolicyDomainEfsInformation => 2
+    static EfsInformation => 2
 
     /**
      * The information is for a Kerberos ticket.
+     * Native name: PolicyDomainKerberosTicketInformation
      * @type {Integer (Int32)}
      */
-    static PolicyDomainKerberosTicketInformation => 3
+    static KerberosTicketInformation => 3
 }

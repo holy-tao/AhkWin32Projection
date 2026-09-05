@@ -14,17 +14,19 @@ class COPYFILE2_MESSAGE_ACTION extends Win32Enum {
 
     /**
      * Continue the copy operation.
+     * Native name: COPYFILE2_PROGRESS_CONTINUE
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_PROGRESS_CONTINUE => 0
+    static PROGRESS_CONTINUE => 0
 
     /**
      * Cancel the copy operation. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-copyfile2">CopyFile2</a> call will fail 
      *       and return <c>HRESULT_FROM_WIN32(ERROR_REQUEST_ABORTED)</c> and 
      *       any partially copied fragments will be deleted.
+     * Native name: COPYFILE2_PROGRESS_CANCEL
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_PROGRESS_CANCEL => 1
+    static PROGRESS_CANCEL => 1
 
     /**
      * Stop the copy operation. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-copyfile2">CopyFile2</a> call will fail 
@@ -35,17 +37,19 @@ class COPYFILE2_MESSAGE_ACTION extends Win32Enum {
      *       member of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-copyfile2_extended_parameters">COPYFILE2_EXTENDED_PARAMETERS</a> structure 
      *       passed to the <b>CopyFile2</b> function.
+     * Native name: COPYFILE2_PROGRESS_STOP
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_PROGRESS_STOP => 2
+    static PROGRESS_STOP => 2
 
     /**
      * Continue the copy operation but do not call the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-pcopyfile2_progress_routine">CopyFile2ProgressRoutine</a> callback function 
      *       again for this operation.
+     * Native name: COPYFILE2_PROGRESS_QUIET
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_PROGRESS_QUIET => 3
+    static PROGRESS_QUIET => 3
 
     /**
      * Pause the copy operation and write a restart header. This value is not compatible with the 
@@ -63,7 +67,8 @@ class COPYFILE2_MESSAGE_ACTION extends Win32Enum {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-copyfile2_message">COPYFILE2_MESSAGE</a> structure. After the callback has 
      *       returned CopyFile2 will fail with 
      *       <c>HRESULT_FROM_WIN32(ERROR_REQUEST_PAUSED)</c>.
+     * Native name: COPYFILE2_PROGRESS_PAUSE
      * @type {Integer (Int32)}
      */
-    static COPYFILE2_PROGRESS_PAUSE => 4
+    static PROGRESS_PAUSE => 4
 }

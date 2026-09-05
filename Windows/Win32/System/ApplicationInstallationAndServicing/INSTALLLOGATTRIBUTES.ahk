@@ -7,12 +7,14 @@
 class INSTALLLOGATTRIBUTES extends Win32Enum {
 
     /**
+     * Native name: INSTALLLOGATTRIBUTES_APPEND
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGATTRIBUTES_APPEND => 1
+    static APPEND => 1
 
     /**
+     * Native name: INSTALLLOGATTRIBUTES_FLUSHEACHLINE
      * @type {Integer (Int32)}
      */
-    static INSTALLLOGATTRIBUTES_FLUSHEACHLINE => 2
+    static FLUSHEACHLINE => 2
 }

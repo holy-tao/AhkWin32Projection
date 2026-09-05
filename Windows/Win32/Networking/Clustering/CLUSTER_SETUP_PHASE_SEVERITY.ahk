@@ -10,19 +10,22 @@ class CLUSTER_SETUP_PHASE_SEVERITY extends Win32Enum {
 
     /**
      * This phase of the cluster setup can complete successfully.
+     * Native name: ClusterSetupPhaseInformational
      * @type {Integer (Int32)}
      */
-    static ClusterSetupPhaseInformational => 1
+    static Informational => 1
 
     /**
      * This phase of the cluster setup can complete, with a warning.
+     * Native name: ClusterSetupPhaseWarning
      * @type {Integer (Int32)}
      */
-    static ClusterSetupPhaseWarning => 2
+    static Warning => 2
 
     /**
      * This phase of the cluster setup process cannot complete successfully.
+     * Native name: ClusterSetupPhaseFatal
      * @type {Integer (Int32)}
      */
-    static ClusterSetupPhaseFatal => 3
+    static Fatal => 3
 }

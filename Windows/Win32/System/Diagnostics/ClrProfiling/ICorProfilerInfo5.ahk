@@ -29,7 +29,6 @@ class ICorProfilerInfo5 extends ICorProfilerInfo4 {
     static VTableNames => ["GetEventMask2", "SetEventMask2"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwEventsLow 
      * @param {Pointer<Integer>} pdwEventsHigh 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class ICorProfilerInfo5 extends ICorProfilerInfo4 {
     }
 
     /**
-     * 
      * @param {Integer} dwEventsLow 
      * @param {Integer} dwEventsHigh 
      * @returns {HRESULT} 

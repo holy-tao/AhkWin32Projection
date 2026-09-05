@@ -51,7 +51,6 @@ class ISVGAnimatedString extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ class ISVGAnimatedString extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_baseVal() {
@@ -73,7 +71,6 @@ class ISVGAnimatedString extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animVal() {

@@ -12,43 +12,50 @@ class KHYPH extends Win32Enum {
 
     /**
      * No hyphenation is allowed.
+     * Native name: khyphNil
      * @type {Integer (Int32)}
      */
-    static khyphNil => 0
+    static Nil => 0
 
     /**
      * Do not change any characters during hyphenation.
+     * Native name: khyphNormal
      * @type {Integer (Int32)}
      */
-    static khyphNormal => 1
+    static Normal => 1
 
     /**
      * Add a letter before the hyphenation mark.
+     * Native name: khyphAddBefore
      * @type {Integer (Int32)}
      */
-    static khyphAddBefore => 2
+    static AddBefore => 2
 
     /**
      * Change the letter before the hyphenation mark.
+     * Native name: khyphChangeBefore
      * @type {Integer (Int32)}
      */
-    static khyphChangeBefore => 3
+    static ChangeBefore => 3
 
     /**
      * Delete the letter before the hyphenation mark.
+     * Native name: khyphDeleteBefore
      * @type {Integer (Int32)}
      */
-    static khyphDeleteBefore => 4
+    static DeleteBefore => 4
 
     /**
      * Change the letter after the hyphenation mark.
+     * Native name: khyphChangeAfter
      * @type {Integer (Int32)}
      */
-    static khyphChangeAfter => 5
+    static ChangeAfter => 5
 
     /**
      * The two letters before the hyphenation mark are replaced by one character; see the <b>chHyph</b> member of <a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-hyphresult">HYPHRESULT</a>.
+     * Native name: khyphDelAndChange
      * @type {Integer (Int32)}
      */
-    static khyphDelAndChange => 6
+    static DelAndChange => 6
 }

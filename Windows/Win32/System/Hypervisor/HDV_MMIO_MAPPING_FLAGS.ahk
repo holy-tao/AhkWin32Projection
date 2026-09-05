@@ -7,17 +7,20 @@
 class HDV_MMIO_MAPPING_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: HdvMmioMappingFlagNone
      * @type {Integer (Int32)}
      */
-    static HdvMmioMappingFlagNone => 0
+    static FlagNone => 0
 
     /**
+     * Native name: HdvMmioMappingFlagWriteable
      * @type {Integer (Int32)}
      */
-    static HdvMmioMappingFlagWriteable => 1
+    static FlagWriteable => 1
 
     /**
+     * Native name: HdvMmioMappingFlagExecutable
      * @type {Integer (Int32)}
      */
-    static HdvMmioMappingFlagExecutable => 2
+    static FlagExecutable => 2
 }

@@ -7,22 +7,26 @@
 class eTlsSignatureAlgorithm extends Win32Enum {
 
     /**
+     * Native name: TlsSignatureAlgorithm_Anonymous
      * @type {Integer (Int32)}
      */
-    static TlsSignatureAlgorithm_Anonymous => 0
+    static Anonymous => 0
 
     /**
+     * Native name: TlsSignatureAlgorithm_Rsa
      * @type {Integer (Int32)}
      */
-    static TlsSignatureAlgorithm_Rsa => 1
+    static Rsa => 1
 
     /**
+     * Native name: TlsSignatureAlgorithm_Dsa
      * @type {Integer (Int32)}
      */
-    static TlsSignatureAlgorithm_Dsa => 2
+    static Dsa => 2
 
     /**
+     * Native name: TlsSignatureAlgorithm_Ecdsa
      * @type {Integer (Int32)}
      */
-    static TlsSignatureAlgorithm_Ecdsa => 3
+    static Ecdsa => 3
 }

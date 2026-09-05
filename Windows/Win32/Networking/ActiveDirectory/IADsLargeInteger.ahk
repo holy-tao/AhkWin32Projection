@@ -49,7 +49,6 @@ class IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HighPart() {
@@ -58,7 +57,6 @@ class IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnHighPart 
      * @returns {HRESULT} 
      */
@@ -68,7 +66,6 @@ class IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LowPart() {
@@ -77,7 +74,6 @@ class IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnLowPart 
      * @returns {HRESULT} 
      */

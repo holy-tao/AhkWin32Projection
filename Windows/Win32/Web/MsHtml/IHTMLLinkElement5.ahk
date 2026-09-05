@@ -37,7 +37,6 @@ class IHTMLLinkElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_sheet() {

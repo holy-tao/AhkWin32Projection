@@ -12,7 +12,8 @@ class MFVirtualCameraType extends Win32Enum {
 
     /**
      * The virtual camera is a software camera source.
+     * Native name: MFVirtualCameraType_SoftwareCameraSource
      * @type {Integer (Int32)}
      */
-    static MFVirtualCameraType_SoftwareCameraSource => 0
+    static SoftwareCameraSource => 0
 }

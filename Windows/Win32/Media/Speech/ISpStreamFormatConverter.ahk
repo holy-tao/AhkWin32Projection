@@ -38,7 +38,6 @@ class ISpStreamFormatConverter extends ISpStreamFormat {
     static VTableNames => ["SetBaseStream", "GetBaseStream", "SetFormat", "ResetSeekPosition", "ScaleConvertedToBaseOffset", "ScaleBaseToConvertedOffset"]
 
     /**
-     * 
      * @param {ISpStreamFormat} pStream 
      * @param {BOOL} fSetFormatToBaseStreamFormat 
      * @param {BOOL} fWriteToBaseStream 
@@ -50,7 +49,6 @@ class ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @returns {ISpStreamFormat} 
      */
     GetBaseStream() {
@@ -59,7 +57,6 @@ class ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidFormatIdOfConvertedStream 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatExOfConvertedStream 
      * @returns {HRESULT} 
@@ -70,7 +67,6 @@ class ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetSeekPosition() {
@@ -79,7 +75,6 @@ class ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Integer} ullOffsetConvertedStream 
      * @returns {Integer} 
      */
@@ -89,7 +84,6 @@ class ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Integer} ullOffsetBaseStream 
      * @returns {Integer} 
      */

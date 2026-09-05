@@ -9,57 +9,68 @@
 class REINSTALLMODE extends Win32Enum {
 
     /**
+     * Native name: REINSTALLMODE_REPAIR
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_REPAIR => 1
+    static REPAIR => 1
 
     /**
+     * Native name: REINSTALLMODE_FILEMISSING
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_FILEMISSING => 2
+    static FILEMISSING => 2
 
     /**
+     * Native name: REINSTALLMODE_FILEOLDERVERSION
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_FILEOLDERVERSION => 4
+    static FILEOLDERVERSION => 4
 
     /**
+     * Native name: REINSTALLMODE_FILEEQUALVERSION
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_FILEEQUALVERSION => 8
+    static FILEEQUALVERSION => 8
 
     /**
+     * Native name: REINSTALLMODE_FILEEXACT
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_FILEEXACT => 16
+    static FILEEXACT => 16
 
     /**
+     * Native name: REINSTALLMODE_FILEVERIFY
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_FILEVERIFY => 32
+    static FILEVERIFY => 32
 
     /**
+     * Native name: REINSTALLMODE_FILEREPLACE
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_FILEREPLACE => 64
+    static FILEREPLACE => 64
 
     /**
+     * Native name: REINSTALLMODE_MACHINEDATA
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_MACHINEDATA => 128
+    static MACHINEDATA => 128
 
     /**
+     * Native name: REINSTALLMODE_USERDATA
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_USERDATA => 256
+    static USERDATA => 256
 
     /**
+     * Native name: REINSTALLMODE_SHORTCUT
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_SHORTCUT => 512
+    static SHORTCUT => 512
 
     /**
+     * Native name: REINSTALLMODE_PACKAGE
      * @type {Integer (Int32)}
      */
-    static REINSTALLMODE_PACKAGE => 1024
+    static PACKAGE => 1024
 }

@@ -31,7 +31,6 @@ class IVBSAXEntityResolver extends IDispatch {
     static VTableNames => ["resolveEntity"]
 
     /**
-     * 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
      * @returns {VARIANT} 

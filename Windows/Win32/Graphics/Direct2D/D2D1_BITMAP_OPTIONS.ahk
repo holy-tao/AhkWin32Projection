@@ -24,34 +24,39 @@ class D2D1_BITMAP_OPTIONS extends Win32BitflagEnum {
 
     /**
      * The bitmap is created with default properties.
+     * Native name: D2D1_BITMAP_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAP_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * The bitmap can be used as a device context target.
+     * Native name: D2D1_BITMAP_OPTIONS_TARGET
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAP_OPTIONS_TARGET => 1
+    static TARGET => 1
 
     /**
      * The bitmap cannot be used as an input.
+     * Native name: D2D1_BITMAP_OPTIONS_CANNOT_DRAW
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAP_OPTIONS_CANNOT_DRAW => 2
+    static CANNOT_DRAW => 2
 
     /**
      * The bitmap can be read from the CPU.
+     * Native name: D2D1_BITMAP_OPTIONS_CPU_READ
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAP_OPTIONS_CPU_READ => 4
+    static CPU_READ => 4
 
     /**
      * The bitmap works with <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-getdc">ID2D1GdiInteropRenderTarget::GetDC</a>.
      * 
      * <div class="alert"><b>Note</b>  This flag is not available in Windows Store apps.</div>
      * <div> </div>
+     * Native name: D2D1_BITMAP_OPTIONS_GDI_COMPATIBLE
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAP_OPTIONS_GDI_COMPATIBLE => 8
+    static GDI_COMPATIBLE => 8
 }

@@ -13,9 +13,10 @@ class WS_METADATA_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_metadata_property">WS_METADATA_PROPERTY</a> structure contains  the current <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_metadata_state">WS_METADATA_STATE</a> of the metadata object.
+     * Native name: WS_METADATA_PROPERTY_STATE
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_PROPERTY_STATE => 1
+    static STATE => 1
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a> to specify
@@ -39,9 +40,10 @@ class WS_METADATA_PROPERTY_ID extends Win32Enum {
      *                     default value used is 32k bytes.
      *                 </li>
      * </ul>
+     * Native name: WS_METADATA_PROPERTY_HEAP_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_PROPERTY_HEAP_PROPERTIES => 2
+    static HEAP_PROPERTIES => 2
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a> to specify
@@ -54,9 +56,10 @@ class WS_METADATA_PROPERTY_ID extends Win32Enum {
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_policy_property_id">WS_POLICY_PROPERTY_ID</a> for more information on the
      *                     set of properties that may be specified here.
+     * Native name: WS_METADATA_PROPERTY_POLICY_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_PROPERTY_POLICY_PROPERTIES => 3
+    static POLICY_PROPERTIES => 3
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataproperty">WsGetMetadataProperty</a>.
@@ -64,9 +67,10 @@ class WS_METADATA_PROPERTY_ID extends Win32Enum {
      * 
      * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_metadata_property">WS_METADATA_PROPERTY</a> is a <b>SIZE_T</b> specifying the number of bytes allocated from the heap associated with the
      *                     metadata object.
+     * Native name: WS_METADATA_PROPERTY_HEAP_REQUESTED_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_PROPERTY_HEAP_REQUESTED_SIZE => 4
+    static HEAP_REQUESTED_SIZE => 4
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a>.
@@ -77,9 +81,10 @@ class WS_METADATA_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * The default value is 32.
+     * Native name: WS_METADATA_PROPERTY_MAX_DOCUMENTS
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_PROPERTY_MAX_DOCUMENTS => 5
+    static MAX_DOCUMENTS => 5
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a>.
@@ -96,9 +101,10 @@ class WS_METADATA_PROPERTY_ID extends Win32Enum {
      *                 
      * 
      * If the property is not specified, then the list of host names is empty.
+     * Native name: WS_METADATA_PROPERTY_HOST_NAMES
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_PROPERTY_HOST_NAMES => 6
+    static HOST_NAMES => 6
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a>.
@@ -116,7 +122,8 @@ class WS_METADATA_PROPERTY_ID extends Win32Enum {
      * 
      * Setting this value to <b>FALSE</b> may cause an application to use
      *                     an address returned from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmissingmetadatadocumentaddress">WsGetMissingMetadataDocumentAddress</a> that is from a host that it is not willing to accept metadata from.
+     * Native name: WS_METADATA_PROPERTY_VERIFY_HOST_NAMES
      * @type {Integer (Int32)}
      */
-    static WS_METADATA_PROPERTY_VERIFY_HOST_NAMES => 7
+    static VERIFY_HOST_NAMES => 7
 }

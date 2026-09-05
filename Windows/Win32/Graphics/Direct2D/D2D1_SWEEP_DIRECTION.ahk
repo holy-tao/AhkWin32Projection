@@ -10,13 +10,15 @@ class D2D1_SWEEP_DIRECTION extends Win32Enum {
 
     /**
      * Arcs are drawn in a counterclockwise (negative-angle) direction.
+     * Native name: D2D1_SWEEP_DIRECTION_COUNTER_CLOCKWISE
      * @type {Integer (Int32)}
      */
-    static D2D1_SWEEP_DIRECTION_COUNTER_CLOCKWISE => 0
+    static COUNTER_CLOCKWISE => 0
 
     /**
      * Arcs are drawn in a clockwise (positive-angle) direction.
+     * Native name: D2D1_SWEEP_DIRECTION_CLOCKWISE
      * @type {Integer (Int32)}
      */
-    static D2D1_SWEEP_DIRECTION_CLOCKWISE => 1
+    static CLOCKWISE => 1
 }

@@ -109,7 +109,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Quit() {
@@ -118,7 +117,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcx 
      * @param {Pointer<Integer>} pcy 
      * @returns {HRESULT} 
@@ -132,7 +130,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {BSTR} _Property 
      * @param {VARIANT} vtValue 
      * @returns {HRESULT} 
@@ -163,7 +160,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -185,7 +181,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FullName() {
@@ -195,7 +190,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -205,7 +199,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -214,7 +207,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -224,7 +216,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_StatusBar() {
@@ -233,7 +224,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -243,7 +233,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -253,7 +242,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {BSTR} StatusText 
      * @returns {HRESULT} 
      */
@@ -294,7 +282,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MenuBar() {
@@ -303,7 +290,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -313,7 +299,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_FullScreen() {
@@ -322,7 +307,6 @@ class IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bFullScreen 
      * @returns {HRESULT} 
      */

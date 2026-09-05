@@ -10,33 +10,38 @@ class DVD_CMD_FLAGS extends Win32Enum {
 
     /**
      * The DVD Navigator will not flush its buffers when it issues the command, will not send any events, and will not to block the thread of execution on any method call.
+     * Native name: DVD_CMD_FLAG_None
      * @type {Integer (Int32)}
      */
-    static DVD_CMD_FLAG_None => 0
+    static FLAG_None => 0
 
     /**
      * The DVD Navigator will flush all of its buffered video data before issuing the command. This can cause the DVD Navigator to discard approximately two seconds of video, which will decrease the response time but cause a gap in the playback data.
+     * Native name: DVD_CMD_FLAG_Flush
      * @type {Integer (Int32)}
      */
-    static DVD_CMD_FLAG_Flush => 1
+    static FLAG_Flush => 1
 
     /**
      * The DVD Navigator will send an <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ec-dvd-cmd-start">EC_DVD_CMD_START</a> event when the command begins, and an <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ec-dvd-cmd-end">EC_DVD_CMD_END</a> event when the command ends. The event parameters contain the status code of the operation.
+     * Native name: DVD_CMD_FLAG_SendEvents
      * @type {Integer (Int32)}
      */
-    static DVD_CMD_FLAG_SendEvents => 2
+    static FLAG_SendEvents => 2
 
     /**
      * The DVD Navigator blocks until the command completes or is canceled.
+     * Native name: DVD_CMD_FLAG_Block
      * @type {Integer (Int32)}
      */
-    static DVD_CMD_FLAG_Block => 4
+    static FLAG_Block => 4
 
     /**
      * Currently not used.
+     * Native name: DVD_CMD_FLAG_StartWhenRendered
      * @type {Integer (Int32)}
      */
-    static DVD_CMD_FLAG_StartWhenRendered => 8
+    static FLAG_StartWhenRendered => 8
 
     /**
      * The DVD Navigator will block until the specified action is actually rendered. This flag can be used with the following methods:
@@ -56,7 +61,8 @@ class DVD_CMD_FLAGS extends Win32Enum {
      * </li>
      * </ul>
      * For example, when used with <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-playchaptersautostop">PlayChaptersAutoStop</a>, this flag causes the DVD Navigator to block until the specified chapters have all played. When used with <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-selectsubpicturestream">SelectSubpictureStream</a>, the flag causes the DVD Navigator to block until the new subpicture is rendered.
+     * Native name: DVD_CMD_FLAG_EndAfterRendered
      * @type {Integer (Int32)}
      */
-    static DVD_CMD_FLAG_EndAfterRendered => 16
+    static FLAG_EndAfterRendered => 16
 }

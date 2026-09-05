@@ -37,7 +37,6 @@ class IRTCProfileEvent2 extends IRTCProfileEvent {
     }
 
     /**
-     * 
      * @returns {RTC_PROFILE_EVENT_TYPE} 
      */
     get_EventType() {

@@ -2670,7 +2670,6 @@ class WNet {
     }
 
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEA>} lpNetResource 
      * @param {Integer} pAuthBuffer 
@@ -2688,7 +2687,6 @@ class WNet {
     }
 
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {Integer} pAuthBuffer 
@@ -4138,7 +4136,6 @@ class WNet {
     }
 
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEA>} lpNetResource 
      * @param {Integer} pAuthBuffer 
@@ -4163,7 +4160,6 @@ class WNet {
     }
 
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {Integer} pAuthBuffer 
@@ -7418,7 +7414,6 @@ class WNet {
     }
 
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {Integer} lpAuthBuffer 
@@ -7480,7 +7475,6 @@ class WNet {
     }
 
     /**
-     * 
      * @param {PWSTR} lpName 
      * @param {BOOL} fForce 
      * @param {Integer} dwFlags 
@@ -8149,7 +8143,6 @@ class WNet {
     }
 
     /**
-     * 
      * @param {PWSTR} lpRemotePath 
      * @param {Integer} lpReadUseOptions 
      * @param {Integer} cbReadUseOptions 

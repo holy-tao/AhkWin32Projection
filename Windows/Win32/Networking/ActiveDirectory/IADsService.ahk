@@ -133,7 +133,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HostComputer() {
@@ -143,7 +142,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHostComputer 
      * @returns {HRESULT} 
      */
@@ -155,7 +153,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -165,7 +162,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDisplayName 
      * @returns {HRESULT} 
      */
@@ -177,7 +173,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Version() {
@@ -187,7 +182,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVersion 
      * @returns {HRESULT} 
      */
@@ -199,7 +193,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ServiceType() {
@@ -208,7 +201,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnServiceType 
      * @returns {HRESULT} 
      */
@@ -218,7 +210,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StartType() {
@@ -227,7 +218,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnStartType 
      * @returns {HRESULT} 
      */
@@ -237,7 +227,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -247,7 +236,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPath 
      * @returns {HRESULT} 
      */
@@ -259,7 +247,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StartupParameters() {
@@ -269,7 +256,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrStartupParameters 
      * @returns {HRESULT} 
      */
@@ -281,7 +267,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ErrorControl() {
@@ -290,7 +275,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnErrorControl 
      * @returns {HRESULT} 
      */
@@ -300,7 +284,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoadOrderGroup() {
@@ -310,7 +293,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLoadOrderGroup 
      * @returns {HRESULT} 
      */
@@ -322,7 +304,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServiceAccountName() {
@@ -332,7 +313,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServiceAccountName 
      * @returns {HRESULT} 
      */
@@ -344,7 +324,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServiceAccountPath() {
@@ -354,7 +333,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServiceAccountPath 
      * @returns {HRESULT} 
      */
@@ -366,7 +344,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Dependencies() {
@@ -376,7 +353,6 @@ class IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vDependencies 
      * @returns {HRESULT} 
      */

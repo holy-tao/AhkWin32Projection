@@ -7,12 +7,14 @@
 class BDA_CHANGE_STATE extends Win32Enum {
 
     /**
+     * Native name: BDA_CHANGES_COMPLETE
      * @type {Integer (Int32)}
      */
-    static BDA_CHANGES_COMPLETE => 0
+    static CHANGES_COMPLETE => 0
 
     /**
+     * Native name: BDA_CHANGES_PENDING
      * @type {Integer (Int32)}
      */
-    static BDA_CHANGES_PENDING => 1
+    static CHANGES_PENDING => 1
 }

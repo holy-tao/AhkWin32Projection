@@ -51,7 +51,6 @@ class ISVGAnimatedNumber extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ class ISVGAnimatedNumber extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_baseVal() {
@@ -70,7 +68,6 @@ class ISVGAnimatedNumber extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ class ISVGAnimatedNumber extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_animVal() {

@@ -10,49 +10,57 @@ class D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS extends Win32BitflagEnum {
 
     /**
      * No associated component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * If the format is a YUV format, indicates the Y component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_Y
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_Y => 1
+    static FLAG_Y => 1
 
     /**
      * If the format is a YUV format, indicates the U component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_U
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_U => 2
+    static FLAG_U => 2
 
     /**
      * If the format is a YUV format, indicates the V component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_V
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_V => 4
+    static FLAG_V => 4
 
     /**
      * If the format is an RGB/BGR format, indicates the R component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_R
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_R => 1
+    static FLAG_R => 1
 
     /**
      * If the format is an RGB/BGR format, indicates the G component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_G
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_G => 2
+    static FLAG_G => 2
 
     /**
      * If the format is an RGB/BGR format, indicates the B component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_B
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_B => 4
+    static FLAG_B => 4
 
     /**
      * If the format is an RGB/BGR format, indicates the A component.
+     * Native name: D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_A
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_A => 8
+    static FLAG_A => 8
 }

@@ -7,62 +7,74 @@
 class ASSOCCLASS extends Win32Enum {
 
     /**
+     * Native name: ASSOCCLASS_SHELL_KEY
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_SHELL_KEY => 0
+    static SHELL_KEY => 0
 
     /**
+     * Native name: ASSOCCLASS_PROGID_KEY
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_PROGID_KEY => 1
+    static PROGID_KEY => 1
 
     /**
+     * Native name: ASSOCCLASS_PROGID_STR
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_PROGID_STR => 2
+    static PROGID_STR => 2
 
     /**
+     * Native name: ASSOCCLASS_CLSID_KEY
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_CLSID_KEY => 3
+    static CLSID_KEY => 3
 
     /**
+     * Native name: ASSOCCLASS_CLSID_STR
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_CLSID_STR => 4
+    static CLSID_STR => 4
 
     /**
+     * Native name: ASSOCCLASS_APP_KEY
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_APP_KEY => 5
+    static APP_KEY => 5
 
     /**
+     * Native name: ASSOCCLASS_APP_STR
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_APP_STR => 6
+    static APP_STR => 6
 
     /**
+     * Native name: ASSOCCLASS_SYSTEM_STR
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_SYSTEM_STR => 7
+    static SYSTEM_STR => 7
 
     /**
+     * Native name: ASSOCCLASS_FOLDER
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_FOLDER => 8
+    static FOLDER => 8
 
     /**
+     * Native name: ASSOCCLASS_STAR
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_STAR => 9
+    static STAR => 9
 
     /**
+     * Native name: ASSOCCLASS_FIXED_PROGID_STR
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_FIXED_PROGID_STR => 10
+    static FIXED_PROGID_STR => 10
 
     /**
+     * Native name: ASSOCCLASS_PROTOCOL_STR
      * @type {Integer (Int32)}
      */
-    static ASSOCCLASS_PROTOCOL_STR => 11
+    static PROTOCOL_STR => 11
 }

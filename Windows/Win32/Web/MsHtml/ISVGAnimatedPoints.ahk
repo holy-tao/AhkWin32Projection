@@ -44,7 +44,6 @@ class ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPointList} v 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ class ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPointList} 
      */
     get_points() {
@@ -63,7 +61,6 @@ class ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPointList} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +70,6 @@ class ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPointList} 
      */
     get_animatedPoints() {

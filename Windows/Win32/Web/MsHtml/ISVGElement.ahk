@@ -67,7 +67,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +78,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xmlbase() {
@@ -89,7 +87,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGSVGElement} v 
      * @returns {HRESULT} 
      */
@@ -99,7 +96,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGSVGElement} 
      */
     get_ownerSVGElement() {
@@ -108,7 +104,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} v 
      * @returns {HRESULT} 
      */
@@ -118,7 +113,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_viewportElement() {
@@ -127,7 +121,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -137,7 +130,6 @@ class ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_focusable() {

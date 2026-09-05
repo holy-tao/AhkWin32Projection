@@ -10,13 +10,15 @@ class eAVEncVideoContentType extends Win32Enum {
 
     /**
      * Unknown or normal content. (Default.)
+     * Native name: eAVEncVideoContentType_Unknown
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoContentType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The content was captured with a fixed camera, such as a webcam.
+     * Native name: eAVEncVideoContentType_FixedCameraAngle
      * @type {Integer (Int32)}
      */
-    static eAVEncVideoContentType_FixedCameraAngle => 1
+    static FixedCameraAngle => 1
 }

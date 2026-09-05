@@ -10,19 +10,22 @@ class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS extends Win32BitflagEn
 
     /**
      * No options.
+     * Native name: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_NONE
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_NONE => 0
+    static OPTION_NONE => 0
 
     /**
      * Skip app package manifest validation.
+     * Native name: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_SKIP_VALIDATION
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_SKIP_VALIDATION => 1
+    static OPTION_SKIP_VALIDATION => 1
 
     /**
      * The app package manifest is localized.
+     * Native name: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_LOCALIZED
      * @type {Integer (Int32)}
      */
-    static APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_LOCALIZED => 2
+    static OPTION_LOCALIZED => 2
 }

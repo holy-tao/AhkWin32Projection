@@ -79,7 +79,6 @@ class IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -89,7 +88,6 @@ class IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_entities() {
@@ -98,7 +96,6 @@ class IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_notations() {
@@ -107,7 +104,6 @@ class IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_publicId() {
@@ -117,7 +113,6 @@ class IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_systemId() {
@@ -127,7 +122,6 @@ class IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_internalSubset() {

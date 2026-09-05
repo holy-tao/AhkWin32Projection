@@ -10,15 +10,17 @@ class eHeapEnumerationLevel extends Win32Enum {
 
     /**
      * A constant that specifies the enumeration should continue.
+     * Native name: HeapEnumerationEverything
      * @type {Integer (Int32)}
      */
-    static HeapEnumerationEverything => 0
+    static Everything => 0
 
     /**
      * A constant that specifies to the <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/nf-avrfsdk-verifierenumerateresource">VerifierEnumerateResource</a> function when the enumeration operation should stop.
      * 
      * Codes from 0x1 to 0xFFFFFFE are reserved.
+     * Native name: HeapEnumerationStop
      * @type {Integer (Int32)}
      */
-    static HeapEnumerationStop => -1
+    static Stop => -1
 }

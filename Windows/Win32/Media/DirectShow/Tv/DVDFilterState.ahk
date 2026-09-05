@@ -7,27 +7,32 @@
 class DVDFilterState extends Win32Enum {
 
     /**
+     * Native name: dvdState_Undefined
      * @type {Integer (Int32)}
      */
-    static dvdState_Undefined => -2
+    static Undefined => -2
 
     /**
+     * Native name: dvdState_Unitialized
      * @type {Integer (Int32)}
      */
-    static dvdState_Unitialized => -1
+    static Unitialized => -1
 
     /**
+     * Native name: dvdState_Stopped
      * @type {Integer (Int32)}
      */
-    static dvdState_Stopped => 0
+    static Stopped => 0
 
     /**
+     * Native name: dvdState_Paused
      * @type {Integer (Int32)}
      */
-    static dvdState_Paused => 1
+    static Paused => 1
 
     /**
+     * Native name: dvdState_Running
      * @type {Integer (Int32)}
      */
-    static dvdState_Running => 2
+    static Running => 2
 }

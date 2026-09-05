@@ -12,13 +12,15 @@ class SCROLLDIRECTION extends Win32Enum {
 
     /**
      * The flick action is a Scroll Up command.
+     * Native name: SCROLLDIRECTION_UP
      * @type {Integer (Int32)}
      */
-    static SCROLLDIRECTION_UP => 0
+    static UP => 0
 
     /**
      * The flick action is a Scroll Down command.
+     * Native name: SCROLLDIRECTION_DOWN
      * @type {Integer (Int32)}
      */
-    static SCROLLDIRECTION_DOWN => 1
+    static DOWN => 1
 }

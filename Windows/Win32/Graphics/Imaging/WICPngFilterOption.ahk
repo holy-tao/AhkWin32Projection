@@ -10,43 +10,50 @@ class WICPngFilterOption extends Win32Enum {
 
     /**
      * Indicates an unspecified PNG filter. This enables WIC to algorithmically choose the best filtering option for the image.
+     * Native name: WICPngFilterUnspecified
      * @type {Integer (Int32)}
      */
-    static WICPngFilterUnspecified => 0
+    static Unspecified => 0
 
     /**
      * Indicates no PNG filter.
+     * Native name: WICPngFilterNone
      * @type {Integer (Int32)}
      */
-    static WICPngFilterNone => 1
+    static None => 1
 
     /**
      * Indicates a PNG sub filter.
+     * Native name: WICPngFilterSub
      * @type {Integer (Int32)}
      */
-    static WICPngFilterSub => 2
+    static Sub => 2
 
     /**
      * Indicates a PNG up filter.
+     * Native name: WICPngFilterUp
      * @type {Integer (Int32)}
      */
-    static WICPngFilterUp => 3
+    static Up => 3
 
     /**
      * Indicates a PNG average filter.
+     * Native name: WICPngFilterAverage
      * @type {Integer (Int32)}
      */
-    static WICPngFilterAverage => 4
+    static Average => 4
 
     /**
      * Indicates a PNG paeth filter.
+     * Native name: WICPngFilterPaeth
      * @type {Integer (Int32)}
      */
-    static WICPngFilterPaeth => 5
+    static Paeth => 5
 
     /**
      * Indicates a PNG adaptive filter. This enables WIC to choose the best filtering mode on a per-scanline basis.
+     * Native name: WICPngFilterAdaptive
      * @type {Integer (Int32)}
      */
-    static WICPngFilterAdaptive => 6
+    static Adaptive => 6
 }

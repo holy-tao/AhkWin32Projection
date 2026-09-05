@@ -7,32 +7,38 @@
 class CRYPT_XML_X509DATA_TYPE extends Win32Enum {
 
     /**
+     * Native name: CRYPT_XML_X509DATA_TYPE_ISSUER_SERIAL
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_X509DATA_TYPE_ISSUER_SERIAL => 1
+    static ISSUER_SERIAL => 1
 
     /**
+     * Native name: CRYPT_XML_X509DATA_TYPE_SKI
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_X509DATA_TYPE_SKI => 2
+    static SKI => 2
 
     /**
+     * Native name: CRYPT_XML_X509DATA_TYPE_SUBJECT_NAME
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_X509DATA_TYPE_SUBJECT_NAME => 3
+    static SUBJECT_NAME => 3
 
     /**
+     * Native name: CRYPT_XML_X509DATA_TYPE_CERTIFICATE
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_X509DATA_TYPE_CERTIFICATE => 4
+    static CERTIFICATE => 4
 
     /**
+     * Native name: CRYPT_XML_X509DATA_TYPE_CRL
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_X509DATA_TYPE_CRL => 5
+    static CRL => 5
 
     /**
+     * Native name: CRYPT_XML_X509DATA_TYPE_CUSTOM
      * @type {Integer (UInt32)}
      */
-    static CRYPT_XML_X509DATA_TYPE_CUSTOM => 6
+    static CUSTOM => 6
 }

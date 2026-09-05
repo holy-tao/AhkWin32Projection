@@ -32,7 +32,6 @@ class INetCfgClass extends IUnknown {
     static VTableNames => ["FindComponent", "EnumComponents"]
 
     /**
-     * 
      * @param {PWSTR} pszwInfId 
      * @returns {INetCfgComponent} 
      */
@@ -44,7 +43,6 @@ class INetCfgClass extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumNetCfgComponent} 
      */
     EnumComponents() {

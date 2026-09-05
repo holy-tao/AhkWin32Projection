@@ -37,7 +37,6 @@ class IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -46,7 +45,6 @@ class IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvargdistance 
      * @returns {HRESULT} 
      */
@@ -56,7 +54,6 @@ class IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvargdistance 
      * @returns {HRESULT} 
      */
@@ -66,7 +63,6 @@ class IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvargdistance 
      * @returns {HRESULT} 
      */

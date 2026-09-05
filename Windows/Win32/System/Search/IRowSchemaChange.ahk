@@ -32,7 +32,6 @@ class IRowSchemaChange extends IRowChange {
     static VTableNames => ["DeleteColumns", "AddColumns"]
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBID>} rgColumnIDs 
      * @param {Pointer<Integer>} rgdwStatus 
@@ -46,7 +45,6 @@ class IRowSchemaChange extends IRowChange {
     }
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBCOLUMNINFO>} rgNewColumnInfo 
      * @param {Pointer<DBCOLUMNACCESS>} rgColumns 

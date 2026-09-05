@@ -7,12 +7,14 @@
 class NFC_SNEP_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: SnepRequestGet
      * @type {Integer (Int32)}
      */
-    static SnepRequestGet => 0
+    static Get => 0
 
     /**
+     * Native name: SnepRequestPut
      * @type {Integer (Int32)}
      */
-    static SnepRequestPut => 1
+    static Put => 1
 }

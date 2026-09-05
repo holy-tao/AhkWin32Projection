@@ -30,7 +30,6 @@ class IMFDXGICrossAdapterBuffer extends IUnknown {
     static VTableNames => ["GetResourceForDevice", "GetSubresourceIndexForDevice", "GetUnknownForDevice", "SetUnknownForDevice"]
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -41,7 +40,6 @@ class IMFDXGICrossAdapterBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @returns {Integer} 
      */
@@ -51,7 +49,6 @@ class IMFDXGICrossAdapterBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} guid 
      * @param {Pointer<Guid>} riid 
@@ -63,7 +60,6 @@ class IMFDXGICrossAdapterBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} guid 
      * @param {IUnknown} pUnkData 

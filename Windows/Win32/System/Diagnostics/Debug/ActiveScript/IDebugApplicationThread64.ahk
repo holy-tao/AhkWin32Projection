@@ -30,7 +30,6 @@ class IDebugApplicationThread64 extends IDebugApplicationThread {
     static VTableNames => ["SynchronousCallIntoThread64"]
 
     /**
-     * 
      * @param {IDebugThreadCall64} pstcb 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 

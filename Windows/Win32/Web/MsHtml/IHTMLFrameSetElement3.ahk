@@ -70,7 +70,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +79,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhashchange() {
@@ -90,7 +88,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -100,7 +97,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmessage() {
@@ -110,7 +106,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +115,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onoffline() {
@@ -130,7 +124,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -140,7 +133,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ononline() {
@@ -150,7 +142,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +151,6 @@ class IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstorage() {

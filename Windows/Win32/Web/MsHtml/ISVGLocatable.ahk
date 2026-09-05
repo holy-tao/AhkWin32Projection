@@ -46,7 +46,6 @@ class ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_nearestViewportElement() {
@@ -55,7 +54,6 @@ class ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_farthestViewportElement() {
@@ -64,7 +62,6 @@ class ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     getBBox() {
@@ -73,7 +70,6 @@ class ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     getCTM() {
@@ -82,7 +78,6 @@ class ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     getScreenCTM() {
@@ -91,7 +86,6 @@ class ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} pElement 
      * @returns {ISVGMatrix} 
      */

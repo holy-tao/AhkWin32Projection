@@ -135,7 +135,6 @@ class IInkRecognitionResult extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} selectionStart 
      * @param {Integer} selectionLength 
      * @param {Integer} maximumAlternates 

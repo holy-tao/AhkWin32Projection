@@ -30,7 +30,6 @@ class IDebugApplicationNodeEvents extends IUnknown {
     static VTableNames => ["onAddChild", "onRemoveChild", "onDetach", "onAttach"]
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpChild 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpChild 
      * @returns {HRESULT} 
      */
@@ -50,7 +48,6 @@ class IDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onDetach() {
@@ -59,7 +56,6 @@ class IDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpParent 
      * @returns {HRESULT} 
      */

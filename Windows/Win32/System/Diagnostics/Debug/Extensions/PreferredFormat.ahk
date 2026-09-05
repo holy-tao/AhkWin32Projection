@@ -7,39 +7,46 @@
 class PreferredFormat extends Win32Enum {
 
     /**
+     * Native name: FormatNone
      * @type {Integer (Int32)}
      */
-    static FormatNone => 0
+    static None => 0
 
     /**
+     * Native name: FormatSingleCharacter
      * @type {Integer (Int32)}
      */
-    static FormatSingleCharacter => 1
+    static SingleCharacter => 1
 
     /**
+     * Native name: FormatQuotedString
      * @type {Integer (Int32)}
      */
-    static FormatQuotedString => 2
+    static QuotedString => 2
 
     /**
+     * Native name: FormatString
      * @type {Integer (Int32)}
      */
-    static FormatString => 3
+    static String => 3
 
     /**
+     * Native name: FormatQuotedUnicodeString
      * @type {Integer (Int32)}
      */
-    static FormatQuotedUnicodeString => 4
+    static QuotedUnicodeString => 4
 
     /**
+     * Native name: FormatUnicodeString
      * @type {Integer (Int32)}
      */
-    static FormatUnicodeString => 5
+    static UnicodeString => 5
 
     /**
+     * Native name: FormatQuotedUTF8String
      * @type {Integer (Int32)}
      */
-    static FormatQuotedUTF8String => 6
+    static QuotedUTF8String => 6
 
     /**
      * @type {Integer (Int32)}
@@ -52,9 +59,10 @@ class PreferredFormat extends Win32Enum {
     static FormatBSTRString => 8
 
     /**
+     * Native name: FormatQuotedHString
      * @type {Integer (Int32)}
      */
-    static FormatQuotedHString => 9
+    static QuotedHString => 9
 
     /**
      * @type {Integer (Int32)}
@@ -62,19 +70,22 @@ class PreferredFormat extends Win32Enum {
     static FormatHString => 10
 
     /**
+     * Native name: FormatRaw
      * @type {Integer (Int32)}
      */
-    static FormatRaw => 11
+    static Raw => 11
 
     /**
+     * Native name: FormatEnumNameOnly
      * @type {Integer (Int32)}
      */
-    static FormatEnumNameOnly => 12
+    static EnumNameOnly => 12
 
     /**
+     * Native name: FormatEscapedStringWithQuote
      * @type {Integer (Int32)}
      */
-    static FormatEscapedStringWithQuote => 13
+    static EscapedStringWithQuote => 13
 
     /**
      * @type {Integer (Int32)}
@@ -82,7 +93,8 @@ class PreferredFormat extends Win32Enum {
     static FormatUTF32String => 14
 
     /**
+     * Native name: FormatQuotedUTF32String
      * @type {Integer (Int32)}
      */
-    static FormatQuotedUTF32String => 15
+    static QuotedUTF32String => 15
 }

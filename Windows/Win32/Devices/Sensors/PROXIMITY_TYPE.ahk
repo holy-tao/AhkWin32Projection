@@ -7,17 +7,20 @@
 class PROXIMITY_TYPE extends Win32Enum {
 
     /**
+     * Native name: ProximityType_ObjectProximity
      * @type {Integer (Int32)}
      */
-    static ProximityType_ObjectProximity => 0
+    static ObjectProximity => 0
 
     /**
+     * Native name: ProximityType_HumanProximity
      * @type {Integer (Int32)}
      */
-    static ProximityType_HumanProximity => 1
+    static HumanProximity => 1
 
     /**
+     * Native name: ProximityType_Force_Dword
      * @type {Integer (Int32)}
      */
-    static ProximityType_Force_Dword => -1
+    static Force_Dword => -1
 }

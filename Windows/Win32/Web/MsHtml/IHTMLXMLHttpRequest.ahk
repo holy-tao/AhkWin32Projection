@@ -87,7 +87,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -96,7 +95,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_responseBody() {
@@ -106,7 +104,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_responseText() {
@@ -116,7 +113,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_responseXML() {
@@ -125,7 +121,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_status() {
@@ -134,7 +129,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_statusText() {
@@ -144,7 +138,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -544,7 +536,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getAllResponseHeaders() {
@@ -554,7 +545,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @returns {BSTR} 
      */
@@ -567,7 +557,6 @@ class IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 

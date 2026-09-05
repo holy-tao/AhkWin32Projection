@@ -7,272 +7,326 @@
 class APPCOMMAND_ID extends Win32Enum {
 
     /**
+     * Native name: APPCOMMAND_BROWSER_BACKWARD
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BROWSER_BACKWARD => 1
+    static BROWSER_BACKWARD => 1
 
     /**
+     * Native name: APPCOMMAND_BROWSER_FORWARD
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BROWSER_FORWARD => 2
+    static BROWSER_FORWARD => 2
 
     /**
+     * Native name: APPCOMMAND_BROWSER_REFRESH
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BROWSER_REFRESH => 3
+    static BROWSER_REFRESH => 3
 
     /**
+     * Native name: APPCOMMAND_BROWSER_STOP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BROWSER_STOP => 4
+    static BROWSER_STOP => 4
 
     /**
+     * Native name: APPCOMMAND_BROWSER_SEARCH
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BROWSER_SEARCH => 5
+    static BROWSER_SEARCH => 5
 
     /**
+     * Native name: APPCOMMAND_BROWSER_FAVORITES
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BROWSER_FAVORITES => 6
+    static BROWSER_FAVORITES => 6
 
     /**
+     * Native name: APPCOMMAND_BROWSER_HOME
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BROWSER_HOME => 7
+    static BROWSER_HOME => 7
 
     /**
+     * Native name: APPCOMMAND_VOLUME_MUTE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_VOLUME_MUTE => 8
+    static VOLUME_MUTE => 8
 
     /**
+     * Native name: APPCOMMAND_VOLUME_DOWN
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_VOLUME_DOWN => 9
+    static VOLUME_DOWN => 9
 
     /**
+     * Native name: APPCOMMAND_VOLUME_UP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_VOLUME_UP => 10
+    static VOLUME_UP => 10
 
     /**
+     * Native name: APPCOMMAND_MEDIA_NEXTTRACK
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_NEXTTRACK => 11
+    static MEDIA_NEXTTRACK => 11
 
     /**
+     * Native name: APPCOMMAND_MEDIA_PREVIOUSTRACK
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_PREVIOUSTRACK => 12
+    static MEDIA_PREVIOUSTRACK => 12
 
     /**
+     * Native name: APPCOMMAND_MEDIA_STOP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_STOP => 13
+    static MEDIA_STOP => 13
 
     /**
+     * Native name: APPCOMMAND_MEDIA_PLAY_PAUSE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_PLAY_PAUSE => 14
+    static MEDIA_PLAY_PAUSE => 14
 
     /**
+     * Native name: APPCOMMAND_LAUNCH_MAIL
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_LAUNCH_MAIL => 15
+    static LAUNCH_MAIL => 15
 
     /**
+     * Native name: APPCOMMAND_LAUNCH_MEDIA_SELECT
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_LAUNCH_MEDIA_SELECT => 16
+    static LAUNCH_MEDIA_SELECT => 16
 
     /**
+     * Native name: APPCOMMAND_LAUNCH_APP1
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_LAUNCH_APP1 => 17
+    static LAUNCH_APP1 => 17
 
     /**
+     * Native name: APPCOMMAND_LAUNCH_APP2
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_LAUNCH_APP2 => 18
+    static LAUNCH_APP2 => 18
 
     /**
+     * Native name: APPCOMMAND_BASS_DOWN
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BASS_DOWN => 19
+    static BASS_DOWN => 19
 
     /**
+     * Native name: APPCOMMAND_BASS_BOOST
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BASS_BOOST => 20
+    static BASS_BOOST => 20
 
     /**
+     * Native name: APPCOMMAND_BASS_UP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_BASS_UP => 21
+    static BASS_UP => 21
 
     /**
+     * Native name: APPCOMMAND_TREBLE_DOWN
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_TREBLE_DOWN => 22
+    static TREBLE_DOWN => 22
 
     /**
+     * Native name: APPCOMMAND_TREBLE_UP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_TREBLE_UP => 23
+    static TREBLE_UP => 23
 
     /**
+     * Native name: APPCOMMAND_MICROPHONE_VOLUME_MUTE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MICROPHONE_VOLUME_MUTE => 24
+    static MICROPHONE_VOLUME_MUTE => 24
 
     /**
+     * Native name: APPCOMMAND_MICROPHONE_VOLUME_DOWN
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MICROPHONE_VOLUME_DOWN => 25
+    static MICROPHONE_VOLUME_DOWN => 25
 
     /**
+     * Native name: APPCOMMAND_MICROPHONE_VOLUME_UP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MICROPHONE_VOLUME_UP => 26
+    static MICROPHONE_VOLUME_UP => 26
 
     /**
+     * Native name: APPCOMMAND_HELP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_HELP => 27
+    static HELP => 27
 
     /**
+     * Native name: APPCOMMAND_FIND
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_FIND => 28
+    static FIND => 28
 
     /**
+     * Native name: APPCOMMAND_NEW
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_NEW => 29
+    static NEW => 29
 
     /**
+     * Native name: APPCOMMAND_OPEN
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_OPEN => 30
+    static OPEN => 30
 
     /**
+     * Native name: APPCOMMAND_CLOSE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_CLOSE => 31
+    static CLOSE => 31
 
     /**
+     * Native name: APPCOMMAND_SAVE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_SAVE => 32
+    static SAVE => 32
 
     /**
+     * Native name: APPCOMMAND_PRINT
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_PRINT => 33
+    static PRINT => 33
 
     /**
+     * Native name: APPCOMMAND_UNDO
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_UNDO => 34
+    static UNDO => 34
 
     /**
+     * Native name: APPCOMMAND_REDO
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_REDO => 35
+    static REDO => 35
 
     /**
+     * Native name: APPCOMMAND_COPY
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_COPY => 36
+    static COPY => 36
 
     /**
+     * Native name: APPCOMMAND_CUT
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_CUT => 37
+    static CUT => 37
 
     /**
+     * Native name: APPCOMMAND_PASTE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_PASTE => 38
+    static PASTE => 38
 
     /**
+     * Native name: APPCOMMAND_REPLY_TO_MAIL
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_REPLY_TO_MAIL => 39
+    static REPLY_TO_MAIL => 39
 
     /**
+     * Native name: APPCOMMAND_FORWARD_MAIL
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_FORWARD_MAIL => 40
+    static FORWARD_MAIL => 40
 
     /**
+     * Native name: APPCOMMAND_SEND_MAIL
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_SEND_MAIL => 41
+    static SEND_MAIL => 41
 
     /**
+     * Native name: APPCOMMAND_SPELL_CHECK
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_SPELL_CHECK => 42
+    static SPELL_CHECK => 42
 
     /**
+     * Native name: APPCOMMAND_DICTATE_OR_COMMAND_CONTROL_TOGGLE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_DICTATE_OR_COMMAND_CONTROL_TOGGLE => 43
+    static DICTATE_OR_COMMAND_CONTROL_TOGGLE => 43
 
     /**
+     * Native name: APPCOMMAND_MIC_ON_OFF_TOGGLE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MIC_ON_OFF_TOGGLE => 44
+    static MIC_ON_OFF_TOGGLE => 44
 
     /**
+     * Native name: APPCOMMAND_CORRECTION_LIST
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_CORRECTION_LIST => 45
+    static CORRECTION_LIST => 45
 
     /**
+     * Native name: APPCOMMAND_MEDIA_PLAY
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_PLAY => 46
+    static MEDIA_PLAY => 46
 
     /**
+     * Native name: APPCOMMAND_MEDIA_PAUSE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_PAUSE => 47
+    static MEDIA_PAUSE => 47
 
     /**
+     * Native name: APPCOMMAND_MEDIA_RECORD
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_RECORD => 48
+    static MEDIA_RECORD => 48
 
     /**
+     * Native name: APPCOMMAND_MEDIA_FAST_FORWARD
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_FAST_FORWARD => 49
+    static MEDIA_FAST_FORWARD => 49
 
     /**
+     * Native name: APPCOMMAND_MEDIA_REWIND
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_REWIND => 50
+    static MEDIA_REWIND => 50
 
     /**
+     * Native name: APPCOMMAND_MEDIA_CHANNEL_UP
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_CHANNEL_UP => 51
+    static MEDIA_CHANNEL_UP => 51
 
     /**
+     * Native name: APPCOMMAND_MEDIA_CHANNEL_DOWN
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_MEDIA_CHANNEL_DOWN => 52
+    static MEDIA_CHANNEL_DOWN => 52
 
     /**
+     * Native name: APPCOMMAND_DELETE
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_DELETE => 53
+    static DELETE => 53
 
     /**
+     * Native name: APPCOMMAND_DWM_FLIP3D
      * @type {Integer (UInt32)}
      */
-    static APPCOMMAND_DWM_FLIP3D => 54
+    static DWM_FLIP3D => 54
 }

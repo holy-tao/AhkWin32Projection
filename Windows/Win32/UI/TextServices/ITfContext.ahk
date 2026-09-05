@@ -288,7 +288,6 @@ class ITfContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumTfContextViews} 
      */
     EnumViews() {

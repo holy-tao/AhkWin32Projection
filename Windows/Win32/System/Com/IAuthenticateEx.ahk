@@ -32,7 +32,6 @@ class IAuthenticateEx extends IAuthenticate {
     static VTableNames => ["AuthenticateEx"]
 
     /**
-     * 
      * @param {Pointer<HWND>} phwnd 
      * @param {Pointer<PWSTR>} pszUsername 
      * @param {Pointer<PWSTR>} pszPassword 

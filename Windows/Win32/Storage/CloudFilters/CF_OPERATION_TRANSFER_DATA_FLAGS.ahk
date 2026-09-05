@@ -10,7 +10,8 @@ class CF_OPERATION_TRANSFER_DATA_FLAGS extends Win32BitflagEnum {
 
     /**
      * No transfer data flag.
+     * Native name: CF_OPERATION_TRANSFER_DATA_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_TRANSFER_DATA_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

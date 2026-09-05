@@ -10,13 +10,15 @@ class AUDIT_EVENT_TYPE extends Win32Enum {
 
     /**
      * Indicates an object that generates audit messages only if the system administrator has enabled auditing access to files and objects.
+     * Native name: AuditEventObjectAccess
      * @type {Integer (Int32)}
      */
-    static AuditEventObjectAccess => 0
+    static ObjectAccess => 0
 
     /**
      * Indicates a directory service object that generates audit messages only if the system administrator has enabled auditing access to directory service objects.
+     * Native name: AuditEventDirectoryServiceAccess
      * @type {Integer (Int32)}
      */
-    static AuditEventDirectoryServiceAccess => 1
+    static DirectoryServiceAccess => 1
 }

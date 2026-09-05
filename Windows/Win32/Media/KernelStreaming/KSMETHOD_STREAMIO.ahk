@@ -7,12 +7,14 @@
 class KSMETHOD_STREAMIO extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_STREAMIO_READ
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_STREAMIO_READ => 0
+    static READ => 0
 
     /**
+     * Native name: KSMETHOD_STREAMIO_WRITE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_STREAMIO_WRITE => 1
+    static WRITE => 1
 }

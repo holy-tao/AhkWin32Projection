@@ -38,7 +38,6 @@ class IMSMQPrivateDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Handle() {
@@ -48,7 +47,6 @@ class IMSMQPrivateDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varHandle 
      * @returns {HRESULT} 
      */

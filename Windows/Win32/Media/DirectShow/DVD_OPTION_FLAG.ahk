@@ -96,9 +96,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * The default value is <b>TRUE</b>.
      * 
      * The default behavior is not always desirable, because the filter graph might be stopped unexpectedly. This can happen, for example, if the screen resolution changes, a screen saver starts, or the computer goes into suspended mode. In these situations, the user probably wants playback to restart from the same point. Typically, the application should set this flag to <b>FALSE</b> immediately before calling <a href="https://docs.microsoft.com/windows/desktop/api/control/nf-control-imediacontrol-run">IMediaControl::Run</a>. It should set the flag to <b>TRUE</b> before calling <a href="https://docs.microsoft.com/windows/desktop/api/control/nf-control-imediacontrol-stop">IMediaControl::Stop</a> in response to an explicit user to command to stop playback.
+     * Native name: DVD_ResetOnStop
      * @type {Integer (Int32)}
      */
-    static DVD_ResetOnStop => 1
+    static ResetOnStop => 1
 
     /**
      * Specifies whether the DVD Navigator notifies the application when the parental level changes on the disc.
@@ -123,9 +124,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * 
      * 
      * The default value <b>FALSE</b>.
+     * Native name: DVD_NotifyParentalLevelChange
      * @type {Integer (Int32)}
      */
-    static DVD_NotifyParentalLevelChange => 2
+    static NotifyParentalLevelChange => 2
 
     /**
      * Specifies the format for timecode information.
@@ -150,9 +152,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * 
      * 
      * For backward compatibility, the default value is [DVD_HMSF_TIMECODE](/windows/desktop/api/strmif/ns-strmif-dvd_hmsf_timecode) format is easier to use.
+     * Native name: DVD_HMSF_TimeCodeEvents
      * @type {Integer (Int32)}
      */
-    static DVD_HMSF_TimeCodeEvents => 3
+    static HMSF_TimeCodeEvents => 3
 
     /**
      * Specifies the format for timecode information.
@@ -183,9 +186,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * <c>DWORD HKLM\Software\Microsoft\DVDNavigator\AudioDuringFFwdRev = 1</c>
      * 
      * This has the same effect as setting the DVD_AudioDuringFFwdRew flag to <b>TRUE</b>.
+     * Native name: DVD_AudioDuringFFwdRew
      * @type {Integer (Int32)}
      */
-    static DVD_AudioDuringFFwdRew => 4
+    static AudioDuringFFwdRew => 4
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows XP Service Pack 2 or later.
@@ -198,9 +202,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * If this flag is <b>TRUE</b>, those functions no longer block. Instead, if the DVD Navigator cannot complete the operation immediately, the function returns <b>VFW_E_DVD_NONBLOCKING</b>. If the application sets this flag to <b>TRUE</b>, it must handle the <b>VFW_E_DVD_NONBLOCKING</b> error code. Usually the correct behavior is to poll the function until the function succeeds or returns some other error code.
      * 
      * This flag affects at least the following methods: <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-activateatposition">IDvdControl2::ActivateAtPosition</a>, <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-selectatposition">IDvdControl2::SelectAtPosition</a>, <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getcurrentlocation">IDvdInfo2::GetCurrentLocation</a>, <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getstate">IDvdInfo2::GetState</a>. This list may be expanded in the future.
+     * Native name: DVD_EnableNonblockingAPIs
      * @type {Integer (Int32)}
      */
-    static DVD_EnableNonblockingAPIs => 5
+    static EnableNonblockingAPIs => 5
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows Vista or later.</div>
@@ -212,9 +217,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * If the application sets this flag to a large value (&gt; 50 MB), the DVD drive may spin down after the initial pre-fetch, depending on the hardware.
      * 
      * You can also set the cache size by creating the following registry key: <c>HKLM\Software\Microsoft\DVDNavigator\CacheSizeInMB</c>. This registry key is intended for diagnostic purposes only. Applications should use the <b>DVD_CacheSizeInMB</b> flag, not the registry key.
+     * Native name: DVD_CacheSizeInMB
      * @type {Integer (Int32)}
      */
-    static DVD_CacheSizeInMB => 6
+    static CacheSizeInMB => 6
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows Vista or later.
@@ -242,9 +248,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * 
      * 
      * The default value is <b>FALSE</b>.
+     * Native name: DVD_EnablePortableBookmarks
      * @type {Integer (Int32)}
      */
-    static DVD_EnablePortableBookmarks => 7
+    static EnablePortableBookmarks => 7
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows Vista or later.
@@ -263,9 +270,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * If this flag is <b>FALSE</b>, all copy protection errors are reported using the general <b>DVD_PB_STOPPED_CopyProtectFailure</b> error code.
      * 
      * For backward compatibility, the default value is <b>FALSE</b>.
+     * Native name: DVD_EnableExtendedCopyProtectErrors
      * @type {Integer (Int32)}
      */
-    static DVD_EnableExtendedCopyProtectErrors => 8
+    static EnableExtendedCopyProtectErrors => 8
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
@@ -287,9 +295,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * </li>
      * </ul>
      * The default value for this flag is <b>FALSE</b>.
+     * Native name: DVD_NotifyPositionChange
      * @type {Integer (Int32)}
      */
-    static DVD_NotifyPositionChange => 9
+    static NotifyPositionChange => 9
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
@@ -319,9 +328,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * 
      * 
      * The default value is zero. These flags are intended for purposes. The recommended value is zero.
+     * Native name: DVD_IncreaseOutputControl
      * @type {Integer (Int32)}
      */
-    static DVD_IncreaseOutputControl => 10
+    static IncreaseOutputControl => 10
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
@@ -332,9 +342,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * Enables or disables <i>streaming mode</i>. In streaming mode, bad blocks on the disc are skipped. The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-navigator-filter">DVD Navigator</a> receives partially corrected data. This mode generally produces better results when playing scratched or damaged disks, because it results in brief video corruption, rather than long waits that block playback. The DVD drive must support streaming I/O.
      * 
      * The default value is <b>TRUE</b>.
+     * Native name: DVD_EnableStreaming
      * @type {Integer (Int32)}
      */
-    static DVD_EnableStreaming => 11
+    static EnableStreaming => 11
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
@@ -345,9 +356,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * Enables the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/data-flow-in-the-dvd-navigator">DVD Navigator</a> to output elementary streams. For more information, see the media types listed in the topic <a href="https://docs.microsoft.com/windows/desktop/DirectShow/data-flow-in-the-dvd-navigator">DVD Navigator Filter</a>.
      * 
      * The default value is <b>FALSE</b>.
+     * Native name: DVD_EnableESOutput
      * @type {Integer (Int32)}
      */
-    static DVD_EnableESOutput => 12
+    static EnableESOutput => 12
 
     /**
      * <i></i>
@@ -378,9 +390,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * 
      * 
      * The default value is <b>FALSE</b>.
+     * Native name: DVD_EnableTitleLength
      * @type {Integer (Int32)}
      */
-    static DVD_EnableTitleLength => 13
+    static EnableTitleLength => 13
 
     /**
      * If this flag is <b>TRUE</b>, it disables a call to <c>Sleep(1)</c> that the Navigator otherwise makes when displaying stills.
@@ -391,9 +404,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
      *             </div>
      * <div> </div>
+     * Native name: DVD_DisableStillThrottle
      * @type {Integer (Int32)}
      */
-    static DVD_DisableStillThrottle => 14
+    static DisableStillThrottle => 14
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
@@ -424,9 +438,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * </li>
      * </ul>
      * The default value for this flag is <b>FALSE</b>.
+     * Native name: DVD_EnableLoggingEvents
      * @type {Integer (Int32)}
      */
-    static DVD_EnableLoggingEvents => 15
+    static EnableLoggingEvents => 15
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
@@ -437,9 +452,10 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * The maximum amount of data that the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-navigator-filter">DVD Navigator</a> will read ahead in a single burst, in kilobytes. For this flag, the <i>bEnable</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-setoption">SetOption</a> is interpreted as a <b>DWORD</b> value.
      * 
      * The default value is 128 KB.
+     * Native name: DVD_MaxReadBurstInKB
      * @type {Integer (Int32)}
      */
-    static DVD_MaxReadBurstInKB => 16
+    static MaxReadBurstInKB => 16
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.
@@ -450,17 +466,20 @@ class DVD_OPTION_FLAG extends Win32Enum {
      * How often to perform burst reads into the cache, in milliseconds. For this flag, the <i>bEnable</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-setoption">SetOption</a> is interpreted as a <b>DWORD</b> value.
      * 
      * The default value is 250 milliseconds.
+     * Native name: DVD_ReadBurstPeriodInMS
      * @type {Integer (Int32)}
      */
-    static DVD_ReadBurstPeriodInMS => 17
+    static ReadBurstPeriodInMS => 17
 
     /**
+     * Native name: DVD_RestartDisc
      * @type {Integer (Int32)}
      */
-    static DVD_RestartDisc => 18
+    static RestartDisc => 18
 
     /**
+     * Native name: DVD_EnableCC
      * @type {Integer (Int32)}
      */
-    static DVD_EnableCC => 19
+    static EnableCC => 19
 }

@@ -31,7 +31,6 @@ class IDebugHostType4 extends IDebugHostType3 {
     static VTableNames => ["GetExtendedArrayHeaderSize", "GetExtendedArrayDimensions", "GetUDTKind"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExtendedArrayHeaderSize() {
@@ -40,7 +39,6 @@ class IDebugHostType4 extends IDebugHostType3 {
     }
 
     /**
-     * 
      * @param {Integer} dimensions 
      * @returns {ExtendedArrayDimension} 
      */
@@ -51,7 +49,6 @@ class IDebugHostType4 extends IDebugHostType3 {
     }
 
     /**
-     * 
      * @returns {UDTKind} 
      */
     GetUDTKind() {

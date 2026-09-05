@@ -29,7 +29,6 @@ class IDebugHostStatus extends IUnknown {
     static VTableNames => ["PollUserInterrupt"]
 
     /**
-     * 
      * @returns {Boolean} 
      */
     PollUserInterrupt() {

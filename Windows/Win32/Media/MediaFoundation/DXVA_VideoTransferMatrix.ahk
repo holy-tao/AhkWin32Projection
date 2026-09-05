@@ -7,32 +7,38 @@
 class DXVA_VideoTransferMatrix extends Win32Enum {
 
     /**
+     * Native name: DXVA_VideoTransferMatrixShift
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoTransferMatrixShift => 15
+    static Shift => 15
 
     /**
+     * Native name: DXVA_VideoTransferMatrixMask
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoTransferMatrixMask => 229376
+    static Mask => 229376
 
     /**
+     * Native name: DXVA_VideoTransferMatrix_Unknown
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoTransferMatrix_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DXVA_VideoTransferMatrix_BT709
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoTransferMatrix_BT709 => 1
+    static BT709 => 1
 
     /**
+     * Native name: DXVA_VideoTransferMatrix_BT601
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoTransferMatrix_BT601 => 2
+    static BT601 => 2
 
     /**
+     * Native name: DXVA_VideoTransferMatrix_SMPTE240M
      * @type {Integer (Int32)}
      */
-    static DXVA_VideoTransferMatrix_SMPTE240M => 3
+    static SMPTE240M => 3
 }

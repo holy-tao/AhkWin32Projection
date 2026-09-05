@@ -7,12 +7,14 @@
 class AMPROPERTY_PIN extends Win32Enum {
 
     /**
+     * Native name: AMPROPERTY_PIN_CATEGORY
      * @type {Integer (Int32)}
      */
-    static AMPROPERTY_PIN_CATEGORY => 0
+    static CATEGORY => 0
 
     /**
+     * Native name: AMPROPERTY_PIN_MEDIUM
      * @type {Integer (Int32)}
      */
-    static AMPROPERTY_PIN_MEDIUM => 1
+    static MEDIUM => 1
 }

@@ -81,7 +81,6 @@ class IPropertyStoreCache extends IPropertyStore {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @param {PSC_STATE} state 
      * @returns {HRESULT} 

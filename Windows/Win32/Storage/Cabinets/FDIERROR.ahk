@@ -7,67 +7,80 @@
 class FDIERROR extends Win32Enum {
 
     /**
+     * Native name: FDIERROR_NONE
      * @type {Integer (Int32)}
      */
-    static FDIERROR_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: FDIERROR_CABINET_NOT_FOUND
      * @type {Integer (Int32)}
      */
-    static FDIERROR_CABINET_NOT_FOUND => 1
+    static CABINET_NOT_FOUND => 1
 
     /**
+     * Native name: FDIERROR_NOT_A_CABINET
      * @type {Integer (Int32)}
      */
-    static FDIERROR_NOT_A_CABINET => 2
+    static NOT_A_CABINET => 2
 
     /**
+     * Native name: FDIERROR_UNKNOWN_CABINET_VERSION
      * @type {Integer (Int32)}
      */
-    static FDIERROR_UNKNOWN_CABINET_VERSION => 3
+    static UNKNOWN_CABINET_VERSION => 3
 
     /**
+     * Native name: FDIERROR_CORRUPT_CABINET
      * @type {Integer (Int32)}
      */
-    static FDIERROR_CORRUPT_CABINET => 4
+    static CORRUPT_CABINET => 4
 
     /**
+     * Native name: FDIERROR_ALLOC_FAIL
      * @type {Integer (Int32)}
      */
-    static FDIERROR_ALLOC_FAIL => 5
+    static ALLOC_FAIL => 5
 
     /**
+     * Native name: FDIERROR_BAD_COMPR_TYPE
      * @type {Integer (Int32)}
      */
-    static FDIERROR_BAD_COMPR_TYPE => 6
+    static BAD_COMPR_TYPE => 6
 
     /**
+     * Native name: FDIERROR_MDI_FAIL
      * @type {Integer (Int32)}
      */
-    static FDIERROR_MDI_FAIL => 7
+    static MDI_FAIL => 7
 
     /**
+     * Native name: FDIERROR_TARGET_FILE
      * @type {Integer (Int32)}
      */
-    static FDIERROR_TARGET_FILE => 8
+    static TARGET_FILE => 8
 
     /**
+     * Native name: FDIERROR_RESERVE_MISMATCH
      * @type {Integer (Int32)}
      */
-    static FDIERROR_RESERVE_MISMATCH => 9
+    static RESERVE_MISMATCH => 9
 
     /**
+     * Native name: FDIERROR_WRONG_CABINET
      * @type {Integer (Int32)}
      */
-    static FDIERROR_WRONG_CABINET => 10
+    static WRONG_CABINET => 10
 
     /**
+     * Native name: FDIERROR_USER_ABORT
      * @type {Integer (Int32)}
      */
-    static FDIERROR_USER_ABORT => 11
+    static USER_ABORT => 11
 
     /**
+     * Native name: FDIERROR_EOF
      * @type {Integer (Int32)}
      */
-    static FDIERROR_EOF => 12
+    static EOF => 12
 }

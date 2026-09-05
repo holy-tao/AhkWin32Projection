@@ -30,7 +30,6 @@ class IKernelTransaction extends IUnknown {
     static VTableNames => ["GetHandle"]
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     GetHandle() {

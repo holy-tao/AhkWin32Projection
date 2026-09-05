@@ -31,7 +31,6 @@ class ID2D1Device7 extends ID2D1Device6 {
     static VTableNames => ["CreateDeviceContext"]
 
     /**
-     * 
      * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options 
      * @returns {ID2D1DeviceContext7} 
      */

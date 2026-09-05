@@ -52,7 +52,6 @@ class IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @param {Integer} itemEffectiveId 
      * @returns {IDispatch} 
      */
@@ -62,7 +61,6 @@ class IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastItemDownloadTime() {
@@ -71,7 +69,6 @@ class IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Username() {
@@ -81,7 +78,6 @@ class IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Password() {
@@ -91,7 +87,6 @@ class IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @param {BSTR} username 
      * @param {BSTR} password 
      * @returns {HRESULT} 
@@ -105,7 +100,6 @@ class IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearCredentials() {

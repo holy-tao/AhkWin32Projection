@@ -29,7 +29,6 @@ class IDebugHostBaseClass2 extends IDebugHostBaseClass {
     static VTableNames => ["IsVirtual", "GetVirtualBaseOffsetLocation"]
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsVirtual() {
@@ -38,7 +37,6 @@ class IDebugHostBaseClass2 extends IDebugHostBaseClass {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pTableOffset 
      * @param {Pointer<Integer>} pSlotOffset 
      * @param {Pointer<Integer>} pSlotSize 

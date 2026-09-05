@@ -7,12 +7,14 @@
 class OPM_HDCP_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: OPM_HDCP_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
+     * Native name: OPM_HDCP_FLAG_REPEATER
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_FLAG_REPEATER => 1
+    static FLAG_REPEATER => 1
 }

@@ -10,19 +10,22 @@ class CF_SYNC_ROOT_INFO_CLASS extends Win32Enum {
 
     /**
      * Basic sync root information is provided. See [CF_SYNC_ROOT_BASIC_INFO](ns-cfapi-cf_sync_root_basic_info.md).
+     * Native name: CF_SYNC_ROOT_INFO_BASIC
      * @type {Integer (Int32)}
      */
-    static CF_SYNC_ROOT_INFO_BASIC => 0
+    static BASIC => 0
 
     /**
      * Standard sync root information is provided. See [CF_SYNC_ROOT_STANDARD_INFO](ns-cfapi-cf_sync_root_standard_info.md).
+     * Native name: CF_SYNC_ROOT_INFO_STANDARD
      * @type {Integer (Int32)}
      */
-    static CF_SYNC_ROOT_INFO_STANDARD => 1
+    static STANDARD => 1
 
     /**
      * Sync root provider information is being provided. See [CF_SYNC_ROOT_PROVIDER_INFO](ns-cfapi-cf_sync_root_provider_info.md).
+     * Native name: CF_SYNC_ROOT_INFO_PROVIDER
      * @type {Integer (Int32)}
      */
-    static CF_SYNC_ROOT_INFO_PROVIDER => 2
+    static PROVIDER => 2
 }

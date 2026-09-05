@@ -29,7 +29,6 @@ class ICLRGCManager2 extends ICLRGCManager {
     static VTableNames => ["SetGCStartupLimitsEx"]
 
     /**
-     * 
      * @param {Pointer} SegmentSize 
      * @param {Pointer} MaxGen0Size 
      * @returns {HRESULT} 

@@ -10,15 +10,17 @@ class DHCP_OPTION_DATA_TYPE extends Win32Enum {
 
     /**
      * The option data is stored as a BYTE value.
+     * Native name: DhcpByteOption
      * @type {Integer (Int32)}
      */
-    static DhcpByteOption => 0
+    static ByteOption => 0
 
     /**
      * The option data is stored as a WORD value.
+     * Native name: DhcpWordOption
      * @type {Integer (Int32)}
      */
-    static DhcpWordOption => 1
+    static WordOption => 1
 
     /**
      * The option data is stored as a DWORD value.
@@ -34,31 +36,36 @@ class DHCP_OPTION_DATA_TYPE extends Win32Enum {
 
     /**
      * The option data is an IP address, stored as a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value (DWORD).
+     * Native name: DhcpIpAddressOption
      * @type {Integer (Int32)}
      */
-    static DhcpIpAddressOption => 4
+    static IpAddressOption => 4
 
     /**
      * The option data is stored as a Unicode string.
+     * Native name: DhcpStringDataOption
      * @type {Integer (Int32)}
      */
-    static DhcpStringDataOption => 5
+    static StringDataOption => 5
 
     /**
      * The option data is stored as a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_BINARY_DATA</a> structure.
+     * Native name: DhcpBinaryDataOption
      * @type {Integer (Int32)}
      */
-    static DhcpBinaryDataOption => 6
+    static BinaryDataOption => 6
 
     /**
      * The option data is encapsulated and stored as a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_BINARY_DATA</a> structure.
+     * Native name: DhcpEncapsulatedDataOption
      * @type {Integer (Int32)}
      */
-    static DhcpEncapsulatedDataOption => 7
+    static EncapsulatedDataOption => 7
 
     /**
      * The option data is stored as a Unicode string.
+     * Native name: DhcpIpv6AddressOption
      * @type {Integer (Int32)}
      */
-    static DhcpIpv6AddressOption => 8
+    static Ipv6AddressOption => 8
 }

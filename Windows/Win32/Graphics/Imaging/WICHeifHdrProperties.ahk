@@ -49,31 +49,36 @@ class WICHeifHdrProperties extends Win32Enum {
 
     /**
      * [VT_UI2] Specifies the maximum luminance level of the content in Nits.
+     * Native name: WICHeifHdrMaximumLuminanceLevel
      * @type {Integer (Int32)}
      */
-    static WICHeifHdrMaximumLuminanceLevel => 1
+    static MaximumLuminanceLevel => 1
 
     /**
      * [VT_UI2] Specifies the maximum average per-frame luminance level of the content in Nits.
+     * Native name: WICHeifHdrMaximumFrameAverageLuminanceLevel
      * @type {Integer (Int32)}
      */
-    static WICHeifHdrMaximumFrameAverageLuminanceLevel => 2
+    static MaximumFrameAverageLuminanceLevel => 2
 
     /**
      * [VT_UI2] Specifies the maximum luminance of the display on which the content was authored, in Nits.
+     * Native name: WICHeifHdrMinimumMasteringDisplayLuminanceLevel
      * @type {Integer (Int32)}
      */
-    static WICHeifHdrMinimumMasteringDisplayLuminanceLevel => 3
+    static MinimumMasteringDisplayLuminanceLevel => 3
 
     /**
      * [VT_UI2] Specifies the maximum luminance of the display on which the content was authored, in Nits.
+     * Native name: WICHeifHdrMaximumMasteringDisplayLuminanceLevel
      * @type {Integer (Int32)}
      */
-    static WICHeifHdrMaximumMasteringDisplayLuminanceLevel => 4
+    static MaximumMasteringDisplayLuminanceLevel => 4
 
     /**
      * [VT_BLOB] Specifies custom color primaries for a video media type. The value of this property is a [MT_CUSTOM_VIDEO_PRIMARIES](/windows/desktop/api/mfapi/ns-mfapi-mt_custom_video_primaries)structure, returned as an array of bytes (VT_BLOB).
+     * Native name: WICHeifHdrCustomVideoPrimaries
      * @type {Integer (Int32)}
      */
-    static WICHeifHdrCustomVideoPrimaries => 5
+    static CustomVideoPrimaries => 5
 }

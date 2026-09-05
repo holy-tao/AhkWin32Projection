@@ -14,79 +14,92 @@ class ADS_SD_CONTROL_ENUM extends Win32Enum {
 
     /**
      * A default mechanism provides the owner security identifier (SID) of the security descriptor rather than the original provider of the security descriptor.
+     * Native name: ADS_SD_CONTROL_SE_OWNER_DEFAULTED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_OWNER_DEFAULTED => 1
+    static SE_OWNER_DEFAULTED => 1
 
     /**
      * A default mechanism provides the group SID of the security descriptor rather than the original provider of the security descriptor.
+     * Native name: ADS_SD_CONTROL_SE_GROUP_DEFAULTED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_GROUP_DEFAULTED => 2
+    static SE_GROUP_DEFAULTED => 2
 
     /**
      * The discretionary access-control list (DACL) is present in the security descriptor. If this flag is not set, or if this flag is set and the DACL is <b>NULL</b>, the security descriptor allows full access to everyone.
+     * Native name: ADS_SD_CONTROL_SE_DACL_PRESENT
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_DACL_PRESENT => 4
+    static SE_DACL_PRESENT => 4
 
     /**
      * The security descriptor uses a default DACL built from the creator's access token.
+     * Native name: ADS_SD_CONTROL_SE_DACL_DEFAULTED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_DACL_DEFAULTED => 8
+    static SE_DACL_DEFAULTED => 8
 
     /**
      * The system access-control list (SACL) is present in the security descriptor.
+     * Native name: ADS_SD_CONTROL_SE_SACL_PRESENT
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_SACL_PRESENT => 16
+    static SE_SACL_PRESENT => 16
 
     /**
      * The security descriptor uses a default SACL built from the creator's access token.
+     * Native name: ADS_SD_CONTROL_SE_SACL_DEFAULTED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_SACL_DEFAULTED => 32
+    static SE_SACL_DEFAULTED => 32
 
     /**
      * THE DACL of the security descriptor must be inherited.
+     * Native name: ADS_SD_CONTROL_SE_DACL_AUTO_INHERIT_REQ
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_DACL_AUTO_INHERIT_REQ => 256
+    static SE_DACL_AUTO_INHERIT_REQ => 256
 
     /**
      * The SACL of the security descriptor must be inherited.
+     * Native name: ADS_SD_CONTROL_SE_SACL_AUTO_INHERIT_REQ
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_SACL_AUTO_INHERIT_REQ => 512
+    static SE_SACL_AUTO_INHERIT_REQ => 512
 
     /**
      * The DACL of the security descriptor supports automatic propagation of inheritable access-control entries (ACEs) to existing child objects.
+     * Native name: ADS_SD_CONTROL_SE_DACL_AUTO_INHERITED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_DACL_AUTO_INHERITED => 1024
+    static SE_DACL_AUTO_INHERITED => 1024
 
     /**
      * The SACL of the security descriptor supports automatic propagation of inheritable ACEs to existing child objects.
+     * Native name: ADS_SD_CONTROL_SE_SACL_AUTO_INHERITED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_SACL_AUTO_INHERITED => 2048
+    static SE_SACL_AUTO_INHERITED => 2048
 
     /**
      * The security descriptor will not allow inheritable ACEs to modify the DACL.
+     * Native name: ADS_SD_CONTROL_SE_DACL_PROTECTED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_DACL_PROTECTED => 4096
+    static SE_DACL_PROTECTED => 4096
 
     /**
      * The security descriptor will not allow inheritable ACEs to modify the SACL.
+     * Native name: ADS_SD_CONTROL_SE_SACL_PROTECTED
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_SACL_PROTECTED => 8192
+    static SE_SACL_PROTECTED => 8192
 
     /**
      * The security descriptor is of self-relative format with all the security information in a continuous block of memory.
+     * Native name: ADS_SD_CONTROL_SE_SELF_RELATIVE
      * @type {Integer (Int32)}
      */
-    static ADS_SD_CONTROL_SE_SELF_RELATIVE => 32768
+    static SE_SELF_RELATIVE => 32768
 }

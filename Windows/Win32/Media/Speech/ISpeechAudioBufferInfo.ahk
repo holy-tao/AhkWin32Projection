@@ -53,7 +53,6 @@ class ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinNotification() {
@@ -62,7 +61,6 @@ class ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} MinNotification 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ class ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BufferSize() {
@@ -81,7 +78,6 @@ class ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} BufferSize 
      * @returns {HRESULT} 
      */
@@ -91,7 +87,6 @@ class ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventBias() {
@@ -100,7 +95,6 @@ class ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} EventBias 
      * @returns {HRESULT} 
      */

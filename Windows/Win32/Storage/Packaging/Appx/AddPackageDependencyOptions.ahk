@@ -10,13 +10,15 @@ class AddPackageDependencyOptions extends Win32BitflagEnum {
 
     /**
      * No options are applied.
+     * Native name: AddPackageDependencyOptions_None
      * @type {Integer (Int32)}
      */
-    static AddPackageDependencyOptions_None => 0
+    static None => 0
 
     /**
      * If multiple packages are present in the package graph with the same rank as the call to **AddPackageDependency**, the resolved package is added before others of the same rank. For more information, see [AddPackageDependency](nf-appmodel-addpackagedependency.md).
+     * Native name: AddPackageDependencyOptions_PrependIfRankCollision
      * @type {Integer (Int32)}
      */
-    static AddPackageDependencyOptions_PrependIfRankCollision => 1
+    static PrependIfRankCollision => 1
 }

@@ -30,7 +30,6 @@ class ICompositorInterop2 extends IUnknown {
     static VTableNames => ["CheckCompositionTextureSupport", "CreateCompositionTexture"]
 
     /**
-     * 
      * @param {IUnknown} renderingDevice 
      * @returns {BOOL} 
      */
@@ -40,7 +39,6 @@ class ICompositorInterop2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} d3dTexture 
      * @returns {Pointer} 
      */

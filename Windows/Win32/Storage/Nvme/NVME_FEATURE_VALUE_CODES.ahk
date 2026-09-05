@@ -14,21 +14,24 @@ class NVME_FEATURE_VALUE_CODES extends Win32Enum {
 
     /**
      * The current operating attribute value for the specified feature.
+     * Native name: NVME_FEATURE_VALUE_CURRENT
      * @type {Integer (Int32)}
      */
-    static NVME_FEATURE_VALUE_CURRENT => 0
+    static CURRENT => 0
 
     /**
      * The default attribute value for the specified feature.
+     * Native name: NVME_FEATURE_VALUE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static NVME_FEATURE_VALUE_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
      * The last saved attribute value for the specified feature. For example, the last Set Features command completed without error, with the Save bit set to `1` for the specified feature.
+     * Native name: NVME_FEATURE_VALUE_SAVED
      * @type {Integer (Int32)}
      */
-    static NVME_FEATURE_VALUE_SAVED => 2
+    static SAVED => 2
 
     /**
      * The supported capabilities for the specified feature.
@@ -38,7 +41,8 @@ class NVME_FEATURE_VALUE_CODES extends Win32Enum {
      * - If Dword 0 bit 0 of the completion entry of the Get Features command is set to `1`, then the Feature Identifier is saveable. If Dword 0 bit 0 of the completion entry of the Get Features command is cleared to `0`, then the Feature Identifier is not saveable.
      * - If Dword 0 bit 1 of the completion entry of the Get Features command is set to `1`, then the Feature Identifier is namespace specific and settings are applied to individual namespaces. If Dword 0 bit 1 of the completion entry of the Get Features command is cleared to `0`, then the Feature Identifier is not namespace specific and its settings apply to the entire controller.
      * - If Dword 0 bit 2 of the completion entry of the Get Features command is set to `1`, then the Feature Identifier is changeable. If Dword 0 bit 2 of the completion entry of the Get Features command is cleared to `0`, then the Feature Identifier is not changeable.
+     * Native name: NVME_FEATURE_VALUE_SUPPORTED_CAPABILITIES
      * @type {Integer (Int32)}
      */
-    static NVME_FEATURE_VALUE_SUPPORTED_CAPABILITIES => 3
+    static SUPPORTED_CAPABILITIES => 3
 }

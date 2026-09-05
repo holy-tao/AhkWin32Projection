@@ -30,7 +30,6 @@ class IDebugOutputCallbacksWide extends IUnknown {
     static VTableNames => ["Output"]
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PWSTR} Text 
      * @returns {HRESULT} 

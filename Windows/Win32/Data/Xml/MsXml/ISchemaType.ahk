@@ -149,7 +149,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_baseTypes() {
@@ -158,7 +157,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_final() {
@@ -167,7 +165,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMATYPEVARIETY} 
      */
     get_variety() {
@@ -176,7 +173,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_derivedBy() {
@@ -185,7 +181,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {VARIANT_BOOL} 
      */
@@ -197,7 +192,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_minExclusive() {
@@ -207,7 +201,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_minInclusive() {
@@ -217,7 +210,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_maxExclusive() {
@@ -227,7 +219,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_maxInclusive() {
@@ -237,7 +228,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_totalDigits() {
@@ -247,7 +237,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fractionDigits() {
@@ -257,7 +246,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_length() {
@@ -267,7 +255,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minLength() {
@@ -277,7 +264,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxLength() {
@@ -287,7 +273,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_enumeration() {
@@ -296,7 +281,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMAWHITESPACE} 
      */
     get_whitespace() {
@@ -305,7 +289,6 @@ class ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_patterns() {

@@ -68,7 +68,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_RootFolder() {
@@ -77,7 +76,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -89,7 +87,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedPath 
      * @returns {VARIANT_BOOL} 
      */
@@ -101,7 +98,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedPath 
      * @returns {IDispatch} 
      */
@@ -113,7 +109,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedUrl 
      * @returns {IDispatch} 
      */
@@ -125,7 +120,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderPath 
      * @returns {VARIANT_BOOL} 
      */
@@ -137,7 +131,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderPath 
      * @returns {IDispatch} 
      */
@@ -149,7 +142,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedPath 
      * @returns {HRESULT} 
      */
@@ -161,7 +153,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderPath 
      * @returns {HRESULT} 
      */
@@ -173,7 +164,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_BACKGROUNDSYNC_ACTION} action 
      * @returns {HRESULT} 
      */
@@ -183,7 +173,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_BACKGROUNDSYNC_STATUS} 
      */
     get_BackgroundSyncStatus() {
@@ -192,7 +181,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultInterval() {
@@ -201,7 +189,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} minutes 
      * @returns {HRESULT} 
      */
@@ -211,7 +198,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncSyncAll() {
@@ -220,7 +206,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedXmlIn 
      * @returns {BSTR} 
      */
@@ -233,7 +218,6 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ItemCountLimit() {

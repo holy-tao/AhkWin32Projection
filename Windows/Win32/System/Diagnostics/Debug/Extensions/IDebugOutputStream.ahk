@@ -30,7 +30,6 @@ class IDebugOutputStream extends IUnknown {
     static VTableNames => ["Write"]
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */

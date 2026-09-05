@@ -7,32 +7,38 @@
 class DedupDataPortRequestStatus extends Win32Enum {
 
     /**
+     * Native name: DedupDataPortRequestStatus_Unknown
      * @type {Integer (Int32)}
      */
-    static DedupDataPortRequestStatus_Unknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DedupDataPortRequestStatus_Queued
      * @type {Integer (Int32)}
      */
-    static DedupDataPortRequestStatus_Queued => 1
+    static Queued => 1
 
     /**
+     * Native name: DedupDataPortRequestStatus_Processing
      * @type {Integer (Int32)}
      */
-    static DedupDataPortRequestStatus_Processing => 2
+    static Processing => 2
 
     /**
+     * Native name: DedupDataPortRequestStatus_Partial
      * @type {Integer (Int32)}
      */
-    static DedupDataPortRequestStatus_Partial => 3
+    static Partial => 3
 
     /**
+     * Native name: DedupDataPortRequestStatus_Complete
      * @type {Integer (Int32)}
      */
-    static DedupDataPortRequestStatus_Complete => 4
+    static Complete => 4
 
     /**
+     * Native name: DedupDataPortRequestStatus_Failed
      * @type {Integer (Int32)}
      */
-    static DedupDataPortRequestStatus_Failed => 5
+    static Failed => 5
 }

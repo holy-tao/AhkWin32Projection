@@ -7,22 +7,26 @@
 class styleLayoutGridLine extends Win32Enum {
 
     /**
+     * Native name: styleLayoutGridLineNotSet
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridLineNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleLayoutGridLineAuto
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridLineAuto => 1
+    static Auto => 1
 
     /**
+     * Native name: styleLayoutGridLineNone
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridLineNone => 2
+    static None => 2
 
     /**
+     * Native name: styleLayoutGridLine_Max
      * @type {Integer (Int32)}
      */
-    static styleLayoutGridLine_Max => 2147483647
+    static Max => 2147483647
 }

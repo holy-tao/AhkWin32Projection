@@ -7,22 +7,26 @@
 class NVME_RESERVATION_REGISTER_PTPL_STATE_CHANGES extends Win32Enum {
 
     /**
+     * Native name: NVME_RESERVATION_REGISTER_PTPL_STATE_NO_CHANGE
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_REGISTER_PTPL_STATE_NO_CHANGE => 0
+    static NO_CHANGE => 0
 
     /**
+     * Native name: NVME_RESERVATION_REGISTER_PTPL_STATE_RESERVED
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_REGISTER_PTPL_STATE_RESERVED => 1
+    static RESERVED => 1
 
     /**
+     * Native name: NVME_RESERVATION_REGISTER_PTPL_STATE_SET_TO_0
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_REGISTER_PTPL_STATE_SET_TO_0 => 2
+    static SET_TO_0 => 2
 
     /**
+     * Native name: NVME_RESERVATION_REGISTER_PTPL_STATE_SET_TO_1
      * @type {Integer (Int32)}
      */
-    static NVME_RESERVATION_REGISTER_PTPL_STATE_SET_TO_1 => 3
+    static SET_TO_1 => 3
 }

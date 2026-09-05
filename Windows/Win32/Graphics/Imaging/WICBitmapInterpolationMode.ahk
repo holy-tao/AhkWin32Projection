@@ -13,36 +13,40 @@ class WICBitmapInterpolationMode extends Win32Enum {
      *             
      * 
      * The output pixel is assigned the value of the pixel that the point falls within. No other pixels are considered.
+     * Native name: WICBitmapInterpolationModeNearestNeighbor
      * @type {Integer (Int32)}
      */
-    static WICBitmapInterpolationModeNearestNeighbor => 0
+    static NearestNeighbor => 0
 
     /**
      * A bilinear interpolation algorithm.
      *             
      * 
      * The output pixel values are computed as a weighted average of the nearest four pixels in a 2x2 grid.
+     * Native name: WICBitmapInterpolationModeLinear
      * @type {Integer (Int32)}
      */
-    static WICBitmapInterpolationModeLinear => 1
+    static Linear => 1
 
     /**
      * A bicubic interpolation algorithm.
      *             
      * 
      * Destination pixel values are computed as a weighted average of the nearest sixteen pixels in a 4x4 grid.
+     * Native name: WICBitmapInterpolationModeCubic
      * @type {Integer (Int32)}
      */
-    static WICBitmapInterpolationModeCubic => 2
+    static Cubic => 2
 
     /**
      * A Fant resampling algorithm.
      *             
      * 
      * Destination pixel values are computed as a weighted average of the all the pixels that map to the new pixel.
+     * Native name: WICBitmapInterpolationModeFant
      * @type {Integer (Int32)}
      */
-    static WICBitmapInterpolationModeFant => 3
+    static Fant => 3
 
     /**
      * A high quality bicubic interpolation algorithm. Destination pixel values are computed using a much denser sampling 
@@ -50,7 +54,8 @@ class WICBitmapInterpolationMode extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  This value is supported beginning with Windows 10.</div>
      * <div> </div>
+     * Native name: WICBitmapInterpolationModeHighQualityCubic
      * @type {Integer (Int32)}
      */
-    static WICBitmapInterpolationModeHighQualityCubic => 4
+    static HighQualityCubic => 4
 }

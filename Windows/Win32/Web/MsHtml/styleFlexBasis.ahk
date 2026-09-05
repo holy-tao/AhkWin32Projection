@@ -7,17 +7,20 @@
 class styleFlexBasis extends Win32Enum {
 
     /**
+     * Native name: styleFlexBasisAuto
      * @type {Integer (Int32)}
      */
-    static styleFlexBasisAuto => 0
+    static Auto => 0
 
     /**
+     * Native name: styleFlexBasisNotSet
      * @type {Integer (Int32)}
      */
-    static styleFlexBasisNotSet => 1
+    static NotSet => 1
 
     /**
+     * Native name: styleFlexBasis_Max
      * @type {Integer (Int32)}
      */
-    static styleFlexBasis_Max => 2147483647
+    static Max => 2147483647
 }

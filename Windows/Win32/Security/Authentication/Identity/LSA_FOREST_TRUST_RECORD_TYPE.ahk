@@ -12,35 +12,41 @@ class LSA_FOREST_TRUST_RECORD_TYPE extends Win32Enum {
 
     /**
      * Record contains an included top-level name.
+     * Native name: ForestTrustTopLevelName
      * @type {Integer (Int32)}
      */
-    static ForestTrustTopLevelName => 0
+    static TopLevelName => 0
 
     /**
      * Record contains an excluded top-level name.
+     * Native name: ForestTrustTopLevelNameEx
      * @type {Integer (Int32)}
      */
-    static ForestTrustTopLevelNameEx => 1
+    static TopLevelNameEx => 1
 
     /**
      * Record contains an <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_domain_info">LSA_FOREST_TRUST_DOMAIN_INFO</a> structure.
+     * Native name: ForestTrustDomainInfo
      * @type {Integer (Int32)}
      */
-    static ForestTrustDomainInfo => 2
+    static DomainInfo => 2
 
     /**
+     * Native name: ForestTrustBinaryInfo
      * @type {Integer (Int32)}
      */
-    static ForestTrustBinaryInfo => 3
+    static BinaryInfo => 3
 
     /**
+     * Native name: ForestTrustScannerInfo
      * @type {Integer (Int32)}
      */
-    static ForestTrustScannerInfo => 4
+    static ScannerInfo => 4
 
     /**
      * Marks the end of an enumeration.
+     * Native name: ForestTrustRecordTypeLast
      * @type {Integer (Int32)}
      */
-    static ForestTrustRecordTypeLast => 4
+    static Last => 4
 }

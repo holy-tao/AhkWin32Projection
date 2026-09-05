@@ -11,13 +11,15 @@ class D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION extends Win32Enum {
     /**
      * Color bitmap glyph positions are snapped to the nearest pixel if the bitmap
      *           resolution matches that of the device context.
+     * Native name: D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Color bitmap glyph positions are not snapped.
+     * Native name: D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DISABLE => 1
+    static DISABLE => 1
 }

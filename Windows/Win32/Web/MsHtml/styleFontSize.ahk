@@ -7,52 +7,62 @@
 class styleFontSize extends Win32Enum {
 
     /**
+     * Native name: styleFontSizeXXSmall
      * @type {Integer (Int32)}
      */
-    static styleFontSizeXXSmall => 0
+    static SizeXXSmall => 0
 
     /**
+     * Native name: styleFontSizeXSmall
      * @type {Integer (Int32)}
      */
-    static styleFontSizeXSmall => 1
+    static SizeXSmall => 1
 
     /**
+     * Native name: styleFontSizeSmall
      * @type {Integer (Int32)}
      */
-    static styleFontSizeSmall => 2
+    static Small => 2
 
     /**
+     * Native name: styleFontSizeMedium
      * @type {Integer (Int32)}
      */
-    static styleFontSizeMedium => 3
+    static Medium => 3
 
     /**
+     * Native name: styleFontSizeLarge
      * @type {Integer (Int32)}
      */
-    static styleFontSizeLarge => 4
+    static Large => 4
 
     /**
+     * Native name: styleFontSizeXLarge
      * @type {Integer (Int32)}
      */
-    static styleFontSizeXLarge => 5
+    static SizeXLarge => 5
 
     /**
+     * Native name: styleFontSizeXXLarge
      * @type {Integer (Int32)}
      */
-    static styleFontSizeXXLarge => 6
+    static SizeXXLarge => 6
 
     /**
+     * Native name: styleFontSizeSmaller
      * @type {Integer (Int32)}
      */
-    static styleFontSizeSmaller => 7
+    static Smaller => 7
 
     /**
+     * Native name: styleFontSizeLarger
      * @type {Integer (Int32)}
      */
-    static styleFontSizeLarger => 8
+    static Larger => 8
 
     /**
+     * Native name: styleFontSize_Max
      * @type {Integer (Int32)}
      */
-    static styleFontSize_Max => 2147483647
+    static Max => 2147483647
 }

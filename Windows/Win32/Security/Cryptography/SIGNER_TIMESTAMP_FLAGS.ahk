@@ -7,12 +7,14 @@
 class SIGNER_TIMESTAMP_FLAGS extends Win32Enum {
 
     /**
+     * Native name: SIGNER_TIMESTAMP_AUTHENTICODE
      * @type {Integer (UInt32)}
      */
-    static SIGNER_TIMESTAMP_AUTHENTICODE => 1
+    static AUTHENTICODE => 1
 
     /**
+     * Native name: SIGNER_TIMESTAMP_RFC3161
      * @type {Integer (UInt32)}
      */
-    static SIGNER_TIMESTAMP_RFC3161 => 2
+    static RFC3161 => 2
 }

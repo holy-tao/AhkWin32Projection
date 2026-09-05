@@ -29,7 +29,6 @@ class IKsQualityForwarder extends IKsObject {
     static VTableNames => ["KsFlushClient"]
 
     /**
-     * 
      * @param {IKsPin} Pin 
      * @returns {String} Nothing - always returns an empty string
      */

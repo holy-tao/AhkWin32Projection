@@ -31,7 +31,6 @@ class IDOMEventRegistrationCallback extends IUnknown {
     static VTableNames => ["OnDOMEventListenerAdded", "OnDOMEventListenerRemoved"]
 
     /**
-     * 
      * @param {PWSTR} pszEventType 
      * @param {IScriptEventHandler} pHandler 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IDOMEventRegistrationCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullCookie 
      * @returns {HRESULT} 
      */

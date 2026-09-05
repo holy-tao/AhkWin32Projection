@@ -31,7 +31,6 @@ class IXpsPartIterator extends IUnknown {
     static VTableNames => ["Reset", "Current", "IsDone", "Next"]
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reset() {
@@ -39,7 +38,6 @@ class IXpsPartIterator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pUri 
      * @param {Pointer<IUnknown>} ppXpsPart 
      * @returns {HRESULT} 
@@ -50,7 +48,6 @@ class IXpsPartIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsDone() {
@@ -59,7 +56,6 @@ class IXpsPartIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Next() {

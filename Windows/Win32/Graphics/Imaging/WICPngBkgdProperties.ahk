@@ -10,7 +10,8 @@ class WICPngBkgdProperties extends Win32Enum {
 
     /**
      * Indicates the background color. There are three possible types, depending on the image's pixel format.
+     * Native name: WICPngBkgdBackgroundColor
      * @type {Integer (Int32)}
      */
-    static WICPngBkgdBackgroundColor => 1
+    static BackgroundColor => 1
 }

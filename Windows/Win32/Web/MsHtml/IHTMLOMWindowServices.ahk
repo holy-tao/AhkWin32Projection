@@ -29,7 +29,6 @@ class IHTMLOMWindowServices extends IUnknown {
     static VTableNames => ["moveTo", "moveBy", "resizeTo", "resizeBy"]
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -40,7 +39,6 @@ class IHTMLOMWindowServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -51,7 +49,6 @@ class IHTMLOMWindowServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -62,7 +59,6 @@ class IHTMLOMWindowServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 

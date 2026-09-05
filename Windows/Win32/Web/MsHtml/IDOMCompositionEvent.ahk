@@ -52,7 +52,6 @@ class IDOMCompositionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -62,7 +61,6 @@ class IDOMCompositionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -81,7 +79,6 @@ class IDOMCompositionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_locale() {

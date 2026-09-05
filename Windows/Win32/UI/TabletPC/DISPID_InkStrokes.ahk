@@ -7,107 +7,128 @@
 class DISPID_InkStrokes extends Win32Enum {
 
     /**
+     * Native name: DISPID_ISs_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_ISs_NewEnum => -4
+    static ISs_NewEnum => -4
 
     /**
+     * Native name: DISPID_ISsItem
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsItem => 0
+    static ISsItem => 0
 
     /**
+     * Native name: DISPID_ISsCount
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsCount => 1
+    static ISsCount => 1
 
     /**
+     * Native name: DISPID_ISsValid
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsValid => 2
+    static ISsValid => 2
 
     /**
+     * Native name: DISPID_ISsInk
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsInk => 3
+    static ISsInk => 3
 
     /**
+     * Native name: DISPID_ISsAdd
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsAdd => 4
+    static ISsAdd => 4
 
     /**
+     * Native name: DISPID_ISsAddStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsAddStrokes => 5
+    static ISsAddStrokes => 5
 
     /**
+     * Native name: DISPID_ISsRemove
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsRemove => 6
+    static ISsRemove => 6
 
     /**
+     * Native name: DISPID_ISsRemoveStrokes
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsRemoveStrokes => 7
+    static ISsRemoveStrokes => 7
 
     /**
+     * Native name: DISPID_ISsToString
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsToString => 8
+    static ISsToString => 8
 
     /**
+     * Native name: DISPID_ISsModifyDrawingAttributes
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsModifyDrawingAttributes => 9
+    static ISsModifyDrawingAttributes => 9
 
     /**
+     * Native name: DISPID_ISsGetBoundingBox
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsGetBoundingBox => 10
+    static ISsGetBoundingBox => 10
 
     /**
+     * Native name: DISPID_ISsScaleToRectangle
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsScaleToRectangle => 11
+    static ISsScaleToRectangle => 11
 
     /**
+     * Native name: DISPID_ISsTransform
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsTransform => 12
+    static ISsTransform => 12
 
     /**
+     * Native name: DISPID_ISsMove
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsMove => 13
+    static ISsMove => 13
 
     /**
+     * Native name: DISPID_ISsRotate
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsRotate => 14
+    static ISsRotate => 14
 
     /**
+     * Native name: DISPID_ISsShear
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsShear => 15
+    static ISsShear => 15
 
     /**
+     * Native name: DISPID_ISsScale
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsScale => 16
+    static ISsScale => 16
 
     /**
+     * Native name: DISPID_ISsClip
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsClip => 17
+    static ISsClip => 17
 
     /**
+     * Native name: DISPID_ISsRecognitionResult
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsRecognitionResult => 18
+    static ISsRecognitionResult => 18
 
     /**
+     * Native name: DISPID_ISsRemoveRecognitionResult
      * @type {Integer (Int32)}
      */
-    static DISPID_ISsRemoveRecognitionResult => 19
+    static ISsRemoveRecognitionResult => 19
 }

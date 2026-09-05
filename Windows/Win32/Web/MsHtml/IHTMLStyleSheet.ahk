@@ -129,7 +129,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +140,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -151,7 +149,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_parentStyleSheet() {
@@ -160,7 +157,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_owningElement() {
@@ -169,7 +165,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -179,7 +174,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -188,7 +182,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
@@ -197,7 +190,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetsCollection} 
      */
     get_imports() {
@@ -206,7 +198,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -218,7 +209,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -228,7 +218,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -238,7 +227,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_id() {
@@ -248,7 +236,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrURL 
      * @param {Integer} lIndex 
      * @returns {Integer} 
@@ -261,7 +248,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSelector 
      * @param {BSTR} bstrStyle 
      * @param {Integer} lIndex 
@@ -276,7 +262,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */
@@ -286,7 +271,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */
@@ -296,7 +280,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -308,7 +291,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {
@@ -318,7 +300,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -330,7 +311,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cssText() {
@@ -340,7 +320,6 @@ class IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_rules() {

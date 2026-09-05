@@ -12,19 +12,22 @@ class GET_STORAGE_DEPENDENCY_FLAG extends Win32BitflagEnum {
 
     /**
      * No flags specified.
+     * Native name: GET_STORAGE_DEPENDENCY_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static GET_STORAGE_DEPENDENCY_FLAG_NONE => 0
+    static NONE => 0
 
     /**
      * Return information for volumes or disks hosting the volume specified.
+     * Native name: GET_STORAGE_DEPENDENCY_FLAG_HOST_VOLUMES
      * @type {Integer (Int32)}
      */
-    static GET_STORAGE_DEPENDENCY_FLAG_HOST_VOLUMES => 1
+    static HOST_VOLUMES => 1
 
     /**
      * The handle provided is to a disk, not a volume or file.
+     * Native name: GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE
      * @type {Integer (Int32)}
      */
-    static GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE => 2
+    static DISK_HANDLE => 2
 }

@@ -12,13 +12,15 @@ class D2D1_PIXEL_OPTIONS extends Win32BitflagEnum {
 
     /**
      * The pixel shader is not restricted in its sampling.
+     * Native name: D2D1_PIXEL_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_PIXEL_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * The pixel shader samples inputs only at the same scene coordinate as the output pixel and returns transparent black whenever the input pixels are also transparent black.
+     * Native name: D2D1_PIXEL_OPTIONS_TRIVIAL_SAMPLING
      * @type {Integer (Int32)}
      */
-    static D2D1_PIXEL_OPTIONS_TRIVIAL_SAMPLING => 1
+    static TRIVIAL_SAMPLING => 1
 }

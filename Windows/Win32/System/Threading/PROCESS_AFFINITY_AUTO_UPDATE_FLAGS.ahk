@@ -7,12 +7,14 @@
 class PROCESS_AFFINITY_AUTO_UPDATE_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PROCESS_AFFINITY_DISABLE_AUTO_UPDATE
      * @type {Integer (UInt32)}
      */
-    static PROCESS_AFFINITY_DISABLE_AUTO_UPDATE => 0
+    static DISABLE_AUTO_UPDATE => 0
 
     /**
+     * Native name: PROCESS_AFFINITY_ENABLE_AUTO_UPDATE
      * @type {Integer (UInt32)}
      */
-    static PROCESS_AFFINITY_ENABLE_AUTO_UPDATE => 1
+    static ENABLE_AUTO_UPDATE => 1
 }

@@ -10,13 +10,15 @@ class SPTEXT extends Win32Enum {
 
     /**
      * The text is a high level, short description.
+     * Native name: SPTEXT_ACTIONDESCRIPTION
      * @type {Integer (Int32)}
      */
-    static SPTEXT_ACTIONDESCRIPTION => 1
+    static ACTIONDESCRIPTION => 1
 
     /**
      * The text is a detailed description.
+     * Native name: SPTEXT_ACTIONDETAIL
      * @type {Integer (Int32)}
      */
-    static SPTEXT_ACTIONDETAIL => 2
+    static ACTIONDETAIL => 2
 }

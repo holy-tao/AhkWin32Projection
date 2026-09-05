@@ -56,7 +56,6 @@ class IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProtectedAttrName() {
@@ -66,7 +65,6 @@ class IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProtectedAttrName 
      * @returns {HRESULT} 
      */
@@ -78,7 +76,6 @@ class IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SubjectName() {
@@ -88,7 +85,6 @@ class IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSubjectName 
      * @returns {HRESULT} 
      */
@@ -100,7 +96,6 @@ class IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Privileges() {
@@ -109,7 +104,6 @@ class IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnPrivileges 
      * @returns {HRESULT} 
      */

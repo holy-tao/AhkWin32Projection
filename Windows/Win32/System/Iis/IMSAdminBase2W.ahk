@@ -31,7 +31,6 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     static VTableNames => ["BackupWithPasswd", "RestoreWithPasswd", "Export", "Import", "RestoreHistory", "EnumHistory"]
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
@@ -47,7 +46,6 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
@@ -63,7 +61,6 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPasswd 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszSourcePath 
@@ -80,7 +77,6 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPasswd 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszSourcePath 
@@ -99,7 +95,6 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDHistoryLocation 
      * @param {Integer} dwMDMajorVersion 
      * @param {Integer} dwMDMinorVersion 
@@ -114,7 +109,6 @@ class IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDHistoryLocation 
      * @param {Pointer<Integer>} pdwMDMajorVersion 
      * @param {Pointer<Integer>} pdwMDMinorVersion 

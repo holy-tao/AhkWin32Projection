@@ -30,7 +30,6 @@ class IHTMLChangePlayback extends IUnknown {
     static VTableNames => ["ExecChange"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pbRecord 
      * @param {BOOL} fForward 
      * @returns {HRESULT} 

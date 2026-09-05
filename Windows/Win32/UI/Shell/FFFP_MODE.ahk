@@ -10,13 +10,15 @@ class FFFP_MODE extends Win32Enum {
 
     /**
      * Exact match.
+     * Native name: FFFP_EXACTMATCH
      * @type {Integer (Int32)}
      */
-    static FFFP_EXACTMATCH => 0
+    static EXACTMATCH => 0
 
     /**
      * Nearest parent match.
+     * Native name: FFFP_NEARESTPARENTMATCH
      * @type {Integer (Int32)}
      */
-    static FFFP_NEARESTPARENTMATCH => 1
+    static NEARESTPARENTMATCH => 1
 }

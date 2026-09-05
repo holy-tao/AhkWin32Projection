@@ -53,7 +53,6 @@ class IMAPIProp extends IUnknown {
     static VTableNames => ["GetLastError", "SaveChanges", "GetProps", "GetPropList", "OpenProperty", "SetProps", "DeleteProps", "CopyTo", "CopyProps", "GetNamesFromIDs", "GetIDsFromNames"]
 
     /**
-     * 
      * @remarks
      * The **IMAPIProp::GetLastError** method supplies information about a prior method call that failed. Clients can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box. 
      *   
@@ -82,7 +81,6 @@ class IMAPIProp extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIProp::SaveChanges** method makes property changes permanent for objects that support the transaction model of processing, such as messages, attachments, address book containers, and messaging user objects. Objects that do not support transactions, such as folders, message stores, and profile sections, make changes permanent immediately. No call to **SaveChanges** is required.
      *   

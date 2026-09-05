@@ -7,22 +7,26 @@
 class FILE_COMPRESSION_TYPE extends Win32BitflagEnum {
 
     /**
+     * Native name: FILE_COMPRESSION_NONE
      * @type {Integer (UInt32)}
      */
-    static FILE_COMPRESSION_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: FILE_COMPRESSION_WINLZA
      * @type {Integer (UInt32)}
      */
-    static FILE_COMPRESSION_WINLZA => 1
+    static WINLZA => 1
 
     /**
+     * Native name: FILE_COMPRESSION_MSZIP
      * @type {Integer (UInt32)}
      */
-    static FILE_COMPRESSION_MSZIP => 2
+    static MSZIP => 2
 
     /**
+     * Native name: FILE_COMPRESSION_NTCAB
      * @type {Integer (UInt32)}
      */
-    static FILE_COMPRESSION_NTCAB => 3
+    static NTCAB => 3
 }

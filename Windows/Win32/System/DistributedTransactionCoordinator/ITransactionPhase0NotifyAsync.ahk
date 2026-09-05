@@ -30,7 +30,6 @@ class ITransactionPhase0NotifyAsync extends IUnknown {
     static VTableNames => ["Phase0Request", "EnlistCompleted"]
 
     /**
-     * 
      * @param {BOOL} fAbortingHint 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ITransactionPhase0NotifyAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} _status 
      * @returns {HRESULT} 
      */

@@ -38,7 +38,6 @@ class IShellUIHelper extends IDispatch {
     static VTableNames => ["ResetFirstBootMode", "ResetSafeMode", "RefreshOfflineDesktop", "AddFavorite", "AddChannel", "AddDesktopComponent", "IsSubscribed", "NavigateAndFind", "ImportExportFavorites", "AutoCompleteSaveForm", "AutoScan", "AutoCompleteAttach", "ShowBrowserUI"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetFirstBootMode() {
@@ -47,7 +46,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetSafeMode() {
@@ -56,7 +54,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RefreshOfflineDesktop() {
@@ -65,7 +62,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {Pointer<VARIANT>} Title 
      * @returns {HRESULT} 
@@ -78,7 +74,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {HRESULT} 
      */
@@ -90,7 +85,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} Type 
      * @param {Pointer<VARIANT>} Left 
@@ -108,7 +102,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {VARIANT_BOOL} 
      */
@@ -120,7 +113,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} strQuery 
      * @param {Pointer<VARIANT>} varTargetFrame 
@@ -135,7 +127,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fImport 
      * @param {BSTR} strImpExpPath 
      * @returns {HRESULT} 
@@ -148,7 +139,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Form 
      * @returns {HRESULT} 
      */
@@ -158,7 +148,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strSearch 
      * @param {BSTR} strFailureUrl 
      * @param {Pointer<VARIANT>} pvarTargetFrame 
@@ -173,7 +162,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Reserved 
      * @returns {HRESULT} 
      */
@@ -183,7 +171,6 @@ class IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Pointer<VARIANT>} pvarIn 
      * @returns {VARIANT} 

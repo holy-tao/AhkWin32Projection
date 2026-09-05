@@ -7,7 +7,8 @@
 class SRPHOSTING_VERSION extends Win32Enum {
 
     /**
+     * Native name: SRPHOSTING_VERSION1
      * @type {Integer (Int32)}
      */
-    static SRPHOSTING_VERSION1 => 1
+    static VERSION1 => 1
 }

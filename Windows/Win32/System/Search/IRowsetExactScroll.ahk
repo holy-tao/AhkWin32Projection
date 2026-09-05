@@ -29,7 +29,6 @@ class IRowsetExactScroll extends IRowsetScroll {
     static VTableNames => ["GetExactPosition"]
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 

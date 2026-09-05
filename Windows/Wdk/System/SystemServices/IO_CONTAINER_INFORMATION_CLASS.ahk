@@ -7,12 +7,14 @@
 class IO_CONTAINER_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: IoSessionStateInformation
      * @type {Integer (Int32)}
      */
-    static IoSessionStateInformation => 0
+    static SessionStateInformation => 0
 
     /**
+     * Native name: IoMaxContainerInformationClass
      * @type {Integer (Int32)}
      */
-    static IoMaxContainerInformationClass => 1
+    static MaxContainerInformationClass => 1
 }

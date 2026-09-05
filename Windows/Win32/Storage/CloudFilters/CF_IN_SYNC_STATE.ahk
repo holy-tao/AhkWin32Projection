@@ -10,13 +10,15 @@ class CF_IN_SYNC_STATE extends Win32Enum {
 
     /**
      * The platform clears the placeholder’s in-sync state upon a successful return from the [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) call.
+     * Native name: CF_IN_SYNC_STATE_NOT_IN_SYNC
      * @type {Integer (Int32)}
      */
-    static CF_IN_SYNC_STATE_NOT_IN_SYNC => 0
+    static NOT_IN_SYNC => 0
 
     /**
      * The platform sets the placeholder’s in-sync state upon a successful return from the [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) call.
+     * Native name: CF_IN_SYNC_STATE_IN_SYNC
      * @type {Integer (Int32)}
      */
-    static CF_IN_SYNC_STATE_IN_SYNC => 1
+    static IN_SYNC => 1
 }

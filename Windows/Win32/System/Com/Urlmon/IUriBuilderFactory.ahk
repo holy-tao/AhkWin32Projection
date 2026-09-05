@@ -30,7 +30,6 @@ class IUriBuilderFactory extends IUnknown {
     static VTableNames => ["CreateIUriBuilder", "CreateInitializedIUriBuilder"]
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
      * @returns {IUriBuilder} 
@@ -41,7 +40,6 @@ class IUriBuilderFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
      * @returns {IUriBuilder} 

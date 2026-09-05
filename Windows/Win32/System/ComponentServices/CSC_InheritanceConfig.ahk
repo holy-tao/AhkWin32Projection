@@ -115,13 +115,15 @@ class CSC_InheritanceConfig extends Win32Enum {
 
     /**
      * The new context is created from the existing context.
+     * Native name: CSC_Inherit
      * @type {Integer (Int32)}
      */
-    static CSC_Inherit => 0
+    static Inherit => 0
 
     /**
      * The new context is created from the default context.
+     * Native name: CSC_Ignore
      * @type {Integer (Int32)}
      */
-    static CSC_Ignore => 1
+    static Ignore => 1
 }

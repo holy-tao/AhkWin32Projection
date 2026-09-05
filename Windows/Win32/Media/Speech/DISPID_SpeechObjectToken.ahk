@@ -7,67 +7,80 @@
 class DISPID_SpeechObjectToken extends Win32Enum {
 
     /**
+     * Native name: DISPID_SOTId
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTId => 1
+    static SOTId => 1
 
     /**
+     * Native name: DISPID_SOTDataKey
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTDataKey => 2
+    static SOTDataKey => 2
 
     /**
+     * Native name: DISPID_SOTCategory
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTCategory => 3
+    static SOTCategory => 3
 
     /**
+     * Native name: DISPID_SOTGetDescription
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTGetDescription => 4
+    static SOTGetDescription => 4
 
     /**
+     * Native name: DISPID_SOTSetId
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTSetId => 5
+    static SOTSetId => 5
 
     /**
+     * Native name: DISPID_SOTGetAttribute
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTGetAttribute => 6
+    static SOTGetAttribute => 6
 
     /**
+     * Native name: DISPID_SOTCreateInstance
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTCreateInstance => 7
+    static SOTCreateInstance => 7
 
     /**
+     * Native name: DISPID_SOTRemove
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTRemove => 8
+    static SOTRemove => 8
 
     /**
+     * Native name: DISPID_SOTGetStorageFileName
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTGetStorageFileName => 9
+    static SOTGetStorageFileName => 9
 
     /**
+     * Native name: DISPID_SOTRemoveStorageFileName
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTRemoveStorageFileName => 10
+    static SOTRemoveStorageFileName => 10
 
     /**
+     * Native name: DISPID_SOTIsUISupported
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTIsUISupported => 11
+    static SOTIsUISupported => 11
 
     /**
+     * Native name: DISPID_SOTDisplayUI
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTDisplayUI => 12
+    static SOTDisplayUI => 12
 
     /**
+     * Native name: DISPID_SOTMatchesAttributes
      * @type {Integer (Int32)}
      */
-    static DISPID_SOTMatchesAttributes => 13
+    static SOTMatchesAttributes => 13
 }

@@ -7,42 +7,50 @@
 class EnTvRat_CAE_TV extends Win32Enum {
 
     /**
+     * Native name: CAE_TV_Exempt
      * @type {Integer (Int32)}
      */
-    static CAE_TV_Exempt => 0
+    static Exempt => 0
 
     /**
+     * Native name: CAE_TV_C
      * @type {Integer (Int32)}
      */
-    static CAE_TV_C => 1
+    static C => 1
 
     /**
+     * Native name: CAE_TV_C8
      * @type {Integer (Int32)}
      */
-    static CAE_TV_C8 => 2
+    static C8 => 2
 
     /**
+     * Native name: CAE_TV_G
      * @type {Integer (Int32)}
      */
-    static CAE_TV_G => 3
+    static G => 3
 
     /**
+     * Native name: CAE_TV_PG
      * @type {Integer (Int32)}
      */
-    static CAE_TV_PG => 4
+    static PG => 4
 
     /**
+     * Native name: CAE_TV_14
      * @type {Integer (Int32)}
      */
-    static CAE_TV_14 => 5
+    static 14 => 5
 
     /**
+     * Native name: CAE_TV_18
      * @type {Integer (Int32)}
      */
-    static CAE_TV_18 => 6
+    static 18 => 6
 
     /**
+     * Native name: CAE_TV_Reserved
      * @type {Integer (Int32)}
      */
-    static CAE_TV_Reserved => 7
+    static Reserved => 7
 }

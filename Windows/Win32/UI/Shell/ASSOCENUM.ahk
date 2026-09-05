@@ -7,7 +7,8 @@
 class ASSOCENUM extends Win32Enum {
 
     /**
+     * Native name: ASSOCENUM_NONE
      * @type {Integer (Int32)}
      */
-    static ASSOCENUM_NONE => 0
+    static NONE => 0
 }

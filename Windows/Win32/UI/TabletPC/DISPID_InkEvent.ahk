@@ -7,12 +7,14 @@
 class DISPID_InkEvent extends Win32Enum {
 
     /**
+     * Native name: DISPID_IEInkAdded
      * @type {Integer (Int32)}
      */
-    static DISPID_IEInkAdded => 1
+    static IEInkAdded => 1
 
     /**
+     * Native name: DISPID_IEInkDeleted
      * @type {Integer (Int32)}
      */
-    static DISPID_IEInkDeleted => 2
+    static IEInkDeleted => 2
 }

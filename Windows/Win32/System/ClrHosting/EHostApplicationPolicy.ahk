@@ -7,7 +7,8 @@
 class EHostApplicationPolicy extends Win32Enum {
 
     /**
+     * Native name: HOST_APPLICATION_BINDING_POLICY
      * @type {Integer (Int32)}
      */
-    static HOST_APPLICATION_BINDING_POLICY => 1
+    static BINDING_POLICY => 1
 }

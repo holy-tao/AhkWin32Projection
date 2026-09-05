@@ -31,7 +31,6 @@ class ICertEncodeBitString2 extends ICertEncodeBitString {
     static VTableNames => ["DecodeBlob", "EncodeBlob", "GetBitStringBlob"]
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class ICertEncodeBitString2 extends ICertEncodeBitString {
     }
 
     /**
-     * 
      * @param {Integer} BitCount 
      * @param {BSTR} strBitString 
      * @param {EncodingType} EncodingIn 
@@ -60,7 +58,6 @@ class ICertEncodeBitString2 extends ICertEncodeBitString {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */

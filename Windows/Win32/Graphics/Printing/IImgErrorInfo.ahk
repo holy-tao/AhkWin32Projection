@@ -32,7 +32,6 @@ class IImgErrorInfo extends IErrorInfo {
     static VTableNames => ["GetDeveloperDescription", "GetUserErrorId", "GetUserParameterCount", "GetUserParameter", "GetUserFallback", "GetExceptionId", "DetachErrorInfo"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDeveloperDescription() {
@@ -42,7 +41,6 @@ class IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetUserErrorId() {
@@ -52,7 +50,6 @@ class IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetUserParameterCount() {
@@ -61,7 +58,6 @@ class IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @param {Integer} cParam 
      * @returns {BSTR} 
      */
@@ -72,7 +68,6 @@ class IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUserFallback() {
@@ -82,7 +77,6 @@ class IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExceptionId() {
@@ -91,7 +85,6 @@ class IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {ImgErrorInfo} 
      */
     DetachErrorInfo() {

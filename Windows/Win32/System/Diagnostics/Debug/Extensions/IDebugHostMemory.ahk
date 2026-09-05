@@ -32,7 +32,6 @@ class IDebugHostMemory extends IUnknown {
     static VTableNames => ["ReadBytes", "WriteBytes", "ReadPointers", "WritePointers", "GetDisplayStringForLocation"]
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} _buffer 
@@ -45,7 +44,6 @@ class IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} _buffer 
@@ -58,7 +56,6 @@ class IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} count 
@@ -70,7 +67,6 @@ class IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} count 
@@ -85,7 +81,6 @@ class IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} verbose 

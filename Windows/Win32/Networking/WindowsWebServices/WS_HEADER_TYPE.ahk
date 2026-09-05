@@ -24,9 +24,10 @@ class WS_HEADER_TYPE extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_WSZ_TYPE</a>
      * </li>
      * </ul>
+     * Native name: WS_ACTION_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_ACTION_HEADER => 1
+    static ACTION_HEADER => 1
 
     /**
      * The To addressing header.
@@ -44,9 +45,10 @@ class WS_HEADER_TYPE extends Win32Enum {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_WSZ_TYPE</a>
      * </li>
      * </ul>
+     * Native name: WS_TO_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_TO_HEADER => 2
+    static TO_HEADER => 2
 
     /**
      * The MessageID addressing header.
@@ -70,9 +72,10 @@ class WS_HEADER_TYPE extends Win32Enum {
      * 
      * 
      * This header is not supported for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_TRANSPORT</a>.
+     * Native name: WS_MESSAGE_ID_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_MESSAGE_ID_HEADER => 3
+    static MESSAGE_ID_HEADER => 3
 
     /**
      * The RelatesTo addressing header.
@@ -96,9 +99,10 @@ class WS_HEADER_TYPE extends Win32Enum {
      * 
      * 
      * This header is not supported for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_TRANSPORT</a>.
+     * Native name: WS_RELATES_TO_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_RELATES_TO_HEADER => 4
+    static RELATES_TO_HEADER => 4
 
     /**
      * The From addressing header.
@@ -108,9 +112,10 @@ class WS_HEADER_TYPE extends Win32Enum {
      *                 
      * 
      * This header is not supported for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_TRANSPORT</a>.
+     * Native name: WS_FROM_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_FROM_HEADER => 5
+    static FROM_HEADER => 5
 
     /**
      * The ReplyTo addressing header.
@@ -120,9 +125,10 @@ class WS_HEADER_TYPE extends Win32Enum {
      *                 
      * 
      * This header is not supported for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_TRANSPORT</a>.
+     * Native name: WS_REPLY_TO_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_REPLY_TO_HEADER => 6
+    static REPLY_TO_HEADER => 6
 
     /**
      * The FaultTo addressing header, in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_address">WS_ENDPOINT_ADDRESS</a> format.
@@ -132,7 +138,8 @@ class WS_HEADER_TYPE extends Win32Enum {
      *                 
      * 
      * This header is not supported for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_TRANSPORT</a>.
+     * Native name: WS_FAULT_TO_HEADER
      * @type {Integer (Int32)}
      */
-    static WS_FAULT_TO_HEADER => 7
+    static FAULT_TO_HEADER => 7
 }

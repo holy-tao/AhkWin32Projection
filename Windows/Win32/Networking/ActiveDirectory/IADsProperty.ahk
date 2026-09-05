@@ -77,7 +77,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OID() {
@@ -87,7 +86,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOID 
      * @returns {HRESULT} 
      */
@@ -99,7 +97,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Syntax() {
@@ -109,7 +106,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSyntax 
      * @returns {HRESULT} 
      */
@@ -121,7 +117,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxRange() {
@@ -130,7 +125,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxRange 
      * @returns {HRESULT} 
      */
@@ -140,7 +134,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinRange() {
@@ -149,7 +142,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMinRange 
      * @returns {HRESULT} 
      */
@@ -159,7 +151,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MultiValued() {
@@ -168,7 +159,6 @@ class IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fMultiValued 
      * @returns {HRESULT} 
      */

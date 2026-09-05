@@ -30,7 +30,6 @@ class IMetaDataWinMDImport extends IUnknown {
     static VTableNames => ["GetUntransformedTypeRefProps"]
 
     /**
-     * 
      * @param {Integer} tr 
      * @param {Pointer<Integer>} ptkResolutionScope 
      * @param {PWSTR} szName 

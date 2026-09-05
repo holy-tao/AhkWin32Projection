@@ -7,82 +7,98 @@
 class KSPROPERTY_VPCONFIG extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_NUMCONNECTINFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_NUMCONNECTINFO => 0
+    static NUMCONNECTINFO => 0
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_GETCONNECTINFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_GETCONNECTINFO => 1
+    static GETCONNECTINFO => 1
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_SETCONNECTINFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_SETCONNECTINFO => 2
+    static SETCONNECTINFO => 2
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_VPDATAINFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_VPDATAINFO => 3
+    static VPDATAINFO => 3
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_MAXPIXELRATE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_MAXPIXELRATE => 4
+    static MAXPIXELRATE => 4
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_INFORMVPINPUT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_INFORMVPINPUT => 5
+    static INFORMVPINPUT => 5
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_NUMVIDEOFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_NUMVIDEOFORMAT => 6
+    static NUMVIDEOFORMAT => 6
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_GETVIDEOFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_GETVIDEOFORMAT => 7
+    static GETVIDEOFORMAT => 7
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_SETVIDEOFORMAT
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_SETVIDEOFORMAT => 8
+    static SETVIDEOFORMAT => 8
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_INVERTPOLARITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_INVERTPOLARITY => 9
+    static INVERTPOLARITY => 9
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_DECIMATIONCAPABILITY
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_DECIMATIONCAPABILITY => 10
+    static DECIMATIONCAPABILITY => 10
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_SCALEFACTOR
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_SCALEFACTOR => 11
+    static SCALEFACTOR => 11
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_DDRAWHANDLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_DDRAWHANDLE => 12
+    static DDRAWHANDLE => 12
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_VIDEOPORTID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_VIDEOPORTID => 13
+    static VIDEOPORTID => 13
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_DDRAWSURFACEHANDLE
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_DDRAWSURFACEHANDLE => 14
+    static DDRAWSURFACEHANDLE => 14
 
     /**
+     * Native name: KSPROPERTY_VPCONFIG_SURFACEPARAMS
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_VPCONFIG_SURFACEPARAMS => 15
+    static SURFACEPARAMS => 15
 }

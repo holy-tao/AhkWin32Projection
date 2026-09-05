@@ -7,17 +7,20 @@
 class POWER_MONITOR_REQUEST_TYPE extends Win32Enum {
 
     /**
+     * Native name: MonitorRequestTypeOff
      * @type {Integer (Int32)}
      */
-    static MonitorRequestTypeOff => 0
+    static Off => 0
 
     /**
+     * Native name: MonitorRequestTypeOnAndPresent
      * @type {Integer (Int32)}
      */
-    static MonitorRequestTypeOnAndPresent => 1
+    static OnAndPresent => 1
 
     /**
+     * Native name: MonitorRequestTypeToggleOn
      * @type {Integer (Int32)}
      */
-    static MonitorRequestTypeToggleOn => 2
+    static ToggleOn => 2
 }

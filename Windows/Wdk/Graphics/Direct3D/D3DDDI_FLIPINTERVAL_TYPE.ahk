@@ -7,32 +7,38 @@
 class D3DDDI_FLIPINTERVAL_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_FLIPINTERVAL_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_FLIPINTERVAL_IMMEDIATE => 0
+    static IMMEDIATE => 0
 
     /**
+     * Native name: D3DDDI_FLIPINTERVAL_ONE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_FLIPINTERVAL_ONE => 1
+    static ONE => 1
 
     /**
+     * Native name: D3DDDI_FLIPINTERVAL_TWO
      * @type {Integer (Int32)}
      */
-    static D3DDDI_FLIPINTERVAL_TWO => 2
+    static TWO => 2
 
     /**
+     * Native name: D3DDDI_FLIPINTERVAL_THREE
      * @type {Integer (Int32)}
      */
-    static D3DDDI_FLIPINTERVAL_THREE => 3
+    static THREE => 3
 
     /**
+     * Native name: D3DDDI_FLIPINTERVAL_FOUR
      * @type {Integer (Int32)}
      */
-    static D3DDDI_FLIPINTERVAL_FOUR => 4
+    static FOUR => 4
 
     /**
+     * Native name: D3DDDI_FLIPINTERVAL_IMMEDIATE_ALLOW_TEARING
      * @type {Integer (Int32)}
      */
-    static D3DDDI_FLIPINTERVAL_IMMEDIATE_ALLOW_TEARING => 5
+    static IMMEDIATE_ALLOW_TEARING => 5
 }

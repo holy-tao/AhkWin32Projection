@@ -32,7 +32,6 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     static VTableNames => ["CreateNotificationChannel", "GetPrintName", "GetChannelNotificationType", "AsyncGetNotificationSendResponse", "AsyncCloseChannel"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CreateNotificationChannel() {
@@ -41,7 +40,6 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {Pointer<IPrintAsyncNotifyDataObject>} param0 
      * @returns {HRESULT} 
      */
@@ -51,7 +49,6 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {Pointer<IPrintAsyncNotifyDataObject>} param0 
      * @returns {HRESULT} 
      */
@@ -61,7 +58,6 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {IPrintAsyncNotifyDataObject} param0 
      * @param {IAsyncGetSendNotificationCookie} param1 
      * @returns {HRESULT} 
@@ -72,7 +68,6 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {IPrintAsyncNotifyDataObject} param0 
      * @param {IPrintAsyncCookie} param1 
      * @returns {HRESULT} 

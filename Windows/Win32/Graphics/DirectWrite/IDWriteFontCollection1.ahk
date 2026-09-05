@@ -45,7 +45,6 @@ class IDWriteFontCollection1 extends IDWriteFontCollection {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDWriteFontFamily1} 
      */

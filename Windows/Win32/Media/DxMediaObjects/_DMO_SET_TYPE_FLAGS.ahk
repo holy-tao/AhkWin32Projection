@@ -12,13 +12,15 @@ class _DMO_SET_TYPE_FLAGS extends Win32Enum {
 
     /**
      * Test the media type but do not set it.
+     * Native name: DMO_SET_TYPEF_TEST_ONLY
      * @type {Integer (Int32)}
      */
-    static DMO_SET_TYPEF_TEST_ONLY => 1
+    static TYPEF_TEST_ONLY => 1
 
     /**
      * Clear the media type that was set for the stream.
+     * Native name: DMO_SET_TYPEF_CLEAR
      * @type {Integer (Int32)}
      */
-    static DMO_SET_TYPEF_CLEAR => 2
+    static TYPEF_CLEAR => 2
 }

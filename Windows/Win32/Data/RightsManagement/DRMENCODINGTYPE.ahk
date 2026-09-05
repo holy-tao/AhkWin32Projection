@@ -10,37 +10,43 @@ class DRMENCODINGTYPE extends Win32Enum {
 
     /**
      * Base 64 encoded value.
+     * Native name: DRMENCODINGTYPE_BASE64
      * @type {Integer (Int32)}
      */
-    static DRMENCODINGTYPE_BASE64 => 0
+    static BASE64 => 0
 
     /**
      * String value.
+     * Native name: DRMENCODINGTYPE_STRING
      * @type {Integer (Int32)}
      */
-    static DRMENCODINGTYPE_STRING => 1
+    static STRING => 1
 
     /**
      * Long value.
+     * Native name: DRMENCODINGTYPE_LONG
      * @type {Integer (Int32)}
      */
-    static DRMENCODINGTYPE_LONG => 2
+    static LONG => 2
 
     /**
      * Time value.
+     * Native name: DRMENCODINGTYPE_TIME
      * @type {Integer (Int32)}
      */
-    static DRMENCODINGTYPE_TIME => 3
+    static TIME => 3
 
     /**
      * Unsigned integer.
+     * Native name: DRMENCODINGTYPE_UINT
      * @type {Integer (Int32)}
      */
-    static DRMENCODINGTYPE_UINT => 4
+    static UINT => 4
 
     /**
      * Binary data.
+     * Native name: DRMENCODINGTYPE_RAW
      * @type {Integer (Int32)}
      */
-    static DRMENCODINGTYPE_RAW => 5
+    static RAW => 5
 }

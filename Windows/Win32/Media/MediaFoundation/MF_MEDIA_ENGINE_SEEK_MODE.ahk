@@ -12,13 +12,15 @@ class MF_MEDIA_ENGINE_SEEK_MODE extends Win32Enum {
 
     /**
      * Specifies normal seek.
+     * Native name: MF_MEDIA_ENGINE_SEEK_MODE_NORMAL
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_SEEK_MODE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * Specifies an approximate seek.
+     * Native name: MF_MEDIA_ENGINE_SEEK_MODE_APPROXIMATE
      * @type {Integer (Int32)}
      */
-    static MF_MEDIA_ENGINE_SEEK_MODE_APPROXIMATE => 1
+    static APPROXIMATE => 1
 }

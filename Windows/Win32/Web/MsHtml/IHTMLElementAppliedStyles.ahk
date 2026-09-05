@@ -31,7 +31,6 @@ class IHTMLElementAppliedStyles extends IDispatch {
     static VTableNames => ["msGetRulesApplied", "msGetRulesAppliedWithAncestor"]
 
     /**
-     * 
      * @returns {IRulesAppliedCollection} 
      */
     msGetRulesApplied() {
@@ -40,7 +39,6 @@ class IHTMLElementAppliedStyles extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varContext 
      * @returns {IRulesAppliedCollection} 
      */

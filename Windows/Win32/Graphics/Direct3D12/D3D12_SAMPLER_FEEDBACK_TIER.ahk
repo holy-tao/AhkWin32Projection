@@ -10,9 +10,10 @@ class D3D12_SAMPLER_FEEDBACK_TIER extends Win32Enum {
 
     /**
      * Specifies that sampler feedback is not supported. Attempts at calling sampler feedback APIs represent an error.
+     * Native name: D3D12_SAMPLER_FEEDBACK_TIER_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_SAMPLER_FEEDBACK_TIER_NOT_SUPPORTED => 0
+    static NOT_SUPPORTED => 0
 
     /**
      * Specifies that sampler feedback is supported to tier 0.9. This indicates the following:
@@ -31,13 +32,15 @@ class D3D12_SAMPLER_FEEDBACK_TIER extends Win32Enum {
      * * All the limitations as in Texture2D above, and
      * * The FirstArraySlice field must be 0.
      * * The ArraySize field must span the full array element count of the resource.
+     * Native name: D3D12_SAMPLER_FEEDBACK_TIER_0_9
      * @type {Integer (Int32)}
      */
-    static D3D12_SAMPLER_FEEDBACK_TIER_0_9 => 90
+    static 0_9 => 90
 
     /**
      * Specifies sample feedback is supported to tier 1.0. This indicates that sampler feedback is supported for all texture addressing modes, and feedback-writing methods are supported irrespective of the passed-in shader resource view.
+     * Native name: D3D12_SAMPLER_FEEDBACK_TIER_1_0
      * @type {Integer (Int32)}
      */
-    static D3D12_SAMPLER_FEEDBACK_TIER_1_0 => 100
+    static 1_0 => 100
 }

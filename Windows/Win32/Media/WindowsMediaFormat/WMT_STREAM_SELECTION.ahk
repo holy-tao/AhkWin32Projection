@@ -10,19 +10,22 @@ class WMT_STREAM_SELECTION extends Win32Enum {
 
     /**
      * No samples will be delivered for the stream.
+     * Native name: WMT_OFF
      * @type {Integer (Int32)}
      */
-    static WMT_OFF => 0
+    static OFF => 0
 
     /**
      * Only samples with <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">cleanpoints</a> will be delivered for the stream.
+     * Native name: WMT_CLEANPOINT_ONLY
      * @type {Integer (Int32)}
      */
-    static WMT_CLEANPOINT_ONLY => 1
+    static CLEANPOINT_ONLY => 1
 
     /**
      * All samples will be delivered for the stream.
+     * Native name: WMT_ON
      * @type {Integer (Int32)}
      */
-    static WMT_ON => 2
+    static ON => 2
 }

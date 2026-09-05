@@ -7,17 +7,20 @@
 class FILESYSTEM_STATISTICS_TYPE extends Win32Enum {
 
     /**
+     * Native name: FILESYSTEM_STATISTICS_TYPE_EXFAT
      * @type {Integer (UInt16)}
      */
-    static FILESYSTEM_STATISTICS_TYPE_EXFAT => 3
+    static EXFAT => 3
 
     /**
+     * Native name: FILESYSTEM_STATISTICS_TYPE_FAT
      * @type {Integer (UInt16)}
      */
-    static FILESYSTEM_STATISTICS_TYPE_FAT => 2
+    static FAT => 2
 
     /**
+     * Native name: FILESYSTEM_STATISTICS_TYPE_NTFS
      * @type {Integer (UInt16)}
      */
-    static FILESYSTEM_STATISTICS_TYPE_NTFS => 1
+    static NTFS => 1
 }

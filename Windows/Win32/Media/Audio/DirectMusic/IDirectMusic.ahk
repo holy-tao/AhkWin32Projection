@@ -40,7 +40,6 @@ class IDirectMusic extends IUnknown {
     static VTableNames => ["EnumPort", "CreateMusicBuffer", "CreatePort", "EnumMasterClock", "GetMasterClock", "SetMasterClock", "Activate", "GetDefaultPort", "SetDirectSound"]
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<DMUS_PORTCAPS>} pPortCaps 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DMUS_BUFFERDESC>} pBufferDesc 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectMusicBuffer} 
@@ -62,7 +60,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsidPort 
      * @param {Pointer<DMUS_PORTPARAMS8>} pPortParams 
      * @param {IUnknown} pUnkOuter 
@@ -74,7 +71,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<DMUS_CLOCKINFO8>} lpClockInfo 
      * @returns {HRESULT} 
@@ -85,7 +81,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidClock 
      * @returns {IReferenceClock} 
      */
@@ -95,7 +90,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidClock 
      * @returns {HRESULT} 
      */
@@ -105,7 +99,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -115,7 +108,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidPort 
      * @returns {HRESULT} 
      */
@@ -125,7 +117,6 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectSound} pDirectSound 
      * @param {HWND} _hWnd 
      * @returns {HRESULT} 

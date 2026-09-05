@@ -105,7 +105,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsWorkgroup() {
@@ -114,7 +113,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinPasswordLength() {
@@ -123,7 +121,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMinPasswordLength 
      * @returns {HRESULT} 
      */
@@ -133,7 +130,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinPasswordAge() {
@@ -142,7 +138,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMinPasswordAge 
      * @returns {HRESULT} 
      */
@@ -152,7 +147,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxPasswordAge() {
@@ -161,7 +155,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxPasswordAge 
      * @returns {HRESULT} 
      */
@@ -171,7 +164,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxBadPasswordsAllowed() {
@@ -180,7 +172,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxBadPasswordsAllowed 
      * @returns {HRESULT} 
      */
@@ -190,7 +181,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PasswordHistoryLength() {
@@ -199,7 +189,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPasswordHistoryLength 
      * @returns {HRESULT} 
      */
@@ -209,7 +198,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PasswordAttributes() {
@@ -218,7 +206,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPasswordAttributes 
      * @returns {HRESULT} 
      */
@@ -228,7 +215,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AutoUnlockInterval() {
@@ -237,7 +223,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnAutoUnlockInterval 
      * @returns {HRESULT} 
      */
@@ -247,7 +232,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LockoutObservationInterval() {
@@ -256,7 +240,6 @@ class IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnLockoutObservationInterval 
      * @returns {HRESULT} 
      */

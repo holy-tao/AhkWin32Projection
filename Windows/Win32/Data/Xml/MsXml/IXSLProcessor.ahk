@@ -85,7 +85,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} var 
      * @returns {HRESULT} 
      */
@@ -95,7 +94,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_input() {
@@ -105,7 +103,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXSLTemplate} 
      */
     get_ownerTemplate() {
@@ -114,7 +111,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _mode 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -128,7 +124,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_startMode() {
@@ -138,7 +133,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_startModeURI() {
@@ -148,7 +142,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} output 
      * @returns {HRESULT} 
      */
@@ -158,7 +151,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_output() {
@@ -168,7 +160,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     transform() {
@@ -177,7 +168,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -186,7 +176,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -195,7 +184,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} baseName 
      * @param {VARIANT} parameter 
      * @param {BSTR} namespaceURI 
@@ -210,7 +198,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} obj 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -223,7 +210,6 @@ class IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_stylesheet() {

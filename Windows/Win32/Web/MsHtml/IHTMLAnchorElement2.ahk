@@ -70,7 +70,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +81,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -92,7 +90,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +101,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_coords() {
@@ -114,7 +110,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +121,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hreflang() {
@@ -136,7 +130,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -148,7 +141,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shape() {
@@ -158,7 +150,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -170,7 +161,6 @@ class IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {

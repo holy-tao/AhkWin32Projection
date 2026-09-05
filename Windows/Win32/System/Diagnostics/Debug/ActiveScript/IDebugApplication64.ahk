@@ -46,7 +46,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     static VTableNames => ["SetName", "StepOutComplete", "DebugOutput", "StartDebugSession", "HandleBreakPoint", "Close", "GetBreakFlags", "GetCurrentThread", "CreateAsyncDebugOperation", "AddStackFrameSniffer", "RemoveStackFrameSniffer", "QueryCurrentThreadIsDebuggerThread", "SynchronousCallInDebuggerThread", "CreateApplicationNode", "FireDebuggerEvent", "HandleRuntimeError", "FCanJitDebug", "FIsAutoJitDebugEnabled", "AddGlobalExpressionContextProvider", "RemoveGlobalExpressionContextProvider"]
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StepOutComplete() {
@@ -67,7 +65,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StartDebugSession() {
@@ -88,7 +84,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {BREAKREASON} br 
      * @returns {BREAKRESUMEACTION} 
      */
@@ -98,7 +93,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -107,7 +101,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pabf 
      * @param {Pointer<IRemoteDebugApplicationThread>} pprdatSteppingThread 
      * @returns {HRESULT} 
@@ -145,7 +138,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IDebugSyncOperation} psdo 
      * @returns {IDebugAsyncOperation} 
      */
@@ -155,7 +147,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IDebugStackFrameSniffer} pdsfs 
      * @returns {Integer} 
      */
@@ -165,7 +156,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -175,7 +165,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryCurrentThreadIsDebuggerThread() {
@@ -184,7 +173,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IDebugThreadCall64} pptc 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 
@@ -197,7 +185,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     CreateApplicationNode() {
@@ -206,7 +193,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
@@ -217,7 +203,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IActiveScriptErrorDebug} pErrorDebug 
      * @param {IActiveScriptSite} pScriptSite 
      * @param {Pointer<BREAKRESUMEACTION>} pbra 
@@ -235,7 +220,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     FCanJitDebug() {
@@ -244,7 +228,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     FIsAutoJitDebugEnabled() {
@@ -253,7 +236,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IProvideExpressionContexts} pdsfs 
      * @returns {Integer} 
      */
@@ -263,7 +245,6 @@ class IDebugApplication64 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */

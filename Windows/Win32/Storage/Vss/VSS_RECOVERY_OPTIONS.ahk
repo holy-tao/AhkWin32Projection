@@ -10,13 +10,15 @@ class VSS_RECOVERY_OPTIONS extends Win32Enum {
 
     /**
      * After the resynchronization operation is complete, the signature of each target LUN  should be identical to that of the original LUN that was used to create the shadow copy.
+     * Native name: VSS_RECOVERY_REVERT_IDENTITY_ALL
      * @type {Integer (Int32)}
      */
-    static VSS_RECOVERY_REVERT_IDENTITY_ALL => 256
+    static REVERT_IDENTITY_ALL => 256
 
     /**
      * Volume safety checks should not be performed.
+     * Native name: VSS_RECOVERY_NO_VOLUME_CHECK
      * @type {Integer (Int32)}
      */
-    static VSS_RECOVERY_NO_VOLUME_CHECK => 512
+    static NO_VOLUME_CHECK => 512
 }

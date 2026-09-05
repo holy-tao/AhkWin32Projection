@@ -7,22 +7,26 @@
 class DXGI_MODE_SCANLINE_ORDER extends Win32Enum {
 
     /**
+     * Native name: DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE => 1
+    static PROGRESSIVE => 1
 
     /**
+     * Native name: DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST => 2
+    static UPPER_FIELD_FIRST => 2
 
     /**
+     * Native name: DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST
      * @type {Integer (Int32)}
      */
-    static DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST => 3
+    static LOWER_FIELD_FIRST => 3
 }

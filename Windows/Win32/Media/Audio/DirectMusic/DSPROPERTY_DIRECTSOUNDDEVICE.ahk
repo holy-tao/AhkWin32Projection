@@ -7,42 +7,50 @@
 class DSPROPERTY_DIRECTSOUNDDEVICE extends Win32Enum {
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A => 1
+    static WAVEDEVICEMAPPING_A => 1
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1 => 2
+    static DESCRIPTION_1 => 2
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1 => 3
+    static ENUMERATE_1 => 3
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W => 4
+    static WAVEDEVICEMAPPING_W => 4
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A => 5
+    static DESCRIPTION_A => 5
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W => 6
+    static DESCRIPTION_W => 6
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A => 7
+    static ENUMERATE_A => 7
 
     /**
+     * Native name: DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W
      * @type {Integer (Int32)}
      */
-    static DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W => 8
+    static ENUMERATE_W => 8
 }

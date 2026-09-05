@@ -7,52 +7,62 @@
 class NtmsLmState extends Win32Enum {
 
     /**
+     * Native name: NTMS_LM_QUEUED
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_QUEUED => 0
+    static QUEUED => 0
 
     /**
+     * Native name: NTMS_LM_INPROCESS
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_INPROCESS => 1
+    static INPROCESS => 1
 
     /**
+     * Native name: NTMS_LM_PASSED
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_PASSED => 2
+    static PASSED => 2
 
     /**
+     * Native name: NTMS_LM_FAILED
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_FAILED => 3
+    static FAILED => 3
 
     /**
+     * Native name: NTMS_LM_INVALID
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_INVALID => 4
+    static INVALID => 4
 
     /**
+     * Native name: NTMS_LM_WAITING
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_WAITING => 5
+    static WAITING => 5
 
     /**
+     * Native name: NTMS_LM_DEFERRED
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_DEFERRED => 6
+    static DEFERRED => 6
 
     /**
+     * Native name: NTMS_LM_DEFFERED
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_DEFFERED => 6
+    static DEFFERED => 6
 
     /**
+     * Native name: NTMS_LM_CANCELLED
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_CANCELLED => 7
+    static CANCELLED => 7
 
     /**
+     * Native name: NTMS_LM_STOPPED
      * @type {Integer (Int32)}
      */
-    static NTMS_LM_STOPPED => 8
+    static STOPPED => 8
 }

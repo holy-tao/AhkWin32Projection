@@ -7,22 +7,26 @@
 class PIDISR_INFO extends Win32Enum {
 
     /**
+     * Native name: PIDISR_UP_TO_DATE
      * @type {Integer (Int32)}
      */
-    static PIDISR_UP_TO_DATE => 0
+    static UP_TO_DATE => 0
 
     /**
+     * Native name: PIDISR_NEEDS_ADD
      * @type {Integer (Int32)}
      */
-    static PIDISR_NEEDS_ADD => 1
+    static NEEDS_ADD => 1
 
     /**
+     * Native name: PIDISR_NEEDS_UPDATE
      * @type {Integer (Int32)}
      */
-    static PIDISR_NEEDS_UPDATE => 2
+    static NEEDS_UPDATE => 2
 
     /**
+     * Native name: PIDISR_NEEDS_DELETE
      * @type {Integer (Int32)}
      */
-    static PIDISR_NEEDS_DELETE => 3
+    static NEEDS_DELETE => 3
 }

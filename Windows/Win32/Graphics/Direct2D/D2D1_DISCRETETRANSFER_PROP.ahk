@@ -15,9 +15,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is FLOAT[].
      * 
      * The default value is {0.0f, 1.0f}.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_RED_TABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_RED_TABLE => 0
+    static RED_TABLE => 0
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Red channel. 
@@ -27,9 +28,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value if FALSE.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_RED_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_RED_DISABLE => 1
+    static RED_DISABLE => 1
 
     /**
      * The list of values used to define the transfer function for the Green channel.
@@ -38,9 +40,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is FLOAT[].
      * 
      * The default value is {0.0f, 1.0f}.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_GREEN_TABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_GREEN_TABLE => 2
+    static GREEN_TABLE => 2
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Green channel. 
@@ -50,9 +53,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value if FALSE.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_GREEN_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_GREEN_DISABLE => 3
+    static GREEN_DISABLE => 3
 
     /**
      * The list of values used to define the transfer function for the Blue channel.
@@ -61,9 +65,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is FLOAT[].
      * 
      * The default value is {0.0f, 1.0f}.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_BLUE_TABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_BLUE_TABLE => 4
+    static BLUE_TABLE => 4
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Blue channel. 
@@ -73,9 +78,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value if FALSE.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_BLUE_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_BLUE_DISABLE => 5
+    static BLUE_DISABLE => 5
 
     /**
      * The list of values used to define the transfer function for the Alpha channel.
@@ -84,9 +90,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is FLOAT[].
      * 
      * The default value is {0.0f, 1.0f}.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_ALPHA_TABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_ALPHA_TABLE => 6
+    static ALPHA_TABLE => 6
 
     /**
      * If you set this to TRUE the effect does not apply the transfer function to the Alpha channel. 
@@ -96,9 +103,10 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value if FALSE.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_ALPHA_DISABLE
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_ALPHA_DISABLE => 7
+    static ALPHA_DISABLE => 7
 
     /**
      * Whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph. 
@@ -112,7 +120,8 @@ class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value if FALSE.
+     * Native name: D2D1_DISCRETETRANSFER_PROP_CLAMP_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D2D1_DISCRETETRANSFER_PROP_CLAMP_OUTPUT => 8
+    static CLAMP_OUTPUT => 8
 }

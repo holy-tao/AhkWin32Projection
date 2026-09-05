@@ -52,7 +52,6 @@ class IXMLDOMDocumentType extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -62,7 +61,6 @@ class IXMLDOMDocumentType extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_entities() {
@@ -71,7 +69,6 @@ class IXMLDOMDocumentType extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_notations() {

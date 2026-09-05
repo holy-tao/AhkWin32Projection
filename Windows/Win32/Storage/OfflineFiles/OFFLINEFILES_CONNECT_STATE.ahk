@@ -12,35 +12,40 @@ class OFFLINEFILES_CONNECT_STATE extends Win32Enum {
 
     /**
      * Returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate">IOfflineFilesConnectionInfo::GetConnectState</a> if the method fails.
+     * Native name: OFFLINEFILES_CONNECT_STATE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CONNECT_STATE_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate">IOfflineFilesConnectionInfo::GetConnectState</a> if the item is offline. Pass this value to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-setconnectstate">IOfflineFilesConnectionInfo::SetConnectState</a> to transition the item to offline.
+     * Native name: OFFLINEFILES_CONNECT_STATE_OFFLINE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CONNECT_STATE_OFFLINE => 1
+    static OFFLINE => 1
 
     /**
      * Returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate">IOfflineFilesConnectionInfo::GetConnectState</a> if the item is online. Pass this value to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-setconnectstate">IOfflineFilesConnectionInfo::SetConnectState</a> to transition the item to online.
+     * Native name: OFFLINEFILES_CONNECT_STATE_ONLINE
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CONNECT_STATE_ONLINE => 2
+    static ONLINE => 2
 
     /**
      * Returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate">IOfflineFilesConnectionInfo::GetConnectState</a> if the item is transparently cached.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
+     * Native name: OFFLINEFILES_CONNECT_STATE_TRANSPARENTLY_CACHED
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CONNECT_STATE_TRANSPARENTLY_CACHED => 3
+    static TRANSPARENTLY_CACHED => 3
 
     /**
      * Returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate">IOfflineFilesConnectionInfo::GetConnectState</a> if the item contains both transparently cached data and data that can be made available offline.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
+     * Native name: OFFLINEFILES_CONNECT_STATE_PARTLY_TRANSPARENTLY_CACHED
      * @type {Integer (Int32)}
      */
-    static OFFLINEFILES_CONNECT_STATE_PARTLY_TRANSPARENTLY_CACHED => 4
+    static PARTLY_TRANSPARENTLY_CACHED => 4
 }

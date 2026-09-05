@@ -10,30 +10,35 @@ class D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE extends Win32Enum {
 
     /**
      * No limit in the precision for motion estimation vectors. This mode allows the maximum precision supported by the driver.
+     * Native name: D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_MAXIMUM
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_MAXIMUM => 0
+    static MAXIMUM => 0
 
     /**
      * The precision for motion estimation vectors has to be at most full pixel.
+     * Native name: D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_FULL_PIXEL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_FULL_PIXEL => 1
+    static FULL_PIXEL => 1
 
     /**
      * The precision for motion estimation vectors has to be at most half pixel.
+     * Native name: D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_HALF_PIXEL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_HALF_PIXEL => 2
+    static HALF_PIXEL => 2
 
     /**
      * The precision for motion estimation vectors has to be at most quarter pixel.
+     * Native name: D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_QUARTER_PIXEL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_QUARTER_PIXEL => 3
+    static QUARTER_PIXEL => 3
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_EIGHTH_PIXEL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_EIGHTH_PIXEL => 4
+    static EIGHTH_PIXEL => 4
 }

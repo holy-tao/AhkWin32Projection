@@ -7,17 +7,20 @@
 class D3D12_PROGRAM_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3D12_PROGRAM_TYPE_GENERIC_PIPELINE
      * @type {Integer (Int32)}
      */
-    static D3D12_PROGRAM_TYPE_GENERIC_PIPELINE => 1
+    static GENERIC_PIPELINE => 1
 
     /**
+     * Native name: D3D12_PROGRAM_TYPE_RAYTRACING_PIPELINE
      * @type {Integer (Int32)}
      */
-    static D3D12_PROGRAM_TYPE_RAYTRACING_PIPELINE => 4
+    static RAYTRACING_PIPELINE => 4
 
     /**
+     * Native name: D3D12_PROGRAM_TYPE_WORK_GRAPH
      * @type {Integer (Int32)}
      */
-    static D3D12_PROGRAM_TYPE_WORK_GRAPH => 5
+    static WORK_GRAPH => 5
 }

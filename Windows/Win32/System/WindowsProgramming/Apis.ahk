@@ -2937,7 +2937,6 @@ class WindowsProgramming {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<Integer>} String1 
      * @param {Pointer<Integer>} String2 
      * @returns {Integer} 
@@ -2951,7 +2950,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} String1 
      * @param {Pointer<Integer>} String2 
      * @returns {Integer} 
@@ -2965,7 +2963,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _String 
      * @returns {Integer} 
      */
@@ -2977,7 +2974,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _String 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
@@ -2990,7 +2986,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Destination 
      * @param {Pointer<Integer>} Source 
      * @returns {Pointer<Integer>} 
@@ -3004,7 +2999,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} String1 
      * @param {Pointer<Integer>} String2 
      * @returns {Integer} 
@@ -3033,7 +3027,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _String 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
@@ -3046,7 +3039,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     static RtlGetReturnAddressHijackTarget() {
@@ -3055,7 +3047,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} TriggerConfig 
      * @returns {Integer} 
      */
@@ -3088,7 +3079,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} contractName 
      * @param {Integer} bufferLength 
      * @param {PWSTR} moduleBaseName 
@@ -3460,7 +3450,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Integer} dwMinFree 
      * @returns {Pointer} 
      */
@@ -3470,7 +3459,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HGLOBAL} hMem 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3481,7 +3469,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HGLOBAL} hMem 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -3492,7 +3479,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HGLOBAL} hMem 
      * @returns {Pointer<Void>} 
      */
@@ -3504,7 +3490,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HGLOBAL} hMem 
      * @returns {BOOL} 
      */
@@ -3516,7 +3501,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HLOCAL} hMem 
      * @param {Integer} cbNewSize 
      * @returns {Pointer} 
@@ -3529,7 +3513,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Integer} uMinFree 
      * @returns {Pointer} 
      */
@@ -3539,7 +3522,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} NewEnvironment 
      * @returns {BOOL} 
      */
@@ -3562,7 +3544,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice 
      * @returns {BOOL} 
      */
@@ -3574,7 +3555,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice 
      * @returns {BOOL} 
      */
@@ -3586,7 +3566,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HANDLE} hMsgIndicator 
      * @param {Integer} ulMsgCount 
      * @returns {BOOL} 
@@ -3850,7 +3829,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Integer} hFile 
      * @param {Integer} lpBuffer 
      * @param {Integer} lBytes 
@@ -3862,7 +3840,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Integer} hFile 
      * @param {Integer} lpBuffer 
      * @param {Integer} lBytes 
@@ -6525,7 +6502,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lp 
      * @param {Pointer} ucb 
      * @returns {BOOL} 
@@ -6538,7 +6514,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lp 
      * @param {Pointer} ucb 
      * @returns {BOOL} 
@@ -6825,7 +6800,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HANDLE} TokenHandle 
      * @returns {BOOL} 
      */
@@ -6905,7 +6879,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} TargetPartition 
      * @param {PWSTR} SparePartition 
      * @param {Integer} Flags 
@@ -6954,7 +6927,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} CustomSystemEventTriggerConfig 
      * @returns {Integer} 
      */
@@ -7106,7 +7078,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {NTSTATUS} 
@@ -7120,7 +7091,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {String} Nothing - always returns an empty string
@@ -7132,7 +7102,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {NTSTATUS} 
@@ -7477,7 +7446,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Integer} dwCompression 
      * @param {Integer} dwRedMask 
@@ -7500,7 +7468,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<Void>} lpOffscreenSurf 
      * @param {Pointer<Pointer<DCIOVERLAY>>} lplpSurface 
@@ -7517,7 +7484,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<RECT>} lprDst 
      * @param {Pointer<RECT>} lprSrc 
@@ -7536,7 +7502,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<DCIOFFSCREEN>} pdci 
      * @param {Pointer<RECT>} srcrc 
      * @param {Pointer<RECT>} destrc 
@@ -7549,7 +7514,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @returns {HWINWATCH} 
      */
@@ -7562,7 +7526,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWINWATCH} hWW 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7573,7 +7536,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWINWATCH} hWW 
      * @param {Pointer<RECT>} prc 
      * @param {Integer} _size 
@@ -7588,7 +7550,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWINWATCH} hWW 
      * @returns {BOOL} 
      */
@@ -7600,7 +7561,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Integer} _size 
      * @param {Pointer<RGNDATA>} prd 
@@ -7614,7 +7574,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Integer} _size 
      * @param {Pointer<RGNDATA>} prd 
@@ -7628,7 +7587,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWINWATCH} hWW 
      * @param {Pointer<WINWATCHNOTIFYPROC>} NotifyCallback 
      * @param {LPARAM} NotifyParam 
@@ -7680,7 +7638,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<DCIOFFSCREEN>} pdci 
      * @returns {Integer} 
      */
@@ -7690,7 +7647,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<DCIOFFSCREEN>} pdci 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
@@ -7701,7 +7657,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<DCIOFFSCREEN>} pdci 
      * @param {Pointer<RECT>} dst 
      * @param {Pointer<RECT>} src 
@@ -7723,7 +7678,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PSTR} szCmdName 
      * @param {PSTR} szInfSection 
@@ -7748,7 +7702,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PWSTR} szCmdName 
      * @param {PWSTR} szInfSection 
@@ -7773,7 +7726,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static NeedRebootInit() {
@@ -7782,7 +7734,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Integer} dwRebootCheck 
      * @returns {BOOL} 
      */
@@ -7792,7 +7743,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PSTR} pszINF 
      * @param {PSTR} pszSec 
@@ -7809,7 +7759,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} pszINF 
      * @param {PWSTR} pszSec 
@@ -7826,7 +7775,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} pszInfFilename 
      * @param {PSTR} pszInstallSection 
      * @param {PSTR} pszTranslateSection 
@@ -7849,7 +7797,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} pszInfFilename 
      * @param {PWSTR} pszInstallSection 
      * @param {PWSTR} pszTranslateSection 
@@ -7912,7 +7859,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
@@ -7929,7 +7875,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Pointer<CABINFOA>} pCab 
      * @param {Pointer<Void>} pReserved 
@@ -7945,7 +7890,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Pointer<CABINFOW>} pCab 
      * @param {Pointer<Void>} pReserved 
@@ -7961,7 +7905,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PSTR} lpszSourceDir 
      * @param {PSTR} lpszSourceFile 
@@ -7983,7 +7926,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} lpszSourceDir 
      * @param {PWSTR} lpszSourceFile 
@@ -8005,7 +7947,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
@@ -8028,7 +7969,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
@@ -8051,7 +7991,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PSTR} pszTitle 
      * @param {PSTR} pszINF 
@@ -8074,7 +8013,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszINF 
@@ -8097,7 +8035,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
@@ -8113,7 +8050,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
@@ -8129,7 +8065,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} hDlg 
      * @param {PWSTR} lpFileList 
      * @param {PWSTR} lpDir 
@@ -8148,7 +8083,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PSTR} pszTitle 
      * @param {PSTR} pszINF 
@@ -8171,7 +8105,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszINF 
@@ -8194,7 +8127,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} lpcszFileList 
      * @param {PSTR} lpcszBackupDir 
      * @param {PSTR} lpcszBaseName 
@@ -8211,7 +8143,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} lpcszFileList 
      * @param {PWSTR} lpcszBackupDir 
      * @param {PWSTR} lpcszBaseName 
@@ -8228,7 +8159,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} lpFileList 
      * @param {PSTR} lpDir 
      * @param {PSTR} lpBaseName 
@@ -8244,7 +8174,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} lpFileList 
      * @param {PWSTR} lpDir 
      * @param {PWSTR} lpBaseName 
@@ -8260,7 +8189,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} lpszFilename 
      * @param {Pointer<Integer>} pdwMSVer 
      * @param {Pointer<Integer>} pdwLSVer 
@@ -8278,7 +8206,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszFilename 
      * @param {Pointer<Integer>} pdwMSVer 
      * @param {Pointer<Integer>} pdwLSVer 
@@ -8296,7 +8223,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} lpszFilename 
      * @param {Pointer<Integer>} pdwMSVer 
      * @param {Pointer<Integer>} pdwLSVer 
@@ -8314,7 +8240,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszFilename 
      * @param {Pointer<Integer>} pdwMSVer 
      * @param {Pointer<Integer>} pdwLSVer 
@@ -8332,7 +8257,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @param {Pointer<Integer>} lpdwReserved 
      * @returns {BOOL} 
@@ -8345,7 +8269,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} pszFileOrDirName 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -8358,7 +8281,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileOrDirName 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -8371,7 +8293,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
@@ -8388,7 +8309,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} pszInfFilename 
      * @param {PSTR} pszInstallSection 
      * @param {Integer} dwFlags 
@@ -8408,7 +8328,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} pszInfFilename 
      * @param {PWSTR} pszInstallSection 
      * @param {Integer} dwFlags 
@@ -8428,7 +8347,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hInf 
      * @param {PSTR} pszInfFilename 
      * @param {PSTR} pszTranslateSection 
@@ -8452,7 +8370,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hInf 
      * @param {PWSTR} pszInfFilename 
      * @param {PWSTR} pszTranslateSection 
@@ -8476,7 +8393,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hInf 
      * @returns {HRESULT} 
      */
@@ -8488,7 +8404,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PSTR} pszCabName 
      * @param {PSTR} pszExpandDir 
      * @param {Integer} dwFlags 
@@ -8509,7 +8424,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCabName 
      * @param {PWSTR} pszExpandDir 
      * @param {Integer} dwFlags 
@@ -8530,7 +8444,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParams 
@@ -8547,7 +8460,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} _hInstance 
      * @param {PSTR} pszParms 
@@ -8564,7 +8476,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
@@ -8581,7 +8492,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} _hInstance 
      * @param {PSTR} pszParms 
@@ -8598,7 +8508,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
@@ -8615,7 +8524,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<PERUSERSECTIONA>} pPerUser 
      * @returns {HRESULT} 
      */
@@ -8625,7 +8533,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<PERUSERSECTIONW>} pPerUser 
      * @returns {HRESULT} 
      */
@@ -8915,7 +8822,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Pointer<IMEPROA>} param1 
      * @returns {BOOL} 
@@ -8928,7 +8834,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Pointer<IMEPROW>} param1 
      * @returns {BOOL} 
@@ -8941,7 +8846,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<IMEPROA>} param0 
      * @returns {BOOL} 
      */
@@ -8951,7 +8855,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<IMEPROW>} param0 
      * @returns {BOOL} 
      */
@@ -8961,7 +8864,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Pointer<IMEPROA>} param1 
      * @returns {BOOL} 
@@ -8974,7 +8876,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Pointer<IMEPROW>} param1 
      * @returns {BOOL} 
@@ -8987,7 +8888,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @returns {Integer} 
      */
@@ -9022,7 +8922,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @returns {BOOL} 
      */
@@ -9092,7 +8991,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} providerName 
      * @param {Pointer<UNICODE_STRING>} keyName 
      * @param {Pointer<UNICODE_STRING>} _valueName 
@@ -9158,7 +9056,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
      * @param {Integer} informationLength 
      * @returns {Integer} 
@@ -9169,7 +9066,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @returns {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} 
      */
     static WldpQueryWindowsLockdownRestriction() {
@@ -9178,7 +9074,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} LockdownRestriction 
      * @returns {HRESULT} 
      */
@@ -9188,7 +9083,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} PackageFamilyName 
      * @param {Integer} PackageVersion 
      * @returns {HRESULT} 
@@ -9201,7 +9095,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {WLDP_POLICY_SETTING} Setting 
      * @returns {BOOL} 
      */
@@ -9211,7 +9104,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} SettingString 
      * @returns {BOOL} 
      */
@@ -9223,7 +9115,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static WldpIsWcosProductionConfiguration() {
@@ -9232,7 +9123,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static WldpResetWcosProductionConfiguration() {
@@ -9241,7 +9131,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     static WldpIsProductionConfiguration() {
@@ -9250,7 +9139,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static WldpResetProductionConfiguration() {
@@ -9341,7 +9229,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} host 
      * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
      * @param {HANDLE} contentFileHandle 
@@ -9359,7 +9246,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @returns {BOOL} 
@@ -9373,7 +9259,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 
@@ -9390,7 +9275,6 @@ class WindowsProgramming {
     }
 
     /**
-     * 
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 

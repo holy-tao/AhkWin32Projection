@@ -7,27 +7,32 @@
 class DISPID_SpeechLexiconPronunciation extends Win32Enum {
 
     /**
+     * Native name: DISPID_SLPType
      * @type {Integer (Int32)}
      */
-    static DISPID_SLPType => 1
+    static SLPType => 1
 
     /**
+     * Native name: DISPID_SLPLangId
      * @type {Integer (Int32)}
      */
-    static DISPID_SLPLangId => 2
+    static SLPLangId => 2
 
     /**
+     * Native name: DISPID_SLPPartOfSpeech
      * @type {Integer (Int32)}
      */
-    static DISPID_SLPPartOfSpeech => 3
+    static SLPPartOfSpeech => 3
 
     /**
+     * Native name: DISPID_SLPPhoneIds
      * @type {Integer (Int32)}
      */
-    static DISPID_SLPPhoneIds => 4
+    static SLPPhoneIds => 4
 
     /**
+     * Native name: DISPID_SLPSymbolic
      * @type {Integer (Int32)}
      */
-    static DISPID_SLPSymbolic => 5
+    static SLPSymbolic => 5
 }

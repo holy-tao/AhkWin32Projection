@@ -70,7 +70,6 @@ class IInkExtendedProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

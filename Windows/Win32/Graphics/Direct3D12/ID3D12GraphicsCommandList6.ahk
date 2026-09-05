@@ -28,7 +28,6 @@ class ID3D12GraphicsCommandList6 extends ID3D12GraphicsCommandList5 {
     static VTableNames => ["DispatchMesh"]
 
     /**
-     * 
      * @param {Integer} ThreadGroupCountX 
      * @param {Integer} ThreadGroupCountY 
      * @param {Integer} ThreadGroupCountZ 

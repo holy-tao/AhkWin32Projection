@@ -7,17 +7,20 @@
 class WLX_SHUTDOWN_TYPE extends Win32Enum {
 
     /**
+     * Native name: WLX_SAS_ACTION_SHUTDOWN
      * @type {Integer (UInt32)}
      */
-    static WLX_SAS_ACTION_SHUTDOWN => 5
+    static SAS_ACTION_SHUTDOWN => 5
 
     /**
+     * Native name: WLX_SAS_ACTION_SHUTDOWN_REBOOT
      * @type {Integer (UInt32)}
      */
-    static WLX_SAS_ACTION_SHUTDOWN_REBOOT => 11
+    static SAS_ACTION_SHUTDOWN_REBOOT => 11
 
     /**
+     * Native name: WLX_SAS_ACTION_SHUTDOWN_POWER_OFF
      * @type {Integer (UInt32)}
      */
-    static WLX_SAS_ACTION_SHUTDOWN_POWER_OFF => 10
+    static SAS_ACTION_SHUTDOWN_POWER_OFF => 10
 }

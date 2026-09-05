@@ -7,12 +7,14 @@
 class AnnoScope extends Win32Enum {
 
     /**
+     * Native name: ANNO_THIS
      * @type {Integer (Int32)}
      */
-    static ANNO_THIS => 0
+    static THIS => 0
 
     /**
+     * Native name: ANNO_CONTAINER
      * @type {Integer (Int32)}
      */
-    static ANNO_CONTAINER => 1
+    static CONTAINER => 1
 }

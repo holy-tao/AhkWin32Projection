@@ -15,9 +15,10 @@ class WS_XML_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      * in) a message.  This is required if and only if the token is a
      * proof-of-possession token.  If specified, the XML buffer must have
      * exactly one top level XML element.
+     * Native name: WS_XML_SECURITY_TOKEN_PROPERTY_ATTACHED_REFERENCE
      * @type {Integer (Int32)}
      */
-    static WS_XML_SECURITY_TOKEN_PROPERTY_ATTACHED_REFERENCE => 1
+    static ATTACHED_REFERENCE => 1
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> that contains the XML form of the reference to be used for this token (from a
@@ -25,19 +26,22 @@ class WS_XML_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
      * should be specified only if the token is a proof-of-possession token,
      * and is used without being serialized in the message.  If specified,
      * the XML buffer must have exactly one top level XML element.
+     * Native name: WS_XML_SECURITY_TOKEN_PROPERTY_UNATTACHED_REFERENCE
      * @type {Integer (Int32)}
      */
-    static WS_XML_SECURITY_TOKEN_PROPERTY_UNATTACHED_REFERENCE => 2
+    static UNATTACHED_REFERENCE => 2
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_datetime">WS_DATETIME</a> structure that contains the time from when the security token is valid.
+     * Native name: WS_XML_SECURITY_TOKEN_PROPERTY_VALID_FROM_TIME
      * @type {Integer (Int32)}
      */
-    static WS_XML_SECURITY_TOKEN_PROPERTY_VALID_FROM_TIME => 3
+    static VALID_FROM_TIME => 3
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_datetime">WS_DATETIME</a> structure that contains the time until when the security token is valid.
+     * Native name: WS_XML_SECURITY_TOKEN_PROPERTY_VALID_TILL_TIME
      * @type {Integer (Int32)}
      */
-    static WS_XML_SECURITY_TOKEN_PROPERTY_VALID_TILL_TIME => 4
+    static VALID_TILL_TIME => 4
 }

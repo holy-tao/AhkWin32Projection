@@ -10,49 +10,57 @@ class eAVEncDDService extends Win32Enum {
 
     /**
      * Complete main audio service.
+     * Native name: eAVEncDDService_CM
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_CM => 0
+    static CM => 0
 
     /**
      * Main service: music and effects. (The main audio service minus the dialog channel.)
+     * Native name: eAVEncDDService_ME
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_ME => 1
+    static ME => 1
 
     /**
      * Associated service: visually impaired.
+     * Native name: eAVEncDDService_VI
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_VI => 2
+    static VI => 2
 
     /**
      * Associated service: hard of hearing.
+     * Native name: eAVEncDDService_HI
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_HI => 3
+    static HI => 3
 
     /**
      * Associated service: dialog.
+     * Native name: eAVEncDDService_D
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_D => 4
+    static D => 4
 
     /**
      * Associated service: commentary.
+     * Native name: eAVEncDDService_C
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_C => 5
+    static C => 5
 
     /**
      * Associated service: emergency.
+     * Native name: eAVEncDDService_E
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_E => 6
+    static E => 6
 
     /**
      * Associated service: voice over.
+     * Native name: eAVEncDDService_VO
      * @type {Integer (Int32)}
      */
-    static eAVEncDDService_VO => 7
+    static VO => 7
 }

@@ -98,7 +98,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BackupDir() {
@@ -108,7 +107,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Comment() {
@@ -118,7 +116,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -128,7 +125,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Domain() {
@@ -138,7 +134,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StarterGPOID() {
@@ -148,7 +143,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -158,7 +152,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Timestamp() {
@@ -167,7 +160,6 @@ class IGPMStarterGPOBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMStarterGPOType} 
      */
     get_Type() {

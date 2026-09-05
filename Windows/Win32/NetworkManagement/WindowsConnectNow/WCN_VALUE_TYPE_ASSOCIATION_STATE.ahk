@@ -10,31 +10,36 @@ class WCN_VALUE_TYPE_ASSOCIATION_STATE extends Win32Enum {
 
     /**
      * The wireless station is not associated.
+     * Native name: WCN_VALUE_AS_NOT_ASSOCIATED
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_AS_NOT_ASSOCIATED => 0
+    static AS_NOT_ASSOCIATED => 0
 
     /**
      * The connection was successfully established.
+     * Native name: WCN_VALUE_AS_CONNECTION_SUCCESS
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_AS_CONNECTION_SUCCESS => 1
+    static AS_CONNECTION_SUCCESS => 1
 
     /**
      * The wireless station is not properly configured.
+     * Native name: WCN_VALUE_AS_CONFIGURATION_FAILURE
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_AS_CONFIGURATION_FAILURE => 2
+    static AS_CONFIGURATION_FAILURE => 2
 
     /**
      * Association has failed.
+     * Native name: WCN_VALUE_AS_ASSOCIATION_FAILURE
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_AS_ASSOCIATION_FAILURE => 3
+    static AS_ASSOCIATION_FAILURE => 3
 
     /**
      * The specified IP address could not be connected to, and may be invalid.
+     * Native name: WCN_VALUE_AS_IP_FAILURE
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_AS_IP_FAILURE => 4
+    static AS_IP_FAILURE => 4
 }

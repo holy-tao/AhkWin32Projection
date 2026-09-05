@@ -30,7 +30,6 @@ class ISpDisplayAlternates extends IUnknown {
     static VTableNames => ["GetDisplayAlternates", "SetFullStopTrailSpace"]
 
     /**
-     * 
      * @param {Pointer<SPDISPLAYPHRASE>} pPhrase 
      * @param {Integer} cRequestCount 
      * @param {Pointer<Pointer<SPDISPLAYPHRASE>>} ppCoMemPhrases 
@@ -46,7 +45,6 @@ class ISpDisplayAlternates extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulTrailSpace 
      * @returns {HRESULT} 
      */

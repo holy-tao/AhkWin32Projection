@@ -29,61 +29,71 @@ class SIGDN extends Win32Enum {
 
     /**
      * 0x00000000. Returns the display name relative to the parent folder. In UI this name is generally ideal for display to the user.
+     * Native name: SIGDN_NORMALDISPLAY
      * @type {Integer (Int32)}
      */
-    static SIGDN_NORMALDISPLAY => 0
+    static NORMALDISPLAY => 0
 
     /**
      * (int)0x80018001. Returns the parsing name relative to the parent folder. This name is not suitable for use in UI.
+     * Native name: SIGDN_PARENTRELATIVEPARSING
      * @type {Integer (Int32)}
      */
-    static SIGDN_PARENTRELATIVEPARSING => -2147385343
+    static PARENTRELATIVEPARSING => -2147385343
 
     /**
      * (int)0x80028000. Returns the parsing name relative to the desktop. This name is not suitable for use in UI.
+     * Native name: SIGDN_DESKTOPABSOLUTEPARSING
      * @type {Integer (Int32)}
      */
-    static SIGDN_DESKTOPABSOLUTEPARSING => -2147319808
+    static DESKTOPABSOLUTEPARSING => -2147319808
 
     /**
      * (int)0x80031001. Returns the editing name relative to the parent folder. In UI this name is suitable for display to the user.
+     * Native name: SIGDN_PARENTRELATIVEEDITING
      * @type {Integer (Int32)}
      */
-    static SIGDN_PARENTRELATIVEEDITING => -2147282943
+    static PARENTRELATIVEEDITING => -2147282943
 
     /**
      * (int)0x8004c000. Returns the editing name relative to the desktop. In UI this name is suitable for display to the user.
+     * Native name: SIGDN_DESKTOPABSOLUTEEDITING
      * @type {Integer (Int32)}
      */
-    static SIGDN_DESKTOPABSOLUTEEDITING => -2147172352
+    static DESKTOPABSOLUTEEDITING => -2147172352
 
     /**
      * (int)0x80058000. Returns the item's file system path, if it has one. Only items that report <a href="https://docs.microsoft.com/windows/desktop/shell/sfgao">SFGAO_FILESYSTEM</a> have a file system path. When an item does not have a file system path, a call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname">IShellItem::GetDisplayName</a> on that item will fail. In UI this name is suitable for display to the user in some cases, but note that it might not be specified for all items.
+     * Native name: SIGDN_FILESYSPATH
      * @type {Integer (Int32)}
      */
-    static SIGDN_FILESYSPATH => -2147123200
+    static FILESYSPATH => -2147123200
 
     /**
      * (int)0x80068000. Returns the item's URL, if it has one. Some items do not have a URL, and in those cases a call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname">IShellItem::GetDisplayName</a> will fail. This name is suitable for display to the user in some cases, but note that it might not be specified for all items.
+     * Native name: SIGDN_URL
      * @type {Integer (Int32)}
      */
-    static SIGDN_URL => -2147057664
+    static URL => -2147057664
 
     /**
      * (int)0x8007c001. Returns the path relative to the parent folder in a friendly format as displayed in an address bar. This name is suitable for display to the user.
+     * Native name: SIGDN_PARENTRELATIVEFORADDRESSBAR
      * @type {Integer (Int32)}
      */
-    static SIGDN_PARENTRELATIVEFORADDRESSBAR => -2146975743
+    static PARENTRELATIVEFORADDRESSBAR => -2146975743
 
     /**
      * (int)0x80080001. Returns the path relative to the parent folder.
+     * Native name: SIGDN_PARENTRELATIVE
      * @type {Integer (Int32)}
      */
-    static SIGDN_PARENTRELATIVE => -2146959359
+    static PARENTRELATIVE => -2146959359
 
     /**
      * (int)0x80094001. <b>Introduced in Windows 8</b>.
+     * Native name: SIGDN_PARENTRELATIVEFORUI
      * @type {Integer (Int32)}
      */
-    static SIGDN_PARENTRELATIVEFORUI => -2146877439
+    static PARENTRELATIVEFORUI => -2146877439
 }

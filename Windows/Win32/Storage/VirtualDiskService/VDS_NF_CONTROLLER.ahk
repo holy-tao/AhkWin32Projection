@@ -7,22 +7,26 @@
 class VDS_NF_CONTROLLER extends Win32Enum {
 
     /**
+     * Native name: VDS_NF_CONTROLLER_ARRIVE
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_CONTROLLER_ARRIVE => 103
+    static ARRIVE => 103
 
     /**
+     * Native name: VDS_NF_CONTROLLER_DEPART
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_CONTROLLER_DEPART => 104
+    static DEPART => 104
 
     /**
+     * Native name: VDS_NF_CONTROLLER_MODIFY
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_CONTROLLER_MODIFY => 350
+    static MODIFY => 350
 
     /**
+     * Native name: VDS_NF_CONTROLLER_REMOVED
      * @type {Integer (UInt32)}
      */
-    static VDS_NF_CONTROLLER_REMOVED => 351
+    static REMOVED => 351
 }

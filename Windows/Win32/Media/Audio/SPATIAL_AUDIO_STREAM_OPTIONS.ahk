@@ -17,13 +17,15 @@ class SPATIAL_AUDIO_STREAM_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No stream options.
+     * Native name: SPATIAL_AUDIO_STREAM_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static SPATIAL_AUDIO_STREAM_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * The stream should support audio offloading. For more information, see <xref:NN:spatialaudioclient.ISpatialAudioClient2>.
+     * Native name: SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD
      * @type {Integer (Int32)}
      */
-    static SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD => 1
+    static OFFLOAD => 1
 }

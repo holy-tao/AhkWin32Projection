@@ -50,7 +50,6 @@ class ISVGAnimatedRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} v 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ class ISVGAnimatedRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     get_baseVal() {
@@ -69,7 +67,6 @@ class ISVGAnimatedRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} v 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class ISVGAnimatedRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     get_animVal() {

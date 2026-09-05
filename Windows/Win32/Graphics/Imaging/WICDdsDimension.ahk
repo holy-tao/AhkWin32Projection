@@ -12,25 +12,29 @@ class WICDdsDimension extends Win32Enum {
 
     /**
      * DDS image contains a 1-dimensional texture .
+     * Native name: WICDdsTexture1D
      * @type {Integer (Int32)}
      */
-    static WICDdsTexture1D => 0
+    static Texture1D => 0
 
     /**
      * DDS image contains a 2-dimensional texture .
+     * Native name: WICDdsTexture2D
      * @type {Integer (Int32)}
      */
-    static WICDdsTexture2D => 1
+    static Texture2D => 1
 
     /**
      * DDS image contains a 3-dimensional texture .
+     * Native name: WICDdsTexture3D
      * @type {Integer (Int32)}
      */
-    static WICDdsTexture3D => 2
+    static Texture3D => 2
 
     /**
      * The DDS image contains a cube texture represented as an array of 6 faces.
+     * Native name: WICDdsTextureCube
      * @type {Integer (Int32)}
      */
-    static WICDdsTextureCube => 3
+    static TextureCube => 3
 }

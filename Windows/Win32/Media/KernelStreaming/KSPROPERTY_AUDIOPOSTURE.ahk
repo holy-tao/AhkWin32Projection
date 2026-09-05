@@ -7,7 +7,8 @@
 class KSPROPERTY_AUDIOPOSTURE extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_AUDIOPOSTURE_ORIENTATION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_AUDIOPOSTURE_ORIENTATION => 1
+    static ORIENTATION => 1
 }

@@ -14,196 +14,227 @@ class IMAPI_PROFILE_TYPE extends Win32Enum {
 
     /**
      * The profile is not valid.
+     * Native name: IMAPI_PROFILE_TYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_INVALID => 0
+    static INVALID => 0
 
     /**
      * The hard disk it not removable.
+     * Native name: IMAPI_PROFILE_TYPE_NON_REMOVABLE_DISK
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_NON_REMOVABLE_DISK => 1
+    static NON_REMOVABLE_DISK => 1
 
     /**
      * The hard disk is removable.
+     * Native name: IMAPI_PROFILE_TYPE_REMOVABLE_DISK
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_REMOVABLE_DISK => 2
+    static REMOVABLE_DISK => 2
 
     /**
      * An Magneto-Optical Erasable drive.
+     * Native name: IMAPI_PROFILE_TYPE_MO_ERASABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_MO_ERASABLE => 3
+    static MO_ERASABLE => 3
 
     /**
      * A write once optical drive.
+     * Native name: IMAPI_PROFILE_TYPE_MO_WRITE_ONCE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_MO_WRITE_ONCE => 4
+    static MO_WRITE_ONCE => 4
 
     /**
      * An advance storage Magneto-Optical drive.
+     * Native name: IMAPI_PROFILE_TYPE_AS_MO
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_AS_MO => 5
+    static AS_MO => 5
 
     /**
      * A CD-ROM drive.
+     * Native name: IMAPI_PROFILE_TYPE_CDROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_CDROM => 8
+    static CDROM => 8
 
     /**
      * A CD-R drive.
+     * Native name: IMAPI_PROFILE_TYPE_CD_RECORDABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_CD_RECORDABLE => 9
+    static CD_RECORDABLE => 9
 
     /**
      * A CD-RW or CD+RW drive.
+     * Native name: IMAPI_PROFILE_TYPE_CD_REWRITABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_CD_REWRITABLE => 10
+    static CD_REWRITABLE => 10
 
     /**
      * A DVD-ROM drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVDROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVDROM => 16
+    static DVDROM => 16
 
     /**
      * A DVD-R sequential recording drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_DASH_RECORDABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_DASH_RECORDABLE => 17
+    static DVD_DASH_RECORDABLE => 17
 
     /**
      * A DVD-RAM drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_RAM
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_RAM => 18
+    static DVD_RAM => 18
 
     /**
      * A DVD-RW restricted overwrite drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_DASH_REWRITABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_DASH_REWRITABLE => 19
+    static DVD_DASH_REWRITABLE => 19
 
     /**
      * A DVD-RW sequential recording drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_DASH_RW_SEQUENTIAL
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_DASH_RW_SEQUENTIAL => 20
+    static DVD_DASH_RW_SEQUENTIAL => 20
 
     /**
      * A DVD-R dual layer sequential recording drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_DASH_R_DUAL_SEQUENTIAL
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_DASH_R_DUAL_SEQUENTIAL => 21
+    static DVD_DASH_R_DUAL_SEQUENTIAL => 21
 
     /**
      * A DVD-R dual layer jump recording drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_DASH_R_DUAL_LAYER_JUMP
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_DASH_R_DUAL_LAYER_JUMP => 22
+    static DVD_DASH_R_DUAL_LAYER_JUMP => 22
 
     /**
      * A DVD+RW drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_PLUS_RW
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_PLUS_RW => 26
+    static DVD_PLUS_RW => 26
 
     /**
      * A DVD+R drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_PLUS_R
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_PLUS_R => 27
+    static DVD_PLUS_R => 27
 
     /**
      * A double density CD drive.
      * 
      * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
      * <div> </div>
+     * Native name: IMAPI_PROFILE_TYPE_DDCDROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DDCDROM => 32
+    static DDCDROM => 32
 
     /**
      * A double density CD-R drive.
      * 
      * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
      * <div> </div>
+     * Native name: IMAPI_PROFILE_TYPE_DDCD_RECORDABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DDCD_RECORDABLE => 33
+    static DDCD_RECORDABLE => 33
 
     /**
      * A double density CD-RW drive.
      * 
      * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
      * <div> </div>
+     * Native name: IMAPI_PROFILE_TYPE_DDCD_REWRITABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DDCD_REWRITABLE => 34
+    static DDCD_REWRITABLE => 34
 
     /**
      * A DVD+RW dual layer drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_PLUS_RW_DUAL
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_PLUS_RW_DUAL => 42
+    static DVD_PLUS_RW_DUAL => 42
 
     /**
      * A DVD+R dual layer drive.
+     * Native name: IMAPI_PROFILE_TYPE_DVD_PLUS_R_DUAL
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_DVD_PLUS_R_DUAL => 43
+    static DVD_PLUS_R_DUAL => 43
 
     /**
      * A Blu-ray read only drive.
+     * Native name: IMAPI_PROFILE_TYPE_BD_ROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_BD_ROM => 64
+    static BD_ROM => 64
 
     /**
      * A write once Blu-ray drive with sequential recording.
+     * Native name: IMAPI_PROFILE_TYPE_BD_R_SEQUENTIAL
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_BD_R_SEQUENTIAL => 65
+    static BD_R_SEQUENTIAL => 65
 
     /**
      * A write once Blu-ray drive with random-access recording capability.
+     * Native name: IMAPI_PROFILE_TYPE_BD_R_RANDOM_RECORDING
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_BD_R_RANDOM_RECORDING => 66
+    static BD_R_RANDOM_RECORDING => 66
 
     /**
      * A rewritable Blu-ray drive.
+     * Native name: IMAPI_PROFILE_TYPE_BD_REWRITABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_BD_REWRITABLE => 67
+    static BD_REWRITABLE => 67
 
     /**
      * A read only high density DVD drive.
+     * Native name: IMAPI_PROFILE_TYPE_HD_DVD_ROM
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_HD_DVD_ROM => 80
+    static HD_DVD_ROM => 80
 
     /**
      * A write once high density DVD drive.
+     * Native name: IMAPI_PROFILE_TYPE_HD_DVD_RECORDABLE
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_HD_DVD_RECORDABLE => 81
+    static HD_DVD_RECORDABLE => 81
 
     /**
      * A high density DVD drive with random access positioning.
+     * Native name: IMAPI_PROFILE_TYPE_HD_DVD_RAM
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_HD_DVD_RAM => 82
+    static HD_DVD_RAM => 82
 
     /**
      * Nonstandard drive.
+     * Native name: IMAPI_PROFILE_TYPE_NON_STANDARD
      * @type {Integer (Int32)}
      */
-    static IMAPI_PROFILE_TYPE_NON_STANDARD => 65535
+    static NON_STANDARD => 65535
 }

@@ -31,7 +31,6 @@ class IDirectSound3DListener extends IUnknown {
     static VTableNames => ["GetAllParameters", "GetDistanceFactor", "GetDopplerFactor", "GetOrientation", "GetPosition", "GetRolloffFactor", "GetVelocity", "SetAllParameters", "SetDistanceFactor", "SetDopplerFactor", "SetOrientation", "SetPosition", "SetRolloffFactor", "SetVelocity", "CommitDeferredSettings"]
 
     /**
-     * 
      * @returns {DS3DLISTENER} 
      */
     GetAllParameters() {
@@ -41,7 +40,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetDistanceFactor() {
@@ -50,7 +48,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetDopplerFactor() {
@@ -59,7 +56,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3DVECTOR>} pvOrientFront 
      * @param {Pointer<D3DVECTOR>} pvOrientTop 
      * @returns {HRESULT} 
@@ -70,7 +66,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetPosition() {
@@ -80,7 +75,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetRolloffFactor() {
@@ -89,7 +83,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetVelocity() {
@@ -99,7 +92,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DS3DLISTENER>} pcListener 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -110,7 +102,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flDistanceFactor 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -121,7 +112,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flDopplerFactor 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -132,7 +122,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} xFront 
      * @param {Float} yFront 
      * @param {Float} zFront 
@@ -148,7 +137,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -161,7 +149,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flRolloffFactor 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -172,7 +159,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -185,7 +171,6 @@ class IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CommitDeferredSettings() {

@@ -10,7 +10,8 @@ class CF_REVERT_FLAGS extends Win32BitflagEnum {
 
     /**
      * No placeholder revert flags.
+     * Native name: CF_REVERT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_REVERT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

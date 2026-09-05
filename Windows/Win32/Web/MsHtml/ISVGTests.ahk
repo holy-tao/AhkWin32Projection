@@ -53,7 +53,6 @@ class ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_requiredFeatures() {
@@ -62,7 +61,6 @@ class ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_requiredExtensions() {
@@ -71,7 +69,6 @@ class ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_systemLanguage() {
@@ -80,7 +77,6 @@ class ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _extension 
      * @returns {VARIANT_BOOL} 
      */

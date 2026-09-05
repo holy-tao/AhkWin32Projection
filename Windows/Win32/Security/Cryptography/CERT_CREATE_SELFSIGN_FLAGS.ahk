@@ -7,12 +7,14 @@
 class CERT_CREATE_SELFSIGN_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: CERT_CREATE_SELFSIGN_NO_KEY_INFO
      * @type {Integer (UInt32)}
      */
-    static CERT_CREATE_SELFSIGN_NO_KEY_INFO => 2
+    static NO_KEY_INFO => 2
 
     /**
+     * Native name: CERT_CREATE_SELFSIGN_NO_SIGN
      * @type {Integer (UInt32)}
      */
-    static CERT_CREATE_SELFSIGN_NO_SIGN => 1
+    static NO_SIGN => 1
 }

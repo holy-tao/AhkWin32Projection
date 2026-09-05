@@ -7,7 +7,8 @@
 class NtmsCreateNtmsMediaOptions extends Win32Enum {
 
     /**
+     * Native name: NTMS_ERROR_ON_DUPLICATE
      * @type {Integer (Int32)}
      */
-    static NTMS_ERROR_ON_DUPLICATE => 1
+    static ERROR_ON_DUPLICATE => 1
 }

@@ -10,33 +10,38 @@ class IKEEXT_CERT_CONFIG_TYPE extends Win32Enum {
 
     /**
      * An explicit trust list will be used for authentication.
+     * Native name: IKEEXT_CERT_CONFIG_EXPLICIT_TRUST_LIST
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERT_CONFIG_EXPLICIT_TRUST_LIST => 0
+    static EXPLICIT_TRUST_LIST => 0
 
     /**
      * The enterprise store will be used as the trust list for authentication.
+     * Native name: IKEEXT_CERT_CONFIG_ENTERPRISE_STORE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERT_CONFIG_ENTERPRISE_STORE => 1
+    static ENTERPRISE_STORE => 1
 
     /**
      * The trusted root CA store will be used as the trust list for authentication.
+     * Native name: IKEEXT_CERT_CONFIG_TRUSTED_ROOT_STORE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERT_CONFIG_TRUSTED_ROOT_STORE => 2
+    static TRUSTED_ROOT_STORE => 2
 
     /**
      * No certificate authentication in the direction (inbound or outbound) specified by the configuration.
      * 
      * Available only on Windows 7, Windows Server 2008 R2, and later.
+     * Native name: IKEEXT_CERT_CONFIG_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERT_CONFIG_UNSPECIFIED => 3
+    static UNSPECIFIED => 3
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_CERT_CONFIG_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERT_CONFIG_TYPE_MAX => 4
+    static MAX => 4
 }

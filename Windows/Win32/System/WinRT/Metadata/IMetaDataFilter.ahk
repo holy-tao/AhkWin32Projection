@@ -30,7 +30,6 @@ class IMetaDataFilter extends IUnknown {
     static VTableNames => ["UnmarkAll", "MarkToken", "IsTokenMarked"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnmarkAll() {
@@ -39,7 +38,6 @@ class IMetaDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */
@@ -49,7 +47,6 @@ class IMetaDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Pointer<BOOL>} pIsMarked 
      * @returns {HRESULT} 

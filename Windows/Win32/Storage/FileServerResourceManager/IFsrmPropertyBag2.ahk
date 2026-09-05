@@ -50,7 +50,6 @@ class IFsrmPropertyBag2 extends IFsrmPropertyBag {
     }
 
     /**
-     * 
      * @returns {IFsrmCollection} 
      */
     GetUntrustedInFileProperties() {

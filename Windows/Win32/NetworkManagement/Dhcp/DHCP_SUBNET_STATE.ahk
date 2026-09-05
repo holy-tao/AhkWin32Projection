@@ -10,31 +10,36 @@ class DHCP_SUBNET_STATE extends Win32Enum {
 
     /**
      * The subnet is enabled; the server will distribute addresses, extend leases, and release addresses within the subnet range to clients.
+     * Native name: DhcpSubnetEnabled
      * @type {Integer (Int32)}
      */
-    static DhcpSubnetEnabled => 0
+    static Enabled => 0
 
     /**
      * The subnet is disabled; the server will not distribute addresses or extend leases within the subnet range to clients. However, the server will still release addresses within the subnet range.
+     * Native name: DhcpSubnetDisabled
      * @type {Integer (Int32)}
      */
-    static DhcpSubnetDisabled => 1
+    static Disabled => 1
 
     /**
      * The subnet is enabled; the server will distribute addresses, extend leases, and release addresses within the subnet range to clients. The default gateway is set to the local machine itself.
+     * Native name: DhcpSubnetEnabledSwitched
      * @type {Integer (Int32)}
      */
-    static DhcpSubnetEnabledSwitched => 2
+    static EnabledSwitched => 2
 
     /**
      * The subnet is disabled; the server will not distribute addresses or extend leases within the subnet range to clients. However, the server will still release addresses within the subnet range. The default gateway is set to the local machine itself.
+     * Native name: DhcpSubnetDisabledSwitched
      * @type {Integer (Int32)}
      */
-    static DhcpSubnetDisabledSwitched => 3
+    static DisabledSwitched => 3
 
     /**
      * The subnet is in an invalid state.
+     * Native name: DhcpSubnetInvalidState
      * @type {Integer (Int32)}
      */
-    static DhcpSubnetInvalidState => 4
+    static InvalidState => 4
 }

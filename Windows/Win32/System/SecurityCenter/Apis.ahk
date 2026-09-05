@@ -49,7 +49,6 @@ class SecurityCenter {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static WscRegisterForUserNotifications() {
@@ -76,7 +75,6 @@ class SecurityCenter {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     static WscQueryAntiMalwareUri() {
@@ -85,7 +83,6 @@ class SecurityCenter {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     static WscGetAntiMalwareUri() {

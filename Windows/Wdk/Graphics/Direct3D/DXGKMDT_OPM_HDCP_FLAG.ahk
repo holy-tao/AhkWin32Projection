@@ -7,12 +7,14 @@
 class DXGKMDT_OPM_HDCP_FLAG extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_HDCP_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_HDCP_FLAG_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: DXGKMDT_OPM_HDCP_FLAG_REPEATER
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_HDCP_FLAG_REPEATER => 1
+    static REPEATER => 1
 }

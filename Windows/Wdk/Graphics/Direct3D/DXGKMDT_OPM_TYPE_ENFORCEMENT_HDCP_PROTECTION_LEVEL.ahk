@@ -7,17 +7,20 @@
 class DXGKMDT_OPM_TYPE_ENFORCEMENT_HDCP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
+     * Native name: DXGKMDT_OPM_TYPE_ENFORCEMENT_HDCP_OFF
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_TYPE_ENFORCEMENT_HDCP_OFF => 0
+    static OFF => 0
 
     /**
+     * Native name: DXGKMDT_OPM_TYPE_ENFORCEMENT_HDCP_ON_WITH_NO_TYPE_RESTRICTION
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_TYPE_ENFORCEMENT_HDCP_ON_WITH_NO_TYPE_RESTRICTION => 1
+    static ON_WITH_NO_TYPE_RESTRICTION => 1
 
     /**
+     * Native name: DXGKMDT_OPM_TYPE_ENFORCEMENT_HDCP_ON_WITH_TYPE1_RESTRICTION
      * @type {Integer (Int32)}
      */
-    static DXGKMDT_OPM_TYPE_ENFORCEMENT_HDCP_ON_WITH_TYPE1_RESTRICTION => 2
+    static ON_WITH_TYPE1_RESTRICTION => 2
 }

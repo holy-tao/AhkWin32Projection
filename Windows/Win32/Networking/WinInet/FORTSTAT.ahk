@@ -7,12 +7,14 @@
 class FORTSTAT extends Win32Enum {
 
     /**
+     * Native name: FORTSTAT_INSTALLED
      * @type {Integer (Int32)}
      */
-    static FORTSTAT_INSTALLED => 1
+    static INSTALLED => 1
 
     /**
+     * Native name: FORTSTAT_LOGGEDON
      * @type {Integer (Int32)}
      */
-    static FORTSTAT_LOGGEDON => 2
+    static LOGGEDON => 2
 }

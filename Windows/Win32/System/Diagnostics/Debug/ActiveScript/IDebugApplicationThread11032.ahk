@@ -31,7 +31,6 @@ class IDebugApplicationThread11032 extends IUnknown {
     static VTableNames => ["GetActiveThreadRequestCount", "IsSuspendedForBreakPoint", "IsThreadCallable", "AsynchronousCallIntoThread"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActiveThreadRequestCount() {
@@ -40,7 +39,6 @@ class IDebugApplicationThread11032 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsSuspendedForBreakPoint() {
@@ -49,7 +47,6 @@ class IDebugApplicationThread11032 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsThreadCallable() {
@@ -58,7 +55,6 @@ class IDebugApplicationThread11032 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugThreadCall32} pptc 
      * @param {Pointer} dwParam1 
      * @param {Pointer} dwParam2 

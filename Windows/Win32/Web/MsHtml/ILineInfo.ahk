@@ -64,7 +64,6 @@ class ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -73,7 +72,6 @@ class ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_baseLine() {
@@ -82,7 +80,6 @@ class ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_textDescent() {
@@ -91,7 +88,6 @@ class ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_textHeight() {
@@ -100,7 +96,6 @@ class ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_lineDirection() {

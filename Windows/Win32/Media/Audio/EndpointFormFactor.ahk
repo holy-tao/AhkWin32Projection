@@ -88,7 +88,8 @@ class EndpointFormFactor extends Win32Enum {
 
     /**
      * Windows 7: Maximum number of endpoint form factors.
+     * Native name: EndpointFormFactor_enum_count
      * @type {Integer (Int32)}
      */
-    static EndpointFormFactor_enum_count => 11
+    static enum_count => 11
 }

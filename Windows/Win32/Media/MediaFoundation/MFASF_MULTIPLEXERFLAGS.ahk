@@ -10,7 +10,8 @@ class MFASF_MULTIPLEXERFLAGS extends Win32Enum {
 
     /**
      * The multiplexer automatically adjusts the bit rate of the ASF content in response to the characteristics of the streams being multiplexed.
+     * Native name: MFASF_MULTIPLEXER_AUTOADJUST_BITRATE
      * @type {Integer (Int32)}
      */
-    static MFASF_MULTIPLEXER_AUTOADJUST_BITRATE => 1
+    static MULTIPLEXER_AUTOADJUST_BITRATE => 1
 }

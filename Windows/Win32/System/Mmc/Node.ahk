@@ -58,7 +58,6 @@ class Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -68,7 +67,6 @@ class Node extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} PropertyName 
      * @returns {BSTR} 
      */
@@ -81,7 +79,6 @@ class Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Bookmark() {
@@ -91,7 +88,6 @@ class Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsScopeNode() {
@@ -100,7 +96,6 @@ class Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Nodetype() {

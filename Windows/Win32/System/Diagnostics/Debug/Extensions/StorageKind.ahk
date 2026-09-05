@@ -7,22 +7,26 @@
 class StorageKind extends Win32Enum {
 
     /**
+     * Native name: StorageUnknown
      * @type {Integer (Int32)}
      */
-    static StorageUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StorageRegister
      * @type {Integer (Int32)}
      */
-    static StorageRegister => 1
+    static Register => 1
 
     /**
+     * Native name: StorageRegisterRelative
      * @type {Integer (Int32)}
      */
-    static StorageRegisterRelative => 2
+    static RegisterRelative => 2
 
     /**
+     * Native name: StorageRegisterRelativeIndirect
      * @type {Integer (Int32)}
      */
-    static StorageRegisterRelativeIndirect => 3
+    static RegisterRelativeIndirect => 3
 }

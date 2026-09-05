@@ -10,49 +10,57 @@ class SYSTEM_POWER_STATE extends Win32Enum {
 
     /**
      * Unspecified system power state.
+     * Native name: PowerSystemUnspecified
      * @type {Integer (Int32)}
      */
-    static PowerSystemUnspecified => 0
+    static SystemUnspecified => 0
 
     /**
      * Specifies system power state S0.
+     * Native name: PowerSystemWorking
      * @type {Integer (Int32)}
      */
-    static PowerSystemWorking => 1
+    static SystemWorking => 1
 
     /**
      * Specifies system power state S1.
+     * Native name: PowerSystemSleeping1
      * @type {Integer (Int32)}
      */
-    static PowerSystemSleeping1 => 2
+    static SystemSleeping1 => 2
 
     /**
      * Specifies system power state S2.
+     * Native name: PowerSystemSleeping2
      * @type {Integer (Int32)}
      */
-    static PowerSystemSleeping2 => 3
+    static SystemSleeping2 => 3
 
     /**
      * Specifies system power state S3.
+     * Native name: PowerSystemSleeping3
      * @type {Integer (Int32)}
      */
-    static PowerSystemSleeping3 => 4
+    static SystemSleeping3 => 4
 
     /**
      * Specifies system power state S4 (HIBERNATE).
+     * Native name: PowerSystemHibernate
      * @type {Integer (Int32)}
      */
-    static PowerSystemHibernate => 5
+    static SystemHibernate => 5
 
     /**
      * Specifies system power state S5 (OFF).
+     * Native name: PowerSystemShutdown
      * @type {Integer (Int32)}
      */
-    static PowerSystemShutdown => 6
+    static SystemShutdown => 6
 
     /**
      * Specifies the maximum enumeration value.
+     * Native name: PowerSystemMaximum
      * @type {Integer (Int32)}
      */
-    static PowerSystemMaximum => 7
+    static SystemMaximum => 7
 }

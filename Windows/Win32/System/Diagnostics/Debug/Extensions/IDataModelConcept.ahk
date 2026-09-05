@@ -33,7 +33,6 @@ class IDataModelConcept extends IUnknown {
     static VTableNames => ["InitializeObject", "GetName"]
 
     /**
-     * 
      * @param {IModelObject} modelObject 
      * @param {IDebugHostTypeSignature} matchingTypeSignature 
      * @param {IDebugHostSymbolEnumerator} wildcardMatches 

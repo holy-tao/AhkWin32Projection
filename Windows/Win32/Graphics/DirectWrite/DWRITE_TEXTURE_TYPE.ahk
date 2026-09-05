@@ -12,13 +12,15 @@ class DWRITE_TEXTURE_TYPE extends Win32Enum {
 
     /**
      * Specifies an alpha texture for aliased text rendering (that is,  each pixel is either fully opaque or fully transparent), with one byte per pixel.
+     * Native name: DWRITE_TEXTURE_ALIASED_1x1
      * @type {Integer (Int32)}
      */
-    static DWRITE_TEXTURE_ALIASED_1x1 => 0
+    static ALIASED_1x1 => 0
 
     /**
      * Specifies an alpha texture for ClearType text rendering, with three bytes per pixel in the horizontal dimension and one byte per pixel in the vertical dimension.
+     * Native name: DWRITE_TEXTURE_CLEARTYPE_3x1
      * @type {Integer (Int32)}
      */
-    static DWRITE_TEXTURE_CLEARTYPE_3x1 => 1
+    static CLEARTYPE_3x1 => 1
 }

@@ -7,17 +7,20 @@
 class STORAGE_POWERUP_REASON_TYPE extends Win32Enum {
 
     /**
+     * Native name: StoragePowerupUnknown
      * @type {Integer (Int32)}
      */
-    static StoragePowerupUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: StoragePowerupIO
      * @type {Integer (Int32)}
      */
-    static StoragePowerupIO => 1
+    static PowerupIO => 1
 
     /**
+     * Native name: StoragePowerupDeviceAttention
      * @type {Integer (Int32)}
      */
-    static StoragePowerupDeviceAttention => 2
+    static DeviceAttention => 2
 }

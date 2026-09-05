@@ -51,7 +51,6 @@ class ISVGPathSeg extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ class ISVGPathSeg extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pathSegType() {
@@ -70,7 +68,6 @@ class ISVGPathSeg extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pathSegTypeAsLetter() {

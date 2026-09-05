@@ -52,7 +52,6 @@ class IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ class IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -74,7 +72,6 @@ class IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -84,7 +81,6 @@ class IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -93,7 +89,6 @@ class IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @returns {IHTMLDOMNode} 
      */

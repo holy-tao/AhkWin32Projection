@@ -7,17 +7,20 @@
 class IF_ADMINISTRATIVE_STATE extends Win32Enum {
 
     /**
+     * Native name: IF_ADMINISTRATIVE_DISABLED
      * @type {Integer (Int32)}
      */
-    static IF_ADMINISTRATIVE_DISABLED => 0
+    static DISABLED => 0
 
     /**
+     * Native name: IF_ADMINISTRATIVE_ENABLED
      * @type {Integer (Int32)}
      */
-    static IF_ADMINISTRATIVE_ENABLED => 1
+    static ENABLED => 1
 
     /**
+     * Native name: IF_ADMINISTRATIVE_DEMANDDIAL
      * @type {Integer (Int32)}
      */
-    static IF_ADMINISTRATIVE_DEMANDDIAL => 2
+    static DEMANDDIAL => 2
 }

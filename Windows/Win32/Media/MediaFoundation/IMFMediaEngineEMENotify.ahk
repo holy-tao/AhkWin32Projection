@@ -29,7 +29,6 @@ class IMFMediaEngineEMENotify extends IUnknown {
     static VTableNames => ["Encrypted", "WaitingForKey"]
 
     /**
-     * 
      * @param {Integer} pbInitData 
      * @param {Integer} cb 
      * @param {BSTR} bstrInitDataType 
@@ -42,7 +41,6 @@ class IMFMediaEngineEMENotify extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     WaitingForKey() {

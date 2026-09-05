@@ -10,19 +10,22 @@ class D3D11_AUTHENTICATED_CHANNEL_TYPE extends Win32Enum {
 
     /**
      * Direct3D 11 channel. This channel provides communication with the Direct3D runtime.
+     * Native name: D3D11_AUTHENTICATED_CHANNEL_D3D11
      * @type {Integer (Int32)}
      */
-    static D3D11_AUTHENTICATED_CHANNEL_D3D11 => 1
+    static D3D11 => 1
 
     /**
      * Software driver channel. This channel provides communication with a driver that implements content protection mechanisms in software.
+     * Native name: D3D11_AUTHENTICATED_CHANNEL_DRIVER_SOFTWARE
      * @type {Integer (Int32)}
      */
-    static D3D11_AUTHENTICATED_CHANNEL_DRIVER_SOFTWARE => 2
+    static DRIVER_SOFTWARE => 2
 
     /**
      * Hardware driver channel. This channel provides communication with a driver that implements content protection mechanisms in the GPU hardware.
+     * Native name: D3D11_AUTHENTICATED_CHANNEL_DRIVER_HARDWARE
      * @type {Integer (Int32)}
      */
-    static D3D11_AUTHENTICATED_CHANNEL_DRIVER_HARDWARE => 3
+    static DRIVER_HARDWARE => 3
 }

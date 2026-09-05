@@ -30,7 +30,6 @@ class IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify {
     static VTableNames => ["KeyMessage2", "KeyStatusChange"]
 
     /**
-     * 
      * @param {MF_MEDIAKEYSESSION_MESSAGETYPE} eMessageType 
      * @param {BSTR} destinationURL 
      * @param {Integer} pbMessage 
@@ -44,7 +43,6 @@ class IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     KeyStatusChange() {

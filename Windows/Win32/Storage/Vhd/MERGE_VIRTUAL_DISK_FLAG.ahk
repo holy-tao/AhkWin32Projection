@@ -9,7 +9,8 @@
 class MERGE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: MERGE_VIRTUAL_DISK_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static MERGE_VIRTUAL_DISK_FLAG_NONE => 0
+    static NONE => 0
 }

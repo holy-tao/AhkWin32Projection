@@ -204,7 +204,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} mergeThis 
      * @param {Pointer<VARIANT>} pvarFlags 
      * @returns {HRESULT} 
@@ -215,7 +214,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isMultiLine() {
@@ -224,7 +222,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_canHaveHTML() {
@@ -233,7 +230,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -243,7 +239,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onlayoutcomplete() {
@@ -253,7 +248,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -263,7 +257,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpage() {
@@ -273,7 +266,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -283,7 +275,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_inflateBlock() {
@@ -292,7 +283,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -302,7 +292,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforedeactivate() {
@@ -312,7 +301,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     setActive() {
@@ -321,7 +309,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -333,7 +320,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentEditable() {
@@ -343,7 +329,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isContentEditable() {
@@ -352,7 +337,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -362,7 +346,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_hideFocus() {
@@ -371,7 +354,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -381,7 +363,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -390,7 +371,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isDisabled() {
@@ -399,7 +379,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -409,7 +388,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmove() {
@@ -419,7 +397,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -429,7 +406,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontrolselect() {
@@ -439,7 +415,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEventName 
      * @param {Pointer<VARIANT>} pvarEventObject 
      * @returns {VARIANT_BOOL} 
@@ -452,7 +427,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -462,7 +436,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresizestart() {
@@ -472,7 +445,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -482,7 +454,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresizeend() {
@@ -492,7 +463,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -502,7 +472,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmovestart() {
@@ -512,7 +481,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -522,7 +490,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmoveend() {
@@ -532,7 +499,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -542,7 +508,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseenter() {
@@ -552,7 +517,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -562,7 +526,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseleave() {
@@ -572,7 +535,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -582,7 +544,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onactivate() {
@@ -592,7 +553,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -602,7 +562,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondeactivate() {
@@ -612,7 +571,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     dragDrop() {
@@ -621,7 +579,6 @@ class IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_glyphMode() {

@@ -17,7 +17,8 @@ class ELEMENTDESCRIPTOR_FLAGS extends Win32Enum {
     static ELEMENTDESCRIPTORFLAGS_NESTED_LITERAL => 2
 
     /**
+     * Native name: ELEMENTDESCRIPTOR_FLAGS_Max
      * @type {Integer (Int32)}
      */
-    static ELEMENTDESCRIPTOR_FLAGS_Max => 2147483647
+    static Max => 2147483647
 }

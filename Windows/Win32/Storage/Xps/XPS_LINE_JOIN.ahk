@@ -14,19 +14,22 @@ class XPS_LINE_JOIN extends Win32Enum {
 
     /**
      * Produces a sharp or clipped corner, depending on whether the length of the miter exceeds the miter limit.
+     * Native name: XPS_LINE_JOIN_MITER
      * @type {Integer (Int32)}
      */
-    static XPS_LINE_JOIN_MITER => 1
+    static MITER => 1
 
     /**
      * Produces a diagonal corner.
+     * Native name: XPS_LINE_JOIN_BEVEL
      * @type {Integer (Int32)}
      */
-    static XPS_LINE_JOIN_BEVEL => 2
+    static BEVEL => 2
 
     /**
      * Produces a smooth, circular arc between the lines.
+     * Native name: XPS_LINE_JOIN_ROUND
      * @type {Integer (Int32)}
      */
-    static XPS_LINE_JOIN_ROUND => 3
+    static ROUND => 3
 }

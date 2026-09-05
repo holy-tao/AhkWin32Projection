@@ -78,7 +78,6 @@ class IInkCustomStrokes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

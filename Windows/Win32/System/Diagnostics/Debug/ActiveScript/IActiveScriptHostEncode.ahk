@@ -30,7 +30,6 @@ class IActiveScriptHostEncode extends IUnknown {
     static VTableNames => ["EncodeScriptHostFile"]
 
     /**
-     * 
      * @param {BSTR} bstrInFile 
      * @param {Pointer<BSTR>} pbstrOutFile 
      * @param {Integer} cFlags 

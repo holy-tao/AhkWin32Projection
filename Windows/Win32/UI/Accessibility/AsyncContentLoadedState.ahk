@@ -10,19 +10,22 @@ class AsyncContentLoadedState extends Win32Enum {
 
     /**
      * Loading of the content into the UI Automation element is beginning.
+     * Native name: AsyncContentLoadedState_Beginning
      * @type {Integer (Int32)}
      */
-    static AsyncContentLoadedState_Beginning => 0
+    static Beginning => 0
 
     /**
      * Loading of the content into the UI Automation element is in progress.
+     * Native name: AsyncContentLoadedState_Progress
      * @type {Integer (Int32)}
      */
-    static AsyncContentLoadedState_Progress => 1
+    static Progress => 1
 
     /**
      * Loading of the content into the UI Automation element is complete.
+     * Native name: AsyncContentLoadedState_Completed
      * @type {Integer (Int32)}
      */
-    static AsyncContentLoadedState_Completed => 2
+    static Completed => 2
 }

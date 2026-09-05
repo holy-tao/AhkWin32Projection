@@ -31,7 +31,6 @@ class ISourcesRowset extends IUnknown {
     static VTableNames => ["GetSourcesRowset"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 

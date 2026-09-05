@@ -7,57 +7,68 @@
 class IPMI_OS_SEL_RECORD_TYPE extends Win32Enum {
 
     /**
+     * Native name: IpmiOsSelRecordTypeWhea
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeWhea => 0
+    static Whea => 0
 
     /**
+     * Native name: IpmiOsSelRecordTypeOther
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeOther => 1
+    static Other => 1
 
     /**
+     * Native name: IpmiOsSelRecordTypeWheaErrorXpfMca
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeWheaErrorXpfMca => 2
+    static WheaErrorXpfMca => 2
 
     /**
+     * Native name: IpmiOsSelRecordTypeWheaErrorPci
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeWheaErrorPci => 3
+    static WheaErrorPci => 3
 
     /**
+     * Native name: IpmiOsSelRecordTypeWheaErrorNmi
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeWheaErrorNmi => 4
+    static WheaErrorNmi => 4
 
     /**
+     * Native name: IpmiOsSelRecordTypeWheaErrorOther
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeWheaErrorOther => 5
+    static WheaErrorOther => 5
 
     /**
+     * Native name: IpmiOsSelRecordTypeRaw
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeRaw => 6
+    static Raw => 6
 
     /**
+     * Native name: IpmiOsSelRecordTypeDriver
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeDriver => 7
+    static Driver => 7
 
     /**
+     * Native name: IpmiOsSelRecordTypeBugcheckRecovery
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeBugcheckRecovery => 8
+    static BugcheckRecovery => 8
 
     /**
+     * Native name: IpmiOsSelRecordTypeBugcheckData
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeBugcheckData => 9
+    static BugcheckData => 9
 
     /**
+     * Native name: IpmiOsSelRecordTypeMax
      * @type {Integer (Int32)}
      */
-    static IpmiOsSelRecordTypeMax => 10
+    static Max => 10
 }

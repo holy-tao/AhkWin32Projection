@@ -10,37 +10,43 @@ class WICPngTimeProperties extends Win32Enum {
 
     /**
      * [VT_UI2] Indicates the year of the last modification.
+     * Native name: WICPngTimeYear
      * @type {Integer (Int32)}
      */
-    static WICPngTimeYear => 1
+    static Year => 1
 
     /**
      * [VT_UI1] Indicates the month of the last modification.
+     * Native name: WICPngTimeMonth
      * @type {Integer (Int32)}
      */
-    static WICPngTimeMonth => 2
+    static Month => 2
 
     /**
      * [VT_UI1] Indicates day of the last modification.
+     * Native name: WICPngTimeDay
      * @type {Integer (Int32)}
      */
-    static WICPngTimeDay => 3
+    static Day => 3
 
     /**
      * [VT_UI1] Indicates the hour of the last modification.
+     * Native name: WICPngTimeHour
      * @type {Integer (Int32)}
      */
-    static WICPngTimeHour => 4
+    static Hour => 4
 
     /**
      * [VT_UI1] Indicates the minute of the last modification.
+     * Native name: WICPngTimeMinute
      * @type {Integer (Int32)}
      */
-    static WICPngTimeMinute => 5
+    static Minute => 5
 
     /**
      * [VT_UI1] Indicates the second of the last modification.
+     * Native name: WICPngTimeSecond
      * @type {Integer (Int32)}
      */
-    static WICPngTimeSecond => 6
+    static Second => 6
 }

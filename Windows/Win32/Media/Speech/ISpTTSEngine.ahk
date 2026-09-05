@@ -33,7 +33,6 @@ class ISpTTSEngine extends IUnknown {
     static VTableNames => ["Speak", "GetOutputFormat"]
 
     /**
-     * 
      * @param {Integer} dwSpeakFlags 
      * @param {Pointer<Guid>} rguidFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
@@ -47,7 +46,6 @@ class ISpTTSEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pTargetFmtId 
      * @param {Pointer<WAVEFORMATEX>} pTargetWaveFormatEx 
      * @param {Pointer<Guid>} pOutputFormatId 

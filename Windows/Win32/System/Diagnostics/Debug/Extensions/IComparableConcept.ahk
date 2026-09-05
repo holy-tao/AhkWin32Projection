@@ -30,7 +30,6 @@ class IComparableConcept extends IUnknown {
     static VTableNames => ["CompareObjects"]
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} otherObject 
      * @returns {Integer} 

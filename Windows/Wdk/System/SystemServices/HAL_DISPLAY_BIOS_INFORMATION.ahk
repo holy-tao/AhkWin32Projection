@@ -7,17 +7,20 @@
 class HAL_DISPLAY_BIOS_INFORMATION extends Win32Enum {
 
     /**
+     * Native name: HalDisplayInt10Bios
      * @type {Integer (Int32)}
      */
-    static HalDisplayInt10Bios => 0
+    static Int10Bios => 0
 
     /**
+     * Native name: HalDisplayEmulatedBios
      * @type {Integer (Int32)}
      */
-    static HalDisplayEmulatedBios => 1
+    static EmulatedBios => 1
 
     /**
+     * Native name: HalDisplayNoBios
      * @type {Integer (Int32)}
      */
-    static HalDisplayNoBios => 2
+    static NoBios => 2
 }

@@ -7,17 +7,20 @@
 class DRIVER_REGKEY_TYPE extends Win32Enum {
 
     /**
+     * Native name: DriverRegKeyParameters
      * @type {Integer (Int32)}
      */
-    static DriverRegKeyParameters => 0
+    static RegKeyParameters => 0
 
     /**
+     * Native name: DriverRegKeyPersistentState
      * @type {Integer (Int32)}
      */
-    static DriverRegKeyPersistentState => 1
+    static RegKeyPersistentState => 1
 
     /**
+     * Native name: DriverRegKeySharedPersistentState
      * @type {Integer (Int32)}
      */
-    static DriverRegKeySharedPersistentState => 2
+    static RegKeySharedPersistentState => 2
 }

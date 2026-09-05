@@ -7,17 +7,20 @@
 class BDA_DISCOVERY_STATE extends Win32Enum {
 
     /**
+     * Native name: BDA_DISCOVERY_UNSPECIFIED
      * @type {Integer (Int32)}
      */
-    static BDA_DISCOVERY_UNSPECIFIED => 0
+    static UNSPECIFIED => 0
 
     /**
+     * Native name: BDA_DISCOVERY_REQUIRED
      * @type {Integer (Int32)}
      */
-    static BDA_DISCOVERY_REQUIRED => 1
+    static REQUIRED => 1
 
     /**
+     * Native name: BDA_DISCOVERY_COMPLETE
      * @type {Integer (Int32)}
      */
-    static BDA_DISCOVERY_COMPLETE => 2
+    static COMPLETE => 2
 }

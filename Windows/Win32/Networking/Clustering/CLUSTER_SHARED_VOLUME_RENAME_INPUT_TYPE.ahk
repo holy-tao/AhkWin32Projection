@@ -7,27 +7,32 @@
 class CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE extends Win32Enum {
 
     /**
+     * Native name: ClusterSharedVolumeRenameInputTypeNone
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumeRenameInputTypeNone => 0
+    static None => 0
 
     /**
+     * Native name: ClusterSharedVolumeRenameInputTypeVolumeOffset
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumeRenameInputTypeVolumeOffset => 1
+    static VolumeOffset => 1
 
     /**
+     * Native name: ClusterSharedVolumeRenameInputTypeVolumeId
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumeRenameInputTypeVolumeId => 2
+    static VolumeId => 2
 
     /**
+     * Native name: ClusterSharedVolumeRenameInputTypeVolumeName
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumeRenameInputTypeVolumeName => 3
+    static VolumeName => 3
 
     /**
+     * Native name: ClusterSharedVolumeRenameInputTypeVolumeGuid
      * @type {Integer (Int32)}
      */
-    static ClusterSharedVolumeRenameInputTypeVolumeGuid => 4
+    static VolumeGuid => 4
 }

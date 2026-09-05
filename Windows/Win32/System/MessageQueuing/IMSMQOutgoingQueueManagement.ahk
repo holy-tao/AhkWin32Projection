@@ -51,7 +51,6 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_State() {
@@ -60,7 +59,6 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NextHops() {
@@ -70,7 +68,6 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {IMSMQCollection} 
      */
     EodGetSendInfo() {
@@ -101,7 +98,6 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EodResend() {

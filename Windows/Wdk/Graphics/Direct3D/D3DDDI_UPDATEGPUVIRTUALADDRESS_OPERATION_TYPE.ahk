@@ -7,22 +7,26 @@
 class D3DDDI_UPDATEGPUVIRTUALADDRESS_OPERATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_UPDATEGPUVIRTUALADDRESS_MAP
      * @type {Integer (Int32)}
      */
-    static D3DDDI_UPDATEGPUVIRTUALADDRESS_MAP => 0
+    static MAP => 0
 
     /**
+     * Native name: D3DDDI_UPDATEGPUVIRTUALADDRESS_UNMAP
      * @type {Integer (Int32)}
      */
-    static D3DDDI_UPDATEGPUVIRTUALADDRESS_UNMAP => 1
+    static UNMAP => 1
 
     /**
+     * Native name: D3DDDI_UPDATEGPUVIRTUALADDRESS_COPY
      * @type {Integer (Int32)}
      */
-    static D3DDDI_UPDATEGPUVIRTUALADDRESS_COPY => 2
+    static COPY => 2
 
     /**
+     * Native name: D3DDDI_UPDATEGPUVIRTUALADDRESS_MAP_PROTECT
      * @type {Integer (Int32)}
      */
-    static D3DDDI_UPDATEGPUVIRTUALADDRESS_MAP_PROTECT => 3
+    static MAP_PROTECT => 3
 }

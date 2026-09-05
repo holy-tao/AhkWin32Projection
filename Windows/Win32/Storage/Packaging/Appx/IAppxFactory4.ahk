@@ -31,7 +31,6 @@ class IAppxFactory4 extends IUnknown {
     static VTableNames => ["CreatePackageReaderFromSourceUri"]
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @param {PWSTR} expectedDigest 
      * @returns {IAppxPackageReader} 

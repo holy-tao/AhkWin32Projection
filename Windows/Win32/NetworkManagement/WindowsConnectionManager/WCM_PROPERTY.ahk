@@ -10,43 +10,50 @@ class WCM_PROPERTY extends Win32Enum {
 
     /**
      * Domain policy.
+     * Native name: wcm_global_property_domain_policy
      * @type {Integer (Int32)}
      */
-    static wcm_global_property_domain_policy => 0
+    static global_property_domain_policy => 0
 
     /**
      * Minimize policy.
+     * Native name: wcm_global_property_minimize_policy
      * @type {Integer (Int32)}
      */
-    static wcm_global_property_minimize_policy => 1
+    static global_property_minimize_policy => 1
 
     /**
      * Roaming policy.
+     * Native name: wcm_global_property_roaming_policy
      * @type {Integer (Int32)}
      */
-    static wcm_global_property_roaming_policy => 2
+    static global_property_roaming_policy => 2
 
     /**
      * Power management policy.
+     * Native name: wcm_global_property_powermanagement_policy
      * @type {Integer (Int32)}
      */
-    static wcm_global_property_powermanagement_policy => 3
+    static global_property_powermanagement_policy => 3
 
     /**
      * The cost level and flags for the connection
+     * Native name: wcm_intf_property_connection_cost
      * @type {Integer (Int32)}
      */
-    static wcm_intf_property_connection_cost => 4
+    static intf_property_connection_cost => 4
 
     /**
      * The plan data associated with the new cost.
+     * Native name: wcm_intf_property_dataplan_status
      * @type {Integer (Int32)}
      */
-    static wcm_intf_property_dataplan_status => 5
+    static intf_property_dataplan_status => 5
 
     /**
      * The hotspot profile.
+     * Native name: wcm_intf_property_hotspot_profile
      * @type {Integer (Int32)}
      */
-    static wcm_intf_property_hotspot_profile => 6
+    static intf_property_hotspot_profile => 6
 }

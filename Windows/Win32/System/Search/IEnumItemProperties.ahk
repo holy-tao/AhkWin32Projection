@@ -30,7 +30,6 @@ class IEnumItemProperties extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<ITEMPROP>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
@@ -44,7 +43,6 @@ class IEnumItemProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumItemProperties extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumItemProperties extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumItemProperties} 
      */
     Clone() {
@@ -72,7 +68,6 @@ class IEnumItemProperties extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {

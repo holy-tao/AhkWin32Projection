@@ -60,7 +60,6 @@ class IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterQueue} 
      */
     get_PrinterQueue() {
@@ -69,7 +68,6 @@ class IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaTicket} 
      */
     get_PrintSchemaTicket() {
@@ -78,7 +76,6 @@ class IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_DriverProperties() {
@@ -87,7 +84,6 @@ class IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_UserProperties() {

@@ -31,7 +31,6 @@ class IDebugHostContextExtensibility extends IUnknown {
     static VTableNames => ["HasExtensionData", "ReadExtensionData", "CloneContextForModification", "CloneContextWithModification"]
 
     /**
-     * 
      * @param {Integer} blobId 
      * @returns {Boolean} 
      */
@@ -41,7 +40,6 @@ class IDebugHostContextExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @param {Integer} bufferSize 
      * @returns {Void} 
@@ -52,7 +50,6 @@ class IDebugHostContextExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContextExtension} 
      */
     CloneContextForModification() {
@@ -61,7 +58,6 @@ class IDebugHostContextExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @param {Integer} dataSize 
      * @param {Pointer<Void>} data 

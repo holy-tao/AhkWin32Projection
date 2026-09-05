@@ -73,7 +73,6 @@ class IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_key() {
@@ -83,7 +82,6 @@ class IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_oldValue() {
@@ -93,7 +91,6 @@ class IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_newValue() {
@@ -103,7 +100,6 @@ class IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -113,7 +109,6 @@ class IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStorage} 
      */
     get_storageArea() {
@@ -122,7 +117,6 @@ class IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 

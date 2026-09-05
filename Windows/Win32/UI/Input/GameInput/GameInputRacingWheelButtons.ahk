@@ -7,47 +7,56 @@
 class GameInputRacingWheelButtons extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputRacingWheelNone
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelNone => 0
+    static None => 0
 
     /**
+     * Native name: GameInputRacingWheelMenu
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelMenu => 1
+    static Menu => 1
 
     /**
+     * Native name: GameInputRacingWheelView
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelView => 2
+    static View => 2
 
     /**
+     * Native name: GameInputRacingWheelPreviousGear
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelPreviousGear => 4
+    static PreviousGear => 4
 
     /**
+     * Native name: GameInputRacingWheelNextGear
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelNextGear => 8
+    static NextGear => 8
 
     /**
+     * Native name: GameInputRacingWheelDpadUp
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelDpadUp => 16
+    static DpadUp => 16
 
     /**
+     * Native name: GameInputRacingWheelDpadDown
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelDpadDown => 32
+    static DpadDown => 32
 
     /**
+     * Native name: GameInputRacingWheelDpadLeft
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelDpadLeft => 64
+    static DpadLeft => 64
 
     /**
+     * Native name: GameInputRacingWheelDpadRight
      * @type {Integer (Int32)}
      */
-    static GameInputRacingWheelDpadRight => 128
+    static DpadRight => 128
 }

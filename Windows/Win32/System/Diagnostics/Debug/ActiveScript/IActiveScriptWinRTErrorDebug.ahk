@@ -30,7 +30,6 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError {
     static VTableNames => ["GetRestrictedErrorString", "GetRestrictedErrorReference", "GetCapabilitySid"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetRestrictedErrorString() {
@@ -40,7 +39,6 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetRestrictedErrorReference() {
@@ -50,7 +48,6 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCapabilitySid() {

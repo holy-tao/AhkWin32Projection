@@ -31,7 +31,6 @@ class IEnumSTATURL extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "SetFilter"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<STATURL>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
@@ -45,7 +44,6 @@ class IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -55,7 +53,6 @@ class IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -64,7 +61,6 @@ class IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSTATURL} 
      */
     Clone() {
@@ -73,7 +69,6 @@ class IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} poszFilter 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 

@@ -7,7 +7,8 @@
 class msidbPatchAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbPatchAttributesNonVital
      * @type {Integer (Int32)}
      */
-    static msidbPatchAttributesNonVital => 1
+    static NonVital => 1
 }

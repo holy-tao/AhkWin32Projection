@@ -27,7 +27,6 @@ class IMAPIControl extends IUnknown {
     static VTableNames => ["GetLastError", "Activate", "GetState"]
 
     /**
-     * 
      * @remarks
      * Service providers implement the **IMAPIControl::GetLastError** method to supply information about a prior method call that failed. MAPI can give users detailed information about the error by displaying the data from the **MAPIERROR** structure in a message or dialog box.
      * @param {HRESULT} _hResult > [in] A handle to the error value generated in the previous method call.
@@ -45,7 +44,6 @@ class IMAPIControl extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIControl::Activate** method performs tasks following a user's click of the button control. After the click occurs, as part of the processing of the display table, MAPI makes a call to **Activate** after first calling [IMAPIControl::GetState](imapicontrol-getstate.md) to determine whether the button is enabled. 
      *   
@@ -63,7 +61,6 @@ class IMAPIControl extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Service providers implement the **IMAPIControl::GetState** method to provide MAPI with the state of a button control. If the button is enabled, it can respond to a mouse click or key press. If it is disabled, the button appears dimmed and does not respond to a mouse click or key press. 
      *   

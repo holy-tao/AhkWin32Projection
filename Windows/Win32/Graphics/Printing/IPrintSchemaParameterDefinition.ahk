@@ -67,7 +67,6 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_UserInputRequired() {
@@ -76,7 +75,6 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UnitType() {
@@ -86,7 +84,6 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {PrintSchemaParameterDataType} 
      */
     get_DataType() {
@@ -95,7 +92,6 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RangeMin() {
@@ -104,7 +100,6 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RangeMax() {

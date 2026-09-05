@@ -10,25 +10,29 @@ class MI_LocaleType extends Win32Enum {
 
     /**
      * The preferred language of error messages and dialog boxes.
+     * Native name: MI_LOCALE_TYPE_REQUESTED_UI
      * @type {Integer (Int32)}
      */
-    static MI_LOCALE_TYPE_REQUESTED_UI => 0
+    static REQUESTED_UI => 0
 
     /**
      * The preferred date/time formats and  whether a comma or a decimal point is used in a floating-point number.
+     * Native name: MI_LOCALE_TYPE_REQUESTED_DATA
      * @type {Integer (Int32)}
      */
-    static MI_LOCALE_TYPE_REQUESTED_DATA => 1
+    static REQUESTED_DATA => 1
 
     /**
      * The fallback error messages language if the requested language is not available.
+     * Native name: MI_LOCALE_TYPE_CLOSEST_UI
      * @type {Integer (Int32)}
      */
-    static MI_LOCALE_TYPE_CLOSEST_UI => 2
+    static CLOSEST_UI => 2
 
     /**
      * The fallback data format if the requested language is not available.
+     * Native name: MI_LOCALE_TYPE_CLOSEST_DATA
      * @type {Integer (Int32)}
      */
-    static MI_LOCALE_TYPE_CLOSEST_DATA => 3
+    static CLOSEST_DATA => 3
 }

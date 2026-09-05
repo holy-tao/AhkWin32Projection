@@ -12,25 +12,29 @@ class EVT_CHANNEL_TYPE extends Win32Enum {
 
     /**
      * The channel's type is Admin.
+     * Native name: EvtChannelTypeAdmin
      * @type {Integer (Int32)}
      */
-    static EvtChannelTypeAdmin => 0
+    static Admin => 0
 
     /**
      * The channel's type is Operational.
+     * Native name: EvtChannelTypeOperational
      * @type {Integer (Int32)}
      */
-    static EvtChannelTypeOperational => 1
+    static Operational => 1
 
     /**
      * The channel's type is Analytic.
+     * Native name: EvtChannelTypeAnalytic
      * @type {Integer (Int32)}
      */
-    static EvtChannelTypeAnalytic => 2
+    static Analytic => 2
 
     /**
      * The channel's type is Debug.
+     * Native name: EvtChannelTypeDebug
      * @type {Integer (Int32)}
      */
-    static EvtChannelTypeDebug => 3
+    static Debug => 3
 }

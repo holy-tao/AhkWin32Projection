@@ -38,7 +38,6 @@ class ICertificateAttestationChallenge2 extends ICertificateAttestationChallenge
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class ICertificateAttestationChallenge2 extends ICertificateAttestationChallenge
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 

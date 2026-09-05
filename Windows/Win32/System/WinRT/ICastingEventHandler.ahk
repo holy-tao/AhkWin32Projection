@@ -32,7 +32,6 @@ class ICastingEventHandler extends IUnknown {
     static VTableNames => ["OnStateChanged", "OnError"]
 
     /**
-     * 
      * @param {CASTING_CONNECTION_STATE} newState 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ICastingEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {CASTING_CONNECTION_ERROR_STATUS} errorStatus 
      * @param {PWSTR} errorMessage 
      * @returns {HRESULT} 

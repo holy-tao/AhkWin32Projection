@@ -10,7 +10,8 @@ class OLELINKBIND extends Win32Enum {
 
     /**
      * The binding operation should proceed even if the current class of the link source is different from the last time the link was bound. For example, the link source could be a Lotus spreadsheet that was converted to an Excel spreadsheet.
+     * Native name: OLELINKBIND_EVENIFCLASSDIFF
      * @type {Integer (Int32)}
      */
-    static OLELINKBIND_EVENIFCLASSDIFF => 1
+    static EVENIFCLASSDIFF => 1
 }

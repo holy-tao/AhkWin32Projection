@@ -37,7 +37,6 @@ class IMSMQPrivateEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Hwnd() {
@@ -46,7 +45,6 @@ class IMSMQPrivateEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueue} pq 
      * @param {Integer} msgcursor 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class IMSMQPrivateEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueue} pq 
      * @param {HRESULT} hrStatus 
      * @param {Integer} msgcursor 

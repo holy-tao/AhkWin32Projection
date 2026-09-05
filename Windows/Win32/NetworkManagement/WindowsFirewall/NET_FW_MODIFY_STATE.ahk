@@ -10,19 +10,22 @@ class NET_FW_MODIFY_STATE extends Win32Enum {
 
     /**
      * Changing or adding a firewall rule or firewall group to the current profile will take effect.
+     * Native name: NET_FW_MODIFY_STATE_OK
      * @type {Integer (Int32)}
      */
-    static NET_FW_MODIFY_STATE_OK => 0
+    static OK => 0
 
     /**
      * Changing or adding a firewall rule or firewall group to the current profile will not take effect because the profile is controlled by the group policy.
+     * Native name: NET_FW_MODIFY_STATE_GP_OVERRIDE
      * @type {Integer (Int32)}
      */
-    static NET_FW_MODIFY_STATE_GP_OVERRIDE => 1
+    static GP_OVERRIDE => 1
 
     /**
      * Changing or adding a firewall rule or firewall group to the current profile will not take effect because unsolicited inbound traffic is not allowed.
+     * Native name: NET_FW_MODIFY_STATE_INBOUND_BLOCKED
      * @type {Integer (Int32)}
      */
-    static NET_FW_MODIFY_STATE_INBOUND_BLOCKED => 2
+    static INBOUND_BLOCKED => 2
 }

@@ -10,19 +10,22 @@ class FWPM_CONNECTION_EVENT_TYPE extends Win32Enum {
 
     /**
      * A new connection object was added.
+     * Native name: FWPM_CONNECTION_EVENT_ADD
      * @type {Integer (Int32)}
      */
-    static FWPM_CONNECTION_EVENT_ADD => 0
+    static ADD => 0
 
     /**
      * A connection object was deleted.
+     * Native name: FWPM_CONNECTION_EVENT_DELETE
      * @type {Integer (Int32)}
      */
-    static FWPM_CONNECTION_EVENT_DELETE => 1
+    static DELETE => 1
 
     /**
      * Maximum value for testing purposes.
+     * Native name: FWPM_CONNECTION_EVENT_MAX
      * @type {Integer (Int32)}
      */
-    static FWPM_CONNECTION_EVENT_MAX => 2
+    static MAX => 2
 }

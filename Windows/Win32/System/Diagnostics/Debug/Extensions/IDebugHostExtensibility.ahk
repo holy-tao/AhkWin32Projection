@@ -31,7 +31,6 @@ class IDebugHostExtensibility extends IUnknown {
     static VTableNames => ["CreateFunctionAlias", "DestroyFunctionAlias"]
 
     /**
-     * 
      * @param {PWSTR} aliasName 
      * @param {IModelObject} functionObject 
      * @returns {HRESULT} 
@@ -44,7 +43,6 @@ class IDebugHostExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} aliasName 
      * @returns {HRESULT} 
      */

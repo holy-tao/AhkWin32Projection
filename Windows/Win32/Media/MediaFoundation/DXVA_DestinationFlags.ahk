@@ -7,27 +7,32 @@
 class DXVA_DestinationFlags extends Win32Enum {
 
     /**
+     * Native name: DXVA_DestinationFlagMask
      * @type {Integer (Int32)}
      */
-    static DXVA_DestinationFlagMask => 15
+    static FlagMask => 15
 
     /**
+     * Native name: DXVA_DestinationFlag_Background_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_DestinationFlag_Background_Changed => 1
+    static Flag_Background_Changed => 1
 
     /**
+     * Native name: DXVA_DestinationFlag_TargetRect_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_DestinationFlag_TargetRect_Changed => 2
+    static Flag_TargetRect_Changed => 2
 
     /**
+     * Native name: DXVA_DestinationFlag_ColorData_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_DestinationFlag_ColorData_Changed => 4
+    static Flag_ColorData_Changed => 4
 
     /**
+     * Native name: DXVA_DestinationFlag_Alpha_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_DestinationFlag_Alpha_Changed => 8
+    static Flag_Alpha_Changed => 8
 }

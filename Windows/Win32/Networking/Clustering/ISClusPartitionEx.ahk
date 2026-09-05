@@ -67,7 +67,6 @@ class ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalSize() {
@@ -76,7 +75,6 @@ class ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FreeSpace() {
@@ -85,7 +83,6 @@ class ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DeviceNumber() {
@@ -94,7 +91,6 @@ class ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PartitionNumber() {
@@ -103,7 +99,6 @@ class ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VolumeGuid() {

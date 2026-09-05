@@ -30,7 +30,6 @@ class IFilterTrackingRequestCallback extends IUnknown {
     static VTableNames => ["RequestTrackedFilter"]
 
     /**
-     * 
      * @param {ISyncFilter} pFilter 
      * @returns {HRESULT} 
      */

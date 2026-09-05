@@ -56,7 +56,6 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -67,7 +66,6 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @param {X509SCEPProcessMessageFlags} Flags 
      * @param {BSTR} strResponse 
      * @param {EncodingType} Encoding 
@@ -81,7 +79,6 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ResultMessageText() {
@@ -91,7 +88,6 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @returns {DelayRetryAction} 
      */
     get_DelayRetry() {
@@ -100,7 +96,6 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ActivityId() {
@@ -110,7 +105,6 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */

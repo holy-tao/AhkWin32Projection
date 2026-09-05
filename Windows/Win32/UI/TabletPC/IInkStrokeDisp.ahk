@@ -175,7 +175,6 @@ class IInkStrokeDisp extends IDispatch {
     }
 
     /**
-     * 
      * @param {IInkDrawingAttributes} DrawAttrs 
      * @returns {HRESULT} 
      */

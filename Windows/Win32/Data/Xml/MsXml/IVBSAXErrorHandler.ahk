@@ -31,7 +31,6 @@ class IVBSAXErrorHandler extends IDispatch {
     static VTableNames => ["error", "fatalError", "ignorableWarning"]
 
     /**
-     * 
      * @param {IVBSAXLocator} oLocator 
      * @param {Pointer<BSTR>} strErrorMessage 
      * @param {Integer} nErrorCode 
@@ -43,7 +42,6 @@ class IVBSAXErrorHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXLocator} oLocator 
      * @param {Pointer<BSTR>} strErrorMessage 
      * @param {Integer} nErrorCode 
@@ -55,7 +53,6 @@ class IVBSAXErrorHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXLocator} oLocator 
      * @param {Pointer<BSTR>} strErrorMessage 
      * @param {Integer} nErrorCode 

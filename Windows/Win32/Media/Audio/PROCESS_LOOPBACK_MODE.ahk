@@ -10,13 +10,15 @@ class PROCESS_LOOPBACK_MODE extends Win32Enum {
 
     /**
      * Render streams from the specified process and its child processes are included in the activated process loopback stream.
+     * Native name: PROCESS_LOOPBACK_MODE_INCLUDE_TARGET_PROCESS_TREE
      * @type {Integer (Int32)}
      */
-    static PROCESS_LOOPBACK_MODE_INCLUDE_TARGET_PROCESS_TREE => 0
+    static INCLUDE_TARGET_PROCESS_TREE => 0
 
     /**
      * Render streams from the specified process and its child processes are excluded from the activated process loopback stream.
+     * Native name: PROCESS_LOOPBACK_MODE_EXCLUDE_TARGET_PROCESS_TREE
      * @type {Integer (Int32)}
      */
-    static PROCESS_LOOPBACK_MODE_EXCLUDE_TARGET_PROCESS_TREE => 1
+    static EXCLUDE_TARGET_PROCESS_TREE => 1
 }

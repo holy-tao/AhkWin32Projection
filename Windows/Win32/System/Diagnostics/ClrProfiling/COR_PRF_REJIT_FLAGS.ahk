@@ -7,12 +7,14 @@
 class COR_PRF_REJIT_FLAGS extends Win32Enum {
 
     /**
+     * Native name: COR_PRF_REJIT_BLOCK_INLINING
      * @type {Integer (Int32)}
      */
-    static COR_PRF_REJIT_BLOCK_INLINING => 1
+    static BLOCK_INLINING => 1
 
     /**
+     * Native name: COR_PRF_REJIT_INLINING_CALLBACKS
      * @type {Integer (Int32)}
      */
-    static COR_PRF_REJIT_INLINING_CALLBACKS => 2
+    static INLINING_CALLBACKS => 2
 }

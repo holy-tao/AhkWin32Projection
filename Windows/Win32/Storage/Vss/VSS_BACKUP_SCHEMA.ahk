@@ -32,9 +32,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value of 
      *       <b>VSS_BT_FULL</b>). This backup scheme can be used as the basis of an incremental or 
      *       differential backup. This is the default value.
+     * Native name: VSS_BS_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static VSS_BS_UNDEFINED => 0
+    static BS_UNDEFINED => 0
 
     /**
      * The writer supports differential backups (corresponding to the 
@@ -46,9 +47,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      * This setting does not preclude mixing of incremental and differential backups.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_BS_DIFFERENTIAL
      * @type {Integer (Int32)}
      */
-    static VSS_BS_DIFFERENTIAL => 1
+    static BS_DIFFERENTIAL => 1
 
     /**
      * The writer supports incremental backups (corresponding to the 
@@ -60,9 +62,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      * This setting does not preclude mixing of incremental and differential backups.
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_BS_INCREMENTAL
      * @type {Integer (Int32)}
      */
-    static VSS_BS_INCREMENTAL => 2
+    static BS_INCREMENTAL => 2
 
     /**
      * The writer supports both differential and incremental backup schemas, but only exclusively: for example, 
@@ -71,9 +74,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      *       <b>VSS_BS_INCREMENTAL</b>).
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_BS_EXCLUSIVE_INCREMENTAL_DIFFERENTIAL
      * @type {Integer (Int32)}
      */
-    static VSS_BS_EXCLUSIVE_INCREMENTAL_DIFFERENTIAL => 4
+    static BS_EXCLUSIVE_INCREMENTAL_DIFFERENTIAL => 4
 
     /**
      * The writer supports backups that involve only the log files it manages (corresponding to a 
@@ -84,9 +88,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      *       method. Requesters retrieve log file information using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivsswmcomponent-getdatabaselogfile">IVssWMComponent::GetDatabaseLogFile</a> 
      *       method.
+     * Native name: VSS_BS_LOG
      * @type {Integer (Int32)}
      */
-    static VSS_BS_LOG => 8
+    static BS_LOG => 8
 
     /**
      * Similar to the default backup schema (<b>VSS_BT_UNDEFINED</b>), the writer supports 
@@ -94,9 +99,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      *       (such as information as to when a file was last backed up) will not be updated either in the writer's own state 
      *       information or in the file system information. This type of backup cannot be used as the basis of an incremental 
      *       or differential backup.
+     * Native name: VSS_BS_COPY
      * @type {Integer (Int32)}
      */
-    static VSS_BS_COPY => 16
+    static BS_COPY => 16
 
     /**
      * A writer supports using the VSS time-stamp mechanism when evaluating if a file should be included in 
@@ -113,9 +119,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      *        (<b>VSS_BS_DIFFERENTIAL</b> or <b>VSS_BS_INCREMENTAL</b>).
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_BS_TIMESTAMPED
      * @type {Integer (Int32)}
      */
-    static VSS_BS_TIMESTAMPED => 32
+    static BS_TIMESTAMPED => 32
 
     /**
      * When implementing incremental or differential backups with differenced files, a writer can provide last 
@@ -135,15 +142,17 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      *        (<b>VSS_BS_DIFFERENTIAL</b> or <b>VSS_BS_INCREMENTAL</b>).
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_BS_LAST_MODIFY
      * @type {Integer (Int32)}
      */
-    static VSS_BS_LAST_MODIFY => 64
+    static BS_LAST_MODIFY => 64
 
     /**
      * Reserved for system use.
+     * Native name: VSS_BS_LSN
      * @type {Integer (Int32)}
      */
-    static VSS_BS_LSN => 128
+    static BS_LSN => 128
 
     /**
      * The writer supports a requester changing the target for file restoration using 
@@ -152,9 +161,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      *       Locations</a> for more information.)
      * 
      * This value is not supported for express writers.
+     * Native name: VSS_BS_WRITER_SUPPORTS_NEW_TARGET
      * @type {Integer (Int32)}
      */
-    static VSS_BS_WRITER_SUPPORTS_NEW_TARGET => 256
+    static BS_WRITER_SUPPORTS_NEW_TARGET => 256
 
     /**
      * The writer supports running multiple writer instances with the same class ID, and it supports a requester moving a component to a different writer instance at restore time using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex-setselectedforrestoreex">IVssBackupComponentsEx::SetSelectedForRestoreEx</a>.
@@ -163,17 +173,19 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      * This value is not supported for express writers.
      * 
      * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1.
+     * Native name: VSS_BS_WRITER_SUPPORTS_RESTORE_WITH_MOVE
      * @type {Integer (Int32)}
      */
-    static VSS_BS_WRITER_SUPPORTS_RESTORE_WITH_MOVE => 512
+    static BS_WRITER_SUPPORTS_RESTORE_WITH_MOVE => 512
 
     /**
      * The writer supports backing up data that is part of the system state, but that can also be backed up independently of the system state.
      * 
      * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * Native name: VSS_BS_INDEPENDENT_SYSTEM_STATE
      * @type {Integer (Int32)}
      */
-    static VSS_BS_INDEPENDENT_SYSTEM_STATE => 1024
+    static BS_INDEPENDENT_SYSTEM_STATE => 1024
 
     /**
      * The writer supports a requester setting a roll-forward restore point using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setrollforward">IVssBackupComponentsEx2::SetRollForward</a>.
@@ -181,9 +193,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      * This value is not supported for express writers.
      * 
      * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * Native name: VSS_BS_ROLLFORWARD_RESTORE
      * @type {Integer (Int32)}
      */
-    static VSS_BS_ROLLFORWARD_RESTORE => 4096
+    static BS_ROLLFORWARD_RESTORE => 4096
 
     /**
      * The writer supports a requester setting a restore name using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setrestorename">IVssBackupComponentsEx2::SetRestoreName</a>.
@@ -191,9 +204,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      * This value is not supported for express writers.
      * 
      * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * Native name: VSS_BS_RESTORE_RENAME
      * @type {Integer (Int32)}
      */
-    static VSS_BS_RESTORE_RENAME => 8192
+    static BS_RESTORE_RENAME => 8192
 
     /**
      * The writer supports a requester setting authoritative restore using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setauthoritativerestore">IVssBackupComponentsEx2::SetAuthoritativeRestore</a>.
@@ -201,9 +215,10 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      * This value is not supported for express writers.
      * 
      * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * Native name: VSS_BS_AUTHORITATIVE_RESTORE
      * @type {Integer (Int32)}
      */
-    static VSS_BS_AUTHORITATIVE_RESTORE => 16384
+    static BS_AUTHORITATIVE_RESTORE => 16384
 
     /**
      * The writer supports multiple unsynchronized restore events.
@@ -211,7 +226,8 @@ class VSS_BACKUP_SCHEMA extends Win32Enum {
      * This value is not supported for express writers.
      * 
      * <b>Windows Vista and Windows Server 2003:  </b>This value is not supported until Windows Server 2008.
+     * Native name: VSS_BS_WRITER_SUPPORTS_PARALLEL_RESTORES
      * @type {Integer (Int32)}
      */
-    static VSS_BS_WRITER_SUPPORTS_PARALLEL_RESTORES => 32768
+    static BS_WRITER_SUPPORTS_PARALLEL_RESTORES => 32768
 }

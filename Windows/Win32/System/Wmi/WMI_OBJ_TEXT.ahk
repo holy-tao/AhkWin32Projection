@@ -10,79 +10,92 @@ class WMI_OBJ_TEXT extends Win32Enum {
 
     /**
      * XML format conforming to the DMTF (Distributed Management Task Force) CIM document type definition (DTD) version 2.0.
+     * Native name: WMI_OBJ_TEXT_CIM_DTD_2_0
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_CIM_DTD_2_0 => 1
+    static CIM_DTD_2_0 => 1
 
     /**
      * XML format as defined by the extended WMI version of DMTF CIM DTD version 2.0. Using this value enables WMI-specific extensions, such as embedded objects or scope.
+     * Native name: WMI_OBJ_TEXT_WMI_DTD_2_0
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_DTD_2_0 => 2
+    static WMI_DTD_2_0 => 2
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT1
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT1 => 3
+    static WMI_EXT1 => 3
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT2
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT2 => 4
+    static WMI_EXT2 => 4
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT3
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT3 => 5
+    static WMI_EXT3 => 5
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT4
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT4 => 6
+    static WMI_EXT4 => 6
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT5
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT5 => 7
+    static WMI_EXT5 => 7
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT6
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT6 => 8
+    static WMI_EXT6 => 8
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT7
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT7 => 9
+    static WMI_EXT7 => 9
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT8
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT8 => 10
+    static WMI_EXT8 => 10
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT9
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT9 => 11
+    static WMI_EXT9 => 11
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_WMI_EXT10
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_WMI_EXT10 => 12
+    static WMI_EXT10 => 12
 
     /**
      * Deprecated. Do not use.
+     * Native name: WMI_OBJ_TEXT_LAST
      * @type {Integer (Int32)}
      */
-    static WMI_OBJ_TEXT_LAST => 13
+    static LAST => 13
 }

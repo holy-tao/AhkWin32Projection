@@ -30,7 +30,6 @@ class IXpsDocument extends IUnknown {
     static VTableNames => ["GetThumbnail", "SetThumbnail"]
 
     /**
-     * 
      * @returns {IPartThumbnail} 
      */
     GetThumbnail() {
@@ -39,7 +38,6 @@ class IXpsDocument extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPartThumbnail} pThumbnail 
      * @returns {HRESULT} 
      */

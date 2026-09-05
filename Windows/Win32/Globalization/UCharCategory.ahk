@@ -7,162 +7,194 @@
 class UCharCategory extends Win32Enum {
 
     /**
+     * Native name: U_UNASSIGNED
      * @type {Integer (Int32)}
      */
-    static U_UNASSIGNED => 0
+    static UNASSIGNED => 0
 
     /**
+     * Native name: U_GENERAL_OTHER_TYPES
      * @type {Integer (Int32)}
      */
-    static U_GENERAL_OTHER_TYPES => 0
+    static GENERAL_OTHER_TYPES => 0
 
     /**
+     * Native name: U_UPPERCASE_LETTER
      * @type {Integer (Int32)}
      */
-    static U_UPPERCASE_LETTER => 1
+    static UPPERCASE_LETTER => 1
 
     /**
+     * Native name: U_LOWERCASE_LETTER
      * @type {Integer (Int32)}
      */
-    static U_LOWERCASE_LETTER => 2
+    static LOWERCASE_LETTER => 2
 
     /**
+     * Native name: U_TITLECASE_LETTER
      * @type {Integer (Int32)}
      */
-    static U_TITLECASE_LETTER => 3
+    static TITLECASE_LETTER => 3
 
     /**
+     * Native name: U_MODIFIER_LETTER
      * @type {Integer (Int32)}
      */
-    static U_MODIFIER_LETTER => 4
+    static MODIFIER_LETTER => 4
 
     /**
+     * Native name: U_OTHER_LETTER
      * @type {Integer (Int32)}
      */
-    static U_OTHER_LETTER => 5
+    static OTHER_LETTER => 5
 
     /**
+     * Native name: U_NON_SPACING_MARK
      * @type {Integer (Int32)}
      */
-    static U_NON_SPACING_MARK => 6
+    static NON_SPACING_MARK => 6
 
     /**
+     * Native name: U_ENCLOSING_MARK
      * @type {Integer (Int32)}
      */
-    static U_ENCLOSING_MARK => 7
+    static ENCLOSING_MARK => 7
 
     /**
+     * Native name: U_COMBINING_SPACING_MARK
      * @type {Integer (Int32)}
      */
-    static U_COMBINING_SPACING_MARK => 8
+    static COMBINING_SPACING_MARK => 8
 
     /**
+     * Native name: U_DECIMAL_DIGIT_NUMBER
      * @type {Integer (Int32)}
      */
-    static U_DECIMAL_DIGIT_NUMBER => 9
+    static DECIMAL_DIGIT_NUMBER => 9
 
     /**
+     * Native name: U_LETTER_NUMBER
      * @type {Integer (Int32)}
      */
-    static U_LETTER_NUMBER => 10
+    static LETTER_NUMBER => 10
 
     /**
+     * Native name: U_OTHER_NUMBER
      * @type {Integer (Int32)}
      */
-    static U_OTHER_NUMBER => 11
+    static OTHER_NUMBER => 11
 
     /**
+     * Native name: U_SPACE_SEPARATOR
      * @type {Integer (Int32)}
      */
-    static U_SPACE_SEPARATOR => 12
+    static SPACE_SEPARATOR => 12
 
     /**
+     * Native name: U_LINE_SEPARATOR
      * @type {Integer (Int32)}
      */
-    static U_LINE_SEPARATOR => 13
+    static LINE_SEPARATOR => 13
 
     /**
+     * Native name: U_PARAGRAPH_SEPARATOR
      * @type {Integer (Int32)}
      */
-    static U_PARAGRAPH_SEPARATOR => 14
+    static PARAGRAPH_SEPARATOR => 14
 
     /**
+     * Native name: U_CONTROL_CHAR
      * @type {Integer (Int32)}
      */
-    static U_CONTROL_CHAR => 15
+    static CONTROL_CHAR => 15
 
     /**
+     * Native name: U_FORMAT_CHAR
      * @type {Integer (Int32)}
      */
-    static U_FORMAT_CHAR => 16
+    static FORMAT_CHAR => 16
 
     /**
+     * Native name: U_PRIVATE_USE_CHAR
      * @type {Integer (Int32)}
      */
-    static U_PRIVATE_USE_CHAR => 17
+    static PRIVATE_USE_CHAR => 17
 
     /**
+     * Native name: U_SURROGATE
      * @type {Integer (Int32)}
      */
-    static U_SURROGATE => 18
+    static SURROGATE => 18
 
     /**
+     * Native name: U_DASH_PUNCTUATION
      * @type {Integer (Int32)}
      */
-    static U_DASH_PUNCTUATION => 19
+    static DASH_PUNCTUATION => 19
 
     /**
+     * Native name: U_START_PUNCTUATION
      * @type {Integer (Int32)}
      */
-    static U_START_PUNCTUATION => 20
+    static START_PUNCTUATION => 20
 
     /**
+     * Native name: U_END_PUNCTUATION
      * @type {Integer (Int32)}
      */
-    static U_END_PUNCTUATION => 21
+    static END_PUNCTUATION => 21
 
     /**
+     * Native name: U_CONNECTOR_PUNCTUATION
      * @type {Integer (Int32)}
      */
-    static U_CONNECTOR_PUNCTUATION => 22
+    static CONNECTOR_PUNCTUATION => 22
 
     /**
+     * Native name: U_OTHER_PUNCTUATION
      * @type {Integer (Int32)}
      */
-    static U_OTHER_PUNCTUATION => 23
+    static OTHER_PUNCTUATION => 23
 
     /**
+     * Native name: U_MATH_SYMBOL
      * @type {Integer (Int32)}
      */
-    static U_MATH_SYMBOL => 24
+    static MATH_SYMBOL => 24
 
     /**
+     * Native name: U_CURRENCY_SYMBOL
      * @type {Integer (Int32)}
      */
-    static U_CURRENCY_SYMBOL => 25
+    static CURRENCY_SYMBOL => 25
 
     /**
+     * Native name: U_MODIFIER_SYMBOL
      * @type {Integer (Int32)}
      */
-    static U_MODIFIER_SYMBOL => 26
+    static MODIFIER_SYMBOL => 26
 
     /**
+     * Native name: U_OTHER_SYMBOL
      * @type {Integer (Int32)}
      */
-    static U_OTHER_SYMBOL => 27
+    static OTHER_SYMBOL => 27
 
     /**
+     * Native name: U_INITIAL_PUNCTUATION
      * @type {Integer (Int32)}
      */
-    static U_INITIAL_PUNCTUATION => 28
+    static INITIAL_PUNCTUATION => 28
 
     /**
+     * Native name: U_FINAL_PUNCTUATION
      * @type {Integer (Int32)}
      */
-    static U_FINAL_PUNCTUATION => 29
+    static FINAL_PUNCTUATION => 29
 
     /**
+     * Native name: U_CHAR_CATEGORY_COUNT
      * @type {Integer (Int32)}
      */
-    static U_CHAR_CATEGORY_COUNT => 30
+    static COUNT => 30
 }

@@ -10,25 +10,29 @@ class SYNCMGR_EVENT_LEVEL extends Win32Enum {
 
     /**
      * The event is informational in nature and will be displayed with the appropriate icon.
+     * Native name: SYNCMGR_EL_INFORMATION
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_EL_INFORMATION => 1
+    static EL_INFORMATION => 1
 
     /**
      * The event is a warning and will be displayed with the appropriate icon.
+     * Native name: SYNCMGR_EL_WARNING
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_EL_WARNING => 2
+    static EL_WARNING => 2
 
     /**
      * The event is an error and will be displayed with the appropriate icon. Additionally, this event will be included in the count of errors reported to the handler or item when it is displayed in the folder as well as to the sync tray icon.
+     * Native name: SYNCMGR_EL_ERROR
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_EL_ERROR => 3
+    static EL_ERROR => 3
 
     /**
      * Used only to declare the largest valid value in this enumeration. Do not use with <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-reportevent">ISyncMgrSyncCallback::ReportEvent</a>.
+     * Native name: SYNCMGR_EL_MAX
      * @type {Integer (Int32)}
      */
-    static SYNCMGR_EL_MAX => 3
+    static EL_MAX => 3
 }

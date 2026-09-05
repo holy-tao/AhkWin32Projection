@@ -45,7 +45,6 @@ class IRTCWatcher2 extends IRTCWatcher {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -54,7 +53,6 @@ class IRTCWatcher2 extends IRTCWatcher {
     }
 
     /**
-     * 
      * @returns {RTC_ACE_SCOPE} 
      */
     get_Scope() {

@@ -7,12 +7,14 @@
 class HLQF_INFO extends Win32Enum {
 
     /**
+     * Native name: HLQF_ISVALID
      * @type {Integer (Int32)}
      */
-    static HLQF_ISVALID => 1
+    static ISVALID => 1
 
     /**
+     * Native name: HLQF_ISCURRENT
      * @type {Integer (Int32)}
      */
-    static HLQF_ISCURRENT => 2
+    static ISCURRENT => 2
 }

@@ -21,33 +21,38 @@ class VDS_SERVICE_FLAG extends Win32Enum {
 
     /**
      * If set, the service supports dynamic disks.
+     * Native name: VDS_SVF_SUPPORT_DYNAMIC
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_SUPPORT_DYNAMIC => 1
+    static SVF_SUPPORT_DYNAMIC => 1
 
     /**
      * If set, the service supports fault-tolerant volumes.
+     * Native name: VDS_SVF_SUPPORT_FAULT_TOLERANT
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_SUPPORT_FAULT_TOLERANT => 2
+    static SVF_SUPPORT_FAULT_TOLERANT => 2
 
     /**
      * If set, the service supports GPT disks.
+     * Native name: VDS_SVF_SUPPORT_GPT
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_SUPPORT_GPT => 4
+    static SVF_SUPPORT_GPT => 4
 
     /**
      * If set, the service supports dynamic 1394 disks.
+     * Native name: VDS_SVF_SUPPORT_DYNAMIC_1394
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_SUPPORT_DYNAMIC_1394 => 8
+    static SVF_SUPPORT_DYNAMIC_1394 => 8
 
     /**
      * If set, the host has the cluster service installed and configured, but not necessarily running.
+     * Native name: VDS_SVF_CLUSTER_SERVICE_CONFIGURED
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_CLUSTER_SERVICE_CONFIGURED => 16
+    static SVF_CLUSTER_SERVICE_CONFIGURED => 16
 
     /**
      * If set, the auto-mount operation is turned off for the computer to prevent the operating system from 
@@ -55,43 +60,49 @@ class VDS_SERVICE_FLAG extends Win32Enum {
      * 
      * <div class="alert"><b>Note</b>  Beginning with Windows 8 and Windows Server 2012, this flag is deprecated. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_san_policy">VDS_SAN_POLICY</a> enumeration to control default disk mounting behavior.</div>
      * <div> </div>
+     * Native name: VDS_SVF_AUTO_MOUNT_OFF
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_AUTO_MOUNT_OFF => 32
+    static SVF_AUTO_MOUNT_OFF => 32
 
     /**
      * If set, configuration changes to VDS have occurred. After a successful installation, the uninstall 
      *       operation is valid only if the configuration changes.
+     * Native name: VDS_SVF_OS_UNINSTALL_VALID
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_OS_UNINSTALL_VALID => 64
+    static SVF_OS_UNINSTALL_VALID => 64
 
     /**
      * If set, the machine boots from an EFI partition on a GPT disk.
      * 
      * <b>Windows Server 2003:  </b>This flag is not supported before Windows Server 2003 with SP1.
+     * Native name: VDS_SVF_EFI
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_EFI => 128
+    static SVF_EFI => 128
 
     /**
      * The service supports mirrored volumes.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDS_SVF_SUPPORT_MIRROR
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_SUPPORT_MIRROR => 256
+    static SVF_SUPPORT_MIRROR => 256
 
     /**
      * The service supports RAID-5 volumes.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * Native name: VDS_SVF_SUPPORT_RAID5
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_SUPPORT_RAID5 => 512
+    static SVF_SUPPORT_RAID5 => 512
 
     /**
+     * Native name: VDS_SVF_SUPPORT_REFS
      * @type {Integer (Int32)}
      */
-    static VDS_SVF_SUPPORT_REFS => 1024
+    static SVF_SUPPORT_REFS => 1024
 }

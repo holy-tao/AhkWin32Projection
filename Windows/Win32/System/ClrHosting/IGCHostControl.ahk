@@ -29,7 +29,6 @@ class IGCHostControl extends IUnknown {
     static VTableNames => ["RequestVirtualMemLimit"]
 
     /**
-     * 
      * @param {Pointer} sztMaxVirtualMemMB 
      * @param {Pointer<Pointer>} psztNewMaxVirtualMemMB 
      * @returns {HRESULT} 

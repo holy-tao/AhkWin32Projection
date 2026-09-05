@@ -781,7 +781,6 @@ class IInkCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPictureDisp} MouseIcon 
      * @returns {HRESULT} 
      */

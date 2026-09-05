@@ -148,7 +148,6 @@ class ISensNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDestination 
      * @param {BSTR} bstrConnection 
      * @param {Integer} ulType 
@@ -164,7 +163,6 @@ class ISensNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDestination 
      * @param {BSTR} bstrConnection 
      * @param {Integer} ulType 

@@ -7,72 +7,86 @@
 class CRYPT_STRING extends Win32Enum {
 
     /**
+     * Native name: CRYPT_STRING_BASE64HEADER
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_BASE64HEADER => 0
+    static BASE64HEADER => 0
 
     /**
+     * Native name: CRYPT_STRING_BASE64
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_BASE64 => 1
+    static BASE64 => 1
 
     /**
+     * Native name: CRYPT_STRING_BINARY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_BINARY => 2
+    static BINARY => 2
 
     /**
+     * Native name: CRYPT_STRING_BASE64REQUESTHEADER
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_BASE64REQUESTHEADER => 3
+    static BASE64REQUESTHEADER => 3
 
     /**
+     * Native name: CRYPT_STRING_HEX
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_HEX => 4
+    static HEX => 4
 
     /**
+     * Native name: CRYPT_STRING_HEXASCII
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_HEXASCII => 5
+    static HEXASCII => 5
 
     /**
+     * Native name: CRYPT_STRING_BASE64X509CRLHEADER
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_BASE64X509CRLHEADER => 9
+    static BASE64X509CRLHEADER => 9
 
     /**
+     * Native name: CRYPT_STRING_HEXADDR
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_HEXADDR => 10
+    static HEXADDR => 10
 
     /**
+     * Native name: CRYPT_STRING_HEXASCIIADDR
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_HEXASCIIADDR => 11
+    static HEXASCIIADDR => 11
 
     /**
+     * Native name: CRYPT_STRING_HEXRAW
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_HEXRAW => 12
+    static HEXRAW => 12
 
     /**
+     * Native name: CRYPT_STRING_STRICT
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_STRICT => 536870912
+    static STRICT => 536870912
 
     /**
+     * Native name: CRYPT_STRING_BASE64_ANY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_BASE64_ANY => 6
+    static BASE64_ANY => 6
 
     /**
+     * Native name: CRYPT_STRING_ANY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_ANY => 7
+    static ANY => 7
 
     /**
+     * Native name: CRYPT_STRING_HEX_ANY
      * @type {Integer (UInt32)}
      */
-    static CRYPT_STRING_HEX_ANY => 8
+    static HEX_ANY => 8
 }

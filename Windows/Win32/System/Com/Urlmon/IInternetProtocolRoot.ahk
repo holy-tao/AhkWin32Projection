@@ -34,7 +34,6 @@ class IInternetProtocolRoot extends IUnknown {
     static VTableNames => ["Start", "Continue", "Abort", "Terminate", "Suspend", "Resume"]
 
     /**
-     * 
      * @param {PWSTR} szUrl 
      * @param {IInternetProtocolSink} pOIProtSink 
      * @param {IInternetBindInfo} pOIBindInfo 
@@ -50,7 +49,6 @@ class IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROTOCOLDATA>} pProtocolData 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ class IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrReason 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
@@ -71,7 +68,6 @@ class IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
      */
@@ -81,7 +77,6 @@ class IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Suspend() {

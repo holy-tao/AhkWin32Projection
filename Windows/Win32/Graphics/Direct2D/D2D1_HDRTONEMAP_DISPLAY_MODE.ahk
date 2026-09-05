@@ -10,13 +10,15 @@ class D2D1_HDRTONEMAP_DISPLAY_MODE extends Win32Enum {
 
     /**
      * Specifies that the tone mapper algorithm be optimized for best appearance on a standard dynamic range (SDR) display.
+     * Native name: D2D1_HDRTONEMAP_DISPLAY_MODE_SDR
      * @type {Integer (Int32)}
      */
-    static D2D1_HDRTONEMAP_DISPLAY_MODE_SDR => 0
+    static SDR => 0
 
     /**
      * Specifies that the tone mapper algorithm be optimized for best appearance on a high dynamic range (HDR) display.
+     * Native name: D2D1_HDRTONEMAP_DISPLAY_MODE_HDR
      * @type {Integer (Int32)}
      */
-    static D2D1_HDRTONEMAP_DISPLAY_MODE_HDR => 1
+    static HDR => 1
 }

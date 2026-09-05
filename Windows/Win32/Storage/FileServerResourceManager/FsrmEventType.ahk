@@ -10,25 +10,29 @@ class FsrmEventType extends Win32Enum {
 
     /**
      * The event type is unknown. Do not use this flag.
+     * Native name: FsrmEventType_Unknown
      * @type {Integer (Int32)}
      */
-    static FsrmEventType_Unknown => 0
+    static Unknown => 0
 
     /**
      * The event is an information event.
+     * Native name: FsrmEventType_Information
      * @type {Integer (Int32)}
      */
-    static FsrmEventType_Information => 1
+    static Information => 1
 
     /**
      * The event is a warning event.
+     * Native name: FsrmEventType_Warning
      * @type {Integer (Int32)}
      */
-    static FsrmEventType_Warning => 2
+    static Warning => 2
 
     /**
      * The event is an error event.
+     * Native name: FsrmEventType_Error
      * @type {Integer (Int32)}
      */
-    static FsrmEventType_Error => 3
+    static Error => 3
 }

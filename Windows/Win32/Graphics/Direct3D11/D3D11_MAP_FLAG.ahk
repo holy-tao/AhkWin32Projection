@@ -14,7 +14,8 @@ class D3D11_MAP_FLAG extends Win32Enum {
 
     /**
      * Specifies that <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-map">ID3D11DeviceContext::Map</a> should return DXGI_ERROR_WAS_STILL_DRAWING when the GPU blocks the CPU from accessing a resource. For more information about this error code, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * Native name: D3D11_MAP_FLAG_DO_NOT_WAIT
      * @type {Integer (Int32)}
      */
-    static D3D11_MAP_FLAG_DO_NOT_WAIT => 1048576
+    static DO_NOT_WAIT => 1048576
 }

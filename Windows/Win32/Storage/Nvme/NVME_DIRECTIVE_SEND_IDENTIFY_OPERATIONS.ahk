@@ -12,7 +12,8 @@ class NVME_DIRECTIVE_SEND_IDENTIFY_OPERATIONS extends Win32Enum {
 
     /**
      * Indicates whether to send an enable directive to an Identify operation.
+     * Native name: NVME_DIRECTIVE_SEND_IDENTIFY_OPERATION_ENABLE_DIRECTIVE
      * @type {Integer (Int32)}
      */
-    static NVME_DIRECTIVE_SEND_IDENTIFY_OPERATION_ENABLE_DIRECTIVE => 1
+    static OPERATION_ENABLE_DIRECTIVE => 1
 }

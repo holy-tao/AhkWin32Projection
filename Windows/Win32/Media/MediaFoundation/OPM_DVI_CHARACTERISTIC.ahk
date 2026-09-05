@@ -7,12 +7,14 @@
 class OPM_DVI_CHARACTERISTIC extends Win32Enum {
 
     /**
+     * Native name: OPM_DVI_CHARACTERISTIC_1_0
      * @type {Integer (Int32)}
      */
-    static OPM_DVI_CHARACTERISTIC_1_0 => 1
+    static 1_0 => 1
 
     /**
+     * Native name: OPM_DVI_CHARACTERISTIC_1_1_OR_ABOVE
      * @type {Integer (Int32)}
      */
-    static OPM_DVI_CHARACTERISTIC_1_1_OR_ABOVE => 2
+    static 1_1_OR_ABOVE => 2
 }

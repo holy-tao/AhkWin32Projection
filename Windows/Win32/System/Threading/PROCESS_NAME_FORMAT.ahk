@@ -7,12 +7,14 @@
 class PROCESS_NAME_FORMAT extends Win32Enum {
 
     /**
+     * Native name: PROCESS_NAME_WIN32
      * @type {Integer (UInt32)}
      */
-    static PROCESS_NAME_WIN32 => 0
+    static WIN32 => 0
 
     /**
+     * Native name: PROCESS_NAME_NATIVE
      * @type {Integer (UInt32)}
      */
-    static PROCESS_NAME_NATIVE => 1
+    static NATIVE => 1
 }

@@ -30,7 +30,6 @@ class IDebugStackFrameSnifferEx64 extends IDebugStackFrameSniffer {
     static VTableNames => ["EnumStackFramesEx64"]
 
     /**
-     * 
      * @param {Integer} dwSpMin 
      * @returns {IEnumDebugStackFrames64} 
      */

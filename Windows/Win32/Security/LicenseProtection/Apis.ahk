@@ -15,7 +15,6 @@ class LicenseProtection {
 
 ;@region Methods
     /**
-     * 
      * @param {PWSTR} licenseKey 
      * @param {Integer} validityInDays 
      * @returns {LicenseProtectionStatus} 
@@ -28,7 +27,6 @@ class LicenseProtection {
     }
 
     /**
-     * 
      * @param {PWSTR} licenseKey 
      * @param {Pointer<FILETIME>} notValidBefore 
      * @param {Pointer<FILETIME>} notValidAfter 

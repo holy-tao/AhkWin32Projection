@@ -10,13 +10,15 @@ class WLDP_EXECUTION_EVALUATION_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No options.
+     * Native name: WLDP_EXECUTION_EVALUATION_OPTION_NONE
      * @type {Integer (Int32)}
      */
-    static WLDP_EXECUTION_EVALUATION_OPTION_NONE => 0
+    static OPTION_NONE => 0
 
     /**
      * The execution is requested for an interactive session, such as using Powershell or cmd.
+     * Native name: WLDP_EXECUTION_EVALUATION_OPTION_EXECUTE_IN_INTERACTIVE_SESSION
      * @type {Integer (Int32)}
      */
-    static WLDP_EXECUTION_EVALUATION_OPTION_EXECUTE_IN_INTERACTIVE_SESSION => 1
+    static OPTION_EXECUTE_IN_INTERACTIVE_SESSION => 1
 }

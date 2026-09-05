@@ -2062,7 +2062,6 @@ class ExtensibleAuthenticationProtocol {
     }
 
     /**
-     * 
      * @param {Integer} dwSizeofPassword 
      * @param {Integer} szPassword 
      * @param {Pointer<PWSTR>} ppszEncPassword 

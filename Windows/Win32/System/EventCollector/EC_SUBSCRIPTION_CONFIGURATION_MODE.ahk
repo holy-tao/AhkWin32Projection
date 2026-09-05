@@ -21,25 +21,29 @@ class EC_SUBSCRIPTION_CONFIGURATION_MODE extends Win32Enum {
 
     /**
      * This mode is used when an administrator needs the events to be delivered reliably and for the subscription to work with minimal configuration, and when network usage is not a concern. This mode sets the default subscription delivery mode to pull subscriptions.
+     * Native name: EcConfigurationModeNormal
      * @type {Integer (Int32)}
      */
-    static EcConfigurationModeNormal => 0
+    static Normal => 0
 
     /**
      * This subscription mode allows custom values for the DeliveryMode property, the DeliveryMaxItems property, the DeliveryMaxLatencyTime, and the HeartBeatInterval property.
+     * Native name: EcConfigurationModeCustom
      * @type {Integer (Int32)}
      */
-    static EcConfigurationModeCustom => 1
+    static Custom => 1
 
     /**
      * This mode is used for alerts and critical events because it configures the subscription to send events as soon as they occur with minimal delay. This mode sets the default subscription delivery mode to push subscriptions.
+     * Native name: EcConfigurationModeMinLatency
      * @type {Integer (Int32)}
      */
-    static EcConfigurationModeMinLatency => 2
+    static MinLatency => 2
 
     /**
      * This mode is used when network activity is controllable, and when network usage is expensive. This mode sets the default subscription delivery mode to push subscriptions.
+     * Native name: EcConfigurationModeMinBandwidth
      * @type {Integer (Int32)}
      */
-    static EcConfigurationModeMinBandwidth => 3
+    static MinBandwidth => 3
 }

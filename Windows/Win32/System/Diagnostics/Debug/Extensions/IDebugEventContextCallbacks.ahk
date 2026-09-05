@@ -32,7 +32,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     static VTableNames => ["GetInterestMask", "Breakpoint", "Exception", "CreateThread", "ExitThread", "CreateProcessA", "ExitProcess", "LoadModule", "UnloadModule", "SystemError", "SessionStatus", "ChangeDebuggeeState", "ChangeEngineState", "ChangeSymbolState"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInterestMask() {
@@ -41,7 +40,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugBreakpoint2} Bp 
      * @param {Integer} _Context 
      * @param {Integer} ContextSize 
@@ -53,7 +51,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPTION_RECORD64>} Exception 
      * @param {Integer} FirstChance 
      * @param {Integer} _Context 
@@ -489,7 +486,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} ImageBaseName 
      * @param {Integer} BaseOffset 
      * @param {Integer} _Context 
@@ -504,7 +500,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Error 
      * @param {Integer} Level 
      * @param {Integer} _Context 
@@ -517,7 +512,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @returns {HRESULT} 
      */
@@ -527,7 +521,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
      * @param {Integer} _Context 
@@ -540,7 +533,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
      * @param {Integer} _Context 
@@ -553,7 +545,6 @@ class IDebugEventContextCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
      * @returns {HRESULT} 

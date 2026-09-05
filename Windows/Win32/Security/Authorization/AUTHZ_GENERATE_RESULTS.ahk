@@ -7,12 +7,14 @@
 class AUTHZ_GENERATE_RESULTS extends Win32Enum {
 
     /**
+     * Native name: AUTHZ_GENERATE_SUCCESS_AUDIT
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_GENERATE_SUCCESS_AUDIT => 1
+    static SUCCESS_AUDIT => 1
 
     /**
+     * Native name: AUTHZ_GENERATE_FAILURE_AUDIT
      * @type {Integer (UInt32)}
      */
-    static AUTHZ_GENERATE_FAILURE_AUDIT => 2
+    static FAILURE_AUDIT => 2
 }

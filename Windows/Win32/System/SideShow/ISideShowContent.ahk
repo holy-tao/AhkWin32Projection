@@ -45,7 +45,6 @@ class ISideShowContent extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pICapabilities 
      * @param {Pointer<Integer>} out_pdwSize 
      * @param {Pointer<Pointer<Integer>>} out_ppbData 
@@ -60,7 +59,6 @@ class ISideShowContent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ContentId() {
@@ -69,7 +67,6 @@ class ISideShowContent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_DifferentiateContent() {

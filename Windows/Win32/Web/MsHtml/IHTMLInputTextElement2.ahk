@@ -45,7 +45,6 @@ class IHTMLInputTextElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,6 @@ class IHTMLInputTextElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_selectionStart() {
@@ -64,7 +62,6 @@ class IHTMLInputTextElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +71,6 @@ class IHTMLInputTextElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_selectionEnd() {
@@ -83,7 +79,6 @@ class IHTMLInputTextElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} start 
      * @param {Integer} end 
      * @returns {HRESULT} 

@@ -10,43 +10,50 @@ class MANDATORY_LEVEL extends Win32Enum {
 
     /**
      * The required security level is untrusted.
+     * Native name: MandatoryLevelUntrusted
      * @type {Integer (Int32)}
      */
-    static MandatoryLevelUntrusted => 0
+    static Untrusted => 0
 
     /**
      * The required security level is low.
+     * Native name: MandatoryLevelLow
      * @type {Integer (Int32)}
      */
-    static MandatoryLevelLow => 1
+    static Low => 1
 
     /**
      * The required security level is medium.
+     * Native name: MandatoryLevelMedium
      * @type {Integer (Int32)}
      */
-    static MandatoryLevelMedium => 2
+    static Medium => 2
 
     /**
      * The required security level is high.
+     * Native name: MandatoryLevelHigh
      * @type {Integer (Int32)}
      */
-    static MandatoryLevelHigh => 3
+    static High => 3
 
     /**
      * The required security level is system.
+     * Native name: MandatoryLevelSystem
      * @type {Integer (Int32)}
      */
-    static MandatoryLevelSystem => 4
+    static System => 4
 
     /**
      * The required security level is a secure process.
+     * Native name: MandatoryLevelSecureProcess
      * @type {Integer (Int32)}
      */
-    static MandatoryLevelSecureProcess => 5
+    static SecureProcess => 5
 
     /**
      * The count of the mandatory level.
+     * Native name: MandatoryLevelCount
      * @type {Integer (Int32)}
      */
-    static MandatoryLevelCount => 6
+    static Count => 6
 }

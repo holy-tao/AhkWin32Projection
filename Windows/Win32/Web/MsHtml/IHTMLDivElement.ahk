@@ -53,7 +53,6 @@ class IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -65,7 +64,6 @@ class IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -75,7 +73,6 @@ class IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -85,7 +82,6 @@ class IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {

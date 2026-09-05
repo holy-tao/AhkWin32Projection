@@ -13,100 +13,116 @@ class INTERNET_SCHEME extends Win32Enum {
 
     /**
      * Partial URL.
+     * Native name: INTERNET_SCHEME_PARTIAL
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_PARTIAL => -2
+    static PARTIAL => -2
 
     /**
      * Unknown URL scheme.
+     * Native name: INTERNET_SCHEME_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_UNKNOWN => -1
+    static UNKNOWN => -1
 
     /**
      * Default URL scheme.
+     * Native name: INTERNET_SCHEME_DEFAULT
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * FTP URL scheme (ftp:).
+     * Native name: INTERNET_SCHEME_FTP
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_FTP => 1
+    static FTP => 1
 
     /**
      * Gopher URL scheme (gopher:). 
      * 
      * <div class="alert"><b>Note</b>  Windows XP and Windows Server 2003 R2 and earlier only.</div>
      * <div> </div>
+     * Native name: INTERNET_SCHEME_GOPHER
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_GOPHER => 2
+    static GOPHER => 2
 
     /**
      * HTTP URL scheme (http:).
+     * Native name: INTERNET_SCHEME_HTTP
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_HTTP => 3
+    static HTTP => 3
 
     /**
      * HTTPS URL scheme (https:).
+     * Native name: INTERNET_SCHEME_HTTPS
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_HTTPS => 4
+    static HTTPS => 4
 
     /**
      * File URL scheme (file:).
+     * Native name: INTERNET_SCHEME_FILE
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_FILE => 5
+    static FILE => 5
 
     /**
      * News URL scheme (news:).
+     * Native name: INTERNET_SCHEME_NEWS
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_NEWS => 6
+    static NEWS => 6
 
     /**
      * Mail URL scheme (mailto:).
+     * Native name: INTERNET_SCHEME_MAILTO
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_MAILTO => 7
+    static MAILTO => 7
 
     /**
      * Socks URL scheme (socks:).
+     * Native name: INTERNET_SCHEME_SOCKS
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_SOCKS => 8
+    static SOCKS => 8
 
     /**
      * JScript URL scheme (javascript:).
+     * Native name: INTERNET_SCHEME_JAVASCRIPT
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_JAVASCRIPT => 9
+    static JAVASCRIPT => 9
 
     /**
      * VBScript URL scheme (vbscript:).
+     * Native name: INTERNET_SCHEME_VBSCRIPT
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_VBSCRIPT => 10
+    static VBSCRIPT => 10
 
     /**
      * Resource URL scheme (res:).
+     * Native name: INTERNET_SCHEME_RES
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_RES => 11
+    static RES => 11
 
     /**
      * Lowest known scheme value.
+     * Native name: INTERNET_SCHEME_FIRST
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_FIRST => 1
+    static FIRST => 1
 
     /**
      * Highest known scheme value.
+     * Native name: INTERNET_SCHEME_LAST
      * @type {Integer (Int32)}
      */
-    static INTERNET_SCHEME_LAST => 11
+    static LAST => 11
 }

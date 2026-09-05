@@ -7,27 +7,32 @@
 class STORAGE_DIAGNOSTIC_TARGET_TYPE extends Win32Enum {
 
     /**
+     * Native name: StorageDiagnosticTargetTypeUndefined
      * @type {Integer (Int32)}
      */
-    static StorageDiagnosticTargetTypeUndefined => 0
+    static Undefined => 0
 
     /**
+     * Native name: StorageDiagnosticTargetTypePort
      * @type {Integer (Int32)}
      */
-    static StorageDiagnosticTargetTypePort => 1
+    static Port => 1
 
     /**
+     * Native name: StorageDiagnosticTargetTypeMiniport
      * @type {Integer (Int32)}
      */
-    static StorageDiagnosticTargetTypeMiniport => 2
+    static Miniport => 2
 
     /**
+     * Native name: StorageDiagnosticTargetTypeHbaFirmware
      * @type {Integer (Int32)}
      */
-    static StorageDiagnosticTargetTypeHbaFirmware => 3
+    static HbaFirmware => 3
 
     /**
+     * Native name: StorageDiagnosticTargetTypeMax
      * @type {Integer (Int32)}
      */
-    static StorageDiagnosticTargetTypeMax => 4
+    static Max => 4
 }

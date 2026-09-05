@@ -30,7 +30,6 @@ class IMSImpExpHelpW extends IUnknown {
     static VTableNames => ["EnumeratePathsInFile"]
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszKeyType 
      * @param {Integer} dwMDBufferSize 

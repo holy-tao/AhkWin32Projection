@@ -10,19 +10,22 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES extends Win32Enu
 
     /**
      * Direct modes disabled.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES_DISABLED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES_DISABLED => 0
+    static DISABLED => 0
 
     /**
      * Enables Direct temporal mode. Please check for support in [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_FLAGS_H264_DIRECT_TEMPORAL_ENCODING_SUPPORT](ne-d3d12video-d3d12_video_encoder_codec_configuration_support_h264_flags.md).
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES_TEMPORAL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES_TEMPORAL => 1
+    static TEMPORAL => 1
 
     /**
      * Enables Direct spatial mode. Please check for support in [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_FLAGS_H264_DIRECT_SPATIAL_ENCODING_SUPPORT](ne-d3d12video-d3d12_video_encoder_codec_configuration_support_h264_flags.md).
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES_SPATIAL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES_SPATIAL => 2
+    static SPATIAL => 2
 }

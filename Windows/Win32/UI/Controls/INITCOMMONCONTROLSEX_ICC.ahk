@@ -7,87 +7,104 @@
 class INITCOMMONCONTROLSEX_ICC extends Win32BitflagEnum {
 
     /**
+     * Native name: ICC_ANIMATE_CLASS
      * @type {Integer (UInt32)}
      */
-    static ICC_ANIMATE_CLASS => 128
+    static ANIMATE_CLASS => 128
 
     /**
+     * Native name: ICC_BAR_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_BAR_CLASSES => 4
+    static BAR_CLASSES => 4
 
     /**
+     * Native name: ICC_COOL_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_COOL_CLASSES => 1024
+    static COOL_CLASSES => 1024
 
     /**
+     * Native name: ICC_DATE_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_DATE_CLASSES => 256
+    static DATE_CLASSES => 256
 
     /**
+     * Native name: ICC_HOTKEY_CLASS
      * @type {Integer (UInt32)}
      */
-    static ICC_HOTKEY_CLASS => 64
+    static HOTKEY_CLASS => 64
 
     /**
+     * Native name: ICC_INTERNET_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_INTERNET_CLASSES => 2048
+    static INTERNET_CLASSES => 2048
 
     /**
+     * Native name: ICC_LINK_CLASS
      * @type {Integer (UInt32)}
      */
-    static ICC_LINK_CLASS => 32768
+    static LINK_CLASS => 32768
 
     /**
+     * Native name: ICC_LISTVIEW_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_LISTVIEW_CLASSES => 1
+    static LISTVIEW_CLASSES => 1
 
     /**
+     * Native name: ICC_NATIVEFNTCTL_CLASS
      * @type {Integer (UInt32)}
      */
-    static ICC_NATIVEFNTCTL_CLASS => 8192
+    static NATIVEFNTCTL_CLASS => 8192
 
     /**
+     * Native name: ICC_PAGESCROLLER_CLASS
      * @type {Integer (UInt32)}
      */
-    static ICC_PAGESCROLLER_CLASS => 4096
+    static PAGESCROLLER_CLASS => 4096
 
     /**
+     * Native name: ICC_PROGRESS_CLASS
      * @type {Integer (UInt32)}
      */
-    static ICC_PROGRESS_CLASS => 32
+    static PROGRESS_CLASS => 32
 
     /**
+     * Native name: ICC_STANDARD_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_STANDARD_CLASSES => 16384
+    static STANDARD_CLASSES => 16384
 
     /**
+     * Native name: ICC_TAB_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_TAB_CLASSES => 8
+    static TAB_CLASSES => 8
 
     /**
+     * Native name: ICC_TREEVIEW_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_TREEVIEW_CLASSES => 2
+    static TREEVIEW_CLASSES => 2
 
     /**
+     * Native name: ICC_UPDOWN_CLASS
      * @type {Integer (UInt32)}
      */
-    static ICC_UPDOWN_CLASS => 16
+    static UPDOWN_CLASS => 16
 
     /**
+     * Native name: ICC_USEREX_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_USEREX_CLASSES => 512
+    static USEREX_CLASSES => 512
 
     /**
+     * Native name: ICC_WIN95_CLASSES
      * @type {Integer (UInt32)}
      */
-    static ICC_WIN95_CLASSES => 255
+    static WIN95_CLASSES => 255
 }

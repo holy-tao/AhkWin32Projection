@@ -7,57 +7,68 @@
 class PAN_CONTRAST extends Win32Enum {
 
     /**
+     * Native name: PAN_CONTRAST_ANY
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_ANY => 0x00
+    static ANY => 0x00
 
     /**
+     * Native name: PAN_CONTRAST_NO_FIT
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_NO_FIT => 0x01
+    static NO_FIT => 0x01
 
     /**
+     * Native name: PAN_CONTRAST_INDEX
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_INDEX => 0x04
+    static INDEX => 0x04
 
     /**
+     * Native name: PAN_CONTRAST_NONE
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_NONE => 0x02
+    static NONE => 0x02
 
     /**
+     * Native name: PAN_CONTRAST_VERY_LOW
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_VERY_LOW => 0x03
+    static VERY_LOW => 0x03
 
     /**
+     * Native name: PAN_CONTRAST_LOW
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_LOW => 0x04
+    static LOW => 0x04
 
     /**
+     * Native name: PAN_CONTRAST_MEDIUM_LOW
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_MEDIUM_LOW => 0x05
+    static MEDIUM_LOW => 0x05
 
     /**
+     * Native name: PAN_CONTRAST_MEDIUM
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_MEDIUM => 0x06
+    static MEDIUM => 0x06
 
     /**
+     * Native name: PAN_CONTRAST_MEDIUM_HIGH
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_MEDIUM_HIGH => 0x07
+    static MEDIUM_HIGH => 0x07
 
     /**
+     * Native name: PAN_CONTRAST_HIGH
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_HIGH => 0x08
+    static HIGH => 0x08
 
     /**
+     * Native name: PAN_CONTRAST_VERY_HIGH
      * @type {Integer (Byte)}
      */
-    static PAN_CONTRAST_VERY_HIGH => 0x09
+    static VERY_HIGH => 0x09
 }

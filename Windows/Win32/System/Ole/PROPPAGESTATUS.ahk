@@ -7,17 +7,20 @@
 class PROPPAGESTATUS extends Win32Enum {
 
     /**
+     * Native name: PROPPAGESTATUS_DIRTY
      * @type {Integer (Int32)}
      */
-    static PROPPAGESTATUS_DIRTY => 1
+    static DIRTY => 1
 
     /**
+     * Native name: PROPPAGESTATUS_VALIDATE
      * @type {Integer (Int32)}
      */
-    static PROPPAGESTATUS_VALIDATE => 2
+    static VALIDATE => 2
 
     /**
+     * Native name: PROPPAGESTATUS_CLEAN
      * @type {Integer (Int32)}
      */
-    static PROPPAGESTATUS_CLEAN => 4
+    static CLEAN => 4
 }

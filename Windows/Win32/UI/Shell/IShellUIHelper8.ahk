@@ -30,7 +30,6 @@ class IShellUIHelper8 extends IShellUIHelper7 {
     static VTableNames => ["GetCVListData", "GetCVListLocalData", "GetEMIEListData", "GetEMIEListLocalData", "OpenFavoritesPane", "OpenFavoritesSettings", "LaunchInHVSI"]
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCVListData() {
@@ -40,7 +39,6 @@ class IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCVListLocalData() {
@@ -50,7 +48,6 @@ class IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetEMIEListData() {
@@ -60,7 +57,6 @@ class IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetEMIEListLocalData() {
@@ -70,7 +66,6 @@ class IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenFavoritesPane() {
@@ -79,7 +74,6 @@ class IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenFavoritesSettings() {
@@ -88,7 +82,6 @@ class IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {HRESULT} 
      */

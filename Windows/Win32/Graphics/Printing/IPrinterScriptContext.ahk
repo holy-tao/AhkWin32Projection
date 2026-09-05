@@ -51,7 +51,6 @@ class IPrinterScriptContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_DriverProperties() {
@@ -60,7 +59,6 @@ class IPrinterScriptContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_QueueProperties() {
@@ -69,7 +67,6 @@ class IPrinterScriptContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_UserProperties() {

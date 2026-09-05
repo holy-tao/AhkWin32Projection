@@ -10,37 +10,43 @@ class VMR9_SampleFormat extends Win32Enum {
 
     /**
      * Reserved; do not use.
+     * Native name: VMR9_SampleReserved
      * @type {Integer (Int32)}
      */
-    static VMR9_SampleReserved => 1
+    static Reserved => 1
 
     /**
      * Progressive frame; no interleaving
+     * Native name: VMR9_SampleProgressiveFrame
      * @type {Integer (Int32)}
      */
-    static VMR9_SampleProgressiveFrame => 2
+    static ProgressiveFrame => 2
 
     /**
      * Each sample contains two interleaved fields, with the even field first.
+     * Native name: VMR9_SampleFieldInterleavedEvenFirst
      * @type {Integer (Int32)}
      */
-    static VMR9_SampleFieldInterleavedEvenFirst => 3
+    static FieldInterleavedEvenFirst => 3
 
     /**
      * Each sample contains two interleaved fields, with the odd field first.
+     * Native name: VMR9_SampleFieldInterleavedOddFirst
      * @type {Integer (Int32)}
      */
-    static VMR9_SampleFieldInterleavedOddFirst => 4
+    static FieldInterleavedOddFirst => 4
 
     /**
      * The sample contains a single field, and each line in the sample corresponds to the even lines in a deinterlaced frame. That is, lines 0, 1, 2,... in the sample correspond to lines 0, 2, 4,... in the deinterlaced frame. The missing lines must be constructed when the frame is deinterlaced.
+     * Native name: VMR9_SampleFieldSingleEven
      * @type {Integer (Int32)}
      */
-    static VMR9_SampleFieldSingleEven => 5
+    static FieldSingleEven => 5
 
     /**
      * The sample contains a single field, and each line in the sample corresponds to the odd lines in a de-interlaced frame.
+     * Native name: VMR9_SampleFieldSingleOdd
      * @type {Integer (Int32)}
      */
-    static VMR9_SampleFieldSingleOdd => 6
+    static FieldSingleOdd => 6
 }

@@ -10,13 +10,15 @@ class PENDINGTYPE extends Win32Enum {
 
     /**
      * Top-level call.
+     * Native name: PENDINGTYPE_TOPLEVEL
      * @type {Integer (Int32)}
      */
-    static PENDINGTYPE_TOPLEVEL => 1
+    static TOPLEVEL => 1
 
     /**
      * Nested call.
+     * Native name: PENDINGTYPE_NESTED
      * @type {Integer (Int32)}
      */
-    static PENDINGTYPE_NESTED => 2
+    static NESTED => 2
 }

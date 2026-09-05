@@ -29,7 +29,6 @@ class IHostBehaviorInit extends IUnknown {
     static VTableNames => ["PopulateNamespaceTable"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PopulateNamespaceTable() {

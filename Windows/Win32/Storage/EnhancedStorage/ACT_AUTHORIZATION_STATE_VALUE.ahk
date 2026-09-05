@@ -7,12 +7,14 @@
 class ACT_AUTHORIZATION_STATE_VALUE extends Win32Enum {
 
     /**
+     * Native name: ACT_UNAUTHORIZED
      * @type {Integer (Int32)}
      */
-    static ACT_UNAUTHORIZED => 0
+    static UNAUTHORIZED => 0
 
     /**
+     * Native name: ACT_AUTHORIZED
      * @type {Integer (Int32)}
      */
-    static ACT_AUTHORIZED => 1
+    static AUTHORIZED => 1
 }

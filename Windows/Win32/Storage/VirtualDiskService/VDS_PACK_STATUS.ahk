@@ -15,19 +15,22 @@ class VDS_PACK_STATUS extends Win32Enum {
 
     /**
      * This value is reserved.
+     * Native name: VDS_PS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VDS_PS_UNKNOWN => 0
+    static PS_UNKNOWN => 0
 
     /**
      * The pack is available.
+     * Native name: VDS_PS_ONLINE
      * @type {Integer (Int32)}
      */
-    static VDS_PS_ONLINE => 1
+    static PS_ONLINE => 1
 
     /**
      * The pack is unavailable; the disks in the pack are not accessible.
+     * Native name: VDS_PS_OFFLINE
      * @type {Integer (Int32)}
      */
-    static VDS_PS_OFFLINE => 4
+    static PS_OFFLINE => 4
 }

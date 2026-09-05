@@ -7,12 +7,14 @@
 class CERT_LOGOTYPE_OPTION extends Win32Enum {
 
     /**
+     * Native name: CERT_LOGOTYPE_DIRECT_INFO_CHOICE
      * @type {Integer (UInt32)}
      */
-    static CERT_LOGOTYPE_DIRECT_INFO_CHOICE => 1
+    static DIRECT_INFO_CHOICE => 1
 
     /**
+     * Native name: CERT_LOGOTYPE_INDIRECT_INFO_CHOICE
      * @type {Integer (UInt32)}
      */
-    static CERT_LOGOTYPE_INDIRECT_INFO_CHOICE => 2
+    static INDIRECT_INFO_CHOICE => 2
 }

@@ -10,13 +10,15 @@ class OPC_RELATIONSHIPS_SIGNING_OPTION extends Win32Enum {
 
     /**
      * The reference refers to a subset of relationships represented as relationship objects and identified using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface.
+     * Native name: OPC_RELATIONSHIP_SIGN_USING_SELECTORS
      * @type {Integer (Int32)}
      */
-    static OPC_RELATIONSHIP_SIGN_USING_SELECTORS => 0
+    static RELATIONSHIP_SIGN_USING_SELECTORS => 0
 
     /**
      * The reference refers to all of the relationships represented as relationship objects in the relationship set object.
+     * Native name: OPC_RELATIONSHIP_SIGN_PART
      * @type {Integer (Int32)}
      */
-    static OPC_RELATIONSHIP_SIGN_PART => 1
+    static RELATIONSHIP_SIGN_PART => 1
 }

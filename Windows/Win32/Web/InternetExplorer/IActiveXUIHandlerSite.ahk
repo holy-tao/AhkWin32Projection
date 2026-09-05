@@ -31,7 +31,6 @@ class IActiveXUIHandlerSite extends IUnknown {
     static VTableNames => ["CreateScrollableContextMenu", "PickFileAndGetResult"]
 
     /**
-     * 
      * @returns {IScrollableContextMenu} 
      */
     CreateScrollableContextMenu() {
@@ -40,7 +39,6 @@ class IActiveXUIHandlerSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} filePicker 
      * @param {BOOL} allowMultipleSelections 
      * @returns {IUnknown} 

@@ -376,7 +376,6 @@ class IX509SCEPEnrollment extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Silent() {

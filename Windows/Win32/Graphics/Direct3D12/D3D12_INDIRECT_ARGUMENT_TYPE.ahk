@@ -12,70 +12,82 @@ class D3D12_INDIRECT_ARGUMENT_TYPE extends Win32Enum {
 
     /**
      * Indicates the type is a Draw call.
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_DRAW
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_DRAW => 0
+    static DRAW => 0
 
     /**
      * Indicates the type is a DrawIndexed call.
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED => 1
+    static DRAW_INDEXED => 1
 
     /**
      * Indicates the type is a Dispatch call.
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH => 2
+    static DISPATCH => 2
 
     /**
      * Indicates the type is a vertex buffer view.
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW => 3
+    static VERTEX_BUFFER_VIEW => 3
 
     /**
      * Indicates the type is an index buffer view.
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW => 4
+    static INDEX_BUFFER_VIEW => 4
 
     /**
      * Indicates the type is a constant.
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT => 5
+    static CONSTANT => 5
 
     /**
      * Indicates the type is a constant buffer view (CBV).
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW => 6
+    static CONSTANT_BUFFER_VIEW => 6
 
     /**
      * Indicates the type is a shader resource view (SRV).
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW => 7
+    static SHADER_RESOURCE_VIEW => 7
 
     /**
      * Indicates the type is an unordered access view (UAV).
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW => 8
+    static UNORDERED_ACCESS_VIEW => 8
 
     /**
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS => 9
+    static DISPATCH_RAYS => 9
 
     /**
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH => 10
+    static DISPATCH_MESH => 10
 
     /**
+     * Native name: D3D12_INDIRECT_ARGUMENT_TYPE_INCREMENTING_CONSTANT
      * @type {Integer (Int32)}
      */
-    static D3D12_INDIRECT_ARGUMENT_TYPE_INCREMENTING_CONSTANT => 11
+    static INCREMENTING_CONSTANT => 11
 }

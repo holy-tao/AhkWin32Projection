@@ -7,22 +7,26 @@
 class PrintSchemaConstrainedSetting extends Win32Enum {
 
     /**
+     * Native name: PrintSchemaConstrainedSetting_None
      * @type {Integer (Int32)}
      */
-    static PrintSchemaConstrainedSetting_None => 0
+    static None => 0
 
     /**
+     * Native name: PrintSchemaConstrainedSetting_PrintTicket
      * @type {Integer (Int32)}
      */
-    static PrintSchemaConstrainedSetting_PrintTicket => 1
+    static PrintTicket => 1
 
     /**
+     * Native name: PrintSchemaConstrainedSetting_Admin
      * @type {Integer (Int32)}
      */
-    static PrintSchemaConstrainedSetting_Admin => 2
+    static Admin => 2
 
     /**
+     * Native name: PrintSchemaConstrainedSetting_Device
      * @type {Integer (Int32)}
      */
-    static PrintSchemaConstrainedSetting_Device => 3
+    static Device => 3
 }

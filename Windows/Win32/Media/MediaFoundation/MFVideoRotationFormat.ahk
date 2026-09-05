@@ -12,25 +12,29 @@ class MFVideoRotationFormat extends Win32Enum {
 
     /**
      * The image is not rotated.
+     * Native name: MFVideoRotationFormat_0
      * @type {Integer (Int32)}
      */
-    static MFVideoRotationFormat_0 => 0
+    static 0 => 0
 
     /**
      * The image is rotated 90 degrees counter-clockwise.
+     * Native name: MFVideoRotationFormat_90
      * @type {Integer (Int32)}
      */
-    static MFVideoRotationFormat_90 => 90
+    static 90 => 90
 
     /**
      * The image is rotated 180 degrees.
+     * Native name: MFVideoRotationFormat_180
      * @type {Integer (Int32)}
      */
-    static MFVideoRotationFormat_180 => 180
+    static 180 => 180
 
     /**
      * The image is rotated 270 degrees counter-clockwise.
+     * Native name: MFVideoRotationFormat_270
      * @type {Integer (Int32)}
      */
-    static MFVideoRotationFormat_270 => 270
+    static 270 => 270
 }

@@ -7,12 +7,14 @@
 class WrappedObjectPreference extends Win32Enum {
 
     /**
+     * Native name: WrappedObjectNameResolution
      * @type {Integer (Int32)}
      */
-    static WrappedObjectNameResolution => 0
+    static NameResolution => 0
 
     /**
+     * Native name: WrappedObjectGeneralProxy
      * @type {Integer (Int32)}
      */
-    static WrappedObjectGeneralProxy => 1
+    static GeneralProxy => 1
 }

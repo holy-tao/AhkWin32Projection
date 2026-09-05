@@ -30,7 +30,6 @@ class ILaunchUIContextProvider extends IUnknown {
     static VTableNames => ["UpdateContext"]
 
     /**
-     * 
      * @param {ILaunchUIContext} _context 
      * @returns {HRESULT} 
      */

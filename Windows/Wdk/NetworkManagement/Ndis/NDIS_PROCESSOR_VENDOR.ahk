@@ -7,22 +7,26 @@
 class NDIS_PROCESSOR_VENDOR extends Win32Enum {
 
     /**
+     * Native name: NdisProcessorVendorUnknown
      * @type {Integer (Int32)}
      */
-    static NdisProcessorVendorUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: NdisProcessorVendorGenuinIntel
      * @type {Integer (Int32)}
      */
-    static NdisProcessorVendorGenuinIntel => 1
+    static GenuinIntel => 1
 
     /**
+     * Native name: NdisProcessorVendorGenuineIntel
      * @type {Integer (Int32)}
      */
-    static NdisProcessorVendorGenuineIntel => 1
+    static GenuineIntel => 1
 
     /**
+     * Native name: NdisProcessorVendorAuthenticAMD
      * @type {Integer (Int32)}
      */
-    static NdisProcessorVendorAuthenticAMD => 2
+    static AuthenticAMD => 2
 }

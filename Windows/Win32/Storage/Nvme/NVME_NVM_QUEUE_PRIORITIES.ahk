@@ -12,25 +12,29 @@ class NVME_NVM_QUEUE_PRIORITIES extends Win32Enum {
 
     /**
      * The queue has an urgent priority.
+     * Native name: NVME_NVM_QUEUE_PRIORITY_URGENT
      * @type {Integer (Int32)}
      */
-    static NVME_NVM_QUEUE_PRIORITY_URGENT => 0
+    static PRIORITY_URGENT => 0
 
     /**
      * The queue has a high priority.
+     * Native name: NVME_NVM_QUEUE_PRIORITY_HIGH
      * @type {Integer (Int32)}
      */
-    static NVME_NVM_QUEUE_PRIORITY_HIGH => 1
+    static PRIORITY_HIGH => 1
 
     /**
      * The queue has a medium priority.
+     * Native name: NVME_NVM_QUEUE_PRIORITY_MEDIUM
      * @type {Integer (Int32)}
      */
-    static NVME_NVM_QUEUE_PRIORITY_MEDIUM => 2
+    static PRIORITY_MEDIUM => 2
 
     /**
      * The queue has a low priority.
+     * Native name: NVME_NVM_QUEUE_PRIORITY_LOW
      * @type {Integer (Int32)}
      */
-    static NVME_NVM_QUEUE_PRIORITY_LOW => 3
+    static PRIORITY_LOW => 3
 }

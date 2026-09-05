@@ -22,27 +22,32 @@ class COMMPROP_STOP_PARITY extends Win32BitflagEnum {
     static STOPBITS_20 => 4
 
     /**
+     * Native name: PARITY_NONE
      * @type {Integer (UInt16)}
      */
-    static PARITY_NONE => 256
+    static NONE => 256
 
     /**
+     * Native name: PARITY_ODD
      * @type {Integer (UInt16)}
      */
-    static PARITY_ODD => 512
+    static ODD => 512
 
     /**
+     * Native name: PARITY_EVEN
      * @type {Integer (UInt16)}
      */
-    static PARITY_EVEN => 1024
+    static EVEN => 1024
 
     /**
+     * Native name: PARITY_MARK
      * @type {Integer (UInt16)}
      */
-    static PARITY_MARK => 2048
+    static MARK => 2048
 
     /**
+     * Native name: PARITY_SPACE
      * @type {Integer (UInt16)}
      */
-    static PARITY_SPACE => 4096
+    static SPACE => 4096
 }

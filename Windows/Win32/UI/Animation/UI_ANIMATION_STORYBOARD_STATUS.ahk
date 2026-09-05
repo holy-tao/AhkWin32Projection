@@ -24,49 +24,57 @@ class UI_ANIMATION_STORYBOARD_STATUS extends Win32Enum {
 
     /**
      * The storyboard has never been scheduled.
+     * Native name: UI_ANIMATION_STORYBOARD_BUILDING
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_BUILDING => 0
+    static BUILDING => 0
 
     /**
      * The storyboard is scheduled to play.
+     * Native name: UI_ANIMATION_STORYBOARD_SCHEDULED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_SCHEDULED => 1
+    static SCHEDULED => 1
 
     /**
      * The storyboard was canceled.
+     * Native name: UI_ANIMATION_STORYBOARD_CANCELLED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_CANCELLED => 2
+    static CANCELLED => 2
 
     /**
      * The storyboard is currently playing.
+     * Native name: UI_ANIMATION_STORYBOARD_PLAYING
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_PLAYING => 3
+    static PLAYING => 3
 
     /**
      * The storyboard was truncated.
+     * Native name: UI_ANIMATION_STORYBOARD_TRUNCATED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_TRUNCATED => 4
+    static TRUNCATED => 4
 
     /**
      * The storyboard has finished playing.
+     * Native name: UI_ANIMATION_STORYBOARD_FINISHED
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_FINISHED => 5
+    static FINISHED => 5
 
     /**
      * The storyboard is built and ready for scheduling.
+     * Native name: UI_ANIMATION_STORYBOARD_READY
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_READY => 6
+    static READY => 6
 
     /**
      * Scheduling the storyboard failed because a scheduling conflict occurred and the currently scheduled storyboard has higher priority.
+     * Native name: UI_ANIMATION_STORYBOARD_INSUFFICIENT_PRIORITY
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_STORYBOARD_INSUFFICIENT_PRIORITY => 7
+    static INSUFFICIENT_PRIORITY => 7
 }

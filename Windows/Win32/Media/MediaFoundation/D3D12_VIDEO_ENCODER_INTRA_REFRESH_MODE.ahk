@@ -10,13 +10,15 @@ class D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE extends Win32Enum {
 
     /**
      * The encoder does not use intra refresh.
+     * Native name: D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE_NONE => 0
+    static NONE => 0
 
     /**
      * Row-based intra refresh mode.
+     * Native name: D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE_ROW_BASED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE_ROW_BASED => 1
+    static ROW_BASED => 1
 }

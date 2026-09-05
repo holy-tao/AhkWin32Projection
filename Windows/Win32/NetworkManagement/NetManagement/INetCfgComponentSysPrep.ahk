@@ -32,7 +32,6 @@ class INetCfgComponentSysPrep extends IUnknown {
     static VTableNames => ["SaveAdapterParameters", "RestoreAdapterParameters"]
 
     /**
-     * 
      * @param {INetCfgSysPrep} pncsp 
      * @param {PWSTR} pszwAnswerSections 
      * @param {Pointer<Guid>} pAdapterInstanceGuid 
@@ -46,7 +45,6 @@ class INetCfgComponentSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwAnswerFile 
      * @param {PWSTR} pszwAnswerSection 
      * @param {Pointer<Guid>} pAdapterInstanceGuid 

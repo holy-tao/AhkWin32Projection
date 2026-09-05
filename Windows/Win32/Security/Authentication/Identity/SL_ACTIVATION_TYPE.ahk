@@ -10,13 +10,15 @@ class SL_ACTIVATION_TYPE extends Win32Enum {
 
     /**
      * Retail phone activation.
+     * Native name: SL_ACTIVATION_TYPE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SL_ACTIVATION_TYPE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * The product activation is through Active Directory.
+     * Native name: SL_ACTIVATION_TYPE_ACTIVE_DIRECTORY
      * @type {Integer (Int32)}
      */
-    static SL_ACTIVATION_TYPE_ACTIVE_DIRECTORY => 1
+    static ACTIVE_DIRECTORY => 1
 }

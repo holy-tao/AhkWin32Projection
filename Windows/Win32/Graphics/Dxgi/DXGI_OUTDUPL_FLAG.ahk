@@ -7,7 +7,8 @@
 class DXGI_OUTDUPL_FLAG extends Win32BitflagEnum {
 
     /**
+     * Native name: DXGI_OUTDUPL_COMPOSITED_UI_CAPTURE_ONLY
      * @type {Integer (Int32)}
      */
-    static DXGI_OUTDUPL_COMPOSITED_UI_CAPTURE_ONLY => 1
+    static COMPOSITED_UI_CAPTURE_ONLY => 1
 }

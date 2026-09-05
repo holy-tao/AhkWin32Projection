@@ -10,13 +10,15 @@ class OLEUPDATE extends Win32Enum {
 
     /**
      * Update the link object whenever possible, this option corresponds to the <b>Automatic update</b> option in the <b>Links</b> dialog box.
+     * Native name: OLEUPDATE_ALWAYS
      * @type {Integer (Int32)}
      */
-    static OLEUPDATE_ALWAYS => 1
+    static ALWAYS => 1
 
     /**
      * Update the link object only when <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-update">IOleObject::Update</a> or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolelink-update">IOleLink::Update</a> is called, this option corresponds to the <b>Manual update</b> option in the <b>Links</b> dialog box.
+     * Native name: OLEUPDATE_ONCALL
      * @type {Integer (Int32)}
      */
-    static OLEUPDATE_ONCALL => 3
+    static ONCALL => 3
 }

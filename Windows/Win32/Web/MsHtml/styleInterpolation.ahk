@@ -7,22 +7,26 @@
 class styleInterpolation extends Win32Enum {
 
     /**
+     * Native name: styleInterpolationNotSet
      * @type {Integer (Int32)}
      */
-    static styleInterpolationNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleInterpolationNN
      * @type {Integer (Int32)}
      */
-    static styleInterpolationNN => 1
+    static InterpolationNN => 1
 
     /**
+     * Native name: styleInterpolationBCH
      * @type {Integer (Int32)}
      */
-    static styleInterpolationBCH => 2
+    static InterpolationBCH => 2
 
     /**
+     * Native name: styleInterpolation_Max
      * @type {Integer (Int32)}
      */
-    static styleInterpolation_Max => 2147483647
+    static Max => 2147483647
 }

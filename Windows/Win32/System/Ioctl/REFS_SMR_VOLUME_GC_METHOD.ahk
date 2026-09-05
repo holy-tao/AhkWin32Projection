@@ -7,17 +7,20 @@
 class REFS_SMR_VOLUME_GC_METHOD extends Win32Enum {
 
     /**
+     * Native name: SmrGcMethodCompaction
      * @type {Integer (Int32)}
      */
-    static SmrGcMethodCompaction => 1
+    static Compaction => 1
 
     /**
+     * Native name: SmrGcMethodCompression
      * @type {Integer (Int32)}
      */
-    static SmrGcMethodCompression => 2
+    static Compression => 2
 
     /**
+     * Native name: SmrGcMethodRotation
      * @type {Integer (Int32)}
      */
-    static SmrGcMethodRotation => 3
+    static Rotation => 3
 }

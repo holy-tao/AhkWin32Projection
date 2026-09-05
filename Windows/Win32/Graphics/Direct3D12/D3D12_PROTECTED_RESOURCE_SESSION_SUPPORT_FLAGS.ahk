@@ -10,13 +10,15 @@ class D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates that protected resource sessions are not supported.
+     * Native name: D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * Indicates that protected resource sessions are supported.
+     * Native name: D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_SUPPORTED => 1
+    static FLAG_SUPPORTED => 1
 }

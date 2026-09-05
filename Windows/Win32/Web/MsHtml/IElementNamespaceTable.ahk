@@ -31,7 +31,6 @@ class IElementNamespaceTable extends IUnknown {
     static VTableNames => ["AddNamespace"]
 
     /**
-     * 
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrUrn 
      * @param {Integer} lFlags 

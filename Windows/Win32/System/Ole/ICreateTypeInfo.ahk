@@ -864,7 +864,6 @@ class ICreateTypeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pStrSchema 
      * @returns {HRESULT} 
      */
@@ -1767,7 +1766,6 @@ class ICreateTypeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IDLDESC>} pIdlDesc 
      * @returns {HRESULT} 
      */

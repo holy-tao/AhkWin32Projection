@@ -7,12 +7,14 @@
 class NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES extends Win32Enum {
 
     /**
+     * Native name: NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_RESERVED
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_RESERVED => 0
+    static RESERVED => 0
 
     /**
+     * Native name: NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_DEVICE_PANIC
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_DEVICE_PANIC => 1
+    static DEVICE_PANIC => 1
 }

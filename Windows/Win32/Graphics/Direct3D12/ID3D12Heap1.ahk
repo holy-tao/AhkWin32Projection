@@ -30,7 +30,6 @@ class ID3D12Heap1 extends ID3D12Heap {
     static VTableNames => ["GetProtectedResourceSession"]
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

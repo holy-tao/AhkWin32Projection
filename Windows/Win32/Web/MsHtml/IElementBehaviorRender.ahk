@@ -33,7 +33,6 @@ class IElementBehaviorRender extends IUnknown {
     static VTableNames => ["Draw", "GetRenderInfo", "HitTestPoint"]
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Integer} lLayer 
      * @param {Pointer<RECT>} pRect 
@@ -48,7 +47,6 @@ class IElementBehaviorRender extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRenderInfo() {
@@ -57,7 +55,6 @@ class IElementBehaviorRender extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINT>} pPoint 
      * @param {IUnknown} pReserved 
      * @returns {BOOL} 

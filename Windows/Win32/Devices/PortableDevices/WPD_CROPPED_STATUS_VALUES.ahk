@@ -11,17 +11,20 @@
 class WPD_CROPPED_STATUS_VALUES extends Win32Enum {
 
     /**
+     * Native name: WPD_CROPPED_STATUS_NOT_CROPPED
      * @type {Integer (Int32)}
      */
-    static WPD_CROPPED_STATUS_NOT_CROPPED => 0
+    static NOT_CROPPED => 0
 
     /**
+     * Native name: WPD_CROPPED_STATUS_CROPPED
      * @type {Integer (Int32)}
      */
-    static WPD_CROPPED_STATUS_CROPPED => 1
+    static CROPPED => 1
 
     /**
+     * Native name: WPD_CROPPED_STATUS_SHOULD_NOT_BE_CROPPED
      * @type {Integer (Int32)}
      */
-    static WPD_CROPPED_STATUS_SHOULD_NOT_BE_CROPPED => 2
+    static SHOULD_NOT_BE_CROPPED => 2
 }

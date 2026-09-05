@@ -10,13 +10,15 @@ class D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No option flags.
+     * Native name: D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_NONE => 0
+    static NONE => 0
 
     /**
      * Prevents the image source from being automatically scaled (by a ratio of the context DPI divided by 96) while drawn.
+     * Native name: D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_DISABLE_DPI_SCALE
      * @type {Integer (Int32)}
      */
-    static D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_DISABLE_DPI_SCALE => 1
+    static DISABLE_DPI_SCALE => 1
 }

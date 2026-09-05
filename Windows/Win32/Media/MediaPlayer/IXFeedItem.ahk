@@ -35,7 +35,6 @@ class IXFeedItem extends IUnknown {
     static VTableNames => ["Xml", "Title", "Link", "Guid", "Description", "PubDate", "Comments", "Author", "Enclosure", "IsRead", "SetIsRead", "LocalId", "Parent", "Delete", "DownloadUrl", "LastDownloadTime", "Modified"]
 
     /**
-     * 
      * @param {FEEDS_XML_INCLUDE_FLAGS} fxif 
      * @returns {IStream} 
      */
@@ -55,7 +54,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Link() {
@@ -84,7 +82,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     PubDate() {
@@ -116,7 +113,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -126,7 +122,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsRead() {
@@ -135,7 +130,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bIsRead 
      * @returns {HRESULT} 
      */
@@ -145,7 +139,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     LocalId() {
@@ -154,7 +147,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -164,7 +156,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -173,7 +164,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadUrl() {
@@ -182,7 +172,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastDownloadTime() {
@@ -192,7 +181,6 @@ class IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     Modified() {

@@ -7,17 +7,20 @@
 class TPMVSC_ATTESTATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: TPMVSC_ATTESTATION_NONE
      * @type {Integer (Int32)}
      */
-    static TPMVSC_ATTESTATION_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: TPMVSC_ATTESTATION_AIK_ONLY
      * @type {Integer (Int32)}
      */
-    static TPMVSC_ATTESTATION_AIK_ONLY => 1
+    static AIK_ONLY => 1
 
     /**
+     * Native name: TPMVSC_ATTESTATION_AIK_AND_CERTIFICATE
      * @type {Integer (Int32)}
      */
-    static TPMVSC_ATTESTATION_AIK_AND_CERTIFICATE => 2
+    static AIK_AND_CERTIFICATE => 2
 }

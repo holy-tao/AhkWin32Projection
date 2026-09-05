@@ -115,7 +115,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentStreamNumber() {
@@ -124,7 +123,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LastStreamNumberQueued() {
@@ -133,7 +131,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LastHResult() {
@@ -142,7 +139,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRunState} 
      */
     get_RunningState() {
@@ -151,7 +147,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputWordPosition() {
@@ -160,7 +155,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputWordLength() {
@@ -169,7 +163,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputSentencePosition() {
@@ -178,7 +171,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputSentenceLength() {
@@ -187,7 +179,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LastBookmark() {
@@ -197,7 +188,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LastBookmarkId() {
@@ -206,7 +196,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PhonemeId() {
@@ -215,7 +204,6 @@ class ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VisemeId() {

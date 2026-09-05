@@ -29,7 +29,6 @@ class ICLRAppDomainResourceMonitor extends IUnknown {
     static VTableNames => ["GetCurrentAllocated", "GetCurrentSurvived", "GetCurrentCpuTime"]
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<Integer>} pBytesAllocated 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class ICLRAppDomainResourceMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<Integer>} pAppDomainBytesSurvived 
      * @param {Pointer<Integer>} pTotalBytesSurvived 
@@ -57,7 +55,6 @@ class ICLRAppDomainResourceMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<Integer>} pMilliseconds 
      * @returns {HRESULT} 

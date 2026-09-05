@@ -10,13 +10,15 @@ class D2D1_TURBULENCE_NOISE extends Win32Enum {
 
     /**
      * Computes a sum of the octaves, shifting the output range from [-1, 1], to [0, 1].
+     * Native name: D2D1_TURBULENCE_NOISE_FRACTAL_SUM
      * @type {Integer (Int32)}
      */
-    static D2D1_TURBULENCE_NOISE_FRACTAL_SUM => 0
+    static FRACTAL_SUM => 0
 
     /**
      * Computes a sum of the absolute value of each octave.
+     * Native name: D2D1_TURBULENCE_NOISE_TURBULENCE
      * @type {Integer (Int32)}
      */
-    static D2D1_TURBULENCE_NOISE_TURBULENCE => 1
+    static TURBULENCE => 1
 }

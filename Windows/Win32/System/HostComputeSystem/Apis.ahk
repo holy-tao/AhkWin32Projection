@@ -41,7 +41,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} idNamespace 
      * @param {PWSTR} query 
      * @param {HCS_OPERATION} operation 
@@ -74,7 +73,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {HCS_OPERATION_OPTIONS} eventTypes 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
@@ -225,7 +223,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {HCS_OPERATION} operation 
      * @param {HCS_RESOURCE_TYPE} type 
      * @param {PWSTR} uri 
@@ -330,7 +327,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {PWSTR} 
@@ -363,7 +359,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} idNamespace 
      * @param {PWSTR} id 
      * @param {PWSTR} configuration 
@@ -400,7 +395,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} idNamespace 
      * @param {PWSTR} id 
      * @param {Integer} requestedAccess 
@@ -656,7 +650,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {HCS_SYSTEM} computeSystem 
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
@@ -672,7 +665,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {HCS_SYSTEM} computeSystem 
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
@@ -688,7 +680,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {HCS_SYSTEM} computeSystem 
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
@@ -704,7 +695,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {HCS_SYSTEM} computeSystem 
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
@@ -967,7 +957,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} runtimeStateFilePath 
      * @returns {HRESULT} 
      */
@@ -1230,7 +1219,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} VolumeMountPoint 
      * @param {PWSTR} LayerData 
      * @returns {HRESULT} 
@@ -1244,7 +1232,6 @@ class HostComputeSystem {
     }
 
     /**
-     * 
      * @param {PWSTR} VolumeMountPoint 
      * @param {PWSTR} LayerData 
      * @returns {HRESULT} 

@@ -7,12 +7,14 @@
 class D2D1_TINT_PROP extends Win32Enum {
 
     /**
+     * Native name: D2D1_TINT_PROP_COLOR
      * @type {Integer (Int32)}
      */
-    static D2D1_TINT_PROP_COLOR => 0
+    static COLOR => 0
 
     /**
+     * Native name: D2D1_TINT_PROP_CLAMP_OUTPUT
      * @type {Integer (Int32)}
      */
-    static D2D1_TINT_PROP_CLAMP_OUTPUT => 1
+    static CLAMP_OUTPUT => 1
 }

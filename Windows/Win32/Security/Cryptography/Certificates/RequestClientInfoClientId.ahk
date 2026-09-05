@@ -10,78 +10,91 @@ class RequestClientInfoClientId extends Win32Enum {
 
     /**
      * No client identifier is specified.
+     * Native name: ClientIdNone
      * @type {Integer (Int32)}
      */
-    static ClientIdNone => 0
+    static None => 0
 
     /**
      * Specifies the Certificate Enrollment Control that is available on Windows Server 2003.
+     * Native name: ClientIdXEnroll2003
      * @type {Integer (Int32)}
      */
-    static ClientIdXEnroll2003 => 1
+    static IdXEnroll2003 => 1
 
     /**
      * Specifies the autoenrollment  that is available on Windows Server 2003.
+     * Native name: ClientIdAutoEnroll2003
      * @type {Integer (Int32)}
      */
-    static ClientIdAutoEnroll2003 => 2
+    static AutoEnroll2003 => 2
 
     /**
      * Specifies the Certificate Request Wizard that is available on Windows Server 2003.
+     * Native name: ClientIdWizard2003
      * @type {Integer (Int32)}
      */
-    static ClientIdWizard2003 => 3
+    static Wizard2003 => 3
 
     /**
      * Specifies the Certreq.exe command-line tool that is available on Windows Server 2003.
+     * Native name: ClientIdCertReq2003
      * @type {Integer (Int32)}
      */
-    static ClientIdCertReq2003 => 4
+    static CertReq2003 => 4
 
     /**
      * Specifies the default certificate request object that is available starting with Windows Vista. This is represented by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequest">IX509CertificateRequest</a> interface and is the default value if the client ID is not set by the caller.
+     * Native name: ClientIdDefaultRequest
      * @type {Integer (Int32)}
      */
-    static ClientIdDefaultRequest => 5
+    static DefaultRequest => 5
 
     /**
      * Specifies the autoenrollment that is available starting with  Windows Vista.
+     * Native name: ClientIdAutoEnroll
      * @type {Integer (Int32)}
      */
-    static ClientIdAutoEnroll => 6
+    static AutoEnroll => 6
 
     /**
      * Specifies the Certificate Request Wizard that is available starting with Windows Vista.
+     * Native name: ClientIdRequestWizard
      * @type {Integer (Int32)}
      */
-    static ClientIdRequestWizard => 7
+    static RequestWizard => 7
 
     /**
      * Specifies the Enroll-On-Behalf-Of (EOBO) Wizard that is available starting with Windows Vista.
+     * Native name: ClientIdEOBO
      * @type {Integer (Int32)}
      */
-    static ClientIdEOBO => 8
+    static IdEOBO => 8
 
     /**
      * Specifies the Certreq.exe command-line tool that is available starting with Windows Vista.
+     * Native name: ClientIdCertReq
      * @type {Integer (Int32)}
      */
-    static ClientIdCertReq => 9
+    static CertReq => 9
 
     /**
      * This value is not supported.
+     * Native name: ClientIdTest
      * @type {Integer (Int32)}
      */
-    static ClientIdTest => 10
+    static Test => 10
 
     /**
+     * Native name: ClientIdWinRT
      * @type {Integer (Int32)}
      */
-    static ClientIdWinRT => 11
+    static WinRT => 11
 
     /**
      * This is the base value for custom applications.
+     * Native name: ClientIdUserStart
      * @type {Integer (Int32)}
      */
-    static ClientIdUserStart => 1000
+    static UserStart => 1000
 }

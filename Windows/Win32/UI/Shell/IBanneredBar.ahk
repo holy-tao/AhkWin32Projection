@@ -30,7 +30,6 @@ class IBanneredBar extends IUnknown {
     static VTableNames => ["SetIconSize", "GetIconSize", "SetBitmap", "GetBitmap"]
 
     /**
-     * 
      * @param {Integer} iIcon 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class IBanneredBar extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIconSize() {
@@ -49,7 +47,6 @@ class IBanneredBar extends IUnknown {
     }
 
     /**
-     * 
      * @param {HBITMAP} _hBitmap 
      * @returns {HRESULT} 
      */
@@ -61,7 +58,6 @@ class IBanneredBar extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HBITMAP} 
      */
     GetBitmap() {

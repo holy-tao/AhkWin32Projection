@@ -72,7 +72,6 @@ class IOfflineFilesItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwQueryFlags 
      * @returns {HRESULT} 
      */

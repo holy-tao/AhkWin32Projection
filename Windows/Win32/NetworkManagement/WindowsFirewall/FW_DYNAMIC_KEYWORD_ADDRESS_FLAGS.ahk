@@ -10,7 +10,8 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies that the IP addresses will be auto-resolved and populated by another component outside the firewall service.
+     * Native name: FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE
      * @type {Integer (Int32)}
      */
-    static FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE => 1
+    static AUTO_RESOLVE => 1
 }

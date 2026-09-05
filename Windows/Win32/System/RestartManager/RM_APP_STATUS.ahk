@@ -12,55 +12,64 @@ class RM_APP_STATUS extends Win32Enum {
 
     /**
      * The application is in a state that is not described by any other enumerated state.
+     * Native name: RmStatusUnknown
      * @type {Integer (Int32)}
      */
-    static RmStatusUnknown => 0
+    static Unknown => 0
 
     /**
      * The application is currently running.
+     * Native name: RmStatusRunning
      * @type {Integer (Int32)}
      */
-    static RmStatusRunning => 1
+    static Running => 1
 
     /**
      * The Restart Manager has stopped the application.
+     * Native name: RmStatusStopped
      * @type {Integer (Int32)}
      */
-    static RmStatusStopped => 2
+    static Stopped => 2
 
     /**
      * An action outside the Restart Manager has stopped the application.
+     * Native name: RmStatusStoppedOther
      * @type {Integer (Int32)}
      */
-    static RmStatusStoppedOther => 4
+    static StoppedOther => 4
 
     /**
      * The Restart Manager has restarted the application.
+     * Native name: RmStatusRestarted
      * @type {Integer (Int32)}
      */
-    static RmStatusRestarted => 8
+    static Restarted => 8
 
     /**
      * The Restart Manager encountered an error when stopping the application.
+     * Native name: RmStatusErrorOnStop
      * @type {Integer (Int32)}
      */
-    static RmStatusErrorOnStop => 16
+    static ErrorOnStop => 16
 
     /**
      * The Restart Manager encountered an error when restarting the application.
+     * Native name: RmStatusErrorOnRestart
      * @type {Integer (Int32)}
      */
-    static RmStatusErrorOnRestart => 32
+    static ErrorOnRestart => 32
 
     /**
      * Shutdown is masked by a filter.
+     * Native name: RmStatusShutdownMasked
      * @type {Integer (Int32)}
      */
-    static RmStatusShutdownMasked => 64
+    static ShutdownMasked => 64
 
     /**
      * Restart is masked by a filter.
+     * Native name: RmStatusRestartMasked
      * @type {Integer (Int32)}
      */
-    static RmStatusRestartMasked => 128
+    static RestartMasked => 128
 }

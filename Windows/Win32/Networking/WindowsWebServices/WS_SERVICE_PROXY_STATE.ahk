@@ -9,32 +9,38 @@
 class WS_SERVICE_PROXY_STATE extends Win32Enum {
 
     /**
+     * Native name: WS_SERVICE_PROXY_STATE_CREATED
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROXY_STATE_CREATED => 0
+    static CREATED => 0
 
     /**
+     * Native name: WS_SERVICE_PROXY_STATE_OPENING
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROXY_STATE_OPENING => 1
+    static OPENING => 1
 
     /**
+     * Native name: WS_SERVICE_PROXY_STATE_OPEN
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROXY_STATE_OPEN => 2
+    static OPEN => 2
 
     /**
+     * Native name: WS_SERVICE_PROXY_STATE_CLOSING
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROXY_STATE_CLOSING => 3
+    static CLOSING => 3
 
     /**
+     * Native name: WS_SERVICE_PROXY_STATE_CLOSED
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROXY_STATE_CLOSED => 4
+    static CLOSED => 4
 
     /**
+     * Native name: WS_SERVICE_PROXY_STATE_FAULTED
      * @type {Integer (Int32)}
      */
-    static WS_SERVICE_PROXY_STATE_FAULTED => 5
+    static FAULTED => 5
 }

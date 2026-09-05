@@ -10,19 +10,22 @@ class DWRITE_MEASURING_MODE extends Win32Enum {
 
     /**
      * Specifies that text is measured using glyph ideal metrics whose values are independent to the current display resolution.
+     * Native name: DWRITE_MEASURING_MODE_NATURAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_MEASURING_MODE_NATURAL => 0
+    static NATURAL => 0
 
     /**
      * Specifies that text is measured using glyph display-compatible metrics whose values tuned for the current display resolution.
+     * Native name: DWRITE_MEASURING_MODE_GDI_CLASSIC
      * @type {Integer (Int32)}
      */
-    static DWRITE_MEASURING_MODE_GDI_CLASSIC => 1
+    static GDI_CLASSIC => 1
 
     /**
      * Specifies that text is measured using the same glyph display metrics as text measured by GDI using a font created with CLEARTYPE_NATURAL_QUALITY.
+     * Native name: DWRITE_MEASURING_MODE_GDI_NATURAL
      * @type {Integer (Int32)}
      */
-    static DWRITE_MEASURING_MODE_GDI_NATURAL => 2
+    static GDI_NATURAL => 2
 }

@@ -31,7 +31,6 @@ class IVdsAdvancedDisk3 extends IUnknown {
     static VTableNames => ["GetProperties", "GetUniqueId"]
 
     /**
-     * 
      * @returns {VDS_ADVANCEDDISK_PROP} 
      */
     GetProperties() {
@@ -41,7 +40,6 @@ class IVdsAdvancedDisk3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetUniqueId() {

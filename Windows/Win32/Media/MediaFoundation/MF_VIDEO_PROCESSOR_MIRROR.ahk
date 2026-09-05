@@ -10,19 +10,22 @@ class MF_VIDEO_PROCESSOR_MIRROR extends Win32Enum {
 
     /**
      * Do not flip the image.
+     * Native name: MIRROR_NONE
      * @type {Integer (Int32)}
      */
-    static MIRROR_NONE => 0
+    static NONE => 0
 
     /**
      * Flip the image horizontally.
+     * Native name: MIRROR_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static MIRROR_HORIZONTAL => 1
+    static HORIZONTAL => 1
 
     /**
      * Flip the image vertically.
+     * Native name: MIRROR_VERTICAL
      * @type {Integer (Int32)}
      */
-    static MIRROR_VERTICAL => 2
+    static VERTICAL => 2
 }

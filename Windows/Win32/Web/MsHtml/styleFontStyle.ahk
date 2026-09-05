@@ -7,27 +7,32 @@
 class styleFontStyle extends Win32Enum {
 
     /**
+     * Native name: styleFontStyleNotSet
      * @type {Integer (Int32)}
      */
-    static styleFontStyleNotSet => 0
+    static NotSet => 0
 
     /**
+     * Native name: styleFontStyleItalic
      * @type {Integer (Int32)}
      */
-    static styleFontStyleItalic => 1
+    static Italic => 1
 
     /**
+     * Native name: styleFontStyleOblique
      * @type {Integer (Int32)}
      */
-    static styleFontStyleOblique => 2
+    static Oblique => 2
 
     /**
+     * Native name: styleFontStyleNormal
      * @type {Integer (Int32)}
      */
-    static styleFontStyleNormal => 3
+    static Normal => 3
 
     /**
+     * Native name: styleFontStyle_Max
      * @type {Integer (Int32)}
      */
-    static styleFontStyle_Max => 2147483647
+    static Max => 2147483647
 }

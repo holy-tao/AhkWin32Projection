@@ -35,7 +35,6 @@ class ISWbemSink extends IDispatch {
     static VTableNames => ["Cancel"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {

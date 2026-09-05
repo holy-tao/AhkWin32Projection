@@ -31,7 +31,6 @@ class IMonikerProp extends IUnknown {
     static VTableNames => ["PutProperty"]
 
     /**
-     * 
      * @param {MONIKERPROPERTY} mkp 
      * @param {PWSTR} _val 
      * @returns {HRESULT} 

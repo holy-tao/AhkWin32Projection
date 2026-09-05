@@ -29,7 +29,6 @@ class IDebugApplicationThreadEvents110 extends IUnknown {
     static VTableNames => ["OnSuspendForBreakPoint", "OnResumeFromBreakPoint", "OnThreadRequestComplete", "OnBeginThreadRequest"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnSuspendForBreakPoint() {
@@ -38,7 +37,6 @@ class IDebugApplicationThreadEvents110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnResumeFromBreakPoint() {
@@ -47,7 +45,6 @@ class IDebugApplicationThreadEvents110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnThreadRequestComplete() {
@@ -56,7 +53,6 @@ class IDebugApplicationThreadEvents110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnBeginThreadRequest() {

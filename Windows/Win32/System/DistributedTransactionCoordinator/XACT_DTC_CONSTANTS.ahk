@@ -7,114 +7,136 @@
 class XACT_DTC_CONSTANTS extends Win32Enum {
 
     /**
+     * Native name: XACT_E_CONNECTION_REQUEST_DENIED
      * @type {Integer (Int32)}
      */
-    static XACT_E_CONNECTION_REQUEST_DENIED => -2147168000
+    static E_CONNECTION_REQUEST_DENIED => -2147168000
 
     /**
+     * Native name: XACT_E_TOOMANY_ENLISTMENTS
      * @type {Integer (Int32)}
      */
-    static XACT_E_TOOMANY_ENLISTMENTS => -2147167999
+    static E_TOOMANY_ENLISTMENTS => -2147167999
 
     /**
+     * Native name: XACT_E_DUPLICATE_GUID
      * @type {Integer (Int32)}
      */
-    static XACT_E_DUPLICATE_GUID => -2147167998
+    static E_DUPLICATE_GUID => -2147167998
 
     /**
+     * Native name: XACT_E_NOTSINGLEPHASE
      * @type {Integer (Int32)}
      */
-    static XACT_E_NOTSINGLEPHASE => -2147167997
+    static E_NOTSINGLEPHASE => -2147167997
 
     /**
+     * Native name: XACT_E_RECOVERYALREADYDONE
      * @type {Integer (Int32)}
      */
-    static XACT_E_RECOVERYALREADYDONE => -2147167996
+    static E_RECOVERYALREADYDONE => -2147167996
 
     /**
+     * Native name: XACT_E_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static XACT_E_PROTOCOL => -2147167995
+    static E_PROTOCOL => -2147167995
 
     /**
+     * Native name: XACT_E_RM_FAILURE
      * @type {Integer (Int32)}
      */
-    static XACT_E_RM_FAILURE => -2147167994
+    static E_RM_FAILURE => -2147167994
 
     /**
+     * Native name: XACT_E_RECOVERY_FAILED
      * @type {Integer (Int32)}
      */
-    static XACT_E_RECOVERY_FAILED => -2147167993
+    static E_RECOVERY_FAILED => -2147167993
 
     /**
+     * Native name: XACT_E_LU_NOT_FOUND
      * @type {Integer (Int32)}
      */
-    static XACT_E_LU_NOT_FOUND => -2147167992
+    static E_LU_NOT_FOUND => -2147167992
 
     /**
+     * Native name: XACT_E_DUPLICATE_LU
      * @type {Integer (Int32)}
      */
-    static XACT_E_DUPLICATE_LU => -2147167991
+    static E_DUPLICATE_LU => -2147167991
 
     /**
+     * Native name: XACT_E_LU_NOT_CONNECTED
      * @type {Integer (Int32)}
      */
-    static XACT_E_LU_NOT_CONNECTED => -2147167990
+    static E_LU_NOT_CONNECTED => -2147167990
 
     /**
+     * Native name: XACT_E_DUPLICATE_TRANSID
      * @type {Integer (Int32)}
      */
-    static XACT_E_DUPLICATE_TRANSID => -2147167989
+    static E_DUPLICATE_TRANSID => -2147167989
 
     /**
+     * Native name: XACT_E_LU_BUSY
      * @type {Integer (Int32)}
      */
-    static XACT_E_LU_BUSY => -2147167988
+    static E_LU_BUSY => -2147167988
 
     /**
+     * Native name: XACT_E_LU_NO_RECOVERY_PROCESS
      * @type {Integer (Int32)}
      */
-    static XACT_E_LU_NO_RECOVERY_PROCESS => -2147167987
+    static E_LU_NO_RECOVERY_PROCESS => -2147167987
 
     /**
+     * Native name: XACT_E_LU_DOWN
      * @type {Integer (Int32)}
      */
-    static XACT_E_LU_DOWN => -2147167986
+    static E_LU_DOWN => -2147167986
 
     /**
+     * Native name: XACT_E_LU_RECOVERING
      * @type {Integer (Int32)}
      */
-    static XACT_E_LU_RECOVERING => -2147167985
+    static E_LU_RECOVERING => -2147167985
 
     /**
+     * Native name: XACT_E_LU_RECOVERY_MISMATCH
      * @type {Integer (Int32)}
      */
-    static XACT_E_LU_RECOVERY_MISMATCH => -2147167984
+    static E_LU_RECOVERY_MISMATCH => -2147167984
 
     /**
+     * Native name: XACT_E_RM_UNAVAILABLE
      * @type {Integer (Int32)}
      */
-    static XACT_E_RM_UNAVAILABLE => -2147167983
+    static E_RM_UNAVAILABLE => -2147167983
 
     /**
+     * Native name: XACT_E_LRMRECOVERYALREADYDONE
      * @type {Integer (Int32)}
      */
-    static XACT_E_LRMRECOVERYALREADYDONE => -2147167982
+    static E_LRMRECOVERYALREADYDONE => -2147167982
 
     /**
+     * Native name: XACT_E_NOLASTRESOURCEINTERFACE
      * @type {Integer (Int32)}
      */
-    static XACT_E_NOLASTRESOURCEINTERFACE => -2147167981
+    static E_NOLASTRESOURCEINTERFACE => -2147167981
 
     /**
+     * Native name: XACT_S_NONOTIFY
      * @type {Integer (Int32)}
      */
-    static XACT_S_NONOTIFY => 315648
+    static S_NONOTIFY => 315648
 
     /**
+     * Native name: XACT_OK_NONOTIFY
      * @type {Integer (Int32)}
      */
-    static XACT_OK_NONOTIFY => 315649
+    static OK_NONOTIFY => 315649
 
     /**
      * @type {Integer (Int32)}

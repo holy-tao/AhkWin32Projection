@@ -7,22 +7,26 @@
 class SCM_BUS_PROPERTY_ID extends Win32Enum {
 
     /**
+     * Native name: ScmBusProperty_RuntimeFwActivationInfo
      * @type {Integer (Int32)}
      */
-    static ScmBusProperty_RuntimeFwActivationInfo => 0
+    static RuntimeFwActivationInfo => 0
 
     /**
+     * Native name: ScmBusProperty_DedicatedMemoryInfo
      * @type {Integer (Int32)}
      */
-    static ScmBusProperty_DedicatedMemoryInfo => 1
+    static DedicatedMemoryInfo => 1
 
     /**
+     * Native name: ScmBusProperty_DedicatedMemoryState
      * @type {Integer (Int32)}
      */
-    static ScmBusProperty_DedicatedMemoryState => 2
+    static DedicatedMemoryState => 2
 
     /**
+     * Native name: ScmBusProperty_Max
      * @type {Integer (Int32)}
      */
-    static ScmBusProperty_Max => 3
+    static Max => 3
 }

@@ -10,31 +10,36 @@ class DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION extends Win32BitflagEnum {
 
     /**
      * Specifies that vertical movement is applicable to the chosen gesture.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_VERTICAL
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_VERTICAL => 1
+    static VERTICAL => 1
 
     /**
      * Specifies that horizontal movement is applicable to the chosen gesture.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HORIZONTAL => 2
+    static HORIZONTAL => 2
 
     /**
      * Specifies that the gesture is to be cross-slide only.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_ONLY
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_ONLY => 16
+    static SELECT_ONLY => 16
 
     /**
      * Specifies that the gesture is a drag initiated by cross-slide.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_DRAG
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_SELECT_DRAG => 32
+    static SELECT_DRAG => 32
 
     /**
      * Specifies that the gesture a drag initiated by press-and-hold.
+     * Native name: DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HOLD_DRAG
      * @type {Integer (Int32)}
      */
-    static DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_HOLD_DRAG => 64
+    static HOLD_DRAG => 64
 }

@@ -7,92 +7,110 @@
 class ACCESS_REASON_TYPE extends Win32Enum {
 
     /**
+     * Native name: AccessReasonNone
      * @type {Integer (Int32)}
      */
-    static AccessReasonNone => 0
+    static None => 0
 
     /**
+     * Native name: AccessReasonAllowedAce
      * @type {Integer (Int32)}
      */
-    static AccessReasonAllowedAce => 65536
+    static AllowedAce => 65536
 
     /**
+     * Native name: AccessReasonDeniedAce
      * @type {Integer (Int32)}
      */
-    static AccessReasonDeniedAce => 131072
+    static DeniedAce => 131072
 
     /**
+     * Native name: AccessReasonAllowedParentAce
      * @type {Integer (Int32)}
      */
-    static AccessReasonAllowedParentAce => 196608
+    static AllowedParentAce => 196608
 
     /**
+     * Native name: AccessReasonDeniedParentAce
      * @type {Integer (Int32)}
      */
-    static AccessReasonDeniedParentAce => 262144
+    static DeniedParentAce => 262144
 
     /**
+     * Native name: AccessReasonNotGrantedByCape
      * @type {Integer (Int32)}
      */
-    static AccessReasonNotGrantedByCape => 327680
+    static NotGrantedByCape => 327680
 
     /**
+     * Native name: AccessReasonNotGrantedByParentCape
      * @type {Integer (Int32)}
      */
-    static AccessReasonNotGrantedByParentCape => 393216
+    static NotGrantedByParentCape => 393216
 
     /**
+     * Native name: AccessReasonNotGrantedToAppContainer
      * @type {Integer (Int32)}
      */
-    static AccessReasonNotGrantedToAppContainer => 458752
+    static NotGrantedToAppContainer => 458752
 
     /**
+     * Native name: AccessReasonMissingPrivilege
      * @type {Integer (Int32)}
      */
-    static AccessReasonMissingPrivilege => 1048576
+    static MissingPrivilege => 1048576
 
     /**
+     * Native name: AccessReasonFromPrivilege
      * @type {Integer (Int32)}
      */
-    static AccessReasonFromPrivilege => 2097152
+    static FromPrivilege => 2097152
 
     /**
+     * Native name: AccessReasonIntegrityLevel
      * @type {Integer (Int32)}
      */
-    static AccessReasonIntegrityLevel => 3145728
+    static IntegrityLevel => 3145728
 
     /**
+     * Native name: AccessReasonOwnership
      * @type {Integer (Int32)}
      */
-    static AccessReasonOwnership => 4194304
+    static Ownership => 4194304
 
     /**
+     * Native name: AccessReasonNullDacl
      * @type {Integer (Int32)}
      */
-    static AccessReasonNullDacl => 5242880
+    static NullDacl => 5242880
 
     /**
+     * Native name: AccessReasonEmptyDacl
      * @type {Integer (Int32)}
      */
-    static AccessReasonEmptyDacl => 6291456
+    static EmptyDacl => 6291456
 
     /**
+     * Native name: AccessReasonNoSD
      * @type {Integer (Int32)}
      */
-    static AccessReasonNoSD => 7340032
+    static NoSD => 7340032
 
     /**
+     * Native name: AccessReasonNoGrant
      * @type {Integer (Int32)}
      */
-    static AccessReasonNoGrant => 8388608
+    static NoGrant => 8388608
 
     /**
+     * Native name: AccessReasonTrustLabel
      * @type {Integer (Int32)}
      */
-    static AccessReasonTrustLabel => 9437184
+    static TrustLabel => 9437184
 
     /**
+     * Native name: AccessReasonFilterAce
      * @type {Integer (Int32)}
      */
-    static AccessReasonFilterAce => 10485760
+    static FilterAce => 10485760
 }

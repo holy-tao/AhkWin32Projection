@@ -7,22 +7,26 @@
 class WLDP_SECURE_SETTING_VALUE_TYPE extends Win32Enum {
 
     /**
+     * Native name: WLDP_SECURE_SETTING_VALUE_TYPE_BOOLEAN
      * @type {Integer (Int32)}
      */
-    static WLDP_SECURE_SETTING_VALUE_TYPE_BOOLEAN => 0
+    static BOOLEAN => 0
 
     /**
+     * Native name: WLDP_SECURE_SETTING_VALUE_TYPE_ULONG
      * @type {Integer (Int32)}
      */
-    static WLDP_SECURE_SETTING_VALUE_TYPE_ULONG => 1
+    static ULONG => 1
 
     /**
+     * Native name: WLDP_SECURE_SETTING_VALUE_TYPE_BINARY
      * @type {Integer (Int32)}
      */
-    static WLDP_SECURE_SETTING_VALUE_TYPE_BINARY => 2
+    static BINARY => 2
 
     /**
+     * Native name: WLDP_SECURE_SETTING_VALUE_TYPE_STRING
      * @type {Integer (Int32)}
      */
-    static WLDP_SECURE_SETTING_VALUE_TYPE_STRING => 3
+    static STRING => 3
 }

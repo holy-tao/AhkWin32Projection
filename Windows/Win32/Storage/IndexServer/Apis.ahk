@@ -773,7 +773,6 @@ class IndexServer {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcsPath 
      * @param {Integer} dwFlags 
      * @param {Pointer<Guid>} riid 

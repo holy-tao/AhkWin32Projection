@@ -7,17 +7,20 @@
 class WS_SECURITY_BEARER_KEY_TYPE_VERSION extends Win32Enum {
 
     /**
+     * Native name: WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ORIGINAL_SPECIFICATION
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ORIGINAL_SPECIFICATION => 1
+    static 1_3_ORIGINAL_SPECIFICATION => 1
 
     /**
+     * Native name: WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ORIGINAL_SCHEMA
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ORIGINAL_SCHEMA => 2
+    static 1_3_ORIGINAL_SCHEMA => 2
 
     /**
+     * Native name: WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ERRATA_01
      * @type {Integer (Int32)}
      */
-    static WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ERRATA_01 => 3
+    static 1_3_ERRATA_01 => 3
 }

@@ -7,47 +7,56 @@
 class D3DKMT_TDRDBGCTRLTYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_FORCETDR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_FORCETDR => 0
+    static FORCETDR => 0
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_DISABLEBREAK
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_DISABLEBREAK => 1
+    static DISABLEBREAK => 1
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_ENABLEBREAK
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_ENABLEBREAK => 2
+    static ENABLEBREAK => 2
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_UNCONDITIONAL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_UNCONDITIONAL => 3
+    static UNCONDITIONAL => 3
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_VSYNCTDR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_VSYNCTDR => 4
+    static VSYNCTDR => 4
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_GPUTDR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_GPUTDR => 5
+    static GPUTDR => 5
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_FORCEDODTDR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_FORCEDODTDR => 6
+    static FORCEDODTDR => 6
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_FORCEDODVSYNCTDR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_FORCEDODVSYNCTDR => 7
+    static FORCEDODVSYNCTDR => 7
 
     /**
+     * Native name: D3DKMT_TDRDBGCTRLTYPE_ENGINETDR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_TDRDBGCTRLTYPE_ENGINETDR => 8
+    static ENGINETDR => 8
 }

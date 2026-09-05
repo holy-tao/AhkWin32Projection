@@ -7,17 +7,20 @@
 class DISPLAY_GRAVITY extends Win32Enum {
 
     /**
+     * Native name: DISPLAY_GRAVITY_PreviousLine
      * @type {Integer (Int32)}
      */
-    static DISPLAY_GRAVITY_PreviousLine => 1
+    static PreviousLine => 1
 
     /**
+     * Native name: DISPLAY_GRAVITY_NextLine
      * @type {Integer (Int32)}
      */
-    static DISPLAY_GRAVITY_NextLine => 2
+    static NextLine => 2
 
     /**
+     * Native name: DISPLAY_GRAVITY_Max
      * @type {Integer (Int32)}
      */
-    static DISPLAY_GRAVITY_Max => 2147483647
+    static Max => 2147483647
 }

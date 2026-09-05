@@ -31,7 +31,6 @@ class IAppxManifestQualifiedResource extends IUnknown {
     static VTableNames => ["GetLanguage", "GetScale", "GetDXFeatureLevel"]
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetLanguage() {
@@ -40,7 +39,6 @@ class IAppxManifestQualifiedResource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetScale() {
@@ -49,7 +47,6 @@ class IAppxManifestQualifiedResource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DX_FEATURE_LEVEL} 
      */
     GetDXFeatureLevel() {

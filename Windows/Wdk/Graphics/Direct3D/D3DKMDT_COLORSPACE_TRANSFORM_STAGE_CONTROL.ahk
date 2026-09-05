@@ -7,17 +7,20 @@
 class D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL extends Win32Enum {
 
     /**
+     * Native name: D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL_NO_CHANGE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL_NO_CHANGE => 0
+    static NO_CHANGE => 0
 
     /**
+     * Native name: D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL_ENABLE
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL_ENABLE => 1
+    static ENABLE => 1
 
     /**
+     * Native name: D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL_BYPASS
      * @type {Integer (Int32)}
      */
-    static D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL_BYPASS => 2
+    static BYPASS => 2
 }

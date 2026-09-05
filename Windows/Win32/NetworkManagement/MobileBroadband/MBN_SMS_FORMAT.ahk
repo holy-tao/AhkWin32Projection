@@ -10,21 +10,24 @@ class MBN_SMS_FORMAT extends Win32Enum {
 
     /**
      * No SMS format.
+     * Native name: MBN_SMS_FORMAT_NONE
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_FORMAT_NONE => 0
+    static NONE => 0
 
     /**
      * For GSM devices, SMS, messages will be read in PDU format. 
      * 
      * For CDMA devices, SMS messages will be read in binary CDMA format.
+     * Native name: MBN_SMS_FORMAT_PDU
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_FORMAT_PDU => 1
+    static PDU => 1
 
     /**
      * For CDMA devices, SMS messages will be read in text format.
+     * Native name: MBN_SMS_FORMAT_TEXT
      * @type {Integer (Int32)}
      */
-    static MBN_SMS_FORMAT_TEXT => 2
+    static TEXT => 2
 }

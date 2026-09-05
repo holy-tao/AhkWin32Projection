@@ -32,37 +32,43 @@ class DFS_TARGET_PRIORITY_CLASS extends Win32Enum {
 
     /**
      * The priority class is not valid.
+     * Native name: DfsInvalidPriorityClass
      * @type {Integer (Int32)}
      */
-    static DfsInvalidPriorityClass => -1
+    static InvalidPriorityClass => -1
 
     /**
      * The middle or "normal" site cost priority class for a DFS target.
+     * Native name: DfsSiteCostNormalPriorityClass
      * @type {Integer (Int32)}
      */
-    static DfsSiteCostNormalPriorityClass => 0
+    static SiteCostNormalPriorityClass => 0
 
     /**
      * The highest priority class for a DFS target. Targets assigned this class receive global preference.
+     * Native name: DfsGlobalHighPriorityClass
      * @type {Integer (Int32)}
      */
-    static DfsGlobalHighPriorityClass => 1
+    static GlobalHighPriorityClass => 1
 
     /**
      * The highest site cost priority class for a DFS target. Targets assigned this class receive the most preference among targets of the same site cost for a given DFS client.
+     * Native name: DfsSiteCostHighPriorityClass
      * @type {Integer (Int32)}
      */
-    static DfsSiteCostHighPriorityClass => 2
+    static SiteCostHighPriorityClass => 2
 
     /**
      * The lowest site cost priority class for a DFS target. Targets assigned this class receive the least preference among targets of the same site cost for a given DFS client.
+     * Native name: DfsSiteCostLowPriorityClass
      * @type {Integer (Int32)}
      */
-    static DfsSiteCostLowPriorityClass => 3
+    static SiteCostLowPriorityClass => 3
 
     /**
      * The lowest level of priority class for a DFS target. Targets assigned this class receive the least preference globally.
+     * Native name: DfsGlobalLowPriorityClass
      * @type {Integer (Int32)}
      */
-    static DfsGlobalLowPriorityClass => 4
+    static GlobalLowPriorityClass => 4
 }

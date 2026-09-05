@@ -10,13 +10,15 @@ class WCN_VALUE_TYPE_VERSION extends Win32Enum {
 
     /**
      * Specifies WPS 1.0. Indicates compliance with Wi-Fi Alliance protocol specification for Wi-Fi Protected Setup (WPS) 1.0h.
+     * Native name: WCN_VALUE_VERSION_1_0
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_VERSION_1_0 => 16
+    static 1_0 => 16
 
     /**
      * Specifies WPS 2.0.  Indicates compliance with Wi-Fi Alliance protocol specification for Wi-Fi Simple Configuration (WSC) 2.0.
+     * Native name: WCN_VALUE_VERSION_2_0
      * @type {Integer (Int32)}
      */
-    static WCN_VALUE_VERSION_2_0 => 32
+    static 2_0 => 32
 }

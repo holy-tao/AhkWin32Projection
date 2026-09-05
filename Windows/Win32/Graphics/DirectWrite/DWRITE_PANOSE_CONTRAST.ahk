@@ -10,85 +10,99 @@ class DWRITE_PANOSE_CONTRAST extends Win32Enum {
 
     /**
      * Any contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_ANY => 0
+    static ANY => 0
 
     /**
      * No fit contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * No contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_NONE
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_NONE => 2
+    static NONE => 2
 
     /**
      * Very low contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_VERY_LOW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_VERY_LOW => 3
+    static VERY_LOW => 3
 
     /**
      * Low contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_LOW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_LOW => 4
+    static LOW => 4
 
     /**
      * Medium low contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_MEDIUM_LOW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_MEDIUM_LOW => 5
+    static MEDIUM_LOW => 5
 
     /**
      * Medium contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_MEDIUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_MEDIUM => 6
+    static MEDIUM => 6
 
     /**
      * Medium high contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_MEDIUM_HIGH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_MEDIUM_HIGH => 7
+    static MEDIUM_HIGH => 7
 
     /**
      * High contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_HIGH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_HIGH => 8
+    static HIGH => 8
 
     /**
      * Very high contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_VERY_HIGH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_VERY_HIGH => 9
+    static VERY_HIGH => 9
 
     /**
      * Horizontal low contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_HORIZONTAL_LOW
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_HORIZONTAL_LOW => 10
+    static HORIZONTAL_LOW => 10
 
     /**
      * Horizontal medium contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_HORIZONTAL_MEDIUM
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_HORIZONTAL_MEDIUM => 11
+    static HORIZONTAL_MEDIUM => 11
 
     /**
      * Horizontal high contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_HORIZONTAL_HIGH
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_HORIZONTAL_HIGH => 12
+    static HORIZONTAL_HIGH => 12
 
     /**
      * Broken contrast.
+     * Native name: DWRITE_PANOSE_CONTRAST_BROKEN
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_CONTRAST_BROKEN => 13
+    static BROKEN => 13
 }

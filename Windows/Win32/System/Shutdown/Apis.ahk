@@ -920,7 +920,6 @@ class Shutdown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOLEAN>} pHiberboot 
      * @param {BOOLEAN} bClearFlag 
      * @returns {Integer} 

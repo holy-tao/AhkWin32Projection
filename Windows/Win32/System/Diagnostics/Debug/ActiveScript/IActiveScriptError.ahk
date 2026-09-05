@@ -31,7 +31,6 @@ class IActiveScriptError extends IUnknown {
     static VTableNames => ["GetExceptionInfo", "GetSourcePosition", "GetSourceLineText"]
 
     /**
-     * 
      * @returns {EXCEPINFO} 
      */
     GetExceptionInfo() {
@@ -41,7 +40,6 @@ class IActiveScriptError extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwSourceContext 
      * @param {Pointer<Integer>} pulLineNumber 
      * @param {Pointer<Integer>} plCharacterPosition 
@@ -57,7 +55,6 @@ class IActiveScriptError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSourceLineText() {

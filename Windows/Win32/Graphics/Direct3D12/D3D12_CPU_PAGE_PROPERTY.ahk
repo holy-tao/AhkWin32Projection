@@ -12,25 +12,29 @@ class D3D12_CPU_PAGE_PROPERTY extends Win32Enum {
 
     /**
      * The CPU-page property is unknown.
+     * Native name: D3D12_CPU_PAGE_PROPERTY_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D12_CPU_PAGE_PROPERTY_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The CPU cannot access the heap, therefore no page properties are available.
+     * Native name: D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE
      * @type {Integer (Int32)}
      */
-    static D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE => 1
+    static NOT_AVAILABLE => 1
 
     /**
      * The CPU-page property is write-combined.
+     * Native name: D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE
      * @type {Integer (Int32)}
      */
-    static D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE => 2
+    static WRITE_COMBINE => 2
 
     /**
      * The CPU-page property is write-back.
+     * Native name: D3D12_CPU_PAGE_PROPERTY_WRITE_BACK
      * @type {Integer (Int32)}
      */
-    static D3D12_CPU_PAGE_PROPERTY_WRITE_BACK => 3
+    static WRITE_BACK => 3
 }

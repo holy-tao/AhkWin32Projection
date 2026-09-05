@@ -487,7 +487,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_all() {
@@ -496,7 +495,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_body() {
@@ -505,7 +503,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_activeElement() {
@@ -514,7 +511,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_images() {
@@ -523,7 +519,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_applets() {
@@ -532,7 +527,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_links() {
@@ -541,7 +535,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_forms() {
@@ -550,7 +543,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_anchors() {
@@ -559,7 +551,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -571,7 +562,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -581,7 +571,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_scripts() {
@@ -590,7 +579,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -602,7 +590,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_designMode() {
@@ -612,7 +599,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLSelectionObject} 
      */
     get_selection() {
@@ -621,7 +607,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -631,7 +616,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLFramesCollection2} 
      */
     get_frames() {
@@ -640,7 +624,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_embeds() {
@@ -649,7 +632,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_plugins() {
@@ -658,7 +640,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -668,7 +649,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_alinkColor() {
@@ -678,7 +658,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -688,7 +667,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -698,7 +676,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -708,7 +685,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fgColor() {
@@ -718,7 +694,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -728,7 +703,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_linkColor() {
@@ -738,7 +712,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -748,7 +721,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_vlinkColor() {
@@ -758,7 +730,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_referrer() {
@@ -768,7 +739,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLLocation} 
      */
     get_location() {
@@ -777,7 +747,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lastModified() {
@@ -787,7 +756,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -799,7 +767,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -809,7 +776,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -821,7 +787,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_domain() {
@@ -831,7 +796,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -843,7 +807,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cookie() {
@@ -853,7 +816,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -863,7 +825,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_expando() {
@@ -872,7 +833,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -884,7 +844,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -894,7 +853,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -906,7 +864,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultCharset() {
@@ -916,7 +873,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -926,7 +882,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileSize() {
@@ -936,7 +891,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileCreatedDate() {
@@ -946,7 +900,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
@@ -956,7 +909,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
@@ -966,7 +918,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_security() {
@@ -976,7 +927,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -986,7 +936,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nameProp() {
@@ -996,7 +945,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {Pointer<SAFEARRAY>} psarray 
      * @returns {HRESULT} 
      */
@@ -1006,7 +954,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {Pointer<SAFEARRAY>} psarray 
      * @returns {HRESULT} 
      */
@@ -1087,7 +1034,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -1096,7 +1042,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1108,7 +1053,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1120,7 +1064,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1132,7 +1075,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1144,7 +1086,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {BSTR} 
      */
@@ -1157,7 +1098,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT} 
      */
@@ -1170,7 +1110,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
@@ -1184,7 +1123,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1196,7 +1134,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} eTag 
      * @returns {IHTMLElement} 
      */
@@ -1208,7 +1145,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1218,7 +1154,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhelp() {
@@ -1228,7 +1163,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1238,7 +1172,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onclick() {
@@ -1248,7 +1181,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1258,7 +1190,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondblclick() {
@@ -1268,7 +1199,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1278,7 +1208,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeyup() {
@@ -1288,7 +1217,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1298,7 +1226,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeydown() {
@@ -1308,7 +1235,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1318,7 +1244,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeypress() {
@@ -1328,7 +1253,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1338,7 +1262,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseup() {
@@ -1348,7 +1271,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1358,7 +1280,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousedown() {
@@ -1368,7 +1289,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1378,7 +1298,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousemove() {
@@ -1388,7 +1307,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1398,7 +1316,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseout() {
@@ -1408,7 +1325,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1418,7 +1334,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseover() {
@@ -1428,7 +1343,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1438,7 +1352,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -1448,7 +1361,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1458,7 +1370,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onafterupdate() {
@@ -1468,7 +1379,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1478,7 +1388,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowexit() {
@@ -1488,7 +1397,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1498,7 +1406,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowenter() {
@@ -1508,7 +1415,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1518,7 +1424,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragstart() {
@@ -1528,7 +1433,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1538,7 +1442,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselectstart() {
@@ -1548,7 +1451,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {IHTMLElement} 
@@ -1559,7 +1461,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_parentWindow() {
@@ -1568,7 +1469,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetsCollection} 
      */
     get_styleSheets() {
@@ -1577,7 +1477,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1587,7 +1486,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeupdate() {
@@ -1597,7 +1495,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1607,7 +1504,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerrorupdate() {
@@ -1617,7 +1513,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -1627,7 +1522,6 @@ class IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHref 
      * @param {Integer} lIndex 
      * @returns {IHTMLStyleSheet} 

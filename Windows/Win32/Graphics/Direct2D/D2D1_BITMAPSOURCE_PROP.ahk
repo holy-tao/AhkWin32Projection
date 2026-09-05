@@ -15,9 +15,10 @@ class D2D1_BITMAPSOURCE_PROP extends Win32Enum {
      * The type is IWICBitmapSource.
      * 
      * The default value is NULL.
+     * Native name: D2D1_BITMAPSOURCE_PROP_WIC_BITMAP_SOURCE
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_PROP_WIC_BITMAP_SOURCE => 0
+    static WIC_BITMAP_SOURCE => 0
 
     /**
      * The scale amount in the X and Y direction. The effect multiplies the width by the X value and the height by the Y value. 
@@ -27,9 +28,10 @@ class D2D1_BITMAPSOURCE_PROP extends Win32Enum {
      * The type is D2D1_VECTOR_2F.
      * 
      * The default value is {1.0f, 1.0f}.
+     * Native name: D2D1_BITMAPSOURCE_PROP_SCALE
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_PROP_SCALE => 1
+    static SCALE => 1
 
     /**
      * The interpolation mode used to scale the image.
@@ -39,9 +41,10 @@ class D2D1_BITMAPSOURCE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_bitmapsource_interpolation_mode">D2D1_BITMAPSOURCE_INTERPOLATION_MODE</a>.
      * 
      * The default value is D2D1_BITMAPSOURCE_INTERPOLATION_MODE_LINEAR.
+     * Native name: D2D1_BITMAPSOURCE_PROP_INTERPOLATION_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_PROP_INTERPOLATION_MODE => 2
+    static INTERPOLATION_MODE => 2
 
     /**
      * If you set this to TRUE, the effect will scale the input image to convert the DPI reported by IWICBitmapSource to the DPI of the device context. 
@@ -51,9 +54,10 @@ class D2D1_BITMAPSOURCE_PROP extends Win32Enum {
      * The type is BOOL.
      * 
      * The default value is FALSE.
+     * Native name: D2D1_BITMAPSOURCE_PROP_ENABLE_DPI_CORRECTION
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_PROP_ENABLE_DPI_CORRECTION => 3
+    static ENABLE_DPI_CORRECTION => 3
 
     /**
      * The alpha mode of the output. This can be either premultiplied or straight.
@@ -62,9 +66,10 @@ class D2D1_BITMAPSOURCE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_bitmapsource_alpha_mode">D2D1_BITMAPSOURCE_ALPHA_MODE</a>.
      * 
      * The default value is D2D1_BITMAPSOURCE_ALPHA_MODE_PREMULTIPLIED.
+     * Native name: D2D1_BITMAPSOURCE_PROP_ALPHA_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_PROP_ALPHA_MODE => 4
+    static ALPHA_MODE => 4
 
     /**
      * A flip and/or rotation operation to be performed on the image.
@@ -73,7 +78,8 @@ class D2D1_BITMAPSOURCE_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_bitmapsource_orientation">D2D1_BITMAPSOURCE_ORIENTATION</a>.
      * 
      * The default value is D2D1_BITMAPSOURCE_ORIENTATION_DEFAULT.
+     * Native name: D2D1_BITMAPSOURCE_PROP_ORIENTATION
      * @type {Integer (Int32)}
      */
-    static D2D1_BITMAPSOURCE_PROP_ORIENTATION => 5
+    static ORIENTATION => 5
 }

@@ -31,7 +31,6 @@ class IDithererImpl extends IUnknown {
     static VTableNames => ["SetDestColorTable", "SetEventSink"]
 
     /**
-     * 
      * @param {Integer} nColors 
      * @param {Pointer<RGBQUAD>} prgbColors 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class IDithererImpl extends IUnknown {
     }
 
     /**
-     * 
      * @param {IImageDecodeEventSink} pEventSink 
      * @returns {HRESULT} 
      */

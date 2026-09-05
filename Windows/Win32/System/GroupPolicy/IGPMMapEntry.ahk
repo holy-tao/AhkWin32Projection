@@ -68,7 +68,6 @@ class IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Source() {
@@ -78,7 +77,6 @@ class IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Destination() {
@@ -88,7 +86,6 @@ class IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOption() {
@@ -97,7 +94,6 @@ class IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryType() {

@@ -30,7 +30,6 @@ class IPartFont2 extends IPartFont {
     static VTableNames => ["GetFontRestriction"]
 
     /**
-     * 
      * @returns {EXpsFontRestriction} 
      */
     GetFontRestriction() {

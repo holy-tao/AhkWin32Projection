@@ -12,43 +12,50 @@ class NVME_CMBSZ_SIZE_UNITS extends Win32Enum {
 
     /**
      * The buffer size is in units of 4 KB.
+     * Native name: NVME_CMBSZ_SIZE_UNITS_4KB
      * @type {Integer (Int32)}
      */
-    static NVME_CMBSZ_SIZE_UNITS_4KB => 0
+    static 4KB => 0
 
     /**
      * The buffer size is in units of 64 KB.
+     * Native name: NVME_CMBSZ_SIZE_UNITS_64KB
      * @type {Integer (Int32)}
      */
-    static NVME_CMBSZ_SIZE_UNITS_64KB => 1
+    static 64KB => 1
 
     /**
      * The buffer size is in units of 1 MB.
+     * Native name: NVME_CMBSZ_SIZE_UNITS_1MB
      * @type {Integer (Int32)}
      */
-    static NVME_CMBSZ_SIZE_UNITS_1MB => 2
+    static 1MB => 2
 
     /**
      * The buffer size is in units of 16 MB.
+     * Native name: NVME_CMBSZ_SIZE_UNITS_16MB
      * @type {Integer (Int32)}
      */
-    static NVME_CMBSZ_SIZE_UNITS_16MB => 3
+    static 16MB => 3
 
     /**
      * The buffer size is in units of 256 MB.
+     * Native name: NVME_CMBSZ_SIZE_UNITS_256MB
      * @type {Integer (Int32)}
      */
-    static NVME_CMBSZ_SIZE_UNITS_256MB => 4
+    static 256MB => 4
 
     /**
      * The buffer size is in units of 4 GB.
+     * Native name: NVME_CMBSZ_SIZE_UNITS_4GB
      * @type {Integer (Int32)}
      */
-    static NVME_CMBSZ_SIZE_UNITS_4GB => 5
+    static 4GB => 5
 
     /**
      * The buffer size is in units of 64 GB.
+     * Native name: NVME_CMBSZ_SIZE_UNITS_64GB
      * @type {Integer (Int32)}
      */
-    static NVME_CMBSZ_SIZE_UNITS_64GB => 6
+    static 64GB => 6
 }

@@ -34,7 +34,6 @@ class IWbemClientConnectionTransport extends IUnknown {
     static VTableNames => ["Open", "OpenAsync", "Cancel"]
 
     /**
-     * 
      * @param {BSTR} strAddressType 
      * @param {Integer} dwBinaryAddressLength 
      * @param {Pointer<Integer>} abBinaryAddress 
@@ -64,7 +63,6 @@ class IWbemClientConnectionTransport extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} strAddressType 
      * @param {Integer} dwBinaryAddressLength 
      * @param {Pointer<Integer>} abBinaryAddress 
@@ -92,7 +90,6 @@ class IWbemClientConnectionTransport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @param {IWbemObjectSink} pHandler 
      * @returns {HRESULT} 

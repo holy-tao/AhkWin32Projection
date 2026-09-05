@@ -79,7 +79,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_AppActivationClientAdapter() {
@@ -88,7 +87,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_ApplicationViewClientAdapter() {
@@ -97,7 +95,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_CoreApplicationViewClientAdapter() {
@@ -106,7 +103,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_HoloViewClientAdapter() {
@@ -115,7 +111,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_PositionerClientAdapter() {
@@ -124,7 +119,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_SystemNavigationClientAdapter() {
@@ -133,7 +127,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_TitleBarClientAdapter() {
@@ -142,7 +135,6 @@ class ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @param {IUnknown} value 
      * @returns {HRESULT} 
      */

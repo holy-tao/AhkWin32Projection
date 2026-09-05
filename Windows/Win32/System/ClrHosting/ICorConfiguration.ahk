@@ -32,7 +32,6 @@ class ICorConfiguration extends IUnknown {
     static VTableNames => ["SetGCThreadControl", "SetGCHostControl", "SetDebuggerThreadControl", "AddDebuggerSpecialThread"]
 
     /**
-     * 
      * @param {IGCThreadControl} pGCThreadControl 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ICorConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGCHostControl} pGCHostControl 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class ICorConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebuggerThreadControl} pDebuggerThreadControl 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class ICorConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpecialThreadId 
      * @returns {HRESULT} 
      */

@@ -10,9 +10,10 @@ class WS_EXTENDED_PROTECTION_POLICY extends Win32Enum {
 
     /**
      * Extended protection data is not validated.
+     * Native name: WS_EXTENDED_PROTECTION_POLICY_NEVER
      * @type {Integer (Int32)}
      */
-    static WS_EXTENDED_PROTECTION_POLICY_NEVER => 1
+    static NEVER => 1
 
     /**
      * If the client system supports the extended protection feature, extended protection data is looked for and validated during authentication. Otherwise it is ignored.
@@ -27,14 +28,16 @@ class WS_EXTENDED_PROTECTION_POLICY extends Win32Enum {
      *                 
      * 
      * This is the default.
+     * Native name: WS_EXTENDED_PROTECTION_POLICY_WHEN_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static WS_EXTENDED_PROTECTION_POLICY_WHEN_SUPPORTED => 2
+    static WHEN_SUPPORTED => 2
 
     /**
      * Extended protection data is required to be present and is always validated. Clients that are not extended-protection-aware cannot authenticate to a server 
      *                     setting this flag.
+     * Native name: WS_EXTENDED_PROTECTION_POLICY_ALWAYS
      * @type {Integer (Int32)}
      */
-    static WS_EXTENDED_PROTECTION_POLICY_ALWAYS => 3
+    static ALWAYS => 3
 }

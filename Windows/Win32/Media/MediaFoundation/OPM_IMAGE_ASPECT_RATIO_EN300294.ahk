@@ -12,49 +12,57 @@ class OPM_IMAGE_ASPECT_RATIO_EN300294 extends Win32Enum {
 
     /**
      * Full format 4:3.
+     * Native name: OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_4_BY_3
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_4_BY_3 => 0
+    static FULL_FORMAT_4_BY_3 => 0
 
     /**
      * Box 14:9 center.
+     * Native name: OPM_ASPECT_RATIO_EN300294_BOX_14_BY_9_CENTER
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_BOX_14_BY_9_CENTER => 1
+    static BOX_14_BY_9_CENTER => 1
 
     /**
      * Box 14:9 top.
+     * Native name: OPM_ASPECT_RATIO_EN300294_BOX_14_BY_9_TOP
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_BOX_14_BY_9_TOP => 2
+    static BOX_14_BY_9_TOP => 2
 
     /**
      * Box 16:9 center.
+     * Native name: OPM_ASPECT_RATIO_EN300294_BOX_16_BY_9_CENTER
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_BOX_16_BY_9_CENTER => 3
+    static BOX_16_BY_9_CENTER => 3
 
     /**
      * Box 16:9 top.
+     * Native name: OPM_ASPECT_RATIO_EN300294_BOX_16_BY_9_TOP
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_BOX_16_BY_9_TOP => 4
+    static BOX_16_BY_9_TOP => 4
 
     /**
      * Box &gt; 16:9 center.
+     * Native name: OPM_ASPECT_RATIO_EN300294_BOX_GT_16_BY_9_CENTER
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_BOX_GT_16_BY_9_CENTER => 5
+    static BOX_GT_16_BY_9_CENTER => 5
 
     /**
      * Full format 4:3 (shoot and protect 14:9 center).
+     * Native name: OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_4_BY_3_PROTECTED_CENTER
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_4_BY_3_PROTECTED_CENTER => 6
+    static FULL_FORMAT_4_BY_3_PROTECTED_CENTER => 6
 
     /**
      * Full format 16:9 (anamorphic).
+     * Native name: OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_16_BY_9_ANAMORPHIC
      * @type {Integer (Int32)}
      */
-    static OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_16_BY_9_ANAMORPHIC => 7
+    static FULL_FORMAT_16_BY_9_ANAMORPHIC => 7
 }

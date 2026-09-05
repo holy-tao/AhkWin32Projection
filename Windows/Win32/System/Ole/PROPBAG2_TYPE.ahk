@@ -7,37 +7,44 @@
 class PROPBAG2_TYPE extends Win32Enum {
 
     /**
+     * Native name: PROPBAG2_TYPE_UNDEFINED
      * @type {Integer (Int32)}
      */
-    static PROPBAG2_TYPE_UNDEFINED => 0
+    static UNDEFINED => 0
 
     /**
+     * Native name: PROPBAG2_TYPE_DATA
      * @type {Integer (Int32)}
      */
-    static PROPBAG2_TYPE_DATA => 1
+    static DATA => 1
 
     /**
+     * Native name: PROPBAG2_TYPE_URL
      * @type {Integer (Int32)}
      */
-    static PROPBAG2_TYPE_URL => 2
+    static URL => 2
 
     /**
+     * Native name: PROPBAG2_TYPE_OBJECT
      * @type {Integer (Int32)}
      */
-    static PROPBAG2_TYPE_OBJECT => 3
+    static OBJECT => 3
 
     /**
+     * Native name: PROPBAG2_TYPE_STREAM
      * @type {Integer (Int32)}
      */
-    static PROPBAG2_TYPE_STREAM => 4
+    static STREAM => 4
 
     /**
+     * Native name: PROPBAG2_TYPE_STORAGE
      * @type {Integer (Int32)}
      */
-    static PROPBAG2_TYPE_STORAGE => 5
+    static STORAGE => 5
 
     /**
+     * Native name: PROPBAG2_TYPE_MONIKER
      * @type {Integer (Int32)}
      */
-    static PROPBAG2_TYPE_MONIKER => 6
+    static MONIKER => 6
 }

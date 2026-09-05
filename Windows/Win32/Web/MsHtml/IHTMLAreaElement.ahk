@@ -166,7 +166,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +177,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shape() {
@@ -188,7 +186,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -200,7 +197,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_coords() {
@@ -210,7 +206,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -222,7 +217,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -232,7 +226,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -244,7 +237,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -254,7 +246,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -266,7 +257,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -276,7 +266,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -286,7 +275,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noHref() {
@@ -295,7 +283,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -307,7 +294,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_host() {
@@ -317,7 +303,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -329,7 +314,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hostname() {
@@ -339,7 +323,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -351,7 +334,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pathname() {
@@ -361,7 +343,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -373,7 +354,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_port() {
@@ -383,7 +363,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -395,7 +374,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -405,7 +383,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -417,7 +394,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_search() {
@@ -427,7 +403,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -439,7 +414,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hash() {
@@ -449,7 +423,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -459,7 +432,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -469,7 +441,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -479,7 +450,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -489,7 +459,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -499,7 +468,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_tabIndex() {
@@ -508,7 +476,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -517,7 +484,6 @@ class IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {

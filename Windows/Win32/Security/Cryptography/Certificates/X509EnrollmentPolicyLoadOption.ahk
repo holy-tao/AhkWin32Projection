@@ -10,25 +10,29 @@ class X509EnrollmentPolicyLoadOption extends Win32Enum {
 
     /**
      * Reload if the cache has expired.
+     * Native name: LoadOptionDefault
      * @type {Integer (Int32)}
      */
-    static LoadOptionDefault => 0
+    static Default => 0
 
     /**
      * Always load from the cache even if it has expired.
+     * Native name: LoadOptionCacheOnly
      * @type {Integer (Int32)}
      */
-    static LoadOptionCacheOnly => 1
+    static CacheOnly => 1
 
     /**
      * Always reload.
+     * Native name: LoadOptionReload
      * @type {Integer (Int32)}
      */
-    static LoadOptionReload => 2
+    static Reload => 2
 
     /**
      * Registers a thread to update a sequence number if there are changes to the template or the certification authority container. This value applies only to an Active Directory policy server.
+     * Native name: LoadOptionRegisterForADChanges
      * @type {Integer (Int32)}
      */
-    static LoadOptionRegisterForADChanges => 4
+    static RegisterForADChanges => 4
 }

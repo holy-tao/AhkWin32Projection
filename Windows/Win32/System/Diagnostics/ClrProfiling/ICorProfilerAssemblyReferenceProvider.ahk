@@ -30,7 +30,6 @@ class ICorProfilerAssemblyReferenceProvider extends IUnknown {
     static VTableNames => ["AddAssemblyReference"]
 
     /**
-     * 
      * @param {Pointer<COR_PRF_ASSEMBLY_REFERENCE_INFO>} pAssemblyRefInfo 
      * @returns {HRESULT} 
      */

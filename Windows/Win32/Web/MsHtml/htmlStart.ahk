@@ -7,17 +7,20 @@
 class htmlStart extends Win32Enum {
 
     /**
+     * Native name: htmlStartfileopen
      * @type {Integer (Int32)}
      */
-    static htmlStartfileopen => 0
+    static Startfileopen => 0
 
     /**
+     * Native name: htmlStartmouseover
      * @type {Integer (Int32)}
      */
-    static htmlStartmouseover => 1
+    static Startmouseover => 1
 
     /**
+     * Native name: htmlStart_Max
      * @type {Integer (Int32)}
      */
-    static htmlStart_Max => 2147483647
+    static Max => 2147483647
 }

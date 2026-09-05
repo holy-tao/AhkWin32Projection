@@ -29,7 +29,6 @@ class ICorProfilerThreadEnum extends IUnknown {
     static VTableNames => ["Skip", "Reset", "Clone", "GetCount", "Next"]
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class ICorProfilerThreadEnum extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -48,7 +46,6 @@ class ICorProfilerThreadEnum extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICorProfilerThreadEnum} 
      */
     Clone() {
@@ -57,7 +54,6 @@ class ICorProfilerThreadEnum extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -66,7 +62,6 @@ class ICorProfilerThreadEnum extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Pointer>} ids 
      * @param {Pointer<Integer>} pceltFetched 

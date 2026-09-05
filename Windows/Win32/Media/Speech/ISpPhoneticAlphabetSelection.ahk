@@ -30,7 +30,6 @@ class ISpPhoneticAlphabetSelection extends IUnknown {
     static VTableNames => ["IsAlphabetUPS", "SetAlphabetToUPS"]
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAlphabetUPS() {
@@ -39,7 +38,6 @@ class ISpPhoneticAlphabetSelection extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fForceUPS 
      * @returns {HRESULT} 
      */

@@ -7,12 +7,14 @@
 class LPPROGRESS_ROUTINE_CALLBACK_REASON extends Win32Enum {
 
     /**
+     * Native name: CALLBACK_CHUNK_FINISHED
      * @type {Integer (UInt32)}
      */
-    static CALLBACK_CHUNK_FINISHED => 0
+    static CHUNK_FINISHED => 0
 
     /**
+     * Native name: CALLBACK_STREAM_SWITCH
      * @type {Integer (UInt32)}
      */
-    static CALLBACK_STREAM_SWITCH => 1
+    static STREAM_SWITCH => 1
 }

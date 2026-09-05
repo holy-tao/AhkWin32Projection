@@ -33,7 +33,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     static VTableNames => ["GetFilterCount", "GetFilterChange", "GetAllChangeUnitsPresentFlag", "GetFilterForgottenKnowledge", "GetFilteredReplicaLearnedKnowledge", "GetLearnedFilterForgottenKnowledge", "GetFilteredReplicaLearnedForgottenKnowledge", "GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete", "GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwFilterCount 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @param {Pointer<SYNC_FILTER_CHANGE>} pFilterChange 
      * @returns {HRESULT} 
@@ -56,7 +54,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfAllChangeUnitsPresent 
      * @returns {HRESULT} 
      */
@@ -68,7 +65,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @returns {ISyncKnowledge} 
      */
@@ -78,7 +74,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -89,7 +84,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 
@@ -101,7 +95,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -112,7 +105,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -123,7 +115,6 @@ class ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 

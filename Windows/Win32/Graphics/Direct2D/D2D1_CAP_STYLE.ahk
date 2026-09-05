@@ -16,25 +16,29 @@ class D2D1_CAP_STYLE extends Win32Enum {
 
     /**
      * A cap that does not extend past the last point of the line. Comparable to cap used for objects other than lines.
+     * Native name: D2D1_CAP_STYLE_FLAT
      * @type {Integer (Int32)}
      */
-    static D2D1_CAP_STYLE_FLAT => 0
+    static FLAT => 0
 
     /**
      * Half of a square that has a length equal to the line thickness.
+     * Native name: D2D1_CAP_STYLE_SQUARE
      * @type {Integer (Int32)}
      */
-    static D2D1_CAP_STYLE_SQUARE => 1
+    static SQUARE => 1
 
     /**
      * A semicircle that has a diameter equal to the line thickness.
+     * Native name: D2D1_CAP_STYLE_ROUND
      * @type {Integer (Int32)}
      */
-    static D2D1_CAP_STYLE_ROUND => 2
+    static ROUND => 2
 
     /**
      * An isosceles right triangle whose hypotenuse is equal in length to the thickness of the line.
+     * Native name: D2D1_CAP_STYLE_TRIANGLE
      * @type {Integer (Int32)}
      */
-    static D2D1_CAP_STYLE_TRIANGLE => 3
+    static TRIANGLE => 3
 }

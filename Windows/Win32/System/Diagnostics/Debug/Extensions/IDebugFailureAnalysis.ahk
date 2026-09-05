@@ -31,7 +31,6 @@ class IDebugFailureAnalysis extends IUnknown {
     static VTableNames => ["GetFailureClass", "GetFailureType", "GetFailureCode", "Get", "GetNext", "GetString", "GetBuffer", "GetUlong", "GetUlong64", "NextEntry"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureClass() {
@@ -40,7 +39,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEBUG_FAILURE_TYPE} 
      */
     GetFailureType() {
@@ -49,7 +47,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureCode() {
@@ -69,7 +66,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {DEBUG_FLR_PARAM_TYPE} TagMask 
@@ -81,7 +77,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Str 
      * @param {Integer} MaxSize 
@@ -93,7 +88,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Buf 
      * @param {Integer} _Size 
@@ -105,7 +99,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -118,7 +111,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -131,7 +123,6 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @returns {Pointer<FA_ENTRY>} 
      */

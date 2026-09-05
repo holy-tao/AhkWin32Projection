@@ -7,17 +7,20 @@
 class VARFORMAT_LEADING_DIGIT extends Win32Enum {
 
     /**
+     * Native name: VARFORMAT_LEADING_DIGIT_SYSTEMDEFAULT
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_LEADING_DIGIT_SYSTEMDEFAULT => -2
+    static SYSTEMDEFAULT => -2
 
     /**
+     * Native name: VARFORMAT_LEADING_DIGIT_INCLUDED
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_LEADING_DIGIT_INCLUDED => -1
+    static INCLUDED => -1
 
     /**
+     * Native name: VARFORMAT_LEADING_DIGIT_NOTINCLUDED
      * @type {Integer (Int32)}
      */
-    static VARFORMAT_LEADING_DIGIT_NOTINCLUDED => 0
+    static NOTINCLUDED => 0
 }

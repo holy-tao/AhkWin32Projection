@@ -31,7 +31,6 @@ class IMLOperatorKernelFactory extends IUnknown {
     static VTableNames => ["CreateKernel"]
 
     /**
-     * 
      * @param {IMLOperatorKernelCreationContext} _context 
      * @returns {IMLOperatorKernel} 
      */

@@ -31,7 +31,6 @@ class ISideShowCapabilities extends IUnknown {
     static VTableNames => ["GetCapability"]
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} in_keyCapability 
      * @param {Pointer<PROPVARIANT>} inout_pValue 
      * @returns {HRESULT} 

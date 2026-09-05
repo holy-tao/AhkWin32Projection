@@ -31,7 +31,6 @@ class IKsAllocatorEx extends IKsAllocator {
     static VTableNames => ["KsGetProperties", "KsSetProperties", "KsSetAllocatorHandle", "KsCreateAllocatorAndGetHandle"]
 
     /**
-     * 
      * @returns {Pointer<ALLOCATOR_PROPERTIES_EX>} 
      */
     KsGetProperties() {
@@ -40,7 +39,6 @@ class IKsAllocatorEx extends IKsAllocator {
     }
 
     /**
-     * 
      * @param {Pointer<ALLOCATOR_PROPERTIES_EX>} param0 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -49,7 +47,6 @@ class IKsAllocatorEx extends IKsAllocator {
     }
 
     /**
-     * 
      * @param {HANDLE} AllocatorHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -60,7 +57,6 @@ class IKsAllocatorEx extends IKsAllocator {
     }
 
     /**
-     * 
      * @param {IKsPin} KsPin 
      * @returns {HANDLE} 
      */

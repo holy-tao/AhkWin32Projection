@@ -10,43 +10,50 @@ class INERTIA_PARAMETER extends Win32Enum {
 
     /**
      * The rate of deceleration, in degrees/ms².
+     * Native name: INERTIA_PARAMETER_TRANSLATION_DECELERATION
      * @type {Integer (Int32)}
      */
-    static INERTIA_PARAMETER_TRANSLATION_DECELERATION => 1
+    static TRANSLATION_DECELERATION => 1
 
     /**
      * The relative change in screen location, in DIPs.
+     * Native name: INERTIA_PARAMETER_TRANSLATION_DISPLACEMENT
      * @type {Integer (Int32)}
      */
-    static INERTIA_PARAMETER_TRANSLATION_DISPLACEMENT => 2
+    static TRANSLATION_DISPLACEMENT => 2
 
     /**
      * The rate of deceleration, in degrees/ms².
+     * Native name: INERTIA_PARAMETER_ROTATION_DECELERATION
      * @type {Integer (Int32)}
      */
-    static INERTIA_PARAMETER_ROTATION_DECELERATION => 3
+    static ROTATION_DECELERATION => 3
 
     /**
      * The relative change in angle of rotation, in radians.
+     * Native name: INERTIA_PARAMETER_ROTATION_ANGLE
      * @type {Integer (Int32)}
      */
-    static INERTIA_PARAMETER_ROTATION_ANGLE => 4
+    static ROTATION_ANGLE => 4
 
     /**
      * The rate of deceleration, in degrees/ms².
+     * Native name: INERTIA_PARAMETER_EXPANSION_DECELERATION
      * @type {Integer (Int32)}
      */
-    static INERTIA_PARAMETER_EXPANSION_DECELERATION => 5
+    static EXPANSION_DECELERATION => 5
 
     /**
      * The relative change in size, in pixels.
+     * Native name: INERTIA_PARAMETER_EXPANSION_EXPANSION
      * @type {Integer (Int32)}
      */
-    static INERTIA_PARAMETER_EXPANSION_EXPANSION => 6
+    static EXPANSION_EXPANSION => 6
 
     /**
      * Maximum number of interactions exceeded.
+     * Native name: INERTIA_PARAMETER_MAX
      * @type {Integer (Int32)}
      */
-    static INERTIA_PARAMETER_MAX => -1
+    static MAX => -1
 }

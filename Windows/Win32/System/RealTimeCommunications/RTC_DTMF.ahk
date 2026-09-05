@@ -7,87 +7,104 @@
 class RTC_DTMF extends Win32Enum {
 
     /**
+     * Native name: RTC_DTMF_0
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_0 => 0
+    static 0 => 0
 
     /**
+     * Native name: RTC_DTMF_1
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_1 => 1
+    static 1 => 1
 
     /**
+     * Native name: RTC_DTMF_2
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_2 => 2
+    static 2 => 2
 
     /**
+     * Native name: RTC_DTMF_3
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_3 => 3
+    static 3 => 3
 
     /**
+     * Native name: RTC_DTMF_4
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_4 => 4
+    static 4 => 4
 
     /**
+     * Native name: RTC_DTMF_5
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_5 => 5
+    static 5 => 5
 
     /**
+     * Native name: RTC_DTMF_6
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_6 => 6
+    static 6 => 6
 
     /**
+     * Native name: RTC_DTMF_7
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_7 => 7
+    static 7 => 7
 
     /**
+     * Native name: RTC_DTMF_8
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_8 => 8
+    static 8 => 8
 
     /**
+     * Native name: RTC_DTMF_9
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_9 => 9
+    static 9 => 9
 
     /**
+     * Native name: RTC_DTMF_STAR
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_STAR => 10
+    static STAR => 10
 
     /**
+     * Native name: RTC_DTMF_POUND
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_POUND => 11
+    static POUND => 11
 
     /**
+     * Native name: RTC_DTMF_A
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_A => 12
+    static A => 12
 
     /**
+     * Native name: RTC_DTMF_B
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_B => 13
+    static B => 13
 
     /**
+     * Native name: RTC_DTMF_C
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_C => 14
+    static C => 14
 
     /**
+     * Native name: RTC_DTMF_D
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_D => 15
+    static D => 15
 
     /**
+     * Native name: RTC_DTMF_FLASH
      * @type {Integer (Int32)}
      */
-    static RTC_DTMF_FLASH => 16
+    static FLASH => 16
 }

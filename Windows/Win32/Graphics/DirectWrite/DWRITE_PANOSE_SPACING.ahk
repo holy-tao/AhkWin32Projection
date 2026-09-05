@@ -10,25 +10,29 @@ class DWRITE_PANOSE_SPACING extends Win32Enum {
 
     /**
      * Any spacing.
+     * Native name: DWRITE_PANOSE_SPACING_ANY
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SPACING_ANY => 0
+    static ANY => 0
 
     /**
      * No fit for spacing.
+     * Native name: DWRITE_PANOSE_SPACING_NO_FIT
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SPACING_NO_FIT => 1
+    static NO_FIT => 1
 
     /**
      * Spacing is proportional.
+     * Native name: DWRITE_PANOSE_SPACING_PROPORTIONAL_SPACED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SPACING_PROPORTIONAL_SPACED => 2
+    static PROPORTIONAL_SPACED => 2
 
     /**
      * Spacing is monospace.
+     * Native name: DWRITE_PANOSE_SPACING_MONOSPACED
      * @type {Integer (Int32)}
      */
-    static DWRITE_PANOSE_SPACING_MONOSPACED => 3
+    static MONOSPACED => 3
 }

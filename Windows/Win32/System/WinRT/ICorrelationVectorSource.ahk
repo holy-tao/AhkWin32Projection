@@ -37,7 +37,6 @@ class ICorrelationVectorSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HSTRING} 
      */
     get_CorrelationVector() {

@@ -32,7 +32,6 @@ class IEncodingFilterFactory extends IUnknown {
     static VTableNames => ["FindBestFilter", "GetDefaultFilter"]
 
     /**
-     * 
      * @param {PWSTR} pwzCodeIn 
      * @param {PWSTR} pwzCodeOut 
      * @param {DATAINFO} info 
@@ -47,7 +46,6 @@ class IEncodingFilterFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzCodeIn 
      * @param {PWSTR} pwzCodeOut 
      * @returns {IDataFilter} 

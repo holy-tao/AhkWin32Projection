@@ -10,19 +10,22 @@ class CF_PLACEHOLDER_RANGE_INFO_CLASS extends Win32Enum {
 
     /**
      * On-disk data is data that is physical present in the file, which is a super set of other types of ranges.
+     * Native name: CF_PLACEHOLDER_RANGE_INFO_ONDISK
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_RANGE_INFO_ONDISK => 1
+    static ONDISK => 1
 
     /**
      * Validated data is a subset of the on-disk data that is currently in sync with the cloud.
+     * Native name: CF_PLACEHOLDER_RANGE_INFO_VALIDATED
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_RANGE_INFO_VALIDATED => 2
+    static VALIDATED => 2
 
     /**
      * Modified data is a subset of the on-disk data that is currently not in sync with the cloud, i.e., either modified or appended.
+     * Native name: CF_PLACEHOLDER_RANGE_INFO_MODIFIED
      * @type {Integer (Int32)}
      */
-    static CF_PLACEHOLDER_RANGE_INFO_MODIFIED => 3
+    static MODIFIED => 3
 }

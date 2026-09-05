@@ -10,13 +10,15 @@ class AM_WST_STYLE extends Win32Enum {
 
     /**
      * Reserved.
+     * Native name: AM_WST_STYLE_None
      * @type {Integer (Int32)}
      */
-    static AM_WST_STYLE_None => 0
+    static None => 0
 
     /**
      * Reserved.
+     * Native name: AM_WST_STYLE_Invers
      * @type {Integer (Int32)}
      */
-    static AM_WST_STYLE_Invers => 1
+    static Invers => 1
 }

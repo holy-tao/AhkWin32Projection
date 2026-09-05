@@ -32,7 +32,6 @@ class ICLRTask extends IUnknown {
     static VTableNames => ["SwitchIn", "SwitchOut", "GetMemStats", "Reset", "ExitTask", "Abort", "RudeAbort", "NeedsPriorityScheduling", "YieldTask", "LocksHeld", "SetTaskIdentifier"]
 
     /**
-     * 
      * @param {HANDLE} threadHandle 
      * @returns {HRESULT} 
      */
@@ -44,7 +43,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SwitchOut() {
@@ -53,7 +51,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {COR_GC_THREAD_STATS} 
      */
     GetMemStats() {
@@ -63,7 +60,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFull 
      * @returns {HRESULT} 
      */
@@ -73,7 +69,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExitTask() {
@@ -82,7 +77,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -91,7 +85,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RudeAbort() {
@@ -100,7 +93,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     NeedsPriorityScheduling() {
@@ -109,7 +101,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     YieldTask() {
@@ -118,7 +109,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     LocksHeld() {
@@ -127,7 +117,6 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} asked 
      * @returns {HRESULT} 
      */

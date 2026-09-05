@@ -10,86 +10,101 @@ class D3D12_VIDEO_ENCODER_VALIDATION_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The specified codec is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_CODEC_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_CODEC_NOT_SUPPORTED => 1
+    static FLAG_CODEC_NOT_SUPPORTED => 1
 
     /**
      * The specified input format is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_INPUT_FORMAT_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_INPUT_FORMAT_NOT_SUPPORTED => 8
+    static FLAG_INPUT_FORMAT_NOT_SUPPORTED => 8
 
     /**
      * The specified codec configuration is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_CODEC_CONFIGURATION_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_CODEC_CONFIGURATION_NOT_SUPPORTED => 16
+    static FLAG_CODEC_CONFIGURATION_NOT_SUPPORTED => 16
 
     /**
      * The specified rate control mode is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_RATE_CONTROL_MODE_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_RATE_CONTROL_MODE_NOT_SUPPORTED => 32
+    static FLAG_RATE_CONTROL_MODE_NOT_SUPPORTED => 32
 
     /**
      * The specified rate control configuration is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_RATE_CONTROL_CONFIGURATION_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_RATE_CONTROL_CONFIGURATION_NOT_SUPPORTED => 64
+    static FLAG_RATE_CONTROL_CONFIGURATION_NOT_SUPPORTED => 64
 
     /**
      * The specified intra refresh mode is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_INTRA_REFRESH_MODE_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_INTRA_REFRESH_MODE_NOT_SUPPORTED => 128
+    static FLAG_INTRA_REFRESH_MODE_NOT_SUPPORTED => 128
 
     /**
      * The specified subregion layout mode is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_SUBREGION_LAYOUT_MODE_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_SUBREGION_LAYOUT_MODE_NOT_SUPPORTED => 256
+    static FLAG_SUBREGION_LAYOUT_MODE_NOT_SUPPORTED => 256
 
     /**
      * The specified resolution is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_RESOLUTION_NOT_SUPPORTED_IN_LIST
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_RESOLUTION_NOT_SUPPORTED_IN_LIST => 512
+    static FLAG_RESOLUTION_NOT_SUPPORTED_IN_LIST => 512
 
     /**
      * The specified GOP structure is not supported.
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_GOP_STRUCTURE_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_GOP_STRUCTURE_NOT_SUPPORTED => 2048
+    static FLAG_GOP_STRUCTURE_NOT_SUPPORTED => 2048
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_SUBREGION_LAYOUT_DATA_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_SUBREGION_LAYOUT_DATA_NOT_SUPPORTED => 4096
+    static FLAG_SUBREGION_LAYOUT_DATA_NOT_SUPPORTED => 4096
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_QPMAP_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_QPMAP_NOT_SUPPORTED => 8192
+    static FLAG_QPMAP_NOT_SUPPORTED => 8192
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_DIRTY_REGIONS_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_DIRTY_REGIONS_NOT_SUPPORTED => 16384
+    static FLAG_DIRTY_REGIONS_NOT_SUPPORTED => 16384
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_MOTION_SEARCH_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_MOTION_SEARCH_NOT_SUPPORTED => 32768
+    static FLAG_MOTION_SEARCH_NOT_SUPPORTED => 32768
 
     /**
+     * Native name: D3D12_VIDEO_ENCODER_VALIDATION_FLAG_FRAME_ANALYSIS_NOT_SUPPORTED
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_FRAME_ANALYSIS_NOT_SUPPORTED => 65536
+    static FLAG_FRAME_ANALYSIS_NOT_SUPPORTED => 65536
 }

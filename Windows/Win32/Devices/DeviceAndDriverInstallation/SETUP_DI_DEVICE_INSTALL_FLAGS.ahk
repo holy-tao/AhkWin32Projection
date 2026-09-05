@@ -7,167 +7,200 @@
 class SETUP_DI_DEVICE_INSTALL_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: DI_SHOWOEM
      * @type {Integer (UInt32)}
      */
-    static DI_SHOWOEM => 1
+    static SHOWOEM => 1
 
     /**
+     * Native name: DI_SHOWCOMPAT
      * @type {Integer (UInt32)}
      */
-    static DI_SHOWCOMPAT => 2
+    static SHOWCOMPAT => 2
 
     /**
+     * Native name: DI_SHOWCLASS
      * @type {Integer (UInt32)}
      */
-    static DI_SHOWCLASS => 4
+    static SHOWCLASS => 4
 
     /**
+     * Native name: DI_SHOWALL
      * @type {Integer (UInt32)}
      */
-    static DI_SHOWALL => 7
+    static SHOWALL => 7
 
     /**
+     * Native name: DI_NOVCP
      * @type {Integer (UInt32)}
      */
-    static DI_NOVCP => 8
+    static NOVCP => 8
 
     /**
+     * Native name: DI_DIDCOMPAT
      * @type {Integer (UInt32)}
      */
-    static DI_DIDCOMPAT => 16
+    static DIDCOMPAT => 16
 
     /**
+     * Native name: DI_DIDCLASS
      * @type {Integer (UInt32)}
      */
-    static DI_DIDCLASS => 32
+    static DIDCLASS => 32
 
     /**
+     * Native name: DI_AUTOASSIGNRES
      * @type {Integer (UInt32)}
      */
-    static DI_AUTOASSIGNRES => 64
+    static AUTOASSIGNRES => 64
 
     /**
+     * Native name: DI_NEEDRESTART
      * @type {Integer (UInt32)}
      */
-    static DI_NEEDRESTART => 128
+    static NEEDRESTART => 128
 
     /**
+     * Native name: DI_NEEDREBOOT
      * @type {Integer (UInt32)}
      */
-    static DI_NEEDREBOOT => 256
+    static NEEDREBOOT => 256
 
     /**
+     * Native name: DI_NOBROWSE
      * @type {Integer (UInt32)}
      */
-    static DI_NOBROWSE => 512
+    static NOBROWSE => 512
 
     /**
+     * Native name: DI_MULTMFGS
      * @type {Integer (UInt32)}
      */
-    static DI_MULTMFGS => 1024
+    static MULTMFGS => 1024
 
     /**
+     * Native name: DI_DISABLED
      * @type {Integer (UInt32)}
      */
-    static DI_DISABLED => 2048
+    static DISABLED => 2048
 
     /**
+     * Native name: DI_GENERALPAGE_ADDED
      * @type {Integer (UInt32)}
      */
-    static DI_GENERALPAGE_ADDED => 4096
+    static GENERALPAGE_ADDED => 4096
 
     /**
+     * Native name: DI_RESOURCEPAGE_ADDED
      * @type {Integer (UInt32)}
      */
-    static DI_RESOURCEPAGE_ADDED => 8192
+    static RESOURCEPAGE_ADDED => 8192
 
     /**
+     * Native name: DI_PROPERTIES_CHANGE
      * @type {Integer (UInt32)}
      */
-    static DI_PROPERTIES_CHANGE => 16384
+    static PROPERTIES_CHANGE => 16384
 
     /**
+     * Native name: DI_INF_IS_SORTED
      * @type {Integer (UInt32)}
      */
-    static DI_INF_IS_SORTED => 32768
+    static INF_IS_SORTED => 32768
 
     /**
+     * Native name: DI_ENUMSINGLEINF
      * @type {Integer (UInt32)}
      */
-    static DI_ENUMSINGLEINF => 65536
+    static ENUMSINGLEINF => 65536
 
     /**
+     * Native name: DI_DONOTCALLCONFIGMG
      * @type {Integer (UInt32)}
      */
-    static DI_DONOTCALLCONFIGMG => 131072
+    static DONOTCALLCONFIGMG => 131072
 
     /**
+     * Native name: DI_INSTALLDISABLED
      * @type {Integer (UInt32)}
      */
-    static DI_INSTALLDISABLED => 262144
+    static INSTALLDISABLED => 262144
 
     /**
+     * Native name: DI_COMPAT_FROM_CLASS
      * @type {Integer (UInt32)}
      */
-    static DI_COMPAT_FROM_CLASS => 524288
+    static COMPAT_FROM_CLASS => 524288
 
     /**
+     * Native name: DI_CLASSINSTALLPARAMS
      * @type {Integer (UInt32)}
      */
-    static DI_CLASSINSTALLPARAMS => 1048576
+    static CLASSINSTALLPARAMS => 1048576
 
     /**
+     * Native name: DI_NODI_DEFAULTACTION
      * @type {Integer (UInt32)}
      */
-    static DI_NODI_DEFAULTACTION => 2097152
+    static NODI_DEFAULTACTION => 2097152
 
     /**
+     * Native name: DI_QUIETINSTALL
      * @type {Integer (UInt32)}
      */
-    static DI_QUIETINSTALL => 8388608
+    static QUIETINSTALL => 8388608
 
     /**
+     * Native name: DI_NOFILECOPY
      * @type {Integer (UInt32)}
      */
-    static DI_NOFILECOPY => 16777216
+    static NOFILECOPY => 16777216
 
     /**
+     * Native name: DI_FORCECOPY
      * @type {Integer (UInt32)}
      */
-    static DI_FORCECOPY => 33554432
+    static FORCECOPY => 33554432
 
     /**
+     * Native name: DI_DRIVERPAGE_ADDED
      * @type {Integer (UInt32)}
      */
-    static DI_DRIVERPAGE_ADDED => 67108864
+    static DRIVERPAGE_ADDED => 67108864
 
     /**
+     * Native name: DI_USECI_SELECTSTRINGS
      * @type {Integer (UInt32)}
      */
-    static DI_USECI_SELECTSTRINGS => 134217728
+    static USECI_SELECTSTRINGS => 134217728
 
     /**
+     * Native name: DI_OVERRIDE_INFFLAGS
      * @type {Integer (UInt32)}
      */
-    static DI_OVERRIDE_INFFLAGS => 268435456
+    static OVERRIDE_INFFLAGS => 268435456
 
     /**
+     * Native name: DI_PROPS_NOCHANGEUSAGE
      * @type {Integer (UInt32)}
      */
-    static DI_PROPS_NOCHANGEUSAGE => 536870912
+    static PROPS_NOCHANGEUSAGE => 536870912
 
     /**
+     * Native name: DI_NOSELECTICONS
      * @type {Integer (UInt32)}
      */
-    static DI_NOSELECTICONS => 1073741824
+    static NOSELECTICONS => 1073741824
 
     /**
+     * Native name: DI_NOWRITE_IDS
      * @type {Integer (UInt32)}
      */
-    static DI_NOWRITE_IDS => 2147483648
+    static NOWRITE_IDS => 2147483648
 
     /**
+     * Native name: DI_UNREMOVEDEVICE_CONFIGSPECIFIC
      * @type {Integer (UInt32)}
      */
-    static DI_UNREMOVEDEVICE_CONFIGSPECIFIC => 2
+    static UNREMOVEDEVICE_CONFIGSPECIFIC => 2
 }

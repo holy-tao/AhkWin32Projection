@@ -7,12 +7,14 @@
 class COMAdminAccessChecksLevelOptions extends Win32Enum {
 
     /**
+     * Native name: COMAdminAccessChecksApplicationLevel
      * @type {Integer (Int32)}
      */
-    static COMAdminAccessChecksApplicationLevel => 0
+    static ApplicationLevel => 0
 
     /**
+     * Native name: COMAdminAccessChecksApplicationComponentLevel
      * @type {Integer (Int32)}
      */
-    static COMAdminAccessChecksApplicationComponentLevel => 1
+    static ApplicationComponentLevel => 1
 }

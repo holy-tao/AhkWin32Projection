@@ -7,27 +7,32 @@
 class WER_CONSENT extends Win32Enum {
 
     /**
+     * Native name: WerConsentNotAsked
      * @type {Integer (Int32)}
      */
-    static WerConsentNotAsked => 1
+    static NotAsked => 1
 
     /**
+     * Native name: WerConsentApproved
      * @type {Integer (Int32)}
      */
-    static WerConsentApproved => 2
+    static Approved => 2
 
     /**
+     * Native name: WerConsentDenied
      * @type {Integer (Int32)}
      */
-    static WerConsentDenied => 3
+    static Denied => 3
 
     /**
+     * Native name: WerConsentAlwaysPrompt
      * @type {Integer (Int32)}
      */
-    static WerConsentAlwaysPrompt => 4
+    static AlwaysPrompt => 4
 
     /**
+     * Native name: WerConsentMax
      * @type {Integer (Int32)}
      */
-    static WerConsentMax => 5
+    static Max => 5
 }

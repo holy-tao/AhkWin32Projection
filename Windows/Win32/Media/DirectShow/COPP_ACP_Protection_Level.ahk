@@ -10,43 +10,50 @@ class COPP_ACP_Protection_Level extends Win32Enum {
 
     /**
      * Level 0.
+     * Native name: COPP_ACP_Level0
      * @type {Integer (Int32)}
      */
-    static COPP_ACP_Level0 => 0
+    static Level0 => 0
 
     /**
      * Minimum ACP level. Equivalent to <b>COPP_ACP_Level0</b>.
+     * Native name: COPP_ACP_LevelMin
      * @type {Integer (Int32)}
      */
-    static COPP_ACP_LevelMin => 0
+    static Min => 0
 
     /**
      * Level 1.
+     * Native name: COPP_ACP_Level1
      * @type {Integer (Int32)}
      */
-    static COPP_ACP_Level1 => 1
+    static Level1 => 1
 
     /**
      * Level 2.
+     * Native name: COPP_ACP_Level2
      * @type {Integer (Int32)}
      */
-    static COPP_ACP_Level2 => 2
+    static Level2 => 2
 
     /**
      * Level 3.
+     * Native name: COPP_ACP_Level3
      * @type {Integer (Int32)}
      */
-    static COPP_ACP_Level3 => 3
+    static Level3 => 3
 
     /**
      * Maximum ACP level. Equivalent to <b>COPP_ACP_Level3</b>.
+     * Native name: COPP_ACP_LevelMax
      * @type {Integer (Int32)}
      */
-    static COPP_ACP_LevelMax => 3
+    static Max => 3
 
     /**
      * Reserved.
+     * Native name: COPP_ACP_ForceDWORD
      * @type {Integer (Int32)}
      */
-    static COPP_ACP_ForceDWORD => 2147483647
+    static ForceDWORD => 2147483647
 }

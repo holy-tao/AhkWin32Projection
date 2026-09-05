@@ -52,7 +52,6 @@ class IDxcVersionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {

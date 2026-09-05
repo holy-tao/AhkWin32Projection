@@ -10,109 +10,125 @@ class AUTHZ_CONTEXT_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user">TOKEN_USER</a> structure that contains a user <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) and its attribute.
+     * Native name: AuthzContextInfoUserSid
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoUserSid => 1
+    static InfoUserSid => 1
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the group SIDs to which the user belongs and their attributes.
+     * Native name: AuthzContextInfoGroupsSids
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoGroupsSids => 2
+    static InfoGroupsSids => 2
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the restricted group SIDs in the context and their attributes.
+     * Native name: AuthzContextInfoRestrictedSids
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoRestrictedSids => 3
+    static InfoRestrictedSids => 3
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_privileges">TOKEN_PRIVILEGES</a> structure that contains the privileges held by the user.
+     * Native name: AuthzContextInfoPrivileges
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoPrivileges => 4
+    static InfoPrivileges => 4
 
     /**
      * Retrieves the expiration time set on the context.
+     * Native name: AuthzContextInfoExpirationTime
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoExpirationTime => 5
+    static InfoExpirationTime => 5
 
     /**
      * This constant is reserved. Do not use it.
+     * Native name: AuthzContextInfoServerContext
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoServerContext => 6
+    static InfoServerContext => 6
 
     /**
      * Retrieves an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structures used by the resource manager to identify the context.
+     * Native name: AuthzContextInfoIdentifier
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoIdentifier => 7
+    static InfoIdentifier => 7
 
     /**
      * This constant is reserved. Do not use it.
+     * Native name: AuthzContextInfoSource
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoSource => 8
+    static InfoSource => 8
 
     /**
      * This constant is reserved. Do not use it.
+     * Native name: AuthzContextInfoAll
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoAll => 9
+    static InfoAll => 9
 
     /**
      * This constant is reserved. Do not use it.
+     * Native name: AuthzContextInfoAuthenticationId
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoAuthenticationId => 10
+    static InfoAuthenticationId => 10
 
     /**
      * Retrieves an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that contains security attributes.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * Native name: AuthzContextInfoSecurityAttributes
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoSecurityAttributes => 11
+    static InfoSecurityAttributes => 11
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains device SIDs and their attributes.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * Native name: AuthzContextInfoDeviceSids
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoDeviceSids => 12
+    static InfoDeviceSids => 12
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that contains user claims.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * Native name: AuthzContextInfoUserClaims
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoUserClaims => 13
+    static InfoUserClaims => 13
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that contains device claims.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * Native name: AuthzContextInfoDeviceClaims
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoDeviceClaims => 14
+    static InfoDeviceClaims => 14
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_appcontainer_information">TOKEN_APPCONTAINER_INFORMATION</a> structure that contains the app container SID.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * Native name: AuthzContextInfoAppContainerSid
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoAppContainerSid => 15
+    static InfoAppContainerSid => 15
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains capability SIDs.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * Native name: AuthzContextInfoCapabilitySids
      * @type {Integer (Int32)}
      */
-    static AuthzContextInfoCapabilitySids => 16
+    static InfoCapabilitySids => 16
 }

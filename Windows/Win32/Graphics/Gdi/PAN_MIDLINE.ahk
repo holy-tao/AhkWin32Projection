@@ -7,77 +7,92 @@
 class PAN_MIDLINE extends Win32Enum {
 
     /**
+     * Native name: PAN_MIDLINE_ANY
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_ANY => 0x00
+    static ANY => 0x00
 
     /**
+     * Native name: PAN_MIDLINE_NO_FIT
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_NO_FIT => 0x01
+    static NO_FIT => 0x01
 
     /**
+     * Native name: PAN_MIDLINE_INDEX
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_INDEX => 0x08
+    static INDEX => 0x08
 
     /**
+     * Native name: PAN_MIDLINE_STANDARD_TRIMMED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_STANDARD_TRIMMED => 0x02
+    static STANDARD_TRIMMED => 0x02
 
     /**
+     * Native name: PAN_MIDLINE_STANDARD_POINTED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_STANDARD_POINTED => 0x03
+    static STANDARD_POINTED => 0x03
 
     /**
+     * Native name: PAN_MIDLINE_STANDARD_SERIFED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_STANDARD_SERIFED => 0x04
+    static STANDARD_SERIFED => 0x04
 
     /**
+     * Native name: PAN_MIDLINE_HIGH_TRIMMED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_HIGH_TRIMMED => 0x05
+    static HIGH_TRIMMED => 0x05
 
     /**
+     * Native name: PAN_MIDLINE_HIGH_POINTED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_HIGH_POINTED => 0x06
+    static HIGH_POINTED => 0x06
 
     /**
+     * Native name: PAN_MIDLINE_HIGH_SERIFED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_HIGH_SERIFED => 0x07
+    static HIGH_SERIFED => 0x07
 
     /**
+     * Native name: PAN_MIDLINE_CONSTANT_TRIMMED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_CONSTANT_TRIMMED => 0x08
+    static CONSTANT_TRIMMED => 0x08
 
     /**
+     * Native name: PAN_MIDLINE_CONSTANT_POINTED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_CONSTANT_POINTED => 0x09
+    static CONSTANT_POINTED => 0x09
 
     /**
+     * Native name: PAN_MIDLINE_CONSTANT_SERIFED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_CONSTANT_SERIFED => 0x0A
+    static CONSTANT_SERIFED => 0x0A
 
     /**
+     * Native name: PAN_MIDLINE_LOW_TRIMMED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_LOW_TRIMMED => 0x0B
+    static LOW_TRIMMED => 0x0B
 
     /**
+     * Native name: PAN_MIDLINE_LOW_POINTED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_LOW_POINTED => 0x0C
+    static LOW_POINTED => 0x0C
 
     /**
+     * Native name: PAN_MIDLINE_LOW_SERIFED
      * @type {Integer (Byte)}
      */
-    static PAN_MIDLINE_LOW_SERIFED => 0x0D
+    static LOW_SERIFED => 0x0D
 }

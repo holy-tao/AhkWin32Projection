@@ -10,13 +10,15 @@ class GPMStarterGPOType extends Win32Enum {
 
     /**
      * A system Starter Group Policy object
+     * Native name: typeSystem
      * @type {Integer (Int32)}
      */
-    static typeSystem => 0
+    static System => 0
 
     /**
      * A  custom Starter Group Policy object
+     * Native name: typeCustom
      * @type {Integer (Int32)}
      */
-    static typeCustom => 1
+    static Custom => 1
 }

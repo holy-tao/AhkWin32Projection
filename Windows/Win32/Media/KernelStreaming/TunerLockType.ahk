@@ -7,17 +7,20 @@
 class TunerLockType extends Win32Enum {
 
     /**
+     * Native name: Tuner_LockType_None
      * @type {Integer (Int32)}
      */
-    static Tuner_LockType_None => 0
+    static None => 0
 
     /**
+     * Native name: Tuner_LockType_Within_Scan_Sensing_Range
      * @type {Integer (Int32)}
      */
-    static Tuner_LockType_Within_Scan_Sensing_Range => 1
+    static Within_Scan_Sensing_Range => 1
 
     /**
+     * Native name: Tuner_LockType_Locked
      * @type {Integer (Int32)}
      */
-    static Tuner_LockType_Locked => 2
+    static Locked => 2
 }

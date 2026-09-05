@@ -7,22 +7,26 @@
 class FRAMING_CACHE_OPS extends Win32Enum {
 
     /**
+     * Native name: Framing_Cache_Update
      * @type {Integer (Int32)}
      */
-    static Framing_Cache_Update => 0
+    static Update => 0
 
     /**
+     * Native name: Framing_Cache_ReadLast
      * @type {Integer (Int32)}
      */
-    static Framing_Cache_ReadLast => 1
+    static ReadLast => 1
 
     /**
+     * Native name: Framing_Cache_ReadOrig
      * @type {Integer (Int32)}
      */
-    static Framing_Cache_ReadOrig => 2
+    static ReadOrig => 2
 
     /**
+     * Native name: Framing_Cache_Write
      * @type {Integer (Int32)}
      */
-    static Framing_Cache_Write => 3
+    static Write => 3
 }

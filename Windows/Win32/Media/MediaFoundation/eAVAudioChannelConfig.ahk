@@ -12,109 +12,127 @@ class eAVAudioChannelConfig extends Win32Enum {
 
     /**
      * Front left
+     * Native name: eAVAudioChannelConfig_FRONT_LEFT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_FRONT_LEFT => 1
+    static FRONT_LEFT => 1
 
     /**
      * Front right
+     * Native name: eAVAudioChannelConfig_FRONT_RIGHT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_FRONT_RIGHT => 2
+    static FRONT_RIGHT => 2
 
     /**
      * Front center
+     * Native name: eAVAudioChannelConfig_FRONT_CENTER
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_FRONT_CENTER => 4
+    static FRONT_CENTER => 4
 
     /**
      * Low frequency effect (LFE)
+     * Native name: eAVAudioChannelConfig_LOW_FREQUENCY
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_LOW_FREQUENCY => 8
+    static LOW_FREQUENCY => 8
 
     /**
      * Back left
+     * Native name: eAVAudioChannelConfig_BACK_LEFT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_BACK_LEFT => 16
+    static BACK_LEFT => 16
 
     /**
      * Back right
+     * Native name: eAVAudioChannelConfig_BACK_RIGHT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_BACK_RIGHT => 32
+    static BACK_RIGHT => 32
 
     /**
      * Front, left of center
+     * Native name: eAVAudioChannelConfig_FRONT_LEFT_OF_CENTER
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_FRONT_LEFT_OF_CENTER => 64
+    static FRONT_LEFT_OF_CENTER => 64
 
     /**
      * Front, right of center
+     * Native name: eAVAudioChannelConfig_FRONT_RIGHT_OF_CENTER
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_FRONT_RIGHT_OF_CENTER => 128
+    static FRONT_RIGHT_OF_CENTER => 128
 
     /**
      * Back center
+     * Native name: eAVAudioChannelConfig_BACK_CENTER
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_BACK_CENTER => 256
+    static BACK_CENTER => 256
 
     /**
      * Side left
+     * Native name: eAVAudioChannelConfig_SIDE_LEFT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_SIDE_LEFT => 512
+    static SIDE_LEFT => 512
 
     /**
      * Side right
+     * Native name: eAVAudioChannelConfig_SIDE_RIGHT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_SIDE_RIGHT => 1024
+    static SIDE_RIGHT => 1024
 
     /**
      * Top center
+     * Native name: eAVAudioChannelConfig_TOP_CENTER
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_TOP_CENTER => 2048
+    static TOP_CENTER => 2048
 
     /**
      * Top, front left
+     * Native name: eAVAudioChannelConfig_TOP_FRONT_LEFT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_TOP_FRONT_LEFT => 4096
+    static TOP_FRONT_LEFT => 4096
 
     /**
      * Top, front center
+     * Native name: eAVAudioChannelConfig_TOP_FRONT_CENTER
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_TOP_FRONT_CENTER => 8192
+    static TOP_FRONT_CENTER => 8192
 
     /**
      * Top, front right
+     * Native name: eAVAudioChannelConfig_TOP_FRONT_RIGHT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_TOP_FRONT_RIGHT => 16384
+    static TOP_FRONT_RIGHT => 16384
 
     /**
      * Top, back left
+     * Native name: eAVAudioChannelConfig_TOP_BACK_LEFT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_TOP_BACK_LEFT => 32768
+    static TOP_BACK_LEFT => 32768
 
     /**
      * Top, back center
+     * Native name: eAVAudioChannelConfig_TOP_BACK_CENTER
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_TOP_BACK_CENTER => 65536
+    static TOP_BACK_CENTER => 65536
 
     /**
      * Top, back right
+     * Native name: eAVAudioChannelConfig_TOP_BACK_RIGHT
      * @type {Integer (Int32)}
      */
-    static eAVAudioChannelConfig_TOP_BACK_RIGHT => 131072
+    static TOP_BACK_RIGHT => 131072
 }

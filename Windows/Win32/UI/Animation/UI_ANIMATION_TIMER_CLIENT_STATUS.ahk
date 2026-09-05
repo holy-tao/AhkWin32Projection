@@ -10,13 +10,15 @@ class UI_ANIMATION_TIMER_CLIENT_STATUS extends Win32Enum {
 
     /**
      * The client is idle.
+     * Native name: UI_ANIMATION_TIMER_CLIENT_IDLE
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_TIMER_CLIENT_IDLE => 0
+    static IDLE => 0
 
     /**
      * The client is busy.
+     * Native name: UI_ANIMATION_TIMER_CLIENT_BUSY
      * @type {Integer (Int32)}
      */
-    static UI_ANIMATION_TIMER_CLIENT_BUSY => 1
+    static BUSY => 1
 }

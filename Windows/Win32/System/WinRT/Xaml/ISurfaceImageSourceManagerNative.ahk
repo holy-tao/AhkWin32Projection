@@ -31,7 +31,6 @@ class ISurfaceImageSourceManagerNative extends IUnknown {
     static VTableNames => ["FlushAllSurfacesWithDevice"]
 
     /**
-     * 
      * @param {IUnknown} device 
      * @returns {HRESULT} 
      */

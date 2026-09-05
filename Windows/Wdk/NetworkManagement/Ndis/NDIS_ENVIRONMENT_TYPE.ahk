@@ -7,12 +7,14 @@
 class NDIS_ENVIRONMENT_TYPE extends Win32Enum {
 
     /**
+     * Native name: NdisEnvironmentWindows
      * @type {Integer (Int32)}
      */
-    static NdisEnvironmentWindows => 0
+    static Windows => 0
 
     /**
+     * Native name: NdisEnvironmentWindowsNt
      * @type {Integer (Int32)}
      */
-    static NdisEnvironmentWindowsNt => 1
+    static WindowsNt => 1
 }

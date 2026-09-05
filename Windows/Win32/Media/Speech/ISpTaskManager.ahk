@@ -35,7 +35,6 @@ class ISpTaskManager extends IUnknown {
     static VTableNames => ["SetThreadPoolInfo", "GetThreadPoolInfo", "QueueTask", "CreateReoccurringTask", "CreateThreadControl", "TerminateTask", "TerminateTaskGroup"]
 
     /**
-     * 
      * @param {Pointer<SPTMTHREADINFO>} pPoolInfo 
      * @returns {HRESULT} 
      */
@@ -45,7 +44,6 @@ class ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SPTMTHREADINFO} 
      */
     GetThreadPoolInfo() {
@@ -55,7 +53,6 @@ class ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hCompEvent 
@@ -73,7 +70,6 @@ class ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hCompEvent 
@@ -89,7 +85,6 @@ class ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpThreadTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {Integer} nPriority 
@@ -103,7 +98,6 @@ class ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwTaskId 
      * @param {Integer} ulWaitPeriod 
      * @returns {HRESULT} 
@@ -114,7 +108,6 @@ class ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwGroupId 
      * @param {Integer} ulWaitPeriod 
      * @returns {HRESULT} 

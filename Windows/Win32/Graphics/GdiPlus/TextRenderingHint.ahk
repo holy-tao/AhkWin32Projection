@@ -7,32 +7,38 @@
 class TextRenderingHint extends Win32Enum {
 
     /**
+     * Native name: TextRenderingHintSystemDefault
      * @type {Integer (Int32)}
      */
-    static TextRenderingHintSystemDefault => 0
+    static SystemDefault => 0
 
     /**
+     * Native name: TextRenderingHintSingleBitPerPixelGridFit
      * @type {Integer (Int32)}
      */
-    static TextRenderingHintSingleBitPerPixelGridFit => 1
+    static SingleBitPerPixelGridFit => 1
 
     /**
+     * Native name: TextRenderingHintSingleBitPerPixel
      * @type {Integer (Int32)}
      */
-    static TextRenderingHintSingleBitPerPixel => 2
+    static SingleBitPerPixel => 2
 
     /**
+     * Native name: TextRenderingHintAntiAliasGridFit
      * @type {Integer (Int32)}
      */
-    static TextRenderingHintAntiAliasGridFit => 3
+    static AntiAliasGridFit => 3
 
     /**
+     * Native name: TextRenderingHintAntiAlias
      * @type {Integer (Int32)}
      */
-    static TextRenderingHintAntiAlias => 4
+    static AntiAlias => 4
 
     /**
+     * Native name: TextRenderingHintClearTypeGridFit
      * @type {Integer (Int32)}
      */
-    static TextRenderingHintClearTypeGridFit => 5
+    static ClearTypeGridFit => 5
 }

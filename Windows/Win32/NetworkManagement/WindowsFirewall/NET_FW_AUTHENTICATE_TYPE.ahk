@@ -10,31 +10,36 @@ class NET_FW_AUTHENTICATE_TYPE extends Win32Enum {
 
     /**
      * No security check is performed.
+     * Native name: NET_FW_AUTHENTICATE_NONE
      * @type {Integer (Int32)}
      */
-    static NET_FW_AUTHENTICATE_NONE => 0
+    static NONE => 0
 
     /**
      * The traffic is allowed if it is IPsec-protected with authentication and no encapsulation protection. This means that the peer is authenticated, but there is no integrity protection on the data.
+     * Native name: NET_FW_AUTHENTICATE_NO_ENCAPSULATION
      * @type {Integer (Int32)}
      */
-    static NET_FW_AUTHENTICATE_NO_ENCAPSULATION => 1
+    static NO_ENCAPSULATION => 1
 
     /**
      * The traffic is allowed if it is IPsec-protected with authentication and integrity protection.
+     * Native name: NET_FW_AUTHENTICATE_WITH_INTEGRITY
      * @type {Integer (Int32)}
      */
-    static NET_FW_AUTHENTICATE_WITH_INTEGRITY => 2
+    static WITH_INTEGRITY => 2
 
     /**
      * The traffic is allowed if its is IPsec-protected with authentication and integrity protection. In addition, negotiation of encryption protections on subsequent packets is requested.
+     * Native name: NET_FW_AUTHENTICATE_AND_NEGOTIATE_ENCRYPTION
      * @type {Integer (Int32)}
      */
-    static NET_FW_AUTHENTICATE_AND_NEGOTIATE_ENCRYPTION => 3
+    static AND_NEGOTIATE_ENCRYPTION => 3
 
     /**
      * The traffic is allowed if it is IPsec-protected with authentication, integrity and encryption protection since the very first packet.
+     * Native name: NET_FW_AUTHENTICATE_AND_ENCRYPT
      * @type {Integer (Int32)}
      */
-    static NET_FW_AUTHENTICATE_AND_ENCRYPT => 4
+    static AND_ENCRYPT => 4
 }

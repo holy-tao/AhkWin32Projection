@@ -7,27 +7,32 @@
 class STORAGE_DISK_HEALTH_STATUS extends Win32Enum {
 
     /**
+     * Native name: DiskHealthUnknown
      * @type {Integer (Int32)}
      */
-    static DiskHealthUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: DiskHealthUnhealthy
      * @type {Integer (Int32)}
      */
-    static DiskHealthUnhealthy => 1
+    static Unhealthy => 1
 
     /**
+     * Native name: DiskHealthWarning
      * @type {Integer (Int32)}
      */
-    static DiskHealthWarning => 2
+    static Warning => 2
 
     /**
+     * Native name: DiskHealthHealthy
      * @type {Integer (Int32)}
      */
-    static DiskHealthHealthy => 3
+    static Healthy => 3
 
     /**
+     * Native name: DiskHealthMax
      * @type {Integer (Int32)}
      */
-    static DiskHealthMax => 4
+    static Max => 4
 }

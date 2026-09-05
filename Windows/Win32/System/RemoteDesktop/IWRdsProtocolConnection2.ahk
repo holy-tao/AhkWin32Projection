@@ -30,7 +30,6 @@ class IWRdsProtocolConnection2 extends IWRdsProtocolConnection {
     static VTableNames => ["GetSerializedUserCredential"]
 
     /**
-     * 
      * @returns {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} 
      */
     GetSerializedUserCredential() {

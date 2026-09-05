@@ -12,41 +12,48 @@ class SAFER_POLICY_INFO_CLASS extends Win32Enum {
 
     /**
      * Queries for the list of all levels defined in a policy.
+     * Native name: SaferPolicyLevelList
      * @type {Integer (Int32)}
      */
-    static SaferPolicyLevelList => 1
+    static LevelList => 1
 
     /**
      * Queries for the policy value to determine whether DLL checking is enabled.
+     * Native name: SaferPolicyEnableTransparentEnforcement
      * @type {Integer (Int32)}
      */
-    static SaferPolicyEnableTransparentEnforcement => 2
+    static EnableTransparentEnforcement => 2
 
     /**
      * Queries for the default policy level.
+     * Native name: SaferPolicyDefaultLevel
      * @type {Integer (Int32)}
      */
-    static SaferPolicyDefaultLevel => 3
+    static DefaultLevel => 3
 
     /**
      * Queries to determine whether user scope rules should be consulted during policy evaluation.
+     * Native name: SaferPolicyEvaluateUserScope
      * @type {Integer (Int32)}
      */
-    static SaferPolicyEvaluateUserScope => 4
+    static EvaluateUserScope => 4
 
     /**
      * Queries to determine whether the policy is to skip members of the local administrators group.
+     * Native name: SaferPolicyScopeFlags
      * @type {Integer (Int32)}
      */
-    static SaferPolicyScopeFlags => 5
+    static ScopeFlags => 5
 
     /**
+     * Native name: SaferPolicyDefaultLevelFlags
      * @type {Integer (Int32)}
      */
-    static SaferPolicyDefaultLevelFlags => 6
+    static DefaultLevelFlags => 6
 
     /**
+     * Native name: SaferPolicyAuthenticodeEnabled
      * @type {Integer (Int32)}
      */
-    static SaferPolicyAuthenticodeEnabled => 7
+    static AuthenticodeEnabled => 7
 }

@@ -7,27 +7,32 @@
 class KSPROPERTY_JACK extends Win32Enum {
 
     /**
+     * Native name: KSPROPERTY_JACK_DESCRIPTION
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_JACK_DESCRIPTION => 1
+    static DESCRIPTION => 1
 
     /**
+     * Native name: KSPROPERTY_JACK_DESCRIPTION2
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_JACK_DESCRIPTION2 => 2
+    static DESCRIPTION2 => 2
 
     /**
+     * Native name: KSPROPERTY_JACK_SINK_INFO
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_JACK_SINK_INFO => 3
+    static SINK_INFO => 3
 
     /**
+     * Native name: KSPROPERTY_JACK_CONTAINERID
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_JACK_CONTAINERID => 4
+    static CONTAINERID => 4
 
     /**
+     * Native name: KSPROPERTY_JACK_DESCRIPTION3
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_JACK_DESCRIPTION3 => 5
+    static DESCRIPTION3 => 5
 }

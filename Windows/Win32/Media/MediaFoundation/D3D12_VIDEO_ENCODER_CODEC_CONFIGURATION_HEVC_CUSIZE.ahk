@@ -12,25 +12,29 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE extends Win32Enum {
 
     /**
      * Luma coding block of pixel size 8.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_8x8
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_8x8 => 0
+    static 8x8 => 0
 
     /**
      * Luma coding block of pixel size 16.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_16x16
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_16x16 => 1
+    static 16x16 => 1
 
     /**
      * Luma coding block of pixel size 32.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_32x32
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_32x32 => 2
+    static 32x32 => 2
 
     /**
      * Luma coding block of pixel size 64.
+     * Native name: D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_64x64
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE_64x64 => 3
+    static 64x64 => 3
 }

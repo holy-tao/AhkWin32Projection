@@ -7,67 +7,80 @@
 class MIMECONTF extends Win32Enum {
 
     /**
+     * Native name: MIMECONTF_MAILNEWS
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_MAILNEWS => 1
+    static MAILNEWS => 1
 
     /**
+     * Native name: MIMECONTF_BROWSER
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_BROWSER => 2
+    static BROWSER => 2
 
     /**
+     * Native name: MIMECONTF_MINIMAL
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_MINIMAL => 4
+    static MINIMAL => 4
 
     /**
+     * Native name: MIMECONTF_IMPORT
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_IMPORT => 8
+    static IMPORT => 8
 
     /**
+     * Native name: MIMECONTF_SAVABLE_MAILNEWS
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_SAVABLE_MAILNEWS => 256
+    static SAVABLE_MAILNEWS => 256
 
     /**
+     * Native name: MIMECONTF_SAVABLE_BROWSER
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_SAVABLE_BROWSER => 512
+    static SAVABLE_BROWSER => 512
 
     /**
+     * Native name: MIMECONTF_EXPORT
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_EXPORT => 1024
+    static EXPORT => 1024
 
     /**
+     * Native name: MIMECONTF_PRIVCONVERTER
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_PRIVCONVERTER => 65536
+    static PRIVCONVERTER => 65536
 
     /**
+     * Native name: MIMECONTF_VALID
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_VALID => 131072
+    static VALID => 131072
 
     /**
+     * Native name: MIMECONTF_VALID_NLS
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_VALID_NLS => 262144
+    static VALID_NLS => 262144
 
     /**
+     * Native name: MIMECONTF_MIME_IE4
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_MIME_IE4 => 268435456
+    static MIME_IE4 => 268435456
 
     /**
+     * Native name: MIMECONTF_MIME_LATEST
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_MIME_LATEST => 536870912
+    static MIME_LATEST => 536870912
 
     /**
+     * Native name: MIMECONTF_MIME_REGISTRY
      * @type {Integer (Int32)}
      */
-    static MIMECONTF_MIME_REGISTRY => 1073741824
+    static MIME_REGISTRY => 1073741824
 }

@@ -7,27 +7,32 @@
 class MEM_DEDICATED_ATTRIBUTE_TYPE extends Win32Enum {
 
     /**
+     * Native name: MemDedicatedAttributeReadBandwidth
      * @type {Integer (Int32)}
      */
-    static MemDedicatedAttributeReadBandwidth => 0
+    static ReadBandwidth => 0
 
     /**
+     * Native name: MemDedicatedAttributeReadLatency
      * @type {Integer (Int32)}
      */
-    static MemDedicatedAttributeReadLatency => 1
+    static ReadLatency => 1
 
     /**
+     * Native name: MemDedicatedAttributeWriteBandwidth
      * @type {Integer (Int32)}
      */
-    static MemDedicatedAttributeWriteBandwidth => 2
+    static WriteBandwidth => 2
 
     /**
+     * Native name: MemDedicatedAttributeWriteLatency
      * @type {Integer (Int32)}
      */
-    static MemDedicatedAttributeWriteLatency => 3
+    static WriteLatency => 3
 
     /**
+     * Native name: MemDedicatedAttributeMax
      * @type {Integer (Int32)}
      */
-    static MemDedicatedAttributeMax => 4
+    static Max => 4
 }

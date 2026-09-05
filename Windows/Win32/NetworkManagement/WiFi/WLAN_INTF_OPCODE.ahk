@@ -12,100 +12,115 @@ class WLAN_INTF_OPCODE extends Win32Enum {
 
     /**
      * Not used.
+     * Native name: wlan_intf_opcode_autoconf_start
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_autoconf_start => 0
+    static autoconf_start => 0
 
     /**
      * The opcode used to set or query whether auto config is enabled.
+     * Native name: wlan_intf_opcode_autoconf_enabled
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_autoconf_enabled => 1
+    static autoconf_enabled => 1
 
     /**
      * The opcode used to set or query whether background scan is enabled.
      * 
      * Background scan can only be disabled when the interface is in the connected state. Background scan is disabled if at least one client disables it.
      * If the interface gets disconnected, background scan will be enabled automatically.
+     * Native name: wlan_intf_opcode_background_scan_enabled
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_background_scan_enabled => 2
+    static background_scan_enabled => 2
 
     /**
      * The opcode used to set or query the media streaming mode of the driver.
      * 
      * The media streaming mode can only be set when the interface is in the connected state. The media streaming mode is enabled if at least one client enables it.  If the interface gets disconnected, the media streaming mode is disabled automatically
+     * Native name: wlan_intf_opcode_media_streaming_mode
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_media_streaming_mode => 3
+    static media_streaming_mode => 3
 
     /**
      * The opcode used to set or query the radio state.
+     * Native name: wlan_intf_opcode_radio_state
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_radio_state => 4
+    static radio_state => 4
 
     /**
      * The opcode used to set or query the BSS type of the interface.
+     * Native name: wlan_intf_opcode_bss_type
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_bss_type => 5
+    static bss_type => 5
 
     /**
      * The opcode used to query the state of the interface. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_interface_state
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_interface_state => 6
+    static interface_state => 6
 
     /**
      * The opcode used to query information about the current connection of the interface. 
      * 
      * This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function. If the interface is in disconnected or disconnecting state, <b>WlanQueryInterface</b> function returns <b>ERROR_INVALID_STATE</b>.
+     * Native name: wlan_intf_opcode_current_connection
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_current_connection => 7
+    static current_connection => 7
 
     /**
      * The opcode used to query the current channel on which the wireless interface is operating. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_channel_number
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_channel_number => 8
+    static channel_number => 8
 
     /**
      * The opcode used to query the supported auth/cipher pairs for infrastructure mode. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs => 9
+    static supported_infrastructure_auth_cipher_pairs => 9
 
     /**
      * The opcode used to query the supported auth/cipher pairs for ad hoc mode. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_supported_adhoc_auth_cipher_pairs
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_supported_adhoc_auth_cipher_pairs => 10
+    static supported_adhoc_auth_cipher_pairs => 10
 
     /**
      * The opcode used to query the list of supported country or region strings. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_supported_country_or_region_string_list
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_supported_country_or_region_string_list => 11
+    static supported_country_or_region_string_list => 11
 
     /**
      * The opcode used to set or query the current operation mode of the wireless interface. For more information about operation modes, see <a href="https://www.microsoft.com/?ref=go">Native 802.11 Operation Modes</a>.
+     * Native name: wlan_intf_opcode_current_operation_mode
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_current_operation_mode => 12
+    static current_operation_mode => 12
 
     /**
      * The opcode used to query whether the miniport/NIC combination supports Federal Information Processing Standards (FIPS) mode. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function. FIPS mode is also known as safe mode. This wireless safe mode is different than the operating system safe mode.
+     * Native name: wlan_intf_opcode_supported_safe_mode
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_supported_safe_mode => 13
+    static supported_safe_mode => 13
 
     /**
      * The opcode used to query whether the miniport/NIC combination is FIPS certified. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_certified_safe_mode
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_certified_safe_mode => 14
+    static certified_safe_mode => 14
 
     /**
      * The opcode used to query for Hosted Network support in the device driver associated with the Wireless interface. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function. 
@@ -113,9 +128,10 @@ class WLAN_INTF_OPCODE extends Win32Enum {
      * The data type returned for this opcode by a query is a Boolean. A value returned of <b>TRUE</b> indicates Hosted Network is supported. A value of <b>FALSE</b> indicates Hosted Network is not supported. 
      * 
      * This value is an extension to native wireless APIs added to support the wireless Hosted Network on Windows 7 and  on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * Native name: wlan_intf_opcode_hosted_network_capable
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_hosted_network_capable => 15
+    static hosted_network_capable => 15
 
     /**
      * The opcode used to query whether Management Frame Protection (MFP) is supported in the device driver associated with the Wireless interface. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function. 
@@ -123,80 +139,94 @@ class WLAN_INTF_OPCODE extends Win32Enum {
      * MFP is defined in the IEEE 802.11w-2009 amendment to 802.11 standard.
      * 
      * This value is supported on Windows 8 and  on Windows Server 2012.
+     * Native name: wlan_intf_opcode_management_frame_protection_capable
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_management_frame_protection_capable => 16
+    static management_frame_protection_capable => 16
 
     /**
+     * Native name: wlan_intf_opcode_secondary_sta_interfaces
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_secondary_sta_interfaces => 17
+    static secondary_sta_interfaces => 17
 
     /**
+     * Native name: wlan_intf_opcode_secondary_sta_synchronized_connections
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_secondary_sta_synchronized_connections => 18
+    static secondary_sta_synchronized_connections => 18
 
     /**
+     * Native name: wlan_intf_opcode_realtime_connection_quality
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_realtime_connection_quality => 19
+    static realtime_connection_quality => 19
 
     /**
+     * Native name: wlan_intf_opcode_qos_info
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_qos_info => 20
+    static qos_info => 20
 
     /**
      * Not used.
+     * Native name: wlan_intf_opcode_autoconf_end
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_autoconf_end => 268435455
+    static autoconf_end => 268435455
 
     /**
      * Not used.
+     * Native name: wlan_intf_opcode_msm_start
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_msm_start => 268435712
+    static msm_start => 268435712
 
     /**
      * The opcode used to query driver statistics. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_statistics
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_statistics => 268435713
+    static statistics => 268435713
 
     /**
      * Opcode used to query the received signal strength. This opcode can only be used in a query operation with the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> function.
+     * Native name: wlan_intf_opcode_rssi
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_rssi => 268435714
+    static rssi => 268435714
 
     /**
      * Not used.
+     * Native name: wlan_intf_opcode_msm_end
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_msm_end => 536870911
+    static msm_end => 536870911
 
     /**
      * Not used.
+     * Native name: wlan_intf_opcode_security_start
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_security_start => 536936448
+    static security_start => 536936448
 
     /**
      * Not used.
+     * Native name: wlan_intf_opcode_security_end
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_security_end => 805306367
+    static security_end => 805306367
 
     /**
      * Not used.
+     * Native name: wlan_intf_opcode_ihv_start
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_ihv_start => 805306368
+    static ihv_start => 805306368
 
     /**
+     * Native name: wlan_intf_opcode_ihv_end
      * @type {Integer (Int32)}
      */
-    static wlan_intf_opcode_ihv_end => 1073741823
+    static ihv_end => 1073741823
 }

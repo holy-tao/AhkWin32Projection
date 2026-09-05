@@ -12,13 +12,15 @@ class PSS_THREAD_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flag.
+     * Native name: PSS_THREAD_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static PSS_THREAD_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
      * The thread terminated.
+     * Native name: PSS_THREAD_FLAGS_TERMINATED
      * @type {Integer (Int32)}
      */
-    static PSS_THREAD_FLAGS_TERMINATED => 1
+    static TERMINATED => 1
 }

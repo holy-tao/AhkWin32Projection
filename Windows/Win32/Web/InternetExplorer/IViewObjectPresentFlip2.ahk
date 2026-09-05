@@ -29,7 +29,6 @@ class IViewObjectPresentFlip2 extends IUnknown {
     static VTableNames => ["NotifyLeavingView"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyLeavingView() {

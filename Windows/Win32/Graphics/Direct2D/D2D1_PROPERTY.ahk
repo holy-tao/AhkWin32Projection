@@ -12,61 +12,71 @@ class D2D1_PROPERTY extends Win32Enum {
 
     /**
      * The CLSID of the effect.
+     * Native name: D2D1_PROPERTY_CLSID
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_CLSID => -2147483648
+    static CLSID => -2147483648
 
     /**
      * The name of the effect.
+     * Native name: D2D1_PROPERTY_DISPLAYNAME
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_DISPLAYNAME => -2147483647
+    static DISPLAYNAME => -2147483647
 
     /**
      * The author of the effect.
+     * Native name: D2D1_PROPERTY_AUTHOR
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_AUTHOR => -2147483646
+    static AUTHOR => -2147483646
 
     /**
      * The category of the effect.
+     * Native name: D2D1_PROPERTY_CATEGORY
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_CATEGORY => -2147483645
+    static CATEGORY => -2147483645
 
     /**
      * The description of the effect.
+     * Native name: D2D1_PROPERTY_DESCRIPTION
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_DESCRIPTION => -2147483644
+    static DESCRIPTION => -2147483644
 
     /**
      * The names of the effect's inputs.
+     * Native name: D2D1_PROPERTY_INPUTS
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_INPUTS => -2147483643
+    static INPUTS => -2147483643
 
     /**
      * The output of the effect should be cached.
+     * Native name: D2D1_PROPERTY_CACHED
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_CACHED => -2147483642
+    static CACHED => -2147483642
 
     /**
      * The buffer precision of the effect output.
+     * Native name: D2D1_PROPERTY_PRECISION
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_PRECISION => -2147483641
+    static PRECISION => -2147483641
 
     /**
      * The minimum number of inputs supported by the effect.
+     * Native name: D2D1_PROPERTY_MIN_INPUTS
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_MIN_INPUTS => -2147483640
+    static MIN_INPUTS => -2147483640
 
     /**
      * The maximum number of inputs supported by the effect.
+     * Native name: D2D1_PROPERTY_MAX_INPUTS
      * @type {Integer (Int32)}
      */
-    static D2D1_PROPERTY_MAX_INPUTS => -2147483639
+    static MAX_INPUTS => -2147483639
 }

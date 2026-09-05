@@ -7,17 +7,20 @@
 class DISPID_SpeechAudioBufferInfo extends Win32Enum {
 
     /**
+     * Native name: DISPID_SABIMinNotification
      * @type {Integer (Int32)}
      */
-    static DISPID_SABIMinNotification => 1
+    static SABIMinNotification => 1
 
     /**
+     * Native name: DISPID_SABIBufferSize
      * @type {Integer (Int32)}
      */
-    static DISPID_SABIBufferSize => 2
+    static SABIBufferSize => 2
 
     /**
+     * Native name: DISPID_SABIEventBias
      * @type {Integer (Int32)}
      */
-    static DISPID_SABIEventBias => 3
+    static SABIEventBias => 3
 }

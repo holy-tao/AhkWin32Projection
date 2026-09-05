@@ -10,25 +10,29 @@ class FsrmReportGenerationContext extends Win32Enum {
 
     /**
      * The context is unknown. Do not use this flag.
+     * Native name: FsrmReportGenerationContext_Undefined
      * @type {Integer (Int32)}
      */
-    static FsrmReportGenerationContext_Undefined => 1
+    static Undefined => 1
 
     /**
      * The report will run as a scheduled report.
+     * Native name: FsrmReportGenerationContext_ScheduledReport
      * @type {Integer (Int32)}
      */
-    static FsrmReportGenerationContext_ScheduledReport => 2
+    static ScheduledReport => 2
 
     /**
      * The report will run on demand.
+     * Native name: FsrmReportGenerationContext_InteractiveReport
      * @type {Integer (Int32)}
      */
-    static FsrmReportGenerationContext_InteractiveReport => 3
+    static InteractiveReport => 3
 
     /**
      * The report will run in response to a quota or file screen event.
+     * Native name: FsrmReportGenerationContext_IncidentReport
      * @type {Integer (Int32)}
      */
-    static FsrmReportGenerationContext_IncidentReport => 4
+    static IncidentReport => 4
 }

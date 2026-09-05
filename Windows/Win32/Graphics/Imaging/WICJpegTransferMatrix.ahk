@@ -10,13 +10,15 @@ class WICJpegTransferMatrix extends Win32Enum {
 
     /**
      * Specifies the identity transfer matrix.
+     * Native name: WICJpegTransferMatrixIdentity
      * @type {Integer (Int32)}
      */
-    static WICJpegTransferMatrixIdentity => 0
+    static Identity => 0
 
     /**
      * Specifies the BT601 transfer matrix.
+     * Native name: WICJpegTransferMatrixBT601
      * @type {Integer (Int32)}
      */
-    static WICJpegTransferMatrixBT601 => 1
+    static MatrixBT601 => 1
 }

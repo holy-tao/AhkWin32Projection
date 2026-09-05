@@ -63,7 +63,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
@@ -79,7 +78,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -93,7 +91,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
@@ -109,7 +106,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strClass 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -123,7 +119,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strClass 
      * @param {Integer} iFlags 
@@ -139,7 +134,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strSuperclass 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -153,7 +147,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strSuperclass 
      * @param {Integer} iFlags 
@@ -169,7 +162,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQuery 
      * @param {BSTR} strQueryLanguage 
      * @param {Integer} iFlags 
@@ -185,7 +177,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strQuery 
      * @param {BSTR} strQueryLanguage 
@@ -203,7 +194,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strObjectPath 
      * @param {BSTR} strAssocClass 
      * @param {BSTR} strResultClass 
@@ -231,7 +221,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strObjectPath 
      * @param {BSTR} strAssocClass 
@@ -261,7 +250,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strObjectPath 
      * @param {BSTR} strResultClass 
      * @param {BSTR} strRole 
@@ -283,7 +271,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strObjectPath 
      * @param {BSTR} strResultClass 
@@ -307,7 +294,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQuery 
      * @param {BSTR} strQueryLanguage 
      * @param {Integer} iFlags 
@@ -323,7 +309,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strQuery 
      * @param {BSTR} strQueryLanguage 
@@ -341,7 +326,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strObjectPath 
      * @param {BSTR} strMethodName 
      * @param {IDispatch} objWbemInParameters 
@@ -358,7 +342,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strObjectPath 
      * @param {BSTR} strMethodName 
@@ -377,7 +360,6 @@ class ISWbemServices extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {

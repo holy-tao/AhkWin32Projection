@@ -36,7 +36,6 @@ class AsyncIMultiQI extends IUnknown {
     static VTableNames => ["Begin_QueryMultipleInterfaces", "Finish_QueryMultipleInterfaces"]
 
     /**
-     * 
      * @param {Integer} cMQIs 
      * @param {Pointer<MULTI_QI>} pMQIs 
      * @returns {HRESULT} 
@@ -47,7 +46,6 @@ class AsyncIMultiQI extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<MULTI_QI>} pMQIs 
      * @returns {HRESULT} 
      */

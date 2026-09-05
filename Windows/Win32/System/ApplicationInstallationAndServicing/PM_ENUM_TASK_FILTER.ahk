@@ -7,32 +7,38 @@
 class PM_ENUM_TASK_FILTER extends Win32Enum {
 
     /**
+     * Native name: PM_TASK_FILTER_APP_ALL
      * @type {Integer (Int32)}
      */
-    static PM_TASK_FILTER_APP_ALL => 12
+    static APP_ALL => 12
 
     /**
+     * Native name: PM_TASK_FILTER_TASK_TYPE
      * @type {Integer (Int32)}
      */
-    static PM_TASK_FILTER_TASK_TYPE => 13
+    static TASK_TYPE => 13
 
     /**
+     * Native name: PM_TASK_FILTER_DEHYD_SUPRESSING
      * @type {Integer (Int32)}
      */
-    static PM_TASK_FILTER_DEHYD_SUPRESSING => 14
+    static DEHYD_SUPRESSING => 14
 
     /**
+     * Native name: PM_TASK_FILTER_APP_TASK_TYPE
      * @type {Integer (Int32)}
      */
-    static PM_TASK_FILTER_APP_TASK_TYPE => 15
+    static APP_TASK_TYPE => 15
 
     /**
+     * Native name: PM_TASK_FILTER_BGEXECUTION
      * @type {Integer (Int32)}
      */
-    static PM_TASK_FILTER_BGEXECUTION => 16
+    static BGEXECUTION => 16
 
     /**
+     * Native name: PM_TASK_FILTER_MAX
      * @type {Integer (Int32)}
      */
-    static PM_TASK_FILTER_MAX => 17
+    static MAX => 17
 }

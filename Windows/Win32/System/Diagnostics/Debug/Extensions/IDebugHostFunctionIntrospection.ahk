@@ -33,7 +33,6 @@ class IDebugHostFunctionIntrospection extends IUnknown {
     static VTableNames => ["EnumerateLocalsDetails", "EnumerateInlineFunctionsByRVA", "FindContainingCodeRangeByRVA", "FindSourceLocationByRVA"]
 
     /**
-     * 
      * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */
     EnumerateLocalsDetails() {
@@ -42,7 +41,6 @@ class IDebugHostFunctionIntrospection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @returns {IDebugHostSymbolEnumerator} 
      */
@@ -52,7 +50,6 @@ class IDebugHostFunctionIntrospection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @param {Pointer<Location>} rangeStart 
      * @param {Pointer<Location>} rangeEnd 
@@ -64,7 +61,6 @@ class IDebugHostFunctionIntrospection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @param {Pointer<BSTR>} _sourceFile 
      * @param {Pointer<Integer>} sourceLine 

@@ -7,12 +7,14 @@
 class D3D12_HIT_KIND extends Win32Enum {
 
     /**
+     * Native name: D3D12_HIT_KIND_TRIANGLE_FRONT_FACE
      * @type {Integer (Int32)}
      */
-    static D3D12_HIT_KIND_TRIANGLE_FRONT_FACE => 254
+    static TRIANGLE_FRONT_FACE => 254
 
     /**
+     * Native name: D3D12_HIT_KIND_TRIANGLE_BACK_FACE
      * @type {Integer (Int32)}
      */
-    static D3D12_HIT_KIND_TRIANGLE_BACK_FACE => 255
+    static TRIANGLE_BACK_FACE => 255
 }

@@ -75,7 +75,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentUserCount() {
@@ -84,7 +83,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -94,7 +92,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -106,7 +103,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HostComputer() {
@@ -116,7 +112,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHostComputer 
      * @returns {HRESULT} 
      */
@@ -128,7 +123,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -138,7 +132,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPath 
      * @returns {HRESULT} 
      */
@@ -150,7 +143,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxUserCount() {
@@ -159,7 +151,6 @@ class IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxUserCount 
      * @returns {HRESULT} 
      */

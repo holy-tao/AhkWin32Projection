@@ -30,7 +30,6 @@ class IDebugHostEvaluator3 extends IDebugHostEvaluator2 {
     static VTableNames => ["Compare"]
 
     /**
-     * 
      * @param {IModelObject} pLeft 
      * @param {IModelObject} pRight 
      * @returns {IModelObject} 

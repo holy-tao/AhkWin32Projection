@@ -7,7 +7,8 @@
 class UIA_METADATA_ID extends Win32Enum {
 
     /**
+     * Native name: UIA_SayAsInterpretAsMetadataId
      * @type {Integer (Int32)}
      */
-    static UIA_SayAsInterpretAsMetadataId => 100000
+    static SayAsInterpretAsMetadataId => 100000
 }

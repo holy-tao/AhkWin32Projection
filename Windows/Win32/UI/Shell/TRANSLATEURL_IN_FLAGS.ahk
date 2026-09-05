@@ -10,13 +10,15 @@ class TRANSLATEURL_IN_FLAGS extends Win32Enum {
 
     /**
      * If the protocol scheme is not specified in the <i>pcszURL</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/intshcut/nf-intshcut-translateurla">TranslateURL</a>, the system automatically chooses a scheme and adds it to the URL.
+     * Native name: TRANSLATEURL_FL_GUESS_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static TRANSLATEURL_FL_GUESS_PROTOCOL => 1
+    static FL_GUESS_PROTOCOL => 1
 
     /**
      * If the protocol scheme is not specified in the <i>pcszURL</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/intshcut/nf-intshcut-translateurla">TranslateURL</a>, the system adds the default protocol to the URL.
+     * Native name: TRANSLATEURL_FL_USE_DEFAULT_PROTOCOL
      * @type {Integer (Int32)}
      */
-    static TRANSLATEURL_FL_USE_DEFAULT_PROTOCOL => 2
+    static FL_USE_DEFAULT_PROTOCOL => 2
 }

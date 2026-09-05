@@ -10,103 +10,117 @@ class IKEEXT_AUTHENTICATION_METHOD_TYPE extends Win32Enum {
 
     /**
      * Specifies pre-shared key authentication method. Available only for IKE.
+     * Native name: IKEEXT_PRESHARED_KEY
      * @type {Integer (Int32)}
      */
-    static IKEEXT_PRESHARED_KEY => 0
+    static PRESHARED_KEY => 0
 
     /**
      * Specifies certificate authentication method. Available only for IKE and IKEv2.
+     * Native name: IKEEXT_CERTIFICATE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERTIFICATE => 1
+    static CERTIFICATE => 1
 
     /**
      * Specifies Kerberos authentication method.
+     * Native name: IKEEXT_KERBEROS
      * @type {Integer (Int32)}
      */
-    static IKEEXT_KERBEROS => 2
+    static KERBEROS => 2
 
     /**
      * Specifies anonymous authentication method. Available only for AuthIP.
+     * Native name: IKEEXT_ANONYMOUS
      * @type {Integer (Int32)}
      */
-    static IKEEXT_ANONYMOUS => 3
+    static ANONYMOUS => 3
 
     /**
      * Specifies Secure Sockets Layer (SSL) authentication method. Available only for AuthIP.
+     * Native name: IKEEXT_SSL
      * @type {Integer (Int32)}
      */
-    static IKEEXT_SSL => 4
+    static SSL => 4
 
     /**
      * Specifies Microsoft Windows NT LAN Manager (NTLM) V2 authentication method. Available only for AuthIP.
+     * Native name: IKEEXT_NTLM_V2
      * @type {Integer (Int32)}
      */
-    static IKEEXT_NTLM_V2 => 5
+    static NTLM_V2 => 5
 
     /**
      * Specifies IPv6 Cryptographically Generated Addresses (CGA) authentication method. Available only for IKE.
+     * Native name: IKEEXT_IPV6_CGA
      * @type {Integer (Int32)}
      */
-    static IKEEXT_IPV6_CGA => 6
+    static IPV6_CGA => 6
 
     /**
      * Specifies Elliptic Curve Digital Signature Algorithm (ECDSA) 256 certificate authentication method. Available only for IKE and IKEv2.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_CERTIFICATE_ECDSA_P256
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERTIFICATE_ECDSA_P256 => 7
+    static CERTIFICATE_ECDSA_P256 => 7
 
     /**
      * Specifies ECDSA-384 certificate authentication method. Available only for IKE and IKEv2.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_CERTIFICATE_ECDSA_P384
      * @type {Integer (Int32)}
      */
-    static IKEEXT_CERTIFICATE_ECDSA_P384 => 8
+    static CERTIFICATE_ECDSA_P384 => 8
 
     /**
      * Specifies ECDSA-256 SSL authentication method. Available only for AuthIP.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_SSL_ECDSA_P256
      * @type {Integer (Int32)}
      */
-    static IKEEXT_SSL_ECDSA_P256 => 9
+    static SSL_ECDSA_P256 => 9
 
     /**
      * Specifies ECDSA-384 SSL authentication method. Available only for AuthIP.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_SSL_ECDSA_P384
      * @type {Integer (Int32)}
      */
-    static IKEEXT_SSL_ECDSA_P384 => 10
+    static SSL_ECDSA_P384 => 10
 
     /**
      * Specifies Extensible Authentication Protocol (EAP) authentication method. Available only for IKEv2.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2008 R2, Windows 7, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_EAP
      * @type {Integer (Int32)}
      */
-    static IKEEXT_EAP => 11
+    static EAP => 11
 
     /**
      * Reserved. Do not use.
      * 
      * <div class="alert"><b>Note</b>  Available only on Windows Server 2012, Windows 8, and later.</div>
      * <div> </div>
+     * Native name: IKEEXT_RESERVED
      * @type {Integer (Int32)}
      */
-    static IKEEXT_RESERVED => 12
+    static RESERVED => 12
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_AUTHENTICATION_METHOD_TYPE_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_AUTHENTICATION_METHOD_TYPE_MAX => 13
+    static MAX => 13
 }

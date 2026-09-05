@@ -32,7 +32,6 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     static VTableNames => ["GetCaps", "GetCurrentPosition", "GetFormat", "GetStatus", "Initialize", "Lock", "Start", "Stop", "Unlock"]
 
     /**
-     * 
      * @returns {DSCBCAPS} 
      */
     GetCaps() {
@@ -42,7 +41,6 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwCapturePosition 
      * @param {Pointer<Integer>} pdwReadPosition 
      * @returns {HRESULT} 
@@ -56,7 +54,6 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
      * @returns {Integer} 
@@ -67,7 +64,6 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStatus() {
@@ -147,7 +143,6 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -157,7 +152,6 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -166,7 +160,6 @@ class IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pvAudioPtr1 
      * @param {Integer} dwAudioBytes1 
      * @param {Integer} pvAudioPtr2 

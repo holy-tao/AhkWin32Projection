@@ -7,12 +7,14 @@
 class ARP_OPCODE extends Win32Enum {
 
     /**
+     * Native name: ARP_REQUEST
      * @type {Integer (Int32)}
      */
-    static ARP_REQUEST => 1
+    static REQUEST => 1
 
     /**
+     * Native name: ARP_RESPONSE
      * @type {Integer (Int32)}
      */
-    static ARP_RESPONSE => 2
+    static RESPONSE => 2
 }

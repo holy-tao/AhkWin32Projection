@@ -7,12 +7,14 @@
 class KSMETHOD_BDA_ISDB_CAS extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_ISDBCAS_SETREQUEST
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_ISDBCAS_SETREQUEST => 0
+    static ISDBCAS_SETREQUEST => 0
 
     /**
+     * Native name: KSMETHOD_BDA_ISDBCAS_RESPONSEDATA
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_ISDBCAS_RESPONSEDATA => 1
+    static ISDBCAS_RESPONSEDATA => 1
 }

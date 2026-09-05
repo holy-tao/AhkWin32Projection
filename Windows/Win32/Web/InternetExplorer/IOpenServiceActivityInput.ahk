@@ -33,7 +33,6 @@ class IOpenServiceActivityInput extends IUnknown {
     static VTableNames => ["GetVariable", "HasVariable", "GetType"]
 
     /**
-     * 
      * @param {PWSTR} pwzVariableName 
      * @param {PWSTR} pwzVariableType 
      * @returns {BSTR} 
@@ -48,7 +47,6 @@ class IOpenServiceActivityInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzVariableName 
      * @param {PWSTR} pwzVariableType 
      * @returns {BOOL} 
@@ -62,7 +60,6 @@ class IOpenServiceActivityInput extends IUnknown {
     }
 
     /**
-     * 
      * @returns {OpenServiceActivityContentType} 
      */
     GetType() {

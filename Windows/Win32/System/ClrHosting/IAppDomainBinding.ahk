@@ -29,7 +29,6 @@ class IAppDomainBinding extends IUnknown {
     static VTableNames => ["OnAppDomain"]
 
     /**
-     * 
      * @param {IUnknown} pAppdomain 
      * @returns {HRESULT} 
      */

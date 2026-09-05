@@ -7,72 +7,86 @@
 class REG_VALUE_TYPE extends Win32Enum {
 
     /**
+     * Native name: REG_NONE
      * @type {Integer (UInt32)}
      */
-    static REG_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: REG_SZ
      * @type {Integer (UInt32)}
      */
-    static REG_SZ => 1
+    static SZ => 1
 
     /**
+     * Native name: REG_EXPAND_SZ
      * @type {Integer (UInt32)}
      */
-    static REG_EXPAND_SZ => 2
+    static EXPAND_SZ => 2
 
     /**
+     * Native name: REG_BINARY
      * @type {Integer (UInt32)}
      */
-    static REG_BINARY => 3
+    static BINARY => 3
 
     /**
+     * Native name: REG_DWORD
      * @type {Integer (UInt32)}
      */
-    static REG_DWORD => 4
+    static DWORD => 4
 
     /**
+     * Native name: REG_DWORD_LITTLE_ENDIAN
      * @type {Integer (UInt32)}
      */
-    static REG_DWORD_LITTLE_ENDIAN => 4
+    static DWORD_LITTLE_ENDIAN => 4
 
     /**
+     * Native name: REG_DWORD_BIG_ENDIAN
      * @type {Integer (UInt32)}
      */
-    static REG_DWORD_BIG_ENDIAN => 5
+    static DWORD_BIG_ENDIAN => 5
 
     /**
+     * Native name: REG_LINK
      * @type {Integer (UInt32)}
      */
-    static REG_LINK => 6
+    static LINK => 6
 
     /**
+     * Native name: REG_MULTI_SZ
      * @type {Integer (UInt32)}
      */
-    static REG_MULTI_SZ => 7
+    static MULTI_SZ => 7
 
     /**
+     * Native name: REG_RESOURCE_LIST
      * @type {Integer (UInt32)}
      */
-    static REG_RESOURCE_LIST => 8
+    static RESOURCE_LIST => 8
 
     /**
+     * Native name: REG_FULL_RESOURCE_DESCRIPTOR
      * @type {Integer (UInt32)}
      */
-    static REG_FULL_RESOURCE_DESCRIPTOR => 9
+    static FULL_RESOURCE_DESCRIPTOR => 9
 
     /**
+     * Native name: REG_RESOURCE_REQUIREMENTS_LIST
      * @type {Integer (UInt32)}
      */
-    static REG_RESOURCE_REQUIREMENTS_LIST => 10
+    static RESOURCE_REQUIREMENTS_LIST => 10
 
     /**
+     * Native name: REG_QWORD
      * @type {Integer (UInt32)}
      */
-    static REG_QWORD => 11
+    static QWORD => 11
 
     /**
+     * Native name: REG_QWORD_LITTLE_ENDIAN
      * @type {Integer (UInt32)}
      */
-    static REG_QWORD_LITTLE_ENDIAN => 11
+    static QWORD_LITTLE_ENDIAN => 11
 }

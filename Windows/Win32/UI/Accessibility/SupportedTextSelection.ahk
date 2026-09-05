@@ -10,19 +10,22 @@ class SupportedTextSelection extends Win32Enum {
 
     /**
      * Does not support text selections.
+     * Native name: SupportedTextSelection_None
      * @type {Integer (Int32)}
      */
-    static SupportedTextSelection_None => 0
+    static None => 0
 
     /**
      * Supports a single, continuous text selection.
+     * Native name: SupportedTextSelection_Single
      * @type {Integer (Int32)}
      */
-    static SupportedTextSelection_Single => 1
+    static Single => 1
 
     /**
      * Supports multiple, disjoint text selections.
+     * Native name: SupportedTextSelection_Multiple
      * @type {Integer (Int32)}
      */
-    static SupportedTextSelection_Multiple => 2
+    static Multiple => 2
 }

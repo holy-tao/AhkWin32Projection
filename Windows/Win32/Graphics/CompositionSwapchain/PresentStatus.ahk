@@ -12,19 +12,22 @@ class PresentStatus extends Win32Enum {
 
     /**
      * The frame was queued by the system to eventually be shown.
+     * Native name: PresentStatus_Queued
      * @type {Integer (Int32)}
      */
-    static PresentStatus_Queued => 0
+    static Queued => 0
 
     /**
      * The frame was skipped because a later frame was a better candidate to show.
+     * Native name: PresentStatus_Skipped
      * @type {Integer (Int32)}
      */
-    static PresentStatus_Skipped => 1
+    static Skipped => 1
 
     /**
      * The frame arrived, but was canceled by the application, so it was not displayed.
+     * Native name: PresentStatus_Canceled
      * @type {Integer (Int32)}
      */
-    static PresentStatus_Canceled => 2
+    static Canceled => 2
 }

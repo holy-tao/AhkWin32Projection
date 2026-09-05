@@ -39,7 +39,6 @@ class ISpShortcut extends IUnknown {
     static VTableNames => ["AddShortcut", "RemoveShortcut", "GetShortcuts", "GetGeneration", "GetWordsFromGenerationChange", "GetWords", "GetShortcutsForGeneration", "GetGenerationChange"]
 
     /**
-     * 
      * @param {PWSTR} pszDisplay 
      * @param {Integer} LangID 
      * @param {PWSTR} pszSpoken 
@@ -55,7 +54,6 @@ class ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDisplay 
      * @param {Integer} LangID 
      * @param {PWSTR} pszSpoken 
@@ -71,7 +69,6 @@ class ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} LangID 
      * @param {Pointer<SPSHORTCUTPAIRLIST>} pShortcutpairList 
      * @returns {HRESULT} 
@@ -82,7 +79,6 @@ class ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetGeneration() {
@@ -91,7 +87,6 @@ class ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<SPWORDLIST>} pWordList 
      * @returns {HRESULT} 
@@ -104,7 +99,6 @@ class ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<Integer>} pdwCookie 
      * @param {Pointer<SPWORDLIST>} pWordList 
@@ -119,7 +113,6 @@ class ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<Integer>} pdwCookie 
      * @param {Pointer<SPSHORTCUTPAIRLIST>} pShortcutpairList 
@@ -134,7 +127,6 @@ class ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<SPSHORTCUTPAIRLIST>} pShortcutpairList 
      * @returns {HRESULT} 

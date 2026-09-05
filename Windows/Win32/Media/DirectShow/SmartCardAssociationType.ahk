@@ -22,7 +22,8 @@ class SmartCardAssociationType extends Win32Enum {
 
     /**
      * Association status is unknown.
+     * Native name: AssociationUnknown
      * @type {Integer (Int32)}
      */
-    static AssociationUnknown => 2
+    static Unknown => 2
 }

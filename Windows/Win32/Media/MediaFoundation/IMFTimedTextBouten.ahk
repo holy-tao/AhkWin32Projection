@@ -32,7 +32,6 @@ class IMFTimedTextBouten extends IUnknown {
     static VTableNames => ["GetBoutenType", "GetBoutenColor", "GetBoutenPosition"]
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_BOUTEN_TYPE} 
      */
     GetBoutenType() {
@@ -41,7 +40,6 @@ class IMFTimedTextBouten extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MFARGB} 
      */
     GetBoutenColor() {
@@ -51,7 +49,6 @@ class IMFTimedTextBouten extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_BOUTEN_POSITION} 
      */
     GetBoutenPosition() {

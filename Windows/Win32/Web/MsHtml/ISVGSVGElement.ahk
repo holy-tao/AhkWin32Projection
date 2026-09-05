@@ -162,7 +162,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -172,7 +171,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
@@ -181,7 +179,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -191,7 +188,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
@@ -200,7 +196,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -210,7 +205,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
@@ -219,7 +213,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -229,7 +222,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
@@ -238,7 +230,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -250,7 +241,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentScriptType() {
@@ -260,7 +250,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -272,7 +261,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentStyleType() {
@@ -282,7 +270,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} v 
      * @returns {HRESULT} 
      */
@@ -292,7 +279,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     get_viewport() {
@@ -301,7 +287,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -311,7 +296,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_pixelUnitToMillimeterX() {
@@ -320,7 +304,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -330,7 +313,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_pixelUnitToMillimeterY() {
@@ -339,7 +321,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -349,7 +330,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_screenPixelToMillimeterX() {
@@ -358,7 +338,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -368,7 +347,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_screenPixelToMillimeterY() {
@@ -377,7 +355,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -387,7 +364,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_useCurrentView() {
@@ -396,7 +372,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGViewSpec} v 
      * @returns {HRESULT} 
      */
@@ -406,7 +381,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGViewSpec} 
      */
     get_currentView() {
@@ -415,7 +389,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -425,7 +398,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_currentScale() {
@@ -434,7 +406,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPoint} v 
      * @returns {HRESULT} 
      */
@@ -444,7 +415,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     get_currentTranslate() {
@@ -453,7 +423,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} maxWaitMilliseconds 
      * @returns {Integer} 
      */
@@ -463,7 +432,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} suspendHandeID 
      * @returns {HRESULT} 
      */
@@ -473,7 +441,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     unsuspendRedrawAll() {
@@ -482,7 +449,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     forceRedraw() {
@@ -491,7 +457,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     pauseAnimations() {
@@ -500,7 +465,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     unpauseAnimations() {
@@ -509,7 +473,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     animationsPaused() {
@@ -518,7 +481,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     getCurrentTime() {
@@ -527,7 +489,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} seconds 
      * @returns {HRESULT} 
      */
@@ -537,7 +498,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} _rect 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
@@ -549,7 +509,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} _rect 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
@@ -561,7 +520,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} element 
      * @param {ISVGRect} _rect 
      * @returns {VARIANT_BOOL} 
@@ -572,7 +530,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} element 
      * @param {ISVGRect} _rect 
      * @returns {VARIANT_BOOL} 
@@ -583,7 +540,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deselectAll() {
@@ -592,7 +548,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGNumber} 
      */
     createSVGNumber() {
@@ -601,7 +556,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGLength} 
      */
     createSVGLength() {
@@ -610,7 +564,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAngle} 
      */
     createSVGAngle() {
@@ -619,7 +572,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     createSVGPoint() {
@@ -628,7 +580,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     createSVGMatrix() {
@@ -637,7 +588,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     createSVGRect() {
@@ -646,7 +596,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGTransform} 
      */
     createSVGTransform() {
@@ -655,7 +604,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} _matrix 
      * @returns {ISVGTransform} 
      */
@@ -665,7 +613,6 @@ class ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} elementId 
      * @returns {IHTMLElement} 
      */

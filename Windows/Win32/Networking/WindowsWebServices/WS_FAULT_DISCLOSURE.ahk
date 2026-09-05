@@ -10,13 +10,15 @@ class WS_FAULT_DISCLOSURE extends Win32Enum {
 
     /**
      * Use a generic fault string for all errors.
+     * Native name: WS_MINIMAL_FAULT_DISCLOSURE
      * @type {Integer (Int32)}
      */
-    static WS_MINIMAL_FAULT_DISCLOSURE => 0
+    static MINIMAL_FAULT_DISCLOSURE => 0
 
     /**
      * Use the error string as the fault string.
+     * Native name: WS_FULL_FAULT_DISCLOSURE
      * @type {Integer (Int32)}
      */
-    static WS_FULL_FAULT_DISCLOSURE => 1
+    static FULL_FAULT_DISCLOSURE => 1
 }

@@ -7,47 +7,56 @@
 class HTMLDlgCenter extends Win32Enum {
 
     /**
+     * Native name: HTMLDlgCenterNo
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenterNo => 0
+    static No => 0
 
     /**
+     * Native name: HTMLDlgCenterOff
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenterOff => 0
+    static Off => 0
 
     /**
+     * Native name: HTMLDlgCenter0
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenter0 => 0
+    static Center0 => 0
 
     /**
+     * Native name: HTMLDlgCenterYes
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenterYes => 1
+    static Yes => 1
 
     /**
+     * Native name: HTMLDlgCenterOn
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenterOn => 1
+    static On => 1
 
     /**
+     * Native name: HTMLDlgCenter1
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenter1 => 1
+    static Center1 => 1
 
     /**
+     * Native name: HTMLDlgCenterParent
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenterParent => 1
+    static Parent => 1
 
     /**
+     * Native name: HTMLDlgCenterDesktop
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenterDesktop => 2
+    static Desktop => 2
 
     /**
+     * Native name: HTMLDlgCenter_Max
      * @type {Integer (Int32)}
      */
-    static HTMLDlgCenter_Max => 2147483647
+    static Max => 2147483647
 }

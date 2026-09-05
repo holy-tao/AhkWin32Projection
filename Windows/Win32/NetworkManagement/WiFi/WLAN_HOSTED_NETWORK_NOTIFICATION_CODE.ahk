@@ -64,19 +64,22 @@ class WLAN_HOSTED_NETWORK_NOTIFICATION_CODE extends Win32Enum {
 
     /**
      * The Hosted Network state has changed.
+     * Native name: wlan_hosted_network_state_change
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_state_change => 4096
+    static state_change => 4096
 
     /**
      * The Hosted Network peer state has changed.
+     * Native name: wlan_hosted_network_peer_state_change
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_peer_state_change => 4097
+    static peer_state_change => 4097
 
     /**
      * The Hosted Network radio state has changed.
+     * Native name: wlan_hosted_network_radio_state_change
      * @type {Integer (Int32)}
      */
-    static wlan_hosted_network_radio_state_change => 4098
+    static radio_state_change => 4098
 }

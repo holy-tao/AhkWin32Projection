@@ -10,7 +10,8 @@ class WICJpegChrominanceProperties extends Win32Enum {
 
     /**
      * [VT_UI2|VT_VECTOR] Indicates the metadata property is a chrominance table.
+     * Native name: WICJpegChrominanceTable
      * @type {Integer (Int32)}
      */
-    static WICJpegChrominanceTable => 1
+    static Table => 1
 }

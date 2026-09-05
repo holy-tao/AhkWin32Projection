@@ -7,17 +7,20 @@
 class SRPHOSTING_TYPE extends Win32Enum {
 
     /**
+     * Native name: SRPHOSTING_TYPE_NONE
      * @type {Integer (Int32)}
      */
-    static SRPHOSTING_TYPE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: SRPHOSTING_TYPE_WINHTTP
      * @type {Integer (Int32)}
      */
-    static SRPHOSTING_TYPE_WINHTTP => 1
+    static WINHTTP => 1
 
     /**
+     * Native name: SRPHOSTING_TYPE_WININET
      * @type {Integer (Int32)}
      */
-    static SRPHOSTING_TYPE_WININET => 2
+    static WININET => 2
 }

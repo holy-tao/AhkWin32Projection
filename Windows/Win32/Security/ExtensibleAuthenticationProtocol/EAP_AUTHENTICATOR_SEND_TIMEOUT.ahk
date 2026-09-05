@@ -10,19 +10,22 @@ class EAP_AUTHENTICATOR_SEND_TIMEOUT extends Win32Enum {
 
     /**
      * Sends the packet and never times out; the user can enter a response at any time.
+     * Native name: EAP_AUTHENTICATOR_SEND_TIMEOUT_NONE
      * @type {Integer (Int32)}
      */
-    static EAP_AUTHENTICATOR_SEND_TIMEOUT_NONE => 0
+    static NONE => 0
 
     /**
      * Sends the packet and waits for a standard period of time for a response.
+     * Native name: EAP_AUTHENTICATOR_SEND_TIMEOUT_BASIC
      * @type {Integer (Int32)}
      */
-    static EAP_AUTHENTICATOR_SEND_TIMEOUT_BASIC => 1
+    static BASIC => 1
 
     /**
      * Sends the packet and waits for a response for a longer period of time to allow for an interactive session.
+     * Native name: EAP_AUTHENTICATOR_SEND_TIMEOUT_INTERACTIVE
      * @type {Integer (Int32)}
      */
-    static EAP_AUTHENTICATOR_SEND_TIMEOUT_INTERACTIVE => 2
+    static INTERACTIVE => 2
 }

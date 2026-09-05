@@ -35,7 +35,6 @@ class IMFSensorTransformFactory extends IUnknown {
     static VTableNames => ["GetFactoryAttributes", "InitializeFactory", "GetTransformCount", "GetTransformInformation", "CreateTransform"]
 
     /**
-     * 
      * @returns {IMFAttributes} 
      */
     GetFactoryAttributes() {

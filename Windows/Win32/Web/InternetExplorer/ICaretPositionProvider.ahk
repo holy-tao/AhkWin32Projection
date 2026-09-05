@@ -30,7 +30,6 @@ class ICaretPositionProvider extends IUnknown {
     static VTableNames => ["GetCaretPosition"]
 
     /**
-     * 
      * @param {Pointer<POINT>} pptCaret 
      * @param {Pointer<Float>} pflHeight 
      * @returns {HRESULT} 

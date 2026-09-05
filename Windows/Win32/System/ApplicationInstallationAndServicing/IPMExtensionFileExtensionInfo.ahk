@@ -43,7 +43,6 @@ class IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDisplayName 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ class IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_LOGO_SIZE} LogoSize 
      * @param {Pointer<BSTR>} pLogo 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ class IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} FileType 
      * @param {Pointer<BSTR>} pContentType 
      * @returns {HRESULT} 
@@ -87,7 +83,6 @@ class IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} ContentType 
      * @param {Pointer<BSTR>} pFileType 
      * @returns {HRESULT} 
@@ -100,7 +95,6 @@ class IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -111,7 +105,6 @@ class IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbTypes 
      * @param {Pointer<Pointer<BSTR>>} ppTypes 
      * @returns {HRESULT} 

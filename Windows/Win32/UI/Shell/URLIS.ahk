@@ -7,37 +7,44 @@
 class URLIS extends Win32Enum {
 
     /**
+     * Native name: URLIS_URL
      * @type {Integer (Int32)}
      */
-    static URLIS_URL => 0
+    static URL => 0
 
     /**
+     * Native name: URLIS_OPAQUE
      * @type {Integer (Int32)}
      */
-    static URLIS_OPAQUE => 1
+    static OPAQUE => 1
 
     /**
+     * Native name: URLIS_NOHISTORY
      * @type {Integer (Int32)}
      */
-    static URLIS_NOHISTORY => 2
+    static NOHISTORY => 2
 
     /**
+     * Native name: URLIS_FILEURL
      * @type {Integer (Int32)}
      */
-    static URLIS_FILEURL => 3
+    static FILEURL => 3
 
     /**
+     * Native name: URLIS_APPLIABLE
      * @type {Integer (Int32)}
      */
-    static URLIS_APPLIABLE => 4
+    static APPLIABLE => 4
 
     /**
+     * Native name: URLIS_DIRECTORY
      * @type {Integer (Int32)}
      */
-    static URLIS_DIRECTORY => 5
+    static DIRECTORY => 5
 
     /**
+     * Native name: URLIS_HASQUERY
      * @type {Integer (Int32)}
      */
-    static URLIS_HASQUERY => 6
+    static HASQUERY => 6
 }

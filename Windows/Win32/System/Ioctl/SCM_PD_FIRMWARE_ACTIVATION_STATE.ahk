@@ -7,17 +7,20 @@
 class SCM_PD_FIRMWARE_ACTIVATION_STATE extends Win32Enum {
 
     /**
+     * Native name: ScmPdFirmwareActivationState_Idle
      * @type {Integer (Int32)}
      */
-    static ScmPdFirmwareActivationState_Idle => 0
+    static Idle => 0
 
     /**
+     * Native name: ScmPdFirmwareActivationState_Armed
      * @type {Integer (Int32)}
      */
-    static ScmPdFirmwareActivationState_Armed => 1
+    static Armed => 1
 
     /**
+     * Native name: ScmPdFirmwareActivationState_Busy
      * @type {Integer (Int32)}
      */
-    static ScmPdFirmwareActivationState_Busy => 2
+    static Busy => 2
 }

@@ -10,13 +10,15 @@ class D3D12_SHADER_CACHE_MODE extends Win32Enum {
 
     /**
      * Specifies that there's no backing file for this cache. All stores are discarded when the session object is destroyed.
+     * Native name: D3D12_SHADER_CACHE_MODE_MEMORY
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_CACHE_MODE_MEMORY => 0
+    static MEMORY => 0
 
     /**
      * Specifies that the session is backed by files on disk that persist from run to run unless cleared. For ways to clear a disk cache, see [ID3D12ShaderCacheSession::SetDeleteOnDestroy](nf-d3d12-id3d12shadercachesession-setdeleteondestroy.md).
+     * Native name: D3D12_SHADER_CACHE_MODE_DISK
      * @type {Integer (Int32)}
      */
-    static D3D12_SHADER_CACHE_MODE_DISK => 1
+    static DISK => 1
 }

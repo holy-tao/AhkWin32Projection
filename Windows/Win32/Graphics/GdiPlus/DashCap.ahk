@@ -7,17 +7,20 @@
 class DashCap extends Win32Enum {
 
     /**
+     * Native name: DashCapFlat
      * @type {Integer (Int32)}
      */
-    static DashCapFlat => 0
+    static Flat => 0
 
     /**
+     * Native name: DashCapRound
      * @type {Integer (Int32)}
      */
-    static DashCapRound => 2
+    static Round => 2
 
     /**
+     * Native name: DashCapTriangle
      * @type {Integer (Int32)}
      */
-    static DashCapTriangle => 3
+    static Triangle => 3
 }

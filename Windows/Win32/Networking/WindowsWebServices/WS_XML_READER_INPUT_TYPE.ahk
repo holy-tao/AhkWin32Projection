@@ -9,12 +9,14 @@
 class WS_XML_READER_INPUT_TYPE extends Win32Enum {
 
     /**
+     * Native name: WS_XML_READER_INPUT_TYPE_BUFFER
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_INPUT_TYPE_BUFFER => 1
+    static BUFFER => 1
 
     /**
+     * Native name: WS_XML_READER_INPUT_TYPE_STREAM
      * @type {Integer (Int32)}
      */
-    static WS_XML_READER_INPUT_TYPE_STREAM => 2
+    static STREAM => 2
 }

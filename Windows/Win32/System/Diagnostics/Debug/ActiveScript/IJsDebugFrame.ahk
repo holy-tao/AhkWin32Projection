@@ -32,7 +32,6 @@ class IJsDebugFrame extends IUnknown {
     static VTableNames => ["GetStackRange", "GetName", "GetDocumentPositionWithId", "GetDocumentPositionWithName", "GetDebugProperty", "GetReturnAddress", "Evaluate"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pStart 
      * @param {Pointer<Integer>} pEnd 
      * @returns {HRESULT} 
@@ -57,7 +56,6 @@ class IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pDocumentId 
      * @param {Pointer<Integer>} pCharacterOffset 
      * @param {Pointer<Integer>} pStatementCharCount 
@@ -73,7 +71,6 @@ class IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDocumentName 
      * @param {Pointer<Integer>} pLine 
      * @param {Pointer<Integer>} pColumn 
@@ -88,7 +85,6 @@ class IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IJsDebugProperty} 
      */
     GetDebugProperty() {
@@ -97,7 +93,6 @@ class IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetReturnAddress() {
@@ -106,7 +101,6 @@ class IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pExpressionText 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<BSTR>} pError 

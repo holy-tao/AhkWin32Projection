@@ -12,57 +12,67 @@ class D3D_REGISTER_COMPONENT_TYPE extends Win32Enum {
 
     /**
      * The data type is unknown.
+     * Native name: D3D_REGISTER_COMPONENT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * 32-bit unsigned integer.
+     * Native name: D3D_REGISTER_COMPONENT_UINT32
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_UINT32 => 1
+    static UINT32 => 1
 
     /**
      * 32-bit signed integer.
+     * Native name: D3D_REGISTER_COMPONENT_SINT32
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_SINT32 => 2
+    static SINT32 => 2
 
     /**
      * 32-bit floating-point number.
+     * Native name: D3D_REGISTER_COMPONENT_FLOAT32
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_FLOAT32 => 3
+    static FLOAT32 => 3
 
     /**
+     * Native name: D3D_REGISTER_COMPONENT_UINT16
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_UINT16 => 4
+    static UINT16 => 4
 
     /**
+     * Native name: D3D_REGISTER_COMPONENT_SINT16
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_SINT16 => 5
+    static SINT16 => 5
 
     /**
+     * Native name: D3D_REGISTER_COMPONENT_FLOAT16
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_FLOAT16 => 6
+    static FLOAT16 => 6
 
     /**
+     * Native name: D3D_REGISTER_COMPONENT_UINT64
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_UINT64 => 7
+    static UINT64 => 7
 
     /**
+     * Native name: D3D_REGISTER_COMPONENT_SINT64
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_SINT64 => 8
+    static SINT64 => 8
 
     /**
+     * Native name: D3D_REGISTER_COMPONENT_FLOAT64
      * @type {Integer (Int32)}
      */
-    static D3D_REGISTER_COMPONENT_FLOAT64 => 9
+    static FLOAT64 => 9
 
     /**
      * The data type is unknown.

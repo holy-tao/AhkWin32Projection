@@ -14,31 +14,36 @@ class DVD_DOMAIN extends Win32Enum {
 
     /**
      * Performing default initialization of a DVD disc.
+     * Native name: DVD_DOMAIN_FirstPlay
      * @type {Integer (Int32)}
      */
-    static DVD_DOMAIN_FirstPlay => 1
+    static FirstPlay => 1
 
     /**
      * Displaying menus for whole disc.
+     * Native name: DVD_DOMAIN_VideoManagerMenu
      * @type {Integer (Int32)}
      */
-    static DVD_DOMAIN_VideoManagerMenu => 2
+    static VideoManagerMenu => 2
 
     /**
      * Displaying menus for current title set.
+     * Native name: DVD_DOMAIN_VideoTitleSetMenu
      * @type {Integer (Int32)}
      */
-    static DVD_DOMAIN_VideoTitleSetMenu => 3
+    static VideoTitleSetMenu => 3
 
     /**
      * Displaying the current title.
+     * Native name: DVD_DOMAIN_Title
      * @type {Integer (Int32)}
      */
-    static DVD_DOMAIN_Title => 4
+    static Title => 4
 
     /**
      * The DVD Navigator is in the DVD Stop domain.
+     * Native name: DVD_DOMAIN_Stop
      * @type {Integer (Int32)}
      */
-    static DVD_DOMAIN_Stop => 5
+    static Stop => 5
 }

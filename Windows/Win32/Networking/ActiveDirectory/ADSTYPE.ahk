@@ -7,147 +7,176 @@
 class ADSTYPE extends Win32Enum {
 
     /**
+     * Native name: ADSTYPE_INVALID
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_INVALID => 0
+    static INVALID => 0
 
     /**
+     * Native name: ADSTYPE_DN_STRING
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_DN_STRING => 1
+    static DN_STRING => 1
 
     /**
+     * Native name: ADSTYPE_CASE_EXACT_STRING
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_CASE_EXACT_STRING => 2
+    static CASE_EXACT_STRING => 2
 
     /**
+     * Native name: ADSTYPE_CASE_IGNORE_STRING
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_CASE_IGNORE_STRING => 3
+    static CASE_IGNORE_STRING => 3
 
     /**
+     * Native name: ADSTYPE_PRINTABLE_STRING
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_PRINTABLE_STRING => 4
+    static PRINTABLE_STRING => 4
 
     /**
+     * Native name: ADSTYPE_NUMERIC_STRING
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_NUMERIC_STRING => 5
+    static NUMERIC_STRING => 5
 
     /**
+     * Native name: ADSTYPE_BOOLEAN
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_BOOLEAN => 6
+    static BOOLEAN => 6
 
     /**
+     * Native name: ADSTYPE_INTEGER
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_INTEGER => 7
+    static INTEGER => 7
 
     /**
+     * Native name: ADSTYPE_OCTET_STRING
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_OCTET_STRING => 8
+    static OCTET_STRING => 8
 
     /**
+     * Native name: ADSTYPE_UTC_TIME
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_UTC_TIME => 9
+    static UTC_TIME => 9
 
     /**
+     * Native name: ADSTYPE_LARGE_INTEGER
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_LARGE_INTEGER => 10
+    static LARGE_INTEGER => 10
 
     /**
+     * Native name: ADSTYPE_PROV_SPECIFIC
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_PROV_SPECIFIC => 11
+    static PROV_SPECIFIC => 11
 
     /**
+     * Native name: ADSTYPE_OBJECT_CLASS
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_OBJECT_CLASS => 12
+    static OBJECT_CLASS => 12
 
     /**
+     * Native name: ADSTYPE_CASEIGNORE_LIST
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_CASEIGNORE_LIST => 13
+    static CASEIGNORE_LIST => 13
 
     /**
+     * Native name: ADSTYPE_OCTET_LIST
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_OCTET_LIST => 14
+    static OCTET_LIST => 14
 
     /**
+     * Native name: ADSTYPE_PATH
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_PATH => 15
+    static PATH => 15
 
     /**
+     * Native name: ADSTYPE_POSTALADDRESS
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_POSTALADDRESS => 16
+    static POSTALADDRESS => 16
 
     /**
+     * Native name: ADSTYPE_TIMESTAMP
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_TIMESTAMP => 17
+    static TIMESTAMP => 17
 
     /**
+     * Native name: ADSTYPE_BACKLINK
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_BACKLINK => 18
+    static BACKLINK => 18
 
     /**
+     * Native name: ADSTYPE_TYPEDNAME
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_TYPEDNAME => 19
+    static TYPEDNAME => 19
 
     /**
+     * Native name: ADSTYPE_HOLD
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_HOLD => 20
+    static HOLD => 20
 
     /**
+     * Native name: ADSTYPE_NETADDRESS
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_NETADDRESS => 21
+    static NETADDRESS => 21
 
     /**
+     * Native name: ADSTYPE_REPLICAPOINTER
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_REPLICAPOINTER => 22
+    static REPLICAPOINTER => 22
 
     /**
+     * Native name: ADSTYPE_FAXNUMBER
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_FAXNUMBER => 23
+    static FAXNUMBER => 23
 
     /**
+     * Native name: ADSTYPE_EMAIL
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_EMAIL => 24
+    static EMAIL => 24
 
     /**
+     * Native name: ADSTYPE_NT_SECURITY_DESCRIPTOR
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_NT_SECURITY_DESCRIPTOR => 25
+    static NT_SECURITY_DESCRIPTOR => 25
 
     /**
+     * Native name: ADSTYPE_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_UNKNOWN => 26
+    static UNKNOWN => 26
 
     /**
+     * Native name: ADSTYPE_DN_WITH_BINARY
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_DN_WITH_BINARY => 27
+    static DN_WITH_BINARY => 27
 
     /**
+     * Native name: ADSTYPE_DN_WITH_STRING
      * @type {Integer (Int32)}
      */
-    static ADSTYPE_DN_WITH_STRING => 28
+    static DN_WITH_STRING => 28
 }

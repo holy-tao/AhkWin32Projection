@@ -30,7 +30,6 @@ class IFtpProviderConstruct extends IUnknown {
     static VTableNames => ["Construct"]
 
     /**
-     * 
      * @param {Pointer<SAFEARRAY>} configurationEntries 
      * @returns {HRESULT} 
      */

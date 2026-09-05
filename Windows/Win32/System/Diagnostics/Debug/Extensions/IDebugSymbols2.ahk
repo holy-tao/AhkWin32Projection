@@ -33,7 +33,6 @@ class IDebugSymbols2 extends IUnknown {
     static VTableNames => ["GetSymbolOptions", "AddSymbolOptions", "RemoveSymbolOptions", "SetSymbolOptions", "GetNameByOffset", "GetOffsetByName", "GetNearNameByOffset", "GetLineByOffset", "GetOffsetByLine", "GetNumberModules", "GetModuleByIndex", "GetModuleByModuleName", "GetModuleByOffset", "GetModuleNames", "GetModuleParameters", "GetSymbolModule", "GetTypeName", "GetTypeId", "GetTypeSize", "GetFieldOffset", "GetSymbolTypeId", "GetOffsetTypeId", "ReadTypedDataVirtual", "WriteTypedDataVirtual", "OutputTypedDataVirtual", "ReadTypedDataPhysical", "WriteTypedDataPhysical", "OutputTypedDataPhysical", "GetScope", "SetScope", "ResetScope", "GetScopeSymbolGroup", "CreateSymbolGroup", "StartSymbolMatch", "GetNextSymbolMatch", "EndSymbolMatch", "Reload", "GetSymbolPath", "SetSymbolPath", "AppendSymbolPath", "GetImagePath", "SetImagePath", "AppendImagePath", "GetSourcePath", "GetSourcePathElement", "SetSourcePath", "AppendSourcePath", "FindSourceFile", "GetSourceFileLineOffsets", "GetModuleVersionInformation", "GetModuleNameString", "GetConstantName", "GetFieldName", "GetTypeOptions", "AddTypeOptions", "RemoveTypeOptions", "SetTypeOptions"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSymbolOptions() {
@@ -42,7 +41,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -52,7 +50,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -62,7 +59,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -72,7 +68,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {PSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -91,7 +86,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @returns {Integer} 
      */
@@ -103,7 +97,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Delta 
      * @param {PSTR} NameBuffer 
@@ -123,7 +116,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Line 
      * @param {PSTR} FileBuffer 
@@ -144,7 +136,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PSTR} _File 
      * @returns {Integer} 
@@ -157,7 +148,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Loaded 
      * @param {Pointer<Integer>} Unloaded 
      * @returns {HRESULT} 
@@ -171,7 +161,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {Integer} 
      */
@@ -181,7 +170,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -199,7 +187,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -215,7 +202,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PSTR} ImageNameBuffer 
@@ -243,7 +229,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Bases 
      * @param {Integer} Start 
@@ -258,7 +243,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @returns {Integer} 
      */
@@ -270,7 +254,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PSTR} NameBuffer 
@@ -285,7 +268,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {PSTR} Name 
      * @returns {Integer} 
@@ -298,7 +280,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @returns {Integer} 
@@ -309,7 +290,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PSTR} Field 
@@ -323,7 +303,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
@@ -340,7 +319,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
@@ -355,7 +333,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -369,7 +346,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -383,7 +359,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Module 
@@ -397,7 +372,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -411,7 +385,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -425,7 +398,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Module 
@@ -439,7 +411,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
      * @param {Integer} ScopeContext 
@@ -454,7 +425,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
      * @param {Integer} ScopeContext 
@@ -467,7 +437,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetScope() {
@@ -476,7 +445,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {IDebugSymbolGroup} Update 
      * @returns {IDebugSymbolGroup} 
@@ -487,7 +455,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugSymbolGroup} 
      */
     CreateSymbolGroup() {
@@ -496,7 +463,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Pattern 
      * @returns {Integer} 
      */
@@ -508,7 +474,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -527,7 +492,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -537,7 +501,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Module 
      * @returns {HRESULT} 
      */
@@ -549,7 +512,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -562,7 +524,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -574,7 +535,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -586,7 +546,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -599,7 +558,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -611,7 +569,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -623,7 +580,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -636,7 +592,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -650,7 +605,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -662,7 +616,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -674,7 +627,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {PSTR} _File 
      * @param {Integer} Flags 
@@ -696,7 +648,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _File 
      * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} BufferLines 
@@ -714,7 +665,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PSTR} Item 
@@ -730,7 +680,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Index 
      * @param {Integer} Base 
@@ -746,7 +695,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} Value 
@@ -762,7 +710,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} FieldIndex 
@@ -778,7 +725,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTypeOptions() {
@@ -787,7 +733,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -797,7 +742,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -807,7 +751,6 @@ class IDebugSymbols2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */

@@ -12,13 +12,15 @@ class DWRITE_FACTORY_TYPE extends Win32Enum {
 
     /**
      * Indicates that the DirectWrite factory is a shared factory and that it allows for the reuse of cached font data across multiple in-process components. Such factories also take advantage of cross process font caching components for better performance.
+     * Native name: DWRITE_FACTORY_TYPE_SHARED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FACTORY_TYPE_SHARED => 0
+    static SHARED => 0
 
     /**
      * Indicates that the DirectWrite factory object is isolated. Objects created from the isolated factory do not interact with internal DirectWrite state from other components.
+     * Native name: DWRITE_FACTORY_TYPE_ISOLATED
      * @type {Integer (Int32)}
      */
-    static DWRITE_FACTORY_TYPE_ISOLATED => 1
+    static ISOLATED => 1
 }

@@ -29,7 +29,6 @@ class IMFFaceDetectionTransformCallback extends IUnknown {
     static VTableNames => ["OnFaceDetectionResult"]
 
     /**
-     * 
      * @param {Integer} countOfBounds 
      * @param {Pointer<DetectedFaceBound>} detectedFaceBounds 
      * @returns {String} Nothing - always returns an empty string

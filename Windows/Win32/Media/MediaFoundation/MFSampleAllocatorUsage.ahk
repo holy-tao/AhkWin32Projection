@@ -12,19 +12,22 @@ class MFSampleAllocatorUsage extends Win32Enum {
 
     /**
      * The output stream will use the camera pipeline's sample allocator to allocate new media samples. If the output stream is producing samples in CPU memory, it is recommended that it use this mode to ensure consistent performance when used in a cross-container scenario.
+     * Native name: MFSampleAllocatorUsage_UsesProvidedAllocator
      * @type {Integer (Int32)}
      */
-    static MFSampleAllocatorUsage_UsesProvidedAllocator => 0
+    static UsesProvidedAllocator => 0
 
     /**
      * The output stream will be use a custom allocator for its output samples.  It will not use the sample allocator provided by the camera pipeline.
+     * Native name: MFSampleAllocatorUsage_UsesCustomAllocator
      * @type {Integer (Int32)}
      */
-    static MFSampleAllocatorUsage_UsesCustomAllocator => 1
+    static UsesCustomAllocator => 1
 
     /**
      * The output stream will not allocate new samples for its output samples.  It will not be provided a sample allocator by the camera pipeline.
+     * Native name: MFSampleAllocatorUsage_DoesNotAllocate
      * @type {Integer (Int32)}
      */
-    static MFSampleAllocatorUsage_DoesNotAllocate => 2
+    static DoesNotAllocate => 2
 }

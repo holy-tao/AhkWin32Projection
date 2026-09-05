@@ -10,19 +10,22 @@ class PEER_CONNECTION_STATUS extends Win32Enum {
 
     /**
      * The peer is connected to another peer.
+     * Native name: PEER_CONNECTED
      * @type {Integer (Int32)}
      */
-    static PEER_CONNECTED => 1
+    static CONNECTED => 1
 
     /**
      * The peer has disconnected from another peer.
+     * Native name: PEER_DISCONNECTED
      * @type {Integer (Int32)}
      */
-    static PEER_DISCONNECTED => 2
+    static DISCONNECTED => 2
 
     /**
      * The peer failed to connect to another peer.
+     * Native name: PEER_CONNECTION_FAILED
      * @type {Integer (Int32)}
      */
-    static PEER_CONNECTION_FAILED => 3
+    static FAILED => 3
 }

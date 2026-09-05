@@ -10,31 +10,36 @@ class D2D1_DRAW_TEXT_OPTIONS extends Win32BitflagEnum {
 
     /**
      * Text is not vertically snapped to pixel boundaries. This setting is recommended for text that is being animated.
+     * Native name: D2D1_DRAW_TEXT_OPTIONS_NO_SNAP
      * @type {Integer (Int32)}
      */
-    static D2D1_DRAW_TEXT_OPTIONS_NO_SNAP => 1
+    static NO_SNAP => 1
 
     /**
      * Text is clipped to the layout rectangle.
+     * Native name: D2D1_DRAW_TEXT_OPTIONS_CLIP
      * @type {Integer (Int32)}
      */
-    static D2D1_DRAW_TEXT_OPTIONS_CLIP => 2
+    static CLIP => 2
 
     /**
      * In Windows 8.1 and later, text is rendered using color versions of glyphs, if defined by the font.
+     * Native name: D2D1_DRAW_TEXT_OPTIONS_ENABLE_COLOR_FONT
      * @type {Integer (Int32)}
      */
-    static D2D1_DRAW_TEXT_OPTIONS_ENABLE_COLOR_FONT => 4
+    static ENABLE_COLOR_FONT => 4
 
     /**
      * Bitmap origins of color glyph bitmaps are not snapped.
+     * Native name: D2D1_DRAW_TEXT_OPTIONS_DISABLE_COLOR_BITMAP_SNAPPING
      * @type {Integer (Int32)}
      */
-    static D2D1_DRAW_TEXT_OPTIONS_DISABLE_COLOR_BITMAP_SNAPPING => 8
+    static DISABLE_COLOR_BITMAP_SNAPPING => 8
 
     /**
      * Text is vertically snapped to pixel boundaries and is not clipped to the layout rectangle.
+     * Native name: D2D1_DRAW_TEXT_OPTIONS_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_DRAW_TEXT_OPTIONS_NONE => 0
+    static NONE => 0
 }

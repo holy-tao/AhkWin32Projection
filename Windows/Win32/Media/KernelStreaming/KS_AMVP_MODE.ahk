@@ -7,27 +7,32 @@
 class KS_AMVP_MODE extends Win32Enum {
 
     /**
+     * Native name: KS_AMVP_MODE_WEAVE
      * @type {Integer (Int32)}
      */
-    static KS_AMVP_MODE_WEAVE => 0
+    static WEAVE => 0
 
     /**
+     * Native name: KS_AMVP_MODE_BOBINTERLEAVED
      * @type {Integer (Int32)}
      */
-    static KS_AMVP_MODE_BOBINTERLEAVED => 1
+    static BOBINTERLEAVED => 1
 
     /**
+     * Native name: KS_AMVP_MODE_BOBNONINTERLEAVED
      * @type {Integer (Int32)}
      */
-    static KS_AMVP_MODE_BOBNONINTERLEAVED => 2
+    static BOBNONINTERLEAVED => 2
 
     /**
+     * Native name: KS_AMVP_MODE_SKIPEVEN
      * @type {Integer (Int32)}
      */
-    static KS_AMVP_MODE_SKIPEVEN => 3
+    static SKIPEVEN => 3
 
     /**
+     * Native name: KS_AMVP_MODE_SKIPODD
      * @type {Integer (Int32)}
      */
-    static KS_AMVP_MODE_SKIPODD => 4
+    static SKIPODD => 4
 }

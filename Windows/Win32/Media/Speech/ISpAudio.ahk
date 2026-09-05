@@ -35,7 +35,6 @@ class ISpAudio extends ISpStreamFormat {
     static VTableNames => ["SetState", "SetFormat", "GetStatus", "SetBufferInfo", "GetBufferInfo", "GetDefaultFormat", "EventHandle", "GetVolumeLevel", "SetVolumeLevel", "GetBufferNotifySize", "SetBufferNotifySize"]
 
     /**
-     * 
      * @param {SPAUDIOSTATE} NewState 
      * @param {Integer} ullReserved 
      * @returns {HRESULT} 
@@ -46,7 +45,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidFmtId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @returns {HRESULT} 
@@ -57,7 +55,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOSTATUS>} pStatus 
      * @returns {HRESULT} 
      */
@@ -67,7 +64,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOBUFFERINFO>} pBuffInfo 
      * @returns {HRESULT} 
      */
@@ -77,7 +73,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOBUFFERINFO>} pBuffInfo 
      * @returns {HRESULT} 
      */
@@ -87,7 +82,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pFormatId 
      * @param {Pointer<Pointer<WAVEFORMATEX>>} ppCoMemWaveFormatEx 
      * @returns {HRESULT} 
@@ -100,7 +94,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     EventHandle() {
@@ -110,7 +103,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pLevel 
      * @returns {HRESULT} 
      */
@@ -122,7 +114,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Integer} Level 
      * @returns {HRESULT} 
      */
@@ -132,7 +123,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbSize 
      * @returns {HRESULT} 
      */
@@ -144,7 +134,6 @@ class ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Integer} cbSize 
      * @returns {HRESULT} 
      */

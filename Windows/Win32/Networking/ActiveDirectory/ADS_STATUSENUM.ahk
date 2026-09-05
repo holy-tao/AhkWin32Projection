@@ -17,19 +17,22 @@ class ADS_STATUSENUM extends Win32Enum {
 
     /**
      * The search preference was set successfully.
+     * Native name: ADS_STATUS_S_OK
      * @type {Integer (Int32)}
      */
-    static ADS_STATUS_S_OK => 0
+    static STATUS_S_OK => 0
 
     /**
      * The search preference specified in the <b>dwSearchPref</b> member of the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structure is invalid. Search preferences must be taken from the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> enumeration.
+     * Native name: ADS_STATUS_INVALID_SEARCHPREF
      * @type {Integer (Int32)}
      */
-    static ADS_STATUS_INVALID_SEARCHPREF => 1
+    static STATUS_INVALID_SEARCHPREF => 1
 
     /**
      * The value specified in the <b>vValue</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structure is invalid for the corresponding search preference.
+     * Native name: ADS_STATUS_INVALID_SEARCHPREFVALUE
      * @type {Integer (Int32)}
      */
-    static ADS_STATUS_INVALID_SEARCHPREFVALUE => 2
+    static STATUS_INVALID_SEARCHPREFVALUE => 2
 }

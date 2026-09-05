@@ -37,7 +37,6 @@ class IHTMLLabelElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {

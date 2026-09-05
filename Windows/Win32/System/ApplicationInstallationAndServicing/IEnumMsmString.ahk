@@ -30,7 +30,6 @@ class IEnumMsmString extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} cFetch 
      * @param {Pointer<BSTR>} rgbstrStrings 
      * @param {Pointer<Integer>} pcFetched 
@@ -44,7 +43,6 @@ class IEnumMsmString extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cSkip 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ class IEnumMsmString extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -63,7 +60,6 @@ class IEnumMsmString extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMsmString} 
      */
     Clone() {

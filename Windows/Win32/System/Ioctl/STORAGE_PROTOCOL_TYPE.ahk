@@ -10,48 +10,56 @@ class STORAGE_PROTOCOL_TYPE extends Win32Enum {
 
     /**
      * Unknown protocol type.
+     * Native name: ProtocolTypeUnknown
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeUnknown => 0
+    static Unknown => 0
 
     /**
      * SCSI protocol type.
+     * Native name: ProtocolTypeScsi
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeScsi => 1
+    static Scsi => 1
 
     /**
      * ATA protocol type.
+     * Native name: ProtocolTypeAta
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeAta => 2
+    static Ata => 2
 
     /**
      * NVMe protocol type.
+     * Native name: ProtocolTypeNvme
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeNvme => 3
+    static Nvme => 3
 
     /**
      * SD protocol type.
+     * Native name: ProtocolTypeSd
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeSd => 4
+    static Sd => 4
 
     /**
+     * Native name: ProtocolTypeUfs
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeUfs => 5
+    static Ufs => 5
 
     /**
      * Vendor-specific protocol type.
+     * Native name: ProtocolTypeProprietary
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeProprietary => 126
+    static Proprietary => 126
 
     /**
      * Reserved.
+     * Native name: ProtocolTypeMaxReserved
      * @type {Integer (Int32)}
      */
-    static ProtocolTypeMaxReserved => 127
+    static MaxReserved => 127
 }

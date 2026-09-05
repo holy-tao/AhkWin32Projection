@@ -28,7 +28,6 @@ class IPresentationSurface2 extends IPresentationSurface {
     static VTableNames => ["SetIsHdrContent"]
 
     /**
-     * 
      * @param {Integer} isHdrContent 
      * @returns {String} Nothing - always returns an empty string
      */

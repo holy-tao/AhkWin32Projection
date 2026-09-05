@@ -31,7 +31,6 @@ class ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerationChangeBatch {
     static VTableNames => ["AddMergeTombstoneMetadataToGroup"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pbOwnerReplicaId 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pbItemId 

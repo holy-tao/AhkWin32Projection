@@ -29,7 +29,6 @@ class ISpPrivateEngineCallEx extends IUnknown {
     static VTableNames => ["CallEngineSynchronize", "CallEngineImmediate"]
 
     /**
-     * 
      * @param {Integer} pInFrame 
      * @param {Integer} ulInFrameSize 
      * @param {Pointer<Pointer<Void>>} ppCoMemOutFrame 
@@ -45,7 +44,6 @@ class ISpPrivateEngineCallEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pInFrame 
      * @param {Integer} ulInFrameSize 
      * @param {Pointer<Pointer<Void>>} ppCoMemOutFrame 

@@ -7,32 +7,38 @@
 class MF_SOURCE_READER_CONSTANTS extends Win32Enum {
 
     /**
+     * Native name: MF_SOURCE_READER_INVALID_STREAM_INDEX
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_INVALID_STREAM_INDEX => -1
+    static INVALID_STREAM_INDEX => -1
 
     /**
+     * Native name: MF_SOURCE_READER_ALL_STREAMS
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_ALL_STREAMS => -2
+    static ALL_STREAMS => -2
 
     /**
+     * Native name: MF_SOURCE_READER_ANY_STREAM
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_ANY_STREAM => -2
+    static ANY_STREAM => -2
 
     /**
+     * Native name: MF_SOURCE_READER_FIRST_AUDIO_STREAM
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_FIRST_AUDIO_STREAM => -3
+    static FIRST_AUDIO_STREAM => -3
 
     /**
+     * Native name: MF_SOURCE_READER_FIRST_VIDEO_STREAM
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_FIRST_VIDEO_STREAM => -4
+    static FIRST_VIDEO_STREAM => -4
 
     /**
+     * Native name: MF_SOURCE_READER_MEDIASOURCE
      * @type {Integer (Int32)}
      */
-    static MF_SOURCE_READER_MEDIASOURCE => -1
+    static MEDIASOURCE => -1
 }

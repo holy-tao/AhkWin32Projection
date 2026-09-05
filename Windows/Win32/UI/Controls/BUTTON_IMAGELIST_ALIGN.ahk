@@ -7,27 +7,32 @@
 class BUTTON_IMAGELIST_ALIGN extends Win32Enum {
 
     /**
+     * Native name: BUTTON_IMAGELIST_ALIGN_LEFT
      * @type {Integer (UInt32)}
      */
-    static BUTTON_IMAGELIST_ALIGN_LEFT => 0
+    static LEFT => 0
 
     /**
+     * Native name: BUTTON_IMAGELIST_ALIGN_RIGHT
      * @type {Integer (UInt32)}
      */
-    static BUTTON_IMAGELIST_ALIGN_RIGHT => 1
+    static RIGHT => 1
 
     /**
+     * Native name: BUTTON_IMAGELIST_ALIGN_TOP
      * @type {Integer (UInt32)}
      */
-    static BUTTON_IMAGELIST_ALIGN_TOP => 2
+    static TOP => 2
 
     /**
+     * Native name: BUTTON_IMAGELIST_ALIGN_BOTTOM
      * @type {Integer (UInt32)}
      */
-    static BUTTON_IMAGELIST_ALIGN_BOTTOM => 3
+    static BOTTOM => 3
 
     /**
+     * Native name: BUTTON_IMAGELIST_ALIGN_CENTER
      * @type {Integer (UInt32)}
      */
-    static BUTTON_IMAGELIST_ALIGN_CENTER => 4
+    static CENTER => 4
 }

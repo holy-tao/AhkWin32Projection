@@ -19,9 +19,10 @@ class AAAccountingDataType extends Win32Enum {
      * <li><b>authType</b></li>
      * <li><b>mainSessionId</b></li>
      * </ul>
+     * Native name: AA_MAIN_SESSION_CREATION
      * @type {Integer (Int32)}
      */
-    static AA_MAIN_SESSION_CREATION => 0
+    static MAIN_SESSION_CREATION => 0
 
     /**
      * A new subsession was created by an  existing connection.
@@ -36,9 +37,10 @@ class AAAccountingDataType extends Win32Enum {
      * <li><b>mainSessionId</b></li>
      * <li><b>subSessionId</b></li>
      * </ul>
+     * Native name: AA_SUB_SESSION_CREATION
      * @type {Integer (Int32)}
      */
-    static AA_SUB_SESSION_CREATION => 1
+    static SUB_SESSION_CREATION => 1
 
     /**
      * A subsession was closed.
@@ -51,9 +53,10 @@ class AAAccountingDataType extends Win32Enum {
      * <li><b>mainSessionId</b></li>
      * <li><b>subSessionId</b></li>
      * </ul>
+     * Native name: AA_SUB_SESSION_CLOSED
      * @type {Integer (Int32)}
      */
-    static AA_SUB_SESSION_CLOSED => 2
+    static SUB_SESSION_CLOSED => 2
 
     /**
      * A connection was closed.
@@ -63,7 +66,8 @@ class AAAccountingDataType extends Win32Enum {
      * <ul>
      * <li><b>mainSessionId</b></li>
      * </ul>
+     * Native name: AA_MAIN_SESSION_CLOSED
      * @type {Integer (Int32)}
      */
-    static AA_MAIN_SESSION_CLOSED => 3
+    static MAIN_SESSION_CLOSED => 3
 }

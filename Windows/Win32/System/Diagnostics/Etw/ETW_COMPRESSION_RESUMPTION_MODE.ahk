@@ -7,17 +7,20 @@
 class ETW_COMPRESSION_RESUMPTION_MODE extends Win32Enum {
 
     /**
+     * Native name: EtwCompressionModeRestart
      * @type {Integer (Int32)}
      */
-    static EtwCompressionModeRestart => 0
+    static Restart => 0
 
     /**
+     * Native name: EtwCompressionModeNoDisable
      * @type {Integer (Int32)}
      */
-    static EtwCompressionModeNoDisable => 1
+    static NoDisable => 1
 
     /**
+     * Native name: EtwCompressionModeNoRestart
      * @type {Integer (Int32)}
      */
-    static EtwCompressionModeNoRestart => 2
+    static NoRestart => 2
 }

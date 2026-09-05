@@ -10,27 +10,31 @@ class IKEEXT_KEY_MODULE_TYPE extends Win32Enum {
 
     /**
      * Specifies Internet Key Exchange (IKE) keying module.
+     * Native name: IKEEXT_KEY_MODULE_IKE
      * @type {Integer (Int32)}
      */
-    static IKEEXT_KEY_MODULE_IKE => 0
+    static IKE => 0
 
     /**
      * Specifies Authenticated Internet Protocol (AuthIP) keying module.
+     * Native name: IKEEXT_KEY_MODULE_AUTHIP
      * @type {Integer (Int32)}
      */
-    static IKEEXT_KEY_MODULE_AUTHIP => 1
+    static AUTHIP => 1
 
     /**
      * Specifies Internet Key Exchange version 2 (IKEv2) keying module.
      * 
      * Available only on Windows 7, Windows Server 2008 R2, and later.
+     * Native name: IKEEXT_KEY_MODULE_IKEV2
      * @type {Integer (Int32)}
      */
-    static IKEEXT_KEY_MODULE_IKEV2 => 2
+    static IKEV2 => 2
 
     /**
      * Maximum value for testing purposes.
+     * Native name: IKEEXT_KEY_MODULE_MAX
      * @type {Integer (Int32)}
      */
-    static IKEEXT_KEY_MODULE_MAX => 3
+    static MAX => 3
 }

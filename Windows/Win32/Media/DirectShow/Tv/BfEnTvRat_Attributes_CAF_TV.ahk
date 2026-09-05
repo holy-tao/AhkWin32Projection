@@ -7,12 +7,14 @@
 class BfEnTvRat_Attributes_CAF_TV extends Win32Enum {
 
     /**
+     * Native name: CAF_IsBlocked
      * @type {Integer (Int32)}
      */
-    static CAF_IsBlocked => 1
+    static IsBlocked => 1
 
     /**
+     * Native name: CAF_ValidAttrSubmask
      * @type {Integer (Int32)}
      */
-    static CAF_ValidAttrSubmask => 1
+    static ValidAttrSubmask => 1
 }

@@ -10,19 +10,22 @@ class EVT_RENDER_FLAGS extends Win32Enum {
 
     /**
      * Render the event properties specified in the rendering context.
+     * Native name: EvtRenderEventValues
      * @type {Integer (UInt32)}
      */
-    static EvtRenderEventValues => 0
+    static EventValues => 0
 
     /**
      * Render the event as an XML string. For details on the contents of the XML string, see the <a href="https://docs.microsoft.com/windows/desktop/WES/eventschema-schema">Event</a> schema.
+     * Native name: EvtRenderEventXml
      * @type {Integer (UInt32)}
      */
-    static EvtRenderEventXml => 1
+    static EventXml => 1
 
     /**
      * Render the bookmark as an XML string, so that you can easily persist the bookmark for use later.
+     * Native name: EvtRenderBookmark
      * @type {Integer (UInt32)}
      */
-    static EvtRenderBookmark => 2
+    static Bookmark => 2
 }

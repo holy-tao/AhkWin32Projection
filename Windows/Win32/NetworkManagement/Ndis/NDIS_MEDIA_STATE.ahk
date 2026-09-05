@@ -7,12 +7,14 @@
 class NDIS_MEDIA_STATE extends Win32Enum {
 
     /**
+     * Native name: NdisMediaStateConnected
      * @type {Integer (Int32)}
      */
-    static NdisMediaStateConnected => 0
+    static Connected => 0
 
     /**
+     * Native name: NdisMediaStateDisconnected
      * @type {Integer (Int32)}
      */
-    static NdisMediaStateDisconnected => 1
+    static Disconnected => 1
 }

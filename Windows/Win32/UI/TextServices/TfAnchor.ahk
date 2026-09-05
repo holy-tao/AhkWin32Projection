@@ -12,13 +12,15 @@ class TfAnchor extends Win32Enum {
 
     /**
      * Specifies the start anchor of the <b>ITfRange</b> object.
+     * Native name: TF_ANCHOR_START
      * @type {Integer (Int32)}
      */
-    static TF_ANCHOR_START => 0
+    static START => 0
 
     /**
      * Specifies the end anchor of the <b>ITfRange</b> object.
+     * Native name: TF_ANCHOR_END
      * @type {Integer (Int32)}
      */
-    static TF_ANCHOR_END => 1
+    static END => 1
 }

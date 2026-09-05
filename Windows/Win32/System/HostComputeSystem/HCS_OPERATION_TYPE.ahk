@@ -9,107 +9,128 @@
 class HCS_OPERATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: HcsOperationTypeNone
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeNone => -1
+    static None => -1
 
     /**
+     * Native name: HcsOperationTypeEnumerate
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeEnumerate => 0
+    static Enumerate => 0
 
     /**
+     * Native name: HcsOperationTypeCreate
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeCreate => 1
+    static Create => 1
 
     /**
+     * Native name: HcsOperationTypeStart
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeStart => 2
+    static Start => 2
 
     /**
+     * Native name: HcsOperationTypeShutdown
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeShutdown => 3
+    static Shutdown => 3
 
     /**
+     * Native name: HcsOperationTypePause
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypePause => 4
+    static Pause => 4
 
     /**
+     * Native name: HcsOperationTypeResume
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeResume => 5
+    static Resume => 5
 
     /**
+     * Native name: HcsOperationTypeSave
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeSave => 6
+    static Save => 6
 
     /**
+     * Native name: HcsOperationTypeTerminate
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeTerminate => 7
+    static Terminate => 7
 
     /**
+     * Native name: HcsOperationTypeModify
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeModify => 8
+    static Modify => 8
 
     /**
+     * Native name: HcsOperationTypeGetProperties
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeGetProperties => 9
+    static GetProperties => 9
 
     /**
+     * Native name: HcsOperationTypeCreateProcess
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeCreateProcess => 10
+    static CreateProcess => 10
 
     /**
+     * Native name: HcsOperationTypeSignalProcess
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeSignalProcess => 11
+    static SignalProcess => 11
 
     /**
+     * Native name: HcsOperationTypeGetProcessInfo
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeGetProcessInfo => 12
+    static GetProcessInfo => 12
 
     /**
+     * Native name: HcsOperationTypeGetProcessProperties
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeGetProcessProperties => 13
+    static GetProcessProperties => 13
 
     /**
+     * Native name: HcsOperationTypeModifyProcess
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeModifyProcess => 14
+    static ModifyProcess => 14
 
     /**
+     * Native name: HcsOperationTypeCrash
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeCrash => 15
+    static Crash => 15
 
     /**
+     * Native name: HcsOperationTypeLiveMigration
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeLiveMigration => 19
+    static LiveMigration => 19
 
     /**
+     * Native name: HcsOperationTypeReserved1
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeReserved1 => 16
+    static Reserved1 => 16
 
     /**
+     * Native name: HcsOperationTypeReserved2
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeReserved2 => 17
+    static Reserved2 => 17
 
     /**
+     * Native name: HcsOperationTypeReserved3
      * @type {Integer (Int32)}
      */
-    static HcsOperationTypeReserved3 => 18
+    static Reserved3 => 18
 }

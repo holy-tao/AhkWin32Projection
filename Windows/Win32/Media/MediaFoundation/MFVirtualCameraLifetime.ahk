@@ -12,13 +12,15 @@ class MFVirtualCameraLifetime extends Win32Enum {
 
     /**
      * The camera persists until the  [IMFVirtualCamera](nn-mfvirtualcamera-imfvirtualcamera.md) object is disposed or [IMFVirtualCamera::Shutdown](nf-mfvirtualcamera-imfvirtualcamera-shutdown.md) is called. Afterwards, the virtual camera will no longer be enumerable or activatable on the device.
+     * Native name: MFVirtualCameraLifetime_Session
      * @type {Integer (Int32)}
      */
-    static MFVirtualCameraLifetime_Session => 0
+    static Session => 0
 
     /**
      * The virtual camera persists across sessions and reboots.
+     * Native name: MFVirtualCameraLifetime_System
      * @type {Integer (Int32)}
      */
-    static MFVirtualCameraLifetime_System => 1
+    static System => 1
 }

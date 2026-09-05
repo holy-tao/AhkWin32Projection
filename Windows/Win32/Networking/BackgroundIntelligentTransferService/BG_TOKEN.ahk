@@ -7,12 +7,14 @@
 class BG_TOKEN extends Win32Enum {
 
     /**
+     * Native name: BG_TOKEN_LOCAL_FILE
      * @type {Integer (UInt32)}
      */
-    static BG_TOKEN_LOCAL_FILE => 1
+    static LOCAL_FILE => 1
 
     /**
+     * Native name: BG_TOKEN_NETWORK
      * @type {Integer (UInt32)}
      */
-    static BG_TOKEN_NETWORK => 2
+    static NETWORK => 2
 }

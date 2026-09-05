@@ -9,17 +9,20 @@
 class WMDM_STORAGE_ENUM_MODE extends Win32Enum {
 
     /**
+     * Native name: ENUM_MODE_RAW
      * @type {Integer (Int32)}
      */
-    static ENUM_MODE_RAW => 0
+    static RAW => 0
 
     /**
+     * Native name: ENUM_MODE_USE_DEVICE_PREF
      * @type {Integer (Int32)}
      */
-    static ENUM_MODE_USE_DEVICE_PREF => 1
+    static USE_DEVICE_PREF => 1
 
     /**
+     * Native name: ENUM_MODE_METADATA_VIEWS
      * @type {Integer (Int32)}
      */
-    static ENUM_MODE_METADATA_VIEWS => 2
+    static METADATA_VIEWS => 2
 }

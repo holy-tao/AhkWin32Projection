@@ -39,7 +39,6 @@ class ISpObjectTokenCategory extends ISpDataKey {
     static VTableNames => ["SetId", "GetId", "GetDataKey", "EnumTokens", "SetDefaultTokenId", "GetDefaultTokenId"]
 
     /**
-     * 
      * @param {PWSTR} pszCategoryId 
      * @param {BOOL} fCreateIfNotExist 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ class ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetId() {
@@ -61,7 +59,6 @@ class ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {SPDATAKEYLOCATION} spdkl 
      * @returns {ISpDataKey} 
      */
@@ -71,7 +68,6 @@ class ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {PWSTR} pzsReqAttribs 
      * @param {PWSTR} pszOptAttribs 
      * @returns {IEnumSpObjectTokens} 
@@ -85,7 +81,6 @@ class ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTokenId 
      * @returns {HRESULT} 
      */
@@ -97,7 +92,6 @@ class ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetDefaultTokenId() {

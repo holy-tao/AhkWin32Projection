@@ -10,19 +10,22 @@ class SEARCH_INDEXING_PHASE extends Win32Enum {
 
     /**
      * Sent in the event that an error occurs while a notification is in the gatherer. For instance, if the notification fails the exclusion-rule tests, a status update will be sent with the error.
+     * Native name: SEARCH_INDEXING_PHASE_GATHERER
      * @type {Integer (Int32)}
      */
-    static SEARCH_INDEXING_PHASE_GATHERER => 0
+    static GATHERER => 0
 
     /**
      * The document will be returned in queries. It is currently only in the volatile indexes.
+     * Native name: SEARCH_INDEXING_PHASE_QUERYABLE
      * @type {Integer (Int32)}
      */
-    static SEARCH_INDEXING_PHASE_QUERYABLE => 1
+    static QUERYABLE => 1
 
     /**
      * The document has moved from the volatile index to the persisted-file-based index.
+     * Native name: SEARCH_INDEXING_PHASE_PERSISTED
      * @type {Integer (Int32)}
      */
-    static SEARCH_INDEXING_PHASE_PERSISTED => 2
+    static PERSISTED => 2
 }

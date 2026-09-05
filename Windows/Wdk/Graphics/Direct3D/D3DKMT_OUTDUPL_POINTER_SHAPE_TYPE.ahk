@@ -7,17 +7,20 @@
 class D3DKMT_OUTDUPL_POINTER_SHAPE_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_OUTDUPL_POINTER_SHAPE_TYPE_MONOCHROME
      * @type {Integer (Int32)}
      */
-    static D3DKMT_OUTDUPL_POINTER_SHAPE_TYPE_MONOCHROME => 1
+    static MONOCHROME => 1
 
     /**
+     * Native name: D3DKMT_OUTDUPL_POINTER_SHAPE_TYPE_COLOR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_OUTDUPL_POINTER_SHAPE_TYPE_COLOR => 2
+    static COLOR => 2
 
     /**
+     * Native name: D3DKMT_OUTDUPL_POINTER_SHAPE_TYPE_MASKED_COLOR
      * @type {Integer (Int32)}
      */
-    static D3DKMT_OUTDUPL_POINTER_SHAPE_TYPE_MASKED_COLOR => 4
+    static MASKED_COLOR => 4
 }

@@ -7,17 +7,20 @@
 class HEADER_CONTROL_NOTIFICATION_BUTTON extends Win32Enum {
 
     /**
+     * Native name: HEADER_CONTROL_NOTIFICATION_BUTTON_LEFT
      * @type {Integer (Int32)}
      */
-    static HEADER_CONTROL_NOTIFICATION_BUTTON_LEFT => 0
+    static LEFT => 0
 
     /**
+     * Native name: HEADER_CONTROL_NOTIFICATION_BUTTON_RIGHT
      * @type {Integer (Int32)}
      */
-    static HEADER_CONTROL_NOTIFICATION_BUTTON_RIGHT => 1
+    static RIGHT => 1
 
     /**
+     * Native name: HEADER_CONTROL_NOTIFICATION_BUTTON_MIDDLE
      * @type {Integer (Int32)}
      */
-    static HEADER_CONTROL_NOTIFICATION_BUTTON_MIDDLE => 2
+    static MIDDLE => 2
 }

@@ -37,7 +37,6 @@ class IComponentUtil extends IDispatch {
     static VTableNames => ["InstallComponent", "ImportComponent", "ImportComponentByName", "GetCLSIDs"]
 
     /**
-     * 
      * @param {BSTR} bstrDLLFile 
      * @param {BSTR} bstrTypelibFile 
      * @param {BSTR} bstrProxyStubDLLFile 
@@ -53,7 +52,6 @@ class IComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCLSID 
      * @returns {HRESULT} 
      */
@@ -65,7 +63,6 @@ class IComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProgID 
      * @returns {HRESULT} 
      */
@@ -77,7 +74,6 @@ class IComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDLLFile 
      * @param {BSTR} bstrTypelibFile 
      * @param {Pointer<Pointer<SAFEARRAY>>} aCLSIDs 

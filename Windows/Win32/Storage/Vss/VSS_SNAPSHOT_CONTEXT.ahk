@@ -45,15 +45,17 @@ class VSS_SNAPSHOT_CONTEXT extends Win32Enum {
     /**
      * The standard backup context. Specifies an auto-release, nonpersistent shadow copy in which writers are 
      *       involved in the creation.
+     * Native name: VSS_CTX_BACKUP
      * @type {Integer (Int32)}
      */
-    static VSS_CTX_BACKUP => 0
+    static CTX_BACKUP => 0
 
     /**
      * Specifies an auto-release, nonpersistent shadow copy created without writer involvement.
+     * Native name: VSS_CTX_FILE_SHARE_BACKUP
      * @type {Integer (Int32)}
      */
-    static VSS_CTX_FILE_SHARE_BACKUP => 16
+    static CTX_FILE_SHARE_BACKUP => 16
 
     /**
      * Specifies a persistent, non-auto-release shadow copy without writer involvement. This context should be 
@@ -65,9 +67,10 @@ class VSS_SNAPSHOT_CONTEXT extends Win32Enum {
      *        that are not expected to contain any system-related files or databases might run under this context. For 
      *        example, a requester could use this context for creating a shadow copy of a NAS volume hosting documents and 
      *        simple user shares. Those types of data do not need writer involvement to create a consistent shadow copy.
+     * Native name: VSS_CTX_NAS_ROLLBACK
      * @type {Integer (Int32)}
      */
-    static VSS_CTX_NAS_ROLLBACK => 25
+    static CTX_NAS_ROLLBACK => 25
 
     /**
      * Specifies a persistent, non-auto-release shadow copy with writer involvement. This context is designed 
@@ -77,17 +80,19 @@ class VSS_SNAPSHOT_CONTEXT extends Win32Enum {
      * Automated file rollback mechanisms of system volumes and shadow copies to be used in data mining or restore 
      *        operations might run under this context. This context is similar to <b>VSS_CTX_BACKUP</b> 
      *        but allows a requester more control over the persistence of the shadow copy.
+     * Native name: VSS_CTX_APP_ROLLBACK
      * @type {Integer (Int32)}
      */
-    static VSS_CTX_APP_ROLLBACK => 9
+    static CTX_APP_ROLLBACK => 9
 
     /**
      * Specifies a read-only, <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-c">client-accessible shadow copy</a> that supports Shadow Copies for Shared Folders and is created without writer involvement. Only the system provider (the default provider available on the system) can create this type of shadow copy.
      * 
      * Most requesters will want to use the <b>VSS_CTX_NAS_ROLLBACK</b> context for persistent, non-auto-release shadow copies without writer involvement.
+     * Native name: VSS_CTX_CLIENT_ACCESSIBLE
      * @type {Integer (Int32)}
      */
-    static VSS_CTX_CLIENT_ACCESSIBLE => 29
+    static CTX_CLIENT_ACCESSIBLE => 29
 
     /**
      * Specifies a read-only, <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-c">client-accessible shadow copy</a> that is created with writer involvement. Only the system provider (the default provider available on the system) can create this type of shadow copy.
@@ -95,9 +100,10 @@ class VSS_SNAPSHOT_CONTEXT extends Win32Enum {
      * Most requesters will want to use the <b>VSS_CTX_APP_ROLLBACK</b> context for persistent, non-auto-release shadow copies with writer involvement.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>This context is not supported by Windows Server 2003 and Windows XP.
+     * Native name: VSS_CTX_CLIENT_ACCESSIBLE_WRITERS
      * @type {Integer (Int32)}
      */
-    static VSS_CTX_CLIENT_ACCESSIBLE_WRITERS => 13
+    static CTX_CLIENT_ACCESSIBLE_WRITERS => 13
 
     /**
      * All types of currently live shadow copies are available for administrative operations, such as shadow copy 
@@ -106,7 +112,8 @@ class VSS_SNAPSHOT_CONTEXT extends Win32Enum {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-startsnapshotset">IVssBackupComponents::StartSnapshotSet</a> 
      *       and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-dosnapshotset">IVssBackupComponents::DoSnapshotSet</a>.
+     * Native name: VSS_CTX_ALL
      * @type {Integer (Int32)}
      */
-    static VSS_CTX_ALL => -1
+    static CTX_ALL => -1
 }

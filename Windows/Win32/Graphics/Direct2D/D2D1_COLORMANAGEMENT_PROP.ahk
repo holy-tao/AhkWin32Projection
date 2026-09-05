@@ -15,9 +15,10 @@ class D2D1_COLORMANAGEMENT_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1colorcontext">ID2D1ColorContext</a>.
      * 
      * The default value is NULL.
+     * Native name: D2D1_COLORMANAGEMENT_PROP_SOURCE_COLOR_CONTEXT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_PROP_SOURCE_COLOR_CONTEXT => 0
+    static SOURCE_COLOR_CONTEXT => 0
 
     /**
      * Which ICC rendering intent to use. 
@@ -26,9 +27,10 @@ class D2D1_COLORMANAGEMENT_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_colormanagement_rendering_intent">D2D1_COLORMANAGEMENT_RENDERING_INTENT</a>.
      * 
      * The default value is D2D1_COLORMANAGEMENT_RENDERING_INTENT_PERCEPTUAL.
+     * Native name: D2D1_COLORMANAGEMENT_PROP_SOURCE_RENDERING_INTENT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_PROP_SOURCE_RENDERING_INTENT => 1
+    static SOURCE_RENDERING_INTENT => 1
 
     /**
      * The destination color space information. 
@@ -37,9 +39,10 @@ class D2D1_COLORMANAGEMENT_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1colorcontext">ID2D1ColorContext</a>.
      * 
      * The default value is NULL.
+     * Native name: D2D1_COLORMANAGEMENT_PROP_DESTINATION_COLOR_CONTEXT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_PROP_DESTINATION_COLOR_CONTEXT => 2
+    static DESTINATION_COLOR_CONTEXT => 2
 
     /**
      * Which ICC rendering intent to use. 
@@ -48,9 +51,10 @@ class D2D1_COLORMANAGEMENT_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_colormanagement_rendering_intent">D2D1_COLORMANAGEMENT_RENDERING_INTENT</a>.
      * 
      * The default value is D2D1_COLORMANAGEMENT_RENDERING_INTENT_PERCEPTUAL.
+     * Native name: D2D1_COLORMANAGEMENT_PROP_DESTINATION_RENDERING_INTENT
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_PROP_DESTINATION_RENDERING_INTENT => 3
+    static DESTINATION_RENDERING_INTENT => 3
 
     /**
      * How to interpret alpha data that is contained in the input image. 
@@ -59,9 +63,10 @@ class D2D1_COLORMANAGEMENT_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_colormanagement_alpha_mode">D2D1_COLORMANAGEMENT_ALPHA_MODE</a>.
      * 
      * The default value is D2D1_COLORMANAGEMENT_ALPHA_MODE_PREMULTIPLIED.
+     * Native name: D2D1_COLORMANAGEMENT_PROP_ALPHA_MODE
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_PROP_ALPHA_MODE => 4
+    static ALPHA_MODE => 4
 
     /**
      * The quality level of the transform. 
@@ -70,7 +75,8 @@ class D2D1_COLORMANAGEMENT_PROP extends Win32Enum {
      * The type is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects/ne-d2d1effects-d2d1_colormanagement_quality">D2D1_COLORMANAGEMENT_QUALITY</a>.
      * 
      * The default value is D2D1_COLORMANAGEMENT_QUALITY_NORMAL.
+     * Native name: D2D1_COLORMANAGEMENT_PROP_QUALITY
      * @type {Integer (Int32)}
      */
-    static D2D1_COLORMANAGEMENT_PROP_QUALITY => 5
+    static QUALITY => 5
 }

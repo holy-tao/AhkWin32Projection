@@ -36,7 +36,6 @@ class ISideShowKeyCollection extends IUnknown {
     static VTableNames => ["Add", "Clear", "GetAt", "GetCount", "RemoveAt"]
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} Key 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ class ISideShowKeyCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @returns {HRESULT} 
@@ -85,7 +83,6 @@ class ISideShowKeyCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcElems 
      * @returns {HRESULT} 
      */
@@ -97,7 +94,6 @@ class ISideShowKeyCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {HRESULT} 
      */

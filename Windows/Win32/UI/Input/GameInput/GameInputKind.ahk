@@ -7,77 +7,92 @@
 class GameInputKind extends Win32BitflagEnum {
 
     /**
+     * Native name: GameInputKindUnknown
      * @type {Integer (Int32)}
      */
-    static GameInputKindUnknown => 0
+    static Unknown => 0
 
     /**
+     * Native name: GameInputKindRawDeviceReport
      * @type {Integer (Int32)}
      */
-    static GameInputKindRawDeviceReport => 1
+    static RawDeviceReport => 1
 
     /**
+     * Native name: GameInputKindControllerAxis
      * @type {Integer (Int32)}
      */
-    static GameInputKindControllerAxis => 2
+    static ControllerAxis => 2
 
     /**
+     * Native name: GameInputKindControllerButton
      * @type {Integer (Int32)}
      */
-    static GameInputKindControllerButton => 4
+    static ControllerButton => 4
 
     /**
+     * Native name: GameInputKindControllerSwitch
      * @type {Integer (Int32)}
      */
-    static GameInputKindControllerSwitch => 8
+    static ControllerSwitch => 8
 
     /**
+     * Native name: GameInputKindController
      * @type {Integer (Int32)}
      */
-    static GameInputKindController => 14
+    static Controller => 14
 
     /**
+     * Native name: GameInputKindKeyboard
      * @type {Integer (Int32)}
      */
-    static GameInputKindKeyboard => 16
+    static Keyboard => 16
 
     /**
+     * Native name: GameInputKindMouse
      * @type {Integer (Int32)}
      */
-    static GameInputKindMouse => 32
+    static Mouse => 32
 
     /**
+     * Native name: GameInputKindTouch
      * @type {Integer (Int32)}
      */
-    static GameInputKindTouch => 256
+    static Touch => 256
 
     /**
+     * Native name: GameInputKindMotion
      * @type {Integer (Int32)}
      */
-    static GameInputKindMotion => 4096
+    static Motion => 4096
 
     /**
+     * Native name: GameInputKindArcadeStick
      * @type {Integer (Int32)}
      */
-    static GameInputKindArcadeStick => 65536
+    static ArcadeStick => 65536
 
     /**
+     * Native name: GameInputKindFlightStick
      * @type {Integer (Int32)}
      */
-    static GameInputKindFlightStick => 131072
+    static FlightStick => 131072
 
     /**
+     * Native name: GameInputKindGamepad
      * @type {Integer (Int32)}
      */
-    static GameInputKindGamepad => 262144
+    static Gamepad => 262144
 
     /**
+     * Native name: GameInputKindRacingWheel
      * @type {Integer (Int32)}
      */
-    static GameInputKindRacingWheel => 524288
+    static RacingWheel => 524288
 
     /**
+     * Native name: GameInputKindUiNavigation
      * @type {Integer (Int32)}
      */
-    static GameInputKindUiNavigation => 16777216
+    static UiNavigation => 16777216
 }

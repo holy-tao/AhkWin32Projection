@@ -38,7 +38,6 @@ class IHomePageSetting extends IUnknown {
     static VTableNames => ["SetHomePage", "IsHomePage", "SetHomePageToBrowserDefault"]
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} homePageUri 
      * @param {PWSTR} brandingMessage 
@@ -54,7 +53,6 @@ class IHomePageSetting extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @returns {BOOL} 
      */
@@ -66,7 +64,6 @@ class IHomePageSetting extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetHomePageToBrowserDefault() {

@@ -7,17 +7,20 @@
 class AddPackageDependencyOptions2 extends Win32BitflagEnum {
 
     /**
+     * Native name: AddPackageDependencyOptions2_None
      * @type {Integer (Int32)}
      */
-    static AddPackageDependencyOptions2_None => 0
+    static None => 0
 
     /**
+     * Native name: AddPackageDependencyOptions2_PrependIfRankCollision
      * @type {Integer (Int32)}
      */
-    static AddPackageDependencyOptions2_PrependIfRankCollision => 1
+    static PrependIfRankCollision => 1
 
     /**
+     * Native name: AddPackageDependencyOptions2_SpecifiedPackageFamilyOnly
      * @type {Integer (Int32)}
      */
-    static AddPackageDependencyOptions2_SpecifiedPackageFamilyOnly => 2
+    static SpecifiedPackageFamilyOnly => 2
 }

@@ -32,7 +32,6 @@ class IDebugHostExtensibility2 extends IDebugHostExtensibility {
     static VTableNames => ["CreateFunctionAliasWithMetadata"]
 
     /**
-     * 
      * @param {PWSTR} aliasName 
      * @param {IModelObject} functionObject 
      * @param {IKeyStore} metadata 

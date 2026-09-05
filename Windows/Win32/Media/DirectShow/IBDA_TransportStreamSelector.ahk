@@ -29,7 +29,6 @@ class IBDA_TransportStreamSelector extends IUnknown {
     static VTableNames => ["SetTSID", "GetTSInformation"]
 
     /**
-     * 
      * @param {Integer} usTSID 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class IBDA_TransportStreamSelector extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulTSInformationBufferLen 
      * @returns {Integer} 
      */

@@ -10,13 +10,15 @@ class WIC8BIMIptcDigestProperties extends Win32Enum {
 
     /**
      * [VT_LPSTR] A name that identifies the 8BIM block.
+     * Native name: WIC8BIMIptcDigestPString
      * @type {Integer (Int32)}
      */
-    static WIC8BIMIptcDigestPString => 1
+    static DigestPString => 1
 
     /**
      * [VT_BLOB] The embedded IPTC digest value.
+     * Native name: WIC8BIMIptcDigestIptcDigest
      * @type {Integer (Int32)}
      */
-    static WIC8BIMIptcDigestIptcDigest => 2
+    static IptcDigest => 2
 }

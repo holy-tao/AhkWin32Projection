@@ -10,19 +10,22 @@ class WBEM_UNSECAPP_FLAG_TYPE extends Win32Enum {
 
     /**
      * Unsecapp.exe reads the registry key UnsecAppAccessControlDefault to determine if it should authenticate callbacks.
+     * Native name: WBEM_FLAG_UNSECAPP_DEFAULT_CHECK_ACCESS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_UNSECAPP_DEFAULT_CHECK_ACCESS => 0
+    static UNSECAPP_DEFAULT_CHECK_ACCESS => 0
 
     /**
      * Unsecapp.exe authenticates callbacks regardless of the setting of the registry key UnsecAppAccessControlDefault.
+     * Native name: WBEM_FLAG_UNSECAPP_CHECK_ACCESS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_UNSECAPP_CHECK_ACCESS => 1
+    static UNSECAPP_CHECK_ACCESS => 1
 
     /**
      * Unsecapp.exe does not authenticate callbacks regardless of the setting of the registry key UnsecAppAccessControlDefault.
+     * Native name: WBEM_FLAG_UNSECAPP_DONT_CHECK_ACCESS
      * @type {Integer (Int32)}
      */
-    static WBEM_FLAG_UNSECAPP_DONT_CHECK_ACCESS => 2
+    static UNSECAPP_DONT_CHECK_ACCESS => 2
 }

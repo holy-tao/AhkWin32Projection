@@ -31,7 +31,6 @@ class IKsDataTypeCompletion extends IUnknown {
     static VTableNames => ["KsCompleteMediaType"]
 
     /**
-     * 
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
      * @param {Pointer<AM_MEDIA_TYPE>} AmMediaType 

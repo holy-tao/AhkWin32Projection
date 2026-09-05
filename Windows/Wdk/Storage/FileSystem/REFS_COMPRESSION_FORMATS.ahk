@@ -7,22 +7,26 @@
 class REFS_COMPRESSION_FORMATS extends Win32Enum {
 
     /**
+     * Native name: REFS_COMPRESSION_FORMAT_UNCOMPRESSED
      * @type {Integer (Int32)}
      */
-    static REFS_COMPRESSION_FORMAT_UNCOMPRESSED => 0
+    static FORMAT_UNCOMPRESSED => 0
 
     /**
+     * Native name: REFS_COMPRESSION_FORMAT_LZ4
      * @type {Integer (Int32)}
      */
-    static REFS_COMPRESSION_FORMAT_LZ4 => 1
+    static FORMAT_LZ4 => 1
 
     /**
+     * Native name: REFS_COMPRESSION_FORMAT_ZSTD
      * @type {Integer (Int32)}
      */
-    static REFS_COMPRESSION_FORMAT_ZSTD => 2
+    static FORMAT_ZSTD => 2
 
     /**
+     * Native name: REFS_COMPRESSION_FORMAT_MAX
      * @type {Integer (Int32)}
      */
-    static REFS_COMPRESSION_FORMAT_MAX => 3
+    static FORMAT_MAX => 3
 }

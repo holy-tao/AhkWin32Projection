@@ -7,22 +7,26 @@
 class IOMMU_DEVICE_CREATION_CONFIGURATION_TYPE extends Win32Enum {
 
     /**
+     * Native name: IommuDeviceCreationConfigTypeNone
      * @type {Integer (Int32)}
      */
-    static IommuDeviceCreationConfigTypeNone => 0
+    static ConfigTypeNone => 0
 
     /**
+     * Native name: IommuDeviceCreationConfigTypeAcpi
      * @type {Integer (Int32)}
      */
-    static IommuDeviceCreationConfigTypeAcpi => 1
+    static ConfigTypeAcpi => 1
 
     /**
+     * Native name: IommuDeviceCreationConfigTypeDeviceId
      * @type {Integer (Int32)}
      */
-    static IommuDeviceCreationConfigTypeDeviceId => 2
+    static ConfigTypeDeviceId => 2
 
     /**
+     * Native name: IommuDeviceCreationConfigTypeMax
      * @type {Integer (Int32)}
      */
-    static IommuDeviceCreationConfigTypeMax => 3
+    static ConfigTypeMax => 3
 }

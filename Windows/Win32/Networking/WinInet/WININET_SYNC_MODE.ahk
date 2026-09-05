@@ -7,32 +7,38 @@
 class WININET_SYNC_MODE extends Win32Enum {
 
     /**
+     * Native name: WININET_SYNC_MODE_NEVER
      * @type {Integer (Int32)}
      */
-    static WININET_SYNC_MODE_NEVER => 0
+    static NEVER => 0
 
     /**
+     * Native name: WININET_SYNC_MODE_ON_EXPIRY
      * @type {Integer (Int32)}
      */
-    static WININET_SYNC_MODE_ON_EXPIRY => 1
+    static ON_EXPIRY => 1
 
     /**
+     * Native name: WININET_SYNC_MODE_ONCE_PER_SESSION
      * @type {Integer (Int32)}
      */
-    static WININET_SYNC_MODE_ONCE_PER_SESSION => 2
+    static ONCE_PER_SESSION => 2
 
     /**
+     * Native name: WININET_SYNC_MODE_ALWAYS
      * @type {Integer (Int32)}
      */
-    static WININET_SYNC_MODE_ALWAYS => 3
+    static ALWAYS => 3
 
     /**
+     * Native name: WININET_SYNC_MODE_AUTOMATIC
      * @type {Integer (Int32)}
      */
-    static WININET_SYNC_MODE_AUTOMATIC => 4
+    static AUTOMATIC => 4
 
     /**
+     * Native name: WININET_SYNC_MODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static WININET_SYNC_MODE_DEFAULT => 4
+    static DEFAULT => 4
 }

@@ -10,25 +10,29 @@ class FWP_AF extends Win32Enum {
 
     /**
      * Specifies an address as an IPv4 address.
+     * Native name: FWP_AF_INET
      * @type {Integer (Int32)}
      */
-    static FWP_AF_INET => 0
+    static INET => 0
 
     /**
      * Specifies an address as an IPv6 address.
+     * Native name: FWP_AF_INET6
      * @type {Integer (Int32)}
      */
-    static FWP_AF_INET6 => 1
+    static INET6 => 1
 
     /**
      * Reserved.
+     * Native name: FWP_AF_ETHER
      * @type {Integer (Int32)}
      */
-    static FWP_AF_ETHER => 2
+    static ETHER => 2
 
     /**
      * Placeholder value to be used when the address family is not yet identified.
+     * Native name: FWP_AF_NONE
      * @type {Integer (Int32)}
      */
-    static FWP_AF_NONE => 3
+    static NONE => 3
 }

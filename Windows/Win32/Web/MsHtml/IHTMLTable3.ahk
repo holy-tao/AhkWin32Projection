@@ -38,7 +38,6 @@ class IHTMLTable3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class IHTMLTable3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_summary() {

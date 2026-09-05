@@ -7,42 +7,50 @@
 class DISPID_InkRecognizer extends Win32Enum {
 
     /**
+     * Native name: DISPID_RecoClsid
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoClsid => 1
+    static RecoClsid => 1
 
     /**
+     * Native name: DISPID_RecoName
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoName => 2
+    static RecoName => 2
 
     /**
+     * Native name: DISPID_RecoVendor
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoVendor => 3
+    static RecoVendor => 3
 
     /**
+     * Native name: DISPID_RecoCapabilities
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoCapabilities => 4
+    static RecoCapabilities => 4
 
     /**
+     * Native name: DISPID_RecoLanguageID
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoLanguageID => 5
+    static RecoLanguageID => 5
 
     /**
+     * Native name: DISPID_RecoPreferredPacketDescription
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoPreferredPacketDescription => 6
+    static RecoPreferredPacketDescription => 6
 
     /**
+     * Native name: DISPID_RecoCreateRecognizerContext
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoCreateRecognizerContext => 7
+    static RecoCreateRecognizerContext => 7
 
     /**
+     * Native name: DISPID_RecoSupportedProperties
      * @type {Integer (Int32)}
      */
-    static DISPID_RecoSupportedProperties => 8
+    static RecoSupportedProperties => 8
 }

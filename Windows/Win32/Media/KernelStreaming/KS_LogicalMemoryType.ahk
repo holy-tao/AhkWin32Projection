@@ -7,37 +7,44 @@
 class KS_LogicalMemoryType extends Win32Enum {
 
     /**
+     * Native name: KS_MemoryTypeDontCare
      * @type {Integer (Int32)}
      */
-    static KS_MemoryTypeDontCare => 0
+    static DontCare => 0
 
     /**
+     * Native name: KS_MemoryTypeKernelPaged
      * @type {Integer (Int32)}
      */
-    static KS_MemoryTypeKernelPaged => 1
+    static KernelPaged => 1
 
     /**
+     * Native name: KS_MemoryTypeKernelNonPaged
      * @type {Integer (Int32)}
      */
-    static KS_MemoryTypeKernelNonPaged => 2
+    static KernelNonPaged => 2
 
     /**
+     * Native name: KS_MemoryTypeDeviceHostMapped
      * @type {Integer (Int32)}
      */
-    static KS_MemoryTypeDeviceHostMapped => 3
+    static DeviceHostMapped => 3
 
     /**
+     * Native name: KS_MemoryTypeDeviceSpecific
      * @type {Integer (Int32)}
      */
-    static KS_MemoryTypeDeviceSpecific => 4
+    static DeviceSpecific => 4
 
     /**
+     * Native name: KS_MemoryTypeUser
      * @type {Integer (Int32)}
      */
-    static KS_MemoryTypeUser => 5
+    static User => 5
 
     /**
+     * Native name: KS_MemoryTypeAnyHost
      * @type {Integer (Int32)}
      */
-    static KS_MemoryTypeAnyHost => 6
+    static AnyHost => 6
 }

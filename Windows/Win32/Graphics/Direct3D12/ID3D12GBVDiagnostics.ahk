@@ -31,7 +31,6 @@ class ID3D12GBVDiagnostics extends IUnknown {
     static VTableNames => ["GetGBVEntireSubresourceStatesData", "GetGBVSubresourceState", "GetGBVResourceUniformState", "GetGBVResourceInfo", "GBVReserved0", "GBVReserved1"]
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} pData 
      * @param {Integer} DataSize 
@@ -43,7 +42,6 @@ class ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @returns {Integer} 
@@ -54,7 +52,6 @@ class ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @returns {Integer} 
      */
@@ -64,7 +61,6 @@ class ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_RESOURCE_DESC>} pResourceDesc 
      * @param {Pointer<Integer>} pResourceHash 
@@ -80,7 +76,6 @@ class ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     GBVReserved0() {
@@ -88,7 +83,6 @@ class ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     GBVReserved1() {

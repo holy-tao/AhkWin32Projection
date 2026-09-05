@@ -10,43 +10,50 @@ class IconIdentifier extends Win32Enum {
 
     /**
      * No icon displayed in error message.
+     * Native name: Icon_None
      * @type {Integer (Int32)}
      */
-    static Icon_None => 0
+    static None => 0
 
     /**
      * Error icon displayed in error message.
+     * Native name: Icon_Error
      * @type {Integer (Int32)}
      */
-    static Icon_Error => 32513
+    static Error => 32513
 
     /**
      * Question icon displayed in error message.
+     * Native name: Icon_Question
      * @type {Integer (Int32)}
      */
-    static Icon_Question => 32514
+    static Question => 32514
 
     /**
      * Warning icon displayed in error message.
+     * Native name: Icon_Warning
      * @type {Integer (Int32)}
      */
-    static Icon_Warning => 32515
+    static Warning => 32515
 
     /**
      * Information icon displayed in error message.
+     * Native name: Icon_Information
      * @type {Integer (Int32)}
      */
-    static Icon_Information => 32516
+    static Information => 32516
 
     /**
      * Used internally by MMC.
+     * Native name: Icon_First
      * @type {Integer (Int32)}
      */
-    static Icon_First => 32513
+    static First => 32513
 
     /**
      * Used internally by MMC.
+     * Native name: Icon_Last
      * @type {Integer (Int32)}
      */
-    static Icon_Last => 32516
+    static Last => 32516
 }

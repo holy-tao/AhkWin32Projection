@@ -33,7 +33,6 @@ class IObjectAccessControl extends IUnknown {
     static VTableNames => ["GetObjectAccessRights", "GetObjectOwner", "IsObjectAccessAllowed", "SetObjectAccessRights", "SetObjectOwner"]
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<Integer>} pcAccessEntries 
      * @param {Pointer<Pointer<EXPLICIT_ACCESS_W>>} prgAccessEntries 
@@ -48,7 +47,6 @@ class IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @returns {Pointer<TRUSTEE_W>} 
      */
@@ -58,7 +56,6 @@ class IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<EXPLICIT_ACCESS_W>} pAccessEntry 
      * @returns {BOOL} 
@@ -69,7 +66,6 @@ class IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Integer} cAccessEntries 
      * @param {Pointer<EXPLICIT_ACCESS_W>} prgAccessEntries 
@@ -81,7 +77,6 @@ class IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<TRUSTEE_W>} pOwner 
      * @returns {HRESULT} 

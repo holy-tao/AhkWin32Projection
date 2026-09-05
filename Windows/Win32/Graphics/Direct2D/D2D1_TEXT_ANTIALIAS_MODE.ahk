@@ -33,25 +33,29 @@ class D2D1_TEXT_ANTIALIAS_MODE extends Win32Enum {
 
     /**
      * Use the system default. See Remarks.
+     * Native name: D2D1_TEXT_ANTIALIAS_MODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_TEXT_ANTIALIAS_MODE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Use ClearType antialiasing.
+     * Native name: D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE
      * @type {Integer (Int32)}
      */
-    static D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE => 1
+    static CLEARTYPE => 1
 
     /**
      * Use grayscale antialiasing.
+     * Native name: D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE
      * @type {Integer (Int32)}
      */
-    static D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE => 2
+    static GRAYSCALE => 2
 
     /**
      * Do not use antialiasing.
+     * Native name: D2D1_TEXT_ANTIALIAS_MODE_ALIASED
      * @type {Integer (Int32)}
      */
-    static D2D1_TEXT_ANTIALIAS_MODE_ALIASED => 3
+    static ALIASED => 3
 }

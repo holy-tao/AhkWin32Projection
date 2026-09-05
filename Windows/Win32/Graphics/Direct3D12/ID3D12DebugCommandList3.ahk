@@ -31,7 +31,6 @@ class ID3D12DebugCommandList3 extends ID3D12DebugCommandList2 {
     static VTableNames => ["AssertResourceAccess", "AssertTextureLayout"]
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @param {D3D12_BARRIER_ACCESS} Access 
@@ -42,7 +41,6 @@ class ID3D12DebugCommandList3 extends ID3D12DebugCommandList2 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @param {D3D12_BARRIER_LAYOUT} Layout 

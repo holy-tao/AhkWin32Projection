@@ -30,7 +30,6 @@ class IEnumMsmDependency extends IUnknown {
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
      * @param {Integer} cFetch 
      * @param {Pointer<Integer>} pcFetched 
      * @returns {IMsmDependency} 
@@ -43,7 +42,6 @@ class IEnumMsmDependency extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cSkip 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class IEnumMsmDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -62,7 +59,6 @@ class IEnumMsmDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMsmDependency} 
      */
     Clone() {

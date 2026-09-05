@@ -29,7 +29,6 @@ class IXpsDocumentProvider extends IUnknown {
     static VTableNames => ["GetXpsPart"]
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetXpsPart() {

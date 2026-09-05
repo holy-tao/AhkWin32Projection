@@ -7,17 +7,20 @@
 class ColorMatrixFlags extends Win32Enum {
 
     /**
+     * Native name: ColorMatrixFlagsDefault
      * @type {Integer (Int32)}
      */
-    static ColorMatrixFlagsDefault => 0
+    static Default => 0
 
     /**
+     * Native name: ColorMatrixFlagsSkipGrays
      * @type {Integer (Int32)}
      */
-    static ColorMatrixFlagsSkipGrays => 1
+    static SkipGrays => 1
 
     /**
+     * Native name: ColorMatrixFlagsAltGray
      * @type {Integer (Int32)}
      */
-    static ColorMatrixFlagsAltGray => 2
+    static AltGray => 2
 }

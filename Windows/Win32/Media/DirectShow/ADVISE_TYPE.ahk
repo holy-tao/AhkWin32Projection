@@ -7,32 +7,38 @@
 class ADVISE_TYPE extends Win32BitflagEnum {
 
     /**
+     * Native name: ADVISE_NONE
      * @type {Integer (Int32)}
      */
-    static ADVISE_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: ADVISE_CLIPPING
      * @type {Integer (Int32)}
      */
-    static ADVISE_CLIPPING => 1
+    static CLIPPING => 1
 
     /**
+     * Native name: ADVISE_PALETTE
      * @type {Integer (Int32)}
      */
-    static ADVISE_PALETTE => 2
+    static PALETTE => 2
 
     /**
+     * Native name: ADVISE_COLORKEY
      * @type {Integer (Int32)}
      */
-    static ADVISE_COLORKEY => 4
+    static COLORKEY => 4
 
     /**
+     * Native name: ADVISE_POSITION
      * @type {Integer (Int32)}
      */
-    static ADVISE_POSITION => 8
+    static POSITION => 8
 
     /**
+     * Native name: ADVISE_DISPLAY_CHANGE
      * @type {Integer (Int32)}
      */
-    static ADVISE_DISPLAY_CHANGE => 16
+    static DISPLAY_CHANGE => 16
 }

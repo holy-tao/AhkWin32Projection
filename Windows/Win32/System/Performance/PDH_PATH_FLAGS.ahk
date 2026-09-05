@@ -7,17 +7,20 @@
 class PDH_PATH_FLAGS extends Win32Enum {
 
     /**
+     * Native name: PDH_PATH_WBEM_RESULT
      * @type {Integer (UInt32)}
      */
-    static PDH_PATH_WBEM_RESULT => 1
+    static WBEM_RESULT => 1
 
     /**
+     * Native name: PDH_PATH_WBEM_INPUT
      * @type {Integer (UInt32)}
      */
-    static PDH_PATH_WBEM_INPUT => 2
+    static WBEM_INPUT => 2
 
     /**
+     * Native name: PDH_PATH_WBEM_NONE
      * @type {Integer (UInt32)}
      */
-    static PDH_PATH_WBEM_NONE => 0
+    static WBEM_NONE => 0
 }

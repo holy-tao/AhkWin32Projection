@@ -10,13 +10,15 @@ class DHCP_OPTION_TYPE extends Win32Enum {
 
     /**
      * The option has a single data item associated with it.
+     * Native name: DhcpUnaryElementTypeOption
      * @type {Integer (Int32)}
      */
-    static DhcpUnaryElementTypeOption => 0
+    static UnaryElementTypeOption => 0
 
     /**
      * The option is an array of data items associated with it.
+     * Native name: DhcpArrayTypeOption
      * @type {Integer (Int32)}
      */
-    static DhcpArrayTypeOption => 1
+    static ArrayTypeOption => 1
 }

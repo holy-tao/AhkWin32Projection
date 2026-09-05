@@ -29,7 +29,6 @@ class IDebugCookie extends IUnknown {
     static VTableNames => ["SetDebugCookie"]
 
     /**
-     * 
      * @param {Integer} dwDebugAppCookie 
      * @returns {HRESULT} 
      */

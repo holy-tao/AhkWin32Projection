@@ -7,12 +7,14 @@
 class HCS_NOTIFICATION_FLAGS extends Win32Enum {
 
     /**
+     * Native name: HcsNotificationFlagSuccess
      * @type {Integer (Int32)}
      */
-    static HcsNotificationFlagSuccess => 0
+    static FlagSuccess => 0
 
     /**
+     * Native name: HcsNotificationFlagFailure
      * @type {Integer (Int32)}
      */
-    static HcsNotificationFlagFailure => -2147483648
+    static FlagFailure => -2147483648
 }

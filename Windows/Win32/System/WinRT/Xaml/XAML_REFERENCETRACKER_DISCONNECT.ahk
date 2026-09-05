@@ -7,12 +7,14 @@
 class XAML_REFERENCETRACKER_DISCONNECT extends Win32Enum {
 
     /**
+     * Native name: XAML_REFERENCETRACKER_DISCONNECT_DEFAULT
      * @type {Integer (Int32)}
      */
-    static XAML_REFERENCETRACKER_DISCONNECT_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: XAML_REFERENCETRACKER_DISCONNECT_SUSPEND
      * @type {Integer (Int32)}
      */
-    static XAML_REFERENCETRACKER_DISCONNECT_SUSPEND => 1
+    static SUSPEND => 1
 }

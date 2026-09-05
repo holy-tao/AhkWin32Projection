@@ -10,19 +10,22 @@ class WPCFLAG_IM_LEAVE extends Win32Enum {
 
     /**
      * An instant message participant left the interaction.
+     * Native name: WPCFLAG_IM_LEAVE_NORMAL
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_LEAVE_NORMAL => 0
+    static NORMAL => 0
 
     /**
      * An instant message participant was forced to leave the interaction.
+     * Native name: WPCFLAG_IM_LEAVE_FORCED
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_LEAVE_FORCED => 1
+    static FORCED => 1
 
     /**
      * This marks the end of the entire conversation.
+     * Native name: WPCFLAG_IM_LEAVE_CONVERSATION_END
      * @type {Integer (Int32)}
      */
-    static WPCFLAG_IM_LEAVE_CONVERSATION_END => 2
+    static CONVERSATION_END => 2
 }

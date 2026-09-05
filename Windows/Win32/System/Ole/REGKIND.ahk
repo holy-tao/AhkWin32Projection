@@ -10,19 +10,22 @@ class REGKIND extends Win32Enum {
 
     /**
      * Use default register behavior.
+     * Native name: REGKIND_DEFAULT
      * @type {Integer (Int32)}
      */
-    static REGKIND_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Register this type library.
+     * Native name: REGKIND_REGISTER
      * @type {Integer (Int32)}
      */
-    static REGKIND_REGISTER => 1
+    static REGISTER => 1
 
     /**
      * Do not register this type library.
+     * Native name: REGKIND_NONE
      * @type {Integer (Int32)}
      */
-    static REGKIND_NONE => 2
+    static NONE => 2
 }

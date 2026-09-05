@@ -32,7 +32,6 @@ class IDirectInputDevice7W extends IDirectInputDevice2W {
     static VTableNames => ["EnumEffectsInFile", "WriteEffectToFile"]
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Pointer<LPDIENUMEFFECTSINFILECALLBACK>} param1 
      * @param {Pointer<Void>} param2 
@@ -49,7 +48,6 @@ class IDirectInputDevice7W extends IDirectInputDevice2W {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<DIFILEEFFECT>} param2 

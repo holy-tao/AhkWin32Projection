@@ -7,144 +7,172 @@
 class PAGE_PROTECTION_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: PAGE_NOACCESS
      * @type {Integer (UInt32)}
      */
-    static PAGE_NOACCESS => 1
+    static NOACCESS => 1
 
     /**
+     * Native name: PAGE_READONLY
      * @type {Integer (UInt32)}
      */
-    static PAGE_READONLY => 2
+    static READONLY => 2
 
     /**
+     * Native name: PAGE_READWRITE
      * @type {Integer (UInt32)}
      */
-    static PAGE_READWRITE => 4
+    static READWRITE => 4
 
     /**
+     * Native name: PAGE_WRITECOPY
      * @type {Integer (UInt32)}
      */
-    static PAGE_WRITECOPY => 8
+    static WRITECOPY => 8
 
     /**
+     * Native name: PAGE_EXECUTE
      * @type {Integer (UInt32)}
      */
-    static PAGE_EXECUTE => 16
+    static EXECUTE => 16
 
     /**
+     * Native name: PAGE_EXECUTE_READ
      * @type {Integer (UInt32)}
      */
-    static PAGE_EXECUTE_READ => 32
+    static EXECUTE_READ => 32
 
     /**
+     * Native name: PAGE_EXECUTE_READWRITE
      * @type {Integer (UInt32)}
      */
-    static PAGE_EXECUTE_READWRITE => 64
+    static EXECUTE_READWRITE => 64
 
     /**
+     * Native name: PAGE_EXECUTE_WRITECOPY
      * @type {Integer (UInt32)}
      */
-    static PAGE_EXECUTE_WRITECOPY => 128
+    static EXECUTE_WRITECOPY => 128
 
     /**
+     * Native name: PAGE_GUARD
      * @type {Integer (UInt32)}
      */
-    static PAGE_GUARD => 256
+    static GUARD => 256
 
     /**
+     * Native name: PAGE_NOCACHE
      * @type {Integer (UInt32)}
      */
-    static PAGE_NOCACHE => 512
+    static NOCACHE => 512
 
     /**
+     * Native name: PAGE_WRITECOMBINE
      * @type {Integer (UInt32)}
      */
-    static PAGE_WRITECOMBINE => 1024
+    static WRITECOMBINE => 1024
 
     /**
+     * Native name: PAGE_GRAPHICS_NOACCESS
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_NOACCESS => 2048
+    static GRAPHICS_NOACCESS => 2048
 
     /**
+     * Native name: PAGE_GRAPHICS_READONLY
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_READONLY => 4096
+    static GRAPHICS_READONLY => 4096
 
     /**
+     * Native name: PAGE_GRAPHICS_READWRITE
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_READWRITE => 8192
+    static GRAPHICS_READWRITE => 8192
 
     /**
+     * Native name: PAGE_GRAPHICS_EXECUTE
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_EXECUTE => 16384
+    static GRAPHICS_EXECUTE => 16384
 
     /**
+     * Native name: PAGE_GRAPHICS_EXECUTE_READ
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_EXECUTE_READ => 32768
+    static GRAPHICS_EXECUTE_READ => 32768
 
     /**
+     * Native name: PAGE_GRAPHICS_EXECUTE_READWRITE
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_EXECUTE_READWRITE => 65536
+    static GRAPHICS_EXECUTE_READWRITE => 65536
 
     /**
+     * Native name: PAGE_GRAPHICS_COHERENT
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_COHERENT => 131072
+    static GRAPHICS_COHERENT => 131072
 
     /**
+     * Native name: PAGE_GRAPHICS_NOCACHE
      * @type {Integer (UInt32)}
      */
-    static PAGE_GRAPHICS_NOCACHE => 262144
+    static GRAPHICS_NOCACHE => 262144
 
     /**
+     * Native name: PAGE_ENCLAVE_THREAD_CONTROL
      * @type {Integer (UInt32)}
      */
-    static PAGE_ENCLAVE_THREAD_CONTROL => 2147483648
+    static ENCLAVE_THREAD_CONTROL => 2147483648
 
     /**
+     * Native name: PAGE_REVERT_TO_FILE_MAP
      * @type {Integer (UInt32)}
      */
-    static PAGE_REVERT_TO_FILE_MAP => 2147483648
+    static REVERT_TO_FILE_MAP => 2147483648
 
     /**
+     * Native name: PAGE_TARGETS_NO_UPDATE
      * @type {Integer (UInt32)}
      */
-    static PAGE_TARGETS_NO_UPDATE => 1073741824
+    static TARGETS_NO_UPDATE => 1073741824
 
     /**
+     * Native name: PAGE_TARGETS_INVALID
      * @type {Integer (UInt32)}
      */
-    static PAGE_TARGETS_INVALID => 1073741824
+    static TARGETS_INVALID => 1073741824
 
     /**
+     * Native name: PAGE_ENCLAVE_UNVALIDATED
      * @type {Integer (UInt32)}
      */
-    static PAGE_ENCLAVE_UNVALIDATED => 536870912
+    static ENCLAVE_UNVALIDATED => 536870912
 
     /**
+     * Native name: PAGE_ENCLAVE_MASK
      * @type {Integer (UInt32)}
      */
-    static PAGE_ENCLAVE_MASK => 268435456
+    static ENCLAVE_MASK => 268435456
 
     /**
+     * Native name: PAGE_ENCLAVE_DECOMMIT
      * @type {Integer (UInt32)}
      */
-    static PAGE_ENCLAVE_DECOMMIT => 268435456
+    static ENCLAVE_DECOMMIT => 268435456
 
     /**
+     * Native name: PAGE_ENCLAVE_SS_FIRST
      * @type {Integer (UInt32)}
      */
-    static PAGE_ENCLAVE_SS_FIRST => 268435457
+    static ENCLAVE_SS_FIRST => 268435457
 
     /**
+     * Native name: PAGE_ENCLAVE_SS_REST
      * @type {Integer (UInt32)}
      */
-    static PAGE_ENCLAVE_SS_REST => 268435458
+    static ENCLAVE_SS_REST => 268435458
 
     /**
      * @type {Integer (UInt32)}

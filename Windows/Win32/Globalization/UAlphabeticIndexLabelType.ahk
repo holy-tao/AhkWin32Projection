@@ -7,22 +7,26 @@
 class UAlphabeticIndexLabelType extends Win32Enum {
 
     /**
+     * Native name: U_ALPHAINDEX_NORMAL
      * @type {Integer (Int32)}
      */
-    static U_ALPHAINDEX_NORMAL => 0
+    static ALPHAINDEX_NORMAL => 0
 
     /**
+     * Native name: U_ALPHAINDEX_UNDERFLOW
      * @type {Integer (Int32)}
      */
-    static U_ALPHAINDEX_UNDERFLOW => 1
+    static ALPHAINDEX_UNDERFLOW => 1
 
     /**
+     * Native name: U_ALPHAINDEX_INFLOW
      * @type {Integer (Int32)}
      */
-    static U_ALPHAINDEX_INFLOW => 2
+    static ALPHAINDEX_INFLOW => 2
 
     /**
+     * Native name: U_ALPHAINDEX_OVERFLOW
      * @type {Integer (Int32)}
      */
-    static U_ALPHAINDEX_OVERFLOW => 3
+    static ALPHAINDEX_OVERFLOW => 3
 }

@@ -37,7 +37,6 @@ class IHTMLScriptElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_usedCharset() {

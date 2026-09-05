@@ -32,7 +32,6 @@ class IUriBuilder extends IUnknown {
     static VTableNames => ["CreateUriSimple", "CreateUri", "CreateUriWithFlags", "GetIUri", "SetIUri", "GetFragment", "GetHost", "GetPassword", "GetPath", "GetPort", "GetQuery", "GetSchemeName", "GetUserName", "SetFragment", "SetHost", "SetPassword", "SetPath", "SetPort", "SetQuery", "SetSchemeName", "SetUserName", "RemoveProperties", "HasBeenModified"]
 
     /**
-     * 
      * @param {Integer} dwAllowEncodingPropertyMask 
      * @param {Pointer} dwReserved 
      * @returns {IUri} 
@@ -43,7 +42,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCreateFlags 
      * @param {Integer} dwAllowEncodingPropertyMask 
      * @param {Pointer} dwReserved 
@@ -55,7 +53,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCreateFlags 
      * @param {Integer} dwUriBuilderFlags 
      * @param {Integer} dwAllowEncodingPropertyMask 
@@ -68,7 +65,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUri} 
      */
     GetIUri() {
@@ -77,7 +73,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUri} pIUri 
      * @returns {HRESULT} 
      */
@@ -87,7 +82,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchFragment 
      * @param {Pointer<PWSTR>} ppwzFragment 
      * @returns {HRESULT} 
@@ -101,7 +95,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchHost 
      * @param {Pointer<PWSTR>} ppwzHost 
      * @returns {HRESULT} 
@@ -115,7 +108,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchPassword 
      * @param {Pointer<PWSTR>} ppwzPassword 
      * @returns {HRESULT} 
@@ -150,7 +142,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfHasPort 
      * @param {Pointer<Integer>} pdwPort 
      * @returns {HRESULT} 
@@ -164,7 +155,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchQuery 
      * @param {Pointer<PWSTR>} ppwzQuery 
      * @returns {HRESULT} 
@@ -178,7 +168,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchSchemeName 
      * @param {Pointer<PWSTR>} ppwzSchemeName 
      * @returns {HRESULT} 
@@ -215,7 +204,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -227,7 +215,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -239,7 +226,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -251,7 +237,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -288,7 +273,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -300,7 +284,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -312,7 +295,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -324,7 +306,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwPropertyMask 
      * @returns {HRESULT} 
      */
@@ -334,7 +315,6 @@ class IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     HasBeenModified() {

@@ -13,19 +13,22 @@ class D2D1_PRINT_FONT_SUBSET_MODE extends Win32Enum {
      * 
      * > [!NOTE]
      * > If the print driver has requested archive-optimized content, then Direct2D will subset fonts once, for the entire document.
+     * Native name: D2D1_PRINT_FONT_SUBSET_MODE_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_PRINT_FONT_SUBSET_MODE_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Subsets and embeds font resources in each page, then discards that font subset after the page is printed out.
+     * Native name: D2D1_PRINT_FONT_SUBSET_MODE_EACHPAGE
      * @type {Integer (Int32)}
      */
-    static D2D1_PRINT_FONT_SUBSET_MODE_EACHPAGE => 1
+    static EACHPAGE => 1
 
     /**
      * Sends out the original font resources without subsetting along with the page that first uses the font, and re-uses the font resources for later pages without resending them.
+     * Native name: D2D1_PRINT_FONT_SUBSET_MODE_NONE
      * @type {Integer (Int32)}
      */
-    static D2D1_PRINT_FONT_SUBSET_MODE_NONE => 2
+    static NONE => 2
 }

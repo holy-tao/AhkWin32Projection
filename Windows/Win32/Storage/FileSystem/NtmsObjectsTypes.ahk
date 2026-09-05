@@ -131,120 +131,140 @@ class NtmsObjectsTypes extends Win32Enum {
 
     /**
      * Unknown  object.
+     * Native name: NTMS_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static NTMS_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * Used internally when initializing an object.
+     * Native name: NTMS_OBJECT
      * @type {Integer (Int32)}
      */
-    static NTMS_OBJECT => 1
+    static OBJECT => 1
 
     /**
      * Changer.
+     * Native name: NTMS_CHANGER
      * @type {Integer (Int32)}
      */
-    static NTMS_CHANGER => 2
+    static CHANGER => 2
 
     /**
      * Changer type.
+     * Native name: NTMS_CHANGER_TYPE
      * @type {Integer (Int32)}
      */
-    static NTMS_CHANGER_TYPE => 3
+    static CHANGER_TYPE => 3
 
     /**
      * Computer.
+     * Native name: NTMS_COMPUTER
      * @type {Integer (Int32)}
      */
-    static NTMS_COMPUTER => 4
+    static COMPUTER => 4
 
     /**
      * Drive.
+     * Native name: NTMS_DRIVE
      * @type {Integer (Int32)}
      */
-    static NTMS_DRIVE => 5
+    static DRIVE => 5
 
     /**
      * Drive type.
+     * Native name: NTMS_DRIVE_TYPE
      * @type {Integer (Int32)}
      */
-    static NTMS_DRIVE_TYPE => 6
+    static DRIVE_TYPE => 6
 
     /**
      * Insert/eject door.
+     * Native name: NTMS_IEDOOR
      * @type {Integer (Int32)}
      */
-    static NTMS_IEDOOR => 7
+    static IEDOOR => 7
 
     /**
      * Insert/eject port.
+     * Native name: NTMS_IEPORT
      * @type {Integer (Int32)}
      */
-    static NTMS_IEPORT => 8
+    static IEPORT => 8
 
     /**
      * Library (including the offline library).
+     * Native name: NTMS_LIBRARY
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBRARY => 9
+    static LIBRARY => 9
 
     /**
      * Library request.
+     * Native name: NTMS_LIBREQUEST
      * @type {Integer (Int32)}
      */
-    static NTMS_LIBREQUEST => 10
+    static LIBREQUEST => 10
 
     /**
      * Logical media.
+     * Native name: NTMS_LOGICAL_MEDIA
      * @type {Integer (Int32)}
      */
-    static NTMS_LOGICAL_MEDIA => 11
+    static LOGICAL_MEDIA => 11
 
     /**
      * Media pool.
+     * Native name: NTMS_MEDIA_POOL
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIA_POOL => 12
+    static MEDIA_POOL => 12
 
     /**
      * Media type.
+     * Native name: NTMS_MEDIA_TYPE
      * @type {Integer (Int32)}
      */
-    static NTMS_MEDIA_TYPE => 13
+    static MEDIA_TYPE => 13
 
     /**
      * Side of a piece of physical media.
+     * Native name: NTMS_PARTITION
      * @type {Integer (Int32)}
      */
-    static NTMS_PARTITION => 14
+    static PARTITION => 14
 
     /**
      * Physical media.
+     * Native name: NTMS_PHYSICAL_MEDIA
      * @type {Integer (Int32)}
      */
-    static NTMS_PHYSICAL_MEDIA => 15
+    static PHYSICAL_MEDIA => 15
 
     /**
      * Storage slot.
+     * Native name: NTMS_STORAGESLOT
      * @type {Integer (Int32)}
      */
-    static NTMS_STORAGESLOT => 16
+    static STORAGESLOT => 16
 
     /**
      * Operator request.
+     * Native name: NTMS_OPREQUEST
      * @type {Integer (Int32)}
      */
-    static NTMS_OPREQUEST => 17
+    static OPREQUEST => 17
 
     /**
      * User interface destination.
+     * Native name: NTMS_UI_DESTINATION
      * @type {Integer (Int32)}
      */
-    static NTMS_UI_DESTINATION => 18
+    static UI_DESTINATION => 18
 
     /**
+     * Native name: NTMS_NUMBER_OF_OBJECT_TYPES
      * @type {Integer (Int32)}
      */
-    static NTMS_NUMBER_OF_OBJECT_TYPES => 19
+    static NUMBER_OF_OBJECT_TYPES => 19
 }

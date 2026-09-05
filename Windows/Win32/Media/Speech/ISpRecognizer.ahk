@@ -42,7 +42,6 @@ class ISpRecognizer extends ISpProperties {
     static VTableNames => ["SetRecognizer", "GetRecognizer", "SetInput", "GetInputObjectToken", "GetInputStream", "CreateRecoContext", "GetRecoProfile", "SetRecoProfile", "IsSharedInstance", "GetRecoState", "SetRecoState", "GetStatus", "GetFormat", "IsUISupported", "DisplayUI", "EmulateRecognition"]
 
     /**
-     * 
      * @param {ISpObjectToken} pRecognizer 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetRecognizer() {
@@ -61,7 +59,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkInput 
      * @param {BOOL} fAllowFormatChanges 
      * @returns {HRESULT} 
@@ -72,7 +69,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetInputObjectToken() {
@@ -81,7 +77,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpStreamFormat} 
      */
     GetInputStream() {
@@ -90,7 +85,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpRecoContext} 
      */
     CreateRecoContext() {
@@ -99,7 +93,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetRecoProfile() {
@@ -108,7 +101,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pToken 
      * @returns {HRESULT} 
      */
@@ -118,7 +110,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsSharedInstance() {
@@ -127,7 +118,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECOSTATE>} pState 
      * @returns {HRESULT} 
      */
@@ -139,7 +129,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {SPRECOSTATE} NewState 
      * @returns {HRESULT} 
      */
@@ -149,7 +138,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECOGNIZERSTATUS>} pStatus 
      * @returns {HRESULT} 
      */
@@ -159,7 +147,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {SPSTREAMFORMATTYPE} WaveFormatType 
      * @param {Pointer<Guid>} pFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
@@ -170,7 +157,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTypeOfUI 
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
@@ -188,7 +174,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszTypeOfUI 
@@ -208,7 +193,6 @@ class ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {ISpPhrase} pPhrase 
      * @returns {HRESULT} 
      */

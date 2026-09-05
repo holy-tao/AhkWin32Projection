@@ -10,13 +10,15 @@ class MFASF_SPLITTERFLAGS extends Win32Enum {
 
     /**
      * The splitter delivers samples for the ASF content in reverse order to accommodate reverse playback.
+     * Native name: MFASF_SPLITTER_REVERSE
      * @type {Integer (Int32)}
      */
-    static MFASF_SPLITTER_REVERSE => 1
+    static SPLITTER_REVERSE => 1
 
     /**
      * The splitter delivers samples for streams that are protected with Windows Media Digital Rights Management.
+     * Native name: MFASF_SPLITTER_WMDRM
      * @type {Integer (Int32)}
      */
-    static MFASF_SPLITTER_WMDRM => 2
+    static SPLITTER_WMDRM => 2
 }

@@ -7,17 +7,20 @@
 class SharedVirtualDiskHandleState extends Win32Enum {
 
     /**
+     * Native name: SharedVirtualDiskHandleStateNone
      * @type {Integer (Int32)}
      */
-    static SharedVirtualDiskHandleStateNone => 0
+    static None => 0
 
     /**
+     * Native name: SharedVirtualDiskHandleStateFileShared
      * @type {Integer (Int32)}
      */
-    static SharedVirtualDiskHandleStateFileShared => 1
+    static FileShared => 1
 
     /**
+     * Native name: SharedVirtualDiskHandleStateHandleShared
      * @type {Integer (Int32)}
      */
-    static SharedVirtualDiskHandleStateHandleShared => 3
+    static HandleShared => 3
 }

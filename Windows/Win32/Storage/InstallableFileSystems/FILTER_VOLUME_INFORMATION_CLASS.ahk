@@ -7,12 +7,14 @@
 class FILTER_VOLUME_INFORMATION_CLASS extends Win32Enum {
 
     /**
+     * Native name: FilterVolumeBasicInformation
      * @type {Integer (Int32)}
      */
-    static FilterVolumeBasicInformation => 0
+    static BasicInformation => 0
 
     /**
+     * Native name: FilterVolumeStandardInformation
      * @type {Integer (Int32)}
      */
-    static FilterVolumeStandardInformation => 1
+    static StandardInformation => 1
 }

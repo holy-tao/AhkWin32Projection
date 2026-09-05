@@ -7,17 +7,20 @@
 class msidbRemoveFileInstallMode extends Win32Enum {
 
     /**
+     * Native name: msidbRemoveFileInstallModeOnInstall
      * @type {Integer (Int32)}
      */
-    static msidbRemoveFileInstallModeOnInstall => 1
+    static OnInstall => 1
 
     /**
+     * Native name: msidbRemoveFileInstallModeOnRemove
      * @type {Integer (Int32)}
      */
-    static msidbRemoveFileInstallModeOnRemove => 2
+    static OnRemove => 2
 
     /**
+     * Native name: msidbRemoveFileInstallModeOnBoth
      * @type {Integer (Int32)}
      */
-    static msidbRemoveFileInstallModeOnBoth => 3
+    static OnBoth => 3
 }

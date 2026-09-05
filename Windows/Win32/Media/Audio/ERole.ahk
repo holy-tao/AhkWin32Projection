@@ -14,25 +14,29 @@ class ERole extends Win32Enum {
 
     /**
      * Games, system notification sounds, and voice commands.
+     * Native name: eConsole
      * @type {Integer (Int32)}
      */
-    static eConsole => 0
+    static Console => 0
 
     /**
      * Music, movies, narration, and live music recording.
+     * Native name: eMultimedia
      * @type {Integer (Int32)}
      */
-    static eMultimedia => 1
+    static Multimedia => 1
 
     /**
      * Voice communications (talking to another person).
+     * Native name: eCommunications
      * @type {Integer (Int32)}
      */
-    static eCommunications => 2
+    static Communications => 2
 
     /**
      * The number of members in the <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole">ERole</a> enumeration (not counting the ERole_enum_count member).
+     * Native name: ERole_enum_count
      * @type {Integer (Int32)}
      */
-    static ERole_enum_count => 3
+    static enum_count => 3
 }

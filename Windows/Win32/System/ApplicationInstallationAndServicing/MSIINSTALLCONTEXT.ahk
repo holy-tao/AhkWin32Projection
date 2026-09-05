@@ -7,37 +7,44 @@
 class MSIINSTALLCONTEXT extends Win32Enum {
 
     /**
+     * Native name: MSIINSTALLCONTEXT_FIRSTVISIBLE
      * @type {Integer (Int32)}
      */
-    static MSIINSTALLCONTEXT_FIRSTVISIBLE => 0
+    static FIRSTVISIBLE => 0
 
     /**
+     * Native name: MSIINSTALLCONTEXT_NONE
      * @type {Integer (Int32)}
      */
-    static MSIINSTALLCONTEXT_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: MSIINSTALLCONTEXT_USERMANAGED
      * @type {Integer (Int32)}
      */
-    static MSIINSTALLCONTEXT_USERMANAGED => 1
+    static USERMANAGED => 1
 
     /**
+     * Native name: MSIINSTALLCONTEXT_USERUNMANAGED
      * @type {Integer (Int32)}
      */
-    static MSIINSTALLCONTEXT_USERUNMANAGED => 2
+    static USERUNMANAGED => 2
 
     /**
+     * Native name: MSIINSTALLCONTEXT_MACHINE
      * @type {Integer (Int32)}
      */
-    static MSIINSTALLCONTEXT_MACHINE => 4
+    static MACHINE => 4
 
     /**
+     * Native name: MSIINSTALLCONTEXT_ALL
      * @type {Integer (Int32)}
      */
-    static MSIINSTALLCONTEXT_ALL => 7
+    static ALL => 7
 
     /**
+     * Native name: MSIINSTALLCONTEXT_ALLUSERMANAGED
      * @type {Integer (Int32)}
      */
-    static MSIINSTALLCONTEXT_ALLUSERMANAGED => 8
+    static ALLUSERMANAGED => 8
 }

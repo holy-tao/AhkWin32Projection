@@ -10,13 +10,15 @@ class CM_SET_WIDTH_VALUE extends Win32Enum {
 
     /**
      * Use the default width.
+     * Native name: CM_WIDTH_USEDEFAULT
      * @type {Integer (Int32)}
      */
-    static CM_WIDTH_USEDEFAULT => -1
+    static USEDEFAULT => -1
 
     /**
      * Use the auto-size width.
+     * Native name: CM_WIDTH_AUTOSIZE
      * @type {Integer (Int32)}
      */
-    static CM_WIDTH_AUTOSIZE => -2
+    static AUTOSIZE => -2
 }

@@ -10,37 +10,43 @@ class EapCode extends Win32Enum {
 
     /**
      * The lowest possible value for an EAP packet type code.
+     * Native name: EapCodeMinimum
      * @type {Integer (Int32)}
      */
-    static EapCodeMinimum => 1
+    static Minimum => 1
 
     /**
      * A request packet sent by the authenticator to the supplicant.
+     * Native name: EapCodeRequest
      * @type {Integer (Int32)}
      */
-    static EapCodeRequest => 1
+    static Request => 1
 
     /**
      * A response packet sent by the supplicant to the authenticator.
+     * Native name: EapCodeResponse
      * @type {Integer (Int32)}
      */
-    static EapCodeResponse => 2
+    static Response => 2
 
     /**
      * A successful authentication attempt.
+     * Native name: EapCodeSuccess
      * @type {Integer (Int32)}
      */
-    static EapCodeSuccess => 3
+    static Success => 3
 
     /**
      * A failed authentication attempt.
+     * Native name: EapCodeFailure
      * @type {Integer (Int32)}
      */
-    static EapCodeFailure => 4
+    static Failure => 4
 
     /**
      * The highest possible value for an EAP packet type code.
+     * Native name: EapCodeMaximum
      * @type {Integer (Int32)}
      */
-    static EapCodeMaximum => 4
+    static Maximum => 4
 }

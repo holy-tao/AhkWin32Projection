@@ -10,13 +10,15 @@ class BG_AUTH_TARGET extends Win32Enum {
 
     /**
      * Use credentials for server requests.
+     * Native name: BG_AUTH_TARGET_SERVER
      * @type {Integer (Int32)}
      */
-    static BG_AUTH_TARGET_SERVER => 1
+    static SERVER => 1
 
     /**
      * Use credentials for proxy requests.
+     * Native name: BG_AUTH_TARGET_PROXY
      * @type {Integer (Int32)}
      */
-    static BG_AUTH_TARGET_PROXY => 2
+    static PROXY => 2
 }

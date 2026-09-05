@@ -10,43 +10,50 @@ class eAVEncInputVideoSystem extends Win32Enum {
 
     /**
      * The video system is not specified.
+     * Native name: eAVEncInputVideoSystem_Unspecified
      * @type {Integer (Int32)}
      */
-    static eAVEncInputVideoSystem_Unspecified => 0
+    static Unspecified => 0
 
     /**
      * PAL television.
+     * Native name: eAVEncInputVideoSystem_PAL
      * @type {Integer (Int32)}
      */
-    static eAVEncInputVideoSystem_PAL => 1
+    static PAL => 1
 
     /**
      * NTSC television.
+     * Native name: eAVEncInputVideoSystem_NTSC
      * @type {Integer (Int32)}
      */
-    static eAVEncInputVideoSystem_NTSC => 2
+    static NTSC => 2
 
     /**
      * SECAM television.
+     * Native name: eAVEncInputVideoSystem_SECAM
      * @type {Integer (Int32)}
      */
-    static eAVEncInputVideoSystem_SECAM => 3
+    static SECAM => 3
 
     /**
      * Not documented for this release.
+     * Native name: eAVEncInputVideoSystem_MAC
      * @type {Integer (Int32)}
      */
-    static eAVEncInputVideoSystem_MAC => 4
+    static MAC => 4
 
     /**
      * High-definition (HD) video.
+     * Native name: eAVEncInputVideoSystem_HDV
      * @type {Integer (Int32)}
      */
-    static eAVEncInputVideoSystem_HDV => 5
+    static HDV => 5
 
     /**
      * Component video.
+     * Native name: eAVEncInputVideoSystem_Component
      * @type {Integer (Int32)}
      */
-    static eAVEncInputVideoSystem_Component => 6
+    static Component => 6
 }

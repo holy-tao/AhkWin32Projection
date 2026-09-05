@@ -7,17 +7,20 @@
 class GNSS_SUPL_CERT_ACTION extends Win32Enum {
 
     /**
+     * Native name: GNSS_Supl_Cert_Inject
      * @type {Integer (Int32)}
      */
-    static GNSS_Supl_Cert_Inject => 1
+    static Inject => 1
 
     /**
+     * Native name: GNSS_Supl_Cert_Delete
      * @type {Integer (Int32)}
      */
-    static GNSS_Supl_Cert_Delete => 2
+    static Delete => 2
 
     /**
+     * Native name: GNSS_Supl_Cert_Purge
      * @type {Integer (Int32)}
      */
-    static GNSS_Supl_Cert_Purge => 3
+    static Purge => 3
 }

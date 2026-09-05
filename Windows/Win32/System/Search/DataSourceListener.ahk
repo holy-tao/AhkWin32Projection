@@ -35,7 +35,6 @@ class DataSourceListener extends IUnknown {
     static VTableNames => ["dataMemberChanged", "dataMemberAdded", "dataMemberRemoved"]
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ class DataSourceListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ class DataSourceListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @returns {HRESULT} 
      */

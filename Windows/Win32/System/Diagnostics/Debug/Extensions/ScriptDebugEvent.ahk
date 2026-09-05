@@ -7,22 +7,26 @@
 class ScriptDebugEvent extends Win32Enum {
 
     /**
+     * Native name: ScriptDebugBreakpoint
      * @type {Integer (Int32)}
      */
-    static ScriptDebugBreakpoint => 0
+    static Breakpoint => 0
 
     /**
+     * Native name: ScriptDebugStep
      * @type {Integer (Int32)}
      */
-    static ScriptDebugStep => 1
+    static Step => 1
 
     /**
+     * Native name: ScriptDebugException
      * @type {Integer (Int32)}
      */
-    static ScriptDebugException => 2
+    static Exception => 2
 
     /**
+     * Native name: ScriptDebugAsyncBreak
      * @type {Integer (Int32)}
      */
-    static ScriptDebugAsyncBreak => 3
+    static AsyncBreak => 3
 }

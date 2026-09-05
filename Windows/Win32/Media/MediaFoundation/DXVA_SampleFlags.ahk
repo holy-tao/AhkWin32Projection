@@ -7,27 +7,32 @@
 class DXVA_SampleFlags extends Win32Enum {
 
     /**
+     * Native name: DXVA_SampleFlagsMask
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFlagsMask => 15
+    static Mask => 15
 
     /**
+     * Native name: DXVA_SampleFlag_Palette_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFlag_Palette_Changed => 1
+    static Flag_Palette_Changed => 1
 
     /**
+     * Native name: DXVA_SampleFlag_SrcRect_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFlag_SrcRect_Changed => 2
+    static Flag_SrcRect_Changed => 2
 
     /**
+     * Native name: DXVA_SampleFlag_DstRect_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFlag_DstRect_Changed => 4
+    static Flag_DstRect_Changed => 4
 
     /**
+     * Native name: DXVA_SampleFlag_ColorData_Changed
      * @type {Integer (Int32)}
      */
-    static DXVA_SampleFlag_ColorData_Changed => 8
+    static Flag_ColorData_Changed => 8
 }

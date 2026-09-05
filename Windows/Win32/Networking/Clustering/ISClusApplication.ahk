@@ -40,7 +40,6 @@ class ISClusApplication extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISDomainNames} 
      */
     get_DomainNames() {
@@ -49,7 +48,6 @@ class ISClusApplication extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDomainName 
      * @returns {ISClusterNames} 
      */

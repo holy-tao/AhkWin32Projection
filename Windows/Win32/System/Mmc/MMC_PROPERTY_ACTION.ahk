@@ -10,19 +10,22 @@ class MMC_PROPERTY_ACTION extends Win32Enum {
 
     /**
      * The property is being deleted.
+     * Native name: MMC_PROPACT_DELETING
      * @type {Integer (Int32)}
      */
-    static MMC_PROPACT_DELETING => 1
+    static PROPACT_DELETING => 1
 
     /**
      * The property is being modified.
+     * Native name: MMC_PROPACT_CHANGING
      * @type {Integer (Int32)}
      */
-    static MMC_PROPACT_CHANGING => 2
+    static PROPACT_CHANGING => 2
 
     /**
      * The property is being added.
+     * Native name: MMC_PROPACT_INITIALIZED
      * @type {Integer (Int32)}
      */
-    static MMC_PROPACT_INITIALIZED => 3
+    static PROPACT_INITIALIZED => 3
 }

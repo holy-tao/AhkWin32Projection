@@ -10,13 +10,15 @@ class AppPolicyThreadInitializationType extends Win32Enum {
 
     /**
      * Indicates that no initialization should be performed.
+     * Native name: AppPolicyThreadInitializationType_None
      * @type {Integer (Int32)}
      */
-    static AppPolicyThreadInitializationType_None => 0
+    static None => 0
 
     /**
      * Indicates that Windows Runtime initialization should be performed.
+     * Native name: AppPolicyThreadInitializationType_InitializeWinRT
      * @type {Integer (Int32)}
      */
-    static AppPolicyThreadInitializationType_InitializeWinRT => 1
+    static InitializeWinRT => 1
 }

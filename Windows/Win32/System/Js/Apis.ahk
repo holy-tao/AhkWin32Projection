@@ -27,7 +27,6 @@ class Js {
 
 ;@region Methods
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @param {IDebugApplication64} debugApplication 
      * @param {Pointer<Pointer<Void>>} newContext 
@@ -42,7 +41,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {IDebugApplication64} debugApplication 
      * @returns {JsErrorCode} 
      */
@@ -52,7 +50,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {JsRuntimeAttributes} attributes 
      * @param {JsRuntimeVersion} runtimeVersion 
      * @param {Pointer<JsThreadServiceCallback>} threadService 
@@ -67,7 +64,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @returns {JsErrorCode} 
      */
@@ -79,7 +75,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @returns {JsErrorCode} 
      */
@@ -91,7 +86,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Pointer>} memoryUsage 
      * @returns {JsErrorCode} 
@@ -105,7 +99,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Pointer>} memoryLimit 
      * @returns {JsErrorCode} 
@@ -119,7 +112,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer} memoryLimit 
      * @returns {JsErrorCode} 
@@ -132,7 +124,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Void>} callbackState 
      * @param {Pointer<JsMemoryAllocationCallback>} allocationCallback 
@@ -147,7 +138,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Void>} callbackState 
      * @param {Pointer<JsBeforeCollectCallback>} beforeCollectCallback 
@@ -162,7 +152,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ref 
      * @param {Pointer<Integer>} count 
      * @returns {JsErrorCode} 
@@ -176,7 +165,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ref 
      * @param {Pointer<Integer>} count 
      * @returns {JsErrorCode} 
@@ -190,7 +178,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} currentContext 
      * @returns {JsErrorCode} 
      */
@@ -202,7 +189,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @returns {JsErrorCode} 
      */
@@ -214,7 +200,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<Pointer<Void>>} runtime 
      * @returns {JsErrorCode} 
@@ -228,7 +213,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} nextIdleTick 
      * @returns {JsErrorCode} 
      */
@@ -240,7 +224,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {PWSTR} script 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
@@ -258,7 +241,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {PWSTR} script 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
@@ -276,7 +258,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {PWSTR} script 
      * @param {Pointer<Integer>} _buffer 
      * @param {Pointer<Integer>} bufferSize 
@@ -293,7 +274,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {PWSTR} script 
      * @param {Pointer<Integer>} _buffer 
      * @param {Pointer} sourceContext 
@@ -313,7 +293,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {PWSTR} script 
      * @param {Pointer<Integer>} _buffer 
      * @param {Pointer} sourceContext 
@@ -333,7 +312,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Pointer<Pointer<Void>>} propertyId 
      * @returns {JsErrorCode} 
@@ -348,7 +326,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Integer>>} name 
      * @returns {JsErrorCode} 
@@ -362,7 +339,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} undefinedValue 
      * @returns {JsErrorCode} 
      */
@@ -374,7 +350,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} nullValue 
      * @returns {JsErrorCode} 
      */
@@ -386,7 +361,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} trueValue 
      * @returns {JsErrorCode} 
      */
@@ -398,7 +372,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} falseValue 
      * @returns {JsErrorCode} 
      */
@@ -410,7 +383,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Integer} value 
      * @param {Pointer<Pointer<Void>>} booleanValue 
      * @returns {JsErrorCode} 
@@ -423,7 +395,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Boolean>} boolValue 
      * @returns {JsErrorCode} 
@@ -437,7 +408,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} booleanValue 
      * @returns {JsErrorCode} 
@@ -451,7 +421,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<JsValueType>} type 
      * @returns {JsErrorCode} 
@@ -465,7 +434,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Float} doubleValue 
      * @param {Pointer<Pointer<Void>>} value 
      * @returns {JsErrorCode} 
@@ -478,7 +446,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Integer} intValue 
      * @param {Pointer<Pointer<Void>>} value 
      * @returns {JsErrorCode} 
@@ -491,7 +458,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Float>} doubleValue 
      * @returns {JsErrorCode} 
@@ -505,7 +471,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} numberValue 
      * @returns {JsErrorCode} 
@@ -519,7 +484,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} stringValue 
      * @param {Pointer<Integer>} length 
      * @returns {JsErrorCode} 
@@ -533,7 +497,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {PWSTR} stringValue 
      * @param {Pointer} stringLength 
      * @param {Pointer<Pointer<Void>>} value 
@@ -549,7 +512,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Integer>>} stringValue 
      * @param {Pointer<Pointer>} stringLength 
@@ -565,7 +527,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} stringValue 
      * @returns {JsErrorCode} 
@@ -579,7 +540,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} _variant 
      * @param {Pointer<Pointer<Void>>} value 
      * @returns {JsErrorCode} 
@@ -592,7 +552,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<VARIANT>} _variant 
      * @returns {JsErrorCode} 
@@ -605,7 +564,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} globalObject 
      * @returns {JsErrorCode} 
      */
@@ -617,7 +575,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _object 
      * @returns {JsErrorCode} 
      */
@@ -629,7 +586,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} data 
      * @param {Pointer<JsFinalizeCallback>} finalizeCallback 
      * @param {Pointer<Pointer<Void>>} _object 
@@ -644,7 +600,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} _object 
      * @returns {JsErrorCode} 
@@ -658,7 +613,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Pointer<Void>>} prototypeObject 
      * @returns {JsErrorCode} 
@@ -672,7 +626,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} prototypeObject 
      * @returns {JsErrorCode} 
@@ -686,7 +639,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Boolean>} value 
      * @returns {JsErrorCode} 
@@ -700,7 +652,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @returns {JsErrorCode} 
      */
@@ -712,7 +663,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Void>>} value 
@@ -728,7 +678,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Void>>} propertyDescriptor 
@@ -744,7 +693,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Pointer<Void>>} propertyNames 
      * @returns {JsErrorCode} 
@@ -758,7 +706,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Void>} value 
@@ -775,7 +722,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Boolean>} hasProperty 
@@ -791,7 +737,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Integer} useStrictRules 
@@ -808,7 +753,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Void>} propertyDescriptor 
@@ -826,7 +770,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Boolean>} result 
@@ -842,7 +785,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Pointer<Void>>} result 
@@ -858,7 +800,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Void>} value 
@@ -874,7 +815,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
      * @returns {JsErrorCode} 
@@ -888,7 +828,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} object1 
      * @param {Pointer<Void>} object2 
      * @param {Pointer<Boolean>} result 
@@ -904,7 +843,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} object1 
      * @param {Pointer<Void>} object2 
      * @param {Pointer<Boolean>} result 
@@ -920,7 +858,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Boolean>} value 
      * @returns {JsErrorCode} 
@@ -934,7 +871,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Pointer<Void>>} externalData 
      * @returns {JsErrorCode} 
@@ -948,7 +884,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} externalData 
      * @returns {JsErrorCode} 
@@ -962,7 +897,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Integer} length 
      * @param {Pointer<Pointer<Void>>} result 
      * @returns {JsErrorCode} 
@@ -975,7 +909,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} function 
      * @param {Pointer<Pointer<Void>>} arguments 
      * @param {Integer} argumentCount 
@@ -992,7 +925,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} function 
      * @param {Pointer<Pointer<Void>>} arguments 
      * @param {Integer} argumentCount 
@@ -1009,7 +941,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<JsNativeFunction>} nativeFunction 
      * @param {Pointer<Void>} callbackState 
      * @param {Pointer<Pointer<Void>>} function 
@@ -1024,7 +955,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} message 
      * @param {Pointer<Pointer<Void>>} _error 
      * @returns {JsErrorCode} 
@@ -1038,7 +968,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} message 
      * @param {Pointer<Pointer<Void>>} _error 
      * @returns {JsErrorCode} 
@@ -1052,7 +981,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} message 
      * @param {Pointer<Pointer<Void>>} _error 
      * @returns {JsErrorCode} 
@@ -1066,7 +994,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} message 
      * @param {Pointer<Pointer<Void>>} _error 
      * @returns {JsErrorCode} 
@@ -1080,7 +1007,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} message 
      * @param {Pointer<Pointer<Void>>} _error 
      * @returns {JsErrorCode} 
@@ -1094,7 +1020,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} message 
      * @param {Pointer<Pointer<Void>>} _error 
      * @returns {JsErrorCode} 
@@ -1108,7 +1033,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Boolean>} hasException 
      * @returns {JsErrorCode} 
      */
@@ -1120,7 +1044,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} exception 
      * @returns {JsErrorCode} 
      */
@@ -1132,7 +1055,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} exception 
      * @returns {JsErrorCode} 
      */
@@ -1144,7 +1066,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @returns {JsErrorCode} 
      */
@@ -1156,7 +1077,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @returns {JsErrorCode} 
      */
@@ -1168,7 +1088,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Boolean>} isDisabled 
      * @returns {JsErrorCode} 
@@ -1182,7 +1101,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {IActiveScriptProfilerCallback} callback 
      * @param {PROFILER_EVENT_MASK} _eventMask 
      * @param {Integer} _context 
@@ -1194,7 +1112,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {HRESULT} reason 
      * @returns {JsErrorCode} 
      */
@@ -1204,7 +1121,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<IActiveScriptProfilerHeapEnum>} _enumerator 
      * @returns {JsErrorCode} 
      */
@@ -1214,7 +1130,6 @@ class Js {
     }
 
     /**
-     * 
      * @param {Pointer<Boolean>} isEnumeratingHeap 
      * @returns {JsErrorCode} 
      */

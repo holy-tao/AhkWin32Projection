@@ -7,32 +7,38 @@
 class APPX_CAPABILITY_CLASS_TYPE extends Win32Enum {
 
     /**
+     * Native name: APPX_CAPABILITY_CLASS_DEFAULT
      * @type {Integer (Int32)}
      */
-    static APPX_CAPABILITY_CLASS_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: APPX_CAPABILITY_CLASS_GENERAL
      * @type {Integer (Int32)}
      */
-    static APPX_CAPABILITY_CLASS_GENERAL => 1
+    static GENERAL => 1
 
     /**
+     * Native name: APPX_CAPABILITY_CLASS_RESTRICTED
      * @type {Integer (Int32)}
      */
-    static APPX_CAPABILITY_CLASS_RESTRICTED => 2
+    static RESTRICTED => 2
 
     /**
+     * Native name: APPX_CAPABILITY_CLASS_WINDOWS
      * @type {Integer (Int32)}
      */
-    static APPX_CAPABILITY_CLASS_WINDOWS => 4
+    static WINDOWS => 4
 
     /**
+     * Native name: APPX_CAPABILITY_CLASS_ALL
      * @type {Integer (Int32)}
      */
-    static APPX_CAPABILITY_CLASS_ALL => 7
+    static ALL => 7
 
     /**
+     * Native name: APPX_CAPABILITY_CLASS_CUSTOM
      * @type {Integer (Int32)}
      */
-    static APPX_CAPABILITY_CLASS_CUSTOM => 8
+    static CUSTOM => 8
 }

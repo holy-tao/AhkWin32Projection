@@ -10,7 +10,8 @@ class CF_OPERATION_ACK_DEHYDRATE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No acknowledge dehydration flag.
+     * Native name: CF_OPERATION_ACK_DEHYDRATE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static CF_OPERATION_ACK_DEHYDRATE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 }

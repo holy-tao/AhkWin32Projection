@@ -10,43 +10,50 @@ class MOUSE_WHEEL_PARAMETER extends Win32Enum {
 
     /**
      * Scrolling/panning distance along the x-axis.
+     * Native name: MOUSE_WHEEL_PARAMETER_CHAR_TRANSLATION_X
      * @type {Integer (Int32)}
      */
-    static MOUSE_WHEEL_PARAMETER_CHAR_TRANSLATION_X => 1
+    static CHAR_TRANSLATION_X => 1
 
     /**
      * Scrolling/panning distance along the y-axis.
+     * Native name: MOUSE_WHEEL_PARAMETER_CHAR_TRANSLATION_Y
      * @type {Integer (Int32)}
      */
-    static MOUSE_WHEEL_PARAMETER_CHAR_TRANSLATION_Y => 2
+    static CHAR_TRANSLATION_Y => 2
 
     /**
      * The relative change in scale, as a multiplier, since the last input message.
+     * Native name: MOUSE_WHEEL_PARAMETER_DELTA_SCALE
      * @type {Integer (Int32)}
      */
-    static MOUSE_WHEEL_PARAMETER_DELTA_SCALE => 3
+    static DELTA_SCALE => 3
 
     /**
      * The relative change in rotation, in radians, since the last input message.
+     * Native name: MOUSE_WHEEL_PARAMETER_DELTA_ROTATION
      * @type {Integer (Int32)}
      */
-    static MOUSE_WHEEL_PARAMETER_DELTA_ROTATION => 4
+    static DELTA_ROTATION => 4
 
     /**
      * Paging distance along the x-axis.
+     * Native name: MOUSE_WHEEL_PARAMETER_PAGE_TRANSLATION_X
      * @type {Integer (Int32)}
      */
-    static MOUSE_WHEEL_PARAMETER_PAGE_TRANSLATION_X => 5
+    static PAGE_TRANSLATION_X => 5
 
     /**
      * Paging distance along the y-axis.
+     * Native name: MOUSE_WHEEL_PARAMETER_PAGE_TRANSLATION_Y
      * @type {Integer (Int32)}
      */
-    static MOUSE_WHEEL_PARAMETER_PAGE_TRANSLATION_Y => 6
+    static PAGE_TRANSLATION_Y => 6
 
     /**
      * Maximum number of interactions exceeded.
+     * Native name: MOUSE_WHEEL_PARAMETER_MAX
      * @type {Integer (Int32)}
      */
-    static MOUSE_WHEEL_PARAMETER_MAX => -1
+    static MAX => -1
 }

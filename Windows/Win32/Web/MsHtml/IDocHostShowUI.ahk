@@ -61,7 +61,6 @@ class IDocHostShowUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} pszHelpFile 
      * @param {Integer} uCommand 

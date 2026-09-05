@@ -7,12 +7,14 @@
 class D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE extends Win32Enum {
 
     /**
+     * Native name: D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE_USER
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE_USER => 0
+    static USER => 0
 
     /**
+     * Native name: D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE_SYSTEM
      * @type {Integer (Int32)}
      */
-    static D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE_SYSTEM => 1
+    static SYSTEM => 1
 }

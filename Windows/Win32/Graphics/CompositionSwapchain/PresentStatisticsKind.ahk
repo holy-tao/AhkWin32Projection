@@ -10,19 +10,22 @@ class PresentStatisticsKind extends Win32Enum {
 
     /**
      * Statistics are for a present status.
+     * Native name: PresentStatisticsKind_PresentStatus
      * @type {Integer (Int32)}
      */
-    static PresentStatisticsKind_PresentStatus => 1
+    static PresentStatus => 1
 
     /**
      * Statistics are for a composition frame.
+     * Native name: PresentStatisticsKind_CompositionFrame
      * @type {Integer (Int32)}
      */
-    static PresentStatisticsKind_CompositionFrame => 2
+    static CompositionFrame => 2
 
     /**
      * Statistics are for an independent flip frame.
+     * Native name: PresentStatisticsKind_IndependentFlipFrame
      * @type {Integer (Int32)}
      */
-    static PresentStatisticsKind_IndependentFlipFrame => 3
+    static IndependentFlipFrame => 3
 }

@@ -7,57 +7,68 @@
 class SF_TYPE extends Win32Enum {
 
     /**
+     * Native name: SF_ERROR
      * @type {Integer (Int32)}
      */
-    static SF_ERROR => 10
+    static ERROR => 10
 
     /**
+     * Native name: SF_I1
      * @type {Integer (Int32)}
      */
-    static SF_I1 => 16
+    static I1 => 16
 
     /**
+     * Native name: SF_I2
      * @type {Integer (Int32)}
      */
-    static SF_I2 => 2
+    static I2 => 2
 
     /**
+     * Native name: SF_I4
      * @type {Integer (Int32)}
      */
-    static SF_I4 => 3
+    static I4 => 3
 
     /**
+     * Native name: SF_I8
      * @type {Integer (Int32)}
      */
-    static SF_I8 => 20
+    static I8 => 20
 
     /**
+     * Native name: SF_BSTR
      * @type {Integer (Int32)}
      */
-    static SF_BSTR => 8
+    static BSTR => 8
 
     /**
+     * Native name: SF_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static SF_UNKNOWN => 13
+    static UNKNOWN => 13
 
     /**
+     * Native name: SF_DISPATCH
      * @type {Integer (Int32)}
      */
-    static SF_DISPATCH => 9
+    static DISPATCH => 9
 
     /**
+     * Native name: SF_VARIANT
      * @type {Integer (Int32)}
      */
-    static SF_VARIANT => 12
+    static VARIANT => 12
 
     /**
+     * Native name: SF_RECORD
      * @type {Integer (Int32)}
      */
-    static SF_RECORD => 36
+    static RECORD => 36
 
     /**
+     * Native name: SF_HAVEIID
      * @type {Integer (Int32)}
      */
-    static SF_HAVEIID => 32781
+    static HAVEIID => 32781
 }

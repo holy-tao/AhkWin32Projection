@@ -37,7 +37,6 @@ class IDebugHostSymbols extends IUnknown {
     static VTableNames => ["CreateModuleSignature", "CreateTypeSignature", "CreateTypeSignatureForModuleRange", "EnumerateModules", "FindModuleByName", "FindModuleByLocation", "GetMostDerivedObject"]
 
     /**
-     * 
      * @param {PWSTR} pwszModuleName 
      * @param {PWSTR} pwszMinVersion 
      * @param {PWSTR} pwszMaxVersion 
@@ -53,7 +52,6 @@ class IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} signatureSpecification 
      * @param {IDebugHostModule} module 
      * @returns {IDebugHostTypeSignature} 
@@ -66,7 +64,6 @@ class IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} signatureSpecification 
      * @param {PWSTR} moduleName 
      * @param {PWSTR} minVersion 
@@ -84,7 +81,6 @@ class IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @returns {IDebugHostSymbolEnumerator} 
      */
@@ -94,7 +90,6 @@ class IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {PWSTR} moduleName 
      * @returns {IDebugHostModule} 
@@ -107,7 +102,6 @@ class IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} moduleLocation 
      * @returns {IDebugHostModule} 
@@ -118,7 +112,6 @@ class IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} pContext 
      * @param {Location} _location 
      * @param {IDebugHostType} _objectType 

@@ -7,12 +7,14 @@
 class BfEnTvRat_Attributes_CAE_TV extends Win32Enum {
 
     /**
+     * Native name: CAE_IsBlocked
      * @type {Integer (Int32)}
      */
-    static CAE_IsBlocked => 1
+    static IsBlocked => 1
 
     /**
+     * Native name: CAE_ValidAttrSubmask
      * @type {Integer (Int32)}
      */
-    static CAE_ValidAttrSubmask => 1
+    static ValidAttrSubmask => 1
 }

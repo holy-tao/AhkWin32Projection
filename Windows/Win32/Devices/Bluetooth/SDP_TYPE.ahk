@@ -7,52 +7,62 @@
 class SDP_TYPE extends Win32Enum {
 
     /**
+     * Native name: SDP_TYPE_NIL
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_NIL => 0
+    static NIL => 0
 
     /**
+     * Native name: SDP_TYPE_UINT
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_UINT => 1
+    static UINT => 1
 
     /**
+     * Native name: SDP_TYPE_INT
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_INT => 2
+    static INT => 2
 
     /**
+     * Native name: SDP_TYPE_UUID
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_UUID => 3
+    static UUID => 3
 
     /**
+     * Native name: SDP_TYPE_STRING
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_STRING => 4
+    static STRING => 4
 
     /**
+     * Native name: SDP_TYPE_BOOLEAN
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_BOOLEAN => 5
+    static BOOLEAN => 5
 
     /**
+     * Native name: SDP_TYPE_SEQUENCE
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_SEQUENCE => 6
+    static SEQUENCE => 6
 
     /**
+     * Native name: SDP_TYPE_ALTERNATIVE
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_ALTERNATIVE => 7
+    static ALTERNATIVE => 7
 
     /**
+     * Native name: SDP_TYPE_URL
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_URL => 8
+    static URL => 8
 
     /**
+     * Native name: SDP_TYPE_CONTAINER
      * @type {Integer (Int32)}
      */
-    static SDP_TYPE_CONTAINER => 32
+    static CONTAINER => 32
 }

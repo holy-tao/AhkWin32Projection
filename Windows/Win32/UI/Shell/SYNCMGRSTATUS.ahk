@@ -10,61 +10,71 @@ class SYNCMGRSTATUS extends Win32Enum {
 
     /**
      * Synchronization has been stopped.
+     * Native name: SYNCMGRSTATUS_STOPPED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_STOPPED => 0
+    static STOPPED => 0
 
     /**
      * Indicates that this item should be skipped.
+     * Native name: SYNCMGRSTATUS_SKIPPED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_SKIPPED => 1
+    static SKIPPED => 1
 
     /**
      * Synchronization for the item is pending.
+     * Native name: SYNCMGRSTATUS_PENDING
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_PENDING => 2
+    static PENDING => 2
 
     /**
      * The item is currently being synchronized.
+     * Native name: SYNCMGRSTATUS_UPDATING
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_UPDATING => 3
+    static UPDATING => 3
 
     /**
      * The synchronization for the item succeeded.
+     * Native name: SYNCMGRSTATUS_SUCCEEDED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_SUCCEEDED => 4
+    static SUCCEEDED => 4
 
     /**
      * Synchronization for the item failed.
+     * Native name: SYNCMGRSTATUS_FAILED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_FAILED => 5
+    static FAILED => 5
 
     /**
      * Synchronization for the item paused.
+     * Native name: SYNCMGRSTATUS_PAUSED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_PAUSED => 6
+    static PAUSED => 6
 
     /**
      * Synchronization for the item is resuming.
+     * Native name: SYNCMGRSTATUS_RESUMING
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_RESUMING => 7
+    static RESUMING => 7
 
     /**
      * <b>Windows Vista and later</b>. Shows marquee progress for the synchronized item. Sets the progress bar in the folder to marquee the synchronization progress.
+     * Native name: SYNCMGRSTATUS_UPDATING_INDETERMINATE
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_UPDATING_INDETERMINATE => 8
+    static UPDATING_INDETERMINATE => 8
 
     /**
      * The item has been deleted. This value has been deprecated for Windows Vista and later.
+     * Native name: SYNCMGRSTATUS_DELETED
      * @type {Integer (Int32)}
      */
-    static SYNCMGRSTATUS_DELETED => 256
+    static DELETED => 256
 }

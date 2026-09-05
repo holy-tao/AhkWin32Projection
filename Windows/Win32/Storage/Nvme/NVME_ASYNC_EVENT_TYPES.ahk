@@ -12,36 +12,42 @@ class NVME_ASYNC_EVENT_TYPES extends Win32Enum {
 
     /**
      * A general error that is not associated with a specific command. The status of this event is one of the values specified in the **NVME_ASYNC_EVENT_ERROR_STATUS_CODES** enumeration.
+     * Native name: NVME_ASYNC_EVENT_TYPE_ERROR_STATUS
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_ERROR_STATUS => 0
+    static TYPE_ERROR_STATUS => 0
 
     /**
      * A SMART or Health status event. The status of this event is one of the values specified in the **NVME_ASYNC_EVENT_HEALTH_STATUS_CODES** enumeration.
+     * Native name: NVME_ASYNC_EVENT_TYPE_HEALTH_STATUS
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_HEALTH_STATUS => 1
+    static TYPE_HEALTH_STATUS => 1
 
     /**
      * A Notice event. The status of this event is one of the values specified in the **NVME_ASYNC_EVENT_NOTICE_CODES** enumeration.
+     * Native name: NVME_ASYNC_EVENT_TYPE_NOTICE
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_NOTICE => 2
+    static TYPE_NOTICE => 2
 
     /**
+     * Native name: NVME_ASYNC_EVENT_TYPE_IMMEDIATE
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_IMMEDIATE => 3
+    static TYPE_IMMEDIATE => 3
 
     /**
      * An I/O Command Set event. The status of this event is one of the values specified in the **NVME_ASYNC_EVENT_IO_COMMAND_SET_STATUS_CODES** enumeration.
+     * Native name: NVME_ASYNC_EVENT_TYPE_IO_COMMAND_SET_STATUS
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_IO_COMMAND_SET_STATUS => 6
+    static TYPE_IO_COMMAND_SET_STATUS => 6
 
     /**
      * A vendor specific event. The status of this event is one of the values specified in the **NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES** enumeration.
+     * Native name: NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC
      * @type {Integer (Int32)}
      */
-    static NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC => 7
+    static TYPE_VENDOR_SPECIFIC => 7
 }

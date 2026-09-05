@@ -10,31 +10,36 @@ class WINSAT_ASSESSMENT_TYPE extends Win32Enum {
 
     /**
      * Assess the memory of the computer.
+     * Native name: WINSAT_ASSESSMENT_MEMORY
      * @type {Integer (Int32)}
      */
-    static WINSAT_ASSESSMENT_MEMORY => 0
+    static MEMORY => 0
 
     /**
      * Assess the processors on the computer.
+     * Native name: WINSAT_ASSESSMENT_CPU
      * @type {Integer (Int32)}
      */
-    static WINSAT_ASSESSMENT_CPU => 1
+    static CPU => 1
 
     /**
      * Assess the primary hard disk on the computer.
+     * Native name: WINSAT_ASSESSMENT_DISK
      * @type {Integer (Int32)}
      */
-    static WINSAT_ASSESSMENT_DISK => 2
+    static DISK => 2
 
     /**
      * After Windows 8.1, WinSAT no longer assesses the three-dimensional graphics (gaming) capabilities of the computer and the graphics driver's ability to render objects and execute shaders using this assessment. For compatibility, WinSAT reports sentinel values for the metrics and scores, however these are not calculated in real time.
+     * Native name: WINSAT_ASSESSMENT_D3D
      * @type {Integer (Int32)}
      */
-    static WINSAT_ASSESSMENT_D3D => 3
+    static D3D => 3
 
     /**
      * Assess the video card abilities required for Desktop Window Manager (DWM) composition.
+     * Native name: WINSAT_ASSESSMENT_GRAPHICS
      * @type {Integer (Int32)}
      */
-    static WINSAT_ASSESSMENT_GRAPHICS => 4
+    static GRAPHICS => 4
 }

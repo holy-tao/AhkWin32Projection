@@ -7,17 +7,20 @@
 class ERRORRESUMEACTION extends Win32Enum {
 
     /**
+     * Native name: ERRORRESUMEACTION_ReexecuteErrorStatement
      * @type {Integer (Int32)}
      */
-    static ERRORRESUMEACTION_ReexecuteErrorStatement => 0
+    static ReexecuteErrorStatement => 0
 
     /**
+     * Native name: ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller
      * @type {Integer (Int32)}
      */
-    static ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller => 1
+    static AbortCallAndReturnErrorToCaller => 1
 
     /**
+     * Native name: ERRORRESUMEACTION_SkipErrorStatement
      * @type {Integer (Int32)}
      */
-    static ERRORRESUMEACTION_SkipErrorStatement => 2
+    static SkipErrorStatement => 2
 }

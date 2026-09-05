@@ -31,7 +31,6 @@ class IActiveScriptProfilerControl5 extends IActiveScriptProfilerControl4 {
     static VTableNames => ["EnumHeap2"]
 
     /**
-     * 
      * @param {PROFILER_HEAP_ENUM_FLAGS} enumFlags 
      * @returns {IActiveScriptProfilerHeapEnum} 
      */

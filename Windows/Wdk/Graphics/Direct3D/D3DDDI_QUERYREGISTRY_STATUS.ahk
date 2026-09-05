@@ -7,22 +7,26 @@
 class D3DDDI_QUERYREGISTRY_STATUS extends Win32Enum {
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_STATUS_SUCCESS
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_STATUS_SUCCESS => 0
+    static SUCCESS => 0
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_STATUS_BUFFER_OVERFLOW
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_STATUS_BUFFER_OVERFLOW => 1
+    static BUFFER_OVERFLOW => 1
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_STATUS_FAIL
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_STATUS_FAIL => 2
+    static FAIL => 2
 
     /**
+     * Native name: D3DDDI_QUERYREGISTRY_STATUS_MAX
      * @type {Integer (Int32)}
      */
-    static D3DDDI_QUERYREGISTRY_STATUS_MAX => 3
+    static MAX => 3
 }

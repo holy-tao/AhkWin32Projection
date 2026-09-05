@@ -10,13 +10,15 @@ class TsShiftDir extends Win32Enum {
 
     /**
      * Specifies that the anchor will be moved to the region immediately preceding a range of text.
+     * Native name: TS_SD_BACKWARD
      * @type {Integer (Int32)}
      */
-    static TS_SD_BACKWARD => 0
+    static SD_BACKWARD => 0
 
     /**
      * Specifies that the anchor will be moved to the region immediately following a range of text.
+     * Native name: TS_SD_FORWARD
      * @type {Integer (Int32)}
      */
-    static TS_SD_FORWARD => 1
+    static SD_FORWARD => 1
 }

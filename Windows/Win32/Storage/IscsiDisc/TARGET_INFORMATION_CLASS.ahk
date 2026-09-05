@@ -16,9 +16,10 @@ class TARGET_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * A <b>null</b>-terminated string that contains the alias of the target device.
+     * Native name: TargetAlias
      * @type {Integer (Int32)}
      */
-    static TargetAlias => 1
+    static Alias => 1
 
     /**
      * A list of <b>null</b>-terminated strings that describe the discovery mechanisms that located the indicated target. The list is terminated by a double <b>null</b>.
@@ -57,9 +58,10 @@ class TARGET_INFORMATION_CLASS extends Win32Enum {
      * <td>The target will not be reported as discovered unless it is also discovered dynamically.</td>
      * </tr>
      * </table>
+     * Native name: TargetFlags
      * @type {Integer (Int32)}
      */
-    static TargetFlags => 6
+    static Flags => 6
 
     /**
      * A value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> structure that defines the login data.

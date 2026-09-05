@@ -10,13 +10,15 @@ class LOCATION_DESIRED_ACCURACY extends Win32Enum {
 
     /**
      * Indicates that the sensor should use the accuracy for which it can optimize power and other such cost considerations.
+     * Native name: LOCATION_DESIRED_ACCURACY_DEFAULT
      * @type {Integer (Int32)}
      */
-    static LOCATION_DESIRED_ACCURACY_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
      * Indicates that the sensor should deliver the highest-accuracy report possible. This includes using services that might charge money, or consuming higher levels of battery power or connection bandwidth.
+     * Native name: LOCATION_DESIRED_ACCURACY_HIGH
      * @type {Integer (Int32)}
      */
-    static LOCATION_DESIRED_ACCURACY_HIGH => 1
+    static HIGH => 1
 }

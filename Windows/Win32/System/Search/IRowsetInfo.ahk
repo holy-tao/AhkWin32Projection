@@ -32,7 +32,6 @@ class IRowsetInfo extends IUnknown {
     static VTableNames => ["GetProperties", "GetReferencedRowset", "GetSpecification"]
 
     /**
-     * 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertySets 
@@ -48,7 +47,6 @@ class IRowsetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} iOrdinal 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -59,7 +57,6 @@ class IRowsetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */

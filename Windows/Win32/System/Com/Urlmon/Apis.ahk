@@ -1548,7 +1548,6 @@ class Urlmon {
 
 ;@region Methods
     /**
-     * 
      * @param {IMoniker} pMkCtx 
      * @param {PWSTR} szURL 
      * @returns {IMoniker} 
@@ -1561,7 +1560,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IMoniker} pMkCtx 
      * @param {PWSTR} szURL 
      * @param {Integer} dwFlags 
@@ -1575,7 +1573,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} szURL 
      * @param {Pointer<Guid>} pClsID 
      * @returns {HRESULT} 
@@ -1606,7 +1603,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IMoniker} pMkCtx 
      * @param {IUri} pUri 
      * @param {Integer} dwFlags 
@@ -1618,7 +1614,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pbc 
      * @param {Integer} dwOptions 
      * @param {IBindStatusCallback} pBSCb 
@@ -1632,7 +1627,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pbc 
      * @param {PWSTR} szDisplayName 
      * @param {Pointer<Integer>} pchEaten 
@@ -1649,7 +1643,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSCb 
      * @param {Integer} dwReserved 
@@ -1661,7 +1654,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSCb 
      * @returns {HRESULT} 
@@ -1672,7 +1664,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {PWSTR} szFilename 
      * @param {Integer} pBuffer 
@@ -1691,7 +1682,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {PWSTR} szURL 
      * @param {Integer} dwReserved 
@@ -1705,7 +1695,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rCLASSID 
      * @param {PWSTR} szCODE 
      * @param {Integer} dwFileVersionMS 
@@ -1727,7 +1716,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     static IEInstallScope() {
@@ -1736,7 +1724,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Pointer<uCLSSPEC>} pClassSpec 
      * @param {Pointer<QUERYCONTEXT>} pQuery 
@@ -1751,7 +1738,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<uCLSSPEC>} pClassspec 
      * @returns {PSTR} 
      */
@@ -1761,7 +1747,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @returns {HRESULT} 
      */
@@ -1771,7 +1756,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Integer} ctypes 
      * @param {Pointer<PSTR>} rgszTypes 
      * @returns {Integer} 
@@ -1784,7 +1768,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PSTR} rgszTypes 
      * @returns {Integer} 
      */
@@ -1811,7 +1794,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {IEnumFORMATETC} pEFetc 
      * @param {Integer} reserved 
@@ -1823,7 +1805,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {IEnumFORMATETC} pEFetc 
      * @returns {HRESULT} 
@@ -1834,7 +1815,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {Integer} ctypes 
      * @param {Pointer<PSTR>} rgszTypes 
@@ -1850,7 +1830,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {PSTR} szType 
      * @param {Pointer<Guid>} pclsID 
@@ -1865,7 +1844,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Integer} pBuffer 
      * @param {Integer} dwBufferLength 
@@ -1879,7 +1857,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Integer} pBuffer 
      * @param {Integer} dwBufferLength 
@@ -1893,7 +1870,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {PWSTR} pwzUrl 
      * @param {Integer} pBuffer 
@@ -1913,7 +1889,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {PSTR} pszUAOut 
      * @param {Pointer<Integer>} cbSize 
@@ -1929,7 +1904,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbSecurityId1 
      * @param {Integer} dwLen1 
      * @param {Pointer<Integer>} pbSecurityId2 
@@ -1946,7 +1920,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pclsid 
      * @param {Pointer<Integer>} pdwCompatFlags 
      * @param {Pointer<Integer>} pdwMiscStatusFlags 
@@ -1961,7 +1934,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {HANDLE} hObject 
      * @param {IEObjectType} _ieObjectType 
      * @param {Integer} dwAccessMask 
@@ -1975,7 +1947,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} szTarget 
      * @param {PWSTR} szLocation 
      * @param {PWSTR} szTargetFrameName 
@@ -1996,7 +1967,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IMoniker} pmkTarget 
      * @param {PWSTR} szLocation 
      * @param {PWSTR} szTargetFrameName 
@@ -2016,7 +1986,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 
@@ -2031,7 +2000,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 
@@ -2046,7 +2014,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 
@@ -2061,7 +2028,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 
@@ -2076,7 +2042,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 
@@ -2093,7 +2058,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 
@@ -2110,7 +2074,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 
@@ -2128,7 +2091,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 
@@ -2146,7 +2108,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PSTR} param1 
      * @param {Integer} param3 
@@ -2161,7 +2122,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param3 
@@ -2176,7 +2136,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -2186,7 +2145,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -2196,7 +2154,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @param {PWSTR} szTarget 
      * @returns {HRESULT} 
@@ -2209,7 +2166,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @param {IMoniker} pmkTarget 
      * @returns {HRESULT} 
@@ -2220,7 +2176,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl 
      * @param {PARSEACTION} _ParseAction 
      * @param {Integer} dwFlags 
@@ -2238,7 +2193,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUri} pIUri 
      * @param {PARSEACTION} _ParseAction 
      * @param {Integer} dwFlags 
@@ -2256,7 +2210,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzBaseUrl 
      * @param {PWSTR} pwzRelativeUrl 
      * @param {Integer} dwCombineFlags 
@@ -2276,7 +2229,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUri} pBaseUri 
      * @param {PWSTR} pwzRelativeUrl 
      * @param {Integer} dwCombineFlags 
@@ -2291,7 +2243,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUri} pBaseUri 
      * @param {IUri} pRelativeUri 
      * @param {Integer} dwCombineFlags 
@@ -2304,7 +2255,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl1 
      * @param {PWSTR} pwzUrl2 
      * @param {Integer} dwFlags 
@@ -2319,7 +2269,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
@@ -2332,7 +2281,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl 
      * @param {QUERYOPTION} QueryOptions 
      * @param {Integer} dwQueryFlags 
@@ -2349,7 +2297,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Integer} dwSessionMode 
      * @param {Integer} dwReserved 
      * @returns {IInternetSession} 
@@ -2360,7 +2307,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {PSUACTION} _psuAction 
      * @returns {PWSTR} 
@@ -2375,7 +2321,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {PSUACTION} _psuAction 
      * @returns {IUri} 
@@ -2388,7 +2333,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @param {BOOL} fEnable 
@@ -2400,7 +2344,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -2411,7 +2354,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @param {PWSTR} szURL 
@@ -2426,7 +2368,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @param {IUri} pIUri 
@@ -2439,7 +2380,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} szFromURL 
      * @param {PWSTR} szToURL 
      * @param {IInternetSecurityManager} pSecMgr 
@@ -2455,7 +2395,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<STGMEDIUM>} pcstgmedSrc 
      * @param {Pointer<STGMEDIUM>} pstgmedDest 
      * @returns {HRESULT} 
@@ -2466,7 +2405,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<BINDINFO>} pcbiSrc 
      * @param {Pointer<BINDINFO>} pbiDest 
      * @returns {HRESULT} 
@@ -2477,7 +2415,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<BINDINFO>} pbindinfo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -2486,7 +2423,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     static IEGetUserPrivateNamespaceName() {
@@ -2495,7 +2431,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IServiceProvider} pSP 
      * @param {Integer} dwReserved 
      * @returns {IInternetSecurityManager} 
@@ -2506,7 +2441,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {IServiceProvider} pSP 
      * @param {Integer} dwReserved 
      * @returns {IInternetZoneManager} 
@@ -2517,7 +2451,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} szDistUnit 
      * @param {Pointer<SOFTDISTINFO>} psdi 
      * @returns {HRESULT} 
@@ -2530,7 +2463,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} szDistUnit 
      * @param {Integer} dwAdState 
      * @param {Integer} dwAdvertisedVersionMS 
@@ -2545,7 +2477,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PSTR} pszUrl 
      * @returns {BOOL} 
      */
@@ -2557,7 +2488,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @returns {BOOL} 
      */
@@ -2569,7 +2499,6 @@ class Urlmon {
     }
 
     /**
-     * 
      * @param {Pointer<HIT_LOGGING_INFO>} lpLogginginfo 
      * @returns {BOOL} 
      */

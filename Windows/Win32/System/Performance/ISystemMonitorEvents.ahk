@@ -28,7 +28,6 @@ class ISystemMonitorEvents extends IUnknown {
     static VTableNames => ["OnCounterSelected", "OnCounterAdded", "OnCounterDeleted", "OnSampleCollected", "OnDblClick"]
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -37,7 +36,6 @@ class ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -46,7 +44,6 @@ class ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -55,7 +52,6 @@ class ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     OnSampleCollected() {
@@ -63,7 +59,6 @@ class ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */

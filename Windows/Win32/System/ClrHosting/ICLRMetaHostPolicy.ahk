@@ -33,7 +33,6 @@ class ICLRMetaHostPolicy extends IUnknown {
     static VTableNames => ["GetRequestedRuntime"]
 
     /**
-     * 
      * @param {METAHOST_POLICY_FLAGS} dwPolicyFlags 
      * @param {PWSTR} pwzBinary 
      * @param {IStream} pCfgStream 

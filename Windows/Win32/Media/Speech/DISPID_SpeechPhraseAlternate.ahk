@@ -7,27 +7,32 @@
 class DISPID_SpeechPhraseAlternate extends Win32Enum {
 
     /**
+     * Native name: DISPID_SPARecoResult
      * @type {Integer (Int32)}
      */
-    static DISPID_SPARecoResult => 1
+    static SPARecoResult => 1
 
     /**
+     * Native name: DISPID_SPAStartElementInResult
      * @type {Integer (Int32)}
      */
-    static DISPID_SPAStartElementInResult => 2
+    static SPAStartElementInResult => 2
 
     /**
+     * Native name: DISPID_SPANumberOfElementsInResult
      * @type {Integer (Int32)}
      */
-    static DISPID_SPANumberOfElementsInResult => 3
+    static SPANumberOfElementsInResult => 3
 
     /**
+     * Native name: DISPID_SPAPhraseInfo
      * @type {Integer (Int32)}
      */
-    static DISPID_SPAPhraseInfo => 4
+    static SPAPhraseInfo => 4
 
     /**
+     * Native name: DISPID_SPACommit
      * @type {Integer (Int32)}
      */
-    static DISPID_SPACommit => 5
+    static SPACommit => 5
 }

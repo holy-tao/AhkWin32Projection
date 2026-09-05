@@ -31,7 +31,6 @@ class IFullScreenVideo extends IUnknown {
     static VTableNames => ["CountModes", "GetModeInfo", "GetCurrentMode", "IsModeAvailable", "IsModeEnabled", "SetEnabled", "GetClipFactor", "SetClipFactor", "SetMessageDrain", "GetMessageDrain", "SetMonitor", "GetMonitor", "HideOnDeactivate", "IsHideOnDeactivate", "SetCaption", "GetCaption", "SetDefault"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     CountModes() {
@@ -40,7 +39,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @param {Pointer<Integer>} pWidth 
      * @param {Pointer<Integer>} pHeight 
@@ -57,7 +55,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentMode() {
@@ -66,7 +63,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
@@ -76,7 +72,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
@@ -86,7 +81,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @param {Integer} bEnabled 
      * @returns {HRESULT} 
@@ -97,7 +91,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetClipFactor() {
@@ -106,7 +99,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ClipFactor 
      * @returns {HRESULT} 
      */
@@ -116,7 +108,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
@@ -128,7 +119,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     GetMessageDrain() {
@@ -138,7 +128,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Monitor 
      * @returns {HRESULT} 
      */
@@ -148,7 +137,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMonitor() {
@@ -157,7 +145,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Hide 
      * @returns {HRESULT} 
      */
@@ -167,7 +154,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsHideOnDeactivate() {
@@ -176,7 +162,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} strCaption 
      * @returns {HRESULT} 
      */
@@ -188,7 +173,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCaption() {
@@ -198,7 +182,6 @@ class IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetDefault() {

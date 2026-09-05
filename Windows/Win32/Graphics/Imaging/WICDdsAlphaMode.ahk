@@ -10,31 +10,36 @@ class WICDdsAlphaMode extends Win32Enum {
 
     /**
      * Alpha behavior is unspecified and must be determined by the reader.
+     * Native name: WICDdsAlphaModeUnknown
      * @type {Integer (Int32)}
      */
-    static WICDdsAlphaModeUnknown => 0
+    static Unknown => 0
 
     /**
      * The alpha data is straight.
+     * Native name: WICDdsAlphaModeStraight
      * @type {Integer (Int32)}
      */
-    static WICDdsAlphaModeStraight => 1
+    static Straight => 1
 
     /**
      * The alpha data is premultiplied.
+     * Native name: WICDdsAlphaModePremultiplied
      * @type {Integer (Int32)}
      */
-    static WICDdsAlphaModePremultiplied => 2
+    static Premultiplied => 2
 
     /**
      * The alpha data is opaque (UNORM value of 1). This can be used by a compliant reader as a performance optimization. For example, blending operations can be converted to copies.
+     * Native name: WICDdsAlphaModeOpaque
      * @type {Integer (Int32)}
      */
-    static WICDdsAlphaModeOpaque => 3
+    static Opaque => 3
 
     /**
      * The alpha channel contains custom data that is not alpha.
+     * Native name: WICDdsAlphaModeCustom
      * @type {Integer (Int32)}
      */
-    static WICDdsAlphaModeCustom => 4
+    static Custom => 4
 }

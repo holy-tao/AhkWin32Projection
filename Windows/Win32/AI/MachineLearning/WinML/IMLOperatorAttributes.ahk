@@ -31,7 +31,6 @@ class IMLOperatorAttributes extends IUnknown {
     static VTableNames => ["GetAttributeElementCount", "GetAttribute", "GetStringAttributeElementLength", "GetStringAttributeElement"]
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {MLOperatorAttributeType} type 
      * @returns {Integer} 
@@ -44,7 +43,6 @@ class IMLOperatorAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {MLOperatorAttributeType} type 
      * @param {Integer} elementCount 
@@ -59,7 +57,6 @@ class IMLOperatorAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {Integer} elementIndex 
      * @returns {Integer} 
@@ -72,7 +69,6 @@ class IMLOperatorAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {Integer} elementIndex 
      * @param {Integer} attributeElementByteSize 

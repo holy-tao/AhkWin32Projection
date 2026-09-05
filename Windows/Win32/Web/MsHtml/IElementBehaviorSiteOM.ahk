@@ -31,7 +31,6 @@ class IElementBehaviorSiteOM extends IUnknown {
     static VTableNames => ["RegisterEvent", "GetEventCookie", "FireEvent", "CreateEventObject", "RegisterName", "RegisterUrn"]
 
     /**
-     * 
      * @param {PWSTR} pchEvent 
      * @param {Integer} lFlags 
      * @returns {Integer} 
@@ -44,7 +43,6 @@ class IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchEvent 
      * @returns {Integer} 
      */
@@ -56,7 +54,6 @@ class IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lCookie 
      * @param {IHTMLEventObj} pEventObject 
      * @returns {HRESULT} 
@@ -67,7 +64,6 @@ class IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLEventObj} 
      */
     CreateEventObject() {
@@ -76,7 +72,6 @@ class IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchName 
      * @returns {HRESULT} 
      */
@@ -88,7 +83,6 @@ class IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchUrn 
      * @returns {HRESULT} 
      */

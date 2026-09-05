@@ -30,7 +30,6 @@ class ICorProfilerCallback3 extends ICorProfilerCallback2 {
     static VTableNames => ["InitializeForAttach", "ProfilerAttachComplete", "ProfilerDetachSucceeded"]
 
     /**
-     * 
      * @param {IUnknown} pCorProfilerInfoUnk 
      * @param {Pointer<Void>} pvClientData 
      * @param {Integer} cbClientData 
@@ -44,7 +43,6 @@ class ICorProfilerCallback3 extends ICorProfilerCallback2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ProfilerAttachComplete() {
@@ -53,7 +51,6 @@ class ICorProfilerCallback3 extends ICorProfilerCallback2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ProfilerDetachSucceeded() {

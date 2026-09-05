@@ -38,7 +38,6 @@ class ISpResourceManager extends IServiceProvider {
     static VTableNames => ["SetObject", "GetObject"]
 
     /**
-     * 
      * @param {Pointer<Guid>} guidServiceId 
      * @param {IUnknown} pUnkObject 
      * @returns {HRESULT} 

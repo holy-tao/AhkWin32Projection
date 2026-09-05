@@ -7,22 +7,26 @@
 class AM_PROPERTY_FRAMESTEP extends Win32Enum {
 
     /**
+     * Native name: AM_PROPERTY_FRAMESTEP_STEP
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_FRAMESTEP_STEP => 1
+    static STEP => 1
 
     /**
+     * Native name: AM_PROPERTY_FRAMESTEP_CANCEL
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_FRAMESTEP_CANCEL => 2
+    static CANCEL => 2
 
     /**
+     * Native name: AM_PROPERTY_FRAMESTEP_CANSTEP
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_FRAMESTEP_CANSTEP => 3
+    static CANSTEP => 3
 
     /**
+     * Native name: AM_PROPERTY_FRAMESTEP_CANSTEPMULTIPLE
      * @type {Integer (Int32)}
      */
-    static AM_PROPERTY_FRAMESTEP_CANSTEPMULTIPLE => 4
+    static CANSTEPMULTIPLE => 4
 }

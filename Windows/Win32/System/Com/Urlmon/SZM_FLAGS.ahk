@@ -7,12 +7,14 @@
 class SZM_FLAGS extends Win32Enum {
 
     /**
+     * Native name: SZM_CREATE
      * @type {Integer (Int32)}
      */
-    static SZM_CREATE => 0
+    static CREATE => 0
 
     /**
+     * Native name: SZM_DELETE
      * @type {Integer (Int32)}
      */
-    static SZM_DELETE => 1
+    static DELETE => 1
 }

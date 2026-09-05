@@ -7,37 +7,44 @@
 class OLEIVERB extends Win32Enum {
 
     /**
+     * Native name: OLEIVERB_PRIMARY
      * @type {Integer (Int32)}
      */
-    static OLEIVERB_PRIMARY => 0
+    static PRIMARY => 0
 
     /**
+     * Native name: OLEIVERB_SHOW
      * @type {Integer (Int32)}
      */
-    static OLEIVERB_SHOW => -1
+    static SHOW => -1
 
     /**
+     * Native name: OLEIVERB_OPEN
      * @type {Integer (Int32)}
      */
-    static OLEIVERB_OPEN => -2
+    static OPEN => -2
 
     /**
+     * Native name: OLEIVERB_HIDE
      * @type {Integer (Int32)}
      */
-    static OLEIVERB_HIDE => -3
+    static HIDE => -3
 
     /**
+     * Native name: OLEIVERB_UIACTIVATE
      * @type {Integer (Int32)}
      */
-    static OLEIVERB_UIACTIVATE => -4
+    static UIACTIVATE => -4
 
     /**
+     * Native name: OLEIVERB_INPLACEACTIVATE
      * @type {Integer (Int32)}
      */
-    static OLEIVERB_INPLACEACTIVATE => -5
+    static INPLACEACTIVATE => -5
 
     /**
+     * Native name: OLEIVERB_DISCARDUNDOSTATE
      * @type {Integer (Int32)}
      */
-    static OLEIVERB_DISCARDUNDOSTATE => -6
+    static DISCARDUNDOSTATE => -6
 }

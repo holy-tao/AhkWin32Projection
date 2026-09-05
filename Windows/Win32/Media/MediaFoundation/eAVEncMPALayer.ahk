@@ -10,19 +10,22 @@ class eAVEncMPALayer extends Win32Enum {
 
     /**
      * MPEG Audio Layer-1.
+     * Native name: eAVEncMPALayer_1
      * @type {Integer (Int32)}
      */
-    static eAVEncMPALayer_1 => 1
+    static 1 => 1
 
     /**
      * MPEG Audio Layer-2.
+     * Native name: eAVEncMPALayer_2
      * @type {Integer (Int32)}
      */
-    static eAVEncMPALayer_2 => 2
+    static 2 => 2
 
     /**
      * MPEG Audio Layer-3.
+     * Native name: eAVEncMPALayer_3
      * @type {Integer (Int32)}
      */
-    static eAVEncMPALayer_3 => 3
+    static 3 => 3
 }

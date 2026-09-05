@@ -42,7 +42,6 @@ class IHTMLMediaError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_code() {

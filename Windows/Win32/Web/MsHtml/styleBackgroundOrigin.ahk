@@ -7,27 +7,32 @@
 class styleBackgroundOrigin extends Win32Enum {
 
     /**
+     * Native name: styleBackgroundOriginBorderBox
      * @type {Integer (Int32)}
      */
-    static styleBackgroundOriginBorderBox => 0
+    static BorderBox => 0
 
     /**
+     * Native name: styleBackgroundOriginPaddingBox
      * @type {Integer (Int32)}
      */
-    static styleBackgroundOriginPaddingBox => 1
+    static PaddingBox => 1
 
     /**
+     * Native name: styleBackgroundOriginContentBox
      * @type {Integer (Int32)}
      */
-    static styleBackgroundOriginContentBox => 2
+    static ContentBox => 2
 
     /**
+     * Native name: styleBackgroundOriginNotSet
      * @type {Integer (Int32)}
      */
-    static styleBackgroundOriginNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleBackgroundOrigin_Max
      * @type {Integer (Int32)}
      */
-    static styleBackgroundOrigin_Max => 2147483647
+    static Max => 2147483647
 }

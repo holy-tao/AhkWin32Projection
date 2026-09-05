@@ -22,25 +22,29 @@ class COINIT extends Win32BitflagEnum {
 
     /**
      * Initializes the thread for apartment-threaded object concurrency (see Remarks).
+     * Native name: COINIT_APARTMENTTHREADED
      * @type {Integer (Int32)}
      */
-    static COINIT_APARTMENTTHREADED => 2
+    static APARTMENTTHREADED => 2
 
     /**
      * Initializes the thread for multithreaded object concurrency (see Remarks).
+     * Native name: COINIT_MULTITHREADED
      * @type {Integer (Int32)}
      */
-    static COINIT_MULTITHREADED => 0
+    static MULTITHREADED => 0
 
     /**
      * Disables DDE for OLE1 support.
+     * Native name: COINIT_DISABLE_OLE1DDE
      * @type {Integer (Int32)}
      */
-    static COINIT_DISABLE_OLE1DDE => 4
+    static DISABLE_OLE1DDE => 4
 
     /**
      * Increase memory usage in an attempt to increase performance.
+     * Native name: COINIT_SPEED_OVER_MEMORY
      * @type {Integer (Int32)}
      */
-    static COINIT_SPEED_OVER_MEMORY => 8
+    static SPEED_OVER_MEMORY => 8
 }

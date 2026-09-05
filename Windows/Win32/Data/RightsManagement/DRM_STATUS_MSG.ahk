@@ -12,43 +12,50 @@ class DRM_STATUS_MSG extends Win32Enum {
 
     /**
      * AD RMS is attempting to activate the machine. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-activate-machine">DRM_MSG_ACTIVATE_MACHINE</a> message.
+     * Native name: DRM_MSG_ACTIVATE_MACHINE
      * @type {Integer (Int32)}
      */
-    static DRM_MSG_ACTIVATE_MACHINE => 0
+    static ACTIVATE_MACHINE => 0
 
     /**
      * AD RMS is attempting to activate a user. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-activate-groupidentity">DRM_MSG_ACTIVATE_GROUPIDENTITY</a> message.
+     * Native name: DRM_MSG_ACTIVATE_GROUPIDENTITY
      * @type {Integer (Int32)}
      */
-    static DRM_MSG_ACTIVATE_GROUPIDENTITY => 1
+    static ACTIVATE_GROUPIDENTITY => 1
 
     /**
      * AD RMS is attempting to acquire a license. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-acquire-license">DRM_MSG_ACQUIRE_LICENSE</a> message.
+     * Native name: DRM_MSG_ACQUIRE_LICENSE
      * @type {Integer (Int32)}
      */
-    static DRM_MSG_ACQUIRE_LICENSE => 2
+    static ACQUIRE_LICENSE => 2
 
     /**
      * AD RMS is attempting to acquire a revocation list. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-acquire-advisory">DRM_MSG_ACQUIRE_ADVISORY</a> message.
+     * Native name: DRM_MSG_ACQUIRE_ADVISORY
      * @type {Integer (Int32)}
      */
-    static DRM_MSG_ACQUIRE_ADVISORY => 3
+    static ACQUIRE_ADVISORY => 3
 
     /**
      * AD RMS is attempting to acquire a signed issuance license. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-sign-issuance-license">DRM_MSG_SIGN_ISSUANCE_LICENSE</a> message.
+     * Native name: DRM_MSG_SIGN_ISSUANCE_LICENSE
      * @type {Integer (Int32)}
      */
-    static DRM_MSG_SIGN_ISSUANCE_LICENSE => 4
+    static SIGN_ISSUANCE_LICENSE => 4
 
     /**
      * AD RMS is attempting to acquire a client licensor certificate. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-acquire-clientlicensor">DRM_MSG_ACQUIRE_CLIENTLICENSOR</a> message.
+     * Native name: DRM_MSG_ACQUIRE_CLIENTLICENSOR
      * @type {Integer (Int32)}
      */
-    static DRM_MSG_ACQUIRE_CLIENTLICENSOR => 5
+    static ACQUIRE_CLIENTLICENSOR => 5
 
     /**
      * AD RMS is attempting to acquire a template collection. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-acquire-issuance-license-template">DRM_MSG_ACQUIRE_ISSUANCE_LICENSE_TEMPLATE</a> message.
+     * Native name: DRM_MSG_ACQUIRE_ISSUANCE_LICENSE_TEMPLATE
      * @type {Integer (Int32)}
      */
-    static DRM_MSG_ACQUIRE_ISSUANCE_LICENSE_TEMPLATE => 6
+    static ACQUIRE_ISSUANCE_LICENSE_TEMPLATE => 6
 }

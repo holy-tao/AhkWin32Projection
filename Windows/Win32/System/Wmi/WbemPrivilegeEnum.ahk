@@ -10,163 +10,190 @@ class WbemPrivilegeEnum extends Win32Enum {
 
     /**
      * Required to create a primary token.
+     * Native name: wbemPrivilegeCreateToken
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeCreateToken => 1
+    static CreateToken => 1
 
     /**
      * Required to assign the primary token of a process.
+     * Native name: wbemPrivilegePrimaryToken
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegePrimaryToken => 2
+    static PrimaryToken => 2
 
     /**
      * Required to lock physical pages in memory.
+     * Native name: wbemPrivilegeLockMemory
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeLockMemory => 3
+    static LockMemory => 3
 
     /**
      * Required to increase the quota assigned to a process.
+     * Native name: wbemPrivilegeIncreaseQuota
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeIncreaseQuota => 4
+    static IncreaseQuota => 4
 
     /**
      * Required to create a machine account.
+     * Native name: wbemPrivilegeMachineAccount
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeMachineAccount => 5
+    static MachineAccount => 5
 
     /**
      * Identifies its holder as part of the trusted computer base. Some trusted, protected subsystems are granted this privilege.
+     * Native name: wbemPrivilegeTcb
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeTcb => 6
+    static Tcb => 6
 
     /**
      * Required to perform a number of security-related functions, such as controlling and viewing audit messages. This privilege identifies its holder as a security operator.
+     * Native name: wbemPrivilegeSecurity
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeSecurity => 7
+    static Security => 7
 
     /**
      * Required to take ownership of an object without being granted discretionary access. This privilege allows the owner value to be set only to those values that the holder may legitimately assign as the owner of an object.
+     * Native name: wbemPrivilegeTakeOwnership
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeTakeOwnership => 8
+    static TakeOwnership => 8
 
     /**
      * Required to load or unload a device driver.
+     * Native name: wbemPrivilegeLoadDriver
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeLoadDriver => 9
+    static LoadDriver => 9
 
     /**
      * Required to gather profiling information for the entire system.
+     * Native name: wbemPrivilegeSystemProfile
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeSystemProfile => 10
+    static SystemProfile => 10
 
     /**
      * Required to modify the system time.
+     * Native name: wbemPrivilegeSystemtime
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeSystemtime => 11
+    static Systemtime => 11
 
     /**
      * Required to gather profiling information for a single process.
+     * Native name: wbemPrivilegeProfileSingleProcess
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeProfileSingleProcess => 12
+    static ProfileSingleProcess => 12
 
     /**
      * Required to increase the base priority of a process.
+     * Native name: wbemPrivilegeIncreaseBasePriority
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeIncreaseBasePriority => 13
+    static IncreaseBasePriority => 13
 
     /**
      * Required to create a paging file.
+     * Native name: wbemPrivilegeCreatePagefile
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeCreatePagefile => 14
+    static CreatePagefile => 14
 
     /**
      * Required to create a permanent object.
+     * Native name: wbemPrivilegeCreatePermanent
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeCreatePermanent => 15
+    static CreatePermanent => 15
 
     /**
      * Required to perform backup operations.
+     * Native name: wbemPrivilegeBackup
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeBackup => 16
+    static Backup => 16
 
     /**
      * Required to perform restore operations. This privilege enables you to set any valid user or group security identifier (SID)  as the owner of an object.
+     * Native name: wbemPrivilegeRestore
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeRestore => 17
+    static Restore => 17
 
     /**
      * Required to shut down a local system.
+     * Native name: wbemPrivilegeShutdown
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeShutdown => 18
+    static Shutdown => 18
 
     /**
      * Required to debug a process.
+     * Native name: wbemPrivilegeDebug
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeDebug => 19
+    static Debug => 19
 
     /**
      * Required to generate audit-log entries.
+     * Native name: wbemPrivilegeAudit
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeAudit => 20
+    static Audit => 20
 
     /**
      * Required to modify the nonvolatile RAM of systems that use this type of memory to store configuration information.
+     * Native name: wbemPrivilegeSystemEnvironment
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeSystemEnvironment => 21
+    static SystemEnvironment => 21
 
     /**
      * Required to receive notifications of changes to files or directories. This privilege also causes the system to skip all traversal access checks. It is enabled by default for all users.
+     * Native name: wbemPrivilegeChangeNotify
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeChangeNotify => 22
+    static ChangeNotify => 22
 
     /**
      * Required to shut down a system using a network request.
+     * Native name: wbemPrivilegeRemoteShutdown
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeRemoteShutdown => 23
+    static RemoteShutdown => 23
 
     /**
      * Required to remove a computer from a docking station.
+     * Native name: wbemPrivilegeUndock
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeUndock => 24
+    static Undock => 24
 
     /**
      * Required to synchronize directory service data.
+     * Native name: wbemPrivilegeSyncAgent
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeSyncAgent => 25
+    static SyncAgent => 25
 
     /**
      * Required to enable computer and user accounts to be trusted for delegation.
+     * Native name: wbemPrivilegeEnableDelegation
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeEnableDelegation => 26
+    static EnableDelegation => 26
 
     /**
      * Required to perform volume maintenance tasks.
+     * Native name: wbemPrivilegeManageVolume
      * @type {Integer (Int32)}
      */
-    static wbemPrivilegeManageVolume => 27
+    static ManageVolume => 27
 }

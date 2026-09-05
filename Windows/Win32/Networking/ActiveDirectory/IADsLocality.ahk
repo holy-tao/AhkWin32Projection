@@ -65,7 +65,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -75,7 +74,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalityName() {
@@ -97,7 +94,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLocalityName 
      * @returns {HRESULT} 
      */
@@ -109,7 +105,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PostalAddress() {
@@ -119,7 +114,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPostalAddress 
      * @returns {HRESULT} 
      */
@@ -131,7 +125,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SeeAlso() {
@@ -141,7 +134,6 @@ class IADsLocality extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vSeeAlso 
      * @returns {HRESULT} 
      */

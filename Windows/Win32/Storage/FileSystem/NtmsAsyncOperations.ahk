@@ -7,7 +7,8 @@
 class NtmsAsyncOperations extends Win32Enum {
 
     /**
+     * Native name: NTMS_ASYNCOP_MOUNT
      * @type {Integer (Int32)}
      */
-    static NTMS_ASYNCOP_MOUNT => 1
+    static ASYNCOP_MOUNT => 1
 }

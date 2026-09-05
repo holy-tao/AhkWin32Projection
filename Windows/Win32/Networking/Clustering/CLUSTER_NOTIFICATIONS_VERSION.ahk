@@ -10,13 +10,15 @@ class CLUSTER_NOTIFICATIONS_VERSION extends Win32Enum {
 
     /**
      * Version 1 of the cluster notification enumeration.
+     * Native name: CLUSTER_NOTIFICATIONS_V1
      * @type {Integer (Int32)}
      */
-    static CLUSTER_NOTIFICATIONS_V1 => 1
+    static V1 => 1
 
     /**
      * Version 2 of the cluster notification enumeration.
+     * Native name: CLUSTER_NOTIFICATIONS_V2
      * @type {Integer (Int32)}
      */
-    static CLUSTER_NOTIFICATIONS_V2 => 2
+    static V2 => 2
 }

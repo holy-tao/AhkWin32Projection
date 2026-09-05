@@ -7,22 +7,26 @@
 class D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_NONE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_COPY
      * @type {Integer (Int32)}
      */
-    static D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_COPY => 1
+    static COPY => 1
 
     /**
+     * Native name: D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_TEXTURE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_TEXTURE => 2
+    static TEXTURE => 2
 
     /**
+     * Native name: D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_SCANOUT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_CROSSADAPTERRESOURCE_SUPPORT_TIER_SCANOUT => 3
+    static SCANOUT => 3
 }

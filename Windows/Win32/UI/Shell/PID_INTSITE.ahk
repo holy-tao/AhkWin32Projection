@@ -7,102 +7,122 @@
 class PID_INTSITE extends Win32Enum {
 
     /**
+     * Native name: PID_INTSITE_WHATSNEW
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_WHATSNEW => 2
+    static WHATSNEW => 2
 
     /**
+     * Native name: PID_INTSITE_AUTHOR
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_AUTHOR => 3
+    static AUTHOR => 3
 
     /**
+     * Native name: PID_INTSITE_LASTVISIT
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_LASTVISIT => 4
+    static LASTVISIT => 4
 
     /**
+     * Native name: PID_INTSITE_LASTMOD
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_LASTMOD => 5
+    static LASTMOD => 5
 
     /**
+     * Native name: PID_INTSITE_VISITCOUNT
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_VISITCOUNT => 6
+    static VISITCOUNT => 6
 
     /**
+     * Native name: PID_INTSITE_DESCRIPTION
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_DESCRIPTION => 7
+    static DESCRIPTION => 7
 
     /**
+     * Native name: PID_INTSITE_COMMENT
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_COMMENT => 8
+    static COMMENT => 8
 
     /**
+     * Native name: PID_INTSITE_FLAGS
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_FLAGS => 9
+    static FLAGS => 9
 
     /**
+     * Native name: PID_INTSITE_CONTENTLEN
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_CONTENTLEN => 10
+    static CONTENTLEN => 10
 
     /**
+     * Native name: PID_INTSITE_CONTENTCODE
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_CONTENTCODE => 11
+    static CONTENTCODE => 11
 
     /**
+     * Native name: PID_INTSITE_RECURSE
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_RECURSE => 12
+    static RECURSE => 12
 
     /**
+     * Native name: PID_INTSITE_WATCH
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_WATCH => 13
+    static WATCH => 13
 
     /**
+     * Native name: PID_INTSITE_SUBSCRIPTION
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_SUBSCRIPTION => 14
+    static SUBSCRIPTION => 14
 
     /**
+     * Native name: PID_INTSITE_URL
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_URL => 15
+    static URL => 15
 
     /**
+     * Native name: PID_INTSITE_TITLE
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_TITLE => 16
+    static TITLE => 16
 
     /**
+     * Native name: PID_INTSITE_CODEPAGE
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_CODEPAGE => 18
+    static CODEPAGE => 18
 
     /**
+     * Native name: PID_INTSITE_TRACKING
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_TRACKING => 19
+    static TRACKING => 19
 
     /**
+     * Native name: PID_INTSITE_ICONINDEX
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_ICONINDEX => 20
+    static ICONINDEX => 20
 
     /**
+     * Native name: PID_INTSITE_ICONFILE
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_ICONFILE => 21
+    static ICONFILE => 21
 
     /**
+     * Native name: PID_INTSITE_ROAMED
      * @type {Integer (Int32)}
      */
-    static PID_INTSITE_ROAMED => 34
+    static ROAMED => 34
 }

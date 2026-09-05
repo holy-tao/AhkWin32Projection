@@ -44,7 +44,6 @@ class IMsmErrors extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Item 
      * @returns {IMsmError} 
      */
@@ -54,7 +53,6 @@ class IMsmErrors extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Count 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ class IMsmErrors extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

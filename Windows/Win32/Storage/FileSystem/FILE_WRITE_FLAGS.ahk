@@ -7,12 +7,14 @@
 class FILE_WRITE_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: FILE_WRITE_FLAGS_NONE
      * @type {Integer (Int32)}
      */
-    static FILE_WRITE_FLAGS_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: FILE_WRITE_FLAGS_WRITE_THROUGH
      * @type {Integer (Int32)}
      */
-    static FILE_WRITE_FLAGS_WRITE_THROUGH => 1
+    static WRITE_THROUGH => 1
 }

@@ -12,13 +12,15 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAGS extends Win32BitflagEn
 
     /**
      * Vector precision is not supported by the encoder.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The vector precision is quarter-pixel motion.
+     * Native name: D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAG_QUARTER_PEL
      * @type {Integer (Int32)}
      */
-    static D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAG_QUARTER_PEL => 1
+    static FLAG_QUARTER_PEL => 1
 }

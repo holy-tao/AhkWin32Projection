@@ -7,67 +7,80 @@
 class DFM_CMD extends Win32Enum {
 
     /**
+     * Native name: DFM_CMD_DELETE
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_DELETE => -1
+    static DELETE => -1
 
     /**
+     * Native name: DFM_CMD_MOVE
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_MOVE => -2
+    static MOVE => -2
 
     /**
+     * Native name: DFM_CMD_COPY
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_COPY => -3
+    static COPY => -3
 
     /**
+     * Native name: DFM_CMD_LINK
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_LINK => -4
+    static LINK => -4
 
     /**
+     * Native name: DFM_CMD_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_PROPERTIES => -5
+    static PROPERTIES => -5
 
     /**
+     * Native name: DFM_CMD_NEWFOLDER
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_NEWFOLDER => -6
+    static NEWFOLDER => -6
 
     /**
+     * Native name: DFM_CMD_PASTE
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_PASTE => -7
+    static PASTE => -7
 
     /**
+     * Native name: DFM_CMD_VIEWLIST
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_VIEWLIST => -8
+    static VIEWLIST => -8
 
     /**
+     * Native name: DFM_CMD_VIEWDETAILS
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_VIEWDETAILS => -9
+    static VIEWDETAILS => -9
 
     /**
+     * Native name: DFM_CMD_PASTELINK
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_PASTELINK => -10
+    static PASTELINK => -10
 
     /**
+     * Native name: DFM_CMD_PASTESPECIAL
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_PASTESPECIAL => -11
+    static PASTESPECIAL => -11
 
     /**
+     * Native name: DFM_CMD_MODALPROP
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_MODALPROP => -12
+    static MODALPROP => -12
 
     /**
+     * Native name: DFM_CMD_RENAME
      * @type {Integer (Int32)}
      */
-    static DFM_CMD_RENAME => -13
+    static RENAME => -13
 }

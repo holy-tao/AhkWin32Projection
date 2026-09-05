@@ -36,7 +36,6 @@ class IBidiRequest extends IUnknown {
     static VTableNames => ["SetSchema", "SetInputData", "GetResult", "GetOutputData", "GetEnumCount"]
 
     /**
-     * 
      * @param {PWSTR} pszSchema 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ class IBidiRequest extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwType 
      * @param {Pointer<Integer>} pData 
      * @param {Integer} uSize 
@@ -62,7 +60,6 @@ class IBidiRequest extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetResult() {
@@ -71,7 +68,6 @@ class IBidiRequest extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<PWSTR>} ppszSchema 
      * @param {Pointer<Integer>} pdwType 
@@ -90,7 +86,6 @@ class IBidiRequest extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEnumCount() {

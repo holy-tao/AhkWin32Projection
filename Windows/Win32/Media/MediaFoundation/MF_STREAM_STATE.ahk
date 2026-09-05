@@ -7,17 +7,20 @@
 class MF_STREAM_STATE extends Win32Enum {
 
     /**
+     * Native name: MF_STREAM_STATE_STOPPED
      * @type {Integer (Int32)}
      */
-    static MF_STREAM_STATE_STOPPED => 0
+    static STOPPED => 0
 
     /**
+     * Native name: MF_STREAM_STATE_PAUSED
      * @type {Integer (Int32)}
      */
-    static MF_STREAM_STATE_PAUSED => 1
+    static PAUSED => 1
 
     /**
+     * Native name: MF_STREAM_STATE_RUNNING
      * @type {Integer (Int32)}
      */
-    static MF_STREAM_STATE_RUNNING => 2
+    static RUNNING => 2
 }

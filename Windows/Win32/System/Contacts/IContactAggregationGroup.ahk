@@ -62,7 +62,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -71,7 +70,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -80,7 +78,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -104,7 +100,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationAggregateCollection} 
      */
     get_Members() {
@@ -113,7 +108,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_GlobalObjectId() {
@@ -123,7 +117,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGlobalObjectId 
      * @returns {HRESULT} 
      */
@@ -133,7 +126,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -142,7 +134,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Name() {
@@ -151,7 +142,6 @@ class IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @returns {HRESULT} 
      */

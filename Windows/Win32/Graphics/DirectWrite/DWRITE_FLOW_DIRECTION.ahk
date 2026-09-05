@@ -10,25 +10,29 @@ class DWRITE_FLOW_DIRECTION extends Win32Enum {
 
     /**
      * Specifies that text lines are placed from top to bottom.
+     * Native name: DWRITE_FLOW_DIRECTION_TOP_TO_BOTTOM
      * @type {Integer (Int32)}
      */
-    static DWRITE_FLOW_DIRECTION_TOP_TO_BOTTOM => 0
+    static TOP_TO_BOTTOM => 0
 
     /**
      * Specifies that text lines are placed from bottom to top.
+     * Native name: DWRITE_FLOW_DIRECTION_BOTTOM_TO_TOP
      * @type {Integer (Int32)}
      */
-    static DWRITE_FLOW_DIRECTION_BOTTOM_TO_TOP => 1
+    static BOTTOM_TO_TOP => 1
 
     /**
      * Specifies that text lines are placed from left to right.
+     * Native name: DWRITE_FLOW_DIRECTION_LEFT_TO_RIGHT
      * @type {Integer (Int32)}
      */
-    static DWRITE_FLOW_DIRECTION_LEFT_TO_RIGHT => 2
+    static LEFT_TO_RIGHT => 2
 
     /**
      * Specifies that text lines are placed from right to left.
+     * Native name: DWRITE_FLOW_DIRECTION_RIGHT_TO_LEFT
      * @type {Integer (Int32)}
      */
-    static DWRITE_FLOW_DIRECTION_RIGHT_TO_LEFT => 3
+    static RIGHT_TO_LEFT => 3
 }

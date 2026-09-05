@@ -405,7 +405,6 @@ class IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CallHandle() {
@@ -414,7 +413,6 @@ class IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lCallHandle 
      * @returns {HRESULT} 
      */
@@ -553,7 +551,6 @@ class IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TapiConnection() {
@@ -562,7 +559,6 @@ class IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pTapiConnection 
      * @returns {HRESULT} 
      */

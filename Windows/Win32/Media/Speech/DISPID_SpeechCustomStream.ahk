@@ -7,7 +7,8 @@
 class DISPID_SpeechCustomStream extends Win32Enum {
 
     /**
+     * Native name: DISPID_SCSBaseStream
      * @type {Integer (Int32)}
      */
-    static DISPID_SCSBaseStream => 100
+    static SCSBaseStream => 100
 }

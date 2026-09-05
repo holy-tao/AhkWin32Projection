@@ -7,7 +7,8 @@
 class msidbClassAttributes extends Win32Enum {
 
     /**
+     * Native name: msidbClassAttributesRelativePath
      * @type {Integer (Int32)}
      */
-    static msidbClassAttributesRelativePath => 1
+    static RelativePath => 1
 }

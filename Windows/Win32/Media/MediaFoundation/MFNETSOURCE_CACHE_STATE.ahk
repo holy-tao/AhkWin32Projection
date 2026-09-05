@@ -10,19 +10,22 @@ class MFNETSOURCE_CACHE_STATE extends Win32Enum {
 
     /**
      * The cache for a file or entry does not exist.
+     * Native name: MFNETSOURCE_CACHE_UNAVAILABLE
      * @type {Integer (Int32)}
      */
-    static MFNETSOURCE_CACHE_UNAVAILABLE => 0
+    static UNAVAILABLE => 0
 
     /**
      * The cache for a file or entry is growing.
+     * Native name: MFNETSOURCE_CACHE_ACTIVE_WRITING
      * @type {Integer (Int32)}
      */
-    static MFNETSOURCE_CACHE_ACTIVE_WRITING => 1
+    static ACTIVE_WRITING => 1
 
     /**
      * The cache for a file or entry is completed.
+     * Native name: MFNETSOURCE_CACHE_ACTIVE_COMPLETE
      * @type {Integer (Int32)}
      */
-    static MFNETSOURCE_CACHE_ACTIVE_COMPLETE => 2
+    static ACTIVE_COMPLETE => 2
 }

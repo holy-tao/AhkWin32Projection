@@ -19,9 +19,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 32.
+     * Native name: WS_XML_WRITER_PROPERTY_MAX_DEPTH
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_MAX_DEPTH => 0
+    static MAX_DEPTH => 0
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a> structure that specifies whether the writer will permit multiple elements and non-white space at the top level of the document.  This property
@@ -29,9 +30,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to <b>FALSE</b>.
+     * Native name: WS_XML_WRITER_PROPERTY_ALLOW_FRAGMENT
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_ALLOW_FRAGMENT => 1
+    static ALLOW_FRAGMENT => 1
 
     /**
      * A <b>ULONG</b> that specifies
@@ -39,27 +41,30 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 128.
+     * Native name: WS_XML_WRITER_PROPERTY_MAX_ATTRIBUTES
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_MAX_ATTRIBUTES => 2
+    static MAX_ATTRIBUTES => 2
 
     /**
      * A <b>BOOL</b> that specifies if the writer should emit an appropriate xml declaration at the start of the document.
      *         
      * 
      * This property defaults to <b>FALSE</b>.
+     * Native name: WS_XML_WRITER_PROPERTY_WRITE_DECLARATION
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_WRITE_DECLARATION => 3
+    static WRITE_DECLARATION => 3
 
     /**
      * A <b>ULONG</b> that specifies the how many spaces of indenting should be used to format the xml.  If indent is zero, no formatting occurs.
      *         
      * 
      * This property defaults to 0.
+     * Native name: WS_XML_WRITER_PROPERTY_INDENT
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_INDENT => 4
+    static INDENT => 4
 
     /**
      * A <b>ULONG</b> that specifies one of the following.
@@ -77,17 +82,19 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 4096.
+     * Native name: WS_XML_WRITER_PROPERTY_BUFFER_TRIM_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_BUFFER_TRIM_SIZE => 5
+    static BUFFER_TRIM_SIZE => 5
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET</a> value that
      *           returns the character set the writer is using to encode the document.  This value is only available for
      *           text documents.
+     * Native name: WS_XML_WRITER_PROPERTY_CHARSET
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_CHARSET => 6
+    static CHARSET => 6
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_buffers">WS_BUFFERS</a> structure
@@ -111,9 +118,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      * 
      * This may be less convenient but more efficient than using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BYTES</a> because the
      *           writer does not have to concatenate the buffers that comprise the document into a single buffer.
+     * Native name: WS_XML_WRITER_PROPERTY_BUFFERS
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_BUFFERS => 7
+    static BUFFERS => 7
 
     /**
      * A <b>ULONG</b> that
@@ -129,9 +137,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property has no effect when specified with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
+     * Native name: WS_XML_WRITER_PROPERTY_BUFFER_MAX_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_BUFFER_MAX_SIZE => 8
+    static BUFFER_MAX_SIZE => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_buffers">WS_BUFFERS</a> structure
@@ -155,17 +164,19 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      * 
      * This may be more convenient but less efficient than using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFERS</a> because the
      *           writer may need to concatenate the buffers that comprise the document into a single buffer.
+     * Native name: WS_XML_WRITER_PROPERTY_BYTES
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_BYTES => 9
+    static BYTES => 9
 
     /**
      * A <b>BOOL</b> that
      *           indicates that <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritestartattribute">WsWriteStartAttribute</a> has been called and the writer is
      *           positioned on attribute content.
+     * Native name: WS_XML_WRITER_PROPERTY_IN_ATTRIBUTE
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_IN_ATTRIBUTE => 10
+    static IN_ATTRIBUTE => 10
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a>. This specifies the maximum amount of data that
@@ -175,9 +186,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 65536.
+     * Native name: WS_XML_WRITER_PROPERTY_MAX_MIME_PARTS_BUFFER_SIZE
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_MAX_MIME_PARTS_BUFFER_SIZE => 11
+    static MAX_MIME_PARTS_BUFFER_SIZE => 11
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_bytes">WS_BYTES</a> structure that contains a buffer that the writer may use for encoding the xml document.  This is
@@ -193,9 +205,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * The caller must ensure that the buffer specified is valid for the lifetime of the writer.
+     * Native name: WS_XML_WRITER_PROPERTY_INITIAL_BUFFER
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_INITIAL_BUFFER => 12
+    static INITIAL_BUFFER => 12
 
     /**
      * A <b>BOOL</b> used with  <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_text_encoding">WS_XML_WRITER_TEXT_ENCODING</a>.  Setting this to <b>TRUE</b> permits character references
@@ -206,9 +219,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to <b>FALSE</b>.
+     * Native name: WS_XML_WRITER_PROPERTY_ALLOW_INVALID_CHARACTER_REFERENCES
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_ALLOW_INVALID_CHARACTER_REFERENCES => 13
+    static ALLOW_INVALID_CHARACTER_REFERENCES => 13
 
     /**
      * A <b>ULONG</b> that specifies the maximum number of xmlns unique declarations that may appear in scope at any point
@@ -216,9 +230,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property defaults to 32.
+     * Native name: WS_XML_WRITER_PROPERTY_MAX_NAMESPACES
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_MAX_NAMESPACES => 14
+    static MAX_NAMESPACES => 14
 
     /**
      * A <b>ULONG</b> that specifies one of the following.
@@ -237,9 +252,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property is not available on a writer that was set using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
+     * Native name: WS_XML_WRITER_PROPERTY_BYTES_WRITTEN
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_BYTES_WRITTEN => 15
+    static BYTES_WRITTEN => 15
 
     /**
      * A <b>ULONG</b> that returns the maximum number of bytes necessary to close any open elements.
@@ -252,9 +268,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *         
      * 
      * This property is not available on a writer that was set using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
+     * Native name: WS_XML_WRITER_PROPERTY_BYTES_TO_CLOSE
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_BYTES_TO_CLOSE => 16
+    static BYTES_TO_CLOSE => 16
 
     /**
      * A <b>BOOL</b> that controls how <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> copies elements with no content.
@@ -312,9 +329,10 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      *  &lt;emptyElementWithEndTag /&gt;
      * &lt;/container&gt;
      * ```
+     * Native name: WS_XML_WRITER_PROPERTY_COMPRESS_EMPTY_ELEMENTS
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_COMPRESS_EMPTY_ELEMENTS => 17
+    static COMPRESS_EMPTY_ELEMENTS => 17
 
     /**
      * Windows 8 or later: A <b>BOOL</b> that controls how empty elements are emitted.
@@ -336,7 +354,8 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum {
      * 
      * 
      * The default is <b>FALSE</b>
+     * Native name: WS_XML_WRITER_PROPERTY_EMIT_UNCOMPRESSED_EMPTY_ELEMENTS
      * @type {Integer (Int32)}
      */
-    static WS_XML_WRITER_PROPERTY_EMIT_UNCOMPRESSED_EMPTY_ELEMENTS => 18
+    static EMIT_UNCOMPRESSED_EMPTY_ELEMENTS => 18
 }

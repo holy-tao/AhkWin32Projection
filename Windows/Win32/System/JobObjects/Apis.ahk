@@ -544,7 +544,6 @@ class JobObjects {
     }
 
     /**
-     * 
      * @param {Integer} NumJob 
      * @param {Pointer<JOB_SET_ARRAY>} UserJobSet 
      * @param {Integer} Flags 

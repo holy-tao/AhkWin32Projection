@@ -60,7 +60,6 @@ class IRTCRegistrationStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCProfile} 
      */
     get_Profile() {
@@ -69,7 +68,6 @@ class IRTCRegistrationStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_REGISTRATION_STATE} 
      */
     get_State() {
@@ -78,7 +76,6 @@ class IRTCRegistrationStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -87,7 +84,6 @@ class IRTCRegistrationStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {

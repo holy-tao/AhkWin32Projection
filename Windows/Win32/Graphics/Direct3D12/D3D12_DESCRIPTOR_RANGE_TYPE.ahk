@@ -12,25 +12,29 @@ class D3D12_DESCRIPTOR_RANGE_TYPE extends Win32Enum {
 
     /**
      * Specifies a range of SRVs.
+     * Native name: D3D12_DESCRIPTOR_RANGE_TYPE_SRV
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_TYPE_SRV => 0
+    static SRV => 0
 
     /**
      * Specifies a range of unordered-access views (UAVs).
+     * Native name: D3D12_DESCRIPTOR_RANGE_TYPE_UAV
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_TYPE_UAV => 1
+    static UAV => 1
 
     /**
      * Specifies a range of constant-buffer views (CBVs).
+     * Native name: D3D12_DESCRIPTOR_RANGE_TYPE_CBV
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_TYPE_CBV => 2
+    static CBV => 2
 
     /**
      * Specifies a range of samplers.
+     * Native name: D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER
      * @type {Integer (Int32)}
      */
-    static D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER => 3
+    static SAMPLER => 3
 }

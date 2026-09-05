@@ -7,32 +7,38 @@
 class StringTrimming extends Win32Enum {
 
     /**
+     * Native name: StringTrimmingNone
      * @type {Integer (Int32)}
      */
-    static StringTrimmingNone => 0
+    static None => 0
 
     /**
+     * Native name: StringTrimmingCharacter
      * @type {Integer (Int32)}
      */
-    static StringTrimmingCharacter => 1
+    static Character => 1
 
     /**
+     * Native name: StringTrimmingWord
      * @type {Integer (Int32)}
      */
-    static StringTrimmingWord => 2
+    static Word => 2
 
     /**
+     * Native name: StringTrimmingEllipsisCharacter
      * @type {Integer (Int32)}
      */
-    static StringTrimmingEllipsisCharacter => 3
+    static EllipsisCharacter => 3
 
     /**
+     * Native name: StringTrimmingEllipsisWord
      * @type {Integer (Int32)}
      */
-    static StringTrimmingEllipsisWord => 4
+    static EllipsisWord => 4
 
     /**
+     * Native name: StringTrimmingEllipsisPath
      * @type {Integer (Int32)}
      */
-    static StringTrimmingEllipsisPath => 5
+    static EllipsisPath => 5
 }

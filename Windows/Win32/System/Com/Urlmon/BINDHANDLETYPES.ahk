@@ -7,17 +7,20 @@
 class BINDHANDLETYPES extends Win32Enum {
 
     /**
+     * Native name: BINDHANDLETYPES_APPCACHE
      * @type {Integer (Int32)}
      */
-    static BINDHANDLETYPES_APPCACHE => 0
+    static APPCACHE => 0
 
     /**
+     * Native name: BINDHANDLETYPES_DEPENDENCY
      * @type {Integer (Int32)}
      */
-    static BINDHANDLETYPES_DEPENDENCY => 1
+    static DEPENDENCY => 1
 
     /**
+     * Native name: BINDHANDLETYPES_COUNT
      * @type {Integer (Int32)}
      */
-    static BINDHANDLETYPES_COUNT => 2
+    static COUNT => 2
 }

@@ -7,17 +7,20 @@
 class PFD_LAYER_TYPE extends Win32Enum {
 
     /**
+     * Native name: PFD_UNDERLAY_PLANE
      * @type {Integer (SByte)}
      */
-    static PFD_UNDERLAY_PLANE => 0xFF
+    static UNDERLAY_PLANE => 0xFF
 
     /**
+     * Native name: PFD_MAIN_PLANE
      * @type {Integer (SByte)}
      */
-    static PFD_MAIN_PLANE => 0x00
+    static MAIN_PLANE => 0x00
 
     /**
+     * Native name: PFD_OVERLAY_PLANE
      * @type {Integer (SByte)}
      */
-    static PFD_OVERLAY_PLANE => 0x01
+    static OVERLAY_PLANE => 0x01
 }

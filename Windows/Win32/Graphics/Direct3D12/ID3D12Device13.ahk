@@ -30,7 +30,6 @@ class ID3D12Device13 extends ID3D12Device12 {
     static VTableNames => ["OpenExistingHeapFromAddress1"]
 
     /**
-     * 
      * @param {Pointer<Void>} pAddress 
      * @param {Pointer} _size 
      * @param {Pointer<Guid>} riid 

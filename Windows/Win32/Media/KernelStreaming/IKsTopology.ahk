@@ -30,7 +30,6 @@ class IKsTopology extends IUnknown {
     static VTableNames => ["CreateNodeInstance"]
 
     /**
-     * 
      * @param {Integer} NodeId 
      * @param {Integer} Flags 
      * @param {Integer} DesiredAccess 

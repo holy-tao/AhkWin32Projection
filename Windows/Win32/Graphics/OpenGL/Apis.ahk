@@ -10012,7 +10012,6 @@ class OpenGL {
     }
 
     /**
-     * 
      * @param {Integer} c 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10021,7 +10020,6 @@ class OpenGL {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} c 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -15120,7 +15118,6 @@ class OpenGL {
     }
 
     /**
-     * 
      * @param {Float} s 
      * @param {Float} t 
      * @returns {String} Nothing - always returns an empty string
@@ -15240,7 +15237,6 @@ class OpenGL {
     }
 
     /**
-     * 
      * @param {Float} s 
      * @param {Float} t 
      * @param {Float} r 
@@ -17102,7 +17098,6 @@ class OpenGL {
     }
 
     /**
-     * 
      * @param {Integer} errCode 
      * @returns {PWSTR} 
      */

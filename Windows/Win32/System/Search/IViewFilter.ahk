@@ -31,7 +31,6 @@ class IViewFilter extends IUnknown {
     static VTableNames => ["GetFilter", "GetFilterBindings", "SetFilter"]
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Pointer>} pcRows 
      * @param {Pointer<Pointer<Integer>>} pCompareOps 
@@ -50,7 +49,6 @@ class IViewFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcBindings 
      * @param {Pointer<Pointer<DBBINDING>>} prgBindings 
      * @returns {HRESULT} 
@@ -64,7 +62,6 @@ class IViewFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cRows 
      * @param {Pointer<Integer>} CompareOps 

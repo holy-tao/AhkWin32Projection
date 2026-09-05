@@ -7,42 +7,50 @@
 class CHANGEKIND extends Win32Enum {
 
     /**
+     * Native name: CHANGEKIND_ADDMEMBER
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_ADDMEMBER => 0
+    static ADDMEMBER => 0
 
     /**
+     * Native name: CHANGEKIND_DELETEMEMBER
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_DELETEMEMBER => 1
+    static DELETEMEMBER => 1
 
     /**
+     * Native name: CHANGEKIND_SETNAMES
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_SETNAMES => 2
+    static SETNAMES => 2
 
     /**
+     * Native name: CHANGEKIND_SETDOCUMENTATION
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_SETDOCUMENTATION => 3
+    static SETDOCUMENTATION => 3
 
     /**
+     * Native name: CHANGEKIND_GENERAL
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_GENERAL => 4
+    static GENERAL => 4
 
     /**
+     * Native name: CHANGEKIND_INVALIDATE
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_INVALIDATE => 5
+    static INVALIDATE => 5
 
     /**
+     * Native name: CHANGEKIND_CHANGEFAILED
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_CHANGEFAILED => 6
+    static CHANGEFAILED => 6
 
     /**
+     * Native name: CHANGEKIND_MAX
      * @type {Integer (Int32)}
      */
-    static CHANGEKIND_MAX => 7
+    static MAX => 7
 }

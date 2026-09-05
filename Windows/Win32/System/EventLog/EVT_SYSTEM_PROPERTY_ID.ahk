@@ -12,115 +12,134 @@ class EVT_SYSTEM_PROPERTY_ID extends Win32Enum {
 
     /**
      * Identifies the <b>Name</b> attribute of the provider element. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtSystemProviderName
      * @type {Integer (Int32)}
      */
-    static EvtSystemProviderName => 0
+    static ProviderName => 0
 
     /**
      * Identifies the <b>Guid</b> attribute of the provider element. The variant type for this property is <b>EvtVarTypeGuid</b>.
+     * Native name: EvtSystemProviderGuid
      * @type {Integer (Int32)}
      */
-    static EvtSystemProviderGuid => 1
+    static ProviderGuid => 1
 
     /**
      * Identifies the <b>EventID</b> element. The variant type for this property is <b>EvtVarTypeUInt16</b>.
+     * Native name: EvtSystemEventID
      * @type {Integer (Int32)}
      */
-    static EvtSystemEventID => 2
+    static EventID => 2
 
     /**
      * Identifies the <b>Qualifiers</b> attribute of the EventID element. The variant type for this property is <b>EvtVarTypeUInt16</b>.
+     * Native name: EvtSystemQualifiers
      * @type {Integer (Int32)}
      */
-    static EvtSystemQualifiers => 3
+    static Qualifiers => 3
 
     /**
      * Identifies the <b>Level</b> element. The variant type for this property is <b>EvtVarTypeUInt8</b>.
+     * Native name: EvtSystemLevel
      * @type {Integer (Int32)}
      */
-    static EvtSystemLevel => 4
+    static Level => 4
 
     /**
      * Identifies the <b>Task</b> element. The variant type for this property is <b>EvtVarTypeUInt16</b>.
+     * Native name: EvtSystemTask
      * @type {Integer (Int32)}
      */
-    static EvtSystemTask => 5
+    static Task => 5
 
     /**
      * Identifies the <b>Opcode</b> element. The variant type for this property is <b>EvtVarTypeUInt8</b>.
+     * Native name: EvtSystemOpcode
      * @type {Integer (Int32)}
      */
-    static EvtSystemOpcode => 6
+    static Opcode => 6
 
     /**
      * Identifies the <b>Keywords</b> element. The variant type for this property is <b>EvtVarTypeInt64</b>.
+     * Native name: EvtSystemKeywords
      * @type {Integer (Int32)}
      */
-    static EvtSystemKeywords => 7
+    static Keywords => 7
 
     /**
      * Identifies the <b>SystemTime</b> attribute of the TimeCreated element. The variant type for this property is <b>EvtVarTypeFileTime</b>.
+     * Native name: EvtSystemTimeCreated
      * @type {Integer (Int32)}
      */
-    static EvtSystemTimeCreated => 8
+    static TimeCreated => 8
 
     /**
      * Identifies the <b>EventRecordID</b> element. The variant type for this property is <b>EvtVarTypeUInt64</b>.
+     * Native name: EvtSystemEventRecordId
      * @type {Integer (Int32)}
      */
-    static EvtSystemEventRecordId => 9
+    static EventRecordId => 9
 
     /**
      * Identifies the <b>ActivityID</b> attribute of the Correlation element. The variant type for this property is <b>EvtVarTypeGuid</b>.
+     * Native name: EvtSystemActivityID
      * @type {Integer (Int32)}
      */
-    static EvtSystemActivityID => 10
+    static ActivityID => 10
 
     /**
      * Identifies the <b>RelatedActivityID</b> attribute of the Correlation element. The variant type for this property is <b>EvtVarTypeGuid</b>.
+     * Native name: EvtSystemRelatedActivityID
      * @type {Integer (Int32)}
      */
-    static EvtSystemRelatedActivityID => 11
+    static RelatedActivityID => 11
 
     /**
      * Identifies the <b>ProcessID</b> attribute of the Execution element. The variant type for this property is <b>EvtVarTypeUInt32</b>.
+     * Native name: EvtSystemProcessID
      * @type {Integer (Int32)}
      */
-    static EvtSystemProcessID => 12
+    static ProcessID => 12
 
     /**
      * Identifies the <b>ThreadID</b> attribute of the Execution element. The variant type for this property is <b>EvtVarTypeUInt32</b>.
+     * Native name: EvtSystemThreadID
      * @type {Integer (Int32)}
      */
-    static EvtSystemThreadID => 13
+    static ThreadID => 13
 
     /**
      * Identifies the <b>Channel</b> element. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtSystemChannel
      * @type {Integer (Int32)}
      */
-    static EvtSystemChannel => 14
+    static Channel => 14
 
     /**
      * Identifies the <b>Computer</b> element. The variant type for this property is <b>EvtVarTypeString</b>.
+     * Native name: EvtSystemComputer
      * @type {Integer (Int32)}
      */
-    static EvtSystemComputer => 15
+    static Computer => 15
 
     /**
      * Identifies the <b>UserID</b> element. The variant type for this property is <b>EvtVarTypeSid</b>.
+     * Native name: EvtSystemUserID
      * @type {Integer (Int32)}
      */
-    static EvtSystemUserID => 16
+    static UserID => 16
 
     /**
      * Identifies the <b>Version</b> element. The variant type for this property is <b>EvtVarTypeUInt8</b>.
+     * Native name: EvtSystemVersion
      * @type {Integer (Int32)}
      */
-    static EvtSystemVersion => 17
+    static Version => 17
 
     /**
      * This enumeration value marks the end of the enumeration values.
+     * Native name: EvtSystemPropertyIdEND
      * @type {Integer (Int32)}
      */
-    static EvtSystemPropertyIdEND => 18
+    static IdEND => 18
 }

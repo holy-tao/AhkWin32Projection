@@ -7,12 +7,14 @@
 class ErrorClass extends Win32Enum {
 
     /**
+     * Native name: ErrorClassWarning
      * @type {Integer (Int32)}
      */
-    static ErrorClassWarning => 0
+    static Warning => 0
 
     /**
+     * Native name: ErrorClassError
      * @type {Integer (Int32)}
      */
-    static ErrorClassError => 1
+    static Error => 1
 }

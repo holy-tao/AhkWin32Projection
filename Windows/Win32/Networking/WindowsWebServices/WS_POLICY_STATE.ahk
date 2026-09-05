@@ -15,13 +15,15 @@ class WS_POLICY_STATE extends Win32Enum {
 
     /**
      * The initial state of the policy object.
+     * Native name: WS_POLICY_STATE_CREATED
      * @type {Integer (Int32)}
      */
-    static WS_POLICY_STATE_CREATED => 1
+    static CREATED => 1
 
     /**
      * The policy object is no longer usable due to a previous error.
+     * Native name: WS_POLICY_STATE_FAULTED
      * @type {Integer (Int32)}
      */
-    static WS_POLICY_STATE_FAULTED => 2
+    static FAULTED => 2
 }

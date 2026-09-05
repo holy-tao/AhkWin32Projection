@@ -30,7 +30,6 @@ class IObjPool extends IUnknown {
     static VTableNames => ["Reserved1", "Reserved2", "Reserved3", "Reserved4", "PutEndTx", "Reserved5", "Reserved6"]
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved1() {
@@ -38,7 +37,6 @@ class IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved2() {
@@ -46,7 +44,6 @@ class IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved3() {
@@ -54,7 +51,6 @@ class IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved4() {
@@ -72,7 +68,6 @@ class IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved5() {
@@ -80,7 +75,6 @@ class IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved6() {

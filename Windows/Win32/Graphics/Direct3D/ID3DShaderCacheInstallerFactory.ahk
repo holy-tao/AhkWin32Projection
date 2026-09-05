@@ -31,7 +31,6 @@ class ID3DShaderCacheInstallerFactory extends IUnknown {
     static VTableNames => ["CreateInstaller", "CreateExplorer"]
 
     /**
-     * 
      * @param {ID3DShaderCacheInstallerClient} pClient 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -42,7 +41,6 @@ class ID3DShaderCacheInstallerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnknown 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

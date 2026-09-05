@@ -69,7 +69,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -81,7 +80,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -91,7 +89,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Scrollbar() {
@@ -110,7 +106,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +115,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_embed() {
@@ -129,7 +123,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_event() {
@@ -138,7 +131,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -147,7 +139,6 @@ class IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AboutBox() {

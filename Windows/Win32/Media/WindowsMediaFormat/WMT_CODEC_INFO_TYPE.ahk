@@ -12,19 +12,22 @@ class WMT_CODEC_INFO_TYPE extends Win32Enum {
 
     /**
      * Audio codec.
+     * Native name: WMT_CODECINFO_AUDIO
      * @type {Integer (Int32)}
      */
-    static WMT_CODECINFO_AUDIO => 0
+    static CODECINFO_AUDIO => 0
 
     /**
      * Video codec.
+     * Native name: WMT_CODECINFO_VIDEO
      * @type {Integer (Int32)}
      */
-    static WMT_CODECINFO_VIDEO => 1
+    static CODECINFO_VIDEO => 1
 
     /**
      * Codec of an unknown type.
+     * Native name: WMT_CODECINFO_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static WMT_CODECINFO_UNKNOWN => -1
+    static CODECINFO_UNKNOWN => -1
 }

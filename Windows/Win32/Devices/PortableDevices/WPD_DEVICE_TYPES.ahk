@@ -14,37 +14,44 @@
 class WPD_DEVICE_TYPES extends Win32Enum {
 
     /**
+     * Native name: WPD_DEVICE_TYPE_GENERIC
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TYPE_GENERIC => 0
+    static TYPE_GENERIC => 0
 
     /**
+     * Native name: WPD_DEVICE_TYPE_CAMERA
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TYPE_CAMERA => 1
+    static TYPE_CAMERA => 1
 
     /**
+     * Native name: WPD_DEVICE_TYPE_MEDIA_PLAYER
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TYPE_MEDIA_PLAYER => 2
+    static TYPE_MEDIA_PLAYER => 2
 
     /**
+     * Native name: WPD_DEVICE_TYPE_PHONE
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TYPE_PHONE => 3
+    static TYPE_PHONE => 3
 
     /**
+     * Native name: WPD_DEVICE_TYPE_VIDEO
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TYPE_VIDEO => 4
+    static TYPE_VIDEO => 4
 
     /**
+     * Native name: WPD_DEVICE_TYPE_PERSONAL_INFORMATION_MANAGER
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TYPE_PERSONAL_INFORMATION_MANAGER => 5
+    static TYPE_PERSONAL_INFORMATION_MANAGER => 5
 
     /**
+     * Native name: WPD_DEVICE_TYPE_AUDIO_RECORDER
      * @type {Integer (Int32)}
      */
-    static WPD_DEVICE_TYPE_AUDIO_RECORDER => 6
+    static TYPE_AUDIO_RECORDER => 6
 }

@@ -12,13 +12,15 @@ class OPM_HDCP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * HDCP is disabled.
+     * Native name: OPM_HDCP_OFF
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_OFF => 0
+    static OFF => 0
 
     /**
      * HDCP is enabled.
+     * Native name: OPM_HDCP_ON
      * @type {Integer (Int32)}
      */
-    static OPM_HDCP_ON => 1
+    static ON => 1
 }

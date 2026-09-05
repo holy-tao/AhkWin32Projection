@@ -10,13 +10,15 @@ class D2D1_TEMPERATUREANDTINT_PROP extends Win32Enum {
 
     /**
      * The D2D1_TEMPERATUREANDTINT_PROP_TEMPERATURE property is a float value specifying how much to increase or decrease the temperature of the input image.  The allowed range is -1.0 to 1.0. The default value is 0.0.
+     * Native name: D2D1_TEMPERATUREANDTINT_PROP_TEMPERATURE
      * @type {Integer (Int32)}
      */
-    static D2D1_TEMPERATUREANDTINT_PROP_TEMPERATURE => 0
+    static TEMPERATURE => 0
 
     /**
      * The D2D1_TEMPERATUREANDTINT_PROP_TINT property is a float value specifying how much to increase or decrease the tint of the input image.  The allowed range is -1.0 to 1.0.  The default value is 0.0.
+     * Native name: D2D1_TEMPERATUREANDTINT_PROP_TINT
      * @type {Integer (Int32)}
      */
-    static D2D1_TEMPERATUREANDTINT_PROP_TINT => 1
+    static TINT => 1
 }

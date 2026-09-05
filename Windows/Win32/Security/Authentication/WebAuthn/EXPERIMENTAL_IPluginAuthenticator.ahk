@@ -38,7 +38,6 @@ class EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
     static VTableNames => ["EXPERIMENTAL_PluginMakeCredential", "EXPERIMENTAL_PluginGetAssertion", "EXPERIMENTAL_PluginCancelOperation"]
 
     /**
-     * 
      * @param {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_RESPONSE>} 
      */
@@ -48,7 +47,6 @@ class EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_RESPONSE>} 
      */
@@ -58,7 +56,6 @@ class EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST>} request 
      * @returns {HRESULT} 
      */

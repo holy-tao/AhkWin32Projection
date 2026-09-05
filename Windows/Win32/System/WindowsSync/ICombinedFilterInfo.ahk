@@ -30,7 +30,6 @@ class ICombinedFilterInfo extends ISyncFilterInfo {
     static VTableNames => ["GetFilterCount", "GetFilterInfo", "GetFilterCombinationType"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwFilterCount 
      * @returns {HRESULT} 
      */
@@ -42,7 +41,6 @@ class ICombinedFilterInfo extends ISyncFilterInfo {
     }
 
     /**
-     * 
      * @param {Integer} dwFilterIndex 
      * @returns {ISyncFilterInfo} 
      */
@@ -52,7 +50,6 @@ class ICombinedFilterInfo extends ISyncFilterInfo {
     }
 
     /**
-     * 
      * @param {Pointer<FILTER_COMBINATION_TYPE>} pFilterCombinationType 
      * @returns {HRESULT} 
      */

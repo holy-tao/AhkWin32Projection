@@ -12,7 +12,8 @@ class CDROM_PERFORMANCE_REQUEST_TYPE extends Win32Enum {
     static CdromPerformanceRequest => 1
 
     /**
+     * Native name: CdromWriteSpeedRequest
      * @type {Integer (Int32)}
      */
-    static CdromWriteSpeedRequest => 2
+    static WriteSpeedRequest => 2
 }

@@ -3678,7 +3678,6 @@ class ColorSystem {
     }
 
     /**
-     * 
      * @param {WCS_PROFILE_MANAGEMENT_SCOPE} scope 
      * @param {LUID} targetAdapterID 
      * @param {Integer} sourceID 

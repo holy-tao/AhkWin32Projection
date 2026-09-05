@@ -10,13 +10,15 @@ class MF_TRANSCODE_TOPOLOGYMODE_FLAGS extends Win32Enum {
 
     /**
      * The topology loader will exclude hardware-based transforms (such as codecs and color converters) from the topology. It will use only software transforms.
+     * Native name: MF_TRANSCODE_TOPOLOGYMODE_SOFTWARE_ONLY
      * @type {Integer (Int32)}
      */
-    static MF_TRANSCODE_TOPOLOGYMODE_SOFTWARE_ONLY => 0
+    static SOFTWARE_ONLY => 0
 
     /**
      * The topology loader may insert hardware-based transforms into the transcode topology.
+     * Native name: MF_TRANSCODE_TOPOLOGYMODE_HARDWARE_ALLOWED
      * @type {Integer (Int32)}
      */
-    static MF_TRANSCODE_TOPOLOGYMODE_HARDWARE_ALLOWED => 1
+    static HARDWARE_ALLOWED => 1
 }

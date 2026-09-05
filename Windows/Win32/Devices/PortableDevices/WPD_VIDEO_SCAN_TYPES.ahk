@@ -51,42 +51,50 @@
 class WPD_VIDEO_SCAN_TYPES extends Win32Enum {
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_UNUSED
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_UNUSED => 0
+    static TYPE_UNUSED => 0
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_PROGRESSIVE => 1
+    static TYPE_PROGRESSIVE => 1
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_FIELD_INTERLEAVED_UPPER_FIRST
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_FIELD_INTERLEAVED_UPPER_FIRST => 2
+    static TYPE_FIELD_INTERLEAVED_UPPER_FIRST => 2
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_FIELD_INTERLEAVED_LOWER_FIRST
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_FIELD_INTERLEAVED_LOWER_FIRST => 3
+    static TYPE_FIELD_INTERLEAVED_LOWER_FIRST => 3
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_FIELD_SINGLE_UPPER_FIRST
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_FIELD_SINGLE_UPPER_FIRST => 4
+    static TYPE_FIELD_SINGLE_UPPER_FIRST => 4
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_FIELD_SINGLE_LOWER_FIRST
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_FIELD_SINGLE_LOWER_FIRST => 5
+    static TYPE_FIELD_SINGLE_LOWER_FIRST => 5
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_MIXED_INTERLACE
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_MIXED_INTERLACE => 6
+    static TYPE_MIXED_INTERLACE => 6
 
     /**
+     * Native name: WPD_VIDEO_SCAN_TYPE_MIXED_INTERLACE_AND_PROGRESSIVE
      * @type {Integer (Int32)}
      */
-    static WPD_VIDEO_SCAN_TYPE_MIXED_INTERLACE_AND_PROGRESSIVE => 7
+    static TYPE_MIXED_INTERLACE_AND_PROGRESSIVE => 7
 }

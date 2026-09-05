@@ -7,22 +7,26 @@
 class COPYPROGRESSROUTINE_PROGRESS extends Win32BitflagEnum {
 
     /**
+     * Native name: PROGRESS_CONTINUE
      * @type {Integer (UInt32)}
      */
-    static PROGRESS_CONTINUE => 0
+    static CONTINUE => 0
 
     /**
+     * Native name: PROGRESS_CANCEL
      * @type {Integer (UInt32)}
      */
-    static PROGRESS_CANCEL => 1
+    static CANCEL => 1
 
     /**
+     * Native name: PROGRESS_STOP
      * @type {Integer (UInt32)}
      */
-    static PROGRESS_STOP => 2
+    static STOP => 2
 
     /**
+     * Native name: PROGRESS_QUIET
      * @type {Integer (UInt32)}
      */
-    static PROGRESS_QUIET => 3
+    static QUIET => 3
 }

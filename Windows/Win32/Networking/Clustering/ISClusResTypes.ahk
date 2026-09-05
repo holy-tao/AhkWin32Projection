@@ -47,7 +47,6 @@ class ISClusResTypes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -56,7 +55,6 @@ class ISClusResTypes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -65,7 +63,6 @@ class ISClusResTypes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -74,7 +71,6 @@ class ISClusResTypes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusResType} 
      */
@@ -84,7 +80,6 @@ class ISClusResTypes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrResourceTypeName 
      * @param {BSTR} bstrDisplayName 
      * @param {BSTR} bstrResourceTypeDll 
@@ -102,7 +97,6 @@ class ISClusResTypes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */

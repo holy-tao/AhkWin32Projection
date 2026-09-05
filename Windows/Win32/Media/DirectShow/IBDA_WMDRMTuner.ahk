@@ -31,7 +31,6 @@ class IBDA_WMDRMTuner extends IUnknown {
     static VTableNames => ["PurchaseEntitlement", "CancelCaptureToken", "SetPidProtection", "GetPidProtection", "SetSyncValue", "GetStartCodeProfile"]
 
     /**
-     * 
      * @param {Integer} ulDialogRequest 
      * @param {BSTR} bstrLanguage 
      * @param {Integer} ulPurchaseTokenLen 
@@ -52,7 +51,6 @@ class IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCaptureTokenLen 
      * @param {Pointer<Integer>} pbCaptureToken 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ class IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulPid 
      * @param {Pointer<Guid>} uuidKey 
      * @returns {HRESULT} 
@@ -76,7 +73,6 @@ class IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pulPid 
      * @returns {Guid} 
      */
@@ -87,7 +83,6 @@ class IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulSyncValue 
      * @returns {HRESULT} 
      */
@@ -97,7 +92,6 @@ class IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulStartCodeProfileLen 
      * @param {Pointer<Integer>} pbStartCodeProfile 
      * @returns {HRESULT} 

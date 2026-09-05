@@ -33,7 +33,6 @@ class IDebugHostSymbolsTargetComposition extends IUnknown {
     static VTableNames => ["GetTypeForServiceType"]
 
     /**
-     * 
      * @param {Pointer<IDebugServiceManager>} pServiceManager 
      * @param {Pointer<ISvcModule>} pModule 
      * @param {Pointer<ISvcSymbolType>} pType 

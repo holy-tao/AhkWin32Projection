@@ -7,12 +7,14 @@
 class D3DKMT_ACTIVATE_SPECIFIC_DIAG_TYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_ACTIVATE_SPECIFIC_DIAG_TYPE_EXTRA_CCD_DATABASE_INFO
      * @type {Integer (Int32)}
      */
-    static D3DKMT_ACTIVATE_SPECIFIC_DIAG_TYPE_EXTRA_CCD_DATABASE_INFO => 0
+    static EXTRA_CCD_DATABASE_INFO => 0
 
     /**
+     * Native name: D3DKMT_ACTIVATE_SPECIFIC_DIAG_TYPE_MODES_PRUNED
      * @type {Integer (Int32)}
      */
-    static D3DKMT_ACTIVATE_SPECIFIC_DIAG_TYPE_MODES_PRUNED => 15
+    static MODES_PRUNED => 15
 }

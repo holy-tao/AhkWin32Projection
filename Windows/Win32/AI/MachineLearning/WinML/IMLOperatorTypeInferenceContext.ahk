@@ -30,7 +30,6 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes {
     static VTableNames => ["GetInputCount", "GetOutputCount", "IsInputValid", "IsOutputValid", "GetInputEdgeDescription", "SetOutputEdgeDescription"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputCount() {
@@ -39,7 +38,6 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -48,7 +46,6 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Boolean} 
      */
@@ -58,7 +55,6 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Boolean} 
      */
@@ -68,7 +64,6 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -79,7 +74,6 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Pointer<MLOperatorEdgeDescription>} edgeDescription 
      * @returns {HRESULT} 

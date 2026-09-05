@@ -29,7 +29,6 @@ class IHttpNegotiate2 extends IHttpNegotiate {
     static VTableNames => ["GetRootSecurityId"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
      * @returns {Integer} 

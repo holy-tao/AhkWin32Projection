@@ -46,7 +46,6 @@ class IXMLDOMAttribute extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -56,7 +55,6 @@ class IXMLDOMAttribute extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_value() {
@@ -66,7 +64,6 @@ class IXMLDOMAttribute extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} attributeValue 
      * @returns {HRESULT} 
      */

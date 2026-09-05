@@ -7,22 +7,26 @@
 class DISPID_InkRecognitionAlternates extends Win32Enum {
 
     /**
+     * Native name: DISPID_InkRecognitionAlternates_NewEnum
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecognitionAlternates_NewEnum => -4
+    static NewEnum => -4
 
     /**
+     * Native name: DISPID_InkRecognitionAlternates_Item
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecognitionAlternates_Item => 0
+    static Item => 0
 
     /**
+     * Native name: DISPID_InkRecognitionAlternates_Count
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecognitionAlternates_Count => 1
+    static Count => 1
 
     /**
+     * Native name: DISPID_InkRecognitionAlternates_Strokes
      * @type {Integer (Int32)}
      */
-    static DISPID_InkRecognitionAlternates_Strokes => 2
+    static Strokes => 2
 }

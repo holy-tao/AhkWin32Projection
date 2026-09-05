@@ -45,7 +45,6 @@ class ISpeechGrammarRuleStateTransitions extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -70,7 +69,6 @@ class ISpeechGrammarRuleStateTransitions extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {

@@ -128,7 +128,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LanguageId() {
@@ -137,7 +136,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_GrammarId() {
@@ -147,7 +145,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_StartTime() {
@@ -157,7 +154,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_AudioStreamPosition() {
@@ -167,7 +163,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeBytes() {
@@ -176,7 +171,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RetainedSizeBytes() {
@@ -185,7 +179,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeTime() {
@@ -194,7 +187,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseRule} 
      */
     get_Rule() {
@@ -203,7 +195,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseProperties} 
      */
     get_Properties() {
@@ -212,7 +203,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseElements} 
      */
     get_Elements() {
@@ -221,7 +211,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseReplacements} 
      */
     get_Replacements() {
@@ -230,7 +219,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_EngineId() {
@@ -240,7 +228,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_EnginePrivateData() {
@@ -250,7 +237,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     SaveToMemory() {
@@ -260,7 +246,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
@@ -273,7 +258,6 @@ class ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 

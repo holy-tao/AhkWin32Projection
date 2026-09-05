@@ -7,17 +7,20 @@
 class SCF_EVENT_IDS extends Win32Enum {
 
     /**
+     * Native name: SCF_EVENT_NAVIGATION
      * @type {Integer (Int32)}
      */
-    static SCF_EVENT_NAVIGATION => 1
+    static NAVIGATION => 1
 
     /**
+     * Native name: SCF_EVENT_MENUACTION
      * @type {Integer (Int32)}
      */
-    static SCF_EVENT_MENUACTION => 2
+    static MENUACTION => 2
 
     /**
+     * Native name: SCF_EVENT_CONTEXTMENU
      * @type {Integer (Int32)}
      */
-    static SCF_EVENT_CONTEXTMENU => 3
+    static CONTEXTMENU => 3
 }

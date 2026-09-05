@@ -32,7 +32,6 @@ class IDebugSymbolGroup extends IUnknown {
     static VTableNames => ["GetNumberSymbols", "AddSymbol", "RemoveSymbolByName", "RemoveSymbolByIndex", "GetSymbolName", "GetSymbolParameters", "ExpandSymbol", "OutputSymbols", "WriteSymbol", "OutputAsType"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberSymbols() {
@@ -41,7 +40,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @param {Pointer<Integer>} Index 
      * @returns {HRESULT} 
@@ -56,7 +54,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {HRESULT} 
      */
@@ -68,7 +65,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -78,7 +74,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -92,7 +87,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {DEBUG_SYMBOL_PARAMETERS} 
@@ -104,7 +98,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {BOOL} Expand 
      * @returns {HRESULT} 
@@ -115,7 +108,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @param {Integer} Start 
@@ -128,7 +120,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Value 
      * @returns {HRESULT} 
@@ -141,7 +132,6 @@ class IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Type 
      * @returns {HRESULT} 

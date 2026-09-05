@@ -10,49 +10,57 @@ class D2D1_ORIENTATION extends Win32Enum {
 
     /**
      * The orientation is unchanged.
+     * Native name: D2D1_ORIENTATION_DEFAULT
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_DEFAULT => 1
+    static DEFAULT => 1
 
     /**
      * The image is flipped horizontally.
+     * Native name: D2D1_ORIENTATION_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_FLIP_HORIZONTAL => 2
+    static FLIP_HORIZONTAL => 2
 
     /**
      * The image is rotated clockwise 180 degrees.
+     * Native name: D2D1_ORIENTATION_ROTATE_CLOCKWISE180
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_ROTATE_CLOCKWISE180 => 3
+    static ROTATE_CLOCKWISE180 => 3
 
     /**
      * The image is rotated clockwise 180 degrees, then flipped horizontally.
+     * Native name: D2D1_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL => 4
+    static ROTATE_CLOCKWISE180_FLIP_HORIZONTAL => 4
 
     /**
      * The image is rotated clockwise 90 degrees, then flipped horizontally.
+     * Native name: D2D1_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL => 5
+    static ROTATE_CLOCKWISE90_FLIP_HORIZONTAL => 5
 
     /**
      * The image is rotated clockwise 270 degrees.
+     * Native name: D2D1_ORIENTATION_ROTATE_CLOCKWISE270
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_ROTATE_CLOCKWISE270 => 6
+    static ROTATE_CLOCKWISE270 => 6
 
     /**
      * The image is rotated clockwise 270 degrees, then flipped horizontally.
+     * Native name: D2D1_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL => 7
+    static ROTATE_CLOCKWISE270_FLIP_HORIZONTAL => 7
 
     /**
      * The image is rotated clockwise 90 degrees.
+     * Native name: D2D1_ORIENTATION_ROTATE_CLOCKWISE90
      * @type {Integer (Int32)}
      */
-    static D2D1_ORIENTATION_ROTATE_CLOCKWISE90 => 8
+    static ROTATE_CLOCKWISE90 => 8
 }

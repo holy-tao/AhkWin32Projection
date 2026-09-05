@@ -10,61 +10,71 @@ class WPC_ARGS_CONVERSATIONINITEVENT extends Win32Enum {
 
     /**
      * The name of the application used for starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_APPNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_APPNAME => 0
+    static APPNAME => 0
 
     /**
      * The version of the application used for starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_APPVERSION
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_APPVERSION => 1
+    static APPVERSION => 1
 
     /**
      * The account name used for starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_ACCOUNTNAME
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_ACCOUNTNAME => 2
+    static ACCOUNTNAME => 2
 
     /**
      * The conversation identifier used for starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_CONVID
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_CONVID => 3
+    static CONVID => 3
 
     /**
      * The IP address of the computer starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_REQUESTINGIP
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_REQUESTINGIP => 4
+    static REQUESTINGIP => 4
 
     /**
      * The sender who is starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_SENDER
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_SENDER => 5
+    static SENDER => 5
 
     /**
      * The reason given for starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_REASON
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_REASON => 6
+    static REASON => 6
 
     /**
      * The number of recipients included in starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_RECIPCOUNT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_RECIPCOUNT => 7
+    static RECIPCOUNT => 7
 
     /**
      * The recipient of the started conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_RECIPIENT
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_RECIPIENT => 8
+    static RECIPIENT => 8
 
     /**
      * The arguments used for starting the conversation.
+     * Native name: WPC_ARGS_CONVERSATIONINITEVENT_CARGS
      * @type {Integer (Int32)}
      */
-    static WPC_ARGS_CONVERSATIONINITEVENT_CARGS => 9
+    static CARGS => 9
 }

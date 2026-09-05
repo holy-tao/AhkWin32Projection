@@ -10,13 +10,15 @@ class WLAN_IHV_CONTROL_TYPE extends Win32Enum {
 
     /**
      * Bypasses a WLAN service.
+     * Native name: wlan_ihv_control_type_service
      * @type {Integer (Int32)}
      */
-    static wlan_ihv_control_type_service => 0
+    static service => 0
 
     /**
      * Bypasses a WLAN driver.
+     * Native name: wlan_ihv_control_type_driver
      * @type {Integer (Int32)}
      */
-    static wlan_ihv_control_type_driver => 1
+    static driver => 1
 }

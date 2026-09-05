@@ -31,7 +31,6 @@ class IActiveScriptDebug64 extends IUnknown {
     static VTableNames => ["GetScriptTextAttributes", "GetScriptletTextAttributes", "EnumCodeContextsOfPosition"]
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} uNumCodeChars 
      * @param {PWSTR} pstrDelimiter 
@@ -50,7 +49,6 @@ class IActiveScriptDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} uNumCodeChars 
      * @param {PWSTR} pstrDelimiter 
@@ -69,7 +67,6 @@ class IActiveScriptDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceContext 
      * @param {Integer} uCharacterOffset 
      * @param {Integer} uNumChars 

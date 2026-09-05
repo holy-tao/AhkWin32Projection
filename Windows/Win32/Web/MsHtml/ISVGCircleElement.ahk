@@ -57,7 +57,6 @@ class ISVGCircleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -67,7 +66,6 @@ class ISVGCircleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_cx() {
@@ -76,7 +74,6 @@ class ISVGCircleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -86,7 +83,6 @@ class ISVGCircleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_cy() {
@@ -95,7 +91,6 @@ class ISVGCircleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ class ISVGCircleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_r() {

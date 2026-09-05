@@ -58,7 +58,6 @@ class ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ class ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_startOffset() {
@@ -77,7 +75,6 @@ class ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -87,7 +84,6 @@ class ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_method() {
@@ -96,7 +92,6 @@ class ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +101,6 @@ class ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_spacing() {

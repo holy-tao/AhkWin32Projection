@@ -29,7 +29,6 @@ class ILastResourceManager extends IUnknown {
     static VTableNames => ["TransactionCommitted", "RecoveryDone"]
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @returns {HRESULT} 
@@ -42,7 +41,6 @@ class ILastResourceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RecoveryDone() {

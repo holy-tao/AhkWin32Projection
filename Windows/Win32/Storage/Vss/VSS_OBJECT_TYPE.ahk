@@ -28,9 +28,10 @@ class VSS_OBJECT_TYPE extends Win32Enum {
      *       
      * 
      * This indicates an application error.
+     * Native name: VSS_OBJECT_UNKNOWN
      * @type {Integer (Int32)}
      */
-    static VSS_OBJECT_UNKNOWN => 0
+    static UNKNOWN => 0
 
     /**
      * The interpretation of this value depends on whether it is used as an input to a VSS method or returned as 
@@ -43,31 +44,36 @@ class VSS_OBJECT_TYPE extends Win32Enum {
      * 
      * When returned as an output, the object type is not known and means that there has been an application 
      *        error.
+     * Native name: VSS_OBJECT_NONE
      * @type {Integer (Int32)}
      */
-    static VSS_OBJECT_NONE => 1
+    static NONE => 1
 
     /**
      * Shadow copy set.
+     * Native name: VSS_OBJECT_SNAPSHOT_SET
      * @type {Integer (Int32)}
      */
-    static VSS_OBJECT_SNAPSHOT_SET => 2
+    static SNAPSHOT_SET => 2
 
     /**
      * Shadow copy.
+     * Native name: VSS_OBJECT_SNAPSHOT
      * @type {Integer (Int32)}
      */
-    static VSS_OBJECT_SNAPSHOT => 3
+    static SNAPSHOT => 3
 
     /**
      * Shadow copy provider.
+     * Native name: VSS_OBJECT_PROVIDER
      * @type {Integer (Int32)}
      */
-    static VSS_OBJECT_PROVIDER => 4
+    static PROVIDER => 4
 
     /**
      * Reserved value.
+     * Native name: VSS_OBJECT_TYPE_COUNT
      * @type {Integer (Int32)}
      */
-    static VSS_OBJECT_TYPE_COUNT => 5
+    static COUNT => 5
 }

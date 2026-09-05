@@ -7,287 +7,344 @@
 class HatchStyle extends Win32Enum {
 
     /**
+     * Native name: HatchStyleHorizontal
      * @type {Integer (Int32)}
      */
-    static HatchStyleHorizontal => 0
+    static Horizontal => 0
 
     /**
+     * Native name: HatchStyleVertical
      * @type {Integer (Int32)}
      */
-    static HatchStyleVertical => 1
+    static Vertical => 1
 
     /**
+     * Native name: HatchStyleForwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleForwardDiagonal => 2
+    static ForwardDiagonal => 2
 
     /**
+     * Native name: HatchStyleBackwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleBackwardDiagonal => 3
+    static BackwardDiagonal => 3
 
     /**
+     * Native name: HatchStyleCross
      * @type {Integer (Int32)}
      */
-    static HatchStyleCross => 4
+    static Cross => 4
 
     /**
+     * Native name: HatchStyleDiagonalCross
      * @type {Integer (Int32)}
      */
-    static HatchStyleDiagonalCross => 5
+    static DiagonalCross => 5
 
     /**
+     * Native name: HatchStyle05Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle05Percent => 6
+    static Style05Percent => 6
 
     /**
+     * Native name: HatchStyle10Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle10Percent => 7
+    static Style10Percent => 7
 
     /**
+     * Native name: HatchStyle20Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle20Percent => 8
+    static Style20Percent => 8
 
     /**
+     * Native name: HatchStyle25Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle25Percent => 9
+    static Style25Percent => 9
 
     /**
+     * Native name: HatchStyle30Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle30Percent => 10
+    static Style30Percent => 10
 
     /**
+     * Native name: HatchStyle40Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle40Percent => 11
+    static Style40Percent => 11
 
     /**
+     * Native name: HatchStyle50Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle50Percent => 12
+    static Style50Percent => 12
 
     /**
+     * Native name: HatchStyle60Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle60Percent => 13
+    static Style60Percent => 13
 
     /**
+     * Native name: HatchStyle70Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle70Percent => 14
+    static Style70Percent => 14
 
     /**
+     * Native name: HatchStyle75Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle75Percent => 15
+    static Style75Percent => 15
 
     /**
+     * Native name: HatchStyle80Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle80Percent => 16
+    static Style80Percent => 16
 
     /**
+     * Native name: HatchStyle90Percent
      * @type {Integer (Int32)}
      */
-    static HatchStyle90Percent => 17
+    static Style90Percent => 17
 
     /**
+     * Native name: HatchStyleLightDownwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleLightDownwardDiagonal => 18
+    static LightDownwardDiagonal => 18
 
     /**
+     * Native name: HatchStyleLightUpwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleLightUpwardDiagonal => 19
+    static LightUpwardDiagonal => 19
 
     /**
+     * Native name: HatchStyleDarkDownwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleDarkDownwardDiagonal => 20
+    static DarkDownwardDiagonal => 20
 
     /**
+     * Native name: HatchStyleDarkUpwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleDarkUpwardDiagonal => 21
+    static DarkUpwardDiagonal => 21
 
     /**
+     * Native name: HatchStyleWideDownwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleWideDownwardDiagonal => 22
+    static WideDownwardDiagonal => 22
 
     /**
+     * Native name: HatchStyleWideUpwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleWideUpwardDiagonal => 23
+    static WideUpwardDiagonal => 23
 
     /**
+     * Native name: HatchStyleLightVertical
      * @type {Integer (Int32)}
      */
-    static HatchStyleLightVertical => 24
+    static LightVertical => 24
 
     /**
+     * Native name: HatchStyleLightHorizontal
      * @type {Integer (Int32)}
      */
-    static HatchStyleLightHorizontal => 25
+    static LightHorizontal => 25
 
     /**
+     * Native name: HatchStyleNarrowVertical
      * @type {Integer (Int32)}
      */
-    static HatchStyleNarrowVertical => 26
+    static NarrowVertical => 26
 
     /**
+     * Native name: HatchStyleNarrowHorizontal
      * @type {Integer (Int32)}
      */
-    static HatchStyleNarrowHorizontal => 27
+    static NarrowHorizontal => 27
 
     /**
+     * Native name: HatchStyleDarkVertical
      * @type {Integer (Int32)}
      */
-    static HatchStyleDarkVertical => 28
+    static DarkVertical => 28
 
     /**
+     * Native name: HatchStyleDarkHorizontal
      * @type {Integer (Int32)}
      */
-    static HatchStyleDarkHorizontal => 29
+    static DarkHorizontal => 29
 
     /**
+     * Native name: HatchStyleDashedDownwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleDashedDownwardDiagonal => 30
+    static DashedDownwardDiagonal => 30
 
     /**
+     * Native name: HatchStyleDashedUpwardDiagonal
      * @type {Integer (Int32)}
      */
-    static HatchStyleDashedUpwardDiagonal => 31
+    static DashedUpwardDiagonal => 31
 
     /**
+     * Native name: HatchStyleDashedHorizontal
      * @type {Integer (Int32)}
      */
-    static HatchStyleDashedHorizontal => 32
+    static DashedHorizontal => 32
 
     /**
+     * Native name: HatchStyleDashedVertical
      * @type {Integer (Int32)}
      */
-    static HatchStyleDashedVertical => 33
+    static DashedVertical => 33
 
     /**
+     * Native name: HatchStyleSmallConfetti
      * @type {Integer (Int32)}
      */
-    static HatchStyleSmallConfetti => 34
+    static SmallConfetti => 34
 
     /**
+     * Native name: HatchStyleLargeConfetti
      * @type {Integer (Int32)}
      */
-    static HatchStyleLargeConfetti => 35
+    static LargeConfetti => 35
 
     /**
+     * Native name: HatchStyleZigZag
      * @type {Integer (Int32)}
      */
-    static HatchStyleZigZag => 36
+    static ZigZag => 36
 
     /**
+     * Native name: HatchStyleWave
      * @type {Integer (Int32)}
      */
-    static HatchStyleWave => 37
+    static Wave => 37
 
     /**
+     * Native name: HatchStyleDiagonalBrick
      * @type {Integer (Int32)}
      */
-    static HatchStyleDiagonalBrick => 38
+    static DiagonalBrick => 38
 
     /**
+     * Native name: HatchStyleHorizontalBrick
      * @type {Integer (Int32)}
      */
-    static HatchStyleHorizontalBrick => 39
+    static HorizontalBrick => 39
 
     /**
+     * Native name: HatchStyleWeave
      * @type {Integer (Int32)}
      */
-    static HatchStyleWeave => 40
+    static Weave => 40
 
     /**
+     * Native name: HatchStylePlaid
      * @type {Integer (Int32)}
      */
-    static HatchStylePlaid => 41
+    static Plaid => 41
 
     /**
+     * Native name: HatchStyleDivot
      * @type {Integer (Int32)}
      */
-    static HatchStyleDivot => 42
+    static Divot => 42
 
     /**
+     * Native name: HatchStyleDottedGrid
      * @type {Integer (Int32)}
      */
-    static HatchStyleDottedGrid => 43
+    static DottedGrid => 43
 
     /**
+     * Native name: HatchStyleDottedDiamond
      * @type {Integer (Int32)}
      */
-    static HatchStyleDottedDiamond => 44
+    static DottedDiamond => 44
 
     /**
+     * Native name: HatchStyleShingle
      * @type {Integer (Int32)}
      */
-    static HatchStyleShingle => 45
+    static Shingle => 45
 
     /**
+     * Native name: HatchStyleTrellis
      * @type {Integer (Int32)}
      */
-    static HatchStyleTrellis => 46
+    static Trellis => 46
 
     /**
+     * Native name: HatchStyleSphere
      * @type {Integer (Int32)}
      */
-    static HatchStyleSphere => 47
+    static Sphere => 47
 
     /**
+     * Native name: HatchStyleSmallGrid
      * @type {Integer (Int32)}
      */
-    static HatchStyleSmallGrid => 48
+    static SmallGrid => 48
 
     /**
+     * Native name: HatchStyleSmallCheckerBoard
      * @type {Integer (Int32)}
      */
-    static HatchStyleSmallCheckerBoard => 49
+    static SmallCheckerBoard => 49
 
     /**
+     * Native name: HatchStyleLargeCheckerBoard
      * @type {Integer (Int32)}
      */
-    static HatchStyleLargeCheckerBoard => 50
+    static LargeCheckerBoard => 50
 
     /**
+     * Native name: HatchStyleOutlinedDiamond
      * @type {Integer (Int32)}
      */
-    static HatchStyleOutlinedDiamond => 51
+    static OutlinedDiamond => 51
 
     /**
+     * Native name: HatchStyleSolidDiamond
      * @type {Integer (Int32)}
      */
-    static HatchStyleSolidDiamond => 52
+    static SolidDiamond => 52
 
     /**
+     * Native name: HatchStyleTotal
      * @type {Integer (Int32)}
      */
-    static HatchStyleTotal => 53
+    static Total => 53
 
     /**
+     * Native name: HatchStyleLargeGrid
      * @type {Integer (Int32)}
      */
-    static HatchStyleLargeGrid => 4
+    static LargeGrid => 4
 
     /**
+     * Native name: HatchStyleMin
      * @type {Integer (Int32)}
      */
-    static HatchStyleMin => 0
+    static Min => 0
 
     /**
+     * Native name: HatchStyleMax
      * @type {Integer (Int32)}
      */
-    static HatchStyleMax => 52
+    static Max => 52
 }

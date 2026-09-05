@@ -12,7 +12,8 @@ class IFILTER_FLAGS extends Win32Enum {
 
     /**
      * The caller should use the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> and <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interfaces to locate additional properties. When this flag is set, properties available through COM enumerators should not be returned from <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a>.
+     * Native name: IFILTER_FLAGS_OLE_PROPERTIES
      * @type {Integer (Int32)}
      */
-    static IFILTER_FLAGS_OLE_PROPERTIES => 1
+    static OLE_PROPERTIES => 1
 }

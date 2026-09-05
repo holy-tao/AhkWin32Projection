@@ -7,17 +7,20 @@
 class CH_DESCRIPTION_TYPE extends Win32Enum {
 
     /**
+     * Native name: ch_description_type_logical
      * @type {Integer (Int32)}
      */
-    static ch_description_type_logical => 1
+    static logical => 1
 
     /**
+     * Native name: ch_description_type_center_frequency
      * @type {Integer (Int32)}
      */
-    static ch_description_type_center_frequency => 2
+    static center_frequency => 2
 
     /**
+     * Native name: ch_description_type_phy_specific
      * @type {Integer (Int32)}
      */
-    static ch_description_type_phy_specific => 3
+    static phy_specific => 3
 }

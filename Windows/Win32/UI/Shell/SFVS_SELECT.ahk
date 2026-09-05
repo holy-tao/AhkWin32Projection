@@ -7,17 +7,20 @@
 class SFVS_SELECT extends Win32Enum {
 
     /**
+     * Native name: SFVS_SELECT_NONE
      * @type {Integer (Int32)}
      */
-    static SFVS_SELECT_NONE => 0
+    static NONE => 0
 
     /**
+     * Native name: SFVS_SELECT_ALLITEMS
      * @type {Integer (Int32)}
      */
-    static SFVS_SELECT_ALLITEMS => 1
+    static ALLITEMS => 1
 
     /**
+     * Native name: SFVS_SELECT_INVERT
      * @type {Integer (Int32)}
      */
-    static SFVS_SELECT_INVERT => 2
+    static INVERT => 2
 }

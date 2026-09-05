@@ -7,27 +7,32 @@
 class PRF_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: PRF_VERIFYEXISTS
      * @type {Integer (Int32)}
      */
-    static PRF_VERIFYEXISTS => 1
+    static VERIFYEXISTS => 1
 
     /**
+     * Native name: PRF_TRYPROGRAMEXTENSIONS
      * @type {Integer (Int32)}
      */
-    static PRF_TRYPROGRAMEXTENSIONS => 3
+    static TRYPROGRAMEXTENSIONS => 3
 
     /**
+     * Native name: PRF_FIRSTDIRDEF
      * @type {Integer (Int32)}
      */
-    static PRF_FIRSTDIRDEF => 4
+    static FIRSTDIRDEF => 4
 
     /**
+     * Native name: PRF_DONTFINDLNK
      * @type {Integer (Int32)}
      */
-    static PRF_DONTFINDLNK => 8
+    static DONTFINDLNK => 8
 
     /**
+     * Native name: PRF_REQUIREABSOLUTE
      * @type {Integer (Int32)}
      */
-    static PRF_REQUIREABSOLUTE => 16
+    static REQUIREABSOLUTE => 16
 }

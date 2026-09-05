@@ -10,13 +10,15 @@ class WM_AETYPE extends Win32Enum {
 
     /**
      * IP addresses that match the access entry are allowed to connect to the network sink.
+     * Native name: WM_AETYPE_INCLUDE
      * @type {Integer (Int32)}
      */
-    static WM_AETYPE_INCLUDE => 105
+    static INCLUDE => 105
 
     /**
      * IP addresses that match the access entry are not allowed to connect to the network sink.
+     * Native name: WM_AETYPE_EXCLUDE
      * @type {Integer (Int32)}
      */
-    static WM_AETYPE_EXCLUDE => 101
+    static EXCLUDE => 101
 }

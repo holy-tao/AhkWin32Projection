@@ -7,22 +7,26 @@
 class _SV3CVW3_FLAGS extends Win32Enum {
 
     /**
+     * Native name: SV3CVW3_DEFAULT
      * @type {Integer (Int32)}
      */
-    static SV3CVW3_DEFAULT => 0
+    static DEFAULT => 0
 
     /**
+     * Native name: SV3CVW3_NONINTERACTIVE
      * @type {Integer (Int32)}
      */
-    static SV3CVW3_NONINTERACTIVE => 1
+    static NONINTERACTIVE => 1
 
     /**
+     * Native name: SV3CVW3_FORCEVIEWMODE
      * @type {Integer (Int32)}
      */
-    static SV3CVW3_FORCEVIEWMODE => 2
+    static FORCEVIEWMODE => 2
 
     /**
+     * Native name: SV3CVW3_FORCEFOLDERFLAGS
      * @type {Integer (Int32)}
      */
-    static SV3CVW3_FORCEFOLDERFLAGS => 4
+    static FORCEFOLDERFLAGS => 4
 }

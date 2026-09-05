@@ -35,7 +35,6 @@ class IMLOperatorRegistry extends IUnknown {
     static VTableNames => ["RegisterOperatorSetSchema", "RegisterOperatorKernel"]
 
     /**
-     * 
      * @param {Pointer<MLOperatorSetId>} operatorSetId 
      * @param {Integer} baselineVersion 
      * @param {Pointer<Pointer<MLOperatorSchemaDescription>>} schema 
@@ -52,7 +51,6 @@ class IMLOperatorRegistry extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<MLOperatorKernelDescription>} operatorKernel 
      * @param {IMLOperatorKernelFactory} operatorKernelFactory 
      * @param {IMLOperatorShapeInferrer} shapeInferrer 

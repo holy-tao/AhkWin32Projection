@@ -39,7 +39,6 @@ class IShellLinkDual2 extends IShellLinkDual {
     }
 
     /**
-     * 
      * @returns {FolderItem} 
      */
     get_Target() {

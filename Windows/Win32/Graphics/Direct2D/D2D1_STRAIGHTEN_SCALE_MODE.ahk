@@ -10,31 +10,36 @@ class D2D1_STRAIGHTEN_SCALE_MODE extends Win32Enum {
 
     /**
      * Indicates nearest neighbor interpolation should be used.
+     * Native name: D2D1_STRAIGHTEN_SCALE_MODE_NEAREST_NEIGHBOR
      * @type {Integer (Int32)}
      */
-    static D2D1_STRAIGHTEN_SCALE_MODE_NEAREST_NEIGHBOR => 0
+    static NEAREST_NEIGHBOR => 0
 
     /**
      * Indicates linear interpolation should be used.
+     * Native name: D2D1_STRAIGHTEN_SCALE_MODE_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_STRAIGHTEN_SCALE_MODE_LINEAR => 1
+    static LINEAR => 1
 
     /**
      * Indicates cubic interpolation should be used.
+     * Native name: D2D1_STRAIGHTEN_SCALE_MODE_CUBIC
      * @type {Integer (Int32)}
      */
-    static D2D1_STRAIGHTEN_SCALE_MODE_CUBIC => 2
+    static CUBIC => 2
 
     /**
      * Indicates multi-sample linear interpolation should be used.
+     * Native name: D2D1_STRAIGHTEN_SCALE_MODE_MULTI_SAMPLE_LINEAR
      * @type {Integer (Int32)}
      */
-    static D2D1_STRAIGHTEN_SCALE_MODE_MULTI_SAMPLE_LINEAR => 3
+    static MULTI_SAMPLE_LINEAR => 3
 
     /**
      * Indicates anisotropic filtering should be used.
+     * Native name: D2D1_STRAIGHTEN_SCALE_MODE_ANISOTROPIC
      * @type {Integer (Int32)}
      */
-    static D2D1_STRAIGHTEN_SCALE_MODE_ANISOTROPIC => 4
+    static ANISOTROPIC => 4
 }

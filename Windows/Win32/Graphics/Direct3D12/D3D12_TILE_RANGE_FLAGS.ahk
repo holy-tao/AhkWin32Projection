@@ -12,25 +12,29 @@ class D3D12_TILE_RANGE_FLAGS extends Win32Enum {
 
     /**
      * No tile-mapping flags are specified.
+     * Native name: D3D12_TILE_RANGE_FLAG_NONE
      * @type {Integer (Int32)}
      */
-    static D3D12_TILE_RANGE_FLAG_NONE => 0
+    static FLAG_NONE => 0
 
     /**
      * The tile range is <b>NULL</b>.
+     * Native name: D3D12_TILE_RANGE_FLAG_NULL
      * @type {Integer (Int32)}
      */
-    static D3D12_TILE_RANGE_FLAG_NULL => 1
+    static FLAG_NULL => 1
 
     /**
      * Skip the tile range.
+     * Native name: D3D12_TILE_RANGE_FLAG_SKIP
      * @type {Integer (Int32)}
      */
-    static D3D12_TILE_RANGE_FLAG_SKIP => 2
+    static FLAG_SKIP => 2
 
     /**
      * Reuse a single tile in the tile range.
+     * Native name: D3D12_TILE_RANGE_FLAG_REUSE_SINGLE_TILE
      * @type {Integer (Int32)}
      */
-    static D3D12_TILE_RANGE_FLAG_REUSE_SINGLE_TILE => 4
+    static FLAG_REUSE_SINGLE_TILE => 4
 }

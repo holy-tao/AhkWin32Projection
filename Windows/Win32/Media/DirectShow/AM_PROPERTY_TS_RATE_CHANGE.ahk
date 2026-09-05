@@ -7,57 +7,68 @@
 class AM_PROPERTY_TS_RATE_CHANGE extends Win32Enum {
 
     /**
+     * Native name: AM_RATE_SimpleRateChange
      * @type {Integer (Int32)}
      */
-    static AM_RATE_SimpleRateChange => 1
+    static SimpleRateChange => 1
 
     /**
+     * Native name: AM_RATE_ExactRateChange
      * @type {Integer (Int32)}
      */
-    static AM_RATE_ExactRateChange => 2
+    static ExactRateChange => 2
 
     /**
+     * Native name: AM_RATE_MaxFullDataRate
      * @type {Integer (Int32)}
      */
-    static AM_RATE_MaxFullDataRate => 3
+    static MaxFullDataRate => 3
 
     /**
+     * Native name: AM_RATE_Step
      * @type {Integer (Int32)}
      */
-    static AM_RATE_Step => 4
+    static Step => 4
 
     /**
+     * Native name: AM_RATE_UseRateVersion
      * @type {Integer (Int32)}
      */
-    static AM_RATE_UseRateVersion => 5
+    static UseRateVersion => 5
 
     /**
+     * Native name: AM_RATE_QueryFullFrameRate
      * @type {Integer (Int32)}
      */
-    static AM_RATE_QueryFullFrameRate => 6
+    static QueryFullFrameRate => 6
 
     /**
+     * Native name: AM_RATE_QueryLastRateSegPTS
      * @type {Integer (Int32)}
      */
-    static AM_RATE_QueryLastRateSegPTS => 7
+    static QueryLastRateSegPTS => 7
 
     /**
+     * Native name: AM_RATE_CorrectTS
      * @type {Integer (Int32)}
      */
-    static AM_RATE_CorrectTS => 8
+    static CorrectTS => 8
 
     /**
+     * Native name: AM_RATE_ReverseMaxFullDataRate
      * @type {Integer (Int32)}
      */
-    static AM_RATE_ReverseMaxFullDataRate => 9
+    static ReverseMaxFullDataRate => 9
 
     /**
+     * Native name: AM_RATE_ResetOnTimeDisc
      * @type {Integer (Int32)}
      */
-    static AM_RATE_ResetOnTimeDisc => 10
+    static ResetOnTimeDisc => 10
 
     /**
+     * Native name: AM_RATE_QueryMapping
      * @type {Integer (Int32)}
      */
-    static AM_RATE_QueryMapping => 11
+    static QueryMapping => 11
 }

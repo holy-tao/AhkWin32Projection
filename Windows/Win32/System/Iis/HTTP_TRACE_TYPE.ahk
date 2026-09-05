@@ -7,62 +7,74 @@
 class HTTP_TRACE_TYPE extends Win32Enum {
 
     /**
+     * Native name: HTTP_TRACE_TYPE_BYTE
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_BYTE => 17
+    static BYTE => 17
 
     /**
+     * Native name: HTTP_TRACE_TYPE_USHORT
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_USHORT => 18
+    static USHORT => 18
 
     /**
+     * Native name: HTTP_TRACE_TYPE_ULONG
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_ULONG => 19
+    static ULONG => 19
 
     /**
+     * Native name: HTTP_TRACE_TYPE_ULONGLONG
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_ULONGLONG => 21
+    static ULONGLONG => 21
 
     /**
+     * Native name: HTTP_TRACE_TYPE_CHAR
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_CHAR => 16
+    static CHAR => 16
 
     /**
+     * Native name: HTTP_TRACE_TYPE_SHORT
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_SHORT => 2
+    static SHORT => 2
 
     /**
+     * Native name: HTTP_TRACE_TYPE_LONG
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_LONG => 3
+    static LONG => 3
 
     /**
+     * Native name: HTTP_TRACE_TYPE_LONGLONG
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_LONGLONG => 20
+    static LONGLONG => 20
 
     /**
+     * Native name: HTTP_TRACE_TYPE_LPCWSTR
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_LPCWSTR => 31
+    static LPCWSTR => 31
 
     /**
+     * Native name: HTTP_TRACE_TYPE_LPCSTR
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_LPCSTR => 30
+    static LPCSTR => 30
 
     /**
+     * Native name: HTTP_TRACE_TYPE_LPCGUID
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_LPCGUID => 72
+    static LPCGUID => 72
 
     /**
+     * Native name: HTTP_TRACE_TYPE_BOOL
      * @type {Integer (Int32)}
      */
-    static HTTP_TRACE_TYPE_BOOL => 11
+    static BOOL => 11
 }

@@ -7,12 +7,14 @@
 class NTMS_OMID_TYPE extends Win32Enum {
 
     /**
+     * Native name: NTMS_OMID_TYPE_FILESYSTEM_INFO
      * @type {Integer (UInt32)}
      */
-    static NTMS_OMID_TYPE_FILESYSTEM_INFO => 2
+    static FILESYSTEM_INFO => 2
 
     /**
+     * Native name: NTMS_OMID_TYPE_RAW_LABEL
      * @type {Integer (UInt32)}
      */
-    static NTMS_OMID_TYPE_RAW_LABEL => 1
+    static RAW_LABEL => 1
 }

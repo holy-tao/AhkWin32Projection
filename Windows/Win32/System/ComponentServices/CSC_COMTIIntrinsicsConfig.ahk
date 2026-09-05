@@ -12,13 +12,15 @@ class CSC_COMTIIntrinsicsConfig extends Win32Enum {
 
     /**
      * The current COMTI intrinsics do not propagate to the new context. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.
+     * Native name: CSC_NoCOMTIIntrinsics
      * @type {Integer (Int32)}
      */
-    static CSC_NoCOMTIIntrinsics => 0
+    static NoCOMTIIntrinsics => 0
 
     /**
      * The current COMTI intrinsics propagate to the new context. This is the default setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Inherit.
+     * Native name: CSC_InheritCOMTIIntrinsics
      * @type {Integer (Int32)}
      */
-    static CSC_InheritCOMTIIntrinsics => 1
+    static InheritCOMTIIntrinsics => 1
 }

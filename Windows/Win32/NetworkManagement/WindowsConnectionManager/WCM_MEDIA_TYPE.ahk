@@ -10,37 +10,43 @@ class WCM_MEDIA_TYPE extends Win32Enum {
 
     /**
      * Unknown media.
+     * Native name: wcm_media_unknown
      * @type {Integer (Int32)}
      */
-    static wcm_media_unknown => 0
+    static unknown => 0
 
     /**
      * Ethernet.
+     * Native name: wcm_media_ethernet
      * @type {Integer (Int32)}
      */
-    static wcm_media_ethernet => 1
+    static ethernet => 1
 
     /**
      * WLAN.
+     * Native name: wcm_media_wlan
      * @type {Integer (Int32)}
      */
-    static wcm_media_wlan => 2
+    static wlan => 2
 
     /**
      * Mobile broadband.
+     * Native name: wcm_media_mbn
      * @type {Integer (Int32)}
      */
-    static wcm_media_mbn => 3
+    static mbn => 3
 
     /**
      * Invalid type.
+     * Native name: wcm_media_invalid
      * @type {Integer (Int32)}
      */
-    static wcm_media_invalid => 4
+    static invalid => 4
 
     /**
      * Maximum value for testing purposes.
+     * Native name: wcm_media_max
      * @type {Integer (Int32)}
      */
-    static wcm_media_max => 5
+    static max => 5
 }

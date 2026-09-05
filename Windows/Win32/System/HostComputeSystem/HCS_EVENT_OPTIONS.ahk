@@ -9,22 +9,26 @@
 class HCS_EVENT_OPTIONS extends Win32BitflagEnum {
 
     /**
+     * Native name: HcsEventOptionNone
      * @type {Integer (Int32)}
      */
-    static HcsEventOptionNone => 0
+    static OptionNone => 0
 
     /**
+     * Native name: HcsEventOptionEnableOperationCallbacks
      * @type {Integer (Int32)}
      */
-    static HcsEventOptionEnableOperationCallbacks => 1
+    static OptionEnableOperationCallbacks => 1
 
     /**
+     * Native name: HcsEventOptionEnableVmLifecycle
      * @type {Integer (Int32)}
      */
-    static HcsEventOptionEnableVmLifecycle => 2
+    static OptionEnableVmLifecycle => 2
 
     /**
+     * Native name: HcsEventOptionEnableLiveMigrationEvents
      * @type {Integer (Int32)}
      */
-    static HcsEventOptionEnableLiveMigrationEvents => 4
+    static OptionEnableLiveMigrationEvents => 4
 }

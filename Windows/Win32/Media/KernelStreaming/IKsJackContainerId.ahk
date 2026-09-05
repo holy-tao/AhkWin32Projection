@@ -30,7 +30,6 @@ class IKsJackContainerId extends IUnknown {
     static VTableNames => ["GetJackContainerId"]
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetJackContainerId() {

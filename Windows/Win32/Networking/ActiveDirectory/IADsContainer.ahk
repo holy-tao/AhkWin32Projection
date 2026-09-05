@@ -107,7 +107,6 @@ class IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -132,7 +131,6 @@ class IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Filter() {
@@ -142,7 +140,6 @@ class IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} Var 
      * @returns {HRESULT} 
      */
@@ -152,7 +149,6 @@ class IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Hints() {
@@ -162,7 +158,6 @@ class IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vHints 
      * @returns {HRESULT} 
      */

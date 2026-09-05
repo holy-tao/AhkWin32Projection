@@ -7,22 +7,26 @@
 class NtmsInjectOperation extends Win32Enum {
 
     /**
+     * Native name: NTMS_INJECT_START
      * @type {Integer (Int32)}
      */
-    static NTMS_INJECT_START => 0
+    static START => 0
 
     /**
+     * Native name: NTMS_INJECT_STOP
      * @type {Integer (Int32)}
      */
-    static NTMS_INJECT_STOP => 1
+    static STOP => 1
 
     /**
+     * Native name: NTMS_INJECT_RETRACT
      * @type {Integer (Int32)}
      */
-    static NTMS_INJECT_RETRACT => 2
+    static RETRACT => 2
 
     /**
+     * Native name: NTMS_INJECT_STARTMANY
      * @type {Integer (Int32)}
      */
-    static NTMS_INJECT_STARTMANY => 3
+    static STARTMANY => 3
 }

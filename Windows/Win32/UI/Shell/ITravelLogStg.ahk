@@ -34,7 +34,6 @@ class ITravelLogStg extends IUnknown {
     static VTableNames => ["CreateEntry", "TravelTo", "EnumEntries", "FindEntries", "GetCount", "RemoveEntry", "GetRelativeEntry"]
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @param {PWSTR} pszTitle 
      * @param {ITravelLogEntry} ptleRelativeTo 
@@ -50,7 +49,6 @@ class ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITravelLogEntry} ptle 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ class ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {TLENUMF} flags 
      * @returns {IEnumTravelLogEntry} 
      */
@@ -70,7 +67,6 @@ class ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {TLENUMF} flags 
      * @param {PWSTR} pszUrl 
      * @returns {IEnumTravelLogEntry} 
@@ -83,7 +79,6 @@ class ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {TLENUMF} flags 
      * @returns {Integer} 
      */
@@ -93,7 +88,6 @@ class ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITravelLogEntry} ptle 
      * @returns {HRESULT} 
      */
@@ -103,7 +97,6 @@ class ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iOffset 
      * @returns {ITravelLogEntry} 
      */

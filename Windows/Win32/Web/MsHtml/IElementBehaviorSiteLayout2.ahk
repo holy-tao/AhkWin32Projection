@@ -30,7 +30,6 @@ class IElementBehaviorSiteLayout2 extends IUnknown {
     static VTableNames => ["GetFontInfo"]
 
     /**
-     * 
      * @returns {LOGFONTW} 
      */
     GetFontInfo() {

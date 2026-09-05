@@ -7,182 +7,218 @@
 class SYS_COLOR_INDEX extends Win32Enum {
 
     /**
+     * Native name: COLOR_SCROLLBAR
      * @type {Integer (Int32)}
      */
-    static COLOR_SCROLLBAR => 0
+    static SCROLLBAR => 0
 
     /**
+     * Native name: COLOR_BACKGROUND
      * @type {Integer (Int32)}
      */
-    static COLOR_BACKGROUND => 1
+    static BACKGROUND => 1
 
     /**
+     * Native name: COLOR_ACTIVECAPTION
      * @type {Integer (Int32)}
      */
-    static COLOR_ACTIVECAPTION => 2
+    static ACTIVECAPTION => 2
 
     /**
+     * Native name: COLOR_INACTIVECAPTION
      * @type {Integer (Int32)}
      */
-    static COLOR_INACTIVECAPTION => 3
+    static INACTIVECAPTION => 3
 
     /**
+     * Native name: COLOR_MENU
      * @type {Integer (Int32)}
      */
-    static COLOR_MENU => 4
+    static MENU => 4
 
     /**
+     * Native name: COLOR_WINDOW
      * @type {Integer (Int32)}
      */
-    static COLOR_WINDOW => 5
+    static WINDOW => 5
 
     /**
+     * Native name: COLOR_WINDOWFRAME
      * @type {Integer (Int32)}
      */
-    static COLOR_WINDOWFRAME => 6
+    static WINDOWFRAME => 6
 
     /**
+     * Native name: COLOR_MENUTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_MENUTEXT => 7
+    static MENUTEXT => 7
 
     /**
+     * Native name: COLOR_WINDOWTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_WINDOWTEXT => 8
+    static WINDOWTEXT => 8
 
     /**
+     * Native name: COLOR_CAPTIONTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_CAPTIONTEXT => 9
+    static CAPTIONTEXT => 9
 
     /**
+     * Native name: COLOR_ACTIVEBORDER
      * @type {Integer (Int32)}
      */
-    static COLOR_ACTIVEBORDER => 10
+    static ACTIVEBORDER => 10
 
     /**
+     * Native name: COLOR_INACTIVEBORDER
      * @type {Integer (Int32)}
      */
-    static COLOR_INACTIVEBORDER => 11
+    static INACTIVEBORDER => 11
 
     /**
+     * Native name: COLOR_APPWORKSPACE
      * @type {Integer (Int32)}
      */
-    static COLOR_APPWORKSPACE => 12
+    static APPWORKSPACE => 12
 
     /**
+     * Native name: COLOR_HIGHLIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_HIGHLIGHT => 13
+    static HIGHLIGHT => 13
 
     /**
+     * Native name: COLOR_HIGHLIGHTTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_HIGHLIGHTTEXT => 14
+    static HIGHLIGHTTEXT => 14
 
     /**
+     * Native name: COLOR_BTNFACE
      * @type {Integer (Int32)}
      */
-    static COLOR_BTNFACE => 15
+    static BTNFACE => 15
 
     /**
+     * Native name: COLOR_BTNSHADOW
      * @type {Integer (Int32)}
      */
-    static COLOR_BTNSHADOW => 16
+    static BTNSHADOW => 16
 
     /**
+     * Native name: COLOR_GRAYTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_GRAYTEXT => 17
+    static GRAYTEXT => 17
 
     /**
+     * Native name: COLOR_BTNTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_BTNTEXT => 18
+    static BTNTEXT => 18
 
     /**
+     * Native name: COLOR_INACTIVECAPTIONTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_INACTIVECAPTIONTEXT => 19
+    static INACTIVECAPTIONTEXT => 19
 
     /**
+     * Native name: COLOR_BTNHIGHLIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_BTNHIGHLIGHT => 20
+    static BTNHIGHLIGHT => 20
 
     /**
+     * Native name: COLOR_3DDKSHADOW
      * @type {Integer (Int32)}
      */
-    static COLOR_3DDKSHADOW => 21
+    static 3DDKSHADOW => 21
 
     /**
+     * Native name: COLOR_3DLIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_3DLIGHT => 22
+    static 3DLIGHT => 22
 
     /**
+     * Native name: COLOR_INFOTEXT
      * @type {Integer (Int32)}
      */
-    static COLOR_INFOTEXT => 23
+    static INFOTEXT => 23
 
     /**
+     * Native name: COLOR_INFOBK
      * @type {Integer (Int32)}
      */
-    static COLOR_INFOBK => 24
+    static INFOBK => 24
 
     /**
+     * Native name: COLOR_HOTLIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_HOTLIGHT => 26
+    static HOTLIGHT => 26
 
     /**
+     * Native name: COLOR_GRADIENTACTIVECAPTION
      * @type {Integer (Int32)}
      */
-    static COLOR_GRADIENTACTIVECAPTION => 27
+    static GRADIENTACTIVECAPTION => 27
 
     /**
+     * Native name: COLOR_GRADIENTINACTIVECAPTION
      * @type {Integer (Int32)}
      */
-    static COLOR_GRADIENTINACTIVECAPTION => 28
+    static GRADIENTINACTIVECAPTION => 28
 
     /**
+     * Native name: COLOR_MENUHILIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_MENUHILIGHT => 29
+    static MENUHILIGHT => 29
 
     /**
+     * Native name: COLOR_MENUBAR
      * @type {Integer (Int32)}
      */
-    static COLOR_MENUBAR => 30
+    static MENUBAR => 30
 
     /**
+     * Native name: COLOR_DESKTOP
      * @type {Integer (Int32)}
      */
-    static COLOR_DESKTOP => 1
+    static DESKTOP => 1
 
     /**
+     * Native name: COLOR_3DFACE
      * @type {Integer (Int32)}
      */
-    static COLOR_3DFACE => 15
+    static 3DFACE => 15
 
     /**
+     * Native name: COLOR_3DSHADOW
      * @type {Integer (Int32)}
      */
-    static COLOR_3DSHADOW => 16
+    static 3DSHADOW => 16
 
     /**
+     * Native name: COLOR_3DHIGHLIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_3DHIGHLIGHT => 20
+    static 3DHIGHLIGHT => 20
 
     /**
+     * Native name: COLOR_3DHILIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_3DHILIGHT => 20
+    static 3DHILIGHT => 20
 
     /**
+     * Native name: COLOR_BTNHILIGHT
      * @type {Integer (Int32)}
      */
-    static COLOR_BTNHILIGHT => 20
+    static BTNHILIGHT => 20
 }

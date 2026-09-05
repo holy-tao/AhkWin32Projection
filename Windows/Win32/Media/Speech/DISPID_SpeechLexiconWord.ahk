@@ -7,22 +7,26 @@
 class DISPID_SpeechLexiconWord extends Win32Enum {
 
     /**
+     * Native name: DISPID_SLWLangId
      * @type {Integer (Int32)}
      */
-    static DISPID_SLWLangId => 1
+    static SLWLangId => 1
 
     /**
+     * Native name: DISPID_SLWType
      * @type {Integer (Int32)}
      */
-    static DISPID_SLWType => 2
+    static SLWType => 2
 
     /**
+     * Native name: DISPID_SLWWord
      * @type {Integer (Int32)}
      */
-    static DISPID_SLWWord => 3
+    static SLWWord => 3
 
     /**
+     * Native name: DISPID_SLWPronunciations
      * @type {Integer (Int32)}
      */
-    static DISPID_SLWPronunciations => 4
+    static SLWPronunciations => 4
 }

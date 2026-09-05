@@ -7,17 +7,20 @@
 class SECPKG_PACKAGE_CHANGE_TYPE extends Win32Enum {
 
     /**
+     * Native name: SECPKG_PACKAGE_CHANGE_LOAD
      * @type {Integer (UInt32)}
      */
-    static SECPKG_PACKAGE_CHANGE_LOAD => 0
+    static LOAD => 0
 
     /**
+     * Native name: SECPKG_PACKAGE_CHANGE_UNLOAD
      * @type {Integer (UInt32)}
      */
-    static SECPKG_PACKAGE_CHANGE_UNLOAD => 1
+    static UNLOAD => 1
 
     /**
+     * Native name: SECPKG_PACKAGE_CHANGE_SELECT
      * @type {Integer (UInt32)}
      */
-    static SECPKG_PACKAGE_CHANGE_SELECT => 2
+    static SELECT => 2
 }

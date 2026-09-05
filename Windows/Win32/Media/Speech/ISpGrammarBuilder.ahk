@@ -34,7 +34,6 @@ class ISpGrammarBuilder extends IUnknown {
     static VTableNames => ["ResetGrammar", "GetRule", "ClearRule", "CreateNewState", "AddWordTransition", "AddRuleTransition", "AddResource", "Commit"]
 
     /**
-     * 
      * @param {Integer} NewLanguage 
      * @returns {HRESULT} 
      */
@@ -44,7 +43,6 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszRuleName 
      * @param {Integer} dwRuleId 
      * @param {Integer} dwAttributes 
@@ -60,7 +58,6 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hState 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hState 
      * @param {Pointer<SPSTATEHANDLE>} phState 
      * @returns {HRESULT} 
@@ -85,7 +81,6 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hFromState 
      * @param {SPSTATEHANDLE} hToState 
      * @param {PWSTR} psz 
@@ -106,7 +101,6 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hFromState 
      * @param {SPSTATEHANDLE} hToState 
      * @param {SPSTATEHANDLE} hRule 
@@ -124,7 +118,6 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hRuleState 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceValue 
@@ -140,7 +133,6 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */

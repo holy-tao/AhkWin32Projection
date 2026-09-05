@@ -53,7 +53,6 @@ class IDataModelScriptTemplate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IStream} 
      */
     GetContent() {

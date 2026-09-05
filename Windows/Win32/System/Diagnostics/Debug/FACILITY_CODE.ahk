@@ -7,787 +7,944 @@
 class FACILITY_CODE extends Win32Enum {
 
     /**
+     * Native name: FACILITY_NULL
      * @type {Integer (UInt32)}
      */
-    static FACILITY_NULL => 0
+    static NULL => 0
 
     /**
+     * Native name: FACILITY_RPC
      * @type {Integer (UInt32)}
      */
-    static FACILITY_RPC => 1
+    static RPC => 1
 
     /**
+     * Native name: FACILITY_DISPATCH
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DISPATCH => 2
+    static DISPATCH => 2
 
     /**
+     * Native name: FACILITY_STORAGE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_STORAGE => 3
+    static STORAGE => 3
 
     /**
+     * Native name: FACILITY_ITF
      * @type {Integer (UInt32)}
      */
-    static FACILITY_ITF => 4
+    static ITF => 4
 
     /**
+     * Native name: FACILITY_WIN32
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WIN32 => 7
+    static WIN32 => 7
 
     /**
+     * Native name: FACILITY_WINDOWS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINDOWS => 8
+    static WINDOWS => 8
 
     /**
+     * Native name: FACILITY_SSPI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SSPI => 9
+    static SSPI => 9
 
     /**
+     * Native name: FACILITY_SECURITY
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SECURITY => 9
+    static SECURITY => 9
 
     /**
+     * Native name: FACILITY_CONTROL
      * @type {Integer (UInt32)}
      */
-    static FACILITY_CONTROL => 10
+    static CONTROL => 10
 
     /**
+     * Native name: FACILITY_CERT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_CERT => 11
+    static CERT => 11
 
     /**
+     * Native name: FACILITY_INTERNET
      * @type {Integer (UInt32)}
      */
-    static FACILITY_INTERNET => 12
+    static INTERNET => 12
 
     /**
+     * Native name: FACILITY_MEDIASERVER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_MEDIASERVER => 13
+    static MEDIASERVER => 13
 
     /**
+     * Native name: FACILITY_MSMQ
      * @type {Integer (UInt32)}
      */
-    static FACILITY_MSMQ => 14
+    static MSMQ => 14
 
     /**
+     * Native name: FACILITY_SETUPAPI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SETUPAPI => 15
+    static SETUPAPI => 15
 
     /**
+     * Native name: FACILITY_SCARD
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SCARD => 16
+    static SCARD => 16
 
     /**
+     * Native name: FACILITY_COMPLUS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_COMPLUS => 17
+    static COMPLUS => 17
 
     /**
+     * Native name: FACILITY_AAF
      * @type {Integer (UInt32)}
      */
-    static FACILITY_AAF => 18
+    static AAF => 18
 
     /**
+     * Native name: FACILITY_URT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_URT => 19
+    static URT => 19
 
     /**
+     * Native name: FACILITY_ACS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_ACS => 20
+    static ACS => 20
 
     /**
+     * Native name: FACILITY_DPLAY
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DPLAY => 21
+    static DPLAY => 21
 
     /**
+     * Native name: FACILITY_UMI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_UMI => 22
+    static UMI => 22
 
     /**
+     * Native name: FACILITY_SXS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SXS => 23
+    static SXS => 23
 
     /**
+     * Native name: FACILITY_WINDOWS_CE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINDOWS_CE => 24
+    static WINDOWS_CE => 24
 
     /**
+     * Native name: FACILITY_HTTP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_HTTP => 25
+    static HTTP => 25
 
     /**
+     * Native name: FACILITY_USERMODE_COMMONLOG
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_COMMONLOG => 26
+    static USERMODE_COMMONLOG => 26
 
     /**
+     * Native name: FACILITY_WER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WER => 27
+    static WER => 27
 
     /**
+     * Native name: FACILITY_USERMODE_FILTER_MANAGER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_FILTER_MANAGER => 31
+    static USERMODE_FILTER_MANAGER => 31
 
     /**
+     * Native name: FACILITY_BACKGROUNDCOPY
      * @type {Integer (UInt32)}
      */
-    static FACILITY_BACKGROUNDCOPY => 32
+    static BACKGROUNDCOPY => 32
 
     /**
+     * Native name: FACILITY_CONFIGURATION
      * @type {Integer (UInt32)}
      */
-    static FACILITY_CONFIGURATION => 33
+    static CONFIGURATION => 33
 
     /**
+     * Native name: FACILITY_WIA
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WIA => 33
+    static WIA => 33
 
     /**
+     * Native name: FACILITY_STATE_MANAGEMENT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_STATE_MANAGEMENT => 34
+    static STATE_MANAGEMENT => 34
 
     /**
+     * Native name: FACILITY_METADIRECTORY
      * @type {Integer (UInt32)}
      */
-    static FACILITY_METADIRECTORY => 35
+    static METADIRECTORY => 35
 
     /**
+     * Native name: FACILITY_WINDOWSUPDATE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINDOWSUPDATE => 36
+    static WINDOWSUPDATE => 36
 
     /**
+     * Native name: FACILITY_DIRECTORYSERVICE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECTORYSERVICE => 37
+    static DIRECTORYSERVICE => 37
 
     /**
+     * Native name: FACILITY_GRAPHICS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_GRAPHICS => 38
+    static GRAPHICS => 38
 
     /**
+     * Native name: FACILITY_SHELL
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SHELL => 39
+    static SHELL => 39
 
     /**
+     * Native name: FACILITY_NAP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_NAP => 39
+    static NAP => 39
 
     /**
+     * Native name: FACILITY_TPM_SERVICES
      * @type {Integer (UInt32)}
      */
-    static FACILITY_TPM_SERVICES => 40
+    static TPM_SERVICES => 40
 
     /**
+     * Native name: FACILITY_TPM_SOFTWARE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_TPM_SOFTWARE => 41
+    static TPM_SOFTWARE => 41
 
     /**
+     * Native name: FACILITY_UI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_UI => 42
+    static UI => 42
 
     /**
+     * Native name: FACILITY_XAML
      * @type {Integer (UInt32)}
      */
-    static FACILITY_XAML => 43
+    static XAML => 43
 
     /**
+     * Native name: FACILITY_ACTION_QUEUE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_ACTION_QUEUE => 44
+    static ACTION_QUEUE => 44
 
     /**
+     * Native name: FACILITY_PLA
      * @type {Integer (UInt32)}
      */
-    static FACILITY_PLA => 48
+    static PLA => 48
 
     /**
+     * Native name: FACILITY_WINDOWS_SETUP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINDOWS_SETUP => 48
+    static WINDOWS_SETUP => 48
 
     /**
+     * Native name: FACILITY_FVE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_FVE => 49
+    static FVE => 49
 
     /**
+     * Native name: FACILITY_FWP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_FWP => 50
+    static FWP => 50
 
     /**
+     * Native name: FACILITY_WINRM
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINRM => 51
+    static WINRM => 51
 
     /**
+     * Native name: FACILITY_NDIS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_NDIS => 52
+    static NDIS => 52
 
     /**
+     * Native name: FACILITY_USERMODE_HYPERVISOR
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_HYPERVISOR => 53
+    static USERMODE_HYPERVISOR => 53
 
     /**
+     * Native name: FACILITY_CMI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_CMI => 54
+    static CMI => 54
 
     /**
+     * Native name: FACILITY_USERMODE_VIRTUALIZATION
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_VIRTUALIZATION => 55
+    static USERMODE_VIRTUALIZATION => 55
 
     /**
+     * Native name: FACILITY_USERMODE_VOLMGR
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_VOLMGR => 56
+    static USERMODE_VOLMGR => 56
 
     /**
+     * Native name: FACILITY_BCD
      * @type {Integer (UInt32)}
      */
-    static FACILITY_BCD => 57
+    static BCD => 57
 
     /**
+     * Native name: FACILITY_USERMODE_VHD
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_VHD => 58
+    static USERMODE_VHD => 58
 
     /**
+     * Native name: FACILITY_USERMODE_HNS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_HNS => 59
+    static USERMODE_HNS => 59
 
     /**
+     * Native name: FACILITY_SDIAG
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SDIAG => 60
+    static SDIAG => 60
 
     /**
+     * Native name: FACILITY_WEBSERVICES
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WEBSERVICES => 61
+    static WEBSERVICES => 61
 
     /**
+     * Native name: FACILITY_WINPE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINPE => 61
+    static WINPE => 61
 
     /**
+     * Native name: FACILITY_WPN
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WPN => 62
+    static WPN => 62
 
     /**
+     * Native name: FACILITY_WINDOWS_STORE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINDOWS_STORE => 63
+    static WINDOWS_STORE => 63
 
     /**
+     * Native name: FACILITY_INPUT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_INPUT => 64
+    static INPUT => 64
 
     /**
+     * Native name: FACILITY_QUIC
      * @type {Integer (UInt32)}
      */
-    static FACILITY_QUIC => 65
+    static QUIC => 65
 
     /**
+     * Native name: FACILITY_EAP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_EAP => 66
+    static EAP => 66
 
     /**
+     * Native name: FACILITY_IORING
      * @type {Integer (UInt32)}
      */
-    static FACILITY_IORING => 70
+    static IORING => 70
 
     /**
+     * Native name: FACILITY_WINDOWS_DEFENDER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINDOWS_DEFENDER => 80
+    static WINDOWS_DEFENDER => 80
 
     /**
+     * Native name: FACILITY_OPC
      * @type {Integer (UInt32)}
      */
-    static FACILITY_OPC => 81
+    static OPC => 81
 
     /**
+     * Native name: FACILITY_XPS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_XPS => 82
+    static XPS => 82
 
     /**
+     * Native name: FACILITY_MBN
      * @type {Integer (UInt32)}
      */
-    static FACILITY_MBN => 84
+    static MBN => 84
 
     /**
+     * Native name: FACILITY_POWERSHELL
      * @type {Integer (UInt32)}
      */
-    static FACILITY_POWERSHELL => 84
+    static POWERSHELL => 84
 
     /**
+     * Native name: FACILITY_RAS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_RAS => 83
+    static RAS => 83
 
     /**
+     * Native name: FACILITY_P2P_INT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_P2P_INT => 98
+    static P2P_INT => 98
 
     /**
+     * Native name: FACILITY_P2P
      * @type {Integer (UInt32)}
      */
-    static FACILITY_P2P => 99
+    static P2P => 99
 
     /**
+     * Native name: FACILITY_DAF
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DAF => 100
+    static DAF => 100
 
     /**
+     * Native name: FACILITY_BLUETOOTH_ATT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_BLUETOOTH_ATT => 101
+    static BLUETOOTH_ATT => 101
 
     /**
+     * Native name: FACILITY_AUDIO
      * @type {Integer (UInt32)}
      */
-    static FACILITY_AUDIO => 102
+    static AUDIO => 102
 
     /**
+     * Native name: FACILITY_STATEREPOSITORY
      * @type {Integer (UInt32)}
      */
-    static FACILITY_STATEREPOSITORY => 103
+    static STATEREPOSITORY => 103
 
     /**
+     * Native name: FACILITY_VISUALCPP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_VISUALCPP => 109
+    static VISUALCPP => 109
 
     /**
+     * Native name: FACILITY_SCRIPT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SCRIPT => 112
+    static SCRIPT => 112
 
     /**
+     * Native name: FACILITY_PARSE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_PARSE => 113
+    static PARSE => 113
 
     /**
+     * Native name: FACILITY_BLB
      * @type {Integer (UInt32)}
      */
-    static FACILITY_BLB => 120
+    static BLB => 120
 
     /**
+     * Native name: FACILITY_BLB_CLI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_BLB_CLI => 121
+    static BLB_CLI => 121
 
     /**
+     * Native name: FACILITY_WSBAPP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WSBAPP => 122
+    static WSBAPP => 122
 
     /**
+     * Native name: FACILITY_BLBUI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_BLBUI => 128
+    static BLBUI => 128
 
     /**
+     * Native name: FACILITY_USN
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USN => 129
+    static USN => 129
 
     /**
+     * Native name: FACILITY_USERMODE_VOLSNAP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_VOLSNAP => 130
+    static USERMODE_VOLSNAP => 130
 
     /**
+     * Native name: FACILITY_TIERING
      * @type {Integer (UInt32)}
      */
-    static FACILITY_TIERING => 131
+    static TIERING => 131
 
     /**
+     * Native name: FACILITY_WSB_ONLINE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WSB_ONLINE => 133
+    static WSB_ONLINE => 133
 
     /**
+     * Native name: FACILITY_ONLINE_ID
      * @type {Integer (UInt32)}
      */
-    static FACILITY_ONLINE_ID => 134
+    static ONLINE_ID => 134
 
     /**
+     * Native name: FACILITY_DEVICE_UPDATE_AGENT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEVICE_UPDATE_AGENT => 135
+    static DEVICE_UPDATE_AGENT => 135
 
     /**
+     * Native name: FACILITY_DRVSERVICING
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DRVSERVICING => 136
+    static DRVSERVICING => 136
 
     /**
+     * Native name: FACILITY_DLS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DLS => 153
+    static DLS => 153
 
     /**
+     * Native name: FACILITY_DELIVERY_OPTIMIZATION
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DELIVERY_OPTIMIZATION => 208
+    static DELIVERY_OPTIMIZATION => 208
 
     /**
+     * Native name: FACILITY_USERMODE_SPACES
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_SPACES => 231
+    static USERMODE_SPACES => 231
 
     /**
+     * Native name: FACILITY_USER_MODE_SECURITY_CORE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USER_MODE_SECURITY_CORE => 232
+    static USER_MODE_SECURITY_CORE => 232
 
     /**
+     * Native name: FACILITY_USERMODE_LICENSING
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_LICENSING => 234
+    static USERMODE_LICENSING => 234
 
     /**
+     * Native name: FACILITY_SOS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SOS => 160
+    static SOS => 160
 
     /**
+     * Native name: FACILITY_OCP_UPDATE_AGENT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_OCP_UPDATE_AGENT => 173
+    static OCP_UPDATE_AGENT => 173
 
     /**
+     * Native name: FACILITY_DEBUGGERS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEBUGGERS => 176
+    static DEBUGGERS => 176
 
     /**
+     * Native name: FACILITY_SPP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SPP => 256
+    static SPP => 256
 
     /**
+     * Native name: FACILITY_RESTORE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_RESTORE => 256
+    static RESTORE => 256
 
     /**
+     * Native name: FACILITY_DMSERVER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DMSERVER => 256
+    static DMSERVER => 256
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_SERVER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_SERVER => 257
+    static DEPLOYMENT_SERVICES_SERVER => 257
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_IMAGING
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_IMAGING => 258
+    static DEPLOYMENT_SERVICES_IMAGING => 258
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_MANAGEMENT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_MANAGEMENT => 259
+    static DEPLOYMENT_SERVICES_MANAGEMENT => 259
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_UTIL
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_UTIL => 260
+    static DEPLOYMENT_SERVICES_UTIL => 260
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_BINLSVC
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_BINLSVC => 261
+    static DEPLOYMENT_SERVICES_BINLSVC => 261
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_PXE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_PXE => 263
+    static DEPLOYMENT_SERVICES_PXE => 263
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_TFTP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_TFTP => 264
+    static DEPLOYMENT_SERVICES_TFTP => 264
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_TRANSPORT_MANAGEMENT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_TRANSPORT_MANAGEMENT => 272
+    static DEPLOYMENT_SERVICES_TRANSPORT_MANAGEMENT => 272
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_DRIVER_PROVISIONING
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_DRIVER_PROVISIONING => 278
+    static DEPLOYMENT_SERVICES_DRIVER_PROVISIONING => 278
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_MULTICAST_SERVER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_MULTICAST_SERVER => 289
+    static DEPLOYMENT_SERVICES_MULTICAST_SERVER => 289
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_MULTICAST_CLIENT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_MULTICAST_CLIENT => 290
+    static DEPLOYMENT_SERVICES_MULTICAST_CLIENT => 290
 
     /**
+     * Native name: FACILITY_DEPLOYMENT_SERVICES_CONTENT_PROVIDER
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEPLOYMENT_SERVICES_CONTENT_PROVIDER => 293
+    static DEPLOYMENT_SERVICES_CONTENT_PROVIDER => 293
 
     /**
+     * Native name: FACILITY_HSP_SERVICES
      * @type {Integer (UInt32)}
      */
-    static FACILITY_HSP_SERVICES => 296
+    static HSP_SERVICES => 296
 
     /**
+     * Native name: FACILITY_HSP_SOFTWARE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_HSP_SOFTWARE => 297
+    static HSP_SOFTWARE => 297
 
     /**
+     * Native name: FACILITY_LINGUISTIC_SERVICES
      * @type {Integer (UInt32)}
      */
-    static FACILITY_LINGUISTIC_SERVICES => 305
+    static LINGUISTIC_SERVICES => 305
 
     /**
+     * Native name: FACILITY_AUDIOSTREAMING
      * @type {Integer (UInt32)}
      */
-    static FACILITY_AUDIOSTREAMING => 1094
+    static AUDIOSTREAMING => 1094
 
     /**
+     * Native name: FACILITY_TTD
      * @type {Integer (UInt32)}
      */
-    static FACILITY_TTD => 1490
+    static TTD => 1490
 
     /**
+     * Native name: FACILITY_ACCELERATOR
      * @type {Integer (UInt32)}
      */
-    static FACILITY_ACCELERATOR => 1536
+    static ACCELERATOR => 1536
 
     /**
+     * Native name: FACILITY_WMAAECMA
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WMAAECMA => 1996
+    static WMAAECMA => 1996
 
     /**
+     * Native name: FACILITY_DIRECTMUSIC
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECTMUSIC => 2168
+    static DIRECTMUSIC => 2168
 
     /**
+     * Native name: FACILITY_DIRECT3D10
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECT3D10 => 2169
+    static DIRECT3D10 => 2169
 
     /**
+     * Native name: FACILITY_DXGI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DXGI => 2170
+    static DXGI => 2170
 
     /**
+     * Native name: FACILITY_DXGI_DDI
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DXGI_DDI => 2171
+    static DXGI_DDI => 2171
 
     /**
+     * Native name: FACILITY_DIRECT3D11
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECT3D11 => 2172
+    static DIRECT3D11 => 2172
 
     /**
+     * Native name: FACILITY_DIRECT3D11_DEBUG
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECT3D11_DEBUG => 2173
+    static DIRECT3D11_DEBUG => 2173
 
     /**
+     * Native name: FACILITY_DIRECT3D12
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECT3D12 => 2174
+    static DIRECT3D12 => 2174
 
     /**
+     * Native name: FACILITY_DIRECT3D12_DEBUG
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECT3D12_DEBUG => 2175
+    static DIRECT3D12_DEBUG => 2175
 
     /**
+     * Native name: FACILITY_DXCORE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DXCORE => 2176
+    static DXCORE => 2176
 
     /**
+     * Native name: FACILITY_PRESENTATION
      * @type {Integer (UInt32)}
      */
-    static FACILITY_PRESENTATION => 2177
+    static PRESENTATION => 2177
 
     /**
+     * Native name: FACILITY_LEAP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_LEAP => 2184
+    static LEAP => 2184
 
     /**
+     * Native name: FACILITY_AUDCLNT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_AUDCLNT => 2185
+    static AUDCLNT => 2185
 
     /**
+     * Native name: FACILITY_WINCODEC_DWRITE_DWM
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINCODEC_DWRITE_DWM => 2200
+    static WINCODEC_DWRITE_DWM => 2200
 
     /**
+     * Native name: FACILITY_WINML
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WINML => 2192
+    static WINML => 2192
 
     /**
+     * Native name: FACILITY_DIRECT2D
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DIRECT2D => 2201
+    static DIRECT2D => 2201
 
     /**
+     * Native name: FACILITY_DEFRAG
      * @type {Integer (UInt32)}
      */
-    static FACILITY_DEFRAG => 2304
+    static DEFRAG => 2304
 
     /**
+     * Native name: FACILITY_USERMODE_SDBUS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_SDBUS => 2305
+    static USERMODE_SDBUS => 2305
 
     /**
+     * Native name: FACILITY_JSCRIPT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_JSCRIPT => 2306
+    static JSCRIPT => 2306
 
     /**
+     * Native name: FACILITY_PIDGENX
      * @type {Integer (UInt32)}
      */
-    static FACILITY_PIDGENX => 2561
+    static PIDGENX => 2561
 
     /**
+     * Native name: FACILITY_EAS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_EAS => 85
+    static EAS => 85
 
     /**
+     * Native name: FACILITY_WEB
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WEB => 885
+    static WEB => 885
 
     /**
+     * Native name: FACILITY_WEB_SOCKET
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WEB_SOCKET => 886
+    static WEB_SOCKET => 886
 
     /**
+     * Native name: FACILITY_MOBILE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_MOBILE => 1793
+    static MOBILE => 1793
 
     /**
+     * Native name: FACILITY_SQLITE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SQLITE => 1967
+    static SQLITE => 1967
 
     /**
+     * Native name: FACILITY_SERVICE_FABRIC
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SERVICE_FABRIC => 1968
+    static SERVICE_FABRIC => 1968
 
     /**
+     * Native name: FACILITY_UTC
      * @type {Integer (UInt32)}
      */
-    static FACILITY_UTC => 1989
+    static UTC => 1989
 
     /**
+     * Native name: FACILITY_WEP
      * @type {Integer (UInt32)}
      */
-    static FACILITY_WEP => 2049
+    static WEP => 2049
 
     /**
+     * Native name: FACILITY_SYNCENGINE
      * @type {Integer (UInt32)}
      */
-    static FACILITY_SYNCENGINE => 2050
+    static SYNCENGINE => 2050
 
     /**
+     * Native name: FACILITY_XBOX
      * @type {Integer (UInt32)}
      */
-    static FACILITY_XBOX => 2339
+    static XBOX => 2339
 
     /**
+     * Native name: FACILITY_GAME
      * @type {Integer (UInt32)}
      */
-    static FACILITY_GAME => 2340
+    static GAME => 2340
 
     /**
+     * Native name: FACILITY_USERMODE_UNIONFS
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_UNIONFS => 2341
+    static USERMODE_UNIONFS => 2341
 
     /**
+     * Native name: FACILITY_USERMODE_PRM
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_PRM => 2342
+    static USERMODE_PRM => 2342
 
     /**
+     * Native name: FACILITY_USERMODE_WIN_ACCEL
      * @type {Integer (UInt32)}
      */
-    static FACILITY_USERMODE_WIN_ACCEL => 2343
+    static USERMODE_WIN_ACCEL => 2343
 
     /**
+     * Native name: FACILITY_PPF
      * @type {Integer (UInt32)}
      */
-    static FACILITY_PPF => 2344
+    static PPF => 2344
 
     /**
+     * Native name: FACILITY_PIX
      * @type {Integer (UInt32)}
      */
-    static FACILITY_PIX => 2748
+    static PIX => 2748
 
     /**
+     * Native name: FACILITY_NT_BIT
      * @type {Integer (UInt32)}
      */
-    static FACILITY_NT_BIT => 268435456
+    static NT_BIT => 268435456
 }

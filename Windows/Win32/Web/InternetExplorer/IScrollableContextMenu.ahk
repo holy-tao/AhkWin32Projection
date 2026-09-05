@@ -30,7 +30,6 @@ class IScrollableContextMenu extends IUnknown {
     static VTableNames => ["AddItem", "ShowModal"]
 
     /**
-     * 
      * @param {PWSTR} itemText 
      * @param {Integer} cmdID 
      * @returns {HRESULT} 
@@ -43,7 +42,6 @@ class IScrollableContextMenu extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {Integer} 

@@ -34,115 +34,134 @@ class D3D10_FILTER extends Win32Enum {
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_MAG_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_MAG_MIP_POINT => 0
+    static MIN_MAG_MIP_POINT => 0
 
     /**
      * Use point sampling for minification and magnification; use linear interpolation for mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_MAG_POINT_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_MAG_POINT_MIP_LINEAR => 1
+    static MIN_MAG_POINT_MIP_LINEAR => 1
 
     /**
      * Use point sampling for minification; use linear interpolation for magnification; use point sampling for mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT => 4
+    static MIN_POINT_MAG_LINEAR_MIP_POINT => 4
 
     /**
      * Use point sampling for minification; use linear interpolation for magnification and mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_POINT_MAG_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_POINT_MAG_MIP_LINEAR => 5
+    static MIN_POINT_MAG_MIP_LINEAR => 5
 
     /**
      * Use linear interpolation for minification; use point sampling for magnification and mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_LINEAR_MAG_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_LINEAR_MAG_MIP_POINT => 16
+    static MIN_LINEAR_MAG_MIP_POINT => 16
 
     /**
      * Use linear interpolation for minification; use point sampling for magnification; use linear interpolation for mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR => 17
+    static MIN_LINEAR_MAG_POINT_MIP_LINEAR => 17
 
     /**
      * Use linear interpolation for minification and magnification; use point sampling for mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_MAG_LINEAR_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_MAG_LINEAR_MIP_POINT => 20
+    static MIN_MAG_LINEAR_MIP_POINT => 20
 
     /**
      * Use linear interpolation for minification, magnification, and mip-level sampling.
+     * Native name: D3D10_FILTER_MIN_MAG_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_MIN_MAG_MIP_LINEAR => 21
+    static MIN_MAG_MIP_LINEAR => 21
 
     /**
      * Use anisotropic interpolation for minification, magnification, and mip-level sampling.
+     * Native name: D3D10_FILTER_ANISOTROPIC
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_ANISOTROPIC => 85
+    static ANISOTROPIC => 85
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_MAG_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_MAG_MIP_POINT => 128
+    static COMPARISON_MIN_MAG_MIP_POINT => 128
 
     /**
      * Use point sampling for minification and magnification; use linear interpolation for mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR => 129
+    static COMPARISON_MIN_MAG_POINT_MIP_LINEAR => 129
 
     /**
      * Use point sampling for minification; use linear interpolation for magnification; use point sampling for mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT => 132
+    static COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT => 132
 
     /**
      * Use point sampling for minification; use linear interpolation for magnification and mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR => 133
+    static COMPARISON_MIN_POINT_MAG_MIP_LINEAR => 133
 
     /**
      * Use linear interpolation for minification; use point sampling for magnification and mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT => 144
+    static COMPARISON_MIN_LINEAR_MAG_MIP_POINT => 144
 
     /**
      * Use linear interpolation for minification; use point sampling for magnification; use linear interpolation for mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR => 145
+    static COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR => 145
 
     /**
      * Use linear interpolation for minification and magnification; use point sampling for mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT => 148
+    static COMPARISON_MIN_MAG_LINEAR_MIP_POINT => 148
 
     /**
      * Use linear interpolation for minification, magnification, and mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR => 149
+    static COMPARISON_MIN_MAG_MIP_LINEAR => 149
 
     /**
      * Use anisotropic interpolation for minification, magnification, and mip-level sampling. Compare the result to the comparison value.
+     * Native name: D3D10_FILTER_COMPARISON_ANISOTROPIC
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_COMPARISON_ANISOTROPIC => 213
+    static COMPARISON_ANISOTROPIC => 213
 
     /**
      * For use in pixel shaders with textures that have the R1_UNORM format.
+     * Native name: D3D10_FILTER_TEXT_1BIT
      * @type {Integer (Int32)}
      */
-    static D3D10_FILTER_TEXT_1BIT => -2147483648
+    static TEXT_1BIT => -2147483648
 }

@@ -7,12 +7,14 @@
 class CLS_IOSTATS_CLASS extends Win32Enum {
 
     /**
+     * Native name: ClsIoStatsDefault
      * @type {Integer (Int32)}
      */
-    static ClsIoStatsDefault => 0
+    static IoStatsDefault => 0
 
     /**
+     * Native name: ClsIoStatsMax
      * @type {Integer (Int32)}
      */
-    static ClsIoStatsMax => 65535
+    static IoStatsMax => 65535
 }

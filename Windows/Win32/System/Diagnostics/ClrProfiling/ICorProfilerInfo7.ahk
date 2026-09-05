@@ -29,7 +29,6 @@ class ICorProfilerInfo7 extends ICorProfilerInfo6 {
     static VTableNames => ["ApplyMetaData", "GetInMemorySymbolsLength", "ReadInMemorySymbols"]
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */
@@ -39,7 +38,6 @@ class ICorProfilerInfo7 extends ICorProfilerInfo6 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {Integer} 
      */
@@ -49,7 +47,6 @@ class ICorProfilerInfo7 extends ICorProfilerInfo6 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} symbolsReadOffset 
      * @param {Pointer<Integer>} pSymbolBytes 

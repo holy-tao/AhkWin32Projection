@@ -30,7 +30,6 @@ class IMXSchemaDeclHandler extends IDispatch {
     static VTableNames => ["schemaElementDecl"]
 
     /**
-     * 
      * @param {ISchemaElement} oSchemaElement 
      * @returns {HRESULT} 
      */

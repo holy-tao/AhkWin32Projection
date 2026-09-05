@@ -7,77 +7,92 @@
 class SND_FLAGS extends Win32BitflagEnum {
 
     /**
+     * Native name: SND_APPLICATION
      * @type {Integer (UInt32)}
      */
-    static SND_APPLICATION => 128
+    static APPLICATION => 128
 
     /**
+     * Native name: SND_ALIAS
      * @type {Integer (UInt32)}
      */
-    static SND_ALIAS => 65536
+    static ALIAS => 65536
 
     /**
+     * Native name: SND_ALIAS_ID
      * @type {Integer (UInt32)}
      */
-    static SND_ALIAS_ID => 1114112
+    static ALIAS_ID => 1114112
 
     /**
+     * Native name: SND_FILENAME
      * @type {Integer (UInt32)}
      */
-    static SND_FILENAME => 131072
+    static FILENAME => 131072
 
     /**
+     * Native name: SND_RESOURCE
      * @type {Integer (UInt32)}
      */
-    static SND_RESOURCE => 262148
+    static RESOURCE => 262148
 
     /**
+     * Native name: SND_ASYNC
      * @type {Integer (UInt32)}
      */
-    static SND_ASYNC => 1
+    static ASYNC => 1
 
     /**
+     * Native name: SND_NODEFAULT
      * @type {Integer (UInt32)}
      */
-    static SND_NODEFAULT => 2
+    static NODEFAULT => 2
 
     /**
+     * Native name: SND_LOOP
      * @type {Integer (UInt32)}
      */
-    static SND_LOOP => 8
+    static LOOP => 8
 
     /**
+     * Native name: SND_MEMORY
      * @type {Integer (UInt32)}
      */
-    static SND_MEMORY => 4
+    static MEMORY => 4
 
     /**
+     * Native name: SND_NOSTOP
      * @type {Integer (UInt32)}
      */
-    static SND_NOSTOP => 16
+    static NOSTOP => 16
 
     /**
+     * Native name: SND_NOWAIT
      * @type {Integer (UInt32)}
      */
-    static SND_NOWAIT => 8192
+    static NOWAIT => 8192
 
     /**
+     * Native name: SND_PURGE
      * @type {Integer (UInt32)}
      */
-    static SND_PURGE => 64
+    static PURGE => 64
 
     /**
+     * Native name: SND_SENTRY
      * @type {Integer (UInt32)}
      */
-    static SND_SENTRY => 524288
+    static SENTRY => 524288
 
     /**
+     * Native name: SND_SYNC
      * @type {Integer (UInt32)}
      */
-    static SND_SYNC => 0
+    static SYNC => 0
 
     /**
+     * Native name: SND_SYSTEM
      * @type {Integer (UInt32)}
      */
-    static SND_SYSTEM => 2097152
+    static SYSTEM => 2097152
 }

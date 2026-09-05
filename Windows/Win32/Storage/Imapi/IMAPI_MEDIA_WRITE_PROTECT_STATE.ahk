@@ -10,42 +10,48 @@ class IMAPI_MEDIA_WRITE_PROTECT_STATE extends Win32Enum {
 
     /**
      * Power to the drive needs to be cycled before allowing writes to the media.
+     * Native name: IMAPI_WRITEPROTECTED_UNTIL_POWERDOWN
      * @type {Integer (Int32)}
      */
-    static IMAPI_WRITEPROTECTED_UNTIL_POWERDOWN => 1
+    static WRITEPROTECTED_UNTIL_POWERDOWN => 1
 
     /**
      * The media is in a cartridge with the write protect tab set.
+     * Native name: IMAPI_WRITEPROTECTED_BY_CARTRIDGE
      * @type {Integer (Int32)}
      */
-    static IMAPI_WRITEPROTECTED_BY_CARTRIDGE => 2
+    static WRITEPROTECTED_BY_CARTRIDGE => 2
 
     /**
      * The drive is disallowing writes for a media-specific reason. For example:  <ul>
      * <li>The media was originally in a cartridge and was set to disallow writes when the media is not in a cartridge.</li>
      * <li>The media has used all available spare areas for defect management and is preventing writes to protect the existing data.</li>
      * </ul>
+     * Native name: IMAPI_WRITEPROTECTED_BY_MEDIA_SPECIFIC_REASON
      * @type {Integer (Int32)}
      */
-    static IMAPI_WRITEPROTECTED_BY_MEDIA_SPECIFIC_REASON => 4
+    static WRITEPROTECTED_BY_MEDIA_SPECIFIC_REASON => 4
 
     /**
      * A write-protect flag on the media is set. Various media types, such as DVD-RAM and DVD-RW, support a special area on the media to indicate the disc's write protect status.
+     * Native name: IMAPI_WRITEPROTECTED_BY_SOFTWARE_WRITE_PROTECT
      * @type {Integer (Int32)}
      */
-    static IMAPI_WRITEPROTECTED_BY_SOFTWARE_WRITE_PROTECT => 8
+    static WRITEPROTECTED_BY_SOFTWARE_WRITE_PROTECT => 8
 
     /**
      * A write-protect flag in the disc control block of a DVD+RW disc is set. DVD+RW media can persistently alter the write protect state of media by writing a device control block (DCB) to the media.  
      * 
      * This value has limited usefulness because some DVD+RW drives do not recognize or honor this setting.
+     * Native name: IMAPI_WRITEPROTECTED_BY_DISC_CONTROL_BLOCK
      * @type {Integer (Int32)}
      */
-    static IMAPI_WRITEPROTECTED_BY_DISC_CONTROL_BLOCK => 16
+    static WRITEPROTECTED_BY_DISC_CONTROL_BLOCK => 16
 
     /**
      * The drive does not recognize write capability of the media.
+     * Native name: IMAPI_WRITEPROTECTED_READ_ONLY_MEDIA
      * @type {Integer (Int32)}
      */
-    static IMAPI_WRITEPROTECTED_READ_ONLY_MEDIA => 16384
+    static WRITEPROTECTED_READ_ONLY_MEDIA => 16384
 }

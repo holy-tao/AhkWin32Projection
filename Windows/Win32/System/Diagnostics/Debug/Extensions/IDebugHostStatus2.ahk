@@ -29,7 +29,6 @@ class IDebugHostStatus2 extends IDebugHostStatus {
     static VTableNames => ["SetUserInterrupt", "ClearUserInterrupt"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetUserInterrupt() {
@@ -38,7 +37,6 @@ class IDebugHostStatus2 extends IDebugHostStatus {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearUserInterrupt() {

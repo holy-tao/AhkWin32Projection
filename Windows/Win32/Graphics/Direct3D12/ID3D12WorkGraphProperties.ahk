@@ -31,7 +31,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     static VTableNames => ["GetNumWorkGraphs", "GetProgramName", "GetWorkGraphIndex", "GetNumNodes", "GetNodeID", "GetNodeIndex", "GetNodeLocalRootArgumentsTableIndex", "GetNumEntrypoints", "GetEntrypointID", "GetEntrypointIndex", "GetEntrypointRecordSizeInBytes", "GetWorkGraphMemoryRequirements", "GetEntrypointRecordAlignmentInBytes"]
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumWorkGraphs() {
@@ -40,7 +39,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @returns {PWSTR} 
      */
@@ -50,7 +48,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pProgramName 
      * @returns {Integer} 
      */
@@ -62,7 +59,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @returns {Integer} 
      */
@@ -72,7 +68,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} NodeIndex 
      * @returns {D3D12_NODE_ID} 
@@ -83,7 +78,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {D3D12_NODE_ID} NodeID 
      * @returns {Integer} 
@@ -94,7 +88,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} NodeIndex 
      * @returns {Integer} 
@@ -105,7 +98,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @returns {Integer} 
      */
@@ -115,7 +107,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} EntrypointIndex 
      * @returns {D3D12_NODE_ID} 
@@ -126,7 +117,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {D3D12_NODE_ID} NodeID 
      * @returns {Integer} 
@@ -137,7 +127,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} EntrypointIndex 
      * @returns {Integer} 
@@ -148,7 +137,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Pointer<D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS>} pWorkGraphMemoryRequirements 
      * @returns {String} Nothing - always returns an empty string
@@ -158,7 +146,6 @@ class ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} EntrypointIndex 
      * @returns {Integer} 

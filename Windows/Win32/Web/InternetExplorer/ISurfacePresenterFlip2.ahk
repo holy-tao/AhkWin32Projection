@@ -30,7 +30,6 @@ class ISurfacePresenterFlip2 extends IUnknown {
     static VTableNames => ["SetRotation"]
 
     /**
-     * 
      * @param {DXGI_MODE_ROTATION} dxgiRotation 
      * @returns {HRESULT} 
      */

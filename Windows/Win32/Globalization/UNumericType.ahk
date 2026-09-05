@@ -7,22 +7,26 @@
 class UNumericType extends Win32Enum {
 
     /**
+     * Native name: U_NT_NONE
      * @type {Integer (Int32)}
      */
-    static U_NT_NONE => 0
+    static NT_NONE => 0
 
     /**
+     * Native name: U_NT_DECIMAL
      * @type {Integer (Int32)}
      */
-    static U_NT_DECIMAL => 1
+    static NT_DECIMAL => 1
 
     /**
+     * Native name: U_NT_DIGIT
      * @type {Integer (Int32)}
      */
-    static U_NT_DIGIT => 2
+    static NT_DIGIT => 2
 
     /**
+     * Native name: U_NT_NUMERIC
      * @type {Integer (Int32)}
      */
-    static U_NT_NUMERIC => 3
+    static NT_NUMERIC => 3
 }

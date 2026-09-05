@@ -10,198 +10,231 @@ class CLUSTER_ROLE extends Win32Enum {
 
     /**
      * The DHCP cluster role.
+     * Native name: ClusterRoleDHCP
      * @type {Integer (Int32)}
      */
-    static ClusterRoleDHCP => 0
+    static RoleDHCP => 0
 
     /**
      * The Distributed Transaction Coordinator (MSDTC) role.
+     * Native name: ClusterRoleDTC
      * @type {Integer (Int32)}
      */
-    static ClusterRoleDTC => 1
+    static RoleDTC => 1
 
     /**
      * The file share role.
+     * Native name: ClusterRoleFileServer
      * @type {Integer (Int32)}
      */
-    static ClusterRoleFileServer => 2
+    static FileServer => 2
 
     /**
      * The Generic Application role.
+     * Native name: ClusterRoleGenericApplication
      * @type {Integer (Int32)}
      */
-    static ClusterRoleGenericApplication => 3
+    static GenericApplication => 3
 
     /**
      * The Generic Script role.
+     * Native name: ClusterRoleGenericScript
      * @type {Integer (Int32)}
      */
-    static ClusterRoleGenericScript => 4
+    static GenericScript => 4
 
     /**
      * The Generic Service role.
+     * Native name: ClusterRoleGenericService
      * @type {Integer (Int32)}
      */
-    static ClusterRoleGenericService => 5
+    static GenericService => 5
 
     /**
      * The Microsoft Internet Storage Name Service (iSNS) role.
+     * Native name: ClusterRoleISCSINameServer
      * @type {Integer (Int32)}
      */
-    static ClusterRoleISCSINameServer => 6
+    static RoleISCSINameServer => 6
 
     /**
      * The Microsoft Message Queue role.
+     * Native name: ClusterRoleMSMQ
      * @type {Integer (Int32)}
      */
-    static ClusterRoleMSMQ => 7
+    static RoleMSMQ => 7
 
     /**
      * The Network File System (NFS) Share role.
+     * Native name: ClusterRoleNFS
      * @type {Integer (Int32)}
      */
-    static ClusterRoleNFS => 8
+    static RoleNFS => 8
 
     /**
      * The Print Spooler cluster role.
+     * Native name: ClusterRolePrintServer
      * @type {Integer (Int32)}
      */
-    static ClusterRolePrintServer => 9
+    static PrintServer => 9
 
     /**
      * The specialized File Share role.
+     * Native name: ClusterRoleStandAloneNamespaceServer
      * @type {Integer (Int32)}
      */
-    static ClusterRoleStandAloneNamespaceServer => 10
+    static StandAloneNamespaceServer => 10
 
     /**
      * The Volume Shadow Copy Service Task role.
+     * Native name: ClusterRoleVolumeShadowCopyServiceTask
      * @type {Integer (Int32)}
      */
-    static ClusterRoleVolumeShadowCopyServiceTask => 11
+    static VolumeShadowCopyServiceTask => 11
 
     /**
      * The WINS Service role.
+     * Native name: ClusterRoleWINS
      * @type {Integer (Int32)}
      */
-    static ClusterRoleWINS => 12
+    static RoleWINS => 12
 
     /**
      * The Task Scheduler role.
+     * Native name: ClusterRoleTaskScheduler
      * @type {Integer (Int32)}
      */
-    static ClusterRoleTaskScheduler => 13
+    static TaskScheduler => 13
 
     /**
      * The network file system role.
+     * Native name: ClusterRoleNetworkFileSystem
      * @type {Integer (Int32)}
      */
-    static ClusterRoleNetworkFileSystem => 14
+    static NetworkFileSystem => 14
 
     /**
      * The Distributed File System (DFS) replicated folder role.
+     * Native name: ClusterRoleDFSReplicatedFolder
      * @type {Integer (Int32)}
      */
-    static ClusterRoleDFSReplicatedFolder => 15
+    static RoleDFSReplicatedFolder => 15
 
     /**
      * The Distributed File System (DFS) role.
+     * Native name: ClusterRoleDistributedFileSystem
      * @type {Integer (Int32)}
      */
-    static ClusterRoleDistributedFileSystem => 16
+    static DistributedFileSystem => 16
 
     /**
      * The Distributed Network Name role.
+     * Native name: ClusterRoleDistributedNetworkName
      * @type {Integer (Int32)}
      */
-    static ClusterRoleDistributedNetworkName => 17
+    static DistributedNetworkName => 17
 
     /**
      * The file share role.
+     * Native name: ClusterRoleFileShare
      * @type {Integer (Int32)}
      */
-    static ClusterRoleFileShare => 18
+    static FileShare => 18
 
     /**
      * The file share witness role
+     * Native name: ClusterRoleFileShareWitness
      * @type {Integer (Int32)}
      */
-    static ClusterRoleFileShareWitness => 19
+    static FileShareWitness => 19
 
     /**
      * The hard disk role.
+     * Native name: ClusterRoleHardDisk
      * @type {Integer (Int32)}
      */
-    static ClusterRoleHardDisk => 20
+    static HardDisk => 20
 
     /**
      * The IP address role.
+     * Native name: ClusterRoleIPAddress
      * @type {Integer (Int32)}
      */
-    static ClusterRoleIPAddress => 21
+    static RoleIPAddress => 21
 
     /**
      * The IPV6 address role.
+     * Native name: ClusterRoleIPV6Address
      * @type {Integer (Int32)}
      */
-    static ClusterRoleIPV6Address => 22
+    static RoleIPV6Address => 22
 
     /**
      * The IPV6 tunnel address role.
+     * Native name: ClusterRoleIPV6TunnelAddress
      * @type {Integer (Int32)}
      */
-    static ClusterRoleIPV6TunnelAddress => 23
+    static RoleIPV6TunnelAddress => 23
 
     /**
      * The ISCSI Target Server role.
+     * Native name: ClusterRoleISCSITargetServer
      * @type {Integer (Int32)}
      */
-    static ClusterRoleISCSITargetServer => 24
+    static RoleISCSITargetServer => 24
 
     /**
      * The Network Name role.
+     * Native name: ClusterRoleNetworkName
      * @type {Integer (Int32)}
      */
-    static ClusterRoleNetworkName => 25
+    static NetworkName => 25
 
     /**
      * The physical disk role.
+     * Native name: ClusterRolePhysicalDisk
      * @type {Integer (Int32)}
      */
-    static ClusterRolePhysicalDisk => 26
+    static PhysicalDisk => 26
 
     /**
      * The Scale-Out (SODA) File Server role
+     * Native name: ClusterRoleSODAFileServer
      * @type {Integer (Int32)}
      */
-    static ClusterRoleSODAFileServer => 27
+    static RoleSODAFileServer => 27
 
     /**
      * The storage pool role.
+     * Native name: ClusterRoleStoragePool
      * @type {Integer (Int32)}
      */
-    static ClusterRoleStoragePool => 28
+    static StoragePool => 28
 
     /**
      * The virtual machine role.
+     * Native name: ClusterRoleVirtualMachine
      * @type {Integer (Int32)}
      */
-    static ClusterRoleVirtualMachine => 29
+    static VirtualMachine => 29
 
     /**
      * The virtual machine configuration role.
+     * Native name: ClusterRoleVirtualMachineConfiguration
      * @type {Integer (Int32)}
      */
-    static ClusterRoleVirtualMachineConfiguration => 30
+    static VirtualMachineConfiguration => 30
 
     /**
      * The virtual machine replica broker role.
+     * Native name: ClusterRoleVirtualMachineReplicaBroker
      * @type {Integer (Int32)}
      */
-    static ClusterRoleVirtualMachineReplicaBroker => 31
+    static VirtualMachineReplicaBroker => 31
 
     /**
+     * Native name: ClusterRoleKeyValueStore
      * @type {Integer (Int32)}
      */
-    static ClusterRoleKeyValueStore => 32
+    static KeyValueStore => 32
 }

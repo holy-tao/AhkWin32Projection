@@ -33,7 +33,6 @@ class ISpPhrase2 extends ISpPhrase {
     static VTableNames => ["GetXMLResult", "GetXMLErrorInfo", "GetAudio"]
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {PWSTR} 
      */
@@ -43,7 +42,6 @@ class ISpPhrase2 extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<SPSEMANTICERRORINFO>} pSemanticErrorInfo 
      * @returns {HRESULT} 
      */
@@ -53,7 +51,6 @@ class ISpPhrase2 extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 

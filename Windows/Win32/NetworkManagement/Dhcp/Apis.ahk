@@ -2304,7 +2304,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} sAdapterName 
      * @param {Pointer<Integer>} dwSubnetMask 
      * @returns {Integer} 
@@ -4055,7 +4054,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo 
      * @returns {Integer} 
@@ -8417,7 +8415,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {PWSTR} Uname 
      * @param {PWSTR} Domain 
@@ -8666,7 +8663,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO_VQ>} ConfigInfo 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10172,7 +10168,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} pServer 
      * @returns {Integer} 
      */
@@ -11605,7 +11600,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} PolicyName 
      * @param {BOOL} fGlobalPolicy 
      * @param {Integer} Subnet 
@@ -11873,7 +11867,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {Pointer<DHCP_POLICY_ARRAY>} PolicyArray 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11882,7 +11875,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {Pointer<DHCP_POLICY_EX>} PolicyEx 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11891,7 +11883,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {Pointer<DHCP_POLICY_EX_ARRAY>} PolicyExArray 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11900,7 +11891,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {Pointer<DHCP_PROPERTY>} _Property 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11909,7 +11899,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {Pointer<DHCP_PROPERTY_ARRAY>} PropertyArray 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11918,7 +11907,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {Pointer<DHCP_PROPERTY_ARRAY>} PropertyArray 
      * @param {DHCP_PROPERTY_ID} ID 
      * @param {DHCP_PROPERTY_TYPE} Type 
@@ -13270,7 +13258,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {Pointer<DHCP_CLIENT_INFO_EX>} ClientInfo 
      * @returns {Integer} 
@@ -13283,7 +13270,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {Integer} SubnetAddress 
      * @param {Pointer<Integer>} ResumeHandle 
@@ -13306,7 +13292,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo 
      * @param {Pointer<Pointer<DHCP_CLIENT_INFO_EX>>} ClientInfo 
@@ -13322,7 +13307,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {Pointer<DHCP_POLICY_EX>} PolicyEx 
      * @returns {Integer} 
@@ -13335,7 +13319,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {BOOL} GlobalPolicy 
      * @param {Integer} SubnetAddress 
@@ -13354,7 +13337,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {Integer} FieldsModified 
      * @param {BOOL} GlobalPolicy 
@@ -13372,7 +13354,6 @@ class Dhcp {
     }
 
     /**
-     * 
      * @param {PWSTR} ServerIpAddress 
      * @param {Pointer<Integer>} ResumeHandle 
      * @param {Integer} PreferredMaximum 

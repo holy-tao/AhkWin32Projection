@@ -79,7 +79,6 @@ class ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -88,7 +87,6 @@ class ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DeviceName() {
@@ -98,7 +96,6 @@ class ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VolumeLabel() {
@@ -108,7 +105,6 @@ class ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SerialNumber() {
@@ -117,7 +113,6 @@ class ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaximumComponentLength() {
@@ -126,7 +121,6 @@ class ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FileSystemFlags() {
@@ -135,7 +129,6 @@ class ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FileSystem() {

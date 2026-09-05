@@ -7,37 +7,44 @@
 class WICBitmapChainType extends Win32Enum {
 
     /**
+     * Native name: WICBitmapChainType_Alternate
      * @type {Integer (Int32)}
      */
-    static WICBitmapChainType_Alternate => 1
+    static Alternate => 1
 
     /**
+     * Native name: WICBitmapChainType_Layer
      * @type {Integer (Int32)}
      */
-    static WICBitmapChainType_Layer => 2
+    static Layer => 2
 
     /**
+     * Native name: WICBitmapChainType_Preview
      * @type {Integer (Int32)}
      */
-    static WICBitmapChainType_Preview => 3
+    static Preview => 3
 
     /**
+     * Native name: WICBitmapChainType_Thumbnail
      * @type {Integer (Int32)}
      */
-    static WICBitmapChainType_Thumbnail => 4
+    static Thumbnail => 4
 
     /**
+     * Native name: WICBitmapChainType_AlphaMap
      * @type {Integer (Int32)}
      */
-    static WICBitmapChainType_AlphaMap => 5
+    static AlphaMap => 5
 
     /**
+     * Native name: WICBitmapChainType_DepthMap
      * @type {Integer (Int32)}
      */
-    static WICBitmapChainType_DepthMap => 6
+    static DepthMap => 6
 
     /**
+     * Native name: WICBitmapChainType_GainMap
      * @type {Integer (Int32)}
      */
-    static WICBitmapChainType_GainMap => 7
+    static GainMap => 7
 }

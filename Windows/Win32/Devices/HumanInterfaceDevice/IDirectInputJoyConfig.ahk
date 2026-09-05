@@ -36,7 +36,6 @@ class IDirectInputJoyConfig extends IUnknown {
     static VTableNames => ["Acquire", "Unacquire", "SetCooperativeLevel", "SendNotify", "EnumTypes", "GetTypeInfo", "SetTypeInfo", "DeleteType", "GetConfig", "SetConfig", "DeleteConfig", "GetUserValues", "SetUserValues", "AddNewHardware", "OpenTypeKey", "OpenConfigKey"]
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Acquire() {
@@ -45,7 +44,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unacquire() {
@@ -54,7 +52,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -67,7 +64,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SendNotify() {
@@ -76,7 +72,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPDIJOYTYPECALLBACK>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {HRESULT} 
@@ -89,7 +84,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Pointer<DIJOYTYPEINFO>} param1 
      * @param {Integer} param2 
@@ -103,7 +97,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Pointer<DIJOYTYPEINFO>} param1 
      * @param {Integer} param2 
@@ -117,7 +110,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {HRESULT} 
      */
@@ -129,7 +121,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIJOYCONFIG>} param1 
      * @param {Integer} param2 
@@ -141,7 +132,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIJOYCONFIG>} param1 
      * @param {Integer} param2 
@@ -153,7 +143,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -163,7 +152,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIJOYUSERVALUES>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -174,7 +162,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIJOYUSERVALUES>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -185,7 +172,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Pointer<Guid>} param1 
      * @returns {HRESULT} 
@@ -198,7 +184,6 @@ class IDirectInputJoyConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<HKEY>} param2 

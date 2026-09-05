@@ -29,7 +29,6 @@ class IDebugHostContext extends IUnknown {
     static VTableNames => ["IsEqualTo"]
 
     /**
-     * 
      * @param {IDebugHostContext} pContext 
      * @returns {Boolean} 
      */

@@ -31,7 +31,6 @@ class IDxcBlobEncoding extends IDxcBlob {
     static VTableNames => ["GetEncoding"]
 
     /**
-     * 
      * @param {Pointer<BOOL>} pKnown 
      * @param {Pointer<DXC_CP>} pCodePage 
      * @returns {HRESULT} 

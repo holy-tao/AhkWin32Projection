@@ -46,7 +46,6 @@ class IMFHDCPStatus extends IUnknown {
     }
 
     /**
-     * 
      * @param {MF_HDCP_STATUS} _status 
      * @returns {HRESULT} 
      */

@@ -7,17 +7,20 @@
 class TELEPHONY_PROVIDERCHANGEOP extends Win32Enum {
 
     /**
+     * Native name: TELEPHONY_PROVIDERCHANGEOP_END
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_PROVIDERCHANGEOP_END => 0
+    static END => 0
 
     /**
+     * Native name: TELEPHONY_PROVIDERCHANGEOP_BEGIN
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_PROVIDERCHANGEOP_BEGIN => 1
+    static BEGIN => 1
 
     /**
+     * Native name: TELEPHONY_PROVIDERCHANGEOP_CANCEL
      * @type {Integer (Int32)}
      */
-    static TELEPHONY_PROVIDERCHANGEOP_CANCEL => 2
+    static CANCEL => 2
 }

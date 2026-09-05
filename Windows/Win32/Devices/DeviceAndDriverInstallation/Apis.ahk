@@ -14228,7 +14228,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} QueueHandle 
      * @param {Pointer<SP_BACKUP_QUEUE_PARAMS_V2_A>} BackupParams 
      * @returns {BOOL} 
@@ -14241,7 +14240,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} QueueHandle 
      * @param {Pointer<SP_BACKUP_QUEUE_PARAMS_V2_W>} BackupParams 
      * @returns {BOOL} 
@@ -14254,7 +14252,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} QueueHandle 
      * @param {PSTR} BackupPath 
      * @param {Integer} RestoreFlags 
@@ -14270,7 +14267,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} QueueHandle 
      * @param {PWSTR} BackupPath 
      * @param {Integer} RestoreFlags 
@@ -21534,7 +21530,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {HDEVINFO} DeviceInfoSet 
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData 
      * @param {Pointer<SP_INSTALLWIZARD_DATA>} InstallWizardData 
@@ -22757,7 +22752,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ullStartValue 
      * @param {Integer} ullEndValue 
      * @param {Pointer} rlh 
@@ -23156,7 +23150,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdnDevInst 
      * @param {PSTR} pDeviceID 
      * @param {Integer} dnParent 
@@ -23174,7 +23167,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdnDevInst 
      * @param {PWSTR} pDeviceID 
      * @param {Integer} dnParent 
@@ -23192,7 +23184,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdnDevInst 
      * @param {PSTR} pDeviceID 
      * @param {Integer} dnParent 
@@ -23211,7 +23202,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdnDevInst 
      * @param {PWSTR} pDeviceID 
      * @param {Integer} dnParent 
@@ -23230,7 +23220,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} prlh 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -23257,7 +23246,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -23284,7 +23272,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevNode 
      * @param {Integer} ulHardwareProfile 
      * @param {Integer} ulFlags 
@@ -23298,7 +23285,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ullStartValue 
      * @param {Integer} ullEndValue 
      * @param {Pointer} rlh 
@@ -23312,7 +23298,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
      * @param {Integer} ResourceData 
@@ -23330,7 +23315,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
      * @param {Integer} ResourceData 
@@ -23364,7 +23348,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -23394,7 +23377,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer} rlhOld 
      * @param {Pointer} rlhNew 
      * @param {Integer} ulFlags 
@@ -23420,7 +23402,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -23581,7 +23562,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pullStart 
      * @param {Integer} ullStart 
      * @param {Integer} ulLength 
@@ -23600,7 +23580,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer} rlh 
      * @param {Pointer<Integer>} pullStart 
      * @param {Pointer<Integer>} pullEnd 
@@ -23752,7 +23731,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer} rlh 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -24052,7 +24030,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PSTR} _Buffer 
      * @param {Pointer<Integer>} pulLength 
@@ -24070,7 +24047,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PWSTR} _Buffer 
      * @param {Pointer<Integer>} pulLength 
@@ -24088,7 +24064,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PSTR} _Buffer 
      * @param {Pointer<Integer>} pulLength 
@@ -24107,7 +24082,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PWSTR} _Buffer 
      * @param {Pointer<Integer>} pulLength 
@@ -24126,7 +24100,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PSTR} pszKeyName 
      * @param {Pointer<Integer>} pulLength 
@@ -24144,7 +24117,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PWSTR} pszKeyName 
      * @param {Pointer<Integer>} pulLength 
@@ -24162,7 +24134,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PSTR} pszKeyName 
      * @param {Pointer<Integer>} pulLength 
@@ -24181,7 +24152,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PWSTR} pszKeyName 
      * @param {Pointer<Integer>} pulLength 
@@ -24785,7 +24755,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Pointer<Integer>} pulRegDataType 
@@ -24805,7 +24774,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Pointer<Integer>} pulRegDataType 
@@ -24825,7 +24793,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {PSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
@@ -24846,7 +24813,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {PWSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
@@ -24867,7 +24833,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {PSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
@@ -24889,7 +24854,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {PWSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
@@ -25084,7 +25048,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulState 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -25098,7 +25061,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulState 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -25113,7 +25075,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulIndex 
      * @param {Pointer<HWPROFILEINFO_A>} pHWProfileInfo 
      * @param {Integer} ulFlags 
@@ -25126,7 +25087,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulIndex 
      * @param {Pointer<HWPROFILEINFO_A>} pHWProfileInfo 
      * @param {Integer} ulFlags 
@@ -25140,7 +25100,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulIndex 
      * @param {Pointer<HWPROFILEINFO_W>} pHWProfileInfo 
      * @param {Integer} ulFlags 
@@ -25153,7 +25112,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulIndex 
      * @param {Pointer<HWPROFILEINFO_W>} pHWProfileInfo 
      * @param {Integer} ulFlags 
@@ -25440,7 +25398,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PSTR} pszDeviceInterface 
      * @param {Pointer<Guid>} AliasInterfaceGuid 
      * @param {PSTR} pszAliasDeviceInterface 
@@ -25461,7 +25418,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDeviceInterface 
      * @param {Pointer<Guid>} AliasInterfaceGuid 
      * @param {PWSTR} pszAliasDeviceInterface 
@@ -25564,7 +25520,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PSTR} pDeviceID 
      * @param {PSTR} _Buffer 
@@ -25583,7 +25538,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PWSTR} pDeviceID 
      * @param {PWSTR} _Buffer 
@@ -25724,7 +25678,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulLen 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PSTR} pDeviceID 
@@ -25743,7 +25696,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulLen 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PWSTR} pDeviceID 
@@ -26290,7 +26242,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer} rlhOld1 
      * @param {Pointer} rlhOld2 
      * @param {Pointer} rlhNew 
@@ -26304,7 +26255,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer} rlhOld 
      * @param {Pointer} rlhNew 
      * @param {Integer} ullMaxValue 
@@ -26423,7 +26373,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer} rlhOld1 
      * @param {Pointer} rlhOld2 
      * @param {Pointer} rlhNew 
@@ -26546,7 +26495,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnFromDevInst 
      * @param {Integer} dnToDevInst 
      * @param {Integer} ulFlags 
@@ -26559,7 +26507,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnFromDevInst 
      * @param {Integer} dnToDevInst 
      * @param {Integer} ulFlags 
@@ -26573,7 +26520,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} preElement 
      * @param {Pointer<Integer>} pullStart 
      * @param {Pointer<Integer>} pullEnd 
@@ -26698,7 +26644,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PSTR} pszClassName 
      * @param {Integer} samDesired 
@@ -26717,7 +26662,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ClassGuid 
      * @param {PWSTR} pszClassName 
      * @param {Integer} samDesired 
@@ -26755,7 +26699,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevNode 
      * @param {Integer} samDesired 
      * @param {Integer} ulHardwareProfile 
@@ -26961,7 +26904,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {Integer} DataLen 
      * @param {Integer} dnDevInst 
@@ -26976,7 +26918,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {Integer} DataLen 
      * @param {Integer} dnDevInst 
@@ -26992,7 +26933,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulSize 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
@@ -27008,7 +26948,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulSize 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
@@ -27025,7 +26964,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -27037,7 +26975,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -27435,7 +27372,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PSTR} pszReference 
@@ -27456,7 +27392,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PWSTR} pszReference 
@@ -27477,7 +27412,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PSTR} pszReference 
@@ -27499,7 +27433,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PWSTR} pszReference 
@@ -27597,7 +27530,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -27611,7 +27543,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -27625,7 +27556,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -27640,7 +27570,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -27655,7 +27584,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -27667,7 +27595,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -27680,7 +27607,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -27692,7 +27618,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -27782,7 +27707,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Integer} _Buffer 
@@ -27798,7 +27722,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Integer} _Buffer 
@@ -28000,7 +27923,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PSTR} pDeviceID 
      * @param {Integer} ulConfig 
      * @param {Integer} ulValue 
@@ -28016,7 +27938,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PWSTR} pDeviceID 
      * @param {Integer} ulConfig 
      * @param {Integer} ulValue 
@@ -28032,7 +27953,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PSTR} pDeviceID 
      * @param {Integer} ulConfig 
      * @param {Integer} ulValue 
@@ -28049,7 +27969,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {PWSTR} pDeviceID 
      * @param {Integer} ulConfig 
      * @param {Integer} ulValue 
@@ -28085,7 +28004,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -28098,7 +28016,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ullStartValue 
      * @param {Integer} ullEndValue 
      * @param {Pointer} rlh 
@@ -28135,7 +28052,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -28148,7 +28064,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_run_detection
@@ -28159,7 +28074,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
      * @returns {CONFIGRET} 
@@ -28171,7 +28085,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulHardwareProfile 
      * @param {Integer} ulFlags 
      * @returns {CONFIGRET} 
@@ -28183,7 +28096,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} ulHardwareProfile 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
@@ -28577,7 +28489,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {Integer} dwTimeout 
      * @returns {Integer} 
      */
@@ -29813,7 +29724,6 @@ class DeviceAndDriverInstallation {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} FilePath 
      * @param {Integer} Flags 

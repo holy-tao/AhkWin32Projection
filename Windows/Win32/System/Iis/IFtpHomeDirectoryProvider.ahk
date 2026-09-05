@@ -30,7 +30,6 @@ class IFtpHomeDirectoryProvider extends IUnknown {
     static VTableNames => ["GetUserHomeDirectoryData"]
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 

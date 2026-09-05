@@ -7,67 +7,80 @@
 class WER_SUBMIT_RESULT extends Win32Enum {
 
     /**
+     * Native name: WerReportQueued
      * @type {Integer (Int32)}
      */
-    static WerReportQueued => 1
+    static ReportQueued => 1
 
     /**
+     * Native name: WerReportUploaded
      * @type {Integer (Int32)}
      */
-    static WerReportUploaded => 2
+    static ReportUploaded => 2
 
     /**
+     * Native name: WerReportDebug
      * @type {Integer (Int32)}
      */
-    static WerReportDebug => 3
+    static ReportDebug => 3
 
     /**
+     * Native name: WerReportFailed
      * @type {Integer (Int32)}
      */
-    static WerReportFailed => 4
+    static ReportFailed => 4
 
     /**
+     * Native name: WerDisabled
      * @type {Integer (Int32)}
      */
-    static WerDisabled => 5
+    static Disabled => 5
 
     /**
+     * Native name: WerReportCancelled
      * @type {Integer (Int32)}
      */
-    static WerReportCancelled => 6
+    static ReportCancelled => 6
 
     /**
+     * Native name: WerDisabledQueue
      * @type {Integer (Int32)}
      */
-    static WerDisabledQueue => 7
+    static DisabledQueue => 7
 
     /**
+     * Native name: WerReportAsync
      * @type {Integer (Int32)}
      */
-    static WerReportAsync => 8
+    static ReportAsync => 8
 
     /**
+     * Native name: WerCustomAction
      * @type {Integer (Int32)}
      */
-    static WerCustomAction => 9
+    static CustomAction => 9
 
     /**
+     * Native name: WerThrottled
      * @type {Integer (Int32)}
      */
-    static WerThrottled => 10
+    static Throttled => 10
 
     /**
+     * Native name: WerReportUploadedCab
      * @type {Integer (Int32)}
      */
-    static WerReportUploadedCab => 11
+    static ReportUploadedCab => 11
 
     /**
+     * Native name: WerStorageLocationNotFound
      * @type {Integer (Int32)}
      */
-    static WerStorageLocationNotFound => 12
+    static StorageLocationNotFound => 12
 
     /**
+     * Native name: WerSubmitResultMax
      * @type {Integer (Int32)}
      */
-    static WerSubmitResultMax => 13
+    static Max => 13
 }

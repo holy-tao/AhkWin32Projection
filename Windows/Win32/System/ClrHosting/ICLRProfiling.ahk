@@ -31,7 +31,6 @@ class ICLRProfiling extends IUnknown {
     static VTableNames => ["AttachProfiler"]
 
     /**
-     * 
      * @param {Integer} dwProfileeProcessID 
      * @param {Integer} dwMillisecondsMax 
      * @param {Pointer<Guid>} pClsidProfiler 

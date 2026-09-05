@@ -7,22 +7,26 @@
 class htmlEncoding extends Win32Enum {
 
     /**
+     * Native name: htmlEncodingURL
      * @type {Integer (Int32)}
      */
-    static htmlEncodingURL => 0
+    static EncodingURL => 0
 
     /**
+     * Native name: htmlEncodingMultipart
      * @type {Integer (Int32)}
      */
-    static htmlEncodingMultipart => 1
+    static Multipart => 1
 
     /**
+     * Native name: htmlEncodingText
      * @type {Integer (Int32)}
      */
-    static htmlEncodingText => 2
+    static Text => 2
 
     /**
+     * Native name: htmlEncoding_Max
      * @type {Integer (Int32)}
      */
-    static htmlEncoding_Max => 2147483647
+    static Max => 2147483647
 }

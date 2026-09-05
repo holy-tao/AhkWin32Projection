@@ -33,7 +33,6 @@ class IPrinterQueue2 extends IPrinterQueue {
     static VTableNames => ["SendBidiSetRequestAsync", "GetPrinterQueueView"]
 
     /**
-     * 
      * @param {BSTR} bstrBidiRequest 
      * @param {IPrinterBidiSetRequestCallback} pCallback 
      * @returns {IPrinterExtensionAsyncOperation} 
@@ -46,7 +45,6 @@ class IPrinterQueue2 extends IPrinterQueue {
     }
 
     /**
-     * 
      * @param {Integer} ulViewOffset 
      * @param {Integer} ulViewSize 
      * @returns {IPrinterQueueView} 

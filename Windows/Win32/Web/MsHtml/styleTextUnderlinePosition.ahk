@@ -7,27 +7,32 @@
 class styleTextUnderlinePosition extends Win32Enum {
 
     /**
+     * Native name: styleTextUnderlinePositionBelow
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlinePositionBelow => 0
+    static Below => 0
 
     /**
+     * Native name: styleTextUnderlinePositionAbove
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlinePositionAbove => 1
+    static Above => 1
 
     /**
+     * Native name: styleTextUnderlinePositionAuto
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlinePositionAuto => 2
+    static Auto => 2
 
     /**
+     * Native name: styleTextUnderlinePositionNotSet
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlinePositionNotSet => 3
+    static NotSet => 3
 
     /**
+     * Native name: styleTextUnderlinePosition_Max
      * @type {Integer (Int32)}
      */
-    static styleTextUnderlinePosition_Max => 2147483647
+    static Max => 2147483647
 }

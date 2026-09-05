@@ -101,7 +101,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Value() {
@@ -110,7 +109,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -120,7 +118,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Color() {
@@ -129,7 +126,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iWidth 
      * @returns {HRESULT} 
      */
@@ -139,7 +135,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -148,7 +143,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iLineStyle 
      * @returns {HRESULT} 
      */
@@ -158,7 +152,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LineStyle() {
@@ -167,7 +160,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iScale 
      * @returns {HRESULT} 
      */
@@ -177,7 +169,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ScaleFactor() {
@@ -186,7 +177,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -196,7 +186,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} Value 
      * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
@@ -210,7 +199,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} Max 
      * @param {Pointer<Float>} Min 
      * @param {Pointer<Float>} Avg 
@@ -228,7 +216,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -238,7 +225,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Selected() {
@@ -247,7 +233,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -257,7 +242,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -266,7 +250,6 @@ class _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @param {SysmonDataType} iWhich 
      * @returns {VARIANT} 

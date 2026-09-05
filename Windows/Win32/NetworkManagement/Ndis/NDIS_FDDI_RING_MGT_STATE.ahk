@@ -7,42 +7,50 @@
 class NDIS_FDDI_RING_MGT_STATE extends Win32Enum {
 
     /**
+     * Native name: NdisFddiRingIsolated
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingIsolated => 1
+    static Isolated => 1
 
     /**
+     * Native name: NdisFddiRingNonOperational
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingNonOperational => 2
+    static NonOperational => 2
 
     /**
+     * Native name: NdisFddiRingOperational
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingOperational => 3
+    static Operational => 3
 
     /**
+     * Native name: NdisFddiRingDetect
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingDetect => 4
+    static Detect => 4
 
     /**
+     * Native name: NdisFddiRingNonOperationalDup
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingNonOperationalDup => 5
+    static NonOperationalDup => 5
 
     /**
+     * Native name: NdisFddiRingOperationalDup
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingOperationalDup => 6
+    static OperationalDup => 6
 
     /**
+     * Native name: NdisFddiRingDirected
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingDirected => 7
+    static Directed => 7
 
     /**
+     * Native name: NdisFddiRingTrace
      * @type {Integer (Int32)}
      */
-    static NdisFddiRingTrace => 8
+    static Trace => 8
 }

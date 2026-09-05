@@ -43,7 +43,6 @@ class OLEDBSimpleProvider extends IUnknown {
     static VTableNames => ["getRowCount", "getColumnCount", "getRWStatus", "getVariant", "setVariant", "getLocale", "deleteRows", "insertRows", "find", "addOLEDBSimpleProviderListener", "removeOLEDBSimpleProviderListener", "isAsync", "getEstimatedRows", "stopTransfer"]
 
     /**
-     * 
      * @returns {Pointer} 
      */
     getRowCount() {
@@ -52,7 +51,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     getColumnCount() {
@@ -61,7 +59,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {OSPRW} 
@@ -72,7 +69,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @param {OSPFORMAT} format 
@@ -85,7 +81,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @param {OSPFORMAT} format 
@@ -98,7 +93,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getLocale() {
@@ -108,7 +102,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
@@ -119,7 +112,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
@@ -130,7 +122,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} iRowStart 
      * @param {Pointer} iColumn 
      * @param {VARIANT} _val 
@@ -144,7 +135,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {OLEDBSimpleProviderListener} pospIListener 
      * @returns {HRESULT} 
      */
@@ -154,7 +144,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {OLEDBSimpleProviderListener} pospIListener 
      * @returns {HRESULT} 
      */
@@ -164,7 +153,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     isAsync() {
@@ -173,7 +161,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     getEstimatedRows() {
@@ -182,7 +169,6 @@ class OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopTransfer() {

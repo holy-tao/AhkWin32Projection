@@ -10,45 +10,52 @@ class KERB_LOGON_SUBMIT_TYPE extends Win32Enum {
 
     /**
      * Perform an interactive logon.
+     * Native name: KerbInteractiveLogon
      * @type {Integer (Int32)}
      */
-    static KerbInteractiveLogon => 2
+    static InteractiveLogon => 2
 
     /**
      * Logon using a smart card.
+     * Native name: KerbSmartCardLogon
      * @type {Integer (Int32)}
      */
-    static KerbSmartCardLogon => 6
+    static SmartCardLogon => 6
 
     /**
      * Unlock a workstation.
+     * Native name: KerbWorkstationUnlockLogon
      * @type {Integer (Int32)}
      */
-    static KerbWorkstationUnlockLogon => 7
+    static WorkstationUnlockLogon => 7
 
     /**
      * Unlock a workstation using a smart card.
+     * Native name: KerbSmartCardUnlockLogon
      * @type {Integer (Int32)}
      */
-    static KerbSmartCardUnlockLogon => 8
+    static SmartCardUnlockLogon => 8
 
     /**
      * Logon using a proxy server.
+     * Native name: KerbProxyLogon
      * @type {Integer (Int32)}
      */
-    static KerbProxyLogon => 9
+    static ProxyLogon => 9
 
     /**
      * Logon using a valid <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Kerberos</a> ticket as a credential.
+     * Native name: KerbTicketLogon
      * @type {Integer (Int32)}
      */
-    static KerbTicketLogon => 10
+    static TicketLogon => 10
 
     /**
      * Unlock a workstation by using a Kerberos ticket.
+     * Native name: KerbTicketUnlockLogon
      * @type {Integer (Int32)}
      */
-    static KerbTicketUnlockLogon => 11
+    static TicketUnlockLogon => 11
 
     /**
      * Perform a service for user logon.
@@ -58,29 +65,34 @@ class KERB_LOGON_SUBMIT_TYPE extends Win32Enum {
 
     /**
      * Logon interactively using a certificate stored on a smart card.
+     * Native name: KerbCertificateLogon
      * @type {Integer (Int32)}
      */
-    static KerbCertificateLogon => 13
+    static CertificateLogon => 13
 
     /**
      * Perform a service for user logon using a certificate stored on a smart card.
+     * Native name: KerbCertificateS4ULogon
      * @type {Integer (Int32)}
      */
-    static KerbCertificateS4ULogon => 14
+    static CertificateS4ULogon => 14
 
     /**
      * Unlock a workstation using a certificate stored on a smart card.
+     * Native name: KerbCertificateUnlockLogon
      * @type {Integer (Int32)}
      */
-    static KerbCertificateUnlockLogon => 15
+    static CertificateUnlockLogon => 15
 
     /**
+     * Native name: KerbNoElevationLogon
      * @type {Integer (Int32)}
      */
-    static KerbNoElevationLogon => 83
+    static NoElevationLogon => 83
 
     /**
+     * Native name: KerbLuidLogon
      * @type {Integer (Int32)}
      */
-    static KerbLuidLogon => 84
+    static LuidLogon => 84
 }

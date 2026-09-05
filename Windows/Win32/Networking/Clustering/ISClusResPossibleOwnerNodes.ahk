@@ -53,7 +53,6 @@ class ISClusResPossibleOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -62,7 +61,6 @@ class ISClusResPossibleOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -71,7 +69,6 @@ class ISClusResPossibleOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -80,7 +77,6 @@ class ISClusResPossibleOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusNode} 
      */
@@ -90,7 +86,6 @@ class ISClusResPossibleOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @returns {HRESULT} 
      */
@@ -100,7 +95,6 @@ class ISClusResPossibleOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */
@@ -110,7 +104,6 @@ class ISClusResPossibleOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Modified() {

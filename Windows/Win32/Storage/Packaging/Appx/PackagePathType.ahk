@@ -12,34 +12,40 @@ class PackagePathType extends Win32Enum {
 
     /**
      * Retrieve the package path in the original install folder for the application.
+     * Native name: PackagePathType_Install
      * @type {Integer (Int32)}
      */
-    static PackagePathType_Install => 0
+    static Install => 0
 
     /**
      * Retrieve the package path in the mutable install folder for the application, if the application is declared as mutable in the package manifest.
+     * Native name: PackagePathType_Mutable
      * @type {Integer (Int32)}
      */
-    static PackagePathType_Mutable => 1
+    static Mutable => 1
 
     /**
      * Retrieve the package path in the mutable folder if the application is declared as mutable in the package manifest, or in the original install folder if the application is not mutable.
+     * Native name: PackagePathType_Effective
      * @type {Integer (Int32)}
      */
-    static PackagePathType_Effective => 2
+    static Effective => 2
 
     /**
+     * Native name: PackagePathType_MachineExternal
      * @type {Integer (Int32)}
      */
-    static PackagePathType_MachineExternal => 3
+    static MachineExternal => 3
 
     /**
+     * Native name: PackagePathType_UserExternal
      * @type {Integer (Int32)}
      */
-    static PackagePathType_UserExternal => 4
+    static UserExternal => 4
 
     /**
+     * Native name: PackagePathType_EffectiveExternal
      * @type {Integer (Int32)}
      */
-    static PackagePathType_EffectiveExternal => 5
+    static EffectiveExternal => 5
 }

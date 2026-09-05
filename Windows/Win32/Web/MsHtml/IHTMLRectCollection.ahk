@@ -45,7 +45,6 @@ class IHTMLRectCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -54,7 +53,6 @@ class IHTMLRectCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -63,7 +61,6 @@ class IHTMLRectCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarIndex 
      * @returns {VARIANT} 
      */

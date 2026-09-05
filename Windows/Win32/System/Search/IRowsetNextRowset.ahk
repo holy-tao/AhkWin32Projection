@@ -30,7 +30,6 @@ class IRowsetNextRowset extends IUnknown {
     static VTableNames => ["GetNextRowset"]
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 

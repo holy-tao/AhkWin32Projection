@@ -7,27 +7,32 @@
 class DXGK_BACKLIGHT_OPTIMIZATION_LEVEL extends Win32Enum {
 
     /**
+     * Native name: DxgkBacklightOptimizationDisable
      * @type {Integer (Int32)}
      */
-    static DxgkBacklightOptimizationDisable => 0
+    static Disable => 0
 
     /**
+     * Native name: DxgkBacklightOptimizationDesktop
      * @type {Integer (Int32)}
      */
-    static DxgkBacklightOptimizationDesktop => 1
+    static Desktop => 1
 
     /**
+     * Native name: DxgkBacklightOptimizationDynamic
      * @type {Integer (Int32)}
      */
-    static DxgkBacklightOptimizationDynamic => 2
+    static Dynamic => 2
 
     /**
+     * Native name: DxgkBacklightOptimizationDimmed
      * @type {Integer (Int32)}
      */
-    static DxgkBacklightOptimizationDimmed => 3
+    static Dimmed => 3
 
     /**
+     * Native name: DxgkBacklightOptimizationEDR
      * @type {Integer (Int32)}
      */
-    static DxgkBacklightOptimizationEDR => 4
+    static OptimizationEDR => 4
 }

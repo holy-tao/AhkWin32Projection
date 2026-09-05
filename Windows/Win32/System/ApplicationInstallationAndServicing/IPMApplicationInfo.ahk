@@ -364,7 +364,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -374,7 +373,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_InstanceID() {
@@ -384,7 +382,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_OfferID() {
@@ -394,7 +391,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDefaultTask 
      * @returns {HRESULT} 
      */
@@ -404,7 +400,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAppTitle 
      * @returns {HRESULT} 
      */
@@ -414,7 +409,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAppIconPath 
      * @returns {HRESULT} 
      */
@@ -424,7 +418,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_NotificationState() {
@@ -433,7 +426,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_INSTALL_TYPE} 
      */
     get_AppInstallType() {
@@ -442,7 +434,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_STATE} 
      */
     get_State() {
@@ -451,7 +442,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsRevoked() {
@@ -460,7 +450,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_UpdateAvailable() {
@@ -469,7 +458,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_InstallDate() {
@@ -479,7 +467,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsUninstallable() {
@@ -488,7 +475,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsThemable() {
@@ -497,7 +483,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsTrial() {
@@ -506,7 +491,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pInstallPath 
      * @returns {HRESULT} 
      */
@@ -516,7 +500,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDataRoot 
      * @returns {HRESULT} 
      */
@@ -526,7 +509,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APP_GENRE} 
      */
     get_Genre() {
@@ -535,7 +517,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pPublisher 
      * @returns {HRESULT} 
      */
@@ -545,7 +526,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAuthor 
      * @returns {HRESULT} 
      */
@@ -555,7 +535,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDescription 
      * @returns {HRESULT} 
      */
@@ -565,7 +544,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pVersion 
      * @returns {HRESULT} 
      */
@@ -575,7 +553,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -586,7 +563,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMajorVersion() {
@@ -595,7 +571,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMinorVersion() {
@@ -604,7 +579,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_PublisherID() {
@@ -614,7 +588,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsMultiCore() {
@@ -623,7 +596,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} _pSID 
      * @returns {HRESULT} 
      */
@@ -633,7 +605,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMajorVersionLightUp() {
@@ -642,7 +613,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMinorVersionLightUp() {
@@ -651,7 +621,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsUpdateAvailable 
      * @returns {HRESULT} 
      */
@@ -661,7 +630,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsNotified 
      * @returns {HRESULT} 
      */
@@ -671,7 +639,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} AppIconPath 
      * @returns {HRESULT} 
      */
@@ -683,7 +650,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsUninstallable 
      * @returns {HRESULT} 
      */
@@ -693,7 +659,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsPinableOnKidZone() {
@@ -702,7 +667,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOriginallyPreInstalled() {
@@ -711,7 +675,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsInstallOnSD() {
@@ -720,7 +683,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOptoutOnSD() {
@@ -729,7 +691,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOptoutBackupRestore() {
@@ -738,7 +699,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsDisabled 
      * @returns {HRESULT} 
      */
@@ -748,7 +708,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsUninstallable 
      * @returns {HRESULT} 
      */
@@ -758,7 +717,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_EnterpriseDisabled() {
@@ -767,7 +725,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_EnterpriseUninstallable() {
@@ -776,7 +733,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsVisibleOnAppList() {
@@ -785,7 +741,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsInboxApp() {
@@ -794,7 +749,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_StorageID() {
@@ -804,7 +758,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_STARTAPPBLOB>} pBlob 
      * @returns {HRESULT} 
      */
@@ -814,7 +767,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsMovable() {
@@ -823,7 +775,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_TILE_HUBTYPE} 
      */
     get_DeploymentAppEnumerationHubFilter() {
@@ -832,7 +783,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_ModifiedDate() {
@@ -842,7 +792,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOriginallyRestored() {
@@ -851,7 +800,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_ShouldDeferMdilBind() {
@@ -860,7 +808,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsFullyPreInstall() {
@@ -869,7 +816,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fIsMdilMaintenanceNeeded 
      * @returns {HRESULT} 
      */
@@ -879,7 +825,6 @@ class IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} AppTitle 
      * @returns {HRESULT} 
      */

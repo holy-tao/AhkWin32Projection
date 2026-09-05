@@ -7,12 +7,14 @@
 class FS_FILTER_SECTION_SYNC_TYPE extends Win32Enum {
 
     /**
+     * Native name: SyncTypeOther
      * @type {Integer (Int32)}
      */
-    static SyncTypeOther => 0
+    static Other => 0
 
     /**
+     * Native name: SyncTypeCreateSection
      * @type {Integer (Int32)}
      */
-    static SyncTypeCreateSection => 1
+    static CreateSection => 1
 }

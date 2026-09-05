@@ -1079,7 +1079,6 @@ class MessageQueuing {
 
 ;@region Methods
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
      * @param {Pointer<MQQUEUEPROPS>} pQueueProps 
      * @param {PWSTR} lpwcsFormatName 
@@ -1097,7 +1096,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsFormatName 
      * @returns {HRESULT} 
      */
@@ -1109,7 +1107,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsContext 
      * @param {Pointer<MQRESTRICTION>} pRestriction 
      * @param {Pointer<MQCOLUMNSET>} pColumns 
@@ -1125,7 +1122,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnum 
      * @param {Pointer<Integer>} pcProps 
      * @param {Pointer<PROPVARIANT>} aPropVar 
@@ -1141,7 +1137,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnum 
      * @returns {HRESULT} 
      */
@@ -1153,7 +1148,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Integer} dwAccess 
      * @param {Integer} dwShareMode 
@@ -1167,7 +1161,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hDestinationQueue 
      * @param {Pointer<MQMSGPROPS>} pMessageProps 
      * @param {ITransaction} pTransaction 
@@ -1179,7 +1172,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hSource 
      * @param {Integer} dwTimeout 
      * @param {Integer} dwAction 
@@ -1198,7 +1190,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hSource 
      * @param {Integer} ullLookupId 
      * @param {Integer} dwLookupAction 
@@ -1214,7 +1205,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hQueue 
      * @returns {HANDLE} 
      */
@@ -1225,7 +1215,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {HANDLE} _hCursor 
      * @returns {HRESULT} 
      */
@@ -1237,7 +1226,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hQueue 
      * @returns {HRESULT} 
      */
@@ -1247,7 +1235,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Pointer<MQQUEUEPROPS>} pQueueProps 
      * @returns {HRESULT} 
@@ -1260,7 +1247,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Pointer<MQQUEUEPROPS>} pQueueProps 
      * @returns {HRESULT} 
@@ -1273,7 +1259,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Integer} RequestedInformation 
      * @param {Integer} pSecurityDescriptor 
@@ -1288,7 +1273,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsFormatName 
      * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
@@ -1303,7 +1287,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsPathName 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Pointer<Integer>} lpdwFormatNameLength 
@@ -1320,7 +1303,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hQueue 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Pointer<Integer>} lpdwFormatNameLength 
@@ -1336,7 +1318,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGuid 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Pointer<Integer>} lpdwFormatNameLength 
@@ -1352,7 +1333,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsADsPath 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Pointer<Integer>} lpdwFormatNameLength 
@@ -1369,7 +1349,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMemory 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1380,7 +1359,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsMachineName 
      * @param {Pointer<Guid>} pguidMachineId 
      * @param {Pointer<MQQMPROPS>} pQMProps 
@@ -1394,7 +1372,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Integer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
      * @returns {HANDLE} 
@@ -1406,7 +1383,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Integer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
      * @returns {HANDLE} 
@@ -1418,7 +1394,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {HANDLE} hSecurityContext 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1429,7 +1404,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
@@ -1443,7 +1417,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @returns {ITransaction} 
      */
     static MQBeginTransaction() {
@@ -1452,7 +1425,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
@@ -1462,7 +1434,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwcsComputerName 
      * @param {Pointer<MQPRIVATEPROPS>} pPrivateProps 
      * @returns {HRESULT} 
@@ -1475,7 +1446,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hQueue 
      * @returns {HRESULT} 
      */
@@ -1485,7 +1455,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} pComputerName 
      * @param {PWSTR} pObjectName 
      * @param {Pointer<MQMGMTPROPS>} pMgmtProps 
@@ -1500,7 +1469,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {PWSTR} pComputerName 
      * @param {PWSTR} pObjectName 
      * @param {PWSTR} pAction 
@@ -1516,7 +1484,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {HANDLE} hQueue 
      * @param {Integer} ullLookupId 
      * @returns {HRESULT} 
@@ -1529,7 +1496,6 @@ class MessageQueuing {
     }
 
     /**
-     * 
      * @param {Pointer} hSourceQueue 
      * @param {Pointer} hDestinationQueue 
      * @param {Integer} ullLookupId 

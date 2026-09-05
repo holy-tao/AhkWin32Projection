@@ -44,7 +44,6 @@ class IHTMLLegendElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ class IHTMLLegendElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {

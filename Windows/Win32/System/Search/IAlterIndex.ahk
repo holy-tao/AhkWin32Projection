@@ -31,7 +31,6 @@ class IAlterIndex extends IUnknown {
     static VTableNames => ["AlterIndex"]
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pIndexId 
      * @param {Pointer<DBID>} pNewIndexId 

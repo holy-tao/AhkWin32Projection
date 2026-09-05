@@ -38,7 +38,6 @@ class IRDPSRAPIDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} CLXCmdLine 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ class IRDPSRAPIDebug extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CLXCmdLine() {

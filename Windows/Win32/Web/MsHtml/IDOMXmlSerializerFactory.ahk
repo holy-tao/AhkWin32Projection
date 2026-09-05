@@ -30,7 +30,6 @@ class IDOMXmlSerializerFactory extends IDispatch {
     static VTableNames => ["create"]
 
     /**
-     * 
      * @returns {IDOMXmlSerializer} 
      */
     create() {

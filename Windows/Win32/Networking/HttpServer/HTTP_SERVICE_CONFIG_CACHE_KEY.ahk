@@ -16,7 +16,8 @@ class HTTP_SERVICE_CONFIG_CACHE_KEY extends Win32Enum {
 
     /**
      * The chunk size.
+     * Native name: CacheRangeChunkSize
      * @type {Integer (Int32)}
      */
-    static CacheRangeChunkSize => 1
+    static RangeChunkSize => 1
 }

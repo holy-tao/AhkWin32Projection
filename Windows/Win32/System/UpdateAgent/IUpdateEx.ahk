@@ -31,7 +31,6 @@ class IUpdateEx extends IUpdate5 {
     static VTableNames => ["get_ExtendedStaticProperty", "EvaluateExtendedDynamicProperty"]
 
     /**
-     * 
      * @param {BSTR} propertyName 
      * @returns {VARIANT} 
      */
@@ -44,7 +43,6 @@ class IUpdateEx extends IUpdate5 {
     }
 
     /**
-     * 
      * @param {BSTR} propertyName 
      * @returns {VARIANT} 
      */

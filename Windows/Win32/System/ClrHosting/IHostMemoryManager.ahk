@@ -32,7 +32,6 @@ class IHostMemoryManager extends IUnknown {
     static VTableNames => ["CreateMalloc", "VirtualAlloc", "VirtualFree", "VirtualQuery", "VirtualProtect", "GetMemoryLoad", "RegisterMemoryNotificationCallback", "NeedsVirtualAddressSpace", "AcquiredVirtualAddressSpace", "ReleasedVirtualAddressSpace"]
 
     /**
-     * 
      * @param {Integer} dwMallocType 
      * @returns {IHostMalloc} 
      */
@@ -186,7 +185,6 @@ class IHostMemoryManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pMemoryLoad 
      * @param {Pointer<Pointer>} pAvailableBytes 
      * @returns {HRESULT} 
@@ -200,7 +198,6 @@ class IHostMemoryManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRMemoryNotificationCallback} pCallback 
      * @returns {HRESULT} 
      */
@@ -210,7 +207,6 @@ class IHostMemoryManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} startAddress 
      * @param {Pointer} _size 
      * @returns {HRESULT} 
@@ -223,7 +219,6 @@ class IHostMemoryManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} startAddress 
      * @param {Pointer} _size 
      * @returns {HRESULT} 
@@ -236,7 +231,6 @@ class IHostMemoryManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} startAddress 
      * @returns {HRESULT} 
      */

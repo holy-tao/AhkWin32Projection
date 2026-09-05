@@ -10,37 +10,43 @@ class WICPixelFormatNumericRepresentation extends Win32Enum {
 
     /**
      * The format is not specified.
+     * Native name: WICPixelFormatNumericRepresentationUnspecified
      * @type {Integer (Int32)}
      */
-    static WICPixelFormatNumericRepresentationUnspecified => 0
+    static Unspecified => 0
 
     /**
      * Specifies that the format is indexed.
+     * Native name: WICPixelFormatNumericRepresentationIndexed
      * @type {Integer (Int32)}
      */
-    static WICPixelFormatNumericRepresentationIndexed => 1
+    static Indexed => 1
 
     /**
      * Specifies that the format is represented as an unsigned integer.
+     * Native name: WICPixelFormatNumericRepresentationUnsignedInteger
      * @type {Integer (Int32)}
      */
-    static WICPixelFormatNumericRepresentationUnsignedInteger => 2
+    static UnsignedInteger => 2
 
     /**
      * Specifies that the format is represented as a signed integer.
+     * Native name: WICPixelFormatNumericRepresentationSignedInteger
      * @type {Integer (Int32)}
      */
-    static WICPixelFormatNumericRepresentationSignedInteger => 3
+    static SignedInteger => 3
 
     /**
      * Specifies that the format is represented as a fixed-point number.
+     * Native name: WICPixelFormatNumericRepresentationFixed
      * @type {Integer (Int32)}
      */
-    static WICPixelFormatNumericRepresentationFixed => 4
+    static Fixed => 4
 
     /**
      * Specifies that the format is represented as a floating-point number.
+     * Native name: WICPixelFormatNumericRepresentationFloat
      * @type {Integer (Int32)}
      */
-    static WICPixelFormatNumericRepresentationFloat => 5
+    static Float => 5
 }

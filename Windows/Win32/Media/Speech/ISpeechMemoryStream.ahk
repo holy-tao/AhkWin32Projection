@@ -30,7 +30,6 @@ class ISpeechMemoryStream extends ISpeechBaseStream {
     static VTableNames => ["SetData", "GetData"]
 
     /**
-     * 
      * @param {VARIANT} Data 
      * @returns {HRESULT} 
      */
@@ -40,7 +39,6 @@ class ISpeechMemoryStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetData() {

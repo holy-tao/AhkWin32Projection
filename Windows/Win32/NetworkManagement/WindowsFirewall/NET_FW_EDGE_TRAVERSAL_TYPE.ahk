@@ -16,23 +16,26 @@ class NET_FW_EDGE_TRAVERSAL_TYPE extends Win32Enum {
      * Edge traversal traffic is always blocked.
      * 
      * This is the same as setting the EdgeTraversal property using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> to <b>VARIANT_FALSE</b>.
+     * Native name: NET_FW_EDGE_TRAVERSAL_TYPE_DENY
      * @type {Integer (Int32)}
      */
-    static NET_FW_EDGE_TRAVERSAL_TYPE_DENY => 0
+    static DENY => 0
 
     /**
      * Edge traversal traffic is always allowed.
      * 
      * This is the same as setting the EdgeTraversal property using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> to <b>VARIANT_TRUE</b>.
+     * Native name: NET_FW_EDGE_TRAVERSAL_TYPE_ALLOW
      * @type {Integer (Int32)}
      */
-    static NET_FW_EDGE_TRAVERSAL_TYPE_ALLOW => 1
+    static ALLOW => 1
 
     /**
      * Edge traversal traffic is allowed when the application sets the <a href="https://docs.microsoft.com/windows/desktop/WinSock/ipv6-protection-level">IPV6_PROTECTION_LEVEL</a> socket option to <b>PROTECTION_LEVEL_UNRESTRICTED</b>. Otherwise, it is blocked.
+     * Native name: NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_APP
      * @type {Integer (Int32)}
      */
-    static NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_APP => 2
+    static DEFER_TO_APP => 2
 
     /**
      * The user is prompted whether to allow edge traversal traffic when the application sets the IPV6_PROTECTION_LEVEL socket option to <b>PROTECTION_LEVEL_UNRESTRICTED</b>. If the user chooses to allow  edge traversal traffic, the rule is modified to defer to the application's settings.
@@ -40,7 +43,8 @@ class NET_FW_EDGE_TRAVERSAL_TYPE extends Win32Enum {
      * If the application has not set the IPV6_PROTECTION_LEVEL socket option to <b>PROTECTION_LEVEL_UNRESTRICTED</b>, edge traversal traffic is blocked.
      * 
      * In order to use this option, the firewall rule must have both the application path and protocol scopes specified. This option cannot be used if port(s) are defined.
+     * Native name: NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_USER
      * @type {Integer (Int32)}
      */
-    static NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_USER => 3
+    static DEFER_TO_USER => 3
 }

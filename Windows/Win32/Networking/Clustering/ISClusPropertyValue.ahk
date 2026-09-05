@@ -78,7 +78,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -88,7 +87,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
      */
@@ -98,7 +96,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_TYPE} 
      */
     get_Type() {
@@ -107,7 +104,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_TYPE} Type 
      * @returns {HRESULT} 
      */
@@ -117,7 +113,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_FORMAT} 
      */
     get_Format() {
@@ -126,7 +121,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_FORMAT} Format 
      * @returns {HRESULT} 
      */
@@ -136,7 +130,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Length() {
@@ -145,7 +138,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DataCount() {
@@ -154,7 +146,6 @@ class ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusPropertyValueData} 
      */
     get_Data() {

@@ -7,22 +7,26 @@
 class MSICONDITION extends Win32Enum {
 
     /**
+     * Native name: MSICONDITION_FALSE
      * @type {Integer (Int32)}
      */
-    static MSICONDITION_FALSE => 0
+    static FALSE => 0
 
     /**
+     * Native name: MSICONDITION_TRUE
      * @type {Integer (Int32)}
      */
-    static MSICONDITION_TRUE => 1
+    static TRUE => 1
 
     /**
+     * Native name: MSICONDITION_NONE
      * @type {Integer (Int32)}
      */
-    static MSICONDITION_NONE => 2
+    static NONE => 2
 
     /**
+     * Native name: MSICONDITION_ERROR
      * @type {Integer (Int32)}
      */
-    static MSICONDITION_ERROR => 3
+    static ERROR => 3
 }

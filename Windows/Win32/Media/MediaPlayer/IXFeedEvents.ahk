@@ -41,7 +41,6 @@ class IXFeedEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ class IXFeedEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @param {PWSTR} pszOldPath 
      * @returns {HRESULT} 
@@ -67,7 +65,6 @@ class IXFeedEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ class IXFeedEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @param {PWSTR} pszOldPath 
      * @returns {HRESULT} 
@@ -93,7 +89,6 @@ class IXFeedEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ class IXFeedEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @param {FEEDS_DOWNLOAD_ERROR} fde 
      * @returns {HRESULT} 
@@ -118,7 +112,6 @@ class IXFeedEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @param {Integer} feicfFlags 
      * @returns {HRESULT} 

@@ -7,17 +7,20 @@
 class KSMETHOD_BDA_TUNER_SERVICE extends Win32Enum {
 
     /**
+     * Native name: KSMETHOD_BDA_TUNER_SETTUNER
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_TUNER_SETTUNER => 0
+    static SETTUNER => 0
 
     /**
+     * Native name: KSMETHOD_BDA_TUNER_GETTUNERSTATE
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_TUNER_GETTUNERSTATE => 1
+    static GETTUNERSTATE => 1
 
     /**
+     * Native name: KSMETHOD_BDA_TUNER_SIGNALNOISERATIO
      * @type {Integer (Int32)}
      */
-    static KSMETHOD_BDA_TUNER_SIGNALNOISERATIO => 2
+    static SIGNALNOISERATIO => 2
 }

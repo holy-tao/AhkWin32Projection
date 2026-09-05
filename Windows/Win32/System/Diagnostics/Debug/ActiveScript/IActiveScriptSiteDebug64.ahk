@@ -34,7 +34,6 @@ class IActiveScriptSiteDebug64 extends IUnknown {
     static VTableNames => ["GetDocumentContextFromPosition", "GetApplication", "GetRootApplicationNode", "OnScriptErrorDebug"]
 
     /**
-     * 
      * @param {Integer} dwSourceContext 
      * @param {Integer} uCharacterOffset 
      * @param {Integer} uNumChars 
@@ -46,7 +45,6 @@ class IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplication64} 
      */
     GetApplication() {
@@ -55,7 +53,6 @@ class IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     GetRootApplicationNode() {
@@ -64,7 +61,6 @@ class IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptErrorDebug} pErrorDebug 
      * @param {Pointer<BOOL>} pfEnterDebugger 
      * @param {Pointer<BOOL>} pfCallOnScriptErrorWhenContinuing 

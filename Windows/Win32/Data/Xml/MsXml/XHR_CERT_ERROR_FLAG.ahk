@@ -10,31 +10,36 @@ class XHR_CERT_ERROR_FLAG extends Win32Enum {
 
     /**
      * The certificate received from the server has an invalid certificate revocation.
+     * Native name: XHR_CERT_ERROR_REVOCATION_FAILED
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_ERROR_REVOCATION_FAILED => 8388608
+    static REVOCATION_FAILED => 8388608
 
     /**
      * The certificate received from the server has an unknown or invalid certificate authority.
+     * Native name: XHR_CERT_ERROR_UNKNOWN_CA
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_ERROR_UNKNOWN_CA => 16777216
+    static UNKNOWN_CA => 16777216
 
     /**
      * The certificate received from the server has an invalid common name.
+     * Native name: XHR_CERT_ERROR_CERT_CN_INVALID
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_ERROR_CERT_CN_INVALID => 33554432
+    static CERT_CN_INVALID => 33554432
 
     /**
      * The certificate received from the server has an invalid certificate date.
+     * Native name: XHR_CERT_ERROR_CERT_DATE_INVALID
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_ERROR_CERT_DATE_INVALID => 67108864
+    static CERT_DATE_INVALID => 67108864
 
     /**
      * The certificate received from the server has an invalid certificate revocation, and unknown or invalid certificate authority, an invalid common name, and an invalid certificate date.
+     * Native name: XHR_CERT_ERROR_ALL_SERVER_ERRORS
      * @type {Integer (UInt32)}
      */
-    static XHR_CERT_ERROR_ALL_SERVER_ERRORS => 125829120
+    static ALL_SERVER_ERRORS => 125829120
 }

@@ -204,7 +204,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLMediaError} 
      */
     get_error() {
@@ -213,7 +212,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -225,7 +223,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -235,7 +232,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_currentSrc() {
@@ -245,7 +241,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_networkState() {
@@ -254,7 +249,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -266,7 +260,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_preload() {
@@ -276,7 +269,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTimeRanges} 
      */
     get_buffered() {
@@ -313,7 +305,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} type 
      * @returns {BSTR} 
      */
@@ -326,7 +317,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_seeking() {
@@ -335,7 +325,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -345,7 +334,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_currentTime() {
@@ -354,7 +342,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_initialTime() {
@@ -363,7 +350,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_duration() {
@@ -372,7 +358,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_paused() {
@@ -381,7 +366,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -391,7 +375,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_defaultPlaybackRate() {
@@ -400,7 +383,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -410,7 +392,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_playbackRate() {
@@ -419,7 +400,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTimeRanges} 
      */
     get_played() {
@@ -428,7 +408,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTimeRanges} 
      */
     get_seekable() {
@@ -437,7 +416,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ended() {
@@ -446,7 +424,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -456,7 +433,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_autoplay() {
@@ -465,7 +441,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -475,7 +450,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_loop() {
@@ -572,7 +546,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -582,7 +555,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_controls() {
@@ -591,7 +563,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -601,7 +572,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_volume() {
@@ -610,7 +580,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -620,7 +589,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_muted() {
@@ -629,7 +597,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -639,7 +606,6 @@ class IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_autobuffer() {

@@ -12,25 +12,29 @@ class OLEGETMONIKER extends Win32Enum {
 
     /**
      * If a moniker for the object or container does not exist, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleclientsite-getmoniker">IOleClientSite::GetMoniker</a> should return E_FAIL and not assign a moniker.
+     * Native name: OLEGETMONIKER_ONLYIFTHERE
      * @type {Integer (Int32)}
      */
-    static OLEGETMONIKER_ONLYIFTHERE => 1
+    static ONLYIFTHERE => 1
 
     /**
      * If a moniker for the object or container does not exist, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleclientsite-getmoniker">IOleClientSite::GetMoniker</a> should create one.
+     * Native name: OLEGETMONIKER_FORCEASSIGN
      * @type {Integer (Int32)}
      */
-    static OLEGETMONIKER_FORCEASSIGN => 2
+    static FORCEASSIGN => 2
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleclientsite-getmoniker">IOleClientSite::GetMoniker</a> can release the object's moniker (although it is not required to do so). This constant is not valid in <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getmoniker">IOleObject::GetMoniker</a>.
+     * Native name: OLEGETMONIKER_UNASSIGN
      * @type {Integer (Int32)}
      */
-    static OLEGETMONIKER_UNASSIGN => 3
+    static UNASSIGN => 3
 
     /**
      * If a moniker for the object does not exist, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getmoniker">IOleObject::GetMoniker</a> can create a temporary moniker that can be used for display purposes (<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-getdisplayname">IMoniker::GetDisplayName</a>) but not for binding. This enables the object server to return a descriptive name for the object without incurring the overhead of creating and maintaining a moniker until a link is actually created.
+     * Native name: OLEGETMONIKER_TEMPFORUSER
      * @type {Integer (Int32)}
      */
-    static OLEGETMONIKER_TEMPFORUSER => 4
+    static TEMPFORUSER => 4
 }

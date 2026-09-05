@@ -7,57 +7,68 @@
 class MSV1_0_AVID extends Win32Enum {
 
     /**
+     * Native name: MsvAvEOL
      * @type {Integer (Int32)}
      */
-    static MsvAvEOL => 0
+    static AvEOL => 0
 
     /**
+     * Native name: MsvAvNbComputerName
      * @type {Integer (Int32)}
      */
-    static MsvAvNbComputerName => 1
+    static AvNbComputerName => 1
 
     /**
+     * Native name: MsvAvNbDomainName
      * @type {Integer (Int32)}
      */
-    static MsvAvNbDomainName => 2
+    static AvNbDomainName => 2
 
     /**
+     * Native name: MsvAvDnsComputerName
      * @type {Integer (Int32)}
      */
-    static MsvAvDnsComputerName => 3
+    static AvDnsComputerName => 3
 
     /**
+     * Native name: MsvAvDnsDomainName
      * @type {Integer (Int32)}
      */
-    static MsvAvDnsDomainName => 4
+    static AvDnsDomainName => 4
 
     /**
+     * Native name: MsvAvDnsTreeName
      * @type {Integer (Int32)}
      */
-    static MsvAvDnsTreeName => 5
+    static AvDnsTreeName => 5
 
     /**
+     * Native name: MsvAvFlags
      * @type {Integer (Int32)}
      */
-    static MsvAvFlags => 6
+    static AvFlags => 6
 
     /**
+     * Native name: MsvAvTimestamp
      * @type {Integer (Int32)}
      */
-    static MsvAvTimestamp => 7
+    static AvTimestamp => 7
 
     /**
+     * Native name: MsvAvRestrictions
      * @type {Integer (Int32)}
      */
-    static MsvAvRestrictions => 8
+    static AvRestrictions => 8
 
     /**
+     * Native name: MsvAvTargetName
      * @type {Integer (Int32)}
      */
-    static MsvAvTargetName => 9
+    static AvTargetName => 9
 
     /**
+     * Native name: MsvAvChannelBindings
      * @type {Integer (Int32)}
      */
-    static MsvAvChannelBindings => 10
+    static AvChannelBindings => 10
 }

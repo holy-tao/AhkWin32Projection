@@ -7,47 +7,56 @@
 class D3DKMT_VIDSCHESCAPETYPE extends Win32Enum {
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_PREEMPTIONCONTROL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_PREEMPTIONCONTROL => 0
+    static PREEMPTIONCONTROL => 0
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_SUSPENDSCHEDULER
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_SUSPENDSCHEDULER => 1
+    static SUSPENDSCHEDULER => 1
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_TDRCONTROL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_TDRCONTROL => 2
+    static TDRCONTROL => 2
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_SUSPENDRESUME
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_SUSPENDRESUME => 3
+    static SUSPENDRESUME => 3
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_ENABLECONTEXTDELAY
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_ENABLECONTEXTDELAY => 4
+    static ENABLECONTEXTDELAY => 4
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_CONFIGURE_TDR_LIMIT
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_CONFIGURE_TDR_LIMIT => 5
+    static CONFIGURE_TDR_LIMIT => 5
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_VGPU_RESET
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_VGPU_RESET => 6
+    static VGPU_RESET => 6
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_PFN_CONTROL
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_PFN_CONTROL => 7
+    static PFN_CONTROL => 7
 
     /**
+     * Native name: D3DKMT_VIDSCHESCAPETYPE_VIRTUAL_REFRESH_RATE
      * @type {Integer (Int32)}
      */
-    static D3DKMT_VIDSCHESCAPETYPE_VIRTUAL_REFRESH_RATE => 8
+    static VIRTUAL_REFRESH_RATE => 8
 }

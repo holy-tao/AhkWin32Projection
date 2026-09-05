@@ -12,9 +12,10 @@ class D3D_SHADER_CBUFFER_FLAGS extends Win32Enum {
 
     /**
      * Bind the constant buffer to an input slot defined in HLSL code (instead of letting the compiler choose the input slot).
+     * Native name: D3D_CBF_USERPACKED
      * @type {Integer (Int32)}
      */
-    static D3D_CBF_USERPACKED => 1
+    static CBF_USERPACKED => 1
 
     /**
      * Bind the constant buffer to an input slot defined in HLSL code (instead of letting the compiler choose the input slot).

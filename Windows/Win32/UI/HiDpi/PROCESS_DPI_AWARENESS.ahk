@@ -49,19 +49,22 @@ class PROCESS_DPI_AWARENESS extends Win32Enum {
 
     /**
      * DPI unaware. This app does not scale for DPI changes and is always assumed to have a scale factor of 100% (96 DPI). It will be automatically scaled by the system on any other DPI setting.
+     * Native name: PROCESS_DPI_UNAWARE
      * @type {Integer (Int32)}
      */
-    static PROCESS_DPI_UNAWARE => 0
+    static UNAWARE => 0
 
     /**
      * System DPI aware. This app does not scale for DPI changes. It will query for the DPI once and use that value for the lifetime of the app. If the DPI changes, the app will not adjust to the new DPI value. It will be automatically scaled up or down by the system when the DPI changes from the system value.
+     * Native name: PROCESS_SYSTEM_DPI_AWARE
      * @type {Integer (Int32)}
      */
-    static PROCESS_SYSTEM_DPI_AWARE => 1
+    static SYSTEM_DPI_AWARE => 1
 
     /**
      * Per monitor DPI aware. This app checks for the DPI when it is created and adjusts the scale factor whenever the DPI changes. These applications are not automatically scaled by the system.
+     * Native name: PROCESS_PER_MONITOR_DPI_AWARE
      * @type {Integer (Int32)}
      */
-    static PROCESS_PER_MONITOR_DPI_AWARE => 2
+    static PER_MONITOR_DPI_AWARE => 2
 }

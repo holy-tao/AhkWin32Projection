@@ -7,17 +7,20 @@
 class NFC_P2P_MODE extends Win32Enum {
 
     /**
+     * Native name: NfcDepDefault
      * @type {Integer (Int32)}
      */
-    static NfcDepDefault => 0
+    static DepDefault => 0
 
     /**
+     * Native name: NfcDepPoll
      * @type {Integer (Int32)}
      */
-    static NfcDepPoll => 1
+    static DepPoll => 1
 
     /**
+     * Native name: NfcDepListen
      * @type {Integer (Int32)}
      */
-    static NfcDepListen => 2
+    static DepListen => 2
 }
