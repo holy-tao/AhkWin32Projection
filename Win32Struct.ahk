@@ -10,6 +10,8 @@
  * {@link https://www.autohotkey.com/docs/v2/lib/Buffer.htm `Buffer`} in script-managed memory.
  */
 class Win32Struct extends Object{
+    static __new() => (this == Win32Struct) &&
+        (this.deleteProp("__new"), this.prototype.deleteProp("__init"))
 
 ;@region Properties
     __buf := unset

@@ -7,6 +7,8 @@
  * object is freed
  */
 class Win32Handle extends Win32Struct {
+    static __new() => (this == Win32Handle) &&
+        (this.deleteProp("__new"), this.prototype.deleteProp("__init"))
 
     /**
      * @readonly Indicates whether or not this handle is owned by the script. If this value
