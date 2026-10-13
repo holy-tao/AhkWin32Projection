@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Networking.DeliveryOptimization
@@ -47,6 +48,11 @@ class DeliveryOptimization {
      * @type {String}
      */
     static IntegrityCheckInfo_HashOfHashes => "HashOfHashes"
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_DeliveryOptimization => Guid("{5b99fa76-721c-423c-adac-56d03c8a8007}")
 ;@endregion Constants
 
 ;@region Methods

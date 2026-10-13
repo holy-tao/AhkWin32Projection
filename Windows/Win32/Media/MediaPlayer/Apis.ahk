@@ -3498,6 +3498,11 @@ class MediaPlayer {
      * @type {Guid}
      */
     static WMProfile_V80_BESTVBRVideo => Guid("{048439ba-309c-440e-9cb4-3dcca3756423}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_WMPLib => Guid("{6bf52a50-394a-11d3-b153-00c04f79faa6}")
 ;@endregion Constants
 
 ;@region Methods

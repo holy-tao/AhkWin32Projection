@@ -223,6 +223,11 @@ class TaskScheduler {
      * @type {Guid}
      */
     static CLSID_CTaskScheduler => Guid("{148bd52a-a2ab-11ce-b11f-00aa00530503}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_TaskScheduler => Guid("{0f87369f-a4e5-4cfc-bd3e-73e6154572dd}")
 ;@endregion Constants
 
 ;@region Methods

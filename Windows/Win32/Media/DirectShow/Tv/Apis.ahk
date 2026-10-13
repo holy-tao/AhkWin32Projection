@@ -1148,6 +1148,11 @@ class Tv {
      * @type {Integer (Int32)}
      */
     static STREAMBUFFER_EC_SETPOSITIONS_EVENTS_DONE => 816
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_Mpeg2DataLib => Guid("{dbaf6c1b-b6a4-4898-ae65-204f0d9509a1}")
 ;@endregion Constants
 
 ;@region Methods

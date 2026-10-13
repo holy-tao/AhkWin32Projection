@@ -17432,6 +17432,11 @@ class Search {
      * @type {Guid}
      */
     static DBPROPSET_SQLSERVERSTREAM => Guid("{9f79c073-8a6d-4bca-a8a8-c9b79a9b962d}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_SubscriptionMgr => Guid("{abbe31d0-6dae-11d0-beca-00c04fd940be}")
 ;@endregion Constants
 
 ;@region Methods

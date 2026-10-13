@@ -3595,6 +3595,11 @@ class FunctionDiscovery {
      * @type {Integer (Int32)}
      */
     static E_FDPAIRING_NOPROFILES => -1882193912
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_PNPXAssociation => Guid("{cee8ccc9-4f6b-4469-a235-5a22869eef03}")
 ;@endregion Constants
 
 ;@region Methods
