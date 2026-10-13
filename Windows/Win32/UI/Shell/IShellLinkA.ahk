@@ -66,7 +66,7 @@ class IShellLinkA extends IUnknown {
     GetPath(pszFile, cch, pfd, fFlags) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(3, this, "ptr", pszFile, "int", cch, "ptr", pfd, "uint", fFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFile, "int", cch, "ptr", pfd, "uint", fFlags, "int")
         return result
     }
 
@@ -78,7 +78,7 @@ class IShellLinkA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getidlist
      */
     GetIDList() {
-        result := ComCall(4, this, "ptr*", &ppidl := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppidl := 0, "int")
         return ppidl
     }
 

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
@@ -1052,6 +1053,61 @@ class BackgroundIntelligentTransferService {
      * @type {Integer (Int32)}
      */
     static BITS_MC_WSD_PORT => -2145828853
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager => Guid("{4991d34b-80a1-4291-83b6-3328366b9097}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager1_5 => Guid("{f087771f-d74f-4c1a-bb8a-e16aca9124ea}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager2_0 => Guid("{6d18ad12-bde3-4393-b311-099c346e6df9}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager2_5 => Guid("{03ca98d6-ff5d-49b8-abc6-03dd84127020}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager3_0 => Guid("{659cdea7-489e-11d9-a9cd-000d56965251}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager4_0 => Guid("{bb6df56b-cace-11dc-9992-0019b93a3a84}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager5_0 => Guid("{1ecca34c-e88a-44e3-8d6a-8921bde9e452}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager10_1 => Guid("{4bd3e4e1-7bd4-4a2b-9964-496400de5193}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager10_2 => Guid("{4575438f-a6c8-4976-b0fe-2f26b80d959e}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyManager10_3 => Guid("{5fd42ad5-c04e-4d36-adc7-e08ff15737ad}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_BackgroundCopyQMgr => Guid("{69ad4aee-51be-439b-a92c-86ae490e8b30}")
 ;@endregion Constants
 
 ;@region Methods

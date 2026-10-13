@@ -471,11 +471,6 @@ class Performance {
     /**
      * @type {Guid}
      */
-    static LIBID_SystemMonitor => Guid("{1b773e42-2509-11cf-942f-008029004347}")
-
-    /**
-     * @type {Guid}
-     */
     static DIID_DICounterItem => Guid("{c08c4ff2-0e2e-11cf-942c-008029004347}")
 
     /**
@@ -1007,6 +1002,11 @@ class Performance {
      * @type {Guid}
      */
     static S_PDH => Guid("{04d66358-c4a1-419b-8023-23b73902de2c}")
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_SystemMonitor => Guid("{1b773e42-2509-11cf-942f-008029004347}")
 ;@endregion Constants
 
 ;@region Methods

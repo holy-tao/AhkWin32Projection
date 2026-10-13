@@ -1060,7 +1060,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoInitialize(initType) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoInitialize", "int", initType, "HRESULT")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoInitialize", "int", initType, "int")
         return result
     }
 

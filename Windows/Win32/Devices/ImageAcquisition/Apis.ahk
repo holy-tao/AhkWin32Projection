@@ -6218,6 +6218,11 @@ class ImageAcquisition {
      * @type {String}
      */
     static WIA_WSD_SCAN_AVAILABLE_ITEM_STR => "Scan Available Item"
+
+    /**
+     * @type {Guid}
+     */
+    static LIBID_WiaDevMgr => Guid("{a1f4e726-8cf1-11d1-bf92-0060081ed811}")
 ;@endregion Constants
 
 ;@region Methods

@@ -3,6 +3,7 @@
 #Include ..\Foundation\BOOL.ahk
 #Include ..\Foundation\HRESULT.ahk
 #Include .\GAMING_DEVICE_MODEL_INFORMATION.ahk
+#Include .\GAMING_FULL_SCREEN_EXPERIENCE_REGISTRATION.ahk
 #Include ..\System\WinRT\HSTRING.ahk
 #Include ..\System\WinRT\IInspectable.ahk
 
@@ -94,6 +95,62 @@ class Gaming {
     static ReleaseExclusiveCpuSets() {
         result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\ReleaseExclusiveCpuSets", "HRESULT")
         return result
+    }
+
+    /**
+     * @returns {BOOL} 
+     */
+    static IsGamingFullScreenExperienceSupported() {
+        result := DllCall("api-ms-win-gaming-experience-l1-1-0.dll\IsGamingFullScreenExperienceSupported", "int")
+        return result
+    }
+
+    /**
+     * @returns {BOOL} 
+     */
+    static IsGamingFullScreenExperienceActive() {
+        result := DllCall("api-ms-win-gaming-experience-l1-1-0.dll\IsGamingFullScreenExperienceActive", "int")
+        return result
+    }
+
+    /**
+     * @returns {BOOL} 
+     */
+    static CanSetGamingFullScreenExperience() {
+        result := DllCall("api-ms-win-gaming-experience-l1-1-0.dll\CanSetGamingFullScreenExperience", "int")
+        return result
+    }
+
+    /**
+     * @param {BOOL} active 
+     * @returns {HRESULT} 
+     */
+    static SetGamingFullScreenExperience(active) {
+        result := DllCall("api-ms-win-gaming-experience-l1-1-0.dll\SetGamingFullScreenExperience", "int", active, "HRESULT")
+        return result
+    }
+
+    /**
+     * @param {Pointer<PGAMING_FULL_SCREEN_EXPERIENCE_CHANGE_ROUTINE>} routine 
+     * @param {Pointer<Void>} _context 
+     * @returns {GAMING_FULL_SCREEN_EXPERIENCE_REGISTRATION} 
+     */
+    static RegisterGamingFullScreenExperienceChangeNotification(routine, _context) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+
+        registration := GAMING_FULL_SCREEN_EXPERIENCE_REGISTRATION({Value: 0}, True)
+        result := DllCall("api-ms-win-gaming-experience-l1-1-0.dll\RegisterGamingFullScreenExperienceChangeNotification", "ptr", routine, _contextMarshal, _context, "ptr", registration, "HRESULT")
+        return registration
+    }
+
+    /**
+     * @param {GAMING_FULL_SCREEN_EXPERIENCE_REGISTRATION} registration 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static UnregisterGamingFullScreenExperienceChangeNotification(registration) {
+        registration := registration is Win32Handle ? NumGet(registration, "ptr") : registration
+
+        DllCall("api-ms-win-gaming-experience-l1-1-0.dll\UnregisterGamingFullScreenExperienceChangeNotification", "ptr", registration)
     }
 
     /**
