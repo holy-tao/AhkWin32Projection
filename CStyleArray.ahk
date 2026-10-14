@@ -14,6 +14,8 @@
  *  - `Default`: because indices cannot be unset, it does not make sense to have a default value
  */
 class CStyleArrayList extends Win32Struct {
+    static __new() => (this == CStyleArrayList) &&
+        (this.deleteProp("__new"), this.prototype.deleteProp("__init"))
 
 ;@region Static Properties
 
