@@ -1,6 +1,9 @@
 # AhkWin32Projection
 Win32 bindings for AutoHotkey V2. 
 
+> [!NOTE]
+> Check out the `feat/2.1` for v2.1-alpha structs!
+
 This project allows you to replace this:
 ```autohotkey v2
 rect := Buffer(16, 0)
